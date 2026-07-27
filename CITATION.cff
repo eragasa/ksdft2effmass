@@ -1,0 +1,24 @@
+cff-version: "1.2.0"
+message: "If you use this software, its methods, or its results in research, please cite the software release and the relevant research paper."
+title: "ksdft2effmass: Controlled reduction of Kohn–Sham DFT operators to effective-mass models"
+type: software
+authors:
+  - family-names: Ragasa
+    given-names: "Eugene J."
+    affiliation: "Department of Physics, De La Salle University, Manila, Philippines"
+    orcid: "https://orcid.org/0000-0002-3856-734X"
+abstract: >-
+  Research software for constructing and validating reductions of
+  first-principles Kohn–Sham Hamiltonians into lattice and effective-mass
+  models, beginning with phosphorus and boron impurities in silicon.
+license: Apache-2.0
+repository-code: "https://github.com/eragasa/ksdft2effmass.git"
+url: "https://github.com/eragasa/ksdft2effmass"
+keywords:
+  - density-functional theory
+  - Kohn–Sham Hamiltonian
+  - effective-mass theory
+  - Wannier functions
+  - impurity operators
+  - silicon
+  - research software
