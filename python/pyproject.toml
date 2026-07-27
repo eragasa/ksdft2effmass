@@ -1,0 +1,128 @@
+[build-system]
+requires = [
+    "setuptools>=77",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "ksdft2effmass"
+version = "0.1.0.dev0"
+description = "Controlled reduction of Kohn-Sham DFT operators to effective-mass models."
+requires-python = ">=3.11"
+license = "Apache-2.0"
+
+authors = [
+    { name = "Eugene J. Ragasa", email = "eugene.ragasa@dlsu.edu.ph" },
+]
+
+keywords = [
+    "density-functional theory",
+    "effective-mass theory",
+    "Wannier functions",
+    "semiconductors",
+    "silicon",
+    "impurities",
+    "operator reduction",
+]
+
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.12",
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.10",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+]
+
+notebooks = [
+    "ipykernel>=6.29",
+    "jupyterlab>=4.2",
+    "matplotlib>=3.8",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/eragasa/ksdft2effmass"
+Repository = "https://github.com/eragasa/ksdft2effmass"
+Issues = "https://github.com/eragasa/ksdft2effmass/issues"
+
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ksdft2effmass*"]
+
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-config",
+    "--strict-markers",
+]
+xfail_strict = true
+
+
+[tool.coverage.run]
+branch = true
+source = ["ksdft2effmass"]
+
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+src = ["src", "tests"]
+
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B",
+]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src", "tests"]
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
