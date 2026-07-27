@@ -238,6 +238,21 @@ Python and Rust may expose language-appropriate public APIs. Their syntax may
 differ, but their scientific meaning, serialized data, and validation behavior
 must remain compatible.
 
+## Repository structure
+
+Python and Rust are separate implementations under the repository-level
+directories:
+
+    python/
+    rust/
+
+Language-independent scientific definitions belong under `specification/`.
+Shared numerical fixtures belong under `fixtures/`.
+
+The canonical repository structure and directory responsibilities are defined
+in [`docs/architecture/repository-layout.md`](docs/architecture/repository-layout.md).
+Do not introduce a competing source-tree layout.
+
 ## Testing and validation
 
 Inspect `pyproject.toml`, existing workflows, and the test directory before
