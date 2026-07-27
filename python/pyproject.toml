@@ -30,12 +30,8 @@ keywords = [
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Physics",
 ]
 
@@ -118,7 +114,7 @@ indent-style = "space"
 
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.14"
 files = ["src", "tests"]
 warn_unused_configs = true
 warn_redundant_casts = true
