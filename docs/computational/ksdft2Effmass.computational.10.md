@@ -9,14 +9,14 @@ Evaluate the representation dependence, path dependence, and error composition o
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.10.01.01|10.01.01]] | Measure Wannier and alignment gauge-equivariance defects | `G03`, `G05` | Gauge-consistency record | Blocked |
-| [[ksdft2Effmass.computational.10.01.02|10.01.02]] | Compare direct and Wannier-mediated TB paths | `G04` | TB path-consistency record | Blocked |
-| [[ksdft2Effmass.computational.10.02.01|10.02.01]] | Reduce extracted impurity operators | `G08-P` or `G08-B` | Extract-then-reduce outputs | Blocked |
-| [[ksdft2Effmass.computational.10.02.02|10.02.02]] | Reduce parent operators before impurity extraction | `G06` or `G07`, `G04` | Reduce-then-extract outputs | Blocked |
-| [[ksdft2Effmass.computational.10.02.03|10.02.03]] | Measure impurity extraction commutators | `10.02.01`, `10.02.02` | $\varepsilon_{\mathrm{ext},d}$ records | Blocked |
-| [[ksdft2Effmass.computational.10.03.01|10.03.01]] | Measure error amplification under successive reductions | `G08-P` and `G09-P`, or `G08-B` and `G09-B` | Composition dataset | Blocked |
-| [[ksdft2Effmass.computational.10.03.02|10.03.02]] | Fit or bound stagewise stability factors | `10.03.01` | Error-propagation rule | Blocked |
-| [[ksdft2Effmass.computational.10.04.01|10.04.01]] | Determine the supported compositional claims | `10.01.01`, `10.01.02`, `10.02.03`, `10.03.02` | `CompositionalAssessment-v1` | Blocked |
+| [[ksdft2Effmass.computational.10.01.01\|10.01.01]] | Measure Wannier and alignment gauge-equivariance defects | `G03`, `G05` | Gauge-consistency record | Blocked |
+| [[ksdft2Effmass.computational.10.01.02\|10.01.02]] | Compare direct and Wannier-mediated TB paths | `G04` | TB path-consistency record | Blocked |
+| [[ksdft2Effmass.computational.10.02.01\|10.02.01]] | Reduce extracted impurity operators | `G08-P` or `G08-B` | Extract-then-reduce outputs | Blocked |
+| [[ksdft2Effmass.computational.10.02.02\|10.02.02]] | Reduce parent operators before impurity extraction | `G06` or `G07`, `G04` | Reduce-then-extract outputs | Blocked |
+| [[ksdft2Effmass.computational.10.02.03\|10.02.03]] | Measure impurity extraction commutators | `10.02.01`, `10.02.02` | $\varepsilon_{\mathrm{ext},d}$ records | Blocked |
+| [[ksdft2Effmass.computational.10.03.01\|10.03.01]] | Measure error amplification under successive reductions | `G08-P` and `G09-P`, or `G08-B` and `G09-B` | Composition dataset | Blocked |
+| [[ksdft2Effmass.computational.10.03.02\|10.03.02]] | Fit or bound stagewise stability factors | `10.03.01` | Error-propagation rule | Blocked |
+| [[ksdft2Effmass.computational.10.04.01\|10.04.01]] | Determine the supported compositional claims | `10.01.01`, `10.01.02`, `10.02.03`, `10.03.02` | `CompositionalAssessment-v1` | Blocked |
 
 ## Primary Defects
 

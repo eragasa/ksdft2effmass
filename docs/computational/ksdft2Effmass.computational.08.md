@@ -9,16 +9,16 @@ Decompose each validated atomistic impurity operator into nested model classes a
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.08.01.01|08.01.01]] | Implement spatial and orbital operator decomposition | `G01` | Decomposition library | Blocked |
-| [[ksdft2Effmass.computational.08.01.02|08.01.02]] | Implement scalar, orbital, onsite, hopping, and range-restricted model classes | `08.01.01` | Model-class library | Blocked |
-| [[ksdft2Effmass.computational.08.01.03|08.01.03]] | Implement projection or fitting into each model class | `08.01.02`, `01.03.01` | Reduction engine | Blocked |
-| [[ksdft2Effmass.computational.08.02.01|08.02.01]] | Construct the phosphorus model hierarchy | `08.01.03`, `G06` | P reduced operators | Blocked |
-| [[ksdft2Effmass.computational.08.02.02|08.02.02]] | Solve and validate every phosphorus model level | `08.02.01` | P acceptance table | Blocked |
-| [[ksdft2Effmass.computational.08.02.03|08.02.03]] | Select the minimal phosphorus model | `08.02.02` | `PMinimalModel-v1` | Blocked |
-| [[ksdft2Effmass.computational.08.03.01|08.03.01]] | Construct the boron model hierarchy | `08.01.03`, `G07` | B reduced operators | Blocked |
-| [[ksdft2Effmass.computational.08.03.02|08.03.02]] | Solve and validate every boron model level | `08.03.01` | B acceptance table | Blocked |
-| [[ksdft2Effmass.computational.08.03.03|08.03.03]] | Select the minimal boron model | `08.03.02` | `BMinimalModel-v1` | Blocked |
-| [[ksdft2Effmass.computational.08.04.01|08.04.01]] | Compare donor and acceptor reduction hierarchies | `08.02.03`, `08.03.03` | Comparative reduction record | Blocked |
+| [[ksdft2Effmass.computational.08.01.01\|08.01.01]] | Implement spatial and orbital operator decomposition | `G01` | Decomposition library | Blocked |
+| [[ksdft2Effmass.computational.08.01.02\|08.01.02]] | Implement scalar, orbital, onsite, hopping, and range-restricted model classes | `08.01.01` | Model-class library | Blocked |
+| [[ksdft2Effmass.computational.08.01.03\|08.01.03]] | Implement projection or fitting into each model class | `08.01.02`, `01.03.01` | Reduction engine | Blocked |
+| [[ksdft2Effmass.computational.08.02.01\|08.02.01]] | Construct the phosphorus model hierarchy | `08.01.03`, `G06` | P reduced operators | Blocked |
+| [[ksdft2Effmass.computational.08.02.02\|08.02.02]] | Solve and validate every phosphorus model level | `08.02.01` | P acceptance table | Blocked |
+| [[ksdft2Effmass.computational.08.02.03\|08.02.03]] | Select the minimal phosphorus model | `08.02.02` | `PMinimalModel-v1` | Blocked |
+| [[ksdft2Effmass.computational.08.03.01\|08.03.01]] | Construct the boron model hierarchy | `08.01.03`, `G07` | B reduced operators | Blocked |
+| [[ksdft2Effmass.computational.08.03.02\|08.03.02]] | Solve and validate every boron model level | `08.03.01` | B acceptance table | Blocked |
+| [[ksdft2Effmass.computational.08.03.03\|08.03.03]] | Select the minimal boron model | `08.03.02` | `BMinimalModel-v1` | Blocked |
+| [[ksdft2Effmass.computational.08.04.01\|08.04.01]] | Compare donor and acceptor reduction hierarchies | `08.02.03`, `08.03.03` | Comparative reduction record | Blocked |
 
 ## Acceptance Vector
 
