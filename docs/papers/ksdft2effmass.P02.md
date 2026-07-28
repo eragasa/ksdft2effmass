@@ -9,38 +9,11 @@
 - **Primary output:** minimal reduced impurity operators preserving specified low-energy states and observables
 - **Continuum fitting:** reserved for Paper III
 
----
-
 ## Central Research Question
 
-For each dopant
-
-$$
-d
-\in
-\mathcal D
-=
-\{
-\mathrm P,
-\mathrm B
-\},
-$$
-
-what is the smallest physically interpretable impurity operator
-
-$$
-\Delta\mathbf H_{\mathrm{red},d}
-$$
-
-that reproduces the target states, subspaces, spectra, and observables of the aligned first-principles Wannier impurity operator
-
-$$
-\Delta\mathbf H_{\mathrm W,d}
-$$
-
-within prescribed error tolerances?
-
----
+For each dopant $d \in \mathcal D =\{\mathrm P, \mathrm B\}$,
+ what is the smallest physically interpretable impurity operator
+$\Delta\mathbf H_{\mathrm{red},d}$ that reproduces the target states, subspaces, spectra, and observables of the aligned first-principles Wannier impurity operator $\Delta\mathbf H_{\mathrm W,d}$ within prescribed error tolerances?
 
 ## Central Claim
 
