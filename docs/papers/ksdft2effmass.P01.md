@@ -160,15 +160,15 @@ The model specification must freeze:
 A matrix difference is meaningful only after the Wannier and tight-binding
 operators have been placed in a common coordinate space.
 
-For the primary construction, require $M_{\mathrm W} = M_{\mathrm{TB}} = 10$. Let $\mathbf C(\mathbf k) \in U(10)$ map tight-binding coordinates into Wannier coordinates. The aligned tight-binding operator is
+For the primary construction, require $M_{\mathrm{W}} = M_{\mathrm{TB}} = 10$. Let $\mathbf C(\mathbf k) \in U(10)$ map tight-binding coordinates into Wannier coordinates. The aligned tight-binding operator is
 
-$$ \widetilde{\mathbf{H}}_{\mathrm{TB}}
+$$
+ \widetilde{\mathbf{H}}_{\mathrm{TB}}
  \left( \mathbf k; \boldsymbol\theta \right)
- =
- \mathbf C(\mathbf k)
- \mathbf H_{\mathrm{TB}}
- \left( \mathbf k; \boldsymbol\theta \right)
- \mathbf C(\mathbf k)^\dagger.
+ = \mathbf C(\mathbf k)
+   \mathbf H_{\mathrm{TB}}
+   \left( \mathbf k; \boldsymbol\theta \right)
+   \mathbf C(\mathbf k)^\dagger.
 $$
 
 The operator residual is
@@ -180,8 +180,7 @@ $$\begin{gather}
  \mathbf k;
  \boldsymbol\theta
  \right)
- =
-\mathbf H_{\mathrm W}(\mathbf k)
+ = \mathbf H_{\mathrm W}(\mathbf k)
 -
 \widetilde{\mathbf H}_{\mathrm{TB}}
 \left(
@@ -197,13 +196,12 @@ the real-space residual is
 $$\begin{gather}
   \mathbf{R}_{\mathrm{TB}}
   \left (\mathbf{R}; \boldsymbol{\theta} \right)
-  =
-  \mathbf{H}_{\mathrm{W}}(\mathbf{R})
-  - \mathbf{C} \mathbf{H}_{\mathrm{TB}}
-   \left(
-     \mathbf R;\boldsymbol\theta
-   \right)
-   \mathbf C^\dagger
+  = \mathbf{H}_{\mathrm{W}}(\mathbf{R})
+    - \mathbf{C} \mathbf{H}_{\mathrm{TB}}
+      \left(
+        \mathbf R;\boldsymbol\theta
+      \right)
+    \mathbf{C}^\dagger
 \end{gather}$$
 
 The real-space form permits decomposition by neighbor shell and orbital channel.
@@ -215,22 +213,15 @@ The real-space form permits decomposition by neighbor shell and orbital channel.
 The direct DFT-to-TB parameters are
 
 $$\begin{gather}
-\boldsymbol\theta_E^*
-=
-\operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
-\sum_{
-(\mathbf k,n)\in\mathcal T
-}
-q_{n\mathbf k}
-\left[
-E_{n}^{\mathrm{TB}}
-\left(
-\mathbf k;
-\boldsymbol\theta
-\right)
--
-E_{n}^{\mathrm{DFT}}(\mathbf k)
-\right]^2,
+  \boldsymbol\theta_E^*
+    = \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
+      \sum_{(\mathbf k,n)\in\mathcal T}
+        q_{n\mathbf k}
+          \left[
+            E_{n}^{\mathrm{TB}}
+            \left(\mathbf k;\boldsymbol\theta\right)
+            - E_{n}^{\mathrm{DFT}}(\mathbf k)
+          \right]^2,
 \end{gather}$$
 
 where:
