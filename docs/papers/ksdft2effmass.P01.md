@@ -162,15 +162,14 @@ operators have been placed in a common coordinate space.
 
 For the primary construction, require $M_{\mathrm W} = M_{\mathrm{TB}} = 10$. Let $\mathbf C(\mathbf k) \in U(10)$ map tight-binding coordinates into Wannier coordinates. The aligned tight-binding operator is
 
-$$\begin{gather}
- \widetilde{\mathbf H}_{\mathrm{TB}}
+$$ \widetilde{\mathbf{H}}_{\mathrm{TB}}
  \left( \mathbf k; \boldsymbol\theta \right)
  =
  \mathbf C(\mathbf k)
  \mathbf H_{\mathrm{TB}}
  \left( \mathbf k; \boldsymbol\theta \right)
  \mathbf C(\mathbf k)^\dagger.
-\end{gather}$$
+$$
 
 The operator residual is
 
