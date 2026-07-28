@@ -150,7 +150,7 @@ $$\begin{gather}
 
 The orbital set on each site is
 
-$$\begin{gather}
+$$
   \{
   |s\rangle,
   |p_x\rangle,
@@ -158,7 +158,7 @@ $$\begin{gather}
   |p_z\rangle,
   |s^*\rangle
  \}.
-\end{gather}$$
+$$
 
 The model specification must freeze:
 
@@ -216,8 +216,8 @@ $$\begin{gather}
   \mathbf{H}_{\mathrm{W}}(\mathbf{R})
   - \mathbf{C} \mathbf{H}_{\mathrm{TB}}
    \left(
-     \mathbf R;\boldsymbol\theta 
-   \right) 
+     \mathbf R;\boldsymbol\theta
+   \right)
    \mathbf C^\dagger
 \end{gather}$$
 
