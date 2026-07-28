@@ -1,6 +1,6 @@
-back_to: [[ksdft2Effmass.papers.00]]
-
 # P01: Operator-Constrained Tight-Binding Reduction of First-Principles Silicon
+
+back_to: [[ksdft2Effmass.papers.00]]
 
 ## Manuscript record
 
@@ -18,15 +18,14 @@ back_to: [[ksdft2Effmass.papers.00]]
 
 The manuscript remains `Waiting` until the computational gates pass. Its Introduction and Methodology may be drafted before numerical results are available.
 
-#### Working title
+## Working titles
 
-**Operator-Constrained Tight-Binding Reduction of First-Principles Silicon in a Wannier Representation**
+- **Operator-Constrained Tight-Binding Reduction of First-Principles Silicon in a Wannier Representation**
+	- more mathematical (mathematical physics/mathematics collabator)
 
-#### Alternative title
-
-**From Kohn-Sham DFT to an $sp^3s^*$ Hamiltonian: Controlled Operator Reduction of Bulk Silicon**
-
-# Central claim
+- **From Kohn-Sham DFT to an $sp^3s^*$ Hamiltonian: Controlled Operator Reduction of Bulk Silicon**
+	- more computational
+## Central claim
 
 A parameterized tight-binding Hamiltonian should be evaluated as an approximation to a localized first-principles operator, rather than solely as a fit to selected band energies.
 
@@ -38,13 +37,13 @@ For bulk silicon, a validated Wannier Hamiltonian provides the finite-dimensiona
 
 The paper will determine whether reproducing the indirect gap, conduction-valley position, and electron effective masses also implies that the corresponding localized operator has been reproduced.
 
-# Research questions
+## Research questions
 
-## Primary question
+### Primary question
 
 Given a validated bulk-silicon Wannier Hamiltonian, what is the best approximation within a prescribed orthogonal $sp^3s^*$ Slater-Koster model class?
 
-## Secondary questions
+### Secondary questions
 
 1. How does an operator-constrained tight-binding model differ from a model fitted directly to Kohn-Sham band energies?
 
@@ -54,7 +53,7 @@ Given a validated bulk-silicon Wannier Hamiltonian, what is the best approximati
 
 4. Does agreement on fitted band energies persist at withheld wavevectors?
 
-# Falsifiable claim
+## Falsifiable claim
 
 Let $\mathbf{H}_{\mathrm W}$ be the validated Wannier Hamiltonian and let
 $\mathfrak M_{sp^3s^*}$ be the selected tight-binding model class.
@@ -107,9 +106,9 @@ where:
 These tolerances test reduction fidelity relative to the converged Kohn-Sham
 parent. They are not claims of agreement between PBE and experiment.
 
-# Operator construction
+## Operator construction
 
-## Wannier reference
+### Wannier reference
 
 Let $\mathbf H_{\mathrm W}(\mathbf R) \in \mathbb C^{M_{\mathrm W}\times M_{\mathrm W}}$ denote the real-space Wannier Hamiltonian, where $\mathbf{R}$ is a lattice translation and $M_{\mathrm{W}}$ is the number of Wannier orbitals per primitive cell.
 
@@ -125,7 +124,7 @@ $$\begin{gather}
 
 The Wannier construction must reproduce the selected Kohn--Sham bands within a separately declared interpolation tolerance before it can be used as the operator reference.
 
-## Tight-binding model
+### Tight-binding model
 
 Let $\mathbf{H}_{\mathrm{TB}}\left(\mathbf{R};\boldsymbol\theta\right)$ be an orthogonal $sp^3s^*$ tight-binding Hamiltonian with parameter vector $\boldsymbol\theta\in\Theta$. For spinless diamond-structure silicon, the primitive cell contains two sites with five orbitals per site:
 
@@ -237,7 +236,7 @@ The Wannier-to-TB parameters are
 
 $$
   \boldsymbol\theta_H^*
-  = \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
+  = \mathrm{arg}\,\mathrm{min}_{\boldsymbol\theta\in\Theta}
     \sum_{\mathbf R}
       w_{\mathbf R}
       \left\|
@@ -398,7 +397,7 @@ State:
 1. **Reduction structure**
 
    ```mermaid
-   flowchart LR
+   flowchart TD
        KS["Converged KS reference"]
        W["Validated Wannier operator"]
        D["Direct spectral fit"]
@@ -461,34 +460,21 @@ The paper remains interpretable if:
 - no stable full-space alignment exists, provided the failure is diagnosed and
   the resulting limitation is reported.
 
-The paper should not claim successful operator reduction if the Wannier--TB
+The paper should not claim successful operator reduction if the Wannier-TB
 alignment is nonunique or unstable over the validation domain.
 
 # Provisional abstract
 
-Wannier interpolation and parameterized tight-binding fitting provide distinct
-reductions of first-principles electronic structure. The former represents a
-selected Kohn--Sham subspace in a localized basis, whereas the latter restricts
-the Hamiltonian to a prescribed model class. We construct a validated Wannier
-Hamiltonian for bulk silicon and compare two reductions to an orthogonal
-$sp^3s^*$ Slater--Koster model: direct fitting to Kohn--Sham band energies and
-operator-constrained fitting to the aligned Wannier Hamiltonian. The models are
-evaluated using withheld band energies, the indirect gap, conduction-valley
-position, longitudinal and transverse electron effective masses, and
-real-space operator residuals. [Insert principal quantitative result.] The
-comparison determines which first-principles operator content is retained by
-the compact model and establishes the validated bulk reference required for
-subsequent impurity-operator reduction.
+Wannier interpolation and parameterized tight-binding fitting provide distinct reductions of first-principles electronic structure. The former represents a selected Kohn-Sham subspace in a localized basis, whereas the latter restricts the Hamiltonian to a prescribed model class. We construct a validated Wannier Hamiltonian for bulk silicon and compare two reductions to an orthogonal $sp^3s^*$ Slater-Koster model: direct fitting to Kohn-Sham band energies and operator-constrained fitting to the aligned Wannier Hamiltonian. The models are evaluated using withheld band energies, the indirect gap, conduction-valley position, longitudinal and transverse electron effective masses, and real-space operator residuals. [Insert principal quantitative result.] The comparison determines which first-principles operator content is retained by the compact model and establishes the validated bulk reference required for subsequent impurity-operator reduction.
 
 # Publication gate
 
 Move this manuscript from `Waiting` to `Analysis` only when:
 
 - `G02`, `G03`, and `G04` have passed;
-- the common Wannier--TB alignment is reproducible;
+- the common Wannier-TB alignment is reproducible;
 - both fitting objectives have frozen training and validation data;
 - the central band/operator comparison figure can be generated;
 - the result remains interpretable under the declared null outcomes.
 
-Move it to `Drafting` only after the principal quantitative claim has survived
-sensitivity analysis.
+Move it to `Drafting` only after the principal quantitative claim has survived sensitivity analysis.
