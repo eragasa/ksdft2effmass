@@ -22,13 +22,8 @@ The first-principles impurity operator is compressible in a localized Wannier ba
 The reduction is
 
 $$
-\Delta\mathbf H_{\mathrm W,d}
-\longrightarrow
-\Delta\mathbf H_{\mathrm{red},d}
-=
-\sum_{j=1}^{J}
-\theta_{j,d}
-\mathbf O_j,
+\Delta\mathbf H_{\mathrm W,d} \rightarrow \Delta\mathbf H_{\mathrm{red},d}
+= \sum_{j=1}^{J} \theta_{j,d} \mathbf O_j,
 $$
 
 where:
@@ -47,37 +42,35 @@ Paper I must provide:
 
 1. a validated bulk Wannier Hamiltonian
 
-   $$
-   \overline{\mathbf H}_{\mathrm W,\mathrm b};
-   $$
+$$
+\overline{\mathbf H}_{\mathrm W,\mathrm b};
+$$
 
 2. a validated dopant Wannier Hamiltonian
 
-   $$
-   \overline{\mathbf H}_{\mathrm W,d};
-   $$
+$$
+\overline{\mathbf H}_{\mathrm W,d};
+$$
 
 3. a physically justified bulk–dopant alignment map
 
-   $$
-   \mathbf U_d;
-   $$
+$$
+\mathbf U_d;
+$$
 
 4. the aligned impurity operator
 
-   $$
-   \Delta\mathbf H_{\mathrm W,d}
-   =
-   \overline{\mathbf H}_{\mathrm W,d}
-   -
-   \mathbf U_d
-   \overline{\mathbf H}_{\mathrm W,\mathrm b}
-   \mathbf U_d^\dagger.
-   $$
+$$
+\Delta\mathbf H_{\mathrm W,d}
+=
+\overline{\mathbf H}_{\mathrm W,d}
+-
+\mathbf U_d
+\overline{\mathbf H}_{\mathrm W,\mathrm b}
+\mathbf U_d^\dagger.
+$$
 
 Paper II treats these objects as fixed inputs. It does not repeat the entire alignment construction, although sufficient definitions must be included to make the paper self-contained.
-
----
 
 ## Working Hypotheses
 
@@ -87,8 +80,7 @@ The magnitude of the impurity-induced matrix elements decreases with distance fr
 
 $$
 \Delta\mathbf H_{\mathrm W,d}
-\approx
-\Delta\mathbf H_{R,d},
+\approx \Delta\mathbf H_{R,d},
 $$
 
 where $\Delta\mathbf H_{R,d}$ retains only operator components associated with sites or bonds inside a radius $R$ of the dopant.
