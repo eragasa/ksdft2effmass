@@ -65,8 +65,7 @@ $$\begin{gather}
     \mathbf H_{\mathrm{TB}}^* \in \mathfrak M_{sp^3s^*}
 \end{gather}$$
 
-that satisfies the declared band-edge tolerances while retaining a quantitatively
-bounded fraction of the Wannier operator.
+that satisfies the declared band-edge tolerances while retaining a quantitatively bounded fraction of the Wannier operator.
 
 The hypothesis fails if no model in the declared class simultaneously satisfies:
 
@@ -173,7 +172,7 @@ $$
 
 The operator residual is
 
-$$\begin{gather}
+$$
  \boxed{
  \mathbf R_{\mathrm{TB}}
  \left(
@@ -188,7 +187,7 @@ $$\begin{gather}
 \boldsymbol\theta
 \right)
 }.
-\end{gather}$$
+$$
 
 If a cell-local, $\mathbf k$-independent alignment $\mathbf C$ is available,
 the real-space residual is
@@ -214,7 +213,7 @@ The direct DFT-to-TB parameters are
 
 $$\begin{gather}
   \boldsymbol\theta_E^*
-    = \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
+    = \mathrm{arg}\,\mathrm{min}_{\boldsymbol\theta\in\Theta}
       \sum_{(\mathbf k,n)\in\mathcal T}
         q_{n\mathbf k}
           \left[
@@ -236,52 +235,38 @@ A disjoint set $\mathcal V$ is withheld for validation.
 
 The Wannier-to-TB parameters are
 
-$$\begin{gather}
-\boldsymbol\theta_H^*
-=
-\operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
-\sum_{\mathbf R}
-w_{\mathbf R}
-\left\|
-\mathbf H_{\mathrm W}(\mathbf R)
--
-\mathbf C
-\mathbf H_{\mathrm{TB}}
-\left(
-\mathbf R;
-\boldsymbol\theta
-\right)
-\mathbf C^\dagger
-\right\|_{\mathrm F}^{2},
-\end{gather}$$
+$$
+  \boldsymbol\theta_H^*
+  = \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
+    \sum_{\mathbf R}
+      w_{\mathbf R}
+      \left\|
+        \mathbf H_{\mathrm W}(\mathbf R)
+        - \mathbf C \mathbf H_{\mathrm{TB}}
+          \left(\mathbf R;\boldsymbol\theta\right)
+          \mathbf C^\dagger
+      \right\|_{\mathrm F}^{2},
+$$
 
 where $w_{\mathbf R}\geq0$ is the declared weight for lattice displacement $\mathbf R$ and $\|\cdot\|_{\mathrm F}$ is the Frobenius norm.
 
 The normalized operator error is
 
-$$\begin{gather}
-\varepsilon_H
-=
-\frac{
-\left[
-\displaystyle
-\sum_{\mathbf R}
-w_{\mathbf R}
-\left\|
-\mathbf R_{\mathrm{TB}}(\mathbf R)
-\right\|_{\mathrm F}^{2}
-\right]^{1/2}
-}{
-\left[
-\displaystyle
-\sum_{\mathbf R}
-w_{\mathbf R}
-\left\|
-\mathbf H_{\mathrm W}(\mathbf R)
-\right\|_{\mathrm F}^{2}
-\right]^{1/2}
+$$
+  \varepsilon_H
+  = \frac{
+      \left[\displaystyle
+      \sum_{\mathbf R}
+        w_{\mathbf R}
+        \left\|\mathbf R_{\mathrm{TB}}(\mathbf R) \right\|_{\mathrm F}^{2}
+      \right]^{1/2}
+    }{\left[\displaystyle
+      \sum_{\mathbf R}
+        w_{\mathbf R}
+          \left\|\mathbf H_{\mathrm W}(\mathbf R)\right\|_{\mathrm F}^{2}
+      \right]^{1/2}
 }.
-\end{gather}$$
+$$
 
 The two fitted models, $\mathbf H_{\mathrm{TB}} \left(\boldsymbol\theta_E^*\right)$ and $\mathbf{H}_{\mathrm{TB}}\left(\boldsymbol\theta_{H}^*\right)$ belong to the same model class but optimize different notions of fidelity.
 # Manuscript outline
