@@ -150,21 +150,21 @@ $$\begin{gather}
 
 The orbital set on each site is
 
-$$
-    \left\{
-    \lvert s   \rangle,
-    \lvert p_x \rangle,
-    \lvert p_y \rangle,
-    \lvert p_z \rangle,
-    \lvert s^* \rangle
-    \right\}.
-$$
+$$\begin{gather}
+ \left\{
+  \lvert s   \rangle,
+  \lvert p_x \rangle,
+  \lvert p_y \rangle,
+  \lvert p_z \rangle,
+  \lvert s^* \rangle
+ \right\}.
+\end{gather}$$
 
 The model specification must freeze:
 
 - orbital ordering;
 - onsite parameters;
-- Slater--Koster hopping channels;
+- Slater-Koster hopping channels;
 - hopping range;
 - crystal-symmetry constraints;
 - energy-zero convention.
