@@ -75,49 +75,42 @@ $\mathfrak M_{sp^3s^*}$ be the selected tight-binding model class.
 
 The primary hypothesis is that there exists
 
-$$
-\mathbf H_{\mathrm{TB}}^*
-\in
-\mathfrak M_{sp^3s^*}
-$$
+$$\begin{gather}
+    \mathbf H_{\mathrm{TB}}^* \in \mathfrak M_{sp^3s^*}
+\end{gather}$$
 
 that satisfies the declared band-edge tolerances while retaining a quantitatively
 bounded fraction of the Wannier operator.
 
 The hypothesis fails if no model in the declared class simultaneously satisfies:
 
-$$
-\left|\delta E_g\right|
-\leq
-0.05 E_g^{\mathrm{DFT}},
-$$
+$$\begin{gather}
+\left|\delta E_g\right| \leq 0.05 E_g^{\mathrm{DFT}},
+\end{gather}$$
 
-$$
-\left|\delta k_{\mathrm v}\right|
-\leq
-0.03
-\left|\Gamma X\right|,
-$$
+$$\begin{gather}
+    \left|\delta k_{\mathrm v}\right| \leq 0.03 \left|\Gamma X\right|,
+\end{gather}$$
 
 and
 
-$$
-\frac{
-\left|
-m_i^{\mathrm{TB}}
--
-m_i^{\mathrm{DFT}}
-\right|
-}{
-\left|
-m_i^{\mathrm{DFT}}
-\right|
-}
-\leq
-0.08,
-\qquad
-i\in\{l,t\},
-$$
+$$\begin{gather}
+    \frac{
+    \left|
+    m_i^{\mathrm{TB}}
+    -
+    m_i^{\mathrm{DFT}}
+    \right|
+    }{
+    \left|
+    m_i^{\mathrm{DFT}}
+    \right|
+    }
+    \leq
+    0.08,
+    \qquad
+    i\in\{l,t\},
+\end{gather}$$
 
 where:
 
@@ -133,75 +126,38 @@ parent. They are not claims of agreement between PBE and experiment.
 
 ## Wannier reference
 
-Let
-
-$$
-\mathbf H_{\mathrm W}(\mathbf R)
-\in
-\mathbb C^{M_{\mathrm W}\times M_{\mathrm W}}
-$$
-
-denote the real-space Wannier Hamiltonian, where $\mathbf R$ is a lattice
-translation and $M_{\mathrm W}$ is the number of Wannier orbitals per primitive
-cell.
+Let $\mathbf H_{\mathrm W}(\mathbf R) \in \mathbb C^{M_{\mathrm W}\times M_{\mathrm W}}$ denote the real-space Wannier Hamiltonian, where $\mathbf{R}$ is a lattice translation and $M_{\mathrm{W}}$ is the number of Wannier orbitals per primitive cell.
 
 Its Bloch representation is
 
-$$
-\mathbf H_{\mathrm W}(\mathbf k)
-=
-\sum_{\mathbf R}
-e^{i\mathbf k\cdot\mathbf R}
-\mathbf H_{\mathrm W}(\mathbf R).
-$$
+$$\begin{gather}
+    \mathbf{H}_{\mathrm{W}}(\mathbf{k})
+    =
+    \sum_{\mathbf{R}}
+    e^{i\mathbf{k} \cdot \mathbf{R}}
+    \mathbf{H}_{\mathrm{W}}(\mathbf{R)}.
+\end{gather}$$
 
-The Wannier construction must reproduce the selected Kohn--Sham bands within a
-separately declared interpolation tolerance before it can be used as the
-operator reference.
+The Wannier construction must reproduce the selected Kohn--Sham bands within a separately declared interpolation tolerance before it can be used as the operator reference.
 
 ## Tight-binding model
 
-Let
+Let $\mathbf{H}_{\mathrm{TB}}\left(\mathbf{R};\boldsymbol\theta\right)$ be an orthogonal $sp^3s^*$ tight-binding Hamiltonian with parameter vector $\boldsymbol\theta\in\Theta$. For spinless diamond-structure silicon, the primitive cell contains two sites with five orbitals per site:
 
-$$
-\mathbf H_{\mathrm{TB}}
-\left(
-\mathbf R;
-\boldsymbol\theta
-\right)
-$$
-
-be an orthogonal $sp^3s^*$ tight-binding Hamiltonian with parameter vector
-
-$$
-\boldsymbol\theta
-\in
-\Theta.
-$$
-
-For spinless diamond-structure silicon, the primitive cell contains two sites
-with five orbitals per site:
-
-$$
-M_{\mathrm{TB}}
-=
-2
-\times
-5
-=
-10.
-$$
+$$\begin{gather}
+    M_{\mathrm{TB}} = 2 \times 5 = 10.
+\end{gather}$$
 
 The orbital set on each site is
 
 $$
-\left\{
-\lvert s\rangle,
-\lvert p_x\rangle,
-\lvert p_y\rangle,
-\lvert p_z\rangle,
-\lvert s^*\rangle
-\right\}.
+    \left\{
+    \lvert s   \rangle,
+    \lvert p_x \rangle,
+    \lvert p_y \rangle,
+    \lvert p_z \rangle,
+    \lvert s^* \rangle
+    \right\}.
 $$
 
 The model specification must freeze:
@@ -218,53 +174,28 @@ The model specification must freeze:
 A matrix difference is meaningful only after the Wannier and tight-binding
 operators have been placed in a common coordinate space.
 
-For the primary construction, require
+For the primary construction, require $M_{\mathrm W} = M_{\mathrm{TB}} = 10$. Let $\mathbf C(\mathbf k) \in U(10)$ map tight-binding coordinates into Wannier coordinates. The aligned tight-binding operator is
 
-$$
-M_{\mathrm W}
-=
-M_{\mathrm{TB}}
-=
-10.
-$$
-
-Let
-
-$$
-\mathbf C(\mathbf k)
-\in
-U(10)
-$$
-
-map tight-binding coordinates into Wannier coordinates. The aligned
-tight-binding operator is
-
-$$
-\widetilde{\mathbf H}_{\mathrm{TB}}
-\left(
-\mathbf k;
-\boldsymbol\theta
-\right)
-=
-\mathbf C(\mathbf k)
-\mathbf H_{\mathrm{TB}}
-\left(
-\mathbf k;
-\boldsymbol\theta
-\right)
-\mathbf C(\mathbf k)^\dagger.
-$$
+$$\begin{gather}
+ \widetilde{\mathbf H}_{\mathrm{TB}}
+ \left( \mathbf k; \boldsymbol\theta \right)
+ =
+ \mathbf C(\mathbf k)
+ \mathbf H_{\mathrm{TB}}
+ \left( \mathbf k; \boldsymbol\theta \right)
+ \mathbf C(\mathbf k)^\dagger.
+\end{gather}$$
 
 The operator residual is
 
-$$
-\boxed{
-\mathbf R_{\mathrm{TB}}
-\left(
-\mathbf k;
-\boldsymbol\theta
-\right)
-=
+$$\begin{gather}
+ \boxed{
+ \mathbf R_{\mathrm{TB}}
+ \left(
+ \mathbf k;
+ \boldsymbol\theta
+ \right)
+ =
 \mathbf H_{\mathrm W}(\mathbf k)
 -
 \widetilde{\mathbf H}_{\mathrm{TB}}
@@ -273,30 +204,22 @@ $$
 \boldsymbol\theta
 \right)
 }.
-$$
+\end{gather}$$
 
 If a cell-local, $\mathbf k$-independent alignment $\mathbf C$ is available,
 the real-space residual is
 
-$$
-\boxed{
-\mathbf R_{\mathrm{TB}}
-\left(
-\mathbf R;
-\boldsymbol\theta
-\right)
-=
-\mathbf H_{\mathrm W}(\mathbf R)
--
-\mathbf C
-\mathbf H_{\mathrm{TB}}
-\left(
-\mathbf R;
-\boldsymbol\theta
-\right)
-\mathbf C^\dagger
-}.
-$$
+$$\begin{gather}
+  \mathbf{R}_{\mathrm{TB}}
+  \left (\mathbf{R}; \boldsymbol{\theta} \right)
+  =
+  \mathbf{H}_{\mathrm{W}}(\mathbf{R})
+  - \mathbf{C} \mathbf{H}_{\mathrm{TB}}
+   \left(
+     \mathbf R;\boldsymbol\theta 
+   \right) 
+   \mathbf C^\dagger
+\end{gather}$$
 
 The real-space form permits decomposition by neighbor shell and orbital channel.
 
@@ -306,7 +229,7 @@ The real-space form permits decomposition by neighbor shell and orbital channel.
 
 The direct DFT-to-TB parameters are
 
-$$
+$$\begin{gather}
 \boldsymbol\theta_E^*
 =
 \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
@@ -323,14 +246,13 @@ E_{n}^{\mathrm{TB}}
 -
 E_{n}^{\mathrm{DFT}}(\mathbf k)
 \right]^2,
-$$
+\end{gather}$$
 
 where:
 
 - $\mathcal T$ is the spectral training set;
 - $q_{n\mathbf k}\geq0$ is the fitting weight;
-- $E_n^{\mathrm{TB}}$ and $E_n^{\mathrm{DFT}}$ are corresponding band
-  energies.
+- $E_n^{\mathrm{TB}}$ and $E_n^{\mathrm{DFT}}$ are corresponding band energies.
 
 A disjoint set $\mathcal V$ is withheld for validation.
 
@@ -338,7 +260,7 @@ A disjoint set $\mathcal V$ is withheld for validation.
 
 The Wannier-to-TB parameters are
 
-$$
+$$\begin{gather}
 \boldsymbol\theta_H^*
 =
 \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta}
@@ -355,17 +277,13 @@ w_{\mathbf R}
 \right)
 \mathbf C^\dagger
 \right\|_{\mathrm F}^{2},
-$$
+\end{gather}$$
 
-where:
-
-- $w_{\mathbf R}\geq0$ is the declared weight for lattice displacement
-  $\mathbf R$;
-- $\|\cdot\|_{\mathrm F}$ is the Frobenius norm.
+where $w_{\mathbf R}\geq0$ is the declared weight for lattice displacement $\mathbf R$ and $\|\cdot\|_{\mathrm F}$ is the Frobenius norm.
 
 The normalized operator error is
 
-$$
+$$\begin{gather}
 \varepsilon_H
 =
 \frac{
@@ -387,24 +305,9 @@ w_{\mathbf R}
 \right\|_{\mathrm F}^{2}
 \right]^{1/2}
 }.
-$$
+\end{gather}$$
 
-The two fitted models,
-
-$$
-\mathbf H_{\mathrm{TB}}
-\left(
-\boldsymbol\theta_E^*
-\right)
-\qquad\text{and}\qquad
-\mathbf H_{\mathrm{TB}}
-\left(
-\boldsymbol\theta_H^*
-\right),
-$$
-
-belong to the same model class but optimize different notions of fidelity.
-
+The two fitted models, $\mathbf H_{\mathrm{TB}} \left(\boldsymbol\theta_E^*\right)$ and $\mathbf{H}_{\mathrm{TB}}\left(\boldsymbol\theta_{H}^*\right)$ belong to the same model class but optimize different notions of fidelity.
 # Manuscript outline
 
 ## 1. Introduction
@@ -481,17 +384,13 @@ Report interpolation errors, centers, spreads, and hopping decay.
 
 Report parameters, training errors, and withheld validation errors for
 
-$$
-\boldsymbol\theta_E^*.
-$$
+$$\boldsymbol\theta_E^*.$$
 
 ### 6.4 Operator-constrained reduction
 
 Report parameters and operator residuals for
 
-$$
-\boldsymbol\theta_H^*.
-$$
+$$\boldsymbol\theta_H^*.$$
 
 ### 6.5 Comparison of objectives
 
