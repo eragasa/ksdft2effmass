@@ -151,13 +151,13 @@ $$\begin{gather}
 The orbital set on each site is
 
 $$\begin{gather}
- \left\{
-  \lvert s   \rangle,
-  \lvert p_x \rangle,
-  \lvert p_y \rangle,
-  \lvert p_z \rangle,
-  \lvert s^* \rangle
- \right\}.
+ \bigl\{
+|s\rangle,
+|p_x\rangle,
+|p_y\rangle,
+|p_z\rangle,
+|s^*\rangle
+ \bigr\}.
 \end{gather}$$
 
 The model specification must freeze:
