@@ -16,61 +16,47 @@ back_to: [[ksdft2Effmass.papers.00]]
 | Reduced model | Orthogonal, non-SOC $sp^3s^*$ tight-binding Hamiltonian |
 | Intended output | Journal article or full conference paper |
 
-The manuscript remains `Waiting` until the computational gates pass. Its
-Introduction and Methodology may be drafted before numerical results are
-available.
+The manuscript remains `Waiting` until the computational gates pass. Its Introduction and Methodology may be drafted before numerical results are available.
 
-# Working title
+#### Working title
 
 **Operator-Constrained Tight-Binding Reduction of First-Principles Silicon in a Wannier Representation**
 
-Alternative title:
+#### Alternative title
 
-**From Kohn--Sham DFT to an $sp^3s^*$ Hamiltonian: Controlled Operator Reduction of Bulk Silicon**
+**From Kohn-Sham DFT to an $sp^3s^*$ Hamiltonian: Controlled Operator Reduction of Bulk Silicon**
 
 # Central claim
 
-A parameterized tight-binding Hamiltonian should be evaluated as an
-approximation to a localized first-principles operator, rather than solely as a
-fit to selected band energies.
+A parameterized tight-binding Hamiltonian should be evaluated as an approximation to a localized first-principles operator, rather than solely as a fit to selected band energies.
 
-For bulk silicon, a validated Wannier Hamiltonian provides the finite-dimensional
-reference operator. Projection onto a prescribed $sp^3s^*$ model class then
-separates:
+For bulk silicon, a validated Wannier Hamiltonian provides the finite-dimensional reference operator. Projection onto a prescribed $sp^3s^*$ model class then separates:
 
 1. error caused by the restricted tight-binding model class;
 2. error caused by parameter fitting;
 3. error in the resulting spectra and band-edge observables.
 
-The paper will determine whether reproducing the indirect gap, conduction-valley
-position, and electron effective masses also implies that the corresponding
-localized operator has been reproduced.
+The paper will determine whether reproducing the indirect gap, conduction-valley position, and electron effective masses also implies that the corresponding localized operator has been reproduced.
 
 # Research questions
 
 ## Primary question
 
-Given a validated bulk-silicon Wannier Hamiltonian, what is the best
-approximation within a prescribed orthogonal $sp^3s^*$ Slater--Koster model
-class?
+Given a validated bulk-silicon Wannier Hamiltonian, what is the best approximation within a prescribed orthogonal $sp^3s^*$ Slater-Koster model class?
 
 ## Secondary questions
 
-1. How does an operator-constrained tight-binding model differ from a model
-   fitted directly to Kohn--Sham band energies?
+1. How does an operator-constrained tight-binding model differ from a model fitted directly to Kohn-Sham band energies?
 
-2. Which onsite, orbital, hopping, and neighbor-shell components dominate the
-   residual operator?
+2. Which onsite, orbital, hopping, and neighbor-shell components dominate the residual operator?
 
-3. What operator accuracy is required to preserve the indirect gap,
-   conduction-valley position, and longitudinal and transverse electron
-   effective masses?
+3. What operator accuracy is required to preserve the indirect gap, conduction-valley position, and longitudinal and transverse electron effective masses?
 
 4. Does agreement on fitted band energies persist at withheld wavevectors?
 
 # Falsifiable claim
 
-Let $\mathbf H_{\mathrm W}$ be the validated Wannier Hamiltonian and let
+Let $\mathbf{H}_{\mathrm W}$ be the validated Wannier Hamiltonian and let
 $\mathfrak M_{sp^3s^*}$ be the selected tight-binding model class.
 
 The primary hypothesis is that there exists
@@ -114,12 +100,12 @@ $$\begin{gather}
 
 where:
 
-- $E_g^{\mathrm{DFT}}$ is the indirect Kohn--Sham gap;
+- $E_g^{\mathrm{DFT}}$ is the indirect Kohn-Sham gap;
 - $k_{\mathrm v}$ is the conduction-valley position;
 - $m_l$ is the longitudinal electron effective mass;
 - $m_t$ is the transverse electron effective mass.
 
-These tolerances test reduction fidelity relative to the converged Kohn--Sham
+These tolerances test reduction fidelity relative to the converged Kohn-Sham
 parent. They are not claims of agreement between PBE and experiment.
 
 # Operator construction
@@ -151,13 +137,13 @@ $$\begin{gather}
 The orbital set on each site is
 
 $$
-  \{
+  \lbrace
   |s\rangle,
   |p_x\rangle,
   |p_y\rangle,
   |p_z\rangle,
   |s^*\rangle
- \}.
+ \rbrace.
 $$
 
 The model specification must freeze:
