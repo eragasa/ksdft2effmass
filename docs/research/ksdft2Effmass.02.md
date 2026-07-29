@@ -1,5 +1,6 @@
-back_to: [[ksdft2Effmass.00]]
 # Projected Bloch State Spaces and Operators
+
+back_to: [[ksdft2Effmass.00]]
 ## Scope
 This section defines the state spaces, projectors, and compressed operators used throughout the reduction program. The construction is stated for Kohn-Sham operators, although it applies to any periodic one-particle Bloch Hamiltonian.
 
@@ -64,613 +65,509 @@ The operator and its matrix representation must be distinguished. The symbol $\h
 
 The bulk and dopant operators need not initially act on canonically identified state spaces. In general, $\mathcal{H}_{\mathrm{b}}\neq\mathcal{H}_d$, because the corresponding calculations may employ different periodic cells, atomic configurations, boundary conditions, or relaxed geometries. Their finite numerical representations may likewise have different dimensions, $N_{\mathrm{b}}\neq N_d$.
 
-### Construction of the Finite-Dimensional Operator Difference
-The objective is to construct a finite-dimensional representation of the dopant-induced operator difference. Formally, one would like to write
-$$
-\Delta\hat{H}_d
-=
-\hat{H}_d
--
-\hat{H}_{\mathrm{b}},
-$$
-where $\hat{H}_d$ and $\hat{H}_{\mathrm{b}}$ are the dopant and pristine-bulk Hamiltonians, respectively. This expression is well defined only if both operators act on the same Hilbert space and use a common physical energy reference.
-
-In the general case, the bulk and dopant calculations may employ different periodic cells, Brillouin zones, geometries, or numerical representations. The required operator difference must therefore be constructed through the sequence
-$$
-\boxed{
-\left(
-\hat{H}_{\mathrm{b}},
-\hat{H}_d
-\right)
-\xrightarrow{\text{projection}}
-\left(
-\hat{H}_{\mathrm{b}}^{(P)},
-\hat{H}_d^{(P)}
-\right)
-\xrightarrow{\text{alignment and identification}}
-\Delta\hat{H}_d^{(P)}
-\xrightarrow{\text{matrix representation}}
-\Delta\mathbf{H}_{\mathrm{W},d}
-}.
-$$
-Here, $\hat{H}_s^{(P)}$ denotes the Hamiltonian for system $s\in\{\mathrm{b},d\}$ projected onto its retained finite-rank subspace $\mathcal{H}_s^{(P)}$. Before subtraction, the two projected operators must be placed on a common state space.
-
-Suppose there exists a unitary identification map from the retained bulk subspace to the retained dopant subspace, $\hat{U}_d:\mathcal{H}_{\mathrm{b}}^{(P)}\rightarrow\mathcal{H}_d^{(P)}$ (existence to be discussed in [[ksdft2Effmass.04]]). Then corresponding bulk operator transported to $\mathcal{H}_d^{(P)}$ is
-$$
-\hat{H}_{\mathrm{b}\rightarrow d}^{(P)}
-=
-\hat{U}_d \hat{H}_{\mathrm{b}}^{(P)} \hat{U}_d^\dagger.
-$$
-Independent calculations may also employ different energy zeros. Define the energy-aligned projected Hamiltonian by
-$$
-\overline{\hat{H}}_s^{(P)}
-= \hat{H}_s^{(P)}
-	- E_{\mathrm{ref},s} \hat{I}_s^{(P)},
-$$
-where $E_{\mathrm{ref},s}$ is the selected reference energy and $\hat{I}_s^{(P)}$ is the identity operator on $\mathcal{H}_s^{(P)}$.
-
-The projected dopant-induced perturbation is then
-$$
-\boxed{
-\Delta\hat{H}_d^{(P)}
-=
-\overline{\hat{H}}_d^{(P)}
--
-\hat{U}_d
-\overline{\hat{H}}_{\mathrm{b}}^{(P)}
-\hat{U}_d^\dagger
-}.
-$$
-Both terms on the right-hand side now act on the same retained dopant space $\mathcal{H}_d^{(P)}$, so their difference is mathematically well defined.
-
-Let $\left\{\lvert w_{\alpha,d}\rangle\right\}_{\alpha=1}^{M}$ be an orthonormal localized basis for $\mathcal{H}_d^{(P)}$, where $M$ is the dimension of the retained subspace. The matrix representation of the impurity perturbation is
-$$
-\left[
-\Delta\mathbf{H}_{\mathrm{W},d}
-\right]_{\alpha\beta}
-=
-\left\langle
-w_{\alpha,d}
-\middle|
-\Delta\hat{H}_d^{(P)}
-\middle|
-w_{\beta,d}
-\right\rangle.
-$$
-If the bulk and dopant bases have already been aligned so that the matrix representation of $\hat{U}_d$ is the identity, then the operator difference reduces to the direct matrix subtraction
-$$
-\boxed{
-\Delta\mathbf{H}_{\mathrm{W},d}
-	= \overline{\mathbf{H}}_{\mathrm{W},d}
-	- \overline{\mathbf{H}}_{\mathrm{W},\mathrm{b}}
-}.
-$$
-
-Thus, the finite-dimensional expression
-
-$$
-\Delta\mathbf{H}_d
-=
-\mathbf{H}_d
--
-\mathbf{H}_{\mathrm{b}}
-$$
-
-is the endpoint of the projection and alignment procedure, rather than its starting assumption.
+Consequently, the formal difference $\hat{H}_d-\hat{H}_b$ is not assumed to be defined at this stage. The present section first constructs the projected state spaces and operators for each system separately. The subsequent identification of the bulk and dopant spaces, including the existence and nonuniqueness of a unitary identification map, is developed in [[ksdft2Effmass.04]].
 
 ## Bloch-Fiber Decomposition
-
-For a periodic system, the one-particle Hilbert space decomposes into Bloch fibers:
-
+Because the systems under consideration are periodic, their state spaces and Hamiltonians may be decomposed at fixed Bloch wavevector. For system $s$,
 $$
-\mathcal H_s
+\mathcal{H}_s
 \cong
 \int_{\mathrm{BZ}_s}^{\oplus}
-\mathcal H_{s,\mathbf k}\,
-\mathrm d\mathbf k,
-$$
-
-and the periodic Hamiltonian decomposes accordingly:
-
-$$
-\hat H_s
+\mathcal{H}_{s,\mathbf{k}}\,
+\mathrm{d}\mathbf{k},
+\qquad
+\hat{H}_s
 \cong
 \int_{\mathrm{BZ}_s}^{\oplus}
-\hat H_s(\mathbf k)\,
-\mathrm d\mathbf k.
+\hat{H}_s(\mathbf{k})\,
+\mathrm{d}\mathbf{k}.
 $$
+The symbol $\mathrm{BZ}_s$ denotes the Brillouin zone of system $s$, and $\mathbf{k}\in\mathrm{BZ}_s$ is a Bloch wavevector. The direct-integral symbol $\int^\oplus$ indicates that the full state space is assembled from the family of Bloch-fiber spaces $\mathcal{H}_{s,\mathbf{k}}$. The symbol $\cong$ denotes unitary equivalence under the Bloch transformation rather than literal equality of the two representations.
 
-Here:
-
-- $\mathrm{BZ}_s$ is the Brillouin zone of system $s$;
-- $\mathcal H_{s,\mathbf k}$ is the Hilbert space of cell-periodic states at Bloch wavevector $\mathbf k$;
-- $\hat H_s(\mathbf k)$ is the Bloch-fiber Hamiltonian acting on $\mathcal H_{s,\mathbf k}$.
-
-Its eigenproblem is
-
+For each $\mathbf{k}$, the Bloch-fiber Hamiltonian acts as
 $$
-\hat H_s(\mathbf k)
-\lvert\psi_{n\mathbf k,s}\rangle
+\hat{H}_s(\mathbf{k})
+:
+D\!\left(\hat{H}_s(\mathbf{k})\right)
+\subseteq
+\mathcal{H}_{s,\mathbf{k}}
+\rightarrow
+\mathcal{H}_{s,\mathbf{k}},
+$$
+where $D(\hat{H}_s(\mathbf{k}))$ is the domain of the fiber operator. Its eigenproblem is
+$$
+\hat{H}_s(\mathbf{k})
+\lvert\psi_{n\mathbf{k},s}\rangle
 =
-\varepsilon_{n,s}(\mathbf k)
-\lvert\psi_{n\mathbf k,s}\rangle.
+\varepsilon_{n,s}(\mathbf{k})
+\lvert\psi_{n\mathbf{k},s}\rangle.
 $$
+Here, $n$ is the band index, $\lvert\psi_{n\mathbf{k},s}\rangle\in\mathcal{H}_{s,\mathbf{k}}$ is a normalized Bloch eigenstate, and $\varepsilon_{n,s}(\mathbf{k})$ is its corresponding Kohnâ€“Sham eigenvalue.
 
-The target of the reduction is therefore a family of subspaces over the Brillouin zone, rather than a single finite collection of eigenstates.
+The object retained by the reduction is therefore a family of finite-dimensional subspaces indexed by $\mathbf{k}$, rather than a single finite collection of eigenstates over the entire crystal.
 
 ## Target Projector Field
 
-At each $\mathbf k$, select an $M_s$-dimensional target subspace
-
+At each Bloch wavevector $\mathbf{k}$, select an $M_s$-dimensional target subspace
 $$
-\mathcal H_{s,\mathbf k}^{(P)}
+\mathcal{H}_{s,\mathbf{k}}^{(P)}
 =
-\operatorname{Range}\!\left(\hat P_s(\mathbf k)\right)
+\operatorname{Range}\!\left(\hat{P}_s(\mathbf{k})\right)
 \subseteq
-\mathcal H_{s,\mathbf k},
+\mathcal{H}_{s,\mathbf{k}},
 $$
-
-where
-
+where $M_s$ is the number of retained states per Bloch fiber and
 $$
-\hat P_s(\mathbf k)
+\hat{P}_s(\mathbf{k})
 :
-\mathcal H_{s,\mathbf k}
-\longrightarrow
-\mathcal H_{s,\mathbf k}
+\mathcal{H}_{s,\mathbf{k}}
+\rightarrow
+\mathcal{H}_{s,\mathbf{k}}
 $$
-
-is an orthogonal projector satisfying
-
+is the corresponding orthogonal projector. The projector satisfies
 $$
-\hat P_s(\mathbf k)^\dagger
+\hat{P}_s(\mathbf{k})^\dagger
 =
-\hat P_s(\mathbf k),
+\hat{P}_s(\mathbf{k}),
 \qquad
-\hat P_s(\mathbf k)^2
+\hat{P}_s(\mathbf{k})^2
 =
-\hat P_s(\mathbf k).
+\hat{P}_s(\mathbf{k}).
 $$
+The dagger denotes the Hilbert-space adjoint. The first equality states that the projector is self-adjoint, while the second states that repeated projection has the same effect as a single projection.
 
-The superscript $(P)$ labels the subspace selected by the projector. The projector itself remains the operator $\hat P_s(\mathbf k)$; writing $\mathcal H_{s,\mathbf k}^{(\hat P)}$ would add operator notation to a label without improving the definition.
-
-For a fixed-rank construction,
-
+The superscript $(P)$ labels a state space selected by the projector $\hat{P}_s(\mathbf{k})$. It is a label and does not itself denote an operator. The fixed-rank condition is
 $$
-\operatorname{rank}\hat P_s(\mathbf k)=M_s
+\operatorname{rank}\hat{P}_s(\mathbf{k})
+=
+M_s
 $$
+for every $\mathbf{k}\in\mathrm{BZ}_s$.
 
-for every $\mathbf k$ in $\mathrm{BZ}_s$. The global retained space is
-
+The global retained state space is the direct integral
 $$
-\mathcal H_s^{(P)}
+\mathcal{H}_s^{(P)}
 \cong
 \int_{\mathrm{BZ}_s}^{\oplus}
-\mathcal H_{s,\mathbf k}^{(P)}
+\mathcal{H}_{s,\mathbf{k}}^{(P)}
 \,
-\mathrm d\mathbf k.
+\mathrm{d}\mathbf{k}.
 $$
+Each fiber $\mathcal{H}_{s,\mathbf{k}}^{(P)}$ has finite dimension $M_s$. The global space $\mathcal{H}_s^{(P)}$, however, is not finite-dimensional because $\mathbf{k}$ varies continuously over the Brillouin zone. A finite-dimensional global representation arises only after the Brillouin zone has been discretized.
 
-Although each fiber $\mathcal H_{s,\mathbf k}^{(P)}$ has finite dimension $M_s$, the direct-integral space $\mathcal H_s^{(P)}$ is not itself finite-dimensional. A finite-dimensional global matrix arises only after discretizing the Brillouin zone.
-
-For Wannier construction, the projector field must also possess adequate periodicity and regularity in $\mathbf k$. Selecting the correct dimension at each $\mathbf k$ is therefore insufficient: the selected subspaces must vary coherently across the Brillouin zone.
+The projector field $\mathbf{k}\mapsto\hat{P}_s(\mathbf{k})$ must also vary periodically and with sufficient regularity across the Brillouin zone for a localized Wannier representation to be constructed. The detailed regularity and gauge requirements are developed in [[ksdft2Effmass.03]].
 
 ## Range, Kernel, and Complementary Space
-
-For each fiber,
-
+The range of $\hat{P}_s(\mathbf{k})$ is
 $$
-\operatorname{Range}\!\left(\hat P_s(\mathbf k)\right)
+\operatorname{Range}\!\left(\hat{P}_s(\mathbf{k})\right)
 =
 \left\{
-\hat P_s(\mathbf k)\lvert\psi\rangle
+\hat{P}_s(\mathbf{k})\lvert\psi\rangle
 :
-\lvert\psi\rangle\in\mathcal H_{s,\mathbf k}
+\lvert\psi\rangle\in\mathcal{H}_{s,\mathbf{k}}
 \right\}.
 $$
-
-Define the complementary projector
-
+It contains all states retained by the projection. Define the complementary projector by
 $$
-\hat Q_s(\mathbf k)
+\hat{Q}_s(\mathbf{k})
 =
-\hat I_{s,\mathbf k}
+\hat{I}_{s,\mathbf{k}}
 -
-\hat P_s(\mathbf k).
+\hat{P}_s(\mathbf{k}),
 $$
-
-Because $\hat P_s(\mathbf k)$ is orthogonal,
-
+where $\hat{I}_{s,\mathbf{k}}$ is the identity operator on $\mathcal{H}_{s,\mathbf{k}}$. The range of $\hat{Q}_s(\mathbf{k})$ defines the complementary state space,
 $$
-\operatorname{Kernel}\!\left(\hat P_s(\mathbf k)\right)
+\mathcal{H}_{s,\mathbf{k}}^{(Q)}
 =
-\operatorname{Range}\!\left(\hat Q_s(\mathbf k)\right),
+\operatorname{Range}\!\left(\hat{Q}_s(\mathbf{k})\right).
 $$
 
-and
-
+Because $\hat{P}_s(\mathbf{k})$ is an orthogonal projector,
 $$
-\mathcal H_{s,\mathbf k}
+\operatorname{Kernel}\!\left(\hat{P}_s(\mathbf{k})\right)
 =
-\mathcal H_{s,\mathbf k}^{(P)}
+\operatorname{Range}\!\left(\hat{Q}_s(\mathbf{k})\right),
+$$
+where $\operatorname{Kernel}(\hat{P}_s(\mathbf{k}))$ is the set of states mapped to zero by $\hat{P}_s(\mathbf{k})$. The full fiber therefore decomposes as
+$$
+\mathcal{H}_{s,\mathbf{k}}
+=
+\mathcal{H}_{s,\mathbf{k}}^{(P)}
 \oplus
-\mathcal H_{s,\mathbf k}^{(Q)}.
+\mathcal{H}_{s,\mathbf{k}}^{(Q)}.
 $$
-
-The spaces $\mathcal H_{s,\mathbf k}^{(P)}$ and $\mathcal H_{s,\mathbf k}^{(Q)}$ contain the retained and discarded components, respectively.
+The direct-sum symbol $\oplus$ denotes an orthogonal decomposition into the retained subspace $\mathcal{H}_{s,\mathbf{k}}^{(P)}$ and the discarded subspace $\mathcal{H}_{s,\mathbf{k}}^{(Q)}$.
 
 ## Isolated Band Subspaces
 
-Suppose a set of $M_s$ bands is separated from the remaining spectrum at every $\mathbf k$. If $\mathcal I_s$ indexes these bands, the corresponding spectral projector is
-
+Suppose that a group of $M_s$ bands is separated from the remaining spectrum at every $\mathbf{k}\in\mathrm{BZ}_s$. Let $\mathcal{I}_s$ denote the set of band indices belonging to this isolated group. The corresponding spectral projector is
 $$
-\hat P_s(\mathbf k)
+\hat{P}_s(\mathbf{k})
 =
-\sum_{n\in\mathcal I_s}
-\lvert\psi_{n\mathbf k,s}\rangle
-\langle\psi_{n\mathbf k,s}\rvert.
+\sum_{n\in\mathcal{I}_s}
+\lvert\psi_{n\mathbf{k},s}\rangle
+\langle\psi_{n\mathbf{k},s}\rvert.
 $$
+Each term $\lvert\psi_{n\mathbf{k},s}\rangle\langle\psi_{n\mathbf{k},s}\rvert$ is the rank-one projector onto the Bloch eigenstate $\lvert\psi_{n\mathbf{k},s}\rangle$. Their sum projects onto the complete isolated band subspace.
 
-Equivalently, when a contour $\Gamma$ encloses the target eigenvalues and no others,
-
+Equivalently, the spectral projector may be expressed as
 $$
-\hat P_s(\mathbf k)
+\hat{P}_s(\mathbf{k})
 =
 \frac{1}{2\pi i}
-\oint_\Gamma
-\left(
-z-\hat H_s(\mathbf k)
-\right)^{-1}
-\mathrm dz.
+\oint_{\Gamma}
+\left[
+z-\hat{H}_s(\mathbf{k})
+\right]^{-1}
+\mathrm{d}z.
 $$
+Here, $i$ is the imaginary unit, $z$ is a complex spectral parameter, and $\Gamma$ is a closed contour in the complex plane that encloses the retained eigenvalues of $\hat{H}_s(\mathbf{k})$ and excludes the remaining spectrum. The operator $[z-\hat{H}_s(\mathbf{k})]^{-1}$ is the resolvent of the fiber Hamiltonian.
 
-Because this is a spectral projector,
-
+Because $\hat{P}_s(\mathbf{k})$ is a spectral projector,
 $$
 \left[
-\hat H_s(\mathbf k),
-\hat P_s(\mathbf k)
-\right]
-=
-0.
-$$
-
-The target space is invariant under $\hat H_s(\mathbf k)$, and compression retains the selected eigenpairs exactly.
-
-An isolated band subspace does not require each band to be separated from the other retained bands. Crossings within the retained group are permitted. What is required is separation of the entire retained group from its complement.
-
-## Entangled Band Subspaces
-
-The target bands are entangled when no fixed set of band indices defines the desired $M_s$-dimensional subspace throughout the Brillouin zone. Crossings, avoided crossings, or energy overlap with other bands can cause the orbital character of interest to move among different eigenvalue branches.
-
-Band entanglement is a general feature of multiband Bloch Hamiltonians. It is not specific to density-functional theory or to Wannier90. It becomes an explicit computational problem whenever a reduced Bloch model must be extracted from a larger band manifold.
-
-Let an outer window contain $J_s(\mathbf k)\geq M_s$ Bloch eigenstates. A disentanglement procedure selects $M_s$ orthonormal combinations
-
-$$
-\lvert\widetilde\psi_{\alpha\mathbf k,s}\rangle
-=
-\sum_{n=1}^{J_s(\mathbf k)}
-\lvert\psi_{n\mathbf k,s}\rangle
-U^{\mathrm{dis}}_{n\alpha,s}(\mathbf k),
-$$
-
-where
-
-$$
-\mathbf U_s^{\mathrm{dis}}(\mathbf k)^\dagger
-\mathbf U_s^{\mathrm{dis}}(\mathbf k)
-=
-\mathbf I_{M_s}.
-$$
-
-The selected projector is then
-
-$$
-\hat P_s(\mathbf k)
-=
-\sum_{\alpha=1}^{M_s}
-\lvert\widetilde\psi_{\alpha\mathbf k,s}\rangle
-\langle\widetilde\psi_{\alpha\mathbf k,s}\rvert.
-$$
-
-If a frozen window is imposed, its spectral projector $\hat P_{s,\mathrm f}(\mathbf k)$ must satisfy
-
-$$
-\operatorname{Range}\!\left(\hat P_{s,\mathrm f}(\mathbf k)\right)
-\subseteq
-\operatorname{Range}\!\left(\hat P_s(\mathbf k)\right),
-$$
-
-or equivalently,
-
-$$
-\hat P_s(\mathbf k)\hat P_{s,\mathrm f}(\mathbf k)
-=
-\hat P_{s,\mathrm f}(\mathbf k).
-$$
-
-Unlike an isolated-band spectral projector, a disentangled projector need not commute with the parent Hamiltonian:
-
-$$
-\left[
-\hat H_s(\mathbf k),
-\hat P_s(\mathbf k)
-\right]
-\neq
-0.
-$$
-
-Disentanglement therefore changes the retained subspace and the compressed operator. Subsequent localization changes the basis within that selected subspace. These are mathematically distinct operations.
-
-## Projected Operators
-
-Assume that
-
-$$
-\mathcal H_{s,\mathbf k}^{(P)}
-\subset
-D\!\left(\hat H_s(\mathbf k)\right).
-$$
-
-The projected, or compressed, fiber Hamiltonian is
-
-$$
-\boxed{
-\hat H_s^{(P)}(\mathbf k)
-=
-\hat P_s(\mathbf k)
-\hat H_s(\mathbf k)
-\hat P_s(\mathbf k)
-\big|_{\mathcal H_{s,\mathbf k}^{(P)}}
-}.
-$$
-
-It acts as
-
-$$
-\hat H_s^{(P)}(\mathbf k)
-:
-\mathcal H_{s,\mathbf k}^{(P)}
-\longrightarrow
-\mathcal H_{s,\mathbf k}^{(P)}.
-$$
-
-The restriction is essential. It identifies $\hat H_s^{(P)}(\mathbf k)$ as an operator on the retained subspace, rather than as the ambient-space operator $\hat P_s\hat H_s\hat P_s$ with a null action on the discarded subspace.
-
-The corresponding global projected operator is
-
-$$
-\hat H_s^{(P)}
-\cong
-\int_{\mathrm{BZ}_s}^{\oplus}
-\hat H_s^{(P)}(\mathbf k)
-\,
-\mathrm d\mathbf k.
-$$
-
-This operator contains the first-principles information retained for subsequent localization and model reduction.
-
-## Spectral Projection and General Compression
-
-The interpretation of $\hat H_s^{(P)}(\mathbf k)$ depends on the relation between the projector and the parent Hamiltonian.
-
-### Invariant target subspace
-
-If
-
-$$
-\left[
-\hat H_s(\mathbf k),
-\hat P_s(\mathbf k)
+\hat{H}_s(\mathbf{k}),
+\hat{P}_s(\mathbf{k})
 \right]
 =
 0,
 $$
+where $[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ denotes the operator commutator. The vanishing commutator states that the target subspace is invariant under $\hat{H}_s(\mathbf{k})$.
 
-then
+An isolated band subspace does not require the retained bands to be separated from one another. Crossings within the retained group are permitted. The required separation is between the retained group as a whole and its complementary spectrum.
 
+## Entangled Band Subspaces
+
+A target band manifold is entangled when no fixed set of $M_s$ band indices defines the desired subspace throughout the Brillouin zone. Crossings, avoided crossings, and energetic overlap with other bands may cause the orbital character of interest to move among different eigenvalue branches.
+
+Band entanglement is a general feature of multiband Bloch Hamiltonians. It is not specific to density-functional theory or to Wannier90. It becomes a model-reduction problem whenever a fixed-dimensional Bloch subspace must be extracted from a larger band manifold.
+
+Let an outer energy window contain $J_s(\mathbf{k})$ Bloch eigenstates at wavevector $\mathbf{k}$, with
 $$
-\hat P_s\hat H_s\hat Q_s
+J_s(\mathbf{k})
+\geq
+M_s.
+$$
+A disentanglement procedure selects $M_s$ orthonormal states from the span of these $J_s(\mathbf{k})$ candidate states:
+$$
+\lvert\widetilde{\psi}_{\alpha\mathbf{k},s}\rangle
 =
-\hat Q_s\hat H_s\hat P_s
+\sum_{n=1}^{J_s(\mathbf{k})}
+\lvert\psi_{n\mathbf{k},s}\rangle
+U_{n\alpha,s}^{\mathrm{dis}}(\mathbf{k}),
+\qquad
+\alpha\in\{1,\ldots,M_s\}.
+$$
+Here, $\alpha$ indexes the retained states, and $U_{n\alpha,s}^{\mathrm{dis}}(\mathbf{k})$ is the coefficient relating the selected state $\lvert\widetilde{\psi}_{\alpha\mathbf{k},s}\rangle$ to the candidate Bloch eigenstates. Collecting these coefficients gives the rectangular matrix
+$$
+\mathbf{U}_s^{\mathrm{dis}}(\mathbf{k})
+\in
+\mathbb{C}^{J_s(\mathbf{k})\times M_s},
+$$
+which satisfies
+$$
+\mathbf{U}_s^{\mathrm{dis}}(\mathbf{k})^\dagger
+\mathbf{U}_s^{\mathrm{dis}}(\mathbf{k})
 =
-0.
+\mathbf{I}_{M_s}.
 $$
+The matrix $\mathbf{I}_{M_s}$ is the $M_s\times M_s$ identity matrix. This relation states that the columns of $\mathbf{U}_s^{\mathrm{dis}}(\mathbf{k})$ are orthonormal; such a rectangular matrix is semiunitary.
 
-The parent operator is block diagonal with respect to
-
+The disentangled projector is
 $$
-\mathcal H_{s,\mathbf k}
+\hat{P}_s(\mathbf{k})
 =
-\mathcal H_{s,\mathbf k}^{(P)}
-\oplus
-\mathcal H_{s,\mathbf k}^{(Q)},
+\sum_{\alpha=1}^{M_s}
+\lvert\widetilde{\psi}_{\alpha\mathbf{k},s}\rangle
+\langle\widetilde{\psi}_{\alpha\mathbf{k},s}\rvert.
 $$
 
-and $\hat H_s^{(P)}(\mathbf k)$ is the exact restriction of the parent operator to an invariant spectral subspace.
-
-### Non-invariant target subspace
-
-For a general disentangled or physically selected projector,
-
+If a frozen energy window is imposed, let $\hat{P}_{s,\mathrm{f}}(\mathbf{k})$ denote the spectral projector onto the states inside that window. Requiring every frozen state to belong to the selected subspace is expressed by
 $$
-\hat P_s\hat H_s\hat Q_s
+\operatorname{Range}\!\left(\hat{P}_{s,\mathrm{f}}(\mathbf{k})\right)
+\subseteq
+\operatorname{Range}\!\left(\hat{P}_s(\mathbf{k})\right),
+$$
+or equivalently,
+$$
+\hat{P}_s(\mathbf{k})
+\hat{P}_{s,\mathrm{f}}(\mathbf{k})
+=
+\hat{P}_{s,\mathrm{f}}(\mathbf{k}).
+$$
+
+Unlike an isolated-band spectral projector, a disentangled projector need not commute with the parent Hamiltonian:
+$$
+\left[
+\hat{H}_s(\mathbf{k}),
+\hat{P}_s(\mathbf{k})
+\right]
 \neq
 0.
 $$
+Disentanglement therefore changes the retained subspace and the corresponding compressed operator. The subsequent choice of a localized basis changes the representation within the selected subspace. These are mathematically distinct operations.
 
-With the $\mathbf k$ and $s$ labels suppressed, the parent operator has the block form
-
+## Projected Operators
+Assume that the retained subspace lies within the domain of the parent fiber Hamiltonian,
 $$
-\hat H
+\mathcal{H}_{s,\mathbf{k}}^{(P)}
+\subseteq
+D\!\left(\hat{H}_s(\mathbf{k})\right).
+$$
+The projected, or compressed, fiber Hamiltonian is
+$$
+\boxed{
+\hat{H}_s^{(P)}(\mathbf{k})
+=
+\hat{P}_s(\mathbf{k})
+\hat{H}_s(\mathbf{k})
+\hat{P}_s(\mathbf{k})
+\big|_{\mathcal{H}_{s,\mathbf{k}}^{(P)}}
+}.
+$$
+The vertical restriction symbol indicates that $\hat{H}_s^{(P)}(\mathbf{k})$ is regarded as an operator on the retained subspace. It acts as
+$$
+\hat{H}_s^{(P)}(\mathbf{k})
+:
+\mathcal{H}_{s,\mathbf{k}}^{(P)}
+\rightarrow
+\mathcal{H}_{s,\mathbf{k}}^{(P)}.
+$$
+This restricted operator must be distinguished from the ambient-space operator $\hat{P}_s(\mathbf{k})\hat{H}_s(\mathbf{k})\hat{P}_s(\mathbf{k})$, which acts as zero on the discarded subspace.
+
+The corresponding global projected operator is
+$$
+\hat{H}_s^{(P)}
+\cong
+\int_{\mathrm{BZ}_s}^{\oplus}
+\hat{H}_s^{(P)}(\mathbf{k})
+\,
+\mathrm{d}\mathbf{k}.
+$$
+The operator $\hat{H}_s^{(P)}$ contains the first-principles information retained for subsequent localization and model reduction.
+
+The spectral data used in later reductions are derived from this same operator. A complete spectral resolution, consisting of eigenvalues together with their spectral projectors, reconstructs the finite-dimensional projected operator. Retaining only selected eigenvalues and derived quantities instead defines a partial observation of the operator. Whether that partial spectral information identifies a unique reduced Hamiltonian depends on the prescribed model class and is tested in [[ksdft2Effmass.05]].
+
+## Spectral Projection and General Compression
+
+The interpretation of $\hat{H}_s^{(P)}(\mathbf{k})$ depends on whether the selected subspace is invariant under the parent fiber Hamiltonian.
+
+### Invariant Target Subspace
+If
+$$
+\left[
+\hat{H}_s(\mathbf{k}),
+\hat{P}_s(\mathbf{k})
+\right]
+=
+0,
+$$
+then
+$$
+\hat{P}_s(\mathbf{k})
+\hat{H}_s(\mathbf{k})
+\hat{Q}_s(\mathbf{k})
+=
+\hat{Q}_s(\mathbf{k})
+\hat{H}_s(\mathbf{k})
+\hat{P}_s(\mathbf{k})
+=
+0.
+$$
+The two vanishing terms are the operator blocks that couple the retained and discarded subspaces. The parent Hamiltonian is therefore block diagonal with respect to
+$$
+\mathcal{H}_{s,\mathbf{k}}
+=
+\mathcal{H}_{s,\mathbf{k}}^{(P)}
+\oplus
+\mathcal{H}_{s,\mathbf{k}}^{(Q)}.
+$$
+In this case, $\hat{H}_s^{(P)}(\mathbf{k})$ is the exact restriction of the parent Hamiltonian to an invariant spectral subspace and retains the selected eigenpairs exactly.
+
+### Non-Invariant Target Subspace
+
+For a general disentangled or physically selected projector,
+$$
+\hat{P}_s(\mathbf{k})
+\hat{H}_s(\mathbf{k})
+\hat{Q}_s(\mathbf{k})
+\neq
+0.
+$$
+Suppressing the system label $s$ and wavevector $\mathbf{k}$ for compactness, the parent Hamiltonian has the block representation
+$$
+\hat{H}
 =
 \begin{pmatrix}
-\hat P\hat H\hat P
+\hat{P}\hat{H}\hat{P}
 &
-\hat P\hat H\hat Q
+\hat{P}\hat{H}\hat{Q}
 \\
-\hat Q\hat H\hat P
+\hat{Q}\hat{H}\hat{P}
 &
-\hat Q\hat H\hat Q
+\hat{Q}\hat{H}\hat{Q}
 \end{pmatrix}.
 $$
+The diagonal blocks describe the action of $\hat{H}$ within the retained and discarded subspaces. The off-diagonal blocks describe coupling between them. Simple compression retains the block $\hat{P}\hat{H}\hat{P}$ and omits the effects mediated through the discarded space.
 
-Simple compression retains the $\hat P\hat H\hat P$ block and omits coupling through $\mathcal H^{(Q)}$. Its eigenvalues are Ritz values in the selected subspace and need not coincide exactly with a fixed set of parent eigenvalues outside any frozen window.
+The eigenvalues of the compressed operator are therefore Ritz values in the selected subspace. Outside any frozen window, they need not coincide exactly with a fixed set of eigenvalues of the parent Hamiltonian.
 
-A useful invariance diagnostic is
-
+The departure of the target subspace from invariance may be quantified by
 $$
-\eta_{\mathrm{inv},s}(\mathbf k)
+\eta_{\mathrm{inv},s}(\mathbf{k})
 =
 \left\|
 \left[
-\hat H_s(\mathbf k),
-\hat P_s(\mathbf k)
+\hat{H}_s(\mathbf{k}),
+\hat{P}_s(\mathbf{k})
 \right]
-\right\|.
+\right\|,
 $$
-
-The choice of norm and normalization must be specified in a computational study.
+where $\eta_{\mathrm{inv},s}(\mathbf{k})$ is the invariance error and $\|\cdot\|$ is a specified operator or matrix norm. The norm and its normalization must be stated when this quantity is evaluated numerically.
 
 ## Projection and Downfolding
 
-Projection by itself should be distinguished from an effective Hamiltonian that accounts for virtual coupling to the discarded space. Formally eliminating the $Q$ component of an eigenstate produces the energy-dependent Schur-complement operator
-
+Projection must be distinguished from a downfolded Hamiltonian that incorporates coupling through the discarded subspace. Suppressing the system and wavevector labels, formal elimination of the discarded component produces the energy-dependent effective operator
 $$
-\hat H_{\mathrm{eff}}(E)
+\hat{H}_{\mathrm{eff}}(E)
 =
-\hat P\hat H\hat P
+\hat{P}\hat{H}\hat{P}
 +
-\hat P\hat H\hat Q
+\hat{P}\hat{H}\hat{Q}
 \left(
-E-\hat Q\hat H\hat Q
+E-\hat{Q}\hat{H}\hat{Q}
 \right)^{-1}
-\hat Q\hat H\hat P,
+\hat{Q}\hat{H}\hat{P}.
 $$
+Here, $E$ is the spectral energy at which the reduction is evaluated, and $(E-\hat{Q}\hat{H}\hat{Q})^{-1}$ is the resolvent of the discarded-space block. The expression is defined whenever $E$ lies outside the spectrum of $\hat{Q}\hat{H}\hat{Q}$, so that the inverse exists.
 
-whenever the resolvent exists.
-
-Therefore,
-
+The compressed operator is
 $$
-\hat H^{(P)}
+\hat{H}^{(P)}
 =
-\hat P\hat H\hat P
-\big|_{\operatorname{Range}(\hat P)}
+\hat{P}\hat{H}\hat{P}
+\big|_{\operatorname{Range}(\hat{P})},
 $$
+whereas $\hat{H}_{\mathrm{eff}}(E)$ contains the additional energy-dependent correction generated by virtual coupling through the discarded space. The two coincide when the retained subspace is invariant. They may also be treated as approximately equivalent when the coupling correction is negligible relative to a specified error tolerance.
 
-is a compression, whereas $\hat H_{\mathrm{eff}}(E)$ is an energy-dependent downfolded operator. They agree when the retained space is invariant or when the coupling correction is negligible within the stated tolerance.
-
-This distinction will be required when assessing whether a compact tight-binding or continuum operator reproduces the target physics because of a well-chosen invariant subspace or because discarded-space effects have been absorbed into fitted parameters.
+This distinction is required when assessing whether a compact tight-binding or continuum model reproduces the target physics through an invariant subspace or through parameters that implicitly absorb discarded-space effects.
 
 ## Numerical Matrix Representation
 
-Let
+Let $\mathbf{H}_s(\mathbf{k}) \in \mathbb{C}^{N_s(\mathbf{k})\times N_s(\mathbf{k})}$ denote the finite matrix representation of the Bloch-fiber Hamiltonian in a numerical basis of dimension $N_s(\mathbf{k})$ [^5]. Let
+$$
+\mathbf{V}_s(\mathbf{k})
+	\in \mathbb{C}^{N_s(\mathbf{k})\times M_s}
+$$
+contain, as its columns, an orthonormal basis for the retained $M_s$-dimensional subspace [^2][^6]. The orthonormality condition is
 
 $$
-\mathbf V_s(\mathbf k)
+\mathbf{V}_s(\mathbf{k})^\dagger
+\mathbf{V}_s(\mathbf{k})
+=
+\mathbf{I}_{M_s}.
+$$
+
+The matrix representation of the projector in the ambient numerical basis is
+$$
+\mathbf{P}_s(\mathbf{k})
+=
+\mathbf{V}_s(\mathbf{k})
+\mathbf{V}_s(\mathbf{k})^\dagger,
+$$
+where
+$$
+\mathbf{P}_s(\mathbf{k})
 \in
-\mathbb C^{D_s(\mathbf k)\times M_s}
+\mathbb{C}^{N_s(\mathbf{k})\times N_s(\mathbf{k})}.
 $$
-
-contain an orthonormal basis for the retained subspace in a finite numerical basis of dimension $D_s(\mathbf k)$. Then
-
-$$
-\mathbf V_s(\mathbf k)^\dagger
-\mathbf V_s(\mathbf k)
-=
-\mathbf I_{M_s},
-$$
-
-and the projector matrix is
-
-$$
-\mathbf P_s(\mathbf k)
-=
-\mathbf V_s(\mathbf k)
-\mathbf V_s(\mathbf k)^\dagger.
-$$
-
-The reduced matrix acting on retained coordinates is
-
+The reduced Hamiltonian matrix acting on retained coordinates is
 $$
 \boxed{
-\mathbf H_s^{(P)}(\mathbf k)
+\mathbf{H}_s^{(P)}(\mathbf{k})
 =
-\mathbf V_s(\mathbf k)^\dagger
-\mathbf H_s(\mathbf k)
-\mathbf V_s(\mathbf k)
+\mathbf{V}_s(\mathbf{k})^\dagger
+\mathbf{H}_s(\mathbf{k})
+\mathbf{V}_s(\mathbf{k})
 }
 \in
-\mathbb C^{M_s\times M_s}.
+\mathbb{C}^{M_s\times M_s}.
 $$
+This construction is the finite-dimensional form of compressing the Bloch-fiber Hamiltonian to a selected Bloch subspace [^2][^4]. The matrix $\mathbf{H}_s^{(P)}(\mathbf{k})$ is the finite-dimensional representation of the compressed operator $\hat{H}_s^{(P)}(\mathbf{k})$ in the basis defined by the columns of $\mathbf{V}_s(\mathbf{k})$.
 
-This matrix must be distinguished from the ambient representation
-
+By contrast,
 $$
-\mathbf P_s(\mathbf k)
-\mathbf H_s(\mathbf k)
-\mathbf P_s(\mathbf k)
+\mathbf{P}_s(\mathbf{k})
+\mathbf{H}_s(\mathbf{k})
+\mathbf{P}_s(\mathbf{k})
 \in
-\mathbb C^{D_s(\mathbf k)\times D_s(\mathbf k)}.
+\mathbb{C}^{N_s(\mathbf{k})\times N_s(\mathbf{k})}
 $$
-
-The two matrices encode the same compressed action on the retained subspace, but they have different dimensions and different null-space structure.
-
-On a discrete mesh
-
+is the ambient-space matrix representation of the compression. It has the same action on retained states but has a null action on the orthogonal complement. Indeed,
 $$
-\mathcal K_s
+\mathbf{P}_s(\mathbf{k})
+\mathbf{H}_s(\mathbf{k})
+\mathbf{P}_s(\mathbf{k})
+=
+\mathbf{V}_s(\mathbf{k})
+\mathbf{H}_s^{(P)}(\mathbf{k})
+\mathbf{V}_s(\mathbf{k})^\dagger.
+$$
+The two matrices therefore encode the same compressed operator on different coordinate spaces.
+
+Let
+$$
+\mathcal{K}_s
 =
 \left\{
-\mathbf k_1,\ldots,\mathbf k_{N_k}
-\right\},
+\mathbf{k}_1,\ldots,\mathbf{k}_{N_k}
+\right\}
+\subset
+\mathrm{BZ}_s
 $$
-
-the retained numerical space has dimension
-
+denote a discrete Brillouin-zone mesh containing $N_k$ wavevectors. The corresponding retained numerical space is
 $$
-N_kM_s.
+\bigoplus_{\mathbf{k}\in\mathcal{K}_s}
+\mathcal{H}_{s,\mathbf{k}}^{(P)},
 $$
-
-It is this discretized direct sum,
-
-$$
-\bigoplus_{\mathbf k\in\mathcal K_s}
-\mathcal H_{s,\mathbf k}^{(P)},
-$$
-
-that is represented by a finite collection of matrices in electronic-structure and Wannier codes.
+which is the finite-mesh analogue of the direct-integral decomposition over Bloch fibers [1]. It has dimension $N_kM_s$ when the retained rank $M_s$ is constant over the mesh. Electronic-structure and Wannier codes represent the projected Bloch problem through this finite collection of $M_s\times M_s$ matrices [^4][^6].
 
 ## Role in the Reduction Program
 
-The construction established here is
-
+The construction established in this section is
 $$
 \boxed{
-\hat H_s
+\hat{H}_s
 \longrightarrow
 \left\{
-\hat P_s(\mathbf k)
-\right\}_{\mathbf k\in\mathrm{BZ}_s}
+\hat{H}_s(\mathbf{k})
+\right\}_{\mathbf{k}\in\mathrm{BZ}_s}
 \longrightarrow
-\hat H_s^{(P)}
+\left\{
+\hat{P}_s(\mathbf{k})
+\right\}_{\mathbf{k}\in\mathrm{BZ}_s}
+\longrightarrow
+\hat{H}_s^{(P)}
 }.
 $$
+The first step is the Bloch decomposition of the periodic parent operator. The second selects a fixed-rank family of target subspaces, and the third compresses the parent Hamiltonian to those retained spaces.
 
-It resolves three points needed by the later analysis:
+This construction establishes three distinctions required by the later analysis. First, the retained object is a family of Bloch subspaces rather than a finite list of low-rank eigenpair reconstructions. Second, isolated-band selection and disentanglement define mathematically different projector fields. Third, the projected operator must be distinguished from both its finite matrix representation and its later Wannier representation.
 
-1. the retained object is a fixed-rank family of Bloch subspaces;
-2. isolated-band selection and disentanglement define different kinds of projectors;
-3. the projected operator is distinct from both its numerical matrix and its later Wannier representation.
+The next stage, developed in [[ksdft2Effmass.03]], constructs localized Wannier bases for the projected spaces. The comparison of the independently constructed bulk and dopant spaces is deferred to [[ksdft2Effmass.04]]. Equal projected dimensions guarantee the existence of an abstract unitary isomorphism, but they do not determine a unique physically meaningful identification. Only after such an identification and a common energy reference have been established can a dopant-induced operator difference be defined.
 
-The next stage constructs localized Wannier bases for these projected spaces. Only after the bulk and dopant spaces have been represented and physically identified can their operator difference be defined.
 
 ## References
 
-[1] I. Souza, N. Marzari, and D. Vanderbilt, â€œMaximally localized Wannier functions for entangled energy bands,â€ *Phys. Rev. B*, vol. 65, Art. no. 035109, 2001, doi: 10.1103/PhysRevB.65.035109.
+[^1] I. Souza, N. Marzari, and D. Vanderbilt, “Maximally localized Wannier functions for entangled energy bands,” _Phys. Rev. B_, vol. 65, Art. no. 035109, 2001, doi: 10.1103/PhysRevB.65.035109.
 
-[2] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, â€œMaximally localized Wannier functions: Theory and applications,â€ *Rev. Mod. Phys.*, vol. 84, pp. 1419â€“1475, 2012, doi: 10.1103/RevModPhys.84.1419.
+[^2] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, “Maximally localized Wannier functions: Theory and applications,” _Rev. Mod. Phys._, vol. 84, pp. 1419–1475, 2012, doi: [10.1103/RevModPhys.84.1419](https://doi.org/10.1103/RevModPhys.84.1419).
 
-[3] P.-O. LÃ¶wdin, â€œA note on the quantum-mechanical perturbation theory,â€ *J. Chem. Phys.*, vol. 19, pp. 1396â€“1401, 1951, doi: 10.1063/1.1748067.
+[^3] P.-O. Löwdin, “A note on the quantum-mechanical perturbation theory,” _J. Chem. Phys._, vol. 19, pp. 1396–1401, 1951, doi: 10.1063/1.1748067
+
+[^4] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, “Maximally Localized Wannier Functions: Theory and Applications,” *Reviews of Modern Physics*, vol. 84, pp. 1419–1475, 2012. [https://doi.org/10.1103/RevModPhys.84.1419](https://doi.org/10.1103/RevModPhys.84.1419)
+
+[^5] P. Kuchment, “An Overview of Periodic Elliptic Operators,” *Bulletin of the American Mathematical Society*, vol. 53, no. 3, pp. 343–414, 2016. [https://doi.org/10.1090/bull/1528](https://doi.org/10.1090/bull/1528)
+
+[^6] A. A. Mostofi, J. R. Yates, Y.-S. Lee, I. Souza, D. Vanderbilt, and N. Marzari, “wannier90: A Tool for Obtaining Maximally-Localised Wannier Functions,” *Computer Physics Communications*, vol. 178, no. 9, pp. 685–699, 2008. [https://doi.org/10.1016/j.cpc.2007.11.016](https://doi.org/10.1016/j.cpc.2007.11.016)

@@ -8,20 +8,18 @@ Department of Physics, De La Salle University; <eugene.ragasa@dlsu.edu.ph>
 
 ## ABSTRACT
 
-First-principles electronic Hamiltonians may be reduced to compact lattice models by fitting selected eigenvalues or by approximating an aligned localized operator. These criteria need not select the same effective Hamiltonian. This study formulates their compatibility within a common hierarchy of orthogonal $sp^3s^\ast$ Slater–Koster models for bulk silicon. A validated ten-orbital Wannier Hamiltonian will be constructed from one converged density-functional-theory calculation. For each tight-binding model class, the spectral and operator criteria define admissible sets satisfying declared error tolerances. A normalized real-space Hamiltonian metric will determine the minimum separation between these sets. A vanishing separation identifies a common Hamiltonian satisfying both requirements; a nonzero separation measures the incompatibility of the prescribed model class with the retained first-principles information. Validation will use withheld band energies, the indirect gap, conduction-valley position, longitudinal and transverse electron effective masses, and operator residuals resolved by orbital block and neighbor shell. The study will identify the smallest tested model class providing a common endpoint for the two reductions and thereby establish a validated bulk reference for subsequent impurity-operator reduction.
+First-principles electronic Hamiltonians may be reduced to compact lattice models by preserving either selected spectral properties or an aligned localized operator. These criteria need not admit the same reduced representation. This study formulates their compatibility within a common hierarchy of orthogonal $sp^3s^\ast$ Slater–Koster models for bulk silicon. A validated ten-orbital Wannier Hamiltonian will be constructed from one converged density-functional-theory calculation.  For each tight-binding model class, the spectral and operator criteria define admissible sets satisfying declared error tolerances. Compatibility requires a nonempty intersection, corresponding to a single Hamiltonian satisfying both requirements. When the intersection is empty, a normalized real-space Hamiltonian metric will determine the minimum separation between the admissible sets and quantify the incompatibility of the prescribed model class with the retained first-principles information. Validation will use withheld band energies, the indirect gap, conduction-valley position, longitudinal and transverse electron effective masses, and operator residuals resolved by orbital block and neighbor shell. The study will identify the smallest tested model class admitting a common reduced representation satisfying both criteria and thereby establish a validated bulk reference for subsequent impurity-operator reduction.
 
 **KEYWORDS:** silicon; Wannier Hamiltonian; tight-binding reduction; operator
 compatibility; model selection
 
 ## INTRODUCTION
 
-Density-functional theory (DFT) supplies a first-principles Kohn–Sham description of crystalline electronic structure, but its plane-wave representation is inconvenient for interpolation and reduced lattice calculations. Maximally localized Wannier functions provide a localized
-representation of a selected Kohn–Sham subspace and support accurate interpolation [5], [7], [9], [12]. Parameterized tight-binding models instead restrict the Hamiltonian to a prescribed orbital basis, hopping range, and symmetry structure [8], [11].
+Density-functional theory (DFT) supplies a first-principles Kohn–Sham description of crystalline electronic structure, but its plane-wave representation is inconvenient for interpolation and reduced lattice calculations. Maximally localized Wannier functions provide a localized representation of a selected Kohn–Sham subspace and support accurate interpolation [5], [7], [9], [12]. Parameterized tight-binding models instead restrict the Hamiltonian to a prescribed orbital basis, hopping range, and symmetry structure [8], [11].
 
-A spectral fit preserves selected eigenvalues, whereas an operator fit preserves matrix information in an aligned localized representation. Spectral agreement alone does not establish agreement of onsite terms, orbital couplings, or hopping amplitudes. These differences are consequential when the bulk Hamiltonian is later modified by an impurity or another local
-perturbation. Before an operator residual can be evaluated, the Wannier and tight-binding orbital coordinates must therefore be identified through a stable, symmetry-compatible alignment [1], [4].
+A spectral fit preserves selected eigenvalues, whereas an operator fit preserves matrix information in an aligned localized representation. Spectral agreement alone does not establish agreement of onsite terms, orbital couplings, or hopping amplitudes. These differences become consequential when the bulk Hamiltonian is later modified by dopants, defects, strain, or other local perturbations, since all such operators must ultimately be represented in the same reduced basis to form a consistent effective Hamiltonian. Before an operator residual can be evaluated, the Wannier and tight-binding orbital coordinates must therefore be identified through a stable, symmetry-compatible alignment [1], [4].
 
-The present study asks whether the spectral and operator criteria admit a common tight-binding Hamiltonian within declared tolerances. Rather than forcing two independently fitted parameter vectors to agree, it measures the distance between the sets of models accepted by each criterion. Repeating this test over a nested hierarchy of tight-binding model classes identifies the smallest tested class for which the two admissible sets intersect, or quantifies the obstruction when they do not.
+The present study asks whether the spectral and operator criteria admit a common reduced representation within a prescribed tight-binding model class. Rather than forcing two independently fitted parameter vectors to agree, it defines admissible model sets for each criterion and asks whether they intersect. Repeating this test over a nested hierarchy of tight-binding model classes identifies the smallest class admitting a common representation, or quantifies the obstruction when no compatible representation exists.
 
 ## METHODOLOGY
 
@@ -70,7 +68,7 @@ $$\begin{align}
  \right)
  \mathbf{C}^\dagger
  \right\|_{\mathrm{F}}^{2},
-$$
+\end{align}$$
 
 where $\mathbf C\in\mathcal U$ is a symmetry-compatible unitary alignment from the tight-binding orbital coordinates to the Wannier coordinates; $\boldsymbol{\theta}$ is the tight-binding parameter vector; $\mathbf{H}_{\mathrm{TB}}(\mathbf{R};\boldsymbol{\theta})$ is the tight-binding hopping matrix associated with $\mathbf{R}$; $\omega_{\mathbf{R}}\geq 0$ weights the contribution of each retained neighbor shell; and $\|\cdot\|_{\mathrm{F}}$ is the Frobenius norm.
 
@@ -128,6 +126,8 @@ where $\mathbf H_E$ and $\mathbf H_H$ are models satisfying the spectral and ope
 
 All accepted models will be tested on withheld wavevectors. The operator residual will be decomposed by onsite and hopping contribution, orbital block, crystal-symmetry channel, and neighbor shell. The analysis is restricted to bulk silicon; impurity operators are outside the present study.
 
+All spectral and operator errors are measured relative to the converged PBE/Wannier parent Hamiltonian. The present study tests reduction fidelity and does not treat agreement with the experimental silicon band gap as an independent fitting target.
+
 ## EXPECTED RESULT
 
 The required outputs are one converged bulk-silicon DFT dataset, one validated ten-orbital Wannier Hamiltonian, admissible spectral and operator model sets for each tested tight-binding class, their minimum metric separation, and one common validation record. Numerical entries will be reported only after the econvergence, fitting, and sensitivity calculations are complete.
@@ -139,11 +139,12 @@ The required outputs are one converged bulk-silicon DFT dataset, one validated t
 | Map compatibility      | Set distance within map threshold      | Establishes a common reduced Hamiltonian        |
 | Model selection        | Lowest-order compatible class          | Selects the minimal common Hamiltonian class    |
 
-The decisive result is the smallest tested model class for which the spectral and operator admissible sets intersect within tolerance. If no tested class is compatible, the nonzero set separation and its decomposition will identify the orbital or hopping content responsible for the obstruction. Either outcome provides a controlled basis for deciding which bulk Hamiltonian may be modified in subsequent impurity calculations. Construction of doped-supercell and impurity operators remains outside the present scope.
+The decisive result is the smallest tested model class for which the spectral and operator admissible sets intersect within tolerance. If no tested class is compatible, the nonzero set separation and its decomposition will identify the orbital or hopping content responsible for the obstruction. Either outcome provides a controlled basis for determining whether the chosen reduced representation can consistently support subsequent dopant, defect, or impurity operators.
 
+This work addresses compatibility for a single pair of reduction criteria. The same framework naturally extends to additional operator families, where the objective is to determine whether a common reduced representation exists for the bulk Hamiltonian together with perturbation operators describing dopants, defects, strain, or electron–phonon interactions.
 ## REFERENCES
 
-[1] A. Björck and G. H. Golub, “Numerical methods for computing angles between linear subspaces,” *Math. Comp.*, vol. 27, no. 123, pp. 579–594, 1973, doi: 10.1090/S0025-5718-1973-0348991-3.f
+[1] A. Björck and G. H. Golub, “Numerical methods for computing angles between linear subspaces,” *Math. Comp.*, vol. 27, no. 123, pp. 579–594, 1973, doi: 10.1090/S0025-5718-1973-0348991-3.
 
 [2] P. Giannozzi et al., “QUANTUM ESPRESSO: A modular and open-source software project for quantum simulations of materials,” *J. Phys.: Condens. Matter*, vol. 21, Art. no. 395502, 2009, doi: 10.1088/0953-8984/21/39/395502.
 

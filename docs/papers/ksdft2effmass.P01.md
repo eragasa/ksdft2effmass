@@ -122,7 +122,7 @@ $$\begin{gather}
     \mathbf{H}_{\mathrm{W}}(\mathbf{R)}.
 \end{gather}$$
 
-The Wannier construction must reproduce the selected Kohn--Sham bands within a separately declared interpolation tolerance before it can be used as the operator reference.
+The Wannier construction must reproduce the selected Kohn-Sham bands within a separately declared interpolation tolerance before it can be used as the operator reference.
 
 ### Tight-binding model
 

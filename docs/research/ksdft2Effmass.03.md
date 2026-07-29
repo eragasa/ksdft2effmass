@@ -1,6 +1,8 @@
-back_to: [[ksdft2Effmass.00]]
 # Wannier Construction and Localized Operator Representations
+
+back_to: [[ksdft2Effmass.00]]
 ## Scope
+
 This section constructs localized Wannier representations of the projected Bloch operators defined in [[ksdft2Effmass.02]]. Let $\mathcal{D}=\{\mathrm{P},\mathrm{B}\}$ denote the dopant species, and let $\mathcal{S}_d=\{b,d\}$ contain the bulk and dopant system labels for fixed $d\in\mathcal{D}$. For each system $s\in\mathcal{S}_d$, the input is the fixed-rank projector field
 $$
 \mathbf{k}
@@ -83,8 +85,9 @@ $$
 $$
 The $\mathbf{k}$-dependent choice of $\mathbf{G}_s(\mathbf{k})$ is the Bloch gauge. Wannier localization is therefore a gauge-selection problem within a previously selected family of subspaces.
 
-## Construction from Kohnâ€“Sham Eigenstates
-For an isolated group of bands indexed by $\mathcal{I}_s$, a Bloch frame may be constructed from the Kohnâ€“Sham eigenstates according to
+## Construction from Kohn-Sham Eigenstates
+
+For an isolated group of bands indexed by $\mathcal{I}_s$, a Bloch frame may be constructed from the Kohn-Sham eigenstates according to
 $$
 \lvert\phi_{\alpha\mathbf{k},s}\rangle
 =
@@ -92,7 +95,7 @@ $$
 \lvert\psi_{n\mathbf{k},s}\rangle
 U_{n\alpha,s}(\mathbf{k}),
 $$
-where $\mathbf{U}_s(\mathbf{k})\in U(M_s)$ is a unitary mixing matrix. The band index $n$ labels the retained Kohnâ€“Sham eigenstates, whereas $\alpha$ labels the states in the selected Bloch frame.
+where $\mathbf{U}_s(\mathbf{k})\in U(M_s)$ is a unitary mixing matrix. The band index $n$ labels the retained Kohn-Sham eigenstates, whereas $\alpha$ labels the states in the selected Bloch frame.
 
 For an entangled band manifold, [[ksdft2Effmass.02]] first constructs disentangled states
 $$
@@ -280,6 +283,8 @@ e^{i\mathbf{k}\cdot\mathbf{R}}
 }.
 $$
 Here, $\mathbf{H}_{\mathrm{W},s}(\mathbf{k})$ is the Bloch Hamiltonian reconstructed from the real-space Wannier matrix elements. In the absence of truncation and numerical error, it is the same projected Hamiltonian expressed in the Wannier gauge.
+
+For the bulk-silicon compatibility study, the validated Wannier Hamiltonian is therefore the common parent of both reduced-model reconstructions. Its eigenvalues and band derivatives supply the retained spectral data, while its aligned real-space matrix elements supply the direct operator data. These are two observations of one reference operator rather than two independent physical references.
 
 Hermiticity of the parent operator implies
 $$

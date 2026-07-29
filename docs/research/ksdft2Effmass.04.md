@@ -1,11 +1,16 @@
-back_to: [[ksdft2Effmass.00]]
 # Alignment and Comparison of Projected Operators
+
+back_to: [[ksdft2Effmass.00]]
 ## Scope
+
 This section defines the comparison of the independently constructed bulk and dopant operators. The inputs are the projected operators from [[ksdft2Effmass.02]] and their localized Wannier representations from [[ksdft2Effmass.03]].
 
 Let $\mathcal{D}=\{\mathrm{P},\mathrm{B}\}$ denote the dopant species considered in this work. For dopant $d\in\mathcal{D}$, the two systems are pristine bulk silicon, indexed by $s=b$, and silicon containing dopant $d$, indexed by $s=d$. The objective is to construct a dopant-induced operator difference that is defined on a common retained state space and is independent of arbitrary basis choices up to a stated covariance rule.
 
+The same common-space principle is used in [[ksdft2Effmass.05]] to compare a parameterized tight-binding Hamiltonian with the bulk Wannier reference. The alignment maps are application-specific: bulk--dopant identification and Wannier-tight-binding identification must not be conflated.
+
 ## Comparison Problem
+
 The projected bulk and dopant Hamiltonians act as
 $$\begin{gather}
 \hat{H}_b^{(P)}

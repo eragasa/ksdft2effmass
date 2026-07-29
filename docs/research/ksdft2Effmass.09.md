@@ -1,7 +1,13 @@
-back_to: [[ksdft2Effmass.00]]
 # Continuum Reduction and the Atomistic-to-Continuum Crossover
+
+back_to: [[ksdft2Effmass.00]]
+
 ## Scope
+
 This section defines the reduction from a validated lattice Hamiltonian and impurity operator to a continuum envelope-function model. The objective is to determine the spatial, spectral, and energetic domain in which the atomistic impurity operator may be replaced by the screened potentials used in semiconductor effective-mass theory.
+
+The validated lattice Hamiltonian is not chosen from spectral accuracy alone. It is the bulk host selected from a model class whose spectral- and aligned-operator-admissible sets intersect as defined in [[ksdft2Effmass.05]].
+
 
 For dopant $d\in\mathcal{D}=\{\mathrm{P},\mathrm{B}\}$, the principal quantity is the crossover radius
 $$

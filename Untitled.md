@@ -1,6 +1,5 @@
-# Categorical Organization of Operator Reductions
-
 back_to: [[ksdft2Effmass.00]]
+# Categorical Organization of Operator Reductions
 
 ## Scope
 
@@ -74,7 +73,17 @@ The same physical operator may admit several objects with different validation d
 
 ## Transformations Between Models
 
-Let $\Phi:\mathsf{M}_1 \rightarrow \mathsf{M}_2$ denote an admissible transformation from model $\mathsf{M}_1$ to model $\mathsf{M}_2.$ The symbol $\Phi$ denotes the complete transformation procedure, including any state-space map, operator construction, parameter choice, alignment, and declared validity conditions.
+Let
+
+$$
+\Phi
+:
+\mathsf{M}_1
+\longrightarrow
+\mathsf{M}_2
+$$
+
+denote an admissible transformation from model $\mathsf{M}_1$ to model $\mathsf{M}_2$. The symbol $\Phi$ denotes the complete transformation procedure, including any state-space map, operator construction, parameter choice, alignment, and declared validity conditions.
 
 Examples include:
 
@@ -86,12 +95,57 @@ Examples include:
 - fitting within a prescribed tight-binding model class;
 - replacement of a lattice operator by a continuum operator.
 
-Successive transformations compose. If $\Phi:\mathsf{M}_1 \rightarrow\mathsf{M}_2$ and $\Psi:\mathsf{M}_2\rightarrow\mathsf{M}_3$, then
-$\Psi\circ\Phi:\mathsf{M}_1\rightarrow\mathsf{M}_3$ denotes the procedure that first applies $\Phi$ and then applies $\Psi$. The composition is admissible only when the output specification of $\Phi$ supplies the state space, operator data, and validity information required as input by $\Psi$.
+Successive transformations compose. If
 
-For every model $\mathsf{M}$, the identity transformation, $\operatorname{id}_{\mathsf{M}}:\mathsf{M}\rightarrow\mathsf{M}$, leaves the complete model specification unchanged. Associative composition and identity transformations supply the elementary categorical structure.
+$$
+\Phi
+:
+\mathsf{M}_1
+\longrightarrow
+\mathsf{M}_2
+$$
 
-This construction defines a category only after the admissible objects, transformations, and composition rules have been fixed. The notation used here should therefore be read as a proposed category of validated operator models, denoted by $\mathsf{OpMod}$, rather than as a claim that every physically conceivable approximation belongs to one universal category.
+and
+
+$$
+\Psi
+:
+\mathsf{M}_2
+\longrightarrow
+\mathsf{M}_3,
+$$
+
+then
+
+$$
+\Psi\circ\Phi
+:
+\mathsf{M}_1
+\longrightarrow
+\mathsf{M}_3
+$$
+
+denotes the procedure that first applies $\Phi$ and then applies $\Psi$. The composition is admissible only when the output specification of $\Phi$ supplies the state space, operator data, and validity information required as input by $\Psi$.
+
+For every model $\mathsf{M}$, the identity transformation
+
+$$
+\operatorname{id}_{\mathsf{M}}
+:
+\mathsf{M}
+\longrightarrow
+\mathsf{M}
+$$
+
+leaves the complete model specification unchanged. Associative composition and identity transformations supply the elementary categorical structure.
+
+This construction defines a category only after the admissible objects, transformations, and composition rules have been fixed. The notation used here should therefore be read as a proposed category of validated operator models, denoted by
+
+$$
+\mathsf{OpMod},
+$$
+
+rather than as a claim that every physically conceivable approximation belongs to one universal category.
 
 ## Exact Equivalences and the Gauge Groupoid
 
@@ -501,7 +555,6 @@ d_{H,m}
 $$
 
 is the appropriate measure of model-class incompatibility.
-
 ## Natural Comparison of Reduction Schemes
 
 Let
@@ -515,7 +568,7 @@ $$
 \mathsf{Eff}
 $$
 
-denote two reduction schemes, such as the Wannier-mediated and direct tight-binding routes. A natural transformation
+denote two deterministic reduction schemes. In the bulk-silicon compatibility problem, these may be representative-selection maps applied to the spectral- and operator-admissible sets. A natural transformation
 
 $$
 \eta
@@ -806,118 +859,54 @@ Neither the bound nor the value of $L_{\Psi}$ is automatic. They must be derived
 
 ## Representation of the Complete Program
 
-Let $s\in\{b,d\}$ denote the bulk system $b$ or doped system $d$. The complete reduction program can be summarized by the following diagram:
+The concrete program can be summarized by the following diagram:
 
 ```mermaid
 flowchart TD
-    A["Kohn--Sham operators"]
-    B["Projected Bloch operators"]
-    C["Aligned Wannier operators"]
-    S["Spectral-admissible sets"]
-    O["Operator-admissible sets"]
-    J["Compatibility test"]
-    D["Selected lattice operators"]
-    E["Wannier impurity operator"]
-    F["Reduced impurity operator"]
+    A["Kohn--Sham operator"]
+    B["Projected Bloch operator"]
+    C["Aligned Wannier operator"]
+    S["Spectral-admissible set"]
+    O["Operator-admissible set"]
+    D["Parameterized lattice operator"]
+    E["Extracted impurity operator"]
+    F["Reduced impurity hierarchy"]
     G["Continuum impurity operator"]
 
     A -->|"Projection"| B
     B -->|"Wannier representation"| C
-
     C -->|"Spectral inverse problem"| S
     C -->|"Operator inverse problem"| O
-    S -->|"Intersection input"| J
-    O -->|"Intersection input"| J
-    J -->|"Compatible model class"| D
-
+    S -->|"Common element"| D
+    O -->|"Common element"| D
     C -->|"Bulk--dopant subtraction"| E
-    D -->|"Bulk--dopant subtraction"| F
+    D -->|"Reduced bulk--dopant subtraction"| F
     E -->|"Operator simplification"| F
     F -->|"Continuum reduction"| G
 ```
 
-For each tight-binding model class $\mathfrak{M}_m$, the compatibility node evaluates
+The two arrows entering the parameterized lattice operator define the spectral--operator compatibility test. The two arrows entering the reduced impurity hierarchy define the impurity-extraction commutativity test. Gauge transformations at the projected and Wannier levels define the gauge-equivariance test.
 
-$$
-\mathcal{A}_{\mathrm{spec}}^{(m)}
-\cap
-\mathcal{A}_{\mathrm{op}}^{(m)}.
-$$
-
-If the intersection is nonempty, a stated selection rule may choose a common parameter vector
-
-$$
-\boldsymbol{\theta}_m^\star
-\in
-\mathcal{A}_{\mathrm{spec}}^{(m)}
-\cap
-\mathcal{A}_{\mathrm{op}}^{(m)},
-$$
-
-which defines the selected lattice operator. If the intersection is empty but both admissible sets are nonempty, the model-class incompatibility is quantified by
-
-$$
-d_{H,m}
-\left(
-\mathcal{A}_{\mathrm{spec}}^{(m)},
-\mathcal{A}_{\mathrm{op}}^{(m)}
-\right).
-$$
-
-If either admissible set is empty, the corresponding criterion is infeasible within $\mathfrak{M}_m$.
-
-The two routes from the aligned Wannier operators to the reduced impurity operator define the impurity-extraction commutativity test:
-
-$$
-\begin{aligned}
-\text{Wannier route:}\qquad
-&
-\left(
-\mathbf{H}_{\mathrm{W},d},
-\mathbf{H}_{\mathrm{W},b}
-\right)
-\longrightarrow
-\Delta\mathbf{H}_{\mathrm{W},d}
-\longrightarrow
-\Delta\mathbf{H}_{\mathrm{red},d},
-\\[4pt]
-\text{reduced route:}\qquad
-&
-\left(
-\mathbf{H}_{\mathrm{W},d},
-\mathbf{H}_{\mathrm{W},b}
-\right)
-\longrightarrow
-\left(
-\mathbf{H}_{\mathrm{red},d},
-\mathbf{H}_{\mathrm{red},b}
-\right)
-\longrightarrow
-\Delta\mathbf{H}_{\mathrm{red},d}.
-\end{aligned}
-$$
-
-Gauge transformations at the projected and Wannier levels define the gauge-equivariance test. Comparisons between independently selected spectral and operator representatives may additionally define a path-consistency defect, but this remains secondary to the admissible-set intersection test.
-
-The computational program is therefore
+These tests convert the diagram into a computational research program:
 
 $$
 \boxed{
-\text{define the reductions}
+\text{define the paths}
 \longrightarrow
-\text{align their representations}
+\text{align their outputs}
 \longrightarrow
-\text{test compatibility, commutativity, and equivariance}
+\text{measure their defects}
 \longrightarrow
-\text{identify their validity domains}
+\text{identify the validity domain}
 }.
 $$
+
 ## Research Claims Supported by This Structure
 
 The categorical organization can support claims of the following form:
 
 1. a reduction is invariant or stable under an admissible change of representation;
-2. two independently constructed reduction routes produce equivalent low-energy operators within stated tolerances;
+2. inverse spectral and direct aligned-operator reconstructions admit a common low-energy operator within stated tolerances;
 3. impurity extraction and model reduction commute within a quantified defect;
 4. a hierarchy of reductions composes with a controlled error-propagation law;
 5. a reduction procedure transfers across a stated family of physical systems.
@@ -961,13 +950,13 @@ The categorical layer becomes substantive only after the reduction maps and thei
 $$
 \varepsilon_{\mathrm{g}},
 \qquad
-\varepsilon_{\mathrm{path}}^{\mathrm{TB}},
+d_{H,m},
 \qquad
 \varepsilon_{\mathrm{ext},d},
 \qquad
 \varepsilon_{\mathrm{comm}},
 $$
 
-which quantify gauge equivariance, tight-binding path consistency, compatibility of impurity extraction with reduction, and general path independence, respectively.
+which quantify gauge equivariance, separation of the spectral- and operator-admissible Hamiltonian sets, compatibility of impurity extraction with reduction, and general path independence, respectively.
 
 If these quantities remain controlled across a defined family of systems, the computational results may support a formal theory of composable operator reductions. If they do not, the failures identify where representation dependence, model-class restriction, or nonlinear fitting obstructs such a theory.

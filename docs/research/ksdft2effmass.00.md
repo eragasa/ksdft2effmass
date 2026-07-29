@@ -43,25 +43,28 @@ flowchart TD
 
 ## Core Documents
 
-| Note                            | Purpose                                                                           | Status          |
-| ------------------------------- | --------------------------------------------------------------------------------- | --------------- |
-| [[ksdft2effmass.research_plan]] | Long-term vision, research objectives, mathematical program, and project planning | Active          |
-| [[ksdft2Effmass.hierarchy]]     | Detailed operator hierarchy and epistemic role of each model level                | Extracted       |
-| [[ksdft2Effmass.01]]            | Starting from the Kohn-Sham operator                                              | Next extraction |
-| [[ksdft2Effmass.02]]            | Mathematical setting: state spaces, projectors, and projected operators           | Planned         |
-| [[ksdft2Effmass.03]]            | Wannier construction and localized operator representations                       | Planned         |
-| [[ksdft2Effmass.04]]            | Alignment, gauge, and comparison of projected operators                           | Planned         |
-| [[ksdft2Effmass.05]]            | Bulk-silicon Wannier-to-tight-binding operator reduction                          | Planned         |
-| [[ksdft2Effmass.06]]            | First-principles impurity-operator extraction                                     | Planned         |
-| [[ksdft2Effmass.07]]            | Hierarchy of reduced impurity models                                              | Planned         |
-| [[ksdft2Effmass.08]]            | Operator, subspace, spectral, and observable error metrics                        | Planned         |
-| [[ksdft2Effmass.09]]            | Continuum reduction and the atomistic-to-continuum crossover                      | Planned         |
-| [[ksdft2Effmass.10]]            | Category-theoretic organization of operator reductions                            | Deferred        |
+| Note | Purpose | Status |
+|---|---|---|
+| [[ksdft2effmass.research_plan]] | Long-term vision, research objectives, mathematical program, and project planning | Active |
+| [[ksdft2Effmass.hierarchy]] | Detailed operator hierarchy and epistemic role of each model level | Extracted |
+| [[ksdft2Effmass.01]] | Starting from the Kohnâ€“Sham operator | Extracted |
+| [[ksdft2Effmass.02]] | Mathematical setting: Bloch state spaces, projectors, and projected operators | Extracted |
+| [[ksdft2Effmass.03]] | Wannier construction and localized operator representations | Extracted |
+| [[ksdft2Effmass.04]] | Alignment, gauge, and comparison of projected operators | Extracted |
+| [[ksdft2Effmass.05]] | Compatibility of bulk-silicon spectral and aligned-operator reconstructions | Drafted |
+| [[ksdft2Effmass.06]] | First-principles impurity-operator extraction | Drafted |
+| [[ksdft2Effmass.07]] | Hierarchy of reduced impurity models | Drafted |
+| [[ksdft2Effmass.08]] | Operator, subspace, spectral, and observable error metrics | Drafted |
+| [[ksdft2Effmass.09]] | Continuum reduction and the atomistic-to-continuum crossover | Drafted |
+| [[ksdft2Effmass.10]] | Category-theoretic organization of operator reductions | Drafted |
 
 [[ksdft2Effmass.computational.00]]
 [[ksdft2Effmass.computational-task.template]]
 
 ## Computational Projects
+- [[ksdft2Effmass.computational.00]]: computational dependency graph and executable task decomposition;
+- [[ksdft2Effmass.papers.00]]: separate publication pipeline driven by completed computational gates.
+
 
 ### Bulk-Silicon Operator Reduction
 
@@ -98,17 +101,19 @@ For dopant $d\in\{\mathrm P,\mathrm B\}$:
 
 ### Active
 
-- bulk-silicon DFT-to-Wannier and Wannier-to-tight-binding operator reduction;
+- bulk-silicon DFT-to-Wannier construction and parallel tight-binding reconstructions;
+- compatibility analysis of the spectral- and aligned-operator-admissible sets;
 - decomposition of the research plan into focused notes;
 - definition of common state spaces, operator residuals, and validation metrics.
-
 ### Next
 
-- extract [[ksdft2Effmass.01]];
+- validate [[ksdft2Effmass.05]] against the bulk-silicon computational pilot;
+- test identifiability of each prescribed $sp^3s^*$ model class from the retained spectral data;
+- determine whether the spectral- and aligned-operator-admissible sets intersect;
+- evaluate the path-consistency and gauge-equivariance defects defined in [[ksdft2Effmass.10]];
 - freeze the bulk-silicon computational specification;
 - construct and validate the bulk Wannier Hamiltonian;
 - define the first $sp^3s^*$ tight-binding operator class.
-
 ### Deferred
 
 - doped-supercell calculations;

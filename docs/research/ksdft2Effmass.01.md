@@ -1,5 +1,5 @@
-back_to: [[ksdft2effmass.00]]
 # The Kohn–Sham Operator as the Computational Starting Point
+back_to: [[ksdft2effmass.00]]
 ## Scope of the Electronic-Structure Description
 The operator reductions developed in this dissertation are conditional on a parent electronic-structure description. The parent object is the self-consistent effective one-particle operator obtained from a Kohn–Sham density-functional calculation. Subsequent claims of operator, spectral, or state fidelity are therefore claims relative to this specified first-principles reference.
 
@@ -58,7 +58,7 @@ N
 $$
 with spin variables suppressed. The many-electron wavefunction depends on $3N$ spatial coordinates in addition to spin, and its representation in a finite one-particle basis grows combinatorially with system size. This scaling motivates a reformulation in terms of reduced variables.
 ## Density-Functional and Kohn–Sham Formulation
-For a nondegenerate ground state, the Hohenberg–Kohn results establish that the ground-state density determines the external potential up to an additive constant and that the ground-state energy follows from a variational density functional [1]. Kohn and Sham introduced an auxiliary noninteracting system constructed to reproduce the interacting ground-state density [2].
+For a nondegenerate ground state, the Hohenberg–Kohn results establish that the ground-state density determines the external potential up to an additive constant and that the ground-state energy follows from a variational density functional [^1]. Kohn and Sham introduced an auxiliary noninteracting system constructed to reproduce the interacting ground-state density [^2].
 
 Subject to the required representability conditions, the conceptual relation may be written as
 $$
@@ -105,7 +105,7 @@ where:
 - $\hat V_{\mathrm H}[n]$ is the Hartree potential;
 - $\hat V_{\mathrm{xc}}[n]$ is the exchange-correlation potential
 
-The nonlocal ionic contribution is retained explicitly because nonlocal operator structure may already be present before any hybrid-functional, DFT+$U$, projection, or model-reduction step [4].
+The nonlocal ionic contribution is retained explicitly because nonlocal operator structure may already be present before any hybrid-functional, DFT+$U$, projection, or model-reduction step [^4].
 
 For a continuous Brillouin-zone representation, the density is
 $$
@@ -208,7 +208,7 @@ $$
 	\quad \overset{\text{Wannier representation}}{\longleftrightarrow}
 	\quad \mathbf{H}_{\mathrm{W}}.
 $$
-For an isolated band subspace, Wannierization changes the basis but preserves the projected operator up to unitary equivalence [5]. When the target bands are entangled with other bands, a disentanglement procedure first selects an optimized subspace and thereby modifies the projector itself [6]. The detailed construction, localization functional, and gauge dependence are developed in [[ksdft2Effmass.03]].
+For an isolated band subspace, Wannierization changes the basis but preserves the projected operator up to unitary equivalence [^5]. When the target bands are entangled with other bands, a disentanglement procedure first selects an optimized subspace and thereby modifies the projector itself [^6]. The detailed construction, localization functional, and gauge dependence are developed in [[ksdft2Effmass.03]].
 ## Adopted Reduction Chain
 The sequence analyzed in the dissertation is
 $$
@@ -232,10 +232,12 @@ The arrows have different meanings:
 | $\mathbf H_{\mathrm W}\rightarrow\mathbf H_{\mathrm{red}}$       | Restriction of operator content         | Introduces a lattice-model approximation        |
 | $\mathbf H_{\mathrm{red}}\rightarrow\hat H_{\mathrm{continuum}}$ | Coarse-graining or asymptotic reduction | Changes the state space and spatial description |
 The first two steps establish the localized first-principles reference from which the later bulk and impurity operator reductions are defined.
+
+The lattice-model step is not restricted to a single fitting procedure. In [[ksdft2Effmass.05]], the same validated localized reference supplies both the spectral observations used in an inverse tight-binding reconstruction and the matrix elements used in a direct aligned-operator reconstruction. Sufficiently complete spectral information may identify an operator within a restricted model class. The computational question is whether the finite spectral constraints and the aligned-operator constraints admit a common reduced Hamiltonian
 #### References
-[1] P. Hohenberg and W. Kohn, “Inhomogeneous electron gas,” *Phys. Rev.*, vol. 136, pp. B864–B871, 1964, doi: 10.1103/PhysRev.136.B864.
-[2] W. Kohn and L. J. Sham, “Self-consistent equations including exchange and correlation effects,” *Phys. Rev.*, vol. 140, pp. A1133–A1138, 1965, doi: 10.1103/PhysRev.140.A1133.
-[3] L. J. Sham and M. Schlüter, “Density-functional theory of the energy gap,” *Phys. Rev. Lett.*, vol. 51, pp. 1888–1891, 1983, doi: 10.1103/PhysRevLett.51.1888.
-[4] L. Kleinman and D. M. Bylander, “Efficacious form for model pseudopotentials,” *Phys. Rev. Lett.*, vol. 48, pp. 1425–1428, 1982, doi: 10.1103/PhysRevLett.48.1425.
-[5] N. Marzari and D. Vanderbilt, “Maximally localized generalized Wannier functions for composite energy bands,” *Phys. Rev. B*, vol. 56, pp. 12847–12865, 1997, doi: 10.1103/PhysRevB.56.12847.
-[6] I. Souza, N. Marzari, and D. Vanderbilt, “Maximally localized Wannier functions for entangled energy bands,” *Phys. Rev. B*, vol. 65, Art. no. 035109, 2001, doi: 10.1103/PhysRevB.65.035109.
+[^1]: P. Hohenberg and W. Kohn, “Inhomogeneous electron gas,” *Phys. Rev.*, vol. 136, pp. B864–B871, 1964, doi: 10.1103/PhysRev.136.B864.
+[^2]: W. Kohn and L. J. Sham, “Self-consistent equations including exchange and correlation effects,” *Phys. Rev.*, vol. 140, pp. A1133–A1138, 1965, doi: 10.1103/PhysRev.140.A1133.
+[^3]: L. J. Sham and M. Schlüter, “Density-functional theory of the energy gap,” *Phys. Rev. Lett.*, vol. 51, pp. 1888–1891, 1983, doi: 10.1103/PhysRevLett.51.1888.
+[^4]: L. Kleinman and D. M. Bylander, “Efficacious form for model pseudopotentials,” *Phys. Rev. Lett.*, vol. 48, pp. 1425–1428, 1982, doi: 10.1103/PhysRevLett.48.1425.
+[^5]: N. Marzari and D. Vanderbilt, “Maximally localized generalized Wannier functions for composite energy bands,” *Phys. Rev. B*, vol. 56, pp. 12847–12865, 1997, doi: 10.1103/PhysRevB.56.12847.
+[^6]: I. Souza, N. Marzari, and D. Vanderbilt, “Maximally localized Wannier functions for entangled energy bands,” *Phys. Rev. B*, vol. 65, Art. no. 035109, 2001, doi: 10.1103/PhysRevB.65.035109.
