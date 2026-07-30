@@ -52,7 +52,7 @@ The Python package will provide tools for:
 
 - importing DFT and Wannier outputs;
 - representing Hamiltonians, bases, projectors, and state spaces;
-- recording finite operator matrices through the public `ksdft2effmass.operators` API and its versioned operator-record dictionary serialization format (`schema_version = 1`);
+- recording finite operator matrices through the public `ksdft2effmass.operators` API and its versioned operator-record JSON text serialization format (`schema_version = 1`);
 - aligning pristine and doped Wannier subspaces;
 - extracting and reducing impurity operators;
 - solving reduced lattice and continuum models;

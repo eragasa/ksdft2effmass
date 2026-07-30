@@ -1,3 +1,11 @@
+"""Software-verification tests for the public operator-record API.
+
+These tests exercise object construction, invariants, numerical policies, and
+serialization or comparison contracts for maintained first-party Python code.
+They are software verification checks and do not constitute scientific
+validation of a represented Hamiltonian or reduced model.
+"""
+
 from typing import Any
 
 import numpy as np

@@ -1,3 +1,11 @@
+"""Software-verification tests for the public operator-record API.
+
+These tests exercise object construction, invariants, numerical policies, and
+serialization or comparison contracts for maintained first-party Python code.
+They are software verification checks and do not constitute scientific
+validation of a represented Hamiltonian or reduced model.
+"""
+
 from collections.abc import Mapping
 from typing import Any
 
@@ -164,7 +172,9 @@ def test_operator_record_is_unhashable() -> None:
     ],
 )
 def test_matrix_intrinsic_invariants(matrix: Any, message: str) -> None:
-    with pytest.raises((TypeError, ValueError), match=message):
+    expected_error = TypeError if message == "numeric" else ValueError
+
+    with pytest.raises(expected_error, match=message):
         make_record(matrix)
 
 

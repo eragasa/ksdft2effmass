@@ -255,7 +255,7 @@ ActionObjects perform explicit transformations, analyses, validation procedures,
 or external representations. They own numerical or algorithmic policy, accept
 DataObjects as inputs, return a DataObject or explicit ResultObject, avoid
 hidden mutation and global state, and expose a clear domain verb such as
-`execute()`, `encode()`, or `decode()`.
+`execute()`, `serialize()`, or `deserialize()`.
 
 A Workflow is a concrete ActionObject that encapsulates a reusable,
 scientifically or computationally meaningful sequence of actions. Workflow
@@ -289,6 +289,26 @@ Do not create generic dumping grounds such as `utils.py`, `helpers.py`,
 `common.py`, or `misc.py`. "No dangling helper functions" means every
 nontrivial operation needs an explicit and documented domain owner; it does not
 mean that every mathematical function must be wrapped artificially in a class.
+Module-level field validators are prohibited in maintained operator-record
+source; intrinsic validation belongs to the owning DataObject or ResultObject,
+ActionObject policy validation belongs to the ActionObject, and serializer wire
+validation belongs to the serializer.
+
+Maintained DataObjects and ResultObjects are operationally immutable: callers
+must not be able to mutate public arrays or nested metadata through ordinary
+public APIs such as `record.matrix.setflags(write=True)`. Public scalar APIs must
+reject booleans for numeric semantics, reject numeric strings, define accepted
+Python and NumPy scalar types, canonicalize accepted scalars to built-in Python
+types, and handle conversion overflow under the documented exception taxonomy.
+Dimensional quantities carry explicit units owned by the relevant object or
+ActionObject; no implicit unit conversion is authorized. Runtime acceptance,
+static annotations, documentation, tests, schemas, and intended Rust mappings
+must agree. Public enum and structured-error states must be reachable from
+independently valid public objects; normal tests must not fabricate invalid
+states with `object.__setattr__`, monkey patching, or invariant bypasses.
+Numerical norm implementations must be scale-safe and tested at extreme scales.
+Sphinx `:undoc-members:` must not be used to conceal missing source
+documentation.
 
 New architecture must remain translatable to Rust using structs for DataObjects
 and ResultObjects, structs with `impl` blocks for ActionObjects, constructors
@@ -405,7 +425,8 @@ python/src/ksdft2effmass/operators/
 ├── __init__.py
 ├── records.py
 ├── hermiticity.py
-└── serialization.py
+├── serialization.py
+└── comparison.py
 ```
 
 Architectural decisions for that work:
@@ -421,6 +442,7 @@ Architectural decisions for that work:
 - Geometry validation belongs to `Geometry`.
 - State-space validation belongs to `StateSpace`.
 - Exact equality belongs to the DataObject.
+- Current comparison is exact fixed-representation comparison of two already-compatible finite `OperatorRecord` matrices by `OperatorRecordComparator`; it computes maximum-entry, Frobenius, and spectral residual norms for `H_candidate - H_reference` in the common energy unit and does not perform basis alignment, gauge alignment, energy-zero alignment, unit conversion, geometry transformation, approximate metadata matching, physical-equivalence determination, or scientific validation.
 - Approximate or physically aligned comparison is a separate future ActionObject.
 - The public API is exported from `ksdft2effmass.operators`.
 - Sphinx documentation and tests are required parts of completion.
@@ -537,6 +559,48 @@ Define symbols when introduced. Distinguish among:
 4. the software implementation.
 
 Use direct technical prose. Avoid promotional language and unsupported claims.
+
+### Source documentation standard
+
+Every maintained first-party Python module under `python/src/ksdft2effmass/` must
+be auditable by a researcher from its source documentation. Module docstrings
+must state the software or scientific purpose, represented mathematical objects,
+physical and numerical scope, equations, units, assumptions, invariants,
+exclusions, neighboring modules, and software-verification versus
+scientific-validation boundaries where applicable.
+
+Every public DataObject, ResultObject, ActionObject, enum, exception, property,
+and method must have complete NumPy-style source documentation. Dataclass fields
+must be documented individually with scientific meaning, mathematical symbols
+when applicable, types, units, allowed values, invariants, canonicalization, and
+relationships to other fields. Private methods and private attributes must also
+be documented: private visibility does not permit scientific meaning, numerical
+policy, compatibility policy, validation rules, or public contract details to
+exist only in implementation details. Cross-object private-method calls remain
+prohibited.
+
+Scientifically, numerically, or architecturally meaningful local variables need
+nearby comments explaining their role, invariant, or algorithmic purpose.
+Document transformed or canonicalized values, residuals, norms, singular values,
+validation state, compatibility findings, unit conversions, array shapes,
+coordinate transforms, and deterministic ordering state. Comments must explain
+meaning rather than paraphrase assignments.
+
+Validation-rule documentation follows the repository error taxonomy: `TypeError`
+for wrong semantic type and `ValueError` for correct semantic type violating an
+invariant. Boolean values must not be accepted as integers or real numbers unless
+Boolean semantics are intended. Numeric strings must not be silently converted.
+Accepted NumPy scalar values must be documented and canonicalized to built-in
+Python scalar types at public Python/Rust boundaries.
+
+Source docstrings, tests, schemas, fixtures, Sphinx API pages, Sphinx concept
+pages, examples, and architecture documents must describe the same behavior. No
+maintained-source task is complete until public and private source documentation
+is complete, meaningful local state is explained, mathematical notation maps to
+implementation names, Sphinx matches source behavior, examples are verified or
+covered by tests, Sphinx builds with warnings as errors, and read-only
+documentation review has no unresolved material findings. See
+`docs/development/source-documentation.rst` for the operational standard.
 
 Verify references against primary sources before adding them.
 

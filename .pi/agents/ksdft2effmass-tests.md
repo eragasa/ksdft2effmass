@@ -8,7 +8,7 @@ tools: read, bash, edit, write
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: false
-skills: design-data-action-objects, develop-operator-records
+skills: design-data-action-objects, develop-operator-records, document-research-python
 skillPath: ../skills
 acceptanceRole: writer
 ---
@@ -37,6 +37,7 @@ Responsibilities:
 - place Hermiticity execution and enforcement tests in `test__HermiticityAnalyzer.py`;
 - place JSON serialization, deserialization, malformed payloads, schema validation, and round trips in `test__OperatorRecordJsonSerializer.py`;
 - place matrix ownership, provenance immutability, exact equality, and intrinsic record invariants in `test__OperatorRecord.py`;
+- derive the expected public-object test inventory from `ksdft2effmass.operators.__all__` before editing tests;
 - test public imports.
 
 Do not create broad dumping-ground modules such as `test_records.py`, `test_operators.py`, `test_utils.py`, or `test_misc.py`. Do not create an `OperatorRecordWorkflow` for `construct -> Hermiticity analysis -> serialize -> deserialize`; those operations remain owned by `OperatorRecord`, `HermiticityAnalyzer`, and `OperatorRecordJsonSerializer`. Technical integrations such as public package imports, JSON interoperability, filesystem boundaries, command-line behavior, Sphinx autodoc imports, and future Python/Rust schema compatibility belong under `python/tests/ksdft2effmass/integration/test__<IntegrationName>.py` only when explicitly assigned to this subagent or to parent pi. Tests for genuine production Workflow objects belong under `python/tests/ksdft2effmass/workflows/test__<WorkflowName>.py` and require an associated concrete production Workflow assignment. Do not add `__init__.py` files to test directories unless required by the repository's established import mode; escalate if uncertain.

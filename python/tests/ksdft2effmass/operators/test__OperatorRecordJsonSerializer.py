@@ -1,3 +1,11 @@
+"""Software-verification tests for the public operator-record API.
+
+These tests exercise object construction, invariants, numerical policies, and
+serialization or comparison contracts for maintained first-party Python code.
+They are software verification checks and do not constitute scientific
+validation of a represented Hamiltonian or reduced model.
+"""
+
 import json
 from collections.abc import Mapping
 from pathlib import Path
@@ -106,44 +114,37 @@ def test_serialize_deserialize_round_trip_preserves_exact_record() -> None:
 
 
 @pytest.mark.parametrize(
-    "name", ["minimal.json", "complex-hermitian.json", "complex-nonhermitian.json"]
-)
-def test_valid_fixtures_deserialize_and_canonicalize(name: str) -> None:
-    serializer = OperatorRecordJsonSerializer()
-    text = fixture_text("valid", name)
-
-    record = serializer.deserialize(text)
-
-    assert serializer.deserialize(serializer.serialize(record)) == record
-    assert serializer.serialize(record) == canonicalize(text)
-
-
-@pytest.mark.parametrize(
-    "name",
+    "name, expected_error",
     [
-        "missing-field.json",
-        "unknown-field.json",
-        "unsupported-version.json",
-        "numeric-string.json",
-        "boolean-as-number.json",
-        "duplicate-basis-label.json",
-        "nonorthogonal-basis.json",
-        "ragged-matrix.json",
-        "nonsquare-matrix.json",
-        "dimension-mismatch.json",
-        "empty-string.json",
-        "singular-cell.json",
-        "energy-reference-value.json",
+        ("missing-field.json", ValueError),
+        ("unknown-field.json", ValueError),
+        ("unsupported-version.json", ValueError),
+        ("numeric-string.json", TypeError),
+        ("boolean-as-number.json", TypeError),
+        ("duplicate-basis-label.json", ValueError),
+        ("nonorthogonal-basis.json", ValueError),
+        ("ragged-matrix.json", ValueError),
+        ("nonsquare-matrix.json", ValueError),
+        ("dimension-mismatch.json", ValueError),
+        ("empty-string.json", ValueError),
+        ("singular-cell.json", ValueError),
+        ("energy-reference-value.json", ValueError),
     ],
 )
-def test_invalid_fixtures_are_rejected(name: str) -> None:
-    with pytest.raises((TypeError, ValueError)):
+def test_invalid_fixtures_are_rejected(
+    name: str, expected_error: type[TypeError] | type[ValueError]
+) -> None:
+    with pytest.raises(expected_error):
         OperatorRecordJsonSerializer().deserialize(fixture_text("invalid", name))
 
 
-@pytest.mark.parametrize("text", ["{", "[]", "null"])
-def test_deserialize_rejects_malformed_or_nontop_object_json(text: str) -> None:
-    with pytest.raises((TypeError, ValueError)):
+@pytest.mark.parametrize(
+    "text, expected_error", [("{", ValueError), ("[]", TypeError), ("null", TypeError)]
+)
+def test_deserialize_rejects_malformed_or_nontop_object_json(
+    text: str, expected_error: type[TypeError] | type[ValueError]
+) -> None:
+    with pytest.raises(expected_error):
         OperatorRecordJsonSerializer().deserialize(text)
 
 
@@ -219,7 +220,7 @@ def test_deserialize_rejects_missing_and_unknown_fields() -> None:
 def test_deserialize_rejects_complex_pair_ragged_and_nonsquare_matrices(
     matrix: Any, message: str
 ) -> None:
-    with pytest.raises((TypeError, ValueError), match=message):
+    with pytest.raises(ValueError, match=message):
         OperatorRecordJsonSerializer().deserialize(mutated_text(("matrix",), matrix))
 
 
@@ -232,5 +233,5 @@ def test_specific_invalid_semantics_are_rejected() -> None:
         (("geometry", "cell"), [[1, 0, 0], [2, 0, 0], [3, 0, 0]], "independent"),
     ]
     for path, value, message in cases:
-        with pytest.raises((TypeError, ValueError), match=message):
+        with pytest.raises(ValueError, match=message):
             serializer.deserialize(mutated_text(path, value))

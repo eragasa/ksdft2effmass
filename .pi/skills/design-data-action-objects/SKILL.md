@@ -32,9 +32,11 @@ class SpectrumWindow:
     emin: float
     emax: float
 
+
 @dataclass(frozen=True, slots=True)
 class WindowProjector:
     tolerance: float
+
     def execute(self, bands: BandSet, window: SpectrumWindow) -> ProjectionResult: ...
 ```
 
@@ -42,8 +44,25 @@ Negative:
 
 ```python
 class OperatorRecord:
-    def to_dict(self): ...          # serialization belongs to a codec
-    def require_hermitian(self): ... # tolerance policy belongs to an analyzer
+    def to_dict(self): ...  # serialization belongs to a serializer ActionObject
+    def require_hermitian(self): ...  # tolerance policy belongs to an analyzer
 ```
 
 Avoid new abstract base classes until several real implementations require the same interface.
+
+## Corrective operator-record policy
+
+DataObjects and ResultObjects are operationally immutable: public arrays and
+nested metadata must not be mutable through ordinary public APIs such as
+``setflags(write=True)``.  Intrinsic validation belongs to the owning object,
+relational compatibility belongs to a named ActionObject, and policy validation
+with units belongs to the ActionObject that owns the policy.  Public enum and
+error states must be reachable from independently valid public objects; tests
+must not manufacture invalid states with ``object.__setattr__`` or monkey
+patching.  Public Python, documented Rust mapping, runtime acceptance, tests,
+schemas, and Sphinx documentation must agree on stored types and structured
+errors.  Module-level field validators and generic helper modules remain
+prohibited; limited owner-local duplication is preferred.  Numerical norms and
+residual computations must be scale-safe and must surface structured numerical
+errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file
+evidence, commands, findings, and a PASS or FAIL conclusion.

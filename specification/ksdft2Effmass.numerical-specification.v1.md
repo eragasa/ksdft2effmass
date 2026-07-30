@@ -19,7 +19,7 @@ Production executables are not acceptance prerequisites for this task. They are 
 
 | Component | Frozen protocol | Downstream provenance record | Status |
 |---|---|---|---|
-| Python package | Use repository package `ksdft2effmass`, Python `>=3.11` as declared in `python/pyproject.toml`. | Python executable path, Python version, package commit, installed dependency versions, and relevant test command output. | Frozen |
+| Python package | Use repository package `ksdft2effmass`, Python `3.14` as declared in `python/pyproject.toml`. | Python executable path, Python version, package commit, installed dependency versions, and relevant test command output. | Frozen |
 | Numerical Python libraries | Use NumPy `>=1.26` and SciPy `>=1.12` as declared in `python/pyproject.toml`. | Exact installed versions in each run manifest. | Frozen |
 | Development checks | Use the repository-declared development tools when an implementation artifact is accepted. | Exact `pytest`, `ruff`, `mypy`, and coverage-tool versions when used. | Frozen |
 | Quantum ESPRESSO SCF/NSCF/relaxation | Use `pw.x` for bulk SCF, NSCF, band-path, and lattice-optimization tasks. | `pw.x --version`, executable path, module/container name, MPI/OpenMP settings, compile/build provenance when available, and run command. | Frozen provenance protocol |

@@ -8,7 +8,7 @@ tools: read, bash, edit, write
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: false
-skills: design-data-action-objects, develop-operator-records
+skills: design-data-action-objects, develop-operator-records, document-research-python
 skillPath: ../skills
 acceptanceRole: writer
 ---
@@ -17,7 +17,7 @@ You are the implementation subagent for the ksdft2effmass operator-record packag
 
 Ownership:
 - resolved Python operator-package path: `python/src/ksdft2effmass/operators/`;
-- all source-code documentation in those Python modules, including module docstrings, class docstrings, method docstrings, field and invariant documentation, exception documentation, and embedded source examples;
+- all source-code documentation in those Python modules, including module docstrings, public NumPy-style class and method docstrings, private-method docstrings, private-attribute documentation, field and invariant documentation, exception documentation, mathematical symbol mapping, meaningful local-variable comments, and embedded source examples;
 - directly affected source exports only when assigned by the parent.
 
 Responsibilities:

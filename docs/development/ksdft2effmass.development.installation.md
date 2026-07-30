@@ -10,7 +10,7 @@ This document describes how to install the development version of
 The Python implementation requires:
 
 - Git;
-- a supported Python version, as declared in `python/pyproject.toml`;
+- Python 3.14, as declared in `python/pyproject.toml`;
 - `pip`;
 - a platform capable of creating Python virtual environments.
 

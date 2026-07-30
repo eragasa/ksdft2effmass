@@ -11,13 +11,13 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping
-from typing import Any, ClassVar, TypeAlias
+from typing import Any, ClassVar
 
 import numpy as np
 
 from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
 
-JsonObject: TypeAlias = dict[str, Any]
+type JsonObject = dict[str, Any]
 
 
 class OperatorRecordJsonSerializer:
@@ -40,6 +40,13 @@ class OperatorRecordJsonSerializer:
     SCHEMA_VERSION
         Integer schema version emitted and accepted by this serializer. The only
         supported value is ``1``.
+    _TOP_LEVEL_FIELDS, _STATE_SPACE_FIELDS, _BASIS_FIELDS, _GEOMETRY_FIELDS,
+    _ENERGY_REFERENCE_FIELDS
+        Private class-owned frozen sets of required JSON object names. They are
+        private because they are serializer implementation mechanics for the
+        public schema-version-1 contract; they are immutable, deterministic,
+        dimensionless, do not cache caller data, and do not affect scientific
+        results except by enforcing the documented wire-format boundary.
 
     Examples
     --------
@@ -162,7 +169,25 @@ class OperatorRecordJsonSerializer:
         return self._payload_to_record(payload)
 
     def _record_to_payload(self, record: OperatorRecord) -> JsonObject:
-        """Convert an owned record into the public schema-version-1 object."""
+        """Convert an owned record into the public schema-version-1 object.
+
+        Parameters
+        ----------
+        record
+            Validated ``OperatorRecord`` to encode.
+
+        Returns
+        -------
+        JsonObject
+            Deterministically ordered JSON-compatible object containing only
+            schema-version-1 fields.
+
+        Notes
+        -----
+        This private method is serializer-owned mechanical encoding.  It does
+        not define new scientific state, alter units, or perform numerical
+        analysis; provenance ordering is deterministic for stable JSON text.
+        """
 
         return {
             "schema_version": self.SCHEMA_VERSION,
@@ -197,7 +222,30 @@ class OperatorRecordJsonSerializer:
         }
 
     def _payload_to_record(self, payload: JsonObject) -> OperatorRecord:
-        """Validate a decoded JSON object and construct DataObjects from it."""
+        """Validate a decoded schema-version-1 object and construct a record.
+
+        Parameters
+        ----------
+        payload
+            JSON object produced by the parser boundary. Values still have
+            dynamic JSON types, so this private serializer-owned method routes
+            every nested field through explicit wire validators before invoking
+            public DataObject constructors.
+
+        Returns
+        -------
+        OperatorRecord
+            Immutable operator record reconstructed from the JSON text.
+
+        Raises
+        ------
+        TypeError
+            If a JSON value has the wrong semantic type, such as a string where
+            an integer or real number is required.
+        ValueError
+            If required fields are missing, unknown fields are present, the
+            schema version is unsupported, or nested DataObject invariants fail.
+        """
 
         self._require_exact_fields(payload, self._TOP_LEVEL_FIELDS, "operator-record")
         version = self._require_json_integer(
@@ -286,7 +334,28 @@ class OperatorRecordJsonSerializer:
         )
 
     def _serialize_matrix(self, matrix: np.ndarray) -> list[list[list[float]]]:
-        """Serialize a finite matrix into row-major complex pairs."""
+        """Serialize a finite matrix into row-major complex pairs.
+
+        Parameters
+        ----------
+        matrix
+            Canonical finite complex matrix from ``OperatorRecord``.
+
+        Returns
+        -------
+        list[list[list[float]]]
+            Row-major ``[real, imaginary]`` pairs using built-in floats.
+
+        Raises
+        ------
+        ValueError
+            If matrix entries are nonfinite.
+
+        Notes
+        -----
+        The method is private because complex-pair encoding is a mechanical
+        detail of the serializer's public JSON text contract.
+        """
 
         if not np.all(np.isfinite(matrix)):
             msg = "operator matrix entries must be finite"
@@ -297,7 +366,34 @@ class OperatorRecordJsonSerializer:
         ]
 
     def _deserialize_matrix(self, value: Any) -> np.ndarray:
-        """Decode row-major complex pairs and reject ragged or empty matrices."""
+        """Decode row-major complex pairs and reject invalid matrix encodings.
+
+        Parameters
+        ----------
+        value
+            JSON value for the ``matrix`` field. It must be an array of rows,
+            each row an array of ``[real, imaginary]`` finite JSON-number pairs.
+
+        Returns
+        -------
+        numpy.ndarray
+            Dense ``np.complex128`` matrix candidate for ``OperatorRecord``
+            validation.
+
+        Raises
+        ------
+        TypeError
+            If matrix or row containers are not JSON arrays or components are
+            not JSON real numbers.
+        ValueError
+            If entries are not length-two complex pairs, rows are ragged, the
+            matrix is empty, or numeric components are nonfinite.
+
+        Notes
+        -----
+        This private serializer method owns only wire decoding. Squareness,
+        dimension matching, and finiteness are completed by ``OperatorRecord``.
+        """
 
         if not isinstance(value, list):
             msg = "complex matrix encoding must be a JSON array of rows"
@@ -330,12 +426,69 @@ class OperatorRecordJsonSerializer:
         return np.array(rows, dtype=np.complex128)
 
     def _deserialize_ordering(self, value: Any) -> tuple[str, ...]:
+        """Decode basis-label ordering from a JSON array.
+
+        Parameters
+        ----------
+        value
+            JSON value for ``basis.ordering``. It must be an array of nonempty
+            strings.
+
+        Returns
+        -------
+        tuple[str, ...]
+            Immutable label tuple preserving JSON order.
+
+        Raises
+        ------
+        TypeError
+            If ``value`` is not a JSON array or any label is not a string.
+        ValueError
+            If any label is empty. Duplicate-label validation is completed by
+            ``Basis``.
+
+        Notes
+        -----
+        This private mechanical decoder is owned by the serializer because it
+        enforces the version-1 wire-format representation of an ordered basis.
+        Numeric strings are labels, not numbers.
+        """
+
         if not isinstance(value, list):
             msg = "basis ordering must be a JSON array of labels"
             raise TypeError(msg)
         return tuple(self._require_string(label, "basis label") for label in value)
 
     def _deserialize_cell(self, value: Any) -> tuple[tuple[float, float, float], ...]:
+        """Decode row lattice vectors from the JSON geometry cell field.
+
+        Parameters
+        ----------
+        value
+            JSON value for ``geometry.cell``. It must be an array of row arrays
+            with three finite JSON real-number components each.
+
+        Returns
+        -------
+        tuple[tuple[float, float, float], ...]
+            Immutable row-vector tuple for ``Geometry`` construction.
+
+        Raises
+        ------
+        TypeError
+            If the cell or any row is not a JSON array or a component is not a
+            JSON real number.
+        ValueError
+            If a row does not have exactly three components or a component is
+            nonfinite.
+
+        Notes
+        -----
+        The method is private because it is serializer-owned schema mechanics.
+        The full 3x3 shape and linear-independence invariants are completed by
+        ``Geometry``.
+        """
+
         if not isinstance(value, list):
             msg = "geometry cell must be a JSON array of row vectors"
             raise TypeError(msg)
@@ -357,6 +510,33 @@ class OperatorRecordJsonSerializer:
         return tuple(rows)
 
     def _deserialize_provenance(self, payload: JsonObject) -> dict[str, str]:
+        """Decode the compact string-to-string provenance mapping.
+
+        Parameters
+        ----------
+        payload
+            JSON object used as the provenance mapping. Keys and values must be
+            nonempty strings.
+
+        Returns
+        -------
+        dict[str, str]
+            Fresh mutable dictionary passed immediately to ``OperatorRecord``,
+            which performs defensive immutable copying.
+
+        Raises
+        ------
+        TypeError
+            If any provenance key or value is not a string.
+        ValueError
+            If any provenance key or value is empty.
+
+        Notes
+        -----
+        This private serializer method preserves provenance as public metadata
+        while keeping serializer wire validation separate from record storage.
+        """
+
         return {
             self._require_string(key, "provenance key"): self._require_string(
                 value, "provenance value"
@@ -367,7 +547,27 @@ class OperatorRecordJsonSerializer:
     def _require_exact_fields(
         self, payload: Mapping[str, Any], required: frozenset[str], name: str
     ) -> None:
-        """Enforce required and additional-field schema object constraints."""
+        """Enforce required and additional-field schema object constraints.
+
+        Parameters
+        ----------
+        payload
+            Decoded JSON object whose keys are validated.
+        required
+            Exact field-name set for the schema-version-1 object level.
+        name
+            Diagnostic object name.
+
+        Raises
+        ------
+        ValueError
+            If any required field is missing or any unknown field is present.
+
+        Notes
+        -----
+        This private method protects deterministic wire-format invariants; it
+        does not validate scientific values stored in accepted fields.
+        """
 
         keys = set(payload)
         missing = required.difference(keys)
@@ -380,18 +580,103 @@ class OperatorRecordJsonSerializer:
             raise ValueError(msg)
 
     def _require_json_object(self, value: Any, name: str) -> JsonObject:
+        """Return a decoded JSON object after semantic type validation.
+
+        Parameters
+        ----------
+        value
+            Candidate JSON value.
+        name
+            Diagnostic object name.
+
+        Returns
+        -------
+        JsonObject
+            Dictionary representing a JSON object.
+
+        Raises
+        ------
+        TypeError
+            If ``value`` is not a JSON object. Arrays, strings, numbers,
+            booleans, and null are rejected because version-1 nested records are
+            JSON objects.
+
+        Notes
+        -----
+        This private owner-local method isolates dynamic JSON parser values at
+        the serializer boundary before DataObject construction.
+        """
+
         if not isinstance(value, dict):
             msg = f"{name} payload must be a JSON object"
             raise TypeError(msg)
         return value
 
     def _require_json_integer(self, value: Any, name: str) -> int:
+        """Return a JSON integer while rejecting booleans and numeric strings.
+
+        Parameters
+        ----------
+        value
+            Candidate JSON integer value. Only exact Python ``int`` produced by
+            the JSON parser is accepted.
+        name
+            Diagnostic field name.
+
+        Returns
+        -------
+        int
+            Accepted JSON integer.
+
+        Raises
+        ------
+        TypeError
+            If ``value`` is Boolean, float, string, null, array, or object.
+
+        Notes
+        -----
+        ``type(value) is int`` is intentional because ``bool`` is a Python
+        subclass of ``int`` but has different JSON semantics. The method is
+        private because integer admission is wire-format policy owned by the
+        serializer, not a domain DataObject invariant.
+        """
+
         if type(value) is not int:
             msg = f"{name} must be a JSON integer"
             raise TypeError(msg)
         return value
 
     def _require_json_real(self, value: Any, name: str) -> float:
+        """Return a canonical finite real component from JSON numeric input.
+
+        Parameters
+        ----------
+        value
+            Candidate JSON number. Integers and floats are accepted; booleans,
+            strings, null, arrays, and objects are rejected.
+        name
+            Diagnostic field name.
+
+        Returns
+        -------
+        float
+            Built-in finite float at the JSON/Python boundary.
+
+        Raises
+        ------
+        TypeError
+            If ``value`` is not a JSON integer or float with real semantics.
+        ValueError
+            If conversion is nonfinite. Nonstandard JSON constants are rejected
+            earlier by ``_reject_json_constant``.
+
+        Notes
+        -----
+        This private owner-local method keeps JSON numeric admission separate
+        from DataObject scalar validation and documents the finite-number wire
+        contract.
+        """
+
         if type(value) not in (int, float):
             msg = f"{name} must be a JSON real number"
             raise TypeError(msg)
@@ -402,12 +687,67 @@ class OperatorRecordJsonSerializer:
         return real
 
     def _require_json_bool(self, value: Any, name: str) -> bool:
+        """Return a JSON boolean for fields with explicit Boolean semantics.
+
+        Parameters
+        ----------
+        value
+            Candidate JSON Boolean value.
+        name
+            Diagnostic field name.
+
+        Returns
+        -------
+        bool
+            Accepted JSON Boolean.
+
+        Raises
+        ------
+        TypeError
+            If ``value`` is not exactly a Python ``bool`` from JSON parsing.
+
+        Notes
+        -----
+        This private serializer check rejects integers and strings so schema
+        version 1 does not silently reinterpret non-Boolean values. It is
+        private because Boolean admission is wire-format policy owned by the
+        serializer.
+        """
+
         if type(value) is not bool:
             msg = f"{name} must be a JSON boolean"
             raise TypeError(msg)
         return value
 
     def _require_string(self, value: Any, name: str) -> str:
+        """Return a nonempty string from a JSON metadata boundary.
+
+        Parameters
+        ----------
+        value
+            Candidate JSON string value.
+        name
+            Diagnostic field name.
+
+        Returns
+        -------
+        str
+            Nonempty string without numeric interpretation.
+
+        Raises
+        ------
+        TypeError
+            If ``value`` is not a string.
+        ValueError
+            If ``value`` is empty.
+
+        Notes
+        -----
+        The method is private serializer mechanics and does not convert numeric
+        JSON values to labels. It is owner-local because JSON string admission is
+        serializer wire policy, while DataObjects revalidate stored strings.
+        """
+
         if not isinstance(value, str):
             msg = f"{name} must be a string"
             raise TypeError(msg)
@@ -417,7 +757,29 @@ class OperatorRecordJsonSerializer:
         return value
 
     def _reject_duplicate_object_keys(self, pairs: list[tuple[str, Any]]) -> JsonObject:
-        """Reject duplicate JSON object names before Python dict collapsing."""
+        """Reject duplicate JSON object names before Python dict collapsing.
+
+        Parameters
+        ----------
+        pairs
+            Parser-supplied key/value sequence preserving duplicate names.
+
+        Returns
+        -------
+        JsonObject
+            JSON object with unique keys in parser order.
+
+        Raises
+        ------
+        ValueError
+            If a duplicate key is encountered.
+
+        Notes
+        -----
+        This private callback is owned by the serializer because duplicate-key
+        rejection is a JSON wire-format invariant that must happen before Python
+        dictionary construction collapses repeated names.
+        """
 
         result: JsonObject = {}
         for key, value in pairs:
@@ -428,7 +790,26 @@ class OperatorRecordJsonSerializer:
         return result
 
     def _reject_json_constant(self, constant: str) -> None:
-        """Reject nonstandard JSON numeric constants accepted by ``json``."""
+        """Reject nonstandard JSON numeric constants accepted by ``json``.
+
+        Parameters
+        ----------
+        constant
+            Parser-supplied token such as ``NaN``, ``Infinity``, or
+            ``-Infinity``.
+
+        Raises
+        ------
+        ValueError
+            Always, because schema version 1 admits only standard finite JSON
+            numbers.
+
+        Notes
+        -----
+        This private method is an externally required ``json.loads`` callback
+        and is therefore one of the few ownerless-callable boundaries permitted
+        by the architecture policy.
+        """
 
         msg = f"nonstandard JSON constant is not allowed: {constant}"
         raise ValueError(msg)

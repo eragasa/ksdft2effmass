@@ -1,0 +1,50 @@
+{
+  "name": "operator-record-validation-correction",
+  "description": "Corrective operator-record workflow for the active validation-correction task: recorded contract, control plane, implementation, tests, docs, verification, independent reviews, parent verification, and human final acceptance.",
+  "steps": [
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-architecture",
+      "task": "Recorded contract gate: read .pi/tasks/operator-record-validation-correction.md, AGENTS.md, operator-record skills, and current source/test/docs inventory. Confirm the human decisions are recorded before production changes. Read-only; report PASS or FAIL with files inspected and findings."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-architecture",
+      "task": "Control-plane update review: check AGENTS.md, .pi/skills, .pi/agents, and .pi/chains for the corrective architecture. Include comparison.py, Python 3.14, operational immutability, units, public-state reachability, Rust mapping, no dangling validators, extreme-scale testing, evidence-producing reviews, and writer/non-writer acceptance boundaries. Read-only PASS/FAIL."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-implementation",
+      "task": "Production implementation correction only under python/src/ksdft2effmass/: implement the active corrective contract for records, Hermiticity, compatibility, comparison, serializer-facing exports, source documentation, strict types, operational immutability, scale-safe norms, and structured errors. Do not edit tests or docs. Report files changed and commands run."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-tests",
+      "task": "Object and integration test correction under python/tests/: derive public object inventory from ksdft2effmass.operators.__all__, maintain one principal test module per public object/error, cover records, Hermiticity, compatibility, comparison, serializer, exceptions, reachability, immutability, strict types, and extreme-scale numerical behavior. Do not edit source or docs. Report files changed and commands run."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-documentation",
+      "task": "Sphinx/spec documentation synchronization: inspect source, tests, schemas, and fixtures read-only first, then update maintained docs/spec pages only. Document public objects, units, fixed-representation limits, comparison metrics, norm ordering, numerical failures, structured errors, operational immutability, Rust boundary, and no scientific validation. Remove :undoc-members:. Report files changed and commands run."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-integration-reviewer",
+      "task": "Combined-tree verification review: run or inspect parent-provided verification evidence. Check architecture, implementation, tests, docs, source docs, typing, public imports, obsolete APIs, dangling helpers, private-method calls, invalid-state fabrication, stale terminology, and Sphinx. Read-only PASS/FAIL with module-by-module evidence inventory."
+    },
+    {
+      "parallel": [
+        {
+          "agent": "ksdft2effmass.ksdft2effmass-architecture",
+          "task": "Independent numerical/architecture review: units, numerical definitions, metric ordering, reachability, operational immutability, structured errors, DataObject/ActionObject boundaries, and Rust portability. Read-only PASS/FAIL; do not edit."
+        },
+        {
+          "agent": "reviewer",
+          "task": "Independent test review for python/tests operator-record work: object inventory from __all__, fixtures, exception taxonomy, unsupported-state fabrication, extreme-scale numerical tests, serializer invalid cases. Read-only PASS/FAIL; do not edit."
+        },
+        {
+          "agent": "ksdft2effmass.ksdft2effmass-documentation",
+          "task": "Independent documentation review: source and Sphinx completeness/synchronization, no :undoc-members:, public API/error/unit/comparison descriptions, no scientific validation claims. Read-only PASS/FAIL; do not edit."
+        }
+      ]
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-integration-reviewer",
+      "task": "Final read-only integration review after correction loop: provide files inspected, module/object inventory, commands run, blocker/material/minor findings, residual risks, and exact PASS or FAIL conclusion."
+    }
+  ]
+}

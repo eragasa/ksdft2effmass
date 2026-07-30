@@ -1,3 +1,11 @@
+"""Software-verification tests for the public operator-record API.
+
+These tests exercise object construction, invariants, numerical policies, and
+serialization or comparison contracts for maintained first-party Python code.
+They are software verification checks and do not constitute scientific
+validation of a represented Hamiltonian or reduced model.
+"""
+
 from typing import Any
 
 import numpy as np
@@ -50,7 +58,9 @@ def test_runtime_lists_are_canonicalized_to_tuple_of_float_rows() -> None:
 def test_rejects_malformed_nonfinite_and_rank_deficient_cells(
     cell: Any, message: str
 ) -> None:
-    with pytest.raises(ValueError, match=message):
+    expected_error = TypeError if message == "numeric" else ValueError
+
+    with pytest.raises(expected_error, match=message):
         make_geometry(cell)
 
 

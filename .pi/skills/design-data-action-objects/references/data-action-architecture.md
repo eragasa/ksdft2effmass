@@ -10,7 +10,7 @@ A DataObject must not own serialization workflows, numerical analysis policies, 
 
 ## ActionObjects
 
-ActionObjects perform explicit transformations, analyses, validation procedures, or external representations. An ActionObject owns its numerical or algorithmic policy, accepts DataObjects as inputs, returns a DataObject or explicit ResultObject, avoids hidden mutation and global state, and exposes a clear domain verb such as `execute()`, `encode()`, or `decode()`.
+ActionObjects perform explicit transformations, analyses, validation procedures, or external representations. An ActionObject owns its numerical or algorithmic policy, accepts DataObjects as inputs, returns a DataObject or explicit ResultObject, avoids hidden mutation and global state, and exposes a clear domain verb such as `execute()`, `serialize()`, or `deserialize()`.
 
 A Workflow is a specialized concrete ActionObject that encapsulates a reusable, scientifically or computationally meaningful sequence of actions. Workflow inputs and outputs must be explicit DataObjects or ResultObjects; dependencies must be explicit; Workflows must not rely on hidden global state. Do not introduce a generic Workflow base class unless multiple existing workflows require a real shared interface. Do not treat every integration test as a Workflow. Do not create production Workflow objects solely to provide an owner for tests.
 
@@ -67,3 +67,20 @@ Module-private functions may be used within a module for shared mechanical
 invariants when they have a clear module owner, introduce no hidden scientific
 semantics, and are documented when nontrivial. Do not create generic helper
 modules such as `utils.py`, `helpers.py`, `common.py`, or `misc.py`.
+
+## Corrective operator-record policy
+
+DataObjects and ResultObjects are operationally immutable: public arrays and
+nested metadata must not be mutable through ordinary public APIs such as
+``setflags(write=True)``.  Intrinsic validation belongs to the owning object,
+relational compatibility belongs to a named ActionObject, and policy validation
+with units belongs to the ActionObject that owns the policy.  Public enum and
+error states must be reachable from independently valid public objects; tests
+must not manufacture invalid states with ``object.__setattr__`` or monkey
+patching.  Public Python, documented Rust mapping, runtime acceptance, tests,
+schemas, and Sphinx documentation must agree on stored types and structured
+errors.  Module-level field validators and generic helper modules remain
+prohibited; limited owner-local duplication is preferred.  Numerical norms and
+residual computations must be scale-safe and must surface structured numerical
+errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file
+evidence, commands, findings, and a PASS or FAIL conclusion.

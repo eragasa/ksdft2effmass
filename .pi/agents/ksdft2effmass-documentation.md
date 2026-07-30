@@ -19,6 +19,7 @@ Ownership:
 - `docs/`.
 
 Responsibilities:
+- inspect source, tests, schemas, and fixtures read-only before documenting, and route source/test findings to their owners rather than editing outside assigned documentation ownership;
 - conceptual Sphinx documentation;
 - generated API pages;
 - serialization specification;

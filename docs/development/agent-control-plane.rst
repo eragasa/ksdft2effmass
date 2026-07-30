@@ -82,9 +82,13 @@ Public validation surfaces
 Scientific invariants, conventions, transformations, approximations, and wire
 formats require public documentation and independently executable validation
 surfaces when they become part of the software contract. Examples include public
-schemas, valid and invalid fixtures, object tests, Sphinx documentation, and
-integration review. Private methods may mechanically implement public rules, but
-must not hide scientific semantics.
+source docstrings, public schemas, valid and invalid fixtures, object tests,
+Sphinx documentation, and integration review. Private methods may mechanically
+implement public rules, but must not hide scientific semantics. Maintained-source
+completion gates include complete public and private source documentation,
+meaningful local-state comments, source/Sphinx synchronization, mathematical
+symbol-to-field-name mapping, Python-version consistency, and read-only
+documentation review with no unresolved material findings.
 
 Graphify role
 -------------

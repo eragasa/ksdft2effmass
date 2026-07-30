@@ -18,7 +18,7 @@ python/tests/ksdft2effmass/operators/test__<ObjectName>.py
 
 Tests for genuine production Workflow objects use `python/tests/ksdft2effmass/workflows/test__<WorkflowName>.py`. Technical integration tests that are not domain workflows use `python/tests/ksdft2effmass/integration/test__<IntegrationName>.py`.
 
-Human approval is required before implementation. The human PI is final authority for scientific meaning, mathematical conventions, public API decisions, serialization compatibility, architectural boundaries, backward compatibility, project scope, unresolved validation failures, and final acceptance. Record decisions in `.pi/tasks/operator-record-refactor.md`.
+Human approval is required before implementation. The human PI is final authority for scientific meaning, mathematical conventions, public API decisions, serialization compatibility, architectural boundaries, backward compatibility, project scope, unresolved validation failures, and final acceptance. Record corrective decisions in `.pi/tasks/operator-record-validation-correction.md`; preserve historical refactor evidence.
 
 ## Object responsibilities
 
@@ -32,6 +32,11 @@ Human approval is required before implementation. The human PI is final authorit
 | `HermiticityResult` | ResultObject | Immutable Hermiticity result |
 | `HermiticityAnalyzer` | ActionObject | Hermiticity analysis and enforcement; owns tolerance |
 | `OperatorRecordJsonSerializer` | ActionObject | Versioned JSON text serialization; owns schema-version and complex-matrix mechanics |
+| `OperatorRecordCompatibilityIssue` | ResultObject component | Authoritative compatibility mismatch code with canonical derived description |
+| `OperatorRecordCompatibilityResult` | ResultObject | Tuple-only compatibility issues, derived rule sequence, and derived compatibility status |
+| `OperatorRecordCompatibilityAnalyzer` | ActionObject | Exact compatibility analysis for already-represented records |
+| `OperatorRecordComparisonResult` | ResultObject | Immutable residual metrics for compatible records |
+| `OperatorRecordComparator` | ActionObject | Scale-safe fixed-representation comparison after compatibility audit |
 
 ## Required test modules
 
@@ -58,7 +63,7 @@ Do not create an `OperatorRecordWorkflow` for `construct -> Hermiticity analysis
 - Hermiticity tolerance belongs to `HermiticityAnalyzer`.
 - Hermiticity results are returned as `HermiticityResult`.
 - Serialization belongs to `OperatorRecordJsonSerializer`.
-- Schema-version and complex-matrix helpers belong to the codec.
+- Schema-version and complex-matrix mechanics belong to the JSON serializer.
 - Geometry validation belongs to `Geometry`.
 - State-space validation belongs to `StateSpace`.
 - Exact equality belongs to the DataObject.
@@ -112,7 +117,7 @@ OperatorRecord.from_dict(...)
 Use ActionObjects instead:
 
 ```python
-analyzer = HermiticityAnalyzer(tolerance=...)
+analyzer = HermiticityAnalyzer(tolerance=..., energy_unit="eV")
 result = analyzer.execute(record)
 analyzer.require(record)
 
@@ -155,3 +160,19 @@ allowed only for owned mechanical steps that implement documented schema rules
 and are exercised through `serialize()` and `deserialize()` tests. Source
 docstrings are part of implementation; Sphinx documentation is part of
 completion. Integration review occurs only after combined-tree validation.
+
+## Compatible-record comparison
+
+Current comparison is limited to already-compatible finite ``OperatorRecord``
+representations. It performs no basis alignment, gauge alignment, energy-zero
+alignment, unit conversion, geometry transformation, approximate metadata
+matching, physical-equivalence determination, or scientific validation. For
+compatible records, ``Delta H = H_candidate - H_reference`` and the public
+metrics are maximum absolute entry, Frobenius norm, and spectral norm in the
+common energy unit, satisfying ``0 <= maximum <= spectral <= Frobenius``.
+Implementations must use scale-safe algorithms and raise structured numerical
+errors for nonfinite subtraction, overflow, or linear-algebra failure.
+
+Every public mismatch code must be reachable by comparing independently valid
+records. Because version-1 records require an orthonormal basis, no
+orthonormality-convention mismatch code is public.
