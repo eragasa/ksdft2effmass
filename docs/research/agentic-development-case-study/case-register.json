@@ -1,0 +1,36 @@
+{
+  "case_study": {
+    "title": "Human-governed specification-first agentic development in scientific software",
+    "design": "prospective longitudinal embedded case study",
+    "methodology_reference": {
+      "authors": "Per Runeson and Martin H\u00f6st",
+      "title": "Guidelines for conducting and reporting case study research in software engineering",
+      "venue": "Empirical Software Engineering 14, 131-164 (2009)",
+      "doi": "10.1007/s10664-008-9102-8",
+      "url": "https://doi.org/10.1007/s10664-008-9102-8"
+    },
+    "intended_initial_publication_target": "Computing in Science & Engineering, fully peer-reviewed Software Engineering track",
+    "publication_status": "not submitted"
+  },
+  "episodes": [
+    {
+      "episode_id": "E00",
+      "title": "Operator-record refactor",
+      "study_mode": "retrospective",
+      "role": "pilot",
+      "record_path": "docs/research/agentic-development-case-study/episodes/E00-operator-record/episode.json",
+      "evidence_index": "docs/research/agentic-development-case-study/episodes/E00-operator-record/evidence-index.md"
+    },
+    {
+      "episode_id": "E01",
+      "title": "Graphify Codex/pi integration",
+      "study_mode": "prospective",
+      "role": "case-study episode",
+      "record_path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/episode.json",
+      "checkpoint_path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
+      "status": "accepted",
+      "human_final_acceptance": "accepted",
+      "final_acceptance_date": "2026-07-30"
+    }
+  ]
+}

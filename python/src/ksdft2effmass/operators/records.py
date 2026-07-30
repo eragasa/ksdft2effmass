@@ -1,9 +1,10 @@
-r"""Data objects for finite operator records.
+r"""Data objects for finite represented operator records.
 
 The classes in this module are DataObjects: frozen, slotted dataclasses that own
-only represented data, constructor-time validation, canonicalization of their own
-fields, and exact structural equality.  Workflows such as Hermiticity analysis
-and JSON-compatible serialization live in separate action objects.
+only represented data, intrinsic constructor validation, canonicalization of
+their own fields, and exact structural equality. Numerical analyses such as
+Hermiticity checks and external representations such as JSON-compatible payloads
+live in action objects outside this module.
 """
 
 from __future__ import annotations
@@ -11,7 +12,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import Any, cast
+from typing import Any, ClassVar, cast
 
 import numpy as np
 from numpy.typing import NDArray
@@ -29,21 +30,18 @@ class StateSpace:
     identifier
         Descriptive identifier for the represented finite state space.
     kind
-        Descriptive state-space category.  This is metadata, not a controlled
+        Descriptive state-space category. This is metadata, not a controlled
         vocabulary enforced by the code.
     dimension
-        Positive finite represented dimension ``N``.  Ordinary Python integers
+        Positive finite represented dimension ``N``. Ordinary Python integers
         and NumPy integral types are accepted; Boolean values and floats are
         rejected.
-    domain
-        Description of the represented mathematical or computational domain.
-    codomain
-        Description of the represented target space.
 
     Raises
     ------
     TypeError
-        If ``dimension`` is not an integer or is Boolean.
+        If ``identifier`` or ``kind`` is not a string, or if ``dimension`` is
+        not an integer or is Boolean.
     ValueError
         If ``dimension`` is not positive.
     """
@@ -51,10 +49,10 @@ class StateSpace:
     identifier: str
     kind: str
     dimension: int | np.integer[Any]
-    domain: str
-    codomain: str
 
     def __post_init__(self) -> None:
+        _require_string(self.identifier, "state-space identifier")
+        _require_string(self.kind, "state-space kind")
         if isinstance(self.dimension, bool) or not isinstance(
             self.dimension, int | np.integer
         ):
@@ -72,9 +70,13 @@ class Basis:
     """Ordered basis metadata for a finite matrix representation.
 
     ``ordering[i]`` identifies the basis state associated with row and column
-    index ``i`` of an :class:`OperatorRecord` matrix.  The object records the
-    asserted orthonormality of the basis but does not verify basis vectors,
-    because vectors are not stored.
+    index ``i`` of an :class:`OperatorRecord` matrix. Labels must be nonempty
+    strings and must be unique. The object records the asserted orthonormality
+    of the basis but does not verify basis vectors, because vectors are not
+    stored.
+
+    Schema version 1 operator records require ``orthonormal is True``; that
+    representation-level invariant is enforced by :class:`OperatorRecord`.
     """
 
     identifier: str
@@ -83,9 +85,22 @@ class Basis:
     orthonormal: bool
 
     def __post_init__(self) -> None:
+        _require_string(self.identifier, "basis identifier")
+        _require_string(self.kind, "basis kind")
+        if type(self.orthonormal) is not bool:
+            msg = "basis orthonormal flag must be a Python bool"
+            raise TypeError(msg)
+        if isinstance(self.ordering, str | bytes):
+            msg = "basis ordering must be an iterable of labels, not a string"
+            raise TypeError(msg)
         ordering = tuple(self.ordering)
         if not ordering:
             msg = "basis ordering must not be empty"
+            raise ValueError(msg)
+        for label in ordering:
+            _require_string(label, "basis label")
+        if len(set(ordering)) != len(ordering):
+            msg = "basis ordering labels must be unique"
             raise ValueError(msg)
         object.__setattr__(self, "ordering", ordering)
 
@@ -94,84 +109,124 @@ class Basis:
 class Geometry:
     """Three-dimensional cell and boundary-condition metadata.
 
-    The current model represents a three-dimensional periodic cell.  Lattice
-    vectors are stored as rows: ``cell[i][j]`` is Cartesian component ``j`` of
-    lattice vector ``i``.  Length units must be stated in
-    ``coordinate_convention`` or provenance until a project-wide unit schema is
-    introduced.
+    Lattice vectors are stored as rows: ``cell[i][j]`` is Cartesian component
+    ``j`` of lattice vector ``i``. Every cell component is expressed in
+    ``length_unit``. A cell is accepted only when its singular values satisfy
+    ``sigma_max > 0`` and
+    ``sigma_min > LINEAR_INDEPENDENCE_RTOL * sigma_max``.
     """
+
+    LINEAR_INDEPENDENCE_RTOL: ClassVar[float] = 1.0e-12
 
     system: str
     cell: tuple[tuple[float, float, float], ...]
     boundary_conditions: str
     coordinate_convention: str
+    length_unit: str
 
     def __post_init__(self) -> None:
+        _require_string(self.system, "geometry system")
+        _require_string(self.boundary_conditions, "geometry boundary conditions")
+        _require_string(self.coordinate_convention, "geometry coordinate convention")
+        _require_string(self.length_unit, "geometry length unit")
         object.__setattr__(self, "cell", self._canonicalize_cell(self.cell))
 
-    @staticmethod
+    @classmethod
     def _canonicalize_cell(
+        cls,
         cell: tuple[tuple[float, float, float], ...],
     ) -> tuple[tuple[float, float, float], ...]:
+        if isinstance(cell, str | bytes):
+            msg = "cell must be an iterable of row lattice vectors"
+            raise TypeError(msg)
         try:
-            canonical = tuple(
-                tuple(float(component) for component in row) for row in cell
+            iterator = iter(cell)
+        except TypeError as exc:
+            msg = "cell must be an iterable of row lattice vectors"
+            raise TypeError(msg) from exc
+        canonical_rows: list[tuple[float, ...]] = []
+        for row in iterator:
+            if isinstance(row, str | bytes):
+                msg = "cell rows must be iterables of numeric components"
+                raise TypeError(msg)
+            try:
+                row_iterator = iter(row)
+            except TypeError as exc:
+                msg = "cell rows must be iterables of numeric components"
+                raise TypeError(msg) from exc
+            canonical_rows.append(
+                tuple(
+                    cls._finite_real(component, "cell component")
+                    for component in row_iterator
+                )
             )
-        except (TypeError, ValueError) as exc:
-            msg = "cell must contain finite numeric row lattice vectors"
-            raise ValueError(msg) from exc
+        canonical = tuple(canonical_rows)
         if len(canonical) != 3 or any(len(vector) != 3 for vector in canonical):
             msg = "cell must contain three three-component row lattice vectors"
             raise ValueError(msg)
         cell_array = np.array(canonical, dtype=float)
-        if not np.all(np.isfinite(cell_array)):
-            msg = "cell row lattice vectors must contain only finite values"
-            raise ValueError(msg)
-        if np.linalg.matrix_rank(cell_array) != 3:
-            msg = "cell row lattice vectors must be linearly independent"
+        singular_values = np.linalg.svd(cell_array, compute_uv=False)
+        sigma_max = float(np.max(singular_values))
+        sigma_min = float(np.min(singular_values))
+        if sigma_max <= 0.0 or sigma_min <= cls.LINEAR_INDEPENDENCE_RTOL * sigma_max:
+            msg = "cell row lattice vectors must be sufficiently linearly independent"
             raise ValueError(msg)
         return cast(tuple[tuple[float, float, float], ...], canonical)
+
+    @staticmethod
+    def _finite_real(value: Any, name: str) -> float:
+        if (
+            isinstance(value, bool)
+            or isinstance(value, np.bool_)
+            or not isinstance(value, int | float | np.integer | np.floating)
+        ):
+            msg = f"{name} must be a finite real numeric value"
+            raise ValueError(msg)
+        real = float(value)
+        if not np.isfinite(real):
+            msg = f"{name} must be finite"
+            raise ValueError(msg)
+        return real
 
 
 @dataclass(frozen=True, slots=True)
 class EnergyReference:
     """Energy-zero metadata for a finite operator matrix.
 
-    The stored operator matrix is already expressed relative to ``zero``.
-    ``value`` records the position of that zero in ``unit`` as metadata; it is
-    not an unapplied matrix shift.  Unit conversion and energy alignment are
-    intentionally outside this data object.
+    The stored operator matrix is already expressed relative to ``zero``. The
+    named reference has numerical value zero in the stored matrix coordinate
+    system, and no unapplied offset is stored. Unit conversion and energy
+    alignment are intentionally outside this data object.
     """
 
     zero: str
     unit: str
-    value: float = 0.0
 
     def __post_init__(self) -> None:
-        try:
-            value = float(self.value)
-        except (TypeError, ValueError) as exc:
-            msg = "energy-reference value must be finite numeric metadata"
-            raise ValueError(msg) from exc
-        if not np.isfinite(value):
-            msg = "energy-reference value must be finite"
-            raise ValueError(msg)
-        object.__setattr__(self, "value", value)
+        _require_string(self.zero, "energy-reference zero")
+        _require_string(self.unit, "energy-reference unit")
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class OperatorRecord:
-    r"""Finite matrix realization of an operator with metadata.
+    r"""Finite square matrix representation of an operator with metadata.
 
-    ``OperatorRecord`` represents data only: an owned finite matrix realization
+    ``OperatorRecord`` represents data only: an owned finite matrix
+    representation
 
     .. math::
 
-       \mathbf H : \mathbb C^N \rightarrow \mathbb C^N,
+       \mathbf H \in \mathbb C^{N \times N},
 
-    plus state-space, basis, geometry, energy-reference, and provenance
-    metadata.  It does not store Hermiticity tolerances or analysis results and
-    does not serialize itself.
+    plus state-space, orthonormal basis, geometry, energy-reference, and
+    provenance metadata. It does not store Hermiticity tolerances, analysis
+    results, serialization policy, alignment state, or unit-conversion policy.
+
+    The matrix is copied into owned C-contiguous row-major ``np.complex128``
+    storage and marked non-writeable through the public API. This is API-level
+    immutability for represented data; it is not a claim about NumPy internals
+    outside the public object contract. ``OperatorRecord`` is explicitly
+    unhashable because it owns an array.
     """
 
     identifier: str
@@ -184,7 +239,10 @@ class OperatorRecord:
     provenance: Mapping[str, str]
 
     def __post_init__(self) -> None:
-        matrix = np.array(self.matrix, dtype=np.complex128, copy=True)
+        _require_string(self.identifier, "operator-record identifier")
+        _require_string(self.operator_kind, "operator kind")
+        self._reject_forbidden_matrix_scalars(self.matrix)
+        matrix = np.array(self.matrix, dtype=np.complex128, copy=True, order="C")
         self._validate_matrix(matrix)
         matrix.setflags(write=False)
         object.__setattr__(self, "matrix", matrix)
@@ -230,9 +288,23 @@ class OperatorRecord:
         if len(self.basis.ordering) != self.state_space.dimension:
             msg = "basis ordering length must match state-space dimension"
             raise ValueError(msg)
+        if self.basis.orthonormal is not True:
+            msg = "operator records require an orthonormal basis in schema version 1"
+            raise ValueError(msg)
+
+    @staticmethod
+    def _reject_forbidden_matrix_scalars(matrix: object) -> None:
+        raw = np.asarray(matrix, dtype=object)
+        for value in raw.flat:
+            if isinstance(value, bool | np.bool_ | str | bytes):
+                msg = "operator matrix entries must be numeric, not bool or string"
+                raise TypeError(msg)
 
     @staticmethod
     def _copy_provenance(provenance: Mapping[str, str]) -> Mapping[str, str]:
+        if not isinstance(provenance, Mapping):
+            msg = "provenance must be a mapping from strings to strings"
+            raise TypeError(msg)
         copied = dict(provenance)
         if any(
             not isinstance(key, str) or not isinstance(value, str)
@@ -240,4 +312,16 @@ class OperatorRecord:
         ):
             msg = "provenance keys and values must be strings"
             raise TypeError(msg)
+        if any(key == "" or value == "" for key, value in copied.items()):
+            msg = "provenance keys and values must not be empty"
+            raise ValueError(msg)
         return MappingProxyType(copied)
+
+
+def _require_string(value: object, name: str) -> None:
+    if not isinstance(value, str):
+        msg = f"{name} must be a string"
+        raise TypeError(msg)
+    if value == "":
+        msg = f"{name} must not be empty"
+        raise ValueError(msg)

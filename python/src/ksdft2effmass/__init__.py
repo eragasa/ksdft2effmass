@@ -1,23 +1,7 @@
-"""ksdft2effmass Python reference implementation."""
+"""ksdft2effmass Python reference implementation.
 
-from .operators import (
-    Basis,
-    EnergyReference,
-    Geometry,
-    HermiticityAnalyzer,
-    HermiticityResult,
-    OperatorRecord,
-    OperatorRecordJsonCodec,
-    StateSpace,
-)
+The finite operator-record public API is exported from
+:mod:`ksdft2effmass.operators`.
+"""
 
-__all__ = [
-    "Basis",
-    "EnergyReference",
-    "Geometry",
-    "HermiticityAnalyzer",
-    "HermiticityResult",
-    "OperatorRecord",
-    "OperatorRecordJsonCodec",
-    "StateSpace",
-]
+__all__: list[str] = []

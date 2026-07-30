@@ -1,21 +1,35 @@
 Finite operator records
 =======================
 
-A matrix alone is not enough to identify a represented physical operator.  The
-same array of numbers may describe different scientific objects if it is written
-in a different state space, ordered basis, geometry, unit system, or energy-zero
-convention.  ``ksdft2effmass.operators`` therefore represents operator data with
-explicit metadata and keeps external actions separate from the data object.
+A dense array does not, by itself, identify a represented scientific operator.
+The same numbers can represent different objects when the state space, ordered
+basis, cell convention, energy zero, units, or provenance differ.  The
+``ksdft2effmass.operators`` package therefore records a finite matrix together
+with the comparison-critical metadata needed to interpret that matrix.
+
+This page documents the implemented operator-record model.  It distinguishes
+among the physical model being studied, the mathematical operator, the numerical
+matrix representation, and the Python objects used to store and analyze that
+representation.  Passing the software checks described here is not scientific
+validation of a first-principles calculation or of an effective-mass model.
 
 DataObject/ActionObject architecture
 ------------------------------------
 
-The operator-record implementation follows a concrete DataObject/ActionObject
-style that maps directly to Rust structs and ``impl`` blocks.  Data objects are
-frozen, slotted dataclasses that enforce only their intrinsic invariants.
-Action objects transform or analyze data objects and return explicit result data
-objects.  There are no abstract base classes, inheritance hooks, monkey patches,
-or module-global workflow state.
+Operator records follow the repository DataObject/ActionObject programming
+model.  DataObjects are frozen, slotted dataclasses that own represented data,
+intrinsic validation, canonicalization of their own fields, and exact structural
+equality.  ActionObjects own policies for analyses or external representations.
+The usual flow is
+
+.. code-block:: text
+
+   DataObject --ActionObject--> DataObject or ResultObject
+
+There is intentionally no ``OperatorRecordWorkflow`` for construction,
+Hermiticity analysis, encoding, and decoding.  Construction belongs to the data
+objects, Hermiticity policy belongs to ``HermiticityAnalyzer``, and the wire
+format belongs to ``OperatorRecordJsonSerializer``.
 
 .. list-table:: Responsibilities
    :header-rows: 1
@@ -25,46 +39,45 @@ or module-global workflow state.
      - Responsibility
    * - ``StateSpace``
      - DataObject
-     - Finite state-space metadata
+     - Finite represented state-space metadata
    * - ``Basis``
      - DataObject
      - Ordered basis metadata
    * - ``Geometry``
      - DataObject
-     - Cell and boundary metadata
+     - Three-dimensional cell and boundary metadata
    * - ``EnergyReference``
      - DataObject
-     - Energy-zero metadata
+     - Energy-zero and energy-unit metadata
    * - ``OperatorRecord``
      - DataObject
-     - Matrix and comparison-critical metadata
+     - Finite matrix representation and comparison-critical metadata
    * - ``HermiticityResult``
-     - DataObject
-     - Immutable analysis result
+     - ResultObject
+     - Immutable Hermiticity-analysis result
    * - ``HermiticityAnalyzer``
      - ActionObject
      - Hermiticity analysis and enforcement
-   * - ``OperatorRecordJsonCodec``
+   * - ``OperatorRecordJsonSerializer``
      - ActionObject
-     - Versioned JSON-compatible serialization
+     - Strict versioned JSON-compatible serialization
 
-Hermiticity tolerance belongs to ``HermiticityAnalyzer`` because tolerance is an
-analysis policy, not intrinsic represented data.  Hermiticity results are not
-stored in ``OperatorRecord`` because analyses may be repeated with different
-policies.  Serialization belongs to ``OperatorRecordJsonCodec`` because the wire
-format is an external representation.  This separation maps naturally to Rust as
-field-based structs, associated methods, and explicit ``Result``-like failures.
+Mathematical and numerical convention
+-------------------------------------
 
-Mathematical object
--------------------
-
-An ``OperatorRecord`` represents a finite matrix realization
+An ``OperatorRecord`` represents a finite square matrix realization
 
 .. math::
 
-   \mathbf H : \mathbb C^N \rightarrow \mathbb C^N.
+   \mathbf H \in \mathbb C^{N \times N}
 
-Successful construction enforces
+of an operator acting on one identified finite state space.  The software stores
+the represented matrix, not a basis-independent operator.  Direct physical
+comparison between two records requires a separate future comparison action that
+establishes compatible state spaces, bases, geometries, units, energy zeros, and
+alignment conventions.
+
+Construction enforces
 
 .. math::
 
@@ -81,26 +94,61 @@ and
    N=\operatorname{len}(\texttt{basis.ordering}).
 
 The entry ``basis.ordering[i]`` identifies the basis state associated with row
-and column index ``i``.  The stored matrix is a representation in that ordered
-basis, not a basis-independent operator by itself.
+and column index ``i``.  Schema version 1 requires ``basis.orthonormal is
+True``; nonorthogonal representations, overlap matrices, and generalized
+eigenproblems are outside this refactor.
 
-Metadata roles
---------------
+``OperatorRecord`` copies the supplied matrix into owned, C-contiguous,
+row-major ``numpy.complex128`` storage, rejects nonfinite entries, and marks the
+stored array non-writeable through the public API.  This is API-level
+immutability for the represented data; it is not a statement about all possible
+NumPy internals.  Exact equality uses ``numpy.array_equal`` for the matrix and
+exact equality for metadata.  It is not approximate numerical equivalence,
+gauge-equivalent equality, or physical equality.  ``OperatorRecord`` is
+unhashable because it owns array-valued data.
 
-``StateSpace`` identifies the finite represented vector space and its stated
-domain and codomain.  ``Basis`` identifies the ordered representation and records
-an orthonormality assertion without storing basis vectors.  ``Geometry`` records
-the system, boundary conditions, and three linearly independent row lattice
-vectors: ``cell[i][j]`` is Cartesian component ``j`` of lattice vector ``i``.
-``EnergyReference`` records the energy zero and unit already applied to the
-matrix.  The ``value`` field is metadata associated with the declared zero; it is
-not an unapplied shift.  ``provenance`` is a read-only string-to-string mapping
-for tracing computational context; it does not itself validate a calculation.
+Metadata conventions
+--------------------
+
+``StateSpace(identifier, kind, dimension)``
+   Identifies a finite represented vector space.  ``dimension`` is the positive
+   integer ``N``.  The object does not store separate domain or codomain fields.
+
+``Basis(identifier, kind, ordering, orthonormal)``
+   Identifies the ordered matrix representation.  ``ordering`` is a nonempty
+   tuple of unique nonempty string labels.  The Boolean ``orthonormal`` records
+   an assertion about the basis; basis vectors themselves are not stored.
+
+``Geometry(system, cell, boundary_conditions, coordinate_convention, length_unit)``
+   Records geometric metadata for the representation.  Lattice vectors are rows:
+   ``cell[i][j]`` is Cartesian component ``j`` of lattice vector ``i``.  Every
+   cell component is expressed in ``length_unit``.  The cell must contain three
+   sufficiently linearly independent row vectors.  With singular values
+   ``sigma_min`` and ``sigma_max``, construction accepts only when
+
+   .. math::
+
+      \sigma_{\max} > 0
+      \quad\text{and}\quad
+      \sigma_{\min} > r_{\mathrm{cell}}\sigma_{\max},
+
+   where ``r_cell`` is ``Geometry.LINEAR_INDEPENDENCE_RTOL = 1.0e-12``.
+
+``EnergyReference(zero, unit)``
+   Records the energy-zero convention already applied to the matrix and the
+   energy unit.  The named reference ``zero`` has numerical value zero in the
+   stored matrix coordinate system.  No unapplied offset or ``value`` field is
+   stored; energy alignment and unit conversion are future actions.
+
+``provenance``
+   A copied, read-only string-to-string mapping for compact computational
+   context.  It records context supplied by the caller but does not validate the
+   underlying first-principles calculation.
 
 Hermiticity analysis
 --------------------
 
-``HermiticityAnalyzer`` computes
+``HermiticityAnalyzer`` computes the absolute entrywise maximum residual
 
 .. math::
 
@@ -108,48 +156,74 @@ Hermiticity analysis
    =
    \max_{i,j}\left|H_{ij}-H_{ji}^{*}\right|.
 
-The result is a ``HermiticityResult`` with ``residual``, ``tolerance``, and
-``is_hermitian``.  The acceptance condition is
+The analyzer owns the tolerance ``tau`` because tolerance is an analysis policy,
+not represented data.  ``HermiticityResult.is_hermitian`` is derived from
 
 .. math::
 
-   \varepsilon_{\mathrm H}\leq\texttt{tolerance}.
+   \varepsilon_{\mathrm H}\leq\tau.
 
-This is an absolute entrywise maximum norm criterion.  It is not a relative
-norm, spectral norm, or Frobenius-norm criterion.
+This criterion is not a relative norm, spectral norm, Frobenius norm, or
+scientific validation metric.
 
-Immutability and equality
--------------------------
+Serialization schema version 1
+------------------------------
 
-Construction copies the supplied matrix, converts it to ``complex128``, and
-marks the stored array as non-writeable.  The provenance mapping is copied and
-exposed as read-only.  Exact equality is structural: ``OperatorRecord`` uses
-``numpy.array_equal`` for the matrix and exact equality for metadata.  Equality
-is not numerical or physical equivalence.  Records are unhashable because they
-contain array-valued scientific data.
+``OperatorRecordJsonSerializer`` owns the first supported operator-record wire
+format.  ``serialize()`` returns actual deterministic JSON text with
+``schema_version`` set to integer ``1``.  ``deserialize()`` is strict: it requires
+a top-level JSON object, rejects malformed JSON, duplicate object keys,
+nonstandard constants such as ``NaN`` and ``Infinity``, missing fields, unknown
+fields at every object level, booleans where integers or real numbers are
+required, numeric strings, nonfinite values, malformed or ragged matrices,
+duplicate basis labels through ``Basis``, ``basis.orthonormal = false`` through
+``OperatorRecord``, and ``energy_reference.value`` as an unknown field.  The
+serializer uses deterministic key ordering and compact separators equivalent to
+``json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)``.
 
-Serialization schema
---------------------
+Version 1 top-level fields are:
 
-``OperatorRecordJsonCodec.encode()`` returns a JSON-compatible dictionary with
-``schema_version`` set to integer ``1``.  The version-1 payload fields are:
+.. list-table:: Version-1 field table
+   :header-rows: 1
 
-* ``schema_version``;
-* ``identifier``;
-* ``operator_kind``;
-* ``matrix``;
-* ``state_space``;
-* ``basis``;
-* ``geometry``;
-* ``energy_reference``;
-* ``provenance``.
+   * - Field
+     - Meaning
+   * - ``schema_version``
+     - Integer ``1``
+   * - ``identifier``
+     - Operator-record identifier string
+   * - ``operator_kind``
+     - Descriptive operator category string
+   * - ``matrix``
+     - Nested ``N x N x 2`` array of complex entries encoded as ``[real, imaginary]``
+   * - ``state_space``
+     - Object with ``identifier``, ``kind``, and ``dimension``
+   * - ``basis``
+     - Object with ``identifier``, ``kind``, ``ordering``, and ``orthonormal``
+   * - ``geometry``
+     - Object with ``system``, ``cell``, ``boundary_conditions``, ``coordinate_convention``, and ``length_unit``
+   * - ``energy_reference``
+     - Object with ``zero`` and ``unit``
+   * - ``provenance``
+     - Object whose keys and values are strings
 
-There is no Hermiticity tolerance in the serialized ``OperatorRecord`` payload.
-Each complex entry is encoded as ``[real, imaginary]``.  An ``N`` by ``N``
-complex matrix is represented by a nested ``N x N x 2`` JSON array.  Decoding
-rejects missing schema versions, unsupported schema versions, missing required
-fields, malformed complex entries, and data inconsistent with DataObject
-constructors.
+The public language-neutral schema and fixtures live under
+``specification/operator-record/v1/``:
+
+- ``operator-record.schema.json`` defines schema-version-1 structural rules;
+- ``valid/minimal.json``, ``valid/complex-hermitian.json``, and
+  ``valid/complex-nonhermitian.json`` must deserialize successfully;
+- ``invalid/`` contains golden rejection fixtures for missing fields, unknown
+  fields, unsupported versions, numeric strings, booleans-as-numbers, duplicate
+  basis labels, nonorthogonal bases, ragged and nonsquare matrices, dimension
+  mismatch, empty strings, singular cells, and forbidden
+  ``energy_reference.value``.
+
+Cross-field constraints such as
+``N = state_space.dimension = len(basis.ordering)``, matrix squareness, matrix
+finiteness, cell linear independence, and operator-level orthonormality are
+public rules enforced through DataObjects or the serializer even when JSON Schema
+cannot express them completely.
 
 Compact serialized example::
 
@@ -159,8 +233,7 @@ Compact serialized example::
      "operator_kind": "finite_test_hamiltonian",
      "matrix": [[[1.0, 0.0], [0.0, 0.2]], [[0.0, -0.2], [2.0, 0.0]]],
      "state_space": {
-       "identifier": "toy-space", "kind": "finite synthetic",
-       "dimension": 2, "domain": "C^2", "codomain": "C^2"
+       "identifier": "toy-space", "kind": "finite synthetic", "dimension": 2
      },
      "basis": {
        "identifier": "canonical", "kind": "orthonormal test basis",
@@ -170,20 +243,20 @@ Compact serialized example::
        "system": "synthetic",
        "cell": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
        "boundary_conditions": "finite synthetic",
-       "coordinate_convention": "Cartesian dimensionless, row lattice vectors"
+       "coordinate_convention": "Cartesian row lattice vectors",
+       "length_unit": "dimensionless"
      },
-     "energy_reference": {
-       "zero": "explicit synthetic zero", "unit": "eV", "value": 0.0
-     },
+     "energy_reference": {"zero": "explicit synthetic zero", "unit": "eV"},
      "provenance": {"source": "documentation example"}
    }
 
-Construction and action examples
---------------------------------
+Python example
+--------------
+
+The supported public import path is ``ksdft2effmass.operators``.
 
 .. code-block:: python
 
-   import json
    import numpy as np
    from ksdft2effmass.operators import (
        Basis,
@@ -191,7 +264,7 @@ Construction and action examples
        Geometry,
        HermiticityAnalyzer,
        OperatorRecord,
-       OperatorRecordJsonCodec,
+       OperatorRecordJsonSerializer,
        StateSpace,
    )
 
@@ -199,13 +272,14 @@ Construction and action examples
        identifier="toy",
        operator_kind="finite_test_hamiltonian",
        matrix=np.array([[1.0, 0.2j], [-0.2j, 2.0]]),
-       state_space=StateSpace("toy-space", "finite synthetic", 2, "C^2", "C^2"),
+       state_space=StateSpace("toy-space", "finite synthetic", 2),
        basis=Basis("canonical", "orthonormal test basis", ("a", "b"), True),
        geometry=Geometry(
            "synthetic",
            ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)),
            "finite synthetic",
-           "Cartesian dimensionless, row lattice vectors",
+           "Cartesian row lattice vectors",
+           "dimensionless",
        ),
        energy_reference=EnergyReference("explicit synthetic zero", "eV"),
        provenance={"source": "documentation example"},
@@ -215,17 +289,16 @@ Construction and action examples
    result = analyzer.execute(record)
    assert result.is_hermitian
 
-   codec = OperatorRecordJsonCodec()
-   payload = codec.encode(record)
-   restored = codec.decode(json.loads(json.dumps(payload)))
+   serializer = OperatorRecordJsonSerializer()
+   text = serializer.serialize(record)
+   restored = serializer.deserialize(text)
    assert restored == record
 
-Comparison requirements and limitations
----------------------------------------
+Limits and future work
+----------------------
 
-Before two records can be compared physically, a workflow must establish any
-needed alignment of state spaces, ordered bases, geometries, energy units, energy
-zeros, and basis transformations.  The current implementation intentionally does
-not provide that comparison framework, unit conversion, sparse storage,
-symmetry-aware equivalence, schema migration, or validation of the underlying
-first-principles calculation.
+The current implementation does not provide basis alignment, unit conversion,
+energy alignment, sparse storage, nonorthogonal metrics, approximate record
+comparison, schema migration from earlier ad hoc payloads, or validation of a
+DFT/Wannier calculation.  Those operations require explicit future ActionObjects
+or scientific specifications before they can be used as validation evidence.

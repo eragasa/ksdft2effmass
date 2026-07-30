@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/docs/research/agentic-development-case-study/instruments/episode-record.schema.json",
+  "title": "Agentic development case-study episode record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "episode_id",
+    "title",
+    "study_mode",
+    "status",
+    "task_class",
+    "commits",
+    "control_plane_revision",
+    "agent_and_tool_environment",
+    "public_contracts",
+    "human_checkpoints",
+    "findings",
+    "corrective_cycles",
+    "verification_results",
+    "scientific_validation",
+    "human_disposition",
+    "evidence_paths",
+    "unknown_or_unavailable_fields"
+  ],
+  "properties": {
+    "episode_id": {
+      "type": "string",
+      "pattern": "^E[0-9][0-9]$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "study_mode": {
+      "enum": [
+        "retrospective",
+        "prospective"
+      ]
+    },
+    "role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "in_progress",
+        "complete",
+        "accepted",
+        "blocked"
+      ]
+    },
+    "task_class": {
+      "enum": [
+        "core scientific capability",
+        "publishable scientific claim",
+        "validation or reproducibility infrastructure",
+        "general engineering infrastructure",
+        "premature branch",
+        "deferred work",
+        "infrastructure",
+        "unknown"
+      ]
+    },
+    "commits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "initial",
+        "final"
+      ],
+      "properties": {
+        "initial": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "final": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "control_plane_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "agent_and_tool_environment": {
+      "type": "object"
+    },
+    "public_contracts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "human_checkpoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/checkpoint"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "corrective_cycles": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "verification_results": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "software_verification",
+        "numerical_verification",
+        "scientific_validation"
+      ],
+      "properties": {
+        "software_verification": {
+          "$ref": "#/$defs/verificationStatus"
+        },
+        "numerical_verification": {
+          "$ref": "#/$defs/verificationStatus"
+        },
+        "scientific_validation": {
+          "$ref": "#/$defs/verificationStatus"
+        }
+      }
+    },
+    "scientific_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_applicable",
+            "not_performed",
+            "planned",
+            "passed",
+            "failed",
+            "unknown"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "human_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "date",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "not_requested",
+            "unknown"
+          ]
+        },
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "implementation_status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_status": {
+      "enum": [
+        "passed",
+        "failed",
+        "blocked",
+        "pending",
+        "not_applicable",
+        null
+      ]
+    },
+    "human_final_acceptance": {
+      "enum": [
+        "pending",
+        "accepted",
+        "approved",
+        "rejected",
+        "not_requested",
+        "unknown",
+        null
+      ]
+    },
+    "evidence_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknown_or_unavailable_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "type",
+        "date",
+        "summary",
+        "evidence_paths"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "evidence_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "taxonomy",
+        "severity",
+        "summary",
+        "evidence_paths",
+        "disposition"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "taxonomy": {
+          "enum": [
+            "A",
+            "S",
+            "N",
+            "P",
+            "I",
+            "T",
+            "D",
+            "R",
+            "X"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "critical",
+            "material",
+            "minor",
+            "note"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "evidence_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disposition": {
+          "type": "string"
+        }
+      }
+    },
+    "verificationStatus": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "blocked",
+            "pending",
+            "not_applicable",
+            "not_performed",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

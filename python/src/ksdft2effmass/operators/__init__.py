@@ -2,7 +2,7 @@
 
 from .hermiticity import HermiticityAnalyzer, HermiticityResult
 from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
-from .serialization import OperatorRecordJsonCodec
+from .serialization import OperatorRecordJsonSerializer
 
 __all__ = [
     "Basis",
@@ -11,6 +11,6 @@ __all__ = [
     "HermiticityAnalyzer",
     "HermiticityResult",
     "OperatorRecord",
-    "OperatorRecordJsonCodec",
+    "OperatorRecordJsonSerializer",
     "StateSpace",
 ]

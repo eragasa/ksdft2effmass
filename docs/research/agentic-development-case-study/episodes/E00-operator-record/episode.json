@@ -1,0 +1,161 @@
+{
+  "episode_id": "E00",
+  "title": "Operator-record refactor",
+  "study_mode": "retrospective",
+  "role": "pilot",
+  "status": "accepted",
+  "task_class": "validation or reproducibility infrastructure",
+  "commits": {
+    "initial": null,
+    "final": null
+  },
+  "control_plane_revision": "retrospectively reconstructed from repository working tree and task record; exact revision not recorded",
+  "agent_and_tool_environment": {
+    "models": "not recorded",
+    "token_counts": "not recorded",
+    "runtimes": "not recorded",
+    "agents": [
+      "pi parent session",
+      "ksdft2effmass integration reviewer; exact invocation details not fully recorded in this episode record"
+    ],
+    "tools": [
+      "pytest",
+      "ruff",
+      "mypy",
+      "sphinx-build",
+      "JSON syntax checks"
+    ]
+  },
+  "public_contracts": [
+    {
+      "name": "Finite operator-record public API",
+      "evidence": "python/src/ksdft2effmass/operators/__init__.py"
+    },
+    {
+      "name": "Operator-record schema version 1",
+      "evidence": "specification/operator-record/v1/operator-record.schema.json"
+    },
+    {
+      "name": "Valid and invalid operator-record fixtures",
+      "evidence": "specification/operator-record/v1/valid/ and specification/operator-record/v1/invalid/"
+    }
+  ],
+  "human_checkpoints": [
+    {
+      "id": "E00-HC-final-acceptance",
+      "type": "human_final_acceptance",
+      "date": "2026-07-30",
+      "summary": "Human final acceptance approved the operator-record refactor as complete and recorded scientific-validation limitations.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-refactor.md"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "E00-F01",
+      "taxonomy": "P",
+      "severity": "material",
+      "summary": "The accepted correction replaced the proposed dictionary codec API with deterministic JSON text serialization via OperatorRecordJsonSerializer.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-refactor.md",
+        "python/src/ksdft2effmass/operators/serialization.py"
+      ],
+      "disposition": "corrected and accepted"
+    },
+    {
+      "id": "E00-F02",
+      "taxonomy": "R",
+      "severity": "material",
+      "summary": "The correction required a public language-neutral schema and valid/invalid fixtures as independently executable validation surfaces.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-refactor.md",
+        "specification/operator-record/v1/"
+      ],
+      "disposition": "corrected and accepted"
+    },
+    {
+      "id": "E00-F03",
+      "taxonomy": "S",
+      "severity": "note",
+      "summary": "The accepted task explicitly did not validate physical Hamiltonian correctness, basis alignment, energy alignment, Wannier reconstruction, tight-binding reduction, impurity extraction, or first-principles comparison.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-refactor.md"
+      ],
+      "disposition": "recorded as scientific limitation"
+    }
+  ],
+  "corrective_cycles": [
+    {
+      "id": "E00-C01",
+      "summary": "Retrospectively reconstructed corrective cycle covering serializer rename, strict JSON text contract, public schema and fixtures, production corrections, tests, documentation, integration review, parent verification, and human final acceptance.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-refactor.md"
+      ]
+    }
+  ],
+  "verification_results": {
+    "software_verification": {
+      "status": "passed",
+      "evidence": [
+        "153 tests passed",
+        "Ruff formatting passed",
+        "Ruff linting passed",
+        "mypy passed",
+        "Sphinx warning-as-error build passed",
+        "valid schema fixtures passed",
+        "invalid schema fixtures were rejected",
+        "public-import validation passed",
+        "deterministic serialization passed",
+        "JSON round-trip validation passed",
+        "obsolete API scan passed",
+        "dangling-helper scan passed",
+        "cross-private-call audit passed",
+        "read-only integration review passed",
+        "parent verification passed"
+      ]
+    },
+    "numerical_verification": {
+      "status": "not_performed",
+      "evidence": [
+        "Hermiticity and matrix invariant software checks were performed; numerical validation against physical or computational references was not part of E00."
+      ]
+    },
+    "scientific_validation": {
+      "status": "not_performed",
+      "evidence": [
+        "Human acceptance explicitly states scientific validation was not yet performed."
+      ]
+    }
+  },
+  "scientific_validation": {
+    "status": "not_performed",
+    "notes": "The episode validates software contracts, mathematical data invariants, schema semantics, serialization reproducibility, API organization, and documentation consistency; it does not validate physical correctness."
+  },
+  "human_disposition": {
+    "status": "approved",
+    "date": "2026-07-30",
+    "notes": "Accepted as retrospective pilot evidence and completed operator-record refactor."
+  },
+  "implementation_status": "complete",
+  "verification_status": "passed",
+  "human_final_acceptance": "approved",
+  "evidence_paths": [
+    ".pi/tasks/operator-record-refactor.md",
+    "AGENTS.md",
+    "python/src/ksdft2effmass/operators/",
+    "python/tests/ksdft2effmass/operators/",
+    "specification/operator-record/v1/",
+    "docs/concepts/operator-records.rst",
+    "docs/api/operators.rst"
+  ],
+  "unknown_or_unavailable_fields": [
+    "initial commit before E00",
+    "final commit after E00",
+    "exact prompts",
+    "model versions",
+    "token counts",
+    "wall-clock runtimes",
+    "complete subagent transcripts outside stored artifacts"
+  ]
+}

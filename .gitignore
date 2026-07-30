@@ -234,3 +234,8 @@ htmlcov/
 
 # Sphinx generated documentation
 /docs/_build/
+
+# Graphify generated repository-intelligence artifacts
+# Locally persistent and ignored. A curated GRAPH_REPORT.md may be committed
+# only after separate human review.
+graphify-out/

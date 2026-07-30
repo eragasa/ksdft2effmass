@@ -21,6 +21,9 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    :caption: Project documentation
 
    architecture/repository-layout
+   development/ai-assisted-development
+   development/agent-control-plane
+   research/agentic-development-case-study
 
 The higher-level research and computational planning notes are maintained as
 Markdown documents under ``docs/research`` and ``docs/computational``.

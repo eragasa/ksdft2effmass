@@ -1,0 +1,254 @@
+{
+  "episode_id": "E01",
+  "title": "Graphify Codex/pi integration",
+  "study_mode": "prospective",
+  "role": "case-study episode",
+  "status": "accepted",
+  "task_class": "infrastructure",
+  "commits": {
+    "initial": "bca580aa4f95dd4d3ee304e0fc0ed1fe30ce74d2",
+    "final": null
+  },
+  "control_plane_revision": "working tree after Graphify integration implementation and E01 human final acceptance",
+  "agent_and_tool_environment": {
+    "graphify_version": "0.9.2",
+    "graphify_command": "/Users/eugene/.local/bin/graphify",
+    "external_api_keys_configured": false,
+    "hooks_installed": false,
+    "global_skill_modified": false,
+    "models": "not recorded",
+    "token_counts": "not recorded",
+    "codex_skill_installed": true,
+    "codex_skill_origin": "Graphify 0.9.2 installed package skill-codex.md and skills/codex/references/",
+    "pi_thin_routing_skill_created": false,
+    "graphify_validation_scope": "code-only subset copied temporarily from python/src and python/tests to avoid external semantic processing",
+    "graphify_full_approved_scope_attempt": "blocked by Graphify CLI because docs require an LLM API key; no key was configured and no external transmission occurred",
+    "graphify_output_locations": [
+      "graphify-out/graph.json",
+      "graphify-out/manifest.json",
+      "graphify-out/cache/stat-index.json"
+    ],
+    "graphify_output_policy": "graphify-out/ is locally persistent, generated, and ignored",
+    "external_transmission_occurred": false,
+    "codex_hooks_json_created": false,
+    "git_hooks_installed": false,
+    "api_keys_configured": false,
+    "codex_skill_installed_path": ".agents/skills/graphify/SKILL.md",
+    "obsolete_codex_skill_copy_removed": true,
+    "codex_discovery_status": "verified by fresh codex exec session from repository root",
+    "codex_cli_version": "codex-cli 0.142.4",
+    "codex_discovered_skill_name": "graphify",
+    "codex_discovered_skill_path": "/Users/eugene/repos/ksdft2effmass/.agents/skills/graphify/SKILL.md",
+    "codex_discovery_command": "codex exec -C . -s read-only --ephemeral --json <prompt asking for graphify skill discovery only>",
+    "pi_thin_routing_skill_removed": true,
+    "shared_project_graphify_skill_path": ".agents/skills/graphify/SKILL.md",
+    "shared_project_graphify_policy_overlay": ".agents/skills/graphify/references/ksdft2effmass-policy.md",
+    "pi_discovery_status": "verified by fresh pi session from repository root; project graphify skill discovered and same-named global pi fallback skipped",
+    "pi_discovered_skill_name": "graphify",
+    "pi_discovered_skill_path": "/Users/eugene/repos/ksdft2effmass/.agents/skills/graphify/SKILL.md",
+    "pi_skipped_global_graphify_path": "/Users/eugene/.pi/agent/skills/graphify/SKILL.md",
+    "use_graphify_discovery_status": "not discovered after duplicate routing skill removal"
+  },
+  "public_contracts": [
+    {
+      "name": "Graphify authority limit",
+      "summary": "Graphify is optional, read-only for production/scientific artifacts, derived, potentially stale, and not authoritative for scientific meaning or architecture. In the validated project environment, .agents/skills/graphify is the shared repository-local Graphify skill discovered by both Codex and pi; it intentionally shadows the same-named global pi fallback."
+    },
+    {
+      "name": "Generated artifact policy",
+      "summary": "graphify-out/ is locally persistent, generated, and ignored; curated GRAPH_REPORT.md requires separate human review before commit."
+    },
+    {
+      "name": "Shared Graphify policy overlay",
+      "summary": "The upstream Graphify 0.9.2 project skill is preserved under .agents/skills/graphify; repository-specific safety and authority rules live in references/ksdft2effmass-policy.md and must not be silently overwritten by future Graphify updates."
+    }
+  ],
+  "human_checkpoints": [
+    {
+      "id": "E01-HC01",
+      "type": "pre_integration_decision",
+      "date": "2026-07-30",
+      "summary": "Human approved Option B: manual project-local Codex skill installation without installer, hooks, remote semantic processing, or global configuration changes.",
+      "evidence_paths": [
+        ".pi/tasks/graphify-integration.md",
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-01.md"
+      ]
+    },
+    {
+      "id": "E01-HC02",
+      "type": "read_only_integration_review",
+      "date": "2026-07-30",
+      "summary": "Read-only integration review found no blockers or material findings; noted generic upstream Codex skill is constrained by repository policy.",
+      "evidence_paths": [
+        ".pi-subagents/artifacts/49bfd6a1_reviewer_0_output.md"
+      ]
+    },
+    {
+      "id": "E01-HC03",
+      "type": "material_finding_correction_approval",
+      "date": "2026-07-30",
+      "summary": "Human approved corrective work for E01-F01: move Graphify Codex skill from .codex/skills to .agents/skills and verify actual fresh Codex discovery.",
+      "evidence_paths": [
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-02.md"
+      ]
+    },
+    {
+      "id": "E01-HC04",
+      "type": "codex_discovery_validation",
+      "date": "2026-07-30",
+      "summary": "Fresh Codex exec session from repository root reported project skill graphify available at /Users/eugene/repos/ksdft2effmass/.agents/skills/graphify/SKILL.md.",
+      "evidence_paths": [
+        "/tmp/codex-skill-discovery.jsonl"
+      ]
+    },
+    {
+      "id": "E01-HC05",
+      "type": "post_correction_integration_review",
+      "date": "2026-07-30",
+      "summary": "Read-only integration review after E01-F01 correction found no blockers or material findings. One minor stale-status note in the Sphinx case-study page was corrected and Sphinx was rerun successfully.",
+      "evidence_paths": [
+        ".pi-subagents/artifacts/19329015_reviewer_0_output.md",
+        "docs/research/agentic-development-case-study.rst"
+      ]
+    },
+    {
+      "id": "E01-HC06",
+      "type": "material_finding_correction_approval",
+      "date": "2026-07-30",
+      "summary": "Human approved corrective work for E01-F02: adopt .agents/skills/graphify as the shared repository-local Graphify skill for Codex and pi, remove duplicate .pi/skills/use-graphify routing, and verify project-over-global pi precedence.",
+      "evidence_paths": [
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md"
+      ]
+    },
+    {
+      "id": "E01-HC07",
+      "type": "human_final_acceptance",
+      "date": "2026-07-30",
+      "summary": "Human accepted E01, including E01-F01 and E01-F02 as corrected, the shared project Graphify skill, intentional project-over-global precedence, removal of redundant use-graphify, updated control-plane policies, documentation, case-study evidence, and verification results.",
+      "evidence_paths": [
+        ".pi/tasks/graphify-integration.md",
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/episode.json"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "E01-F01",
+      "taxonomy": "I",
+      "severity": "material",
+      "stage": "final_human_review",
+      "summary": "Graphify 0.9.2 installed its project Codex skill under .codex/skills, while current official Codex documentation specifies .agents/skills for repository-local skill discovery.",
+      "description": "Graphify 0.9.2 installed its project Codex skill under .codex/skills, while current official Codex documentation specifies .agents/skills for repository-local skill discovery.",
+      "root_cause": "The Graphify installer source was treated as authoritative for Codex discovery, and validation checked file presence instead of actual discovery by a fresh Codex session.",
+      "consequence": "The repository could report a completed Codex integration even though Codex might not expose or invoke the Graphify skill.",
+      "evidence_paths": [
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-02.md",
+        "https://learn.chatgpt.com/docs/build-skills",
+        "/tmp/codex-skill-discovery.jsonl"
+      ],
+      "disposition": "accepted as corrected by human final decision on 2026-07-30; actual fresh Codex discovery verified at .agents/skills/graphify/SKILL.md",
+      "status": "accepted",
+      "human_acceptance": "2026-07-30"
+    },
+    {
+      "id": "E01-F02",
+      "taxonomy": "I",
+      "severity": "material",
+      "stage": "human_final_acceptance",
+      "summary": "Fresh-session pi discovery demonstrated that pi automatically discovers .agents/skills/graphify and shadows the same-named global pi Graphify skill.",
+      "description": "Fresh-session pi discovery demonstrated that pi automatically discovers the repository-local .agents/skills/graphify skill and shadows the same-named global pi Graphify skill. This contradicted the previously documented discovery-surface model and created a potential duplicate instruction path through .pi/skills/use-graphify.",
+      "root_cause": "The documented discovery model treated .agents/skills and .pi/skills as separate unless directly bridged, but fresh-session pi discovery showed .agents/skills is visible to pi in this environment and takes precedence over the global fallback.",
+      "consequence": "The repository could retain overlapping project-local Graphify instruction paths and misreport which Graphify skill pi would invoke during final acceptance.",
+      "evidence_paths": [
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
+        ".agents/skills/graphify/SKILL.md",
+        ".agents/skills/graphify/references/ksdft2effmass-policy.md"
+      ],
+      "disposition": "resolved and accepted by human final decision on 2026-07-30; .agents/skills/graphify is the shared project Graphify skill for both Codex and pi in the validated environment; .pi/skills/use-graphify removed; global pi fallback left unmodified and intentionally shadowed",
+      "status": "accepted",
+      "human_acceptance": "2026-07-30"
+    }
+  ],
+  "corrective_cycles": [
+    {
+      "id": "E01-C01",
+      "summary": "After the broader approved scope required an LLM API key, validation was rerun on a code-only approved subset from python/src and python/tests, which completed local AST extraction successfully.",
+      "evidence_paths": [
+        "/tmp/graphify-code-validation.log",
+        "graphify-out/graph.json"
+      ]
+    }
+  ],
+  "verification_results": {
+    "software_verification": {
+      "status": "passed",
+      "evidence": [
+        "JSON syntax validation passed for case register, episode records, episode schema, and chain JSON",
+        "JSON Schema validation passed for E00 and E01 episode records",
+        "Skill frontmatter validation passed for .pi/skills and .agents/skills/graphify/SKILL.md",
+        "Codex project skill installed at .agents/skills/graphify/SKILL.md with references sidecar",
+        "pi skill discovery/list completed and repository-local .pi skills parsed",
+        ".codex/hooks.json absent; no graphify git hooks detected",
+        "No Graphify API keys configured in environment",
+        "Sphinx warning-as-error build passed",
+        "Fresh-session choose-next-task dry run completed, recommended Graphify closeout, and started no implementation",
+        "Read-only integration review completed with no blocker/material findings",
+        "Graphify code-only validation produced graphify-out/graph.json with 181 nodes and 430 edges",
+        "Corrected Codex skill location to .agents/skills/graphify/SKILL.md and removed obsolete .codex/skills/graphify copy",
+        "Fresh Codex exec discovery verified graphify at /Users/eugene/repos/ksdft2effmass/.agents/skills/graphify/SKILL.md",
+        "Repository active stale .codex/skills reference scan excludes only historical E01 finding records and generated build/subagent artifacts",
+        "Post-correction integration review found no blocker/material findings",
+        "Minor stale E01 status in Sphinx page corrected; Sphinx warning-as-error build passed after correction",
+        "Fresh pi discovery verified graphify at /Users/eugene/repos/ksdft2effmass/.agents/skills/graphify/SKILL.md with /Users/eugene/.pi/agent/skills/graphify/SKILL.md skipped as the global fallback",
+        "use-graphify no longer discovered after removing .pi/skills/use-graphify/",
+        "Duplicate Graphify project routing scan found one repository-local Graphify skill implementation under .agents/skills/graphify and no .pi/skills/use-graphify duplicate",
+        "Project/global Graphify skill comparison recorded in checkpoint-03.md",
+        "Shared repository Graphify policy overlay added under .agents/skills/graphify/references/ksdft2effmass-policy.md",
+        "Read-only integration review after E01-F02 correction found no blocker/material findings; one stale human-disposition note was corrected.",
+        "Human final acceptance recorded on 2026-07-30; E01-F01 and E01-F02 accepted as corrected and E01 closed."
+      ]
+    },
+    "numerical_verification": {
+      "status": "not_applicable",
+      "evidence": [
+        "E01 is control-plane and developer-tooling infrastructure."
+      ]
+    },
+    "scientific_validation": {
+      "status": "not_applicable",
+      "evidence": [
+        "E01 does not validate scientific claims."
+      ]
+    }
+  },
+  "scientific_validation": {
+    "status": "not_applicable",
+    "notes": "E01 validates developer-tooling behavior and control-plane policy only."
+  },
+  "human_disposition": {
+    "status": "approved",
+    "date": "2026-07-30",
+    "notes": "Human final acceptance recorded on 2026-07-30. E01-F01 and E01-F02 are accepted as corrected; E01 is closed as accepted."
+  },
+  "implementation_status": "complete",
+  "verification_status": "passed",
+  "human_final_acceptance": "accepted",
+  "evidence_paths": [
+    ".pi/tasks/graphify-integration.md",
+    ".agents/skills/graphify/",
+    ".pi/skills/choose-next-task/SKILL.md",
+    "AGENTS.md",
+    ".gitignore",
+    "docs/development/ai-assisted-development.rst",
+    "docs/development/agent-control-plane.rst",
+    "docs/research/agentic-development-case-study.rst",
+    "docs/research/agentic-development-case-study/",
+    ".agents/skills/graphify/references/ksdft2effmass-policy.md",
+    "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
+    ".pi-subagents/artifacts/71cd39a1_reviewer_0_output.md"
+  ],
+  "unknown_or_unavailable_fields": [
+    "final commit"
+  ]
+}
