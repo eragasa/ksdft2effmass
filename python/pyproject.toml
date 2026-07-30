@@ -55,6 +55,10 @@ notebooks = [
     "matplotlib>=3.8",
 ]
 
+docs = [
+    "sphinx>=8.0",
+]
+
 
 [project.urls]
 Homepage = "https://github.com/eragasa/ksdft2effmass"

@@ -3,7 +3,7 @@ back_to: [[ksdft2Effmass.computational.01]]
 
 ## Status
 
-`Ready`
+`Passed`
 
 ## Objective
 
@@ -34,7 +34,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 Primary output:
 
-`NumericalSpecification-v1`
+[`NumericalSpecification-v1`](../../specification/ksdft2Effmass.numerical-specification.v1.md)
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 
@@ -73,10 +73,10 @@ The task fails if its primary artifact cannot be reproduced, if its required com
 
 ## Computational Record
 
-- run identifier:
-- code version:
-- software environment:
-- input manifest:
-- output manifest:
-- validation record:
-- completion date:
+- run identifier: local specification-edit session, 2026-07-28
+- code version: `416ef8a` at task start
+- software environment: Python `3.14.6`; `pw.x` and `wannier90.x` not found in `PATH`
+- input manifest: `PhysicalSpecification-v1`; PseudoDojo `nc-sr-04_pbe_standard` metadata and UPF download for Si
+- output manifest: `specification/ksdft2Effmass.numerical-specification.v1.md`
+- validation record: SHA-256 reconstruction of downloaded and decompressed Si PseudoDojo UPF file passed; protocol-only acceptance confirmed by PI instruction; no DFT or Wannier validation performed
+- completion date: 2026-07-28

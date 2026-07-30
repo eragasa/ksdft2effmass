@@ -52,6 +52,7 @@ The Python package will provide tools for:
 
 - importing DFT and Wannier outputs;
 - representing Hamiltonians, bases, projectors, and state spaces;
+- recording finite operator matrices through the public `ksdft2effmass.operators` API and its versioned operator-record dictionary serialization format (`schema_version = 1`);
 - aligning pristine and doped Wannier subspaces;
 - extracting and reducing impurity operators;
 - solving reduced lattice and continuum models;
@@ -80,6 +81,15 @@ scientific outputs.
 
 This disclosure does not modify the warranty and liability terms of the
 [Apache License 2.0](LICENSE).
+
+## Documentation
+
+The Sphinx documentation includes the finite-operator-record concept page and API reference:
+
+- `docs/concepts/operator-records.rst`
+- `docs/api/operators.rst`
+
+These pages document why operator metadata are part of the implementation, the supported `ksdft2effmass.operators` import path, and the versioned operator-record serialization format.
 
 ## Citation
 

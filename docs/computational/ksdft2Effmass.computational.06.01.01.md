@@ -25,7 +25,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 ## Procedure
 
-1. Record the PseudoDojo PBE standard-table P pseudopotential metadata selected by `01.01.02`.
+1. Select and record the PseudoDojo PBE standard-table P pseudopotential metadata for the P:Si branch, including compatibility with the approved bulk Si pseudopotential family.
 2. Record the primary neutral P$_\mathrm{Si}^0$ scalar-relativistic, collinear spin-polarized, non-SOC branch.
 3. Record the deferral of charged P$_\mathrm{Si}^{+}$ and non-spin-polarized fractional-occupation calculations to controlled branches.
 4. Record the fixed-lattice internal-relaxation convention and required links to the Stage `05` energy-alignment estimator.
@@ -42,7 +42,7 @@ The output must be accompanied by its input manifest, software and environment r
 ## Acceptance Criteria
 
 - the primary P:Si physical branch is explicit and consistent with `PhysicalSpecification-v1`;
-- exact P pseudopotential metadata and valence configuration are recorded or linked from `01.01.02`;
+- exact P pseudopotential metadata and valence configuration are selected and recorded in this P:Si specialization gate;
 - charged and non-primary method-development branches are explicitly separated from the primary branch;
 - the declared output exists and can be reconstructed from the stored inputs;
 - all task-specific numerical tolerances are recorded with a pass/fail result;

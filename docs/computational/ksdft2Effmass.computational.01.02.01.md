@@ -3,11 +3,11 @@ back_to: [[ksdft2Effmass.computational.01]]
 
 ## Status
 
-`Ready`
+`Passed`
 
 ## Objective
 
-Implement the operator-record schema. The task produces the artifact Tested `OperatorRecord required by the downstream dependency graph.
+Implement the operator-record schema. The task produces the artifact Tested `OperatorRecord` required by the downstream dependency graph.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 Primary output:
 
-Tested `OperatorRecord`
+Tested `OperatorRecord` in `python/src/ksdft2effmass/operators/records.py` with package exports in `python/src/ksdft2effmass/operators/__init__.py` and regression tests in `python/tests/test_operator_record.py`.
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 
@@ -74,10 +74,10 @@ The task fails if its primary artifact cannot be reproduced, if its required com
 
 ## Computational Record
 
-- run identifier:
-- code version:
-- software environment:
-- input manifest:
-- output manifest:
-- validation record:
-- completion date:
+- run identifier: local implementation session, 2026-07-28
+- code version: `416ef8a` at task start
+- software environment: Python `3.14.6`; NumPy available through the local Python environment; pytest `9.1.1`; ruff available through the local Python environment
+- input manifest: `PhysicalSpecification-v1`; `NumericalSpecification-v1`; research notes distinguishing operators, finite matrix representations, state spaces, bases, geometry, and energy references
+- output manifest: `python/src/ksdft2effmass/operators/records.py`; `python/src/ksdft2effmass/operators/__init__.py`; `python/src/ksdft2effmass/__init__.py`; `python/tests/test_operator_record.py`; `python/tests/test__import.py`
+- validation record: `python3 -m ruff check .`; `python3 -m ruff format --check .`; `python3 -m pytest tests` from `python/`
+- completion date: 2026-07-28

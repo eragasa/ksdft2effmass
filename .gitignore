@@ -231,3 +231,6 @@ htmlcov/
 
 # Obsidian local workspace
 .obsidian/
+
+# Sphinx generated documentation
+/docs/_build/

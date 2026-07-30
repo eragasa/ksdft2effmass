@@ -10,10 +10,10 @@ Define the physical scope, numerical conventions, persistent data structures, va
 | Task                                               | Description                                                           | Prerequisites          | Output                      | Initial state |
 | -------------------------------------------------- | --------------------------------------------------------------------- | ---------------------- | --------------------------- | ------------- |
 | [[ksdft2Effmass.computational.01.01.01\|01.01.01]] | Freeze the physical reference specification                           | None                   | `PhysicalSpecification-v1`  | Passed        |
-| [[ksdft2Effmass.computational.01.01.02\|01.01.02]] | Freeze numerical conventions and software stack                       | `01.01.01`             | `NumericalSpecification-v1` | Ready         |
-| [[ksdft2Effmass.computational.01.02.01\|01.02.01]] | Implement the operator-record schema                                  | `01.01.01`             | Tested `OperatorRecord`     | Ready         |
-| [[ksdft2Effmass.computational.01.02.02\|01.02.02]] | Implement run manifests and provenance capture                        | `01.01.02`             | Tested `RunManifest`        | Blocked       |
-| [[ksdft2Effmass.computational.01.03.01\|01.03.01]] | Implement common operator, subspace, spectral, and observable metrics | `01.02.01`             | Metrics library             | Blocked       |
+| [[ksdft2Effmass.computational.01.01.02\|01.01.02]] | Freeze numerical conventions and software stack                       | `01.01.01`             | `NumericalSpecification-v1` | Passed        |
+| [[ksdft2Effmass.computational.01.02.01\|01.02.01]] | Implement the operator-record schema                                  | `01.01.01`             | Tested `OperatorRecord`     | Passed        |
+| [[ksdft2Effmass.computational.01.02.02\|01.02.02]] | Implement run manifests and provenance capture                        | `01.01.02`             | Tested `RunManifest`        | Ready         |
+| [[ksdft2Effmass.computational.01.03.01\|01.03.01]] | Implement common operator, subspace, spectral, and observable metrics | `01.02.01`             | Metrics library             | Ready         |
 | [[ksdft2Effmass.computational.01.03.02\|01.03.02]] | Construct synthetic regression benchmarks                             | `01.02.01`, `01.03.01` | Passing regression suite    | Blocked       |
 
 ## Work Packages

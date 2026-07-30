@@ -20,3 +20,10 @@ The publication dependency structure is documented in
 
 Software, repository, data, and provenance decisions are documented in
 [[architecture/ksdft2Effmass.repository-layout|Repository Architecture]].
+
+## Python API documentation
+
+Finite operator records are exposed through the public `ksdft2effmass.operators`
+package. The conceptual documentation is maintained in
+[`concepts/operator-records.rst`](concepts/operator-records.rst), and the Sphinx
+API reference is maintained in [`api/operators.rst`](api/operators.rst).

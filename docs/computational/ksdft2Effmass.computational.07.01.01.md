@@ -25,7 +25,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 ## Procedure
 
-1. Record the PseudoDojo PBE standard-table B pseudopotential metadata selected by `01.01.02`.
+1. Select and record the PseudoDojo PBE standard-table B pseudopotential metadata for the B:Si branch, including the relativistic form required by the branch and compatibility with the approved bulk Si pseudopotential family.
 2. Record the primary neutral B$_\mathrm{Si}^0$ fully relativistic, noncollinear spinor SOC branch for final acceptor and continuum claims.
 3. Record the scalar-relativistic non-SOC B:Si calculation as an early method-development branch only.
 4. Record the deferral of charged B$_\mathrm{Si}^{-}$ to a controlled branch.
@@ -43,7 +43,7 @@ The output must be accompanied by its input manifest, software and environment r
 ## Acceptance Criteria
 
 - the primary B:Si physical branch is explicit and consistent with `PhysicalSpecification-v1`;
-- exact B pseudopotential metadata and valence configuration are recorded or linked from `01.01.02`;
+- exact B pseudopotential metadata and valence configuration are selected and recorded in this B:Si specialization gate;
 - final SOC and non-primary method-development branches are explicitly separated;
 - the declared output exists and can be reconstructed from the stored inputs;
 - all task-specific numerical tolerances are recorded with a pass/fail result;

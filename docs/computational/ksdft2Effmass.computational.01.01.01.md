@@ -87,7 +87,7 @@ The task remains incomplete if the charge state, spin--orbit treatment, relaxati
 - specification version: `PhysicalSpecification-v1`
 - author or reviewer: PI decisions applied to AI-assisted draft
 - software constraints: no execution software selected in this task; numerical software stack deferred to `01.01.02`
-- pseudopotential source and hashes: PseudoDojo PBE standard-table ONCV UPF family frozen; exact release, filenames, versions, SHA-256 hashes, suggested cutoffs, converged cutoffs, and Quantum ESPRESSO compatibility deferred to `01.01.02`
+- pseudopotential source and hashes: PseudoDojo PBE standard-table ONCV UPF family frozen; exact bulk-Si filename, version, SHA-256 hash, suggested cutoff, and Quantum ESPRESSO compatibility deferred to `01.01.02`; exact P and B choices deferred to their impurity-specialization gates
 - unresolved controlled branches: no unresolved decision blocks `01.01.02` or `01.02.01`; charged P$_\mathrm{Si}^{+}$ and B$_\mathrm{Si}^{-}$ branches are deferred; scalar-relativistic non-SOC B:Si is method-development only; Stage `05` selects the operational energy-alignment estimator
 - validation record: `specification/ksdft2Effmass.physical-specification.v1.md`
 - completion date: 2026-07-27
