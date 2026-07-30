@@ -301,10 +301,13 @@ operation boundaries, and wire-format specification.
 
 ### Pi control plane for operator-record work
 
-Repository-local pi skills live under `.pi/skills/`; project subagents and
-chains live under `.pi/agents/` and `.pi/chains/`. The root `AGENTS.md` remains
-the authoritative global architectural policy. Focused skills and task files may
-add narrower instructions but must not contradict this file.
+Repository-local pi-specific skills live under `.pi/skills/`; shared
+repository-local skills discoverable by both Codex and pi live under
+`.agents/skills/`; project subagents and chains live under `.pi/agents/` and
+`.pi/chains/`; durable human checkpoints live under `.pi/checkpoints/`. The root
+`AGENTS.md` remains the authoritative global architectural policy. Focused
+skills and task files may add narrower instructions but must not contradict this
+file.
 
 Use the repository-local `choose-next-task` skill as a read-only planning
 transition after human final acceptance of a task, when the user explicitly asks
@@ -313,12 +316,44 @@ task. The skill reconstructs state from repository evidence, recommends exactly
 one next task, and then stops for human selection. Do not make it a mandatory
 completion gate, and do not use it to create or launch work automatically.
 
+Every new session must inspect unresolved `.pi/checkpoints/` records, active
+accepted tasks, and latest durable human decisions before invoking
+`choose-next-task`. If the current human message resolves a persisted checkpoint,
+use the shared `.agents/skills/resolve-human-checkpoint/` skill to record the
+decision, clear the checkpoint, resume the blocked task, rerun validation, and
+report the result without requiring special wording from the human. If no task or
+checkpoint remains active, use `choose-next-task` only when the human asks for a
+planning transition.
+
 Every completed task record should leave enough durable repository evidence for
 `choose-next-task` to operate in a new session. A completion handoff should
 identify the objective, final status, human acceptance, artifacts produced,
 public API or scientific result, validation evidence, known limitations,
 unresolved decisions, dependencies now satisfied, and explicitly deferred work.
 The handoff describes state only; it must not recommend or launch the next task.
+When the human gives final acceptance, the agent records acceptance, updates the
+case register, episode status, and active task, runs closeout validation, closes
+the task, and stops before starting another task.
+
+Decision classes:
+
+- deterministic agent correction: the task is already approved, the correction
+  is in scope and uniquely required by authoritative policy, no scientific
+  meaning or public contract changes, no external transmission or destructive
+  action occurs, and no materially different defensible alternatives remain. The
+  agent records an agent-resolved corrective finding, corrects, revalidates, and
+  continues without a human checkpoint.
+- standing delegated decision: a durable human policy already resolves the
+  choice. The agent cites the standing decision, acts, records, revalidates, and
+  continues.
+- genuine human decision: pause only when at least two materially different
+  defensible options remain and the choice affects scientific meaning,
+  mathematical or physical conventions, public APIs or serialization contracts,
+  authoritative schemas, project scope, publication claims, external data
+  transmission, privacy or restricted data, new dependencies or licensing,
+  destructive or hard-to-reverse actions, ownership conflicts, institutional or
+  regulatory interpretation, resource-intensive computation, or conflicting
+  authoritative instructions.
 
 ### Graphify repository-intelligence policy
 

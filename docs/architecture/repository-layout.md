@@ -11,8 +11,9 @@ ksdft2effmass/
 ├── calculations/
 ├── workflows/
 ├── .agents/skills/                  # shared repository-local agent skills
-│   └── graphify/                       # shared project Graphify skill
-├── .pi/                               # pi-specific skills, agents, chains, and task records
+│   ├── graphify/                       # shared project Graphify skill
+│   └── resolve-human-checkpoint/       # shared checkpoint-resolution skill
+├── .pi/                               # pi-specific skills, agents, chains, checkpoints, and task records
 ├── docs/
 │   ├── concepts/operator-records.rst  # scientific model and serialization format
 │   ├── development/                   # developer and control-plane documentation
@@ -25,4 +26,4 @@ ksdft2effmass/
 
 The `ksdft2effmass.operators` package is the supported public import path for finite operator records. Its versioned JSON text serialization format (`schema_version = 1`) is documented in `docs/concepts/operator-records.rst`, specified by `specification/operator-record/v1/operator-record.schema.json`, validated with fixtures under `specification/operator-record/v1/`, and implemented in `python/src/ksdft2effmass/operators/serialization.py`.
 
-In the validated project environment, both Codex and pi discover repository-local skills under `.agents/skills/`. pi additionally discovers pi-specific skills under `.pi/skills/`. A project skill may shadow a same-named global pi skill. The shared project Graphify skill lives under `.agents/skills/graphify/`; generated Graphify outputs live under ignored `graphify-out/` and are derived navigation artifacts, not authoritative repository state.
+In the validated project environment, both Codex and pi discover repository-local skills under `.agents/skills/`. pi additionally discovers pi-specific skills under `.pi/skills/`. A project skill may shadow a same-named global pi skill. The shared project Graphify skill lives under `.agents/skills/graphify/`; the shared checkpoint-resolution skill lives under `.agents/skills/resolve-human-checkpoint/`. Durable human checkpoint records and their JSON Schema live under `.pi/checkpoints/`. Generated Graphify outputs live under ignored `graphify-out/` and are derived navigation artifacts, not authoritative repository state.

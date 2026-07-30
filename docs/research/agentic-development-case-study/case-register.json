@@ -30,7 +30,8 @@
       "checkpoint_path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
       "status": "accepted",
       "human_final_acceptance": "accepted",
-      "final_acceptance_date": "2026-07-30"
+      "final_acceptance_date": "2026-07-30",
+      "process_correction": "E01-F03 checkpoint-granularity correction accepted; E01 closed as accepted"
     }
   ]
 }

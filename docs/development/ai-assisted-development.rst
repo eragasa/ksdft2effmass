@@ -29,10 +29,20 @@ claim.
 Human review and acceptance
 ---------------------------
 
-Human checkpoints are required for scientific conventions, mathematical meaning,
-public APIs, schema semantics, architecture, compatibility, scope, release
-status, and unresolved validation failures. A task is not finally accepted until
-the human acceptance record says so.
+Human checkpoints are required only for genuine human decisions: scientific
+conventions, mathematical meaning, public APIs, schema semantics, architecture,
+compatibility, scope, release status, external transmission, destructive action,
+resource-intensive computation, conflicting authoritative instructions, and
+unresolved validation failures with more than one defensible resolution.
+
+Agents do not ask humans to perform administrative recordkeeping. When a human
+answers a pending checkpoint or gives final acceptance, the agent records the
+decision or acceptance, updates the relevant task and episode records, clears the
+checkpoint when applicable, resumes or closes the task, reruns required software
+verification, and reports the result. Deterministic corrections implied by
+approved scope and authoritative policy are recorded as agent-resolved corrective
+findings, not human checkpoints. A task is not finally accepted until the human
+acceptance record says so.
 
 Provenance practices
 --------------------

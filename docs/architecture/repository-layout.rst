@@ -5,8 +5,9 @@ Repository layout
 
    ksdft2effmass/
    ├── .agents/skills/                  # shared repository-local agent skills
-   │   └── graphify/                       # shared project Graphify skill
-   ├── .pi/                               # pi-specific skills, agents, chains, and task records
+   │   ├── graphify/                       # shared project Graphify skill
+   │   └── resolve-human-checkpoint/       # shared checkpoint-resolution skill
+   ├── .pi/                               # pi-specific skills, agents, chains, checkpoints, and task records
    ├── python/
    │   └── src/ksdft2effmass/operators/   # finite operator-record public API
    ├── rust/
@@ -34,6 +35,8 @@ In the validated project environment, both Codex and pi discover
 repository-local skills under ``.agents/skills/``. pi additionally discovers
 pi-specific skills under ``.pi/skills/``. A project skill may shadow a same-named
 global pi skill. The shared project Graphify skill lives under
-``.agents/skills/graphify/``; generated Graphify outputs live under ignored
-``graphify-out/`` and are derived navigation artifacts, not authoritative
-repository state.
+``.agents/skills/graphify/``; the shared checkpoint-resolution skill lives under
+``.agents/skills/resolve-human-checkpoint/``. Durable human checkpoint records
+and their JSON Schema live under ``.pi/checkpoints/``. Generated Graphify outputs
+live under ignored ``graphify-out/`` and are derived navigation artifacts, not
+authoritative repository state.

@@ -45,8 +45,14 @@ establish them.
 ``E01`` records Graphify integration prospectively, including the correction
 from assumed separate skill surfaces to the observed shared project-skill model:
 ``.agents/skills/graphify/`` is discovered by both Codex and pi in the validated
-environment and intentionally shadows the same-named global pi fallback. It is
-an infrastructure episode and is not evidence of scientific validity.
+environment and intentionally shadows the same-named global pi fallback. It also
+records a process finding: excessive checkpoint granularity made human
+governance unnecessarily burdensome by treating recordkeeping, deterministic
+correction, and workflow resumption as separate human decisions. The revised
+control plane classifies deterministic agent corrections, standing delegated
+policies, and genuine human decisions; records unambiguous human decisions
+automatically; and resumes authorized work automatically. E01 is an
+infrastructure episode and is not evidence of scientific validity.
 
 Evidence model
 --------------
@@ -88,5 +94,6 @@ Current status
 --------------
 
 The case-study protocol and records are active. ``E00`` is retrospectively
-recorded. ``E01`` implementation and verification are complete. Human final acceptance
-was recorded on 2026-07-30, and ``E01`` is closed as accepted.
+recorded. ``E01`` Graphify integration findings ``E01-F01`` and ``E01-F02`` and
+the ``E01-F03`` checkpoint-granularity process correction were accepted on
+2026-07-30. ``E01`` is closed as accepted.

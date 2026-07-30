@@ -61,6 +61,10 @@
     {
       "name": "Shared Graphify policy overlay",
       "summary": "The upstream Graphify 0.9.2 project skill is preserved under .agents/skills/graphify; repository-specific safety and authority rules live in references/ksdft2effmass-policy.md and must not be silently overwritten by future Graphify updates."
+    },
+    {
+      "name": "Control-plane decision-class correction",
+      "summary": "Human intervention is reserved for genuine human decisions. Deterministic agent corrections and standing delegated decisions are recorded, revalidated, and resumed automatically; unambiguous checkpoint responses are recorded by the resolve-human-checkpoint skill without special human wording."
     }
   ],
   "human_checkpoints": [
@@ -130,6 +134,16 @@
         "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
         "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/episode.json"
       ]
+    },
+    {
+      "id": "E01-HC08",
+      "type": "human_final_acceptance_E01_F03",
+      "date": "2026-07-30",
+      "summary": "Human accepted E01-F03 and E01 closeout. The decision-class policy, automatic checkpoint-resolution skill, durable checkpoint schema, new-session resumption behavior, chain behavior, completion behavior, E01-F03 case-study process finding, and validation results are accepted.",
+      "evidence_paths": [
+        ".pi/tasks/graphify-integration.md",
+        "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/episode.json"
+      ]
     }
   ],
   "findings": [
@@ -168,6 +182,26 @@
       "disposition": "resolved and accepted by human final decision on 2026-07-30; .agents/skills/graphify is the shared project Graphify skill for both Codex and pi in the validated environment; .pi/skills/use-graphify removed; global pi fallback left unmodified and intentionally shadowed",
       "status": "accepted",
       "human_acceptance": "2026-07-30"
+    },
+    {
+      "id": "E01-F03",
+      "taxonomy": "I",
+      "severity": "material",
+      "stage": "closeout_control_plane_correction",
+      "summary": "Excessive checkpoint granularity made human governance unnecessarily burdensome by treating recordkeeping and deterministic correction as separate human decisions.",
+      "description": "The control plane required repeated human administrative prompts for recording decisions, deterministic corrections, workflow resumption, and closeout recordkeeping after the substantive human decision had already been supplied.",
+      "root_cause": "The checkpoint model did not distinguish genuine human decisions from deterministic agent corrections and standing delegated policy decisions.",
+      "consequence": "Human governance became unnecessarily burdensome and new sessions could require the human to restate or manually carry checkpoint context.",
+      "evidence_paths": [
+        "AGENTS.md",
+        "docs/development/agent-control-plane.rst",
+        ".agents/skills/resolve-human-checkpoint/SKILL.md",
+        ".pi/checkpoints/checkpoint.schema.json",
+        ".pi/checkpoints/validate_checkpoints.py"
+      ],
+      "disposition": "accepted by human final decision on 2026-07-30; control-plane decision classes, durable checkpoint schema, automatic checkpoint-resolution skill, new-session resumption policy, chain policy, completion policy, and dry-run validation are accepted.",
+      "status": "accepted",
+      "human_acceptance": "2026-07-30"
     }
   ],
   "corrective_cycles": [
@@ -177,6 +211,19 @@
       "evidence_paths": [
         "/tmp/graphify-code-validation.log",
         "graphify-out/graph.json"
+      ]
+    },
+    {
+      "id": "E01-C02",
+      "summary": "Control-plane closeout correction added decision classes, durable checkpoint records, automatic human-decision recording, new-session task resumption, and dry-run validation so humans are not asked for administrative recording or deterministic corrections.",
+      "evidence_paths": [
+        "AGENTS.md",
+        ".agents/skills/resolve-human-checkpoint/SKILL.md",
+        ".pi/checkpoints/README.md",
+        ".pi/checkpoints/checkpoint.schema.json",
+        ".pi/checkpoints/fixtures/",
+        ".pi/checkpoints/validate_checkpoints.py",
+        "docs/development/agent-control-plane.rst"
       ]
     }
   ],
@@ -206,7 +253,20 @@
         "Project/global Graphify skill comparison recorded in checkpoint-03.md",
         "Shared repository Graphify policy overlay added under .agents/skills/graphify/references/ksdft2effmass-policy.md",
         "Read-only integration review after E01-F02 correction found no blocker/material findings; one stale human-disposition note was corrected.",
-        "Human final acceptance recorded on 2026-07-30; E01-F01 and E01-F02 accepted as corrected and E01 closed."
+        "Human final acceptance recorded on 2026-07-30 for E01-F01 and E01-F02; E01-F03 control-plane process correction remains pending final acceptance.",
+        "Control-plane checkpoint correction implementation added; closeout validation pending in current session.",
+        "E01-F03 checkpoint schema validation passed for synthetic pending/resolved fixtures.",
+        "E01-F03 unresolved-checkpoint scan found zero active checkpoint JSON records.",
+        "E01-F03 duplicate decision-record scan found zero duplicate resolved decisions.",
+        "E01-F03 skill frontmatter validation passed for .agents/skills and .pi/skills.",
+        "E01-F03 fresh-session checkpoint-resolution dry run passed: synthetic pending checkpoint plus unambiguous response resolved and resumed.",
+        "E01-F03 deterministic corrective finding dry run passed without creating a human checkpoint.",
+        "E01-F03 fresh Codex skill discovery found graphify and resolve-human-checkpoint under .agents/skills/.",
+        "E01-F03 fresh pi skill discovery found graphify and resolve-human-checkpoint under .agents/skills/.",
+        "E01-F03 Sphinx warning-as-error build passed.",
+        "E01-F03 read-only integration review completed; initial stale-status findings were corrected, and follow-up found no blockers.",
+        "Human final acceptance for E01-F03 and E01 closeout recorded on 2026-07-30.",
+        "E01-F03 accepted as corrected; E01 closed as accepted."
       ]
     },
     "numerical_verification": {
@@ -229,7 +289,7 @@
   "human_disposition": {
     "status": "approved",
     "date": "2026-07-30",
-    "notes": "Human final acceptance recorded on 2026-07-30. E01-F01 and E01-F02 are accepted as corrected; E01 is closed as accepted."
+    "notes": "Human final acceptance supplied for E01-F03 and E01 closeout. E01-F01, E01-F02, and E01-F03 are accepted as corrected; E01 is closed as accepted."
   },
   "implementation_status": "complete",
   "verification_status": "passed",

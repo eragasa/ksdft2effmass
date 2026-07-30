@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/.pi/checkpoints/checkpoint.schema.json",
+  "title": "ksdft2effmass human checkpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "checkpoint_id",
+    "task_id",
+    "episode_id",
+    "status",
+    "decision_class",
+    "created_at",
+    "question",
+    "options",
+    "recommendation",
+    "blocked_scope",
+    "safe_scope",
+    "authoritative_files",
+    "human_response",
+    "normalized_decision",
+    "resolved_at",
+    "authorized_scope",
+    "record_paths",
+    "resumption_status"
+  ],
+  "properties": {
+    "checkpoint_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": ["string", "null"]},
+    "episode_id": {"type": ["string", "null"]},
+    "status": {"enum": ["pending", "blocked", "resolved", "superseded", "cancelled"]},
+    "decision_class": {"enum": ["deterministic_agent_correction", "standing_delegated_decision", "genuine_human_decision", null]},
+    "created_at": {"type": ["string", "null"]},
+    "question": {"type": ["string", "null"]},
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "summary", "consequence"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "summary": {"type": "string"},
+          "consequence": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "recommendation": {"type": ["string", "null"]},
+    "blocked_scope": {"type": ["string", "null"]},
+    "safe_scope": {"type": ["string", "null"]},
+    "authoritative_files": {"type": "array", "items": {"type": "string"}},
+    "human_response": {"type": ["string", "null"]},
+    "normalized_decision": {"type": ["string", "null"]},
+    "resolved_at": {"type": ["string", "null"]},
+    "authorized_scope": {"type": ["string", "null"]},
+    "record_paths": {"type": "array", "items": {"type": "string"}},
+    "resumption_status": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "resolved"}}},
+      "then": {
+        "properties": {
+          "human_response": {"type": "string", "minLength": 1},
+          "normalized_decision": {"type": "string", "minLength": 1},
+          "resolved_at": {"type": "string", "minLength": 1},
+          "authorized_scope": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  ]
+}

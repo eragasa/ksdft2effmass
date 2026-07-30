@@ -1,0 +1,49 @@
+{
+  "name": "operator-record-refactor",
+  "package": "ksdft2effmass",
+  "description": "Operator-record corrective workflow: control-plane contract, public schema and fixtures, implementation, tests, documentation, read-only integration review, parent verification, and human final acceptance. If a genuine human checkpoint is created, the parent task waits in durable .pi/checkpoints/ state; after a human response, the parent records the decision, clears the checkpoint, resumes authorized work, reruns validation, and continues. Deterministic corrections implied by authoritative policy are recorded and handled without a human checkpoint. After completion, use the read-only choose-next-task skill only if the human asks what is next; it is not a completion gate and must not launch work.",
+  "chain": [
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-architecture",
+      "phase": "Control-plane contract",
+      "label": "Verify recorded human-approved corrective contract",
+      "as": "control_plane_contract",
+      "task": "Inspect AGENTS.md, .pi/tasks/operator-record-refactor.md, .pi/skills/, .pi/agents/, and .pi/chains/. Verify that the human-approved corrective contract is recorded: OperatorRecordJsonSerializer with serialize(record)->str and deserialize(text)->OperatorRecord, public scientific validation surfaces, public versioned schema and golden fixtures, no cross-object private-method calls, no compatibility aliases absent evidence, and staged order control-plane contract -> public schema and validation fixtures -> production implementation -> tests -> documentation -> read-only integration review -> parent verification -> human final acceptance. Do not edit files. Report any missing policy as a blocking finding."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-architecture",
+      "phase": "Public schema and validation fixtures",
+      "label": "Review public schema and fixture contract",
+      "as": "public_schema_fixtures",
+      "task": "After the control-plane contract is recorded, review specification/operator-record/v1/operator-record.schema.json plus valid/ and invalid/ fixtures. Verify schema version 1 fields, structural constraints, documented cross-field constraints, valid and invalid expected outcomes, and no new runtime dependency. Do not edit files. Report blockers before implementation."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-implementation",
+      "phase": "Production implementation",
+      "label": "Implement approved operator-record contract",
+      "as": "implementation",
+      "task": "Proceed only after public schema and validation fixtures are complete. Implement only python/src/ksdft2effmass/operators/ and source docstrings for the approved contract. Use OperatorRecordJsonSerializer serialize()/deserialize() over actual JSON text. Remove obsolete OperatorRecordJsonCodec, encode(), and decode() public API. Enforce HermiticityResult, HermiticityAnalyzer, Basis, OperatorRecord, Geometry, and serializer invariants. Do not edit docs/ or tests/. Report files changed, commands run, and unresolved issues."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-tests",
+      "phase": "Tests",
+      "label": "Test completed implementation through public APIs and fixtures",
+      "as": "tests",
+      "task": "After implementation completes, update tests only under python/tests/ksdft2effmass/operators/ unless parent pi assigns integration-test ownership. Use test__OperatorRecordJsonSerializer.py. Test public constructors and public ActionObject methods, valid and invalid fixtures, deterministic JSON text, strict deserialization, D(S(R))=R, S(D(J))=canonicalize(J), public imports, and obsolete API absence. Do not test private method names. Report files changed, commands run, and unresolved issues."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-documentation",
+      "phase": "Documentation",
+      "label": "Document completed source and test contract",
+      "as": "documentation",
+      "task": "After tests are updated against completed implementation, update docs/ conceptual, API, architecture, and navigation documentation. Document DataObject/ActionObject/ResultObject separation, Hermiticity criterion, matrix/basis/geometry/energy conventions, actual JSON text serialization, schema-version-1 fields, fixtures, deterministic serialization, strict deserialization, public/private validation surfaces, and future Python/Rust conformance use. Remove stale references. Report files changed, commands run, and unresolved issues."
+    },
+    {
+      "agent": "ksdft2effmass.ksdft2effmass-integration-reviewer",
+      "phase": "Read-only integration review",
+      "label": "Final read-only integration review after combined-tree validation",
+      "as": "integration_review",
+      "task": "Perform read-only integration review after implementation, tests, and documentation are combined. Check architecture, public schema, fixtures, implementation, tests, docs, public imports, stale APIs, dangling helpers, cross-private calls, typing, and completion gates. Never repair findings. Report findings with exact file and line references and fail on material findings so parent pi can resolve them."
+    }
+  ]
+}
