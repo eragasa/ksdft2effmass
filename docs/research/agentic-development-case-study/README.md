@@ -18,3 +18,5 @@ scientific validation.
 
 Episode `E00` is a retrospective pilot reconstructed from repository evidence.
 Episode `E01` is the first prospective episode and covers Graphify integration.
+Episode `E02` prospectively records the accepted operator-record validation
+correction and progressive VVUQ evidence migration.

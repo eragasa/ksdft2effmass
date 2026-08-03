@@ -17,41 +17,112 @@ scientifically validate an electronic-structure calculation or reduced model.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import StrEnum
+from typing import TYPE_CHECKING
 
 import numpy as np
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    # Constructor inputs intentionally include the runtime-admitted Python and
+    # NumPy real-scalar families. Boolean remains a runtime-rejected semantic
+    # refinement because static integer typing cannot precisely exclude it.
+    type _HermiticityRealScalarInput = int | float | np.integer[Any] | np.floating[Any]
 
 from .records import OperatorRecord
 
 
 class HermiticityUnitMismatchError(ValueError):
-    """Raised when analyzer and record energy units differ.
+    """Raised when analyzer and record energy-unit strings differ exactly.
 
     Parameters
     ----------
     analyzer_energy_unit
-        Unit configured on the :class:`HermiticityAnalyzer`.
+        Nonempty unit string configured on the :class:`HermiticityAnalyzer`.
+        The Analyzer tolerance is interpreted in this unit.
     record_energy_unit
-        Unit stored on ``record.energy_reference.unit``.
+        Nonempty unit string stored on ``record.energy_reference.unit``. The
+        represented matrix and Hermiticity residual use this unit.
 
     Attributes
     ----------
     analyzer_energy_unit
-        Public retained analyzer unit for structured inspection.
+        Public retained Analyzer-policy unit for structured inspection.
     record_energy_unit
-        Public retained record unit for structured inspection.
+        Public retained record-metadata unit for structured inspection.
+
+    Raises
+    ------
+    TypeError
+        If either unit is not a string under the public string-type policy.
+    ValueError
+        If either string is empty or the two strings are equal.
+
+    Notes
+    -----
+    Comparison is exact and case-sensitive. The exception performs no trimming,
+    normalization, unit conversion, registry lookup, dimensional analysis, or
+    physical-unit validation. It represents only the structured disagreement
+    ``analyzer_energy_unit != record_energy_unit``.
     """
 
     analyzer_energy_unit: str
     record_energy_unit: str
 
     def __init__(self, analyzer_energy_unit: str, record_energy_unit: str) -> None:
-        """Store both conflicting units and build a concise message."""
+        """Validate and retain both ordered unit roles.
+
+        Parameters
+        ----------
+        analyzer_energy_unit
+            Candidate nonempty Analyzer-policy unit string.
+        record_energy_unit
+            Candidate nonempty record-metadata unit string.
+
+        Raises
+        ------
+        TypeError
+            If either value is not a string.
+        ValueError
+            If either string is empty or both strings are exactly equal.
+        """
+
+        if not isinstance(analyzer_energy_unit, str):
+            msg = "analyzer energy unit must be a string"
+            raise TypeError(msg)
+        if not isinstance(record_energy_unit, str):
+            msg = "record energy unit must be a string"
+            raise TypeError(msg)
+        if analyzer_energy_unit == "":
+            msg = "analyzer energy unit must not be empty"
+            raise ValueError(msg)
+        if record_energy_unit == "":
+            msg = "record energy unit must not be empty"
+            raise ValueError(msg)
+        if analyzer_energy_unit == record_energy_unit:
+            msg = "analyzer and record energy units must differ"
+            raise ValueError(msg)
 
         self.analyzer_energy_unit = analyzer_energy_unit
         self.record_energy_unit = record_energy_unit
         super().__init__(
-            "Hermiticity analyzer energy unit does not match record energy unit"
+            "Hermiticity analyzer energy unit "
+            f"{analyzer_energy_unit!r} does not match record energy unit "
+            f"{record_energy_unit!r}"
         )
+
+
+class HermiticityNumericalErrorCode(StrEnum):
+    """Stable structured Hermiticity numerical-error categories.
+
+    Attributes
+    ----------
+    NONFINITE_RESIDUAL
+        Matrix subtraction or residual reduction produced a nonfinite residual.
+    """
+
+    NONFINITE_RESIDUAL = "nonfinite_residual"
 
 
 class HermiticityNumericalError(ValueError):
@@ -60,29 +131,30 @@ class HermiticityNumericalError(ValueError):
     Parameters
     ----------
     reason
-        Stable reason string describing the failure category. Current public
-        values include ``"nonfinite_residual"`` for subtraction overflow or
-        nonfinite intermediate residual matrices.
+        Stable public enum category describing the numerical failure.  Arbitrary
+        strings and string values of enum members are rejected rather than
+        coerced so callers can rely on a closed structured error set.
 
     Attributes
     ----------
     reason
-        Public structured reason for inspection without parsing message text.
+        Public structured enum reason for inspection without parsing message
+        text.
     """
 
-    reason: str
+    reason: HermiticityNumericalErrorCode
 
-    def __init__(self, reason: str) -> None:
-        """Store the structured reason and build a concise diagnostic."""
+    def __init__(self, reason: HermiticityNumericalErrorCode) -> None:
+        """Store the structured enum reason and build a concise diagnostic."""
 
-        if not isinstance(reason, str):
-            msg = "Hermiticity numerical-error reason must be a string"
+        if not isinstance(reason, HermiticityNumericalErrorCode):
+            msg = (
+                "Hermiticity numerical-error reason must be a "
+                "HermiticityNumericalErrorCode"
+            )
             raise TypeError(msg)
-        if reason == "":
-            msg = "Hermiticity numerical-error reason must not be empty"
-            raise ValueError(msg)
         self.reason = reason
-        super().__init__(f"Hermiticity numerical failure: {reason}")
+        super().__init__(f"Hermiticity numerical failure: {reason.value}")
 
 
 class HermiticityRequirementError(ValueError):
@@ -96,8 +168,17 @@ class HermiticityRequirementError(ValueError):
     Attributes
     ----------
     result
-        Public retained :class:`HermiticityResult`; callers inspect this object
-        instead of parsing exception-message text.
+        Public retained failed :class:`HermiticityResult`; callers inspect this
+        object instead of parsing exception-message text.
+
+    Raises
+    ------
+    TypeError
+        If ``result`` is not a :class:`HermiticityResult`.
+    ValueError
+        If ``result.is_hermitian`` is true. This exception represents only a
+        failed requirement, so retaining a successful result would create
+        contradictory public state.
     """
 
     result: HermiticityResult
@@ -108,6 +189,9 @@ class HermiticityRequirementError(ValueError):
         if not isinstance(result, HermiticityResult):
             msg = "result must be a HermiticityResult"
             raise TypeError(msg)
+        if result.is_hermitian:
+            msg = "result must be a failed HermiticityResult"
+            raise ValueError(msg)
         self.result = result
         super().__init__("operator matrix is not Hermitian within tolerance")
 
@@ -134,6 +218,25 @@ class HermiticityResult:
     residual: float
     tolerance: float
     energy_unit: str
+
+    if TYPE_CHECKING:
+
+        def __init__(
+            self,
+            residual: _HermiticityRealScalarInput,
+            tolerance: _HermiticityRealScalarInput,
+            energy_unit: str,
+        ) -> None:
+            """Declare admitted constructor inputs without changing runtime.
+
+            Python and NumPy integer and floating scalars are accepted at the
+            constructor boundary and canonicalized to the stored ``float``
+            attributes by ``__post_init__``. Boolean values remain rejected by
+            runtime semantic validation even though static integer typing cannot
+            express that exclusion precisely. The dataclass generates the actual
+            runtime constructor because this declaration exists only during
+            static type checking.
+            """
 
     def __post_init__(self) -> None:
         """Canonicalize scalar and unit fields and enforce non-negativity."""
@@ -240,7 +343,11 @@ class HermiticityAnalyzer:
     Parameters
     ----------
     tolerance
-        Non-negative finite tolerance :math:`\\tau` in ``energy_unit``.
+        Non-negative finite tolerance :math:`\\tau` in ``energy_unit``. Python
+        and NumPy integer or floating scalars are accepted and canonicalized to
+        built-in ``float``. Booleans remain a runtime-rejected semantic
+        refinement because static integer typing cannot express their exclusion
+        precisely.
     energy_unit
         Required nonempty energy-unit string. It must exactly equal
         ``record.energy_reference.unit`` when a record is analyzed. No automatic
@@ -249,6 +356,24 @@ class HermiticityAnalyzer:
 
     tolerance: float
     energy_unit: str
+
+    if TYPE_CHECKING:
+
+        def __init__(
+            self,
+            tolerance: _HermiticityRealScalarInput,
+            energy_unit: str,
+        ) -> None:
+            """Declare admitted tolerance inputs without changing runtime.
+
+            Python and NumPy integer and floating scalars are accepted at the
+            constructor boundary and canonicalized to the stored ``float``
+            attribute by ``__post_init__``. Boolean values remain rejected by
+            runtime semantic validation even though static integer typing cannot
+            express that exclusion precisely. The dataclass generates the actual
+            runtime constructor because this declaration exists only during
+            static type checking.
+            """
 
     def __post_init__(self) -> None:
         """Canonicalize analyzer-owned tolerance and validate its unit."""
@@ -378,12 +503,16 @@ class HermiticityAnalyzer:
             # check; it is not exposed as an operator-difference object.
             residual_matrix = record.matrix - record.matrix.conj().T
         if not np.all(np.isfinite(residual_matrix)):
-            raise HermiticityNumericalError("nonfinite_residual")
+            raise HermiticityNumericalError(
+                HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+            )
         # The entrywise maximum absolute residual is epsilon_H in the record's
         # energy unit and is basis-dependent for non-Hermitian matrices.
         residual = float(np.max(np.abs(residual_matrix)))
         if not np.isfinite(residual):
-            raise HermiticityNumericalError("nonfinite_residual")
+            raise HermiticityNumericalError(
+                HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+            )
         return HermiticityResult(
             residual=residual,
             tolerance=self.tolerance,

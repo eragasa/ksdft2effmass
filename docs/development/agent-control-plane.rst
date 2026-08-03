@@ -4,6 +4,15 @@ Agent control plane
 The agent control plane records how humans and agents coordinate work in the
 repository. It is operational guidance, not a scientific specification.
 
+Current operator-record status
+------------------------------
+
+The operator-record validation-correction task was accepted and closed on
+2026-08-03. No operator-record corrective task is active, no human checkpoint is
+unresolved, and no successor task has been selected or launched. An explicit
+unitary basis/state-space alignment contract is only a candidate for future human
+selection; it is not approved for implementation or in progress.
+
 Authority and roles
 -------------------
 
@@ -75,6 +84,22 @@ validation procedures. ResultObjects make operation outputs explicit. Production
 Workflow objects are introduced only for genuine reusable scientific or
 computational sequences; technical integrations do not require artificial
 Workflow objects.
+
+VVUQ evidence classes
+---------------------
+
+The control plane distinguishes software verification, numerical verification,
+scientific validation, and uncertainty quantification. Software verification is
+evidence that code satisfies its documented software contract. Numerical
+verification is evidence that numerical algorithms implement or approximate the
+stated mathematics. Scientific validation requires independent physical
+reference evidence and a declared intended use. Uncertainty quantification
+requires explicit uncertainty sources and propagation.
+
+Agents must not classify constructor or schema rejection as scientific
+validation. Passing software-verification or numerical-verification tests must
+not be reported as scientific validation or UQ. When scientific validation or UQ
+has not been performed, reports state that absence explicitly.
 
 Public validation surfaces
 --------------------------

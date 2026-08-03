@@ -34,7 +34,14 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 Primary output:
 
-Tested `OperatorRecord` in `python/src/ksdft2effmass/operators/records.py` with package exports in `python/src/ksdft2effmass/operators/__init__.py` and regression tests in `python/tests/test_operator_record.py`.
+Tested `OperatorRecord` infrastructure in
+`python/src/ksdft2effmass/operators/` with package exports in
+`python/src/ksdft2effmass/operators/__init__.py`. Maintained evidence lives under
+`python/tests/software_verification/ksdft2effmass/` and
+`python/tests/numerical_verification/ksdft2effmass/`, including focused operator,
+Workflow, serializer/schema, fixture, Hermiticity, geometry, and residual-analysis
+owners. The earlier single-file test paths in the computational record below are
+historical paths from the initial implementation state.
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 
@@ -72,7 +79,25 @@ $$
 
 The task fails if its primary artifact cannot be reproduced, if its required comparison space is undefined, if validation depends only on visual agreement, or if the reported result changes beyond tolerance under an unrecorded numerical choice.
 
-## Computational Record
+## Accepted follow-up validation state
+
+The repository-wide operator-record validation correction was accepted on
+2026-08-03 with 921 full-suite cases and 98 focused serializer/schema/fixture
+cases passing, plus Ruff, mypy, Sphinx warnings-as-errors, dependency/lock,
+checkpoint, whitespace, and independent integration-review gates. `jsonschema`
+is a development/test dependency only; mandatory runtime dependencies remain
+NumPy and SciPy. This is software verification plus the explicitly documented
+numerical-verification cases, not scientific validation, UQ, physical validation,
+or Rust conformance.
+
+The accepted infrastructure includes finite record storage, Hermiticity analysis,
+version-1 JSON serialization, exact compatibility auditing, represented
+subtraction of already-compatible records, residual metrics, and comparison
+composition. Basis/gauge alignment, unit conversion, energy-zero alignment,
+geometry transformation, physical impurity identification, scientific
+validation, UQ, and Rust remain outside this completed task.
+
+## Historical computational record
 
 - run identifier: local implementation session, 2026-07-28
 - code version: `416ef8a` at task start

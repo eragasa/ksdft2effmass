@@ -1,7 +1,25 @@
 {
   "name": "operator-record-refactor",
   "package": "ksdft2effmass",
-  "description": "Operator-record corrective workflow: control-plane contract, public schema and fixtures, implementation, tests, documentation, read-only integration review, parent verification, and human final acceptance. If a genuine human checkpoint is created, the parent task waits in durable .pi/checkpoints/ state; after a human response, the parent records the decision, clears the checkpoint, resumes authorized work, reruns validation, and continues. Deterministic corrections implied by authoritative policy are recorded and handled without a human checkpoint. After completion, use the read-only choose-next-task skill only if the human asks what is next; it is not a completion gate and must not launch work.",
+  "description": "HISTORICAL CLOSED AND ACCEPTED operator-record refactor workflow. Human final acceptance was granted on 2026-07-30; later corrections were accepted through operator-record-validation-correction on 2026-08-03. No task is active or launched by this chain record.",
+  "status": "closed_accepted",
+  "active_task": null,
+  "human_final_acceptance": {
+    "status": "accepted",
+    "date": "2026-07-30",
+    "evidence": ".pi/tasks/operator-record-refactor.md"
+  },
+  "superseded_for_later_corrections_by": ".pi/tasks/operator-record-validation-correction.md",
+  "phase_status": {
+    "control-plane contract": "completed",
+    "public schema and fixtures": "completed",
+    "production implementation": "completed",
+    "tests": "completed",
+    "documentation": "completed",
+    "read-only integration review": "completed",
+    "parent verification": "completed",
+    "human final acceptance": "completed"
+  },
   "chain": [
     {
       "agent": "ksdft2effmass.ksdft2effmass-architecture",

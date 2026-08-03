@@ -1,0 +1,249 @@
+r"""Software verification of ``StateSpace`` construction.
+
+Facet and represented meaning
+-----------------------------
+This module owns public construction, exact field mapping, accepted dimension
+scalar canonicalization, arbitrary positive structural dimensions, exact string
+preservation, and standalone-serialization exclusion. ``StateSpace`` represents
+finite metadata for :math:`\dim\mathcal H=N` through
+``state_space.dimension == N``. It stores exactly ``identifier``, ``kind``, and
+``dimension``.
+
+Intrinsic and cross-object scope
+--------------------------------
+The DataObject validates its own metadata and canonicalizes admitted Python and
+NumPy integer scalars to built-in ``int``. It allocates no basis, vector, or
+matrix and imposes no dimension cap. Matrix-dimension and basis-order agreement
+belong to ``OperatorRecord``. The approved architecture and Sphinx contract are
+the oracle. Passing establishes only the documented construction contract;
+failure may indicate an implementation regression, documentation mismatch, or
+evidence defect.
+
+VVUQ and scientific exclusions
+------------------------------
+This module provides software-verification evidence ``SV-SS-001`` through
+``SV-SS-005``. It establishes no physical Hilbert space, basis completeness,
+operator-domain correctness, matrix compatibility, DFT or Wannier validity,
+scientific validation, uncertainty quantification, or Rust conformance.
+"""
+
+import numpy as np
+import pytest
+
+from ksdft2effmass.operators import StateSpace
+
+pytestmark = pytest.mark.software_verification
+
+
+def make_state_space(
+    *,
+    identifier: str = "two-level",
+    kind: str = "finite synthetic",
+    dimension: int = 2,
+) -> StateSpace:
+    """Construct valid synthetic finite state-space metadata.
+
+    Evidence ID
+        Supporting helper for ``SV-SS-003`` through ``SV-SS-005``; it owns no
+        separate evidence identifier.
+    Requirement
+        Valid fixtures use explicit typed fields and pass them unchanged to the
+        public constructor.
+    Method
+        Construct ``StateSpace`` with the supplied metadata.
+    Oracle
+        The approved public contract defines the three constructor roles and
+        object-owned canonicalization.
+    Acceptance
+        A valid public ``StateSpace`` is returned.
+    Interpretation
+        The helper provides synthetic metadata without hidden coercion.
+    Limitations
+        It performs no basis construction, allocates no vector or matrix
+        storage, and establishes no physical or scientific validity, scientific
+        validation, uncertainty quantification, or Rust conformance.
+    """
+
+    return StateSpace(identifier=identifier, kind=kind, dimension=dimension)
+
+
+def test_public_construction_and_exact_stored_field_mapping() -> None:
+    """SV-SS-001: verify public construction and exact field roles.
+
+    Evidence ID
+        ``SV-SS-001``.
+    Requirement
+        Public construction stores exactly supplied identifier, kind, and
+        positive dimension values in their declared roles and built-in types.
+    Method
+        Construct through ``ksdft2effmass.operators.StateSpace`` using distinct
+        valid synthetic values and inspect the public fields.
+    Oracle
+        The approved three-field DataObject contract defines mapping and stored
+        built-in types independently of source location.
+    Acceptance
+        All values match exactly and types are exactly ``str``, ``str``, and
+        ``int``.
+    Interpretation
+        Passing establishes supported construction and stored-field mapping.
+    Limitations
+        It does not establish basis or matrix compatibility, physical meaning,
+        scientific validation, uncertainty quantification, or Rust conformance.
+    """
+
+    state_space = StateSpace(
+        identifier="two-level",
+        kind="finite synthetic",
+        dimension=2,
+    )
+
+    assert state_space.identifier == "two-level"
+    assert state_space.kind == "finite synthetic"
+    assert state_space.dimension == 2
+    assert type(state_space.identifier) is str
+    assert type(state_space.kind) is str
+    assert type(state_space.dimension) is int
+
+
+@pytest.mark.parametrize(
+    "dimension",
+    [
+        pytest.param(1, id="SV-SS-002-python-integer"),
+        pytest.param(np.int32(2), id="SV-SS-002-numpy-int32"),
+        pytest.param(np.int64(2), id="SV-SS-002-numpy-int64"),
+    ],
+)
+def test_accepted_dimension_scalars_canonicalize_to_builtin_int(
+    dimension: int | np.integer,
+) -> None:
+    """SV-SS-002: canonicalize admitted integer scalar families.
+
+    Evidence ID
+        ``SV-SS-002``; stable parameter IDs identify Python integer and two
+        representative NumPy widths.
+    Requirement
+        Python and NumPy integer scalars are admitted with value preservation
+        and canonical built-in ``int`` storage; positive one is valid.
+    Method
+        Construct independently with each representative scalar.
+    Oracle
+        The approved runtime and typing contracts admit these integer families
+        and require canonical stored ``int`` state.
+    Acceptance
+        Stored dimension equals ``int(dimension)`` and has exact type ``int``.
+    Interpretation
+        Passing synchronizes runtime admission, value preservation, and stored
+        type across representative widths.
+    Limitations
+        It does not approve Boolean semantics or every third-party integer-like
+        protocol and establishes no numerical or scientific validation, UQ, or
+        Rust conformance.
+    """
+
+    state_space = StateSpace(
+        identifier="two-level",
+        kind="finite synthetic",
+        dimension=dimension,
+    )
+
+    assert state_space.dimension == int(dimension)
+    assert type(state_space.dimension) is int
+
+
+def test_arbitrary_positive_structural_dimension_has_no_allocation_policy() -> None:
+    """SV-SS-003: admit an arbitrary-precision positive dimension.
+
+    Evidence ID
+        ``SV-SS-003``.
+    Requirement
+        ``StateSpace`` imposes positivity only, with no approved maximum
+        dimension or allocation policy.
+    Method
+        Construct synthetic metadata with the Python integer ``10**1000``.
+    Oracle
+        The intrinsic contract treats dimension as structural metadata; matrix
+        and basis constraints remain separate ``OperatorRecord`` invariants.
+    Acceptance
+        The arbitrary-precision value is preserved exactly as built-in ``int``.
+    Interpretation
+        Passing establishes that construction itself adds no dimension cap or
+        vector/matrix allocation.
+    Limitations
+        It does not promise that an ``OperatorRecord`` matrix of this dimension
+        can be allocated or processed and establishes no scientific validation,
+        UQ, or Rust conformance.
+    """
+
+    dimension = 10**1000
+    state_space = make_state_space(dimension=dimension)
+
+    assert state_space.dimension == dimension
+    assert type(state_space.dimension) is int
+
+
+def test_valid_strings_are_preserved_exactly_without_normalization() -> None:
+    """SV-SS-004: preserve observable case and characters exactly.
+
+    Evidence ID
+        ``SV-SS-004``.
+    Requirement
+        Valid nonempty identifier and kind metadata are stored without stripping,
+        case folding, slug conversion, Unicode normalization, or enumeration.
+    Method
+        Construct with mixed-case nonempty strings and compare exact values.
+    Oracle
+        The approved metadata contract requires exact preservation and no
+        normalization policy.
+    Acceptance
+        Both stored strings equal their inputs exactly.
+    Interpretation
+        Passing establishes preservation of these valid descriptive strings.
+    Limitations
+        It does not approve every possible semantic label or whitespace-only
+        metadata and establishes no physical validity, scientific validation,
+        UQ, or Rust conformance.
+    """
+
+    identifier = "State-Space-A"
+    kind = "Finite Synthetic"
+    state_space = make_state_space(identifier=identifier, kind=kind)
+
+    assert state_space.identifier == identifier
+    assert state_space.kind == kind
+
+
+def test_state_space_has_no_standalone_serialization_api() -> None:
+    """SV-SS-005: verify standalone serialization exclusion.
+
+    Evidence ID
+        ``SV-SS-005``.
+    Requirement
+        Neither instance nor class exposes the six unapproved standalone JSON,
+        dictionary, serializer, or deserializer method names.
+    Method
+        Inspect a valid instance and the public class for each excluded name.
+    Oracle
+        Schema version 1 assigns nested state-space serialization exclusively to
+        ``OperatorRecordJsonSerializer`` and approves no independent wire format.
+    Acceptance
+        Every excluded method is absent from instance and class.
+    Interpretation
+        Passing establishes the current nested-only serialization boundary.
+    Limitations
+        Pickling and future approved schemas are unspecified. No record round
+        trip, scientific validation, uncertainty quantification, or Rust
+        conformance is established.
+    """
+
+    state_space = make_state_space()
+
+    for method_name in (
+        "to_json",
+        "to_dict",
+        "serialize",
+        "from_json",
+        "from_dict",
+        "deserialize",
+    ):
+        assert not hasattr(state_space, method_name)
+        assert not hasattr(StateSpace, method_name)

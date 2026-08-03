@@ -15,8 +15,6 @@ the JSON serializer/deserializer:
 - every matrix and cell component is finite;
 - geometry cell rows are linearly independent according to the implementation
   tolerance documented by the `Geometry` DataObject;
-- schema-version-1 operator records require an orthonormal basis at the
-  represented-operator level;
 - JSON text must not contain duplicate object keys or nonstandard constants such
   as `NaN`, `Infinity`, or `-Infinity`.
 

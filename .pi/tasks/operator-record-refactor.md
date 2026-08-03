@@ -2,7 +2,7 @@
 
 ## Status
 
-Closed. Human final acceptance approved on 2026-07-30 after parent verification. Scientific validation has not yet been performed and remains outside this task.
+Closed and accepted. Human final acceptance was approved on 2026-07-30 after parent verification. Later operator-record corrections are recorded prospectively in `.pi/tasks/operator-record-validation-correction.md`, accepted on 2026-08-03; they do not erase this task's original chronology or accepted historical evidence. Scientific validation has not been performed and remains outside both tasks.
 
 ## Resolved repository roots
 

@@ -97,15 +97,35 @@ For dopant $d\in\{\mathrm P,\mathrm B\}$:
 | $\Delta E_{b,d}$ | Binding-energy error |
 | $F_d$ | State or subspace fidelity |
 
+## Software Infrastructure Status
+
+Implemented and accepted software infrastructure includes finite operator-record
+storage, fixed-representation Hermiticity analysis, deterministic version-1 JSON
+serialization, exact representation-metadata compatibility auditing, represented
+subtraction for already-compatible records, residual metrics, and comparison
+composition. Maintained software-verification evidence and selected documented
+numerical-verification cases cover these contracts.
+
+This infrastructure does not perform basis/gauge alignment, unit conversion,
+energy-zero alignment, geometry transformation, physical-equivalence decisions,
+or impurity-operator identification. Scientific validation, uncertainty
+quantification, and Rust conformance have not been performed. A generic
+represented difference is not, by itself, a scientifically identified impurity
+operator.
+
 ## Program Status
 
-### Active
+No successor implementation task is active or launched by the operator-record
+closeout. The following lists describe planned branches and candidate future
+work, not current implementation authorization.
+
+### Planned program branches
 
 - bulk-silicon DFT-to-Wannier construction and parallel tight-binding reconstructions;
 - compatibility analysis of the spectral- and aligned-operator-admissible sets;
 - decomposition of the research plan into focused notes;
 - definition of common state spaces, operator residuals, and validation metrics.
-### Next
+### Candidate future work
 
 - validate [[ksdft2Effmass.05]] against the bulk-silicon computational pilot;
 - test identifiability of each prescribed $sp^3s^*$ model class from the retained spectral data;

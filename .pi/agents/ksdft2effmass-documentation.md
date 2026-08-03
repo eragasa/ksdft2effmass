@@ -23,7 +23,8 @@ Responsibilities:
 - conceptual Sphinx documentation;
 - generated API pages;
 - serialization specification;
-- DataObject/ActionObject explanation;
+- DataObject/ActionObject and concrete Workflow explanation;
+- compatibility, represented-difference, residual-analysis, and comparison-Workflow subsystem boundaries;
 - mathematical and scientific conventions;
 - examples;
 - toctree integration;

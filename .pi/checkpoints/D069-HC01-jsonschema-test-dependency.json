@@ -1,0 +1,50 @@
+{
+  "checkpoint_id": "D069-HC01",
+  "task_id": "operator-record-validation-correction-D069",
+  "episode_id": "E02",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-02T15:57:32Z",
+  "question": "May the serializer/schema migration add jsonschema as an explicit development/test dependency so the public draft-2020-12 schema integration evidence is reproducibly runnable from the declared development environment?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize jsonschema as an explicit development/test dependency.",
+      "consequence": "Add jsonschema to the appropriate declared Python development/test extra, refresh the lockfile with the established tool, rerun all serializer/schema/fixture and repository gates, and repeat the failed integration review. Runtime package dependencies and serializer semantics remain unchanged."
+    },
+    {
+      "id": "B",
+      "summary": "Do not add a dependency; replace independent JSON Schema validation with narrower standard-library structural artifact checks.",
+      "consequence": "The integration evidence can remain reproducible under the current dev extra, but it will no longer independently execute the complete draft-2020-12 schema semantics and the evidence/documentation claims must be narrowed."
+    },
+    {
+      "id": "C",
+      "summary": "Leave D069 blocked.",
+      "consequence": "The migrated serializer runtime tests and artifacts remain provisional; final schema integration acceptance and task completion are not reported."
+    }
+  ],
+  "recommendation": "Option A, because the task requires executable public-schema evidence and jsonschema is already resolved in the repository lockfile through another optional environment; explicit declaration makes the test dependency reproducible without changing runtime package dependencies.",
+  "blocked_scope": "D069 final validation, schema-integration acceptance, repeat read-only integration review, and serializer migration completion.",
+  "safe_scope": "Deterministic documentation correction, read-only inspection, checkpoint validation, and reporting the blocked dependency decision.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "python/pyproject.toml",
+    "python/uv.lock",
+    "python/tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py",
+    "specification/operator-record/v1/operator-record.schema.json",
+    ".pi/tasks/operator-record-validation-correction.md"
+  ],
+  "human_response": "Decision: A — approved. Add jsonschema as an explicit development/test dependency using the repository's existing optional-development dependency convention; do not add it to mandatory runtime dependencies; select the validator from the schema's declared dialect; validate the schema and fixtures through that validator; retain runtime-only cross-field checks; refresh the lockfile; verify normal versus development installation dependency separation; rerun all gates and reviews.",
+  "normalized_decision": "Option A approved: declare jsonschema only in the optional development/test dependency group, refresh the lockfile, use the validator selected from the schema's declared dialect for schema and fixture evidence, preserve runtime-only invariant checks, and complete D069 validation and review.",
+  "resolved_at": "2026-08-02T15:59:52Z",
+  "authorized_scope": "Add jsonschema to the optional dev dependency group only; refresh python/uv.lock with uv lock; update schema integration evidence to select and check the declared dialect validator; verify dependency separation; rerun serializer/schema/fixture, repository, documentation, and read-only review gates. No mandatory runtime dependency, schema-version, public-field, serializer-semantic, or scientific-functionality change is authorized.",
+  "record_paths": [
+    ".pi/checkpoints/D069-HC01-jsonschema-test-dependency.json",
+    ".pi/tasks/operator-record-validation-correction.md",
+    "python/pyproject.toml",
+    "python/uv.lock",
+    "python/tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py",
+    "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/episode.json"
+  ],
+  "resumption_status": "completed_and_human_accepted_with_e02"
+}

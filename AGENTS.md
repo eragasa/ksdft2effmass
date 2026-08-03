@@ -329,6 +329,13 @@ repository-local skills discoverable by both Codex and pi live under
 skills and task files may add narrower instructions but must not contradict this
 file.
 
+Current operator-record control-plane status (2026-08-03): the
+`operator-record-validation-correction` task is closed and accepted; no
+operator-record corrective task is active; no human checkpoint is unresolved;
+and no next task is selected or launched. An explicit unitary
+basis/state-space alignment contract may be discussed as a candidate future
+task, but it is not active, approved for implementation, or in progress.
+
 Use the repository-local `choose-next-task` skill as a read-only planning
 transition after human final acceptance of a task, when the user explicitly asks
 what is next, or when a chain completes and the parent needs to propose the next
@@ -407,16 +414,18 @@ processing, hook behavior, or generated-file ownership conflict.
 For the operator-record refactor, repository evidence establishes the Python
 project root as `python/`, the Python source root as `python/src/`, the operator
 package as `python/src/ksdft2effmass/operators/`, and the test root as
-`python/tests/`. Object tests must mirror the public package hierarchy under
-`python/tests/ksdft2effmass/<package>/test__<ObjectName>.py`; operator-record
-object tests therefore live under
-`python/tests/ksdft2effmass/operators/test__<ObjectName>.py`. Tests for genuine
-production Workflow objects live under
-`python/tests/ksdft2effmass/workflows/test__<WorkflowName>.py`. Technical
-integration tests that are not domain workflows live under
-`python/tests/ksdft2effmass/integration/test__<IntegrationName>.py`. If future
-package-discovery, layout, import, test, or Sphinx evidence conflicts with this,
-pause for human decision instead of choosing a source root silently.
+`python/tests/`. The focused operator-record VVUQ migration completed under the
+accepted validation-correction task. Maintained operator-record tests now live
+under `python/tests/software_verification/ksdft2effmass/operators/`,
+`python/tests/numerical_verification/ksdft2effmass/operators/`, the corresponding
+`workflows/` subtree for the concrete comparison Workflow, and the corresponding
+`integration/` subtree for technical integration evidence. Earlier
+`python/tests/ksdft2effmass/operators/test__<ObjectName>.py` paths remain only in
+historical task and review evidence. Future inventory tools may recognize both
+unsuffixed and suffixed naming patterns when auditing that history, but must not
+identify the completed migration as active. If future package-discovery, layout,
+import, test, or Sphinx evidence conflicts with this, pause for human decision
+instead of choosing a source root silently.
 
 The intended operator-package structure is:
 
@@ -424,9 +433,12 @@ The intended operator-package structure is:
 python/src/ksdft2effmass/operators/
 ├── __init__.py
 ├── records.py
+├── compatibility.py
+├── difference.py
+├── residuals.py
+├── comparison.py
 ├── hermiticity.py
-├── serialization.py
-└── comparison.py
+└── serialization.py
 ```
 
 Architectural decisions for that work:
@@ -442,7 +454,9 @@ Architectural decisions for that work:
 - Geometry validation belongs to `Geometry`.
 - State-space validation belongs to `StateSpace`.
 - Exact equality belongs to the DataObject.
-- Current comparison is exact fixed-representation comparison of two already-compatible finite `OperatorRecord` matrices by `OperatorRecordComparator`; it computes maximum-entry, Frobenius, and spectral residual norms for `H_candidate - H_reference` in the common energy unit and does not perform basis alignment, gauge alignment, energy-zero alignment, unit conversion, geometry transformation, approximate metadata matching, physical-equivalence determination, or scientific validation.
+- Exact representation-metadata compatibility belongs to `compatibility.py` and is owned by `OperatorRecordCompatibilityAnalyzer`; `IncompatibleOperatorRecordsError` is a compatibility-subsystem error and retains the structured compatibility result. Represented signed differences belong to `difference.py` and are owned by `OperatorRecordDifferencer` and `OperatorRecordDifferenceResult`. Residual metric analysis belongs to `residuals.py` and is owned by `OperatorRecordResidualAnalyzer` and `OperatorRecordComparisonResult`. `OperatorRecordComparator` in `comparison.py` is a concrete Workflow ActionObject that composes differencing and residual analysis only.
+- The dependency direction is `records.py` -> `compatibility.py` -> `difference.py` -> `residuals.py` -> `comparison.py`. Earlier layers must not import later layers.
+- Current comparison is exact fixed-representation comparison of two already-compatible finite `OperatorRecord` matrices. `OperatorRecordDifferencer` forms the public represented operator difference `Delta H = H_candidate - H_reference` in the common representation and detects nonfinite subtraction; `OperatorRecordResidualAnalyzer` computes maximum-entry, Frobenius, and spectral residual norms in the common energy unit and owns floating-point roundoff allowance/canonicalization before constructing structural `OperatorRecordComparisonResult`; `OperatorRecordComparator` orchestrates only. None of these objects performs basis alignment, gauge alignment, energy-zero alignment, unit conversion, geometry transformation, approximate metadata matching, physical-equivalence determination, impurity-operator interpretation, or scientific validation.
 - Approximate or physically aligned comparison is a separate future ActionObject.
 - The public API is exported from `ksdft2effmass.operators`.
 - Sphinx documentation and tests are required parts of completion.
@@ -492,10 +506,12 @@ boundaries, backward compatibility, project scope, acceptance of unresolved
 validation failures, and final acceptance. A timeout, unavailable human, or
 absent response leaves human checkpoints blocked; do not assume approval.
 
-Completion gates for this refactor are unit tests, formatter, linter, static
-type checker, Sphinx build with warnings treated as errors, public-import smoke
-test, JSON round-trip test, architecture review, and a clean check for obsolete
-imports and dangling helpers.
+Completion gates for this refactor are software-verification tests, formatter,
+linter, static type checker, Sphinx build with warnings treated as errors,
+public-import smoke test, JSON round-trip test, architecture review, and a clean
+check for obsolete imports and dangling helpers. Passing software-verification
+or numerical-verification tests must not be reported as scientific validation or
+uncertainty quantification.
 
 ## Repository structure
 
@@ -536,13 +552,57 @@ Do not update expected values merely to make a failing test pass. Determine
 whether the implementation, fixture, numerical method, or reference value is
 incorrect.
 
-Unit tests and scientific validation are different:
+VVUQ evidence classes are distinct:
 
-- unit tests verify implementation behavior;
-- scientific validation compares the model with an appropriate physical or
-  computational reference.
+- software verification shows implementation behavior satisfies its documented
+  software contract, including construction, public APIs, intrinsic invariants,
+  exception taxonomy, ownership, immutability, exact value semantics,
+  serialization contracts, technical integration, and Workflow composition;
+- numerical verification shows a numerical algorithm correctly implements or
+  approximates its stated mathematics, including analytical cases, manufactured
+  solutions, convergence, scaling, conditioning, roundoff, limiting cases, and
+  cross-implementation conformance;
+- scientific validation compares a physical or scientific model with
+  independent reference evidence for a declared intended use;
+- uncertainty quantification identifies uncertainty sources and propagates them
+  to reported intervals or distributions.
 
-Do not describe test coverage as scientific validation.
+Constructor, schema, and input-invariant checks are software verification, not
+scientific validation. A deterministic tolerance check alone is not uncertainty
+quantification. Absent scientific-validation or UQ evidence must be reported
+explicitly and never inferred from passing tests.
+
+The target VVUQ test hierarchy is:
+
+```text
+python/tests/
+├── software_verification/ksdft2effmass/
+├── numerical_verification/ksdft2effmass/
+├── scientific_validation/ksdft2effmass/
+└── uncertainty_quantification/ksdft2effmass/
+```
+
+Do not move the entire existing suite mechanically. Migrate one approved object
+or subsystem at a time; mixed transitional and target layouts are allowed only
+while explicitly documented as active migration.
+
+Migrated VVUQ tests are maintained research-software evidence. Each migrated
+module must document the object under test, evidence class, requirement or
+mathematical contract, strategy, oracle, acceptance approach, exclusions,
+pass/fail interpretation, and scientific-validation and UQ status. Each migrated
+test must carry a unique stable evidence identifier and non-tautological
+documentation of its requirement, method, oracle, acceptance, interpretation,
+and limitations as applicable. Numerical cases must document analytical oracle
+independence, units, scale regime, tolerance or ULP criterion, zero-exclusion for
+nonzero tiny values, canonicalization expectations, and warning policy.
+Controlled fault injection may test otherwise unreachable public error
+translation, but must identify the controlled dependency and must not claim to
+validate that dependency. Reviews must check evidence-class correctness,
+identifier uniqueness, oracle independence, explicit acceptance criteria,
+failure interpretation, documentation synchronization, and the scientific-
+validation boundary. Apply this standard progressively; do not rewrite stable
+unmigrated tests mechanically. See
+`docs/verification/testing-and-evidence.rst`.
 
 ## Documentation
 

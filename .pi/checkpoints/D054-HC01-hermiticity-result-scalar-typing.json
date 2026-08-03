@@ -1,0 +1,46 @@
+{
+  "checkpoint_id": "D054-HC01",
+  "task_id": "operator-record-validation-correction-D054",
+  "episode_id": "E02",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-02T10:37:35Z",
+  "question": "How should HermiticityResult reconcile its public float field annotations with the approved runtime constructor admission of Python integers and NumPy integer/floating scalars while preserving canonical stored floats?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize a typing-only production correction that declares the broader constructor input types while retaining residual and tolerance as canonical stored floats.",
+      "consequence": "The agent will design the smallest inline typing solution, such as a TYPE_CHECKING-only constructor signature if validated, without changing runtime behavior; it will then rerun focused/full validation and reviews. This changes the documented/static public constructor contract and therefore requires human approval."
+    },
+    {
+      "id": "B",
+      "summary": "Narrow runtime construction to accept only values compatible with the existing float annotations.",
+      "consequence": "Current Python-integer and NumPy scalar admission and the D054 evidence contract must be changed. This is a production behavior and public API change."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the typing correction and leave D054 blocked.",
+      "consequence": "The three migrated test facets and documentation remain provisional; final D054 acceptance cannot be reported because runtime, static annotations, documentation, and tests remain inconsistent."
+    }
+  ],
+  "recommendation": "Option A, provided the smallest validated typing-only declaration can preserve generated dataclass runtime behavior and canonical stored float attributes; otherwise return with a narrower design checkpoint before editing production code.",
+  "blocked_scope": "D054 final acceptance, production typing correction, and final integration closeout for HermiticityResult.",
+  "safe_scope": "Deterministic test-evidence corrections, read-only inspection, checkpoint validation, and reporting the blocked decision.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/operator-record-validation-correction.md",
+    "python/src/ksdft2effmass/operators/hermiticity.py",
+    "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__construction.py",
+    "docs/verification/operator-record-hermiticity.rst"
+  ],
+  "human_response": "Decision: A — approved. Broaden the declared HermiticityResult constructor input types to include the already accepted Python and NumPy real-scalar families while preserving canonical stored floats, existing runtime admission and rejection behavior, exception taxonomy, frozen/slotted exact value semantics, and the inclusive predicate. This is a typing-only correction; Boolean rejection remains a documented runtime semantic refinement.",
+  "normalized_decision": "Option A approved: declare the existing Python and NumPy real-scalar constructor input families statically while preserving residual and tolerance as canonical stored floats and making no runtime or numerical behavior change.",
+  "resolved_at": "2026-08-02T10:41:59Z",
+  "authorized_scope": "Typing-only HermiticityResult constructor contract correction, removal of temporary test typing suppressions, D054 resumption, complete validation, and read-only review gates; no runtime admission, scalar canonicalization, public field, exception, or numerical behavior change is authorized.",
+  "record_paths": [
+    ".pi/checkpoints/D054-HC01-hermiticity-result-scalar-typing.json",
+    ".pi/tasks/operator-record-validation-correction.md",
+    "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/episode.json"
+  ],
+  "resumption_status": "completed_and_human_accepted_with_e02"
+}

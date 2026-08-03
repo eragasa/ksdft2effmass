@@ -54,6 +54,14 @@ policies, and genuine human decisions; records unambiguous human decisions
 automatically; and resumes authorized work automatically. E01 is an
 infrastructure episode and is not evidence of scientific validity.
 
+``E02`` prospectively records the operator-record validation correction and
+progressive VVUQ evidence migration. It covers corrected DataObject,
+ResultObject, ActionObject, and comparison Workflow boundaries; scale-safe
+numerical policies; explicit software- and numerical-verification evidence;
+reproducible public-schema checks; and two resolved human decisions. E02 was
+accepted on 2026-08-03. Its passing evidence does not establish scientific
+validation, uncertainty quantification, or Python/Rust conformance.
+
 Evidence model
 --------------
 
@@ -96,4 +104,6 @@ Current status
 The case-study protocol and records are active. ``E00`` is retrospectively
 recorded. ``E01`` Graphify integration findings ``E01-F01`` and ``E01-F02`` and
 the ``E01-F03`` checkpoint-granularity process correction were accepted on
-2026-07-30. ``E01`` is closed as accepted.
+2026-07-30. ``E01`` is closed as accepted. ``E02`` operator-record validation
+corrections ``D001`` through ``D074`` were accepted on 2026-08-03, and ``E02``
+is closed as accepted.

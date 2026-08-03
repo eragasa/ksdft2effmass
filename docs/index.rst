@@ -18,6 +18,20 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
 
 .. toctree::
    :maxdepth: 1
+   :caption: Verification
+
+   verification/testing-and-evidence
+   verification/operator-record-geometry
+   verification/operator-record-energy-reference
+   verification/operator-record-data-object
+   verification/operator-record-json-serialization
+   verification/operator-record-hermiticity
+   verification/operator-record-compatibility-analysis
+   verification/operator-record-difference
+   verification/operator-record-residual-analyzer
+
+.. toctree::
+   :maxdepth: 1
    :caption: Project documentation
 
    architecture/repository-layout

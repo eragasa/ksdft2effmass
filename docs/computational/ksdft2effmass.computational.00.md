@@ -72,7 +72,7 @@ A task is complete only when its acceptance criteria pass and its outputs have b
 
 | Stage | Computational objective | Completion gate | Status |
 |---|---|---|---|
-| [[ksdft2Effmass.computational.01]] | Shared specification, data structures, metrics, and regression tests | `G01` | Active |
+| [[ksdft2Effmass.computational.01]] | Shared specification, data structures, metrics, and regression tests | `G01` | Incomplete; no active leaf task selected |
 | [[ksdft2Effmass.computational.02]] | Converged bulk-silicon first-principles reference | `G02` | Blocked by `G01` |
 | [[ksdft2Effmass.computational.03]] | Validated bulk-silicon Wannier operator | `G03` | Blocked by `G02` |
 | [[ksdft2Effmass.computational.04]] | Direct and Wannier-mediated tight-binding models | `G04` | Partly blocked by `G02`; partly by `G03` |
@@ -202,6 +202,30 @@ Passes when:
 - the common error metrics are executable;
 - synthetic regression tests pass.
 
+### Implemented operator-record foundation
+
+The accepted operator-record infrastructure currently provides:
+
+- finite `OperatorRecord` storage with explicit state-space, basis, geometry,
+  energy-reference, provenance, and matrix metadata;
+- fixed-representation Hermiticity analysis;
+- deterministic version-1 JSON serialization with public schema and golden
+  fixtures;
+- exact representation-metadata compatibility auditing;
+- represented subtraction for already-compatible records;
+- maximum-entry, Frobenius, and spectral residual analysis;
+- a concrete comparison Workflow composing differencing and residual analysis;
+- maintained software-verification evidence and documented analytical and
+  floating-point numerical-verification cases.
+
+This infrastructure does not align bases or gauges, convert units, align energy
+zeros, transform geometries, decide physical equivalence, or identify a generic
+represented difference as an impurity operator. Scientific validation,
+uncertainty quantification, and a Rust implementation have not been performed.
+The accepted closeout does not pass the broader `G01` gate, whose remaining
+manifests, metrics, alignment, and synthetic-workflow requirements are separate
+work.
+
 ### `G02`: Bulk First-Principles Reference
 
 Passes when:
@@ -291,9 +315,13 @@ Every branch must consume and produce versioned artifacts rather than undocument
 
 No downstream task may depend only on a figure, manually copied parameter, or undocumented notebook state. A dependency is satisfied only by a versioned artifact and a passing validation record.
 
-## Active Task
+## Current Task Selection
 
-The first executable task is [[ksdft2Effmass.computational.01.01.01]], which freezes the physical scope of the reference silicon calculations.
+No computational successor task is active or launched by the operator-record
+closeout. The registry contains passed, ready, and blocked tasks, but human
+selection is required before another task becomes active. An explicit unitary
+basis/state-space alignment contract is a candidate only; it is not approved for
+implementation or in progress.
 
 ## Relationship to the Mathematical Program
 

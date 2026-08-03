@@ -32,6 +32,18 @@
       "human_final_acceptance": "accepted",
       "final_acceptance_date": "2026-07-30",
       "process_correction": "E01-F03 checkpoint-granularity correction accepted; E01 closed as accepted"
+    },
+    {
+      "episode_id": "E02",
+      "title": "Operator-record validation correction and VVUQ evidence migration",
+      "study_mode": "prospective",
+      "role": "case-study episode",
+      "record_path": "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/episode.json",
+      "evidence_index": "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/evidence-index.md",
+      "status": "accepted",
+      "human_final_acceptance": "accepted",
+      "final_acceptance_date": "2026-08-03",
+      "process_correction": "D001-D074 operator-record validation correction accepted; E02 closed as accepted"
     }
   ]
 }

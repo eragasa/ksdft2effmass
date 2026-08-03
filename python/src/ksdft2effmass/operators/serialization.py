@@ -4,7 +4,11 @@ r"""Strict versioned JSON text serialization for operator records.
 schema-version-1 JSON text representation of finite operator records. The
 serializer maps between :class:`~ksdft2effmass.operators.OperatorRecord` objects
 and deterministic UTF-8-compatible JSON strings. It does not expose an
-intermediate dictionary API as public contract.
+intermediate dictionary API as public contract. The language-neutral schema and
+golden fixtures are maintained under ``specification/operator-record/v1``.
+Serialization preserves represented values but performs no basis or gauge
+alignment, unit conversion, physical interpretation, scientific validation,
+uncertainty quantification, or Python/Rust conformance check.
 """
 
 from __future__ import annotations
@@ -33,7 +37,10 @@ class OperatorRecordJsonSerializer:
     same JSON text, with sorted object keys and compact separators. Deserialization
     is strict and rejects malformed JSON, duplicate object keys, non-standard
     constants such as ``NaN`` and ``Infinity``, numeric strings, booleans where
-    numbers are required, and invalid DataObject invariants.
+    numbers are required, and invalid DataObject invariants. Exact deterministic
+    round trips preserve all eight ``OperatorRecord`` fields. The public schema
+    and fixtures are integration artifacts distinct from this runtime owner; no
+    Rust implementation or cross-language conformance is implied.
 
     Attributes
     ----------
@@ -159,6 +166,7 @@ class OperatorRecordJsonSerializer:
                 text,
                 object_pairs_hook=self._reject_duplicate_object_keys,
                 parse_constant=self._reject_json_constant,
+                parse_int=self._parse_json_integer_token,
             )
         except json.JSONDecodeError as exc:
             msg = "malformed operator-record JSON text"
@@ -667,8 +675,8 @@ class OperatorRecordJsonSerializer:
         TypeError
             If ``value`` is not a JSON integer or float with real semantics.
         ValueError
-            If conversion is nonfinite. Nonstandard JSON constants are rejected
-            earlier by ``_reject_json_constant``.
+            If conversion overflows or is nonfinite. Nonstandard JSON constants
+            are rejected earlier by ``_reject_json_constant``.
 
         Notes
         -----
@@ -680,7 +688,11 @@ class OperatorRecordJsonSerializer:
         if type(value) not in (int, float):
             msg = f"{name} must be a JSON real number"
             raise TypeError(msg)
-        real = float(value)
+        try:
+            real = float(value)
+        except OverflowError as exc:
+            msg = f"{name} must be finite"
+            raise ValueError(msg) from exc
         if not np.isfinite(real):
             msg = f"{name} must be finite"
             raise ValueError(msg)
@@ -788,6 +800,40 @@ class OperatorRecordJsonSerializer:
                 raise ValueError(msg)
             result[key] = value
         return result
+
+    def _parse_json_integer_token(self, token: str) -> int:
+        """Return a JSON integer token or reject implementation-overflow tokens.
+
+        Parameters
+        ----------
+        token
+            Decimal integer token supplied by :func:`json.loads` before Python
+            integer construction.
+
+        Returns
+        -------
+        int
+            Python integer for normal-size JSON integer tokens.
+
+        Raises
+        ------
+        ValueError
+            If Python refuses to construct the integer, for example because the
+            token exceeds the interpreter digit limit for safe integer parsing.
+
+        Notes
+        -----
+        JSON has no infinity literal for integers, but schema-version-1 integer
+        and real fields still require implementation-finite public values. This
+        parser hook maps huge integer-token conversion failure to the public
+        finite-number taxonomy instead of leaking interpreter diagnostics.
+        """
+
+        try:
+            return int(token)
+        except ValueError as exc:
+            msg = "JSON integer must be finite"
+            raise ValueError(msg) from exc
 
     def _reject_json_constant(self, constant: str) -> None:
         """Reject nonstandard JSON numeric constants accepted by ``json``.

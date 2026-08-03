@@ -21,8 +21,8 @@ Responsibilities:
 - establish ResultObject boundaries;
 - identify package structure and public API;
 - identify validation invariants and serialization schema;
-- state compatibility policy and Rust-compatibility implications;
-- check units, dimensional ownership, public mismatch reachability, numerical definitions and norm ordering, operational immutability, structured errors, and Rust-compatible type mapping;
+- state compatibility policy, represented-difference contract, residual-analysis ownership, Workflow composition, and Rust-compatibility implications;
+- check dependency direction `records.py -> compatibility.py -> difference.py -> residuals.py -> comparison.py`, units, dimensional ownership, public mismatch reachability, numerical definitions and norm ordering, operational immutability, structured errors, and Rust-compatible type mapping;
 - detect misplaced behavior and generic utility dumping grounds;
 - report unresolved decisions.
 

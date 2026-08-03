@@ -1,36 +1,47 @@
 """Public API for finite represented operator records.
 
-The module re-exports the maintained DataObjects, ResultObjects, ActionObjects,
-public enum, and public exception for finite dense operator-matrix
-representations.  It defines the stable import surface for state-space, basis,
-geometry, energy-reference, operator-record, Hermiticity, JSON serialization,
-compatibility, and compatible-record comparison objects.
+This package initializer defines the supported import surface
+``ksdft2effmass.operators``. It re-exports finite operator-record DataObjects,
+Hermiticity analysis objects, JSON serialization, exact compatibility auditing,
+represented-difference construction, residual metric analysis, and the concrete
+comparison Workflow.
 
-No matrix operation is implemented in this package initializer.  Numerical
-policies remain on action objects such as ``HermiticityAnalyzer`` and
-``OperatorRecordComparator``.  Import success and API documentation are software
-verification surfaces only; they do not scientifically validate any DFT or
-reduced effective-mass calculation.
+No scientific or numerical policy is implemented here. Matrix subtraction lives
+in ``operators.difference``, residual norm policy lives in ``operators.residuals``,
+and ``operators.comparison`` only composes those public ActionObjects. Importing
+these names is a software-verification surface, not validation of DFT,
+Wannierization, impurity physics, or an effective-mass model.
 """
 
-from .comparison import (
+from .comparison import OperatorRecordComparator
+from .compatibility import (
     IncompatibleOperatorRecordsError,
-    OperatorRecordComparator,
-    OperatorRecordComparisonNumericalError,
-    OperatorRecordComparisonResult,
     OperatorRecordCompatibilityAnalyzer,
     OperatorRecordCompatibilityIssue,
     OperatorRecordCompatibilityMismatchCode,
     OperatorRecordCompatibilityResult,
 )
+from .difference import (
+    OperatorRecordDifferenceNumericalError,
+    OperatorRecordDifferenceNumericalErrorCode,
+    OperatorRecordDifferencer,
+    OperatorRecordDifferenceResult,
+)
 from .hermiticity import (
     HermiticityAnalyzer,
     HermiticityNumericalError,
+    HermiticityNumericalErrorCode,
     HermiticityRequirementError,
     HermiticityResult,
     HermiticityUnitMismatchError,
 )
 from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
+from .residuals import (
+    OperatorRecordComparisonNumericalError,
+    OperatorRecordComparisonNumericalErrorCode,
+    OperatorRecordComparisonResult,
+    OperatorRecordResidualAnalyzer,
+)
 from .serialization import OperatorRecordJsonSerializer
 
 __all__ = [
@@ -39,6 +50,7 @@ __all__ = [
     "Geometry",
     "HermiticityAnalyzer",
     "HermiticityNumericalError",
+    "HermiticityNumericalErrorCode",
     "HermiticityRequirementError",
     "HermiticityResult",
     "HermiticityUnitMismatchError",
@@ -46,11 +58,17 @@ __all__ = [
     "OperatorRecord",
     "OperatorRecordComparator",
     "OperatorRecordComparisonNumericalError",
+    "OperatorRecordComparisonNumericalErrorCode",
     "OperatorRecordComparisonResult",
     "OperatorRecordCompatibilityAnalyzer",
     "OperatorRecordCompatibilityIssue",
     "OperatorRecordCompatibilityMismatchCode",
     "OperatorRecordCompatibilityResult",
+    "OperatorRecordDifferenceNumericalError",
+    "OperatorRecordDifferenceNumericalErrorCode",
+    "OperatorRecordDifferenceResult",
+    "OperatorRecordDifferencer",
     "OperatorRecordJsonSerializer",
+    "OperatorRecordResidualAnalyzer",
     "StateSpace",
 ]

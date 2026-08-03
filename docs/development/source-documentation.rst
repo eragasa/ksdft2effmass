@@ -77,6 +77,33 @@ Boolean semantics are explicitly intended.  Numeric strings are not silently
 converted.  NumPy scalar values may be accepted only where documented and must be
 canonicalized to built-in Python scalar types at public Python/Rust boundaries.
 
+VVUQ test classification
+------------------------
+
+Constructor rejection, schema rejection, public API behavior, intrinsic
+invariant enforcement, exception taxonomy, ownership, immutability, exact value
+semantics, serialization contracts, technical integration, and Workflow
+composition are software verification: they show that implementation satisfies
+its documented software contract.
+
+Numerical verification is distinct evidence that a numerical algorithm correctly
+implements or approximates a stated mathematical operation.  It includes
+analytically checkable reference cases, manufactured solutions, convergence and
+observed-order studies, floating-point scaling, conditioning, roundoff analysis,
+limiting cases, and cross-implementation conformance. Numerical verification
+does not establish physical model adequacy.
+
+Scientific validation requires independent physical or scientific reference
+evidence for a declared intended use, such as converged DFT references,
+validated Wannier representations, benchmark data, experimental observables,
+binding energies, effective masses, state or subspace fidelities, or justified
+operator-residual acceptance thresholds. Constructor validation and schema
+validation must not be called scientific validation.
+
+Uncertainty quantification requires declared uncertainty sources and propagation
+to reported intervals or distributions. Deterministic tolerance checks alone are
+not uncertainty quantification.
+
 Synchronization and completion gate
 -----------------------------------
 
@@ -92,7 +119,9 @@ are documented, meaningful local state is explained, mathematical notation maps
 to implementation names, Sphinx documentation matches source behavior,
 documentation examples are verified or covered by tests, Sphinx builds with
 warnings treated as errors, and a read-only documentation review reports no
-unresolved material findings.
+unresolved material findings. Reports must state absent scientific-validation or
+uncertainty-quantification evidence explicitly rather than inferring it from
+software-verification success.
 
 Python-version policy
 ---------------------

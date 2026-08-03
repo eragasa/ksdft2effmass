@@ -2,12 +2,14 @@
 
 ## Status
 
-Historical comparison task record created on 2026-07-30. It is preserved as
-prospective historical evidence and is no longer the active authority for
-operator-record corrections. The active corrective authority is
-`.pi/tasks/operator-record-validation-correction.md`, which supersedes stale
-statements in this file where explicitly noted, including removal of the
-unreachable basis-orthonormal flag compatibility rule.
+Closed as superseded historical evidence. This comparison task did not receive a
+separate human final-acceptance decision. Its implemented work and later
+corrections were incorporated into, verified under, and accepted through
+`.pi/tasks/operator-record-validation-correction.md` on 2026-08-03. That accepted
+record supersedes maintained-status and architecture statements here, including
+the unreachable basis-orthonormal flag rule and the earlier deferral of a public
+represented-difference object. This file preserves the original prospective
+decision chronology and intermediate evidence; it is not an active task.
 
 ## Objective
 
@@ -426,7 +428,11 @@ Implementation status: complete after targeted symmetric-metric and compatibilit
 Verification status: passed after complete parent verification rerun.
 Read-only integration review: passed with no blocker, material, or minor
 findings after correction.
-Human final acceptance: pending.
+Separate human final acceptance for this predecessor record: not granted before
+supersession. The incorporated comparison capability was subsequently corrected,
+verified, reviewed, and accepted through
+`.pi/tasks/operator-record-validation-correction.md` on 2026-08-03. This is not a
+retrospective claim of separate acceptance for this historical task.
 Scientific validation: not performed; not applicable to this software-comparison
 implementation task by itself.
 
@@ -494,10 +500,12 @@ relative residual, signed operator-difference result, residual-matrix exposure,
 result serialization format, schema-version change, or scientific pass/fail
 acceptance policy was introduced.
 
-## Current action limit
+## Historical action limit
 
-Do not launch another task after completing this chain. After final human
-acceptance, record acceptance, close this task, and stop.
+The original instruction was to avoid launching another task before final human
+acceptance. This predecessor task is now closed as superseded; the accepted
+validation-correction task records the final disposition. No successor task is
+selected or launched by this synchronization.
 
 ## Repository-wide documentation and validation correction authorization
 
