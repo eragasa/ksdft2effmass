@@ -299,16 +299,19 @@ def main() -> int:
 
     chain = load(ROOT / ".pi/chains/pi-harness-incubation.chain.json")
     assert isinstance(chain, dict)
-    if chain.get("active_task") != "H1":
-        fail(errors, "H1 is not the sole active harness task")
+    if chain.get("active_task") is not None:
+        fail(errors, "a harness task remains active after H1 closeout")
     active = [task["id"] for task in chain["task_sequence"] if str(task["status"]).startswith("active")]
-    if active != ["H1"]:
-        fail(errors, f"active harness tasks are not exactly H1: {active}")
+    if active:
+        fail(errors, f"active harness tasks remain after H1 closeout: {active}")
+    h1_tasks = [task for task in chain["task_sequence"] if task["id"] == "H1"]
+    if len(h1_tasks) != 1 or h1_tasks[0].get("status") != "human_accepted_pass":
+        fail(errors, "H1 is not closed as human-accepted PASS")
     for task in chain["task_sequence"]:
         if task["id"] in {"H3", "H2", "H4", "H5"} and task["status"] != "blocked":
             fail(errors, f"successor is not blocked: {task}")
-    if chain.get("pending_checkpoints") != ["H1-HC02"]:
-        fail(errors, "pending checkpoints are not exactly H1-HC02")
+    if chain.get("pending_checkpoints") != []:
+        fail(errors, "harness checkpoints remain pending after H1 closeout")
 
     backend = load(ROOT / ".pi/chains/backend-neutral-kohn-sham-qe.chain.json")
     assert isinstance(backend, dict)
@@ -329,8 +332,13 @@ def main() -> int:
         fail(errors, "H1-HC01 Option-B correction authority is not resolved exactly")
     final_checkpoint = load(ROOT / ".pi/checkpoints/H1-HC02-final-acceptance.json")
     assert isinstance(final_checkpoint, dict)
-    if final_checkpoint.get("status") != "pending" or final_checkpoint.get("checkpoint_id") != "H1-HC02":
-        fail(errors, "H1 final-acceptance checkpoint is not pending")
+    if (
+        final_checkpoint.get("status") != "resolved"
+        or final_checkpoint.get("checkpoint_id") != "H1-HC02"
+        or final_checkpoint.get("normalized_decision") != "A"
+        or "Accept H1 as PASS" not in final_checkpoint.get("human_response", "")
+    ):
+        fail(errors, "H1-HC02 final acceptance is not resolved exactly as Option A")
 
     for root in PROHIBITED_ROOTS:
         if (ROOT / root).exists():
@@ -434,9 +442,10 @@ def main() -> int:
     print(f"h1_validation_errors={len(errors)}")
     print(f"included_interfaces={len(included)}")
     print(f"candidate_dispositions={len(dispositions)}")
-    print("active_task=H1")
-    print("unresolved_checkpoints=1")
-    print("pending_checkpoint=H1-HC02")
+    print("active_task=None")
+    print("h1_status=human_accepted_pass")
+    print("unresolved_checkpoints=0")
+    print("successor_activated=false")
     for error in errors:
         print(f"ERROR: {error}")
     return 1 if errors else 0

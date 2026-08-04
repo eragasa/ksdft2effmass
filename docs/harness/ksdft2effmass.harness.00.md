@@ -9,10 +9,10 @@ The harness does not perform a scientific calculation merely because it can repr
 H0 was human-accepted through `H0-HC01` on 2026-08-04. Its 316-component
 inventory, generic/local boundary, six finding resolutions, H3-before-H2
 sequencing recommendation, and proposed minimum H1 contract are planning
-authority for H1. H1 alone is active after resolved `H1-HC01` Option B and the
-exactly one bounded `DiagnosticPath` contract correction; focused reviews and
-validation pass, and final acceptance at pending `H1-HC02` remains. These pages do not
-authorize implementation or any successor.
+authority for H1. The human PI accepted the corrected contract through resolved
+`H1-HC02` on 2026-08-04, and H1 is closed as human-accepted `PASS`. The accepted
+contract, bounded `DiagnosticPath` correction, reviews, and checkpoint responses
+are retained. These pages do not authorize implementation or any successor.
 
 ## Architectural split
 

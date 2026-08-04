@@ -2,7 +2,7 @@
   "checkpoint_id": "H1-HC02",
   "task_id": "H1",
   "episode_id": "pi-harness-incubation-H1",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-04T15:10:52Z",
   "question": "Does the human PI grant final acceptance to the H1 version-1 harness contract after the exactly one bounded H1-HC01 Option-B correction introducing DiagnosticPath and changing ValidationIssue.path from ResourcePath | None to DiagnosticPath | None, with the specialized ResourcePath and OwnershipScopePath meanings, interface count, other accepted contract decisions, exclusions, and successor gates unchanged?",
@@ -53,16 +53,21 @@
     ".pi/evidence/pi-harness-incubation/H1/checksums.sha256",
     "docs/harness/ksdft2effmass.harness.02.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "Option A — Accept H1 as PASS.\n\nThe corrected H1 contract is accepted as the architectural and software-contract basis for the PI harness incubation sequence.\n\nClose H1 after one deterministic closeout validation. Preserve the accepted contract, correction history, reviews, and checkpoint responses.\n\nDo not introduce additional H1 interfaces, reviews, checkpoints, versioning requirements, or evidence expansion during closeout.\n\nDo not automatically activate H3, H2, H4, H5, or P2. Successor activation remains a separate explicit action.\n\nNo numerical verification, scientific validation, or uncertainty quantification is required for H1 because H1 defines infrastructure contracts and performs no numerical or scientific computation.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-04T15:42:45Z",
+  "authorized_scope": "Record final H1 acceptance as PASS, perform exactly one deterministic H1 closeout validation, close H1, preserve the accepted contract, H1-HC01 correction history, reviews, and checkpoint responses, and reconcile only existing task/chain/checkpoint/status/documentation/validation/checksum records needed for closure. Do not add H1 interfaces, reviews, checkpoints, versioning requirements, or evidence; do not activate H3, H2, H4, H5, or P2; do not perform implementation, resource/schema/fixture creation, numerical verification, scientific validation, UQ, external execution, publication, or unrelated work.",
   "record_paths": [
     ".pi/checkpoints/H1-HC02-final-acceptance.json",
     ".pi/tasks/pi-harness-incubation-H1-contract.md",
     ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
-    "AGENTS.md"
+    ".pi/evidence/pi-harness-incubation/H1/validate_h1.py",
+    ".pi/evidence/pi-harness-incubation/H1/validation-results.json",
+    ".pi/evidence/pi-harness-incubation/H1/checksums.sha256",
+    "AGENTS.md",
+    "docs/harness/ksdft2effmass.harness.00.md",
+    "docs/harness/ksdft2effmass.harness.02.md"
   ],
-  "resumption_status": "H1_active_blocked_at_H1-HC02_final_acceptance; H3-H5_and_P2-P11_blocked; no_implementation_resource_creation_or_execution"
+  "resumption_status": "H1_closed_human_accepted_PASS_after_deterministic_closeout_validation; no_successor_activated; H3-H5_and_P2-P11_blocked; no_implementation_resource_creation_or_execution"
 }

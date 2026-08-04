@@ -1,6 +1,6 @@
 # H1 — Harness contract and package boundary
 
-Status: active and blocked at pending `H1-HC02`; exactly one bounded `DiagnosticPath` contract correction applied; focused reviews and validation pass; no implementation authorized
+Status: closed as human-accepted `PASS` through resolved `H1-HC02`; accepted contract and bounded `DiagnosticPath` correction preserved; no successor activated
 
 ## Objective
 
@@ -69,10 +69,12 @@ planned H3 schemas and fixtures, maintained documentation, validation, and
 focused independent reviews while retaining the original finding and correction
 trace.
 
-H1 remains active until the corrected contract receives final human acceptance
-at
-`.pi/checkpoints/H1-HC02-final-acceptance.json`. H3 is not activated. H3-H5, P2-P11, implementation, resource/schema
-creation, external or scientific execution, and publication remain blocked.
+The human PI granted final Option-A acceptance through resolved
+`.pi/checkpoints/H1-HC02-final-acceptance.json` on 2026-08-04. H1 is closed as
+human-accepted `PASS` after one deterministic closeout validation. The accepted
+contract, correction history, reviews, and checkpoint responses remain retained.
+H3 was not activated. H3-H5, P2-P11, implementation, resource/schema creation,
+external or scientific execution, and publication remain blocked.
 
 ## VVUQ boundary
 

@@ -2,9 +2,9 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0 is closed as human-accepted planning evidence. H1 alone is active as a non-implementation contract task; H3, H2, and H4 remain sequentially blocked. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
-  "status": "h1_active_blocked_at_H1-HC02_corrected_contract_reviews_pass_no_implementation",
-  "active_task": "H1",
+  "description": "Separate harness-incubation project. H0 and H1 are closed as human-accepted PASS. H3, H2, and H4 remain sequentially blocked and inactive. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
+  "status": "h1_closed_human_accepted_pass_no_successor_active",
+  "active_task": null,
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
   "architecture_documents": [
@@ -45,7 +45,7 @@
       "id": "H1",
       "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
       "prerequisites": ["H0:human_accepted"],
-      "status": "active_blocked_at_H1-HC02"
+      "status": "human_accepted_pass"
     },
     {
       "id": "H3",
@@ -122,7 +122,13 @@
       "checkpoint": "H1-HC01",
       "decision": "B",
       "resolved_at": "2026-08-04T15:03:53Z",
-      "result": "The H1 architecture is accepted subject to exactly one bounded contract-only correction introducing neutral DiagnosticPath semantics for ValidationIssue.path; H1 remains active, final acceptance remains pending, and no implementation or successor is activated."
+      "result": "The H1 architecture is accepted subject to exactly one bounded contract-only correction introducing neutral DiagnosticPath semantics for ValidationIssue.path; no implementation or successor was activated."
+    },
+    {
+      "checkpoint": "H1-HC02",
+      "decision": "A",
+      "resolved_at": "2026-08-04T15:42:45Z",
+      "result": "H1 closed as human-accepted PASS after one deterministic closeout validation; the accepted contract, correction history, reviews, and checkpoint responses are preserved; no successor activated."
     }
   ],
   "activations": [
@@ -133,11 +139,11 @@
       "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
     }
   ],
-  "pending_checkpoints": ["H1-HC02"],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "H1-final-acceptance-checkpoint",
-      "message": "H1-HC01 Option B authorized exactly one bounded DiagnosticPath contract correction. The corrected contract, exact validator assertions, checks, and focused architecture, public-contract/Rust, and integration reviews pass. H1 remains active and blocked at pending final-acceptance checkpoint H1-HC02. H3, H2, H4, H5, and P2-P11 remain blocked; no implementation, resource/schema creation, extraction, package publication, external execution, or scientific execution is authorized."
+      "phase": "await-separate-H3-activation",
+      "message": "H0 and H1 are closed as human-accepted PASS. No harness task is active. H3 remains blocked and requires separate explicit human activation plus a validated task-ownership manifest; H2, H4, H5, and P2-P11 remain blocked. No implementation, resource/schema creation, extraction, package publication, external execution, or scientific execution is authorized."
     }
   ]
 }

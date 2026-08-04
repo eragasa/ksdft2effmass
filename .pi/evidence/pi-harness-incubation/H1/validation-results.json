@@ -65,8 +65,8 @@
       "name": "h1_completion_validator",
       "command": "PYTHONDONTWRITEBYTECODE=1 python .pi/evidence/pi-harness-incubation/H1/validate_h1.py",
       "status": "PASS",
-      "result": "zero errors; 36 included interfaces; 39 candidate dispositions; active task H1; exactly one unresolved checkpoint H1-HC02"
+      "result": "deterministic closeout PASS; zero errors; 36 included interfaces; 39 candidate dispositions; H1 human-accepted PASS; no active task; zero unresolved checkpoints; no successor activated"
     }
   ],
-  "claim_boundary": "Software-contract structure and control-plane evidence only. No implementation, resource/schema/fixture creation, numerical verification, scientific validation, UQ, package readiness, external execution, or human acceptance is established."
+  "claim_boundary": "Software-contract structure and control-plane evidence only. H1 human acceptance is established solely by resolved H1-HC02, not by validation. No implementation, resource/schema/fixture creation, numerical verification, scientific validation, UQ, package readiness, external execution, or successor activation is established."
 }

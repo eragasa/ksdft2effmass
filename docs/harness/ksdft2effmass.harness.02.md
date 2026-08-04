@@ -2,17 +2,17 @@
 
 ## Contract status
 
-H1 is active after resolved `H1-HC01` Option B for exactly one bounded
-`DiagnosticPath` contract correction and return to final human acceptance. The
+H1 is closed as human-accepted `PASS` through resolved `H1-HC02` after exactly
+one bounded `DiagnosticPath` contract correction under resolved `H1-HC01`
+Option B. The
 detailed decision artifacts are retained under
 `.pi/evidence/pi-harness-incubation/H1/`. This page is maintained explanation;
 `.pi` task, chain, and checkpoint records remain the authority for execution
 state.
 
-The corrected contract is not implemented. H1 creates no Python namespace,
-resource root, schema, fixture, package, runner, or dispatch mechanism. It awaits
-a separate final H1 human-acceptance checkpoint, and acceptance would not
-activate H3.
+The accepted contract is not implemented. H1 created no Python namespace,
+resource root, schema, fixture, package, runner, or dispatch mechanism. Final H1
+acceptance did not activate H3.
 
 ## Proposed version-1 public surface
 
@@ -262,8 +262,9 @@ to correction of the diagnostic-path type. The correction changes only
 `ValidationIssue.path: DiagnosticPath | None`, adds the neutral semantic
 primitive and intended `DiagnosticPath(String)` Rust newtype, and leaves the
 interface count and specialized `ResourcePath`/`OwnershipScopePath` meanings
-unchanged. H1 remains active pending final human acceptance; H3 and every
-successor remain blocked and inactive.
+unchanged. The human PI granted final Option-A acceptance through resolved
+`H1-HC02`; H1 is closed as `PASS`, while H3 and every successor remain blocked
+and inactive.
 
 ## Navigation
 
