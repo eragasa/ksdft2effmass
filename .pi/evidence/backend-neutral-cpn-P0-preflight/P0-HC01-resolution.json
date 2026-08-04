@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "skill": {
+    "name": "resolve-human-checkpoint",
+    "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "sha256": "41e8aa1590ec0561a746b46ad36eb3bd0bb105439ce3fa273537f835a05f8cd3"
+  },
+  "request_id": "P0-HC01-human-option-A-2026-08-03T11:17:31Z",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "task_id": "backend-neutral-cpn-P0-preflight",
+  "attempt_id": "P0-HC01-resolution-attempt-1",
+  "input_checkpoint": {
+    "checkpoint_id": "P0-HC01",
+    "expected_status": "blocked",
+    "sha256": "23e8d674b0a7ad1b04aab178bc15110b82430e16c4e9a0dfe58c452f2a350fcb"
+  },
+  "normalized_decision": "A",
+  "changed_paths": [
+    ".pi/checkpoints/P0-HC01-packaging-license-and-configuration.json",
+    ".pi/tasks/backend-neutral-cpn-P0-preflight.md",
+    ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
+    ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+    ".pi/tasks/backend-neutral-cpn-workflow-architecture.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "AGENTS.md",
+    "docs/architecture/colored-petri-net-workflows.md",
+    "docs/computational/ksdft2effmass.computational.00.md",
+    "docs/development/agent-control-plane.rst",
+    "docs/research/ksdft2effmass.00.md",
+    "docs/user-guide/dft-backends.md",
+    "docs/user-guide/external-dependencies.md",
+    "docs/user-guide/index.md",
+    "docs/user-guide/installation.md",
+    ".pi/evidence/backend-neutral-cpn-P0-preflight/P0-HC01-resolution.json",
+    ".pi/evidence/backend-neutral-cpn-P0-preflight/checksums.sha256"
+  ],
+  "validation": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": ".pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run",
+        "result": "passed: 6 records, 0 unresolved, 0 duplicate resolved decisions"
+      },
+      {
+        "command": "python3 checkpoint/chain assertions",
+        "result": "passed: P0 accepted, P0A active, P1-P11 blocked, production execution false"
+      },
+      {
+        "command": "python3 audit_markdown.py --repository . and compare retained result",
+        "result": "passed: maintained Markdown audit unchanged"
+      },
+      {
+        "command": "Sphinx -W --keep-going maintained documentation build",
+        "result": "passed"
+      },
+      {
+        "command": "shasum -a 256 -c .pi/evidence/backend-neutral-cpn-P0-preflight/checksums.sha256",
+        "result": "passed"
+      },
+      {
+        "command": "git diff --check and scope assertions",
+        "result": "passed"
+      }
+    ]
+  },
+  "resumption_status": "P0 closed; P0A activated; existing P1-P11 blocked",
+  "warnings": [
+    "The preserved human response contains the literal sequence P[118;1:3uure; normalized policy interprets the surrounding sentence as retaining pure project-owned guards without altering the preserved response.",
+    "This resolution activates P0A control-plane scope only; it does not execute P0A dependency or documentation changes."
+  ],
+  "partial_failure": null
+}

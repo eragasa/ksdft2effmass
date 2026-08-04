@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.org/schemas/task-ownership/v1",
+  "title": "Task ownership launch contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "task_record",
+    "owners",
+    "test_ownership"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "task_record": {"type": "string", "pattern": "^\\.pi/tasks/.+\\.md$"},
+    "owners": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementation", "tests", "documentation", "reviewers"],
+      "properties": {
+        "implementation": {"$ref": "#/$defs/writer"},
+        "tests": {"$ref": "#/$defs/writer"},
+        "documentation": {"$ref": "#/$defs/writer"},
+        "reviewers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/reviewer"}
+        }
+      }
+    },
+    "test_ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inventory_source",
+        "inventory_artifact",
+        "module_rule",
+        "artifact_module_rule",
+        "artifact_modules",
+        "dedicated_module_kinds",
+        "exceptions",
+        "non_class_gate_owner",
+        "completion_validator"
+      ],
+      "properties": {
+        "inventory_source": {"type": "string", "minLength": 1},
+        "inventory_artifact": {"type": "string", "minLength": 1},
+        "module_rule": {"const": "test__ClassName.py"},
+        "artifact_module_rule": {"const": "declared_exact_filename"},
+        "artifact_modules": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^test__[A-Za-z][A-Za-z0-9]*\\.py$"}
+        },
+        "dedicated_module_kinds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["DataObject", "ResultObject", "ActionObject", "independent_constructor_invariant_owner"]}
+        },
+        "exceptions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["enums", "marker_exceptions", "package_schema_gates"],
+          "properties": {
+            "enums": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+            "marker_exceptions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+            "package_schema_gates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+          }
+        },
+        "non_class_gate_owner": {"type": "string", "minLength": 1},
+        "completion_validator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "command", "required_before_review"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "command": {"type": "string", "minLength": 1},
+            "required_before_review": {"const": true}
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "writer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent", "agent_record", "owned_paths"],
+      "properties": {
+        "agent": {"type": "string", "minLength": 1},
+        "agent_record": {"type": "string", "pattern": "^\\.pi/agents/.+\\.md$"},
+        "owned_paths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent", "agent_record"],
+      "properties": {
+        "agent": {"type": "string", "minLength": 1},
+        "agent_record": {"type": "string", "pattern": "^\\.pi/agents/.+\\.md$"}
+      }
+    }
+  }
+}

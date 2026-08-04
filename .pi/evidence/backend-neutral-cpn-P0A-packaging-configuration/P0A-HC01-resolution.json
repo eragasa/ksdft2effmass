@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "skill": {
+    "name": "resolve-human-checkpoint",
+    "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "sha256": "41e8aa1590ec0561a746b46ad36eb3bd0bb105439ce3fa273537f835a05f8cd3"
+  },
+  "request_id": "P0A-HC01-human-option-A-2026-08-03T12:16:27Z",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "task_id": "backend-neutral-cpn-P0A-packaging-configuration",
+  "attempt_id": "P0A-HC01-resolution-attempt-1",
+  "input_checkpoint": {
+    "checkpoint_id": "P0A-HC01",
+    "expected_status": "blocked",
+    "sha256": "248c8f89fa608351979ec4886eb75aeb83b00406e757a933d9d4fa7b87e53ff1"
+  },
+  "normalized_decision": "A",
+  "changed_paths": [
+    ".pi/checkpoints/P0A-HC01-packaging-configuration-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/P0A-HC01-resolution.json"
+  ],
+  "validation": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python3 .pi/checkpoints/validate_checkpoints.py",
+        "result": "passed: 5 records, 0 unresolved, 0 duplicate resolved decisions"
+      },
+      {
+        "command": "python3 intermediate P0A closeout control-plane assertions",
+        "result": "passed: P0A human_accepted_pass, no active task, P1 blocked, production execution false"
+      },
+      {
+        "command": "bash .pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/run_verification.sh",
+        "result": "passed: exact isolated replay, Sphinx 9.1.0 and 8.2.3 warnings-as-errors, Ruff, mypy, 921 tests, lock/wheel/import/configuration checks, git diff --check"
+      }
+    ]
+  },
+  "resumption_status": "P0A closed as human-accepted PASS; P1 not launched by checkpoint resolution; separate P1 activation now permitted because closeout validation passed",
+  "warnings": [
+    "Recorded P0A residual limitations are human-accepted as non-blocking.",
+    "P1 activation is a separate authorized control-plane operation and is not authority derived from P0A checkpoint resolution."
+  ],
+  "partial_failure": null
+}

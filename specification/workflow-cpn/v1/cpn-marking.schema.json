@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/specification/workflow-cpn/v1/cpn-marking.schema.json",
+  "title": "CPN marking version 1",
+  "$ref": "cpn-contract.schema.json#/$defs/marking"
+}

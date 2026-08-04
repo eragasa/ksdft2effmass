@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "backend-neutral-cpn-P1-contract",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "activation_id": "P1-activation-2026-08-03T12:16:27Z",
+  "authority": {
+    "source": "Preserved human response in .pi/checkpoints/P0A-HC01-packaging-configuration-final-acceptance.json",
+    "kind": "separate explicit authorization after P0A closure",
+    "condition": "P0A closed and closeout validation passes"
+  },
+  "prerequisite_evidence": {
+    "p0a_status": "human_accepted_pass",
+    "p0a_resolution": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/P0A-HC01-resolution.json",
+    "closeout_validation": "passed"
+  },
+  "activated_scope": "Executable project-owned backend-neutral CPN contract in production Python source with focused software-verification tests, required language-neutral schemas/fixtures, public documentation, read-only reviews, parent verification, and a final human-acceptance checkpoint.",
+  "blocked_scope": "P2-P11; SNAKES or other engine adapter; authoritative persistence implementation; concrete workflow or external-tool execution; scientific payload implementation; QE, ABINIT, Wannier90, scheduler, remote, HPC, or scientific execution.",
+  "changed_paths": [
+    ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/activation.json",
+    "AGENTS.md"
+  ],
+  "status": "active"
+}

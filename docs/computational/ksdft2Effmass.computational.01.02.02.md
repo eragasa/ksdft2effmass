@@ -7,7 +7,7 @@ back_to: [[ksdft2Effmass.computational.01]]
 
 ## Objective
 
-Implement run manifests and provenance capture. The task produces the artifact Tested `RunManifest required by the downstream dependency graph.
+Implement portable artifact identity, deployment-location resolution, run manifests, and provenance capture. The task produces the artifact Tested `RunManifest` required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 Primary output:
 
-Tested `RunManifest`
+Tested `RunManifest` with portable `ArtifactReference` identities and separately owned `ArtifactLocation` or resolver behavior. No `logical_path_or_uri` field or local absolute path as portable identity is authorized.
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 

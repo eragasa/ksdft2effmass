@@ -9,7 +9,7 @@ Construct a converged, aligned, and spatially resolved first-principles impurity
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.06.01.01\|06.01.01]] | Construct the P:Si specialization gate | `G01` | P:Si specialization gate | Blocked |
+| [[ksdft2Effmass.computational.06.01.01\|06.01.01]] | Construct the P:Si specialization gate | `G01a` | P:Si specialization gate | Blocked |
 | [[ksdft2Effmass.computational.06.01.02\|06.01.02]] | Define the phosphorus supercell sequence | `06.01.01`, `G02` | Finite-size study design | Blocked |
 | [[ksdft2Effmass.computational.06.01.03\|06.01.03]] | Run relaxed or fixed-geometry P:Si calculations | `06.01.02` | Doped first-principles datasets | Blocked |
 | [[ksdft2Effmass.computational.06.02.01\|06.02.01]] | Construct P:Si Wannier operators | `06.01.03`, `G03` | Doped Wannier candidates | Blocked |
@@ -35,7 +35,7 @@ $$
 
 Every term must include the basis, geometry, energy reference, and alignment metadata required to reproduce the subtraction.
 
-## Completion Gate `G06`
+## Accepted marking `G06`
 
-The gate passes when the spatial blocks of $\Delta\mathbf{H}_{\mathrm W,\mathrm P}$ are stable within stated tolerances and periodic-image contamination has been quantified.
+The G06 accepted marking exists when the spatial blocks of $\Delta\mathbf{H}_{\mathrm W,\mathrm P}$ are stable within stated tolerances and periodic-image contamination has been quantified.
 

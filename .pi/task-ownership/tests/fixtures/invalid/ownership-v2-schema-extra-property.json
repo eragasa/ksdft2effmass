@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "task_id": "TASK",
+  "task_record": ".pi/tasks/task.md",
+  "owners": {
+    "writers": [],
+    "reviewers": []
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/complete.py",
+    "command": ["python", ".pi/task-ownership/complete.py"],
+    "required_before_review": true
+  },
+  "unexpected": true
+}

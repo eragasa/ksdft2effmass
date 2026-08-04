@@ -34,9 +34,9 @@ $$
 
 These quantities measure gauge dependence, disagreement between tight-binding routes, disagreement between impurity-extraction orders, and general path dependence.
 
-## Completion Gate `G10`
+## Accepted marking `G10`
 
-The gate does not require every diagram to commute. It requires each tested diagram to have:
+The G10 accepted marking does not require every diagram to commute. It requires each tested diagram to have:
 
 - precisely defined paths;
 - aligned outputs;

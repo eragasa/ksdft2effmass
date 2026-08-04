@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "task_id": "backend-neutral-cpn-P0A-packaging-configuration",
+  "environment": {
+    "working_directory": "repository root",
+    "platform": "macOS arm64",
+    "python": "3.14.6",
+    "uv": "0.11.25"
+  },
+  "commands": [
+    {
+      "purpose": "refresh the established lock without a general upgrade",
+      "command": "cd python && uv lock",
+      "result": "PASS: 131 packages; added markdown-it-py 4.2.0, mdit-py-plugins 0.6.1, mdurl 0.1.2, myst-parser 5.1.0, and snakes 0.9.33"
+    },
+    {
+      "purpose": "reproduce clean core/workflow/docs installations, wheel build/install/content checks, locked artifacts, optimized-invalid-input rejection, Sphinx 9/8 warnings-as-errors builds, Ruff, mypy, pytest, and diff checks",
+      "command": "bash .pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/run_verification.sh",
+      "result": "PASS"
+    },
+    {
+      "purpose": "verify the exact SNAKES source identity and upstream copyright/license grant in disposable storage",
+      "command": "BASE=$(mktemp -d); trap 'rm -rf \"$BASE\"' EXIT; curl -fsSL https://files.pythonhosted.org/packages/27/58/315d8c81caa41d1d88b221d9ce15fcb92e89b74c22ed9b540f22752cb0b3/SNAKES-0.9.33.tar.gz -o \"$BASE/SNAKES-0.9.33.tar.gz\"; printf '%s  %s\n' af8c3046bfedf3e088b6bf37d451ad6aeeb79716f68a6253e44ddbd1c7e250f3 \"$BASE/SNAKES-0.9.33.tar.gz\" | shasum -a 256 -c -; tar -xOf \"$BASE/SNAKES-0.9.33.tar.gz\" SNAKES-0.9.33/README.md > \"$BASE/README.md\"; printf '%s  %s\n' f3755596bd28357a6c0736c9ff88be8cb4c28b4d035dd5e5b711a736b0b8d5cf \"$BASE/README.md\" | shasum -a 256 -c -; rg -n -A8 'Copyright / Licence' \"$BASE/README.md\"",
+      "result": "PASS: exact sdist and README hashes; copyright 2007-2021 Franck Pommereau; LGPL version 2.1 or later grant"
+    }
+  ],
+  "corrected_attempts": [
+    {
+      "id": "P0A-001",
+      "command": "uv tree --locked --extra workflow --extra docs --depth 2",
+      "result": "FAILED deterministically: uv 0.11.25 does not support --extra for uv tree; replaced by locked full-tree inspection and metadata verification"
+    },
+    {
+      "id": "P0A-002",
+      "command": "combined Ruff and evidence execution with conditional cd ..",
+      "result": "FAILED deterministically after Ruff E501; constants corrected and commands rerun from the repository root"
+    },
+    {
+      "id": "P0A-003",
+      "command": "initial verify_packaging_configuration.py review",
+      "result": "FAILED review because assert gates disappear under optimized Python; all authoritative gates now use unconditional explicit failures and the replay script rejects malformed input under python3 -O"
+    },
+    {
+      "id": "P0A-005",
+      "command": "initial run_verification.sh wheel/tooling replay",
+      "result": "FAILED correction review because it relied on an ignored repository .venv, could mutate python/.venv, and left python/build; generated output was removed and replay now uses a disposable source copy plus temporary uv environments"
+    },
+    {
+      "id": "P0A-007",
+      "command": "clean-replay cache-boundary review",
+      "result": "FAILED review because UV_CACHE_DIR still resolved outside the trapped root; replay now places the uv cache under its temporary root"
+    },
+    {
+      "id": "P0A-008",
+      "command": "clean-replay interpreter-boundary review",
+      "result": "FAILED review because unqualified python3 resolved through a repository virtual environment on PATH; replay now creates and uses a dedicated Python 3.14 evidence environment under the trapped root"
+    }
+  ],
+  "prohibited_operations": {
+    "graphviz_execution": false,
+    "snakes_source_copy_or_modification": false,
+    "production_cpn_implementation": false,
+    "scientific_execution": false,
+    "remote_or_scheduler_execution": false,
+    "p1_or_later_launch": false
+  }
+}

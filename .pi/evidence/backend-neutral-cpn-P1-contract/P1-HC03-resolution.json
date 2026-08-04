@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "skill": {
+    "name": "resolve-human-checkpoint",
+    "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "sha256": "41e8aa1590ec0561a746b46ad36eb3bd0bb105439ce3fa273537f835a05f8cd3"
+  },
+  "request_id": "P1-HC03-human-option-A-2026-08-04T03:02:33Z",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "task_id": "backend-neutral-cpn-P1-contract",
+  "attempt_id": "P1-HC03-resolution-attempt-1",
+  "input_checkpoint": {
+    "checkpoint_id": "P1-HC03",
+    "expected_status": "blocked",
+    "sha256": "6dacd2613ce507798edcc94a0ba681efc2bd1f48f9c53c0a715d705241963257"
+  },
+  "preserved_human_response": "A",
+  "normalized_decision": "A",
+  "changed_paths": [
+    ".pi/checkpoints/P1-HC03-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/implementation-progress.md",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/P1-HC03-resolution.json"
+  ],
+  "validation": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "cd python && uv run pytest -q",
+        "result": "passed: 1012 tests"
+      },
+      {
+        "command": "cd python && uv run mypy src tests && uv run ruff format --check . && uv run ruff check .",
+        "result": "passed: mypy 117 files; Ruff format and lint 117 files"
+      },
+      {
+        "command": "cd python && uv run --extra docs sphinx-build -W -b html ../docs <temporary-output>",
+        "result": "passed: 33 sources; output outside repository"
+      },
+      {
+        "command": "python .pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py && python .pi/evidence/backend-neutral-cpn-P1-contract/contract_gates.py",
+        "result": "passed: 88 evidence IDs; 10 artifact tests"
+      },
+      {
+        "command": "python .pi/checkpoints/validate_checkpoints.py --dry-run",
+        "result": "passed: eight records, zero unresolved, zero duplicate checkpoint decisions; all dry-run stages passed"
+      },
+      {
+        "command": "shasum -a 256 -c .pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256",
+        "result": "passed: final post-resolution inventory verified, 116 entries"
+      },
+      {
+        "command": "P1 acceptance/no-successor control-plane assertions",
+        "result": "passed: P1 human_accepted_pass; active_task null; P2-P11 blocked; production_execution_authorized false"
+      }
+    ]
+  },
+  "resumption_status": "P1 closed as human-accepted PASS and closeout validation passed; no successor selected or launched; P2-P11 and production/scientific execution remain blocked",
+  "warnings": [
+    "P1 acceptance is software-contract acceptance, not Rust conformance, numerical verification, scientific validation, UQ, persistence/engine verification, or execution authorization.",
+    "P1 acceptance makes its prerequisite available but does not authorize or launch P2."
+  ],
+  "partial_failure": null
+}

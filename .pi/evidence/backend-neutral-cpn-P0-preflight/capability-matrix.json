@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "task_id": "backend-neutral-cpn-P0-preflight",
+  "overall_recommendation": "CONDITIONAL_PASS",
+  "exact_environment": {
+    "environment_id": "p0-macos-arm64-python-3.14.6",
+    "operating_system": "macOS 26.5.1",
+    "architecture": "arm64",
+    "python": "CPython 3.14.6",
+    "pip": "26.2",
+    "snakes": "0.9.33",
+    "myst_parser": "5.1.0",
+    "sphinx": "9.1.0",
+    "system_graphviz": "not available: dot not found"
+  },
+  "capabilities": [
+    {
+      "capability": "SNAKES package resolution",
+      "status": "PASS",
+      "evidence_artifact": "package-metadata.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["PyPI supplies only an sdist for 0.9.33."],
+      "required_correction": "Retain source hash and lock the selected artifact.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "SNAKES installation",
+      "status": "PASS",
+      "evidence_artifact": "command-manifest.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["A wheel was built locally from the PyPI sdist; no upstream wheel was available."],
+      "required_correction": "Exercise the locked sdist build in supported CI before adoption.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "SNAKES import",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Import success is narrower than Python-version runtime compatibility."],
+      "required_correction": "Keep the warnings-as-errors import probe in the packaging task.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "Python compatibility",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["SNAKES metadata declares neither Requires-Python nor version classifiers; Python 3.14.6 is the only repository-supported version available and tested."],
+      "required_correction": "Pin the tested SNAKES line and add Python 3.14 CI capability probes; do not infer support for other interpreters.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "basic net construction",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Synthetic net only; not a project CPN contract."],
+      "required_correction": "None for P0.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "colored structured tokens",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Multiset token values must be hashable; mutable lists are rejected. Instance(SyntheticToken) accepted the intended frozen payload and rejected a hashable string as a wrong color."],
+      "required_correction": "Future project payloads and color checkers must be immutable, hashable, and owned by the neutral contract.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "multiset markings",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["No durable ordering guarantee is accepted."],
+      "required_correction": "Use project-owned canonical ordering for any future persistence.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "guards",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["SNAKES evaluates Python expressions; project policy must restrict guards to pure expressions."],
+      "required_correction": "P1/P3 must enforce the accepted pure-guard boundary outside P0.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "bindings",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Invalid bindings report disabled state and firing raises ValueError."],
+      "required_correction": "Future adapter must translate engine failures into project-owned results.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "arc expressions",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Output construction depends on names registered in the net evaluator."],
+      "required_correction": "P3 must isolate evaluator registration and avoid arbitrary dynamic code exposure.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "transition firing",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Two enabled modes were repeatedly inspectable and project-canonicalized by sorted immutable-token representation; engine enumeration order is not adopted as a durable ordering contract."],
+      "required_correction": "Future adapter must canonicalize and select modes through project-owned deterministic criteria.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "failure/retry feasibility",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["History retention was modeled by explicit re-emission; it is not automatic engine persistence."],
+      "required_correction": "P1/P3 must define durable project-owned history semantics.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "provenance join feasibility",
+      "status": "PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Only synthetic parent, manifest, and protocol identifiers were compared."],
+      "required_correction": "Scientific representation compatibility remains future project-owned policy.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "neutral marking extraction",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Qualified Python type names are insufficient for reconstruction; arbitrary Python objects are not safely serializable."],
+      "required_correction": "P1/P3 require explicit type registries, project encoders, schema versions, canonical sorting, and no pickle.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "state-space/reachability",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Core StateGraph enumerates reachable markings but does not detect unboundedness; dead transitions require bounded complete-graph inference."],
+      "required_correction": "Use only bounded/restricted exploration with explicit limits and project-owned interpretation.",
+      "blocking_or_optional_classification": "optional"
+    },
+    {
+      "capability": "SNAKES Graphviz plugin",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["The plugin composes generated subclasses/modules and auto-loads pos and clusters; rendering invokes a system executable directly; Python 3.14 reports deprecated codecs.open use, which fails under warnings-as-errors."],
+      "required_correction": "Isolate plugin loading, apply or obtain a bounded Python 3.14 rendering compatibility correction before requiring rendering, and treat every diagram as a derived nonauthoritative view.",
+      "blocking_or_optional_classification": "optional"
+    },
+    {
+      "capability": "system Graphviz",
+      "status": "NOT_AVAILABLE",
+      "evidence_artifact": "preflight-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["dot was absent, so actual SVG rendering and version reporting could not be tested."],
+      "required_correction": "Keep Graphviz optional; test rendering only in an environment that separately supplies dot.",
+      "blocking_or_optional_classification": "optional"
+    },
+    {
+      "capability": "MyST installation",
+      "status": "PASS",
+      "evidence_artifact": "package-metadata.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Only myst-parser 5.1.0 with its resolved dependency set was tested."],
+      "required_correction": "Lock and exercise the selected documentation extra in CI.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "MyST import",
+      "status": "PASS",
+      "evidence_artifact": "myst-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Import success alone does not establish maintained-document compatibility."],
+      "required_correction": "Retain the representative build and maintained-page audit.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "Sphinx/MyST build",
+      "status": "PASS",
+      "evidence_artifact": "myst-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["The minimal project is representative, not exhaustive; enabling myst_parser in the current source tree collects broader Markdown and the broad disposable warnings-as-errors build fails."],
+      "required_correction": "A separately approved task must define the collected-source/correction policy, enable myst_parser and dollarmath, and obtain a maintained warnings-as-errors pass.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "Obsidian-style mathematics",
+      "status": "PASS",
+      "evidence_artifact": "myst-result.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Source portability was checked; Obsidian itself was not executed."],
+      "required_correction": "Configure the MyST dollarmath extension.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "mixed RST/Markdown navigation",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "maintained-markdown-audit.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["The minimal mixed build passes, but current MyST activation would collect broader Markdown that does not pass warnings-as-errors; maintained directory links need bounded correction and the existing RST download list would duplicate direct MyST navigation."],
+      "required_correction": "Choose explicit collected-source/correction policy, replace directory links with concrete index files, replace download-only navigation when direct MyST toctrees are approved, and pass a maintained build.",
+      "blocking_or_optional_classification": "blocking"
+    },
+    {
+      "capability": "license metadata",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "package-metadata.json",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["SNAKES core metadata lacks a license expression, while installed license files state LGPL-3.0 and PyPI uses a generic LGPL classifier; redistribution obligations require human/legal review. MyST is MIT."],
+      "required_correction": "Preserve notices/license texts and obtain human acceptance of the bounded distribution recommendation; this is not a legal conclusion.",
+      "blocking_or_optional_classification": "human_decision"
+    },
+    {
+      "capability": "dependency placement",
+      "status": "CONDITIONAL_PASS",
+      "evidence_artifact": "preflight-report.md",
+      "exact_environment": "p0-macos-arm64-python-3.14.6",
+      "limitations": ["Core versus optional workflow placement and precise pin policy are protected packaging choices."],
+      "required_correction": "Human decision requested: workflow extra for SNAKES; docs extra for MyST; Graphviz system tool optional.",
+      "blocking_or_optional_classification": "human_decision"
+    }
+  ]
+}

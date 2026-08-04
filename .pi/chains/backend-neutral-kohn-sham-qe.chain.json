@@ -1,0 +1,116 @@
+{
+  "name": "backend-neutral-kohn-sham-qe",
+  "package": "ksdft2effmass",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS, P0A is closed as human-accepted PASS, and P1 is closed as human-accepted PASS through P1-HC03. No successor is active or launched. P2-P11 and production/scientific execution remain blocked and unauthorized.",
+  "status": "p1_human_accepted_pass_no_successor_active",
+  "active_task": null,
+  "workflow_semantics": "project_owned_colored_petri_net",
+  "selected_candidate_engine": "SNAKES",
+  "engine_dependency_added": true,
+  "architecture_authority": ".pi/tasks/backend-neutral-cpn-workflow-architecture.md",
+  "architecture_documents": [
+    "docs/architecture/colored-petri-net-workflows.md",
+    "docs/architecture/kohn-sham-dft-quantum-espresso.md",
+    "docs/architecture/periodic-electronic-structure-integration.md"
+  ],
+  "production_execution_authorized": false,
+  "superseded_sequence": {
+    "authority": ".pi/tasks/backend-neutral-kohn-sham-qe-architecture.md",
+    "tasks": ["A", "B", "C", "D", "E", "F", "G", "H"],
+    "disposition": "Scientific decomposition preserved; linear/DAG-like workflow sequencing prospectively superseded by P0-P11 CPN tasks. Human-authorized P0A is a bounded packaging/configuration prerequisite inserted before existing P1."
+  },
+  "task_sequence": [
+    {"id": "P0", "record": ".pi/tasks/backend-neutral-cpn-P0-preflight.md", "prerequisites": [], "status": "human_accepted_conditional_pass"},
+    {"id": "P0A", "record": ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md", "prerequisites": ["P0:human_accepted"], "status": "human_accepted_pass"},
+    {"id": "P1", "record": ".pi/tasks/backend-neutral-cpn-P1-contract.md", "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json", "prerequisites": ["P0A:human_accepted"], "status": "human_accepted_pass"},
+    {"id": "P2", "record": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md", "prerequisites": ["P1:human_accepted"], "status": "blocked"},
+    {"id": "P3", "record": ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md", "prerequisites": ["P1:human_accepted", "P2:human_accepted"], "status": "blocked"},
+    {"id": "P4", "record": ".pi/tasks/backend-neutral-cpn-P4-neutral-dft.md", "prerequisites": ["P1:human_accepted", "P2:human_accepted"], "status": "blocked"},
+    {"id": "P5", "record": ".pi/tasks/backend-neutral-cpn-P5-qe-boundary.md", "prerequisites": ["P2:human_accepted", "P4:human_accepted"], "status": "blocked"},
+    {"id": "P6", "record": ".pi/tasks/backend-neutral-cpn-P6-qe-scf-subnet.md", "prerequisites": ["P3:human_accepted", "P4:human_accepted", "P5:human_accepted"], "status": "blocked"},
+    {"id": "P7", "record": ".pi/tasks/backend-neutral-cpn-P7-direct-tb.md", "prerequisites": ["P3:human_accepted", "P4:human_accepted", "P6:human_accepted"], "status": "blocked"},
+    {"id": "P8", "record": ".pi/tasks/backend-neutral-cpn-P8-wannier-bridge.md", "prerequisites": ["P3:human_accepted", "P4:human_accepted", "P5:human_accepted", "P6:human_accepted"], "status": "blocked"},
+    {"id": "P9", "record": ".pi/tasks/backend-neutral-cpn-P9-wannier-execution.md", "prerequisites": ["P2:human_accepted", "P3:human_accepted", "P8:human_accepted"], "status": "blocked"},
+    {"id": "P10", "record": ".pi/tasks/backend-neutral-cpn-P10-synthetic-workflow.md", "prerequisites": ["P6:human_accepted", "P7:human_accepted", "P8:human_accepted", "P9:human_accepted", "required_metrics:accepted"], "status": "blocked"},
+    {"id": "P11", "record": ".pi/tasks/backend-neutral-cpn-P11-bulk-si-campaign.md", "prerequisites": ["G01a:accepted_marking", "P10:human_accepted", "production_checkpoint:accepted"], "status": "blocked"}
+  ],
+  "task_ownership_launch_preflight": {
+    "fail_closed": true,
+    "required_before": "implementation",
+    "manifest_schema": ".pi/task-ownership/ownership.schema.json",
+    "command_template": "python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>",
+    "policy": "Every production task must name task-specific implementation, test, documentation, and independent review owners. A missing or invalid manifest blocks launch. The declared test completion validator must pass before independent review."
+  },
+  "per_task_completion_gates": [
+    "task_ownership_launch_preflight",
+    "implementation_or_preflight_evidence_as_scoped",
+    "tests_or_verification_evidence",
+    "documentation",
+    "independent_read_only_review",
+    "parent_verification",
+    "human_acceptance"
+  ],
+  "launch_policy": "The human PI accepted P1 as PASS through P1-HC03 on 2026-08-04. Acceptance makes P1:human_accepted available as a prerequisite but does not select or launch P2. No successor is active. P2-P11 remain blocked and unauthorized until separately selected, ownership-validated, explicitly authorized, and launched.",
+  "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
+  "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
+  "production_checkpoint": {
+    "required_before_real_external_execution": true,
+    "fields": [
+      "machine_or_cluster",
+      "qe_and_wannier_version_and_executable_identity",
+      "pseudopotential_artifact",
+      "resource_request",
+      "working_and_artifact_roots",
+      "expected_runtime",
+      "retained_outputs",
+      "data_transfer_policy"
+    ]
+  },
+  "resolved_checkpoints": [
+    {
+      "checkpoint": "P0-HC01-packaging-license-and-configuration",
+      "decision": "A",
+      "resolved_at": "2026-08-03T11:17:31Z",
+      "result": "P0 closed as human-accepted CONDITIONAL_PASS; bounded P0A activated; P1-P11 remain blocked."
+    },
+    {
+      "checkpoint": "P0A-HC01-packaging-configuration-final-acceptance",
+      "decision": "A",
+      "resolved_at": "2026-08-03T12:16:27Z",
+      "result": "P0A closed as human-accepted PASS; P1 not launched by checkpoint resolution; P1 activation awaits successful closeout validation under separate authorization."
+    },
+    {
+      "checkpoint": "P1-HC01-cpn-numeric-wire-contract",
+      "decision": "A",
+      "resolved_at": "2026-08-04T00:41:02Z",
+      "result": "Option A authorizes binary64 REAL canonicalization and fixed-width integer correction, subject to the later P1-HC02 control-field refinement; P1 final acceptance remains separate and P2-P11 remain blocked."
+    },
+    {
+      "checkpoint": "P1-HC02-u64-expression-routing",
+      "decision": "B",
+      "resolved_at": "2026-08-04T01:04:21Z",
+      "result": "All P1 v1 expression-visible nonnegative controls are bounded to 2^63-1 with structured revision overflow at that maximum; no unsigned ContractValue kind is added."
+    },
+    {
+      "checkpoint": "P1-HC03-final-acceptance",
+      "decision": "A",
+      "resolved_at": "2026-08-04T03:02:33Z",
+      "result": "P1 closed as human-accepted PASS after final reviews and parent verification; no successor launched; P2-P11 remain blocked."
+    }
+  ],
+  "activations": [
+    {
+      "task": "P1",
+      "authorized_at": "2026-08-03T12:16:27Z",
+      "activated_after": "P0A closeout validation passed",
+      "authority": "Separate authorization in the preserved P0A-HC01 human response",
+      "scope": "Executable project-owned backend-neutral CPN contract in production source, focused tests, required schemas/fixtures/documentation/reviews; no SNAKES adapter, persistence implementation, workflow/scientific execution, or P2-P11 work."
+    }
+  ],
+  "chain": [
+    {
+      "phase": "P1-closed-no-successor-active",
+      "message": "P1 is human-accepted as PASS and closed. Stop before successor selection or launch. P2-P11 and production/scientific execution remain blocked."
+    }
+  ]
+}

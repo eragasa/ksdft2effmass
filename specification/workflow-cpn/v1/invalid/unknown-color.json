@@ -1,0 +1,33 @@
+{
+  "arcs": [],
+  "colors": [
+    {
+      "allowed_payload_type_ids": [],
+      "color_id": "control",
+      "description": "control routing token"
+    }
+  ],
+  "initial_marking": {
+    "model_id": "minimal-model",
+    "places": [
+      {
+        "place_id": "ready",
+        "tokens": []
+      }
+    ],
+    "revision": 0,
+    "schema_version": 1
+  },
+  "model_id": "minimal-model",
+  "places": [
+    {
+      "allowed_color_ids": [
+        "missing"
+      ],
+      "description": "ready tokens",
+      "place_id": "ready"
+    }
+  ],
+  "schema_version": 1,
+  "transitions": []
+}

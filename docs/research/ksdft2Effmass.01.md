@@ -107,6 +107,26 @@ where:
 
 The nonlocal ionic contribution is retained explicitly because nonlocal operator structure may already be present before any hybrid-functional, DFT+$U$, projection, or model-reduction step [^4].
 
+The current semilocal silicon path is accurately described by the Kohn–Sham notation above. The longer-term periodic integration boundary also permits generalized Kohn–Sham methods. A hybrid GKS operator is represented schematically as
+
+$$
+\hat H_{\mathrm{GKS}}
+=
+\hat T
++
+\hat V_{\mathrm{ext}}
++
+\hat V_{\mathrm H}
++
+\hat V_{\mathrm{xc}}^{\mathrm{local}}
++
+\alpha\hat V_{\mathrm x}^{\mathrm{Fock}},
+$$
+
+where $\alpha$ is the exact-exchange fraction; range-separated hybrids may additionally require a parameter $\omega$. Global, screened, and range-separated hybrid GKS calculations require method-specific pseudopotential compatibility, numerical implementation, convergence, and verification evidence. They are planned but not implemented or qualified. Semilocal KS evidence cannot be used as hybrid GKS qualification. DFT+$U$ is not assigned a current integration profile by this architecture correction.
+
+Both KS and GKS calculations remain inside the present integration domain only when they are periodic crystalline calculations organized in Bloch fibers. Molecular-orbital and finite-system implementations remain outside scope.
+
 For a continuous Brillouin-zone representation, the density is
 $$
 n(\mathbf r)

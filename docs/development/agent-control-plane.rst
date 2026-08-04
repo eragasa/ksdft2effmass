@@ -8,10 +8,26 @@ Current operator-record status
 ------------------------------
 
 The operator-record validation-correction task was accepted and closed on
-2026-08-03. No operator-record corrective task is active, no human checkpoint is
-unresolved, and no successor task has been selected or launched. An explicit
-unitary basis/state-space alignment contract is only a candidate for future human
-selection; it is not approved for implementation or in progress.
+2026-08-03, and no operator-record corrective task is active. The periodic
+KS/GKS electronic-structure and Quantum ESPRESSO architecture was approved on
+2026-08-03 and is recorded in
+``.pi/tasks/backend-neutral-kohn-sham-qe-architecture.md``,
+``docs/architecture/kohn-sham-dft-quantum-espresso.md``, and
+``docs/architecture/periodic-electronic-structure-integration.md``. Its
+scientific object and adapter boundaries remain approved as prospectively
+corrected. The never-launched
+A--H linear workflow sequence is prospectively superseded by the project-owned
+Colored Petri Net architecture and P0--P11 task program recorded in
+``.pi/tasks/backend-neutral-cpn-workflow-architecture.md``. The human PI granted
+final acceptance through ``CPN-HC01`` on 2026-08-03, and the architecture task
+is closed. The human PI accepted bounded P0 as ``CONDITIONAL_PASS`` through
+resolved ``P0-HC01`` on 2026-08-03 and closed it. Bounded P0A
+packaging/configuration closed as human-accepted ``PASS``. P1 is the active
+production-contract task and is blocked at unresolved ``P1-HC01`` for its
+version-1 numeric wire contract. P2--P11 remain blocked, and no production
+QE/ABINIT/Wannier execution is authorized.
+Basis/state-space alignment remains a G01b work item, not a prerequisite of
+G01a or G02, and is not active.
 
 Authority and roles
 -------------------
@@ -149,6 +165,57 @@ task records, chains, skills, agents, source, tests, specifications,
 documentation, integration-review evidence, and version-control status. Graphify
 may accelerate broad topology questions, but any graph-derived conclusion must
 be verified against authoritative files before it affects a recommendation.
+
+Colored Petri Net workflow control
+-----------------------------------
+
+Static chain/task prerequisites remain useful planning and launch controls, but
+they are not the scientific workflow state. The prospective scientific and
+computational workflow is a stateful project-owned Colored Petri Net with typed
+multiset markings, pure guards, request/result boundaries, failure/retry paths,
+provenance lineage, and accepted marking predicates. SNAKES is the selected
+candidate engine behind an adapter; neutral scientific objects and durable
+markings remain project-owned.
+
+Task-ownership launch preflight
+-------------------------------
+
+Every production task must record task-specific writers and independent
+reviewers before implementation starts. The controlling chain names a
+machine-readable ownership manifest and runs
+``python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>`` as a
+fail-closed launch preflight. Missing declarations, missing agent records,
+overlapping writer scopes, combined writer/reviewer ownership, or an invalid
+completion validator block launch.
+
+Version 1 retains the P1 public-object inventory, exact test-module rule,
+classified exceptions, non-class package/schema gate owner, and string command
+for compatibility. Version 2 is generic, uses a structured completion-command
+argument vector bound to the declared validator path, and does not impose P1
+object kinds or filenames.
+
+A version-2 task may opt into the exact ``evidence-branches-v1`` profile by
+naming a validated repository-relative branch matrix and a correction-cycle
+limit of one. Its structured authorization binds the same durable task record as
+the manifest, a stable decision ID present in that record, and the exact profile.
+Activation requires at least two branches and either multiple writer roles or a
+deterministic/protected-checkpoint split. Every validation stage declares its
+writer, command, requirements, and owned evidence; exactly one referenced
+completion stage matches the manifest completion command and validator path.
+Version-2 agent records establish agent identity and writer/read-only role, while
+structured manifest paths establish ownership.
+
+The matrix is authorization and ownership input, not an execution log or an
+orchestration engine. Dispatchers batch all branches assigned to each writer
+role, then request one consolidated independent review. They may run one
+consolidated correction cycle and must escalate unresolved findings rather than
+create an iterative writer/reviewer loop. This optional profile is not required
+for ordinary tasks.
+
+A launch-preflight pass establishes control-plane ownership only; it does not
+establish implementation correctness, scientific validity, or human acceptance.
+A direct tool or agent call can technically bypass the validator, but remains
+unauthorized and supplies no preflight evidence.
 
 Chain behavior
 --------------

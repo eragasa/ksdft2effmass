@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "environment_id": "p0-macos-arm64-python-3.14.6",
+  "tools": {
+    "pytest": {
+      "version": "9.1.1",
+      "status": "PASS",
+      "command": "python -W error -m pytest -q <temp>/tooling-smoke/test_snakes_smoke.py",
+      "exit_status": 0,
+      "result": "1 passed in 0.01s",
+      "scope": "Disposable SNAKES construction/mode/firing smoke; no maintained production test was created."
+    },
+    "mypy": {
+      "version": "2.3.0",
+      "status": "CONDITIONAL_PASS",
+      "command": "python -m mypy --python-version 3.14 --warn-unused-ignores --disallow-untyped-defs <temp>/tooling-smoke/snakes_mypy_smoke.py",
+      "exit_status": 0,
+      "result": "Success: no issues found in 1 source file",
+      "limitation": "SNAKES 0.9.33 has no py.typed marker or type stubs. The disposable adapter required an explicit import-untyped suppression and treated the engine object as Any; a future adapter must isolate this untyped boundary."
+    },
+    "ruff": {
+      "version": "0.16.1",
+      "status": "PASS",
+      "command": "cd python && uv run --extra dev ruff format --check ../.pi/evidence/backend-neutral-cpn-P0-preflight/*.py && uv run --extra dev ruff check ../.pi/evidence/backend-neutral-cpn-P0-preflight/*.py",
+      "exit_status": 0,
+      "scope": "Retained evidence scripts under the repository's established Ruff configuration."
+    },
+    "repository_packaging": {
+      "status": "PASS",
+      "command": "python -m pip wheel --no-cache-dir --no-deps --wheel-dir <temp>/project-wheel ./python",
+      "exit_status": 0,
+      "wheel": "ksdft2effmass-0.1.0.dev0-py3-none-any.whl",
+      "install_command": "<clean-temp-venv>/bin/python -m pip install --no-deps <generated-wheel>",
+      "install_exit_status": 0,
+      "import_exit_status": 0,
+      "metadata_result": "Runtime requirements remained numpy>=1.26 and scipy>=1.12; optional extras matched maintained metadata; SNAKES and myst-parser were absent.",
+      "retained_generated_wheel": false
+    }
+  },
+  "classification": "software/tooling compatibility preflight; not scientific validation or UQ"
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "skill": {
+    "name": "resolve-human-checkpoint",
+    "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "sha256": "41e8aa1590ec0561a746b46ad36eb3bd0bb105439ce3fa273537f835a05f8cd3"
+  },
+  "request_id": "P1-HC01-human-option-A-2026-08-04T00:41:02Z",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "task_id": "backend-neutral-cpn-P1-contract",
+  "attempt_id": "P1-HC01-resolution-attempt-1",
+  "input_checkpoint": {
+    "checkpoint_id": "P1-HC01",
+    "expected_status": "blocked",
+    "sha256": "7174f0faaf2628c1f2c2b4c6c6f26c23f9563135423c6a163a891f147353043a"
+  },
+  "preserved_human_response": "A",
+  "normalized_decision": "A",
+  "changed_paths": [
+    ".pi/checkpoints/P1-HC01-cpn-numeric-wire-contract.json",
+    ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/P1-HC01-resolution.json"
+  ],
+  "validation": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python .pi/checkpoints/validate_checkpoints.py",
+        "result": "passed: six records valid, zero unresolved, zero duplicate resolved decisions"
+      },
+      {
+        "command": "python .pi/task-ownership/validate_task_ownership.py --task P1",
+        "result": "passed before resumption"
+      }
+    ]
+  },
+  "resumption_status": "P1 Option A safe subset implemented; resumption stopped at new protected P1-HC02 u64 expression-routing decision; P1 final acceptance not granted; P2-P11 and production/scientific execution remain blocked",
+  "warnings": [
+    "Option A resolves only the numeric wire-contract choice; it does not accept or close P1.",
+    "Automatic iteration-index arithmetic remains outside version 1 and outside this correction."
+  ],
+  "partial_failure": {
+    "classification": "new_protected_public_contract_conflict",
+    "checkpoint": ".pi/checkpoints/P1-HC02-u64-expression-routing.json",
+    "changed_paths_before_stop": [
+      "python/src/ksdft2effmass/workflows/cpn/tokens.py",
+      "python/src/ksdft2effmass/workflows/cpn/markings.py",
+      "python/src/ksdft2effmass/workflows/cpn/execution.py",
+      "python/src/ksdft2effmass/workflows/cpn/errors.py",
+      "specification/workflow-cpn/v1/cpn-contract.schema.json",
+      "specification/workflow-cpn/v1/README.md"
+    ],
+    "result": "Safe Option-A subset retained; no expression behavior finalized; implementation, tests, documentation, reviews, and parent verification paused."
+  }
+}

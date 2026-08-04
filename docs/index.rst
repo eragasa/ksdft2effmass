@@ -9,12 +9,14 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    :caption: Concepts
 
    concepts/operator-records
+   concepts/cpn-contract
 
 .. toctree::
    :maxdepth: 2
    :caption: API reference
 
    api/operators
+   api/workflows-cpn
 
 .. toctree::
    :maxdepth: 1
@@ -29,6 +31,7 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    verification/operator-record-compatibility-analysis
    verification/operator-record-difference
    verification/operator-record-residual-analyzer
+   verification/cpn-contract
 
 .. toctree::
    :maxdepth: 1
@@ -40,5 +43,40 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    development/source-documentation
    research/agentic-development-case-study
 
-The higher-level research and computational planning notes are maintained as
-Markdown documents under ``docs/research`` and ``docs/computational``.
+Markdown-first user guide
+-------------------------
+
+The maintained user guide is authored in Markdown for repository and Obsidian
+use and rendered directly through MyST. Its explicit toctree is the complete
+Markdown collection policy; Sphinx does not collect other Markdown trees.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: User guide
+
+   user-guide/index
+   user-guide/installation
+   user-guide/external-dependencies
+   user-guide/dft-backends
+   user-guide/paw-and-pseudopotential-backends
+   user-guide/workflow-model
+   user-guide/colored-petri-nets
+   user-guide/quantum-espresso
+   user-guide/abinit
+   user-guide/cross-backend-verification
+   user-guide/wannier90
+   user-guide/provenance-and-artifacts
+   user-guide/troubleshooting
+
+Uncollected Markdown records
+----------------------------
+
+Architecture, computational, research, conference, paper, and meeting Markdown
+remain authoritative repository/Obsidian sources, but they are intentionally not
+Sphinx source documents. Architecture overviews remain available as source
+files:
+
+* :download:`Colored Petri Net workflow architecture <architecture/colored-petri-net-workflows.md>`
+* :download:`Periodic KS/GKS and QE architecture <architecture/kohn-sham-dft-quantum-espresso.md>`
+* :download:`Periodic electronic-structure integration <architecture/periodic-electronic-structure-integration.md>`
+* :download:`CPN skill-capability audit <architecture/cpn-skill-capability-audit.md>`

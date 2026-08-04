@@ -53,7 +53,8 @@ Inspect actual repository evidence. Use this order:
 9. inspect current source, tests, specifications, and documentation;
 10. optionally use the shared project Graphify skill at
    `.agents/skills/graphify/SKILL.md` for broad topology and dependency
-   questions, only within approved artifact and external-processing policy;
+   questions, only through its non-writing read-only query profile and within
+   approved artifact and external-processing policy;
 11. verify graph-derived conclusions against authoritative files;
 12. identify unresolved findings or blocked decisions;
 13. reconstruct the scientific dependency frontier;
@@ -318,3 +319,25 @@ the next task.
 - Do not record approval.
 - Do not begin implementation.
 - Stop after presenting the recommendation and the human-selection notice.
+
+## CPN invocation and evidence boundary
+
+When represented in a prospective CPN, this skill is human-decision support and
+is invoked by the external agent/harness outside guard evaluation. The immutable
+request records the task, parent-workflow and attempt identities, repository
+snapshot/artifact identities, skill content hash, required authoritative
+references, expected output shape, read-only side-effect class, and termination
+policy.
+
+The result is an advisory candidate/recommendation artifact, not an accepted task
+or launch authorization. It records the request, task, parent-workflow, and
+attempt identities; inspected artifact identities; conflicts
+or missing state, the single recommendation when available, Graphify use (if
+any), warnings, and the required human-selection stop. Repository conflicts or
+insufficient state return the documented `State reconstruction incomplete`
+result rather than a fabricated recommendation. Retries require an immutable
+parent authorization identity or a request's pre-authorized retry policy, use new
+attempt identities, and retain earlier recommendations; identical snapshots should yield
+observationally equivalent state reconstruction, while a changed snapshot is a
+new input. No recommendation may fire a task-creation, task-launch, scientific-
+acceptance, or execution-authorization transition.

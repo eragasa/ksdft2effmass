@@ -66,3 +66,47 @@ prohibited; limited owner-local duplication is preferred.  Numerical norms and
 residual computations must be scale-safe and must surface structured numerical
 errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file
 evidence, commands, findings, and a PASS or FAIL conclusion.
+
+## CPN-compatible review invocation contract
+
+This skill supplies a bounded architecture-review capability; it is not a CPN
+guard or transition and it cannot accept architecture. The agent/harness invokes
+it outside guard evaluation.
+
+Required immutable inputs:
+
+- task and parent-workflow/attempt identifiers;
+- artifact references or exact repository paths to review;
+- the requested ownership-review scope;
+- authoritative architecture/reference paths;
+- permitted mutation scope, which defaults to `none`;
+- expected result shape and termination policy.
+
+Allowed side effects are read-only inspection and deterministic read-only
+commands unless a separately authorized writer assignment explicitly names
+owned files. It must not launch downstream tasks, alter scientific meaning, or
+treat reviewer agreement as acceptance.
+
+The result must report:
+
+```text
+skill identity and content hash
+request, task, parent-workflow, and attempt identities
+input artifact identities
+files and references inspected
+owned task class
+PASS | FAIL | BLOCKED
+structured findings with severity and file/line evidence
+deterministic commands and exact results
+mutation summary
+warnings and residual risks
+human decisions required
+```
+
+A missing authoritative reference, contradictory authority, or protected public
+contract choice returns `BLOCKED`; it is not silently resolved. A retry requires
+an immutable parent authorization identity or a request's pre-authorized retry
+policy, uses a new attempt identity, and retains prior findings. Repeating the same read-only
+request against the same artifact identities is observationally idempotent.
+Stop after the requested review result; do not implement, accept, or launch the
+reviewed work.

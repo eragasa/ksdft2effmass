@@ -1,0 +1,71 @@
+{
+  "checkpoint_id": "P0-HC01",
+  "task_id": "backend-neutral-cpn-P0-preflight",
+  "episode_id": null,
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-03T10:55:00Z",
+  "question": "Does the human PI accept P0 as a CONDITIONAL_PASS and authorize a separate bounded packaging/configuration task using SNAKES as an optional workflow extra and MyST as a documentation extra, subject to the recorded LGPL redistribution review, Python 3.14/Graphviz conditions, and maintained MyST collection/correction gate, while leaving P1-P11 unauthorized?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept P0 and authorize the recommended bounded packaging/configuration task.",
+      "consequence": "Close P0 as human-accepted CONDITIONAL_PASS; authorize a separate task to propose SNAKES>=0.9.33,<0.10 in an optional workflow extra, myst-parser>=5.1,<6 and Sphinx>=8,<10 in the docs extra, refresh the lock through established procedure, preserve license notices/distribution boundaries, isolate the untyped/runtime adapter, decide and implement an explicit MyST source-collection/correction policy, correct selected navigation, and pass maintained warnings-as-errors. This does not launch P1 or authorize production/scientific execution."
+    },
+    {
+      "id": "B",
+      "summary": "Accept P0 conditionally but require specified corrections before packaging authorization.",
+      "consequence": "P0 remains blocked or resumes only for the human-specified bounded corrections and revalidation; no dependency/configuration change or successor task is authorized until those corrections are accepted."
+    },
+    {
+      "id": "C",
+      "summary": "Reject SNAKES/MyST viability and reopen architecture selection.",
+      "consequence": "P0 records FAIL/rejection and opens a separate engine/documentation architecture reconsideration; cpnpy and SimPN are not automatically installed or adopted, and P1-P11 remain blocked."
+    },
+    {
+      "id": "D",
+      "summary": "Defer the decision.",
+      "consequence": "P0 remains blocked at this checkpoint; maintained dependencies/configuration, P1-P11, and production/scientific execution remain unauthorized."
+    }
+  ],
+  "recommendation": "Option A. SNAKES 0.9.33 installed, imported, and executed the required bounded CPN semantics on CPython 3.14.6; MyST 5.1.0 built the representative mixed project with Sphinx 9.1.0. Use an optional workflow extra for SNAKES and the existing docs extra for MyST; retain exact artifacts in the lock while declaring bounded ranges. Treat Graphviz as optional. Before redistribution, preserve LGPL notices/texts and obtain legal review if the recorded LGPL-2.1-or-later versus bundled LGPL-v3 evidence remains material. The packaging/configuration task must achieve a maintained MyST warnings-as-errors build for its explicitly chosen collection and must not launch P1.",
+  "blocked_scope": "P0 human acceptance and closeout; any maintained SNAKES/MyST/Sphinx dependency or lockfile change; any maintained MyST configuration/navigation correction; P1-P11; production implementation or scientific execution.",
+  "safe_scope": "Read-only inspection of P0 evidence and checkpoint reporting. Deterministic correction of already identified P0 evidence defects is allowed only within P0, followed by revalidation and review; no maintained dependency declaration or production CPN work.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/backend-neutral-cpn-P0-preflight.md",
+    ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
+    ".pi/tasks/backend-neutral-cpn-workflow-architecture.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P0-preflight/preflight-report.md",
+    ".pi/evidence/backend-neutral-cpn-P0-preflight/capability-matrix.json",
+    ".pi/evidence/backend-neutral-cpn-P0-preflight/package-metadata.json",
+    "docs/architecture/colored-petri-net-workflows.md",
+    "docs/user-guide/external-dependencies.md",
+    "python/pyproject.toml",
+    "python/uv.lock"
+  ],
+  "human_response": "## Human decision: A — Accept P0\n\nP0 is accepted as `CONDITIONAL_PASS`.\n\nResolve `P0-HC01` and close P0. The preflight establishes sufficient technical viability for SNAKES 0.9.33 and MyST Parser 5.1.0 under the tested Python 3.14.6 environment.\n\nAuthorize only the bounded packaging/configuration successor task. If that task is already designated P1, P1 may become active. P2–P11 remain blocked and unauthorized.\n\n### Packaging decisions\n\n- Add SNAKES only to an optional workflow extra: `SNAKES>=0.9.33,<0.10`.\n- Keep SNAKES outside the core and development-only dependency sets.\n- Add MyST Parser to the documentation extra: `myst-parser>=5.1,<6`.\n- Constrain the documentation environment to: `Sphinx>=8,<10`.\n- Keep system Graphviz optional and outside Python wheel metadata.\n- Preserve exact tested artifacts and hashes in the lockfile.\n\n### SNAKES license and redistribution decision\n\nFor project governance, record the upstream license as `LGPL-2.1-or-later`, based on the explicit upstream copyright and license grant. Also retain the observed fact that the distributed license file contains the LGPLv3 text.\n\nThe project may depend on an independently installed SNAKES package, but the authorized successor task shall not:\n\n- vendor or embed SNAKES source;\n- copy SNAKES implementation code into project-owned modules;\n- modify or redistribute a SNAKES fork;\n- bundle SNAKES into a standalone executable, application bundle, or container intended for distribution;\n- imply that SNAKES is covered by the project's Apache-2.0 license.\n\nAdd an appropriate third-party dependency notice identifying SNAKES, its copyright holder, upstream location, version range, and LGPL-2.1-or-later declaration.\n\nAny future vendoring, modification, fork distribution, or bundled binary/container distribution requires a new human license checkpoint.\n\nThis is a project packaging decision, not a general legal conclusion.\n\n### Runtime boundaries retained\n\n- SNAKES remains a replaceable backend behind a project-owned boundary.\n- Project records, schemas, identifiers, persistence, provenance, retry semantics, and canonical ordering remain backend-neutral.\n- Pickle is prohibited for authoritative persistence.\n- Arbitrary Python expressions and untrusted guard text must not be evaluated.\n- P[118;1:3uure project-owned guards remain a policy requirement; SNAKES is not treated as a security sandbox.\n- `StateGraph` support establishes bounded reachability enumeration only. No unboundedness, dead-transition, or full model-checking claim is authorized.\n- Graphviz output remains optional, derived, and nonauthoritative.\n\n### Documentation boundaries retained\n\nDo not enable indiscriminate collection of all Markdown under `docs/`.\n\nThe successor task must define explicit MyST source collection and navigation behavior. Any maintained documentation configuration must pass Sphinx warnings-as-errors before acceptance. Existing directory links and duplicate RST/MyST navigation must be corrected or explicitly excluded.\n\n### Scope of the authorized successor\n\nThe successor is limited to dependency declarations, lockfile updates, license/third-party notices, documentation configuration, and focused installation/configuration verification.\n\nIt must not implement the production CPN runtime, change scientific operator behavior, launch scientific calculations, adopt another CPN backend, or begin any later task.",
+  "normalized_decision": "Option A accepted: close P0 as human-accepted CONDITIONAL_PASS and activate only a separate bounded packaging/configuration successor, P0A. Existing P1 is the project-owned CPN contract rather than the authorized packaging task and remains blocked with P2-P11. Apply the specified optional workflow/docs dependency ranges, lock hashes, LGPL-2.1-or-later governance notice and redistribution prohibitions, optional Graphviz boundary, backend-neutral runtime constraints, explicit MyST source/navigation policy, and warnings-as-errors gate.",
+  "resolved_at": "2026-08-03T11:17:31Z",
+  "authorized_scope": "Close P0; create and activate P0A for dependency declarations, lockfile updates, SNAKES third-party notice, explicit bounded MyST source collection/navigation configuration, correction or exclusion of affected links/navigation, and focused installation/configuration verification. P0A may declare SNAKES>=0.9.33,<0.10 only in an optional workflow extra, myst-parser>=5.1,<6 in the docs extra, and Sphinx>=8,<10 for docs; Graphviz remains optional outside wheel metadata. P0A may not implement production CPN runtime, alter scientific operators, execute scientific calculations, adopt another CPN backend, vendor/modify/redistribute/bundle SNAKES, or launch P1-P11. Any future SNAKES vendoring, fork distribution, modification, or bundled executable/application/container distribution requires a new human license checkpoint.",
+  "record_paths": [
+    ".pi/checkpoints/P0-HC01-packaging-license-and-configuration.json",
+    ".pi/tasks/backend-neutral-cpn-P0-preflight.md",
+    ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
+    ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+    ".pi/tasks/backend-neutral-cpn-workflow-architecture.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P0-preflight/P0-HC01-resolution.json",
+    "AGENTS.md",
+    "docs/development/agent-control-plane.rst",
+    "docs/architecture/colored-petri-net-workflows.md",
+    "docs/computational/ksdft2effmass.computational.00.md",
+    "docs/research/ksdft2effmass.00.md",
+    "docs/user-guide/dft-backends.md",
+    "docs/user-guide/external-dependencies.md",
+    "docs/user-guide/index.md",
+    "docs/user-guide/installation.md"
+  ],
+  "resumption_status": "p0_closed_human_accepted_p0a_packaging_configuration_active_p1_p11_blocked"
+}

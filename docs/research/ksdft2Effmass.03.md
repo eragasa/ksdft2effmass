@@ -284,7 +284,7 @@ e^{i\mathbf{k}\cdot\mathbf{R}}
 $$
 Here, $\mathbf{H}_{\mathrm{W},s}(\mathbf{k})$ is the Bloch Hamiltonian reconstructed from the real-space Wannier matrix elements. In the absence of truncation and numerical error, it is the same projected Hamiltonian expressed in the Wannier gauge.
 
-For the bulk-silicon compatibility study, the validated Wannier Hamiltonian is therefore the common parent of both reduced-model reconstructions. Its eigenvalues and band derivatives supply the retained spectral data, while its aligned real-space matrix elements supply the direct operator data. These are two observations of one reference operator rather than two independent physical references.
+For the bulk-silicon compatibility study, the accepted neutral `PeriodicElectronicStructureDataset` and its source manifest are the common workflow parent of both reduced-model reconstructions. The direct spectral branch consumes retained Kohn–Sham eigenvalue and band-derivative targets from that parent. The operator-mediated branch additionally consumes the validated Wannier Hamiltonian as a child representation and uses its aligned real-space matrix elements. A comparison may join the branches only after verifying common parentage, compatible specification versions, representation and energy metadata, artifact lineage, and required validation states.
 
 Hermiticity of the parent operator implies
 $$

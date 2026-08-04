@@ -1,9 +1,9 @@
-# Bulk-Silicon Wannier-to-Tight-Binding Operator Reduction
+# Bulk-Silicon Kohn–Sham and Wannier-to-Tight-Binding Reductions
 
 back_to: [[ksdft2Effmass.00]]
 ## Scope
 
-This section defines the reduction of the validated bulk-silicon Wannier Hamiltonian from [[ksdft2Effmass.03]] within a hierarchy of prescribed tight-binding model classes. For each model class, the reduction is examined through two complementary reconstruction procedures. The first is an inverse spectral reconstruction from retained band data. The second is a direct operator reconstruction from matrix elements in an aligned localized representation.
+This section defines two reductions from one accepted bulk-silicon Kohn–Sham parent within a hierarchy of prescribed tight-binding model classes. The direct branch is an inverse spectral reconstruction from the accepted neutral `PeriodicElectronicStructureDataset` and its retained Kohn–Sham band targets. The Wannier-mediated branch first constructs and validates the bulk-silicon Wannier Hamiltonian from [[ksdft2Effmass.03]], then performs an operator reconstruction from matrix elements in an aligned localized representation.
 
 Each procedure defines a set of admissible tight-binding Hamiltonians rather than necessarily selecting a unique reconstruction. The purpose is to determine
 
@@ -13,7 +13,7 @@ Each procedure defines a set of admissible tight-binding Hamiltonians rather tha
 4. which first-principles operator components are lost under the restriction; and
 5. the smallest tested model class for which spectral and operator compatibility is achieved.
 
-The reference object is the bulk Wannier Hamiltonian $\mathbf{H}_{\mathrm{W},b}(\mathbf{R}) \in \mathbb{C}^{M_{\mathrm{W}}\times M_{\mathrm{W}}},$ where $\mathbf{R}$ is a bulk-silicon lattice vector and $M_{\mathrm{W}}$ is the number of Wannier orbitals per unit cell.
+The common workflow parent is the accepted bulk `PeriodicElectronicStructureDataset` and its source manifest. The spectral branch consumes retained eigenvalue and observable targets directly from that parent. The operator branch additionally consumes the validated child Wannier Hamiltonian $\mathbf{H}_{\mathrm{W},b}(\mathbf{R}) \in \mathbb{C}^{M_{\mathrm{W}}\times M_{\mathrm{W}}},$ where $\mathbf{R}$ is a bulk-silicon lattice vector and $M_{\mathrm{W}}$ is the number of Wannier orbitals per unit cell.
 
 For model class $\mathfrak{M}_m$, the candidate reduced object is the parameterized tight-binding Hamiltonian
 
@@ -46,19 +46,17 @@ $$
 
 Here, $\hat{H}_{b}^{(P)}$ is the Kohn–Sham operator restricted to the target subspace defined in [[ksdft2Effmass.03]], and $\mathbf{H}_{\mathrm{W},b}$ is its validated Wannier representation. Wannierization is principally a representation problem: it selects a localized basis for the projected operator without imposing the restricted structure of a prescribed Slater–Koster model class.
 
-The Wannier Hamiltonian then supports two parallel tight-binding reconstruction problems:
+The accepted neutral Kohn–Sham parent fans out into two reconstruction problems:
 
 $$
-\mathbf{H}_{\mathrm{W},b}
+\mathrm{PeriodicElectronicStructureDataset}_{b}
 \longrightarrow
 \begin{cases}
-\text{retained spectral data},\\
-\text{aligned localized matrix elements},
-\end{cases}
-\longrightarrow
-\begin{cases}
-\mathcal{A}_{\mathrm{spec}}^{(m)},\\
-\mathcal{A}_{\mathrm{op}}^{(m)}.
+\text{retained Kohn--Sham spectral targets}
+\longrightarrow \mathcal{A}_{\mathrm{spec}}^{(m)},\\
+\text{validated Wannier child}
+\longrightarrow \text{aligned localized matrix elements}
+\longrightarrow \mathcal{A}_{\mathrm{op}}^{(m)}.
 \end{cases}
 $$
 
@@ -92,7 +90,7 @@ $$
 
 but they constrain the parameter vector using different information from the common first-principles reference. The spectral reconstruction constrains the eigenvalue behavior of the candidate Hamiltonian, while the operator reconstruction constrains its aligned real-space matrix representation.
 
-The Wannier Hamiltonian is adopted as their common parent because it retains the selected projected Kohn–Sham information, reproduces the validated band data, and exposes the onsite, orbital, hopping, and spatial structure required for direct operator comparison. The retained spectral targets may be evaluated from either the projected Kohn–Sham calculation or its validated Wannier representation, provided that their agreement has already been established over the relevant bands and wavevectors.
+The accepted `PeriodicElectronicStructureDataset` and source manifest are the common workflow parent. The validated Wannier Hamiltonian is a child representation used only by the operator-mediated branch. Spectral targets for the direct branch remain those frozen from the accepted Kohn–Sham parent; Wannier interpolation may provide separate validation evidence but does not silently replace their parent identity.
 
 Complete spectral information can reconstruct a finite-dimensional operator when both its eigenvalues and spectral projectors are retained:
 
@@ -118,7 +116,7 @@ $$
 }.
 $$
 
-The two tight-binding reductions are therefore parallel only after the common Wannier reference has been constructed. Their purpose is not to determine which reconstruction is preferable, but to determine whether spectral preservation and aligned-operator approximation can be realized by the same restricted lattice Hamiltonian.
+The two tight-binding reductions may execute independently after their own prerequisites: the direct spectral branch after the accepted G02 Kohn–Sham parent, and the operator-mediated branch after the validated G03 Wannier child. They may enter a compatibility comparison only when their result tokens identify the same accepted Kohn–Sham parent and manifest, compatible physical/numerical/pseudopotential/workflow specifications, required representation and energy metadata, and verified artifact lineage. Their purpose is not to determine which reconstruction is preferable, but to determine whether spectral preservation and aligned-operator approximation can be realized by the same restricted lattice Hamiltonian.
 
 ## Tight-Binding State Space
 Let

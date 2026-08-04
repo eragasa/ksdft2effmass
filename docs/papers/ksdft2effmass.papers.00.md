@@ -4,7 +4,7 @@ back_to: [[ksdft2Effmass.00]]
 
 ## Purpose
 
-This pipeline tracks publishable claims that consume validated computational artifacts. It does not determine the order of scientific work. Computational dependencies are maintained in [[ksdft2Effmass.computational.00]].
+This pipeline tracks publishable claims that consume validated computational artifacts. It is a static claim-prerequisite view, not the scientific/computational workflow state. The stateful workflow and accepted markings are maintained in [[ksdft2Effmass.computational.00]] and [[ksdft2effmass.workflow-semantics]].
 
 ## Publication States
 
@@ -45,7 +45,7 @@ A manuscript moves from `Waiting` to `Analysis` only when:
 | `P10`                      | Consistency of direct and Wannier-mediated TB reductions         | `G04`, `10.01.02`                                        | Waiting       |
 | `P11`                      | Compatibility of impurity extraction and model reduction         | `10.02.03`                                               | Waiting       |
 | `P12`                      | Error-labeled compositional reduction of electronic Hamiltonians | `G10` and results from multiple physical systems         | Waiting       |
-| `P13`                      | Reproducible operator-reduction software and benchmarks          | `G01` plus demonstrated use in at least two later stages | Waiting       |
+| `P13`                      | Reproducible operator-reduction software and benchmarks          | `G01a` and `G01b` plus demonstrated use in at least two later stages | Waiting       |
 | `P14`                      | Reusable first-principles and reduced-operator dataset           | `G06`, `G07`, complete provenance and licensing          | Waiting       |
 
 ## Paper Dependencies
@@ -80,7 +80,7 @@ flowchart TD
     P11 --> P12
 ```
 
-The arrows represent logical development of claims, not mandatory publication order.
+The arrows represent a static logical development of claims, not mandatory publication order, a CPN marking, execution state, retry/failure state, or scientific acceptance by themselves.
 
 ## Combination Rules
 

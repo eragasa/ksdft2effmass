@@ -1,0 +1,74 @@
+{
+  "audit_version": 1,
+  "scope_statement": {
+    "prohibited_mutation": [
+      "python/src/ksdft2effmass/workflows/",
+      "specification/workflow-cpn/v1/",
+      "dependency declarations and lockfiles",
+      "P1-HC01 protected numeric contract"
+    ],
+    "finding": "Current hashes and manual semantic comparison show no detected production-source, schema, or fixture change attributable to the ownership correction. The writer tool-call transcript contains no direct write/edit call to those protected paths.",
+    "attestation_limit": "No durable per-file pre-correction hash baseline exists. Byte identity across the correction is therefore not independently attested, and the current and historical aggregate hashes must not be treated as equal or directly comparable proof."
+  },
+  "writer_transcript": {
+    "original_run": "3bd3bf00",
+    "path": "/Users/eugene/.pi/agent/sessions/--Users-eugene-repos-ksdft2effmass--/2026-08-03T12-16-00-321Z_019fc78d-6541-7c63-8f77-2d999e850c21/3bd3bf00/run-0/session.jsonl",
+    "recorded_tool_call_transcript_sha256": "8476f9f6860ee29b90292fe0b32b0de09f9ed0b720bc341e542a990b87e56208",
+    "current_container_file_sha256": "95d6da33bea3c99b085aa72d7fa730ba308beed206456bd1a012e961ba833f9a",
+    "identity_note": "The recorded tool-call identity is retained as supplied by the correction authority. The current container session file includes revival/follow-up context and has a different current file hash; neither value is a pre-correction content baseline."
+  },
+  "observed_mutation_path_inventory": {
+    "protected_production_schema_fixture_direct_write_edit_calls": [],
+    "repository_paths": [
+      ".pi/checkpoints/P1-HC01-cpn-numeric-wire-contract.json",
+      ".pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256",
+      ".pi/evidence/backend-neutral-cpn-P1-contract/contract_gates.py",
+      ".pi/evidence/backend-neutral-cpn-P1-contract/implementation-progress.md",
+      ".pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-manifest.json",
+      ".pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py",
+      ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+      "docs/verification/cpn-contract.rst",
+      "docs/verification/testing-and-evidence.rst",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py"
+    ],
+    "removed_former_test_paths": [
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionAndMarking.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnStructuredErrorsAndImports.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken__contract.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__DeclarativeExpressions.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__RetryRecoveryIteration.py",
+      "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionExecution.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonSchemas.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py"
+    ]
+  },
+  "content_aggregates": {
+    "current_source_schema_fixture": {
+      "sha256": "7c040ff105f007e27995b786e0ddadaebeddf1ea1bbd09058582e7aeee32050d",
+      "file_count": 33,
+      "algorithm": "Sort repository-relative paths for python/src/ksdft2effmass/workflows/**/*.py and every file under specification/workflow-cpn/v1; hash each file with SHA-256; update aggregate SHA-256 with path, NUL, raw file digest, newline."
+    },
+    "historical_precheckpoint_reference": {
+      "sha256": "b9522e6031bfae8596886bec6ae2c83899b22c622bea8e3d2a51e92836159b05",
+      "source": ".pi/evidence/backend-neutral-cpn-P1-contract/review-architecture-precheckpoint.md",
+      "description": "Historical reviewed source/specification aggregate; its exact file inventory/aggregation method is not a durable per-file pre-correction baseline."
+    },
+    "equal_or_directly_comparable": false
+  },
+  "residual_provenance_limitation": "The correction scope and transcript support no detected protected mutation, but unavailable immutable pre-correction per-file hashes prevent independent byte-identity attestation."
+}

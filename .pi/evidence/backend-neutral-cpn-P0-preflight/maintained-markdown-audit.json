@@ -1,0 +1,93 @@
+{
+  "broad_disposable_build": {
+    "command": "python -m sphinx -W --keep-going -b html -c <temp-conf> -d <temp-doctrees> docs <temp-html>",
+    "exit_status": 1,
+    "generated_output_retained": false,
+    "other_observed_classes": [
+      "Mermaid lexer warnings outside docs/user-guide",
+      "existing cross-reference warnings outside docs/user-guide"
+    ],
+    "scope_note": "The broad build intentionally collected all maintained Markdown and exposed warnings outside the user-guide audit scope.",
+    "user_guide_warnings": [
+      "docs/user-guide/index.md: directory target ../architecture/ not found",
+      "docs/user-guide/index.md: directory target ../computational/ not found",
+      "docs/user-guide/index.md: directory target ../research/ not found"
+    ]
+  },
+  "broken_local_links": [],
+  "current_rst_download_navigation": [
+    "* :download:`User guide index <user-guide/index.md>`",
+    "* :download:`Installation <user-guide/installation.md>`",
+    "* :download:`External dependencies <user-guide/external-dependencies.md>`",
+    "* :download:`Periodic electronic-structure backends <user-guide/dft-backends.md>`",
+    "* :download:`PAW and pseudopotential capabilities <user-guide/paw-and-pseudopotential-backends.md>`",
+    "* :download:`Workflow model <user-guide/workflow-model.md>`",
+    "* :download:`Colored Petri Nets <user-guide/colored-petri-nets.md>`",
+    "* :download:`Quantum ESPRESSO <user-guide/quantum-espresso.md>`",
+    "* :download:`ABINIT <user-guide/abinit.md>`",
+    "* :download:`Cross-backend verification <user-guide/cross-backend-verification.md>`",
+    "* :download:`Wannier90 <user-guide/wannier90.md>`",
+    "* :download:`Provenance and artifacts <user-guide/provenance-and-artifacts.md>`",
+    "* :download:`Troubleshooting <user-guide/troubleshooting.md>`",
+    "* :download:`Colored Petri Net workflow architecture <architecture/colored-petri-net-workflows.md>`",
+    "* :download:`Periodic KS/GKS and QE architecture <architecture/kohn-sham-dft-quantum-espresso.md>`",
+    "* :download:`Periodic electronic-structure integration <architecture/periodic-electronic-structure-integration.md>`",
+    "* :download:`CPN skill-capability audit <architecture/cpn-skill-capability-audit.md>`"
+  ],
+  "current_rst_download_navigation_count": 17,
+  "fence_languages": {
+    "<closing-or-untyped>": 5,
+    "python": 1,
+    "text": 4
+  },
+  "inventory": [
+    "docs/user-guide/abinit.md",
+    "docs/user-guide/colored-petri-nets.md",
+    "docs/user-guide/cross-backend-verification.md",
+    "docs/user-guide/dft-backends.md",
+    "docs/user-guide/external-dependencies.md",
+    "docs/user-guide/index.md",
+    "docs/user-guide/installation.md",
+    "docs/user-guide/paw-and-pseudopotential-backends.md",
+    "docs/user-guide/provenance-and-artifacts.md",
+    "docs/user-guide/quantum-espresso.md",
+    "docs/user-guide/troubleshooting.md",
+    "docs/user-guide/wannier90.md",
+    "docs/user-guide/workflow-model.md"
+  ],
+  "local_link_count": 33,
+  "myst_sensitive_directory_links": [
+    {
+      "destination": "../architecture/",
+      "source": "docs/user-guide/index.md"
+    },
+    {
+      "destination": "../computational/",
+      "source": "docs/user-guide/index.md"
+    },
+    {
+      "destination": "../research/",
+      "source": "docs/user-guide/index.md"
+    }
+  ],
+  "observations": [
+    "Dollar-delimited mathematics requires myst_enable_extensions=['dollarmath'].",
+    "User-guide fenced code, tables, and relative file links are directly renderable.",
+    "No user-guide Mermaid fence or nested fence was found.",
+    "No user-guide raw HTML element was found.",
+    "Directory links resolve on disk but MyST/Sphinx reports them as missing cross-reference targets; use concrete index files.",
+    "Direct MyST toctree registration must replace, not duplicate, the current RST download-only navigation entries.",
+    "The current downloadable-source behavior changes when Markdown becomes a collected source; source links can remain only if deliberately retained."
+  ],
+  "schema_version": 1,
+  "status": "CONDITIONAL_PASS",
+  "syntax_counts": {
+    "dollar_display_delimiters": 2,
+    "fenced_blocks": 10,
+    "inline_dollar_lines": 2,
+    "mermaid_fences": 0,
+    "nested_or_long_fences": 0,
+    "raw_html_matches": 0,
+    "table_rows": 12
+  }
+}

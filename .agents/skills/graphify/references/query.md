@@ -2,6 +2,19 @@
 
 Load this when the user asks a question against an existing graph, or runs `/graphify path` or `/graphify explain`. The core's query stub points here for the full traversal flow. These flows use the `graphify query` CLI when it is available and fall back to an inline NetworkX traversal otherwise.
 
+## Read-only consumer profile
+
+Use this profile when the invoking contract permits no mutation, including
+`choose-next-task` in `ksdft2effmass`. Confirm that the existing
+`graphify-out/graph.json` is readable, then run `graphify query`, `graphify path`,
+or `graphify explain` only. If constrained vocabulary is needed, read
+`graph.json` and print the selected vocabulary to stdout without writing
+`.vocab.txt`. Do **not** run build/update/cluster, `save-result`, `reflect`, hooks,
+servers, or any command that creates or refreshes generated state. Do not use the
+self-improving steps later in this file. Record the exact command, existing graph
+identity, stdout/stderr, and advisory status. If the installed command cannot
+provide a non-writing query, report the operation as blocked and stop.
+
 Two traversal modes - choose based on the question:
 
 | Mode | Flag | Best for |

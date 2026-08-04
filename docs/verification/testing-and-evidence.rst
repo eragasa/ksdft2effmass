@@ -808,6 +808,19 @@ validation, uncertainty quantification, Rust implementation, or Python/Rust
 conformance. Detailed traceability is in
 :doc:`operator-record-json-serialization`.
 
+CPN P1 class-ownership evidence
+-------------------------------
+
+``SV-CPN-001`` through ``SV-CPN-039`` cover the bounded project-owned CPN
+contract. Thirty-one test functions/class-owned evidence items, collecting 34
+parameter cases, are partitioned into 14 exact ``test__ClassName.py`` modules
+under the canonical workflow/CPN software-verification directory. Eight package/specification gates are intentionally
+owned by the deterministic P1 ownership audit rather than attributed to a
+production class. The machine-readable manifest inventories all 49 public
+exports, including the 35 without dedicated P1 modules. Detailed ownership,
+commands, exclusions, and the unresolved numeric-wire boundary are recorded in
+:doc:`cpn-contract`.
+
 Traceability and review
 -----------------------
 

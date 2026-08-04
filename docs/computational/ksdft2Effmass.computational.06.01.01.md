@@ -11,7 +11,7 @@ Construct the P:Si specialization gate from `PhysicalSpecification-v1`. The task
 
 ## Prerequisites
 
-`G01`.
+`G01a`.
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

@@ -34,6 +34,18 @@ The longer-term objective is to determine which parts of this reduction framewor
 
 The program notes are indexed in [[ksdft2Effmass.00]]. The hierarchy of controlled, material-specific, first-principles, lattice, and continuum operator models is developed in [[ksdft2Effmass.hierarchy]].
 
+## Workflow semantics
+
+The equations and Mermaid flowcharts in this research plan describe mathematical
+reductions, scientific relationships, or static planning projections. They are
+not the authoritative computational workflow state. The prospective scientific
+and computational workflow is the stateful Colored Petri Net defined in
+[[ksdft2effmass.workflow-semantics]] and
+[`docs/architecture/colored-petri-net-workflows.md`](../architecture/colored-petri-net-workflows.md).
+Its durable multiset markings represent independent branches, repeated
+convergence iterations, synchronization, failures, retries, provenance, and
+accepted or rejected evidence.
+
 ## Starting from the Kohn-Sham Operator
 
 The interacting electronic system is formally described by a many-electron Hamiltonian
@@ -138,7 +150,7 @@ where:
 - $\hat V_{\mathrm{xc}}[n]$ is the exchange-correlation potential;
 - $n(\mathbf r)$ is the self-consistent electron density.
 
-Hybrid functionals and DFT+$U$ produce generalized Kohnâ€“Sham operators containing additional orbital-dependent or nonlocal terms. These operators can be included in the same framework provided that their domains, projected subspaces, and matrix representations are defined explicitly.
+Hybrid functionals produce generalized Kohn–Sham operators containing additional orbital-dependent or nonlocal terms. Periodic hybrid GKS integration is a planned, deferred extension requiring explicit method profiles, pseudopotential compatibility, backend implementation, convergence, and VVUQ; semilocal evidence does not qualify it. DFT+$U$ is not assigned a current integration profile by the bounded architecture correction.
 
 The Kohnâ€“Sham operator is adopted as the primary computational object because it is routinely constructed, represented, projected, and diagonalized in first-principles electronic-structure calculations.
 
@@ -2312,6 +2324,17 @@ Here,
 The program begins with substitutional phosphorus and boron impurities in silicon. These systems provide a concrete test of whether atomistically derived impurity operators can be reduced to the screened scalar potentials and effective-mass Hamiltonians used in continuum semiconductor theory.
 
 The longer-term objective is to determine which parts of this reduction framework generalize to other impurities, defects, and condensed matter systems.
+
+## Workflow semantics
+
+This duplicated historical planning section is preserved rather than deleted.
+Its equations and flowcharts describe mathematical relationships or static
+planning projections, not authoritative runtime state. The stateful
+scientific/computational workflow is the Colored Petri Net in
+[[ksdft2effmass.workflow-semantics]], with durable multiset markings for
+branches, iterations, failures, retries, provenance, and accepted/rejected
+evidence.
+
 ## Epistemic Structure
 [[DFT2TB.00]]
 
@@ -2583,7 +2606,7 @@ where:
 - $\hat V_{\mathrm{xc}}[n]$ is the exchange-correlation potential;
 - $n(\mathbf r)$ is the self-consistent electron density.
 
-Hybrid functionals and DFT+$U$ produce generalized Kohn–Sham operators containing additional orbital-dependent or nonlocal terms. These operators can be included in the same framework provided that their domains, projected subspaces, and matrix representations are defined explicitly.
+Hybrid functionals produce generalized Kohn–Sham operators containing additional orbital-dependent or nonlocal terms. Periodic hybrid GKS integration is a planned, deferred extension requiring explicit method profiles, pseudopotential compatibility, backend implementation, convergence, and VVUQ; semilocal evidence does not qualify it. DFT+$U$ is not assigned a current integration profile by the bounded architecture correction.
 
 The Kohn–Sham operator is adopted as the primary computational object because it is routinely constructed, represented, projected, and diagonalized in first-principles electronic-structure calculations.
 

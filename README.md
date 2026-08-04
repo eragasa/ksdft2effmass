@@ -111,4 +111,6 @@ Department of Physics, De La Salle University, Manila, Philippines.
 
 Copyright 2026 Eugene J. Ragasa.
 
-Licensed under the [Apache License 2.0](LICENSE).
+Licensed under the [Apache License 2.0](LICENSE). Separately installed optional
+dependencies retain their own licenses; see
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).

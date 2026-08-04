@@ -165,444 +165,155 @@ restricted data in code, logs, documentation, or commits.
 
 ## Software architecture
 
-The repository is organized as a language-neutral scientific project with
-separate Python and Rust implementations.
+Keep language implementations conventional and separate. The current Python
+source root is `python/src/ksdft2effmass/`; use `rust/crates/` if Rust crates are
+introduced. Language-independent definitions belong in `specification/`; use
+`fixtures/` when shared numerical fixtures are introduced. Follow
+`docs/architecture/repository-layout.md`; do not create a competing source-tree
+layout.
 
-Use the following language roots:
+Python is the initial reference implementation. Language-independent operators,
+state spaces, units, conventions, shapes, types, wire formats, metrics, and
+tolerances belong in `specification/`; shared numerical cases belong in
+`fixtures/`. Python and Rust APIs may differ syntactically but must preserve the
+same scientific meaning, serialized data, and validation behavior.
 
-    python/
-    rust/
-
-Do not place language implementations under `src/python/` or `src/rust/`.
-Each language should retain its conventional project structure:
-
-    python/src/ksdft2effmass/
-    rust/crates/
-
-Python is the initial and reference implementation. It is used for scientific
-workflows, analysis, validation, visualization, and rapid development.
-
-Rust may be used first for measured performance bottlenecks and may later
-develop into a complete implementation of the computational model.
-
-Language-independent scientific definitions belong under:
-
-    specification/
-
-Shared numerical fixtures and expected results belong under:
-
-    fixtures/
-
-The specification must define:
-
-- operators and state spaces;
-- units and physical conventions;
-- array shapes and index ordering;
-- scalar and complex data types;
-- energy and gauge conventions;
-- serialization schemas;
-- validation metrics;
-- numerical tolerances.
-
-The Python and Rust implementations must conform to the same scientific
-specification. Neither implementation may silently introduce different
-physical definitions or conventions.
-
-Before introducing a Rust implementation of an existing Python component:
-
-1. retain a correct Python reference implementation;
-2. define shared fixtures and expected results;
-3. identify the required numerical tolerances;
-4. add cross-language conformance tests;
-5. document any intentional algorithmic differences.
-
-For performance acceleration, profile a representative Python workload before
-moving a kernel to Rust. Do not rewrite operations already performed
-efficiently by BLAS, LAPACK, NumPy, or SciPy without a measured reason.
-
-A Rust component must provide:
-
-- tests against shared fixtures;
-- comparison with the Python reference;
-- documented inputs and outputs;
-- explicit ownership and memory-layout assumptions;
-- benchmarks when performance is part of its justification.
-
-Prefer safe Rust. Any `unsafe` code must be localized, documented, tested, and
-justified.
-
-PyO3 and Maturin may be used when exposing Rust kernels through Python. They
-are not required for a standalone Rust implementation.
-
-Python and Rust may expose language-appropriate public APIs. Their syntax may
-differ, but their scientific meaning, serialized data, and validation behavior
-must remain compatible.
+Before implementing an existing Python component in Rust, retain the Python
+reference, define shared expected results and tolerances, add cross-language
+conformance tests, and document intentional algorithmic differences. Profile a
+representative workload before moving performance code; do not rewrite efficient
+NumPy/SciPy or BLAS/LAPACK operations without evidence. Rust components must
+document ownership and memory-layout assumptions and include benchmarks when
+performance is their justification. Prefer safe Rust; localize, justify,
+document, and test any `unsafe` code.
 
 ### DataObject/ActionObject programming model
 
-Apply this policy to new code and code undergoing substantial refactoring. Do
-not launch repository-wide mechanical rewrites of unrelated stable modules.
+Apply this model to new code and substantial refactors, not unrelated stable
+modules. Load `.pi/skills/design-data-action-objects/SKILL.md`; its referenced
+architecture document owns the detailed rules.
 
-DataObjects represent scientific state, metadata, configuration, or results.
-They should normally be `@dataclass(frozen=True, slots=True)`. They may own
-explicit fields, intrinsic constructor validation, canonicalization of their own
-data, exact value equality, and trivial derived properties. They must not own
-serialization workflows, numerical analysis policies, basis alignment, unit
-conversion, file I/O, orchestration, or operations that produce conceptually new
-objects.
-
-ActionObjects perform explicit transformations, analyses, validation procedures,
-or external representations. They own numerical or algorithmic policy, accept
-DataObjects as inputs, return a DataObject or explicit ResultObject, avoid
-hidden mutation and global state, and expose a clear domain verb such as
-`execute()`, `serialize()`, or `deserialize()`.
-
-A Workflow is a concrete ActionObject that encapsulates a reusable,
-scientifically or computationally meaningful sequence of actions. Workflow
-inputs and outputs must be explicit DataObjects or ResultObjects; dependencies
-must be explicit; Workflows must not rely on hidden global state. Do not
-introduce a generic Workflow base class unless multiple existing workflows
-require a real shared interface. Do not treat every integration test as a
-Workflow, and do not create production Workflow objects solely to provide an
-owner for tests.
-
-The standard computational form is:
+Use concrete, composed objects without abstract DataObject or ActionObject base
+classes:
 
 ```text
 DataObject --ActionObject--> DataObject or ResultObject
 ```
 
-Do not create abstract `DataObject` or `ActionObject` base classes. Prefer
-concrete types and composition. Introduce protocols only after multiple real
-implementations share a required interface.
+- DataObjects own represented state, intrinsic invariants, canonicalization,
+  exact value semantics, and trivial derived properties.
+- ActionObjects own transformations, numerical policy, validation procedures,
+  serialization, file or external boundaries, and orchestration.
+- ResultObjects represent explicit operation outcomes.
+- Workflows are concrete ActionObjects only for reusable scientific or
+  computational sequences; do not invent them to own tests.
 
-Ownership rule:
+Keep nontrivial behavior with its domain owner; do not create generic utility
+modules or hide policy in module-level validators. Maintained data and results
+must be operationally immutable. Public numeric APIs must reject booleans and
+numeric strings, document accepted scalar types and overflow behavior, and use
+explicit units. Runtime behavior, typing, documentation, tests, schemas, and
+Rust mappings must agree. New public models must remain translatable to concrete
+Rust structs with explicit errors and deterministic versioned wire formats.
 
-- data invariant -> method or constructor validation on the owning DataObject;
-- numerical operation -> method on the corresponding ActionObject;
-- serialization rule -> method on the serializer ActionObject;
-- operation output -> explicit ResultObject;
-- genuinely domain-independent mathematics -> a free function only when it has
-  no natural object owner.
+### Pi control plane and active-program snapshot
 
-Do not create generic dumping grounds such as `utils.py`, `helpers.py`,
-`common.py`, or `misc.py`. "No dangling helper functions" means every
-nontrivial operation needs an explicit and documented domain owner; it does not
-mean that every mathematical function must be wrapped artificially in a class.
-Module-level field validators are prohibited in maintained operator-record
-source; intrinsic validation belongs to the owning DataObject or ResultObject,
-ActionObject policy validation belongs to the ActionObject, and serializer wire
-validation belongs to the serializer.
+Repository control files live under `.agents/skills/` and `.pi/`; this file
+owns global policy, while narrower skills and task records may add compatible
+requirements. Mutable state is owned by the controlling chain, active task,
+unresolved checkpoints, and latest durable human decisions—not by this
+snapshot.
 
-Maintained DataObjects and ResultObjects are operationally immutable: callers
-must not be able to mutate public arrays or nested metadata through ordinary
-public APIs such as `record.matrix.setflags(write=True)`. Public scalar APIs must
-reject booleans for numeric semantics, reject numeric strings, define accepted
-Python and NumPy scalar types, canonicalize accepted scalars to built-in Python
-types, and handle conversion overflow under the documented exception taxonomy.
-Dimensional quantities carry explicit units owned by the relevant object or
-ActionObject; no implicit unit conversion is authorized. Runtime acceptance,
-static annotations, documentation, tests, schemas, and intended Rust mappings
-must agree. Public enum and structured-error states must be reachable from
-independently valid public objects; normal tests must not fabricate invalid
-states with `object.__setattr__`, monkey patching, or invariant bypasses.
-Numerical norm implementations must be scale-safe and tested at extreme scales.
-Sphinx `:undoc-members:` must not be used to conceal missing source
-documentation.
+At this snapshot, P1 is active and blocked at unresolved `P1-HC01`; P2--P11 and
+all production or scientific execution remain blocked. Verify this against
+`.pi/chains/backend-neutral-kohn-sham-qe.chain.json` at session start and update
+stale prose rather than following it. Read
+`docs/architecture/colored-petri-net-workflows.md` and
+`docs/architecture/periodic-electronic-structure-integration.md` before related
+work. Architecture records define boundaries but do not authorize task launch or
+execution.
 
-New architecture must remain translatable to Rust using structs for DataObjects
-and ResultObjects, structs with `impl` blocks for ActionObjects, constructors
-returning `Result` for validated construction, composition rather than
-inheritance, explicit ownership and immutable borrowing, deterministic versioned
-serialization, fixed serialized field names, explicit error cases, no dynamic
-attributes or monkey patching, and no implicit workflow state. Python and Rust
-need not share source code, but they must share an intelligible data model,
-operation boundaries, and wire-format specification.
+At session start, inspect unresolved checkpoints, the controlling chain, the
+active task, and latest durable human decisions. If the current human message
+resolves a persisted checkpoint, follow
+`.agents/skills/resolve-human-checkpoint/SKILL.md`, record the decision, resume
+only authorized work, and revalidate. Never infer approval from silence or a
+timeout.
 
-### Pi control plane for operator-record work
+Use `.pi/skills/choose-next-task/SKILL.md` only when no task or checkpoint remains
+active and the human asks what is next. It is read-only, recommends exactly one
+task, and must not create or launch work.
 
-Repository-local pi-specific skills live under `.pi/skills/`; shared
-repository-local skills discoverable by both Codex and pi live under
-`.agents/skills/`; project subagents and chains live under `.pi/agents/` and
-`.pi/chains/`; durable human checkpoints live under `.pi/checkpoints/`. The root
-`AGENTS.md` remains the authoritative global architectural policy. Focused
-skills and task files may add narrower instructions but must not contradict this
-file.
+Decision handling and closeout procedures are defined in
+`docs/development/agent-control-plane.rst`. In summary, agents may apply a
+uniquely required in-scope deterministic correction or a standing durable human
+decision. Pause for a genuine human decision when materially different options
+affect scientific meaning, public contracts, scope, dependencies, external data
+or execution, destructive actions, ownership, or acceptance. Final acceptance
+must be recorded durably, followed by closeout validation; stop before starting
+a successor task.
 
-Current operator-record control-plane status (2026-08-03): the
-`operator-record-validation-correction` task is closed and accepted; no
-operator-record corrective task is active; no human checkpoint is unresolved;
-and no next task is selected or launched. An explicit unitary
-basis/state-space alignment contract may be discussed as a candidate future
-task, but it is not active, approved for implementation, or in progress.
+The human PI remains final authority for scientific meaning, mathematical and
+physical conventions, public APIs and serialization contracts, backward
+compatibility, architecture and project scope, acceptance of unresolved
+validation failures, external or resource-intensive execution, and final
+acceptance. Silence, timeout, or unavailability never implies approval.
 
-Use the repository-local `choose-next-task` skill as a read-only planning
-transition after human final acceptance of a task, when the user explicitly asks
-what is next, or when a chain completes and the parent needs to propose the next
-task. The skill reconstructs state from repository evidence, recommends exactly
-one next task, and then stops for human selection. Do not make it a mandatory
-completion gate, and do not use it to create or launch work automatically.
+### Repository skills and Graphify
 
-Every new session must inspect unresolved `.pi/checkpoints/` records, active
-accepted tasks, and latest durable human decisions before invoking
-`choose-next-task`. If the current human message resolves a persisted checkpoint,
-use the shared `.agents/skills/resolve-human-checkpoint/` skill to record the
-decision, clear the checkpoint, resume the blocked task, rerun validation, and
-report the result without requiring special wording from the human. If no task or
-checkpoint remains active, use `choose-next-task` only when the human asks for a
-planning transition.
+Skills are agent capabilities, never scientific CPN guards or transitions.
+Follow the applicable repository-local `SKILL.md`; deterministic commands own
+software-gate pass/fail, reviewers own findings, parent verification checks
+evidence completeness, and humans own protected decisions and acceptance.
 
-Every completed task record should leave enough durable repository evidence for
-`choose-next-task` to operate in a new session. A completion handoff should
-identify the objective, final status, human acceptance, artifacts produced,
-public API or scientific result, validation evidence, known limitations,
-unresolved decisions, dependencies now satisfied, and explicitly deferred work.
-The handoff describes state only; it must not recommend or launch the next task.
-When the human gives final acceptance, the agent records acceptance, updates the
-case register, episode status, and active task, runs closeout validation, closes
-the task, and stops before starting another task.
+Graphify is optional and read-only. Use
+`.agents/skills/graphify/SKILL.md` only for an explicit Graphify request or a
+broad topology, dependency, or impact question. Verify every material conclusion
+against authoritative files. Graphify cannot approve architecture, establish
+scientific validity, launch work, or record human decisions. Remote processing,
+API-key configuration, hooks, global skill changes, or committing generated
+outputs requires explicit human approval.
 
-Decision classes:
+### Operator-record subsystem
 
-- deterministic agent correction: the task is already approved, the correction
-  is in scope and uniquely required by authoritative policy, no scientific
-  meaning or public contract changes, no external transmission or destructive
-  action occurs, and no materially different defensible alternatives remain. The
-  agent records an agent-resolved corrective finding, corrects, revalidates, and
-  continues without a human checkpoint.
-- standing delegated decision: a durable human policy already resolves the
-  choice. The agent cites the standing decision, acts, records, revalidates, and
-  continues.
-- genuine human decision: pause only when at least two materially different
-  defensible options remain and the choice affects scientific meaning,
-  mathematical or physical conventions, public APIs or serialization contracts,
-  authoritative schemas, project scope, publication claims, external data
-  transmission, privacy or restricted data, new dependencies or licensing,
-  destructive or hard-to-reverse actions, ownership conflicts, institutional or
-  regulatory interpretation, resource-intensive computation, or conflicting
-  authoritative instructions.
+The maintained Python package is `python/src/ksdft2effmass/operators/`; its
+software- and numerical-verification evidence is under the corresponding VVUQ
+subtrees of `python/tests/`. Historical layouts remain historical and must not be
+recreated.
 
-### Graphify repository-intelligence policy
-
-Graphify is an optional, read-only repository-analysis aid for broad topology,
-dependency, impact, navigation, and candidate-task questions. It is not
-mandatory for ordinary tasks and must not be an automatic side effect of every
-agent run. Generated graphs may be incomplete or stale; every material conclusion
-from Graphify must be verified against authoritative repository files. Graphify
-cannot approve architecture, establish scientific validity, launch implementation
-work, record human decisions, or supersede accepted task records, source, tests,
-specifications, fixtures, or human-reviewed documentation.
-
-In the validated project environment, both Codex and pi discover
-repository-local skills under `.agents/skills/`. pi additionally discovers
-pi-specific skills under `.pi/skills/`. A project skill may shadow a same-named
-global pi skill. The shared repository-local Graphify skill lives under
-`.agents/skills/graphify/` and intentionally takes precedence over the global pi
-fallback because it is versioned with the repository and subject to repository
-policy. Do not retain a duplicate project-local pi Graphify routing workflow
-under `.pi/skills/`.
-
-Remote semantic processing, API-key configuration, Codex hooks, git hooks,
-global skill modification, or generated graph artifacts committed to version
-control each require a new explicit human approval. Generated Graphify outputs
-under `graphify-out/` are locally persistent, generated, and ignored. A curated
-`GRAPH_REPORT.md` may be committed only after separate human review, and no
-generated report becomes an architectural decision record automatically. Human
-intervention remains mandatory when instructions, evidence, authority, external
-processing, hook behavior, or generated-file ownership conflict.
-
-For the operator-record refactor, repository evidence establishes the Python
-project root as `python/`, the Python source root as `python/src/`, the operator
-package as `python/src/ksdft2effmass/operators/`, and the test root as
-`python/tests/`. The focused operator-record VVUQ migration completed under the
-accepted validation-correction task. Maintained operator-record tests now live
-under `python/tests/software_verification/ksdft2effmass/operators/`,
-`python/tests/numerical_verification/ksdft2effmass/operators/`, the corresponding
-`workflows/` subtree for the concrete comparison Workflow, and the corresponding
-`integration/` subtree for technical integration evidence. Earlier
-`python/tests/ksdft2effmass/operators/test__<ObjectName>.py` paths remain only in
-historical task and review evidence. Future inventory tools may recognize both
-unsuffixed and suffixed naming patterns when auditing that history, but must not
-identify the completed migration as active. If future package-discovery, layout,
-import, test, or Sphinx evidence conflicts with this, pause for human decision
-instead of choosing a source root silently.
-
-The intended operator-package structure is:
-
-```text
-python/src/ksdft2effmass/operators/
-├── __init__.py
-├── records.py
-├── compatibility.py
-├── difference.py
-├── residuals.py
-├── comparison.py
-├── hermiticity.py
-└── serialization.py
-```
-
-Architectural decisions for that work:
-
-- `StateSpace`, `Basis`, `Geometry`, `EnergyReference`, and `OperatorRecord` are
-  DataObjects; `HermiticityResult` is a ResultObject; `HermiticityAnalyzer` and
-  `OperatorRecordJsonSerializer` are ActionObjects.
-- `OperatorRecord` contains represented data only.
-- Hermiticity tolerance belongs to `HermiticityAnalyzer`.
-- Hermiticity results are returned as `HermiticityResult`.
-- Serialization belongs to `OperatorRecordJsonSerializer`.
-- Schema-version and complex-matrix mechanics belong to the serializer.
-- Geometry validation belongs to `Geometry`.
-- State-space validation belongs to `StateSpace`.
-- Exact equality belongs to the DataObject.
-- Exact representation-metadata compatibility belongs to `compatibility.py` and is owned by `OperatorRecordCompatibilityAnalyzer`; `IncompatibleOperatorRecordsError` is a compatibility-subsystem error and retains the structured compatibility result. Represented signed differences belong to `difference.py` and are owned by `OperatorRecordDifferencer` and `OperatorRecordDifferenceResult`. Residual metric analysis belongs to `residuals.py` and is owned by `OperatorRecordResidualAnalyzer` and `OperatorRecordComparisonResult`. `OperatorRecordComparator` in `comparison.py` is a concrete Workflow ActionObject that composes differencing and residual analysis only.
-- The dependency direction is `records.py` -> `compatibility.py` -> `difference.py` -> `residuals.py` -> `comparison.py`. Earlier layers must not import later layers.
-- Current comparison is exact fixed-representation comparison of two already-compatible finite `OperatorRecord` matrices. `OperatorRecordDifferencer` forms the public represented operator difference `Delta H = H_candidate - H_reference` in the common representation and detects nonfinite subtraction; `OperatorRecordResidualAnalyzer` computes maximum-entry, Frobenius, and spectral residual norms in the common energy unit and owns floating-point roundoff allowance/canonicalization before constructing structural `OperatorRecordComparisonResult`; `OperatorRecordComparator` orchestrates only. None of these objects performs basis alignment, gauge alignment, energy-zero alignment, unit conversion, geometry transformation, approximate metadata matching, physical-equivalence determination, impurity-operator interpretation, or scientific validation.
-- Approximate or physically aligned comparison is a separate future ActionObject.
-- The public API is exported from `ksdft2effmass.operators`.
-- Sphinx documentation and tests are required parts of completion.
-- Do not create an `OperatorRecordWorkflow` for `construct -> Hermiticity
-  analysis -> serialize -> deserialize`; those operations remain owned by
-  `OperatorRecord`, `HermiticityAnalyzer`, and `OperatorRecordJsonSerializer`.
-
-Hermiticity is measured by
-
-$$
-\varepsilon_{\mathrm H}
-=
-\max_{i,j}
-\left|
-H_{ij}-H_{ji}^{*}
-\right|,
-$$
-
-with acceptance under analyzer tolerance $\tau$ when
-
-$$
-\varepsilon_{\mathrm H}\leq\tau.
-$$
-
-Future delegated operator-record work must follow this order: control-plane
-contract, public schema and validation fixtures, production implementation,
-tests, documentation, read-only integration review, parent verification, and
-human final acceptance. Public scientific semantics, independent validation
-surfaces, strict JSON serializer/deserializer contracts, public versioned
-schemas, valid and invalid golden fixtures, no cross-object private-method
-calls, private methods only for owned mechanical implementation, deterministic
-serialization, explicit human intervention for compatibility discoveries,
-source documentation as part of implementation, Sphinx documentation as part of
-completion, and integration review after combined-tree validation are required.
-Implementation, tests, and documentation must not all begin simultaneously in a
-shared worktree. Tests and documentation may be designed from the approved
-public contract, but they must not run validation against partially written
-production modules. Use non-overlapping file ownership when agents run
-concurrently; serialize overlapping edits explicitly; require subagents to
-report files changed, commands run, and unresolved issues; reserve final
-integration and verification for pi; preserve existing user changes; and avoid
-unrelated cleanup.
-
-The human PI is final authority for scientific meaning, mathematical
-conventions, public API decisions, serialization compatibility, architectural
-boundaries, backward compatibility, project scope, acceptance of unresolved
-validation failures, and final acceptance. A timeout, unavailable human, or
-absent response leaves human checkpoints blocked; do not assume approval.
-
-Completion gates for this refactor are software-verification tests, formatter,
-linter, static type checker, Sphinx build with warnings treated as errors,
-public-import smoke test, JSON round-trip test, architecture review, and a clean
-check for obsolete imports and dangling helpers. Passing software-verification
-or numerical-verification tests must not be reported as scientific validation or
-uncertainty quantification.
-
-## Repository structure
-
-Python and Rust are separate implementations under the repository-level
-directories:
-
-    python/
-    rust/
-
-Language-independent scientific definitions belong under `specification/`.
-Shared numerical fixtures belong under `fixtures/`.
-
-The canonical repository structure and directory responsibilities are defined
-in [`docs/architecture/repository-layout.md`](docs/architecture/repository-layout.md).
-Do not introduce a competing source-tree layout.
+For operator-record work, load `.pi/skills/develop-operator-records/SKILL.md` and
+follow its architecture reference, the active task record, and the maintained
+pages under `docs/verification/`. Those records own the object inventory,
+package decomposition, dependency direction, Hermiticity definition, comparison
+semantics, serialization contract, detailed gates, and deferred alignment work.
+Do not silently change those conventions or treat exact represented comparison
+as basis, gauge, energy-zero, unit, geometry, or physical alignment.
 
 ## Testing and validation
 
-Inspect `pyproject.toml`, existing workflows, and the test directory before
-choosing development commands. Use the repository's established tools rather
-than introducing replacements without justification.
+Inspect `pyproject.toml`, existing workflows, and the relevant test tree before
+choosing commands. Use established tools, run the cheapest relevant checks
+first, and do not change expected values merely to obtain a pass. Diagnose
+whether the implementation, fixture, method, or reference is wrong.
 
-Run the cheapest relevant checks first.
+Keep VVUQ evidence classes distinct:
 
-Tests should cover applicable invariants such as:
+- software verification checks the documented software contract;
+- numerical verification checks implementation of stated mathematics;
+- scientific validation compares a model with independent reference evidence
+  for a declared use;
+- uncertainty quantification identifies and propagates uncertainty sources.
 
-- dimensions and shapes;
-- Hermiticity;
-- projector identities;
-- unitary or isometric transformations;
-- basis-change consistency;
-- failure on incompatible state spaces;
-- deterministic serialization and provenance.
+Constructor, schema, invariant, and deterministic tolerance checks do not by
+themselves establish scientific validation or UQ. Report absent evidence
+explicitly. Use explicit tolerances and state what they measure.
 
-Use explicit numerical tolerances and explain what they measure.
-
-Do not update expected values merely to make a failing test pass. Determine
-whether the implementation, fixture, numerical method, or reference value is
-incorrect.
-
-VVUQ evidence classes are distinct:
-
-- software verification shows implementation behavior satisfies its documented
-  software contract, including construction, public APIs, intrinsic invariants,
-  exception taxonomy, ownership, immutability, exact value semantics,
-  serialization contracts, technical integration, and Workflow composition;
-- numerical verification shows a numerical algorithm correctly implements or
-  approximates its stated mathematics, including analytical cases, manufactured
-  solutions, convergence, scaling, conditioning, roundoff, limiting cases, and
-  cross-implementation conformance;
-- scientific validation compares a physical or scientific model with
-  independent reference evidence for a declared intended use;
-- uncertainty quantification identifies uncertainty sources and propagates them
-  to reported intervals or distributions.
-
-Constructor, schema, and input-invariant checks are software verification, not
-scientific validation. A deterministic tolerance check alone is not uncertainty
-quantification. Absent scientific-validation or UQ evidence must be reported
-explicitly and never inferred from passing tests.
-
-The target VVUQ test hierarchy is:
-
-```text
-python/tests/
-├── software_verification/ksdft2effmass/
-├── numerical_verification/ksdft2effmass/
-├── scientific_validation/ksdft2effmass/
-└── uncertainty_quantification/ksdft2effmass/
-```
-
-Do not move the entire existing suite mechanically. Migrate one approved object
-or subsystem at a time; mixed transitional and target layouts are allowed only
-while explicitly documented as active migration.
-
-Migrated VVUQ tests are maintained research-software evidence. Each migrated
-module must document the object under test, evidence class, requirement or
-mathematical contract, strategy, oracle, acceptance approach, exclusions,
-pass/fail interpretation, and scientific-validation and UQ status. Each migrated
-test must carry a unique stable evidence identifier and non-tautological
-documentation of its requirement, method, oracle, acceptance, interpretation,
-and limitations as applicable. Numerical cases must document analytical oracle
-independence, units, scale regime, tolerance or ULP criterion, zero-exclusion for
-nonzero tiny values, canonicalization expectations, and warning policy.
-Controlled fault injection may test otherwise unreachable public error
-translation, but must identify the controlled dependency and must not claim to
-validate that dependency. Reviews must check evidence-class correctness,
-identifier uniqueness, oracle independence, explicit acceptance criteria,
-failure interpretation, documentation synchronization, and the scientific-
-validation boundary. Apply this standard progressively; do not rewrite stable
-unmigrated tests mechanically. See
-`docs/verification/testing-and-evidence.rst`.
+Place evidence under the corresponding subtree of `python/tests/` and migrate
+only an approved object or subsystem at a time. Maintained migrated tests require
+stable evidence identifiers, explicit requirements and oracles, acceptance and
+failure interpretation, limitations, and correct evidence-class markers. Follow
+`docs/verification/testing-and-evidence.rst` for hierarchy, module documentation,
+numerical-case, controlled-fault, and review requirements.
 
 ## Documentation
 
@@ -622,45 +333,22 @@ Use direct technical prose. Avoid promotional language and unsupported claims.
 
 ### Source documentation standard
 
-Every maintained first-party Python module under `python/src/ksdft2effmass/` must
-be auditable by a researcher from its source documentation. Module docstrings
-must state the software or scientific purpose, represented mathematical objects,
-physical and numerical scope, equations, units, assumptions, invariants,
-exclusions, neighboring modules, and software-verification versus
-scientific-validation boundaries where applicable.
+Maintained first-party Python must be auditable from source documentation.
+Modules, public APIs, dataclass fields, private implementation owners, and
+scientifically meaningful local state must document purpose, scope, units,
+assumptions, invariants, canonicalization, equations, and validation boundaries
+where applicable. Comments explain meaning, not assignments.
 
-Every public DataObject, ResultObject, ActionObject, enum, exception, property,
-and method must have complete NumPy-style source documentation. Dataclass fields
-must be documented individually with scientific meaning, mathematical symbols
-when applicable, types, units, allowed values, invariants, canonicalization, and
-relationships to other fields. Private methods and private attributes must also
-be documented: private visibility does not permit scientific meaning, numerical
-policy, compatibility policy, validation rules, or public contract details to
-exist only in implementation details. Cross-object private-method calls remain
-prohibited.
+Use `TypeError` for wrong semantic types and `ValueError` for violated
+invariants. Document accepted scalar types and canonicalization; do not accept
+booleans as numbers or silently convert numeric strings unless the public
+contract explicitly authorizes it.
 
-Scientifically, numerically, or architecturally meaningful local variables need
-nearby comments explaining their role, invariant, or algorithmic purpose.
-Document transformed or canonicalized values, residuals, norms, singular values,
-validation state, compatibility findings, unit conversions, array shapes,
-coordinate transforms, and deterministic ordering state. Comments must explain
-meaning rather than paraphrase assignments.
-
-Validation-rule documentation follows the repository error taxonomy: `TypeError`
-for wrong semantic type and `ValueError` for correct semantic type violating an
-invariant. Boolean values must not be accepted as integers or real numbers unless
-Boolean semantics are intended. Numeric strings must not be silently converted.
-Accepted NumPy scalar values must be documented and canonicalized to built-in
-Python scalar types at public Python/Rust boundaries.
-
-Source docstrings, tests, schemas, fixtures, Sphinx API pages, Sphinx concept
-pages, examples, and architecture documents must describe the same behavior. No
-maintained-source task is complete until public and private source documentation
-is complete, meaningful local state is explained, mathematical notation maps to
-implementation names, Sphinx matches source behavior, examples are verified or
-covered by tests, Sphinx builds with warnings as errors, and read-only
-documentation review has no unresolved material findings. See
-`docs/development/source-documentation.rst` for the operational standard.
+Source, tests, schemas, fixtures, examples, and Sphinx pages must agree. Complete
+warnings-as-errors documentation builds and read-only documentation review for
+maintained-source tasks. Do not use Sphinx `:undoc-members:` to conceal missing
+source documentation. Follow `docs/development/source-documentation.rst` for the
+operational standard.
 
 Verify references against primary sources before adding them.
 
@@ -681,17 +369,73 @@ When uncertainty remains:
 - identify what must be checked;
 - avoid inventing a convenient answer.
 
+## Task launch and ownership
+
+Before any production-task implementation begins or resumes:
+
+1. identify the active task from durable chain, task, checkpoint, and human-
+   decision records;
+2. require the controlling chain to name a task-ownership manifest;
+3. require separate named implementation, test, and documentation writers and
+   at least one independent read-only reviewer;
+4. require each writer's path scope to be explicit and non-overlapping;
+5. require a deterministic completion validator bound to its declared path;
+6. for a version-1 manifest, additionally require the P1 compatibility inventory,
+   exact test-module rule, dedicated object kinds, classified exceptions, and
+   non-class package/schema gate owner;
+7. run
+
+   ```bash
+   python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>
+   ```
+
+   and stop without editing if it fails.
+
+Do not route production work to a generic or operator-specific agent unless the
+validated manifest names that agent and its record explicitly covers the assigned
+paths. Do not let one writer own both production source and tests. Writers must
+run sequentially in a shared worktree, and tests must not validate partially
+written production modules.
+
+A test-layout rule is task-specific. Do not infer that one subsystem's facet
+layout or `test__ClassName.py` convention applies to another subsystem. The
+version-1 validator retains those P1 conventions only for compatibility; generic
+version-2 validation does not impose them. The declared completion validator must
+pass before independent review; reviewers must reject missing or incomplete
+ownership evidence rather than attempting to repair the test architecture
+retrospectively.
+
+A version-2 task may opt into the exact `evidence-branches-v1` profile and its
+approved branch matrix; the profile is not mandatory for ordinary tasks. The
+matrix binds a durable authorization decision, activates only for at least two
+branches with multiple writers or a deterministic/protected split, and declares
+writer-owned validation stages with exactly one manifest-bound completion stage.
+Version-2 agent records establish identity and writer/read-only role; structured
+manifest paths establish ownership. For an enabled profile, consume the matrix
+without recording execution results in it, batch all branches assigned to each
+writer role, perform one consolidated review, allow one consolidated correction
+cycle, and escalate remaining findings instead of spawning another loop. The
+validator does not execute or dispatch branches.
+
+This preflight establishes control-plane ownership only. It does not establish
+implementation correctness, numerical verification, scientific validation,
+uncertainty quantification, or human acceptance. A direct tool or subagent call
+that technically bypasses the preflight remains unauthorized.
+
 ## Working procedure
 
 For each task:
 
 1. Read the relevant files and any more specific `AGENTS.md`.
-2. Inspect the current branch and working-tree state.
-3. Preserve unrelated user changes.
-4. Identify the smallest change that satisfies the request.
-5. Implement the change without expanding its scientific scope.
-6. Run the relevant inexpensive checks.
-7. Report:
+2. Inspect unresolved checkpoints, the active task, latest durable human
+   decisions, the current branch, and the working-tree state.
+3. For production work, pass the task-launch and ownership preflight above.
+4. Preserve unrelated user changes.
+5. Identify the smallest change that satisfies the request.
+6. Implement the change without expanding its scientific scope.
+7. Run the cheapest relevant checks first, followed by all affected completion
+   gates.
+8. Report:
    - files changed;
    - checks performed;
    - assumptions introduced;

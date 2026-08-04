@@ -9,7 +9,7 @@ Construct reproducible state-space identifications between independently generat
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.05.01.01\|05.01.01]] | Implement overlap and principal-angle diagnostics on synthetic subspaces | `G01` | Alignment diagnostics | Blocked |
+| [[ksdft2Effmass.computational.05.01.01\|05.01.01]] | Implement overlap and principal-angle diagnostics on synthetic subspaces | accepted `01.02.01` and required `01.03.01` metrics | Alignment diagnostics contributing to `G01b` | Blocked |
 | [[ksdft2Effmass.computational.05.01.02\|05.01.02]] | Implement polar and Procrustes alignment | `05.01.01` | Alignment-map constructor | Blocked |
 | [[ksdft2Effmass.computational.05.01.03\|05.01.03]] | Verify exact recovery on controlled gauge transformations | `05.01.02`, `01.03.02` | Synthetic gauge-validation record | Blocked |
 | [[ksdft2Effmass.computational.05.02.01\|05.02.01]] | Define common supercell and orbital indexing conventions | `G03` | Comparison-space specification | Blocked |
@@ -17,9 +17,9 @@ Construct reproducible state-space identifications between independently generat
 | [[ksdft2Effmass.computational.05.02.03\|05.02.03]] | Quantify sensitivity to windows, projections, and localization | `05.02.02` | Alignment-sensitivity record | Blocked |
 | [[ksdft2Effmass.computational.05.02.04\|05.02.04]] | Freeze the alignment protocol | `05.02.03` | `AlignmentProtocol-v1` | Blocked |
 
-## Completion Gate `G05`
+## Accepted marking `G05`
 
-The alignment protocol must return:
+The G05 accepted marking requires an alignment-protocol token containing:
 
 $$
 \mathbf{U},

@@ -9,7 +9,7 @@ Construct a converged first-principles impurity operator for substitutional boro
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.07.01.01\|07.01.01]] | Construct the B:Si specialization gate | `G01` | B:Si specialization gate | Blocked |
+| [[ksdft2Effmass.computational.07.01.01\|07.01.01]] | Construct the B:Si specialization gate | `G01a` | B:Si specialization gate | Blocked |
 | [[ksdft2Effmass.computational.07.01.02\|07.01.02]] | Define the boron supercell and valence-subspace study | `07.01.01`, `G02` | Finite-size and subspace design | Blocked |
 | [[ksdft2Effmass.computational.07.01.03\|07.01.03]] | Run B:Si first-principles calculations | `07.01.02` | Doped first-principles datasets | Blocked |
 | [[ksdft2Effmass.computational.07.02.01\|07.02.01]] | Construct multiband B:Si Wannier operators | `07.01.03`, `G03` | Doped Wannier candidates | Blocked |
@@ -23,7 +23,7 @@ Construct a converged first-principles impurity operator for substitutional boro
 
 Tasks `07.01.01` and `07.01.02` may begin while the phosphorus calculations are running. The production boron workflow should reuse the validated alignment and provenance protocols, but it must not assume that the phosphorus target subspace or scalar model class transfers unchanged.
 
-## Completion Gate `G07`
+## Accepted marking `G07`
 
-The gate passes when the retained valence subspace and the extracted operator are stable against the numerical choices that affect degeneracy, orbital mixing, and spin--orbit splitting.
+The G07 accepted marking exists when the retained valence subspace and the extracted operator are stable against the numerical choices that affect degeneracy, orbital mixing, and spin--orbit splitting.
 

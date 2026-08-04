@@ -66,3 +66,48 @@ deterministic `serialize()` JSON text, strict `deserialize()` behavior, no
 cross-object private-method calls, source documentation during implementation,
 Sphinx documentation before completion, and read-only integration review after
 combined-tree validation.
+
+## CPN-compatible invocation profiles
+
+This skill constrains an external agent/harness invocation; loading it is not a
+CPN guard or transition. Every request must select exactly one profile:
+
+- `REVIEW_ONLY`: inspect immutable artifact references and return findings; no
+  project-file mutation;
+- `AUTHORIZED_OPERATOR_WORK`: modify only explicitly assigned operator source,
+  test, specification, fixture, or documentation paths under an approved task.
+
+Required inputs are the task and parent-workflow/attempt identities, selected
+profile, exact artifact/path inventory, approved public contract and
+architecture references, expected output schema, permitted mutation paths,
+evidence class, and stop/timeout policy. Production or test mutation requires an
+already approved task; scientific meaning, public API/schema choices, and final
+acceptance remain human-owned.
+
+The result must report:
+
+```text
+skill identity and content hash
+request, task, parent-workflow, and attempt identities
+input and produced artifact identities
+profile and owned task class
+PASS | FAIL | BLOCKED | PARTIAL
+structured findings or changes
+deterministic commands and exact results
+evidence identifiers and evidence class where applicable
+mutation summary
+warnings, failures, and residual risks
+human decisions required
+```
+
+Deterministic command output, not the skill's prose, owns pytest, Ruff, mypy,
+Sphinx, JSON-Schema, checksum, import, and dependency-direction pass/fail.
+Software verification, numerical verification, scientific validation, and UQ
+must remain distinct. Missing authorization, conflicting authority, partial
+writes, or unavailable required artifacts produce structured failure and stop
+the affected profile. A retry requires an immutable parent authorization
+identity or a request's pre-authorized retry policy, uses a new attempt identity,
+and retains prior findings/results. `REVIEW_ONLY` is observationally idempotent for identical
+artifact identities; mutation-profile replay requires parent verification of
+current file identities before any further write. Stop when the requested
+profile result is produced; never launch a successor or claim human acceptance.

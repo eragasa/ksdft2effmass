@@ -244,3 +244,23 @@ graphify-out/
 # Keep durable control-plane files under .pi/ and .agents/ versioned; keep
 # generated subagent transcripts and run artifacts local.
 .pi-subagents/
+
+## LateX
+
+# LaTeX intermediate files
+*.aux
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.spl
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# Editor and backup files
+*.bak
+*.swp
+*~

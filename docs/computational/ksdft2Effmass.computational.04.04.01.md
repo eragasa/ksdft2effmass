@@ -7,7 +7,7 @@ back_to: [[ksdft2Effmass.computational.04]]
 
 ## Objective
 
-Apply common bulk validation metrics. The task produces the artifact Comparative validation record required by the downstream dependency graph.
+Apply common bulk validation metrics after a provenance-compatible CPN join. The task produces the comparative validation record required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
@@ -17,18 +17,20 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 ## Inputs
 
-- the accepted bulk first-principles or Wannier reference;
+- the accepted bulk `PeriodicElectronicStructureDataset` and source manifest shared by both branches;
+- the validated Wannier child and its parent-manifest lineage for the operator-mediated branch;
+- direct and Wannier-derived TB result tokens with physical, numerical, pseudopotential, workflow, representation, energy, artifact, and validation metadata;
 - the prescribed $sp^3s^*$ tight-binding model class;
 - the frozen training and validation definitions;
 - every versioned artifact supplied by the prerequisites.
 
 ## Procedure
 
-1. Construct the prescribed tight-binding operator and parameter constraints.
-2. Fit or project using only the frozen training data.
-3. Evaluate the Hamiltonian on the withheld validation data.
-4. Measure operator, spectral, band-edge, and complexity quantities where defined.
-5. Store parameters, objectives, residuals, and the pass/fail decision.
+1. Bind both branch results to the same accepted periodic electronic-structure parent dataset and source manifest.
+2. Verify compatible physical, numerical, pseudopotential-set, workflow-schema, energy, representation, artifact, and branch-validation metadata.
+3. Reject the join if parentage or required metadata is missing or incompatible; two completion states alone are insufficient.
+4. Evaluate only metrics whose state-space and representation requirements are explicit.
+5. Store the joined parentage, compatibility evidence, parameters, objectives, residuals, and acceptance decision.
 
 ## Outputs
 
@@ -41,6 +43,8 @@ The output must be accompanied by its input manifest, software and environment r
 ## Acceptance Criteria
 
 - training and withheld validation data remain disjoint;
+- both result tokens identify the same accepted periodic electronic-structure parent and source manifest;
+- physical, numerical, pseudopotential, workflow, energy, representation, artifact, and validation metadata required by each metric are compatible and verified;
 - the fitted operator satisfies Hermiticity and the prescribed symmetries;
 - operator, spectral, observable, and model-complexity results are reported together;
 - the declared output exists and can be reconstructed from the stored inputs;
@@ -69,7 +73,7 @@ $$
 
 ## Failure Conditions
 
-The task fails if its primary artifact cannot be reproduced, if its required comparison space is undefined, if validation depends only on visual agreement, or if the reported result changes beyond tolerance under an unrecorded numerical choice.
+The task fails if parentage is different or unverified, required specification or representation metadata is incompatible, its primary artifact cannot be reproduced, its required comparison space is undefined, validation depends only on visual agreement, or the reported result changes beyond tolerance under an unrecorded numerical choice.
 
 ## Computational Record
 

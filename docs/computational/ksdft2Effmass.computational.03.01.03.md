@@ -1,5 +1,5 @@
 back_to: [[ksdft2Effmass.computational.03]]
-# Task 03.01.03: Scan outer and frozen disentanglement windows
+# Task 03.01.03: Approve retained bands, projections, windows, and the uniform grid
 
 ## Status
 
@@ -7,7 +7,7 @@ back_to: [[ksdft2Effmass.computational.03]]
 
 ## Objective
 
-Scan outer and frozen disentanglement windows. The task produces the artifact Window-sensitivity dataset required by the downstream dependency graph.
+Freeze the Wannier-interface scientific specification before the uniform-grid NSCF child is run. The task produces the retained-band, projection, outer/inner-window, and uniform-grid contract required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
@@ -24,25 +24,25 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 ## Procedure
 
-1. Construct the required projection, window, and Wannier90 inputs.
-2. Run the candidate Wannier construction while recording all gauge and disentanglement choices.
-3. Export reciprocal-space and real-space Hamiltonian representations.
-4. Evaluate interpolation, center, spread, symmetry, and hopping-decay diagnostics.
-5. Store the candidate or accepted operator with its validation record.
+1. Define the retained band count and its relationship to the accepted G02 bulk spectrum.
+2. Record the trial projections and their scientific meaning.
+3. Define candidate and acceptance policies for outer and inner windows without treating a plotting energy shift as an aligned physical zero.
+4. Define the uniform reciprocal-space grid, ordering, spin convention, and required bridge artifacts.
+5. Freeze the accepted interface specification before Task `03.01.04` executes its NSCF child.
 
 ## Outputs
 
 Primary output:
 
-Window-sensitivity dataset
+Wannier-interface specification
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 
 ## Acceptance Criteria
 
-- the target subspace and all projection or window choices are recorded;
-- interpolation and band-edge errors satisfy the accepted tolerances;
-- centers, spreads, symmetries, and real-space decay show no unresolved pathology;
+- the retained bands, projections, windows, and uniform grid are explicit and versioned;
+- k-point ordering, spin, units, energy reference, and required interface files are explicit;
+- no unknown G02 Wannier grid is inferred or retroactively frozen;
 - the declared output exists and can be reconstructed from the stored inputs;
 - all task-specific numerical tolerances are recorded with a pass/fail result;
 - unresolved failures are not propagated as accepted downstream inputs.
@@ -65,7 +65,7 @@ $$
 
 ## Unlocks
 
-- [[ksdft2Effmass.computational.03.02.01|03.02.01]]
+- [[ksdft2Effmass.computational.03.01.04|03.01.04]]
 
 ## Failure Conditions
 

@@ -7,11 +7,11 @@ back_to: [[ksdft2Effmass.computational.04]]
 
 ## Objective
 
-Implement the orthogonal $sp^3s^*$ Slater--Koster model. The task produces the artifact Executable TB operator required by the downstream dependency graph.
+Implement the orthogonal $sp^3s^*$ Slater--Koster model. The task produces the artifact Executable TB operator required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
-`G01`.
+`G01a`.
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

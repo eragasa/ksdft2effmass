@@ -31,3 +31,43 @@ Use this skill when public Python APIs or scientific conventions are created or 
 - Does the docs build pass with warnings as errors?
 - Do source docstrings, tests, public schemas or fixtures, Sphinx API pages, concept pages, and control-plane records describe the same behavior?
 - Does read-only documentation review report no unresolved material source-documentation findings?
+
+## CPN-compatible invocation profiles
+
+This skill is applied by an external agent/harness outside CPN guard evaluation.
+A request selects `REVIEW_ONLY` or `AUTHORIZED_DOCS_WRITE` and records the task
+and parent-workflow/attempt identities, immutable source/test/schema/fixture and
+documentation references, authoritative conventions, expected output shape,
+permitted documentation paths, evidence classification, and stop policy.
+
+`REVIEW_ONLY` permits inspection and deterministic read-only commands only.
+`AUTHORIZED_DOCS_WRITE` may edit only explicitly assigned documentation paths;
+it does not transfer source, test, schema, fixture, dependency, or generated-
+output ownership. Neither profile may silently broaden scientific claims, launch
+downstream work, or convert review agreement into acceptance.
+
+The result must report:
+
+```text
+skill identity and content hash
+request, task, parent-workflow, and attempt identities
+input and produced artifact identities
+profile and owned task class
+PASS | FAIL | BLOCKED | PARTIAL
+structured documentation findings or changes
+deterministic commands and exact results
+mutation summary
+warnings and residual risks
+human decisions required
+```
+
+Sphinx warnings-as-errors is a deterministic tool result with the command,
+environment, source identity, and temporary output location recorded; prose
+review cannot substitute for it. Missing references, contradictory public
+contracts, unauthorized mutation, or a failed required command produces a
+structured failure and stops the affected work. Retries require an immutable
+parent authorization identity or a request's pre-authorized retry policy, use new
+attempt identities, and retain prior findings. Read-only replay against identical
+artifact identities is observationally idempotent; writer replay requires parent
+verification of current file identities. Stop after the requested result and do
+not generate or commit `_build` output, accept the task, or launch a successor.

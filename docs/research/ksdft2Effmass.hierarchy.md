@@ -8,6 +8,10 @@ This research program develops theory through a hierarchy of operator models wit
 
 The purpose of the hierarchy is not merely to replace an expensive first-principles calculation with a cheaper model. Each level provides a different degree of mathematical control, physical realism, and interpretability. The research problem is to determine which operator structures, invariants, states, spectra, and observables persist under the transformations between these levels.
 
+This mathematical hierarchy is not a runtime workflow DAG. The stateful
+scientific/computational workflow is the project Colored Petri Net described in
+[[ksdft2effmass.workflow-semantics]].
+
 The complete reduction chain is
 
 $$
@@ -29,7 +33,7 @@ $$
 Here:
 
 - $\hat H_{\mathrm{MB}}$ is the interacting many-electron Hamiltonian;
-- $\hat H_{\mathrm{KS}}$ is the effective one-particle Kohnâ€“Sham operator;
+- $\hat H_{\mathrm{KS}}$ is the effective one-particle Kohn–Sham operator;
 - $\hat H^{(P)}$ is the operator projected onto a selected target subspace;
 - $\mathbf H_{\mathrm W}$ is the matrix representation of the projected operator in a localized Wannier basis;
 - $\mathbf H_{\mathrm{red}}$ is a reduced lattice Hamiltonian retaining selected operator components;
@@ -169,7 +173,7 @@ For silicon, this level may introduce:
 - multiple conduction-band valleys;
 - anisotropic effective masses;
 - valence-band degeneracy;
-- spinâ€“orbit coupling;
+- spin–orbit coupling;
 - donor and acceptor impurity terms.
 
 This level determines which conclusions from controlled models survive the introduction of silicon-specific physics. It separates difficulties caused by the lattice and orbital structure from those caused by density-functional approximations, Wannier disentanglement, and finite-supercell effects.
@@ -280,7 +284,7 @@ $$
 
 For entangled bands, disentanglement changes the target projector and therefore changes the retained operator. Localization after disentanglement changes only the basis within the selected subspace.
 
-## Computationalâ€“Theoretical Feedback
+## Computational–Theoretical Feedback
 
 The mathematical theory is neither imposed completely before computation nor inferred from first-principles results alone.
 

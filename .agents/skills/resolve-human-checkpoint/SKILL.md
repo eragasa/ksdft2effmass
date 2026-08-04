@@ -1,6 +1,6 @@
 ---
 name: resolve-human-checkpoint
-description: "Resolve a persisted repository human checkpoint when the current human message answers it. Use at session start and whenever unresolved .pi/checkpoints entries exist; record the decision, clear the checkpoint, resume authorized work, and validate without requiring special human wording."
+description: "Resolve a persisted repository human checkpoint only when an unresolved .pi/checkpoints record exists and the current human message unambiguously answers it; record the decision, resume only authorized work, and validate without requiring special wording."
 ---
 
 # Resolve Human Checkpoint
@@ -45,8 +45,8 @@ Do not require the human to say `record this decision`, `resume the task`,
    - rerun required validation; and
    - report the outcome and remaining unresolved decisions.
 6. If a bare `yes` or equivalent is the current response, resolve only when
-   exactly one pending checkpoint exists and exactly one proposed approval is
-   awaiting confirmation.
+   exactly one unresolved (`pending` or `blocked`) checkpoint exists and exactly
+   one proposed approval is awaiting confirmation.
 7. If multiple checkpoints or multiple interpretations remain plausible, ask one
    concise clarifying question and do not mutate checkpoint records.
 
@@ -78,3 +78,29 @@ Report:
 - validation rerun;
 - resumed or still-blocked status;
 - remaining genuine human decisions, if any.
+
+## CPN invocation, replay, and partial-failure boundary
+
+This skill records an already supplied human decision; it does not create the
+decision or act as a CPN guard. The external agent/harness invokes it outside
+guard evaluation from an immutable request containing the checkpoint identity
+and expected current status/content hash, task/episode identities, preserved
+human response, expected normalized option, parent-workflow and attempt
+identities, permitted control-plane paths, and validation/stop policy.
+
+Before mutation, compare the current checkpoint identity and status with the
+request. If it is already resolved with the same normalized decision, report an
+idempotent no-op and do not resume work twice. If it is resolved differently,
+has changed identity, or the human response is ambiguous, return a structured
+conflict/ambiguity failure and stop. Record checkpoint, task, and episode updates
+before any separately authorized resumption; report every path successfully
+written if a later write or validation fails. Resumption is a distinct external
+operation and must not occur when the normalized decision does not authorize it.
+
+Retries require an immutable parent authorization identity or a request's
+pre-authorized retry policy, use new attempt identities, and retain earlier
+failure/results. The result records skill identity/content hash; request, task,
+parent-workflow, and attempt identities; input identities; changed paths; normalized
+decision, validation commands/results, resumption status, warnings, and any
+partial-failure classification. Only the preserved human response supplies human
+acceptance authority; skill execution and validation do not.

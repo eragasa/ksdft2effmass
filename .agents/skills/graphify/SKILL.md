@@ -1,6 +1,6 @@
 ---
 name: graphify
-description: "Use for any question about a codebase, its architecture, file relationships, or project content — especially when graphify-out/ exists, where the question should be treated as a graphify query first. Turns any input (code, docs, papers, images, videos) into a persistent knowledge graph with god nodes, community detection, and query/path/explain tools."
+description: "Optional derived repository-analysis aid. In ksdft2effmass, use only for an explicit Graphify request or an explicitly requested broad topology/dependency/impact analysis; never auto-install, enable external semantic processing, or treat graph output as authority."
 ---
 
 # /graphify
@@ -15,10 +15,36 @@ overlay; it preserves upstream Graphify provenance and version `0.9.2` while
 recording repository-specific authority, safety, discovery, and verification
 rules that future Graphify updates must not silently overwrite.
 
+## Repository override for ksdft2effmass
+
+The repository policy overlay is mandatory and overrides conflicting generic
+runbook steps below. In this repository:
+
+- ordinary codebase questions do not automatically trigger Graphify;
+- do not install or upgrade Graphify;
+- do not use an environment API key or external semantic backend;
+- do not clone, fetch, push, start a server/watch process, install hooks, or
+  transmit repository content without the separate explicit human authorization
+  required by the overlay;
+- treat query/build output as advisory derived evidence only;
+- for a consumer that declares a read-only side-effect class, use only the
+  non-writing query profile in `references/query.md`: do not create vocabulary,
+  save results, reflect lessons, update the graph, or write any generated file;
+- invoke Graphify outside CPN guard evaluation and record the request, task,
+  parent-workflow, attempt, operation, input, and graph identities; permitted
+  generated-output path; command result; warnings; and failure status;
+- retries require an immutable parent authorization identity or a request's
+  pre-authorized retry policy, use new attempt identities, and do not erase prior
+  results.
+
+If an allowed local operation is unavailable without installation or external
+processing, report it as blocked and stop rather than following generic install
+or remote-backend instructions.
+
 ## Usage
 
 ```
-/graphify                                             # full pipeline on current directory → Obsidian vault
+/graphify                                             # local graph/report/HTML pipeline; Obsidian output only with --obsidian
 /graphify <path>                                      # full pipeline on specific path
 /graphify https://github.com/<owner>/<repo>           # clone repo then run full pipeline on it
 /graphify https://github.com/<owner>/<repo> --branch <branch>  # clone a specific branch
@@ -58,7 +84,9 @@ Drop any folder of code, docs, papers, images, or video into graphify and get a 
 
 If the user invoked `/graphify --help` or `/graphify -h` (with no other arguments), print the contents of the `## Usage` section above verbatim and stop. Do not run any commands, do not detect files, do not default the path to `.`. Just print the Usage block and return.
 
-**Fast path — existing graph:** Before doing anything else, check whether `graphify-out/graph.json` exists. The expected location is `graphify-out/graph.json` relative to the **current working directory** (i.e. the project root where you are running commands). If it exists AND the user's request is a natural-language question about the codebase (e.g. "How does X work?", "What calls Y?", "Trace the data flow through Z") and NOT an explicit rebuild command (`--update`, `--cluster-only`, or a bare path/URL that implies fresh extraction): **skip Steps 1–5 entirely and jump straight to `## For /graphify query`.** Run `graphify query "<question>"` immediately. Do not run detect. Do not check corpus size. Do not ask the user to narrow. The graph is already built — use it.
+**Fast path — existing graph:** Before doing anything else, check whether `graphify-out/graph.json` exists. The expected location is `graphify-out/graph.json` relative to the **current working directory** (i.e. the project root where you are running commands). If it exists AND the user's request is a natural-language question about the codebase (e.g. "How does X work?", "What calls Y?", "Trace the data flow through Z") and NOT an explicit rebuild command (`--update`, `--cluster-only`, or a bare path/URL that implies fresh extraction): **skip Steps 1–5 entirely and jump straight to `## For /graphify query`.** Run `graphify query "<question>"` immediately. Do not run detect. Do not check corpus size. Do not ask the user to narrow. The graph is already built — use it. If the caller is a repository read-only
+consumer such as `choose-next-task`, follow the **Read-only consumer profile** in
+`references/query.md` rather than the generic self-improving query flow.
 
 If no path was given, use `.` (current directory). Do not ask the user for a path.
 

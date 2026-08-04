@@ -9,11 +9,11 @@ Construct one converged and frozen Kohn--Sham reference for bulk silicon from wh
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.02.01.01\|02.01.01]] | Construct and verify the primitive-cell input | `G01` | Verified silicon input | Blocked |
+| [[ksdft2Effmass.computational.02.01.01\|02.01.01]] | Construct and verify the primitive-cell input | `G01a` | Verified silicon input | Blocked |
 | [[ksdft2Effmass.computational.02.01.02\|02.01.02]] | Converge kinetic-energy and charge-density cutoffs | `02.01.01` | Cutoff convergence record | Blocked |
 | [[ksdft2Effmass.computational.02.01.03\|02.01.03]] | Converge the Brillouin-zone sampling | `02.01.02` | $\mathbf{k}$-mesh convergence record | Blocked |
 | [[ksdft2Effmass.computational.02.01.04\|02.01.04]] | Determine or freeze the lattice geometry | `02.01.03` | Frozen bulk geometry | Blocked |
-| [[ksdft2Effmass.computational.02.02.01\|02.02.01]] | Run production SCF and NSCF calculations | `02.01.04` | Production wavefunctions and eigenvalues | Blocked |
+| [[ksdft2Effmass.computational.02.02.01\|02.02.01]] | Run the production SCF parent and bulk-validation NSCF calculations | `02.01.04` | SCF parent and validation spectra | Blocked |
 | [[ksdft2Effmass.computational.02.02.02\|02.02.02]] | Extract band edges, valley positions, and effective masses | `02.02.01` | Bulk validation record | Blocked |
 | [[ksdft2Effmass.computational.02.02.03\|02.02.03]] | Freeze the bulk reference dataset | `02.02.02` | `BulkSiReference-v1` | Blocked |
 
@@ -33,19 +33,28 @@ $$
 
 Each convergence study must evaluate the quantities used later, rather than total energy alone.
 
-## Completion Gate `G02`
+## Accepted marking `G02`
 
-`BulkSiReference-v1` must contain:
+The `G02` marking is accepted only when `BulkSiReference-v1` and its typed evidence tokens contain:
 
 - input and output manifests;
 - converged crystal geometry;
-- SCF charge density;
-- dense-grid NSCF eigenvalues and wavefunctions;
+- accepted SCF parent density and manifest;
+- path, valley, effective-mass, or other diagnostic NSCF data required for bulk validation;
 - high-symmetry and valley-resolved band data;
 - band-edge energies, valley position, and effective masses;
 - convergence uncertainties for the retained observables.
 
+The G02 marking does not contain or predict the Wannier-compatible uniform-grid
+NSCF child. Stage 03 selects and owns that child after its retained bands,
+projections, outer/inner windows, and uniform grid are approved. The Stage 03
+child token must reference this accepted G02 SCF parent manifest. Meeting notes
+or unmanifested historical calculations cannot supply an accepted G02 token.
+
 ## Parallelization
 
-Workflow scripts and observable-extraction code may be developed before `G01`, but production results cannot be accepted until the common specifications and validation records are available.
+Workflow scripts and observable-extraction code may be developed before `G01a`,
+but production results cannot be accepted until G01a and the common
+specifications and validation records are accepted. A real QE run additionally
+requires the separate production-environment authorization checkpoint.
 

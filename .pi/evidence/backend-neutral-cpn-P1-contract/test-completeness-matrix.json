@@ -1,0 +1,138 @@
+{
+  "matrix_version": 1,
+  "task": "P1",
+  "status": "NUMERIC_CONTRACT_EVIDENCE_IMPLEMENTED_CHECKPOINTS_RESOLVED_P1_UNACCEPTED",
+  "evidence_range": "SV-CPN-001-SV-CPN-088",
+  "maintained_pytest": {
+    "class_modules": 32,
+    "artifact_modules": 5,
+    "test_functions": 88,
+    "collected_cases": 91
+  },
+  "clarified_existing_evidence": {
+    "SV-CPN-006": "exact closed three-member version-1 value-expression vocabulary with no arithmetic expression kind",
+    "SV-CPN-020": "deterministic repeated firing with the same explicitly supplied iteration index while marking revision advances"
+  },
+  "restored_artifact_gates": {
+    "SV-CPN-023": "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py",
+    "SV-CPN-027": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
+    "SV-CPN-028": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
+    "SV-CPN-029": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
+    "SV-CPN-030": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
+    "SV-CPN-031": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
+    "SV-CPN-032": "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
+    "SV-CPN-033": "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py"
+  },
+  "new_dedicated_class_modules": {
+    "ArcDefinition": "SV-CPN-040",
+    "ColorDefinition": "SV-CPN-041",
+    "CpnContractError": "SV-CPN-042",
+    "CpnErrorDetail": "SV-CPN-043",
+    "CpnNetDefinition": "SV-CPN-044",
+    "CpnValidationIssue": "SV-CPN-045",
+    "CpnValidationResult": "SV-CPN-046",
+    "GuardEvaluationResult": "SV-CPN-047",
+    "InputInscription": "SV-CPN-048",
+    "OutputInscription": "SV-CPN-049",
+    "PlaceDefinition": "SV-CPN-050",
+    "PlaceMarking": "SV-CPN-051",
+    "TokenBinding": "SV-CPN-052",
+    "TokenFieldAssignment": "SV-CPN-053",
+    "TokenPattern": "SV-CPN-054",
+    "TokenTemplate": "SV-CPN-055",
+    "TransitionBinding": "SV-CPN-056",
+    "TransitionDefinition": "SV-CPN-057"
+  },
+  "partial_class_branch_classification": {
+    "ContractValue": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-058",
+        "SV-CPN-059",
+        "SV-CPN-060",
+        "SV-CPN-080",
+        "SV-CPN-081"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "CpnMarking": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-061",
+        "SV-CPN-062",
+        "SV-CPN-083"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "CpnToken": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-063",
+        "SV-CPN-064",
+        "SV-CPN-065",
+        "SV-CPN-066",
+        "SV-CPN-067",
+        "SV-CPN-082"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "FiringRequest": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-068",
+        "SV-CPN-069"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "FiringResult": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-070",
+        "SV-CPN-071",
+        "SV-CPN-072",
+        "SV-CPN-073",
+        "SV-CPN-084"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "GuardExpression": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-074",
+        "SV-CPN-075"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "TokenOutcome": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-076"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "TransitionEnablementResult": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-077"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    },
+    "ValueExpression": {
+      "DETERMINISTIC_NOW": [
+        "SV-CPN-078",
+        "SV-CPN-079"
+      ],
+      "BLOCKED_BY_P1_HC01": []
+    }
+  },
+  "global_blocked_branches": [],
+  "checkpoint": ".pi/checkpoints/P1-HC01-cpn-numeric-wire-contract.json",
+  "claim_boundary": "Software-verification evidence only; no numerical verification, scientific validation, UQ, Rust conformance, persistence, engine adaptation, or scientific execution.",
+  "resolved_numeric_evidence": {
+    "SV-CPN-080": "binary64 REAL admission, canonicalization, rounding, and overflow",
+    "SV-CPN-081": "signed-i64 INTEGER domain",
+    "SV-CPN-082": "token expression-visible control bounds",
+    "SV-CPN-083": "marking revision bounds",
+    "SV-CPN-084": "firing-result revision coherence",
+    "SV-CPN-085": "maximum control expression routing",
+    "SV-CPN-086": "structured maximum-revision overflow",
+    "SV-CPN-087": "numeric schema/runtime agreement, exact binary64 finite-conversion domain including rounded integer inputs, strict-JSON nonfinite exclusion, and no unsigned kind",
+    "SV-CPN-088": "schema control-field bounds"
+  },
+  "resolved_checkpoints": [
+    ".pi/checkpoints/P1-HC01-cpn-numeric-wire-contract.json",
+    ".pi/checkpoints/P1-HC02-u64-expression-routing.json"
+  ]
+}

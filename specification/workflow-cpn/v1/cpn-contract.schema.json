@@ -1,0 +1,1259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/specification/workflow-cpn/v1/cpn-contract.schema.json",
+  "title": "ksdft2effmass backend-neutral CPN contract version 1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/net"
+    },
+    {
+      "$ref": "#/$defs/marking"
+    },
+    {
+      "$ref": "#/$defs/firingRequest"
+    },
+    {
+      "$ref": "#/$defs/firingResult"
+    },
+    {
+      "$ref": "#/$defs/errorDetail"
+    },
+    {
+      "$ref": "#/$defs/validationIssue"
+    },
+    {
+      "$ref": "#/$defs/validationResult"
+    },
+    {
+      "$ref": "#/$defs/guardEvaluationResult"
+    },
+    {
+      "$ref": "#/$defs/transitionEnablementResult"
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "uniqueItems": true
+    },
+    "contractValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "none"
+            },
+            "value": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "boolean"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "integer"
+            },
+            "value": {
+              "type": "integer",
+              "minimum": -9223372036854775808,
+              "maximum": 9223372036854775807
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "real"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497791,
+                  "maximum": 179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497791
+                },
+                {
+                  "type": "number",
+                  "minimum": -179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368,
+                  "maximum": 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "string_sequence"
+            },
+            "value": {
+              "$ref": "#/$defs/stringSequence"
+            }
+          }
+        }
+      ]
+    },
+    "valueExpression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "literal",
+            "variable",
+            "field",
+            "variables"
+          ],
+          "properties": {
+            "kind": {
+              "const": "literal"
+            },
+            "literal": {
+              "$ref": "#/$defs/contractValue"
+            },
+            "variable": {
+              "type": "null"
+            },
+            "field": {
+              "type": "null"
+            },
+            "variables": {
+              "type": "array",
+              "maxItems": 0
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "literal",
+            "variable",
+            "field",
+            "variables"
+          ],
+          "properties": {
+            "kind": {
+              "const": "token_field"
+            },
+            "literal": {
+              "type": "null"
+            },
+            "variable": {
+              "$ref": "#/$defs/id"
+            },
+            "field": {
+              "$ref": "#/$defs/tokenField"
+            },
+            "variables": {
+              "type": "array",
+              "maxItems": 0
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "literal",
+            "variable",
+            "field",
+            "variables"
+          ],
+          "properties": {
+            "kind": {
+              "const": "bound_token_ids"
+            },
+            "literal": {
+              "type": "null"
+            },
+            "variable": {
+              "type": "null"
+            },
+            "field": {
+              "type": "null"
+            },
+            "variables": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "tokenField": {
+      "enum": [
+        "workflow_id",
+        "run_id",
+        "parent_run_id",
+        "attempt_id",
+        "retry_parent_attempt_id",
+        "iteration_index",
+        "payload_type_id",
+        "payload_id",
+        "payload_schema_version",
+        "provenance_ids",
+        "parent_token_ids",
+        "correlation_id",
+        "authorization_id"
+      ]
+    },
+    "guard": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operator",
+            "operands",
+            "left",
+            "right"
+          ],
+          "properties": {
+            "operator": {
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "operands": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "left": {
+              "type": "null"
+            },
+            "right": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operator",
+            "operands",
+            "left",
+            "right"
+          ],
+          "properties": {
+            "operator": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "operands": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/guard"
+              }
+            },
+            "left": {
+              "type": "null"
+            },
+            "right": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operator",
+            "operands",
+            "left",
+            "right"
+          ],
+          "properties": {
+            "operator": {
+              "const": "not"
+            },
+            "operands": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "$ref": "#/$defs/guard"
+              }
+            },
+            "left": {
+              "type": "null"
+            },
+            "right": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operator",
+            "operands",
+            "left",
+            "right"
+          ],
+          "properties": {
+            "operator": {
+              "enum": [
+                "equal",
+                "not_equal",
+                "less_than",
+                "less_than_or_equal",
+                "greater_than",
+                "greater_than_or_equal"
+              ]
+            },
+            "operands": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "left": {
+              "$ref": "#/$defs/valueExpression"
+            },
+            "right": {
+              "$ref": "#/$defs/valueExpression"
+            }
+          }
+        }
+      ]
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "scope",
+        "scope_id",
+        "terminality"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "accepted",
+            "rejected",
+            "failed",
+            "blocked"
+          ]
+        },
+        "scope": {
+          "enum": [
+            "attempt",
+            "branch",
+            "gate",
+            "workflow"
+          ]
+        },
+        "scope_id": {
+          "$ref": "#/$defs/id"
+        },
+        "terminality": {
+          "enum": [
+            "terminal",
+            "recoverable"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected",
+                  "failed"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "terminality": {
+                "const": "terminal"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token_id",
+        "color_id",
+        "workflow_id",
+        "run_id",
+        "parent_run_id",
+        "attempt_id",
+        "retry_parent_attempt_id",
+        "iteration_index",
+        "payload_type_id",
+        "payload_id",
+        "payload_schema_version",
+        "provenance_ids",
+        "parent_token_ids",
+        "correlation_id",
+        "authorization_id",
+        "outcome"
+      ],
+      "properties": {
+        "token_id": {
+          "$ref": "#/$defs/id"
+        },
+        "color_id": {
+          "$ref": "#/$defs/id"
+        },
+        "workflow_id": {
+          "$ref": "#/$defs/id"
+        },
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "parent_run_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attempt_id": {
+          "$ref": "#/$defs/id"
+        },
+        "retry_parent_attempt_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "iteration_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "payload_type_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload_schema_version": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance_ids": {
+          "$ref": "#/$defs/ids"
+        },
+        "parent_token_ids": {
+          "$ref": "#/$defs/ids"
+        },
+        "correlation_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outcome": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/outcome"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "payload_type_id": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload_id": {
+                "type": "null"
+              },
+              "payload_schema_version": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "payload_type_id": {
+                "type": "string"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload_id": {
+                "$ref": "#/$defs/id"
+              },
+              "payload_schema_version": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9223372036854775807
+              }
+            }
+          }
+        }
+      ]
+    },
+    "marking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "model_id",
+        "revision",
+        "places"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "model_id": {
+          "$ref": "#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "places": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "place_id",
+              "tokens"
+            ],
+            "properties": {
+              "place_id": {
+                "$ref": "#/$defs/id"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "expression"
+      ],
+      "properties": {
+        "field": {
+          "$ref": "#/$defs/tokenField"
+        },
+        "expression": {
+          "$ref": "#/$defs/valueExpression"
+        }
+      }
+    },
+    "template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "color_id",
+        "assignments",
+        "outcome_status",
+        "outcome_scope",
+        "outcome_scope_id",
+        "outcome_terminality"
+      ],
+      "properties": {
+        "color_id": {
+          "$ref": "#/$defs/id"
+        },
+        "assignments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/assignment"
+          }
+        },
+        "outcome_status": {},
+        "outcome_scope": {},
+        "outcome_scope_id": {},
+        "outcome_terminality": {}
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "outcome_status": {
+                  "type": "null"
+                },
+                "outcome_scope": {
+                  "type": "null"
+                },
+                "outcome_scope_id": {
+                  "type": "null"
+                },
+                "outcome_terminality": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "outcome_status": {
+                  "enum": [
+                    "accepted",
+                    "rejected",
+                    "failed",
+                    "blocked"
+                  ]
+                },
+                "outcome_scope": {
+                  "enum": [
+                    "attempt",
+                    "branch",
+                    "gate",
+                    "workflow"
+                  ]
+                },
+                "outcome_scope_id": {
+                  "$ref": "#/$defs/valueExpression"
+                },
+                "outcome_terminality": {
+                  "enum": [
+                    "terminal",
+                    "recoverable"
+                  ]
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "outcome_status": {
+                        "enum": [
+                          "accepted",
+                          "rejected",
+                          "failed"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "outcome_terminality": {
+                        "const": "terminal"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "net": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "model_id",
+        "colors",
+        "places",
+        "transitions",
+        "arcs",
+        "initial_marking"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "model_id": {
+          "$ref": "#/$defs/id"
+        },
+        "colors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "color_id",
+              "description",
+              "allowed_payload_type_ids"
+            ],
+            "properties": {
+              "color_id": {
+                "$ref": "#/$defs/id"
+              },
+              "description": {
+                "$ref": "#/$defs/id"
+              },
+              "allowed_payload_type_ids": {
+                "$ref": "#/$defs/ids"
+              }
+            }
+          }
+        },
+        "places": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "place_id",
+              "description",
+              "allowed_color_ids"
+            ],
+            "properties": {
+              "place_id": {
+                "$ref": "#/$defs/id"
+              },
+              "description": {
+                "$ref": "#/$defs/id"
+              },
+              "allowed_color_ids": {
+                "$ref": "#/$defs/ids"
+              }
+            }
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "transition_id",
+              "description",
+              "guard"
+            ],
+            "properties": {
+              "transition_id": {
+                "$ref": "#/$defs/id"
+              },
+              "description": {
+                "$ref": "#/$defs/id"
+              },
+              "guard": {
+                "$ref": "#/$defs/guard"
+              }
+            }
+          }
+        },
+        "arcs": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "arc_id",
+                  "place_id",
+                  "transition_id",
+                  "direction",
+                  "input_inscription",
+                  "output_inscription"
+                ],
+                "properties": {
+                  "arc_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "place_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "transition_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "direction": {
+                    "const": "input"
+                  },
+                  "input_inscription": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "mode",
+                      "patterns"
+                    ],
+                    "properties": {
+                      "mode": {
+                        "enum": [
+                          "consume",
+                          "read"
+                        ]
+                      },
+                      "patterns": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "variable",
+                            "allowed_color_ids"
+                          ],
+                          "properties": {
+                            "variable": {
+                              "$ref": "#/$defs/id"
+                            },
+                            "allowed_color_ids": {
+                              "$ref": "#/$defs/ids"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "output_inscription": {
+                    "type": "null"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "arc_id",
+                  "place_id",
+                  "transition_id",
+                  "direction",
+                  "input_inscription",
+                  "output_inscription"
+                ],
+                "properties": {
+                  "arc_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "place_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "transition_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "direction": {
+                    "const": "output"
+                  },
+                  "input_inscription": {
+                    "type": "null"
+                  },
+                  "output_inscription": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "templates"
+                    ],
+                    "properties": {
+                      "templates": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "$ref": "#/$defs/template"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "initial_marking": {
+          "$ref": "#/$defs/marking"
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "assignments"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/id"
+        },
+        "assignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "variable",
+              "token_id"
+            ],
+            "properties": {
+              "variable": {
+                "$ref": "#/$defs/id"
+              },
+              "token_id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        }
+      }
+    },
+    "firingRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "binding",
+        "output_token_ids"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/id"
+        },
+        "binding": {
+          "$ref": "#/$defs/binding"
+        },
+        "output_token_ids": {
+          "$ref": "#/$defs/ids"
+        }
+      }
+    },
+    "firingResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "binding",
+        "previous_revision",
+        "marking",
+        "consumed_token_ids",
+        "read_token_ids",
+        "produced_tokens"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/id"
+        },
+        "binding": {
+          "$ref": "#/$defs/binding"
+        },
+        "previous_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "marking": {
+          "$ref": "#/$defs/marking"
+        },
+        "consumed_token_ids": {
+          "$ref": "#/$defs/ids"
+        },
+        "read_token_ids": {
+          "$ref": "#/$defs/ids"
+        },
+        "produced_tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/token"
+          }
+        }
+      }
+    },
+    "errorDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "model_id",
+        "transition_id",
+        "place_id",
+        "token_ids"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/errorCode"
+        },
+        "message": {
+          "$ref": "#/$defs/id"
+        },
+        "model_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transition_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "place_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "token_ids": {
+          "$ref": "#/$defs/ids"
+        }
+      }
+    },
+    "stringSequence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "validationIssueCode": {
+      "enum": [
+        "duplicate_identifier",
+        "unknown_color",
+        "unknown_place",
+        "unknown_transition",
+        "color_not_allowed",
+        "payload_type_not_allowed",
+        "duplicate_binding_variable",
+        "unbound_variable",
+        "model_id_mismatch",
+        "place_set_mismatch",
+        "duplicate_token_id",
+        "token_in_multiple_places",
+        "token_color_mismatch",
+        "invalid_initial_marking"
+      ]
+    },
+    "validationIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "path",
+        "related_ids",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/validationIssueCode"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "related_ids": {
+          "$ref": "#/$defs/ids"
+        },
+        "message": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "validationResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issues"
+      ],
+      "properties": {
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validationIssue"
+          }
+        }
+      }
+    },
+    "guardEvaluationResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "boolean"
+        }
+      }
+    },
+    "transitionEnablementResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "bindings"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/id"
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/binding"
+          }
+        }
+      }
+    },
+    "errorCode": {
+      "enum": [
+        "invalid_definition",
+        "invalid_marking",
+        "unknown_transition",
+        "invalid_binding",
+        "transition_not_enabled",
+        "guard_evaluation_failed",
+        "expression_type_mismatch",
+        "output_id_count_mismatch",
+        "output_id_collision",
+        "terminal_token_consumption",
+        "invalid_produced_token",
+        "revision_overflow"
+      ]
+    }
+  }
+}

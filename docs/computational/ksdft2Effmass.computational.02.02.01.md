@@ -1,5 +1,5 @@
 back_to: [[ksdft2Effmass.computational.02]]
-# Task 02.02.01: Run production SCF and NSCF calculations
+# Task 02.02.01: Run the production SCF parent and bulk-validation NSCF calculations
 
 ## Status
 
@@ -7,7 +7,7 @@ back_to: [[ksdft2Effmass.computational.02]]
 
 ## Objective
 
-Run production SCF and NSCF calculations. The task produces the artifact Production wavefunctions and eigenvalues required by the downstream dependency graph.
+Run the production SCF parent and only the path, valley, effective-mass, or other diagnostic NSCF calculations required for G02 bulk validation. The task produces the accepted SCF parent and validation spectra required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 Primary output:
 
-Production wavefunctions and eigenvalues
+Accepted SCF parent and bulk-validation spectra
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 
@@ -66,6 +66,7 @@ $$
 ## Unlocks
 
 - [[ksdft2Effmass.computational.02.02.02|02.02.02]]
+- the Stage 03 target-subspace design after G02 passes; the Wannier-compatible uniform-grid NSCF child is not an output of this task
 
 ## Failure Conditions
 

@@ -7,11 +7,11 @@ back_to: [[ksdft2Effmass.computational.09]]
 
 ## Objective
 
-Implement and verify the multivalley donor solver. The task produces the artifact Donor continuum solver required by the downstream dependency graph.
+Implement and verify the multivalley donor solver. The task produces the artifact Donor continuum solver required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
-`G01`.
+`G01a`.
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

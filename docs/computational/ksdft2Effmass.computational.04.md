@@ -9,7 +9,7 @@ Construct direct DFT-to-tight-binding and Wannier-to-tight-binding reductions wi
 
 | Task | Description | Prerequisites | Output | Initial state |
 |---|---|---|---|---|
-| [[ksdft2Effmass.computational.04.01.01\|04.01.01]] | Implement the orthogonal $sp^3s^*$ Slater--Koster model | `G01` | Executable TB operator | Blocked |
+| [[ksdft2Effmass.computational.04.01.01\|04.01.01]] | Implement the orthogonal $sp^3s^*$ Slater--Koster model | `G01a` | Executable TB operator | Blocked |
 | [[ksdft2Effmass.computational.04.01.02\|04.01.02]] | Verify Hermiticity, symmetry, and limiting cases | `04.01.01`, `01.03.02` | TB regression record | Blocked |
 | [[ksdft2Effmass.computational.04.02.01\|04.02.01]] | Define training and withheld validation sets | `G02` | Frozen fitting datasets | Blocked |
 | [[ksdft2Effmass.computational.04.02.02\|04.02.02]] | Fit the direct DFT-to-TB model | `04.01.02`, `04.02.01` | `DirectTB-v1` | Blocked |
@@ -40,9 +40,19 @@ $$
 
 waits for `G03`.
 
-## Completion Gate `G04`
+## Accepted marking `G04`
 
-Both models must report:
+Before comparison, `join_common_parent_results` must bind direct and
+Wannier-derived result tokens with:
+
+- the same accepted Kohn–Sham parent dataset and source manifest;
+- compatible physical, numerical, pseudopotential-set, and workflow schema versions;
+- explicit compatible energy and representation metadata for every requested metric;
+- verified artifact and manifest lineage;
+- accepted branch-specific validation states.
+
+Two completed branch tokens are insufficient. After this provenance-compatible
+join, the G04 accepted marking requires typed evidence from both models reporting:
 
 - model parameters and constraints;
 - training objective and weights;

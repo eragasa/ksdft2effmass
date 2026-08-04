@@ -1,0 +1,87 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{marzari2012}
+N.~Marzari, A.~A. Mostofi, J.~R. Yates, I.~Souza, D.~Vanderbilt, Maximally
+  localized wannier functions: Theory and applications, Reviews of Modern
+  Physics 84 (2012) 1419--1475.
+\newblock \href {https://doi.org/10.1103/RevModPhys.84.1419}
+  {\path{doi:10.1103/RevModPhys.84.1419}}.
+
+\bibitem{pizzi2020}
+G.~Pizzi, V.~Vitale, R.~Arita, S.~Bl{"u}gel, F.~Freimuth, G.~G{'e}ranton,
+  M.~Gibertini, D.~Gresch, C.~Johnson, T.~Koretsune, et~al., {Wannier90} as a
+  community code: New features and applications, Journal of Physics: Condensed
+  Matter 32~(16) (2020) 165902.
+\newblock \href {https://doi.org/10.1088/1361-648X/ab51ff}
+  {\path{doi:10.1088/1361-648X/ab51ff}}.
+
+\bibitem{souza2001}
+I.~Souza, N.~Marzari, D.~Vanderbilt, Maximally localized wannier functions for
+  entangled energy bands, Physical Review B 65 (2001) 035109.
+\newblock \href {https://doi.org/10.1103/PhysRevB.65.035109}
+  {\path{doi:10.1103/PhysRevB.65.035109}}.
+
+\bibitem{yates2007}
+J.~R. Yates, X.~Wang, D.~Vanderbilt, I.~Souza, Spectral and fermi surface
+  properties from wannier interpolation, Physical Review B 75 (2007) 195121.
+\newblock \href {https://doi.org/10.1103/PhysRevB.75.195121}
+  {\path{doi:10.1103/PhysRevB.75.195121}}.
+
+\bibitem{slater1954}
+J.~C. Slater, G.~F. Koster, Simplified {LCAO} method for the periodic potential
+  problem, Physical Review 94 (1954) 1498--1524.
+\newblock \href {https://doi.org/10.1103/PhysRev.94.1498}
+  {\path{doi:10.1103/PhysRev.94.1498}}.
+
+\bibitem{vogl1983}
+P.~Vogl, H.~P. Hjalmarson, J.~D. Dow, A semi-empirical tight-binding theory of
+  the electronic structure of semiconductors, Journal of Physics and Chemistry
+  of Solids 44~(5) (1983) 365--378.
+\newblock \href {https://doi.org/10.1016/0022-3697(83)90064-1}
+  {\path{doi:10.1016/0022-3697(83)90064-1}}.
+
+\bibitem{bjork1973}
+A.~Bj{"o}rck, G.~H. Golub, Numerical methods for computing angles between
+  linear subspaces, Mathematics of Computation 27~(123) (1973) 579--594.
+\newblock \href {https://doi.org/10.1090/S0025-5718-1973-0348991-3}
+  {\path{doi:10.1090/S0025-5718-1973-0348991-3}}.
+
+\bibitem{higham1986}
+N.~J. Higham, Computing the polar decomposition---with applications, SIAM
+  Journal on Scientific and Statistical Computing 7~(4) (1986) 1160--1174.
+\newblock \href {https://doi.org/10.1137/0907079} {\path{doi:10.1137/0907079}}.
+
+\bibitem{giannozzi2009}
+P.~Giannozzi, S.~Baroni, N.~Bonini, M.~Calandra, R.~Car, C.~Cavazzoni,
+  D.~Ceresoli, G.~L. Chiarotti, M.~Cococcioni, I.~Dabo, et~al., {QUANTUM
+  ESPRESSO}: A modular and open-source software project for quantum simulations
+  of materials, Journal of Physics: Condensed Matter 21~(39) (2009) 395502.
+\newblock \href {https://doi.org/10.1088/0953-8984/21/39/395502}
+  {\path{doi:10.1088/0953-8984/21/39/395502}}.
+
+\bibitem{perdew1996}
+J.~P. Perdew, K.~Burke, M.~Ernzerhof, Generalized gradient approximation made
+  simple, Physical Review Letters 77 (1996) 3865--3868.
+\newblock \href {https://doi.org/10.1103/PhysRevLett.77.3865}
+  {\path{doi:10.1103/PhysRevLett.77.3865}}.
+
+\bibitem{hamann2013}
+D.~R. Hamann, Optimized norm-conserving vanderbilt pseudopotentials, Physical
+  Review B 88 (2013) 085117.
+\newblock \href {https://doi.org/10.1103/PhysRevB.88.085117}
+  {\path{doi:10.1103/PhysRevB.88.085117}}.
+
+\bibitem{vansetten2018}
+M.~J. van Setten, M.~Giantomassi, E.~Bousquet, M.~J. Verstraete, D.~R. Hamann,
+  X.~Gonze, G.-M. Rignanese, The {PseudoDojo}: Training and grading a 85
+  element optimized norm-conserving pseudopotential table, Computer Physics
+  Communications 226 (2018) 39--54.
+\newblock \href {https://doi.org/10.1016/j.cpc.2018.01.012}
+  {\path{doi:10.1016/j.cpc.2018.01.012}}.
+
+\end{thebibliography}

@@ -7,11 +7,11 @@ back_to: [[ksdft2Effmass.computational.03]]
 
 ## Objective
 
-Construct candidate Wannier Hamiltonians. The task produces the artifact Candidate operator records required by the downstream dependency graph.
+Construct candidate Wannier Hamiltonians. The task produces the artifact Candidate operator records required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
-[[ksdft2Effmass.computational.03.01.03|03.01.03]].
+[[ksdft2Effmass.computational.03.01.04|03.01.04]].
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

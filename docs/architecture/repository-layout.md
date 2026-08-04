@@ -3,19 +3,24 @@
 ```text
 ksdft2effmass/
 ├── python/
-│   └── src/ksdft2effmass/operators/   # finite operator-record public API
+│   └── src/ksdft2effmass/
+│       └── operators/                 # current finite operator-record public API
 ├── rust/
 ├── specification/
 │   └── operator-record/v1/            # public schema and validation fixtures
 ├── fixtures/
 ├── calculations/
-├── workflows/
+├── workflows/                        # future executable/reproduction workflows
 ├── .agents/skills/                  # shared repository-local agent skills
 │   ├── graphify/                       # shared project Graphify skill
 │   └── resolve-human-checkpoint/       # shared checkpoint-resolution skill
 ├── .pi/                               # pi-specific skills, agents, chains, checkpoints, and task records
 ├── docs/
 │   ├── concepts/operator-records.rst  # scientific model and serialization format
+│   ├── architecture/                  # architectural decisions and static import direction
+│   ├── user-guide/                    # Markdown-first operation/dependency guidance
+│   ├── computational/                 # stages, protocols, and accepted marking evidence
+│   ├── research/                      # scientific questions, claims, and limitations
 │   ├── development/                   # developer and control-plane documentation
 │   └── api/operators.rst              # Sphinx API reference
 ├── AGENTS.md
@@ -24,6 +29,6 @@ ksdft2effmass/
 └── LICENSE
 ```
 
-The `ksdft2effmass.operators` package is the supported public import path for finite operator records. Operator-record modules are arranged as `records.py -> compatibility.py -> difference.py -> residuals.py -> comparison.py` for acyclic comparison decomposition, with `comparison.py` limited to the concrete Workflow composition. Its versioned JSON text serialization format (`schema_version = 1`) is documented in `docs/concepts/operator-records.rst`, specified by `specification/operator-record/v1/operator-record.schema.json`, validated with fixtures under `specification/operator-record/v1/`, and implemented in `python/src/ksdft2effmass/operators/serialization.py`. Runtime serializer evidence uses five object facets under `python/tests/software_verification/ksdft2effmass/operators/`; public-schema and golden-fixture interoperability use the two narrow owners under the neighboring `integration/` subtree.
+The `ksdft2effmass.operators` package is the supported public import path for finite operator records. The approved prospective periodic KS/GKS/QE package ownership and static acyclic import direction are recorded in `docs/architecture/kohn-sham-dft-quantum-espresso.md`, with the corrected scientific domain and backend extension seams in `docs/architecture/periodic-electronic-structure-integration.md`. The scientific/computational workflow is instead the stateful Colored Petri Net in `docs/architecture/colored-petri-net-workflows.md`. Prospective `workflows/cpn/` ownership is project-owned and isolates SNAKES in `workflows/cpn/engines/snakes.py`; those packages do not yet exist and are not authorized as a monolithic implementation. Operator-record modules are arranged as `records.py -> compatibility.py -> difference.py -> residuals.py -> comparison.py` for acyclic comparison decomposition, with `comparison.py` limited to the concrete Workflow composition. Its versioned JSON text serialization format (`schema_version = 1`) is documented in `docs/concepts/operator-records.rst`, specified by `specification/operator-record/v1/operator-record.schema.json`, validated with fixtures under `specification/operator-record/v1/`, and implemented in `python/src/ksdft2effmass/operators/serialization.py`. Runtime serializer evidence uses five object facets under `python/tests/software_verification/ksdft2effmass/operators/`; public-schema and golden-fixture interoperability use the two narrow owners under the neighboring `integration/` subtree.
 
 In the validated project environment, both Codex and pi discover repository-local skills under `.agents/skills/`. pi additionally discovers pi-specific skills under `.pi/skills/`. A project skill may shadow a same-named global pi skill. The shared project Graphify skill lives under `.agents/skills/graphify/`; the shared checkpoint-resolution skill lives under `.agents/skills/resolve-human-checkpoint/`. Durable human checkpoint records and their JSON Schema live under `.pi/checkpoints/`. Generated Graphify outputs live under ignored `graphify-out/` and are derived navigation artifacts, not authoritative repository state.

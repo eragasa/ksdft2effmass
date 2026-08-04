@@ -25,6 +25,8 @@ $$
 }
 $$
 
+The following is a mathematical model-reduction relation, not the computational workflow state. The stateful scientific/computational workflow is the Colored Petri Net documented in [[ksdft2effmass.workflow-semantics]].
+
 ```mermaid
 flowchart TD
     A["Many-electron system"]
@@ -47,7 +49,7 @@ flowchart TD
 |---|---|---|
 | [[ksdft2effmass.research_plan]] | Long-term vision, research objectives, mathematical program, and project planning | Active |
 | [[ksdft2Effmass.hierarchy]] | Detailed operator hierarchy and epistemic role of each model level | Extracted |
-| [[ksdft2Effmass.01]] | Starting from the Kohnâ€“Sham operator | Extracted |
+| [[ksdft2Effmass.01]] | Starting from the Kohn–Sham operator | Extracted |
 | [[ksdft2Effmass.02]] | Mathematical setting: Bloch state spaces, projectors, and projected operators | Extracted |
 | [[ksdft2Effmass.03]] | Wannier construction and localized operator representations | Extracted |
 | [[ksdft2Effmass.04]] | Alignment, gauge, and comparison of projected operators | Extracted |
@@ -57,12 +59,13 @@ flowchart TD
 | [[ksdft2Effmass.08]] | Operator, subspace, spectral, and observable error metrics | Drafted |
 | [[ksdft2Effmass.09]] | Continuum reduction and the atomistic-to-continuum crossover | Drafted |
 | [[ksdft2Effmass.10]] | Category-theoretic organization of operator reductions | Drafted |
+| [[ksdft2effmass.workflow-semantics]] | Stateful CPN workflow, gate markings, provenance joins, and epistemic boundaries | Architecture recorded |
 
 [[ksdft2Effmass.computational.00]]
-[[ksdft2Effmass.computational-task.template]]
+[[ksdft2Effmass.computational.task-template]]
 
 ## Computational Projects
-- [[ksdft2Effmass.computational.00]]: computational dependency graph and executable task decomposition;
+- [[ksdft2Effmass.computational.00]]: stateful CPN workflow semantics, accepted gate markings, a static prerequisite projection, and executable task decomposition;
 - [[ksdft2Effmass.papers.00]]: separate publication pipeline driven by completed computational gates.
 
 
@@ -115,9 +118,16 @@ operator.
 
 ## Program Status
 
-No successor implementation task is active or launched by the operator-record
-closeout. The following lists describe planned branches and candidate future
-work, not current implementation authorization.
+The project-owned Colored Petri Net architecture correction is human-accepted.
+SNAKES remains the selected candidate engine; bounded P0 tested version 0.9.33
+on CPython 3.14.6 and was human-accepted as `CONDITIONAL_PASS` through resolved
+`P0-HC01`. P0 is closed. P0A is closed as human-accepted `PASS`. `P1-HC01`
+Option A and `P1-HC02` Option B are resolved. Final P1 acceptance was granted as
+Option A through `P1-HC03` on 2026-08-04, after reviews and parent verification;
+P1 is closed as human-accepted `PASS`. No successor was selected or launched,
+and P2--P11 and production or scientific execution remain blocked and
+unauthorized. The following lists describe planned branches and candidate
+future work, not current implementation authorization.
 
 ### Planned program branches
 
