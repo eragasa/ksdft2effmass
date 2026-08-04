@@ -2,7 +2,7 @@
   "checkpoint_id": "POLICY-CONSTITUTION-1-HC01",
   "task_id": "POLICY-CONSTITUTION-1",
   "episode_id": "agents-policy-constitution-revision",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-04T16:02:32Z",
   "question": "Does the human PI accept the revised root AGENTS.md as the stable repository constitution, together with the bounded reconciliation of directly conflicting maintained control-plane and skill documentation?",
@@ -38,20 +38,13 @@
     ".pi/skills/design-data-action-objects/SKILL.md",
     ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "Option A — Accept the revised policy and close POLICY-CONSTITUTION-1.\n\nThe revised `AGENTS.md` is accepted as the stable repository constitution together with the bounded reconciliation of directly conflicting maintained policy, skill, and control-plane documentation.\n\nComplete deterministic closeout validation, record this response verbatim, close only POLICY-CONSTITUTION-1, commit and push the acceptance boundary, and stop.\n\nDo not activate H3, H2, H4, H5, P2, or any implementation, external-execution, release, numerical, or scientific task.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-04T16:35:49Z",
+  "authorized_scope": "Record the human response verbatim, resolve POLICY-CONSTITUTION-1-HC01 as Option A, complete deterministic closeout validation, close only POLICY-CONSTITUTION-1, commit and push the acceptance boundary to dev, and stop. Do not activate H3, H2, H4, H5, P2, or any implementation, external-execution, release, numerical, or scientific task.",
   "record_paths": [
-    "AGENTS.md",
-    ".pi/tasks/POLICY-CONSTITUTION-1-agents-policy-revision.md",
     ".pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json",
-    "docs/development/agent-control-plane.rst",
-    "docs/development/source-documentation.rst",
-    ".pi/task-ownership/README.md",
-    ".pi/skills/document-research-python/SKILL.md",
-    ".pi/skills/design-data-action-objects/SKILL.md",
-    ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
+    ".pi/tasks/POLICY-CONSTITUTION-1-agents-policy-revision.md"
   ],
-  "resumption_status": "blocked_pending_final_human_acceptance; no_successor_or_execution_authorized"
+  "resumption_status": "POLICY-CONSTITUTION-1_closed_human_accepted_PASS_after_deterministic_closeout_validation; no_successor_or_execution_activated"
 }

@@ -1,6 +1,6 @@
 # POLICY-CONSTITUTION-1 — Stable repository constitution revision
 
-Status: validated and independently reviewed `PASS`; blocked only on final human acceptance through `POLICY-CONSTITUTION-1-HC01`
+Status: closed as human-accepted `PASS` through resolved `POLICY-CONSTITUTION-1-HC01`; no successor or execution activated
 
 ## Authority and objective
 
@@ -50,8 +50,11 @@ consolidated independent read-only policy/integration review returned `PASS`
 with no material findings. No correction pass was needed. Final verification
 passed; this record is part of the pending acceptance boundary.
 
-## Acceptance boundary
+## Acceptance and closeout
 
-Final acceptance belongs to the human PI. Acceptance closes only this policy
-revision. It does not activate H3, H2, H4, H5, P2, harness implementation,
-production execution, or scientific execution.
+The human PI accepted Option A through
+`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.
+Deterministic closeout validation passed, and this policy task is closed as
+human-accepted `PASS`. The acceptance closes only this policy revision. It did
+not activate H3, H2, H4, H5, P2, harness implementation, external or release
+execution, numerical work, or scientific execution.
