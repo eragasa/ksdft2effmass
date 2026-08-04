@@ -2,9 +2,9 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0 is closed as human-accepted planning evidence. The inactive sequence is H1 then H3 then H2 then H4; after accepted H4, P2 and optional H5 each require their own explicit human activation.",
-  "status": "h0_closed_h1_blocked_no_successor_active",
-  "active_task": null,
+  "description": "Separate harness-incubation project. H0 is closed as human-accepted planning evidence. H1 alone is active as a non-implementation contract task; H3, H2, and H4 remain sequentially blocked. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
+  "status": "h1_active_contract_only_no_implementation",
+  "active_task": "H1",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
   "architecture_documents": [
@@ -45,7 +45,7 @@
       "id": "H1",
       "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
       "prerequisites": ["H0:human_accepted"],
-      "status": "blocked"
+      "status": "active"
     },
     {
       "id": "H3",
@@ -119,11 +119,19 @@
       "result": "H1 -> H3 -> H2 -> H4 adopted; P2 and optional H5 are separately activated branches after accepted H4; no task activated."
     }
   ],
+  "activations": [
+    {
+      "task": "H1",
+      "authorized_at": "2026-08-04T13:28:09Z",
+      "authority": "Explicit human instruction titled Activate and execute H1 — PI Harness contract and package boundary",
+      "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
+    }
+  ],
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "await-H1-explicit-activation",
-      "message": "H0 is closed as human-accepted planning evidence. H1 remains inactive pending separate explicit activation; H3, H2, and H4 remain sequentially blocked. After accepted H4, P2 and optional H5 each require separate explicit human activation. H1-H5 and P2-P11 remain blocked; no implementation, extraction, package publication, external execution, or scientific execution is authorized."
+      "phase": "execute-H1-contract",
+      "message": "H1 alone is active for contract definition and must end blocked at H1-HC01. H3, H2, H4, H5, and P2-P11 remain blocked. No implementation, extraction, package publication, external execution, or scientific execution is authorized."
     }
   ]
 }

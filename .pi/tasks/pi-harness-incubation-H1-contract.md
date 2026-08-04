@@ -1,18 +1,21 @@
 # H1 — Harness contract and package boundary
 
-Status: H0 prerequisite accepted; H1 inactive pending separate explicit activation; no implementation authorized
+Status: active under explicit human authorization dated 2026-08-04; contract evidence only; no implementation authorized
 
 ## Objective
 
 Define the smallest stable generic harness contract and the package/resource boundary required for incubation and later extraction. Existing scripts are requirement evidence, not automatically the public API.
 
-## Prerequisite
+## Activation and prerequisite
 
-`H0:human_accepted` is satisfied through resolved `H0-HC01`. H1 remains inactive
-until separately and explicitly activated. When activated, H1 must consume the
-accepted 316-component inventory, classifications, generic/local boundary,
-source-of-truth map, six finding resolutions, H3-before-H2 sequencing
-recommendation, migration constraints, and proposed minimum contract.
+`H0:human_accepted` is satisfied through resolved `H0-HC01`. The human PI
+explicitly activated H1 on 2026-08-04 in the instruction titled "Activate and
+execute H1 — PI Harness contract and package boundary". Activation is retained
+in `.pi/evidence/pi-harness-incubation/H1/activation.json` and authorizes only
+this contract task. H1 consumes the accepted 316-component inventory,
+classifications, generic/local boundary, source-of-truth map, six finding
+resolutions, H3-before-H2 sequencing recommendation, migration constraints, and
+proposed minimum contract.
 
 ## Planned scope
 

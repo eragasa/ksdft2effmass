@@ -225,11 +225,13 @@ unresolved checkpoints, and latest durable human decisions—not by this
 snapshot.
 
 At this snapshot, P1, the bounded EVIDENCE-DOC-1 maintenance task, and harness
-H0 are closed as human-accepted `PASS`. No task is active. The inactive harness
-sequence is H1 -> H3 -> H2 -> H4. After accepted H4, P2 and optional H5 each
-require their own separate explicit human activation; H5 is not a P2
-prerequisite. P2 requires accepted P1, accepted H4, and explicit P2 activation.
-H1--H5, P2--P11, and all production or scientific execution remain blocked.
+H0 are closed as human-accepted `PASS`. H1 alone is active as a contract task
+under explicit human authorization dated 2026-08-04 and must end at `H1-HC01`;
+no implementation is authorized. The remaining harness sequence is
+H3 -> H2 -> H4. After accepted H4, P2 and optional H5 each require their own
+separate explicit human activation; H5 is not a P2 prerequisite. P2 requires
+accepted P1, accepted H4, and explicit P2 activation. H3--H5, P2--P11, and all
+production or scientific execution remain blocked.
 Verify this against both `.pi/chains/backend-neutral-kohn-sham-qe.chain.json`
 and `.pi/chains/pi-harness-incubation.chain.json` at session start and update
 stale prose rather than following it. Read
