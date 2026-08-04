@@ -59,9 +59,11 @@ relational compatibility belongs to a named ActionObject, and policy validation
 with units belongs to the ActionObject that owns the policy.  Public enum and
 error states must be reachable from independently valid public objects; tests
 must not manufacture invalid states with ``object.__setattr__`` or monkey
-patching.  Public Python, documented Rust mapping, runtime acceptance, tests,
-schemas, and Sphinx documentation must agree on stored types and structured
-errors.  Module-level field validators and generic helper modules remain
+patching. Public Python, runtime acceptance, tests, applicable schemas, and
+Sphinx documentation must agree on stored types and structured errors. A Rust
+mapping must also agree only when the contract is explicitly language-independent,
+uses a shared wire format, is approved for Rust implementation, or the active
+task requires cross-language conformance.  Module-level field validators and generic helper modules remain
 prohibited; limited owner-local duplication is preferred.  Numerical norms and
 residual computations must be scale-safe and must surface structured numerical
 errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file

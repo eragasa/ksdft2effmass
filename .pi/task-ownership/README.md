@@ -1,9 +1,12 @@
 # Task-ownership launch preflight
 
-Production tasks must declare task-specific writers and independent reviewers
-before implementation starts. The declaration is a fail-closed launch
-prerequisite, not retrospective review evidence. Each task entry in the
-controlling chain names an `ownership_manifest`. Run:
+Task-specific writers and independent reviewers must be declared when an
+accepted task requires a manifest, multiple agents write concurrently, protected
+source and independent verification must be separated, or conflicting or
+high-risk path ownership exists. Ordinary bounded work may use one writer for
+source, tests, and documentation without a manifest. When required, the
+declaration is a fail-closed launch prerequisite, not retrospective review
+evidence. The controlling record names an `ownership_manifest`. Run:
 
 ```bash
 python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>

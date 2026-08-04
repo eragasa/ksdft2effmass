@@ -32,11 +32,19 @@ Do not create abstract `DataObject` or `ActionObject` base classes. Prefer concr
 
 Do not create `utils.py`, `helpers.py`, `common.py`, or `misc.py` dumping grounds. Every nontrivial operation needs an explicit and documented domain owner.
 
-## Rust compatibility
+## Cross-language compatibility
 
-New architecture must remain translatable to Rust using structs for DataObjects and ResultObjects; structs with `impl` blocks for ActionObjects; constructors returning `Result` for validated construction; composition rather than inheritance; explicit ownership and immutable borrowing; deterministic, versioned serialization; fixed serialized field names; explicit error cases; no dynamic attributes or monkey patching; and no implicit workflow state.
+Python/Rust agreement is required only for explicitly language-independent
+specifications, shared wire formats, components approved for Rust implementation,
+or contracts whose active task requires cross-language conformance. In those
+cases, use structs for DataObjects and ResultObjects; structs with `impl` blocks
+for ActionObjects; constructors returning `Result` for validated construction;
+composition rather than inheritance; explicit ownership and immutable borrowing;
+deterministic, versioned serialization; fixed serialized field names; and
+explicit error cases.
 
-Python and Rust need not share source code. They must share an intelligible data model, operation boundaries, and wire-format specification.
+Python and Rust need not share source code. Python-only internal objects need
+conventional Python typing and tests, not speculative Rust design.
 
 ## Review checklist
 
@@ -46,8 +54,8 @@ Python and Rust need not share source code. They must share an intelligible data
 - Does serialization live in a named serializer ActionObject?
 - Are operation outputs explicit ResultObjects instead of side effects?
 - Are free functions restricted to ownerless domain-independent mathematics?
-- Is the design expressible as Rust structs, `impl` blocks, and `Result` errors?
-- Are wire-format fields fixed, deterministic, and versioned?
+- When cross-language conformance applies, is the design expressible as Rust structs, `impl` blocks, and `Result` errors?
+- When persistence applies, are wire-format fields fixed, deterministic, and versioned?
 - If a Workflow is proposed, is it a genuine reusable domain/computational ActionObject with explicit DataObject/ResultObject inputs, outputs, and dependencies?
 - Are technical integrations routed to integration tests instead of artificial production Workflow objects?
 - Are there no dynamic attributes, monkey patches, global workflow state, or dumping-ground modules?
@@ -77,9 +85,11 @@ relational compatibility belongs to a named ActionObject, and policy validation
 with units belongs to the ActionObject that owns the policy.  Public enum and
 error states must be reachable from independently valid public objects; tests
 must not manufacture invalid states with ``object.__setattr__`` or monkey
-patching.  Public Python, documented Rust mapping, runtime acceptance, tests,
-schemas, and Sphinx documentation must agree on stored types and structured
-errors.  Module-level field validators and generic helper modules remain
+patching. Public Python, runtime acceptance, tests, applicable schemas, and
+Sphinx documentation must agree on stored types and structured errors. A Rust
+mapping must also agree only when the contract is explicitly language-independent,
+uses a shared wire format, is approved for Rust implementation, or the active
+task requires cross-language conformance.  Module-level field validators and generic helper modules remain
 prohibited; limited owner-local duplication is preferred.  Numerical norms and
 residual computations must be scale-safe and must surface structured numerical
 errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file

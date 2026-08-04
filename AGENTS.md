@@ -14,9 +14,9 @@ Read `README.md` and the files relevant to the requested task before making
 changes. Mathematical definitions and computational dependencies belong in the
 versioned research documents; do not introduce competing conventions here.
 
-## Scope
+## Research scope
 
-The active program includes:
+The program includes:
 
 - bulk-silicon reference calculations;
 - projected and Wannier Hamiltonians;
@@ -32,6 +32,38 @@ Wannier localization in this package unless explicitly requested.
 
 Do not expand a task into phonons, electron-phonon coupling, machine learning,
 device simulation, or another material system without explicit authorization.
+
+## Authority and repository state
+
+Apply repository instructions in this order:
+
+1. the current human instruction and durable human decisions;
+2. accepted scientific and public contracts;
+3. this root file and any applicable scoped `AGENTS.md`;
+4. the active chain, task, checkpoint, and ownership records;
+5. applicable skills and procedural documentation;
+6. derived reports and historical evidence.
+
+A lower-level record may add compatible detail but may not silently override a
+higher-level decision. Historical evidence records what happened; it does not
+govern current work. Architecture and planning records define boundaries but do
+not by themselves authorize task launch or execution.
+
+Do not store mutable task status in this file. At session start, reconstruct the
+state from authoritative records in this order:
+
+1. inspect unresolved records under `.pi/checkpoints/`;
+2. inspect the controlling record under `.pi/chains/`;
+3. inspect the task records referenced by that chain and any checkpoint;
+4. inspect the latest durable human decisions; and
+5. treat those records as authoritative over summaries and documentation.
+
+If the current human message resolves a persisted checkpoint, follow
+`.agents/skills/resolve-human-checkpoint/SKILL.md`. Never infer approval from
+silence, timeout, an agent report, or a passing check. Use
+`.pi/skills/choose-next-task/SKILL.md` only when no task or checkpoint remains
+active and the human asks what comes next; it is read-only and cannot launch
+work.
 
 ## Branches and releases
 
@@ -107,7 +139,7 @@ In particular:
 - state the domain and codomain when they matter;
 - do not subtract operators acting on unidentified state spaces;
 - align pristine and doped bases before direct matrix subtraction;
-- make energy-zero and gauge conventions explicit;
+- make basis, gauge, and energy-reference conventions explicit;
 - distinguish projection, disentanglement, basis transformation, and
   truncation;
 - do not describe Wannierization alone as a low-rank approximation;
@@ -117,10 +149,10 @@ In particular:
 If an existing convention is unclear or inconsistent, report the ambiguity
 instead of silently selecting a new convention.
 
-## Numerical calculations
+## Numerical calculations and protected execution
 
-Do not submit remote, cluster, cloud, or HPC jobs without explicit
-authorization.
+Do not submit remote, cluster, cloud, or HPC jobs without explicit human
+authorization and the applicable durable checkpoint.
 
 Before starting a potentially expensive calculation, report:
 
@@ -141,6 +173,11 @@ Do not silently:
 - change energy-alignment conventions.
 
 Such changes modify the scientific specification and must be documented.
+
+QE or Wannier90 production execution; HPC, cloud, or remote jobs; destructive
+operations; external data transmission; dependency or licensing decisions;
+merges to `main`; tags, releases, publication, and DOI actions are protected.
+They require explicit human authorization and the applicable durable checkpoint.
 
 ## Data and provenance
 
@@ -168,168 +205,164 @@ restricted data in code, logs, documentation, or commits.
 Keep language implementations conventional and separate. The current Python
 source root is `python/src/ksdft2effmass/`; use `rust/crates/` if Rust crates are
 introduced. Language-independent definitions belong in `specification/`; use
-`fixtures/` when shared numerical fixtures are introduced. Follow
+`fixtures/` for shared numerical fixtures. Follow
 `docs/architecture/repository-layout.md`; do not create a competing source-tree
 layout.
 
-Python is the initial reference implementation. Language-independent operators,
-state spaces, units, conventions, shapes, types, wire formats, metrics, and
-tolerances belong in `specification/`; shared numerical cases belong in
-`fixtures/`. Python and Rust APIs may differ syntactically but must preserve the
-same scientific meaning, serialized data, and validation behavior.
+Python is the initial reference implementation. Python and Rust agreement is
+required only for explicitly language-independent specifications, shared wire
+formats, components approved for Rust implementation, or contracts whose active
+task requires cross-language conformance. Before implementing an existing
+Python component in Rust, retain the Python reference, define shared expected
+results and tolerances, add cross-language conformance tests, and document
+intentional algorithmic differences. Python-only internal objects require
+conventional Python typing and tests, not speculative Rust design.
 
-Before implementing an existing Python component in Rust, retain the Python
-reference, define shared expected results and tolerances, add cross-language
-conformance tests, and document intentional algorithmic differences. Profile a
-representative workload before moving performance code; do not rewrite efficient
-NumPy/SciPy or BLAS/LAPACK operations without evidence. Rust components must
-document ownership and memory-layout assumptions and include benchmarks when
-performance is their justification. Prefer safe Rust; localize, justify,
-document, and test any `unsafe` code.
+Profile a representative workload before moving performance code; do not rewrite
+efficient NumPy/SciPy or BLAS/LAPACK operations without evidence. Rust
+components must document ownership and memory-layout assumptions and include
+benchmarks when performance is their justification. Prefer safe Rust; localize,
+justify, document, and test any `unsafe` code.
 
-### DataObject/ActionObject programming model
-
-Apply this model to new code and substantial refactors, not unrelated stable
-modules. Load `.pi/skills/design-data-action-objects/SKILL.md`; its referenced
-architecture document owns the detailed rules.
-
-Use concrete, composed objects without abstract DataObject or ActionObject base
-classes:
-
-```text
-DataObject --ActionObject--> DataObject or ResultObject
-```
-
-- DataObjects own represented state, intrinsic invariants, canonicalization,
-  exact value semantics, and trivial derived properties.
-- ActionObjects own transformations, numerical policy, validation procedures,
-  serialization, file or external boundaries, and orchestration.
-- ResultObjects represent explicit operation outcomes.
-- Workflows are concrete ActionObjects only for reusable scientific or
-  computational sequences; do not invent them to own tests.
+Apply the DataObject/ActionObject programming model to new scientific object
+models and substantial refactors, not unrelated stable modules. Its detailed
+object-ownership and portability rules are owned by
+`.pi/skills/design-data-action-objects/SKILL.md` and its architecture reference.
 
 Keep nontrivial behavior with its domain owner; do not create generic utility
-modules or hide policy in module-level validators. Maintained data and results
-must be operationally immutable. Public numeric APIs must reject booleans and
-numeric strings, document accepted scalar types and overflow behavior, and use
-explicit units. Runtime behavior, typing, documentation, tests, schemas, and
-Rust mappings must agree. New public models must remain translatable to concrete
-Rust structs with explicit errors and deterministic versioned wire formats.
+modules or hide scientific policy in module-level validators. Maintained data
+and results must be operationally immutable. Public numeric APIs must reject
+booleans and numeric strings unless the accepted contract states otherwise,
+document accepted scalar types and overflow behavior, and use explicit units.
+Runtime behavior, typing, documentation, tests, and applicable schemas or
+cross-language contracts must agree.
 
-### Pi control plane and active-program snapshot
+## Process classes
 
-Repository control files live under `.agents/skills/` and `.pi/`; this file
-owns global policy, while narrower skills and task records may add compatible
-requirements. Mutable state is owned by the controlling chain, active task,
-unresolved checkpoints, and latest durable human decisions—not by this
-snapshot.
+Choose controls according to the highest-risk applicable class. An active,
+accepted task may impose compatible additional controls.
 
-At this snapshot, P1, the bounded EVIDENCE-DOC-1 maintenance task, and harness
-H0 and H1 are closed as human-accepted `PASS`. H1's accepted contract, bounded
-`DiagnosticPath` correction, review history, and checkpoint responses are
-retained; no implementation or successor is active. The remaining harness
-sequence is H3 -> H2 -> H4. After accepted H4, P2 and optional H5 each require their own
-separate explicit human activation; H5 is not a P2 prerequisite. P2 requires
-accepted P1, accepted H4, and explicit P2 activation. H3--H5, P2--P11, and all
-production or scientific execution remain blocked.
-Verify this against both `.pi/chains/backend-neutral-kohn-sham-qe.chain.json`
-and `.pi/chains/pi-harness-incubation.chain.json` at session start and update
-stale prose rather than following it. Read
-`docs/architecture/colored-petri-net-workflows.md` and
-`docs/architecture/periodic-electronic-structure-integration.md` before related
-work. Architecture records define boundaries but do not authorize task launch or
-execution.
+### Routine software work
 
-At session start, inspect unresolved checkpoints, the controlling chain, the
-active task, and latest durable human decisions. If the current human message
-resolves a persisted checkpoint, follow
-`.agents/skills/resolve-human-checkpoint/SKILL.md`, record the decision, resume
-only authorized work, and revalidate. Never infer approval from silence or a
-timeout.
+Examples include internal helpers, local refactors, documentation corrections,
+ordinary unit tests, non-public validators, and deterministic bug fixes under an
+accepted contract.
 
-Use `.pi/skills/choose-next-task/SKILL.md` only when no task or checkpoint remains
-active and the human asks what is next. It is read-only, recommends exactly one
-task, and must not create or launch work. Harness H0 and H1 are closed; no
-successor is active. Do not infer implementation or successor activation from
-the prospective pages under `docs/harness/`.
+Normally require bounded scope, implementation, relevant tests, affected
+documentation, and one review when materially useful. They do not automatically
+require a task-ownership manifest; separate source, test, and documentation
+writers; evidence identifiers; class-per-file tests; retained checksum catalogs;
+human checkpoints; Rust mappings; VVUQ analysis; or multiple review rounds.
 
-Decision handling and closeout procedures are defined in
-`docs/development/agent-control-plane.rst`. In summary, agents may apply a
-uniquely required in-scope deterministic correction or a standing durable human
-decision. Pause for a genuine human decision when materially different options
-affect scientific meaning, public contracts, scope, dependencies, external data
-or execution, destructive actions, ownership, or acceptance. A checkpoint block
-must be a validated commit pushed to the task branch before waiting for the
-human. After an unambiguous resolution, record and validate the decision, commit
-and push that resolution boundary, and only then resume authorized work. Apply
-the same validated commit-and-push boundary whenever the human explicitly
-accepts a coherent incremental change. Final acceptance must be recorded
-durably, followed by closeout validation; stop before starting a successor task.
+### Public-contract and persistence work
 
-The human PI remains final authority for scientific meaning, mathematical and
-physical conventions, public APIs and serialization contracts, backward
-compatibility, architecture and project scope, acceptance of unresolved
-validation failures, external or resource-intensive execution, and final
-acceptance. Silence, timeout, or unavailability never implies approval.
+Examples include public APIs, schemas, serialized records, durable marking
+formats, file or SQLite repository boundaries, and compatibility or migration
+behavior.
 
-### Repository skills and Graphify
+Require an explicit contract, schema or fixture agreement where applicable,
+software-verification tests, and compatibility review. A human decision is
+required only when materially different defensible choices remain at a protected
+boundary.
 
-Skills are agent capabilities, never scientific CPN guards or transitions.
-Follow the applicable repository-local `SKILL.md`; deterministic commands own
-software-gate pass/fail, reviewers own findings, parent verification checks
-evidence completeness, and humans own protected decisions and acceptance.
+### Scientific or numerical work
 
-Graphify is optional and read-only. Use
-`.agents/skills/graphify/SKILL.md` only for an explicit Graphify request or a
-broad topology, dependency, or impact question. Verify every material conclusion
-against authoritative files. Graphify cannot approve architecture, establish
-scientific validity, launch work, or record human decisions. Remote processing,
-API-key configuration, hooks, global skill changes, or committing generated
-outputs requires explicit human approval.
+Examples include mathematical algorithms, numerical approximations, convergence
+procedures, physical-model comparisons, and scientific acceptance metrics.
 
-### Operator-record subsystem
+Require only the evidence classes applicable to the claims made:
 
-The maintained Python package is `python/src/ksdft2effmass/operators/`; its
-software- and numerical-verification evidence is under the corresponding VVUQ
-subtrees of `python/tests/`. Historical layouts remain historical and must not be
-recreated.
+- software verification checks the documented software contract;
+- numerical verification checks implementation or approximation of stated
+  mathematics;
+- scientific validation compares a model with independent reference evidence
+  for a declared use;
+- uncertainty quantification identifies and propagates uncertainty sources.
 
-For operator-record work, load `.pi/skills/develop-operator-records/SKILL.md` and
-follow its architecture reference, the active task record, and the maintained
-pages under `docs/verification/`. Those records own the object inventory,
-package decomposition, dependency direction, Hermiticity definition, comparison
-semantics, serialization contract, detailed gates, and deferred alignment work.
-Do not silently change those conventions or treat exact represented comparison
-as basis, gauge, energy-zero, unit, geometry, or physical alignment.
+Do not demand or claim scientific validation or uncertainty quantification when
+the task makes no corresponding scientific claim. Keep parent-model, numerical,
+and model-reduction errors distinct.
 
-## Testing and validation
+### Protected execution and release work
+
+This class covers the protected actions identified under **Numerical
+calculations and protected execution**. It requires explicit human authorization
+and the applicable durable checkpoint. Passing tests, review, or agent agreement
+does not supply that authority.
+
+## Human decisions and checkpoints
+
+The human PI remains final authority for scientific meaning; mathematical and
+physical conventions; public APIs and serialization contracts; backward
+compatibility; architecture and project scope; dependencies and licensing;
+acceptance of unresolved validation failures; external or resource-intensive
+execution; destructive actions; releases and publication; and final acceptance.
+
+Create a human checkpoint only when at least two materially different defensible
+options remain and the choice affects a protected boundary. Do not create one
+for deterministic corrections fixed by an accepted contract, routine
+implementation details, formatting, mechanical synchronization, expected test
+failures during development, or administrative closeout after explicit human
+acceptance. When only one contract-consistent correction exists, apply it, test
+it, record it concisely, and continue.
+
+Checkpoint resolution, durable decision-boundary commits, and resumption are
+owned by `.agents/skills/resolve-human-checkpoint/SKILL.md` and
+`docs/development/agent-control-plane.rst`; do not duplicate their mechanics in
+task instructions. A checkpoint cannot expand the scope authorized by its
+higher-level task or human decision.
+
+## Ownership and review
+
+Explicit, non-overlapping writer ownership is required when multiple agents
+write concurrently, protected source and independent verification must be
+separated, an accepted task explicitly requires a manifest, or conflicting or
+high-risk path ownership exists. Otherwise, one agent may implement code, tests,
+and documentation for ordinary bounded work.
+
+When a manifest is required, follow `.pi/task-ownership/README.md` and run its
+validator before covered work begins. A passing task-ownership validator
+establishes authorization and path separation only; it does not establish
+implementation correctness, numerical verification, scientific validity, or
+human acceptance.
+
+The default managed-task flow is:
+
+```text
+implementation
+→ relevant validation
+→ one consolidated independent review
+→ at most one consolidated correction pass
+→ final verification
+→ human acceptance when required
+```
+
+If material disagreement remains after the correction pass, stop and report the
+unresolved decision. Do not create an unbounded writer, reviewer, or checkpoint
+loop.
+
+## Testing and retained evidence
 
 Inspect `pyproject.toml`, existing workflows, and the relevant test tree before
 choosing commands. Use established tools, run the cheapest relevant checks
 first, and do not change expected values merely to obtain a pass. Diagnose
 whether the implementation, fixture, method, or reference is wrong.
 
-Keep VVUQ evidence classes distinct:
+Ordinary unit and integration tests need clear names and assertions. They do not
+automatically require stable evidence identifiers; complete
+Requirement/Method/Oracle/Acceptance/Interpretation/Limitations sections; one
+class per file; or class-owned and artifact-owned classification.
 
-- software verification checks the documented software contract;
-- numerical verification checks implementation of stated mathematics;
-- scientific validation compares a model with independent reference evidence
-  for a declared use;
-- uncertainty quantification identifies and propagates uncertainty sources.
+Those conventions apply when an accepted task explicitly declares tests to be
+maintained verification evidence. Their detailed grammar is owned by
+`.pi/skills/document-research-python/references/test-evidence-documentation.md`;
+subsystem-specific placement and evidence rules belong in the applicable skill,
+task, specification, or `docs/verification/` page.
 
 Constructor, schema, invariant, and deterministic tolerance checks do not by
-themselves establish scientific validation or UQ. Report absent evidence
-explicitly. Use explicit tolerances and state what they measure.
-
-Place evidence under the corresponding subtree of `python/tests/` and migrate
-only an approved object or subsystem at a time. Maintained migrated tests require
-stable evidence identifiers, explicit requirements and oracles, acceptance and
-failure interpretation, limitations, and correct evidence-class markers. Load
-`.pi/skills/document-research-python/SKILL.md` and its shared test-evidence
-reference for the unified class-owned and artifact-owned documentation grammar;
-operator-record work additionally follows `.pi/skills/develop-operator-records/SKILL.md`.
-Follow `docs/verification/testing-and-evidence.rst` for hierarchy, module
-documentation, numerical-case, controlled-fault, and review requirements.
+themselves establish scientific validation or uncertainty quantification. Use
+explicit tolerances and state what they measure. Report absent evidence only
+when it is relevant to the task or claims.
 
 ## Documentation
 
@@ -346,128 +379,87 @@ Define symbols when introduced. Distinguish among:
 4. the software implementation.
 
 Use direct technical prose. Avoid promotional language and unsupported claims.
+Verify references against primary sources before adding them. Research plans,
+expected results, and proposed calculations must remain visibly distinct from
+completed findings.
 
-### Source documentation standard
-
-Maintained first-party Python must be auditable from source documentation.
-Modules, public APIs, dataclass fields, private implementation owners, and
-scientifically meaningful local state must document purpose, scope, units,
-assumptions, invariants, canonicalization, equations, and validation boundaries
-where applicable. Comments explain meaning, not assignments.
+Public APIs, scientific meanings, mathematical algorithms, units, assumptions,
+serialized formats, and non-obvious invariants require complete documentation.
+Private mechanical helpers and obvious local variables require concise
+documentation only when it improves understanding; do not add repetitive
+docstrings or comments that merely restate assignments or types.
 
 Use `TypeError` for wrong semantic types and `ValueError` for violated
-invariants. Document accepted scalar types and canonicalization; do not accept
-booleans as numbers or silently convert numeric strings unless the public
-contract explicitly authorizes it.
+invariants. Source, tests, schemas, fixtures, examples, and Sphinx pages must
+agree where they describe the same contract. Follow
+`docs/development/source-documentation.rst` for detailed, risk-proportional
+source-documentation procedure.
 
-Source, tests, schemas, fixtures, examples, and Sphinx pages must agree. Complete
-warnings-as-errors documentation builds and read-only documentation review for
-maintained-source tasks. Do not use Sphinx `:undoc-members:` to conceal missing
-source documentation. Follow `docs/development/source-documentation.rst` for the
-operational standard.
+## Repository procedures and subsystem rules
 
-Verify references against primary sources before adding them.
+Keep stable global rules in this file. Detailed mechanics remain with their
+owners:
 
-Research plans, expected results, and proposed calculations must remain
-visibly distinct from completed findings.
+- checkpoint resolution: `.agents/skills/resolve-human-checkpoint/SKILL.md`;
+- test-evidence grammar:
+  `.pi/skills/document-research-python/references/test-evidence-documentation.md`;
+- DataObject/ActionObject design:
+  `.pi/skills/design-data-action-objects/SKILL.md`;
+- task-ownership schemas and validation: `.pi/task-ownership/README.md`;
+- subsystem rules: applicable scoped task, skill, specification, architecture,
+  and verification files;
+- mutable state: chain, task, checkpoint, and durable human-decision records.
+
+Skills are capabilities, not scientific guards or transitions. Deterministic
+commands establish only their declared software gates; reviewers report
+findings; humans own protected decisions and acceptance.
+
+Graphify is optional and read-only. Use `.agents/skills/graphify/SKILL.md` only
+for an explicit Graphify request or a broad topology, dependency, or impact
+question. Verify material conclusions against authoritative files. Graphify
+cannot approve architecture, establish scientific validity, launch work, or
+record human decisions. Remote processing, API-key configuration, hooks, global
+skill changes, or committing generated outputs requires explicit human
+approval.
+
+Operator-record work follows `.pi/skills/develop-operator-records/SKILL.md` and
+its referenced maintained architecture and verification records. Do not treat
+exact represented comparison as basis, gauge, energy-zero, unit, geometry, or
+physical alignment.
 
 ## AI-assisted work
 
 Treat all agent-generated code, prose, equations, and analysis as provisional.
 
-Do not describe AI-assisted work as reviewed, validated, or release-ready
-unless the user explicitly authorizes a formal release.
+Do not describe AI-assisted work as reviewed, validated, or release-ready unless
+the human explicitly authorizes that statement.
 
-When uncertainty remains:
-
-- state the uncertainty;
-- identify the assumption;
-- identify what must be checked;
-- avoid inventing a convenient answer.
-
-## Task launch and ownership
-
-Before any production-task implementation begins or resumes:
-
-1. identify the active task from durable chain, task, checkpoint, and human-
-   decision records;
-2. require the controlling chain to name a task-ownership manifest;
-3. require separate named implementation, test, and documentation writers and
-   at least one independent read-only reviewer;
-4. require each writer's path scope to be explicit and non-overlapping;
-5. require a deterministic completion validator bound to its declared path;
-6. for a version-1 manifest, additionally require the P1 compatibility inventory,
-   exact test-module rule, dedicated object kinds, classified exceptions, and
-   non-class package/schema gate owner;
-7. run
-
-   ```bash
-   python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>
-   ```
-
-   and stop without editing if it fails.
-
-Do not route production work to a generic or operator-specific agent unless the
-validated manifest names that agent and its record explicitly covers the assigned
-paths. Do not let one writer own both production source and tests. Writers must
-run sequentially in a shared worktree, and tests must not validate partially
-written production modules.
-
-A test-layout rule is task-specific. Do not infer that one subsystem's facet
-layout or `test__ClassName.py` convention applies to another subsystem. The
-version-1 validator retains those P1 conventions only for compatibility; generic
-version-2 validation does not impose them. The declared completion validator must
-pass before independent review; reviewers must reject missing or incomplete
-ownership evidence rather than attempting to repair the test architecture
-retrospectively.
-
-A version-2 task may opt into the exact `evidence-branches-v1` profile and its
-approved branch matrix; the profile is not mandatory for ordinary tasks. The
-matrix binds a durable authorization decision, activates only for at least two
-branches with multiple writers or a deterministic/protected split, and declares
-writer-owned validation stages with exactly one manifest-bound completion stage.
-Version-2 agent records establish identity and writer/read-only role; structured
-manifest paths establish ownership. For an enabled profile, consume the matrix
-without recording execution results in it, batch all branches assigned to each
-writer role, perform one consolidated review, allow one consolidated correction
-cycle, and escalate remaining findings instead of spawning another loop. The
-validator does not execute or dispatch branches.
-
-This preflight establishes control-plane ownership only. It does not establish
-implementation correctness, numerical verification, scientific validation,
-uncertainty quantification, or human acceptance. A direct tool or subagent call
-that technically bypasses the preflight remains unauthorized.
+When uncertainty remains, state the uncertainty, identify the assumption and
+what must be checked, and avoid inventing a convenient answer.
 
 ## Working procedure
 
 For each task:
 
 1. Read the relevant files and any more specific `AGENTS.md`.
-2. Inspect unresolved checkpoints, the active task, latest durable human
-   decisions, the current branch, and the working-tree state.
-3. For production work, pass the task-launch and ownership preflight above.
+2. Reconstruct repository state from the authoritative records and inspect the
+   current branch and working tree.
+3. Classify the work and apply proportional controls plus any accepted
+   task-specific requirements.
 4. Preserve unrelated user changes.
-5. Identify the smallest change that satisfies the request.
-6. Implement the change without expanding its scientific scope.
-7. Run the cheapest relevant checks first, followed by all affected completion
-   gates.
-8. Report:
-   - files changed;
-   - checks performed;
-   - assumptions introduced;
-   - unresolved limitations;
-   - scientific or expensive validations not performed.
+5. Make the smallest change that satisfies the request without expanding
+   scientific scope.
+6. Run the cheapest relevant checks followed by affected completion gates.
+7. Report changed files, checks, assumptions, unresolved limitations, and any
+   scientific or expensive validation not performed when relevant.
 
-Do not merge, tag, publish, submit external jobs, or otherwise perform an
-external or release action unless explicitly requested. Commits and pushes to
-the active task branch are additionally authorized—and required—at durable human
-decision boundaries: before waiting at a genuine checkpoint, after recording its
-resolution, and after explicit human acceptance of a coherent incremental
-change. Include only validated, in-scope state; never mix unrelated or unaccepted
-work into the boundary commit. Do not amend or rewrite a pushed decision-boundary
-commit. Roll back by revert or by branching from the accepted commit; do not
-reset shared history or force-push without explicit human approval. Direct
-pushes to `main` remain prohibited.
+Do not merge, tag, publish, submit external jobs, or perform another protected
+or release action without explicit human authorization. Commit and push only
+when requested or when required by an applicable durable decision-boundary
+procedure. Include only validated, in-scope state; never mix unrelated or
+unaccepted work into a boundary commit. Do not amend or rewrite a pushed
+decision-boundary commit. Do not reset shared history or force-push without
+explicit human approval.
 
 ## Definition of done
 
@@ -476,6 +468,6 @@ A task is complete when:
 - the requested change is implemented;
 - relevant checks pass;
 - affected documentation is consistent;
-- user work outside the task remains unchanged;
-- assumptions and limitations are reported;
+- unrelated user work remains unchanged;
+- assumptions and limitations are reported; and
 - no unsupported scientific claim has been introduced.

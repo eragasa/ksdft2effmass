@@ -1,0 +1,57 @@
+{
+  "checkpoint_id": "POLICY-CONSTITUTION-1-HC01",
+  "task_id": "POLICY-CONSTITUTION-1",
+  "episode_id": "agents-policy-constitution-revision",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T16:02:32Z",
+  "question": "Does the human PI accept the revised root AGENTS.md as the stable repository constitution, together with the bounded reconciliation of directly conflicting maintained control-plane and skill documentation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the revised policy and close POLICY-CONSTITUTION-1.",
+      "consequence": "Record final acceptance and close only this policy task. Do not activate any harness, CPN, implementation, external execution, or scientific task."
+    },
+    {
+      "id": "B",
+      "summary": "Request one explicitly bounded policy correction.",
+      "consequence": "Keep POLICY-CONSTITUTION-1 active, preserve the requested correction verbatim, and change only the authorized policy/control-plane paths without activating other work."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer the revision.",
+      "consequence": "Keep the task blocked at this checkpoint and do not activate any successor or execution."
+    }
+  ],
+  "recommendation": "Option A if the final report and diff confirm that mutable status was removed, process controls are proportional and conditional, critical scientific and authorization safeguards remain, and validation plus the single consolidated review passed.",
+  "blocked_scope": "Final acceptance and closure of POLICY-CONSTITUTION-1; H3, H2, H4, H5, P2 and later tasks; harness implementation; production source or tests; schemas, fixtures, dependencies, and lock files; external, protected, release, and scientific execution; unrelated user work.",
+  "safe_scope": "Read-only inspection of the revised policy, directly reconciled maintained documentation, this task and checkpoint record, validation results, review findings, Git diff, and pushed pending-boundary commit.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/POLICY-CONSTITUTION-1-agents-policy-revision.md",
+    ".pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json",
+    ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "docs/development/agent-control-plane.rst",
+    "docs/development/source-documentation.rst",
+    ".pi/task-ownership/README.md",
+    ".pi/skills/document-research-python/SKILL.md",
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    "AGENTS.md",
+    ".pi/tasks/POLICY-CONSTITUTION-1-agents-policy-revision.md",
+    ".pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json",
+    "docs/development/agent-control-plane.rst",
+    "docs/development/source-documentation.rst",
+    ".pi/task-ownership/README.md",
+    ".pi/skills/document-research-python/SKILL.md",
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
+  ],
+  "resumption_status": "blocked_pending_final_human_acceptance; no_successor_or_execution_authorized"
+}

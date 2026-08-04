@@ -34,19 +34,16 @@ invariants, canonicalization, and relationship to other fields.
 Private implementation details
 ------------------------------
 
-Private visibility does not remove the documentation requirement.  Every
-private method must document its owned responsibility, parameters, returned
-value, exceptions, canonicalization performed, invariants protected, accepted
-and rejected types, why the method is private, and whether its logic is
-mechanical, numerical, or scientific.  Scientific meaning, physical conventions,
-numerical policy, comparison policy, compatibility policy, and public validation
-rules must not exist solely in private methods.  Cross-object private-method
-calls are prohibited.
+Private scientific or numerical policy and non-obvious implementation owners
+must document their responsibility, assumptions, invariants, units, failure
+behavior, and relationship to the public contract as applicable. Scientific
+meaning, physical conventions, numerical policy, comparison policy,
+compatibility policy, and public validation rules must not exist solely in
+private methods. Cross-object private-method calls are prohibited.
 
-Every private attribute must be documented in the containing class docstring,
-including what it stores, why it is private, whether it is cached, derived,
-canonicalized, or mutable, its units and shape where applicable, its
-relationship to public state, and whether it affects scientific results.
+Private mechanical helpers and obvious stored state need concise documentation
+only when it improves understanding. Do not add repetitive docstrings or
+attribute descriptions that merely restate assignments or types.
 
 Meaningful local state
 ----------------------
@@ -109,18 +106,19 @@ Synchronization and completion gate
 
 Source docstrings, tests, public schemas, fixtures, Sphinx API pages, Sphinx
 concept pages, examples, and repository architecture documentation must describe
-the same behavior.  Authority order is explicit human decision, ``AGENTS.md``,
-accepted task records, public specifications and schemas, accepted public source
-contract, tests and fixtures, then explanatory Sphinx documentation.
+the same behavior where they cover the same contract. Authority follows
+``AGENTS.md``: current human instruction and durable decisions; accepted
+scientific and public contracts; root and scoped ``AGENTS.md``; active control
+records; applicable procedures; then derived reports and historical evidence.
 
-No task involving maintained source code is complete until public source
-documentation is complete, private methods are documented, private attributes
-are documented, meaningful local state is explained, mathematical notation maps
-to implementation names, Sphinx documentation matches source behavior,
-documentation examples are verified or covered by tests, Sphinx builds with
-warnings treated as errors, and a read-only documentation review reports no
-unresolved material findings. Reports must state absent scientific-validation or
-uncertainty-quantification evidence explicitly rather than inferring it from
+Completion gates are proportional to the changed surface. Public APIs,
+scientific or numerical meaning, serialized contracts, units, assumptions, and
+non-obvious invariants require complete synchronized documentation and the
+applicable warnings-as-errors Sphinx build. Routine internal changes require
+only affected documentation and relevant validation. Read-only documentation
+review is required when an accepted task or material public-contract change
+calls for it, not automatically for every maintained-source edit. Reports must
+not infer scientific validation or uncertainty quantification from
 software-verification success.
 
 Python-version policy

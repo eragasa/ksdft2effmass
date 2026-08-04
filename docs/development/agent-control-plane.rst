@@ -4,41 +4,25 @@ Agent control plane
 The agent control plane records how humans and agents coordinate work in the
 repository. It is operational guidance, not a scientific specification.
 
-Current operator-record status
-------------------------------
-
-The operator-record validation-correction task was accepted and closed on
-2026-08-03, and no operator-record corrective task is active. The periodic
-KS/GKS electronic-structure and Quantum ESPRESSO architecture was approved on
-2026-08-03 and is recorded in
-``.pi/tasks/backend-neutral-kohn-sham-qe-architecture.md``,
-``docs/architecture/kohn-sham-dft-quantum-espresso.md``, and
-``docs/architecture/periodic-electronic-structure-integration.md``. Its
-scientific object and adapter boundaries remain approved as prospectively
-corrected. The never-launched
-A--H linear workflow sequence is prospectively superseded by the project-owned
-Colored Petri Net architecture and P0--P11 task program recorded in
-``.pi/tasks/backend-neutral-cpn-workflow-architecture.md``. The human PI granted
-final acceptance through ``CPN-HC01`` on 2026-08-03, and the architecture task
-is closed. The human PI accepted bounded P0 as ``CONDITIONAL_PASS`` through
-resolved ``P0-HC01`` on 2026-08-03 and closed it. Bounded P0A
-packaging/configuration, P1, and the bounded EVIDENCE-DOC-1 maintenance task
-closed as human-accepted ``PASS``. No successor task is active. P2--P11 remain
-blocked, and no production QE/ABINIT/Wannier execution is authorized.
-Basis/state-space alignment remains a G01b work item, not a prerequisite of
-G01a or G02, and is not active.
-
 Authority and roles
 -------------------
 
-The root ``AGENTS.md`` is the authoritative repository instruction file. It
-records scientific-integrity policy, architecture policy, validation policy,
-branch and release constraints, and human authority. Repository-local pi control
-files live under ``.pi/``. In the validated project environment, both Codex and
-pi discover repository-local skills under ``.agents/skills/``. pi additionally
-discovers pi-specific skills under ``.pi/skills/``. A project skill may shadow a
-same-named global pi skill. Codex configuration or hooks belong under
-``.codex/`` only when explicitly approved.
+Apply authority in this order: current human instruction and durable human
+decisions; accepted scientific and public contracts; root and scoped
+``AGENTS.md`` files; active chain, task, checkpoint, and ownership records;
+applicable skills and procedural documentation; then derived reports and
+historical evidence. Lower-level records may add compatible detail but may not
+silently override higher authority. Historical evidence records what happened
+and does not govern current work.
+
+The root ``AGENTS.md`` owns stable repository policy. Mutable state belongs in
+``.pi/chains/``, ``.pi/tasks/``, ``.pi/checkpoints/``, and durable human-decision
+records rather than in constitutions or explanatory documentation. In the
+validated project environment, both Codex and pi discover repository-local
+skills under ``.agents/skills/``. pi additionally discovers pi-specific skills
+under ``.pi/skills/``. A project skill may shadow a same-named global pi skill.
+Codex configuration or hooks belong under ``.codex/`` only when explicitly
+approved.
 
 ``.pi/tasks/`` contains durable task and decision records. ``.pi/skills/``
 contains pi-specific skills with no shared equivalent. ``.pi/agents/`` and
@@ -155,11 +139,11 @@ formats require public documentation and independently executable validation
 surfaces when they become part of the software contract. Examples include public
 source docstrings, public schemas, valid and invalid fixtures, object tests,
 Sphinx documentation, and integration review. Private methods may mechanically
-implement public rules, but must not hide scientific semantics. Maintained-source
-completion gates include complete public and private source documentation,
-meaningful local-state comments, source/Sphinx synchronization, mathematical
-symbol-to-field-name mapping, Python-version consistency, and read-only
-documentation review with no unresolved material findings.
+implement public rules, but must not hide scientific semantics. Documentation
+and completion gates are proportional: public contracts, scientific or
+numerical meaning, units, assumptions, serialization, and non-obvious invariants
+require complete treatment; private mechanical helpers and obvious local state
+need documentation only when it improves understanding.
 
 Graphify role
 -------------
@@ -180,13 +164,14 @@ curated report receives separate human review.
 New-session state reconstruction
 --------------------------------
 
-Every new agent session must first inspect unresolved checkpoints under
-``.pi/checkpoints/``, active accepted tasks, and the latest durable human
-decisions. If the current human message resolves a persisted checkpoint, the
-session records the decision and resumes the authorized incomplete work without
-requiring the human to paste the previous checkpoint report. If a checkpoint was
-already resolved, the decision is not requested again. If work was interrupted
-after resolution, the session resumes from the recorded authorized step.
+Every new agent session reconstructs state by inspecting, in order, unresolved
+checkpoint records, the controlling chain, the task records referenced by the
+chain or checkpoints, and the latest durable human decisions. Those records are
+authoritative over summaries and explanatory documentation. If the current
+human message resolves a persisted checkpoint, the session records the decision
+and resumes only the authorized incomplete work without requiring the human to
+paste the previous checkpoint report. If a checkpoint was already resolved, the
+decision is not requested again.
 
 The ``choose-next-task`` skill is designed to work without chat history. It is
 invoked only when no task or checkpoint remains active and the human asks for a
@@ -210,13 +195,15 @@ markings remain project-owned.
 Task-ownership launch preflight
 -------------------------------
 
-Every production task must record task-specific writers and independent
-reviewers before implementation starts. The controlling chain names a
-machine-readable ownership manifest and runs
-``python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>`` as a
-fail-closed launch preflight. Missing declarations, missing agent records,
-overlapping writer scopes, combined writer/reviewer ownership, or an invalid
-completion validator block launch.
+A machine-readable ownership manifest and fail-closed launch preflight are
+required when an accepted task requires them, multiple agents write
+concurrently, protected source and independent verification must be separated,
+or conflicting or high-risk path ownership exists. Ordinary bounded work may
+use one writer for source, tests, and documentation. When the control applies,
+the controlling record names the manifest and runs
+``python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>`` before
+covered work starts; invalid declarations block only that manifest-governed
+launch.
 
 Version 1 retains the P1 public-object inventory, exact test-module rule,
 classified exceptions, non-class package/schema gate owner, and string command
