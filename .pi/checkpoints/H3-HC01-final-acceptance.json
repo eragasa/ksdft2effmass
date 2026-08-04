@@ -2,7 +2,7 @@
   "checkpoint_id": "H3-HC01",
   "task_id": "H3",
   "episode_id": "pi-harness-incubation-H3",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-04T18:01:46Z",
   "question": "Does the human PI accept H3 skills and textual-resource extraction as PASS, including the generic resources under harness/pi/, project-local profile/extensions under harness/local/, schemas, manifests, skill closure, fixtures, canonical vectors, DiagnosticPath cases, resource validator, zero generic-to-local leakage, documentation, one consolidated correction cycle, final independent PASS reviews, and the H3-to-H2 handoff, while leaving H2 inactive pending separate explicit activation?",
@@ -41,10 +41,17 @@
     "harness/local/profiles/ksdft2effmass-v1.json",
     "harness/pi/validation/validate_h3_resources.py"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "H3_validated_and_blocked_at_final_human_acceptance; H2_and_all_successors_inactive"
+  "human_response": "Option A — Accept H3 as PASS and close H3 only.\n\nThe generic resources under `harness/pi/`, project-local resources under `harness/local/`, schemas, manifests, extracted skill resources, fixtures, canonical vectors, DiagnosticPath coverage, resource validator, documentation, independent reviews, and H3-to-H2 handoff are accepted.\n\nComplete deterministic administrative closeout:\n\n1. preserve this response verbatim;\n2. resolve `H3-HC01`;\n3. mark H3 human-accepted PASS;\n4. update the harness chain;\n5. change H3 acceptance-index and H3-to-H2 handoff status from pending/preacceptance to accepted where applicable;\n6. finalize externally recorded content identities and regenerate the checksum catalog after those administrative updates;\n7. rerun the H3 resource validator, checkpoint validator, ownership validation, checksum verification, and `git diff --check`;\n8. commit and push the H3 acceptance boundary;\n9. verify the remote commit identity;\n10. stop.\n\nDo not begin another review or correction cycle unless deterministic closeout validation fails. Do not modify accepted H3 resources except where uniquely required for administrative closeout consistency.\n\nH3 acceptance satisfies H2’s prerequisite but does not activate H2. Do not activate H2, H4, H5, P2, live-skill cutover, Python implementation, protected execution, numerical work, or scientific execution.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-04T18:08:31Z",
+  "authorized_scope": "Resolve H3-HC01 as Option A, mark H3 human-accepted PASS, update only H3 task/chain and H3 acceptance/handoff/checksum administrative records, run deterministic closeout validation, commit and push the H3 acceptance boundary to dev, verify the remote identity, and stop. H2, H4, H5, P2-P11, live-skill cutover, Python implementation, protected execution, numerical work, and scientific execution remain inactive or blocked.",
+  "record_paths": [
+    ".pi/checkpoints/H3-HC01-final-acceptance.json",
+    ".pi/tasks/pi-harness-incubation-H3-resources.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H3/acceptance-index.json",
+    ".pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json",
+    ".pi/evidence/pi-harness-incubation/H3/checksums.sha256"
+  ],
+  "resumption_status": "H3_closed_human_accepted_PASS_after_deterministic_administrative_closeout; H2_prerequisite_satisfied_but_H2_and_all_successors_inactive"
 }

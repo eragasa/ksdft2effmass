@@ -2,15 +2,15 @@
   "schema_version": 1,
   "artifact_identity": "H3.acceptance-index.v1",
   "task_id": "H3",
-  "phase": "checksum_boundary_finalized_checkpoint_pending",
-  "acceptance_status": "final_reviews_pass_checksum_finalized_checkpoint_pending_human_acceptance",
+  "phase": "human_accepted_closeout",
+  "acceptance_status": "human_accepted_pass",
   "outputs": [
     {
       "artifact_identity": "H3.acceptance-index.v1",
       "path": ".pi/evidence/pi-harness-incubation/H3/acceptance-index.json",
       "kind": "acceptance_index",
-      "status": "final_review_pass_precheckpoint_candidate",
-      "content_identity_status": "deferred_until_final_review_stabilization"
+      "status": "human_accepted_pass",
+      "content_identity_status": "attested_by_closeout_checksum_catalog"
     },
     {
       "artifact_identity": "H3.generic-resource-manifest.v1",
@@ -20,7 +20,7 @@
         "manifest_id": "pih.generic.resources",
         "manifest_version": 1
       },
-      "status": "final_review_pass_precheckpoint_candidate",
+      "status": "human_accepted_pass",
       "content_identity": {
         "algorithm": "sha256",
         "digest": "8a681a17ab9920b64c78ec76c3d8bb08d20924e6222cc5f9fcafdd6065f3b183"
@@ -35,7 +35,7 @@
         "manifest_version": 1,
         "extends_manifest_id": "pih.generic.resources"
       },
-      "status": "final_review_pass_precheckpoint_candidate",
+      "status": "human_accepted_pass",
       "content_identity": {
         "algorithm": "sha256",
         "digest": "cb5556f1a2d924cb11094da99bfba8832a93edace99cd612db9d924db1577f98"
@@ -53,7 +53,7 @@
         "local_manifest_id": "ksdft2effmass.local.resources",
         "local_manifest_version": 1
       },
-      "status": "final_review_pass_precheckpoint_candidate",
+      "status": "human_accepted_pass",
       "content_identity": {
         "algorithm": "sha256",
         "digest": "68c9fa503d7e53973bf4daa679e841268e25f0b546c84fa2536dc94c1f69a295"
@@ -67,7 +67,7 @@
         "python",
         "harness/pi/validation/validate_h3_resources.py"
       ],
-      "status": "final_review_pass_precheckpoint_candidate",
+      "status": "human_accepted_pass",
       "content_identity": {
         "algorithm": "sha256",
         "digest": "db86f2adb546a27a068719b4886066985a91865564bc55cb9eb7757699687ae8"
@@ -102,7 +102,7 @@
   ],
   "checksum_catalog": ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
   "checksum_status": "finalized",
-  "human_acceptance_claimed": false,
+  "human_acceptance_claimed": true,
   "final_review_artifacts": [
     {
       "path": ".pi/evidence/pi-harness-incubation/H3/review-architecture.md",
@@ -131,15 +131,16 @@
   ],
   "checkpoint": {
     "path": ".pi/checkpoints/H3-HC01-final-acceptance.json",
-    "status": "pending",
-    "human_response": null
+    "status": "resolved",
+    "normalized_decision": "A",
+    "resolved_at": "2026-08-04T18:08:31Z"
   },
   "planned_finalization": {
     "checksum_path": ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
     "checkpoint_path": ".pi/checkpoints/H3-HC01-final-acceptance.json",
     "checksum_generated": true,
     "checkpoint_created": true,
-    "checkpoint_status": "pending"
+    "checkpoint_status": "resolved"
   },
-  "human_accepted": false
+  "human_accepted": true
 }

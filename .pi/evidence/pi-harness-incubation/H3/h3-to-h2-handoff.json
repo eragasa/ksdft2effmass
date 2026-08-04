@@ -1,16 +1,19 @@
 {
   "schema_version": 1,
-  "handoff_id": "H3-to-H2.checksum-finalized-checkpoint-pending.v1",
+  "handoff_id": "H3-to-H2.human-accepted.v1",
   "source_task": "H3",
   "target_task": "H2",
-  "handoff_status": "checksum_boundary_finalized_checkpoint_pending_not_accepted_for_H2_consumption",
+  "handoff_status": "human_accepted_available_as_H2_prerequisite_input_H2_inactive",
   "accepted_input_contract": {
-    "condition": "These exact path and identity pairs become H2 inputs only after separate human acceptance closes H3. This pre-review artifact does not assert that condition is satisfied.",
+    "condition": "Human acceptance through resolved H3-HC01 makes these exact path and identity pairs available as H2 prerequisite inputs. H2 remains inactive and requires separate explicit activation and its own validated ownership manifest.",
     "inputs": [
       {
         "artifact_identity": "H3.acceptance-index.v1",
         "path": ".pi/evidence/pi-harness-incubation/H3/acceptance-index.json",
-        "content_identity_status": "deferred_until_final_review_stabilization"
+        "content_identity": {
+          "algorithm": "sha256",
+          "digest": "3c7b6d4572eb9548596dcee3c2dc6ae479acecf2b6427cd152ffabb969e65f17"
+        }
       },
       {
         "artifact_identity": "H3.generic-resource-manifest.v1",
@@ -128,30 +131,31 @@
       "evidence": ".pi/checkpoints/H1-HC02-final-acceptance.json"
     },
     "H3_activation": {
-      "status": "active",
+      "status": "completed_human_accepted",
       "evidence": ".pi/evidence/pi-harness-incubation/H3/activation.json",
       "separate_explicit_activation_received_at": "2026-08-04T16:47:49Z"
     },
     "H3_human_acceptance": {
-      "status": "pending_at_H3-HC01",
-      "final_checkpoint_created_by_this_artifact": false,
-      "human_accepted": false,
+      "status": "resolved_Option_A_human_accepted_PASS",
+      "human_accepted": true,
+      "resolved_at": "2026-08-04T18:08:31Z",
       "checkpoint": ".pi/checkpoints/H3-HC01-final-acceptance.json"
     },
     "H2_prerequisite": {
       "required": "H3:human_accepted",
-      "status": "not_yet_satisfied"
+      "status": "satisfied"
     },
     "H2_activation": {
       "status": "inactive_blocked",
       "automatic_activation": false,
-      "statement": "H2 remains inactive pending later human acceptance of H3 and separate explicit H2 authorization."
+      "statement": "H3 acceptance satisfies the prerequisite, but H2 remains inactive pending separate explicit H2 authorization and its own validated task-ownership manifest."
     }
   },
   "revision_and_preservation": {
     "starting_revision": "49ffe047411468cba68379c5c69b1a44b19af7de",
     "remote_ref": "origin/dev",
-    "remote_revision": "49ffe047411468cba68379c5c69b1a44b19af7de",
+    "remote_revision": "f78d0d7843ef11998548394a04513e38f8f89c8a",
+    "remote_revision_role": "durable_pending_H3-HC01_boundary_before_resolution",
     "unrelated_work_baseline": ".pi/evidence/pi-harness-incubation/H3/unrelated-worktree-baseline.json",
     "unrelated_paths_checked": 5,
     "unrelated_work_preserved": true,
@@ -192,8 +196,9 @@
   ],
   "checkpoint": {
     "path": ".pi/checkpoints/H3-HC01-final-acceptance.json",
-    "status": "pending",
-    "human_response": null
+    "status": "resolved",
+    "normalized_decision": "A",
+    "resolved_at": "2026-08-04T18:08:31Z"
   },
   "checksum_catalog": ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
   "planned_finalization": {
@@ -201,7 +206,7 @@
     "checkpoint_path": ".pi/checkpoints/H3-HC01-final-acceptance.json",
     "checksum_generated": true,
     "checkpoint_created": true,
-    "checkpoint_status": "pending"
+    "checkpoint_status": "resolved"
   },
-  "human_accepted": false
+  "human_accepted": true
 }

@@ -7,14 +7,14 @@ ba646714568a2a937fbf5a6b4ffc366f0b6608de553105c5bc67ffddd0e470d7  .pi/agents/ksd
 bbf0ce48a195fa678683ec6b64e226830e079af223cba6c3e71da0849770f7a8  .pi/agents/ksdft2effmass-harness-resource-integration-reviewer.md
 4a3865f68b7b2691082b52b880058fac63fb8fcf7f5f213e887bbe5a009933e6  .pi/agents/ksdft2effmass-harness-resource-test-writer.md
 c1326e8a9c25a1bd484a4475bf7341cf8ca350d92d55011ff442d1be3be3cbbd  .pi/agents/ksdft2effmass-harness-resource-validation-writer.md
-8c0dddf289688d946172d88baca8d648e2bd80cc98bad56fa1dab380edbfa6a5  .pi/chains/pi-harness-incubation.chain.json
-b97fc811452a8a82edd8380131dbf64ffc69e7edd4f02b39d8eb1f9e887dabdf  .pi/checkpoints/H3-HC01-final-acceptance.json
-66f562e11d03becf5fc607fe8fc15e39ec7a987bc43f37908dbcc89877c6e37c  .pi/evidence/pi-harness-incubation/H3/acceptance-index.json
+fbce84342349392808dc0c1e192013a9ecd36881a8736686cc7a9c5913fc4b8a  .pi/chains/pi-harness-incubation.chain.json
+dcce5e47801c3e69d84593717cf10e775bb646c8fbc09b9257844bbf440e69a8  .pi/checkpoints/H3-HC01-final-acceptance.json
+3c7b6d4572eb9548596dcee3c2dc6ae479acecf2b6427cd152ffabb969e65f17  .pi/evidence/pi-harness-incubation/H3/acceptance-index.json
 66ca04190a44c688aebfea0e0e1a91409e5fdd116590afebe9d033565437367b  .pi/evidence/pi-harness-incubation/H3/activation.json
 d64d85d362133b69b58d0af62b0a6c7990361ab656b716cb23d49427b6ad265a  .pi/evidence/pi-harness-incubation/H3/consolidated-correction-1.md
 8495b252c3c08f5d88661b56f61790f88efe3c9d584af5ba73472b532f3ef28d  .pi/evidence/pi-harness-incubation/H3/external-control-validation.json
 76630d8208faf65ecd37e0d267521d0be84ed6a7dd9e37be3a0099793f40be0c  .pi/evidence/pi-harness-incubation/H3/final-precheckpoint-validation.json
-f2a556e6eea66343471860cdbfe7ead0401a407df9fde1c7f87ec14183532c2b  .pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json
+2db4918641131bd2877f84208f58cd452e46f5bde5a779880c4b8ea4899896ee  .pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json
 671a311e7cf893b6fc39c20106fad0fa73bcd1995c80533f11b61211cc548b0c  .pi/evidence/pi-harness-incubation/H3/review-architecture-initial.md
 382be4619a0f42869ab3d88408db9e3c1a4ef801ec2bbe7139e5c4c05a7be16f  .pi/evidence/pi-harness-incubation/H3/review-architecture.md
 6037677c392a2483e1c3f22bc75619aef123741f88c5f4879ba6de3ab0aa324a  .pi/evidence/pi-harness-incubation/H3/review-evidence-vvuq-initial.md
@@ -24,7 +24,7 @@ d4fa01b8642be7a32a00efa5892b66f790137b419cff20582d3d6995641c8d1c  .pi/evidence/p
 be8e2f443e775457f1b4d98cced97c111961dc8790d88c8bc388dde349e216b8  .pi/evidence/pi-harness-incubation/H3/task-ownership.json
 ae8ddee36b03698551e4797740c408dc388282857d569b0e7d5609eabc98ed35  .pi/evidence/pi-harness-incubation/H3/unrelated-worktree-baseline.json
 2d81e6a1d7c60ee86d073df0bf350217178f8dc06b2044ff5aa515a3b059dc9f  .pi/evidence/pi-harness-incubation/H3/validation-results.json
-0bb10bcc76cb6a8905f30170c15750a00b2bbcdeef2f14ed1cb1203f486dada8  .pi/tasks/pi-harness-incubation-H3-resources.md
+1f39c639262ddc2dbcaa4811a9db72731c2417aa7803b923ca8a7bb6ac9a12b3  .pi/tasks/pi-harness-incubation-H3-resources.md
 30cac433b68d79adb622416036a06ba7dcd30fc6555f6f10276b354bb30ad236  harness/local/docs/project-profile.md
 d8d24f3dbdc61e2861fc9bee9d5008d591681236b78b930bd407ef7895c5b7ec  harness/local/extensions/evidence-documentation.md
 852e9bf0cae318bc57f693006233a4b93901b8cecca101c50ea8d64a773ee529  harness/local/extensions/ownership-compatibility.md

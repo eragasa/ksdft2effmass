@@ -1,6 +1,6 @@
 # H3 — Skills and textual-resource extraction
 
-Status: implementation and required validation/review complete; blocked at pending `H3-HC01` final human acceptance; H2 remains inactive and separately authorized
+Status: closed as human-accepted `PASS` through resolved `H3-HC01`; H2 prerequisite satisfied but H2 remains inactive and separately authorized
 
 ## Objective
 
@@ -43,12 +43,14 @@ No generic Python implementation owned by H2, no silent skill retirement, no rep
 H3 precedes H2 and must not overlap H2. It establishes the accepted generic and
 local textual resource identities that H2 consumes.
 
-## Final checkpoint
+## Final acceptance
 
-The accepted resource validator, separate control checks, one consolidated
-correction cycle, and three final independent read-only reviews report `PASS`.
-H3 is blocked at `.pi/checkpoints/H3-HC01-final-acceptance.json`. This technical
-state is not human acceptance.
+The resource validator, separate control checks, one consolidated correction
+cycle, and three final independent read-only reviews reported `PASS`. The human
+PI accepted Option A through resolved
+`.pi/checkpoints/H3-HC01-final-acceptance.json` on 2026-08-04. H3 is closed as
+human-accepted `PASS`. This acceptance satisfies H2's H3 prerequisite but does
+not activate H2 or any other successor.
 
 ## Stop
 
