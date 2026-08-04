@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/ownership-scope.schema.json",
+  "title": "OwnershipScope",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "path": {
+      "$ref": "common.schema.json#/$defs/OwnershipScopePath"
+    },
+    "scope_kind": {
+      "enum": [
+        "file",
+        "directory_tree"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "path",
+    "scope_kind"
+  ],
+  "additionalProperties": false
+}

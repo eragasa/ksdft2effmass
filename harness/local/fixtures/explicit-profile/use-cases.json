@@ -1,0 +1,22 @@
+{
+  "cases": [
+    {
+      "case_id": "explicit-profile-required",
+      "profile_argument": null,
+      "expected": {
+        "status": "FAIL",
+        "reason": "No ambient current-directory, Git, .pi, environment, or package fallback is permitted."
+      }
+    },
+    {
+      "case_id": "explicit-profile-supplied",
+      "profile_path": "profile.json",
+      "generic_manifest_path": "../../pi/resource-manifest.json",
+      "local_manifest_path": "../../local/resource-manifest.json",
+      "expected": {
+        "status": "PASS",
+        "profile_id": "ksdft2effmass.profile.v1"
+      }
+    }
+  ]
+}

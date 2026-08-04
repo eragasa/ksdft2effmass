@@ -1,0 +1,67 @@
+{
+  "profile_path": "../explicit-profile/profile.json",
+  "cases": [
+    {
+      "case_id": "software-accepts-software-id",
+      "module_path": "python/tests/software_verification/example.py",
+      "marker": "software_verification",
+      "evidence_id": "SV-CPN-001",
+      "expected": {
+        "status": "PASS",
+        "classification": "software_verification"
+      }
+    },
+    {
+      "case_id": "numerical-accepts-numerical-id",
+      "module_path": "python/tests/numerical_verification/example.py",
+      "marker": "numerical_verification",
+      "evidence_id": "NV-G-001",
+      "expected": {
+        "status": "PASS",
+        "classification": "numerical_verification"
+      }
+    },
+    {
+      "case_id": "software-rejects-numerical-id",
+      "module_path": "python/tests/software_verification/example.py",
+      "marker": "software_verification",
+      "evidence_id": "NV-G-001",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.EVIDENCE.NAMESPACE_UNDECLARED"
+      }
+    },
+    {
+      "case_id": "numerical-rejects-software-id",
+      "module_path": "python/tests/numerical_verification/example.py",
+      "marker": "numerical_verification",
+      "evidence_id": "SV-CPN-001",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.EVIDENCE.NAMESPACE_UNDECLARED"
+      }
+    },
+    {
+      "case_id": "undeclared-marker",
+      "module_path": "python/tests/software_verification/example.py",
+      "marker": "scientific_validation",
+      "evidence_id": "SV-CPN-001",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.EVIDENCE.MARKER_UNDECLARED"
+      }
+    },
+    {
+      "case_id": "protected-unowned-warning",
+      "module_path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
+      "function": "test_differencer_requires_operator_record_inputs",
+      "marker": "software_verification",
+      "evidence_id": null,
+      "expected": {
+        "status": "WARN",
+        "issue_code": "PIH.EVIDENCE.PROTECTED_GAP",
+        "classification": "software_verification-only; no numerical/scientific claim"
+      }
+    }
+  ]
+}

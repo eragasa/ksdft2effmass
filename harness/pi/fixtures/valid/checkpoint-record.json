@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "T1-HC01",
+  "task_id": "T1",
+  "episode_id": "episode-T1",
+  "status": "pending",
+  "decision_class": "contract",
+  "created_at": "2026-08-04T00:00:00Z",
+  "question": "Choose an accepted option.",
+  "options": [
+    [
+      "A",
+      "Accept.",
+      null
+    ]
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    "tasks/T1.json"
+  ],
+  "resumption_status": null
+}

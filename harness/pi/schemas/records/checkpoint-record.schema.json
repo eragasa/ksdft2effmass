@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/checkpoint-record.schema.json",
+  "title": "CheckpointRecord",
+  "type": "object",
+  "description": "Profile lifecycle vocabulary determines the required unresolved/resolved field combinations, so ValidateCheckpointSet—not this standalone schema—enforces status-relative nullability/nonemptiness and uniqueness of option IDs across tuple entries. JSON Schema enforces tuple shape, whole-option uniqueness, timestamp syntax annotations, and record-path whole-array uniqueness. Schema conformance does not record or accept a human decision.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "checkpoint_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "task_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "episode_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "decision_class": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "question": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ],
+        "items": false,
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Option ID, presentation text, and optional detail; option IDs are unique in declared order."
+      },
+      "uniqueItems": true
+    },
+    "human_response": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "normalized_decision": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resolved_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "authorized_scope": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "record_paths": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ResourcePath"
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted."
+    },
+    "resumption_status": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "checkpoint_id",
+    "task_id",
+    "episode_id",
+    "status",
+    "decision_class",
+    "created_at",
+    "question",
+    "options",
+    "human_response",
+    "normalized_decision",
+    "resolved_at",
+    "authorized_scope",
+    "record_paths",
+    "resumption_status"
+  ],
+  "additionalProperties": false
+}

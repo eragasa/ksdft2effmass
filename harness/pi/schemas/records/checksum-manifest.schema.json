@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/checksum-manifest.schema.json",
+  "title": "ChecksumManifest",
+  "type": "object",
+  "description": "JSON Schema rejects duplicate whole entries but cannot require unique/sorted path properties across distinct entry objects; ValidateChecksumManifest must enforce canonical path ordering and path uniqueness before filesystem comparison. Schema conformance establishes neither byte agreement nor provenance.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "checksum-entry.schema.json"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Strictly path-sorted with unique paths."
+    }
+  },
+  "required": [
+    "schema_version",
+    "entries"
+  ],
+  "additionalProperties": false
+}

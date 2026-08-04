@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/chain-view.schema.json",
+  "title": "ChainView",
+  "type": "object",
+  "description": "JSON Schema enforces record shapes, nonempty tasks, and whole-array uniqueness. It cannot compare task_id properties across tasks, require active_task_id or explicitly_activated_task_ids to name entries in tasks, or assert identifier ordering; EvaluateChainState must enforce those semantic relations. Schema conformance alone does not establish readiness, activation, or authorization.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "chain_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "active_task_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "task-reference.schema.json"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique and strictly task_id-sorted."
+    },
+    "explicitly_activated_task_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Whole-array duplicates are rejected here. Strict ordering and the cross-value subset relation to tasks[*].task_id are semantic-validator responsibilities."
+    },
+    "production_execution_authorized": {
+      "type": "boolean"
+    },
+    "package_publication_authorized": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "chain_id",
+    "active_task_id",
+    "tasks",
+    "explicitly_activated_task_ids",
+    "production_execution_authorized",
+    "package_publication_authorized"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "purpose": "Negative cross-field invariant fixtures with an explicit schema-versus-semantic rejection boundary.",
+  "cases": [
+    {
+      "case_id": "resource-manifest-generic-extends-nonnull",
+      "record_kind": "ResourceManifest",
+      "instance_path": "cases/resource-manifest-generic-extends-nonnull.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "A generic manifest must use null extends_manifest_id."
+    },
+    {
+      "case_id": "resource-manifest-local-extends-null",
+      "record_kind": "ResourceManifest",
+      "instance_path": "cases/resource-manifest-local-extends-null.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "A local manifest must name its generic base manifest."
+    },
+    {
+      "case_id": "project-profile-local-id-without-version",
+      "record_kind": "ProjectProfile",
+      "instance_path": "cases/project-profile-local-id-without-version.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "Local manifest ID and version must be either both present or both null."
+    },
+    {
+      "case_id": "project-profile-local-version-without-id",
+      "record_kind": "ProjectProfile",
+      "instance_path": "cases/project-profile-local-version-without-id.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "Local manifest ID and version must be either both present or both null."
+    },
+    {
+      "case_id": "resource-reference-self-dependency",
+      "record_kind": "ResourceReference",
+      "instance_path": "cases/resource-reference-self-dependency.json",
+      "schema_expectation": "accept",
+      "semantic_validator_expectation": {
+        "stage": "DeserializeJsonRecord",
+        "status": "FAIL",
+        "issue_code": "PIH.WIRE.INVALID_VALUE"
+      },
+      "reason": "Cross-field equality cannot be excluded by the current structural array schema.",
+      "downstream_context": "A manifest-level validator may additionally classify the self-edge as PIH.RESOURCE.DEPENDENCY_CYCLE."
+    },
+    {
+      "case_id": "task-reference-self-prerequisite",
+      "record_kind": "TaskReference",
+      "instance_path": "cases/task-reference-self-prerequisite.json",
+      "schema_expectation": "accept",
+      "semantic_validator_expectation": {
+        "stage": "DeserializeJsonRecord",
+        "status": "FAIL",
+        "issue_code": "PIH.WIRE.INVALID_VALUE"
+      },
+      "reason": "Cross-field equality cannot be excluded by the current structural array schema.",
+      "downstream_context": "Chain evaluation may additionally classify the self-edge as PIH.CHAIN.PREREQUISITE_CYCLE."
+    },
+    {
+      "case_id": "chain-view-activated-id-absent",
+      "record_kind": "ChainView",
+      "instance_path": "cases/chain-view-activated-id-absent.json",
+      "schema_expectation": "accept",
+      "semantic_validator_expectation": {
+        "stage": "DeserializeJsonRecord",
+        "status": "FAIL",
+        "issue_code": "PIH.WIRE.INVALID_VALUE"
+      },
+      "reason": "Subset membership against nested task IDs is a semantic invariant.",
+      "downstream_context": "Chain evaluation must not derive facts from an intrinsically invalid view."
+    }
+  ]
+}

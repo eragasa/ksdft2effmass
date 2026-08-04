@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "case_id": "extend-only-local-id",
+      "generic_ids": [
+        "pih.reference.v1"
+      ],
+      "local_ids": [
+        "ksdft2effmass.extension.v1"
+      ],
+      "expected": "PASS"
+    },
+    {
+      "case_id": "local-replaces-generic-id",
+      "generic_ids": [
+        "pih.reference.v1"
+      ],
+      "local_ids": [
+        "pih.reference.v1"
+      ],
+      "expected": "PIH.RESOURCE.OVERLAY_REPLACEMENT"
+    },
+    {
+      "case_id": "local-reuses-generic-path",
+      "generic_paths": [
+        "references/evidence.md"
+      ],
+      "local_paths": [
+        "references/evidence.md"
+      ],
+      "expected": "PIH.RESOURCE.OVERLAY_REPLACEMENT"
+    },
+    {
+      "case_id": "generic-project-id-leak",
+      "generic_text": "Use SV-CPN-001 for ksdft2effmass under .pi/evidence.",
+      "forbidden_tokens": [
+        "SV-CPN-001",
+        "ksdft2effmass",
+        ".pi/evidence"
+      ],
+      "expected": "FAIL"
+    },
+    {
+      "case_id": "generic-clean-parameterized",
+      "generic_text": "Select the marker and namespace from the explicitly supplied project profile.",
+      "forbidden_tokens": [],
+      "expected": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H3.acceptance-index.v1",
+  "task_id": "H3",
+  "phase": "checksum_boundary_finalized_checkpoint_pending",
+  "acceptance_status": "final_reviews_pass_checksum_finalized_checkpoint_pending_human_acceptance",
+  "outputs": [
+    {
+      "artifact_identity": "H3.acceptance-index.v1",
+      "path": ".pi/evidence/pi-harness-incubation/H3/acceptance-index.json",
+      "kind": "acceptance_index",
+      "status": "final_review_pass_precheckpoint_candidate",
+      "content_identity_status": "deferred_until_final_review_stabilization"
+    },
+    {
+      "artifact_identity": "H3.generic-resource-manifest.v1",
+      "path": "harness/pi/resource-manifest.json",
+      "kind": "generic_resource_manifest",
+      "represented_identity": {
+        "manifest_id": "pih.generic.resources",
+        "manifest_version": 1
+      },
+      "status": "final_review_pass_precheckpoint_candidate",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "8a681a17ab9920b64c78ec76c3d8bb08d20924e6222cc5f9fcafdd6065f3b183"
+      }
+    },
+    {
+      "artifact_identity": "H3.local-resource-manifest.v1",
+      "path": "harness/local/resource-manifest.json",
+      "kind": "local_resource_manifest",
+      "represented_identity": {
+        "manifest_id": "ksdft2effmass.local.resources",
+        "manifest_version": 1,
+        "extends_manifest_id": "pih.generic.resources"
+      },
+      "status": "final_review_pass_precheckpoint_candidate",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "cb5556f1a2d924cb11094da99bfba8832a93edace99cd612db9d924db1577f98"
+      }
+    },
+    {
+      "artifact_identity": "H3.project-profile.ksdft2effmass.v1",
+      "path": "harness/local/profiles/ksdft2effmass-v1.json",
+      "kind": "project_profile",
+      "represented_identity": {
+        "profile_id": "ksdft2effmass.profile.v1",
+        "public_contract_version": 1,
+        "generic_manifest_id": "pih.generic.resources",
+        "generic_manifest_version": 1,
+        "local_manifest_id": "ksdft2effmass.local.resources",
+        "local_manifest_version": 1
+      },
+      "status": "final_review_pass_precheckpoint_candidate",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "68c9fa503d7e53973bf4daa679e841268e25f0b546c84fa2536dc94c1f69a295"
+      }
+    },
+    {
+      "artifact_identity": "H3.completion-validator.v1",
+      "path": "harness/pi/validation/validate_h3_resources.py",
+      "kind": "completion_validator",
+      "command": [
+        "python",
+        "harness/pi/validation/validate_h3_resources.py"
+      ],
+      "status": "final_review_pass_precheckpoint_candidate",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "db86f2adb546a27a068719b4886066985a91865564bc55cb9eb7757699687ae8"
+      }
+    }
+  ],
+  "supporting_evidence": [
+    ".pi/evidence/pi-harness-incubation/H3/activation.json",
+    ".pi/evidence/pi-harness-incubation/H3/task-ownership.json",
+    ".pi/evidence/pi-harness-incubation/H3/unrelated-worktree-baseline.json",
+    ".pi/evidence/pi-harness-incubation/H3/validation-results.json",
+    ".pi/evidence/pi-harness-incubation/H3/external-control-validation.json",
+    ".pi/evidence/pi-harness-incubation/H3/consolidated-correction-1.md",
+    ".pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json"
+  ],
+  "review_artifacts": [
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H3/review-architecture-initial.md",
+      "verdict": "FAIL",
+      "phase": "initial"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H3/review-evidence-vvuq-initial.md",
+      "verdict": "FAIL",
+      "phase": "initial"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H3/review-integration-initial.md",
+      "verdict": "FAIL",
+      "phase": "initial"
+    }
+  ],
+  "checksum_catalog": ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
+  "checksum_status": "finalized",
+  "human_acceptance_claimed": false,
+  "final_review_artifacts": [
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H3/review-architecture.md",
+      "status": "PASS",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "382be4619a0f42869ab3d88408db9e3c1a4ef801ec2bbe7139e5c4c05a7be16f"
+      }
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H3/review-evidence-vvuq.md",
+      "status": "PASS",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "d58ed7c4862a476e5c358e319d9d89dd7b652ffb9251a37179e9fcf3dfb99111"
+      }
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H3/review-integration.md",
+      "status": "PASS",
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "6254e9e7c53e7270233d526fde84d91227c55d7e6eeb85fb35bbb64f3279c3ca"
+      }
+    }
+  ],
+  "checkpoint": {
+    "path": ".pi/checkpoints/H3-HC01-final-acceptance.json",
+    "status": "pending",
+    "human_response": null
+  },
+  "planned_finalization": {
+    "checksum_path": ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
+    "checkpoint_path": ".pi/checkpoints/H3-HC01-final-acceptance.json",
+    "checksum_generated": true,
+    "checkpoint_created": true,
+    "checkpoint_status": "pending"
+  },
+  "human_accepted": false
+}

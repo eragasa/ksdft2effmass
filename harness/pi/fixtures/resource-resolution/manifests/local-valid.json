@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "manifest_id": "example.local.resources",
+  "manifest_version": 1,
+  "layer": "local",
+  "extends_manifest_id": "example.generic.resources",
+  "resources": [
+    {
+      "schema_version": 1,
+      "resource_id": "local.extension.v1",
+      "resource_kind": "reference",
+      "format_version": 1,
+      "path": "extensions/local.txt",
+      "content_identity": {
+        "schema_version": 1,
+        "algorithm": "sha256",
+        "digest": "dbedd336e097b803e380e8e45a4370c2b210259565a8c67f4566d1a0ee39e69e"
+      },
+      "dependency_ids": [
+        "example.base.v1"
+      ]
+    }
+  ]
+}

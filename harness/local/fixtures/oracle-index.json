@@ -1,0 +1,6 @@
+{
+  "explicit_profile": "explicit-profile/use-cases.json",
+  "overlay_and_leakage": "overlay-and-leakage/cases.json",
+  "evidence_classification": "evidence-classification/cases.json",
+  "claim_boundary": "These fixtures verify structural software behavior. The numerical_verification label is profile classification input only; no numerical result, scientific validation, or uncertainty-quantification claim is made."
+}

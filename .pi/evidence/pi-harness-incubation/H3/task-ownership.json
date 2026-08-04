@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "task_id": "H3",
+  "task_record": ".pi/tasks/pi-harness-incubation-H3-resources.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "harness-generic-resource-writer",
+        "agent": "ksdft2effmass-harness-generic-resource-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-generic-resource-writer.md",
+        "owned_paths": ["harness/pi/resource-manifest.json", "harness/pi/schemas", "harness/pi/skills"]
+      },
+      {
+        "role": "harness-local-resource-writer",
+        "agent": "ksdft2effmass-harness-local-resource-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-local-resource-writer.md",
+        "owned_paths": ["harness/local/resource-manifest.json", "harness/local/profiles", "harness/local/extensions"]
+      },
+      {
+        "role": "harness-resource-test-writer",
+        "agent": "ksdft2effmass-harness-resource-test-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-resource-test-writer.md",
+        "owned_paths": ["harness/pi/fixtures", "harness/local/fixtures"]
+      },
+      {
+        "role": "harness-resource-validation-writer",
+        "agent": "ksdft2effmass-harness-resource-validation-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-resource-validation-writer.md",
+        "owned_paths": ["harness/pi/validation"]
+      },
+      {
+        "role": "harness-resource-documentation-writer",
+        "agent": "ksdft2effmass-harness-resource-documentation-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-resource-documentation-writer.md",
+        "owned_paths": ["harness/pi/docs", "harness/local/docs"]
+      },
+      {
+        "role": "harness-h3-verification-evidence-writer",
+        "agent": "ksdft2effmass-harness-h3-verification-evidence-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-h3-verification-evidence-writer.md",
+        "owned_paths": [".pi/evidence/pi-harness-incubation/H3"]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "harness-resource-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-resource-architecture-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-resource-architecture-reviewer.md"
+      },
+      {
+        "role": "harness-resource-evidence-vvuq-reviewer",
+        "agent": "ksdft2effmass-harness-resource-evidence-vvuq-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-resource-evidence-vvuq-reviewer.md"
+      },
+      {
+        "role": "harness-resource-integration-reviewer",
+        "agent": "ksdft2effmass-harness-resource-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-resource-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": "harness/pi/validation/validate_h3_resources.py",
+    "command": ["python", "harness/pi/validation/validate_h3_resources.py"],
+    "required_before_review": true
+  }
+}

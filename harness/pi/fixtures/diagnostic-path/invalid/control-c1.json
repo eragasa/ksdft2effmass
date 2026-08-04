@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "code": "PIH.PATH.MISSING",
+  "severity": "ERROR",
+  "subject_id": "subject.example",
+  "path": "reports/break",
+  "related_ids": [
+    "related.a",
+    "related.b"
+  ],
+  "message": "Deterministic fixture finding."
+}

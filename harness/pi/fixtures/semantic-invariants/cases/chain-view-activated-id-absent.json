@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "chain_id": "example-chain",
+  "active_task_id": "T1",
+  "tasks": [
+    {
+      "schema_version": 1,
+      "task_id": "T1",
+      "record_path": "tasks/T1.json",
+      "task_prerequisite_ids": [],
+      "external_prerequisite_ids": [],
+      "status": "active",
+      "explicit_activation_required": true
+    }
+  ],
+  "explicitly_activated_task_ids": [
+    "T1",
+    "T-ABSENT"
+  ],
+  "production_execution_authorized": false,
+  "package_publication_authorized": false
+}

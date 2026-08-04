@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/validation-result.schema.json",
+  "title": "ValidationResult",
+  "type": "object",
+  "description": "The status/severity relation is enforced here: ERROR implies FAIL, otherwise WARNING implies WARN, otherwise PASS. JSON Schema rejects duplicate whole issue objects but cannot coalesce the public machine duplicate key when messages differ or enforce the total issue ordering; result construction must enforce those semantic constraints. Schema conformance is structural only and does not establish authorization, correctness, or acceptance.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL"
+      ]
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "validation-issue.schema.json"
+      },
+      "uniqueItems": true,
+      "description": "Duplicate whole objects are rejected here. Machine-key uniqueness and deterministic ordering are semantic-validator responsibilities."
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "issues"
+  ],
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "status": {
+          "const": "PASS"
+        },
+        "issues": {
+          "maxItems": 0
+        }
+      }
+    },
+    {
+      "properties": {
+        "status": {
+          "const": "WARN"
+        },
+        "issues": {
+          "minItems": 1,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "validation-issue.schema.json"
+              },
+              {
+                "properties": {
+                  "severity": {
+                    "const": "WARNING"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "status": {
+          "const": "FAIL"
+        },
+        "issues": {
+          "contains": {
+            "allOf": [
+              {
+                "$ref": "validation-issue.schema.json"
+              },
+              {
+                "properties": {
+                  "severity": {
+                    "const": "ERROR"
+                  }
+                }
+              }
+            ]
+          },
+          "minContains": 1
+        }
+      }
+    }
+  ]
+}

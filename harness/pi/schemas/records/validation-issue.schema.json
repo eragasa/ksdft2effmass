@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/validation-issue.schema.json",
+  "title": "ValidationIssue",
+  "type": "object",
+  "description": "A deterministic validation diagnostic. path is the reusable neutral DiagnosticPath or null, not a regular-file resource path. JSON Schema enforces the closed code/severity relation and whole-array uniqueness of related_ids; the semantic validator must enforce canonical related-ID ordering. Schema conformance does not establish correctness or acceptance of the diagnosed subject.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "code": {
+      "enum": [
+        "PIH.WIRE.INVALID_UTF8",
+        "PIH.WIRE.INVALID_JSON",
+        "PIH.WIRE.DUPLICATE_KEY",
+        "PIH.WIRE.UNKNOWN_FIELD",
+        "PIH.WIRE.MISSING_FIELD",
+        "PIH.WIRE.INVALID_TYPE",
+        "PIH.WIRE.INVALID_VALUE",
+        "PIH.WIRE.UNSUPPORTED_VERSION",
+        "PIH.ID.EMPTY",
+        "PIH.ID.INVALID_ASCII",
+        "PIH.ID.DUPLICATE",
+        "PIH.PATH.EMPTY",
+        "PIH.PATH.ABSOLUTE",
+        "PIH.PATH.INVALID_SEGMENT",
+        "PIH.PATH.INVALID_CHARACTER",
+        "PIH.PATH.NONCANONICAL_UNICODE",
+        "PIH.PATH.WINDOWS_SYNTAX",
+        "PIH.PATH.CASE_MISMATCH",
+        "PIH.PATH.ESCAPE",
+        "PIH.PATH.SYMLINK",
+        "PIH.PATH.MISSING",
+        "PIH.PATH.NOT_FILE",
+        "PIH.PATH.ROOT_INVALID",
+        "PIH.ARTIFACT.ALGORITHM_UNSUPPORTED",
+        "PIH.ARTIFACT.DIGEST_INVALID",
+        "PIH.ARTIFACT.HASH_MISMATCH",
+        "PIH.RESOURCE.MANIFEST_MISMATCH",
+        "PIH.RESOURCE.DUPLICATE_ID",
+        "PIH.RESOURCE.DUPLICATE_PATH",
+        "PIH.RESOURCE.MISSING_DEPENDENCY",
+        "PIH.RESOURCE.DEPENDENCY_CYCLE",
+        "PIH.RESOURCE.GENERIC_TO_LOCAL_DEPENDENCY",
+        "PIH.RESOURCE.OVERLAY_REPLACEMENT",
+        "PIH.RESOURCE.KIND_UNSUPPORTED",
+        "PIH.RESOURCE.VERSION_INCOMPATIBLE",
+        "PIH.RESOURCE.NOT_FOUND",
+        "PIH.RESOURCE.AMBIGUOUS_SELECTION",
+        "PIH.PROFILE.IDENTITY_MISMATCH",
+        "PIH.PROFILE.CONTRACT_INCOMPATIBLE",
+        "PIH.PROFILE.POLICY_REFERENCE_UNKNOWN",
+        "PIH.PROFILE.VOCABULARY_OVERLAP",
+        "PIH.PROFILE.EXTENSION_UNSUPPORTED",
+        "PIH.SKILL.DUPLICATE_ID",
+        "PIH.SKILL.ENTRY_MISSING",
+        "PIH.SKILL.ENTRY_KIND_INVALID",
+        "PIH.SKILL.CLOSURE_INCOMPLETE",
+        "PIH.SKILL.POLICY_INCOMPATIBLE",
+        "PIH.SKILL.BEHAVIOR_INCOMPATIBLE",
+        "PIH.OWNERSHIP.TASK_MISMATCH",
+        "PIH.OWNERSHIP.AGENT_MISMATCH",
+        "PIH.OWNERSHIP.ROLE_DUPLICATE",
+        "PIH.OWNERSHIP.PATH_OVERLAP",
+        "PIH.OWNERSHIP.REVIEWER_NOT_INDEPENDENT",
+        "PIH.OWNERSHIP.COMPLETION_INVALID",
+        "PIH.OWNERSHIP.PROFILE_UNSUPPORTED",
+        "PIH.CHECKPOINT.DUPLICATE_ID",
+        "PIH.CHECKPOINT.TASK_UNKNOWN",
+        "PIH.CHECKPOINT.STATUS_UNKNOWN",
+        "PIH.CHECKPOINT.STATE_CONTRADICTION",
+        "PIH.CHECKPOINT.DECISION_DUPLICATE",
+        "PIH.CHAIN.TASK_DUPLICATE",
+        "PIH.CHAIN.PREREQUISITE_MISSING",
+        "PIH.CHAIN.PREREQUISITE_CYCLE",
+        "PIH.CHAIN.ACTIVE_CONTRADICTION",
+        "PIH.CHAIN.ACTIVATION_MISSING",
+        "PIH.CHAIN.ACTIVATION_UNEXPECTED",
+        "PIH.CHAIN.STATUS_UNKNOWN",
+        "PIH.EVIDENCE.SOURCE_INVALID",
+        "PIH.EVIDENCE.ID_INVALID",
+        "PIH.EVIDENCE.ID_DUPLICATE",
+        "PIH.EVIDENCE.NAMESPACE_UNDECLARED",
+        "PIH.EVIDENCE.MARKER_UNDECLARED",
+        "PIH.EVIDENCE.RANGE_CONFLICT",
+        "PIH.EVIDENCE.PROTECTED_GAP",
+        "PIH.CHECKSUM.ENTRY_DUPLICATE",
+        "PIH.CHECKSUM.FILE_MISSING",
+        "PIH.CHECKSUM.HASH_MISMATCH"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "ERROR",
+        "WARNING",
+        "INFO"
+      ]
+    },
+    "subject_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "path": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/DiagnosticPath"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "related_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Whole-array duplicates are rejected here; strict identifier ordering is a semantic-validator responsibility."
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "code",
+    "severity",
+    "subject_id",
+    "path",
+    "related_ids",
+    "message"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "code": {
+            "const": "PIH.EVIDENCE.PROTECTED_GAP"
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severity": {
+            "const": "WARNING"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "severity": {
+            "const": "ERROR"
+          }
+        }
+      }
+    }
+  ]
+}

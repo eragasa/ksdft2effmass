@@ -1,0 +1,1 @@
+directory candidate marker; the parent directory is the selected non-file resource

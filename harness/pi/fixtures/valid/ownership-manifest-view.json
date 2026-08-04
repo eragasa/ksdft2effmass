@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task_id": "T1",
+  "task_record_path": "tasks/T1.json",
+  "writers": [
+    [
+      "resource-writer",
+      "agent.writer",
+      [
+        {
+          "schema_version": 1,
+          "path": "src/component",
+          "scope_kind": "directory_tree"
+        }
+      ]
+    ]
+  ],
+  "reviewers": [
+    [
+      "independent-reviewer",
+      "agent.reviewer"
+    ]
+  ],
+  "completion_validator_path": "validation/complete.py",
+  "completion_command": [
+    "python",
+    "validation/complete.py"
+  ],
+  "orchestration_profile_id": null
+}

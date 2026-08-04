@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "resource_id": "example.reference.v1",
+  "resource_kind": "reference",
+  "format_version": 1,
+  "path": "references/example.txt",
+  "content_identity": {
+    "schema_version": 1,
+    "algorithm": "sha256",
+    "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "dependency_ids": [
+    "example.reference.v1"
+  ]
+}

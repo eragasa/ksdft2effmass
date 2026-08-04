@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "task_id": "T1",
+  "record_path": "tasks/T1.json",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "status": "active",
+  "explicit_activation_required": true
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "evidence_id": "VX-B-001",
+  "path": "tests/classification-beta/test_example.py",
+  "line": 1
+}

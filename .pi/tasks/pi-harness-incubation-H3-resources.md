@@ -1,17 +1,22 @@
 # H3 — Skills and textual-resource extraction
 
-Status: blocked by accepted H1; inactive and no extraction or retirement authorized
+Status: implementation and required validation/review complete; blocked at pending `H3-HC01` final human acceptance; H2 remains inactive and separately authorized
 
 ## Objective
 
 Create accepted generic operational skills and textual resources under `harness/pi/`, with project profiles/extensions under `harness/local/`, without copying project-specific task IDs, evidence prefixes, scientific semantics, or repository paths into the generic layer.
 
-## Prerequisite
+## Activation and prerequisite
 
-`H1:human_accepted`, plus a validated task-ownership manifest with explicit
-resource/profile paths and separate implementation, documentation, test, and
-review ownership. H3 requires its own separate activation; accepted H1 does not
-activate H3.
+`H1:human_accepted` is satisfied through resolved `H1-HC02`. The human PI
+separately activated H3 on 2026-08-04 in the instruction titled "Activate and
+execute H3 under its existing accepted task, chain, H1 contract, ownership,
+review, and validation requirements". Activation is retained at
+`.pi/evidence/pi-harness-incubation/H3/activation.json`. The required version-2
+ownership manifest is
+`.pi/evidence/pi-harness-incubation/H3/task-ownership.json`; it must validate
+before any resource writer edits. This activation authorizes H3 only and does
+not activate H2, H4, H5, or P2.
 
 ## Planned scope
 
@@ -38,8 +43,15 @@ No generic Python implementation owned by H2, no silent skill retirement, no rep
 H3 precedes H2 and must not overlap H2. It establishes the accepted generic and
 local textual resource identities that H2 consumes.
 
+## Final checkpoint
+
+The accepted resource validator, separate control checks, one consolidated
+correction cycle, and three final independent read-only reviews report `PASS`.
+H3 is blocked at `.pi/checkpoints/H3-HC01-final-acceptance.json`. This technical
+state is not human acceptance.
+
 ## Stop
 
-H3 concludes at separate human acceptance. Accepted H3 satisfies H2's task
+H3 concludes only at separate human acceptance. Accepted H3 satisfies H2's task
 prerequisite but does not activate H2; H2 requires its own separate human
 authorization.

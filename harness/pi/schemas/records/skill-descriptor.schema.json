@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/skill-descriptor.schema.json",
+  "title": "SkillDescriptor",
+  "type": "object",
+  "description": "JSON Schema enforces field shapes, closed policy values, nonempty closures, and whole-array uniqueness. It cannot compare entry_resource_id or authorization_policy_id with required_resource_ids or assert identifier ordering; ValidateSkillResources must establish closure inclusion, resource kinds, declared dependencies, and policy/behavior compatibility. Schema conformance grants no invocation authority or acceptance.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "skill_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "behavior_version": {
+      "$ref": "common.schema.json#/$defs/Version"
+    },
+    "entry_resource_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "trigger_capability_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted."
+    },
+    "required_resource_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Whole-array duplicates are rejected here. Strict ordering and inclusion of entry_resource_id are semantic-validator responsibilities."
+    },
+    "side_effect_class": {
+      "enum": [
+        "read_only",
+        "local_write",
+        "external_effect"
+      ]
+    },
+    "authorization_policy_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "retry_policy": {
+      "enum": [
+        "none",
+        "explicit_authorization_only"
+      ]
+    },
+    "termination_policy": {
+      "const": "stop_after_result"
+    }
+  },
+  "required": [
+    "schema_version",
+    "skill_id",
+    "behavior_version",
+    "entry_resource_id",
+    "trigger_capability_ids",
+    "required_resource_ids",
+    "side_effect_class",
+    "authorization_policy_id",
+    "retry_policy",
+    "termination_policy"
+  ],
+  "additionalProperties": false
+}

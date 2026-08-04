@@ -2,9 +2,9 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0 and H1 are closed as human-accepted PASS. H3, H2, and H4 remain sequentially blocked and inactive. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
-  "status": "h1_closed_human_accepted_pass_no_successor_active",
-  "active_task": null,
+  "description": "Separate harness-incubation project. H0 and H1 are closed as human-accepted PASS. H3 implementation, validation, and final reviews are complete and H3 is blocked at its final human checkpoint. H2 and H4 remain sequentially blocked and inactive. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
+  "status": "h3_blocked_at_final_human_acceptance",
+  "active_task": "H3",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
   "architecture_documents": [
@@ -51,7 +51,8 @@
       "id": "H3",
       "record": ".pi/tasks/pi-harness-incubation-H3-resources.md",
       "prerequisites": ["H1:human_accepted"],
-      "status": "blocked"
+      "status": "active_blocked_at_checkpoint",
+      "ownership_manifest": ".pi/evidence/pi-harness-incubation/H3/task-ownership.json"
     },
     {
       "id": "H2",
@@ -137,13 +138,21 @@
       "authorized_at": "2026-08-04T13:28:09Z",
       "authority": "Explicit human instruction titled Activate and execute H1 — PI Harness contract and package boundary",
       "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
+    },
+    {
+      "task": "H3",
+      "authorized_at": "2026-08-04T16:47:49Z",
+      "authority": "Explicit human instruction titled Activate and execute H3 under its existing accepted task, chain, H1 contract, ownership, review, and validation requirements",
+      "scope": "H3 generic and project-local textual resources, fixtures, validation, documentation, evidence, reviews, H3-to-H2 handoff, and final H3 checkpoint only; no H2/H4/H5/P2 activation or Python implementation."
     }
   ],
-  "pending_checkpoints": [],
+  "pending_checkpoints": [
+    ".pi/checkpoints/H3-HC01-final-acceptance.json"
+  ],
   "chain": [
     {
-      "phase": "await-separate-H3-activation",
-      "message": "H0 and H1 are closed as human-accepted PASS. No harness task is active. H3 remains blocked and requires separate explicit human activation plus a validated task-ownership manifest; H2, H4, H5, and P2-P11 remain blocked. No implementation, resource/schema creation, extraction, package publication, external execution, or scientific execution is authorized."
+      "phase": "await-H3-final-human-acceptance",
+      "message": "H3 resource implementation, validation, one consolidated correction cycle, and three final independent PASS reviews are complete. H3 remains the sole active task but is blocked at H3-HC01. H2, H4, H5, and P2-P11 remain blocked and inactive; no Python implementation, live-skill retirement, protected execution, or scientific execution is authorized."
     }
   ]
 }

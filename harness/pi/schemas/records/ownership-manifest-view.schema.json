@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/ownership-manifest-view.schema.json",
+  "title": "OwnershipManifestView",
+  "type": "object",
+  "description": "JSON Schema enforces normalized tuple shapes, nonempty writer/reviewer collections, and whole-item uniqueness. It cannot enforce uniqueness of individual role/agent tuple positions, cross-writer scope nonoverlap, writer/reviewer disjointness, canonical ordering, or completion-path ownership; ValidateOwnershipManifest must enforce those semantic relations. Schema conformance alone grants no path authority or acceptance.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "task_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "task_record_path": {
+      "$ref": "common.schema.json#/$defs/ResourcePath"
+    },
+    "writers": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "ownership-scope.schema.json"
+            },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "Strictly sorted by path then scope_kind and pairwise nonoverlapping."
+          }
+        ],
+        "items": false,
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Writer role, agent, and owned scopes."
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Strictly sorted by role then agent; roles and agents unique."
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          }
+        ],
+        "items": false,
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Reviewer role and agent."
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Strictly sorted by role then agent; roles and agents unique and disjoint from writers."
+    },
+    "completion_validator_path": {
+      "$ref": "common.schema.json#/$defs/ResourcePath"
+    },
+    "completion_command": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "orchestration_profile_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "task_record_path",
+    "writers",
+    "reviewers",
+    "completion_validator_path",
+    "completion_command",
+    "orchestration_profile_id"
+  ],
+  "additionalProperties": false
+}

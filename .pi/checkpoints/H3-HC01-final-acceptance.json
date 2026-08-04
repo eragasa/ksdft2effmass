@@ -1,0 +1,50 @@
+{
+  "checkpoint_id": "H3-HC01",
+  "task_id": "H3",
+  "episode_id": "pi-harness-incubation-H3",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T18:01:46Z",
+  "question": "Does the human PI accept H3 skills and textual-resource extraction as PASS, including the generic resources under harness/pi/, project-local profile/extensions under harness/local/, schemas, manifests, skill closure, fixtures, canonical vectors, DiagnosticPath cases, resource validator, zero generic-to-local leakage, documentation, one consolidated correction cycle, final independent PASS reviews, and the H3-to-H2 handoff, while leaving H2 inactive pending separate explicit activation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept H3 as PASS and close H3 only.",
+      "consequence": "Record H3 human acceptance and close H3. This satisfies H2's H3-acceptance prerequisite but does not activate H2. H2, H4, H5, P2-P11, Python implementation, live-skill retirement, protected execution, and scientific execution remain inactive or blocked until separately authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Reject H3 or require explicitly specified further work.",
+      "consequence": "Keep H3 open and preserve the response verbatim. Because the accepted single consolidated correction cycle has been used, no further writer/reviewer loop begins without explicit human scope and procedure. No successor is activated."
+    },
+    {
+      "id": "C",
+      "summary": "Defer H3 acceptance.",
+      "consequence": "Keep H3 blocked at H3-HC01 with all validated resources and evidence retained. No successor, implementation, retirement, or protected execution begins."
+    }
+  ],
+  "recommendation": "Option A. H3 now conforms to the accepted H1 contract: the resource validator passes 46 deterministic software-verification gates; ownership and checkpoint controls pass separately; all initial review findings were addressed in the one permitted consolidated correction cycle; three final independent read-only reviews report PASS; generic resources contain no project-local dependency or leakage; and the handoff explicitly leaves H2 inactive pending human H3 acceptance and separate H2 authorization.",
+  "blocked_scope": "H3 closure and human acceptance; H2, H4, H5, P2-P11 activation; Python implementation; live-skill retirement or dispatch cutover; dependencies or lockfiles; protected, external, numerical, scientific, release, or publication execution; unrelated work.",
+  "safe_scope": "Read-only inspection of the committed H3 boundary, manifests, schemas, profiles, skills, fixtures, canonical vectors, DiagnosticPath cases, validation, documentation, reviews, correction record, checksums, H3-to-H2 handoff, and this checkpoint. The resolve-human-checkpoint procedure may record an unambiguous human response without automatically activating H2.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/pi-harness-incubation-H3-resources.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/checkpoints/H3-HC01-final-acceptance.json",
+    ".pi/evidence/pi-harness-incubation/H3/acceptance-index.json",
+    ".pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json",
+    ".pi/evidence/pi-harness-incubation/H3/validation-results.json",
+    ".pi/evidence/pi-harness-incubation/H3/final-precheckpoint-validation.json",
+    ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
+    "harness/pi/resource-manifest.json",
+    "harness/local/resource-manifest.json",
+    "harness/local/profiles/ksdft2effmass-v1.json",
+    "harness/pi/validation/validate_h3_resources.py"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "H3_validated_and_blocked_at_final_human_acceptance; H2_and_all_successors_inactive"
+}

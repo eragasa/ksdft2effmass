@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/agent-descriptor-view.schema.json",
+  "title": "AgentDescriptorView",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "agent_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "acceptance_role": {
+      "enum": [
+        "writer",
+        "read_only"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "agent_id",
+    "acceptance_role"
+  ],
+  "additionalProperties": false
+}

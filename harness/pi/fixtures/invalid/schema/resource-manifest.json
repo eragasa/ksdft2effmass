@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "manifest_id": "example.generic.resources",
+  "manifest_version": 1,
+  "layer": "generic",
+  "extends_manifest_id": null,
+  "resources": []
+}

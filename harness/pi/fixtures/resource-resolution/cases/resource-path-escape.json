@@ -1,0 +1,146 @@
+{
+  "case_id": "resource-path-escape",
+  "generic_root": "roots/generic",
+  "generic_manifest": {
+    "schema_version": 1,
+    "manifest_id": "example.generic.resources",
+    "manifest_version": 1,
+    "layer": "generic",
+    "extends_manifest_id": null,
+    "resources": [
+      {
+        "schema_version": 1,
+        "resource_id": "example.base.v1",
+        "resource_kind": "reference",
+        "format_version": 1,
+        "path": "references/base.txt",
+        "content_identity": {
+          "schema_version": 1,
+          "algorithm": "sha256",
+          "digest": "6e85ce779ea48ff24964dc237d21dc3323d261f827c02dc65eb7f6abe948239e"
+        },
+        "dependency_ids": []
+      },
+      {
+        "schema_version": 1,
+        "resource_id": "example.leaf.v1",
+        "resource_kind": "reference",
+        "format_version": 1,
+        "path": "references/outside-link.txt",
+        "content_identity": {
+          "schema_version": 1,
+          "algorithm": "sha256",
+          "digest": "952324f24897250442365021d71f367da0fb2ba7d8f52a4b4b4477533ba06a0b"
+        },
+        "dependency_ids": [
+          "example.base.v1"
+        ]
+      }
+    ]
+  },
+  "local_root": null,
+  "local_manifest": null,
+  "profile": {
+    "schema_version": 1,
+    "profile_id": "example.profile.v1",
+    "public_contract_version": 1,
+    "generic_manifest_id": "example.generic.resources",
+    "generic_manifest_version": 1,
+    "local_manifest_id": null,
+    "local_manifest_version": null,
+    "overlay_policy": "extend_only",
+    "policy_reference_ids": [
+      "example.policy.v1"
+    ],
+    "supported_resource_formats": [
+      [
+        "reference",
+        1
+      ]
+    ],
+    "supported_skill_behaviors": [
+      [
+        "example-skill",
+        1
+      ]
+    ],
+    "evidence_namespace_rules": [
+      [
+        "VX-A",
+        1,
+        9,
+        3
+      ],
+      [
+        "VX-B",
+        1,
+        9,
+        3
+      ]
+    ],
+    "evidence_scope_rules": [
+      [
+        {
+          "schema_version": 1,
+          "path": "tests/classification-alpha",
+          "scope_kind": "directory_tree"
+        },
+        "verification_alpha",
+        [
+          "VX-A"
+        ]
+      ],
+      [
+        {
+          "schema_version": 1,
+          "path": "tests/classification-beta",
+          "scope_kind": "directory_tree"
+        },
+        "verification_beta",
+        [
+          "VX-B"
+        ]
+      ]
+    ],
+    "protected_unowned_functions": [],
+    "pytest_markers": [
+      "verification_alpha",
+      "verification_beta"
+    ],
+    "filename_policy_id": null,
+    "checkpoint_unresolved_statuses": [
+      "pending"
+    ],
+    "checkpoint_resolved_statuses": [
+      "resolved"
+    ],
+    "task_active_statuses": [
+      "active"
+    ],
+    "task_blocked_statuses": [
+      "blocked"
+    ],
+    "task_satisfied_statuses": [
+      "accepted"
+    ],
+    "compatibility_adapter_version": null,
+    "local_extension_ids": []
+  },
+  "resource_id": "example.leaf.v1",
+  "expected": {
+    "status": "FAIL",
+    "issue_code": "PIH.PATH.SYMLINK"
+  },
+  "temporary_tree_setup": {
+    "base": "roots",
+    "operations": [
+      {
+        "operation": "create_symlink",
+        "path": "generic/references/outside-link.txt",
+        "target": "../../outside/secret.txt",
+        "target_is_directory": false
+      }
+    ]
+  },
+  "oracle_note": "The target is outside the generic root, but The accepted path contract rejects the symlink component before resolved-confinement escape; PIH.PATH.SYMLINK is therefore the required deterministic result."
+}

@@ -1,0 +1,167 @@
+{
+  "cases": [
+    {
+      "case_id": "dependency-cycle",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.DEPENDENCY_CYCLE"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "duplicate-resource-id",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.DUPLICATE_ID"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "duplicate-resource-path",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.DUPLICATE_PATH"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "generic-to-local-dependency",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.GENERIC_TO_LOCAL_DEPENDENCY"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "incompatible-format-version",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.VERSION_INCOMPATIBLE"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "local-overlay-duplicate-id",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.OVERLAY_REPLACEMENT"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "local-overlay-duplicate-path",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.OVERLAY_REPLACEMENT"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "manifest-profile-incompatible",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.MANIFEST_MISMATCH"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "missing-dependency",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.MISSING_DEPENDENCY"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resolve-generic-leaf",
+      "expected": {
+        "status": "PASS",
+        "issue_code": null
+      },
+      "selected_layer": "generic",
+      "selected_relative_path": "references/leaf.txt"
+    },
+    {
+      "case_id": "resolve-local-extension",
+      "expected": {
+        "status": "PASS",
+        "issue_code": null
+      },
+      "selected_layer": "local",
+      "selected_relative_path": "extensions/local.txt"
+    },
+    {
+      "case_id": "resource-case-mismatch",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.PATH.CASE_MISMATCH"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resource-file-missing",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.PATH.MISSING"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resource-hash-mismatch",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.ARTIFACT.HASH_MISMATCH"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resource-not-file",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.PATH.NOT_FILE"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resource-not-found",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.NOT_FOUND"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resource-path-escape",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.PATH.SYMLINK"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    },
+    {
+      "case_id": "resource-symlink",
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.PATH.SYMLINK"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null
+    }
+  ],
+  "temporary_tree_policy": "Declarative setup operations run only in a disposable copy. No symlink is stored in the repository. Symlink components are rejected before resolved-confinement escape under the accepted path contract."
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/resource-reference.schema.json",
+  "title": "ResourceReference",
+  "type": "object",
+  "description": "JSON Schema enforces field shape and whole-array uniqueness. It cannot compare resource_id with dependency_ids or assert identifier ordering; ValidateResourceManifest must reject self-dependency and noncanonical dependency ordering. Schema conformance alone does not establish a resolvable or accepted resource.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "resource_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "resource_kind": {
+      "enum": [
+        "skill",
+        "reference",
+        "schema",
+        "template",
+        "profile",
+        "manifest",
+        "script",
+        "documentation"
+      ]
+    },
+    "format_version": {
+      "$ref": "common.schema.json#/$defs/Version"
+    },
+    "path": {
+      "$ref": "common.schema.json#/$defs/ResourcePath"
+    },
+    "content_identity": {
+      "$ref": "artifact-identity.schema.json"
+    },
+    "dependency_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Whole-array duplicates are rejected here. Strict identifier ordering and the cross-value rule that resource_id must not occur in dependency_ids are semantic-validator responsibilities."
+    }
+  },
+  "required": [
+    "schema_version",
+    "resource_id",
+    "resource_kind",
+    "format_version",
+    "path",
+    "content_identity",
+    "dependency_ids"
+  ],
+  "additionalProperties": false
+}

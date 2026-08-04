@@ -1,0 +1,122 @@
+{
+  "contract": "DiagnosticPath v1; exact input spelling is retained and invalid input is rejected, never normalized.",
+  "valid": [
+    {
+      "case": "regular-file",
+      "path": "tests/classification-beta/test_example.py",
+      "expected": "valid"
+    },
+    {
+      "case": "directory-tree-scope",
+      "path": "tests/verification/directory-scope",
+      "expected": "valid"
+    },
+    {
+      "case": "null",
+      "path": null,
+      "expected": "valid"
+    },
+    {
+      "case": "nfc-unicode",
+      "path": "résultats/café.json",
+      "expected": "valid"
+    }
+  ],
+  "invalid": [
+    {
+      "case": "absolute-posix",
+      "path": "/etc/passwd",
+      "expected": "PIH.PATH.ABSOLUTE"
+    },
+    {
+      "case": "dot-segment",
+      "path": "reports/./result.json",
+      "expected": "PIH.PATH.INVALID_SEGMENT"
+    },
+    {
+      "case": "dot-dot-segment",
+      "path": "reports/../result.json",
+      "expected": "PIH.PATH.INVALID_SEGMENT"
+    },
+    {
+      "case": "non-nfc",
+      "path": "résume",
+      "expected": "PIH.PATH.NONCANONICAL_UNICODE"
+    },
+    {
+      "case": "empty",
+      "path": "",
+      "expected": "PIH.PATH.EMPTY"
+    },
+    {
+      "case": "empty-segment",
+      "path": "reports//result.json",
+      "expected": "PIH.PATH.INVALID_SEGMENT"
+    },
+    {
+      "case": "repeated-separator",
+      "path": "a///b",
+      "expected": "PIH.PATH.INVALID_SEGMENT"
+    },
+    {
+      "case": "trailing-separator",
+      "path": "reports/",
+      "expected": "PIH.PATH.INVALID_SEGMENT"
+    },
+    {
+      "case": "control-c0",
+      "path": "reports/line\nbreak",
+      "expected": "PIH.PATH.INVALID_CHARACTER"
+    },
+    {
+      "case": "control-c1",
+      "path": "reports/break",
+      "expected": "PIH.PATH.INVALID_CHARACTER"
+    },
+    {
+      "case": "unicode-line-separator",
+      "path": "reports/ break",
+      "expected": "PIH.PATH.INVALID_CHARACTER"
+    },
+    {
+      "case": "backslash",
+      "path": "reports\\result.json",
+      "expected": "PIH.PATH.INVALID_CHARACTER"
+    },
+    {
+      "case": "windows-drive-absolute",
+      "path": "C:/temp/result.json",
+      "expected": "PIH.PATH.WINDOWS_SYNTAX"
+    },
+    {
+      "case": "windows-drive-relative",
+      "path": "C:temp/result.json",
+      "expected": "PIH.PATH.WINDOWS_SYNTAX"
+    },
+    {
+      "case": "windows-device",
+      "path": "\\\\?\\C:\\temp\\result.json",
+      "expected": "PIH.PATH.WINDOWS_SYNTAX"
+    },
+    {
+      "case": "windows-device-dot",
+      "path": "\\\\.\\NUL",
+      "expected": "PIH.PATH.WINDOWS_SYNTAX"
+    },
+    {
+      "case": "windows-unc",
+      "path": "\\\\server\\share\\result.json",
+      "expected": "PIH.PATH.WINDOWS_SYNTAX"
+    },
+    {
+      "case": "leading-double-slash",
+      "path": "//server/share/result.json",
+      "expected": "PIH.PATH.ABSOLUTE"
+    },
+    {
+      "case": "malformed-unpaired-surrogate",
+      "path_escaped": "reports/\\ud800.json",
+      "expected": "PIH.PATH.INVALID_CHARACTER"
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "canonicalization": "RFC 8785 JSON Canonicalization Scheme plus one LF byte",
+  "agreement_targets": [
+    "future Python consumer",
+    "intended Rust"
+  ],
+  "vectors": [
+    {
+      "vector_id": "wire-001-artifact-identity",
+      "record_kind": "ArtifactIdentity",
+      "instance_path": "../valid/artifact-identity.json",
+      "canonical_json": "{\"algorithm\":\"sha256\",\"digest\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"schema_version\":1}\n",
+      "canonical_sha256": "2783af8c6987f74884e594623c61bf7c0f7b6bde7078164e4cf385dabbc4e462"
+    },
+    {
+      "vector_id": "wire-002-resource-reference",
+      "record_kind": "ResourceReference",
+      "instance_path": "../valid/resource-reference.json",
+      "canonical_json": "{\"content_identity\":{\"algorithm\":\"sha256\",\"digest\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"schema_version\":1},\"dependency_ids\":[],\"format_version\":1,\"path\":\"references/example.txt\",\"resource_id\":\"example.reference.v1\",\"resource_kind\":\"reference\",\"schema_version\":1}\n",
+      "canonical_sha256": "c9be8f7437290c1e7c3d56df3a6cc15a5b8f1a8dd538521ec9ca65dbba4ddcf1"
+    },
+    {
+      "vector_id": "wire-003-resource-manifest",
+      "record_kind": "ResourceManifest",
+      "instance_path": "../valid/resource-manifest.json",
+      "canonical_json": "{\"extends_manifest_id\":null,\"layer\":\"generic\",\"manifest_id\":\"example.generic.resources\",\"manifest_version\":1,\"resources\":[{\"content_identity\":{\"algorithm\":\"sha256\",\"digest\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"schema_version\":1},\"dependency_ids\":[],\"format_version\":1,\"path\":\"references/example.txt\",\"resource_id\":\"example.reference.v1\",\"resource_kind\":\"reference\",\"schema_version\":1}],\"schema_version\":1}\n",
+      "canonical_sha256": "e8719b0a58b3d53892b9ce0b0a21215a34af713b526a449d531f7834a13aca7a"
+    },
+    {
+      "vector_id": "wire-004-project-profile",
+      "record_kind": "ProjectProfile",
+      "instance_path": "../valid/project-profile.json",
+      "canonical_json": "{\"checkpoint_resolved_statuses\":[\"resolved\"],\"checkpoint_unresolved_statuses\":[\"pending\"],\"compatibility_adapter_version\":null,\"evidence_namespace_rules\":[[\"VX-A\",1,9,3],[\"VX-B\",1,9,3]],\"evidence_scope_rules\":[[{\"path\":\"tests/classification-alpha\",\"schema_version\":1,\"scope_kind\":\"directory_tree\"},\"verification_alpha\",[\"VX-A\"]],[{\"path\":\"tests/classification-beta\",\"schema_version\":1,\"scope_kind\":\"directory_tree\"},\"verification_beta\",[\"VX-B\"]]],\"filename_policy_id\":null,\"generic_manifest_id\":\"example.generic.resources\",\"generic_manifest_version\":1,\"local_extension_ids\":[],\"local_manifest_id\":null,\"local_manifest_version\":null,\"overlay_policy\":\"extend_only\",\"policy_reference_ids\":[\"example.policy.v1\"],\"profile_id\":\"example.profile.v1\",\"protected_unowned_functions\":[],\"public_contract_version\":1,\"pytest_markers\":[\"verification_alpha\",\"verification_beta\"],\"schema_version\":1,\"supported_resource_formats\":[[\"reference\",1]],\"supported_skill_behaviors\":[[\"example-skill\",1]],\"task_active_statuses\":[\"active\"],\"task_blocked_statuses\":[\"blocked\"],\"task_satisfied_statuses\":[\"accepted\"]}\n",
+      "canonical_sha256": "bbe5c84bf78f3cf61ef923acf725655f18eac16027b0bbeacb6a077bd6c10297"
+    },
+    {
+      "vector_id": "wire-005-skill-descriptor",
+      "record_kind": "SkillDescriptor",
+      "instance_path": "../valid/skill-descriptor.json",
+      "canonical_json": "{\"authorization_policy_id\":\"example.policy.v1\",\"behavior_version\":1,\"entry_resource_id\":\"example.skill.entry.v1\",\"required_resource_ids\":[\"example.reference.v1\",\"example.skill.entry.v1\"],\"retry_policy\":\"none\",\"schema_version\":1,\"side_effect_class\":\"read_only\",\"skill_id\":\"example-skill\",\"termination_policy\":\"stop_after_result\",\"trigger_capability_ids\":[\"capability.audit\"]}\n",
+      "canonical_sha256": "61c6196c7560fb46390c884a91a59a92f76dc26e455838effb7b234880fc4a2e"
+    },
+    {
+      "vector_id": "wire-006-ownership-scope",
+      "record_kind": "OwnershipScope",
+      "instance_path": "../valid/ownership-scope.json",
+      "canonical_json": "{\"path\":\"src/component\",\"schema_version\":1,\"scope_kind\":\"directory_tree\"}\n",
+      "canonical_sha256": "156ec8e209bf17085e35d93e9401d7ccbcaeb4171682aedd71929cc51a1115d9"
+    },
+    {
+      "vector_id": "wire-007-agent-descriptor-view",
+      "record_kind": "AgentDescriptorView",
+      "instance_path": "../valid/agent-descriptor-view.json",
+      "canonical_json": "{\"acceptance_role\":\"writer\",\"agent_id\":\"agent.writer\",\"schema_version\":1}\n",
+      "canonical_sha256": "20e8c5df60ced4b79e24a179679dbefafc6c3b06c7960e5f9f3167ce5f4d534f"
+    },
+    {
+      "vector_id": "wire-008-ownership-manifest-view",
+      "record_kind": "OwnershipManifestView",
+      "instance_path": "../valid/ownership-manifest-view.json",
+      "canonical_json": "{\"completion_command\":[\"python\",\"validation/complete.py\"],\"completion_validator_path\":\"validation/complete.py\",\"orchestration_profile_id\":null,\"reviewers\":[[\"independent-reviewer\",\"agent.reviewer\"]],\"schema_version\":1,\"task_id\":\"T1\",\"task_record_path\":\"tasks/T1.json\",\"writers\":[[\"resource-writer\",\"agent.writer\",[{\"path\":\"src/component\",\"schema_version\":1,\"scope_kind\":\"directory_tree\"}]]]}\n",
+      "canonical_sha256": "6b12a16e36806cf7a243ae8e3d6d27c11a1a3116ecd0951bf8a539f9773617a7"
+    },
+    {
+      "vector_id": "wire-009-checkpoint-record",
+      "record_kind": "CheckpointRecord",
+      "instance_path": "../valid/checkpoint-record.json",
+      "canonical_json": "{\"authorized_scope\":null,\"checkpoint_id\":\"T1-HC01\",\"created_at\":\"2026-08-04T00:00:00Z\",\"decision_class\":\"contract\",\"episode_id\":\"episode-T1\",\"human_response\":null,\"normalized_decision\":null,\"options\":[[\"A\",\"Accept.\",null]],\"question\":\"Choose an accepted option.\",\"record_paths\":[\"tasks/T1.json\"],\"resolved_at\":null,\"resumption_status\":null,\"schema_version\":1,\"status\":\"pending\",\"task_id\":\"T1\"}\n",
+      "canonical_sha256": "a54c65619a3f0e49d48ba92da6bcc9940b53218037575690c2a1cd2371dd6177"
+    },
+    {
+      "vector_id": "wire-010-task-reference",
+      "record_kind": "TaskReference",
+      "instance_path": "../valid/task-reference.json",
+      "canonical_json": "{\"explicit_activation_required\":true,\"external_prerequisite_ids\":[],\"record_path\":\"tasks/T1.json\",\"schema_version\":1,\"status\":\"active\",\"task_id\":\"T1\",\"task_prerequisite_ids\":[]}\n",
+      "canonical_sha256": "a1ab843b8ae62390ec2e2c3b9b5dace87301340518a3a0db41610de819249ee7"
+    },
+    {
+      "vector_id": "wire-011-chain-view",
+      "record_kind": "ChainView",
+      "instance_path": "../valid/chain-view.json",
+      "canonical_json": "{\"active_task_id\":\"T1\",\"chain_id\":\"example-chain\",\"explicitly_activated_task_ids\":[\"T1\"],\"package_publication_authorized\":false,\"production_execution_authorized\":false,\"schema_version\":1,\"tasks\":[{\"explicit_activation_required\":true,\"external_prerequisite_ids\":[],\"record_path\":\"tasks/T1.json\",\"schema_version\":1,\"status\":\"active\",\"task_id\":\"T1\",\"task_prerequisite_ids\":[]}]}\n",
+      "canonical_sha256": "6cf5878a9834be2c0ca5527ff0b2cdd89a94f4cbea9486c294eb267d090a9a36"
+    },
+    {
+      "vector_id": "wire-012-checksum-entry",
+      "record_kind": "ChecksumEntry",
+      "instance_path": "../valid/checksum-entry.json",
+      "canonical_json": "{\"content_identity\":{\"algorithm\":\"sha256\",\"digest\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"schema_version\":1},\"path\":\"references/example.txt\",\"schema_version\":1}\n",
+      "canonical_sha256": "42af40210be40298fcecb7dd4616a9ee3d8ac7dda01e01416a6e7b7de47ae596"
+    },
+    {
+      "vector_id": "wire-013-checksum-manifest",
+      "record_kind": "ChecksumManifest",
+      "instance_path": "../valid/checksum-manifest.json",
+      "canonical_json": "{\"entries\":[{\"content_identity\":{\"algorithm\":\"sha256\",\"digest\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"schema_version\":1},\"path\":\"references/example.txt\",\"schema_version\":1}],\"schema_version\":1}\n",
+      "canonical_sha256": "a58ec686d58229ecdccbf40a617b6879ce80bc2081379b87eb2f60960142f531"
+    },
+    {
+      "vector_id": "wire-014-evidence-identifier-occurrence",
+      "record_kind": "EvidenceIdentifierOccurrence",
+      "instance_path": "../valid/evidence-identifier-occurrence.json",
+      "canonical_json": "{\"evidence_id\":\"VX-B-001\",\"line\":1,\"path\":\"tests/classification-beta/test_example.py\",\"schema_version\":1}\n",
+      "canonical_sha256": "4bdf682843aac8c6fc56ff1cc61c2b8a33cbe1fb591bd125adb50949a01e11e0"
+    },
+    {
+      "vector_id": "wire-015-validation-issue",
+      "record_kind": "ValidationIssue",
+      "instance_path": "../valid/validation-issue.json",
+      "canonical_json": "{\"code\":\"PIH.PATH.MISSING\",\"message\":\"Deterministic fixture finding.\",\"path\":\"records/example.json\",\"related_ids\":[\"related.a\",\"related.b\"],\"schema_version\":1,\"severity\":\"ERROR\",\"subject_id\":\"subject.example\"}\n",
+      "canonical_sha256": "6b9020bcba925083622d0ebe3d664b3fd8ca321ab2c3579755d7b41090459d97"
+    },
+    {
+      "vector_id": "wire-016-validation-result",
+      "record_kind": "ValidationResult",
+      "instance_path": "../valid/validation-result.json",
+      "canonical_json": "{\"issues\":[{\"code\":\"PIH.PATH.MISSING\",\"message\":\"Deterministic fixture finding.\",\"path\":\"records/example.json\",\"related_ids\":[\"related.a\",\"related.b\"],\"schema_version\":1,\"severity\":\"ERROR\",\"subject_id\":\"subject.example\"}],\"schema_version\":1,\"status\":\"FAIL\"}\n",
+      "canonical_sha256": "358af8e01de24b9a39d113a49ed3f550e14bf3b5bb0335890c0e45e3eaf672ac"
+    },
+    {
+      "vector_id": "wire-017-diagnostic-path-nfc-spelling",
+      "record_kind": "ValidationIssue",
+      "instance": {
+        "schema_version": 1,
+        "code": "PIH.PATH.MISSING",
+        "severity": "ERROR",
+        "subject_id": "subject.example",
+        "path": "résultats/café.json",
+        "related_ids": [
+          "related.a",
+          "related.b"
+        ],
+        "message": "Deterministic fixture finding."
+      },
+      "canonical_json": "{\"code\":\"PIH.PATH.MISSING\",\"message\":\"Deterministic fixture finding.\",\"path\":\"résultats/café.json\",\"related_ids\":[\"related.a\",\"related.b\"],\"schema_version\":1,\"severity\":\"ERROR\",\"subject_id\":\"subject.example\"}\n",
+      "canonical_sha256": "a3dc176d973b774235730e1c1bfcfe42746862ee1a8a1b1756cc9284daaf1423",
+      "spelling_oracle": "résultats/café.json"
+    }
+  ]
+}

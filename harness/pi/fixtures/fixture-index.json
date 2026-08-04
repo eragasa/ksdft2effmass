@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "public_json_record_schemas": [
+    "agent-descriptor-view",
+    "artifact-identity",
+    "chain-view",
+    "checkpoint-record",
+    "checksum-entry",
+    "checksum-manifest",
+    "evidence-identifier-occurrence",
+    "ownership-manifest-view",
+    "ownership-scope",
+    "project-profile",
+    "resource-manifest",
+    "resource-reference",
+    "skill-descriptor",
+    "task-reference",
+    "validation-issue",
+    "validation-result"
+  ],
+  "valid_directory": "valid",
+  "schema_invalid_directory": "invalid/schema",
+  "diagnostic_path_oracle": "diagnostic-path/oracle-index.json",
+  "canonical_vectors": "canonical/canonical-json-vectors.json",
+  "resource_resolution_oracle": "resource-resolution/oracle-index.json",
+  "semantic_invariant_oracle": "semantic-invariants/oracle-index.json"
+}

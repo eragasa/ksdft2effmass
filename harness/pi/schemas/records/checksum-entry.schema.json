@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/checksum-entry.schema.json",
+  "title": "ChecksumEntry",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "path": {
+      "$ref": "common.schema.json#/$defs/ResourcePath"
+    },
+    "content_identity": {
+      "$ref": "artifact-identity.schema.json"
+    }
+  },
+  "required": [
+    "schema_version",
+    "path",
+    "content_identity"
+  ],
+  "additionalProperties": false
+}
