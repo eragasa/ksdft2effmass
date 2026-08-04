@@ -1,6 +1,6 @@
 # H0 — Harness inventory and ownership classification
 
-Status: active read-only preflight; activated from authoritative accepted P1 closeout; H1--H5 and P2--P11 remain blocked
+Status: active, technical execution complete, blocked at `H0-HC01`; H1--H5 and P2--P11 remain blocked and unauthorized
 
 ## Project
 
@@ -53,6 +53,24 @@ H0 performs no Python harness implementation, source movement, skill retirement,
 
 H0 produces control-plane and software-inventory evidence. Numerical verification applies only to a future actual numerical algorithm. Scientific validation and uncertainty quantification are not applicable.
 
+## Technical execution result
+
+The retained H0 evidence is under `.pi/evidence/pi-harness-incubation/H0/`.
+It inventories 316 unique components/paths: 38 `SPLIT_GENERIC_AND_LOCAL`,
+264 `KEEP_PROJECT_LOCAL`, and 14 `DEFER`. No component is currently classified
+`EXTRACTABLE` or `RETIRE_AS_DUPLICATE`. Four final independent reviews pass after
+two retained deterministic correction rounds. Structural validation, exact
+component accounting, source-owner uniqueness, dependency reconciliation,
+leakage screening, focused control-plane replay, Sphinx, nonmutation, and final
+checksums pass. Strict evidence-ID mode remains honestly blocked by the known 22
+protected operator-test gaps and is not reported as a pass.
+
+Checkpoint: `.pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json`.
+
 ## Completion and stop
 
-H0 is complete only when its inventory and reviews pass deterministic validation and the pending `H0-HC01` checkpoint is committed and pushed. H0 then blocks for the human. H1 must not activate before accepted H0, and P2 must remain blocked.
+H0 is technically complete but remains active and blocked at the pending
+`H0-HC01` human checkpoint. The validated pending checkpoint state is committed
+and pushed as a durable decision boundary before waiting. H1 does not activate
+automatically after H0 acceptance and requires separate explicit activation.
+P2--P11 remain blocked.

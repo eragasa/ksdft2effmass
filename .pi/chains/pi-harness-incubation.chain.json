@@ -3,7 +3,7 @@
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
   "description": "Separate harness-incubation project activated only through H0 after authoritative P1 human acceptance. It blocks P2 until accepted H5 and a separate explicit P2 activation.",
-  "status": "h0_active_read_only_preflight",
+  "status": "h0_active_blocked_at_H0-HC01",
   "active_task": "H0",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -39,7 +39,7 @@
       "id": "H0",
       "record": ".pi/tasks/pi-harness-incubation-H0-inventory.md",
       "prerequisites": ["P1:human_accepted"],
-      "status": "active_read_only_preflight"
+      "status": "active_blocked_at_H0-HC01"
     },
     {
       "id": "H1",
@@ -101,11 +101,13 @@
     "scientific_validation": "not applicable",
     "uncertainty_quantification": "not applicable"
   },
-  "pending_checkpoints": [],
+  "pending_checkpoints": [
+    "H0-HC01"
+  ],
   "chain": [
     {
-      "phase": "H0-inventory",
-      "message": "H0 is the sole active harness task and is read-only preflight/inventory. H1-H5 and P2-P11 remain blocked; no harness implementation, extraction, package publication, or scientific execution is authorized."
+      "phase": "H0-human-checkpoint",
+      "message": "H0 technical inventory and reviews pass and H0 is blocked at pending H0-HC01. H1-H5 and P2-P11 remain blocked; no harness implementation, extraction, package publication, or scientific execution is authorized. H1 requires accepted H0 plus separate explicit activation."
     }
   ]
 }

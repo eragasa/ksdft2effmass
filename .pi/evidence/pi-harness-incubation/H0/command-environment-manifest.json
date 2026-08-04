@@ -1,0 +1,283 @@
+{
+  "branch": "dev",
+  "captured_at": "2026-08-04T07:29:00Z",
+  "concurrent_worktree_note": "Concurrent meeting/paper/conference paths appeared after the clean start and were not produced by H0. They are explicitly allowlisted and excluded from H0 outputs/staging. Recorded hashes are provenance observations; active user edits may continue, so the final gate rejects unlisted paths and staging rather than freezing unrelated content.",
+  "environment": {
+    "machine": "arm64",
+    "pi_model": "gpt-5.6-sol",
+    "pi_provider": "openai-codex",
+    "pi_reasoning_level": "medium",
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6"
+  },
+  "external_or_scientific_execution": false,
+  "inspected_revision": "d0b253158eac2c57748923f6484a794721e5c97f",
+  "project_id": "pi-harness-incubation",
+  "schema_version": 1,
+  "scope": {
+    "protected": [
+      "python/src/",
+      "python/tests/",
+      "specification/",
+      "fixtures/",
+      "docs/",
+      ".agents/skills/",
+      ".pi/skills/",
+      ".pi/task-ownership/",
+      "python/pyproject.toml",
+      "python/uv.lock"
+    ],
+    "writes": [
+      ".pi/evidence/pi-harness-incubation/H0/",
+      ".pi/tasks/pi-harness-incubation-H0-inventory.md",
+      ".pi/chains/pi-harness-incubation.chain.json",
+      ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json"
+    ]
+  },
+  "task_id": "H0",
+  "validation_commands": [
+    {
+      "argv": [
+        "python",
+        ".pi/evidence/pi-harness-incubation/H0/validate_h0.py"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        ".pi/evidence/pi-harness-incubation/H0/",
+        "both active chain records"
+      ],
+      "outputs": [
+        "stdout status"
+      ],
+      "purpose": "H0 structural validation",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/checkpoints/validate_checkpoints.py",
+        "--include-fixtures",
+        "--dry-run"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        ".pi/checkpoints/"
+      ],
+      "outputs": [
+        "stdout status"
+      ],
+      "purpose": "checkpoint schema and dry runs",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/skills/validate_skill_capabilities.py"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        ".agents/skills/",
+        ".pi/skills/"
+      ],
+      "outputs": [
+        "stdout status"
+      ],
+      "purpose": "skill capability validation",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "pytest",
+        "-q",
+        "../.pi/task-ownership/tests/test_validate_task_ownership.py"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        ".pi/task-ownership/"
+      ],
+      "outputs": [
+        "pytest result"
+      ],
+      "purpose": "ownership validator tests",
+      "side_effects": "temporary pytest files only",
+      "working_directory": "python"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/skills/audit_evidence_identifiers.py",
+        "--self-test"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        "python/tests/"
+      ],
+      "outputs": [
+        "owner inventory and warnings"
+      ],
+      "purpose": "evidence audit warning mode",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/skills/audit_evidence_identifiers.py",
+        "--self-test",
+        "--strict"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        "python/tests/"
+      ],
+      "outputs": [
+        "expected exit 1 for 22 known gaps"
+      ],
+      "purpose": "evidence audit strict diagnostic",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        "P1 manifest and tests"
+      ],
+      "outputs": [
+        "stdout status"
+      ],
+      "purpose": "P1 ownership replay",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/evidence/class-owned-evidence-convention/validate.py"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        "P1 evidence and mappings"
+      ],
+      "outputs": [
+        "stdout status"
+      ],
+      "purpose": "evidence documentation replay",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "python",
+        ".pi/evidence/backend-neutral-cpn-P1-contract/contract_gates.py"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        "five P1 integration modules"
+      ],
+      "outputs": [
+        "pytest result"
+      ],
+      "purpose": "P1 artifact replay",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "sphinx-build",
+        "-W",
+        "-q",
+        "../docs",
+        "<temporary>/html"
+      ],
+      "environment": [
+        "PYTHONDONTWRITEBYTECODE=1"
+      ],
+      "inputs": [
+        "docs/",
+        "python/src/"
+      ],
+      "outputs": [
+        "temporary HTML removed after command"
+      ],
+      "purpose": "Sphinx warnings-as-errors",
+      "side_effects": "temporary directory only",
+      "working_directory": "python"
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "ruff",
+        "check",
+        "../.pi/evidence/pi-harness-incubation/H0/validate_h0.py"
+      ],
+      "inputs": [
+        "validate_h0.py"
+      ],
+      "outputs": [
+        "lint result"
+      ],
+      "purpose": "H0 validator lint",
+      "side_effects": "none; no formatter run",
+      "working_directory": "python"
+    },
+    {
+      "argv": [
+        "sha256sum",
+        "-c",
+        ".pi/evidence/pi-harness-incubation/H0/checksums.sha256"
+      ],
+      "inputs": [
+        "H0 artifacts and authoritative state inputs"
+      ],
+      "outputs": [
+        "checksum result"
+      ],
+      "purpose": "H0 checksum validation",
+      "side_effects": "none"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "inputs": [
+        "worktree diff"
+      ],
+      "outputs": [
+        "status"
+      ],
+      "purpose": "Git whitespace validation",
+      "side_effects": "none"
+    }
+  ],
+  "vvuq": {
+    "numerical_verification": "not applicable; no numerical algorithm discovered",
+    "scientific_validation": "not applicable",
+    "software_verification": "applicable to inventory and control-plane consistency",
+    "uncertainty_quantification": "not applicable"
+  },
+  "worktree_status_at_start": []
+}

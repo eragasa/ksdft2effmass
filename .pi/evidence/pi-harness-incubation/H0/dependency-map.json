@@ -1,0 +1,2192 @@
+{
+  "schema_version": 1,
+  "task_id": "H0",
+  "nodes": [
+    {
+      "component_id": "AGT-001",
+      "path": ".pi/agents/ksdft2effmass-architecture.md"
+    },
+    {
+      "component_id": "AGT-002",
+      "path": ".pi/agents/ksdft2effmass-documentation.md"
+    },
+    {
+      "component_id": "AGT-003",
+      "path": ".pi/agents/ksdft2effmass-implementation.md"
+    },
+    {
+      "component_id": "AGT-004",
+      "path": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+    },
+    {
+      "component_id": "AGT-005",
+      "path": ".pi/agents/ksdft2effmass-tests.md"
+    },
+    {
+      "component_id": "CHK-001",
+      "path": ".pi/checkpoints/CPN-HC01-architecture-final-acceptance.json"
+    },
+    {
+      "component_id": "CHK-002",
+      "path": ".pi/checkpoints/D054-HC01-hermiticity-result-scalar-typing.json"
+    },
+    {
+      "component_id": "CHK-003",
+      "path": ".pi/checkpoints/D069-HC01-jsonschema-test-dependency.json"
+    },
+    {
+      "component_id": "CHK-004",
+      "path": ".pi/checkpoints/EVIDENCE-DOC-1-HC01-final-acceptance.json"
+    },
+    {
+      "component_id": "CHK-005",
+      "path": ".pi/checkpoints/EVIDENCE-DOC-1-HC02-final-acceptance.json"
+    },
+    {
+      "component_id": "CHK-006",
+      "path": ".pi/checkpoints/EVIDENCE-DOC-1-HC03-final-acceptance.json"
+    },
+    {
+      "component_id": "CHK-007",
+      "path": ".pi/checkpoints/P0-HC01-packaging-license-and-configuration.json"
+    },
+    {
+      "component_id": "CHK-008",
+      "path": ".pi/checkpoints/P0A-HC01-packaging-configuration-final-acceptance.json"
+    },
+    {
+      "component_id": "CHK-009",
+      "path": ".pi/checkpoints/P1-HC01-cpn-numeric-wire-contract.json"
+    },
+    {
+      "component_id": "CHK-010",
+      "path": ".pi/checkpoints/P1-HC02-u64-expression-routing.json"
+    },
+    {
+      "component_id": "CHK-011",
+      "path": ".pi/checkpoints/P1-HC03-final-acceptance.json"
+    },
+    {
+      "component_id": "CHK-D001",
+      "path": ".pi/checkpoints/README.md"
+    },
+    {
+      "component_id": "CHK-F001",
+      "path": ".pi/checkpoints/fixtures/pending-checkpoint.json"
+    },
+    {
+      "component_id": "CHK-S001",
+      "path": ".pi/checkpoints/checkpoint.schema.json"
+    },
+    {
+      "component_id": "CHK-T001",
+      "path": ".pi/checkpoints/validate_checkpoints.py"
+    },
+    {
+      "component_id": "CHN-001",
+      "path": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
+    },
+    {
+      "component_id": "CHN-002",
+      "path": ".pi/chains/operator-record-refactor.chain.json"
+    },
+    {
+      "component_id": "CHN-003",
+      "path": ".pi/chains/operator-record-validation-correction.chain.json"
+    },
+    {
+      "component_id": "CHN-004",
+      "path": ".pi/chains/pi-harness-incubation.chain.json"
+    },
+    {
+      "component_id": "DOC-001",
+      "path": "docs/harness/ksdft2effmass.harness.00.md"
+    },
+    {
+      "component_id": "DOC-002",
+      "path": "docs/harness/ksdft2effmass.harness.01.md"
+    },
+    {
+      "component_id": "DOC-003",
+      "path": "docs/harness/ksdft2effmass.harness.02.md"
+    },
+    {
+      "component_id": "DOC-004",
+      "path": "docs/harness/ksdft2effmass.harness.03.md"
+    },
+    {
+      "component_id": "DOC-005",
+      "path": "docs/harness/ksdft2effmass.harness.04.md"
+    },
+    {
+      "component_id": "DOC-006",
+      "path": "docs/harness/ksdft2effmass.harness.05.md"
+    },
+    {
+      "component_id": "DOC-007",
+      "path": "docs/harness/ksdft2effmass.harness.06.md"
+    },
+    {
+      "component_id": "DOC-008",
+      "path": "docs/harness/ksdft2effmass.harness.07.md"
+    },
+    {
+      "component_id": "DOC-009",
+      "path": "docs/harness/ksdft2effmass.harness.08.md"
+    },
+    {
+      "component_id": "DOC-010",
+      "path": "docs/conf.py"
+    },
+    {
+      "component_id": "DOC-011",
+      "path": "docs/index.rst"
+    },
+    {
+      "component_id": "DOC-012",
+      "path": "docs/index.md"
+    },
+    {
+      "component_id": "EVD-001",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/preflight.py"
+    },
+    {
+      "component_id": "EVD-002",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/myst_preflight.py"
+    },
+    {
+      "component_id": "EVD-003",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/audit_markdown.py"
+    },
+    {
+      "component_id": "EVD-004",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/validate_capability_matrix.py"
+    },
+    {
+      "component_id": "EVD-005",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/capability-matrix.json"
+    },
+    {
+      "component_id": "EVD-006",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/command-manifest.json"
+    },
+    {
+      "component_id": "EVD-007",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/checksums.sha256"
+    },
+    {
+      "component_id": "EVD-008",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/P0-HC01-resolution.json"
+    },
+    {
+      "component_id": "EVD-009",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/collect_locked_artifacts.py"
+    },
+    {
+      "component_id": "EVD-010",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/verify_packaging_configuration.py"
+    },
+    {
+      "component_id": "EVD-011",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/run_verification.sh"
+    },
+    {
+      "component_id": "EVD-012",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/command-manifest.json"
+    },
+    {
+      "component_id": "EVD-013",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/checksums.sha256"
+    },
+    {
+      "component_id": "EVD-014",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/P0A-HC01-resolution.json"
+    },
+    {
+      "component_id": "EVD-015",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/contract_gates.py"
+    },
+    {
+      "component_id": "EVD-016",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py"
+    },
+    {
+      "component_id": "EVD-017",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
+    },
+    {
+      "component_id": "EVD-018",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-manifest.json"
+    },
+    {
+      "component_id": "EVD-019",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/test-completeness-matrix.json"
+    },
+    {
+      "component_id": "EVD-020",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-mutation-audit.json"
+    },
+    {
+      "component_id": "EVD-021",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/implementation-progress.md"
+    },
+    {
+      "component_id": "EVD-022",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256"
+    },
+    {
+      "component_id": "EVD-023",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/P1-HC01-resolution.json"
+    },
+    {
+      "component_id": "EVD-024",
+      "path": ".pi/evidence/class-owned-evidence-convention/validate.py"
+    },
+    {
+      "component_id": "EVD-025",
+      "path": ".pi/evidence/class-owned-evidence-convention/task-ownership.json"
+    },
+    {
+      "component_id": "EVD-026",
+      "path": ".pi/evidence/class-owned-evidence-convention/migration-inventory.json"
+    },
+    {
+      "component_id": "EVD-027",
+      "path": ".pi/evidence/class-owned-evidence-convention/cpn-complete-directory-node-id-map.json"
+    },
+    {
+      "component_id": "EVD-029",
+      "path": ".pi/evidence/class-owned-evidence-convention/checksums.sha256"
+    },
+    {
+      "component_id": "EVD-030",
+      "path": ".pi/evidence/pi-harness-incubation/validate_initialization.py"
+    },
+    {
+      "component_id": "EVD-031",
+      "path": ".pi/evidence/pi-harness-incubation/initialization/baseline.json"
+    },
+    {
+      "component_id": "FIL-001",
+      "path": ".pi/checkpoints/fixtures/resolved-checkpoint.json"
+    },
+    {
+      "component_id": "FIL-006",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/maintained-markdown-audit.json"
+    },
+    {
+      "component_id": "FIL-007",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/myst-result.json"
+    },
+    {
+      "component_id": "FIL-009",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/package-metadata.json"
+    },
+    {
+      "component_id": "FIL-010",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/preflight-report.md"
+    },
+    {
+      "component_id": "FIL-011",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/preflight-result.json"
+    },
+    {
+      "component_id": "FIL-013",
+      "path": ".pi/evidence/backend-neutral-cpn-P0-preflight/tooling-smoke.json"
+    },
+    {
+      "component_id": "FIL-018",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/implementation-report.md"
+    },
+    {
+      "component_id": "FIL-019",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/license-evidence.json"
+    },
+    {
+      "component_id": "FIL-020",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/locked-artifacts.json"
+    },
+    {
+      "component_id": "FIL-021",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/review-results.json"
+    },
+    {
+      "component_id": "FIL-023",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/tooling-results.json"
+    },
+    {
+      "component_id": "FIL-024",
+      "path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/verification-result.json"
+    },
+    {
+      "component_id": "FIL-026",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/P1-HC02-resolution.json"
+    },
+    {
+      "component_id": "FIL-027",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/P1-HC03-resolution.json"
+    },
+    {
+      "component_id": "FIL-028",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/activation.json"
+    },
+    {
+      "component_id": "FIL-032",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/parent-verification-numeric-final.md"
+    },
+    {
+      "component_id": "FIL-033",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-architecture-correction-1.md"
+    },
+    {
+      "component_id": "FIL-034",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-architecture-initial.md"
+    },
+    {
+      "component_id": "FIL-035",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-architecture-numeric-final.md"
+    },
+    {
+      "component_id": "FIL-036",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-architecture-precheckpoint.md"
+    },
+    {
+      "component_id": "FIL-037",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-integration-correction-1.md"
+    },
+    {
+      "component_id": "FIL-038",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-integration-initial.md"
+    },
+    {
+      "component_id": "FIL-039",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-integration-numeric-final.md"
+    },
+    {
+      "component_id": "FIL-040",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-integration-precheckpoint.md"
+    },
+    {
+      "component_id": "FIL-041",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-test-completeness-final.md"
+    },
+    {
+      "component_id": "FIL-042",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-test-ownership-final.md"
+    },
+    {
+      "component_id": "FIL-043",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-test-ownership-initial.md"
+    },
+    {
+      "component_id": "FIL-044",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-tests-correction-1.md"
+    },
+    {
+      "component_id": "FIL-045",
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/review-tests-initial.md"
+    },
+    {
+      "component_id": "FIL-052",
+      "path": ".pi/evidence/class-owned-evidence-convention/cpn-token-node-id-map.json"
+    },
+    {
+      "component_id": "FIL-053",
+      "path": ".pi/evidence/class-owned-evidence-convention/firing-request-node-id-map.json"
+    },
+    {
+      "component_id": "FIL-055",
+      "path": ".pi/evidence/class-owned-evidence-convention/nv-g-001-009-comparison.json"
+    },
+    {
+      "component_id": "FIL-056",
+      "path": ".pi/evidence/class-owned-evidence-convention/nv-g-001-009-comparison.md"
+    },
+    {
+      "component_id": "FIL-057",
+      "path": ".pi/evidence/class-owned-evidence-convention/p1-full-migration-failure-recovery.md"
+    },
+    {
+      "component_id": "FIL-058",
+      "path": ".pi/evidence/class-owned-evidence-convention/p1-pre-full-migration-baseline.json"
+    },
+    {
+      "component_id": "FIL-059",
+      "path": ".pi/evidence/class-owned-evidence-convention/review-architecture-remand-initial.md"
+    },
+    {
+      "component_id": "FIL-060",
+      "path": ".pi/evidence/class-owned-evidence-convention/review-architecture-vvuq-final.md"
+    },
+    {
+      "component_id": "FIL-061",
+      "path": ".pi/evidence/class-owned-evidence-convention/review-filename-architecture-vvuq.md"
+    },
+    {
+      "component_id": "FIL-062",
+      "path": ".pi/evidence/class-owned-evidence-convention/review-filename-integration.md"
+    },
+    {
+      "component_id": "FIL-063",
+      "path": ".pi/evidence/class-owned-evidence-convention/review-integration-final.md"
+    },
+    {
+      "component_id": "FIL-064",
+      "path": ".pi/evidence/class-owned-evidence-convention/review-integration-remand-initial.md"
+    },
+    {
+      "component_id": "FIL-067",
+      "path": ".pi/evidence/pi-harness-incubation/initialization/checksums.sha256"
+    },
+    {
+      "component_id": "FIL-068",
+      "path": ".pi/evidence/pi-harness-incubation/initialization/initialization-report.md"
+    },
+    {
+      "component_id": "FIL-069",
+      "path": ".pi/evidence/pi-harness-incubation/initialization/reconciliation-findings.md"
+    },
+    {
+      "component_id": "FIL-070",
+      "path": ".pi/evidence/pi-harness-incubation/initialization/review-architecture.md"
+    },
+    {
+      "component_id": "FIL-071",
+      "path": ".pi/evidence/pi-harness-incubation/initialization/review-integration.md"
+    },
+    {
+      "component_id": "FIL-072",
+      "path": ".pi/task-ownership/tests/fixtures/valid/ownership-v2-no-profile.json"
+    },
+    {
+      "component_id": "FIL-073",
+      "path": ".pi/task-ownership/tests/fixtures/valid/ownership-v2-profile.json"
+    },
+    {
+      "component_id": "FIL-074",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-cycle.json"
+    },
+    {
+      "component_id": "FIL-075",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-missing-authorization.json"
+    },
+    {
+      "component_id": "FIL-076",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-one-branch.json"
+    },
+    {
+      "component_id": "FIL-077",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-one-role-deterministic.json"
+    },
+    {
+      "component_id": "FIL-078",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-orphan-stage.json"
+    },
+    {
+      "component_id": "FIL-079",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-wrong-authorization.json"
+    },
+    {
+      "component_id": "FIL-080",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-wrong-stage-evidence.json"
+    },
+    {
+      "component_id": "FIL-081",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-wrong-stage-owner.json"
+    },
+    {
+      "component_id": "FIL-082",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/ownership-v2-correction-limit-2.json"
+    },
+    {
+      "component_id": "FIL-083",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/ownership-v2-schema-extra-property.json"
+    },
+    {
+      "component_id": "FIL-084",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py"
+    },
+    {
+      "component_id": "FIL-085",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py"
+    },
+    {
+      "component_id": "FIL-086",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py"
+    },
+    {
+      "component_id": "FIL-087",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py"
+    },
+    {
+      "component_id": "FIL-088",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py"
+    },
+    {
+      "component_id": "FIL-089",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py"
+    },
+    {
+      "component_id": "FIL-090",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py"
+    },
+    {
+      "component_id": "FIL-091",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py"
+    },
+    {
+      "component_id": "FIL-092",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py"
+    },
+    {
+      "component_id": "FIL-093",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py"
+    },
+    {
+      "component_id": "FIL-094",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py"
+    },
+    {
+      "component_id": "FIL-095",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py"
+    },
+    {
+      "component_id": "FIL-096",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py"
+    },
+    {
+      "component_id": "FIL-097",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py"
+    },
+    {
+      "component_id": "FIL-098",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py"
+    },
+    {
+      "component_id": "FIL-099",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py"
+    },
+    {
+      "component_id": "FIL-100",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py"
+    },
+    {
+      "component_id": "FIL-101",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py"
+    },
+    {
+      "component_id": "FIL-102",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py"
+    },
+    {
+      "component_id": "FIL-103",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py"
+    },
+    {
+      "component_id": "FIL-104",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py"
+    },
+    {
+      "component_id": "FIL-105",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py"
+    },
+    {
+      "component_id": "FIL-106",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py"
+    },
+    {
+      "component_id": "FIL-107",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py"
+    },
+    {
+      "component_id": "FIL-108",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py"
+    },
+    {
+      "component_id": "FIL-109",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py"
+    },
+    {
+      "component_id": "FIL-110",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py"
+    },
+    {
+      "component_id": "FIL-111",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py"
+    },
+    {
+      "component_id": "FIL-112",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py"
+    },
+    {
+      "component_id": "FIL-113",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py"
+    },
+    {
+      "component_id": "FIL-114",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py"
+    },
+    {
+      "component_id": "FIL-115",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py"
+    },
+    {
+      "component_id": "FIL-116",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__construction.py"
+    },
+    {
+      "component_id": "FIL-117",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__invariants.py"
+    },
+    {
+      "component_id": "FIL-118",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-119",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__construction.py"
+    },
+    {
+      "component_id": "FIL-120",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__invariants.py"
+    },
+    {
+      "component_id": "FIL-121",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-122",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__construction.py"
+    },
+    {
+      "component_id": "FIL-123",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__invariants.py"
+    },
+    {
+      "component_id": "FIL-124",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-125",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__configuration.py"
+    },
+    {
+      "component_id": "FIL-126",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__contract.py"
+    },
+    {
+      "component_id": "FIL-127",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalError.py"
+    },
+    {
+      "component_id": "FIL-128",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalErrorCode.py"
+    },
+    {
+      "component_id": "FIL-129",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityRequirementError.py"
+    },
+    {
+      "component_id": "FIL-130",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__construction.py"
+    },
+    {
+      "component_id": "FIL-131",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__invariants.py"
+    },
+    {
+      "component_id": "FIL-132",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-133",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityUnitMismatchError.py"
+    },
+    {
+      "component_id": "FIL-134",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__IncompatibleOperatorRecordsError.py"
+    },
+    {
+      "component_id": "FIL-135",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py"
+    },
+    {
+      "component_id": "FIL-136",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalErrorCode.py"
+    },
+    {
+      "component_id": "FIL-137",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__construction.py"
+    },
+    {
+      "component_id": "FIL-138",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__invariants.py"
+    },
+    {
+      "component_id": "FIL-139",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-140",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__contract.py"
+    },
+    {
+      "component_id": "FIL-141",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__rules.py"
+    },
+    {
+      "component_id": "FIL-142",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityIssue.py"
+    },
+    {
+      "component_id": "FIL-143",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityMismatchCode.py"
+    },
+    {
+      "component_id": "FIL-144",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__construction.py"
+    },
+    {
+      "component_id": "FIL-145",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__invariants.py"
+    },
+    {
+      "component_id": "FIL-146",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-147",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalError.py"
+    },
+    {
+      "component_id": "FIL-148",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalErrorCode.py"
+    },
+    {
+      "component_id": "FIL-149",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__construction.py"
+    },
+    {
+      "component_id": "FIL-150",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__invariants.py"
+    },
+    {
+      "component_id": "FIL-151",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-152",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py"
+    },
+    {
+      "component_id": "FIL-153",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__contract.py"
+    },
+    {
+      "component_id": "FIL-154",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_structure.py"
+    },
+    {
+      "component_id": "FIL-155",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_values.py"
+    },
+    {
+      "component_id": "FIL-156",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__round_trip.py"
+    },
+    {
+      "component_id": "FIL-157",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__serialization.py"
+    },
+    {
+      "component_id": "FIL-158",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__contract.py"
+    },
+    {
+      "component_id": "FIL-159",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__construction.py"
+    },
+    {
+      "component_id": "FIL-160",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__matrix_invariants.py"
+    },
+    {
+      "component_id": "FIL-161",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__metadata_invariants.py"
+    },
+    {
+      "component_id": "FIL-162",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__ownership.py"
+    },
+    {
+      "component_id": "FIL-163",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-164",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py"
+    },
+    {
+      "component_id": "FIL-165",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__invariants.py"
+    },
+    {
+      "component_id": "FIL-166",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py"
+    },
+    {
+      "component_id": "FIL-167",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__analytical_residuals.py"
+    },
+    {
+      "component_id": "FIL-168",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py"
+    },
+    {
+      "component_id": "FIL-169",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py"
+    },
+    {
+      "component_id": "FIL-170",
+      "path": "specification/workflow-cpn/v1/cpn-contract.schema.json"
+    },
+    {
+      "component_id": "FIL-171",
+      "path": "specification/workflow-cpn/v1/cpn-error.schema.json"
+    },
+    {
+      "component_id": "FIL-172",
+      "path": "specification/workflow-cpn/v1/cpn-firing.schema.json"
+    },
+    {
+      "component_id": "FIL-173",
+      "path": "specification/workflow-cpn/v1/cpn-marking.schema.json"
+    },
+    {
+      "component_id": "FIL-174",
+      "path": "specification/workflow-cpn/v1/cpn-net.schema.json"
+    },
+    {
+      "component_id": "FIL-175",
+      "path": "specification/workflow-cpn/v1/cpn-results.schema.json"
+    },
+    {
+      "component_id": "FIL-176",
+      "path": "specification/workflow-cpn/v1/cpn-validation.schema.json"
+    },
+    {
+      "component_id": "FIL-177",
+      "path": "specification/workflow-cpn/v1/invalid/README.md"
+    },
+    {
+      "component_id": "FIL-178",
+      "path": "specification/workflow-cpn/v1/invalid/boolean-as-integer.json"
+    },
+    {
+      "component_id": "FIL-179",
+      "path": "specification/workflow-cpn/v1/invalid/duplicate-token-id.json"
+    },
+    {
+      "component_id": "FIL-180",
+      "path": "specification/workflow-cpn/v1/invalid/invalid-outcome-terminality.json"
+    },
+    {
+      "component_id": "FIL-181",
+      "path": "specification/workflow-cpn/v1/invalid/lambda-like-expression.json"
+    },
+    {
+      "component_id": "FIL-182",
+      "path": "specification/workflow-cpn/v1/invalid/nonfinite-real.json"
+    },
+    {
+      "component_id": "FIL-183",
+      "path": "specification/workflow-cpn/v1/invalid/output-id-collision.json"
+    },
+    {
+      "component_id": "FIL-184",
+      "path": "specification/workflow-cpn/v1/invalid/unbound-guard-variable.json"
+    },
+    {
+      "component_id": "FIL-185",
+      "path": "specification/workflow-cpn/v1/invalid/unknown-color.json"
+    },
+    {
+      "component_id": "FIL-186",
+      "path": "specification/workflow-cpn/v1/invalid/unsupported-version.json"
+    },
+    {
+      "component_id": "FIL-187",
+      "path": "specification/workflow-cpn/v1/invalid/wrong-place-set.json"
+    },
+    {
+      "component_id": "FIL-188",
+      "path": "specification/workflow-cpn/v1/valid/minimal-net.json"
+    },
+    {
+      "component_id": "FIL-189",
+      "path": "specification/workflow-cpn/v1/valid/multiset-marking.json"
+    },
+    {
+      "component_id": "FIL-190",
+      "path": "specification/workflow-cpn/v1/valid/retry-recovery-iteration.json"
+    },
+    {
+      "component_id": "FIL-191",
+      "path": "specification/workflow-cpn/v1/valid/scoped-outcomes.json"
+    },
+    {
+      "component_id": "FIL-192",
+      "path": "specification/workflow-cpn/v1/valid/synchronized-firing.json"
+    },
+    {
+      "component_id": "MAN-001",
+      "path": ".pi/skills/skill-capability-inventory.json"
+    },
+    {
+      "component_id": "OWN-001",
+      "path": ".pi/task-ownership/ownership.schema.json"
+    },
+    {
+      "component_id": "OWN-002",
+      "path": ".pi/task-ownership/ownership-v2.schema.json"
+    },
+    {
+      "component_id": "OWN-003",
+      "path": ".pi/task-ownership/evidence-branch-matrix.schema.json"
+    },
+    {
+      "component_id": "OWN-004",
+      "path": ".pi/task-ownership/validate_task_ownership.py"
+    },
+    {
+      "component_id": "OWN-005",
+      "path": ".pi/task-ownership/tests/test_validate_task_ownership.py"
+    },
+    {
+      "component_id": "OWN-006",
+      "path": ".pi/task-ownership/tests/fixtures/valid/evidence-branch-matrix.json"
+    },
+    {
+      "component_id": "OWN-007",
+      "path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-completion-mismatch.json"
+    },
+    {
+      "component_id": "OWN-008",
+      "path": ".pi/task-ownership/README.md"
+    },
+    {
+      "component_id": "POL-001",
+      "path": "AGENTS.md"
+    },
+    {
+      "component_id": "POL-002",
+      "path": "docs/development/agent-control-plane.rst"
+    },
+    {
+      "component_id": "PRO-001",
+      "path": "python/src/ksdft2effmass/harness/pi/"
+    },
+    {
+      "component_id": "PRO-002",
+      "path": "python/src/ksdft2effmass/harness/pi/local/"
+    },
+    {
+      "component_id": "PRO-003",
+      "path": "harness/pi/"
+    },
+    {
+      "component_id": "PRO-004",
+      "path": "harness/local/"
+    },
+    {
+      "component_id": "SKL-001",
+      "path": ".agents/skills/graphify/.graphify_version"
+    },
+    {
+      "component_id": "SKL-002",
+      "path": ".agents/skills/graphify/SKILL.md"
+    },
+    {
+      "component_id": "SKL-003",
+      "path": ".agents/skills/graphify/references/add-watch.md"
+    },
+    {
+      "component_id": "SKL-004",
+      "path": ".agents/skills/graphify/references/exports.md"
+    },
+    {
+      "component_id": "SKL-005",
+      "path": ".agents/skills/graphify/references/extraction-spec.md"
+    },
+    {
+      "component_id": "SKL-006",
+      "path": ".agents/skills/graphify/references/github-and-merge.md"
+    },
+    {
+      "component_id": "SKL-007",
+      "path": ".agents/skills/graphify/references/hooks.md"
+    },
+    {
+      "component_id": "SKL-008",
+      "path": ".agents/skills/graphify/references/ksdft2effmass-policy.md"
+    },
+    {
+      "component_id": "SKL-009",
+      "path": ".agents/skills/graphify/references/query.md"
+    },
+    {
+      "component_id": "SKL-010",
+      "path": ".agents/skills/graphify/references/transcribe.md"
+    },
+    {
+      "component_id": "SKL-011",
+      "path": ".agents/skills/graphify/references/update.md"
+    },
+    {
+      "component_id": "SKL-012",
+      "path": ".agents/skills/resolve-human-checkpoint/SKILL.md"
+    },
+    {
+      "component_id": "SKL-013",
+      "path": ".pi/skills/choose-next-task/SKILL.md"
+    },
+    {
+      "component_id": "SKL-014",
+      "path": ".pi/skills/design-data-action-objects/SKILL.md"
+    },
+    {
+      "component_id": "SKL-015",
+      "path": ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
+    },
+    {
+      "component_id": "SKL-016",
+      "path": ".pi/skills/develop-operator-records/SKILL.md"
+    },
+    {
+      "component_id": "SKL-017",
+      "path": ".pi/skills/develop-operator-records/references/operator-record-architecture.md"
+    },
+    {
+      "component_id": "SKL-018",
+      "path": ".pi/skills/document-research-python/SKILL.md"
+    },
+    {
+      "component_id": "SKL-019",
+      "path": ".pi/skills/document-research-python/references/test-evidence-documentation.md"
+    },
+    {
+      "component_id": "TOOL-001",
+      "path": ".pi/skills/audit_evidence_identifiers.py"
+    },
+    {
+      "component_id": "TOOL-002",
+      "path": ".pi/skills/validate_skill_capabilities.py"
+    },
+    {
+      "component_id": "TSK-001",
+      "path": ".pi/tasks/backend-neutral-cpn-P0-preflight.md"
+    },
+    {
+      "component_id": "TSK-002",
+      "path": ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md"
+    },
+    {
+      "component_id": "TSK-003",
+      "path": ".pi/tasks/backend-neutral-cpn-P1-contract.md"
+    },
+    {
+      "component_id": "TSK-004",
+      "path": ".pi/tasks/backend-neutral-cpn-P10-synthetic-workflow.md"
+    },
+    {
+      "component_id": "TSK-005",
+      "path": ".pi/tasks/backend-neutral-cpn-P11-bulk-si-campaign.md"
+    },
+    {
+      "component_id": "TSK-006",
+      "path": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md"
+    },
+    {
+      "component_id": "TSK-007",
+      "path": ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md"
+    },
+    {
+      "component_id": "TSK-008",
+      "path": ".pi/tasks/backend-neutral-cpn-P4-neutral-dft.md"
+    },
+    {
+      "component_id": "TSK-009",
+      "path": ".pi/tasks/backend-neutral-cpn-P5-qe-boundary.md"
+    },
+    {
+      "component_id": "TSK-010",
+      "path": ".pi/tasks/backend-neutral-cpn-P6-qe-scf-subnet.md"
+    },
+    {
+      "component_id": "TSK-011",
+      "path": ".pi/tasks/backend-neutral-cpn-P7-direct-tb.md"
+    },
+    {
+      "component_id": "TSK-012",
+      "path": ".pi/tasks/backend-neutral-cpn-P8-wannier-bridge.md"
+    },
+    {
+      "component_id": "TSK-013",
+      "path": ".pi/tasks/backend-neutral-cpn-P9-wannier-execution.md"
+    },
+    {
+      "component_id": "TSK-014",
+      "path": ".pi/tasks/backend-neutral-cpn-workflow-architecture.md"
+    },
+    {
+      "component_id": "TSK-015",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-A-contract.md"
+    },
+    {
+      "component_id": "TSK-016",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-B-provenance.md"
+    },
+    {
+      "component_id": "TSK-017",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-C-neutral-dft.md"
+    },
+    {
+      "component_id": "TSK-018",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-D-qe-io.md"
+    },
+    {
+      "component_id": "TSK-019",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-E-qe-mapping.md"
+    },
+    {
+      "component_id": "TSK-020",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-F-execution.md"
+    },
+    {
+      "component_id": "TSK-021",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-G-direct-tb.md"
+    },
+    {
+      "component_id": "TSK-022",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-H-wannier-bridge.md"
+    },
+    {
+      "component_id": "TSK-023",
+      "path": ".pi/tasks/backend-neutral-kohn-sham-qe-architecture.md"
+    },
+    {
+      "component_id": "TSK-024",
+      "path": ".pi/tasks/class-owned-evidence-documentation-convention.md"
+    },
+    {
+      "component_id": "TSK-025",
+      "path": ".pi/tasks/cpn-skill-capability-audit.md"
+    },
+    {
+      "component_id": "TSK-026",
+      "path": ".pi/tasks/evidence-branch-orchestration-profile.md"
+    },
+    {
+      "component_id": "TSK-027",
+      "path": ".pi/tasks/graphify-integration.md"
+    },
+    {
+      "component_id": "TSK-028",
+      "path": ".pi/tasks/operator-record-comparison.md"
+    },
+    {
+      "component_id": "TSK-029",
+      "path": ".pi/tasks/operator-record-refactor.md"
+    },
+    {
+      "component_id": "TSK-030",
+      "path": ".pi/tasks/operator-record-validation-correction.md"
+    },
+    {
+      "component_id": "TSK-031",
+      "path": ".pi/tasks/pi-harness-incubation-H0-inventory.md"
+    },
+    {
+      "component_id": "TSK-032",
+      "path": ".pi/tasks/pi-harness-incubation-H1-contract.md"
+    },
+    {
+      "component_id": "TSK-033",
+      "path": ".pi/tasks/pi-harness-incubation-H2-python-core.md"
+    },
+    {
+      "component_id": "TSK-034",
+      "path": ".pi/tasks/pi-harness-incubation-H3-resources.md"
+    },
+    {
+      "component_id": "TSK-035",
+      "path": ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md"
+    },
+    {
+      "component_id": "TSK-036",
+      "path": ".pi/tasks/pi-harness-incubation-H5-extraction-readiness.md"
+    },
+    {
+      "component_id": "TST-001",
+      "path": "python/pyproject.toml"
+    },
+    {
+      "component_id": "TST-002",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/conftest.py"
+    },
+    {
+      "component_id": "TST-003",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py"
+    },
+    {
+      "component_id": "TST-004",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py"
+    },
+    {
+      "component_id": "TST-005",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py"
+    },
+    {
+      "component_id": "TST-006",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py"
+    },
+    {
+      "component_id": "TST-007",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py"
+    },
+    {
+      "component_id": "TST-008",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/operator_record_fixtures.py"
+    },
+    {
+      "component_id": "TST-009",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__Geometry__linear_independence.py"
+    },
+    {
+      "component_id": "TST-010",
+      "path": "specification/workflow-cpn/v1/README.md"
+    }
+  ],
+  "edges": [
+    {
+      "from": "CHK-001",
+      "to": "TSK-014",
+      "kind": "decides_for",
+      "note": "Human decision belongs to task."
+    },
+    {
+      "from": "CHK-007",
+      "to": "TSK-001",
+      "kind": "decides_for",
+      "note": "Human decision belongs to task."
+    },
+    {
+      "from": "CHK-008",
+      "to": "TSK-002",
+      "kind": "decides_for",
+      "note": "Human decision belongs to task."
+    },
+    {
+      "from": "CHK-009",
+      "to": "TSK-003",
+      "kind": "decides_for",
+      "note": "Human decision belongs to task."
+    },
+    {
+      "from": "CHK-010",
+      "to": "TSK-003",
+      "kind": "decides_for",
+      "note": "Human decision belongs to task."
+    },
+    {
+      "from": "CHK-011",
+      "to": "TSK-003",
+      "kind": "decides_for",
+      "note": "Human decision belongs to task."
+    },
+    {
+      "from": "CHK-T001",
+      "to": "CHK-F001",
+      "kind": "dry_run_input",
+      "note": "Fixed pending/resolved synthetic fixtures."
+    },
+    {
+      "from": "CHK-T001",
+      "to": "CHK-S001",
+      "kind": "validates_against",
+      "note": "Draft 2020-12 checkpoint schema."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-001",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-002",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-003",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-004",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-005",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-006",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-007",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-008",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-009",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-010",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-011",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-012",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-013",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-014",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-023",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-001",
+      "to": "TSK-024",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-002",
+      "to": "TSK-029",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-002",
+      "to": "TSK-030",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-003",
+      "to": "TSK-030",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-004",
+      "to": "CHK-011",
+      "kind": "records_decision",
+      "note": "Chain summarizes durable decision."
+    },
+    {
+      "from": "CHN-004",
+      "to": "TSK-031",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-004",
+      "to": "TSK-032",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-004",
+      "to": "TSK-033",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-004",
+      "to": "TSK-034",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-004",
+      "to": "TSK-035",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "CHN-004",
+      "to": "TSK-036",
+      "kind": "references_task",
+      "note": "Chain owns dependency/authorization routing."
+    },
+    {
+      "from": "DOC-010",
+      "to": "DOC-001",
+      "kind": "collects",
+      "note": "Bounded Markdown pattern."
+    },
+    {
+      "from": "DOC-011",
+      "to": "DOC-001",
+      "kind": "navigates",
+      "note": "Harness toctree root."
+    },
+    {
+      "from": "EVD-015",
+      "to": "TST-003",
+      "kind": "invokes",
+      "note": "Artifact gate replay."
+    },
+    {
+      "from": "EVD-015",
+      "to": "TST-004",
+      "kind": "invokes",
+      "note": "Artifact gate replay."
+    },
+    {
+      "from": "EVD-015",
+      "to": "TST-005",
+      "kind": "invokes",
+      "note": "Artifact gate replay."
+    },
+    {
+      "from": "EVD-015",
+      "to": "TST-006",
+      "kind": "invokes",
+      "note": "Artifact gate replay."
+    },
+    {
+      "from": "EVD-015",
+      "to": "TST-007",
+      "kind": "invokes",
+      "note": "Artifact gate replay."
+    },
+    {
+      "from": "EVD-016",
+      "to": "EVD-017",
+      "kind": "reads_local_compatibility",
+      "note": "P1 version-1 exceptions."
+    },
+    {
+      "from": "EVD-016",
+      "to": "EVD-018",
+      "kind": "validates",
+      "note": "Current P1 executable ownership inventory."
+    },
+    {
+      "from": "EVD-024",
+      "to": "EVD-018",
+      "kind": "validates",
+      "note": "P1 modules/IDs/helpers."
+    },
+    {
+      "from": "EVD-024",
+      "to": "EVD-026",
+      "kind": "validates",
+      "note": "Migration accounting."
+    },
+    {
+      "from": "EVD-024",
+      "to": "EVD-027",
+      "kind": "validates",
+      "note": "Node-ID traceability."
+    },
+    {
+      "from": "EVD-030",
+      "to": "CHK-S001",
+      "kind": "schema_check",
+      "note": "Initialization control-plane check."
+    },
+    {
+      "from": "EVD-030",
+      "to": "MAN-001",
+      "kind": "status_check",
+      "note": "H0 status in skill inventory."
+    },
+    {
+      "from": "OWN-004",
+      "to": "OWN-001",
+      "kind": "compatibility_schema",
+      "note": "Version-1 branch."
+    },
+    {
+      "from": "OWN-004",
+      "to": "OWN-002",
+      "kind": "schema",
+      "note": "Version-2 branch."
+    },
+    {
+      "from": "OWN-004",
+      "to": "OWN-003",
+      "kind": "optional_profile_schema",
+      "note": "Evidence-branch matrix."
+    },
+    {
+      "from": "OWN-005",
+      "to": "OWN-004",
+      "kind": "tests",
+      "note": "Focused public validator behavior."
+    },
+    {
+      "from": "OWN-005",
+      "to": "OWN-006",
+      "kind": "fixtures",
+      "note": "Valid cases."
+    },
+    {
+      "from": "OWN-005",
+      "to": "OWN-007",
+      "kind": "fixtures",
+      "note": "Malformed rejection cases."
+    },
+    {
+      "from": "POL-001",
+      "to": "CHK-T001",
+      "kind": "requires",
+      "note": "Checkpoint validation."
+    },
+    {
+      "from": "POL-001",
+      "to": "OWN-004",
+      "kind": "requires_for_production",
+      "note": "Ownership preflight."
+    },
+    {
+      "from": "POL-001",
+      "to": "TOOL-001",
+      "kind": "routes",
+      "note": "Evidence audit."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-001",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-003",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-004",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-005",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-006",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-007",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-008",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-009",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-010",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-002",
+      "to": "SKL-011",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-012",
+      "to": "CHK-S001",
+      "kind": "consumes",
+      "note": "Resolver consumes the checkpoint schema."
+    },
+    {
+      "from": "SKL-012",
+      "to": "CHK-T001",
+      "kind": "consumes",
+      "note": "Resolver requires deterministic checkpoint validation."
+    },
+    {
+      "from": "SKL-013",
+      "to": "SKL-009",
+      "kind": "consumes",
+      "note": "Task selection may consume Graphify only through the read-only query profile."
+    },
+    {
+      "from": "SKL-014",
+      "to": "SKL-015",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-016",
+      "to": "SKL-017",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "SKL-018",
+      "to": "SKL-019",
+      "kind": "references",
+      "note": "Skill entry routes to or is constrained by this resource."
+    },
+    {
+      "from": "TOOL-002",
+      "to": "MAN-001",
+      "kind": "validates",
+      "note": "Hashes skill entries and validates exact project inventory."
+    },
+    {
+      "from": "TST-002",
+      "to": "EVD-018",
+      "kind": "owned_by_manifest",
+      "note": "P1 test ownership."
+    },
+    {
+      "from": "TST-004",
+      "to": "EVD-018",
+      "kind": "boundary_subtype_record",
+      "note": "Current concrete boundary case."
+    }
+  ],
+  "proposed_extraction_candidate_consumers": [
+    {
+      "component_id": "CHK-D001",
+      "current_path": ".pi/checkpoints/README.md",
+      "current_consumers": [
+        "parent pi",
+        "resolve-human-checkpoint"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "CHK-F001",
+      "current_path": ".pi/checkpoints/fixtures/pending-checkpoint.json",
+      "current_consumers": [
+        "parent pi",
+        "resolve-human-checkpoint"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "CHK-S001",
+      "current_path": ".pi/checkpoints/checkpoint.schema.json",
+      "current_consumers": [
+        "parent pi",
+        "resolve-human-checkpoint"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "CHK-T001",
+      "current_path": ".pi/checkpoints/validate_checkpoints.py",
+      "current_consumers": [
+        "parent pi",
+        "resolve-human-checkpoint"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "EVD-007",
+      "current_path": ".pi/evidence/backend-neutral-cpn-P0-preflight/checksums.sha256",
+      "current_consumers": [
+        "historical replay",
+        "parent pi",
+        "reviewers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "EVD-013",
+      "current_path": ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration/checksums.sha256",
+      "current_consumers": [
+        "historical replay",
+        "parent pi",
+        "reviewers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "EVD-022",
+      "current_path": ".pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256",
+      "current_consumers": [
+        "historical replay",
+        "parent pi",
+        "reviewers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "EVD-029",
+      "current_path": ".pi/evidence/class-owned-evidence-convention/checksums.sha256",
+      "current_consumers": [
+        "historical replay",
+        "parent pi",
+        "reviewers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-001",
+      "current_path": ".pi/checkpoints/fixtures/resolved-checkpoint.json",
+      "current_consumers": [
+        "parent pi",
+        "resolve-human-checkpoint"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-072",
+      "current_path": ".pi/task-ownership/tests/fixtures/valid/ownership-v2-no-profile.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-073",
+      "current_path": ".pi/task-ownership/tests/fixtures/valid/ownership-v2-profile.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-074",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-cycle.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-075",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-missing-authorization.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-076",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-one-branch.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-077",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-one-role-deterministic.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-078",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-orphan-stage.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-079",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-wrong-authorization.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-080",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-wrong-stage-evidence.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-081",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-wrong-stage-owner.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-082",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/ownership-v2-correction-limit-2.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "FIL-083",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/ownership-v2-schema-extra-property.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-002",
+      "current_path": ".pi/task-ownership/ownership-v2.schema.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-003",
+      "current_path": ".pi/task-ownership/evidence-branch-matrix.schema.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-004",
+      "current_path": ".pi/task-ownership/validate_task_ownership.py",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-005",
+      "current_path": ".pi/task-ownership/tests/test_validate_task_ownership.py",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-006",
+      "current_path": ".pi/task-ownership/tests/fixtures/valid/evidence-branch-matrix.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-007",
+      "current_path": ".pi/task-ownership/tests/fixtures/invalid/evidence-branch-matrix-completion-mismatch.json",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "OWN-008",
+      "current_path": ".pi/task-ownership/README.md",
+      "current_consumers": [
+        "parent pi",
+        "reviewers",
+        "writers"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "POL-001",
+      "current_path": "AGENTS.md",
+      "current_consumers": [
+        "all agents",
+        "all skills",
+        "all tasks"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "POL-002",
+      "current_path": "docs/development/agent-control-plane.rst",
+      "current_consumers": [
+        "agents",
+        "human PI"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "SKL-012",
+      "current_path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+      "current_consumers": [
+        "AGENTS.md where referenced",
+        "named .pi agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "SKL-013",
+      "current_path": ".pi/skills/choose-next-task/SKILL.md",
+      "current_consumers": [
+        "AGENTS.md where referenced",
+        "named .pi agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "SKL-014",
+      "current_path": ".pi/skills/design-data-action-objects/SKILL.md",
+      "current_consumers": [
+        "AGENTS.md where referenced",
+        "named .pi agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "SKL-015",
+      "current_path": ".pi/skills/design-data-action-objects/references/data-action-architecture.md",
+      "current_consumers": [
+        "AGENTS.md where referenced",
+        "named .pi agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "SKL-018",
+      "current_path": ".pi/skills/document-research-python/SKILL.md",
+      "current_consumers": [
+        "AGENTS.md where referenced",
+        "named .pi agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "SKL-019",
+      "current_path": ".pi/skills/document-research-python/references/test-evidence-documentation.md",
+      "current_consumers": [
+        "AGENTS.md where referenced",
+        "named .pi agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "TOOL-001",
+      "current_path": ".pi/skills/audit_evidence_identifiers.py",
+      "current_consumers": [
+        "parent pi",
+        "project agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    },
+    {
+      "component_id": "TOOL-002",
+      "current_path": ".pi/skills/validate_skill_capabilities.py",
+      "current_consumers": [
+        "parent pi",
+        "project agents"
+      ],
+      "future_dependency_rule": "Consumers must supply explicit profile/resource roots; generic implementation must not discover local state."
+    }
+  ],
+  "prohibited_future_directions": [
+    {
+      "from": "generic",
+      "to": "local",
+      "reason": "Would invert extension ownership and make generic behavior project-dependent."
+    },
+    {
+      "from": "generic",
+      "to": "ksdft2effmass domain",
+      "reason": "Would import scientific semantics into reusable procedure."
+    },
+    {
+      "from": "generic",
+      "to": "implicit .pi state",
+      "reason": "Inputs must be explicit records/paths."
+    },
+    {
+      "from": "generic",
+      "to": "repository-relative paths",
+      "reason": "Roots must be caller supplied and confined."
+    },
+    {
+      "from": "generic skill",
+      "to": "project task identity",
+      "reason": "Task IDs belong in the local profile/runtime state."
+    }
+  ],
+  "cycles": [
+    {
+      "nodes": [
+        "task records",
+        "chain records",
+        "checkpoint records"
+      ],
+      "status": "intentional_reference_cycle",
+      "resolution": "Keep authority axes distinct: task scope, chain dependencies, checkpoint decisions; derive status instead of copying prose."
+    },
+    {
+      "nodes": [
+        "skill entry",
+        "skill references",
+        "agent role"
+      ],
+      "status": "dispatch_cycle_risk",
+      "resolution": "Manifest resources and dependencies explicitly; agent selects skill, references do not dispatch agents."
+    },
+    {
+      "nodes": [
+        "test manifest",
+        "task-specific validator",
+        "test modules"
+      ],
+      "status": "verification_cycle_risk",
+      "resolution": "Manifest is declared input, validator is independent tool, executable tests remain evidence; no artifact may generate its own expected inventory silently."
+    }
+  ],
+  "ambiguous_ownership": [
+    {
+      "area": "live status",
+      "owners": [
+        "tasks",
+        "chains",
+        "AGENTS.md",
+        "docs",
+        "evidence status records"
+      ],
+      "recommendation": "Tasks/chains/checkpoints are authoritative axes; derive presentation status."
+    },
+    {
+      "area": "evidence grammar",
+      "owners": [
+        "document-research-python reference",
+        "develop-operator-records",
+        "P1 validators",
+        "docs/harness .05"
+      ],
+      "recommendation": "One generic grammar with local/domain extensions; legacy validators remain compatibility replay."
+    },
+    {
+      "area": "skill identity",
+      "owners": [
+        "repository skill",
+        "global pi fallback",
+        "skill inventory hashes only SKILL.md"
+      ],
+      "recommendation": "Manifest full entry/reference/script content and explicit overlay identity."
+    },
+    {
+      "area": "H2/H3 resource schemas",
+      "owners": [
+        "future H2 Python",
+        "future H3 textual resources"
+      ],
+      "recommendation": "H3 defines accepted resource/schema identities before H2 consumes them; run sequentially."
+    }
+  ]
+}

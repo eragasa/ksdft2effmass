@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task_id": "H0",
+  "initial_worktree_status": [],
+  "concurrent_unrelated_paths": [
+    {
+      "path": "docs/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "sha256": "4b1a2302ab47f7401b0531d9a89c29dfb05cebfc93e51eab1b8b2c96c351fa13",
+      "first_observed_during_review": "2026-08-04T08:04:00Z",
+      "provenance": "Absent from H0 start status and not written by H0 tool calls; appears to be concurrent unrelated conference-document work (including an office lock file). Preserved unchanged and excluded from H0 outputs.",
+      "disposition": "excluded from H0 outputs, recorded by exact path and observational hash, never staged in H0 checkpoint commit",
+      "last_observed_before_H0_checkpoint": "2026-08-04T08:25:00Z"
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "sha256": "65c72b2f93301a6c67713cc3e22cf42f420b2443d471be5dcb90d64634235d11",
+      "first_observed_during_review": "2026-08-04T08:04:00Z",
+      "provenance": "Absent from H0 start status and not written by H0 tool calls; appears to be concurrent unrelated conference-document work (including an office lock file). Preserved unchanged and excluded from H0 outputs.",
+      "disposition": "excluded from H0 outputs, recorded by exact path and observational hash, never staged in H0 checkpoint commit",
+      "last_observed_before_H0_checkpoint": "2026-08-04T08:25:00Z"
+    },
+    {
+      "path": "docs/meetings/20260804-LLENARIZAS.md",
+      "sha256": "115b13fb3bad810b776836797c98e5fc315be2301d0c5f6a8fadb2e29980cd8a",
+      "first_observed_after_final_review_assembly": "2026-08-04T08:24:00Z",
+      "provenance": "Empty untracked meeting note appeared after the clean H0 start and was not written by H0 tool calls. Preserved as concurrent unrelated work.",
+      "disposition": "excluded from H0 outputs, recorded by exact path and observational hash, never staged in H0 checkpoint commit",
+      "last_observed_before_H0_checkpoint": "2026-08-04T08:25:00Z"
+    },
+    {
+      "path": "docs/papers/ksdft2efffmas.P03.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "first_observed_during_review": "2026-08-04T07:54:36Z",
+      "provenance": "Absent from H0 start status and not written by parent H0 tool calls. A same-worktree intercom provenance request was delivered but timed out without reply. Preserved unchanged as concurrent unrelated work; ownership remains unresolved.",
+      "disposition": "excluded from H0 outputs, recorded by exact path and observational hash, never staged in H0 checkpoint commit",
+      "last_observed_before_H0_checkpoint": "2026-08-04T08:25:00Z"
+    }
+  ],
+  "concurrent_unrelated_tracked_paths": [
+    {
+      "path": "docs/meetings/20260728-LLENARIZAS.md",
+      "sha256": "40825e03b4ede52797ddd525979f66f5613986117f5196570a788a532cd136d4",
+      "first_observed_after_final_review_assembly": "2026-08-04T08:23:00Z",
+      "provenance": "Tracked meeting-note checkbox edits appeared after the clean H0 start and were not written by H0 tool calls. They are concurrent unrelated user work and are preserved unchanged.",
+      "disposition": "excluded from H0 outputs and never staged in the H0 checkpoint commit",
+      "last_observed_before_H0_checkpoint": "2026-08-04T08:25:00Z"
+    }
+  ],
+  "hash_policy": "Recorded SHA-256 values are observation/provenance snapshots, not a freeze on concurrently edited user files. H0 validates the exact path allowlist, requires each path to exist, rejects any other unrelated path, and rejects staging of every concurrent path."
+}

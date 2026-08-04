@@ -1,0 +1,523 @@
+{
+  "schema_version": 1,
+  "task_id": "H0",
+  "rule": "Each reusable capability has exactly one future authoritative owner. Project runtime state and historical evidence remain local and are supplied explicitly; docs/harness is never executable skill source.",
+  "capabilities": [
+    {
+      "capability": "agent_role_and_dispatch_configuration",
+      "future_authoritative_owner": "harness/local/",
+      "local_extension_owner": null,
+      "current_components": [
+        "AGT-001",
+        "AGT-002",
+        "AGT-003",
+        "AGT-004",
+        "AGT-005"
+      ],
+      "boundary": "Current identities, scientific skill routing, and task-specific roles are project configuration."
+    },
+    {
+      "capability": "artifact_integrity_validation",
+      "future_authoritative_owner": "python/src/ksdft2effmass/harness/pi/",
+      "local_extension_owner": ".pi/",
+      "current_components": [
+        "EVD-007",
+        "EVD-013",
+        "EVD-022",
+        "EVD-029"
+      ],
+      "boundary": "Generic versioned checksum entry/manifest/action with explicit root; expected identities and task catalogs remain evidence."
+    },
+    {
+      "capability": "authority_and_decision_classes",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "POL-001",
+        "POL-002"
+      ],
+      "boundary": "Generic authority categories and integrity invariants; project scientific, branch, Git-remote, and active-status policy remains local."
+    },
+    {
+      "capability": "checkpoint_decision_history",
+      "future_authoritative_owner": ".pi/",
+      "local_extension_owner": null,
+      "current_components": [
+        "CHK-001",
+        "CHK-002",
+        "CHK-003",
+        "CHK-004",
+        "CHK-005",
+        "CHK-006",
+        "CHK-007",
+        "CHK-008",
+        "CHK-009",
+        "CHK-010",
+        "CHK-011"
+      ],
+      "boundary": "Human responses and authorized project scope never enter the generic package."
+    },
+    {
+      "capability": "checkpoint_record_and_structural_validation",
+      "future_authoritative_owner": "python/src/ksdft2effmass/harness/pi/",
+      "local_extension_owner": "python/src/ksdft2effmass/harness/pi/local/",
+      "current_components": [
+        "CHK-D001",
+        "CHK-F001",
+        "CHK-S001",
+        "CHK-T001",
+        "FIL-001"
+      ],
+      "boundary": "Generic immutable record and stateless validation; local vocabulary, linked records, durability and resumption policy."
+    },
+    {
+      "capability": "checkpoint_resolution_procedure",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "SKL-012"
+      ],
+      "boundary": "Generic compare-and-record/replay/partial-failure procedure; project checkpoint paths, Git push requirements and resumption policy are local."
+    },
+    {
+      "capability": "cpn_contract_and_evidence",
+      "future_authoritative_owner": "existing project-domain source",
+      "local_extension_owner": null,
+      "current_components": [
+        "FIL-084",
+        "FIL-085",
+        "FIL-086",
+        "FIL-087",
+        "FIL-088",
+        "FIL-089",
+        "FIL-090",
+        "FIL-091",
+        "FIL-092",
+        "FIL-093",
+        "FIL-094",
+        "FIL-095",
+        "FIL-096",
+        "FIL-097",
+        "FIL-098",
+        "FIL-099",
+        "FIL-100",
+        "FIL-101",
+        "FIL-102",
+        "FIL-103",
+        "FIL-104",
+        "FIL-105",
+        "FIL-106",
+        "FIL-107",
+        "FIL-108",
+        "FIL-109",
+        "FIL-110",
+        "FIL-111",
+        "FIL-112",
+        "FIL-113",
+        "FIL-114",
+        "FIL-115",
+        "FIL-170",
+        "FIL-171",
+        "FIL-172",
+        "FIL-173",
+        "FIL-174",
+        "FIL-175",
+        "FIL-176",
+        "FIL-177",
+        "FIL-178",
+        "FIL-179",
+        "FIL-180",
+        "FIL-181",
+        "FIL-182",
+        "FIL-183",
+        "FIL-184",
+        "FIL-185",
+        "FIL-186",
+        "FIL-187",
+        "FIL-188",
+        "FIL-189",
+        "FIL-190",
+        "FIL-191",
+        "FIL-192",
+        "TST-002",
+        "TST-003",
+        "TST-004",
+        "TST-005",
+        "TST-006",
+        "TST-007",
+        "TST-010"
+      ],
+      "boundary": "CPN semantics, SV-CPN identities, schemas and executable evidence remain project-owned."
+    },
+    {
+      "capability": "data_action_result_architecture_guidance",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "SKL-014",
+        "SKL-015"
+      ],
+      "boundary": "Generic concrete immutable record/action/result guidance; operator-specific corrective policy remains a local extension."
+    },
+    {
+      "capability": "documentation_collection_and_navigation",
+      "future_authoritative_owner": "existing project-domain source",
+      "local_extension_owner": null,
+      "current_components": [
+        "DOC-010",
+        "DOC-011",
+        "DOC-012"
+      ],
+      "boundary": "Repository Sphinx/MyST policy remains local documentation configuration."
+    },
+    {
+      "capability": "evidence_identifier_inventory",
+      "future_authoritative_owner": "python/src/ksdft2effmass/harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "TOOL-001"
+      ],
+      "boundary": "Generic AST declaration/range/duplicate mechanics; roots, markers, prefixes, migration states and filename policy are explicit profile data."
+    },
+    {
+      "capability": "graphify_optional_integration",
+      "future_authoritative_owner": "existing project-domain source",
+      "local_extension_owner": null,
+      "current_components": [
+        "SKL-001",
+        "SKL-002",
+        "SKL-003",
+        "SKL-004",
+        "SKL-005",
+        "SKL-006",
+        "SKL-007",
+        "SKL-008",
+        "SKL-009",
+        "SKL-010",
+        "SKL-011"
+      ],
+      "boundary": "Defer from minimal H1; retain repository overlay and upstream provenance without copying it into harness resources."
+    },
+    {
+      "capability": "historical_task_evidence_and_replay",
+      "future_authoritative_owner": "historical evidence",
+      "local_extension_owner": null,
+      "current_components": [
+        "EVD-001",
+        "EVD-002",
+        "EVD-003",
+        "EVD-004",
+        "EVD-005",
+        "EVD-006",
+        "EVD-008",
+        "EVD-009",
+        "EVD-010",
+        "EVD-011",
+        "EVD-012",
+        "EVD-014",
+        "EVD-015",
+        "EVD-016",
+        "EVD-017",
+        "EVD-018",
+        "EVD-019",
+        "EVD-020",
+        "EVD-021",
+        "EVD-023",
+        "EVD-024",
+        "EVD-025",
+        "EVD-026",
+        "EVD-027",
+        "EVD-030",
+        "EVD-031",
+        "FIL-006",
+        "FIL-007",
+        "FIL-009",
+        "FIL-010",
+        "FIL-011",
+        "FIL-013",
+        "FIL-018",
+        "FIL-019",
+        "FIL-020",
+        "FIL-021",
+        "FIL-023",
+        "FIL-024",
+        "FIL-026",
+        "FIL-027",
+        "FIL-028",
+        "FIL-032",
+        "FIL-033",
+        "FIL-034",
+        "FIL-035",
+        "FIL-036",
+        "FIL-037",
+        "FIL-038",
+        "FIL-039",
+        "FIL-040",
+        "FIL-041",
+        "FIL-042",
+        "FIL-043",
+        "FIL-044",
+        "FIL-045",
+        "FIL-052",
+        "FIL-053",
+        "FIL-055",
+        "FIL-056",
+        "FIL-057",
+        "FIL-058",
+        "FIL-059",
+        "FIL-060",
+        "FIL-061",
+        "FIL-062",
+        "FIL-063",
+        "FIL-064",
+        "FIL-067",
+        "FIL-068",
+        "FIL-069",
+        "FIL-070",
+        "FIL-071"
+      ],
+      "boundary": "Never rewrite or relocate historical evidence merely because generic primitives are later available."
+    },
+    {
+      "capability": "instantiated_task_scope_and_status",
+      "future_authoritative_owner": ".pi/",
+      "local_extension_owner": null,
+      "boundary": "Every task record remains project runtime state; generic views receive it explicitly.",
+      "current_components": [
+        "TSK-001",
+        "TSK-002",
+        "TSK-003",
+        "TSK-004",
+        "TSK-005",
+        "TSK-006",
+        "TSK-007",
+        "TSK-008",
+        "TSK-009",
+        "TSK-010",
+        "TSK-011",
+        "TSK-012",
+        "TSK-013",
+        "TSK-014",
+        "TSK-015",
+        "TSK-016",
+        "TSK-017",
+        "TSK-018",
+        "TSK-019",
+        "TSK-020",
+        "TSK-021",
+        "TSK-022",
+        "TSK-023",
+        "TSK-024",
+        "TSK-025",
+        "TSK-026",
+        "TSK-027",
+        "TSK-028",
+        "TSK-029",
+        "TSK-030",
+        "TSK-031",
+        "TSK-032",
+        "TSK-033",
+        "TSK-034",
+        "TSK-035",
+        "TSK-036"
+      ]
+    },
+    {
+      "capability": "maintained_harness_architecture",
+      "future_authoritative_owner": "docs/harness/",
+      "local_extension_owner": null,
+      "current_components": [
+        "DOC-001",
+        "DOC-002",
+        "DOC-003",
+        "DOC-004",
+        "DOC-005",
+        "DOC-006",
+        "DOC-007",
+        "DOC-008",
+        "DOC-009"
+      ],
+      "boundary": "Human-facing architecture only; no live status, dispatch, schema or executable procedure ownership."
+    },
+    {
+      "capability": "next_task_advisory_procedure",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "SKL-013"
+      ],
+      "boundary": "Generic read-only reconstruction and single recommendation; scientific frontier, candidate ranking and project task identities are local."
+    },
+    {
+      "capability": "prospective_generic_python_root",
+      "future_authoritative_owner": "python/src/ksdft2effmass/harness/pi/",
+      "local_extension_owner": null,
+      "boundary": "Absent until accepted H1/H2.",
+      "current_components": [
+        "PRO-001"
+      ]
+    },
+    {
+      "capability": "prospective_generic_resource_root",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": null,
+      "boundary": "Absent until accepted H1/H3.",
+      "current_components": [
+        "PRO-003"
+      ]
+    },
+    {
+      "capability": "prospective_local_python_root",
+      "future_authoritative_owner": "python/src/ksdft2effmass/harness/pi/local/",
+      "local_extension_owner": null,
+      "boundary": "Absent until accepted H1 and later authorized local ownership.",
+      "current_components": [
+        "PRO-002"
+      ]
+    },
+    {
+      "capability": "prospective_local_resource_root",
+      "future_authoritative_owner": "harness/local/",
+      "local_extension_owner": null,
+      "boundary": "Absent until accepted H1/H3.",
+      "current_components": [
+        "PRO-004"
+      ]
+    },
+    {
+      "capability": "pytest_and_vvuq_project_configuration",
+      "future_authoritative_owner": "existing project-domain source",
+      "local_extension_owner": null,
+      "boundary": "Markers, package/tool configuration and Python requirements remain project-owned.",
+      "current_components": [
+        "TST-001"
+      ]
+    },
+    {
+      "capability": "research_evidence_documentation_grammar",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "SKL-018",
+        "SKL-019"
+      ],
+      "boundary": "Extract the accepted document-research-python grammar; do not create a second write-research-evidence-tests grammar. Domain extensions reference it."
+    },
+    {
+      "capability": "scientific_operator_policy",
+      "future_authoritative_owner": "existing project-domain source",
+      "local_extension_owner": null,
+      "current_components": [
+        "FIL-116",
+        "FIL-117",
+        "FIL-118",
+        "FIL-119",
+        "FIL-120",
+        "FIL-121",
+        "FIL-122",
+        "FIL-123",
+        "FIL-124",
+        "FIL-125",
+        "FIL-126",
+        "FIL-127",
+        "FIL-128",
+        "FIL-129",
+        "FIL-130",
+        "FIL-131",
+        "FIL-132",
+        "FIL-133",
+        "FIL-134",
+        "FIL-135",
+        "FIL-136",
+        "FIL-137",
+        "FIL-138",
+        "FIL-139",
+        "FIL-140",
+        "FIL-141",
+        "FIL-142",
+        "FIL-143",
+        "FIL-144",
+        "FIL-145",
+        "FIL-146",
+        "FIL-147",
+        "FIL-148",
+        "FIL-149",
+        "FIL-150",
+        "FIL-151",
+        "FIL-152",
+        "FIL-153",
+        "FIL-154",
+        "FIL-155",
+        "FIL-156",
+        "FIL-157",
+        "FIL-158",
+        "FIL-159",
+        "FIL-160",
+        "FIL-161",
+        "FIL-162",
+        "FIL-163",
+        "FIL-164",
+        "FIL-165",
+        "FIL-166",
+        "FIL-167",
+        "FIL-168",
+        "FIL-169",
+        "SKL-016",
+        "SKL-017",
+        "TST-008",
+        "TST-009"
+      ],
+      "boundary": "Operator objects, mathematics, tests and VVUQ evidence remain ksdft2effmass-owned."
+    },
+    {
+      "capability": "skill_and_resource_identity",
+      "future_authoritative_owner": "harness/pi/",
+      "local_extension_owner": "harness/local/",
+      "current_components": [
+        "MAN-001",
+        "TOOL-002"
+      ],
+      "boundary": "Manifest every entry, reference, script, schema, template and profile with content identity; current CPN blocks and consumers are local."
+    },
+    {
+      "capability": "task_chain_and_live_authorization_state",
+      "future_authoritative_owner": ".pi/",
+      "local_extension_owner": null,
+      "current_components": [
+        "CHN-001",
+        "CHN-002",
+        "CHN-003",
+        "CHN-004"
+      ],
+      "boundary": "Tasks own scope, chains own dependencies/activation, checkpoints own human decisions; presentation status is derived."
+    },
+    {
+      "capability": "task_ownership_preflight",
+      "future_authoritative_owner": "python/src/ksdft2effmass/harness/pi/",
+      "local_extension_owner": "python/src/ksdft2effmass/harness/pi/local/",
+      "current_components": [
+        "FIL-072",
+        "FIL-073",
+        "FIL-074",
+        "FIL-075",
+        "FIL-076",
+        "FIL-077",
+        "FIL-078",
+        "FIL-079",
+        "FIL-080",
+        "FIL-081",
+        "FIL-082",
+        "FIL-083",
+        "OWN-001",
+        "OWN-002",
+        "OWN-003",
+        "OWN-004",
+        "OWN-005",
+        "OWN-006",
+        "OWN-007",
+        "OWN-008"
+      ],
+      "boundary": "Generic v2 roles, path confinement, overlap, reviewer independence, acyclicity and completion binding; v1 P1 compatibility and repository routing remain local."
+    }
+  ]
+}

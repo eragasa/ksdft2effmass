@@ -1,0 +1,61 @@
+{
+  "checkpoint_id": "H0-HC01",
+  "task_id": "H0",
+  "episode_id": "pi-harness-incubation-H0",
+  "status": "blocked",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T08:23:55Z",
+  "question": "Does the human PI accept the 316-component H0 harness inventory and its recommended minimum H1 contract: generic class-owned/artifact-owned evidence kinds with boundary relation metadata; extraction of the existing evidence grammar rather than a duplicate skill; stateless generic validator primitives with explicit local profiles; sequential H3 then H2 scheduling; future harness-specific agents and version-2 path ownership; and zero generic dependencies on project-local/domain/implicit repository state, while keeping H1-H5 and P2-P11 blocked until separately activated?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the H0 inventory and recommended H1 scope.",
+      "consequence": "Close H0 as human-accepted inventory evidence and satisfy only H1's H0-acceptance prerequisite. Do not activate H1 automatically. A separate explicit H1 activation must consume the accepted 316-component inventory, source-of-truth map, six finding resolutions, H3-before-H2 recommendation, migration constraints, and minimum contract. H1-H5 and P2-P11 remain blocked until separately authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Accept with specified corrections.",
+      "consequence": "Preserve the human response verbatim, keep H0 active, apply only the specified bounded evidence/control-plane corrections, rerun validation and independent review, and return to acceptance. Do not begin H1, extraction, implementation, test migration, dependency changes, or P2."
+    },
+    {
+      "id": "C",
+      "summary": "Reject and reopen inventory or ownership analysis.",
+      "consequence": "H0 remains active and reopens the human-specified inventory/classification boundary. No H1-H5 or P2-P11 task is activated and no recommendation is implemented."
+    },
+    {
+      "id": "D",
+      "summary": "Defer.",
+      "consequence": "H0 remains blocked at H0-HC01. H1-H5 and P2-P11 remain blocked and unauthorized; no implementation, extraction, retirement, package work, or scientific execution begins."
+    }
+  ],
+  "recommendation": "Option A. Accept the conservative 316-component inventory: 38 SPLIT_GENERIC_AND_LOCAL, 264 KEEP_PROJECT_LOCAL, 14 DEFER; authority totals 150 AUTHORITATIVE, 141 HISTORICAL_EVIDENCE, 20 ADVISORY, 1 DERIVED, and 4 UNRESOLVED prospective roots. Accept the generic/local boundary in source-of-truth-map.json; generic primary evidence kinds class_owned and artifact_owned with boundary agreement/direction as artifact relation metadata; the existing document-research-python grammar as the sole future evidence-skill source; stateless validator primitives with explicit local profiles and legacy shadow replay; sequential H3 then H2; harness-specific future agents and version-2 manifests; and the proposed minimum immutable record/stateless action/structured result H1 surface. Retain all historical evidence, P1 compatibility, project scientific semantics, .pi runtime state, exact markers/prefixes/paths, Git policy, and task activation locally. Graphify remains deferred outside minimum H1. No H1 activation is included in Option A.",
+  "blocked_scope": "H0 final acceptance and closeout; H1-H5 activation; any generic/local Python or resource path creation; skill or validator movement/retirement; test semantics, module, marker, evidence-ID or node-ID changes; dependency or lockfile changes; P2-P11; package publication; external or scientific execution.",
+  "safe_scope": "Read-only inspection of the retained H0 inventory, capability matrix, dependency and source-of-truth maps, overlap/leakage/finding analyses, proposed H1 contract, reviews, validation results, checksums, checkpoint, and current authoritative task/chain state. The resolve-human-checkpoint procedure may record an unambiguous response and revalidate the decision boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/pi-harness-incubation-H0-inventory.md",
+    ".pi/tasks/pi-harness-incubation-H1-contract.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
+    ".pi/evidence/pi-harness-incubation/H0/component-inventory.json",
+    ".pi/evidence/pi-harness-incubation/H0/capability-matrix.json",
+    ".pi/evidence/pi-harness-incubation/H0/dependency-map.json",
+    ".pi/evidence/pi-harness-incubation/H0/source-of-truth-map.json",
+    ".pi/evidence/pi-harness-incubation/H0/open-finding-resolutions.md",
+    ".pi/evidence/pi-harness-incubation/H0/proposed-H1-contract.md",
+    ".pi/evidence/pi-harness-incubation/H0/H0-report.md",
+    ".pi/evidence/pi-harness-incubation/H0/checksums.sha256"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
+    ".pi/tasks/pi-harness-incubation-H0-inventory.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H0/"
+  ],
+  "resumption_status": "H0_active_blocked_at_H0-HC01; H1-H5_and_P2-P11_blocked; awaiting_human_decision"
+}
