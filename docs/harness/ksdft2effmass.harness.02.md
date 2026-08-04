@@ -6,21 +6,23 @@ The harness contract defines the smallest stable interface required to validate 
 
 The contract must be approved before generic functionality is extracted. Existing scripts are evidence of requirements, not automatically the desired public API.
 
-## Candidate contract surfaces
+## Accepted minimum H1 surface
 
-H0 determines which surfaces are justified. Candidates include:
+H0 accepted the following as planning authority for H1:
 
-- project-profile records;
-- resource references and resource manifests;
-- task and chain records;
-- human-checkpoint records;
-- evidence and checksum records;
-- validation issues and results;
-- structured failures;
-- deterministic validation actions;
-- resource-loading actions.
+- `ArtifactIdentity`, `ResourceReference`, `ResourceManifest`,
+  `ProjectProfile`, and `SkillDescriptor` records;
+- `ValidationIssue` and `ValidationResult` structured results;
+- narrow ownership, checkpoint, task/chain-view, checksum, command-result, and
+  decision-boundary records; and
+- stateless loaders, resolvers, and validators using explicit roots and
+  profiles.
 
-No interface should be introduced solely because it might be useful later.
+Exact public names, serialized fields, and compatibility policy remain H1
+decisions. No interface should be introduced solely because it might be useful
+later. Orchestration, dispatch, subprocess/Git/package operations, scientific
+CPNs, domain adapters, package publication, Graphify, universal filename rules,
+and a duplicate evidence grammar are outside the accepted minimum.
 
 ## State and action separation
 
@@ -34,11 +36,16 @@ $$
 
 where $R$ is a structured result containing stable issues and no hidden mutation of $x$ or $p$.
 
-The action must not acquire project state from the current directory, environment-specific global state, or an implicit `.pi` search.
+The action must not acquire project state from the current directory,
+environment-specific global state, or an implicit `.pi` search. Generic
+validation must be reproducible from a clean revision plus declared inputs.
+Optional project-local pre-commit checks may inspect an explicitly supplied
+worktree, but their results must remain distinct from clean-revision validation
+and must not turn personal working notes into harness inputs.
 
 ## Configuration contract
 
-A project profile may supply:
+A data-only project profile may supply:
 
 - repository-relative roots;
 - evidence-ID prefixes;

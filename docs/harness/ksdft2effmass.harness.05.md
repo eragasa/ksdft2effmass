@@ -15,47 +15,41 @@ Synthetic software fixtures do not establish scientific validation. Analytical m
 
 ## Module ownership
 
-Every evidence module declares one primary ownership type.
+The accepted generic model has exactly two primary evidence ownership kinds:
+`class_owned` and `artifact_owned`. Successor task records and manifests must
+use this vocabulary before implementation.
 
-### Class-owned
+### `class_owned`
 
-One primary public class:
+The module primarily owns evidence for one public class. A project profile may
+supply its exact filename rule; the current P1-compatible local form is:
 
 ```text
 test__<ExactPublicClassName>.py
 ```
 
-### Artifact-owned
+### `artifact_owned`
 
-One named schema, fixture family, package surface, or metadata contract:
+The module primarily owns evidence for a named schema, fixture family, package
+surface, metadata contract, cross-surface agreement, directional mapping, or
+approved composed workflow/subnet. Agreement and direction are artifact
+relation metadata, not separate primary ownership kinds.
+
+A project profile may supply exact artifact filename rules. Descriptive forms
+may include:
 
 ```text
 test__<artifact_scope>_<contract>.py
-```
-
-### Boundary-owned
-
-One explicit agreement between two surfaces:
-
-```text
 test__<left_scope>_<right_scope>_<agreement>.py
-```
-
-Directional mappings use
-
-```text
 test__<producer>_to_<consumer>_<mapping>.py
-```
-
-### Workflow-owned
-
-One approved composed workflow or subnet:
-
-```text
 test__<workflow_or_subnet>_workflow.py
 ```
 
-“Integration” is not sufficient ownership because it does not name the boundary being tested.
+Legacy `boundary_owned`, `boundary`, or `workflow` labels are project-local
+compatibility inputs only where an accepted historical contract requires them.
+They must not become competing generic primary kinds. “Integration” alone is
+not sufficient artifact identity because it does not name the agreement or
+workflow being tested.
 
 ## Module documentation
 
@@ -93,7 +87,7 @@ Use
 test_<surface_kind>__<member_or_facet>__<expected_behavior>
 ```
 
-Approved surface kinds include:
+Project profiles may approve function-level surface facets including:
 
 - `constructor`;
 - `field`;
@@ -122,7 +116,10 @@ def test_boundary__python_json_numeric_contract__preserves_runtime_agreement() -
     ...
 ```
 
-Evidence IDs belong in docstrings and manifests rather than serving as the function's only name.
+Function-level `boundary` and `workflow` facets describe what an
+`artifact_owned` test exercises; they do not change its primary ownership kind.
+Evidence IDs belong in docstrings and manifests rather than serving as the
+function's only name.
 
 ## Parameterized evidence
 
@@ -132,7 +129,12 @@ Distinct requirements require distinct evidence IDs.
 
 ## Structural and semantic review
 
-A deterministic validator may check headings, field presence, naming shape, markers, evidence prefixes, and ownership manifests.
+A deterministic validator may check headings, field presence, naming shape,
+markers, evidence prefixes, and ownership manifests. Clean-revision
+reproducible validation uses declared versioned inputs. Optional project-local
+pre-commit checks may separately inspect an explicitly supplied worktree, but
+personal or concurrent working notes are never required resources or reusable
+validator inputs.
 
 It cannot prove:
 

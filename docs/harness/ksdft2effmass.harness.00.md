@@ -6,9 +6,17 @@ The PI harness provides the reusable control-plane machinery used to plan, autho
 
 The harness does not perform a scientific calculation merely because it can represent a task, checkpoint, or evidence record. It coordinates work and verifies software-facing contracts; scientific execution and acceptance remain separately authorized project activities.
 
+H0 was human-accepted through `H0-HC01` on 2026-08-04. Its 316-component
+inventory, generic/local boundary, six finding resolutions, H3-before-H2
+sequencing recommendation, and proposed minimum H1 contract are planning
+authority for H1. H1 remains inactive pending separate explicit activation;
+these pages do not authorize implementation.
+
 ## Architectural split
 
-The incubation architecture uses four source locations and one runtime-state location:
+The accepted incubation architecture plans four source locations and uses one
+current runtime-state location. The four source roots remain prospective and
+absent until an authorized implementation task creates them:
 
 | Location | Ownership |
 | --- | --- |
@@ -47,8 +55,8 @@ The harness incubation project is organized as
 P1 closeout
 → H0 inventory
 → H1 contract
-→ H2 Python core
 → H3 skills and resources
+→ H2 Python core
 → H4 local integration and cutover
 → H5 extraction-readiness acceptance
 → separate P2 activation
@@ -58,15 +66,22 @@ P2 is not launched by completing the harness. It still requires a separate expli
 
 ## Sources of truth
 
-These pages explain durable architecture and usage. They do not own live status.
+These pages explain durable architecture and usage. They do not own mutable
+execution state. The records under `.pi/tasks/`, `.pi/checkpoints/`, and
+`.pi/chains/` are the sole authority for current task scope/status, human
+decisions, dependencies, and activation. If prose here conflicts with those
+records, the `.pi` records control.
 
-- `.pi/tasks/` owns task scope and status.
-- `.pi/checkpoints/` owns human decisions.
-- `.pi/chains/` owns task dependencies and authorization state.
-- `.pi/evidence/` owns retained execution and review evidence.
-- `docs/harness/` owns maintained human-readable explanation.
+- `.pi/evidence/` owns retained execution and review evidence, not live
+  authorization.
+- `docs/harness/` owns maintained human-readable architectural explanation.
 
-Historical accepted evidence is not rewritten merely because the current harness evolves.
+Historical accepted evidence is not rewritten merely because the current
+harness evolves. The retained H0 validator and checksum catalog attest the
+pre-acceptance H0 boundary; they are not post-closeout mutable-state validators
+and do not supersede current task, checkpoint, or chain records. Personal and
+concurrently edited working notes are outside harness authority. H0 observations about them are historical nonmutation
+provenance only, not required harness resources or reusable validator inputs.
 
 ## VVUQ boundary
 

@@ -18,7 +18,11 @@ Move or reimplement the generic behavior behind the accepted harness contract. P
 
 ### Shadow
 
-Run legacy and extracted implementations against identical inputs without changing authoritative project state.
+Run legacy and extracted implementations against identical declared inputs
+without changing authoritative project state. The reproducible parity gate runs
+from a clean revision. An optional project-local pre-commit replay may inspect
+an explicitly supplied worktree as a separate check; it must not be substituted
+for the clean-revision result.
 
 ### Compare
 
@@ -87,7 +91,11 @@ Recommended decisions are:
 
 Closed evidence remains evidence of the historical tree and tool versions. Current-tree replay may report expectation drift when later authorized files are present.
 
-Do not rewrite historical evidence to make it appear current. Preserve the original record and separately document replay conditions or current-tree differences.
+Do not rewrite historical evidence to make it appear current. Preserve the
+original record and separately document replay conditions or current-tree
+differences. Personal and concurrently edited working notes remain outside
+harness authority; historical nonmutation observations about them are not
+required replay inputs or reusable validator inputs.
 
 ## Rollback
 

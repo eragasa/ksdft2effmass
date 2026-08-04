@@ -8,21 +8,28 @@ This separation prevents the workflow infrastructure from silently acquiring ass
 
 ## Five ownership regions
 
+The generic/local boundary below was accepted at `H0-HC01`. The four generic
+and local source/resource roots are prospective; none is an implemented harness
+surface yet.
+
 ### Generic Python functionality
 
-`python/src/ksdft2effmass/harness/pi/` contains reusable Python objects and actions. Candidate responsibilities include structured task and checkpoint records, profile loading, resource resolution, deterministic validators, and structured diagnostic results.
+Future `python/src/ksdft2effmass/harness/pi/` owns reusable Python objects and
+actions. Accepted minimum responsibilities include immutable records, explicit
+profile and resource loading, stateless deterministic validators, and structured
+diagnostic results.
 
 Only capabilities approved by the harness contract belong here.
 
 ### Project-local Python functionality
 
-`python/src/ksdft2effmass/harness/pi/local/` connects the generic interfaces to this repository. It may know about repository paths, evidence-ID namespaces, pytest markers, task-chain conventions, and project-specific validation policy.
+Future `python/src/ksdft2effmass/harness/pi/local/` connects the generic interfaces to this repository. It may know about repository paths, evidence-ID namespaces, pytest markers, task-chain conventions, and project-specific validation policy.
 
 It may depend on the generic layer. The generic layer may not depend on it.
 
 ### Generic textual resources
 
-`harness/pi/` contains operational resources intended to move with a future harness package:
+Future `harness/pi/` contains operational resources intended to move with a future harness package:
 
 - `SKILL.md` files;
 - agent-facing references;
@@ -35,7 +42,7 @@ These are executable governance resources rather than scientific or user-guide d
 
 ### Project-local textual resources
 
-`harness/local/` contains profiles and extensions that make the generic harness useful for `ksdft2effmass`. Project task IDs, scientific terminology, and local evidence prefixes belong here.
+Future `harness/local/` contains profiles and extensions that make the generic harness useful for `ksdft2effmass`. Project task IDs, scientific terminology, and local evidence prefixes belong here.
 
 ### Runtime state
 
@@ -48,7 +55,9 @@ These are executable governance resources rather than scientific or user-guide d
 - checksums;
 - current authorization status.
 
-Runtime state is neither library code nor reusable skill source.
+Runtime state is neither library code nor reusable skill source. Mutable
+execution authority resides only in `.pi/tasks/`, `.pi/checkpoints/`, and
+`.pi/chains/`; `.pi/evidence/` retains evidence but does not activate work.
 
 ## Dependency rules
 

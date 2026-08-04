@@ -1,14 +1,14 @@
 # PI Harness Skills and Textual Resources
 
-## Resource boundary
+## Prospective resource boundary
 
-Reusable non-Python harness material belongs under
+When separately authorized, reusable non-Python harness material will belong under
 
 ```text
 harness/pi/
 ```
 
-Project-specific material belongs under
+Project-specific material will belong under
 
 ```text
 harness/local/
@@ -18,23 +18,11 @@ Markdown under `harness/pi/` is operational agent material. Scientific explanati
 
 ## Generic resource layout
 
-```text
-harness/pi/
-├── skills/
-│   └── write-research-evidence-tests/
-│       ├── SKILL.md
-│       ├── agents/
-│       │   └── openai.yaml
-│       ├── references/
-│       │   ├── evidence-taxonomy.md
-│       │   ├── test-documentation.md
-│       │   └── test-ownership-and-naming.md
-│       └── scripts/
-│           └── validate_evidence_tests.py
-├── templates/
-├── schemas/
-└── manifest.toml
-```
+H3 will define the concrete layout before H2 consumes resource and profile
+identities. The generic resource tree may contain accepted skills with their
+direct references and deterministic scripts, plus required templates, schemas,
+and a resource manifest. Exact names and serialized manifest fields remain
+contract decisions; no prospective example path is an implemented interface.
 
 Only required files should be included. A skill should not accumulate redundant README files, changelogs, installation guides, or copied project history.
 
@@ -44,9 +32,11 @@ Only required files should be included. A skill should not accumulate redundant 
 
 A reusable skill must state when it applies in its trigger description. It must not depend on an agent already knowing project-specific filenames or task IDs.
 
-## Initial evidence-test skill
+## Evidence-documentation skill source
 
-The initial generic skill should support:
+The existing `document-research-python` evidence grammar is the sole source for
+future extraction or update. H1-H3 must not create an independent duplicate
+skill or competing grammar. The generic capability should support:
 
 - software-verification classification;
 - numerical-verification classification;

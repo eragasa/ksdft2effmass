@@ -6,9 +6,9 @@ The local extension layer supplies the information that makes a generic harness 
 
 The local layer is an adapter and configuration boundary, not a fork of the harness.
 
-## Python-local layer
+## Prospective Python-local layer
 
-Project-specific Python functionality belongs under
+When separately authorized, project-specific Python functionality will belong under
 
 ```text
 python/src/ksdft2effmass/harness/pi/local/
@@ -25,9 +25,9 @@ It may own:
 
 It may import both the generic harness and project-domain modules. The generic layer may not import it.
 
-## Textual-local layer
+## Prospective textual-local layer
 
-Project-specific textual resources belong under
+When separately authorized, project-specific textual resources will belong under
 
 ```text
 harness/local/
@@ -77,13 +77,14 @@ Each rule has one authoritative owner.
 - Reusable procedure belongs to the generic harness.
 - Project configuration belongs to the local profile.
 - Scientific meaning belongs to domain code and architecture documentation.
-- Live authorization belongs to `.pi` checkpoints and chains.
+- Mutable execution state and authorization belong solely to `.pi/tasks/`,
+  `.pi/checkpoints/`, and `.pi/chains/`.
 
 If a local file restates a generic rule for convenience, it risks becoming a divergent implementation. Prefer a reference or configured extension.
 
 ## Testing the boundary
 
-Boundary-owned tests should establish:
+`artifact_owned` relation tests should establish:
 
 - local configuration is accepted by the generic contract;
 - invalid local configuration fails structurally;

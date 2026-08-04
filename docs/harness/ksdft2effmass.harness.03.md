@@ -1,34 +1,38 @@
 # PI Harness Python Implementation Boundary
 
-## Incubation namespace
+## Prospective incubation namespace
 
-Generic Python functionality is incubated under
+When separately authorized, generic Python functionality will be incubated under
 
 ```text
 python/src/ksdft2effmass/harness/pi/
 ```
 
-Project-specific extensions are isolated under
+Project-specific extensions will be isolated under
 
 ```text
 python/src/ksdft2effmass/harness/pi/local/
 ```
 
-This placement allows the harness to mature inside the existing Python project while preserving a visible extraction boundary.
+This accepted placement preserves a visible extraction boundary. H0 did not
+create either namespace, and H1 acceptance alone will not constitute Python
+implementation authorization.
 
 ## Import discipline
 
-Generic modules use relative imports internally:
+H1 will decide exact public and internal names. The following placeholders are
+non-normative and illustrate only relative import direction:
 
 ```python
-from .checkpoints import CheckpointRecord
-from .validation import HarnessValidationResult
+from .checkpoints import AcceptedCheckpointType
+from .validation import AcceptedValidationResultType
 ```
 
-They should not use incubation-specific absolute imports internally:
+Generic modules should not use incubation-specific absolute imports internally.
+For the same non-normative placeholders, avoid:
 
 ```python
-from ksdft2effmass.harness.pi.checkpoints import CheckpointRecord
+from ksdft2effmass.harness.pi.checkpoints import AcceptedCheckpointType
 ```
 
 Relative imports reduce the mechanical work required when the generic modules later move to an independent namespace.
@@ -69,7 +73,12 @@ The public namespace should expose only accepted records and actions. It should 
 - undocumented filesystem helpers;
 - scientific workflow objects.
 
-Every public class receives one class-owned software-verification module. Cross-language schemas and package boundaries receive explicitly named artifact- or boundary-owned modules.
+Every public class receives one `class_owned` software-verification module.
+Schemas, package surfaces, and cross-surface agreements use `artifact_owned`
+modules. Agreement and direction are artifact relation metadata rather than a
+third generic primary ownership kind. Legacy `boundary_owned` terminology may
+remain only as explicit project-local compatibility input until authorized
+migration.
 
 ## Extraction transition
 
