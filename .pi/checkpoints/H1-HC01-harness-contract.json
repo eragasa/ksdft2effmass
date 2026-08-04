@@ -1,0 +1,63 @@
+{
+  "checkpoint_id": "H1-HC01",
+  "task_id": "H1",
+  "episode_id": "pi-harness-incubation-H1",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T14:41:46Z",
+  "question": "Does the human PI accept the proposed H1 version-1 generic harness contract: the exact public records/results/actions/support types; strict identifier, JSON, path, manifest, resource-resolution, overlay, project-profile, issue-code, ordering, and version rules; the generic/local ownership boundary; the exact sequential H3 then H2 then H4 path and handoff plan; and the stated local-only, deferred, and rejected interfaces?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept H1 contract as proposed.",
+      "consequence": "Record H1 human acceptance and permit H1 closeout only. H3 remains blocked and requires its own separate explicit activation and validated ownership manifest. H2, H4, H5, P2-P11, implementation, extraction, publication, external execution, and scientific execution remain blocked."
+    },
+    {
+      "id": "B",
+      "summary": "Accept with specified bounded corrections.",
+      "consequence": "Preserve the human corrections verbatim, keep H1 active, apply only the specified bounded contract/evidence/control-plane corrections, rerun affected validation and independent review, and return to H1 acceptance. Do not activate a successor or implement the contract."
+    },
+    {
+      "id": "C",
+      "summary": "Reject and reopen the contract boundary.",
+      "consequence": "Keep H1 active and reopen the human-specified public interface, wire/path/resource, version, or generic/local ownership decisions. H3-H5 and P2-P11 remain blocked."
+    },
+    {
+      "id": "D",
+      "summary": "Defer.",
+      "consequence": "Keep H1 active and blocked at H1-HC01 with the proposed evidence retained. No successor, implementation, extraction, package, external, or scientific work begins."
+    }
+  ],
+  "recommendation": "Option A. Accept the corrected minimum demonstrated-consumer contract: SHA-256 byte identity; strict closed UTF-8 JSON/RFC 8785 wire rules; explicit roots and extension-only local overlays; immutable records and concrete results; stateless actions; complete structured issues and deterministic ordering; exactly class_owned/artifact_owned evidence kinds; local Git/P1/scientific policy; deferred command records; rejected workflow/dispatch/plugin/Git/subprocess/Graphify surfaces; and exact nonoverlapping H3 -> H2 -> H4 handoffs. This is software-contract planning only and activates no successor.",
+  "blocked_scope": "H1 closure before human response; H3-H5; P2-P11; any python/src or python/tests harness implementation; harness/pi or harness/local resource creation; schemas/fixtures owned by H3; local integration; validator/skill retirement; dependencies or lockfiles; scientific/external execution; package publication; release actions; unrelated user work.",
+  "safe_scope": "Read-only inspection of the H1 contract, decision matrix, field/wire/path/issue/version artifacts, successor ownership plan, migration plan, retained review history, final reviews, validation results, checksums, activation, task/chains, maintained harness pages, and this checkpoint. The resolve-human-checkpoint procedure may record an unambiguous response and revalidate the decision boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/pi-harness-incubation-H1-contract.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/checkpoints/H1-HC01-harness-contract.json",
+    ".pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+    ".pi/evidence/pi-harness-incubation/H1/interface-decision-matrix.json",
+    ".pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/issue-code-and-ordering-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/path-and-resource-resolution-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/version-boundaries.md",
+    ".pi/evidence/pi-harness-incubation/H1/h3-h2-ownership-plan.json",
+    ".pi/evidence/pi-harness-incubation/H1/migration-and-compatibility-plan.md",
+    ".pi/evidence/pi-harness-incubation/H1/validation-results.json",
+    ".pi/evidence/pi-harness-incubation/H1/checksums.sha256",
+    "docs/harness/ksdft2effmass.harness.02.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/H1-HC01-harness-contract.json",
+    ".pi/tasks/pi-harness-incubation-H1-contract.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
+  ],
+  "resumption_status": "H1_active_blocked_at_H1-HC01; H3-H5_and_P2-P11_blocked; no_implementation_or_execution"
+}

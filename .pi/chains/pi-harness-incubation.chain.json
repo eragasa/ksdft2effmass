@@ -3,7 +3,7 @@
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
   "description": "Separate harness-incubation project. H0 is closed as human-accepted planning evidence. H1 alone is active as a non-implementation contract task; H3, H2, and H4 remain sequentially blocked. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
-  "status": "h1_active_contract_only_no_implementation",
+  "status": "h1_active_blocked_at_H1-HC01_no_implementation",
   "active_task": "H1",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -45,7 +45,7 @@
       "id": "H1",
       "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
       "prerequisites": ["H0:human_accepted"],
-      "status": "active"
+      "status": "active_blocked_at_H1-HC01"
     },
     {
       "id": "H3",
@@ -127,11 +127,11 @@
       "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
     }
   ],
-  "pending_checkpoints": [],
+  "pending_checkpoints": ["H1-HC01"],
   "chain": [
     {
-      "phase": "execute-H1-contract",
-      "message": "H1 alone is active for contract definition and must end blocked at H1-HC01. H3, H2, H4, H5, and P2-P11 remain blocked. No implementation, extraction, package publication, external execution, or scientific execution is authorized."
+      "phase": "H1-human-checkpoint",
+      "message": "H1 contract evidence, validation, and independent reviews pass. H1 remains active and is blocked at pending H1-HC01. H3, H2, H4, H5, and P2-P11 remain blocked. H1 acceptance does not activate H3; no implementation, extraction, package publication, external execution, or scientific execution is authorized."
     }
   ]
 }

@@ -4,7 +4,7 @@ Status: blocked by accepted H3; inactive and no implementation authorized
 
 ## Objective
 
-Implement only the accepted generic Python harness contract under `python/src/ksdft2effmass/harness/pi/`, with project-specific Python adapters isolated under `python/src/ksdft2effmass/harness/pi/local/` only where the accepted H1 ownership plan assigns them to H2.
+Implement only the accepted generic Python harness contract under `python/src/ksdft2effmass/harness/pi/`. H2 creates no project-specific Python under `python/src/ksdft2effmass/harness/pi/local/`; H4 owns that entire local Python boundary.
 
 ## Prerequisite
 

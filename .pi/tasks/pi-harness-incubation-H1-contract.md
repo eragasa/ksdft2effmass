@@ -1,6 +1,6 @@
 # H1 — Harness contract and package boundary
 
-Status: active under explicit human authorization dated 2026-08-04; contract evidence only; no implementation authorized
+Status: active and blocked at pending `H1-HC01`; corrected contract evidence and final reviews pass; no implementation authorized
 
 ## Objective
 
@@ -58,7 +58,8 @@ No production Python or textual-resource implementation, source movement, legacy
 
 ## Required decision
 
-H1 concludes at a genuine human checkpoint accepting or correcting the public
+H1 is blocked at `.pi/checkpoints/H1-HC01-harness-contract.json`, a genuine human
+checkpoint accepting, correcting, rejecting, or deferring the public
 internal API, version boundaries, profile/resource loading, structured errors,
 path rules, extraction boundary, and the exact ordered H3-then-H2 ownership
 plan. That plan must define paths, profiles, schemas, compatibility boundaries,

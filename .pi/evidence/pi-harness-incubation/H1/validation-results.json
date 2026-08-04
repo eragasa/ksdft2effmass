@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "task_id": "H1",
+  "revision_mode": "clean-revision reproducible contract checks plus separately identified local worktree nonmutation check",
+  "starting_revision": "4b279115bf299ee86c74246828762dbe32b1286f",
+  "activation_commit": "29eef9b5ed894d528d905f4556a905804983e305",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "checkpoint_schema_and_dry_run",
+      "command": "python .pi/checkpoints/validate_checkpoints.py --dry-run",
+      "status": "PASS",
+      "result": "14 records validated; exactly one unresolved checkpoint; duplicate resolved decisions zero; four dry-run stages passed"
+    },
+    {
+      "name": "skill_capability_validation",
+      "command": "python .pi/skills/validate_skill_capabilities.py",
+      "status": "PASS",
+      "result": "six records/filesystem skills; 13 CPN review blocks; 12 deterministic-tool blocks; zero errors"
+    },
+    {
+      "name": "ownership_validator_regression",
+      "command": "python -m pytest -q .pi/task-ownership/tests",
+      "status": "PASS",
+      "result": "36 passed"
+    },
+    {
+      "name": "sphinx_warnings_as_errors",
+      "command": "cd python && PYTHONDONTWRITEBYTECODE=1 uv run sphinx-build -W -q ../docs /tmp/ksdft2effmass-h1-sphinx",
+      "status": "PASS",
+      "result": "exit 0; temporary output removed"
+    },
+    {
+      "name": "sphinx_direct_active_environment_probe",
+      "command": "python -m sphinx -W -b html docs /tmp/ksdft2effmass-h1-sphinx",
+      "status": "EXPECTED_ENVIRONMENT_FAILURE_NOT_A_GATE",
+      "result": "active root .venv lacked myst_parser; authoritative project uv environment command above passed"
+    },
+    {
+      "name": "json_parse",
+      "command": "parse every H1/checkpoint JSON with Python json",
+      "status": "PASS",
+      "result": "all parsed"
+    },
+    {
+      "name": "git_diff_check",
+      "command": "git diff --check",
+      "status": "PASS",
+      "result": "no whitespace errors"
+    },
+    {
+      "name": "independent_semantic_reviews",
+      "command": "four separate read-only final reviews after retained failed findings and bounded corrections",
+      "status": "PASS",
+      "result": "architecture, public contract/serialization/Rust, evidence/VVUQ, and H3/H2/H4 integration reviews pass"
+    },
+    {
+      "name": "h1_completion_validator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python .pi/evidence/pi-harness-incubation/H1/validate_h1.py",
+      "status": "PASS",
+      "result": "zero errors; 36 included interfaces; 39 candidate dispositions; active task H1; exactly one unresolved checkpoint"
+    }
+  ],
+  "claim_boundary": "Software-contract structure and control-plane evidence only. No implementation, numerical verification, scientific validation, UQ, package readiness, external execution, or human acceptance is established."
+}

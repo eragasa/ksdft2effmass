@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-08-04T13:28:09Z",
+  "scope": "Pre-existing unrelated working files excluded from H1 authority and staging",
+  "paths": [
+    {
+      "path": "docs/meetings/20260728-LLENARIZAS.md",
+      "git_state": "modified_unstaged",
+      "sha256": "40825e03b4ede52797ddd525979f66f5613986117f5196570a788a532cd136d4"
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "git_state": "untracked",
+      "sha256": "4b1a2302ab47f7401b0531d9a89c29dfb05cebfc93e51eab1b8b2c96c351fa13"
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "git_state": "untracked",
+      "sha256": "65c72b2f93301a6c67713cc3e22cf42f420b2443d471be5dcb90d64634235d11"
+    },
+    {
+      "path": "docs/meetings/20260804-LLENARIZAS.md",
+      "git_state": "untracked",
+      "sha256": "a8120b88c17841a415d098716f6272d0b34b334ac3ee6c1271af99c4ab7d2c6d"
+    },
+    {
+      "path": "docs/papers/ksdft2efffmas.P03.md",
+      "git_state": "untracked",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "policy": "These files are never H1 resources or reusable validator inputs. Hashes prove H1 nonmutation only and do not freeze continuing user edits; any observed later difference must be reported rather than reverted or staged."
+}

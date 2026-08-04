@@ -1,0 +1,678 @@
+{
+  "schema_version": 1,
+  "task_id": "H1",
+  "decision_status": "proposed_for_H1-HC01",
+  "dispositions": [
+    {
+      "candidate": "ArtifactIdentity",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "checksum catalogs",
+        "skill capability validation",
+        "P1 mutation audits",
+        "H0 checksum review"
+      ],
+      "represented_meaning": "SHA-256 byte-content identity; media/type interpretation remains separate in ResourceReference.resource_kind",
+      "owner": "generic Python",
+      "rationale": "All current integrity gates need one algorithm/digest contract."
+    },
+    {
+      "candidate": "ResourceReference",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "skill entries and references",
+        "checkpoint schemas and fixtures",
+        "ownership schemas and fixtures"
+      ],
+      "represented_meaning": "manifest-addressed file resource with stable identity, path, kind, format, dependencies, and byte identity",
+      "owner": "generic Python",
+      "rationale": "Current consumers need identity beyond workstation paths."
+    },
+    {
+      "candidate": "ResourceManifest",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "validate_skill_capabilities.py",
+        "document-research-python reference closure",
+        "ownership schema/fixture closure"
+      ],
+      "represented_meaning": "ordered closed inventory of generic or local file resources",
+      "owner": "generic Python",
+      "rationale": "Current validation hashes entries but not complete resource closures."
+    },
+    {
+      "candidate": "ProjectProfile",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "validate_task_ownership.py",
+        "validate_checkpoints.py",
+        "audit_evidence_identifiers.py",
+        "validate_skill_capabilities.py"
+      ],
+      "represented_meaning": "data-only project policy and manifest references supplied explicitly to generic actions",
+      "owner": "generic Python record instantiated by local resources",
+      "rationale": "It replaces hard-coded roots, markers, namespaces, lifecycle vocabulary, and compatibility selection."
+    },
+    {
+      "candidate": "SkillDescriptor",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "six repository skills",
+        "five named agent records",
+        "skill-capability-inventory.json",
+        "validate_skill_capabilities.py"
+      ],
+      "represented_meaning": "versioned data-only identity and resource closure of one operational skill",
+      "owner": "generic Python record with accepted instances owned by generic or local resources",
+      "rationale": "Current skill identity covers only entry-file hashes and needs an explicit closure."
+    },
+    {
+      "candidate": "ValidationIssue",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "ownership validator",
+        "checkpoint validator",
+        "evidence-ID auditor",
+        "skill validator",
+        "task reports"
+      ],
+      "represented_meaning": "one machine-classified expected-invalidity finding",
+      "owner": "generic Python",
+      "rationale": "Current validators otherwise expose unstable assertion or prose failures."
+    },
+    {
+      "candidate": "ValidationResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "ownership preflight",
+        "checkpoint dry run",
+        "evidence-ID audit",
+        "checksum replay",
+        "skill validation"
+      ],
+      "represented_meaning": "deterministic aggregate structural-validation outcome",
+      "owner": "generic Python",
+      "rationale": "Current gates need a shared result boundary that does not imply authorization or scientific validity."
+    },
+    {
+      "candidate": "OwnershipManifestView",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "ownership-v2.schema.json",
+        "validate_task_ownership.py",
+        "ownership validator tests and fixtures"
+      ],
+      "represented_meaning": "normalized writer, reviewer, path, and completion declaration",
+      "owner": "generic Python",
+      "rationale": "The v2 structural nucleus is demonstrated; v1 P1 fields remain local compatibility input."
+    },
+    {
+      "candidate": "CheckpointRecord",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "13 current checkpoint records",
+        "checkpoint schema",
+        "validate_checkpoints.py",
+        "resolve-human-checkpoint skill"
+      ],
+      "represented_meaning": "immutable decision content and structural lifecycle facts supplied by a caller",
+      "owner": "generic Python view over runtime .pi state",
+      "rationale": "Structural checking is reusable while decision choice, Git durability, and resumption remain local."
+    },
+    {
+      "candidate": "TaskReference",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "four chain records",
+        "ownership task lookup",
+        "current prerequisite and activation assertions"
+      ],
+      "represented_meaning": "one task identity, record reference, declared prerequisites, status, and explicit-activation fact",
+      "owner": "generic Python view over runtime .pi state",
+      "rationale": "Only the narrow graph information used by current consumers is included."
+    },
+    {
+      "candidate": "ChainView",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "pi-harness-incubation chain",
+        "backend-neutral-kohn-sham-qe chain",
+        "ownership preflight",
+        "H0 control-plane assertions"
+      ],
+      "represented_meaning": "immutable task graph and declared active/activation facts",
+      "owner": "generic Python view over runtime .pi state",
+      "rationale": "Graph consistency is reusable without importing scientific CPN semantics or dispatch."
+    },
+    {
+      "candidate": "ChecksumEntry",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "H0, P0, P0A, P1, and EVIDENCE-DOC-1 checksum catalogs"
+      ],
+      "represented_meaning": "root-confined file path and expected byte identity",
+      "owner": "generic Python",
+      "rationale": "Five fragmented catalogs demonstrate the same byte-integrity primitive."
+    },
+    {
+      "candidate": "ChecksumManifest",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "historical replay",
+        "parent validation",
+        "read-only reviews"
+      ],
+      "represented_meaning": "strictly path-sorted checksum entries; the explicit runtime root is an action argument",
+      "owner": "generic Python",
+      "rationale": "Six current catalogs demonstrate one byte-integrity entry collection without a catalog ID/version/root-role field."
+    },
+    {
+      "candidate": "DeterministicCommandSpecification",
+      "disposition": "DEFER",
+      "demonstrated_consumers": [
+        "P0 and P0A command-manifest.json",
+        "ownership completion commands"
+      ],
+      "represented_meaning": "declared command invocation identity",
+      "owner": "undecided future contract",
+      "rationale": "Current command records have heterogeneous fields and no generic runner or stable cross-task consumer; freezing environment and output semantics now would be speculative."
+    },
+    {
+      "candidate": "DeterministicCommandResult",
+      "disposition": "DEFER",
+      "demonstrated_consumers": [
+        "P0 tooling-smoke.json",
+        "P0A tooling-results.json",
+        "H0 validation records"
+      ],
+      "represented_meaning": "declared process result facts",
+      "owner": "undecided future contract",
+      "rationale": "Current results are task evidence rather than one demonstrated common wire contract; nonzero status remains representable in local artifact evidence."
+    },
+    {
+      "candidate": "DecisionBoundaryResult",
+      "disposition": "LOCAL_COMPATIBILITY_ONLY",
+      "demonstrated_consumers": [
+        "resolve-human-checkpoint skill",
+        "durable Git decision-boundary policy",
+        "historical checkpoint resolution evidence"
+      ],
+      "represented_meaning": "project durability, commit, branch, remote, push, and partial-effect facts",
+      "owner": "project-local Python/resource contract and runtime evidence",
+      "rationale": "The only current consumer is inseparable from repository Git policy; no generic Git mutation API or generic serialized record is justified."
+    },
+    {
+      "candidate": "LoadProjectProfile",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "all profile-coupled current validators"
+      ],
+      "represented_meaning": "strict decoding of caller-supplied profile bytes",
+      "owner": "generic Python stateless action",
+      "rationale": "Explicit bytes remove implicit repository discovery."
+    },
+    {
+      "candidate": "ResolveResource",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "skill references",
+        "schemas",
+        "templates",
+        "fixtures",
+        "profile loading"
+      ],
+      "represented_meaning": "select and verify one manifest-declared file below explicit roots",
+      "owner": "generic Python stateless action",
+      "rationale": "Current path and precedence behavior is implicit and incomplete."
+    },
+    {
+      "candidate": "ValidateResourceManifest",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "skill closure validation",
+        "schema/fixture closure",
+        "H3 resource acceptance"
+      ],
+      "represented_meaning": "strict structural, dependency, version, path, and identity validation",
+      "owner": "generic Python stateless action",
+      "rationale": "Needed before H2 may consume H3 resources."
+    },
+    {
+      "candidate": "ValidateOwnershipManifest",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "validate_task_ownership.py",
+        "ownership validator tests",
+        "production launch policy"
+      ],
+      "represented_meaning": "generic v2 path/role/reviewer/completion validation",
+      "owner": "generic Python stateless action",
+      "rationale": "Local profiles retain agent format, routing, and P1 v1 compatibility."
+    },
+    {
+      "candidate": "ValidateCheckpointSet",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "validate_checkpoints.py",
+        "resolve-human-checkpoint skill",
+        "session-start unresolved scan"
+      ],
+      "represented_meaning": "checkpoint schema/set/identity/status consistency",
+      "owner": "generic Python stateless action",
+      "rationale": "It does not choose, resolve, resume, or mutate a checkpoint."
+    },
+    {
+      "candidate": "EvaluateChainState",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "H0 chain assertions",
+        "current active-task and prerequisite checks",
+        "P2 explicit activation gate"
+      ],
+      "represented_meaning": "derive structural task states from explicit records and profile vocabulary",
+      "owner": "generic Python stateless action",
+      "rationale": "It returns facts only and cannot activate successors or interpret scientific meaning."
+    },
+    {
+      "candidate": "AuditEvidenceIdentifiers",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "audit_evidence_identifiers.py",
+        "P1 evidence validator",
+        "22 protected-gap migration state"
+      ],
+      "represented_meaning": "audit caller-supplied Python source bytes and paths against explicit namespace/marker policy",
+      "owner": "generic Python stateless action",
+      "rationale": "AST and duplicate/range mechanics are reusable; roots and project evidence policy remain profile data."
+    },
+    {
+      "candidate": "ValidateChecksumManifest",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "six checksum catalogs",
+        "historical replay",
+        "checkpoint-boundary integrity checks"
+      ],
+      "represented_meaning": "compare declared byte identities below an explicit root",
+      "owner": "generic Python stateless action",
+      "rationale": "Identity checking is generic and has no scientific semantics."
+    },
+    {
+      "candidate": "ValidateSkillResources",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "validate_skill_capabilities.py",
+        "skill-capability-inventory.json",
+        "five agent records"
+      ],
+      "represented_meaning": "validate descriptor/resource closure and explicit overlay compatibility",
+      "owner": "generic Python stateless action",
+      "rationale": "Dispatch precedence and project skill selection remain local policy."
+    },
+    {
+      "candidate": "OwnershipScope",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "ownership-v2 owned_paths",
+        "validate_task_ownership.py prefix-overlap checks",
+        "H3/H2/H4 directory writer scopes"
+      ],
+      "represented_meaning": "one exact file or directory-tree ownership scope",
+      "owner": "generic Python",
+      "rationale": "A resource-file path cannot represent demonstrated directory ownership."
+    },
+    {
+      "candidate": "AgentDescriptorView",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "five named agent records",
+        "ownership-v2 writer/read-only validation",
+        "validate_task_ownership.py"
+      ],
+      "represented_meaning": "normalized agent identity and writer/read-only role",
+      "owner": "generic Python view produced by local adapter",
+      "rationale": "Generic ownership validation must not parse project frontmatter bytes."
+    },
+    {
+      "candidate": "EvidenceIdentifierOccurrence",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "audit_evidence_identifiers.py inventories",
+        "P1 evidence migration maps"
+      ],
+      "represented_meaning": "one stable evidence identifier occurrence at a supplied source path and line",
+      "owner": "generic Python",
+      "rationale": "The audit has a demonstrated retained inventory output."
+    },
+    {
+      "candidate": "ProjectProfileLoadResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "profile loading required by all profile-coupled validators"
+      ],
+      "represented_meaning": "loaded profile or structured failure",
+      "owner": "generic Python",
+      "rationale": "Action outputs must be concrete ResultObjects rather than unnamed tuples."
+    },
+    {
+      "candidate": "ResourceResolutionResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "skill/schema/reference resolution",
+        "H3 resolution fixtures"
+      ],
+      "represented_meaning": "selected runtime path/reference or structured failure",
+      "owner": "generic Python",
+      "rationale": "Resolution requires an explicit runtime-only result boundary."
+    },
+    {
+      "candidate": "ChainEvaluationResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "H0 chain assertions",
+        "active/blocked/ready task checks"
+      ],
+      "represented_meaning": "sorted structural task facts plus validation",
+      "owner": "generic Python",
+      "rationale": "Evaluation produces conceptually new facts and needs a ResultObject."
+    },
+    {
+      "candidate": "EvidenceAuditResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "audit_evidence_identifiers.py structured inventory and status",
+        "P1 migration validation"
+      ],
+      "represented_meaning": "ordered occurrence inventory plus validation",
+      "owner": "generic Python",
+      "rationale": "Audit output is a retained explicit result."
+    },
+    {
+      "candidate": "JsonSerializationResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "checkpoint JSON",
+        "ownership JSON",
+        "resource/profile/manifest JSON",
+        "cross-language wire evidence"
+      ],
+      "represented_meaning": "canonical JSON bytes and byte identity or structured failure",
+      "owner": "generic Python",
+      "rationale": "Serialization belongs to an ActionObject and explicit ResultObject."
+    },
+    {
+      "candidate": "JsonDeserializationResult",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "current JSON validators and loaders",
+        "future H3 valid/invalid fixtures"
+      ],
+      "represented_meaning": "one explicitly selected record kind or structured malformed-input failure",
+      "owner": "generic Python",
+      "rationale": "Deserialization must not be hidden on DataObjects."
+    },
+    {
+      "candidate": "SerializeJsonRecord",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "checksum catalogs",
+        "checkpoint/ownership/resource wire files",
+        "Python-Rust wire agreement"
+      ],
+      "represented_meaning": "stateless canonical encoding of the closed public record union",
+      "owner": "generic Python stateless action",
+      "rationale": "The public wire contract needs named action ownership."
+    },
+    {
+      "candidate": "DeserializeJsonRecord",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "checkpoint and ownership validators",
+        "profile/resource loaders",
+        "invalid JSON fixtures"
+      ],
+      "represented_meaning": "strict decoding into one caller-selected closed record kind",
+      "owner": "generic Python stateless action",
+      "rationale": "Malformed wire input needs deterministic structured behavior."
+    },
+    {
+      "candidate": "WireRecordKind",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "schema-specific checkpoint/ownership/profile/resource JSON decoding"
+      ],
+      "represented_meaning": "caller-selected closed JSON record kind",
+      "owner": "generic Python support enum",
+      "rationale": "Strict deserialization cannot infer record type or use an open registry."
+    },
+    {
+      "candidate": "HarnessWireRecord",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "heterogeneous JSON records consumed by current validators"
+      ],
+      "represented_meaning": "closed in-memory union of public JSON records",
+      "owner": "generic Python typing union",
+      "rationale": "Serializer input must be exact and closed."
+    },
+    {
+      "candidate": "HarnessInternalError",
+      "disposition": "INCLUDE_IN_H1_PUBLIC_CONTRACT",
+      "demonstrated_consumers": [
+        "current validators and callers distinguish malformed input from OSError/programming defects"
+      ],
+      "represented_meaning": "nonserialized unexpected internal/runtime failure",
+      "owner": "generic Python error",
+      "rationale": "Action failure behavior requires an observable non-invalidity channel."
+    }
+  ],
+  "explicit_rejections": [
+    {
+      "candidate": "GenericWorkflowEngine",
+      "disposition": "REJECT",
+      "rationale": "No demonstrated generic consumer; scientific CPN workflow semantics remain project-owned."
+    },
+    {
+      "candidate": "SubprocessRunnerOrGitMutationService",
+      "disposition": "REJECT",
+      "rationale": "H1 is a contract-only task and current execution/durability policy is local and externally orchestrated."
+    },
+    {
+      "candidate": "PluginRegistryServiceLocatorOrDispatchFramework",
+      "disposition": "REJECT",
+      "rationale": "No demonstrated consumer and it would introduce hidden global state or speculative extension points."
+    },
+    {
+      "candidate": "BoundaryOwnedGenericEvidenceKind",
+      "disposition": "REJECT",
+      "rationale": "Accepted evidence grammar has only class_owned and artifact_owned; relations are artifact metadata."
+    },
+    {
+      "candidate": "GraphifyIntegration",
+      "disposition": "REJECT",
+      "rationale": "Graphify remains optional derived repository intelligence outside the minimum harness contract."
+    }
+  ],
+  "field_and_argument_consumer_evidence": {
+    "ArtifactIdentity": {
+      "fields": "algorithm/digest",
+      "evidence": [
+        "six checksums.sha256 catalogs",
+        ".pi/skills/skill-capability-inventory.json",
+        ".pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-mutation-audit.json"
+      ],
+      "exclusion": "No media_type field in v1; resource interpretation is ResourceReference.resource_kind."
+    },
+    "ResourceReference": {
+      "fields": "id/kind/format/path/content/dependencies",
+      "evidence": [
+        ".pi/skills/skill-capability-inventory.json",
+        ".pi/skills/validate_skill_capabilities.py",
+        "SKILL.md direct references"
+      ]
+    },
+    "ResourceManifest": {
+      "fields": "manifest id/version/layer/base/resources",
+      "evidence": [
+        ".pi/skills/skill-capability-inventory.json current inventory identity/version fields",
+        ".agents/skills/graphify repository overlay versus global fallback",
+        "SKILL.md direct-reference closure and validate_skill_capabilities.py"
+      ]
+    },
+    "ProjectProfile": {
+      "fields": "manifest IDs/versions, closed supported resource/skill pairs, complete evidence namespace generation and module-scope marker/namespace rules, exact protected unowned (path,function) gaps, lifecycle vocabularies, compatibility version/extensions",
+      "evidence": [
+        ".pi/task-ownership/validate_task_ownership.py",
+        ".pi/checkpoints/validate_checkpoints.py",
+        ".pi/skills/audit_evidence_identifiers.py",
+        ".pi/skills/validate_skill_capabilities.py"
+      ]
+    },
+    "SkillDescriptor": {
+      "fields": "skill/behavior/entry/triggers/resource closure/side effect/authorization/retry/termination",
+      "evidence": [
+        "six SKILL.md files",
+        ".pi/skills/skill-capability-inventory.json",
+        "five .pi/agents records"
+      ]
+    },
+    "OwnershipScope": {
+      "fields": "path/scope_kind",
+      "evidence": [
+        "ownership-v2 owned_paths",
+        ".pi/task-ownership/validate_task_ownership.py::_paths_overlap"
+      ]
+    },
+    "AgentDescriptorView": {
+      "fields": "agent_id/acceptance_role",
+      "evidence": [
+        "five .pi/agents frontmatter records",
+        ".pi/task-ownership/validate_task_ownership.py::_validate_v2_agent"
+      ]
+    },
+    "OwnershipManifestView": {
+      "fields": "task, writers/scopes, reviewers, completion binding, optional profile",
+      "evidence": [
+        ".pi/task-ownership/ownership-v2.schema.json",
+        ".pi/task-ownership/evidence-branch-matrix.schema.json"
+      ]
+    },
+    "CheckpointRecord": {
+      "fields": "current checkpoint decision-content fields",
+      "evidence": [
+        ".pi/checkpoints/checkpoint.schema.json",
+        "13 checkpoint records",
+        ".pi/checkpoints/validate_checkpoints.py"
+      ]
+    },
+    "TaskReference": {
+      "fields": "task/path/separate task and external prerequisites/status/explicit activation",
+      "evidence": [
+        "four .pi/chains records",
+        "ownership task lookup",
+        "explicit_activation:H5 and other external prerequisite strings normalized by local adapter"
+      ]
+    },
+    "ChainView": {
+      "fields": "chain/active/tasks/activations/execution flags",
+      "evidence": [
+        ".pi/chains/pi-harness-incubation.chain.json",
+        ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
+      ]
+    },
+    "ChecksumEntry": {
+      "fields": "path/content identity",
+      "evidence": [
+        "six checksum catalogs"
+      ]
+    },
+    "ChecksumManifest": {
+      "fields": "entries only, plus schema_version",
+      "evidence": [
+        "six current checksums.sha256 catalogs; explicit root is validator input"
+      ]
+    },
+    "ValidationIssue": {
+      "fields": "code/severity/subject/path/related/message",
+      "evidence": [
+        "current validator errors",
+        "H0/P1 structured review findings"
+      ]
+    },
+    "ValidationResult": {
+      "fields": "status/issues",
+      "evidence": [
+        "ownership/checkpoint/skill/evidence/checksum gates"
+      ]
+    },
+    "EvidenceIdentifierOccurrence": {
+      "fields": "id/path/line",
+      "evidence": [
+        ".pi/skills/audit_evidence_identifiers.py output inventory"
+      ]
+    },
+    "action_arguments": {
+      "fields": "explicit bytes, roots, manifest content identities, records, normalized agents, profile, closed versions",
+      "evidence": [
+        "H0 finding 3 generic/local validator decomposition",
+        "H0 finding 6 zero implicit roots",
+        "current validators hard-coded inputs to be supplied explicitly"
+      ]
+    },
+    "WireRecordKind": {
+      "fields": "closed record-kind values",
+      "evidence": [
+        "current checkpoint/ownership/schema-specific JSON validators"
+      ]
+    },
+    "HarnessWireRecord": {
+      "fields": "closed public JSON record union",
+      "evidence": [
+        "current heterogeneous JSON validator inputs and cross-record checksum use"
+      ]
+    },
+    "HarnessInternalError": {
+      "fields": "operation/detail",
+      "evidence": [
+        "current validators distinguish caught malformed input from uncaught OSError/programming failure"
+      ]
+    },
+    "ProjectProfileLoadResult": {
+      "fields": "profile/validation",
+      "evidence": [
+        "checkpoint/ownership/skill validators require no trusted record on malformed configuration"
+      ]
+    },
+    "ResourceResolutionResult": {
+      "fields": "runtime path/reference/validation",
+      "evidence": [
+        "current skill entry/reference and schema/fixture path consumers"
+      ]
+    },
+    "ChainEvaluationResult": {
+      "fields": "active/blocked/ready IDs/validation",
+      "evidence": [
+        "H0 active-task, blocked-successor, and prerequisite assertions"
+      ]
+    },
+    "EvidenceAuditResult": {
+      "fields": "occurrences/validation",
+      "evidence": [
+        "audit_evidence_identifiers.py owner inventory and exit status"
+      ]
+    },
+    "JsonSerializationResult": {
+      "fields": "payload/content identity/validation",
+      "evidence": [
+        "current checkpoint and ownership JSON round-trip/validation needs",
+        "six current checksum catalogs for produced-byte identity"
+      ]
+    },
+    "JsonDeserializationResult": {
+      "fields": "closed record/validation",
+      "evidence": [
+        "current checkpoint and ownership validators reject malformed JSON before trusted records"
+      ]
+    }
+  }
+}

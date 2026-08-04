@@ -1,0 +1,542 @@
+{
+  "schema_version": 1,
+  "task_id": "H1",
+  "status": "proposed_for_H1-HC01_not_activated",
+  "sequence": [
+    "H3",
+    "H2",
+    "H4"
+  ],
+  "global_rules": {
+    "shared_worktree_execution": "sequential",
+    "overlapping_writers": "prohibited",
+    "reviewers": "read_only_and_independent_of_all_writers",
+    "successor_activation": "separate_explicit_human_authorization_required",
+    "evidence_primary_kinds": [
+      "class_owned",
+      "artifact_owned"
+    ],
+    "boundary_representation": "artifact relation metadata",
+    "production_execution": false,
+    "scientific_execution": false,
+    "package_publication": false
+  },
+  "tasks": [
+    {
+      "task_id": "H3",
+      "prerequisites": [
+        "H1:human_accepted",
+        "explicit_activation:H3",
+        "validated_task_ownership_manifest:H3"
+      ],
+      "purpose": "Create only accepted generic and local textual resources and their resource-validation evidence; no Python production package.",
+      "exact_roots": {
+        "generic_resources": "harness/pi/",
+        "local_resources": "harness/local/"
+      },
+      "proposed_file_families": {
+        "generic_manifests": [
+          "harness/pi/resource-manifest.json"
+        ],
+        "generic_schemas": [
+          "harness/pi/schemas/records/*.schema.json",
+          "harness/pi/schemas/project-profile.schema.json",
+          "harness/pi/schemas/resource-manifest.schema.json",
+          "harness/pi/schemas/skill-descriptor.schema.json"
+        ],
+        "generic_skills": [
+          "harness/pi/skills/document-research-python/SKILL.md",
+          "harness/pi/skills/document-research-python/references/test-evidence-documentation.md"
+        ],
+        "generic_validation_resources": [
+          "harness/pi/validation/validate_h3_resources.py"
+        ],
+        "generic_fixtures": [
+          "harness/pi/fixtures/valid/*.json",
+          "harness/pi/fixtures/invalid/*.json",
+          "harness/pi/fixtures/resolution/**"
+        ],
+        "generic_resource_documentation": [
+          "harness/pi/docs/resources.md",
+          "harness/pi/docs/evidence-grammar.md"
+        ],
+        "local_manifests_and_profiles": [
+          "harness/local/resource-manifest.json",
+          "harness/local/profiles/ksdft2effmass-v1.json"
+        ],
+        "local_extensions": [
+          "harness/local/extensions/evidence-documentation.md",
+          "harness/local/extensions/ownership-compatibility.md"
+        ],
+        "local_fixtures": [
+          "harness/local/fixtures/valid/*.json",
+          "harness/local/fixtures/invalid/*.json"
+        ],
+        "local_resource_documentation": [
+          "harness/local/docs/project-profile.md"
+        ]
+      },
+      "schema_ownership": "harness-generic-resource-writer owns all accepted wire/profile/manifest/descriptor schemas under harness/pi/schemas; no schema is created in H1 or H2.",
+      "fixture_ownership": "H3 resource-test writer owns all generic/local schema and resolution fixtures; fixtures are textual software-verification evidence, not scientific validation.",
+      "test_ownership": "H3 resource-test writer owns only harness/pi/fixtures and harness/local/fixtures; the generic-resource and local-profile writers do not write their own fixtures.",
+      "documentation_ownership": "H3 resource-documentation writer owns only harness/pi/docs and harness/local/docs; skill procedure and directly referenced grammar remain generic-resource-writer resources, not duplicate docs.",
+      "writer_roles": [
+        {
+          "role": "harness-generic-resource-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-generic-resource-writer.md",
+          "owned_paths": [
+            "harness/pi/resource-manifest.json",
+            "harness/pi/schemas/",
+            "harness/pi/skills/"
+          ]
+        },
+        {
+          "role": "harness-local-resource-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-local-resource-writer.md",
+          "owned_paths": [
+            "harness/local/resource-manifest.json",
+            "harness/local/profiles/",
+            "harness/local/extensions/"
+          ]
+        },
+        {
+          "role": "harness-resource-test-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-resource-test-writer.md",
+          "owned_paths": [
+            "harness/pi/fixtures/",
+            "harness/local/fixtures/"
+          ]
+        },
+        {
+          "role": "harness-resource-validation-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-resource-validation-writer.md",
+          "owned_paths": [
+            "harness/pi/validation/"
+          ]
+        },
+        {
+          "role": "harness-resource-documentation-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-resource-documentation-writer.md",
+          "owned_paths": [
+            "harness/pi/docs/",
+            "harness/local/docs/"
+          ]
+        },
+        {
+          "role": "harness-h3-verification-evidence-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-h3-verification-evidence-writer.md",
+          "owned_paths": [
+            ".pi/evidence/pi-harness-incubation/H3/"
+          ]
+        }
+      ],
+      "independent_reviewer_roles": [
+        "harness-resource-architecture-reviewer",
+        "harness-resource-evidence-vvuq-reviewer",
+        "harness-resource-integration-reviewer"
+      ],
+      "completion_validator": {
+        "path": "harness/pi/validation/validate_h3_resources.py",
+        "command": [
+          "python",
+          "harness/pi/validation/validate_h3_resources.py"
+        ],
+        "required_before_review": true,
+        "claim_boundary": "resource structure, closure, schema/fixture behavior, leakage, and explicit-root resolution only"
+      },
+      "cross_task_inputs": [
+        "H1.contract-surface.v1:.pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+        "H1.field-wire.v1:.pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+        "H1.path-resolution.v1:.pi/evidence/pi-harness-incubation/H1/path-and-resource-resolution-contract.md",
+        "H1.version-boundaries.v1:.pi/evidence/pi-harness-incubation/H1/version-boundaries.md",
+        "H1-HC01:.pi/checkpoints/H1-HC01-harness-contract.json resolved with accepted contract identity"
+      ],
+      "acceptance_outputs_consumed_by_H2": [
+        "H3.acceptance-index.v1",
+        "H3.generic-resource-manifest.v1",
+        "H3.local-resource-manifest.v1",
+        "H3.project-profile.ksdft2effmass.v1",
+        "H3.completion-validator.v1"
+      ],
+      "prohibitions": [
+        "no python/src production code",
+        "no skill retirement or current-dispatch cutover",
+        "no .pi runtime-state replacement",
+        "no H2/H4/P2 activation",
+        "no generated execution results stored in ownership declarations"
+      ]
+    },
+    {
+      "task_id": "H2",
+      "prerequisites": [
+        "H3:human_accepted",
+        "explicit_activation:H2",
+        "validated_task_ownership_manifest:H2"
+      ],
+      "purpose": "Implement only the accepted generic Python records/results/actions against accepted H3 resources.",
+      "exact_roots": {
+        "generic_python": "python/src/ksdft2effmass/harness/pi/",
+        "generic_software_verification": "python/tests/software_verification/ksdft2effmass/harness/pi/",
+        "local_python_exception": null
+      },
+      "proposed_file_families": {
+        "public_surface": [
+          "python/src/ksdft2effmass/harness/pi/__init__.py"
+        ],
+        "owned_modules": [
+          "python/src/ksdft2effmass/harness/pi/identity.py",
+          "python/src/ksdft2effmass/harness/pi/resources.py",
+          "python/src/ksdft2effmass/harness/pi/profiles.py",
+          "python/src/ksdft2effmass/harness/pi/validation.py",
+          "python/src/ksdft2effmass/harness/pi/ownership.py",
+          "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+          "python/src/ksdft2effmass/harness/pi/chains.py",
+          "python/src/ksdft2effmass/harness/pi/checksums.py",
+          "python/src/ksdft2effmass/harness/pi/evidence.py"
+        ],
+        "class_owned_tests": [
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ArtifactIdentity.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceReference.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfile.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__SkillDescriptor.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipScope.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__AgentDescriptorView.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceIdentifierOccurrence.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipManifestView.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointRecord.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskReference.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainView.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumEntry.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfileLoadResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceResolutionResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainEvaluationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceAuditResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonSerializationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonDeserializationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__WireRecordKind.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__HarnessInternalError.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__SerializeJsonRecord.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__DeserializeJsonRecord.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__LoadProjectProfile.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResolveResource.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateResourceManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateOwnershipManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateCheckpointSet.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvaluateChainState.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateChecksumManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateSkillResources.py"
+        ],
+        "artifact_owned_tests": [
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py"
+        ],
+        "completion_validator": [
+          "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py"
+        ],
+        "maintained_documentation": [
+          "docs/harness/ksdft2effmass.harness.03.md"
+        ]
+      },
+      "schema_ownership": "H2 consumes accepted H3 schemas and does not create competing production schemas.",
+      "fixture_ownership": "H2 tests consume accepted H3 fixtures read-only; H2 may create Python-only test parameters in its test modules but no competing shared JSON fixtures.",
+      "test_ownership": "A dedicated H2 test writer owns only the enumerated class/artifact/completion files directly below the accepted software-verification root; it owns no directory scope and no path under local/. Production writers own no tests.",
+      "documentation_ownership": "The implementation writer owns source docstrings; a separate documentation writer owns only docs/harness/ksdft2effmass.harness.03.md and may not edit source/tests/resources.",
+      "writer_roles": [
+        {
+          "role": "harness-python-implementation-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-python-implementation-writer.md",
+          "owned_paths": [
+            "python/src/ksdft2effmass/harness/pi/__init__.py",
+            "python/src/ksdft2effmass/harness/pi/identity.py",
+            "python/src/ksdft2effmass/harness/pi/resources.py",
+            "python/src/ksdft2effmass/harness/pi/profiles.py",
+            "python/src/ksdft2effmass/harness/pi/validation.py",
+            "python/src/ksdft2effmass/harness/pi/ownership.py",
+            "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+            "python/src/ksdft2effmass/harness/pi/chains.py",
+            "python/src/ksdft2effmass/harness/pi/checksums.py",
+            "python/src/ksdft2effmass/harness/pi/evidence.py"
+          ]
+        },
+        {
+          "role": "harness-python-test-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-python-test-writer.md",
+          "owned_paths": [
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ArtifactIdentity.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceReference.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifest.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfile.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__SkillDescriptor.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipScope.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__AgentDescriptorView.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceIdentifierOccurrence.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipManifestView.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointRecord.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskReference.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainView.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumEntry.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumManifest.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfileLoadResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceResolutionResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainEvaluationResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceAuditResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonSerializationResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonDeserializationResult.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__WireRecordKind.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__HarnessInternalError.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__SerializeJsonRecord.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__DeserializeJsonRecord.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__LoadProjectProfile.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResolveResource.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateResourceManifest.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateOwnershipManifest.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateCheckpointSet.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvaluateChainState.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateChecksumManifest.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateSkillResources.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py",
+            "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py"
+          ]
+        },
+        {
+          "role": "harness-python-documentation-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-python-documentation-writer.md",
+          "owned_paths": [
+            "docs/harness/ksdft2effmass.harness.03.md"
+          ]
+        },
+        {
+          "role": "harness-h2-verification-evidence-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-h2-verification-evidence-writer.md",
+          "owned_paths": [
+            ".pi/evidence/pi-harness-incubation/H2/"
+          ]
+        }
+      ],
+      "independent_reviewer_roles": [
+        "harness-python-architecture-rust-reviewer",
+        "harness-python-evidence-vvuq-reviewer",
+        "harness-python-integration-reviewer"
+      ],
+      "completion_validator": {
+        "path": "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+        "command": [
+          "python",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py"
+        ],
+        "required_before_review": true,
+        "claim_boundary": "public contract, class/artifact evidence completeness, H3 resource conformance, dependency direction, path safety, typing/lint/docs gates"
+      },
+      "cross_task_inputs": [
+        "H1.contract-surface.v1:.pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+        "H1.field-wire.v1:.pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+        "H3.acceptance-index.v1",
+        "H3.generic-resource-manifest.v1",
+        "H3.local-resource-manifest.v1",
+        "H3.project-profile.ksdft2effmass.v1"
+      ],
+      "acceptance_outputs_consumed_by_H4": [
+        "H2.acceptance-index.v1",
+        "H2.public-surface.v1",
+        "H2.completion-validator.v1",
+        "H3.acceptance-index.v1"
+      ],
+      "prohibitions": [
+        "no python/src/ksdft2effmass/harness/pi/local path or file",
+        "no H3 resource mutation",
+        "no subprocess or Git operation",
+        "no project-domain import",
+        "no scientific or numerical algorithm",
+        "no H4/P2 activation"
+      ]
+    },
+    {
+      "task_id": "H4",
+      "prerequisites": [
+        "H2:human_accepted",
+        "explicit_activation:H4",
+        "validated_task_ownership_manifest:H4"
+      ],
+      "purpose": "Own all project-local Python integration, legacy shadow replay, parity comparison, cutover, rollback, and retirement proposals.",
+      "exact_roots": {
+        "local_python": "python/src/ksdft2effmass/harness/pi/local/",
+        "local_integration_tests": "python/tests/software_verification/ksdft2effmass/harness/pi/local/",
+        "migration_evidence": ".pi/evidence/pi-harness-incubation/H4/"
+      },
+      "proposed_file_families": {
+        "local_composition": [
+          "python/src/ksdft2effmass/harness/pi/local/*.py"
+        ],
+        "shadow_and_parity_tests": [
+          "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__*.py"
+        ],
+        "cutover_evidence": [
+          ".pi/evidence/pi-harness-incubation/H4/**"
+        ],
+        "maintained_documentation": [
+          "docs/harness/ksdft2effmass.harness.06.md",
+          "docs/harness/ksdft2effmass.harness.07.md"
+        ]
+      },
+      "writer_roles": [
+        {
+          "role": "harness-local-python-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-local-python-writer.md",
+          "owned_paths": [
+            "python/src/ksdft2effmass/harness/pi/local/"
+          ]
+        },
+        {
+          "role": "harness-local-integration-test-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-local-integration-test-writer.md",
+          "owned_paths": [
+            "python/tests/software_verification/ksdft2effmass/harness/pi/local/"
+          ]
+        },
+        {
+          "role": "harness-shadow-evidence-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-shadow-evidence-writer.md",
+          "owned_paths": [
+            ".pi/evidence/pi-harness-incubation/H4/"
+          ]
+        },
+        {
+          "role": "harness-local-documentation-writer",
+          "future_agent_record": ".pi/agents/ksdft2effmass-harness-local-documentation-writer.md",
+          "owned_paths": [
+            "docs/harness/ksdft2effmass.harness.06.md",
+            "docs/harness/ksdft2effmass.harness.07.md"
+          ]
+        }
+      ],
+      "independent_reviewer_roles": [
+        "harness-cutover-architecture-reviewer",
+        "harness-cutover-parity-reviewer",
+        "harness-cutover-integration-reviewer"
+      ],
+      "completion_validator": {
+        "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "command": [
+          "python",
+          ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py"
+        ],
+        "required_before_review": true
+      },
+      "cross_task_inputs": [
+        "H1.contract-surface.v1:.pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+        "H1.field-wire.v1:.pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+        "H3.acceptance-index.v1",
+        "H2.acceptance-index.v1",
+        "unchanged legacy input identities enumerated in H4.acceptance-index.v1 before replay"
+      ],
+      "outputs": [
+        "H4.acceptance-index.v1",
+        "H4.completion-validator.v1",
+        ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+        ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
+        ".pi/checkpoints/H4-HC01-harness-cutover.json"
+      ],
+      "prohibitions": [
+        "no silent parity waiver",
+        "no historical evidence rewrite",
+        "no retirement before human cutover acceptance",
+        "no P2 or H5 activation",
+        "no package publication"
+      ],
+      "schema_ownership": "H4 creates no generic or local resource schema; it consumes the exact accepted schemas indexed by H3.acceptance-index.v1.",
+      "fixture_ownership": "H4 creates only shadow/parity test inputs under its local integration-test root or retained replay inputs under its evidence root; it does not modify accepted H3 fixtures.",
+      "test_ownership": "harness-local-integration-test-writer exclusively owns the local software-verification test root; local source and tests have different writers.",
+      "documentation_ownership": "harness-local-documentation-writer exclusively owns the two maintained migration/local-extension pages."
+    }
+  ],
+  "nonoverlap_assertions": [
+    "H3 owns no path below python/src or python/tests.",
+    "H2 owns no path below harness/pi, harness/local, or python/src/ksdft2effmass/harness/pi/local.",
+    "H4 owns local Python/integration only and does not modify accepted generic H2 source or H3 resources except through a separately approved correction task.",
+    "Within each task, writer owned_paths are pairwise disjoint; source and tests never share a writer.",
+    "H3 completes and is human-accepted before H2 is separately activated; H2 completes and is human-accepted before H4 is separately activated."
+  ],
+  "handoff_artifact_contracts": [
+    {
+      "artifact_id": "H3.acceptance-index.v1",
+      "path": ".pi/evidence/pi-harness-incubation/H3/acceptance-artifacts.json",
+      "producer": "harness-h3-verification-evidence-writer",
+      "required_contents": [
+        "path",
+        "resource_id",
+        "format_version",
+        "artifact_identity for every accepted H3 manifest/schema/profile/skill/fixture/documentation resource",
+        "completion result identity",
+        "review identities",
+        "resolved acceptance checkpoint identity"
+      ]
+    },
+    {
+      "artifact_id": "H3.generic-resource-manifest.v1",
+      "path": "harness/pi/resource-manifest.json",
+      "producer": "harness-generic-resource-writer"
+    },
+    {
+      "artifact_id": "H3.local-resource-manifest.v1",
+      "path": "harness/local/resource-manifest.json",
+      "producer": "harness-local-resource-writer"
+    },
+    {
+      "artifact_id": "H3.project-profile.ksdft2effmass.v1",
+      "path": "harness/local/profiles/ksdft2effmass-v1.json",
+      "producer": "harness-local-resource-writer"
+    },
+    {
+      "artifact_id": "H3.completion-validator.v1",
+      "path": "harness/pi/validation/validate_h3_resources.py",
+      "producer": "harness-resource-validation-writer"
+    },
+    {
+      "artifact_id": "H2.acceptance-index.v1",
+      "path": ".pi/evidence/pi-harness-incubation/H2/acceptance-artifacts.json",
+      "producer": "harness-h2-verification-evidence-writer",
+      "required_contents": [
+        "path",
+        "public interface identity",
+        "source/test/document identities",
+        "H3 consumed artifact identities",
+        "completion result identity",
+        "review identities",
+        "resolved acceptance checkpoint identity"
+      ]
+    },
+    {
+      "artifact_id": "H2.public-surface.v1",
+      "path": "python/src/ksdft2effmass/harness/pi/__init__.py",
+      "producer": "harness-python-implementation-writer"
+    },
+    {
+      "artifact_id": "H2.completion-validator.v1",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+      "producer": "harness-python-test-writer"
+    },
+    {
+      "artifact_id": "H4.acceptance-index.v1",
+      "path": ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+      "producer": "harness-shadow-evidence-writer"
+    },
+    {
+      "artifact_id": "H4.completion-validator.v1",
+      "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+      "producer": "harness-shadow-evidence-writer"
+    }
+  ]
+}

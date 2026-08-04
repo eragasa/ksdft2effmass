@@ -1,107 +1,258 @@
 # PI Harness Contract and Versioning
 
-## Contract objective
+## Contract status
 
-The harness contract defines the smallest stable interface required to validate and coordinate project control-plane records without importing project-domain semantics.
+H1 is active under explicit human authorization and proposes the version-1
+contract summarized here. The detailed decision artifacts are retained under
+`.pi/evidence/pi-harness-incubation/H1/`. This page is maintained explanation;
+`.pi` task, chain, and checkpoint records remain the authority for execution
+state.
 
-The contract must be approved before generic functionality is extracted. Existing scripts are evidence of requirements, not automatically the desired public API.
+The proposed contract is not implemented. H1 creates no Python namespace,
+resource root, schema, fixture, package, runner, or dispatch mechanism. The
+contract becomes accepted only through the genuine `H1-HC01` human decision,
+and acceptance would not activate H3.
 
-## Accepted minimum H1 surface
+## Proposed version-1 public surface
 
-H0 accepted the following as planning authority for H1:
+The smallest demonstrated DataObject surface is:
 
-- `ArtifactIdentity`, `ResourceReference`, `ResourceManifest`,
-  `ProjectProfile`, and `SkillDescriptor` records;
-- `ValidationIssue` and `ValidationResult` structured results;
-- narrow ownership, checkpoint, task/chain-view, checksum, command-result, and
-  decision-boundary records; and
-- stateless loaders, resolvers, and validators using explicit roots and
-  profiles.
+```text
+ArtifactIdentity
+ResourceReference
+ResourceManifest
+ProjectProfile
+SkillDescriptor
+OwnershipScope
+AgentDescriptorView
+EvidenceIdentifierOccurrence
+OwnershipManifestView
+CheckpointRecord
+TaskReference
+ChainView
+ChecksumEntry
+ChecksumManifest
+```
 
-Exact public names, serialized fields, and compatibility policy remain H1
-decisions. No interface should be introduced solely because it might be useful
-later. Orchestration, dispatch, subprocess/Git/package operations, scientific
-CPNs, domain adapters, package publication, Graphify, universal filename rules,
-and a duplicate evidence grammar are outside the accepted minimum.
+The ResultObjects are:
 
-## State and action separation
+```text
+ValidationIssue
+ValidationResult
+ProjectProfileLoadResult
+ResourceResolutionResult
+ChainEvaluationResult
+EvidenceAuditResult
+JsonSerializationResult
+JsonDeserializationResult
+```
 
-Durable records should be immutable data objects. Validation, loading, and transformation should be stateless action objects.
+The public support surface also includes the closed `WireRecordKind` enum,
+closed `HarnessWireRecord` typing union and nonserialized
+`HarnessInternalError` for unexpected internal/runtime failures. A private Rust
+constructor-error mapping corresponds to Python `TypeError`/`ValueError`; it is
+not an additional public interface.
 
-For a generic validation action $V$ acting on a record $x$ and an explicit project profile $p$,
+The stateless ActionObjects are:
+
+```text
+SerializeJsonRecord
+DeserializeJsonRecord
+LoadProjectProfile
+ResolveResource
+ValidateResourceManifest
+ValidateOwnershipManifest
+ValidateCheckpointSet
+EvaluateChainState
+AuditEvidenceIdentifiers
+ValidateChecksumManifest
+ValidateSkillResources
+```
+
+Existing validators, skills, schemas, fixtures, and state records demonstrate
+requirements; they are not automatically this API. Every included interface has
+a named current consumer, exact fields or arguments, structured failure
+behavior, a version owner, a Rust representation, and an explicit exclusion
+boundary in the retained H1 contract.
+
+`DeterministicCommandSpecification` and `DeterministicCommandResult` are deferred
+because current task artifacts do not demonstrate one stable cross-task wire
+contract and H1 includes no runner. `DecisionBoundaryResult` remains local
+compatibility because its demonstrated consumer is inseparable from project Git
+durability policy. Generic workflow engines, subprocess/Git mutation services,
+plugin or dispatch frameworks, Graphify integration, and a third evidence
+ownership kind are rejected.
+
+## Object and action separation
+
+Records are immutable concrete DataObjects. Findings and aggregate outcomes are
+immutable ResultObjects. Validation, loading, resource resolution, and auditing
+are stateless concrete ActionObjects. There are no abstract base classes and no
+production Workflow invented to own integration evidence.
+
+For an action $V$ acting on explicit records $x$, profile $p$, and roots or
+bytes $r$,
 
 $$
-V(x,p) \longrightarrow R,
+V(x,p,r) \longrightarrow R,
 $$
 
-where $R$ is a structured result containing stable issues and no hidden mutation of $x$ or $p$.
+where $R$ contains structured deterministic findings. The action does not infer
+state from the current directory, Git, `.pi`, environment defaults, or package
+fallback.
 
-The action must not acquire project state from the current directory,
-environment-specific global state, or an implicit `.pi` search. Generic
-validation must be reproducible from a clean revision plus declared inputs.
-Optional project-local pre-commit checks may inspect an explicitly supplied
-worktree, but their results must remain distinct from clean-revision validation
-and must not turn personal working notes into harness inputs.
+## Identity and serialization
 
-## Configuration contract
+Version-1 opaque identifiers are nonempty case-sensitive ASCII strings. They are
+not normalized and generic code infers no semantic hierarchy from them.
+Serialized resource paths are separately defined NFC Unicode, root-relative
+POSIX paths. They reject empty/absolute paths, `.`, `..`, repeated separators,
+backslashes, Windows drive/UNC forms, controls, case mismatch, traversal, and
+symlinks.
 
-A data-only project profile may supply:
+Every serialized record is strict UTF-8 JSON with fixed field names, required
+fields, explicit `null` only for declared optional values, duplicate-key and
+unknown-field rejection, Boolean exclusion from integer fields, deterministic
+array rules, and RFC 8785 canonical output plus one LF. Named serializer and
+deserializer ActionObjects own the wire operation; DataObjects do not serialize
+themselves. H1 provides field tables and draft wire
+rules; H3 owns accepted schemas and fixtures.
 
-- repository-relative roots;
-- evidence-ID prefixes;
-- pytest markers;
-- schema locations;
-- skill locations;
-- validation policies;
-- permitted local extensions.
+`ArtifactIdentity` accepts SHA-256 only in version 1 and requires lowercase
+64-character hexadecimal digest text. It identifies exact bytes only. Equal
+content digests do not claim semantic equivalence, scientific correctness,
+provenance, or human acceptance.
 
-It must not supply credentials, open file handles, mutable clients, subprocess handles, or executable closures.
+## Resource resolution
 
-Profile parsing must reject unknown or malformed versioned fields according to the approved compatibility policy.
+A caller supplies one explicit generic root and manifest and, optionally, one
+explicit local root and manifest. The profile names expected manifest identities
+but contains no workstation root.
 
-## Resource identity
+The sole proposed version-1 overlay policy is `extend_only`:
 
-Every reusable resource requires enough identity to distinguish incompatible revisions. The approved contract should define:
+- local resources may extend generic resources;
+- local resources may depend on generic resources;
+- generic resources cannot depend on local resources;
+- local resources cannot replace a generic identity or path;
+- duplicates fail even when hashes match;
+- no ambient global fallback exists.
 
-- resource identifier;
-- resource kind;
-- schema or format version;
-- content identity or checksum where required;
-- declared dependencies;
-- compatibility requirements.
+Resolution checks lexical and resolved confinement, exact component case,
+absence of symlinks, regular-file type, dependency/version compatibility, and
+selected byte identity. A resolved `pathlib.Path` is runtime-only and never
+serialized as durable identity.
 
-Filesystem location is not durable identity.
+## Project profile
 
-## Version layers
+The proposed profile is strict, data-only configuration. It binds generic/local
+manifest IDs and versions; actions separately receive and verify canonical-JSON
+SHA-256 identities to avoid a circular local-manifest/profile hash. It also
+represents policy references, complete supported resource/skill version pairs, evidence
+namespace/range generation plus module-scope marker/namespace rules and exact
+protected unowned `(module_path, test_function)` gaps, pytest markers, a local-only
+filename-policy identity, checkpoint/task lifecycle vocabularies,
+compatibility-adapter version, and permitted local extension identities. It contains no credentials, closures,
+clients, handles, executable services, local domain objects, or implicit `.pi`
+path.
 
-The harness should distinguish:
+Project instances may name `ksdft2effmass` values. The generic contract and
+generic resources may not embed the project name, local task IDs, CPN, SNAKES,
+QE, Wannier90, operator, evidence-prefix, marker, filename, Git, or scientific
+semantics.
 
-| Version | Meaning |
-| --- | --- |
-| Harness implementation version | Release identity of the future package |
-| Public contract version | Compatibility of Python-facing records and actions |
-| Profile schema version | Shape and meaning of project configuration |
-| Resource-manifest version | Shape of the resource inventory |
-| Skill version | Behavioral identity of an operational skill |
+## Structured validation
 
-A change in one layer does not automatically require a change in every layer.
+A `ValidationIssue` contains stable code, severity, subject identity, serialized
+path, related identities, and a human message. The machine protocol is the code
+and structured fields, not message prose. Severities are `ERROR`, `WARNING`, and
+`INFO`; result states are `FAIL`, `WARN`, and `PASS`.
 
-## Failure contract
+Issues sort by severity, code, subject, path, related identities, then message.
+Exact duplicate machine findings are coalesced. Empty results and all-info
+results are `PASS`; warnings without errors are `WARN`; any error is `FAIL`.
+Expected invalid input produces structured failure and no partially trusted
+primary result. Internal programming failures remain exceptions.
 
-Expected invalidity must produce structured diagnostics rather than untyped process failure. Diagnostics should include a stable code, path or subject, related identities where applicable, and a human-readable message.
+A validation `PASS` establishes structural software-contract conformance only.
+It grants no human acceptance, task authorization, successor activation,
+command correctness, numerical verification, scientific validation, uncertainty
+quantification, package readiness, release, or publication.
 
-Unexpected programming defects may still raise exceptions. The contract must distinguish malformed input from internal failure.
+## Evidence ownership
 
-## Human checkpoint
+The generic primary evidence kinds are exactly:
 
-H1 closes only after human acceptance of:
+```text
+class_owned
+artifact_owned
+```
 
-- the public internal API;
-- version boundaries;
-- resource-loading rules;
-- structured errors;
-- profile semantics;
-- the extraction boundary.
+A technical agreement or direction remains `artifact_owned` and carries
+relation metadata such as `relation_kind`, `left_side_id`, `right_side_id`, and
+`direction`. Legacy P1 `boundary_owned` remains unchanged local compatibility
+input. H1 creates no generic third kind, mandatory `test_boundary__...` surface,
+or fake Workflow.
+
+## Independent version boundaries
+
+The contract keeps these axes independent:
+
+1. Python public contract;
+2. serialized record contract;
+3. project-profile schema;
+4. resource-manifest schema;
+5. skill behavioral version;
+6. local compatibility-adapter version;
+7. future implementation/package release version.
+
+Unknown fields and unsupported closed integer versions are rejected. Field addition/removal,
+type/nullability change, issue-code meaning/order change, relaxed path safety,
+hidden discovery, or replace-capable overlays require an explicit new contract
+boundary. A profile revision is not a Python API or package version.
+
+## Generic/local ownership
+
+The dependency direction is:
+
+```text
+local Python -> generic Python
+local resources -> generic resource contracts
+generic Python -/-> local Python
+generic resources -/-> project-local identifiers
+runtime .pi state -/-> generic package contents
+```
+
+Generic Python owns structural records, stateless actions, path/resource safety,
+and structured results. Local Python owns compatibility, composition, lifecycle
+and Git policy. H3 generic resources own the accepted evidence grammar and wire
+resources; local resources own project instances and extensions. `.pi` retains
+instantiated tasks, chains, checkpoints, decisions, and evidence. Maintained docs
+explain but do not activate.
+
+## Successor ownership
+
+The exact proposed successor order is H3, then H2, then H4. H3 alone creates
+accepted textual resources under `harness/pi/` and `harness/local/`; it creates
+no production Python. H2 alone implements generic Python under
+`python/src/ksdft2effmass/harness/pi/` and class/artifact software evidence under
+the accepted test root; it creates no `local/` Python. H4 owns all project-local
+Python integration, shadow replay, parity comparison, cutover, rollback, and
+retirement proposals.
+
+Each successor requires a separate activation and validated version-2 ownership
+manifest with nonoverlapping writers, a manifest-bound completion validator, and
+independent read-only review. H1 creates none of those successor manifests or
+agent records.
+
+## Human decision
+
+The pending `H1-HC01` checkpoint asks the human to accept, accept with bounded corrections, reject and
+reopen, or defer the exact API, serialized records, identifier/path rules,
+resource overlay behavior, profile semantics, issue ordering, version boundaries,
+generic/local ownership, successor path plan, and deferred/rejected interfaces.
+H1 remains active and blocked at that checkpoint; acceptance does not activate
+H3.
 
 ## Navigation
 
