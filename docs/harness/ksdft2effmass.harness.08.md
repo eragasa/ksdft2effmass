@@ -2,7 +2,11 @@
 
 ## Objective
 
-H5 demonstrates that the generic harness can become a separate package without publishing it. The extraction test must succeed without project-local Python, local textual resources, `.pi` state, or scientific modules.
+H5 is optional standalone extraction-readiness work after accepted H4 and
+separate explicit H5 activation. It demonstrates that the generic harness can
+become a separate package without publishing it. The extraction test must
+succeed without project-local Python, local textual resources, `.pi` state, or
+scientific modules.
 
 ## Extraction unit
 
@@ -99,6 +103,10 @@ project-local overlay works with generic package
 
 ## Acceptance boundary
 
+H4 establishes accepted project-local integration, shadow replay, and cutover
+behavior; it does not establish standalone package readiness, extract a package,
+or publish one. H5 separately demonstrates standalone extraction readiness.
+
 Acceptance of H5 establishes package-extraction readiness only. It does not:
 
 - publish a package;
@@ -108,7 +116,10 @@ Acceptance of H5 establishes package-extraction readiness only. It does not:
 - establish scientific validation;
 - establish uncertainty quantification.
 
-P2 requires separate explicit activation after accepted P1 and accepted H5.
+H5 is not required for P2. After accepted H4, P2 may proceed only through its
+own explicit human activation while P1 remains human-accepted. H5 may proceed
+only through separate explicit H5 activation. Neither P2 nor H5 activates
+automatically after H4, and H5 acceptance does not activate P2.
 
 ## Navigation
 

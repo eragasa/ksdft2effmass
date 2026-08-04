@@ -1,6 +1,6 @@
 # H5 — Standalone extraction readiness
 
-Status: blocked by accepted H4
+Status: optional; blocked by accepted H4 and separate explicit H5 activation; inactive
 
 ## Objective
 
@@ -8,7 +8,8 @@ Mechanically demonstrate that the accepted generic extraction unit can become a 
 
 ## Prerequisite
 
-`H4:human_accepted`.
+`H4:human_accepted` plus separate explicit human activation of H5. Accepted H4
+does not activate H5.
 
 ## Extraction unit
 
@@ -31,4 +32,7 @@ No PyPI or other publication, release/tag, P2 launch, external/scientific execut
 
 ## Completion and downstream boundary
 
-H5 concludes at human acceptance of extraction readiness. Accepted H5 only satisfies one P2 prerequisite. P2 still requires accepted P1 and a separate explicit P2 activation; H5 closure must not launch P2.
+H5 concludes at human acceptance of standalone extraction readiness. It remains
+optional work after H4, does not publish a package, is not a P2 prerequisite,
+and activates neither P2 nor any other task. P2 has its own separate gate after
+accepted H4.

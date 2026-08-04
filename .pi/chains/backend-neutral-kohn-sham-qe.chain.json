@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, and EVIDENCE-DOC-1 are closed as human-accepted PASS. Separate pi-harness-incubation H0 is closed as human-accepted planning evidence, while H1 remains inactive. P2 requires accepted P1, accepted H5, and separate explicit P2 activation; P2-P11 and production/scientific execution remain blocked and unauthorized.",
-  "status": "p1_and_harness_h0_closed_p2_blocked_by_h5_and_explicit_activation",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, and EVIDENCE-DOC-1 are closed as human-accepted PASS. Harness H0 is closed and H1 remains inactive. P2 requires accepted P1, accepted H4, and separate explicit P2 activation; optional H5 is not a P2 prerequisite. P2-P11 and production/scientific execution remain blocked and unauthorized.",
+  "status": "p1_and_harness_h0_closed_p2_blocked_by_h4_and_explicit_activation",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -64,7 +64,7 @@
       "record": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
       "prerequisites": [
         "P1:human_accepted",
-        "H5:human_accepted",
+        "H4:human_accepted",
         "explicit_activation:P2"
       ],
       "status": "blocked"
@@ -176,7 +176,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "P1 and separate pi-harness-incubation H0 are human-accepted PASS. H1 remains inactive pending separate explicit activation; the separate pi-harness-incubation project owns H1-H5. P2 requires accepted P1, accepted H5, and a separate explicit P2 activation; accepted H5 must not auto-launch P2. P2-P11 remain blocked and unauthorized until every prerequisite, task-specific ownership preflight, and explicit activation are satisfied.",
+  "launch_policy": "P1 and harness H0 are human-accepted PASS. H1 remains inactive pending separate explicit activation; the harness project owns sequential H1 -> H3 -> H2 -> H4 and optional H5. P2 requires accepted P1, accepted H4, and separate explicit P2 activation. H5 is not a P2 prerequisite. Neither P2 nor H5 activates automatically after H4. P2-P11 remain blocked and unauthorized until every prerequisite, task-specific ownership preflight, and explicit activation is satisfied.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -243,7 +243,7 @@
   "chain": [
     {
       "phase": "await-harness-incubation",
-      "message": "The backend-neutral CPN chain has no active task. Harness H0 is human-accepted and closed, H1 remains inactive pending separate explicit activation, and P2 is blocked by accepted H5 plus separate explicit activation. P3-P11 remain transitively blocked."
+      "message": "The backend-neutral CPN chain has no active task. Harness H0 is human-accepted and closed; H1, H3, H2, and H4 remain sequentially blocked. P2 requires accepted P1, accepted H4, and separate explicit activation. Optional H5 is separately activated after H4 and is not a P2 prerequisite. P3-P11 remain transitively blocked."
     }
   ]
 }

@@ -55,7 +55,12 @@ No production Python or textual-resource implementation, source movement, legacy
 
 ## Required decision
 
-H1 concludes at a genuine human checkpoint accepting or correcting the public internal API, version boundaries, profile/resource loading, structured errors, path rules, extraction boundary, and disjoint H2/H3 ownership plan.
+H1 concludes at a genuine human checkpoint accepting or correcting the public
+internal API, version boundaries, profile/resource loading, structured errors,
+path rules, extraction boundary, and the exact ordered H3-then-H2 ownership
+plan. That plan must define paths, profiles, schemas, compatibility boundaries,
+and non-overlapping writer/reviewer ownership before H3 or H2 is separately
+activated. H1 acceptance does not activate H3.
 
 ## VVUQ boundary
 

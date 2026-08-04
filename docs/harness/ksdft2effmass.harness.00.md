@@ -49,20 +49,27 @@ The generic harness must not import or discover the project-local layer implicit
 
 ## Project sequence
 
-The harness incubation project is organized as
+The accepted dependency and authorization structure is
 
 ```text
-P1 closeout
-→ H0 inventory
-→ H1 contract
-→ H3 skills and resources
-→ H2 Python core
-→ H4 local integration and cutover
-→ H5 extraction-readiness acceptance
-→ separate P2 activation
+P1 and H0 accepted
+        ↓
+H1 contract
+        ↓
+H3 skills and textual resources
+        ↓
+H2 generic Python core
+        ↓
+H4 local integration, shadow replay, and cutover
+        ├── separately authorized P2
+        └── separately authorized optional H5 extraction readiness
 ```
 
-P2 is not launched by completing the harness. It still requires a separate explicit activation after accepted P1 and accepted H5.
+H4 establishes accepted project-local harness integration and cutover behavior;
+it does not extract or publish a standalone package. After accepted H4, P2 still
+requires accepted P1 and its own explicit human activation. Optional H5 also
+requires its own explicit activation. Neither activates automatically, and H5
+is not a P2 prerequisite.
 
 ## Sources of truth
 

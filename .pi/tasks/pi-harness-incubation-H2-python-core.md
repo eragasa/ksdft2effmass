@@ -1,6 +1,6 @@
 # H2 — Generic Python harness implementation
 
-Status: blocked by accepted H1; no implementation authorized
+Status: blocked by accepted H3; inactive and no implementation authorized
 
 ## Objective
 
@@ -8,7 +8,10 @@ Implement only the accepted generic Python harness contract under `python/src/ks
 
 ## Prerequisite
 
-`H1:human_accepted`, plus a validated task-ownership manifest naming separate implementation, test, documentation, and independent review owners.
+`H3:human_accepted`, plus a validated task-ownership manifest naming separate
+implementation, test, documentation, and independent review owners. Accepted
+H1 remains a transitive prerequisite through H3. H2 requires its own separate
+activation; accepted H3 does not activate H2.
 
 ## Planned boundaries
 
@@ -16,16 +19,25 @@ Generic code receives project profiles and resource roots explicitly. It must no
 
 ## Evidence
 
-Class-owned and boundary-owned software verification, explicit schemas/fixtures where accepted, static dependency and leakage checks, path-confinement cases, public imports, typing/linting, documentation, and independent review. Numerical verification is required only for actual numerical algorithms.
+`class_owned` and `artifact_owned` software verification, with agreement and
+direction represented as artifact relation metadata; explicit schemas/fixtures
+where accepted; static dependency and leakage checks; path-confinement cases;
+public imports; typing/linting; documentation; and independent review. Legacy
+terminology remains only explicit project-local compatibility input. Numerical
+verification is required only for actual numerical algorithms.
 
 ## Exclusions
 
 No generic textual-resource extraction owned by H3, no skill retirement/cutover, no package publication, no P2 work, and no scientific execution.
 
-## Concurrency rule
+## Sequence rule
 
-H2 may overlap H3 only after accepted H1 defines non-overlapping path ownership and both tasks have independently validated ownership manifests. Otherwise the controlling chain runs them sequentially.
+H2 follows accepted H3 and must not overlap H3. It implements the accepted
+generic Python contract against the generic and local textual resource
+identities established by H3.
 
 ## Stop
 
-H2 concludes at separate human acceptance. Acceptance alone does not activate H4 until H3 is also accepted.
+H2 concludes at separate human acceptance. Accepted H2 satisfies H4's task
+prerequisite but does not activate H4; H4 requires its own separate human
+authorization.

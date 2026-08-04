@@ -1,6 +1,6 @@
 # H3 — Skills and textual-resource extraction
 
-Status: blocked by accepted H1; no extraction or retirement authorized
+Status: blocked by accepted H1; inactive and no extraction or retirement authorized
 
 ## Objective
 
@@ -8,7 +8,10 @@ Create accepted generic operational skills and textual resources under `harness/
 
 ## Prerequisite
 
-`H1:human_accepted`, plus a validated task-ownership manifest with paths disjoint from H2 and separate review ownership.
+`H1:human_accepted`, plus a validated task-ownership manifest with explicit
+resource/profile paths and separate implementation, documentation, test, and
+review ownership. H3 requires its own separate activation; accepted H1 does not
+activate H3.
 
 ## Planned scope
 
@@ -22,10 +25,13 @@ Resource-manifest validation; missing/duplicate/incompatible resource cases; ref
 
 No generic Python implementation owned by H2, no silent skill retirement, no replacement of authoritative `.pi` runtime state, no package publication, no P2 work, and no scientific execution.
 
-## Concurrency rule
+## Sequence rule
 
-H3 may overlap H2 only after accepted H1 and validated non-overlapping manifests prove safe concurrency. Otherwise it runs sequentially.
+H3 precedes H2 and must not overlap H2. It establishes the accepted generic and
+local textual resource identities that H2 consumes.
 
 ## Stop
 
-H3 concludes at separate human acceptance. Acceptance alone does not activate H4 until H2 is also accepted.
+H3 concludes at separate human acceptance. Accepted H3 satisfies H2's task
+prerequisite but does not activate H2; H2 requires its own separate human
+authorization.

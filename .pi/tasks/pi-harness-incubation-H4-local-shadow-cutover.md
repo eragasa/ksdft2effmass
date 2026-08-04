@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: blocked by accepted H2 and accepted H3
+Status: blocked by accepted H2; inactive and no integration or cutover authorized
 
 ## Objective
 
@@ -8,7 +8,8 @@ Integrate the generic Python/resources with the project-local overlay, run legac
 
 ## Prerequisites
 
-Both `H2:human_accepted` and `H3:human_accepted`.
+`H2:human_accepted`. Accepted H3 and H1 are transitive prerequisites through
+H2. H4 requires its own separate activation; accepted H2 does not activate H4.
 
 ## Planned scope
 
@@ -22,11 +23,19 @@ Both `H2:human_accepted` and `H3:human_accepted`.
 
 ## Exclusions
 
-No silent difference acceptance, no historical evidence rewrite, no duplicate retirement before human authorization, no package publication, no P2 work, and no scientific execution.
+No silent difference acceptance, no historical evidence rewrite, no duplicate
+retirement before human authorization, no standalone package extraction or
+readiness claim, no package publication, no P2 or H5 work, and no scientific
+execution.
 
 ## Required checkpoint
 
-H4 concludes at a genuine cutover checkpoint selecting accepted cutover/verified retirement, continued shadow mode, bounded correction, rejection, or deferral. A rollback restores prior routing without deleting migration evidence.
+H4 concludes at a genuine cutover checkpoint selecting accepted
+cutover/verified retirement, continued shadow mode, bounded correction,
+rejection, or deferral. A rollback restores prior routing without deleting
+migration evidence. Accepted H4 establishes project-local harness integration
+and cutover behavior only. It activates neither P2 nor optional H5; each requires
+its own separate human authorization.
 
 ## VVUQ boundary
 
