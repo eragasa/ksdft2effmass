@@ -1,6 +1,6 @@
 # H1 — Harness contract and package boundary
 
-Status: blocked by accepted H0; no implementation authorized
+Status: H0 prerequisite accepted; H1 inactive pending separate explicit activation; no implementation authorized
 
 ## Objective
 
@@ -8,7 +8,11 @@ Define the smallest stable generic harness contract and the package/resource bou
 
 ## Prerequisite
 
-`H0:human_accepted`. H1 must consume the accepted H0 inventory, classifications, source-of-truth map, and migration constraints.
+`H0:human_accepted` is satisfied through resolved `H0-HC01`. H1 remains inactive
+until separately and explicitly activated. When activated, H1 must consume the
+accepted 316-component inventory, classifications, generic/local boundary,
+source-of-truth map, six finding resolutions, H3-before-H2 sequencing
+recommendation, migration constraints, and proposed minimum contract.
 
 ## Planned scope
 
@@ -21,7 +25,13 @@ Subject to accepted H0, H1 may specify:
 - public-contract, profile-schema, resource-manifest, skill, and implementation version layers;
 - structured invalid-input versus internal-failure diagnostics;
 - path confinement and explicit resource-root behavior;
-- exact generic/local/package-extraction boundary.
+- exact generic/local/package-extraction boundary;
+- clean-revision reproducible validation distinguished from optional
+  project-local pre-commit worktree checks; and
+- successor task vocabulary reconciled to the accepted primary evidence kinds
+  `class_owned` and `artifact_owned` before implementation, with agreement and
+  direction represented as artifact relation metadata and legacy terminology
+  retained only as explicit project-local compatibility input.
 
 The planned ownership split remains:
 
@@ -35,6 +45,9 @@ maintained documentation:   docs/harness/
 ```
 
 Project-local may depend on generic; generic must not depend on project-local.
+Personal and concurrently edited working notes are outside harness authority.
+Historical H0 worktree observations about them are nonmutation provenance only,
+not required harness resources or reusable validator inputs.
 
 ## Exclusions
 

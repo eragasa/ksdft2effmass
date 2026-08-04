@@ -1,6 +1,6 @@
 # H0 — Harness inventory and ownership classification
 
-Status: active, technical execution complete, blocked at `H0-HC01`; H1--H5 and P2--P11 remain blocked and unauthorized
+Status: closed as human-accepted planning evidence through resolved `H0-HC01`; H1--H5 and P2--P11 remain blocked and unauthorized
 
 ## Project
 
@@ -67,10 +67,21 @@ protected operator-test gaps and is not reported as a pass.
 
 Checkpoint: `.pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json`.
 
-## Completion and stop
+## Human acceptance and closeout
 
-H0 is technically complete but remains active and blocked at the pending
-`H0-HC01` human checkpoint. The validated pending checkpoint state is committed
-and pushed as a durable decision boundary before waiting. H1 does not activate
-automatically after H0 acceptance and requires separate explicit activation.
-P2--P11 remain blocked.
+The human PI accepted Option A at `H0-HC01` on 2026-08-04. The 316-component
+inventory, generic/local boundary, six finding resolutions, H3-before-H2
+sequencing recommendation, and proposed minimum H1 contract are planning
+authority for H1. Personal and concurrently edited working notes remain outside
+harness authority; H0 worktree observations about them are historical
+nonmutation provenance only, not required resources or reusable validator
+inputs.
+
+H0 is closed. Only bounded H0 closeout documentation reconciliation under
+`docs/harness/` is authorized after the resolution boundary is pushed. H1 must
+distinguish clean-revision reproducible validation from optional project-local
+pre-commit worktree checks and reconcile successor vocabulary to the accepted
+`class_owned`/`artifact_owned` model before implementation. H1 does not activate
+automatically and still requires separate explicit activation. H1--H5,
+P2--P11, implementation, package publication, external execution, and
+scientific execution remain blocked.

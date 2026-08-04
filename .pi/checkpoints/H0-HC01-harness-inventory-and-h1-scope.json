@@ -2,7 +2,7 @@
   "checkpoint_id": "H0-HC01",
   "task_id": "H0",
   "episode_id": "pi-harness-incubation-H0",
-  "status": "blocked",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-04T08:23:55Z",
   "question": "Does the human PI accept the 316-component H0 harness inventory and its recommended minimum H1 contract: generic class-owned/artifact-owned evidence kinds with boundary relation metadata; extraction of the existing evidence grammar rather than a duplicate skill; stateless generic validator primitives with explicit local profiles; sequential H3 then H2 scheduling; future harness-specific agents and version-2 path ownership; and zero generic dependencies on project-local/domain/implicit repository state, while keeping H1-H5 and P2-P11 blocked until separately activated?",
@@ -47,15 +47,16 @@
     ".pi/evidence/pi-harness-incubation/H0/H0-report.md",
     ".pi/evidence/pi-harness-incubation/H0/checksums.sha256"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "A — Accept the H0 inventory and recommended H1 scope.\n\nThe 316-component inventory, generic/local boundary, six finding resolutions,\nH3-before-H2 sequencing recommendation, and proposed minimum H1 contract are\naccepted as planning authority for H1.\n\nPersonal and concurrently edited working notes remain outside harness authority.\nAny worktree observations concerning them are historical nonmutation provenance\nonly, not required harness resources or reusable validator inputs.\n\nDuring H1, distinguish clean-revision reproducible validation from optional\nproject-local pre-commit worktree checks, and reconcile successor task vocabulary\nto the accepted class_owned/artifact_owned model before implementation.\n\nThis acceptance closes H0 only. It does not activate H1, H2–H5, P2–P11,\npackage publication, external execution, or scientific execution.\nAuthorize a bounded H0 closeout documentation reconciliation under\ndocs/harness/ that records the accepted H0 architectural decisions, removes\nsuperseded prospective conflicts, and identifies .pi task, checkpoint, and\nchain records as the sole authority for mutable execution state. This does not\nactivate H1 or authorize implementation.",
+  "normalized_decision": "Option A — accept the H0 inventory and recommended H1 scope; close H0 only; authorize bounded H0 closeout documentation reconciliation under docs/harness; do not activate H1 or any successor, implementation, publication, external execution, or scientific execution",
+  "resolved_at": "2026-08-04T09:42:09Z",
+  "authorized_scope": "Close H0 as human-accepted planning evidence; record the accepted 316-component inventory, generic/local boundary, six finding resolutions, H3-before-H2 recommendation, minimum H1 contract, working-note exclusion, clean-revision versus optional project-local pre-commit validation distinction, and class_owned/artifact_owned vocabulary requirement; perform only bounded H0 closeout documentation reconciliation under docs/harness. H1, H2-H5, P2-P11, implementation, package publication, external execution, and scientific execution remain blocked and unauthorized.",
   "record_paths": [
     ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
     ".pi/tasks/pi-harness-incubation-H0-inventory.md",
+    ".pi/tasks/pi-harness-incubation-H1-contract.md",
     ".pi/chains/pi-harness-incubation.chain.json",
-    ".pi/evidence/pi-harness-incubation/H0/"
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
   ],
-  "resumption_status": "H0_active_blocked_at_H0-HC01; H1-H5_and_P2-P11_blocked; awaiting_human_decision"
+  "resumption_status": "H0_human_accepted_closeout_documentation_authorized; H1-H5_and_P2-P11_blocked; no_successor_activated"
 }

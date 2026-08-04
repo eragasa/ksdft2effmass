@@ -2,9 +2,9 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project activated only through H0 after authoritative P1 human acceptance. It blocks P2 until accepted H5 and a separate explicit P2 activation.",
-  "status": "h0_active_blocked_at_H0-HC01",
-  "active_task": "H0",
+  "description": "Separate harness-incubation project. H0 is closed as human-accepted planning evidence. H1 remains inactive pending separate explicit activation, and P2 remains blocked until accepted H5 plus separate explicit P2 activation.",
+  "status": "h0_closed_h1_blocked_awaiting_explicit_activation",
+  "active_task": null,
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
   "architecture_documents": [
@@ -39,7 +39,7 @@
       "id": "H0",
       "record": ".pi/tasks/pi-harness-incubation-H0-inventory.md",
       "prerequisites": ["P1:human_accepted"],
-      "status": "active_blocked_at_H0-HC01"
+      "status": "human_accepted_pass"
     },
     {
       "id": "H1",
@@ -101,13 +101,19 @@
     "scientific_validation": "not applicable",
     "uncertainty_quantification": "not applicable"
   },
-  "pending_checkpoints": [
-    "H0-HC01"
+  "resolved_checkpoints": [
+    {
+      "checkpoint": "H0-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-04T09:42:09Z",
+      "result": "H0 closed as human-accepted planning evidence; bounded docs/harness closeout reconciliation authorized; no successor or implementation activated."
+    }
   ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "H0-human-checkpoint",
-      "message": "H0 technical inventory and reviews pass and H0 is blocked at pending H0-HC01. H1-H5 and P2-P11 remain blocked; no harness implementation, extraction, package publication, or scientific execution is authorized. H1 requires accepted H0 plus separate explicit activation."
+      "phase": "await-H1-explicit-activation",
+      "message": "H0 is closed as human-accepted planning evidence. H1 remains inactive and blocked pending separate explicit activation. H2-H5 and P2-P11 remain blocked; no harness implementation, extraction, package publication, external execution, or scientific execution is authorized."
     }
   ]
 }
