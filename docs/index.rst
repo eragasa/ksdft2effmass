@@ -43,12 +43,31 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    development/source-documentation
    research/agentic-development-case-study
 
+.. toctree::
+   :maxdepth: 2
+   :caption: PI harness
+
+   harness/ksdft2effmass.harness.00
+
+.. toctree::
+   :hidden:
+
+   harness/ksdft2effmass.harness.01
+   harness/ksdft2effmass.harness.02
+   harness/ksdft2effmass.harness.03
+   harness/ksdft2effmass.harness.04
+   harness/ksdft2effmass.harness.05
+   harness/ksdft2effmass.harness.06
+   harness/ksdft2effmass.harness.07
+   harness/ksdft2effmass.harness.08
+
 Markdown-first user guide
 -------------------------
 
 The maintained user guide is authored in Markdown for repository and Obsidian
-use and rendered directly through MyST. Its explicit toctree is the complete
-Markdown collection policy; Sphinx does not collect other Markdown trees.
+use and rendered directly through MyST. Its explicit toctree plus the bounded
+numbered harness pattern are the complete Markdown collection policy; Sphinx
+does not broadly collect other Markdown trees.
 
 .. toctree::
    :maxdepth: 2
@@ -72,7 +91,8 @@ Uncollected Markdown records
 ----------------------------
 
 Architecture, computational, research, conference, paper, and meeting Markdown
-remain authoritative repository/Obsidian sources, but they are intentionally not
+remain authoritative repository/Obsidian sources, but—apart from the exact
+numbered ``docs/harness/ksdft2effmass.harness.*.md`` set—they are intentionally not
 Sphinx source documents. Architecture overviews remain available as source
 files:
 

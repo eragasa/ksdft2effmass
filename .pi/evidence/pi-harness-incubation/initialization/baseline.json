@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "project_id": "pi-harness-incubation",
+  "initialization_base_commit": "03400a4adf83e2444d744d57439d3cfe8848780d",
+  "dependency_files": {
+    "python/pyproject.toml": "5d6318812c7db69b7b1d5d742bbd9be903419a2c5bd702ed90a240a73d661f6c",
+    "python/uv.lock": "186504b6dc24b054c15ef01ed3219c6829f83585a0d7c6a551d79ede37cb7368"
+  },
+  "protected_source_test_specification": {
+    "file_count": 163,
+    "sha256": "3e1896feb1edd493e237f6eff29068aebb88c85763127f84460f2a7e36f266a9",
+    "algorithm": "sorted Git-tracked repository-relative path, NUL, raw SHA-256 digest, newline"
+  },
+  "protected_roots": [
+    "python/src/",
+    "python/tests/",
+    "specification/"
+  ],
+  "prospective_paths_absent_at_initialization": [
+    "python/src/ksdft2effmass/harness/pi/",
+    "python/src/ksdft2effmass/harness/pi/local/",
+    "harness/pi/",
+    "harness/local/"
+  ],
+  "scope_note": "The nine harness pages are human-supplied maintained architecture. Initialization does not rewrite them or treat prospective interfaces as implemented.",
+  "user_supplied_harness_documents": {
+    "docs/harness/ksdft2effmass.harness.00.md": "412b40ef044538ca1c8f6a4e5f4ed6448d2c89ad51f203ad05f15bb8d61b15ee",
+    "docs/harness/ksdft2effmass.harness.01.md": "15a69e7819e9cbdde002aadcca52c71ece2b8cf73cca74836d4c2b7c4f867c79",
+    "docs/harness/ksdft2effmass.harness.02.md": "805c7b842a6f62692008632d44935623c06a9f9a43c0551fabc9269c35f8d43f",
+    "docs/harness/ksdft2effmass.harness.03.md": "96b23b4b4c94eaa68439db4f6e5275b7c1ea6ffe6e876cd4b28a0f577ec9e064",
+    "docs/harness/ksdft2effmass.harness.04.md": "13720d596af18991da6f446edb0f5e9758b76e28664a6a61cba0c40b9f79de01",
+    "docs/harness/ksdft2effmass.harness.05.md": "82e65ca3bda70479443e67b516d08e30728c59bb18cf18a58fb984054c9ff97c",
+    "docs/harness/ksdft2effmass.harness.06.md": "91a231b7e816cec4bdaa0dd32e7fa5f700dbef72dea67ab91c393075bb2c2e38",
+    "docs/harness/ksdft2effmass.harness.07.md": "d072fe26b79b0d7b2ac0fbe989eba62032f34deab138d4bfd432725fd413266a",
+    "docs/harness/ksdft2effmass.harness.08.md": "8109a2f85dd90d890ad14b2f8f7039c0efeda2810f4c2696a693ef5fefebdcc6"
+  },
+  "integrated_harness_documents": {
+    "docs/harness/ksdft2effmass.harness.00.md": "231b85662b09a720e9d86f5ffc47a54dff9f0a0283f0e86741e7bd1f5debaf97",
+    "docs/harness/ksdft2effmass.harness.01.md": "bef7847feb0e723573d5e07d3c4a94f9bd93abdcd7fe2fd4db07656481494988",
+    "docs/harness/ksdft2effmass.harness.02.md": "3368c0739c8db57c18b1181085c05d07f51d8fe2627f1abe39acff8a4730acb3",
+    "docs/harness/ksdft2effmass.harness.03.md": "c506a4e10d18b9fdd096c8cca0ba00083d6827161f38ab02b82b0fe87214622c",
+    "docs/harness/ksdft2effmass.harness.04.md": "19e6de751f17bfa17c938a9038f942138e67f828251e5c0d90e8efae8e143fe7",
+    "docs/harness/ksdft2effmass.harness.05.md": "8f913ef773b70b83751b01be256e35e9ac6d25acd37bac590e77ef3c6b4ff073",
+    "docs/harness/ksdft2effmass.harness.06.md": "6676d5a5a7d7d332c7be7e7187e52fb153fa0bdfba85782b6f5dd588de44a75f",
+    "docs/harness/ksdft2effmass.harness.07.md": "8aeb959da435f685cca561a7487d2883b5e6e6ecdeb2a3946eedfe9f7087d58c",
+    "docs/harness/ksdft2effmass.harness.08.md": "8109a2f85dd90d890ad14b2f8f7039c0efeda2810f4c2696a693ef5fefebdcc6"
+  },
+  "normalization_note": "Sphinx integration preserved prose, links, filenames, and ordering; one redundant blank line at end of files 00-07 was removed solely so the required git diff --check gate passes."
+}

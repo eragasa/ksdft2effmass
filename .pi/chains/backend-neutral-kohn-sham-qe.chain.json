@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS, P0A and P1 are closed as human-accepted PASS, and bounded documentation-governance maintenance EVIDENCE-DOC-1 is closed as human-accepted PASS. P2-P11 and production/scientific execution remain blocked and unauthorized.",
-  "status": "evidence_documentation_governance_human_accepted_pass_p1_closed",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, and EVIDENCE-DOC-1 are closed as human-accepted PASS. Separate pi-harness-incubation H0 is active read-only. P2 requires accepted P1, accepted H5, and separate explicit P2 activation; P2-P11 and production/scientific execution remain blocked and unauthorized.",
+  "status": "p1_closed_harness_h0_active_p2_blocked_by_h5_and_explicit_activation",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -63,7 +63,9 @@
       "id": "P2",
       "record": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
       "prerequisites": [
-        "P1:human_accepted"
+        "P1:human_accepted",
+        "H5:human_accepted",
+        "explicit_activation:P2"
       ],
       "status": "blocked"
     },
@@ -174,7 +176,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "The human PI accepted P1 as PASS through P1-HC03 on 2026-08-04. Acceptance makes P1:human_accepted available as a prerequisite but does not select or launch P2. EVIDENCE-DOC-1 is a separately authorized bounded documentation-governance maintenance task, not P2 or a scientific-program successor. P2-P11 remain blocked and unauthorized until separately selected, ownership-validated, explicitly authorized, and launched.",
+  "launch_policy": "P1 is human-accepted PASS. The separate pi-harness-incubation project owns H0-H5. P2 requires accepted P1, accepted H5, and a separate explicit P2 activation; accepted H5 must not auto-launch P2. P2-P11 remain blocked and unauthorized until every prerequisite, task-specific ownership preflight, and explicit activation are satisfied.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -237,18 +239,11 @@
       "scope": "Executable project-owned backend-neutral CPN contract in production source, focused tests, required schemas/fixtures/documentation/reviews; no SNAKES adapter, persistence implementation, workflow/scientific execution, or P2-P11 work."
     }
   ],
-  "pending_checkpoints": [
-    {
-      "checkpoint": "EVIDENCE-DOC-1-HC03-final-acceptance",
-      "task": "EVIDENCE-DOC-1",
-      "status": "pending",
-      "blocked_scope": "Final human acceptance and closure of EVIDENCE-DOC-1 only; P1 remains closed and P2-P11 and production/scientific execution remain blocked."
-    }
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "EVIDENCE-DOC-1-closeout",
-      "message": "EVIDENCE-DOC-1-HC03 resolved as Option A. The bounded evidence-documentation maintenance task is closed as human-accepted PASS. P1 remains closed; P2-P11 and production/scientific execution remain blocked and unauthorized."
+      "phase": "await-harness-incubation",
+      "message": "The backend-neutral CPN chain has no active task. P2 is blocked by accepted H5 and separate explicit activation while pi-harness-incubation H0 runs as read-only preflight. P3-P11 remain transitively blocked."
     }
   ]
 }

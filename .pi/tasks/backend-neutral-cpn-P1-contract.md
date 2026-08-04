@@ -233,6 +233,6 @@ artifact-owned versus boundary-owned integration contracts. The two verification
 are synchronized with the migrated filenames and complete current module
 surface. Obsolete integration paths remain only in accepted historical reviews,
 baselines, or explicit predecessor mappings. P1 remains closed as human-accepted
-`PASS`; this maintenance still requires
-independent semantic review and human final acceptance and does not launch
+`PASS`. EVIDENCE-DOC-1 later closed as human-accepted `PASS` through resolved
+`EVIDENCE-DOC-1-HC03`; neither maintenance acceptance nor P1 acceptance launches
 P2--P11.

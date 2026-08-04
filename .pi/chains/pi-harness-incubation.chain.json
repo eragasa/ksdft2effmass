@@ -1,0 +1,111 @@
+{
+  "name": "pi-harness-incubation",
+  "package": "ksdft2effmass",
+  "project_name": "PI Harness Incubation and Extraction Readiness",
+  "description": "Separate harness-incubation project activated only through H0 after authoritative P1 human acceptance. It blocks P2 until accepted H5 and a separate explicit P2 activation.",
+  "status": "h0_active_read_only_preflight",
+  "active_task": "H0",
+  "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+  "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
+  "architecture_documents": [
+    "docs/harness/ksdft2effmass.harness.00.md",
+    "docs/harness/ksdft2effmass.harness.01.md",
+    "docs/harness/ksdft2effmass.harness.02.md",
+    "docs/harness/ksdft2effmass.harness.03.md",
+    "docs/harness/ksdft2effmass.harness.04.md",
+    "docs/harness/ksdft2effmass.harness.05.md",
+    "docs/harness/ksdft2effmass.harness.06.md",
+    "docs/harness/ksdft2effmass.harness.07.md",
+    "docs/harness/ksdft2effmass.harness.08.md"
+  ],
+  "authoritative_status_sources": {
+    "tasks": ".pi/tasks/",
+    "human_decisions": ".pi/checkpoints/",
+    "dependencies_and_authorization": ".pi/chains/",
+    "retained_evidence": ".pi/evidence/",
+    "maintained_architecture": "docs/harness/"
+  },
+  "activation_authority": {
+    "decision": "Current human instruction to create PI Harness Incubation and Extraction Readiness and complete harness incubation before P2",
+    "p1_checkpoint": ".pi/checkpoints/P1-HC03-final-acceptance.json",
+    "p1_required_status": "resolved Option A and closed human-accepted PASS",
+    "activated_task": "H0",
+    "authorized_scope": "Project initialization and read-only H0 inventory preflight only"
+  },
+  "production_execution_authorized": false,
+  "package_publication_authorized": false,
+  "task_sequence": [
+    {
+      "id": "H0",
+      "record": ".pi/tasks/pi-harness-incubation-H0-inventory.md",
+      "prerequisites": ["P1:human_accepted"],
+      "status": "active_read_only_preflight"
+    },
+    {
+      "id": "H1",
+      "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
+      "prerequisites": ["H0:human_accepted"],
+      "status": "blocked"
+    },
+    {
+      "id": "H2",
+      "record": ".pi/tasks/pi-harness-incubation-H2-python-core.md",
+      "prerequisites": ["H1:human_accepted"],
+      "status": "blocked"
+    },
+    {
+      "id": "H3",
+      "record": ".pi/tasks/pi-harness-incubation-H3-resources.md",
+      "prerequisites": ["H1:human_accepted"],
+      "status": "blocked"
+    },
+    {
+      "id": "H4",
+      "record": ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+      "prerequisites": ["H2:human_accepted", "H3:human_accepted"],
+      "status": "blocked"
+    },
+    {
+      "id": "H5",
+      "record": ".pi/tasks/pi-harness-incubation-H5-extraction-readiness.md",
+      "prerequisites": ["H4:human_accepted"],
+      "status": "blocked"
+    }
+  ],
+  "concurrency_policy": {
+    "eligible_tasks": ["H2", "H3"],
+    "activation_condition": "accepted H1 plus independently validated task definitions/manifests with disjoint file ownership and safe repository concurrency",
+    "fallback": "run H2 and H3 sequentially",
+    "current_concurrent_execution_authorized": false
+  },
+  "p2_gate": {
+    "required": [
+      "P1:human_accepted",
+      "H5:human_accepted",
+      "explicit_activation:P2"
+    ],
+    "automatic_activation_on_h5": false
+  },
+  "planned_ownership_split": {
+    "generic_python": "python/src/ksdft2effmass/harness/pi/",
+    "project_specific_python": "python/src/ksdft2effmass/harness/pi/local/",
+    "generic_textual_resources": "harness/pi/",
+    "project_specific_textual_resources": "harness/local/",
+    "runtime_project_state": ".pi/",
+    "maintained_human_documentation": "docs/harness/",
+    "dependency_direction": "project-local -> generic; generic -/-> project-local"
+  },
+  "vvuq": {
+    "software_verification": "required",
+    "numerical_verification": "required only for actual numerical algorithms",
+    "scientific_validation": "not applicable",
+    "uncertainty_quantification": "not applicable"
+  },
+  "pending_checkpoints": [],
+  "chain": [
+    {
+      "phase": "H0-inventory",
+      "message": "H0 is the sole active harness task and is read-only preflight/inventory. H1-H5 and P2-P11 remain blocked; no harness implementation, extraction, package publication, or scientific execution is authorized."
+    }
+  ]
+}

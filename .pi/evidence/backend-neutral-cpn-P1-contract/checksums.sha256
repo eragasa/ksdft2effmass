@@ -1,5 +1,5 @@
 d7762daf4e824449e8fcfbf603cc72979e8436bd437a7d0bc6e98304abfb8490  .pi/agents/ksdft2effmass-tests.md
-ca7913d7fbe4d4eb68bc49c056772a12cf25f158a6d1a34c3d0a9d5d58875f8f  .pi/chains/backend-neutral-kohn-sham-qe.chain.json
+648b460872fba0bb5a53ff2ab4254c24d24cd59ae538587ab83d9eb9e1b701a0  .pi/chains/backend-neutral-kohn-sham-qe.chain.json
 5d95c5ff0beddfe46e3cb35304b0d9a627818e8db71c4af9f8dc9d20d9ecf262  .pi/checkpoints/P1-HC01-cpn-numeric-wire-contract.json
 9dd974229d240cb3e604085bf84ab6b0b54e45e4278280157f4fffc364cdfc3a  .pi/checkpoints/P1-HC02-u64-expression-routing.json
 ba9d2c72a1ce8b47d38613a4f922438f4ac98f7064d9a6f91d7341adbeff4da5  .pi/checkpoints/P1-HC03-final-acceptance.json
@@ -31,7 +31,7 @@ dcf37e6ac71c6b94a4d895af891f690dc9e34d345e77e138a35531697ccbe6ff  .pi/evidence/b
 c3712cadc9a617b8b2f90431956d461a2582b53dda49b1f5d693d58e033b58a1  .pi/task-ownership/README.md
 9650d9516f815f5676317dcbdb2c3d5d5b3dd8f5d7e71c82b17b534a81f3afa8  .pi/task-ownership/ownership.schema.json
 a22ed405609bac09e360ca995ef79d2b92b7e31fee771452928611c92ddf7321  .pi/task-ownership/validate_task_ownership.py
-2abdba3c6d263eaae42921171650485576d8a80cb34cca2c7f8e3b584eda66df  .pi/tasks/backend-neutral-cpn-P1-contract.md
+d9decd2a534053afd79ecae768b92a0a79c8998106c880cbb768283831da822d  .pi/tasks/backend-neutral-cpn-P1-contract.md
 13ffe509ee7229437876b22a7f17b80a00a127c7d592f8b050f31b8ed71c47f9  docs/api/workflows-cpn.md
 9e62c679780eb99b64cdf3fec97a9bfa7a1e309f02f8f6606344ff26981302bd  docs/architecture/kohn-sham-dft-quantum-espresso.md
 78ea7b5eb8098cdfe985078cdeb5fca85facb86267fe70bd616be5966a3bed06  docs/computational/ksdft2effmass.computational.00.md

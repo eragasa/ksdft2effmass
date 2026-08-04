@@ -1,11 +1,11 @@
-93b17676ca5988488fb137b1e29c08aafa476378d0ce941c7d86d80596b523e1  AGENTS.md
-ca7913d7fbe4d4eb68bc49c056772a12cf25f158a6d1a34c3d0a9d5d58875f8f  .pi/chains/backend-neutral-kohn-sham-qe.chain.json
+e43b42bcc3106e54c50c7f6379b4668af6d00e213a0f32598c2c987b053bbc8a  AGENTS.md
+648b460872fba0bb5a53ff2ab4254c24d24cd59ae538587ab83d9eb9e1b701a0  .pi/chains/backend-neutral-kohn-sham-qe.chain.json
 ab8d74c41051f21aeb98aae4a481261a957286791bd309f63657f4d15c097570  .pi/tasks/class-owned-evidence-documentation-convention.md
-2abdba3c6d263eaae42921171650485576d8a80cb34cca2c7f8e3b584eda66df  .pi/tasks/backend-neutral-cpn-P1-contract.md
+d9decd2a534053afd79ecae768b92a0a79c8998106c880cbb768283831da822d  .pi/tasks/backend-neutral-cpn-P1-contract.md
 b1fd3c22bc4e1b798e47796110e4f3f15f2085ac32a6a3c4396b599fb52c5393  .pi/skills/document-research-python/SKILL.md
 69b5c2701d5d1a1bfb4818ea967d25b057fcb016f4b6f0eb2091dd00a0349c13  .pi/skills/document-research-python/references/test-evidence-documentation.md
 470cff0de6f213b1195c1d628d8e611d2a1441982b94360ce78fb2e18767297c  .pi/skills/develop-operator-records/SKILL.md
-d78e7898e54ac144ba04fc9f3a330458536a86b830a17bacf78ab25373a39c92  .pi/skills/skill-capability-inventory.json
+64566be87cacbe238348e1e8055392a743459ab42c7210367c8e309684aaeb2e  .pi/skills/skill-capability-inventory.json
 4124d50fdb4820a81bda41ac5b71282f2a96c9e2d612cbc0f2e7bb35486e4c17  .pi/skills/audit_evidence_identifiers.py
 601f72db3f77d444000d21dd349af45fb72fc760971ea7d12400b2bcce3e0607  docs/verification/testing-and-evidence.rst
 f7779d91d5908a97fbde4dbb038049459460ec154b94e7fec305ee84b5f274d7  docs/verification/cpn-contract.rst
@@ -14,7 +14,7 @@ f7779d91d5908a97fbde4dbb038049459460ec154b94e7fec305ee84b5f274d7  docs/verificat
 8983d3ec576ef09e4ad2dae5ca99a59255758fcb85e7ec01270d7959f56829f3  .pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-manifest.json
 dcf37e6ac71c6b94a4d895af891f690dc9e34d345e77e138a35531697ccbe6ff  .pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py
 7d47e2421a01e13632414e8f448893ccc74873c0643637d9f2c9372c5008f6c3  .pi/evidence/backend-neutral-cpn-P1-contract/implementation-progress.md
-149af4e5490208e7a031b8388c4faf1309417385fe4af5bdcb5d713c136b62f8  .pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256
+0b86b8c833b796cc3646b5eb3b271a018e16e63e2025f5fe96b84dd13274943c  .pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256
 74a147181a22d7bdf6f43654669005733317b1d9538a6d7a97019c9871f182f4  .pi/evidence/backend-neutral-cpn-P1-contract/contract_gates.py
 53228f44ec159c81b10b0f5d74fc63970094e45cbd7e43701e2d5065cdf14edc  .pi/evidence/backend-neutral-cpn-P1-contract/test-completeness-matrix.json
 e3b8b0a005b93bb1e35595f5dd4e8f4b7e5c2e7a0e77546a5a1d8567008fe1d5  .pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-mutation-audit.json

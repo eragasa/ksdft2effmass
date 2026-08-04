@@ -13,14 +13,16 @@ source_suffix = {
 }
 
 # Keep every maintained RST page and collect only the bounded Markdown user
-# guide. Architecture, computational, research, paper, meeting, and conference
-# Markdown remain repository/Obsidian sources rather than implicit Sphinx input.
+# guide, CPN pages, and numbered harness architecture set. Other architecture,
+# computational, research, paper, meeting, and conference Markdown remain
+# repository/Obsidian sources rather than implicit Sphinx input.
 include_patterns = [
     "*.rst",
     "**/*.rst",
     "user-guide/*.md",
     "concepts/cpn-contract.md",
     "api/workflows-cpn.md",
+    "harness/ksdft2effmass.harness.*.md",
 ]
 
 myst_enable_extensions = ["dollarmath"]

@@ -225,10 +225,13 @@ unresolved checkpoints, and latest durable human decisions—not by this
 snapshot.
 
 At this snapshot, P1 and the bounded EVIDENCE-DOC-1 maintenance task are closed
-as human-accepted `PASS`; no successor is active, and P2--P11 and all production
-or scientific execution remain blocked. Verify this against
-`.pi/chains/backend-neutral-kohn-sham-qe.chain.json` at session start and update
-stale prose rather than following it. Read
+as human-accepted `PASS`. The separate `pi-harness-incubation` project has H0 as
+its sole active task, limited to read-only inventory/preflight; H1--H5 are
+blocked. P2 requires accepted P1, accepted H5, and separate explicit activation;
+P2--P11 and all production or scientific execution remain blocked. Verify this
+against both `.pi/chains/backend-neutral-kohn-sham-qe.chain.json` and
+`.pi/chains/pi-harness-incubation.chain.json` at session start and update stale
+prose rather than following it. Read
 `docs/architecture/colored-petri-net-workflows.md` and
 `docs/architecture/periodic-electronic-structure-integration.md` before related
 work. Architecture records define boundaries but do not authorize task launch or
@@ -243,7 +246,9 @@ timeout.
 
 Use `.pi/skills/choose-next-task/SKILL.md` only when no task or checkpoint remains
 active and the human asks what is next. It is read-only, recommends exactly one
-task, and must not create or launch work.
+task, and must not create or launch work. While harness H0 is active, follow
+`.pi/tasks/pi-harness-incubation-H0-inventory.md`; do not infer implementation
+from the prospective pages under `docs/harness/`.
 
 Decision handling and closeout procedures are defined in
 `docs/development/agent-control-plane.rst`. In summary, agents may apply a
