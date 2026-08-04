@@ -226,8 +226,9 @@ snapshot.
 
 At this snapshot, P1, the bounded EVIDENCE-DOC-1 maintenance task, and harness
 H0 are closed as human-accepted `PASS`. H1 alone is active after resolved
-`H1-HC01` Option B for exactly one bounded `DiagnosticPath` contract correction
-and return to final human acceptance; no implementation is authorized. The
+`H1-HC01` Option B and the exactly one bounded `DiagnosticPath` contract
+correction; focused reviews and validation pass, final acceptance at pending
+`H1-HC02` remains, and no implementation is authorized. The
 remaining harness sequence is H3 -> H2 -> H4. After accepted H4, P2 and optional H5 each require their own
 separate explicit human activation; H5 is not a P2 prerequisite. P2 requires
 accepted P1, accepted H4, and explicit P2 activation. H3--H5, P2--P11, and all
@@ -250,8 +251,8 @@ timeout.
 Use `.pi/skills/choose-next-task/SKILL.md` only when no task or checkpoint remains
 active and the human asks what is next. It is read-only, recommends exactly one
 task, and must not create or launch work. Harness H0 is closed; H1 alone is
-active only for the bounded contract correction recorded by resolved
-`H1-HC01`. Do not infer implementation or successor activation from the
+active only for the bounded contract correction and final-acceptance return
+recorded by resolved `H1-HC01` and pending `H1-HC02`. Do not infer implementation or successor activation from the
 prospective pages under `docs/harness/`.
 
 Decision handling and closeout procedures are defined in

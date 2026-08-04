@@ -55,10 +55,30 @@
   "authorized_scope": "Keep H1 active and apply exactly one bounded contract-only correction: introduce the neutral DiagnosticPath semantic primitive with the human-specified lexical semantics and intended validated Rust newtype; change ValidationIssue.path from ResourcePath | None to DiagnosticPath | None; reconcile affected H1 evidence, mappings, planned H2 tests, planned H3 schemas/fixtures, maintained harness documentation, validator, checksums, task/checkpoint/control-plane records; retain the original finding and correction trace; rerun all H1 checks and focused independent architecture, public-contract/Rust, and integration reviews; then return to a final H1 human-acceptance checkpoint. Do not implement H2, create H3 resources or schemas, activate any successor or P2, reopen other accepted contract decisions, add excluded interfaces, rewrite retained review history, or modify unrelated work.",
   "record_paths": [
     ".pi/checkpoints/H1-HC01-harness-contract.json",
+    ".pi/checkpoints/H1-HC02-final-acceptance.json",
     ".pi/tasks/pi-harness-incubation-H1-contract.md",
+    ".pi/tasks/pi-harness-incubation-H2-python-core.md",
+    ".pi/tasks/pi-harness-incubation-H3-resources.md",
     ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
-    "AGENTS.md"
+    ".pi/evidence/pi-harness-incubation/H1/H1-HC01-diagnostic-path-correction.md",
+    ".pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+    ".pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/interface-decision-matrix.json",
+    ".pi/evidence/pi-harness-incubation/H1/issue-code-and-ordering-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/path-and-resource-resolution-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/h3-h2-ownership-plan.json",
+    ".pi/evidence/pi-harness-incubation/H1/migration-and-compatibility-plan.md",
+    ".pi/evidence/pi-harness-incubation/H1/version-boundaries.md",
+    ".pi/evidence/pi-harness-incubation/H1/review-H1-HC01-diagnostic-path-architecture.md",
+    ".pi/evidence/pi-harness-incubation/H1/review-H1-HC01-diagnostic-path-public-contract-rust.md",
+    ".pi/evidence/pi-harness-incubation/H1/review-H1-HC01-diagnostic-path-integration.md",
+    ".pi/evidence/pi-harness-incubation/H1/validate_h1.py",
+    ".pi/evidence/pi-harness-incubation/H1/validation-results.json",
+    ".pi/evidence/pi-harness-incubation/H1/checksums.sha256",
+    "AGENTS.md",
+    "docs/harness/ksdft2effmass.harness.00.md",
+    "docs/harness/ksdft2effmass.harness.02.md"
   ],
-  "resumption_status": "H1_bounded_DiagnosticPath_contract_correction_authorized_and_resumed; final_acceptance_not_granted; H3-H5_and_P2-P11_blocked; no_implementation_or_execution"
+  "resumption_status": "H1_bounded_DiagnosticPath_contract_correction_applied_and_validated; focused_reviews_final_PASS; final_acceptance_at_H1-HC02_not_granted; H3-H5_and_P2-P11_blocked; no_implementation_resource_creation_or_execution"
 }

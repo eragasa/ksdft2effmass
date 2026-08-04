@@ -1,8 +1,9 @@
 # H1 path and resource-resolution contract
 
-Status: proposed for `H1-HC01`; no resolver or resource tree is implemented.
+Status: corrected under resolved `H1-HC01` Option B and pending final H1 human
+acceptance; no resolver or resource tree is implemented.
 
-## Three distinct path categories
+## Five distinct path categories
 
 ### Serialized resource path
 
@@ -37,6 +38,24 @@ plain string prefix without that separator never establishes containment. Scope
 overlap is symmetric containment of either declared path. Runtime binding uses
 both lexical and resolved confinement and rejects symlink escape. Ownership
 scopes are repository path declarations, never resource-manifest identities.
+
+### Serialized diagnostic path
+
+A `DiagnosticPath` is an immutable built-in Python `str` and a validated Rust
+`DiagnosticPath(String)` newtype. It uses the same nonempty NFC Unicode,
+root-relative POSIX separator, segment, control-character, Windows-syntax, and
+case-sensitive lexical rules as the specialized serialized path types: no
+leading or trailing slash, empty segment, `.` or `..`, repeated separator,
+backslash, C0/C1 control, Unicode line/paragraph separator, unpaired surrogate,
+Windows drive/drive-relative/device/UNC form, or non-NFC input. Comparison is
+exact and case-sensitive; malformed input is rejected rather than normalized.
+
+Unlike `ResourcePath`, `DiagnosticPath` makes no regular-file or existence claim.
+Unlike `OwnershipScopePath`, it carries no `scope_kind` or containment semantics.
+It may identify a regular file, a directory, or an ownership-scope prefix and is
+purely lexical in serialized diagnostics. `ValidationIssue.path` uses
+`DiagnosticPath | None`; resource records continue to use `ResourcePath`, and
+ownership records continue to use `OwnershipScopePath`.
 
 ### Runtime filesystem root
 

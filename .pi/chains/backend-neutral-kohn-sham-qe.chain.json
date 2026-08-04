@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, and EVIDENCE-DOC-1 are closed as human-accepted PASS. Harness H0 is closed and harness H1 alone is active for the bounded DiagnosticPath contract correction authorized by resolved H1-HC01 Option B. P2 requires accepted P1, accepted H4, and separate explicit P2 activation; optional H5 is not a P2 prerequisite. P2-P11 and production/scientific execution remain blocked and unauthorized.",
-  "status": "p1_closed_harness_h1_bounded_contract_correction_p2_blocked_by_h4_and_explicit_activation",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, and EVIDENCE-DOC-1 are closed as human-accepted PASS. Harness H0 is closed and harness H1 alone is active and blocked at final acceptance H1-HC02 after the bounded DiagnosticPath contract correction authorized by resolved H1-HC01 Option B, passing validation, and focused reviews. P2 requires accepted P1, accepted H4, and separate explicit P2 activation; optional H5 is not a P2 prerequisite. P2-P11 and production/scientific execution remain blocked and unauthorized.",
+  "status": "p1_closed_harness_h1_pending_H1-HC02_p2_blocked_by_h4_and_explicit_activation",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -176,7 +176,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "P1 and harness H0 are human-accepted PASS. Harness H1 alone is active under resolved H1-HC01 Option B for exactly one bounded DiagnosticPath contract correction and return to final human acceptance; the harness project owns sequential H1 -> H3 -> H2 -> H4 and optional H5. P2 requires accepted P1, accepted H4, and separate explicit P2 activation. H5 is not a P2 prerequisite. Neither P2 nor H5 activates automatically after H4. P2-P11 remain blocked and unauthorized until every prerequisite, task-specific ownership preflight, and explicit activation is satisfied.",
+  "launch_policy": "P1 and harness H0 are human-accepted PASS. Harness H1 alone is active and blocked at final acceptance H1-HC02 after exactly one bounded DiagnosticPath contract correction under resolved H1-HC01 Option B, passing validation, and focused reviews; the harness project owns sequential H1 -> H3 -> H2 -> H4 and optional H5. P2 requires accepted P1, accepted H4, and separate explicit P2 activation. H5 is not a P2 prerequisite. Neither P2 nor H5 activates automatically after H4. P2-P11 remain blocked and unauthorized until every prerequisite, task-specific ownership preflight, and explicit activation is satisfied.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -243,7 +243,7 @@
   "chain": [
     {
       "phase": "await-harness-H1-through-H4",
-      "message": "The backend-neutral CPN chain has no active CPN task. Harness H0 is human-accepted and closed; harness H1 alone is active for the bounded DiagnosticPath contract correction authorized by resolved H1-HC01 Option B, while H3, H2, and H4 remain sequentially blocked. P2 requires accepted P1, accepted H4, and separate explicit activation. Optional H5 is separately activated after H4 and is not a P2 prerequisite. P3-P11 remain transitively blocked."
+      "message": "The backend-neutral CPN chain has no active CPN task. Harness H0 is human-accepted and closed; harness H1 alone is active and blocked at final acceptance H1-HC02 after the bounded DiagnosticPath contract correction authorized by resolved H1-HC01 Option B, passing validation, and focused reviews, while H3, H2, and H4 remain sequentially blocked. P2 requires accepted P1, accepted H4, and separate explicit activation. Optional H5 is separately activated after H4 and is not a P2 prerequisite. P3-P11 remain transitively blocked."
     }
   ]
 }

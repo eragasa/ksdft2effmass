@@ -57,6 +57,10 @@ REQUIRED = {
     "version-boundaries.md",
     "h3-h2-ownership-plan.json",
     "migration-and-compatibility-plan.md",
+    "H1-HC01-diagnostic-path-correction.md",
+    "review-H1-HC01-diagnostic-path-architecture.md",
+    "review-H1-HC01-diagnostic-path-public-contract-rust.md",
+    "review-H1-HC01-diagnostic-path-integration.md",
     "review-architecture.md",
     "review-public-contract.md",
     "review-evidence-vvuq.md",
@@ -66,6 +70,7 @@ REQUIRED = {
 }
 PROHIBITED_ROOTS = (
     "python/src/ksdft2effmass/harness/pi",
+    "python/tests/software_verification/ksdft2effmass/harness/pi",
     "harness/pi",
     "harness/local",
 )
@@ -138,6 +143,18 @@ def main() -> int:
 
     contract = (H1 / "contract-surface.md").read_text(encoding="utf-8")
     fields = (H1 / "field-and-wire-contract.md").read_text(encoding="utf-8")
+    issue_contract = (H1 / "issue-code-and-ordering-contract.md").read_text(encoding="utf-8")
+    path_contract = (H1 / "path-and-resource-resolution-contract.md").read_text(encoding="utf-8")
+    if "`DiagnosticPath` | `str`" not in fields:
+        fail(errors, "DiagnosticPath Python semantic mapping is missing")
+    if "`DiagnosticPath(String)` validated newtype" not in fields:
+        fail(errors, "DiagnosticPath Rust newtype mapping is missing")
+    if "| 5 | `path` | `DiagnosticPath | None`" not in fields:
+        fail(errors, "ValidationIssue.path is not DiagnosticPath | None")
+    if "`DiagnosticPath | None`" not in issue_contract or "neutral canonical root-relative POSIX lexical" not in issue_contract:
+        fail(errors, "issue path semantics are not neutral DiagnosticPath")
+    if "makes no regular-file or existence claim" not in path_contract:
+        fail(errors, "DiagnosticPath lexical/file-kind boundary is missing")
     included = {
         item["candidate"]
         for item in dispositions
@@ -146,6 +163,15 @@ def main() -> int:
     for name in sorted(included):
         if name not in contract and name not in fields:
             fail(errors, f"included interface absent from contract/field tables: {name}")
+    semantic_primitives = matrix.get("semantic_primitives", {})
+    diagnostic = semantic_primitives.get("DiagnosticPath", {})
+    if diagnostic.get("rust") != "DiagnosticPath(String) validated newtype":
+        fail(errors, "DiagnosticPath Rust mapping is absent or incorrect")
+    if "semantic primitive only" not in diagnostic.get("interface_accounting", ""):
+        fail(errors, "DiagnosticPath interface-count accounting is absent")
+    if len(included) != 36 or len(dispositions) != 39:
+        fail(errors, "H1 interface accounting changed during bounded correction")
+
     traces = matrix.get("field_and_argument_consumer_evidence", {})
     for name in included:
         if name not in traces and name not in {
@@ -166,6 +192,8 @@ def main() -> int:
     for required_phrase in (
         "class_owned",
         "artifact_owned",
+        "DiagnosticPath",
+        "interface count is unchanged",
         "local Python -> generic Python",
         "generic Python -/-> local Python",
         "H3",
@@ -203,6 +231,72 @@ def main() -> int:
     if '"local_python_exception": null' not in h2_text or "no python/src/ksdft2effmass/harness/pi/local" not in h2_text:
         fail(errors, "H2 local-Python prohibition missing")
 
+    h3_diagnostic = tasks["H3"].get("diagnostic_path_schema_fixture_obligations", {})
+    expected_h3_valid = [
+        "ValidationIssue with a regular-file resource spelling in path",
+        "ValidationIssue with a directory-tree ownership-scope spelling in path",
+        "ValidationIssue with path null",
+    ]
+    expected_h3_invalid = [
+        "absolute path",
+        "dot or dot-dot traversal segment",
+        "non-NFC path",
+        "empty or repeated segment",
+        "trailing slash",
+        "control character",
+        "backslash, Windows drive/device, or UNC syntax",
+    ]
+    if h3_diagnostic.get("required_schema_behavior") != (
+        "The ValidationIssue version-1 schema defines path as DiagnosticPath or null, "
+        "not ResourcePath; the reusable DiagnosticPath definition is lexical only and "
+        "does not assert file existence or file kind."
+    ):
+        fail(errors, "H3 DiagnosticPath schema obligation is incomplete")
+    if h3_diagnostic.get("required_valid_fixtures") != expected_h3_valid:
+        fail(errors, "H3 DiagnosticPath valid-fixture obligations are incomplete")
+    if h3_diagnostic.get("required_invalid_fixtures") != expected_h3_invalid:
+        fail(errors, "H3 DiagnosticPath invalid-fixture obligations are incomplete")
+    expected_h3_round_trip = (
+        "Canonical JSON fixtures preserve DiagnosticPath spelling and are indexed "
+        "as vectors for H2 Python and intended Rust DiagnosticPath(String) "
+        "round-trip agreement."
+    )
+    if h3_diagnostic.get("round_trip_obligation") != expected_h3_round_trip:
+        fail(errors, "H3 DiagnosticPath canonical JSON/Python/Rust round-trip obligation is incomplete")
+
+    h2_diagnostic = tasks["H2"].get("diagnostic_path_test_obligations", {})
+    class_owned = h2_diagnostic.get("class_owned", {})
+    expected_h2_class_cases = [
+        "path accepts a regular-file ResourcePath spelling as DiagnosticPath",
+        "path accepts a directory-tree OwnershipScopePath spelling as DiagnosticPath",
+        "path accepts None when no location applies",
+        "path rejects absolute, traversal, non-NFC, empty/repeated/trailing-separator, control, backslash, Windows drive/device, and UNC forms",
+    ]
+    if class_owned.get("path") != "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py":
+        fail(errors, "H2 DiagnosticPath class-owned test path is incorrect")
+    if class_owned.get("cases") != expected_h2_class_cases:
+        fail(errors, "H2 DiagnosticPath class-owned obligations are incomplete")
+    artifact_items = h2_diagnostic.get("artifact_owned", [])
+    artifact_cases = {
+        item.get("path"): item.get("cases")
+        for item in artifact_items
+        if isinstance(item, dict)
+    }
+    if len(artifact_items) != 2 or len(artifact_cases) != 2:
+        fail(errors, "H2 DiagnosticPath artifact-owned obligation set is not exact")
+    expected_ordering_cases = [
+        "ResourcePath and OwnershipScopePath retain specialized meanings while DiagnosticPath remains neutral and lexical",
+        "issue duplicate coalescing and deterministic ordering use DiagnosticPath with None first then exact NFC UTF-8 bytes",
+    ]
+    expected_round_trip_cases = [
+        "valid and invalid H3 DiagnosticPath schema fixtures agree with Python construction",
+        "canonical JSON decode/encode and intended Rust DiagnosticPath(String) round-trip vectors agree",
+    ]
+    if artifact_cases.get("python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py") != expected_ordering_cases:
+        fail(errors, "H2 DiagnosticPath ordering/path artifact obligations are incomplete")
+    if artifact_cases.get("python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py") != expected_round_trip_cases:
+        fail(errors, "H2 DiagnosticPath schema/JSON/Rust artifact obligations are incomplete")
+
     chain = load(ROOT / ".pi/chains/pi-harness-incubation.chain.json")
     assert isinstance(chain, dict)
     if chain.get("active_task") != "H1":
@@ -213,8 +307,8 @@ def main() -> int:
     for task in chain["task_sequence"]:
         if task["id"] in {"H3", "H2", "H4", "H5"} and task["status"] != "blocked":
             fail(errors, f"successor is not blocked: {task}")
-    if chain.get("pending_checkpoints") != ["H1-HC01"]:
-        fail(errors, "pending checkpoints are not exactly H1-HC01")
+    if chain.get("pending_checkpoints") != ["H1-HC02"]:
+        fail(errors, "pending checkpoints are not exactly H1-HC02")
 
     backend = load(ROOT / ".pi/chains/backend-neutral-kohn-sham-qe.chain.json")
     assert isinstance(backend, dict)
@@ -226,14 +320,24 @@ def main() -> int:
 
     checkpoint = load(ROOT / ".pi/checkpoints/H1-HC01-harness-contract.json")
     assert isinstance(checkpoint, dict)
-    if checkpoint.get("status") != "pending" or checkpoint.get("checkpoint_id") != "H1-HC01":
-        fail(errors, "H1 checkpoint is not pending")
+    if (
+        checkpoint.get("status") != "resolved"
+        or checkpoint.get("checkpoint_id") != "H1-HC01"
+        or checkpoint.get("normalized_decision") != "B"
+        or "DiagnosticPath" not in checkpoint.get("authorized_scope", "")
+    ):
+        fail(errors, "H1-HC01 Option-B correction authority is not resolved exactly")
+    final_checkpoint = load(ROOT / ".pi/checkpoints/H1-HC02-final-acceptance.json")
+    assert isinstance(final_checkpoint, dict)
+    if final_checkpoint.get("status") != "pending" or final_checkpoint.get("checkpoint_id") != "H1-HC02":
+        fail(errors, "H1 final-acceptance checkpoint is not pending")
 
     for root in PROHIBITED_ROOTS:
         if (ROOT / root).exists():
             fail(errors, f"prohibited implementation/resource root exists: {root}")
 
     changed = set(run("git", "diff", "--name-only", START).splitlines())
+    changed.update(run("git", "ls-files", "--others", "--exclude-standard").splitlines())
     for path in changed:
         if path in PROTECTED_EXACT or path.startswith(PROTECTED_PREFIXES):
             fail(errors, f"protected source/test/spec/fixture/dependency path changed: {path}")
@@ -280,6 +384,14 @@ def main() -> int:
         text = (H1 / review).read_text(encoding="utf-8")
         if "PASS" not in text:
             fail(errors, f"final review is not PASS: {review}")
+    for review in (
+        "review-H1-HC01-diagnostic-path-architecture.md",
+        "review-H1-HC01-diagnostic-path-public-contract-rust.md",
+        "review-H1-HC01-diagnostic-path-integration.md",
+    ):
+        text = (H1 / review).read_text(encoding="utf-8")
+        if "FINAL: PASS" not in text:
+            fail(errors, f"focused correction review is not final PASS: {review}")
 
     checksum_path = H1 / "checksums.sha256"
     if checksum_path.is_file():
@@ -307,6 +419,7 @@ def main() -> int:
             if path.is_file() and path.name not in {"checksums.sha256", "validation-results.json"}
         }
         required_catalog.add(".pi/checkpoints/H1-HC01-harness-contract.json")
+        required_catalog.add(".pi/checkpoints/H1-HC02-final-acceptance.json")
         if not required_catalog.issubset(catalog_paths):
             fail(errors, f"checksum catalog missing paths: {sorted(required_catalog - catalog_paths)}")
 
@@ -323,6 +436,7 @@ def main() -> int:
     print(f"candidate_dispositions={len(dispositions)}")
     print("active_task=H1")
     print("unresolved_checkpoints=1")
+    print("pending_checkpoint=H1-HC02")
     for error in errors:
         print(f"ERROR: {error}")
     return 1 if errors else 0

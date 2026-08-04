@@ -1,6 +1,7 @@
 # H1 issue-code and deterministic-ordering contract
 
-Status: proposed for `H1-HC01`; H1 implements no validator.
+Status: corrected under resolved `H1-HC01` Option B and pending final H1 human
+acceptance; H1 implements no validator.
 
 ## Namespace
 
@@ -97,11 +98,17 @@ for the same pair.
 
 ## Subject and path
 
-`subject_id` is the most specific stable represented identity. `path` is the
-canonical serialized `ResourcePath` when the finding concerns one. Neither is
-constructed from human prose. `related_ids` names other stable participants and
-is unique and sorted. A path is not used as durable identity when a subject ID
-exists; both may be present.
+`subject_id` is the most specific stable represented identity. `path` is
+`DiagnosticPath | None`: a neutral canonical root-relative POSIX lexical
+location when the finding concerns one. It may identify a regular-file resource,
+a directory, or an ownership-scope prefix and does not claim existence or file
+kind. Validators convert an already valid `ResourcePath` or
+`OwnershipScopePath` to the same lexical diagnostic spelling without weakening
+either specialized source type. A directory-tree ownership finding therefore
+retains its machine-readable scope path rather than being mislabeled as a
+regular-file resource or omitted. Neither field is constructed from human prose.
+`related_ids` names other stable participants and is unique and sorted. A path
+is not used as durable identity when a subject ID exists; both may be present.
 
 ## Duplicate behavior
 
@@ -125,8 +132,8 @@ Issues are sorted by the following total key:
 1. severity rank: `ERROR = 0`, `WARNING = 1`, `INFO = 2`;
 2. `code` by exact ASCII bytes;
 3. `subject_id`, with `None` before any string;
-4. `path`, with `None` before any string, using exact UTF-8 bytes of the NFC
-   canonical path;
+4. diagnostic `path`, with `None` before any string, using exact UTF-8 bytes of
+   the NFC canonical `DiagnosticPath`;
 5. `related_ids` lexicographically;
 6. `message` by Unicode scalar value only as a final deterministic tie-breaker.
 

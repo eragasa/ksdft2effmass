@@ -22,8 +22,14 @@ Generic code receives project profiles and resource roots explicitly. It must no
 `class_owned` and `artifact_owned` software verification, with agreement and
 direction represented as artifact relation metadata; explicit schemas/fixtures
 where accepted; static dependency and leakage checks; path-confinement cases;
-public imports; typing/linting; documentation; and independent review. Legacy
-terminology remains only explicit project-local compatibility input. Numerical
+public imports; typing/linting; documentation; and independent review.
+`ValidationIssue` class-owned evidence must cover a regular-file diagnostic
+path, a directory-tree ownership-scope diagnostic path, `None`, and rejection of
+absolute, traversal, non-NFC, malformed, control, and Windows/platform-specific
+forms. Artifact-owned evidence must cover diagnostic-path ordering, unchanged
+specialized path meanings, accepted H3 schema/fixture agreement, and canonical
+JSON/intended Rust round trips. Legacy terminology remains only explicit
+project-local compatibility input. Numerical
 verification is required only for actual numerical algorithms.
 
 ## Exclusions

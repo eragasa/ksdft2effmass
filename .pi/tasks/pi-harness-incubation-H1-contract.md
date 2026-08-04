@@ -1,6 +1,6 @@
 # H1 — Harness contract and package boundary
 
-Status: active after resolved `H1-HC01` Option B; exactly one bounded `DiagnosticPath` contract correction authorized; final acceptance pending; no implementation authorized
+Status: active and blocked at pending `H1-HC02`; exactly one bounded `DiagnosticPath` contract correction applied; focused reviews and validation pass; no implementation authorized
 
 ## Objective
 
@@ -69,8 +69,9 @@ planned H3 schemas and fixtures, maintained documentation, validation, and
 focused independent reviews while retaining the original finding and correction
 trace.
 
-H1 remains active until the corrected contract returns to final human
-acceptance. H3 is not activated. H3-H5, P2-P11, implementation, resource/schema
+H1 remains active until the corrected contract receives final human acceptance
+at
+`.pi/checkpoints/H1-HC02-final-acceptance.json`. H3 is not activated. H3-H5, P2-P11, implementation, resource/schema
 creation, external or scientific execution, and publication remain blocked.
 
 ## VVUQ boundary

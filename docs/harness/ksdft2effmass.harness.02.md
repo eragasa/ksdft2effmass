@@ -2,16 +2,17 @@
 
 ## Contract status
 
-H1 is active under explicit human authorization and proposes the version-1
-contract summarized here. The detailed decision artifacts are retained under
+H1 is active after resolved `H1-HC01` Option B for exactly one bounded
+`DiagnosticPath` contract correction and return to final human acceptance. The
+detailed decision artifacts are retained under
 `.pi/evidence/pi-harness-incubation/H1/`. This page is maintained explanation;
 `.pi` task, chain, and checkpoint records remain the authority for execution
 state.
 
-The proposed contract is not implemented. H1 creates no Python namespace,
-resource root, schema, fixture, package, runner, or dispatch mechanism. The
-contract becomes accepted only through the genuine `H1-HC01` human decision,
-and acceptance would not activate H3.
+The corrected contract is not implemented. H1 creates no Python namespace,
+resource root, schema, fixture, package, runner, or dispatch mechanism. It awaits
+a separate final H1 human-acceptance checkpoint, and acceptance would not
+activate H3.
 
 ## Proposed version-1 public surface
 
@@ -105,10 +106,15 @@ fallback.
 
 Version-1 opaque identifiers are nonempty case-sensitive ASCII strings. They are
 not normalized and generic code infers no semantic hierarchy from them.
-Serialized resource paths are separately defined NFC Unicode, root-relative
-POSIX paths. They reject empty/absolute paths, `.`, `..`, repeated separators,
-backslashes, Windows drive/UNC forms, controls, case mismatch, traversal, and
-symlinks.
+The three serialized path semantics are immutable built-in Python `str` values
+with validated Rust newtypes. `ResourcePath` is an NFC Unicode, root-relative
+POSIX regular-file resource path. `OwnershipScopePath` identifies a file or
+directory-tree ownership scope. `DiagnosticPath` is the neutral lexical location
+used only by diagnostics; it may identify a regular file, directory, or scope
+prefix and makes no existence or regular-file claim. All reject empty/absolute
+paths, `.`, `..`, empty segments, repeated separators, trailing slashes,
+backslashes, Windows drive/device/UNC forms, controls, non-NFC input, and
+platform-dependent case folding.
 
 Every serialized record is strict UTF-8 JSON with fixed field names, required
 fields, explicit `null` only for declared optional values, duplicate-key and
@@ -163,9 +169,12 @@ semantics.
 
 ## Structured validation
 
-A `ValidationIssue` contains stable code, severity, subject identity, serialized
-path, related identities, and a human message. The machine protocol is the code
-and structured fields, not message prose. Severities are `ERROR`, `WARNING`, and
+A `ValidationIssue` contains stable code, severity, subject identity, neutral
+`DiagnosticPath | None`, related identities, and a human message. This permits
+machine-readable findings for both regular-file resources and directory-tree
+ownership scopes without weakening or mislabeling the specialized source path
+types. The machine protocol is the code and structured fields, not message
+prose. Severities are `ERROR`, `WARNING`, and
 `INFO`; result states are `FAIL`, `WARN`, and `PASS`.
 
 Issues sort by severity, code, subject, path, related identities, then message.
@@ -247,12 +256,14 @@ agent records.
 
 ## Human decision
 
-The pending `H1-HC01` checkpoint asks the human to accept, accept with bounded corrections, reject and
-reopen, or defer the exact API, serialized records, identifier/path rules,
-resource overlay behavior, profile semantics, issue ordering, version boundaries,
-generic/local ownership, successor path plan, and deferred/rejected interfaces.
-H1 remains active and blocked at that checkpoint; acceptance does not activate
-H3.
+The human PI resolved `H1-HC01` as Option B: accept the H1 architecture subject
+to correction of the diagnostic-path type. The correction changes only
+`ValidationIssue.path: ResourcePath | None` to
+`ValidationIssue.path: DiagnosticPath | None`, adds the neutral semantic
+primitive and intended `DiagnosticPath(String)` Rust newtype, and leaves the
+interface count and specialized `ResourcePath`/`OwnershipScopePath` meanings
+unchanged. H1 remains active pending final human acceptance; H3 and every
+successor remain blocked and inactive.
 
 ## Navigation
 

@@ -1,6 +1,7 @@
 # H1 independent version boundaries
 
-Status: proposed for `H1-HC01`.
+Status: corrected under resolved `H1-HC01` Option B and pending final H1 human
+acceptance.
 
 ## Independent version axes
 
@@ -42,7 +43,7 @@ acceptance or scientific validity.
 | Clarify human message prose without changing machine fields/codes/semantics | backward and forward compatible |
 | Add an `INFO` message using an existing registered code/condition | backward compatible if issue multiplicity and ordering contract remains unchanged; otherwise migration-requiring |
 | Add a new issue code for a newly detected condition | version 1 is closed; requires a new integer public-contract version and explicit consumer migration |
-| Change issue code meaning, severity, duplicate key, or ordering | contract-breaking new integer Python/record version |
+| Change issue code meaning, severity, duplicate key, ordering, or an existing issue field's semantic path type after acceptance/implementation | contract-breaking new integer Python/record version |
 | Add an optional JSON field to a v1 record | rejected by v1 unknown-field policy; requires a new integer serialized-record schema version and migration |
 | Add a required JSON field, rename a field, change type/nullability, or reinterpret a field | contract-breaking serialized-record change |
 | Expand an enum accepted by a record | version 1 is closed; requires a new integer schema/contract version and explicit compatibility decision |
@@ -71,6 +72,23 @@ An adapter records its own version and source/target versions; it must not mutat
 or rewrite accepted historical evidence. A local compatibility adapter may map
 legacy P1 `boundary_owned` into generic `artifact_owned` relation metadata for
 comparison while preserving the original input string and historical tests.
+
+## Pre-acceptance H1-HC01 Option-B correction
+
+The accepted bounded correction changes the still-unimplemented proposal's
+`ValidationIssue.path` semantic type from `ResourcePath | None` to
+`DiagnosticPath | None`. It adds one common semantic primitive and the intended
+validated Rust `DiagnosticPath(String)` newtype, but no DataObject, ResultObject,
+ActionObject, candidate disposition, schema-version value, or interface-count
+entry. Because no H2 implementation or H3 schema/fixture exists and final H1
+acceptance remains pending, this correction establishes the proposed version-1
+contract rather than migrating an accepted implementation. The same type change
+after final acceptance or implementation would require the contract-breaking
+version boundary stated above.
+
+`ResourcePath` and `OwnershipScopePath` retain their specialized version-1
+meanings. No serialization, integer, checksum, overlay, evidence-kind, or
+generic/local decision is reopened.
 
 ## Initial values proposed at H1-HC01
 

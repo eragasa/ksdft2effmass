@@ -1,7 +1,7 @@
 # H1 field and wire contract
 
-Status: proposed for human decision at `H1-HC01`; no class, schema, fixture, or
-serializer is implemented by H1.
+Status: corrected under resolved `H1-HC01` Option B and pending final H1 human
+acceptance; no class, schema, fixture, or serializer is implemented by H1.
 
 ## Common semantic types
 
@@ -10,6 +10,7 @@ serializer is implemented by H1.
 | `Identifier` | `str` | Nonempty ASCII; first character `[A-Za-z0-9]`; remaining characters `[A-Za-z0-9._:/-]`; case-sensitive; no normalization; opaque unless a field explicitly declares an enum. | `Identifier(String)` validated newtype |
 | `ResourcePath` | `str` | Canonical root-relative POSIX regular-file resource path under the path contract below. | `ResourcePath(String)` validated newtype |
 | `OwnershipScopePath` | `str` | Canonical repository-relative POSIX path paired with an explicit file/tree scope kind; no trailing slash. | `OwnershipScopePath(String)` validated newtype |
+| `DiagnosticPath` | `str` | Immutable built-in string; nonempty NFC-normalized root-relative POSIX syntax; no absolute path, empty/`.`/`..` segment, repeated separator, trailing slash, control, backslash, Windows drive/device/UNC syntax, or case folding. Purely lexical on wire; may identify a regular file, directory, or ownership-scope prefix and makes no existence or regular-file claim. | `DiagnosticPath(String)` validated newtype |
 | `Version` | `int` excluding `bool` | Range $1\ldots 2^{53}-1$; one closed integer contract version, not an implicit major/minor pair. The bound preserves exact RFC 8785/ECMAScript-number round trips. | `Version(u64)` with upper-bound validation |
 | `SignedExitStatus` | `int` excluding `bool` | Range $0\ldots 2^{31}-1$; reserved for deferred command records only. | `u32` |
 | immutable sequence | `tuple[T, ...]` | No mutable list is retained; ordering is field-specific. | `Vec<T>` retained behind immutable borrowing |
@@ -348,7 +349,7 @@ Public JSON: yes.
 | 2 | `code` | `Identifier` | yes | registered stable issue code | `String`/enum wrapper |
 | 3 | `severity` | `str` | yes | `ERROR`, `WARNING`, or `INFO` | `ValidationSeverity` enum |
 | 4 | `subject_id` | `Identifier | None` | yes | primary opaque subject | `Option<Identifier>` |
-| 5 | `path` | `ResourcePath | None` | yes | canonical subject path when relevant | `Option<ResourcePath>` |
+| 5 | `path` | `DiagnosticPath | None` | yes | neutral canonical lexical location when relevant; may denote a regular file, directory, or ownership-scope prefix and makes no existence/file-kind claim | `Option<DiagnosticPath>` |
 | 6 | `related_ids` | `tuple[Identifier, ...]` | yes | unique strictly sorted related identities | `Vec<Identifier>` |
 | 7 | `message` | `str` | yes | nonempty human-facing explanation; not machine protocol | `String` |
 
@@ -412,8 +413,8 @@ enum with `WrongType { field: Identifier }` and
 Python `TypeError` and `ValueError`. This private mapping demonstrates concrete
 Rust implementability but is not an added public H1 interface.
 
-`Identifier`, `ResourcePath`, `OwnershipScopePath`, and `Version` are validated
-Rust newtypes, not aliases. Table references to `String` for an opaque identifier
+`Identifier`, `ResourcePath`, `OwnershipScopePath`, `DiagnosticPath`, and
+`Version` are validated Rust newtypes, not aliases. Table references to `String` for an opaque identifier
 are superseded by this exact `Identifier` newtype; table references to `Path` for
 a serialized path mean `ResourcePath`, never `std::path::Path`.
 `ValidationIssue.code` is `Identifier`, not an enum;
@@ -494,4 +495,5 @@ values, open files, sockets, subprocess or scheduler handles, Git clients,
 mutable service clients, closures, imported project-domain objects, live SNAKES
 objects, or mutable mappings/sequences. Runtime `pathlib.Path` values occur only
 as explicit action arguments or nonserialized resolution outputs; serialized
-records use `ResourcePath` strings.
+resource and ownership records retain `ResourcePath` and `OwnershipScopePath`
+respectively, while `ValidationIssue.path` alone uses neutral `DiagnosticPath`.

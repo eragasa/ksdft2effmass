@@ -1,7 +1,16 @@
 {
   "schema_version": 1,
   "task_id": "H1",
-  "decision_status": "proposed_for_H1-HC01",
+  "decision_status": "H1-HC01_Option_B_bounded_DiagnosticPath_correction_pending_final_acceptance",
+  "semantic_primitives": {
+    "DiagnosticPath": {
+      "python": "immutable built-in str validated as a nonempty NFC-normalized root-relative POSIX lexical path with no absolute/traversal/empty/repeated/trailing/control/Windows syntax and exact case-sensitive comparison",
+      "rust": "DiagnosticPath(String) validated newtype",
+      "meaning": "neutral serialized diagnostic location that may identify a regular file, directory, or ownership-scope prefix without claiming existence or regular-file kind",
+      "consumer": "ValidationIssue.path for resource and directory-tree ownership findings",
+      "interface_accounting": "semantic primitive only; not a DataObject, ResultObject, ActionObject, support-surface candidate, or additional disposition"
+    }
+  },
   "dispositions": [
     {
       "candidate": "ArtifactIdentity",
@@ -76,9 +85,9 @@
         "skill validator",
         "task reports"
       ],
-      "represented_meaning": "one machine-classified expected-invalidity finding",
+      "represented_meaning": "one machine-classified expected-invalidity finding with an optional neutral DiagnosticPath that can locate a regular file, directory, or ownership-scope prefix",
       "owner": "generic Python",
-      "rationale": "Current validators otherwise expose unstable assertion or prose failures."
+      "rationale": "Current validators otherwise expose unstable assertion or prose failures, and ownership diagnostics must retain directory-tree scope locations without misrepresenting them as ResourcePath values."
     },
     {
       "candidate": "ValidationResult",
@@ -593,10 +602,19 @@
       ]
     },
     "ValidationIssue": {
-      "fields": "code/severity/subject/path/related/message",
+      "fields": "code/severity/subject/DiagnosticPath-or-null/related/message",
       "evidence": [
         "current validator errors",
-        "H0/P1 structured review findings"
+        "H0/P1 structured review findings",
+        ".pi/task-ownership/validate_task_ownership.py directory-tree owned_paths and overlap findings"
+      ],
+      "future_obligations": [
+        "regular-file ResourcePath spelling is representable as DiagnosticPath",
+        "directory-tree OwnershipScopePath spelling is representable as DiagnosticPath",
+        "no-location finding is representable as null",
+        "absolute, traversal, non-NFC, malformed, control, repeated/trailing separator, and Windows/platform-specific forms are rejected",
+        "issue ordering uses DiagnosticPath UTF-8 bytes after None",
+        "canonical JSON and intended Rust DiagnosticPath(String) round trips agree"
       ]
     },
     "ValidationResult": {

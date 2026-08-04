@@ -1,6 +1,7 @@
 # H1 migration and compatibility plan
 
-Status: proposed for `H1-HC01`. H1 moves, copies, retires, executes, or cuts over
+Status: corrected under resolved `H1-HC01` Option B and pending final H1 human
+acceptance at `H1-HC02`. H1 moves, copies, retires, executes, or cuts over
 nothing.
 
 ## Governing principle
@@ -93,9 +94,12 @@ internal imports relative, expose only the exact H1 public names, reject hidden
 root discovery, and produce deterministic structured results. It creates no
 local Python and no compatibility facade to a speculative standalone package.
 
-Class-owned tests cover each public class. Artifact-owned tests cover public
-imports, H1/H3 Python-wire agreement, generic/local dependency direction, path
-confinement, and resource resolution. Boundary agreement and direction use
+Class-owned tests cover each public class. `ValidationIssue` class-owned evidence
+covers regular-file and directory-tree diagnostic locations, `None`, and every
+`DiagnosticPath` rejection family. Artifact-owned tests cover public imports,
+H1/H3 Python-wire and intended Rust agreement, generic/local dependency
+direction, specialized-versus-neutral path semantics, deterministic issue
+ordering, path confinement, and resource resolution. Boundary agreement and direction use
 artifact relation metadata, not a fake Workflow or third ownership kind.
 
 ## H4 shadow replay
@@ -148,7 +152,8 @@ explicitly authorized for another reason.
 | P1 v1 compatibility drift | versioned local adapter and exact legacy replay |
 | Premature validator/skill retirement | H4 parity plus genuine human cutover checkpoint |
 | Local replacement hiding generic content | v1 extension-only overlays; duplicate identity/path fails |
-| Case/symlink/workstation path drift | portable ResourcePath plus lexical/resolved confinement and exact-case checks |
+| Case/symlink/workstation path drift | portable `ResourcePath` plus lexical/resolved confinement and exact-case checks |
+| Directory ownership finding mislabeled or dropped | neutral lexical `DiagnosticPath` on `ValidationIssue`; specialized `ResourcePath` and `OwnershipScopePath` remain unchanged; H2/H3 valid, invalid, ordering, JSON, and Rust-round-trip obligations |
 | False scientific or authorization claim from PASS | explicit result claim boundary and VVUQ review |
 | Personal/concurrent notes entering validation | not manifestable H1 resources; clean-revision and pre-commit modes separate |
 

@@ -19,7 +19,15 @@ Subject to H1 approval, extract only classified generic skills, directly referen
 
 ## Evidence
 
-Resource-manifest validation; missing/duplicate/incompatible resource cases; reference resolution; explicit-profile use; project-leakage checks; software/numerical evidence-classification behavior; independent oracle and ownership review; documentation and integration review.
+Resource-manifest validation; missing/duplicate/incompatible resource cases;
+reference resolution; explicit-profile use; project-leakage checks;
+software/numerical evidence-classification behavior; independent oracle and
+ownership review; documentation and integration review. The planned
+`ValidationIssue` schema must use `DiagnosticPath | null`, with valid fixtures
+for a regular-file spelling, directory-tree ownership-scope spelling, and
+`null`; invalid fixtures for absolute, traversal, non-NFC, malformed, control,
+repeated/trailing-separator, and Windows/platform-specific forms; and canonical
+JSON vectors for later Python/intended Rust round-trip agreement.
 
 ## Exclusions
 

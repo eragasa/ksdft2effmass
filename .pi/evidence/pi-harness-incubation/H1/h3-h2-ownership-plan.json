@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "H1",
-  "status": "proposed_for_H1-HC01_not_activated",
+  "status": "H1-HC01_Option_B_DiagnosticPath_correction_pending_final_acceptance_not_activated",
   "sequence": [
     "H3",
     "H2",
@@ -78,6 +78,26 @@
       },
       "schema_ownership": "harness-generic-resource-writer owns all accepted wire/profile/manifest/descriptor schemas under harness/pi/schemas; no schema is created in H1 or H2.",
       "fixture_ownership": "H3 resource-test writer owns all generic/local schema and resolution fixtures; fixtures are textual software-verification evidence, not scientific validation.",
+      "diagnostic_path_schema_fixture_obligations": {
+        "schema_owner": "harness-generic-resource-writer",
+        "fixture_owner": "harness-resource-test-writer",
+        "required_schema_behavior": "The ValidationIssue version-1 schema defines path as DiagnosticPath or null, not ResourcePath; the reusable DiagnosticPath definition is lexical only and does not assert file existence or file kind.",
+        "required_valid_fixtures": [
+          "ValidationIssue with a regular-file resource spelling in path",
+          "ValidationIssue with a directory-tree ownership-scope spelling in path",
+          "ValidationIssue with path null"
+        ],
+        "required_invalid_fixtures": [
+          "absolute path",
+          "dot or dot-dot traversal segment",
+          "non-NFC path",
+          "empty or repeated segment",
+          "trailing slash",
+          "control character",
+          "backslash, Windows drive/device, or UNC syntax"
+        ],
+        "round_trip_obligation": "Canonical JSON fixtures preserve DiagnosticPath spelling and are indexed as vectors for H2 Python and intended Rust DiagnosticPath(String) round-trip agreement."
+      },
       "test_ownership": "H3 resource-test writer owns only harness/pi/fixtures and harness/local/fixtures; the generic-resource and local-profile writers do not write their own fixtures.",
       "documentation_ownership": "H3 resource-documentation writer owns only harness/pi/docs and harness/local/docs; skill procedure and directly referenced grammar remain generic-resource-writer resources, not duplicate docs.",
       "writer_roles": [
@@ -247,6 +267,35 @@
       "schema_ownership": "H2 consumes accepted H3 schemas and does not create competing production schemas.",
       "fixture_ownership": "H2 tests consume accepted H3 fixtures read-only; H2 may create Python-only test parameters in its test modules but no competing shared JSON fixtures.",
       "test_ownership": "A dedicated H2 test writer owns only the enumerated class/artifact/completion files directly below the accepted software-verification root; it owns no directory scope and no path under local/. Production writers own no tests.",
+      "diagnostic_path_test_obligations": {
+        "owner": "harness-python-test-writer",
+        "class_owned": {
+          "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py",
+          "cases": [
+            "path accepts a regular-file ResourcePath spelling as DiagnosticPath",
+            "path accepts a directory-tree OwnershipScopePath spelling as DiagnosticPath",
+            "path accepts None when no location applies",
+            "path rejects absolute, traversal, non-NFC, empty/repeated/trailing-separator, control, backslash, Windows drive/device, and UNC forms"
+          ]
+        },
+        "artifact_owned": [
+          {
+            "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py",
+            "cases": [
+              "ResourcePath and OwnershipScopePath retain specialized meanings while DiagnosticPath remains neutral and lexical",
+              "issue duplicate coalescing and deterministic ordering use DiagnosticPath with None first then exact NFC UTF-8 bytes"
+            ]
+          },
+          {
+            "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py",
+            "cases": [
+              "valid and invalid H3 DiagnosticPath schema fixtures agree with Python construction",
+              "canonical JSON decode/encode and intended Rust DiagnosticPath(String) round-trip vectors agree"
+            ]
+          }
+        ],
+        "evidence_class": "software verification only; no numerical verification, scientific validation, or UQ claim"
+      },
       "documentation_ownership": "The implementation writer owns source docstrings; a separate documentation writer owns only docs/harness/ksdft2effmass.harness.03.md and may not edit source/tests/resources.",
       "writer_roles": [
         {

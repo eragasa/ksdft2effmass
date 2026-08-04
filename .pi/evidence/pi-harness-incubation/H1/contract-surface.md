@@ -2,9 +2,10 @@
 
 ## Boundary and authority
 
-This document proposes the smallest generic surface demonstrated by current
-repository consumers. It is a contract artifact for `H1-HC01`, not an
-implementation, schema, fixture, package, or authorization to execute work.
+This document records the smallest generic surface demonstrated by current
+repository consumers, corrected under resolved `H1-HC01` Option B and pending
+final H1 human acceptance. It is a contract artifact, not an implementation,
+schema, fixture, package, or authorization to execute work.
 Existing scripts remain requirement evidence and current authority until H4
 shadow parity and human cutover.
 
@@ -54,6 +55,15 @@ WireRecordKind              closed enum of every public-JSON record class name
 HarnessWireRecord           closed typing union of those record classes
 HarnessInternalError        nonserialized internal/programming-failure error
 ```
+
+The common semantic path primitives are `ResourcePath`,
+`OwnershipScopePath`, and `DiagnosticPath`. They are immutable built-in Python
+`str` values with distinct meanings and validated Rust newtypes. `ResourcePath`
+remains a regular-file resource path; `OwnershipScopePath` remains the path of a
+file or directory-tree ownership declaration; `DiagnosticPath` is only the
+neutral lexical location carried by `ValidationIssue.path`. Adding this semantic
+primitive does not add a DataObject, ResultObject, ActionObject, or candidate
+interface, so the existing interface count is unchanged.
 
 ### Stateless ActionObjects
 
@@ -109,8 +119,9 @@ personal or concurrently edited working notes.
 
 `interface-decision-matrix.json` names at least one current consumer for every
 included interface. The supporting `OwnershipScope`, `AgentDescriptorView`,
-`EvidenceIdentifierOccurrence`, and operation-specific ResultObjects are included
-only where current ownership, JSON, chain, resource, or evidence-audit consumers
+`EvidenceIdentifierOccurrence`, operation-specific ResultObjects, and neutral
+`DiagnosticPath` semantic primitive are included only where current ownership,
+JSON, chain, resource, evidence-audit, or structured-diagnostic consumers
 demonstrate them. `field_and_argument_consumer_evidence` in the matrix traces the
 mandatory field/argument groups. New convenience aliases, open generic result
 wrappers, registries, factories, repositories, services, protocols, plugins,
