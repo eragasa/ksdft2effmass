@@ -9,7 +9,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-040",
-          "test": "test_cpn_sv_p1_040_direction_selects_exactly_one_inscription",
+          "test": "test_constructor__contract__direction_selects_exactly_one_inscription",
           "requirement": "enforce the arc direction/inscription tagged union"
         }
       ]
@@ -20,7 +20,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-041",
-          "test": "test_cpn_sv_p1_041_color_ids_are_nonempty_and_payload_ids_canonical",
+          "test": "test_constructor__contract__color_ids_are_nonempty_and_payload_ids_canonical",
           "requirement": "require identities and canonical payload-type membership"
         }
       ]
@@ -31,32 +31,32 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-035",
-          "test": "test_cpn_sv_p1_035_string_sequence_rejects_empty_entries",
+          "test": "test_constructor__contract__string_sequence_rejects_empty_entries",
           "requirement": "preserve nonempty identities in string-sequence values."
         },
         {
           "evidence_id": "SV-CPN-058",
-          "test": "test_cpn_sv_p1_058_closed_tags_admit_exact_public_values",
+          "test": "test_constructor__contract__closed_tags_admit_exact_public_values",
           "requirement": "admit each resolved exact tagged-value representation"
         },
         {
           "evidence_id": "SV-CPN-059",
-          "test": "test_cpn_sv_p1_059_mismatched_tags_raise_type_error",
+          "test": "test_constructor__contract__mismatched_tags_raise_type_error",
           "requirement": "reject every resolved tag/value type mismatch"
         },
         {
           "evidence_id": "SV-CPN-060",
-          "test": "test_cpn_sv_p1_060_real_values_must_be_finite",
+          "test": "test_constructor__contract__real_values_must_be_finite",
           "requirement": "reject nonfinite exact-float contract values"
         },
         {
           "evidence_id": "SV-CPN-080",
-          "test": "test_cpn_sv_p1_080_real_is_finite_binary64_with_documented_rounding",
+          "test": "test_constructor__contract__real_is_finite_binary64_with_documented_rounding",
           "requirement": "binary64 REAL admission, canonicalization, rounding, and conversion-overflow rejection"
         },
         {
           "evidence_id": "SV-CPN-081",
-          "test": "test_cpn_sv_p1_081_integer_is_exact_signed_i64",
+          "test": "test_constructor__contract__integer_is_exact_signed_i64",
           "requirement": "exact signed-i64 INTEGER boundaries and Boolean rejection"
         }
       ]
@@ -67,7 +67,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-042",
-          "test": "test_cpn_sv_p1_042_error_retains_authoritative_detail",
+          "test": "test_constructor__contract__error_retains_authoritative_detail",
           "requirement": "retain structured detail and expose its message as exception text"
         }
       ]
@@ -78,7 +78,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-011",
-          "test": "test_cpn_sv_p1_011_complete_net_mapping_validates",
+          "test": "test_method__contract__complete_net_mapping_validates",
           "requirement": "complete executable representation of the CPN tuple."
         }
       ]
@@ -89,7 +89,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-043",
-          "test": "test_cpn_sv_p1_043_detail_validates_and_canonicalizes_context",
+          "test": "test_constructor__contract__detail_validates_and_canonicalizes_context",
           "requirement": "require structured codes/messages and canonical token IDs"
         }
       ]
@@ -100,22 +100,22 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-008",
-          "test": "test_cpn_sv_p1_008_exact_literals_evaluate_without_state",
+          "test": "test_method__contract__exact_literals_evaluate_without_state",
           "requirement": "exact literal ordering without token state."
         },
         {
           "evidence_id": "SV-CPN-009",
-          "test": "test_cpn_sv_p1_009_comparison_rejects_mixed_tags",
+          "test": "test_method__contract__comparison_rejects_mixed_tags",
           "requirement": "type-strict comparison tags."
         },
         {
           "evidence_id": "SV-CPN-010",
-          "test": "test_cpn_sv_p1_010_bound_token_fields_and_id_sequences",
+          "test": "test_method__contract__bound_token_fields_and_id_sequences",
           "requirement": "positive token-field and repeated bound-token-ID evaluation."
         },
         {
           "evidence_id": "SV-CPN-085",
-          "test": "test_cpn_sv_p1_085_maximum_controls_read_copy_and_compare_as_integer",
+          "test": "test_method__contract__maximum_controls_read_copy_and_compare_as_integer",
           "requirement": "maximum expression-visible controls read and copy through INTEGER"
         }
       ]
@@ -126,22 +126,22 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-012",
-          "test": "test_cpn_sv_p1_012_marking_preserves_multiplicity_and_order",
+          "test": "test_constructor__contract__marking_preserves_multiplicity_and_order",
           "requirement": "multiset multiplicity and canonical token order."
         },
         {
           "evidence_id": "SV-CPN-061",
-          "test": "test_cpn_sv_p1_061_marking_version_identity_and_revision_taxonomy",
+          "test": "test_constructor__contract__marking_version_identity_and_revision_taxonomy",
           "requirement": "enforce fixed version, model identity, and nonnegative revision"
         },
         {
           "evidence_id": "SV-CPN-062",
-          "test": "test_cpn_sv_p1_062_places_require_immutable_owner_types",
+          "test": "test_constructor__contract__places_require_immutable_owner_types",
           "requirement": "accept only an immutable tuple of PlaceMarking owners"
         },
         {
           "evidence_id": "SV-CPN-083",
-          "test": "test_cpn_sv_p1_083_revision_uses_nonnegative_signed_i64_range",
+          "test": "test_constructor__contract__revision_uses_nonnegative_signed_i64_range",
           "requirement": "marking revision uses the nonnegative signed-i64 interval"
         }
       ]
@@ -152,17 +152,17 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-013",
-          "test": "test_cpn_sv_p1_013_wrong_complete_place_set_has_stable_code",
+          "test": "test_method__contract__wrong_complete_place_set_has_stable_code",
           "requirement": "complete place-set validation."
         },
         {
           "evidence_id": "SV-CPN-014",
-          "test": "test_cpn_sv_p1_014_unknown_color_reference_is_structured",
+          "test": "test_method__contract__unknown_color_reference_is_structured",
           "requirement": "structured unknown-color diagnostics."
         },
         {
           "evidence_id": "SV-CPN-036",
-          "test": "test_cpn_sv_p1_036_accepts_complete_multiset_marking",
+          "test": "test_method__contract__accepts_complete_multiset_marking",
           "requirement": "accept a complete two-token multiset marking."
         }
       ]
@@ -173,7 +173,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-044",
-          "test": "test_cpn_sv_p1_044_net_requires_v1_and_canonicalizes_collections",
+          "test": "test_constructor__contract__net_requires_v1_and_canonicalizes_collections",
           "requirement": "enforce version-1 container ownership and lexical order"
         }
       ]
@@ -184,47 +184,47 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-001",
-          "test": "test_cpn_sv_p1_001_token_is_immutable_and_canonical",
+          "test": "test_constructor__routing_state__canonicalizes_and_freezes_token",
           "requirement": "immutable token storage and canonical identity tuples."
         },
         {
           "evidence_id": "SV-CPN-002",
-          "test": "test_cpn_sv_p1_002_payload_reference_is_all_or_none",
+          "test": "test_constructor__payload_reference__requires_all_fields_or_none",
           "requirement": "all-or-none payload references."
         },
         {
           "evidence_id": "SV-CPN-003",
-          "test": "test_cpn_sv_p1_003_boolean_iteration_is_rejected",
+          "test": "test_field__iteration_index__rejects_boolean",
           "requirement": "Boolean rejection at the iteration-index boundary."
         },
         {
           "evidence_id": "SV-CPN-063",
-          "test": "test_cpn_sv_p1_063_required_identities_are_exact_nonempty_strings",
+          "test": "test_constructor__required_identities__requires_exact_nonempty_strings",
           "requirement": "validate every required routing identity"
         },
         {
           "evidence_id": "SV-CPN-064",
-          "test": "test_cpn_sv_p1_064_optional_identities_reject_wrong_or_empty_values",
+          "test": "test_constructor__optional_identities__rejects_wrong_or_empty_values",
           "requirement": "constrain optional identities to None or nonempty strings"
         },
         {
           "evidence_id": "SV-CPN-065",
-          "test": "test_cpn_sv_p1_065_iteration_requires_nonnegative_exact_integer",
+          "test": "test_field__iteration_index__requires_nonnegative_exact_integer",
           "requirement": "enforce the resolved iteration type and lower bound"
         },
         {
           "evidence_id": "SV-CPN-066",
-          "test": "test_cpn_sv_p1_066_payload_version_requires_nonnegative_exact_integer",
+          "test": "test_field__payload_schema_version__requires_nonnegative_exact_integer",
           "requirement": "enforce payload-version exact type and nonnegative lower bound"
         },
         {
           "evidence_id": "SV-CPN-067",
-          "test": "test_cpn_sv_p1_067_identity_tuples_and_outcome_are_strict",
+          "test": "test_constructor__identity_tuples_and_outcome__enforces_strict_types",
           "requirement": "require unique nonempty identity tuples and typed outcome state"
         },
         {
           "evidence_id": "SV-CPN-082",
-          "test": "test_cpn_sv_p1_082_expression_visible_controls_use_nonnegative_i64_range",
+          "test": "test_field__expression_visible_controls__enforces_nonnegative_i64_range",
           "requirement": "iteration and payload-schema controls use the nonnegative signed-i64 interval"
         }
       ]
@@ -235,7 +235,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-045",
-          "test": "test_cpn_sv_p1_045_issue_owns_typed_canonical_context",
+          "test": "test_constructor__contract__issue_owns_typed_canonical_context",
           "requirement": "validate issue fields and canonicalize related identities"
         }
       ]
@@ -246,7 +246,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-046",
-          "test": "test_cpn_sv_p1_046_validity_is_exactly_issue_emptiness",
+          "test": "test_constructor__contract__validity_is_exactly_issue_emptiness",
           "requirement": "derive validity solely from the immutable issue tuple"
         }
       ]
@@ -257,17 +257,17 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-037",
-          "test": "test_cpn_sv_p1_037_output_token_ids_are_unique",
+          "test": "test_constructor__output_token_ids__rejects_duplicates",
           "requirement": "reject duplicate caller-supplied output identities."
         },
         {
           "evidence_id": "SV-CPN-068",
-          "test": "test_cpn_sv_p1_068_request_requires_matching_typed_transition_state",
+          "test": "test_constructor__transition_state__requires_typed_binding_and_identity",
           "requirement": "require a nonempty transition identity and typed binding"
         },
         {
           "evidence_id": "SV-CPN-069",
-          "test": "test_cpn_sv_p1_069_output_ids_require_nonempty_exact_string_tuple",
+          "test": "test_field__output_token_ids__requires_nonempty_exact_string_tuple",
           "requirement": "constrain output identities to an immutable nonempty-string tuple"
         }
       ]
@@ -278,32 +278,32 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-039",
-          "test": "test_cpn_sv_p1_039_audit_fields_are_intrinsically_coherent",
+          "test": "test_constructor__contract__audit_fields_are_intrinsically_coherent",
           "requirement": "reject contradictory firing audit state."
         },
         {
           "evidence_id": "SV-CPN-070",
-          "test": "test_cpn_sv_p1_070_result_requires_transition_and_binding_types",
+          "test": "test_constructor__contract__result_requires_transition_and_binding_types",
           "requirement": "require nonempty transition identity and typed binding"
         },
         {
           "evidence_id": "SV-CPN-071",
-          "test": "test_cpn_sv_p1_071_previous_revision_requires_nonnegative_exact_integer",
+          "test": "test_constructor__contract__previous_revision_requires_nonnegative_exact_integer",
           "requirement": "enforce the resolved previous-revision lower boundary"
         },
         {
           "evidence_id": "SV-CPN-072",
-          "test": "test_cpn_sv_p1_072_audit_id_sequences_require_unique_nonempty_strings",
+          "test": "test_constructor__contract__audit_id_sequences_require_unique_nonempty_strings",
           "requirement": "enforce immutable unique consumed/read identity sequences"
         },
         {
           "evidence_id": "SV-CPN-073",
-          "test": "test_cpn_sv_p1_073_produced_tokens_require_typed_unique_tuple",
+          "test": "test_constructor__contract__produced_tokens_require_typed_unique_tuple",
           "requirement": "constrain produced tokens to unique typed immutable objects"
         },
         {
           "evidence_id": "SV-CPN-084",
-          "test": "test_cpn_sv_p1_084_result_revision_boundary_is_coherent",
+          "test": "test_constructor__contract__result_revision_boundary_is_coherent",
           "requirement": "firing prior and successor revisions preserve the maximum valid signed-i64 control"
         }
       ]
@@ -314,7 +314,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-047",
-          "test": "test_cpn_sv_p1_047_guard_result_requires_exact_boolean",
+          "test": "test_constructor__contract__guard_result_requires_exact_boolean",
           "requirement": "admit only built-in Boolean guard results"
         }
       ]
@@ -325,17 +325,17 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-007",
-          "test": "test_cpn_sv_p1_007_guard_arity_is_enforced",
+          "test": "test_constructor__contract__guard_arity_is_enforced",
           "requirement": "operator-specific guard arity."
         },
         {
           "evidence_id": "SV-CPN-074",
-          "test": "test_cpn_sv_p1_074_every_guard_shape_is_publicly_constructible",
+          "test": "test_constructor__contract__every_guard_shape_is_publicly_constructible",
           "requirement": "admit every constant, composite, unary, and comparison shape"
         },
         {
           "evidence_id": "SV-CPN-075",
-          "test": "test_cpn_sv_p1_075_guard_fields_reject_wrong_semantic_types",
+          "test": "test_constructor__contract__guard_fields_reject_wrong_semantic_types",
           "requirement": "reject non-enum operators and non-guard operand tuples"
         }
       ]
@@ -346,7 +346,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-048",
-          "test": "test_cpn_sv_p1_048_input_inscription_requires_typed_nonempty_patterns",
+          "test": "test_constructor__contract__input_inscription_requires_typed_nonempty_patterns",
           "requirement": "require a mode and a nonempty immutable pattern demand"
         }
       ]
@@ -357,7 +357,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-049",
-          "test": "test_cpn_sv_p1_049_output_inscription_rejects_empty_or_wrong_templates",
+          "test": "test_constructor__contract__output_inscription_rejects_empty_or_wrong_templates",
           "requirement": "require a nonempty immutable token-template sequence"
         }
       ]
@@ -368,7 +368,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-050",
-          "test": "test_cpn_sv_p1_050_place_requires_colors_and_canonicalizes_them",
+          "test": "test_constructor__contract__place_requires_colors_and_canonicalizes_them",
           "requirement": "require a nonempty canonical allowed-color set"
         }
       ]
@@ -379,7 +379,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-051",
-          "test": "test_cpn_sv_p1_051_place_marking_canonicalizes_token_order",
+          "test": "test_constructor__contract__place_marking_canonicalizes_token_order",
           "requirement": "retain multiplicity while ordering tokens by identity"
         }
       ]
@@ -390,7 +390,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-052",
-          "test": "test_cpn_sv_p1_052_binding_requires_nonempty_exact_strings",
+          "test": "test_constructor__contract__binding_requires_nonempty_exact_strings",
           "requirement": "require nonempty variable and token identities"
         }
       ]
@@ -401,7 +401,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-053",
-          "test": "test_cpn_sv_p1_053_assignment_requires_enum_and_expression",
+          "test": "test_constructor__contract__assignment_requires_enum_and_expression",
           "requirement": "constrain an assignment to public field and expression types"
         }
       ]
@@ -412,17 +412,17 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-004",
-          "test": "test_cpn_sv_p1_004_scoped_terminal_outcomes_are_reachable",
+          "test": "test_constructor__contract__scoped_terminal_outcomes_are_reachable",
           "requirement": "reachable terminal outcomes at every declared scope."
         },
         {
           "evidence_id": "SV-CPN-005",
-          "test": "test_cpn_sv_p1_005_only_blocked_may_be_recoverable",
+          "test": "test_constructor__contract__only_blocked_may_be_recoverable",
           "requirement": "recoverability restricted to blocked outcomes."
         },
         {
           "evidence_id": "SV-CPN-076",
-          "test": "test_cpn_sv_p1_076_outcome_fields_have_exact_public_types_and_identity",
+          "test": "test_constructor__contract__outcome_fields_have_exact_public_types_and_identity",
           "requirement": "require enum-owned outcome state and nonempty scope identity"
         }
       ]
@@ -433,7 +433,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-054",
-          "test": "test_cpn_sv_p1_054_pattern_requires_canonical_nonempty_colors",
+          "test": "test_constructor__contract__pattern_requires_canonical_nonempty_colors",
           "requirement": "require a named variable and nonempty allowed-color set"
         }
       ]
@@ -444,7 +444,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-055",
-          "test": "test_cpn_sv_p1_055_template_requires_unique_complete_assignments",
+          "test": "test_constructor__contract__template_requires_unique_complete_assignments",
           "requirement": "enforce complete unique output routing assignments"
         }
       ]
@@ -455,7 +455,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-056",
-          "test": "test_cpn_sv_p1_056_transition_binding_is_unique_and_canonical",
+          "test": "test_constructor__contract__transition_binding_is_unique_and_canonical",
           "requirement": "require unique variables and lexical assignment order"
         }
       ]
@@ -466,7 +466,7 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-057",
-          "test": "test_cpn_sv_p1_057_transition_requires_identity_description_and_guard",
+          "test": "test_constructor__contract__transition_requires_identity_description_and_guard",
           "requirement": "require a named documented transition and pure guard"
         }
       ]
@@ -477,12 +477,12 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-038",
-          "test": "test_cpn_sv_p1_038_bindings_match_transition_and_are_unique",
+          "test": "test_constructor__contract__bindings_match_transition_and_are_unique",
           "requirement": "enforce coherent deterministic enablement bindings."
         },
         {
           "evidence_id": "SV-CPN-077",
-          "test": "test_cpn_sv_p1_077_enablement_container_requires_public_types",
+          "test": "test_constructor__contract__enablement_container_requires_public_types",
           "requirement": "require nonempty transition identity and immutable binding tuple"
         }
       ]
@@ -493,27 +493,27 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-015",
-          "test": "test_cpn_sv_p1_015_enablement_synchronizes_multiple_inputs",
+          "test": "test_method__contract__enablement_synchronizes_multiple_inputs",
           "requirement": "synchronization across consume and read inputs."
         },
         {
           "evidence_id": "SV-CPN-016",
-          "test": "test_cpn_sv_p1_016_enablement_returns_deterministic_multiset_choices",
+          "test": "test_method__contract__enablement_returns_deterministic_multiset_choices",
           "requirement": "deterministic enumeration of multiset choices."
         },
         {
           "evidence_id": "SV-CPN-024",
-          "test": "test_cpn_sv_p1_024_unknown_transition_retains_structured_detail",
+          "test": "test_method__contract__unknown_transition_retains_structured_detail",
           "requirement": "structured unknown-transition failure."
         },
         {
           "evidence_id": "SV-CPN-025",
-          "test": "test_cpn_sv_p1_025_invalid_marking_translates_to_structured_error",
+          "test": "test_method__contract__invalid_marking_translates_to_structured_error",
           "requirement": "operational translation of an invalid marking."
         },
         {
           "evidence_id": "SV-CPN-026",
-          "test": "test_cpn_sv_p1_026_invalid_definition_translates_to_structured_error",
+          "test": "test_method__contract__invalid_definition_translates_to_structured_error",
           "requirement": "operational translation of an invalid definition."
         }
       ]
@@ -524,42 +524,42 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-017",
-          "test": "test_cpn_sv_p1_017_firing_consumes_reads_produces_and_revises",
+          "test": "test_method__contract__firing_consumes_reads_produces_and_revises",
           "requirement": "read/consume/output firing and revision audit."
         },
         {
           "evidence_id": "SV-CPN-018",
-          "test": "test_cpn_sv_p1_018_output_count_and_collision_are_structured",
+          "test": "test_method__contract__output_count_and_collision_are_structured",
           "requirement": "intrinsic output IDs versus marking collisions."
         },
         {
           "evidence_id": "SV-CPN-019",
-          "test": "test_cpn_sv_p1_019_binding_is_explicit_and_current",
+          "test": "test_method__contract__binding_is_explicit_and_current",
           "requirement": "current binding and intrinsic ResultObject consistency."
         },
         {
           "evidence_id": "SV-CPN-020",
-          "test": "test_cpn_sv_p1_020_terminal_failure_is_read_for_retry_and_retained",
+          "test": "test_method__contract__terminal_failure_is_read_for_retry_and_retained",
           "requirement": "retained retry history and deterministic repeated firing with the same explicitly supplied iteration index; no automatic index advancement."
         },
         {
           "evidence_id": "SV-CPN-021",
-          "test": "test_cpn_sv_p1_021_terminal_consume_is_rejected",
+          "test": "test_method__contract__terminal_consume_is_rejected",
           "requirement": "terminal outcome consumption prohibition."
         },
         {
           "evidence_id": "SV-CPN-022",
-          "test": "test_cpn_sv_p1_022_recoverable_blocked_token_can_be_consumed",
+          "test": "test_method__contract__recoverable_blocked_token_can_be_consumed",
           "requirement": "consumption of recoverable blocked state."
         },
         {
           "evidence_id": "SV-CPN-034",
-          "test": "test_cpn_sv_p1_034_firer_rejects_wrong_public_argument_types",
+          "test": "test_method__contract__firer_rejects_wrong_public_argument_types",
           "requirement": "wrong-type validation at the TransitionFirer boundary."
         },
         {
           "evidence_id": "SV-CPN-086",
-          "test": "test_cpn_sv_p1_086_maximum_revision_returns_structured_overflow",
+          "test": "test_method__contract__maximum_revision_returns_structured_overflow",
           "requirement": "maximum-revision firing raises the stable structured overflow error before successor construction"
         }
       ]
@@ -570,17 +570,17 @@
       "evidence": [
         {
           "evidence_id": "SV-CPN-006",
-          "test": "test_cpn_sv_p1_006_expression_union_rejects_lambda_like_state",
+          "test": "test_constructor__contract__expression_union_rejects_lambda_like_state",
           "requirement": "exact closed three-member value-expression tagged union with no arithmetic expression kind."
         },
         {
           "evidence_id": "SV-CPN-078",
-          "test": "test_cpn_sv_p1_078_every_expression_union_branch_is_constructible",
+          "test": "test_constructor__contract__every_expression_union_branch_is_constructible",
           "requirement": "admit literal, token-field, and bound-token-ID union branches"
         },
         {
           "evidence_id": "SV-CPN-079",
-          "test": "test_cpn_sv_p1_079_expression_fields_enforce_exact_semantic_types",
+          "test": "test_constructor__contract__expression_fields_enforce_exact_semantic_types",
           "requirement": "reject non-enum tags and malformed variable containers"
         }
       ]
@@ -1007,7 +1007,7 @@
                 "current_evidence_id": "SV-CPN-001",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-                "current_test_or_gate": "test_cpn_sv_p1_001_token_is_immutable_and_canonical",
+                "current_test_or_gate": "test_constructor__routing_state__canonicalizes_and_freezes_token",
                 "assertion_or_requirement_partition": "CpnToken tuple canonicalization and frozen assignment rejection"
               }
             ]
@@ -1020,7 +1020,7 @@
                 "current_evidence_id": "SV-CPN-002",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-                "current_test_or_gate": "test_cpn_sv_p1_002_payload_reference_is_all_or_none",
+                "current_test_or_gate": "test_constructor__payload_reference__requires_all_fields_or_none",
                 "assertion_or_requirement_partition": "CpnToken all-or-none payload-reference invariant"
               }
             ]
@@ -1033,7 +1033,7 @@
                 "current_evidence_id": "SV-CPN-003",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-                "current_test_or_gate": "test_cpn_sv_p1_003_boolean_iteration_is_rejected",
+                "current_test_or_gate": "test_field__iteration_index__rejects_boolean",
                 "assertion_or_requirement_partition": "CpnToken Boolean iteration-index type rejection"
               }
             ]
@@ -1046,7 +1046,7 @@
                 "current_evidence_id": "SV-CPN-004",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
-                "current_test_or_gate": "test_cpn_sv_p1_004_scoped_terminal_outcomes_are_reachable",
+                "current_test_or_gate": "test_constructor__contract__scoped_terminal_outcomes_are_reachable",
                 "assertion_or_requirement_partition": "TokenOutcome terminal states at all four scopes"
               }
             ]
@@ -1059,7 +1059,7 @@
                 "current_evidence_id": "SV-CPN-005",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
-                "current_test_or_gate": "test_cpn_sv_p1_005_only_blocked_may_be_recoverable",
+                "current_test_or_gate": "test_constructor__contract__only_blocked_may_be_recoverable",
                 "assertion_or_requirement_partition": "TokenOutcome recoverable-blocked admission and failed/recoverable rejection"
               }
             ]
@@ -1077,7 +1077,7 @@
                 "current_evidence_id": "SV-CPN-006",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py",
-                "current_test_or_gate": "test_cpn_sv_p1_006_expression_union_rejects_lambda_like_state",
+                "current_test_or_gate": "test_constructor__contract__expression_union_rejects_lambda_like_state",
                 "assertion_or_requirement_partition": "ValueExpression exact closed three-kind nonarithmetic vocabulary and active-field invariants"
               }
             ]
@@ -1090,7 +1090,7 @@
                 "current_evidence_id": "SV-CPN-007",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
-                "current_test_or_gate": "test_cpn_sv_p1_007_guard_arity_is_enforced",
+                "current_test_or_gate": "test_constructor__contract__guard_arity_is_enforced",
                 "assertion_or_requirement_partition": "GuardExpression NOT and ALL arity rejection"
               }
             ]
@@ -1103,7 +1103,7 @@
                 "current_evidence_id": "SV-CPN-008",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_008_exact_literals_evaluate_without_state",
+                "current_test_or_gate": "test_method__contract__exact_literals_evaluate_without_state",
                 "assertion_or_requirement_partition": "CpnExpressionEvaluator exact integer literal ordering"
               }
             ]
@@ -1116,7 +1116,7 @@
                 "current_evidence_id": "SV-CPN-009",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_009_comparison_rejects_mixed_tags",
+                "current_test_or_gate": "test_method__contract__comparison_rejects_mixed_tags",
                 "assertion_or_requirement_partition": "CpnExpressionEvaluator mixed-tag comparison rejection"
               }
             ]
@@ -1129,14 +1129,14 @@
                 "current_evidence_id": "SV-CPN-010",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_010_bound_token_fields_and_id_sequences",
+                "current_test_or_gate": "test_method__contract__bound_token_fields_and_id_sequences",
                 "assertion_or_requirement_partition": "CpnExpressionEvaluator RUN_ID, repeated BOUND_TOKEN_IDS, and missing-variable assertions"
               },
               {
                 "current_evidence_id": "SV-CPN-035",
                 "disposition": "assertion_split_to_new_id",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-                "current_test_or_gate": "test_cpn_sv_p1_035_string_sequence_rejects_empty_entries",
+                "current_test_or_gate": "test_constructor__contract__string_sequence_rejects_empty_entries",
                 "assertion_or_requirement_partition": "ContractValue empty string-sequence entry rejection split from the former multi-owner case"
               }
             ]
@@ -1154,7 +1154,7 @@
                 "current_evidence_id": "SV-CPN-011",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_011_complete_net_mapping_validates",
+                "current_test_or_gate": "test_method__contract__complete_net_mapping_validates",
                 "assertion_or_requirement_partition": "CpnDefinitionValidator valid complete-net result"
               }
             ]
@@ -1167,14 +1167,14 @@
                 "current_evidence_id": "SV-CPN-012",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
-                "current_test_or_gate": "test_cpn_sv_p1_012_marking_preserves_multiplicity_and_order",
+                "current_test_or_gate": "test_constructor__contract__marking_preserves_multiplicity_and_order",
                 "assertion_or_requirement_partition": "CpnMarking multiplicity and canonical token-order assertions"
               },
               {
                 "current_evidence_id": "SV-CPN-036",
                 "disposition": "assertion_split_to_new_id",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_036_accepts_complete_multiset_marking",
+                "current_test_or_gate": "test_method__contract__accepts_complete_multiset_marking",
                 "assertion_or_requirement_partition": "CpnMarkingValidator acceptance assertion split from the former multi-owner case"
               }
             ]
@@ -1187,7 +1187,7 @@
                 "current_evidence_id": "SV-CPN-013",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_013_wrong_complete_place_set_has_stable_code",
+                "current_test_or_gate": "test_method__contract__wrong_complete_place_set_has_stable_code",
                 "assertion_or_requirement_partition": "CpnMarkingValidator PLACE_SET_MISMATCH result"
               }
             ]
@@ -1200,7 +1200,7 @@
                 "current_evidence_id": "SV-CPN-014",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
-                "current_test_or_gate": "test_cpn_sv_p1_014_unknown_color_reference_is_structured",
+                "current_test_or_gate": "test_method__contract__unknown_color_reference_is_structured",
                 "assertion_or_requirement_partition": "CpnMarkingValidator UNKNOWN_COLOR and TOKEN_COLOR_MISMATCH results"
               }
             ]
@@ -1218,7 +1218,7 @@
                 "current_evidence_id": "SV-CPN-015",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
-                "current_test_or_gate": "test_cpn_sv_p1_015_enablement_synchronizes_multiple_inputs",
+                "current_test_or_gate": "test_method__contract__enablement_synchronizes_multiple_inputs",
                 "assertion_or_requirement_partition": "TransitionEnabler synchronized binding count and assignment order"
               }
             ]
@@ -1231,7 +1231,7 @@
                 "current_evidence_id": "SV-CPN-016",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
-                "current_test_or_gate": "test_cpn_sv_p1_016_enablement_returns_deterministic_multiset_choices",
+                "current_test_or_gate": "test_method__contract__enablement_returns_deterministic_multiset_choices",
                 "assertion_or_requirement_partition": "TransitionEnabler deterministic multiset choice order"
               }
             ]
@@ -1244,7 +1244,7 @@
                 "current_evidence_id": "SV-CPN-017",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_017_firing_consumes_reads_produces_and_revises",
+                "current_test_or_gate": "test_method__contract__firing_consumes_reads_produces_and_revises",
                 "assertion_or_requirement_partition": "TransitionFirer read/consume/output state and revision audit"
               }
             ]
@@ -1257,14 +1257,14 @@
                 "current_evidence_id": "SV-CPN-018",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_018_output_count_and_collision_are_structured",
+                "current_test_or_gate": "test_method__contract__output_count_and_collision_are_structured",
                 "assertion_or_requirement_partition": "TransitionFirer output-count and current-marking collision errors"
               },
               {
                 "current_evidence_id": "SV-CPN-037",
                 "disposition": "assertion_split_to_new_id",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
-                "current_test_or_gate": "test_cpn_sv_p1_037_output_token_ids_are_unique",
+                "current_test_or_gate": "test_constructor__output_token_ids__rejects_duplicates",
                 "assertion_or_requirement_partition": "FiringRequest duplicate-ID intrinsic assertion split from the former multi-owner case"
               }
             ]
@@ -1277,21 +1277,21 @@
                 "current_evidence_id": "SV-CPN-019",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_019_binding_is_explicit_and_current",
+                "current_test_or_gate": "test_method__contract__binding_is_explicit_and_current",
                 "assertion_or_requirement_partition": "TransitionFirer explicit current-binding and TRANSITION_NOT_ENABLED assertions"
               },
               {
                 "current_evidence_id": "SV-CPN-038",
                 "disposition": "assertion_split_to_new_id",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py",
-                "current_test_or_gate": "test_cpn_sv_p1_038_bindings_match_transition_and_are_unique",
+                "current_test_or_gate": "test_constructor__contract__bindings_match_transition_and_are_unique",
                 "assertion_or_requirement_partition": "TransitionEnablementResult transition-match and binding-uniqueness assertions split from the former case"
               },
               {
                 "current_evidence_id": "SV-CPN-039",
                 "disposition": "assertion_split_to_new_id",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-                "current_test_or_gate": "test_cpn_sv_p1_039_audit_fields_are_intrinsically_coherent",
+                "current_test_or_gate": "test_constructor__contract__audit_fields_are_intrinsically_coherent",
                 "assertion_or_requirement_partition": "FiringResult binding, revision, produced-ID, and audit-ID consistency assertions split from the former case"
               }
             ]
@@ -1304,7 +1304,7 @@
                 "current_evidence_id": "SV-CPN-034",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_034_firer_rejects_wrong_public_argument_types",
+                "current_test_or_gate": "test_method__contract__firer_rejects_wrong_public_argument_types",
                 "assertion_or_requirement_partition": "TransitionFirer early public-argument type validation"
               }
             ]
@@ -1322,7 +1322,7 @@
                 "current_evidence_id": "SV-CPN-020",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_020_terminal_failure_is_read_for_retry_and_retained",
+                "current_test_or_gate": "test_method__contract__terminal_failure_is_read_for_retry_and_retained",
                 "assertion_or_requirement_partition": "TransitionFirer retained retry history and deterministic two-firing successor assertions with an unchanged explicitly supplied iteration index"
               }
             ]
@@ -1335,7 +1335,7 @@
                 "current_evidence_id": "SV-CPN-021",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_021_terminal_consume_is_rejected",
+                "current_test_or_gate": "test_method__contract__terminal_consume_is_rejected",
                 "assertion_or_requirement_partition": "TransitionFirer terminal-token consumption error"
               }
             ]
@@ -1348,7 +1348,7 @@
                 "current_evidence_id": "SV-CPN-022",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-                "current_test_or_gate": "test_cpn_sv_p1_022_recoverable_blocked_token_can_be_consumed",
+                "current_test_or_gate": "test_method__contract__recoverable_blocked_token_can_be_consumed",
                 "assertion_or_requirement_partition": "TransitionFirer recoverable blocked-token consumption"
               }
             ]
@@ -1365,8 +1365,8 @@
               {
                 "current_evidence_id": "SV-CPN-023",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py",
-                "current_test_or_gate": "test_cpn_sv_p1_023_public_export_inventory",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
+                "current_test_or_gate": "test_artifact__public_api__exposes_approved_export_inventory",
                 "assertion_or_requirement_partition": "Package export inventory partition restored as artifact-owned maintained pytest; SNAKES isolation is separately retained by SV-CPN-033"
               }
             ]
@@ -1379,7 +1379,7 @@
                 "current_evidence_id": "SV-CPN-024",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
-                "current_test_or_gate": "test_cpn_sv_p1_024_unknown_transition_retains_structured_detail",
+                "current_test_or_gate": "test_method__contract__unknown_transition_retains_structured_detail",
                 "assertion_or_requirement_partition": "TransitionEnabler structured unknown-transition error"
               }
             ]
@@ -1392,7 +1392,7 @@
                 "current_evidence_id": "SV-CPN-025",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
-                "current_test_or_gate": "test_cpn_sv_p1_025_invalid_marking_translates_to_structured_error",
+                "current_test_or_gate": "test_method__contract__invalid_marking_translates_to_structured_error",
                 "assertion_or_requirement_partition": "TransitionEnabler invalid-marking error translation"
               }
             ]
@@ -1405,7 +1405,7 @@
                 "current_evidence_id": "SV-CPN-026",
                 "disposition": "stable_id_retained",
                 "current_target": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
-                "current_test_or_gate": "test_cpn_sv_p1_026_invalid_definition_translates_to_structured_error",
+                "current_test_or_gate": "test_method__contract__invalid_definition_translates_to_structured_error",
                 "assertion_or_requirement_partition": "TransitionEnabler invalid-definition error translation"
               }
             ]
@@ -1422,8 +1422,8 @@
               {
                 "current_evidence_id": "SV-CPN-027",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-                "current_test_or_gate": "test_cpn_sv_p1_027_schemas_satisfy_their_metaschema",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+                "current_test_or_gate": "test_artifact__json_schemas__satisfy_draft_2020_12_metaschema",
                 "assertion_or_requirement_partition": "Draft 2020-12 metaschema gate restored as artifact-owned maintained pytest"
               }
             ]
@@ -1435,8 +1435,8 @@
               {
                 "current_evidence_id": "SV-CPN-028",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-                "current_test_or_gate": "test_cpn_sv_p1_028_narrow_schema_entry_points_resolve_locally",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+                "current_test_or_gate": "test_artifact__schema_entry_points__resolve_locally_and_match_public_enums",
                 "assertion_or_requirement_partition": "Local schema entry-point and Python-enum agreement gate restored as artifact-owned maintained pytest"
               }
             ]
@@ -1453,8 +1453,8 @@
               {
                 "current_evidence_id": "SV-CPN-029",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-                "current_test_or_gate": "test_cpn_sv_p1_029_all_valid_fixtures_are_schema_conformant",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+                "current_test_or_gate": "test_artifact__valid_json_fixtures__conform_to_declared_schemas",
                 "assertion_or_requirement_partition": "Valid fixture-set orchestration restored as artifact-owned maintained pytest"
               }
             ]
@@ -1466,8 +1466,8 @@
               {
                 "current_evidence_id": "SV-CPN-030",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-                "current_test_or_gate": "test_cpn_sv_p1_030_structural_invalid_fixtures_are_rejected",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+                "current_test_or_gate": "test_artifact__structural_invalid_json_fixtures__are_rejected",
                 "assertion_or_requirement_partition": "Structural-invalid fixture-set orchestration restored as artifact-owned maintained pytest"
               }
             ]
@@ -1479,8 +1479,8 @@
               {
                 "current_evidence_id": "SV-CPN-031",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-                "current_test_or_gate": "test_cpn_sv_p1_031_relational_invalid_fixtures_reach_public_oracles",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+                "current_test_or_gate": "test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles",
                 "assertion_or_requirement_partition": "Cross-owner relational fixture orchestration restored as artifact-owned maintained pytest"
               }
             ]
@@ -1497,8 +1497,8 @@
               {
                 "current_evidence_id": "SV-CPN-032",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
-                "current_test_or_gate": "test_cpn_sv_p1_032_dependency_direction",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
+                "current_test_or_gate": "test_artifact__import_dependency_direction__follows_approved_layers",
                 "assertion_or_requirement_partition": "Static package dependency-direction gate restored as artifact-owned maintained pytest"
               }
             ]
@@ -1515,8 +1515,8 @@
               {
                 "current_evidence_id": "SV-CPN-033",
                 "disposition": "stable_id_retained",
-                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py",
-                "current_test_or_gate": "test_cpn_sv_p1_033_snakes_isolation",
+                "current_target": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
+                "current_test_or_gate": "test_artifact__snakes_isolation__excludes_deferred_engine_scope",
                 "assertion_or_requirement_partition": "SNAKES and deferred-module isolation gate restored as artifact-owned maintained pytest"
               }
             ]
@@ -1528,152 +1528,162 @@
   "canonical_integration_directory": "python/tests/software_verification/ksdft2effmass/integration",
   "artifact_modules": [
     {
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py",
-      "artifact_owner": "public_package_contract",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
+      "artifact_owner": "workflow_cpn_python_public_api",
       "evidence": [
         {
           "evidence_id": "SV-CPN-023",
-          "test": "test_cpn_sv_p1_023_public_export_inventory",
+          "test": "test_artifact__public_api__exposes_approved_export_inventory",
           "requirement": "fixed public package export inventory"
         }
-      ]
+      ],
+      "ownership_type": "artifact_owned_integration",
+      "boundary_agreement": "Workflow CPN Python public import/API surface"
     },
     {
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-      "artifact_owner": "version_1_contract_schemas",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
       "evidence": [
         {
           "evidence_id": "SV-CPN-027",
-          "test": "test_cpn_sv_p1_027_schemas_satisfy_their_metaschema",
+          "test": "test_artifact__json_schemas__satisfy_draft_2020_12_metaschema",
           "requirement": "Draft 2020-12 schema metaschema validity"
         },
         {
           "evidence_id": "SV-CPN-028",
-          "test": "test_cpn_sv_p1_028_narrow_schema_entry_points_resolve_locally",
+          "test": "test_artifact__schema_entry_points__resolve_locally_and_match_public_enums",
           "requirement": "local schema entry points and Python enum agreement"
         },
         {
           "evidence_id": "SV-CPN-087",
-          "test": "test_cpn_sv_p1_087_numeric_schema_matches_runtime_and_has_no_unsigned_kind",
+          "test": "test_artifact__numeric_wire_contract__matches_python_runtime",
           "requirement": "tagged numeric schema/runtime agreement, exact binary64 finite-conversion domain, strict-JSON nonfinite exclusion, and no unsigned ContractValue kind"
         },
         {
           "evidence_id": "SV-CPN-088",
-          "test": "test_cpn_sv_p1_088_control_schema_boundaries_match_runtime",
+          "test": "test_artifact__control_field_bounds__match_python_runtime",
           "requirement": "expression-visible JSON Schema controls use the nonnegative signed-i64 interval"
         }
-      ]
+      ],
+      "ownership_type": "boundary_owned",
+      "boundary_agreement": "version-1 CPN Python runtime <-> version-1 CPN JSON Schema and wire contract",
+      "boundary_owner": "version-1 CPN Python runtime <-> version-1 CPN JSON Schema and wire contract"
     },
     {
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-      "artifact_owner": "version_1_json_fixture_sets",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "artifact_owner": "workflow_cpn_v1_json_fixtures_python_runtime_contract",
       "evidence": [
         {
           "evidence_id": "SV-CPN-029",
-          "test": "test_cpn_sv_p1_029_all_valid_fixtures_are_schema_conformant",
+          "test": "test_artifact__valid_json_fixtures__conform_to_declared_schemas",
           "requirement": "declared valid fixture-set conformance"
         },
         {
           "evidence_id": "SV-CPN-030",
-          "test": "test_cpn_sv_p1_030_structural_invalid_fixtures_are_rejected",
+          "test": "test_artifact__structural_invalid_json_fixtures__are_rejected",
           "requirement": "declared structural-invalid fixture rejection"
         },
         {
           "evidence_id": "SV-CPN-031",
-          "test": "test_cpn_sv_p1_031_relational_invalid_fixtures_reach_public_oracles",
+          "test": "test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles",
           "requirement": "relational fixture orchestration through public owners"
         }
-      ]
+      ],
+      "ownership_type": "artifact_owned_integration",
+      "boundary_agreement": "version-1 CPN JSON fixture family <-> Python runtime contract"
     },
     {
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
-      "artifact_owner": "production_import_topology",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
+      "artifact_owner": "workflow_cpn_python_import_dependency_direction",
       "evidence": [
         {
           "evidence_id": "SV-CPN-032",
-          "test": "test_cpn_sv_p1_032_dependency_direction",
+          "test": "test_artifact__import_dependency_direction__follows_approved_layers",
           "requirement": "approved package dependency direction"
         }
-      ]
+      ],
+      "ownership_type": "artifact_owned_integration",
+      "boundary_agreement": "Workflow CPN Python import-dependency direction"
     },
     {
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py",
-      "artifact_owner": "snakes_and_deferred_module_isolation",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
+      "artifact_owner": "workflow_cpn_python_snakes_and_deferred_engine_isolation",
       "evidence": [
         {
           "evidence_id": "SV-CPN-033",
-          "test": "test_cpn_sv_p1_033_snakes_isolation",
+          "test": "test_artifact__snakes_isolation__excludes_deferred_engine_scope",
           "requirement": "SNAKES and deferred-module isolation"
         }
-      ]
+      ],
+      "ownership_type": "artifact_owned_integration",
+      "boundary_agreement": "Workflow CPN Python isolation from SNAKES and deferred engine/persistence scope"
     }
   ],
   "evidence_script": {
     "script": ".pi/evidence/backend-neutral-cpn-P1-contract/contract_gates.py",
     "role": "invokes and audits artifact-owned maintained pytest; it is not an evidence implementation owner",
     "authoritative_modules": [
-      "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py",
-      "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-      "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-      "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
-      "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py"
+      "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py"
     ]
   },
   "gate_restoration_traceability": [
     {
       "evidence_id": "SV-CPN-023",
       "temporary_gate": "gate_sv_cpn_023_public_export_inventory",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py",
-      "restored_test": "test_cpn_sv_p1_023_public_export_inventory",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
+      "restored_test": "test_artifact__public_api__exposes_approved_export_inventory",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-027",
       "temporary_gate": "gate_sv_cpn_027_schemas_satisfy_their_metaschema",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-      "restored_test": "test_cpn_sv_p1_027_schemas_satisfy_their_metaschema",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "restored_test": "test_artifact__json_schemas__satisfy_draft_2020_12_metaschema",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-028",
       "temporary_gate": "gate_sv_cpn_028_narrow_schema_entry_points_resolve_locally",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-      "restored_test": "test_cpn_sv_p1_028_narrow_schema_entry_points_resolve_locally",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "restored_test": "test_artifact__schema_entry_points__resolve_locally_and_match_public_enums",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-029",
       "temporary_gate": "gate_sv_cpn_029_all_valid_fixtures_are_schema_conformant",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-      "restored_test": "test_cpn_sv_p1_029_all_valid_fixtures_are_schema_conformant",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "restored_test": "test_artifact__valid_json_fixtures__conform_to_declared_schemas",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-030",
       "temporary_gate": "gate_sv_cpn_030_structural_invalid_fixtures_are_rejected",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-      "restored_test": "test_cpn_sv_p1_030_structural_invalid_fixtures_are_rejected",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "restored_test": "test_artifact__structural_invalid_json_fixtures__are_rejected",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-031",
       "temporary_gate": "gate_sv_cpn_031_relational_invalid_fixtures_reach_public_oracles",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-      "restored_test": "test_cpn_sv_p1_031_relational_invalid_fixtures_reach_public_oracles",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "restored_test": "test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-032",
       "temporary_gate": "gate_sv_cpn_032_dependency_direction",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
-      "restored_test": "test_cpn_sv_p1_032_dependency_direction",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
+      "restored_test": "test_artifact__import_dependency_direction__follows_approved_layers",
       "disposition": "stable_id_restored_to_maintained_pytest"
     },
     {
       "evidence_id": "SV-CPN-033",
       "temporary_gate": "gate_sv_cpn_033_snakes_isolation",
-      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py",
-      "restored_test": "test_cpn_sv_p1_033_snakes_isolation",
+      "restored_module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
+      "restored_test": "test_artifact__snakes_isolation__excludes_deferred_engine_scope",
       "disposition": "stable_id_restored_to_maintained_pytest"
     }
   ],
@@ -1681,297 +1691,1071 @@
     {
       "evidence_id": "SV-CPN-040",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py",
-      "test": "test_cpn_sv_p1_040_direction_selects_exactly_one_inscription",
+      "test": "test_constructor__contract__direction_selects_exactly_one_inscription",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-041",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py",
-      "test": "test_cpn_sv_p1_041_color_ids_are_nonempty_and_payload_ids_canonical",
+      "test": "test_constructor__contract__color_ids_are_nonempty_and_payload_ids_canonical",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-042",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py",
-      "test": "test_cpn_sv_p1_042_error_retains_authoritative_detail",
+      "test": "test_constructor__contract__error_retains_authoritative_detail",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-043",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py",
-      "test": "test_cpn_sv_p1_043_detail_validates_and_canonicalizes_context",
+      "test": "test_constructor__contract__detail_validates_and_canonicalizes_context",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-044",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py",
-      "test": "test_cpn_sv_p1_044_net_requires_v1_and_canonicalizes_collections",
+      "test": "test_constructor__contract__net_requires_v1_and_canonicalizes_collections",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-045",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py",
-      "test": "test_cpn_sv_p1_045_issue_owns_typed_canonical_context",
+      "test": "test_constructor__contract__issue_owns_typed_canonical_context",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-046",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py",
-      "test": "test_cpn_sv_p1_046_validity_is_exactly_issue_emptiness",
+      "test": "test_constructor__contract__validity_is_exactly_issue_emptiness",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-047",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py",
-      "test": "test_cpn_sv_p1_047_guard_result_requires_exact_boolean",
+      "test": "test_constructor__contract__guard_result_requires_exact_boolean",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-048",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py",
-      "test": "test_cpn_sv_p1_048_input_inscription_requires_typed_nonempty_patterns",
+      "test": "test_constructor__contract__input_inscription_requires_typed_nonempty_patterns",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-049",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py",
-      "test": "test_cpn_sv_p1_049_output_inscription_rejects_empty_or_wrong_templates",
+      "test": "test_constructor__contract__output_inscription_rejects_empty_or_wrong_templates",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-050",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py",
-      "test": "test_cpn_sv_p1_050_place_requires_colors_and_canonicalizes_them",
+      "test": "test_constructor__contract__place_requires_colors_and_canonicalizes_them",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-051",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py",
-      "test": "test_cpn_sv_p1_051_place_marking_canonicalizes_token_order",
+      "test": "test_constructor__contract__place_marking_canonicalizes_token_order",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-052",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py",
-      "test": "test_cpn_sv_p1_052_binding_requires_nonempty_exact_strings",
+      "test": "test_constructor__contract__binding_requires_nonempty_exact_strings",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-053",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py",
-      "test": "test_cpn_sv_p1_053_assignment_requires_enum_and_expression",
+      "test": "test_constructor__contract__assignment_requires_enum_and_expression",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-054",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py",
-      "test": "test_cpn_sv_p1_054_pattern_requires_canonical_nonempty_colors",
+      "test": "test_constructor__contract__pattern_requires_canonical_nonempty_colors",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-055",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py",
-      "test": "test_cpn_sv_p1_055_template_requires_unique_complete_assignments",
+      "test": "test_constructor__contract__template_requires_unique_complete_assignments",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-056",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py",
-      "test": "test_cpn_sv_p1_056_transition_binding_is_unique_and_canonical",
+      "test": "test_constructor__contract__transition_binding_is_unique_and_canonical",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-057",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py",
-      "test": "test_cpn_sv_p1_057_transition_requires_identity_description_and_guard",
+      "test": "test_constructor__contract__transition_requires_identity_description_and_guard",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-058",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-      "test": "test_cpn_sv_p1_058_closed_tags_admit_exact_public_values",
+      "test": "test_constructor__contract__closed_tags_admit_exact_public_values",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-059",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-      "test": "test_cpn_sv_p1_059_mismatched_tags_raise_type_error",
+      "test": "test_constructor__contract__mismatched_tags_raise_type_error",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-060",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-      "test": "test_cpn_sv_p1_060_real_values_must_be_finite",
+      "test": "test_constructor__contract__real_values_must_be_finite",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-061",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
-      "test": "test_cpn_sv_p1_061_marking_version_identity_and_revision_taxonomy",
+      "test": "test_constructor__contract__marking_version_identity_and_revision_taxonomy",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-062",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
-      "test": "test_cpn_sv_p1_062_places_require_immutable_owner_types",
+      "test": "test_constructor__contract__places_require_immutable_owner_types",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-063",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "test": "test_cpn_sv_p1_063_required_identities_are_exact_nonempty_strings",
+      "test": "test_constructor__required_identities__requires_exact_nonempty_strings",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-064",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "test": "test_cpn_sv_p1_064_optional_identities_reject_wrong_or_empty_values",
+      "test": "test_constructor__optional_identities__rejects_wrong_or_empty_values",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-065",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "test": "test_cpn_sv_p1_065_iteration_requires_nonnegative_exact_integer",
+      "test": "test_field__iteration_index__requires_nonnegative_exact_integer",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-066",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "test": "test_cpn_sv_p1_066_payload_version_requires_nonnegative_exact_integer",
+      "test": "test_field__payload_schema_version__requires_nonnegative_exact_integer",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-067",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "test": "test_cpn_sv_p1_067_identity_tuples_and_outcome_are_strict",
+      "test": "test_constructor__identity_tuples_and_outcome__enforces_strict_types",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-068",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
-      "test": "test_cpn_sv_p1_068_request_requires_matching_typed_transition_state",
+      "test": "test_constructor__transition_state__requires_typed_binding_and_identity",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-069",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
-      "test": "test_cpn_sv_p1_069_output_ids_require_nonempty_exact_string_tuple",
+      "test": "test_field__output_token_ids__requires_nonempty_exact_string_tuple",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-070",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-      "test": "test_cpn_sv_p1_070_result_requires_transition_and_binding_types",
+      "test": "test_constructor__contract__result_requires_transition_and_binding_types",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-071",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-      "test": "test_cpn_sv_p1_071_previous_revision_requires_nonnegative_exact_integer",
+      "test": "test_constructor__contract__previous_revision_requires_nonnegative_exact_integer",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-072",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-      "test": "test_cpn_sv_p1_072_audit_id_sequences_require_unique_nonempty_strings",
+      "test": "test_constructor__contract__audit_id_sequences_require_unique_nonempty_strings",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-073",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-      "test": "test_cpn_sv_p1_073_produced_tokens_require_typed_unique_tuple",
+      "test": "test_constructor__contract__produced_tokens_require_typed_unique_tuple",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-074",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
-      "test": "test_cpn_sv_p1_074_every_guard_shape_is_publicly_constructible",
+      "test": "test_constructor__contract__every_guard_shape_is_publicly_constructible",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-075",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
-      "test": "test_cpn_sv_p1_075_guard_fields_reject_wrong_semantic_types",
+      "test": "test_constructor__contract__guard_fields_reject_wrong_semantic_types",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-076",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
-      "test": "test_cpn_sv_p1_076_outcome_fields_have_exact_public_types_and_identity",
+      "test": "test_constructor__contract__outcome_fields_have_exact_public_types_and_identity",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-077",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py",
-      "test": "test_cpn_sv_p1_077_enablement_container_requires_public_types",
+      "test": "test_constructor__contract__enablement_container_requires_public_types",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-078",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py",
-      "test": "test_cpn_sv_p1_078_every_expression_union_branch_is_constructible",
+      "test": "test_constructor__contract__every_expression_union_branch_is_constructible",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-079",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py",
-      "test": "test_cpn_sv_p1_079_expression_fields_enforce_exact_semantic_types",
+      "test": "test_constructor__contract__expression_fields_enforce_exact_semantic_types",
       "classification": "DETERMINISTIC_NOW"
     },
     {
       "evidence_id": "SV-CPN-080",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-      "test": "test_cpn_sv_p1_080_real_is_finite_binary64_with_documented_rounding",
+      "test": "test_constructor__contract__real_is_finite_binary64_with_documented_rounding",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-081",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-      "test": "test_cpn_sv_p1_081_integer_is_exact_signed_i64",
+      "test": "test_constructor__contract__integer_is_exact_signed_i64",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-082",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "test": "test_cpn_sv_p1_082_expression_visible_controls_use_nonnegative_i64_range",
+      "test": "test_field__expression_visible_controls__enforces_nonnegative_i64_range",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-083",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
-      "test": "test_cpn_sv_p1_083_revision_uses_nonnegative_signed_i64_range",
+      "test": "test_constructor__contract__revision_uses_nonnegative_signed_i64_range",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-084",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-      "test": "test_cpn_sv_p1_084_result_revision_boundary_is_coherent",
+      "test": "test_constructor__contract__result_revision_boundary_is_coherent",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-085",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
-      "test": "test_cpn_sv_p1_085_maximum_controls_read_copy_and_compare_as_integer",
+      "test": "test_method__contract__maximum_controls_read_copy_and_compare_as_integer",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-086",
       "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-      "test": "test_cpn_sv_p1_086_maximum_revision_returns_structured_overflow",
+      "test": "test_method__contract__maximum_revision_returns_structured_overflow",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-087",
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-      "test": "test_cpn_sv_p1_087_numeric_schema_matches_runtime_and_has_no_unsigned_kind",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "test": "test_artifact__numeric_wire_contract__matches_python_runtime",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     },
     {
       "evidence_id": "SV-CPN-088",
-      "module": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-      "test": "test_cpn_sv_p1_088_control_schema_boundaries_match_runtime",
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "test": "test_artifact__control_field_bounds__match_python_runtime",
       "classification": "RESOLVED_BY_P1_HC01_A_AND_P1_HC02_B"
     }
   ],
-  "blocked_by_p1_hc01": []
+  "blocked_by_p1_hc01": [],
+  "documentation_node_mappings": [
+    {
+      "evidence_id": "SV-CPN-001",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__routing_state__canonicalizes_and_freezes_token",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__routing_state__canonicalizes_and_freezes_token"
+    },
+    {
+      "evidence_id": "SV-CPN-002",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__payload_reference__requires_all_fields_or_none",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__payload_reference__requires_all_fields_or_none"
+    },
+    {
+      "evidence_id": "SV-CPN-003",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__rejects_boolean",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__rejects_boolean"
+    },
+    {
+      "evidence_id": "SV-CPN-004",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_cpn_sv_p1_004_scoped_terminal_outcomes_are_reachable",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable"
+    },
+    {
+      "evidence_id": "SV-CPN-005",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_cpn_sv_p1_005_only_blocked_may_be_recoverable",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__only_blocked_may_be_recoverable"
+    },
+    {
+      "evidence_id": "SV-CPN-006",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_cpn_sv_p1_006_expression_union_rejects_lambda_like_state",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__expression_union_rejects_lambda_like_state"
+    },
+    {
+      "evidence_id": "SV-CPN-007",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_cpn_sv_p1_007_guard_arity_is_enforced",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__guard_arity_is_enforced"
+    },
+    {
+      "evidence_id": "SV-CPN-008",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_cpn_sv_p1_008_exact_literals_evaluate_without_state",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__exact_literals_evaluate_without_state"
+    },
+    {
+      "evidence_id": "SV-CPN-009",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_cpn_sv_p1_009_comparison_rejects_mixed_tags",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__comparison_rejects_mixed_tags"
+    },
+    {
+      "evidence_id": "SV-CPN-010",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_cpn_sv_p1_010_bound_token_fields_and_id_sequences",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__bound_token_fields_and_id_sequences"
+    },
+    {
+      "evidence_id": "SV-CPN-011",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py::test_cpn_sv_p1_011_complete_net_mapping_validates",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py::test_method__contract__complete_net_mapping_validates"
+    },
+    {
+      "evidence_id": "SV-CPN-012",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_cpn_sv_p1_012_marking_preserves_multiplicity_and_order",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__marking_preserves_multiplicity_and_order"
+    },
+    {
+      "evidence_id": "SV-CPN-013",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_cpn_sv_p1_013_wrong_complete_place_set_has_stable_code",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__wrong_complete_place_set_has_stable_code"
+    },
+    {
+      "evidence_id": "SV-CPN-014",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_cpn_sv_p1_014_unknown_color_reference_is_structured",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__unknown_color_reference_is_structured"
+    },
+    {
+      "evidence_id": "SV-CPN-015",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_cpn_sv_p1_015_enablement_synchronizes_multiple_inputs",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__enablement_synchronizes_multiple_inputs"
+    },
+    {
+      "evidence_id": "SV-CPN-016",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_cpn_sv_p1_016_enablement_returns_deterministic_multiset_choices",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__enablement_returns_deterministic_multiset_choices"
+    },
+    {
+      "evidence_id": "SV-CPN-017",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_017_firing_consumes_reads_produces_and_revises",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__firing_consumes_reads_produces_and_revises"
+    },
+    {
+      "evidence_id": "SV-CPN-018",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_018_output_count_and_collision_are_structured",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__output_count_and_collision_are_structured"
+    },
+    {
+      "evidence_id": "SV-CPN-019",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_019_binding_is_explicit_and_current",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__binding_is_explicit_and_current"
+    },
+    {
+      "evidence_id": "SV-CPN-020",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_020_terminal_failure_is_read_for_retry_and_retained",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__terminal_failure_is_read_for_retry_and_retained"
+    },
+    {
+      "evidence_id": "SV-CPN-021",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_021_terminal_consume_is_rejected",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__terminal_consume_is_rejected"
+    },
+    {
+      "evidence_id": "SV-CPN-022",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_022_recoverable_blocked_token_can_be_consumed",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__recoverable_blocked_token_can_be_consumed"
+    },
+    {
+      "evidence_id": "SV-CPN-024",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_cpn_sv_p1_024_unknown_transition_retains_structured_detail",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__unknown_transition_retains_structured_detail"
+    },
+    {
+      "evidence_id": "SV-CPN-025",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_cpn_sv_p1_025_invalid_marking_translates_to_structured_error",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__invalid_marking_translates_to_structured_error"
+    },
+    {
+      "evidence_id": "SV-CPN-026",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_cpn_sv_p1_026_invalid_definition_translates_to_structured_error",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__invalid_definition_translates_to_structured_error"
+    },
+    {
+      "evidence_id": "SV-CPN-034",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_034_firer_rejects_wrong_public_argument_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__firer_rejects_wrong_public_argument_types"
+    },
+    {
+      "evidence_id": "SV-CPN-035",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_cpn_sv_p1_035_string_sequence_rejects_empty_entries",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__string_sequence_rejects_empty_entries"
+    },
+    {
+      "evidence_id": "SV-CPN-036",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_cpn_sv_p1_036_accepts_complete_multiset_marking",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__accepts_complete_multiset_marking"
+    },
+    {
+      "evidence_id": "SV-CPN-037",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__output_token_ids__rejects_duplicates",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__output_token_ids__rejects_duplicates"
+    },
+    {
+      "evidence_id": "SV-CPN-038",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_cpn_sv_p1_038_bindings_match_transition_and_are_unique",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__contract__bindings_match_transition_and_are_unique"
+    },
+    {
+      "evidence_id": "SV-CPN-039",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_cpn_sv_p1_039_audit_fields_are_intrinsically_coherent",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__audit_fields_are_intrinsically_coherent"
+    },
+    {
+      "evidence_id": "SV-CPN-040",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py::test_cpn_sv_p1_040_direction_selects_exactly_one_inscription",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py::test_constructor__contract__direction_selects_exactly_one_inscription"
+    },
+    {
+      "evidence_id": "SV-CPN-041",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py::test_cpn_sv_p1_041_color_ids_are_nonempty_and_payload_ids_canonical",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py::test_constructor__contract__color_ids_are_nonempty_and_payload_ids_canonical"
+    },
+    {
+      "evidence_id": "SV-CPN-042",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py::test_cpn_sv_p1_042_error_retains_authoritative_detail",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py::test_constructor__contract__error_retains_authoritative_detail"
+    },
+    {
+      "evidence_id": "SV-CPN-043",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py::test_cpn_sv_p1_043_detail_validates_and_canonicalizes_context",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py::test_constructor__contract__detail_validates_and_canonicalizes_context"
+    },
+    {
+      "evidence_id": "SV-CPN-044",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py::test_cpn_sv_p1_044_net_requires_v1_and_canonicalizes_collections",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py::test_constructor__contract__net_requires_v1_and_canonicalizes_collections"
+    },
+    {
+      "evidence_id": "SV-CPN-045",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py::test_cpn_sv_p1_045_issue_owns_typed_canonical_context",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py::test_constructor__contract__issue_owns_typed_canonical_context"
+    },
+    {
+      "evidence_id": "SV-CPN-046",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py::test_cpn_sv_p1_046_validity_is_exactly_issue_emptiness",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py::test_constructor__contract__validity_is_exactly_issue_emptiness"
+    },
+    {
+      "evidence_id": "SV-CPN-047",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py::test_cpn_sv_p1_047_guard_result_requires_exact_boolean",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py::test_constructor__contract__guard_result_requires_exact_boolean"
+    },
+    {
+      "evidence_id": "SV-CPN-048",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py::test_cpn_sv_p1_048_input_inscription_requires_typed_nonempty_patterns",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py::test_constructor__contract__input_inscription_requires_typed_nonempty_patterns"
+    },
+    {
+      "evidence_id": "SV-CPN-049",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py::test_cpn_sv_p1_049_output_inscription_rejects_empty_or_wrong_templates",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py::test_constructor__contract__output_inscription_rejects_empty_or_wrong_templates"
+    },
+    {
+      "evidence_id": "SV-CPN-050",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py::test_cpn_sv_p1_050_place_requires_colors_and_canonicalizes_them",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py::test_constructor__contract__place_requires_colors_and_canonicalizes_them"
+    },
+    {
+      "evidence_id": "SV-CPN-051",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py::test_cpn_sv_p1_051_place_marking_canonicalizes_token_order",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py::test_constructor__contract__place_marking_canonicalizes_token_order"
+    },
+    {
+      "evidence_id": "SV-CPN-052",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py::test_cpn_sv_p1_052_binding_requires_nonempty_exact_strings",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py::test_constructor__contract__binding_requires_nonempty_exact_strings"
+    },
+    {
+      "evidence_id": "SV-CPN-053",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py::test_cpn_sv_p1_053_assignment_requires_enum_and_expression",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py::test_constructor__contract__assignment_requires_enum_and_expression"
+    },
+    {
+      "evidence_id": "SV-CPN-054",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py::test_cpn_sv_p1_054_pattern_requires_canonical_nonempty_colors",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py::test_constructor__contract__pattern_requires_canonical_nonempty_colors"
+    },
+    {
+      "evidence_id": "SV-CPN-055",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py::test_cpn_sv_p1_055_template_requires_unique_complete_assignments",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py::test_constructor__contract__template_requires_unique_complete_assignments"
+    },
+    {
+      "evidence_id": "SV-CPN-056",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py::test_cpn_sv_p1_056_transition_binding_is_unique_and_canonical",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py::test_constructor__contract__transition_binding_is_unique_and_canonical"
+    },
+    {
+      "evidence_id": "SV-CPN-057",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py::test_cpn_sv_p1_057_transition_requires_identity_description_and_guard",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py::test_constructor__contract__transition_requires_identity_description_and_guard"
+    },
+    {
+      "evidence_id": "SV-CPN-058",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_cpn_sv_p1_058_closed_tags_admit_exact_public_values",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__closed_tags_admit_exact_public_values"
+    },
+    {
+      "evidence_id": "SV-CPN-059",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_cpn_sv_p1_059_mismatched_tags_raise_type_error",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__mismatched_tags_raise_type_error"
+    },
+    {
+      "evidence_id": "SV-CPN-060",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_cpn_sv_p1_060_real_values_must_be_finite",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__real_values_must_be_finite"
+    },
+    {
+      "evidence_id": "SV-CPN-061",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_cpn_sv_p1_061_marking_version_identity_and_revision_taxonomy",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__marking_version_identity_and_revision_taxonomy"
+    },
+    {
+      "evidence_id": "SV-CPN-062",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_cpn_sv_p1_062_places_require_immutable_owner_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__places_require_immutable_owner_types"
+    },
+    {
+      "evidence_id": "SV-CPN-063",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__required_identities__requires_exact_nonempty_strings",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__required_identities__requires_exact_nonempty_strings"
+    },
+    {
+      "evidence_id": "SV-CPN-064",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__optional_identities__rejects_wrong_or_empty_values",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__optional_identities__rejects_wrong_or_empty_values"
+    },
+    {
+      "evidence_id": "SV-CPN-065",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__requires_nonnegative_exact_integer",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__requires_nonnegative_exact_integer"
+    },
+    {
+      "evidence_id": "SV-CPN-066",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__payload_schema_version__requires_nonnegative_exact_integer",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__payload_schema_version__requires_nonnegative_exact_integer"
+    },
+    {
+      "evidence_id": "SV-CPN-067",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__identity_tuples_and_outcome__enforces_strict_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__identity_tuples_and_outcome__enforces_strict_types"
+    },
+    {
+      "evidence_id": "SV-CPN-068",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__transition_state__requires_typed_binding_and_identity",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__transition_state__requires_typed_binding_and_identity"
+    },
+    {
+      "evidence_id": "SV-CPN-069",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_field__output_token_ids__requires_nonempty_exact_string_tuple",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_field__output_token_ids__requires_nonempty_exact_string_tuple"
+    },
+    {
+      "evidence_id": "SV-CPN-070",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_cpn_sv_p1_070_result_requires_transition_and_binding_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__result_requires_transition_and_binding_types"
+    },
+    {
+      "evidence_id": "SV-CPN-071",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_cpn_sv_p1_071_previous_revision_requires_nonnegative_exact_integer",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__previous_revision_requires_nonnegative_exact_integer"
+    },
+    {
+      "evidence_id": "SV-CPN-072",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_cpn_sv_p1_072_audit_id_sequences_require_unique_nonempty_strings",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__audit_id_sequences_require_unique_nonempty_strings"
+    },
+    {
+      "evidence_id": "SV-CPN-073",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_cpn_sv_p1_073_produced_tokens_require_typed_unique_tuple",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__produced_tokens_require_typed_unique_tuple"
+    },
+    {
+      "evidence_id": "SV-CPN-074",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_cpn_sv_p1_074_every_guard_shape_is_publicly_constructible",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__every_guard_shape_is_publicly_constructible"
+    },
+    {
+      "evidence_id": "SV-CPN-075",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_cpn_sv_p1_075_guard_fields_reject_wrong_semantic_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__guard_fields_reject_wrong_semantic_types"
+    },
+    {
+      "evidence_id": "SV-CPN-076",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_cpn_sv_p1_076_outcome_fields_have_exact_public_types_and_identity",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__outcome_fields_have_exact_public_types_and_identity"
+    },
+    {
+      "evidence_id": "SV-CPN-077",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_cpn_sv_p1_077_enablement_container_requires_public_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__contract__enablement_container_requires_public_types"
+    },
+    {
+      "evidence_id": "SV-CPN-078",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_cpn_sv_p1_078_every_expression_union_branch_is_constructible",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__every_expression_union_branch_is_constructible"
+    },
+    {
+      "evidence_id": "SV-CPN-079",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_cpn_sv_p1_079_expression_fields_enforce_exact_semantic_types",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__expression_fields_enforce_exact_semantic_types"
+    },
+    {
+      "evidence_id": "SV-CPN-080",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_cpn_sv_p1_080_real_is_finite_binary64_with_documented_rounding",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__real_is_finite_binary64_with_documented_rounding"
+    },
+    {
+      "evidence_id": "SV-CPN-081",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_cpn_sv_p1_081_integer_is_exact_signed_i64",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__integer_is_exact_signed_i64"
+    },
+    {
+      "evidence_id": "SV-CPN-082",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__expression_visible_controls__enforces_nonnegative_i64_range",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__expression_visible_controls__enforces_nonnegative_i64_range"
+    },
+    {
+      "evidence_id": "SV-CPN-083",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_cpn_sv_p1_083_revision_uses_nonnegative_signed_i64_range",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__revision_uses_nonnegative_signed_i64_range"
+    },
+    {
+      "evidence_id": "SV-CPN-084",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_cpn_sv_p1_084_result_revision_boundary_is_coherent",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__result_revision_boundary_is_coherent"
+    },
+    {
+      "evidence_id": "SV-CPN-085",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_cpn_sv_p1_085_maximum_controls_read_copy_and_compare_as_integer",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__maximum_controls_read_copy_and_compare_as_integer"
+    },
+    {
+      "evidence_id": "SV-CPN-086",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_cpn_sv_p1_086_maximum_revision_returns_structured_overflow",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__maximum_revision_returns_structured_overflow"
+    }
+  ],
+  "helpers": [
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/conftest.py",
+      "helper": "token_factory",
+      "supported_evidence_ids": [
+        "SV-CPN-001",
+        "SV-CPN-002",
+        "SV-CPN-003",
+        "SV-CPN-010",
+        "SV-CPN-011",
+        "SV-CPN-012",
+        "SV-CPN-013",
+        "SV-CPN-014",
+        "SV-CPN-015",
+        "SV-CPN-016",
+        "SV-CPN-017",
+        "SV-CPN-018",
+        "SV-CPN-019",
+        "SV-CPN-020",
+        "SV-CPN-021",
+        "SV-CPN-022",
+        "SV-CPN-024",
+        "SV-CPN-025",
+        "SV-CPN-026",
+        "SV-CPN-034",
+        "SV-CPN-036",
+        "SV-CPN-039",
+        "SV-CPN-044",
+        "SV-CPN-051",
+        "SV-CPN-063",
+        "SV-CPN-064",
+        "SV-CPN-065",
+        "SV-CPN-066",
+        "SV-CPN-067",
+        "SV-CPN-070",
+        "SV-CPN-071",
+        "SV-CPN-072",
+        "SV-CPN-073",
+        "SV-CPN-082",
+        "SV-CPN-084",
+        "SV-CPN-085",
+        "SV-CPN-086"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/conftest.py",
+      "helper": "create",
+      "supported_evidence_ids": [
+        "SV-CPN-001",
+        "SV-CPN-002",
+        "SV-CPN-003",
+        "SV-CPN-010",
+        "SV-CPN-011",
+        "SV-CPN-012",
+        "SV-CPN-013",
+        "SV-CPN-014",
+        "SV-CPN-015",
+        "SV-CPN-016",
+        "SV-CPN-017",
+        "SV-CPN-018",
+        "SV-CPN-019",
+        "SV-CPN-020",
+        "SV-CPN-021",
+        "SV-CPN-022",
+        "SV-CPN-024",
+        "SV-CPN-025",
+        "SV-CPN-026",
+        "SV-CPN-034",
+        "SV-CPN-036",
+        "SV-CPN-039",
+        "SV-CPN-044",
+        "SV-CPN-051",
+        "SV-CPN-063",
+        "SV-CPN-064",
+        "SV-CPN-065",
+        "SV-CPN-066",
+        "SV-CPN-067",
+        "SV-CPN-070",
+        "SV-CPN-071",
+        "SV-CPN-072",
+        "SV-CPN-073",
+        "SV-CPN-082",
+        "SV-CPN-084",
+        "SV-CPN-085",
+        "SV-CPN-086"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/conftest.py",
+      "helper": "_field",
+      "supported_evidence_ids": [
+        "SV-CPN-011",
+        "SV-CPN-085",
+        "SV-CPN-010",
+        "SV-CPN-012",
+        "SV-CPN-036",
+        "SV-CPN-013",
+        "SV-CPN-014",
+        "SV-CPN-044",
+        "SV-CPN-039",
+        "SV-CPN-070",
+        "SV-CPN-071",
+        "SV-CPN-084",
+        "SV-CPN-072",
+        "SV-CPN-073",
+        "SV-CPN-015",
+        "SV-CPN-016",
+        "SV-CPN-024",
+        "SV-CPN-025",
+        "SV-CPN-026",
+        "SV-CPN-017",
+        "SV-CPN-086",
+        "SV-CPN-018",
+        "SV-CPN-019",
+        "SV-CPN-020",
+        "SV-CPN-021",
+        "SV-CPN-022",
+        "SV-CPN-034"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/conftest.py",
+      "helper": "executable_net",
+      "supported_evidence_ids": [
+        "SV-CPN-011",
+        "SV-CPN-085",
+        "SV-CPN-010",
+        "SV-CPN-012",
+        "SV-CPN-036",
+        "SV-CPN-013",
+        "SV-CPN-014",
+        "SV-CPN-044",
+        "SV-CPN-039",
+        "SV-CPN-070",
+        "SV-CPN-071",
+        "SV-CPN-084",
+        "SV-CPN-072",
+        "SV-CPN-073",
+        "SV-CPN-015",
+        "SV-CPN-016",
+        "SV-CPN-024",
+        "SV-CPN-025",
+        "SV-CPN-026",
+        "SV-CPN-017",
+        "SV-CPN-086",
+        "SV-CPN-018",
+        "SV-CPN-019",
+        "SV-CPN-020",
+        "SV-CPN-021",
+        "SV-CPN-022",
+        "SV-CPN-034"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
+      "helper": "literal",
+      "supported_evidence_ids": [
+        "SV-CPN-008",
+        "SV-CPN-009"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
+      "helper": "field",
+      "supported_evidence_ids": [
+        "SV-CPN-085"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
+      "helper": "_valid_result",
+      "supported_evidence_ids": [
+        "SV-CPN-070",
+        "SV-CPN-072",
+        "SV-CPN-073"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py",
+      "helper": "_assign",
+      "supported_evidence_ids": [
+        "SV-CPN-055"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
+      "helper": "_replace_ready",
+      "supported_evidence_ids": [
+        "SV-CPN-021",
+        "SV-CPN-022"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
+      "helper": "_iteration_net",
+      "supported_evidence_ids": [
+        "SV-CPN-020"
+      ]
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
+      "helper": "execute_two_cycles",
+      "supported_evidence_ids": [
+        "SV-CPN-020"
+      ]
+    }
+  ],
+  "artifact_documentation_node_mappings": [
+    {
+      "evidence_id": "SV-CPN-023",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py::test_cpn_sv_p1_023_public_export_inventory",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory"
+    },
+    {
+      "evidence_id": "SV-CPN-027",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py::test_cpn_sv_p1_027_schemas_satisfy_their_metaschema",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__json_schemas__satisfy_draft_2020_12_metaschema"
+    },
+    {
+      "evidence_id": "SV-CPN-028",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py::test_cpn_sv_p1_028_narrow_schema_entry_points_resolve_locally",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__schema_entry_points__resolve_locally_and_match_public_enums"
+    },
+    {
+      "evidence_id": "SV-CPN-087",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py::test_cpn_sv_p1_087_numeric_schema_matches_runtime_and_has_no_unsigned_kind",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__numeric_wire_contract__matches_python_runtime"
+    },
+    {
+      "evidence_id": "SV-CPN-088",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py::test_cpn_sv_p1_088_control_schema_boundaries_match_runtime",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__control_field_bounds__match_python_runtime"
+    },
+    {
+      "evidence_id": "SV-CPN-029",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py::test_cpn_sv_p1_029_all_valid_fixtures_are_schema_conformant",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_json_fixtures__conform_to_declared_schemas"
+    },
+    {
+      "evidence_id": "SV-CPN-030",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py::test_cpn_sv_p1_030_structural_invalid_fixtures_are_rejected",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__structural_invalid_json_fixtures__are_rejected"
+    },
+    {
+      "evidence_id": "SV-CPN-031",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py::test_cpn_sv_p1_031_relational_invalid_fixtures_reach_public_oracles",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles"
+    },
+    {
+      "evidence_id": "SV-CPN-032",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py::test_cpn_sv_p1_032_dependency_direction",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py::test_artifact__import_dependency_direction__follows_approved_layers"
+    },
+    {
+      "evidence_id": "SV-CPN-033",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py::test_cpn_sv_p1_033_snakes_isolation",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py::test_artifact__snakes_isolation__excludes_deferred_engine_scope"
+    }
+  ],
+  "artifact_helpers": [
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "helper": "_load",
+      "supported_evidence_ids": [
+        "SV-CPN-027",
+        "SV-CPN-028",
+        "SV-CPN-087",
+        "SV-CPN-088"
+      ],
+      "baseline_normalized_ast_sha256": "1c2cedf2e2d7668626636ec421c7df07747c02a983483a0cbbb84f3a77079cd4"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "helper": "_registry",
+      "supported_evidence_ids": [
+        "SV-CPN-028",
+        "SV-CPN-087",
+        "SV-CPN-088"
+      ],
+      "baseline_normalized_ast_sha256": "41456586257cae4651515c98578399818463211cd2e26623c95fab927abe5214"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "helper": "definition_validator",
+      "supported_evidence_ids": [
+        "SV-CPN-028"
+      ],
+      "baseline_normalized_ast_sha256": "e0494a561334f956ff7761589c036efc41f290f143397b4ca9eb18505b31db8a"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "helper": "runtime_token",
+      "supported_evidence_ids": [
+        "SV-CPN-088"
+      ],
+      "baseline_normalized_ast_sha256": "392d8c095ba1ca273a99feb9d97230a8fd9d512d841858dcd13cb637571c3dc4"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "helper": "wire_token",
+      "supported_evidence_ids": [
+        "SV-CPN-088"
+      ],
+      "baseline_normalized_ast_sha256": "347cd0c96552abe702639b48226b1d3ee3dce83b00da9b30b49dc4d32972a5c6"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_strict_load",
+      "supported_evidence_ids": [
+        "SV-CPN-029",
+        "SV-CPN-030",
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "7d1b8542b882786d205e9e09c7b6eae1fd2b2977d9079ae5fe16989186851115"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "reject_constant",
+      "supported_evidence_ids": [
+        "SV-CPN-030"
+      ],
+      "baseline_normalized_ast_sha256": "3b3933df2df0a8e19b1feecebdeb680e11986bf31b334304250aee92fcf83869"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_validate",
+      "supported_evidence_ids": [
+        "SV-CPN-029",
+        "SV-CPN-030",
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "5b6a7e266cc36749ed61e1668491c83d76fe7b9eb3d77a8b6c2c430ed12394b1"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_token",
+      "supported_evidence_ids": [
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "3a0f28e589218c4911c502442d3e99ce92328370920eec62e475592bdf900c8c"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_marking",
+      "supported_evidence_ids": [
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "6ed520c3fe182a6edb23d4a7e71b75ed10e8164d567822fa56a2f7c389919184"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_guard",
+      "supported_evidence_ids": [
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "86aa459337948ed4d50f11e48900f845ccb02e68183102b24098edc92456c025"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_net",
+      "supported_evidence_ids": [
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "434f4d993b31088bfe62ad56ad4b69b6958d81cbf52b606061cf5b3896f9cfb3"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "_collision_net",
+      "supported_evidence_ids": [
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "2116fab2af731b6037a1667b1536ab8f6d2a330360ef33daa18f1ec177e17f69"
+    },
+    {
+      "module": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "helper": "literal",
+      "supported_evidence_ids": [
+        "SV-CPN-031"
+      ],
+      "baseline_normalized_ast_sha256": "55709bdc52766c57106fe1df71f634c3182d283bf3ac22e7301e6eb9b55c68a1"
+    }
+  ]
 }

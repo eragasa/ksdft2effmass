@@ -1,8 +1,21 @@
-"""Synthetic CPN fixtures shared by P1 software-verification tests.
+"""Evidence class and represented meaning
+--------------------------------------
+This module provides synthetic helper and fixture support for P1 CPN
+software-verification evidence. It represents exact software-routing setup rather than a
+physical model, mathematical result, or independent evidence owner.
 
-The fixtures exercise the public contract without scientific payloads. They are
-not numerical verification, scientific validation, or uncertainty quantification.
-"""
+Owned contract, oracle, and scope
+---------------------------------
+The helpers support only the complete evidence-ID lists in their function docstrings and
+own no independent evidence IDs. They construct public CPN inputs
+without fabricating a class SUT, oracle, acceptance result, or separate pass claim.
+
+VVUQ and scientific exclusions
+------------------------------
+Helper success only permits supported tests to run; failure can invalidate those tests'
+setup. This module provides no numerical verification, scientific validation,
+uncertainty quantification, physical-correctness, engine-adapter, persistence, or
+cross-language-conformance evidence."""
 
 from collections.abc import Callable
 
@@ -36,9 +49,91 @@ TokenFactory = Callable[..., CpnToken]
 
 @pytest.fixture
 def token_factory() -> TokenFactory:
-    """Return a factory for independently valid synthetic routing tokens."""
+    """Evidence ID
+    -----------
+    This helper supports exactly SV-CPN-001, SV-CPN-002, SV-CPN-003, SV-CPN-010,
+    SV-CPN-011, SV-CPN-012, SV-CPN-013, SV-CPN-014, SV-CPN-015, SV-CPN-016, SV-CPN-017,
+    SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021, SV-CPN-022, SV-CPN-024, SV-CPN-025,
+    SV-CPN-026, SV-CPN-034, SV-CPN-036, SV-CPN-039, SV-CPN-044, SV-CPN-051, SV-CPN-063,
+    SV-CPN-064, SV-CPN-065, SV-CPN-066, SV-CPN-067, SV-CPN-070, SV-CPN-071, SV-CPN-072,
+    SV-CPN-073, SV-CPN-082, SV-CPN-084, SV-CPN-085, SV-CPN-086 and owns no independent
+    evidence ID.
+
+    Requirement
+    -----------
+    Provide explicit synthetic setup or assertion mechanics without creating an
+    independent pass claim.
+
+    Method
+    ------
+    Construct or transform the public CPN test inputs required by the listed evidence
+    owners. Prior helper description: Return a factory for independently valid synthetic
+    routing tokens.
+
+    Oracle
+    ------
+    The helper has no independent oracle; each supported test owns and documents the
+    applicable contract oracle.
+
+    Acceptance
+    ----------
+    Return the exact public object or deterministic setup consumed by every listed
+    evidence owner, without swallowing exceptions or asserting a separate result.
+
+    Interpretation
+    --------------
+    A helper failure blocks or invalidates its listed evidence owners but is not an
+    independent evidence failure.
+
+    Limitations
+    -----------
+    The helper is synthetic, supports only the complete identifier list above, owns no
+    independent evidence ID, and establishes no numerical verification, scientific
+    validation, uncertainty quantification, physical meaning, or cross-language
+    conformance."""
 
     def create(token_id: str, color_id: str = "work", **overrides: object) -> CpnToken:
+        """Evidence ID
+        -----------
+        This helper supports exactly SV-CPN-001, SV-CPN-002, SV-CPN-003, SV-CPN-010,
+        SV-CPN-011, SV-CPN-012, SV-CPN-013, SV-CPN-014, SV-CPN-015, SV-CPN-016,
+        SV-CPN-017, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021, SV-CPN-022,
+        SV-CPN-024, SV-CPN-025, SV-CPN-026, SV-CPN-034, SV-CPN-036, SV-CPN-039,
+        SV-CPN-044, SV-CPN-051, SV-CPN-063, SV-CPN-064, SV-CPN-065, SV-CPN-066,
+        SV-CPN-067, SV-CPN-070, SV-CPN-071, SV-CPN-072, SV-CPN-073, SV-CPN-082,
+        SV-CPN-084, SV-CPN-085, SV-CPN-086 and owns no independent evidence ID.
+
+        Requirement
+        -----------
+        Provide explicit synthetic setup or assertion mechanics without creating an
+        independent pass claim.
+
+        Method
+        ------
+        Construct or transform the public CPN test inputs required by the listed
+        evidence owners. Prior helper description: local synthetic setup only.
+
+        Oracle
+        ------
+        The helper has no independent oracle; each supported test owns and documents the
+        applicable contract oracle.
+
+        Acceptance
+        ----------
+        Return the exact public object or deterministic setup consumed by every listed
+        evidence owner, without swallowing exceptions or asserting a separate result.
+
+        Interpretation
+        --------------
+        A helper failure blocks or invalidates its listed evidence owners but is not an
+        independent evidence failure.
+
+        Limitations
+        -----------
+        The helper is synthetic, supports only the complete identifier list above, owns
+        no independent evidence ID, and establishes no numerical verification,
+        scientific validation, uncertainty quantification, physical meaning, or
+        cross-language conformance."""
         values: dict[str, object] = {
             "token_id": token_id,
             "color_id": color_id,
@@ -64,7 +159,46 @@ def token_factory() -> TokenFactory:
 
 
 def _field(variable: str, field: TokenField) -> ValueExpression:
-    """Build one declarative bound-token field expression."""
+    """Evidence ID
+    -----------
+    This helper supports exactly SV-CPN-011, SV-CPN-085, SV-CPN-010, SV-CPN-012,
+    SV-CPN-036, SV-CPN-013, SV-CPN-014, SV-CPN-044, SV-CPN-039, SV-CPN-070, SV-CPN-071,
+    SV-CPN-084, SV-CPN-072, SV-CPN-073, SV-CPN-015, SV-CPN-016, SV-CPN-024, SV-CPN-025,
+    SV-CPN-026, SV-CPN-017, SV-CPN-086, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021,
+    SV-CPN-022, SV-CPN-034 and owns no independent evidence ID.
+
+    Requirement
+    -----------
+    Provide explicit synthetic setup or assertion mechanics without creating an
+    independent pass claim.
+
+    Method
+    ------
+    Construct or transform the public CPN test inputs required by the listed evidence
+    owners. Prior helper description: Build one declarative bound-token field
+    expression.
+
+    Oracle
+    ------
+    The helper has no independent oracle; each supported test owns and documents the
+    applicable contract oracle.
+
+    Acceptance
+    ----------
+    Return the exact public object or deterministic setup consumed by every listed
+    evidence owner, without swallowing exceptions or asserting a separate result.
+
+    Interpretation
+    --------------
+    A helper failure blocks or invalidates its listed evidence owners but is not an
+    independent evidence failure.
+
+    Limitations
+    -----------
+    The helper is synthetic, supports only the complete identifier list above, owns no
+    independent evidence ID, and establishes no numerical verification, scientific
+    validation, uncertainty quantification, physical meaning, or cross-language
+    conformance."""
     return ValueExpression(
         ValueExpressionKind.TOKEN_FIELD, variable=variable, field=field
     )
@@ -72,7 +206,46 @@ def _field(variable: str, field: TokenField) -> ValueExpression:
 
 @pytest.fixture
 def executable_net(token_factory: TokenFactory) -> CpnNetDefinition:
-    """Return a two-input synchronized consume/read net with one output."""
+    """Evidence ID
+    -----------
+    This helper supports exactly SV-CPN-011, SV-CPN-085, SV-CPN-010, SV-CPN-012,
+    SV-CPN-036, SV-CPN-013, SV-CPN-014, SV-CPN-044, SV-CPN-039, SV-CPN-070, SV-CPN-071,
+    SV-CPN-084, SV-CPN-072, SV-CPN-073, SV-CPN-015, SV-CPN-016, SV-CPN-024, SV-CPN-025,
+    SV-CPN-026, SV-CPN-017, SV-CPN-086, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021,
+    SV-CPN-022, SV-CPN-034 and owns no independent evidence ID.
+
+    Requirement
+    -----------
+    Provide explicit synthetic setup or assertion mechanics without creating an
+    independent pass claim.
+
+    Method
+    ------
+    Construct or transform the public CPN test inputs required by the listed evidence
+    owners. Prior helper description: Return a two-input synchronized consume/read net
+    with one output.
+
+    Oracle
+    ------
+    The helper has no independent oracle; each supported test owns and documents the
+    applicable contract oracle.
+
+    Acceptance
+    ----------
+    Return the exact public object or deterministic setup consumed by every listed
+    evidence owner, without swallowing exceptions or asserting a separate result.
+
+    Interpretation
+    --------------
+    A helper failure blocks or invalidates its listed evidence owners but is not an
+    independent evidence failure.
+
+    Limitations
+    -----------
+    The helper is synthetic, supports only the complete identifier list above, owns no
+    independent evidence ID, and establishes no numerical verification, scientific
+    validation, uncertainty quantification, physical meaning, or cross-language
+    conformance."""
     work = token_factory("work-1")
     authorization = token_factory("authorization-1", "authorization")
     initial = CpnMarking(

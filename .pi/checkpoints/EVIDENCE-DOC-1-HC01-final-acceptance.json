@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "EVIDENCE-DOC-1-HC01",
+  "task_id": "EVIDENCE-DOC-1",
+  "episode_id": null,
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T04:28:27Z",
+  "question": "Should the unified class-owned evidence documentation convention and bounded CpnToken pilot receive final human acceptance?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept EVIDENCE-DOC-1 as PASS and close the maintenance task.",
+      "consequence": "Retain the unified grammar, skill hardening, structural validators, CpnToken documentation/node rename, migration inventories, and final reviews. P1 remains closed and P2-P11 remain blocked."
+    },
+    {
+      "id": "B",
+      "summary": "Remand the maintenance task for a specified correction.",
+      "consequence": "Keep EVIDENCE-DOC-1 open and blocked; the human response identifies the required correction. P1 remains closed and P2-P11 remain blocked."
+    },
+    {
+      "id": "C",
+      "summary": "Defer final acceptance.",
+      "consequence": "Keep the implemented and reviewed maintenance task blocked at this checkpoint without changing P1 or launching a successor."
+    }
+  ],
+  "recommendation": "Option A. The unified grammar, bounded pilot, migration inventory, deterministic validation, checksums, and independent architecture/VVUQ and integration reviews pass with no residual in-scope finding. The known 22 historical evidence-owner gaps remain explicitly out of scope.",
+  "blocked_scope": "Final acceptance and closure of EVIDENCE-DOC-1. No P2-P11 launch or production/scientific execution is authorized.",
+  "safe_scope": "Read-only inspection and deterministic replay of EVIDENCE-DOC-1 evidence. P1 remains closed as human-accepted PASS; accepted P1-HC01 through P1-HC03 decisions remain unchanged.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/class-owned-evidence-documentation-convention.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/skills/document-research-python/SKILL.md",
+    ".pi/skills/document-research-python/references/test-evidence-documentation.md",
+    "docs/verification/testing-and-evidence.rst",
+    "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
+    ".pi/evidence/class-owned-evidence-convention/checksums.sha256",
+    ".pi/evidence/class-owned-evidence-convention/review-architecture-vvuq-final.md",
+    ".pi/evidence/class-owned-evidence-convention/review-integration-final.md"
+  ],
+  "human_response": "this test method name is not conforming\n\ntest_cpn_sv_p1_037_output_token_ids_are_unique",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-04T04:34:22Z",
+  "authorized_scope": "Remand EVIDENCE-DOC-1 to correct the identified nonconforming FiringRequest evidence node and the smallest deterministic class-owned module migration required to avoid partial conformance. Preserve assertions, fixtures, parameterization, evidence IDs, production behavior, schemas, tolerances, and accepted P1 decisions; update node traceability, migration inventories, validators, documentation, checksums, and independent review. Do not migrate unrelated modules or launch P2-P11.",
+  "record_paths": [
+    ".pi/checkpoints/EVIDENCE-DOC-1-HC01-final-acceptance.json",
+    ".pi/tasks/class-owned-evidence-documentation-convention.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
+  ],
+  "resumption_status": "resumed_for_bounded_FiringRequest_module_correction; final_acceptance_not_granted"
+
+}

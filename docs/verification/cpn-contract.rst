@@ -53,20 +53,46 @@ Artifact-owned integration evidence
 -----------------------------------
 
 Package topology and specification-fixture orchestration are not class-owned.
-Five maintained integration modules own that evidence:
+Five maintained integration modules under
+``python/tests/software_verification/ksdft2effmass/integration/`` own that
+evidence:
 
-* ``test__CpnPublicContract.py`` owns the public package contract;
-* ``test__CpnContractSchema.py`` owns the version-1 schemas;
-* ``test__CpnJsonFixtures.py`` owns the version-1 fixture sets;
-* ``test__CpnDependencyDirection.py`` owns production import topology;
-* ``test__CpnSnakesIsolation.py`` owns SNAKES and deferred-module isolation.
+* ``test__workflow_cpn_python_public_api.py`` owns the public Python package
+  surface at
+  ``test_artifact__public_api__exposes_approved_export_inventory``;
+* ``test__workflow_cpn_v1_python_json_contract.py`` is boundary-owned by the
+  version-1 CPN Python runtime <-> version-1 CPN JSON Schema/wire contract;
+* ``test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py`` owns the
+  version-1 JSON fixture family and its Python-runtime checks;
+* ``test__workflow_cpn_python_import_dependency_direction.py`` owns the
+  directional production import topology; and
+* ``test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py`` owns
+  Python isolation from SNAKES and the deferred engine/persistence scope.
 
-These modules restore ordinary-pytest ownership for ``SV-CPN-023`` and
+These modules provide ordinary-pytest ownership for ``SV-CPN-023`` and
 ``SV-CPN-027`` through ``SV-CPN-033``. They cover the 49-name public export
 inventory, schema metaschema validity, local schema entry points, valid and
 invalid fixture sets, relational fixture orchestration, dependency direction,
-and isolation. ``contract_gates.py`` invokes and audits this pytest evidence; it
-is not an evidence implementation owner.
+and isolation. Current semantic nodes include
+``test_artifact__json_schemas__satisfy_draft_2020_12_metaschema``,
+``test_artifact__schema_entry_points__resolve_locally_and_match_public_enums``,
+``test_artifact__valid_json_fixtures__conform_to_declared_schemas``,
+``test_artifact__import_dependency_direction__follows_approved_layers``, and
+``test_artifact__snakes_isolation__excludes_deferred_engine_scope``.
+``contract_gates.py`` invokes and audits this pytest evidence; it is not an
+evidence implementation owner.
+
+``SV-CPN-028`` remains one accepted conjunctive nonnumeric boundary requirement:
+local schema resolution, required-definition agreement, closed-enum agreement,
+and representative wire agreement remain facets of that single requirement.
+The migration does not split it or create new evidence identifiers. Numeric
+runtime/wire agreement remains separately owned by ``SV-CPN-087`` and
+``SV-CPN-088``.
+
+Class filenames, artifact and boundary names, directional relations, and genuine
+Workflow ownership follow the concise rules in :doc:`testing-and-evidence`; the
+complete shared convention is
+``.pi/skills/document-research-python/references/test-evidence-documentation.md``.
 
 The deterministic completeness command is::
 
@@ -76,9 +102,10 @@ The deterministic completeness command is::
 The validator enforces canonical filenames, one declared public owner per
 object module, module markers and documentation, manifest agreement, structural
 owner exercise, unique contiguous IDs, predecessor and split-map traceability,
-export inventory, and the five artifact-owned integration modules. Historical
-reviews retain their original paths and counts; their combined-module
-inventories are superseded evidence, not edited findings.
+export inventory, and the five artifact- or boundary-owned integration modules.
+Historical reviews retain their original paths and counts; their combined-module
+inventories and predecessor filenames are explicitly historical evidence, not
+current replay paths or edited findings.
 
 Fixture inventory and acceptance
 --------------------------------

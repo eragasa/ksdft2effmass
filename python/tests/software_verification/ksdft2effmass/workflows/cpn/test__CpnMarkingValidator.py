@@ -1,13 +1,23 @@
-"""Software verification for ``CpnMarkingValidator`` as the sole primary SUT.
+"""Evidence class and represented meaning
+--------------------------------------
+This module provides software-verification evidence for the public
+``CpnMarkingValidator`` software surface and its finite, exact CPN routing
+representation. It does not represent a physical observable or numerical approximation.
 
-Evidence class: software verification. Requirement and strategy are stated per
-case; public construction/execution supplies the method and exact state or the
-documented exception taxonomy supplies the independent oracle. Passing verifies
-only the named class contract. It does not provide numerical verification,
-scientific validation, uncertainty quantification, persistence, SNAKES-adapter,
-Rust-conformance, or scientific-execution evidence. Collaborators are synthetic
-setup only.
-"""
+Owned contract, oracle, and scope
+---------------------------------
+``CpnMarkingValidator`` is the sole primary SUT. Tests exercise its documented public
+contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
+error-taxonomy rules provide the independent oracles. Collaborators only construct
+inputs or expose public outcomes.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing means the named software contracts hold; failure may identify an implementation,
+fixture, oracle transcription, environment, or public-contract inconsistency. This
+module excludes numerical verification, scientific validation, uncertainty
+quantification, physical correctness, persistence and engine-adapter behavior, and
+cross-language conformance."""
 
 from collections.abc import Callable
 
@@ -27,18 +37,53 @@ pytestmark = pytest.mark.software_verification
 SUT = CpnMarkingValidator
 
 
-def test_cpn_sv_p1_036_accepts_complete_multiset_marking(
+def test_method__contract__accepts_complete_multiset_marking(
     token_factory: Callable[..., CpnToken], executable_net: CpnNetDefinition
 ) -> None:
-    """SV-CPN-036: accept a complete two-token multiset marking.
+    """Evidence ID
+    -----------
+    SV-CPN-036
 
-    Requirement: validation preserves multiplicity rather than collapsing a place
-    to Boolean occupancy. Method: validate a complete marking containing two
-    independently identified work tokens. Oracle: every place exists, both token
-    colors are admitted, and identities are unique. Acceptance: ``is_valid`` is
-    true. Failure means a contract-valid multiset was rejected. Limitation: durable
-    marking storage and reachability are excluded.
-    """
+    Requirement
+    -----------
+    accept a complete two-token multiset marking.
+
+    Method
+    ------
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: accept a complete two-token multiset
+    marking. Requirement: validation preserves multiplicity rather than collapsing a
+    place to Boolean occupancy. Method: validate a complete marking containing two
+    independently identified work tokens. Oracle: every place exists, both token colors
+    are admitted, and identities are unique. Acceptance: ``is_valid`` is true. Failure
+    means a contract-valid multiset was rejected. Limitation: durable marking storage
+    and reachability are excluded.
+
+    Oracle
+    ------
+    The documented public rule that the SUT must accept a complete two-token multiset
+    marking is the contract oracle; fixed synthetic values, Python exact type/value
+    semantics, and the public error taxonomy provide independently inspectable expected
+    outcomes where used.
+
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
+
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
+
+    Limitations
+    -----------
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     marking = CpnMarking(
         1,
         executable_net.model_id,
@@ -52,74 +97,110 @@ def test_cpn_sv_p1_036_accepts_complete_multiset_marking(
     assert CpnMarkingValidator().execute(executable_net, marking).is_valid
 
 
-def test_cpn_sv_p1_013_wrong_complete_place_set_has_stable_code(
+def test_method__contract__wrong_complete_place_set_has_stable_code(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """SV-CPN-013: complete place-set validation.
+    """Evidence ID
+    -----------
+    SV-CPN-013
 
     Requirement
     -----------
-    The version-1 P1 contract requires complete place-set validation.
+    complete place-set validation.
 
     Method
     ------
-    Validate a marking containing only the ``ready`` place against the three-place
-    executable net.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: complete place-set validation. Prior
+    requirement detail: The version-1 P1 contract requires complete place-set
+    validation. Prior method detail: Validate a marking containing only the ``ready``
+    place against the three-place executable net. Prior independent oracle detail: Set
+    comparison with the net's declared places independently shows authorization and
+    completed are absent. Prior acceptance criterion detail: The result contains
+    authoritative code ``PLACE_SET_MISMATCH``. Prior failure interpretation detail:
+    Absence of that code means incomplete markings can pass compatibility validation.
+    Prior limitations detail: This case does not test token colors.
 
-    Independent oracle
-    ------------------
-    Set comparison with the net's declared places independently shows authorization
-    and completed are absent.
+    Oracle
+    ------
+    The documented public rule that the SUT must complete place-set validation is the
+    contract oracle; fixed synthetic values, Python exact type/value semantics, and the
+    public error taxonomy provide independently inspectable expected outcomes where
+    used.
 
-    Acceptance criterion
-    --------------------
-    The result contains authoritative code ``PLACE_SET_MISMATCH``.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    Absence of that code means incomplete markings can pass compatibility
-    validation.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    This case does not test token colors.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     marking = CpnMarking(1, executable_net.model_id, 0, (PlaceMarking("ready", ()),))
     result = CpnMarkingValidator().execute(executable_net, marking)
     assert CpnIssueCode.PLACE_SET_MISMATCH in {issue.code for issue in result.issues}
 
 
-def test_cpn_sv_p1_014_unknown_color_reference_is_structured(
+def test_method__contract__unknown_color_reference_is_structured(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """SV-CPN-014: structured unknown-color diagnostics.
+    """Evidence ID
+    -----------
+    SV-CPN-014
 
     Requirement
     -----------
-    The version-1 P1 contract requires structured unknown-color diagnostics.
+    structured unknown-color diagnostics.
 
     Method
     ------
-    Construct a token with color ``unknown`` in ``ready`` and call
-    ``CpnMarkingValidator.execute``.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: structured unknown-color diagnostics. Prior
+    requirement detail: The version-1 P1 contract requires structured unknown-color
+    diagnostics. Prior method detail: Construct a token with color ``unknown`` in
+    ``ready`` and call ``CpnMarkingValidator.execute``. Prior independent oracle detail:
+    The net color registry lacks ``unknown`` and the ready place admits only ``work``.
+    Prior acceptance criterion detail: Both ``UNKNOWN_COLOR`` and
+    ``TOKEN_COLOR_MISMATCH`` occur in the issue-code set. Prior failure interpretation
+    detail: Missing either code loses global-color or place-color diagnostic coverage.
+    Prior limitations detail: The test does not infer payload or physical type
+    compatibility.
 
-    Independent oracle
-    ------------------
-    The net color registry lacks ``unknown`` and the ready place admits only
-    ``work``.
+    Oracle
+    ------
+    The documented public rule that the SUT must structured unknown-color diagnostics is
+    the contract oracle; fixed synthetic values, Python exact type/value semantics, and
+    the public error taxonomy provide independently inspectable expected outcomes where
+    used.
 
-    Acceptance criterion
-    --------------------
-    Both ``UNKNOWN_COLOR`` and ``TOKEN_COLOR_MISMATCH`` occur in the issue-code set.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    Missing either code loses global-color or place-color diagnostic coverage.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    The test does not infer payload or physical type compatibility.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     token = executable_net.initial_marking.places[2].tokens[0]
     wrong = CpnToken(
         token.token_id,

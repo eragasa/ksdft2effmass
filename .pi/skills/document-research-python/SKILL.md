@@ -7,6 +7,14 @@ description: Documents public research-software Python APIs and Sphinx pages. Us
 
 Use this skill when public Python APIs or scientific conventions are created or changed.
 
+## Load first
+
+For maintained test-evidence documentation or review, read
+`references/test-evidence-documentation.md`. It owns the unified module headings,
+per-test/helper fields, semantic naming grammar, evidence ownership types,
+parameterization rules, exact-representation policy, independent-oracle rules,
+and structural-versus-semantic review boundary.
+
 ## Requirements
 
 - Write complete NumPy-style docstrings for public modules, classes, methods, functions, properties, enums, exceptions, parameters, returns, raised exceptions, dataclass fields, public attributes, and examples when practical.
@@ -31,20 +39,30 @@ Use this skill when public Python APIs or scientific conventions are created or 
 - Does the docs build pass with warnings as errors?
 - Do source docstrings, tests, public schemas or fixtures, Sphinx API pages, concept pages, and control-plane records describe the same behavior?
 - Does read-only documentation review report no unresolved material source-documentation findings?
+- For migrated test evidence, do the exact headings, fields, names, ownership,
+  parameterization, representation, oracle-independence, and limitation rules in
+  `references/test-evidence-documentation.md` pass both structural and semantic
+  review?
 
 ## CPN-compatible invocation profiles
 
 This skill is applied by an external agent/harness outside CPN guard evaluation.
-A request selects `REVIEW_ONLY` or `AUTHORIZED_DOCS_WRITE` and records the task
-and parent-workflow/attempt identities, immutable source/test/schema/fixture and
+A request selects `REVIEW_ONLY`, `AUTHORIZED_DOCS_WRITE`, or
+`AUTHORIZED_TEST_EVIDENCE_DOC_WRITE` and records the task and
+parent-workflow/attempt identities, immutable source/test/schema/fixture and
 documentation references, authoritative conventions, expected output shape,
-permitted documentation paths, evidence classification, and stop policy.
+permitted paths, evidence classification, and stop policy.
 
 `REVIEW_ONLY` permits inspection and deterministic read-only commands only.
-`AUTHORIZED_DOCS_WRITE` may edit only explicitly assigned documentation paths;
-it does not transfer source, test, schema, fixture, dependency, or generated-
-output ownership. Neither profile may silently broaden scientific claims, launch
-downstream work, or convert review agreement into acceptance.
+`AUTHORIZED_DOCS_WRITE` may edit only explicitly assigned documentation paths.
+`AUTHORIZED_TEST_EVIDENCE_DOC_WRITE` requires a separately validated test-writer
+assignment and may edit only the assigned test evidence's docstrings and semantic
+function names; assertions, fixtures, parameters, dependencies, and scientific
+meaning remain unchanged unless separately authorized. The profile supplies no
+test ownership by itself. No profile transfers source, schema, fixture,
+dependency, or generated-output ownership. No profile may silently broaden
+scientific claims, launch downstream work, or convert review agreement into
+acceptance.
 
 The result must report:
 

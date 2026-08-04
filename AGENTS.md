@@ -311,9 +311,12 @@ explicitly. Use explicit tolerances and state what they measure.
 Place evidence under the corresponding subtree of `python/tests/` and migrate
 only an approved object or subsystem at a time. Maintained migrated tests require
 stable evidence identifiers, explicit requirements and oracles, acceptance and
-failure interpretation, limitations, and correct evidence-class markers. Follow
-`docs/verification/testing-and-evidence.rst` for hierarchy, module documentation,
-numerical-case, controlled-fault, and review requirements.
+failure interpretation, limitations, and correct evidence-class markers. Load
+`.pi/skills/document-research-python/SKILL.md` and its shared test-evidence
+reference for the unified class-owned and artifact-owned documentation grammar;
+operator-record work additionally follows `.pi/skills/develop-operator-records/SKILL.md`.
+Follow `docs/verification/testing-and-evidence.rst` for hierarchy, module
+documentation, numerical-case, controlled-fault, and review requirements.
 
 ## Documentation
 

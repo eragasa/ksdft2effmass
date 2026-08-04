@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS, P0A is closed as human-accepted PASS, and P1 is closed as human-accepted PASS through P1-HC03. No successor is active or launched. P2-P11 and production/scientific execution remain blocked and unauthorized.",
-  "status": "p1_human_accepted_pass_no_successor_active",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS, P0A and P1 are closed as human-accepted PASS, and bounded documentation-governance maintenance EVIDENCE-DOC-1 is closed as human-accepted PASS. P2-P11 and production/scientific execution remain blocked and unauthorized.",
+  "status": "evidence_documentation_governance_human_accepted_pass_p1_closed",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -16,23 +16,147 @@
   "production_execution_authorized": false,
   "superseded_sequence": {
     "authority": ".pi/tasks/backend-neutral-kohn-sham-qe-architecture.md",
-    "tasks": ["A", "B", "C", "D", "E", "F", "G", "H"],
+    "tasks": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
     "disposition": "Scientific decomposition preserved; linear/DAG-like workflow sequencing prospectively superseded by P0-P11 CPN tasks. Human-authorized P0A is a bounded packaging/configuration prerequisite inserted before existing P1."
   },
   "task_sequence": [
-    {"id": "P0", "record": ".pi/tasks/backend-neutral-cpn-P0-preflight.md", "prerequisites": [], "status": "human_accepted_conditional_pass"},
-    {"id": "P0A", "record": ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md", "prerequisites": ["P0:human_accepted"], "status": "human_accepted_pass"},
-    {"id": "P1", "record": ".pi/tasks/backend-neutral-cpn-P1-contract.md", "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json", "prerequisites": ["P0A:human_accepted"], "status": "human_accepted_pass"},
-    {"id": "P2", "record": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md", "prerequisites": ["P1:human_accepted"], "status": "blocked"},
-    {"id": "P3", "record": ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md", "prerequisites": ["P1:human_accepted", "P2:human_accepted"], "status": "blocked"},
-    {"id": "P4", "record": ".pi/tasks/backend-neutral-cpn-P4-neutral-dft.md", "prerequisites": ["P1:human_accepted", "P2:human_accepted"], "status": "blocked"},
-    {"id": "P5", "record": ".pi/tasks/backend-neutral-cpn-P5-qe-boundary.md", "prerequisites": ["P2:human_accepted", "P4:human_accepted"], "status": "blocked"},
-    {"id": "P6", "record": ".pi/tasks/backend-neutral-cpn-P6-qe-scf-subnet.md", "prerequisites": ["P3:human_accepted", "P4:human_accepted", "P5:human_accepted"], "status": "blocked"},
-    {"id": "P7", "record": ".pi/tasks/backend-neutral-cpn-P7-direct-tb.md", "prerequisites": ["P3:human_accepted", "P4:human_accepted", "P6:human_accepted"], "status": "blocked"},
-    {"id": "P8", "record": ".pi/tasks/backend-neutral-cpn-P8-wannier-bridge.md", "prerequisites": ["P3:human_accepted", "P4:human_accepted", "P5:human_accepted", "P6:human_accepted"], "status": "blocked"},
-    {"id": "P9", "record": ".pi/tasks/backend-neutral-cpn-P9-wannier-execution.md", "prerequisites": ["P2:human_accepted", "P3:human_accepted", "P8:human_accepted"], "status": "blocked"},
-    {"id": "P10", "record": ".pi/tasks/backend-neutral-cpn-P10-synthetic-workflow.md", "prerequisites": ["P6:human_accepted", "P7:human_accepted", "P8:human_accepted", "P9:human_accepted", "required_metrics:accepted"], "status": "blocked"},
-    {"id": "P11", "record": ".pi/tasks/backend-neutral-cpn-P11-bulk-si-campaign.md", "prerequisites": ["G01a:accepted_marking", "P10:human_accepted", "production_checkpoint:accepted"], "status": "blocked"}
+    {
+      "id": "P0",
+      "record": ".pi/tasks/backend-neutral-cpn-P0-preflight.md",
+      "prerequisites": [],
+      "status": "human_accepted_conditional_pass"
+    },
+    {
+      "id": "P0A",
+      "record": ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
+      "prerequisites": [
+        "P0:human_accepted"
+      ],
+      "status": "human_accepted_pass"
+    },
+    {
+      "id": "P1",
+      "record": ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+      "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
+      "prerequisites": [
+        "P0A:human_accepted"
+      ],
+      "status": "human_accepted_pass"
+    },
+    {
+      "id": "EVIDENCE-DOC-1",
+      "record": ".pi/tasks/class-owned-evidence-documentation-convention.md",
+      "ownership_manifest": ".pi/evidence/class-owned-evidence-convention/task-ownership.json",
+      "prerequisites": [],
+      "status": "human_accepted_pass"
+    },
+    {
+      "id": "P2",
+      "record": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+      "prerequisites": [
+        "P1:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P3",
+      "record": ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md",
+      "prerequisites": [
+        "P1:human_accepted",
+        "P2:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P4",
+      "record": ".pi/tasks/backend-neutral-cpn-P4-neutral-dft.md",
+      "prerequisites": [
+        "P1:human_accepted",
+        "P2:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P5",
+      "record": ".pi/tasks/backend-neutral-cpn-P5-qe-boundary.md",
+      "prerequisites": [
+        "P2:human_accepted",
+        "P4:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P6",
+      "record": ".pi/tasks/backend-neutral-cpn-P6-qe-scf-subnet.md",
+      "prerequisites": [
+        "P3:human_accepted",
+        "P4:human_accepted",
+        "P5:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P7",
+      "record": ".pi/tasks/backend-neutral-cpn-P7-direct-tb.md",
+      "prerequisites": [
+        "P3:human_accepted",
+        "P4:human_accepted",
+        "P6:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P8",
+      "record": ".pi/tasks/backend-neutral-cpn-P8-wannier-bridge.md",
+      "prerequisites": [
+        "P3:human_accepted",
+        "P4:human_accepted",
+        "P5:human_accepted",
+        "P6:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P9",
+      "record": ".pi/tasks/backend-neutral-cpn-P9-wannier-execution.md",
+      "prerequisites": [
+        "P2:human_accepted",
+        "P3:human_accepted",
+        "P8:human_accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P10",
+      "record": ".pi/tasks/backend-neutral-cpn-P10-synthetic-workflow.md",
+      "prerequisites": [
+        "P6:human_accepted",
+        "P7:human_accepted",
+        "P8:human_accepted",
+        "P9:human_accepted",
+        "required_metrics:accepted"
+      ],
+      "status": "blocked"
+    },
+    {
+      "id": "P11",
+      "record": ".pi/tasks/backend-neutral-cpn-P11-bulk-si-campaign.md",
+      "prerequisites": [
+        "G01a:accepted_marking",
+        "P10:human_accepted",
+        "production_checkpoint:accepted"
+      ],
+      "status": "blocked"
+    }
   ],
   "task_ownership_launch_preflight": {
     "fail_closed": true,
@@ -50,7 +174,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "The human PI accepted P1 as PASS through P1-HC03 on 2026-08-04. Acceptance makes P1:human_accepted available as a prerequisite but does not select or launch P2. No successor is active. P2-P11 remain blocked and unauthorized until separately selected, ownership-validated, explicitly authorized, and launched.",
+  "launch_policy": "The human PI accepted P1 as PASS through P1-HC03 on 2026-08-04. Acceptance makes P1:human_accepted available as a prerequisite but does not select or launch P2. EVIDENCE-DOC-1 is a separately authorized bounded documentation-governance maintenance task, not P2 or a scientific-program successor. P2-P11 remain blocked and unauthorized until separately selected, ownership-validated, explicitly authorized, and launched.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -96,6 +220,12 @@
       "decision": "A",
       "resolved_at": "2026-08-04T03:02:33Z",
       "result": "P1 closed as human-accepted PASS after final reviews and parent verification; no successor launched; P2-P11 remain blocked."
+    },
+    {
+      "checkpoint": "EVIDENCE-DOC-1-HC03-final-acceptance",
+      "decision": "A",
+      "resolved_at": "2026-08-04T06:36:09Z",
+      "result": "EVIDENCE-DOC-1 closed as human-accepted PASS; P1 remains closed; no successor launched; P2-P11 and production/scientific execution remain blocked."
     }
   ],
   "activations": [
@@ -107,10 +237,18 @@
       "scope": "Executable project-owned backend-neutral CPN contract in production source, focused tests, required schemas/fixtures/documentation/reviews; no SNAKES adapter, persistence implementation, workflow/scientific execution, or P2-P11 work."
     }
   ],
+  "pending_checkpoints": [
+    {
+      "checkpoint": "EVIDENCE-DOC-1-HC03-final-acceptance",
+      "task": "EVIDENCE-DOC-1",
+      "status": "pending",
+      "blocked_scope": "Final human acceptance and closure of EVIDENCE-DOC-1 only; P1 remains closed and P2-P11 and production/scientific execution remain blocked."
+    }
+  ],
   "chain": [
     {
-      "phase": "P1-closed-no-successor-active",
-      "message": "P1 is human-accepted as PASS and closed. Stop before successor selection or launch. P2-P11 and production/scientific execution remain blocked."
+      "phase": "EVIDENCE-DOC-1-closeout",
+      "message": "EVIDENCE-DOC-1-HC03 resolved as Option A. The bounded evidence-documentation maintenance task is closed as human-accepted PASS. P1 remains closed; P2-P11 and production/scientific execution remain blocked and unauthorized."
     }
   ]
 }

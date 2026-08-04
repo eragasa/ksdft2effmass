@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Audit executable ownership of migrated VVUQ evidence identifiers.
 
-The first line of each pytest test-function docstring is the deterministic owner
-declaration for one explicit ``SV-...-###`` or ``NV-...-###`` identifier, or one
-same-stem inclusive ``...-### through ...-###`` range for a parametrized test.
+The ``Evidence ID`` field of a migrated pytest test-function docstring is the
+deterministic owner declaration for one explicit ``SV-...-###`` or
+``NV-...-###`` identifier, or one same-stem inclusive ``...-### through
+...-###`` range for a parametrized test. Historical docstrings remain supported:
+when no ``Evidence ID`` field exists, their first line is the owner declaration.
 Other mentions in module, helper, or test prose are references and do not create
 ownership. This distinction avoids false duplicate findings from raw grep.
 
@@ -89,11 +91,33 @@ def module_markers(tree: ast.Module) -> list[str]:
     return markers
 
 
-def declared_evidence_ids(first_line: str) -> tuple[list[str], list[str]]:
+def owner_declaration(docstring: str) -> tuple[str, list[str]]:
+    """Return the fielded owner body or historical first-line declaration."""
+
+    field_matches = list(re.finditer(r"(?m)^Evidence ID\s*$", docstring))
+    if len(field_matches) > 1:
+        return "", ["docstring contains multiple Evidence ID fields"]
+    if not field_matches:
+        return (docstring.splitlines()[0] if docstring else ""), []
+
+    start = field_matches[0].end()
+    requirement = re.search(r"(?m)^Requirement\s*$", docstring[start:])
+    if requirement is None:
+        # A historical module may mention an ``Evidence ID`` heading while using
+        # combined or differently ordered fields. Its first line remains the
+        # durable owner until the complete unified grammar is adopted.
+        return (docstring.splitlines()[0] if docstring else ""), []
+    body = docstring[start : start + requirement.start()].strip()
+    if not body:
+        return "", ["Evidence ID field is empty"]
+    return body, []
+
+
+def declared_evidence_ids(declaration: str) -> tuple[list[str], list[str]]:
     """Expand one owner identifier or one normalized inclusive range."""
 
     declaration_errors: list[str] = []
-    ranges = list(EVIDENCE_RANGE.finditer(first_line))
+    ranges = list(EVIDENCE_RANGE.finditer(declaration))
     if len(ranges) > 1:
         return [], ["first-line owner declaration contains multiple ranges"]
     if ranges:
@@ -104,10 +128,11 @@ def declared_evidence_ids(first_line: str) -> tuple[list[str], list[str]]:
         end_stem, end_number = end.rsplit("-", 1)
         if start_stem != end_stem or int(end_number) < int(start_number):
             return [], [f"invalid evidence range {start} through {end}"]
-        remainder = first_line[: match.start()] + first_line[match.end() :]
+        remainder = declaration[: match.start()] + declaration[match.end() :]
         if EVIDENCE_ID.search(remainder):
             declaration_errors.append(
-                "first-line range declaration also contains a separate evidence identifier"
+                "first-line range declaration also contains a separate "
+                "evidence identifier"
             )
         width = len(start_number)
         declared = [
@@ -116,10 +141,11 @@ def declared_evidence_ids(first_line: str) -> tuple[list[str], list[str]]:
         ]
         return declared, declaration_errors
 
-    declared = sorted(set(EVIDENCE_ID.findall(first_line)))
+    declared = sorted(set(EVIDENCE_ID.findall(declaration)))
     if len(declared) > 1:
         declaration_errors.append(
-            "first-line owner declaration contains multiple identifiers without one range"
+            "first-line owner declaration contains multiple identifiers "
+            "without one range"
         )
     return declared, declaration_errors
 
@@ -136,6 +162,20 @@ def run_self_test() -> list[str]:
     _, malformed_errors = declared_evidence_ids("Own SV-A-001 and SV-A-002.")
     if not malformed_errors:
         failures.append("ambiguous multiple-identifier declaration was not rejected")
+    fielded, field_errors = owner_declaration(
+        "Summary.\n\nEvidence ID\n    ``SV-A-004``.\nRequirement\n    Public rule."
+    )
+    if fielded != "``SV-A-004``." or field_errors:
+        failures.append("fielded Evidence ID extraction failed")
+    historical, historical_errors = owner_declaration("SV-A-005: historical owner.")
+    if historical != "SV-A-005: historical owner." or historical_errors:
+        failures.append("historical first-line extraction failed")
+    legacy_field, legacy_errors = owner_declaration(
+        "NV-A-006: historical owner.\n\nEvidence ID\n    ``NV-A-006``.\n"
+        "Requirement and method\n    Legacy combined field."
+    )
+    if legacy_field != "NV-A-006: historical owner." or legacy_errors:
+        failures.append("historical combined-field fallback failed")
     tree = ast.parse(
         '"""pytestmark = pytest.mark.numerical_verification"""\n'
         "pytestmark = pytest.mark.software_verification\n"
@@ -152,7 +192,7 @@ def main() -> int:
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="fail when any test function lacks a first-line evidence owner",
+        help="fail when any test function lacks a fielded or historical evidence owner",
     )
     parser.add_argument(
         "--self-test",
@@ -199,8 +239,9 @@ def main() -> int:
                 continue
             function_count += 1
             docstring = ast.get_docstring(node) or ""
-            first_line = docstring.splitlines()[0] if docstring else ""
-            declared, declaration_errors = declared_evidence_ids(first_line)
+            declaration, field_errors = owner_declaration(docstring)
+            declared, declaration_errors = declared_evidence_ids(declaration)
+            declaration_errors = field_errors + declaration_errors
             errors.extend(
                 f"{path}:{node.name}: {error}" for error in declaration_errors
             )
@@ -235,7 +276,8 @@ def main() -> int:
 
     for path, function in missing:
         print(
-            f"WARNING: {path.relative_to(ROOT)}:{function}: no first-line evidence owner"
+            f"WARNING: {path.relative_to(ROOT)}:{function}: "
+            "no Evidence ID field or historical first-line owner"
         )
     for error in errors:
         print(f"ERROR: {error}")

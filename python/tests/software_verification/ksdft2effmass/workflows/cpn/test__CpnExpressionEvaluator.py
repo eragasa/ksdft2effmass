@@ -1,13 +1,23 @@
-"""Software verification for ``CpnExpressionEvaluator`` as the sole primary SUT.
+"""Evidence class and represented meaning
+--------------------------------------
+This module provides software-verification evidence for the public
+``CpnExpressionEvaluator`` software surface and its finite, exact CPN routing
+representation. It does not represent a physical observable or numerical approximation.
 
-Evidence class: software verification. Requirement and strategy are stated per
-case; public construction/execution supplies the method and exact state or the
-documented exception taxonomy supplies the independent oracle. Passing verifies
-only the named class contract. It does not provide numerical verification,
-scientific validation, uncertainty quantification, persistence, SNAKES-adapter,
-Rust-conformance, or scientific-execution evidence. Collaborators are synthetic
-setup only.
-"""
+Owned contract, oracle, and scope
+---------------------------------
+``CpnExpressionEvaluator`` is the sole primary SUT. Tests exercise its documented public
+contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
+error-taxonomy rules provide the independent oracles. Collaborators only construct
+inputs or expose public outcomes.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing means the named software contracts hold; failure may identify an implementation,
+fixture, oracle transcription, environment, or public-contract inconsistency. This
+module excludes numerical verification, scientific validation, uncertainty
+quantification, physical correctness, persistence and engine-adapter behavior, and
+cross-language conformance."""
 
 from dataclasses import replace
 
@@ -34,42 +44,97 @@ SUT = CpnExpressionEvaluator
 
 
 def literal(kind: ContractValueKind, value: object) -> ValueExpression:
-    """Construct a typed literal for synthetic expression tests."""
+    """Evidence ID
+    -----------
+    This helper supports exactly SV-CPN-008, SV-CPN-009 and owns no independent evidence
+    ID.
+
+    Requirement
+    -----------
+    Provide explicit synthetic setup or assertion mechanics without creating an
+    independent pass claim.
+
+    Method
+    ------
+    Construct or transform the public CPN test inputs required by the listed evidence
+    owners. Prior helper description: Construct a typed literal for synthetic expression
+    tests.
+
+    Oracle
+    ------
+    The helper has no independent oracle; each supported test owns and documents the
+    applicable contract oracle.
+
+    Acceptance
+    ----------
+    Return the exact public object or deterministic setup consumed by every listed
+    evidence owner, without swallowing exceptions or asserting a separate result.
+
+    Interpretation
+    --------------
+    A helper failure blocks or invalidates its listed evidence owners but is not an
+    independent evidence failure.
+
+    Limitations
+    -----------
+    The helper is synthetic, supports only the complete identifier list above, owns no
+    independent evidence ID, and establishes no numerical verification, scientific
+    validation, uncertainty quantification, physical meaning, or cross-language
+    conformance."""
     return ValueExpression(
         ValueExpressionKind.LITERAL,
         literal=ContractValue(kind, value),  # type: ignore[arg-type]
     )
 
 
-def test_cpn_sv_p1_008_exact_literals_evaluate_without_state() -> None:
-    """SV-CPN-008: exact literal ordering without token state.
+def test_method__contract__exact_literals_evaluate_without_state() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-008
 
     Requirement
     -----------
-    The version-1 P1 contract requires exact literal ordering without token state.
+    exact literal ordering without token state.
 
     Method
     ------
-    Evaluate an integer-literal ``1 < 2`` guard with
-    ``CpnExpressionEvaluator.evaluate_guard`` over an empty binding and marking.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: exact literal ordering without token state.
+    Prior requirement detail: The version-1 P1 contract requires exact literal ordering
+    without token state. Prior method detail: Evaluate an integer-literal ``1 < 2``
+    guard with ``CpnExpressionEvaluator.evaluate_guard`` over an empty binding and
+    marking. Prior independent oracle detail: Built-in exact integer ordering is an
+    independent analytical oracle and requires no token lookup or tolerance. Prior
+    acceptance criterion detail: The returned ``GuardEvaluationResult.value`` is exactly
+    ``True``. Prior failure interpretation detail: False or an exception indicates
+    incorrect literal evaluation. Prior limitations detail: No numerical tolerance, unit
+    conversion, or scientific comparison is covered.
 
-    Independent oracle
-    ------------------
-    Built-in exact integer ordering is an independent analytical oracle and requires
-    no token lookup or tolerance.
+    Oracle
+    ------
+    The documented public rule that the SUT must exact literal ordering without token
+    state is the contract oracle; fixed synthetic values, Python exact type/value
+    semantics, and the public error taxonomy provide independently inspectable expected
+    outcomes where used.
 
-    Acceptance criterion
-    --------------------
-    The returned ``GuardEvaluationResult.value`` is exactly ``True``.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    False or an exception indicates incorrect literal evaluation.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    No numerical tolerance, unit conversion, or scientific comparison is covered.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     marking = CpnMarking(1, "model", 0, ())
     binding = TransitionBinding("transition", ())
     guard = GuardExpression(
@@ -80,36 +145,55 @@ def test_cpn_sv_p1_008_exact_literals_evaluate_without_state() -> None:
     assert CpnExpressionEvaluator().evaluate_guard(guard, binding, marking).value
 
 
-def test_cpn_sv_p1_009_comparison_rejects_mixed_tags() -> None:
-    """SV-CPN-009: type-strict comparison tags.
+def test_method__contract__comparison_rejects_mixed_tags() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-009
 
     Requirement
     -----------
-    The version-1 P1 contract requires type-strict comparison tags.
+    type-strict comparison tags.
 
     Method
     ------
-    Evaluate equality between integer-tagged ``1`` and real-tagged ``1.0`` through
-    ``evaluate_guard``.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: type-strict comparison tags. Prior
+    requirement detail: The version-1 P1 contract requires type-strict comparison tags.
+    Prior method detail: Evaluate equality between integer-tagged ``1`` and real-tagged
+    ``1.0`` through ``evaluate_guard``. Prior independent oracle detail: Equal Python
+    magnitude does not override the contract requirement that comparison operands carry
+    the same ``ContractValueKind``. Prior acceptance criterion detail: Evaluation raises
+    ``TypeError`` containing ``equal ContractValue kinds``. Prior failure interpretation
+    detail: Success would silently mix integer and real routing semantics. Prior
+    limitations detail: This mixed-tag case excludes REAL wire canonicalization; that
+    resolved contract is covered separately by the ``SV-CPN-080``--``SV-CPN-088``
+    evidence.
 
-    Independent oracle
-    ------------------
-    Equal Python magnitude does not override the contract requirement that
-    comparison operands carry the same ``ContractValueKind``.
+    Oracle
+    ------
+    The documented public rule that the SUT must type-strict comparison tags is the
+    contract oracle; fixed synthetic values, Python exact type/value semantics, and the
+    public error taxonomy provide independently inspectable expected outcomes where
+    used.
 
-    Acceptance criterion
-    --------------------
-    Evaluation raises ``TypeError`` containing ``equal ContractValue kinds``.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    Success would silently mix integer and real routing semantics.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    This mixed-tag case excludes REAL wire canonicalization; that resolved contract
-    is covered separately by the ``SV-CPN-080``--``SV-CPN-088`` evidence.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     guard = GuardExpression(
         GuardOperator.EQUAL,
         left=literal(ContractValueKind.INTEGER, 1),
@@ -121,20 +205,55 @@ def test_cpn_sv_p1_009_comparison_rejects_mixed_tags() -> None:
         )
 
 
-def test_cpn_sv_p1_085_maximum_controls_read_copy_and_compare_as_integer(
+def test_method__contract__maximum_controls_read_copy_and_compare_as_integer(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """SV-CPN-085: route maximum control values through INTEGER expressions.
+    """Evidence ID
+    -----------
+    SV-CPN-085
 
-    Requirement: expression evaluation can read, copy, and compare every valid
-    expression-visible control at ``2**63 - 1`` without an unsigned value kind or
-    arithmetic advancement. Method: replace both independently valid input tokens'
-    iteration and payload-version controls, evaluate field reads and equality, and
-    inspect the copied public tagged values. Oracle: exact signed-i64 endpoint and
+    Requirement
+    -----------
+    maximum expression-visible controls read and copy through INTEGER.
+
+    Method
+    ------
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: route maximum control values through
+    INTEGER expressions. Requirement: expression evaluation can read, copy, and compare
+    every valid expression-visible control at ``2**63 - 1`` without an unsigned value
+    kind or arithmetic advancement. Method: replace both independently valid input
+    tokens' iteration and payload-version controls, evaluate field reads and equality,
+    and inspect the copied public tagged values. Oracle: exact signed-i64 endpoint and
     identity-copy semantics. Acceptance returns INTEGER-tagged maxima and ``True``.
-    Failure means valid routing state is not expression-visible. Repeating the value
-    is deliberate nonarithmetic routing, not scientific iteration evidence.
-    """
+    Failure means valid routing state is not expression-visible. Repeating the value is
+    deliberate nonarithmetic routing, not scientific iteration evidence.
+
+    Oracle
+    ------
+    The documented public rule that the SUT must maximum expression-visible controls
+    read and copy through INTEGER is the contract oracle; fixed synthetic values, Python
+    exact type/value semantics, and the public error taxonomy provide independently
+    inspectable expected outcomes where used.
+
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
+
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
+
+    Limitations
+    -----------
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     maximum = 2**63 - 1
     places = tuple(
         replace(
@@ -160,7 +279,42 @@ def test_cpn_sv_p1_085_maximum_controls_read_copy_and_compare_as_integer(
     evaluator = SUT()
 
     def field(variable: str, token_field: TokenField) -> ValueExpression:
-        """Construct one public field read over synthetic maximum controls."""
+        """Evidence ID
+        -----------
+        This helper supports exactly SV-CPN-085 and owns no independent evidence ID.
+
+        Requirement
+        -----------
+        Provide explicit synthetic setup or assertion mechanics without creating an
+        independent pass claim.
+
+        Method
+        ------
+        Construct or transform the public CPN test inputs required by the listed
+        evidence owners. Prior helper description: Construct one public field read over
+        synthetic maximum controls.
+
+        Oracle
+        ------
+        The helper has no independent oracle; each supported test owns and documents the
+        applicable contract oracle.
+
+        Acceptance
+        ----------
+        Return the exact public object or deterministic setup consumed by every listed
+        evidence owner, without swallowing exceptions or asserting a separate result.
+
+        Interpretation
+        --------------
+        A helper failure blocks or invalidates its listed evidence owners but is not an
+        independent evidence failure.
+
+        Limitations
+        -----------
+        The helper is synthetic, supports only the complete identifier list above, owns
+        no independent evidence ID, and establishes no numerical verification,
+        scientific validation, uncertainty quantification, physical meaning, or
+        cross-language conformance."""
         return ValueExpression(
             ValueExpressionKind.TOKEN_FIELD,
             variable=variable,
@@ -185,40 +339,57 @@ def test_cpn_sv_p1_085_maximum_controls_read_copy_and_compare_as_integer(
     }
 
 
-def test_cpn_sv_p1_010_bound_token_fields_and_id_sequences(
+def test_method__contract__bound_token_fields_and_id_sequences(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """SV-CPN-010: positive token-field and repeated bound-token-ID evaluation.
+    """Evidence ID
+    -----------
+    SV-CPN-010
 
     Requirement
     -----------
-    The version-1 P1 contract requires positive token-field and repeated
-    bound-token-ID evaluation.
+    positive token-field and repeated bound-token-ID evaluation.
 
     Method
     ------
-    Call ``evaluate_value`` for ``RUN_ID`` and ``BOUND_TOKEN_IDS`` using two
-    variables bound to ``work-1``, then request an unbound variable.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: positive token-field and repeated
+    bound-token-ID evaluation. Prior requirement detail: The version-1 P1 contract
+    requires positive token-field and repeated bound-token-ID evaluation. Prior method
+    detail: Call ``evaluate_value`` for ``RUN_ID`` and ``BOUND_TOKEN_IDS`` using two
+    variables bound to ``work-1``, then request an unbound variable. Prior independent
+    oracle detail: The synthetic marking fixes run ID ``run-1``; variable order fixes
+    the repeated ID tuple ``('work-1', 'work-1')``. Prior acceptance criterion detail:
+    Exact tagged values match those oracles and the absent variable raises ``KeyError``.
+    Prior failure interpretation detail: Failure breaks field routing, ordered duplicate
+    reads, or documented lookup errors. Prior limitations detail: This does not validate
+    a scientific payload or persistence format.
 
-    Independent oracle
-    ------------------
-    The synthetic marking fixes run ID ``run-1``; variable order fixes the repeated
-    ID tuple ``('work-1', 'work-1')``.
+    Oracle
+    ------
+    The documented public rule that the SUT must positive token-field and repeated
+    bound-token-ID evaluation is the contract oracle; fixed synthetic values, Python
+    exact type/value semantics, and the public error taxonomy provide independently
+    inspectable expected outcomes where used.
 
-    Acceptance criterion
-    --------------------
-    Exact tagged values match those oracles and the absent variable raises
-    ``KeyError``.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    Failure breaks field routing, ordered duplicate reads, or documented lookup
-    errors.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    This does not validate a scientific payload or persistence format.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     net = executable_net
     marking = net.initial_marking
     binding = TransitionBinding(

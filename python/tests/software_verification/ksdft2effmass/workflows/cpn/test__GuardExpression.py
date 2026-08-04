@@ -1,13 +1,23 @@
-"""Software verification for ``GuardExpression`` as the sole primary SUT.
+"""Evidence class and represented meaning
+--------------------------------------
+This module provides software-verification evidence for the public ``GuardExpression``
+software surface and its finite, exact CPN routing representation. It does not represent
+a physical observable or numerical approximation.
 
-Evidence class: software verification. Requirement and strategy are stated per
-case; public construction/execution supplies the method and exact state or the
-documented exception taxonomy supplies the independent oracle. Passing verifies
-only the named class contract. It does not provide numerical verification,
-scientific validation, uncertainty quantification, persistence, SNAKES-adapter,
-Rust-conformance, or scientific-execution evidence. Collaborators are synthetic
-setup only.
-"""
+Owned contract, oracle, and scope
+---------------------------------
+``GuardExpression`` is the sole primary SUT. Tests exercise its documented public
+contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
+error-taxonomy rules provide the independent oracles. Collaborators only construct
+inputs or expose public outcomes.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing means the named software contracts hold; failure may identify an implementation,
+fixture, oracle transcription, environment, or public-contract inconsistency. This
+module excludes numerical verification, scientific validation, uncertainty
+quantification, physical correctness, persistence and engine-adapter behavior, and
+cross-language conformance."""
 
 import pytest
 
@@ -25,48 +35,102 @@ pytestmark = pytest.mark.software_verification
 SUT = GuardExpression
 
 
-def test_cpn_sv_p1_007_guard_arity_is_enforced() -> None:
-    """SV-CPN-007: operator-specific guard arity.
+def test_constructor__contract__guard_arity_is_enforced() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-007
 
     Requirement
     -----------
-    The version-1 P1 contract requires operator-specific guard arity.
+    operator-specific guard arity.
 
     Method
     ------
-    Construct ``GuardExpression`` for ``NOT`` and ``ALL`` without required operands.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: operator-specific guard arity. Prior
+    requirement detail: The version-1 P1 contract requires operator-specific guard
+    arity. Prior method detail: Construct ``GuardExpression`` for ``NOT`` and ``ALL``
+    without required operands. Prior independent oracle detail: The closed grammar
+    requires exactly one operand for NOT and at least one for ALL. Prior acceptance
+    criterion detail: Both public constructions raise ``ValueError`` containing
+    ``arity``. Prior failure interpretation detail: Failure means malformed guards
+    became independently valid. Prior limitations detail: Comparison value typing is
+    owned by separate evidence.
 
-    Independent oracle
-    ------------------
-    The closed grammar requires exactly one operand for NOT and at least one for
-    ALL.
+    Oracle
+    ------
+    The documented public rule that the SUT must operator-specific guard arity is the
+    contract oracle; fixed synthetic values, Python exact type/value semantics, and the
+    public error taxonomy provide independently inspectable expected outcomes where
+    used.
 
-    Acceptance criterion
-    --------------------
-    Both public constructions raise ``ValueError`` containing ``arity``.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    Failure means malformed guards became independently valid.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    Comparison value typing is owned by separate evidence.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(ValueError, match="arity"):
         GuardExpression(GuardOperator.NOT)
     with pytest.raises(ValueError, match="arity"):
         GuardExpression(GuardOperator.ALL)
 
 
-def test_cpn_sv_p1_074_every_guard_shape_is_publicly_constructible() -> None:
-    """SV-CPN-074: admit every constant, composite, unary, and comparison shape.
+def test_constructor__contract__every_guard_shape_is_publicly_constructible() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-074
 
-    Method constructs the closed public forms; the operator arity table is the
-    independent oracle. Acceptance retains exact operands for all operator groups.
-    Failure leaves a documented declarative branch unreachable. Evaluation and
+    Requirement
+    -----------
+    admit every constant, composite, unary, and comparison shape.
+
+    Method
+    ------
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: admit every constant, composite, unary, and
+    comparison shape. Method constructs the closed public forms; the operator arity
+    table is the independent oracle. Acceptance retains exact operands for all operator
+    groups. Failure leaves a documented declarative branch unreachable. Evaluation and
     scientific meaning are excluded.
-    """
+
+    Oracle
+    ------
+    The documented public rule that the SUT must admit every constant, composite, unary,
+    and comparison shape is the contract oracle; fixed synthetic values, Python exact
+    type/value semantics, and the public error taxonomy provide independently
+    inspectable expected outcomes where used.
+
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
+
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
+
+    Limitations
+    -----------
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     true = SUT(GuardOperator.TRUE)
     literal = ValueExpression(
         ValueExpressionKind.LITERAL,
@@ -105,14 +169,49 @@ def test_cpn_sv_p1_074_every_guard_shape_is_publicly_constructible() -> None:
         SUT(GuardOperator.EQUAL, left=literal, right=True)  # type: ignore[arg-type]
 
 
-def test_cpn_sv_p1_075_guard_fields_reject_wrong_semantic_types() -> None:
-    """SV-CPN-075: reject non-enum operators and non-guard operand tuples.
+def test_constructor__contract__guard_fields_reject_wrong_semantic_types() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-075
 
-    Controlled-invalid public construction exercises the error boundary; exact
-    documented field types are the oracle. Acceptance requires ``TypeError``
-    rather than arity ``ValueError``. Failure permits nondeclarative guard state.
-    No collaborator behavior is validated.
-    """
+    Requirement
+    -----------
+    reject non-enum operators and non-guard operand tuples.
+
+    Method
+    ------
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: reject non-enum operators and non-guard
+    operand tuples. Controlled-invalid public construction exercises the error boundary;
+    exact documented field types are the oracle. Acceptance requires ``TypeError``
+    rather than arity ``ValueError``. Failure permits nondeclarative guard state. No
+    collaborator behavior is validated.
+
+    Oracle
+    ------
+    The documented public rule that the SUT must reject non-enum operators and non-guard
+    operand tuples is the contract oracle; fixed synthetic values, Python exact
+    type/value semantics, and the public error taxonomy provide independently
+    inspectable expected outcomes where used.
+
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
+
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
+
+    Limitations
+    -----------
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(TypeError, match="operator"):
         SUT("true")  # type: ignore[arg-type]
     with pytest.raises(TypeError, match="operands"):

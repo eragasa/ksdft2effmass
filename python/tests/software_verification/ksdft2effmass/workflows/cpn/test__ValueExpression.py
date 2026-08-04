@@ -1,13 +1,23 @@
-"""Software verification for ``ValueExpression`` as the sole primary SUT.
+"""Evidence class and represented meaning
+--------------------------------------
+This module provides software-verification evidence for the public ``ValueExpression``
+software surface and its finite, exact CPN routing representation. It does not represent
+a physical observable or numerical approximation.
 
-Evidence class: software verification. Requirement and strategy are stated per
-case; public construction/execution supplies the method and exact state or the
-documented exception taxonomy supplies the independent oracle. Passing verifies
-only the named class contract. It does not provide numerical verification,
-scientific validation, uncertainty quantification, persistence, SNAKES-adapter,
-Rust-conformance, or scientific-execution evidence. Collaborators are synthetic
-setup only.
-"""
+Owned contract, oracle, and scope
+---------------------------------
+``ValueExpression`` is the sole primary SUT. Tests exercise its documented public
+contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
+error-taxonomy rules provide the independent oracles. Collaborators only construct
+inputs or expose public outcomes.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing means the named software contracts hold; failure may identify an implementation,
+fixture, oracle transcription, environment, or public-contract inconsistency. This
+module excludes numerical verification, scientific validation, uncertainty
+quantification, physical correctness, persistence and engine-adapter behavior, and
+cross-language conformance."""
 
 import pytest
 
@@ -24,45 +34,64 @@ pytestmark = pytest.mark.software_verification
 SUT = ValueExpression
 
 
-def test_cpn_sv_p1_006_expression_union_rejects_lambda_like_state() -> None:
-    """SV-CPN-006: exact closed, nonarithmetic value-expression vocabulary.
+def test_constructor__contract__expression_union_rejects_lambda_like_state() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-006
 
     Requirement
     -----------
-    The version-1 P1 contract admits exactly literal, token-field, and bound-token-ID
-    value expressions. It has no addition, subtraction, increment, or other
-    arithmetic expression kind.
+    exact closed three-member value-expression tagged union with no arithmetic
+    expression kind.
 
     Method
     ------
-    Enumerate ``ValueExpressionKind`` and compare its ordered names and serialized
-    values with the exact public vocabulary. Then invoke ``ValueExpression`` with a
-    string ``'lambda'`` and with an incomplete token-field alternative.
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: exact closed, nonarithmetic
+    value-expression vocabulary. Prior requirement detail: The version-1 P1 contract
+    admits exactly literal, token-field, and bound-token-ID value expressions. It has no
+    addition, subtraction, increment, or other arithmetic expression kind. Prior method
+    detail: Enumerate ``ValueExpressionKind`` and compare its ordered names and
+    serialized values with the exact public vocabulary. Then invoke ``ValueExpression``
+    with a string ``'lambda'`` and with an incomplete token-field alternative. Prior
+    independent oracle detail: The documented closed grammar is exactly ``LITERAL =
+    'literal'``, ``TOKEN_FIELD = 'token_field'``, and ``BOUND_TOKEN_IDS =
+    'bound_token_ids'``. No callable, source-text, addition, subtraction, increment, or
+    general arithmetic alternative exists. Prior acceptance criterion detail: Enum names
+    and values match that exact three-entry vocabulary; the string tag raises
+    ``TypeError`` and the incomplete branch raises ``ValueError``. Prior failure
+    interpretation detail: A missing or additional enum entry changes the version-1
+    expression language. Acceptance of either malformed construction would expose a
+    nondeclarative or ambiguous expression state. Prior limitations detail: This
+    constructor case does not evaluate a guard and does not prove future
+    expression-language compatibility. In particular, it asserts absence rather than
+    implementing arithmetic or automatic ``iteration_index`` advancement.
 
-    Independent oracle
-    ------------------
-    The documented closed grammar is exactly ``LITERAL = 'literal'``,
-    ``TOKEN_FIELD = 'token_field'``, and
-    ``BOUND_TOKEN_IDS = 'bound_token_ids'``. No callable, source-text, addition,
-    subtraction, increment, or general arithmetic alternative exists.
+    Oracle
+    ------
+    The documented public rule that the SUT must exact closed three-member
+    value-expression tagged union with no arithmetic expression kind is the contract
+    oracle; fixed synthetic values, Python exact type/value semantics, and the public
+    error taxonomy provide independently inspectable expected outcomes where used.
 
-    Acceptance criterion
-    --------------------
-    Enum names and values match that exact three-entry vocabulary; the string tag
-    raises ``TypeError`` and the incomplete branch raises ``ValueError``.
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
 
-    Failure interpretation
-    ----------------------
-    A missing or additional enum entry changes the version-1 expression language.
-    Acceptance of either malformed construction would expose a nondeclarative or
-    ambiguous expression state.
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
 
     Limitations
     -----------
-    This constructor case does not evaluate a guard and does not prove future
-    expression-language compatibility. In particular, it asserts absence rather
-    than implementing arithmetic or automatic ``iteration_index`` advancement.
-    """
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     assert tuple((kind.name, kind.value) for kind in ValueExpressionKind) == (
         ("LITERAL", "literal"),
         ("TOKEN_FIELD", "token_field"),
@@ -74,13 +103,51 @@ def test_cpn_sv_p1_006_expression_union_rejects_lambda_like_state() -> None:
         ValueExpression(ValueExpressionKind.TOKEN_FIELD, variable="token")
 
 
-def test_cpn_sv_p1_078_every_expression_union_branch_is_constructible() -> None:
-    """SV-CPN-078: admit literal, token-field, and bound-token-ID union branches.
+def test_constructor__contract__every_expression_union_branch_is_constructible() -> (
+    None
+):
+    """Evidence ID
+    -----------
+    SV-CPN-078
 
-    Public exact state is the method and closed grammar is the independent oracle.
-    Acceptance retains each active field and repeated bound variables. Failure leaves
-    a documented declarative branch unreachable. Evaluation is excluded.
-    """
+    Requirement
+    -----------
+    admit literal, token-field, and bound-token-ID union branches.
+
+    Method
+    ------
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: admit literal, token-field, and
+    bound-token-ID union branches. Public exact state is the method and closed grammar
+    is the independent oracle. Acceptance retains each active field and repeated bound
+    variables. Failure leaves a documented declarative branch unreachable. Evaluation is
+    excluded.
+
+    Oracle
+    ------
+    The documented public rule that the SUT must admit literal, token-field, and
+    bound-token-ID union branches is the contract oracle; fixed synthetic values, Python
+    exact type/value semantics, and the public error taxonomy provide independently
+    inspectable expected outcomes where used.
+
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
+
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
+
+    Limitations
+    -----------
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     literal = ContractValue(ContractValueKind.STRING, "x")
     assert SUT(ValueExpressionKind.LITERAL, literal=literal).literal is literal
     assert (
@@ -95,14 +162,51 @@ def test_cpn_sv_p1_078_every_expression_union_branch_is_constructible() -> None:
     )
 
 
-def test_cpn_sv_p1_079_expression_fields_enforce_exact_semantic_types() -> None:
-    """SV-CPN-079: reject non-enum tags and malformed variable containers.
+def test_constructor__contract__expression_fields_enforce_exact_semantic_types() -> (
+    None
+):
+    """Evidence ID
+    -----------
+    SV-CPN-079
 
-    Controlled-invalid public construction reliably exercises the error boundary;
-    exact declared types are the oracle. Acceptance requires ``TypeError`` for tag,
-    collection, and entry mismatches, and ``ValueError`` for empty identity. Failure
-    permits non-portable expression state.
-    """
+    Requirement
+    -----------
+    reject non-enum tags and malformed variable containers.
+
+    Method
+    ------
+    Exercise the primary SUT through the public construction or operation boundary using
+    the synthetic valid and controlled-invalid inputs retained in the executable body.
+    The prior scenario documentation states: reject non-enum tags and malformed variable
+    containers. Controlled-invalid public construction reliably exercises the error
+    boundary; exact declared types are the oracle. Acceptance requires ``TypeError`` for
+    tag, collection, and entry mismatches, and ``ValueError`` for empty identity.
+    Failure permits non-portable expression state.
+
+    Oracle
+    ------
+    The documented public rule that the SUT must reject non-enum tags and malformed
+    variable containers is the contract oracle; fixed synthetic values, Python exact
+    type/value semantics, and the public error taxonomy provide independently
+    inspectable expected outcomes where used.
+
+    Acceptance
+    ----------
+    Every preserved exact equality, identity, ordering, representation, and expected
+    exception type, message, or code assertion must hold. No approximate tolerance or
+    warning is accepted unless the preserved executable case explicitly states one.
+
+    Interpretation
+    --------------
+    Pass supports only this named software contract. Failure may indicate a production
+    implementation defect, invalid synthetic fixture, oracle transcription error,
+    environment issue, or inconsistency in the documented public contract.
+
+    Limitations
+    -----------
+    The case excludes unexercised inputs and dependencies, physical conclusions,
+    numerical verification, scientific validation, uncertainty quantification,
+    persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(TypeError):
         SUT("literal")  # type: ignore[arg-type]
     with pytest.raises(TypeError):

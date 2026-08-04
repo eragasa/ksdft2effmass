@@ -212,3 +212,27 @@ human-accepted `PASS`. This acceptance does not automatically launch P2 and does
 not authorize arithmetic
 `iteration_index` advancement, SNAKES adaptation, persistence, P2--P11,
 production/scientific execution, or any external calculation.
+
+## Post-close documentation-governance maintenance
+
+`EVIDENCE-DOC-1` is separately authorized bounded maintenance of the reusable
+test-evidence documentation convention. Resolved `EVIDENCE-DOC-1-HC02` Option B
+extends the pilots to all 32 class-owned modules and 78 evidence owners in the
+P1 CPN workflow test directory, with complete helper documentation and function-
+node traceability. This structural migration does not reopen P1, alter
+`P1-HC01`--`P1-HC03`, or change any P1 production, schema, fixture, assertion,
+tolerance, or scientific meaning. The architecture-reviewed artifact follow-up
+uses five exact descriptive `workflow_cpn` filenames with synchronized test
+ownership, node maps, control-plane gate replay paths, completeness records, and
+migration inventory. Old filenames retained in accepted P1 reviews and explicit
+predecessor mappings are historical. `SV-CPN-028` remains one accepted
+conjunctive nonnumeric Python/JSON boundary agreement with no split or new IDs;
+numeric agreement remains separately owned by `SV-CPN-087` and `SV-CPN-088`.
+The EVIDENCE-DOC-1 completion gate now recognizes the manifest-declared
+artifact-owned versus boundary-owned integration contracts. The two verification-documentation pages and both current checksum catalogs
+are synchronized with the migrated filenames and complete current module
+surface. Obsolete integration paths remain only in accepted historical reviews,
+baselines, or explicit predecessor mappings. P1 remains closed as human-accepted
+`PASS`; this maintenance still requires
+independent semantic review and human final acceptance and does not launch
+P2--P11.

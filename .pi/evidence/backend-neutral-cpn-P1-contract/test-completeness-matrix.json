@@ -1,7 +1,7 @@
 {
   "matrix_version": 1,
   "task": "P1",
-  "status": "NUMERIC_CONTRACT_EVIDENCE_IMPLEMENTED_CHECKPOINTS_RESOLVED_P1_UNACCEPTED",
+  "status": "P1_HUMAN_ACCEPTED_POST_CLOSE_EVIDENCE_DOCUMENTATION_MIGRATION_SYNCHRONIZED",
   "evidence_range": "SV-CPN-001-SV-CPN-088",
   "maintained_pytest": {
     "class_modules": 32,
@@ -14,14 +14,14 @@
     "SV-CPN-020": "deterministic repeated firing with the same explicitly supplied iteration index while marking revision advances"
   },
   "restored_artifact_gates": {
-    "SV-CPN-023": "python/tests/software_verification/ksdft2effmass/integration/test__CpnPublicContract.py",
-    "SV-CPN-027": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-    "SV-CPN-028": "python/tests/software_verification/ksdft2effmass/integration/test__CpnContractSchema.py",
-    "SV-CPN-029": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-    "SV-CPN-030": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-    "SV-CPN-031": "python/tests/software_verification/ksdft2effmass/integration/test__CpnJsonFixtures.py",
-    "SV-CPN-032": "python/tests/software_verification/ksdft2effmass/integration/test__CpnDependencyDirection.py",
-    "SV-CPN-033": "python/tests/software_verification/ksdft2effmass/integration/test__CpnSnakesIsolation.py"
+    "SV-CPN-023": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
+    "SV-CPN-027": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+    "SV-CPN-028": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+    "SV-CPN-029": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+    "SV-CPN-030": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+    "SV-CPN-031": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+    "SV-CPN-032": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
+    "SV-CPN-033": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py"
   },
   "new_dedicated_class_modules": {
     "ArcDefinition": "SV-CPN-040",

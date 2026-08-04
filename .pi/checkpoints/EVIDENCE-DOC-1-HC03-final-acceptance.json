@@ -1,0 +1,51 @@
+{
+  "checkpoint_id": "EVIDENCE-DOC-1-HC03",
+  "task_id": "EVIDENCE-DOC-1",
+  "episode_id": null,
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T06:29:44Z",
+  "question": "Should the completed and independently reviewed EVIDENCE-DOC-1 maintenance task receive final human acceptance?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept EVIDENCE-DOC-1 as PASS and close it.",
+      "consequence": "Close the bounded evidence-documentation maintenance task as human-accepted PASS. P1 remains closed; no successor is launched; P2-P11 and production/scientific execution remain blocked."
+    },
+    {
+      "id": "B",
+      "summary": "Remand EVIDENCE-DOC-1 for a specified correction.",
+      "consequence": "Keep EVIDENCE-DOC-1 open and blocked on the human-specified correction without reopening P1 or launching a successor."
+    },
+    {
+      "id": "C",
+      "summary": "Defer final acceptance.",
+      "consequence": "Keep EVIDENCE-DOC-1 complete but unaccepted and blocked at this checkpoint. P1 remains closed and P2-P11 remain blocked."
+    }
+  ],
+  "recommendation": "Option A. Implementation and independent architecture/VVUQ and integration review are complete with PASS conclusions; fresh parent validation reports 1012 full-suite tests passed, Sphinx 9.1.0 warnings-as-errors passed, ten contract replay tests passed, 91 focused P1 tests passed, and all completion, P1 ownership, task-ownership, skill, checkpoint, checksum, chain-JSON, and diff gates passed. The 22 known protected historical evidence-owner warnings remain out of scope.",
+  "blocked_scope": "Final human acceptance and closure of EVIDENCE-DOC-1 only. P2-P11 and all production/scientific execution remain blocked and unauthorized.",
+  "safe_scope": "Read-only inspection and deterministic replay. P1 remains closed as human-accepted PASS; no accepted P1 decision is reopened.",
+  "authoritative_files": [
+    ".pi/tasks/class-owned-evidence-documentation-convention.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/class-owned-evidence-convention/task-ownership.json",
+    ".pi/evidence/class-owned-evidence-convention/review-filename-architecture-vvuq.md",
+    ".pi/evidence/class-owned-evidence-convention/review-filename-integration.md",
+    ".pi/evidence/class-owned-evidence-convention/checksums.sha256",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/implementation-progress.md",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/checksums.sha256",
+    ".pi/checkpoints/EVIDENCE-DOC-1-HC03-final-acceptance.json"
+  ],
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-04T06:36:09Z",
+  "authorized_scope": "Accept EVIDENCE-DOC-1 as human-accepted PASS and close only this bounded evidence-documentation maintenance task. P1 remains closed; no successor is launched; P2-P11 and production/scientific execution remain blocked and unauthorized.",
+  "record_paths": [
+    ".pi/checkpoints/EVIDENCE-DOC-1-HC03-final-acceptance.json",
+    ".pi/tasks/class-owned-evidence-documentation-convention.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/class-owned-evidence-convention/task-ownership.json"
+  ],
+  "resumption_status": "closed_as_human_accepted_PASS; no_successor_launched; P2-P11_and_production_scientific_execution_blocked"
+}

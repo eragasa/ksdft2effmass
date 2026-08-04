@@ -1,11 +1,20 @@
-"""Artifact-owned interoperability verification for declared CPN JSON fixtures.
+"""Evidence class and represented meaning
+--------------------------------------
+Software verification of the version-1 CPN JSON fixture family <-> Python runtime
+contract, using synthetic routing representations rather than scientific data.
 
-Evidence class: software verification. The tests use synthetic contract artifacts and
-independent language/runtime or static-structure oracles. Passing is not numerical
-verification, scientific validation, uncertainty quantification, engine execution,
-persistence, or Rust conformance evidence.
-Fixture values are synthetic workflow-routing examples, not scientific data.
-"""
+Owned contract, oracle, and scope
+---------------------------------
+The version-1 CPN JSON fixture family <-> Python runtime contract is the primary
+artifact owner. Declared fixture classifications, version-1 schemas, and public Python
+error/result surfaces are the exact oracles.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing confirms only the exercised fixture/schema/runtime contract; failure may
+indicate fixture, schema, parser, runtime, or evidence drift. Numerical verification,
+scientific validation, uncertainty quantification, physical correctness, persistence,
+and cross-language conformance are excluded."""
 
 from __future__ import annotations
 
@@ -56,53 +65,112 @@ pytestmark = pytest.mark.software_verification
 
 
 def _strict_load(path: Path) -> object:
-    """Load strict JSON and reject nonstandard nonfinite numeric constants."""
+    """Evidence ID
+    Supports exactly SV-CPN-029, SV-CPN-030, and SV-CPN-031; owns no independent
+    Evidence ID.
+
+    Requirement
+    Load fixture JSON while rejecting nonstandard nonfinite constants.
+
+    Method
+    Read repository text and decode with a controlled ``parse_constant`` callback.
+
+    Oracle
+    Standard JSON excludes NaN and infinities; the supplied fixture path fixes the
+    input.
+
+    Acceptance
+    Return decoded data or raise ``ValueError`` for a nonstandard constant.
+
+    Interpretation
+    This helper supports the named fixture evidence and owns no separate pass claim.
+
+    Limitations
+    It is not a production serializer and does not validate fixture semantics."""
 
     def reject_constant(value: str) -> object:
-        """Reject JSON constants excluded by the language-neutral contract."""
+        """Evidence ID
+        Supports exactly SV-CPN-030; owns no independent Evidence ID.
+
+        Requirement
+        Translate any decoder-supplied nonstandard JSON constant into deterministic
+        rejection.
+
+        Method
+        Raise ``ValueError`` containing the supplied constant text.
+
+        Oracle
+        Strict JSON language rules exclude every such callback value.
+
+        Acceptance
+        Always raise ``ValueError``.
+
+        Interpretation
+        This nested helper supports SV-CPN-030 and owns no separate pass claim.
+
+        Limitations
+        The controlled decoder callback is not itself validated."""
         raise ValueError(f"nonstandard JSON constant: {value}")
 
     return json.loads(path.read_text(), parse_constant=reject_constant)
 
 
 def _validate(schema_name: str, fixture: Path) -> None:
-    """Validate one fixture against one local schema entry point."""
+    """Evidence ID
+    Supports exactly SV-CPN-029, SV-CPN-030, and SV-CPN-031; owns no independent
+    Evidence ID.
+
+    Requirement
+    Validate one fixture through one named local version-1 schema entry point.
+
+    Method
+    Load schema and fixture locally, then invoke Draft 2020-12 validation with the fixed
+    registry.
+
+    Oracle
+    The caller-supplied schema/fixture pairing and local registry define the check.
+
+    Acceptance
+    Complete without exception for conforming data or propagate exact validation/load
+    failure.
+
+    Interpretation
+    This helper supports the named fixture evidence and owns no separate pass claim.
+
+    Limitations
+    It does not independently classify fixtures or test network behavior."""
     schema = json.loads((ROOT / schema_name).read_text())
     jsonschema.Draft202012Validator(schema, registry=REGISTRY).validate(
         _strict_load(fixture)
     )
 
 
-def test_cpn_sv_p1_029_all_valid_fixtures_are_schema_conformant() -> None:
-    """SV-CPN-029: schema conformance of all declared valid fixtures.
+def test_artifact__valid_json_fixtures__conform_to_declared_schemas() -> None:
+    """Evidence ID
+    SV-CPN-029
 
     Requirement
-    -----------
-    The version-1 P1 contract requires schema conformance of all declared valid
-    fixtures.
+    Every declared valid version-1 fixture conforms to its declared narrow schema entry
+    point.
 
     Method
-    ------
-    Validate the five files under ``valid/`` through their net, marking, or firing
-    schema entry points.
+    Validate the five explicit valid fixture filenames using the local schema mapping
+    and strict loader; no warnings or network access are expected.
 
-    Independent oracle
-    ------------------
-    The versioned valid-fixture inventory explicitly declares which narrow schema
-    owns each instance.
+    Oracle
+    The versioned fixture inventory and its explicit schema mapping provide the accepted
+    classifications.
 
-    Acceptance criterion
-    --------------------
-    Every fixture validates without network resolution or exception.
+    Acceptance
+    Every mapped fixture validates without exception.
 
-    Failure interpretation
-    ----------------------
-    A failure means fixture/schema drift in a declared valid contract example.
+    Interpretation
+    Pass supports declared fixture/schema agreement; failure may indicate fixture,
+    mapping, schema, registry, parser, or library drift.
 
     Limitations
-    -----------
-    Schema success alone does not execute graph relations or scientific behavior.
-    """
+    Schema success does not execute relational behavior. Scientific validation, UQ,
+    physical correctness, and cross-language conformance are excluded."""
     mapping = {
         "minimal-net.json": "cpn-net.schema.json",
         "multiset-marking.json": "cpn-marking.schema.json",
@@ -114,36 +182,33 @@ def test_cpn_sv_p1_029_all_valid_fixtures_are_schema_conformant() -> None:
         _validate(schema_name, ROOT / "valid" / fixture_name)
 
 
-def test_cpn_sv_p1_030_structural_invalid_fixtures_are_rejected() -> None:
-    """SV-CPN-030: structural rejection of invalid fixtures.
+def test_artifact__structural_invalid_json_fixtures__are_rejected() -> None:
+    """Evidence ID
+    SV-CPN-030
 
     Requirement
-    -----------
-    The version-1 P1 contract requires structural rejection of invalid fixtures.
+    Declared structurally invalid version-1 fixtures are rejected by schema validation
+    or strict JSON parsing.
 
     Method
-    ------
-    Validate four structurally invalid fixtures and strictly parse the nonfinite
-    ``NaN`` fixture.
+    Validate four explicit invalid fixtures and strictly parse the designated nonfinite
+    fixture; no warnings are expected.
 
-    Independent oracle
-    ------------------
-    Draft 2020-12 rules and RFC-compatible JSON parsing independently reject invalid
-    terminality, Boolean-as-integer, lambda shape, unsupported version, and NaN.
+    Oracle
+    Draft 2020-12 constraints and standard strict JSON exclusion of NaN independently
+    define rejection for the declared cases.
 
-    Acceptance criterion
-    --------------------
-    Each schema case raises ``ValidationError`` and strict parsing raises
-    ``ValueError`` only for the designated NaN file.
+    Acceptance
+    Each schema case raises ``ValidationError`` and only the designated NaN parse case
+    raises ``ValueError``.
 
-    Failure interpretation
-    ----------------------
-    Acceptance would broaden the fixed wire shape unexpectedly.
+    Interpretation
+    Pass supports structural-invalid classifications; failure may indicate fixture,
+    schema, parser, library, or evidence drift.
 
     Limitations
-    -----------
-    Relational invalidity requiring another object is covered by SV-CPN-031.
-    """
+    Relational invalidity belongs to SV-CPN-031. Exhaustive invalid inputs, scientific
+    validation, UQ, and cross-language conformance are excluded."""
     cases = {
         "invalid-outcome-terminality.json": "cpn-marking.schema.json",
         "boolean-as-integer.json": "cpn-marking.schema.json",
@@ -165,7 +230,26 @@ def test_cpn_sv_p1_030_structural_invalid_fixtures_are_rejected() -> None:
 
 
 def _token(data: dict[str, Any]) -> CpnToken:
-    """Construct one routing token from a language-neutral fixture object."""
+    """Evidence ID
+    Supports exactly SV-CPN-031; owns no independent Evidence ID.
+
+    Requirement
+    Construct one public routing token from the bounded relational fixture shape.
+
+    Method
+    Require no outcome and map every fixture field to the public constructor.
+
+    Oracle
+    The version-1 token wire/runtime field correspondence fixes the mapping.
+
+    Acceptance
+    Return the matching ``CpnToken`` or raise for unsupported/out-of-contract input.
+
+    Interpretation
+    This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations
+    It is a local test parser, not a production serializer; outcomes are excluded."""
     outcome_data = data["outcome"]
     if outcome_data is not None:
         raise ValueError("relational marking fixtures do not use outcomes")
@@ -189,7 +273,26 @@ def _token(data: dict[str, Any]) -> CpnToken:
 
 
 def _marking(data: dict[str, Any]) -> CpnMarking:
-    """Construct a complete marking from a language-neutral fixture object."""
+    """Evidence ID
+    Supports exactly SV-CPN-031; owns no independent Evidence ID.
+
+    Requirement
+    Construct one complete public marking from the bounded fixture shape.
+
+    Method
+    Map places and tokens in fixture order through public constructors.
+
+    Oracle
+    The version-1 marking wire/runtime field correspondence fixes the mapping.
+
+    Acceptance
+    Return the matching ``CpnMarking``.
+
+    Interpretation
+    This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations
+    It is a local test parser and assumes list-shaped places."""
     places = data["places"]
     assert isinstance(places, list)
     return CpnMarking(
@@ -207,7 +310,27 @@ def _marking(data: dict[str, Any]) -> CpnMarking:
 
 
 def _guard(data: dict[str, Any]) -> GuardExpression:
-    """Construct the closed guard shapes used by relational net fixtures."""
+    """Evidence ID
+    Supports exactly SV-CPN-031; owns no independent Evidence ID.
+
+    Requirement
+    Construct only the closed guard shapes used by relational net fixtures.
+
+    Method
+    Map TRUE directly or map one token-field/literal comparison through public enums and
+    objects.
+
+    Oracle
+    The bounded relational fixture grammar fixes the supported branches.
+
+    Acceptance
+    Return the corresponding ``GuardExpression``.
+
+    Interpretation
+    This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations
+    Other valid guard/expression shapes are intentionally excluded."""
     operator = GuardOperator(data["operator"])
     if operator is GuardOperator.TRUE:
         return GuardExpression(operator)
@@ -231,7 +354,27 @@ def _guard(data: dict[str, Any]) -> GuardExpression:
 
 
 def _net(data: dict[str, Any]) -> CpnNetDefinition:
-    """Construct the bounded no-arc net shapes used by relational fixtures."""
+    """Evidence ID
+    Supports exactly SV-CPN-031; owns no independent Evidence ID.
+
+    Requirement
+    Construct the bounded no-arc public net shapes used by relational fixtures.
+
+    Method
+    Map colors, places, transitions, guards, and initial marking through public
+    constructors.
+
+    Oracle
+    The bounded fixture wire/runtime correspondence fixes the mapping.
+
+    Acceptance
+    Return the corresponding ``CpnNetDefinition`` with an empty arc tuple.
+
+    Interpretation
+    This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations
+    It is not a general parser and excludes arc-bearing nets."""
     colors = data["colors"]
     places = data["places"]
     transitions = data["transitions"]
@@ -273,13 +416,57 @@ def _net(data: dict[str, Any]) -> CpnNetDefinition:
 
 
 def _collision_net() -> CpnNetDefinition:
-    """Build the minimal valid net needed to evaluate an existing-ID collision."""
+    """Evidence ID
+    Supports exactly SV-CPN-031; owns no independent Evidence ID.
+
+    Requirement
+    Build the minimal valid public net required to exercise an existing-output-ID
+    collision.
+
+    Method
+    Compose fixed synthetic public objects and a token loaded from the declared valid
+    marking fixture.
+
+    Oracle
+    The public firing preconditions and fixture token fix the controlled setup.
+
+    Acceptance
+    Return a valid net whose initial marking already owns the tested output ID.
+
+    Interpretation
+    This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations
+    The setup is synthetic and validates neither general firing correctness nor
+    scientific behavior."""
 
     def literal(
         kind: ContractValueKind,
         value: None | bool | int | float | str | tuple[str, ...],
     ) -> ValueExpression:
-        """Construct one explicitly tagged literal output expression."""
+        """Evidence ID
+        Supports exactly SV-CPN-031; owns no independent Evidence ID.
+
+        Requirement
+        Construct one explicitly tagged literal expression used by the controlled
+        collision net.
+
+        Method
+        Wrap the supplied accepted kind/value in public ``ContractValue`` and
+        ``ValueExpression`` objects.
+
+        Oracle
+        The fixed collision-net assignment list supplies each expected kind/value pair.
+
+        Acceptance
+        Return the tagged literal or propagate public-constructor rejection.
+
+        Interpretation
+        This nested helper supports SV-CPN-031 and owns no separate pass claim.
+
+        Limitations
+        It does not independently validate literal semantics or general expression
+        evaluation."""
         return ValueExpression(
             ValueExpressionKind.LITERAL,
             literal=ContractValue(kind, value),
@@ -333,37 +520,35 @@ def _collision_net() -> CpnNetDefinition:
     )
 
 
-def test_cpn_sv_p1_031_relational_invalid_fixtures_reach_public_oracles() -> None:
-    """SV-CPN-031: public ActionObject rejection of relational fixtures.
+def test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles() -> (
+    None
+):
+    """Evidence ID
+    SV-CPN-031
 
     Requirement
-    -----------
-    The version-1 P1 contract requires public ActionObject rejection of relational
-    fixtures.
+    Schema-valid relational-invalid fixtures reach public Python owners and produce
+    their declared issue/error codes.
 
     Method
-    ------
-    Parse schema-valid relational fixtures into public objects and invoke
-    ``CpnDefinitionValidator``, ``CpnMarkingValidator``, or ``TransitionFirer``.
+    Validate and parse explicit fixtures, construct public CPN objects, then execute
+    public definition/marking validators or firer; no warnings are expected.
 
-    Independent oracle
-    ------------------
-    The fixture README fixes expected codes for unknown color, unbound variable,
-    duplicate token, wrong place set, and existing output ID.
+    Oracle
+    The fixture contract fixes the exact ``CpnIssueCode`` and ``OUTPUT_ID_COLLISION``
+    outcomes independently of the exercised ActionObjects.
 
-    Acceptance criterion
-    --------------------
-    Each public owner emits its exact ``CpnIssueCode`` or ``OUTPUT_ID_COLLISION``
+    Acceptance
+    Each fixture is schema-valid and each public owner emits the exact asserted issue or
     error code.
 
-    Failure interpretation
-    ----------------------
-    Failure means a fixture's claimed relational oracle is not executable.
+    Interpretation
+    Pass supports fixture/runtime relational agreement; failure may indicate fixture
+    parser, schema, runtime owner, oracle, or evidence drift.
 
     Limitations
-    -----------
-    The local test parser is not a production serializer or persistence layer.
-    """
+    The local parser is not a production serializer or persistence layer. Scientific
+    validation, UQ, and cross-language conformance are excluded."""
     cases = {
         "unknown-color.json": "cpn-net.schema.json",
         "duplicate-token-id.json": "cpn-marking.schema.json",

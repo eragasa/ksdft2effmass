@@ -25,7 +25,9 @@ precheckpoint reviews remain unchanged; their earlier paths and counts describe
 superseded evidence surfaces.
 
 The current surface contains 32 exact `test__ClassName.py` object modules and
-five exact artifact-owned integration modules. Its 88 test functions/evidence
+five exact integration modules: four are manifest-declared
+`artifact_owned_integration` owners and the Python/JSON agreement module is the
+manifest-declared `boundary_owned` owner. Its 88 test functions/evidence
 items collect 91 parameter cases and preserve the contiguous range
 `SV-CPN-001` through `SV-CPN-088`. IDs `023` and `027`--`033` are ordinary pytest
 evidence; `040`--`057` own the 18 previously missing public classes;
@@ -162,3 +164,38 @@ remain blocked.
 Passing these gates is software verification only. It is not numerical
 verification, scientific validation, uncertainty quantification, Rust
 conformance, or scientific-execution evidence.
+
+## Post-close maintenance note
+
+The separately authorized `EVIDENCE-DOC-1` maintenance adds a shared structural
+and semantic documentation convention. Under resolved `EVIDENCE-DOC-1-HC02`
+Option B, all 32 class-owned modules in the P1 CPN workflow test directory now
+carry the grammar across 78 stable evidence owners, and the 11 manifest-declared
+helpers document their complete supported-ID lists without independent IDs. The
+maintenance preserves P1 assertions, fixtures, parameterization, IDs,
+production/schema behavior, and the resolved `P1-HC01`--`P1-HC03` decisions.
+Its complete-directory validator and 78-function node map establish structural
+traceability only. The architecture-reviewed artifact follow-up uses five
+lowercase descriptive `workflow_cpn` integration filenames. It preserves
+`SV-CPN-028` as one accepted conjunctive nonnumeric Python/JSON boundary
+agreement, without a split or new IDs; `SV-CPN-087` and `SV-CPN-088` remain the
+separate numeric agreements. The test writer synchronized the renamed modules,
+ten evidence owners, P1 manifest/validator, and complete rename mappings. The
+implementation/control-plane writer synchronized the completion validator,
+contract-gate replay paths, current completeness and mutation-audit records,
+and migration inventory. Accepted reviews and explicit predecessor mappings
+that cite old paths remain historical. The documentation writer synchronized the two owned verification pages, and
+the final checksum catalogs now reference the current five integration
+filenames and the complete migrated module surface. Obsolete integration paths
+remain only in accepted historical reviews, baselines, or explicit predecessor
+mappings. P1 remains closed as human-accepted `PASS`; this maintenance is not P2 and does
+not claim scientific-validation or UQ capability. Its persisted final
+architecture/VVUQ and integration reviews both conclude PASS. Fresh parent
+closeout validation reports the full Python suite at 1012 passed, Sphinx 9.1.0
+with `-W` passed, contract replay at ten passed, and the focused P1 suite at 91
+passed. Completion, P1 ownership, task-ownership, skill, checkpoint, both
+checksum, chain-JSON, and diff gates pass. The known 22 protected historical
+evidence-owner warnings remain out of scope. The human PI resolved
+`EVIDENCE-DOC-1-HC03` as Option A, closing EVIDENCE-DOC-1 as human-accepted
+`PASS`. No successor was launched. P2--P11 and production/scientific execution
+remain blocked.

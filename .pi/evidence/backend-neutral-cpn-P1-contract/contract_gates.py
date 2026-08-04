@@ -16,11 +16,11 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 PYTHON_ROOT = REPO_ROOT / "python"
 INTEGRATION_ROOT = "tests/software_verification/ksdft2effmass/integration"
 ARTIFACT_MODULES = (
-    f"{INTEGRATION_ROOT}/test__CpnPublicContract.py",
-    f"{INTEGRATION_ROOT}/test__CpnContractSchema.py",
-    f"{INTEGRATION_ROOT}/test__CpnJsonFixtures.py",
-    f"{INTEGRATION_ROOT}/test__CpnDependencyDirection.py",
-    f"{INTEGRATION_ROOT}/test__CpnSnakesIsolation.py",
+    f"{INTEGRATION_ROOT}/test__workflow_cpn_python_public_api.py",
+    f"{INTEGRATION_ROOT}/test__workflow_cpn_v1_python_json_contract.py",
+    f"{INTEGRATION_ROOT}/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+    f"{INTEGRATION_ROOT}/test__workflow_cpn_python_import_dependency_direction.py",
+    f"{INTEGRATION_ROOT}/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
 )
 
 

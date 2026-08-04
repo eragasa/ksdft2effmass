@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import ast
+import copy
+import hashlib
 import json
 import re
 import sys
@@ -13,6 +15,10 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_ROOT = Path(__file__).resolve().parent
 MANIFEST_PATH = EVIDENCE_ROOT / "test-ownership-manifest.json"
 TASK_OWNERSHIP_PATH = EVIDENCE_ROOT / "task-ownership.json"
+BASELINE_PATH = (
+    REPO_ROOT / ".pi/evidence/class-owned-evidence-convention/"
+    "p1-pre-full-migration-baseline.json"
+)
 ID_PATTERN = re.compile(r"SV-CPN-\d{3}")
 WORKFLOW_ROOT = "python/tests/software_verification/ksdft2effmass/workflows/cpn/"
 INTEGRATION_ROOT = "python/tests/software_verification/ksdft2effmass/integration/"
@@ -45,6 +51,80 @@ FORMER_MODULE_BY_ID = {
 }
 SPLIT_PREDECESSOR = {35: 10, 36: 12, 37: 18, 38: 19, 39: 19}
 RESTORED_IDS = {23, *range(27, 34)}
+MODULE_HEADINGS = (
+    "Evidence class and represented meaning",
+    "Owned contract, oracle, and scope",
+    "VVUQ and scientific exclusions",
+)
+TEST_FIELDS = (
+    "Evidence ID",
+    "Requirement",
+    "Method",
+    "Oracle",
+    "Acceptance",
+    "Interpretation",
+    "Limitations",
+)
+SEMANTIC_TEST_NAME = re.compile(
+    r"^test_(constructor|field|property|method|classmethod|staticmethod|protocol|public_api|artifact|workflow)"
+    r"__[a-z0-9]+(?:_[a-z0-9]+)*__[a-z0-9]+(?:_[a-z0-9]+)*$"
+)
+APPROVED_ARTIFACT_PATHS = (
+    INTEGRATION_ROOT + "test__workflow_cpn_python_public_api.py",
+    INTEGRATION_ROOT + "test__workflow_cpn_v1_python_json_contract.py",
+    INTEGRATION_ROOT + "test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+    INTEGRATION_ROOT + "test__workflow_cpn_python_import_dependency_direction.py",
+    INTEGRATION_ROOT
+    + "test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
+)
+SUPERSEDED_ARTIFACT_PATHS = (
+    INTEGRATION_ROOT + "test__CpnPublicContract.py",
+    INTEGRATION_ROOT + "test__CpnContractSchema.py",
+    INTEGRATION_ROOT + "test__CpnJsonFixtures.py",
+    INTEGRATION_ROOT + "test__CpnDependencyDirection.py",
+    INTEGRATION_ROOT + "test__CpnSnakesIsolation.py",
+)
+APPROVED_INTEGRATION_OWNERS = (
+    (
+        "workflow_cpn_python_public_api",
+        "artifact_owned_integration",
+        "Workflow CPN Python public import/API surface",
+    ),
+    (
+        "workflow_cpn_v1_python_json_contract",
+        "boundary_owned",
+        "version-1 CPN Python runtime <-> version-1 CPN JSON Schema and wire contract",
+    ),
+    (
+        "workflow_cpn_v1_json_fixtures_python_runtime_contract",
+        "artifact_owned_integration",
+        "version-1 CPN JSON fixture family <-> Python runtime contract",
+    ),
+    (
+        "workflow_cpn_python_import_dependency_direction",
+        "artifact_owned_integration",
+        "Workflow CPN Python import-dependency direction",
+    ),
+    (
+        "workflow_cpn_python_snakes_and_deferred_engine_isolation",
+        "artifact_owned_integration",
+        "Workflow CPN Python isolation from SNAKES and deferred engine/persistence scope",
+    ),
+)
+CONTROLLED_INTEGRATION_OWNERSHIP_TYPES = {
+    "artifact_owned_integration",
+    "boundary_owned",
+}
+PROHIBITED_GENERIC_ARTIFACT_STEMS = {
+    "integration",
+    "contract",
+    "schema",
+    "fixtures",
+    "dependency_direction",
+    "public_contract",
+    "workflow",
+    "subnet",
+}
 
 
 def _assigned_name(tree: ast.Module, target: str) -> str | None:
@@ -83,8 +163,33 @@ def _tests(tree: ast.Module) -> list[ast.FunctionDef | ast.AsyncFunctionDef]:
     ]
 
 
-def _first_line_id(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
-    """Return the sole evidence identifier on a test's summary line."""
+def _ordered_sections(docstring: str, labels: tuple[str, ...]) -> list[int]:
+    """Return positions of exact, unique, ordered reStructuredText sections."""
+    positions: list[int] = []
+    for label in labels:
+        matches = list(re.finditer(rf"(?m)^{re.escape(label)}$", docstring))
+        assert len(matches) == 1, f"expected exactly one {label!r} section"
+        positions.append(matches[0].start())
+    assert positions == sorted(positions), f"sections out of order: {labels}"
+    return positions
+
+
+def _fielded_id(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
+    """Validate the fielded grammar and return its sole evidence identifier."""
+    doc = ast.get_docstring(node) or ""
+    assert doc.strip(), f"empty docstring: {node.name}"
+    positions = _ordered_sections(doc, TEST_FIELDS)
+    boundaries = positions[1:] + [len(doc)]
+    for label, start, end in zip(TEST_FIELDS, positions, boundaries, strict=True):
+        body_start = doc.find("\n", start) + 1
+        assert doc[body_start:end].strip(), f"empty {label}: {node.name}"
+    identifiers = ID_PATTERN.findall(doc[positions[0] : positions[1]])
+    assert len(identifiers) == 1, f"missing/ambiguous fielded ID: {node.name}"
+    return identifiers[0]
+
+
+def _historical_first_line_id(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
+    """Return the sole summary-line ID retained by unmigrated historical modules."""
     doc = ast.get_docstring(node) or ""
     first_line = doc.splitlines()[0] if doc else ""
     identifiers = ID_PATTERN.findall(first_line)
@@ -92,27 +197,289 @@ def _first_line_id(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
     return identifiers[0]
 
 
+def _validate_module_headings(tree: ast.Module) -> None:
+    """Enforce the authorized headings for every migrated CPN module."""
+    module_doc = ast.get_docstring(tree) or ""
+    _ordered_sections(module_doc, MODULE_HEADINGS)
+    for heading in MODULE_HEADINGS:
+        assert f"{heading}\n{'-' * len(heading)}" in module_doc, (
+            f"invalid reStructuredText underline for {heading!r}"
+        )
+
+
+def _validate_fielded_structure(
+    tree: ast.Module,
+    tests: list[ast.FunctionDef | ast.AsyncFunctionDef],
+    owner: str,
+) -> None:
+    """Enforce the authorized headings, primary owner, and semantic test names."""
+    _validate_module_headings(tree)
+    sut_assignments = [
+        node
+        for node in tree.body
+        if isinstance(node, ast.Assign)
+        and any(
+            isinstance(target, ast.Name) and target.id == "SUT"
+            for target in node.targets
+        )
+    ]
+    assert len(sut_assignments) == 1, (
+        "fielded module must declare exactly one primary SUT"
+    )
+    assert _assigned_name(tree, "SUT") == owner
+    for node in tests:
+        assert SEMANTIC_TEST_NAME.fullmatch(node.name), (
+            f"invalid semantic fielded test name: {node.name}"
+        )
+        assert len(node.name.split("__")) == 3
+
+
+def _validate_artifact_structure(
+    tree: ast.Module,
+    tests: list[ast.FunctionDef | ast.AsyncFunctionDef],
+    integration_owner: str,
+    ownership_type: str,
+) -> None:
+    """Enforce fielded integration grammar without fabricating a class SUT."""
+    _validate_module_headings(tree)
+    assert _assigned_name(tree, "SUT") is None
+    module_doc = ast.get_docstring(tree) or ""
+    normalized_doc = " ".join(module_doc.split())
+    owner_phrase = (
+        "primary boundary owner"
+        if ownership_type == "boundary_owned"
+        else "primary artifact owner"
+    )
+    assert owner_phrase in normalized_doc
+    assert integration_owner in normalized_doc
+    for node in tests:
+        assert SEMANTIC_TEST_NAME.fullmatch(node.name)
+        assert node.name.startswith("test_artifact__")
+        assert len(node.name.split("__")) == 3
+
+
 def _validate_module_evidence(
     path: Path,
     declared_entries: list[dict[str, str]],
     observed_ids: dict[str, tuple[str, str]],
+    fielded_owner: str | None = None,
+    integration_owner: str | None = None,
+    ownership_type: str | None = None,
 ) -> ast.Module:
     """Validate shared marker, declaration, and stable-ID properties."""
     tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
     assert _has_software_marker(tree), f"missing software marker: {path}"
     tests = _tests(tree)
+    relative_path = path.relative_to(REPO_ROOT).as_posix()
+    if fielded_owner is not None:
+        _validate_fielded_structure(tree, tests, fielded_owner)
+    elif integration_owner is not None and ownership_type is not None:
+        _validate_artifact_structure(tree, tests, integration_owner, ownership_type)
     declared = {entry["test"]: entry for entry in declared_entries}
     assert {node.name for node in tests} == set(declared), (
         f"test manifest drift: {path}"
     )
     for node in tests:
-        evidence_id = _first_line_id(node)
+        evidence_id = (
+            _fielded_id(node)
+            if fielded_owner is not None or integration_owner is not None
+            else _historical_first_line_id(node)
+        )
         assert evidence_id == declared[node.name]["evidence_id"], (
             f"ID mismatch: {path}:{node.name}"
         )
         assert evidence_id not in observed_ids, f"duplicate {evidence_id}"
-        observed_ids[evidence_id] = (path.relative_to(REPO_ROOT).as_posix(), node.name)
+        observed_ids[evidence_id] = (relative_path, node.name)
     return tree
+
+
+def _validate_helpers(manifest: dict[str, object]) -> None:
+    """Require fielded documentation and complete support lists for every helper."""
+    declared_items = manifest["helpers"]
+    assert isinstance(declared_items, list)
+    declared = {
+        (item["module"], item["helper"]): item["supported_evidence_ids"]
+        for item in declared_items
+    }
+    observed: set[tuple[str, str]] = set()
+    workflow_root = REPO_ROOT / WORKFLOW_ROOT
+    for path in sorted(workflow_root.glob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        relative = path.relative_to(REPO_ROOT).as_posix()
+        if path.name == "conftest.py":
+            _validate_module_headings(tree)
+            assert _assigned_name(tree, "SUT") is None, (
+                "conftest helpers must not fabricate a primary SUT"
+            )
+        for node in ast.walk(tree):
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+            if node.name.startswith("test_"):
+                continue
+            key = (relative, node.name)
+            assert key in declared, (
+                f"undeclared evidence helper: {relative}:{node.name}"
+            )
+            doc = ast.get_docstring(node) or ""
+            positions = _ordered_sections(doc, TEST_FIELDS)
+            boundaries = positions[1:] + [len(doc)]
+            for label, start, end in zip(
+                TEST_FIELDS, positions, boundaries, strict=True
+            ):
+                body_start = doc.find("\n", start) + 1
+                assert doc[body_start:end].strip(), f"empty {label}: {key}"
+            evidence_section = doc[positions[0] : positions[1]]
+            normalized_evidence_section = " ".join(evidence_section.split())
+            assert "owns no independent evidence ID" in normalized_evidence_section
+            assert ID_PATTERN.findall(evidence_section) == declared[key]
+            observed.add(key)
+    assert observed == set(declared), "helper manifest inventory differs"
+
+
+def _normalized_helper_hash(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
+    """Hash helper executable AST after recursively removing documentation."""
+    normalized = copy.deepcopy(node)
+    for child in ast.walk(normalized):
+        if not isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            continue
+        if (
+            child.body
+            and isinstance(child.body[0], ast.Expr)
+            and isinstance(child.body[0].value, ast.Constant)
+            and isinstance(child.body[0].value.value, str)
+        ):
+            child.body = child.body[1:]
+    return hashlib.sha256(
+        ast.dump(normalized, include_attributes=False).encode()
+    ).hexdigest()
+
+
+def _validate_artifact_helpers(manifest: dict[str, object]) -> None:
+    """Validate all artifact helper fields, support IDs, and baseline-neutral AST."""
+    entries = manifest["artifact_helpers"]
+    assert isinstance(entries, list) and len(entries) == 14
+    trees: dict[str, ast.Module] = {}
+    for entry in entries:
+        module = entry["module"]
+        tree = trees.setdefault(
+            module,
+            ast.parse(
+                (REPO_ROOT / module).read_text(encoding="utf-8"), filename=module
+            ),
+        )
+        matches = [
+            node
+            for node in ast.walk(tree)
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and node.name == entry["helper"]
+        ]
+        assert len(matches) == 1
+        node = matches[0]
+        doc = ast.get_docstring(node) or ""
+        positions = _ordered_sections(doc, TEST_FIELDS)
+        evidence_section = doc[positions[0] : positions[1]]
+        assert ID_PATTERN.findall(evidence_section) == entry["supported_evidence_ids"]
+        assert "owns no independent Evidence ID" in " ".join(evidence_section.split())
+        assert (
+            _normalized_helper_hash(node) == entry["baseline_normalized_ast_sha256"]
+        ), f"helper executable AST drift: {module}:{node.name}"
+
+
+def _normalized_test_hash(
+    node: ast.FunctionDef | ast.AsyncFunctionDef, old_name: str
+) -> str:
+    """Hash executable test AST after removing documentation and restoring its old name."""
+
+    normalized = copy.deepcopy(node)
+    normalized.name = old_name
+    if (
+        normalized.body
+        and isinstance(normalized.body[0], ast.Expr)
+        and isinstance(normalized.body[0].value, ast.Constant)
+        and isinstance(normalized.body[0].value.value, str)
+    ):
+        normalized.body = normalized.body[1:]
+    prior_nested_helper_docs = {
+        "field": "Construct one public field read over synthetic maximum controls.",
+        "execute_two_cycles": (
+            "Execute twice with explicit index 7 and return immutable state."
+        ),
+        "definition_validator": "Return a local validator for one named contract definition.",
+        "runtime_token": "Construct one complete synthetic token with both controls equal.",
+        "wire_token": "Return the exact wire counterpart of ``runtime_token``.",
+    }
+    for child in ast.walk(normalized):
+        if not isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            continue
+        prior_doc = prior_nested_helper_docs.get(child.name)
+        if prior_doc is None:
+            continue
+        assert (
+            child.body
+            and isinstance(child.body[0], ast.Expr)
+            and isinstance(child.body[0].value, ast.Constant)
+            and isinstance(child.body[0].value.value, str)
+        )
+        child.body[0].value.value = prior_doc
+    payload = ast.dump(normalized, include_attributes=False).encode()
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _validate_documentation_migration(
+    manifest: dict[str, object], observed_ids: dict[str, tuple[str, str]]
+) -> None:
+    """Check complete node mappings and documentation-neutral executable AST."""
+    baseline = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
+    baseline_tests = {
+        test["evidence_id"]: (entry["module"], test)
+        for entry in baseline["modules"]
+        if entry["module"].startswith(WORKFLOW_ROOT)
+        for test in entry["tests"]
+    }
+    mappings = manifest["documentation_node_mappings"]
+    assert isinstance(mappings, list) and len(mappings) == 78
+    assert {item["evidence_id"] for item in mappings} == set(baseline_tests)
+    by_id = {item["evidence_id"]: item for item in mappings}
+    for evidence_id, (module, test) in baseline_tests.items():
+        current_module, current_name = observed_ids[evidence_id]
+        mapping = by_id[evidence_id]
+        assert mapping["old_node_id"] == f"{module}::{test['old_name']}"
+        assert mapping["new_node_id"] == f"{current_module}::{current_name}"
+        path = REPO_ROOT / current_module
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        node = next(item for item in _tests(tree) if item.name == current_name)
+        assert (
+            _normalized_test_hash(node, test["old_name"])
+            == test["normalized_ast_sha256"]
+        ), f"executable AST drift: {evidence_id}"
+
+
+def _validate_artifact_documentation_migration(
+    manifest: dict[str, object], observed_ids: dict[str, tuple[str, str]]
+) -> None:
+    """Require exact artifact rename mappings and documentation-neutral test AST."""
+    baseline = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
+    baseline_tests = {
+        test["evidence_id"]: (entry["module"], test)
+        for entry in baseline["modules"]
+        if entry["module"] in SUPERSEDED_ARTIFACT_PATHS
+        for test in entry["tests"]
+    }
+    mappings = manifest["artifact_documentation_node_mappings"]
+    assert isinstance(mappings, list) and len(mappings) == 10
+    assert {item["evidence_id"] for item in mappings} == set(baseline_tests)
+    by_id = {item["evidence_id"]: item for item in mappings}
+    for evidence_id, (old_module, test) in baseline_tests.items():
+        current_module, current_name = observed_ids[evidence_id]
+        mapping = by_id[evidence_id]
+        assert mapping["old_node_id"] == f"{old_module}::{test['old_name']}"
+        assert mapping["new_node_id"] == f"{current_module}::{current_name}"
+        tree = ast.parse((REPO_ROOT / current_module).read_text(encoding="utf-8"))
+        node = next(item for item in _tests(tree) if item.name == current_name)
+        assert (
+            _normalized_test_hash(node, test["old_name"])
+            == test["normalized_ast_sha256"]
+        ), f"artifact executable AST drift: {evidence_id}"
 
 
 def _validate_migration_traceability(
@@ -177,19 +544,19 @@ def validate_ownership() -> tuple[int, int, int]:
     )
     assert actual_class_paths == expected_class_paths, "class module inventory differs"
 
-    integration_root = REPO_ROOT / manifest["canonical_integration_directory"]
-    declared_artifact_names = task_ownership["test_ownership"]["artifact_modules"]
-    actual_artifact_paths = sorted(
-        integration_root / name for name in declared_artifact_names
+    actual_artifact_paths = tuple(
+        item["module"] for item in manifest["artifact_modules"]
     )
-    expected_artifact_paths = sorted(
-        REPO_ROOT / item["module"] for item in manifest["artifact_modules"]
+    assert actual_artifact_paths == APPROVED_ARTIFACT_PATHS
+    assert all((REPO_ROOT / path).is_file() for path in actual_artifact_paths)
+    assert not any((REPO_ROOT / path).exists() for path in SUPERSEDED_ARTIFACT_PATHS)
+    assert not any(
+        Path(path).stem.removeprefix("test__") in PROHIBITED_GENERIC_ARTIFACT_STEMS
+        for path in actual_artifact_paths
     )
-    assert actual_artifact_paths == expected_artifact_paths
-    assert all(path.is_file() for path in actual_artifact_paths)
 
     sys.path.insert(0, str(REPO_ROOT / "python" / "src"))
-    import ksdft2effmass.workflows.cpn as cpn
+    from ksdft2effmass.workflows import cpn
 
     exports = manifest["public_exports"]
     assert [item["name"] for item in exports] == cpn.__all__
@@ -201,7 +568,9 @@ def validate_ownership() -> tuple[int, int, int]:
         owner = entry["public_class"]
         assert path.name == f"test__{owner}.py"
         assert owner in cpn.__all__
-        tree = _validate_module_evidence(path, entry["evidence"], observed_ids)
+        tree = _validate_module_evidence(
+            path, entry["evidence"], observed_ids, fielded_owner=owner
+        )
         module_doc = ast.get_docstring(tree) or ""
         assert owner in module_doc and "sole primary SUT" in module_doc
         assert _assigned_name(tree, "SUT") == owner
@@ -212,14 +581,35 @@ def validate_ownership() -> tuple[int, int, int]:
                 for item in ast.walk(node)
             ), f"owner not exercised: {path}:{node.name}"
 
-    for entry in manifest["artifact_modules"]:
+    for entry, (filename_owner, ownership_type, integration_owner) in zip(
+        manifest["artifact_modules"], APPROVED_INTEGRATION_OWNERS, strict=True
+    ):
         path = REPO_ROOT / entry["module"]
-        tree = _validate_module_evidence(path, entry["evidence"], observed_ids)
-        assert "Artifact-owned" in (ast.get_docstring(tree) or "")
+        assert entry["ownership_type"] in CONTROLLED_INTEGRATION_OWNERSHIP_TYPES
+        assert entry["ownership_type"] == ownership_type
+        if ownership_type == "boundary_owned":
+            assert "artifact_owner" not in entry
+            assert entry["boundary_owner"] == integration_owner
+        else:
+            assert "boundary_owner" not in entry
+            assert entry["artifact_owner"] == filename_owner
+        assert entry["boundary_agreement"] == integration_owner
+        assert path.name == f"test__{filename_owner}.py"
+        tree = _validate_module_evidence(
+            path,
+            entry["evidence"],
+            observed_ids,
+            integration_owner=integration_owner,
+            ownership_type=ownership_type,
+        )
         assert _assigned_name(tree, "SUT") is None
 
     expected_ids = {f"SV-CPN-{index:03d}" for index in range(1, 89)}
     assert set(observed_ids) == expected_ids, "P1 evidence range must be 001-088"
+    _validate_helpers(manifest)
+    _validate_artifact_helpers(manifest)
+    _validate_documentation_migration(manifest, observed_ids)
+    _validate_artifact_documentation_migration(manifest, observed_ids)
     current_targets = dict(observed_ids)
     _validate_migration_traceability(manifest, current_targets)
 
@@ -270,6 +660,10 @@ def validate_ownership() -> tuple[int, int, int]:
 
     blocked = manifest["blocked_by_p1_hc01"]
     assert blocked == []
+    assert (
+        tuple(manifest["evidence_script"]["authoritative_modules"])
+        == APPROVED_ARTIFACT_PATHS
+    )
     return len(actual_class_paths), len(actual_artifact_paths), len(observed_ids)
 
 

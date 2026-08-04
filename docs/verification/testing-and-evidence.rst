@@ -11,74 +11,180 @@ Evidence classes
 ----------------
 
 ``software_verification``
-   Demonstrates that an implementation satisfies its documented software
-   contract, including public types, intrinsic invariants, ownership,
-   serialization, structured errors, and composition.
+   Checks an implemented software contract, such as public construction,
+   invariants, behavior, error taxonomy, serialization, imports, or technical
+   integration.  Values in an assertion do not by themselves make a test
+   numerical verification.
 
 ``numerical_verification``
-   Demonstrates that a numerical algorithm implements or approximates its
-   stated mathematics using analytical cases, manufactured solutions,
-   convergence evidence, scale tests, or independent references.
+   Checks implementation of stated mathematics against a result derived
+   independently of the production algorithm.  The evidence records units,
+   scale regime, numerical representation, and an exact or tolerance-based
+   acceptance rule.  It does not establish agreement with nature or with an
+   independent physical reference.
 
 ``scientific_validation``
-   Compares a physical or scientific model with independent evidence for a
-   declared intended use.
+   Would compare a declared model and use case with independent reference
+   evidence under a separately authorized validation protocol.  It is future
+   work unless repository artifacts explicitly provide it.  Passing software
+   or numerical tests must not be relabeled as scientific validation, and no
+   marker or evidence-identifier family may be inferred for this absent class.
 
 ``uncertainty_quantification``
-   Identifies uncertainty sources and propagates them to reported intervals or
-   distributions.
+   Would identify and propagate uncertainty sources.  Error handling,
+   parameterization, multiple scales, or tolerance testing alone is not
+   uncertainty quantification.
 
-Constructor and input-invariant tests are software verification.  Passing them
-must not be described as scientific validation.  A deterministic tolerance test
-alone is not uncertainty quantification.  Tests and reports must state when
-scientific validation or uncertainty quantification has not been performed.
+Constructor and input-invariant tests are software verification.  Tests and
+reports must explicitly exclude scientific validation and uncertainty
+quantification when they have not been performed; the current maintained
+operator-record and CPN evidence described below does not claim either
+capability.
 
 Stable evidence identifiers
 ---------------------------
 
 Every migrated test receives an identifier that remains stable if files are
-reorganized.  The identifier combines the evidence class, an object or
-subsystem abbreviation, and a three-digit sequence.  For example,
+reorganized.  Existing identifier families combine the evidence class, an
+object or subsystem abbreviation, and a three-digit sequence.  For example,
 ``SV-ORA-001`` identifies software-verification evidence for
 ``OperatorRecordResidualAnalyzer`` and ``NV-ORA-001`` identifies numerical
-verification for the same object.  Identifiers for absent evidence classes must
-not be created.  Identifiers must be unique across the maintained test suite.
+verification for the same object.  Migration preserves existing identifiers
+and scientific meaning.  Identifiers for absent evidence classes must not be
+created, and no new marker or family is implied by this convention.
+Identifiers must be unique across the maintained test suite.
 
-Executable documentation requirements
--------------------------------------
+Unified executable-documentation grammar
+----------------------------------------
 
-A migrated module docstring documents:
+The unified grammar applies when an evidence module is migrated.  It does not
+silently rewrite or authorize changes to protected historical evidence.
 
-* the system or object under test and its evidence class;
-* the public requirement or mathematical contract;
-* test strategy, oracle source, and acceptance approach;
-* controlled fault injection, when applicable;
-* exclusions and the interpretation of both passing and failing results;
-* explicit scientific-validation and uncertainty-quantification status.
+Exact module headings
+~~~~~~~~~~~~~~~~~~~~~
 
-Each test docstring records its evidence identifier and, as applicable, the
-requirement, method, oracle, acceptance criterion, interpretation, and
-limitations.  Documentation must explain the evidence rather than repeat the
-function name.  Helpers document the object constructed, assumptions, canonical
-fields, defaults, coercion behavior, and whether their data are synthetic or
-scientifically meaningful.  Comments are reserved for analytical derivations,
-extreme-scale constructions, failure triggers, tolerance choices, and other
-reasoning not evident from the code.
+A migrated class-owned or artifact-owned module docstring contains the
+following headings exactly once and in this order:
 
-Analytical oracles and acceptance criteria
-------------------------------------------
+.. code-block:: text
 
-Numerical-verification documentation states the represented matrix, shape,
-dtype, units, scale regime, and analytical expected metrics.  Expected values
-must not be computed with the production algorithm under test.  Parameterized
-families use meaningful case identifiers.
+   Evidence class and represented meaning
+   Owned contract, oracle, and scope
+   VVUQ and scientific exclusions
 
-Every approximate comparison documents its relative tolerance, absolute
-tolerance, or ULP limit and why that criterion is appropriate.  A nonzero tiny
-reference must use a criterion that cannot accept zero.  Tests also state
-whether metric-order canonicalization is expected and whether numerical
-warnings are treated as errors.  Exact mathematical zero is distinguished from
-an approximately small value.
+The first heading names the evidence class and, where applicable, distinguishes
+the physical model, mathematical object, finite or numerical representation,
+and software surface.  The second names the primary system under test (SUT),
+the owned contract, the oracle source, and the included unit and scale regime.
+The third states what pass and failure mean and excludes unsupported numerical
+verification, scientific validation, uncertainty quantification, physical
+correctness, and cross-language conformance.
+
+Exact test and helper fields
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Every migrated test-function docstring and nontrivial evidence-helper docstring
+contains these seven fields exactly once and in this order, each with a nonempty
+body:
+
+.. code-block:: text
+
+   Evidence ID
+   Requirement
+   Method
+   Oracle
+   Acceptance
+   Interpretation
+   Limitations
+
+``Evidence ID`` gives one stable authoritative identifier.  A helper instead
+names the evidence it supports and states that it owns no identifier.  A
+parameterized test normally owns one identifier; an explicitly inventoried
+same-stem inclusive range is permitted only with a one-to-one mapping from
+parameters to identifiers.  ``Requirement`` states a public contract or
+mathematical claim rather than restating an assertion.  ``Method`` identifies
+public inputs, action, controlled fault, parameter regime, and warning policy.
+``Oracle`` explains the independently known expected result.  ``Acceptance``
+gives the exact result, exception, ordering, representation, or justified
+inclusive tolerance or ULP rule.  ``Interpretation`` distinguishes plausible
+implementation, fixture, oracle, environment, and contract defects.
+``Limitations`` records excluded inputs, regimes, dependencies, physical
+conclusions, scientific validation, uncertainty quantification, and
+cross-language claims.  Evidence-specific requirements, oracles, acceptance
+rules, and limitations remain authoritative rather than being replaced by
+boilerplate.
+
+Semantic test naming
+~~~~~~~~~~~~~~~~~~~~
+
+Migrated test functions use exactly
+``test_<surface>__<facet>__<behavior>``.  ``<surface>`` is one of
+``constructor``, ``field``, ``property``, ``method``, ``classmethod``,
+``staticmethod``, ``protocol``, ``public_api``, ``artifact``, or ``workflow``;
+the facet names the public operation or cohesive contract facet, and the
+behavior states the expected observable outcome.  Segments are lowercase
+snake case, evidence identifiers do not appear in function names, and a rename
+requires a complete old-to-new pytest node-ID map.
+
+Evidence ownership
+~~~~~~~~~~~~~~~~~~
+
+Class-owned evidence has one public DataObject, ResultObject, ActionObject,
+Workflow, or error object as its sole primary SUT.  Collaborators only construct
+inputs or expose public outcomes.  Cross-object behavior belongs to the
+ActionObject or genuine production Workflow that owns the operation.  A public
+schema, fixture family, import surface, dependency boundary, command, or
+interoperability artifact instead owns artifact-integration evidence; a class or
+technical Workflow must not be fabricated merely to provide an owner.  Helpers
+own setup or assertion mechanics, no evidence identifier, and no independent
+pass claim; they must not hide an oracle or scientific convention.  Protected
+historical evidence remains inventoried and unchanged until a separate
+migration is authorized.
+
+Evidence filenames follow the owner.  A class-owned module is exactly
+``test__<ClassName>.py`` and its case-sensitive stem, imported public class,
+manifest owner, documentation, and ``SUT = <ClassName>`` assignment agree.  An
+artifact- or boundary-owned module instead uses a descriptive lowercase
+snake-case name that identifies the concrete artifact or both boundary sides;
+``_to_`` is reserved for a directional relation.  Cross-object behavior is
+owned by its genuine ActionObject or production Workflow, while technical
+integration remains artifact- or boundary-owned and must not be assigned to an
+invented Workflow.  Controlled renames preserve evidence identifiers,
+assertions, fixtures, parameterization, and meaning, and update manifests,
+replay paths, inventories, checksums, documentation, and one-to-one pytest node
+maps together.  The exact grammar, approved ``workflow_cpn`` names, and review
+rules are maintained in
+``.pi/skills/document-research-python/references/test-evidence-documentation.md``.
+
+Parameterization, representation, and independent oracles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Parameterization is appropriate only when one requirement, method, oracle form,
+acceptance rule, and interpretation cover a declared input partition.  Each
+case receives a stable meaningful parameter ID rather than an ordinal.
+Documentation states boundary values, signs, scales, canonicalization, warning
+policy, excluded zeros, and the expected pass/fail partition.  Cases with
+different requirements or failure meanings are separate tests.  Collection
+count and evidence-owner count remain distinct and traceable.
+
+Use exact equality for exact represented state, canonical text, deterministic
+ordering, enum or error identity, and DataObject value semantics.  Do not weaken
+an exact contract with approximate comparison.  Approximate comparisons require
+an authorized mathematical or numerical contract and documentation of the norm,
+tolerance, units, scale, boundary inclusivity, zero handling, and floating-point
+representation.  A nonzero tiny reference uses a criterion that cannot accept
+zero; exact mathematical zero is not merely an approximately small value.
+
+An independent oracle is available without executing the behavior under test.
+Acceptable sources include a public invariant, fixed schema, exact language
+semantics, hand-derived analytical result, higher-precision or independently
+implemented calculation, or approved external reference.  A production helper,
+private method, production constant as the sole expected value, the same library
+routine under different names, or agreement among reviews is not independent.
+A production constant may select inputs only when its approved value is also
+anchored independently.  Numerical-verification documentation states the
+represented object, shape, dtype, units, scale regime, analytical result,
+warning policy, and acceptance rule.
 
 Controlled fault injection
 --------------------------
@@ -213,6 +319,17 @@ contract and the tested binary64 independence decisions; it establishes no DFT
 or Wannier accuracy, physical structure validity, scientific validation,
 uncertainty quantification, or Rust conformance. Detailed traceability is in
 :doc:`operator-record-geometry`.
+
+``NV-G-001`` through ``NV-G-009`` are protected historical evidence and were
+compared read-only with the unified convention, not migrated.  Their seven test
+and helper fields, unique identifiers, numerical-verification marker,
+meaningful signed-scale parameter IDs, analytical oracle independence, exact
+representation rules, threshold boundaries, warning policy, interpretations,
+and exclusions conform.  Their historical module headings and test names do
+not use the new exact grammar.  Those structural differences are inventory
+findings, not authorization to rename or redocument the accepted module.  The
+comparison is not new validation, a tolerance-adequacy determination, or final
+acceptance.
 
 EnergyReference software evidence
 ---------------------------------
@@ -811,15 +928,30 @@ conformance. Detailed traceability is in
 CPN P1 class-ownership evidence
 -------------------------------
 
-``SV-CPN-001`` through ``SV-CPN-039`` cover the bounded project-owned CPN
-contract. Thirty-one test functions/class-owned evidence items, collecting 34
-parameter cases, are partitioned into 14 exact ``test__ClassName.py`` modules
-under the canonical workflow/CPN software-verification directory. Eight package/specification gates are intentionally
-owned by the deterministic P1 ownership audit rather than attributed to a
-production class. The machine-readable manifest inventories all 49 public
-exports, including the 35 without dedicated P1 modules. Detailed ownership,
-commands, exclusions, and the unresolved numeric-wire boundary are recorded in
-:doc:`cpn-contract`.
+``SV-CPN-001`` through ``SV-CPN-088`` cover the bounded project-owned CPN
+contract. Eighty-eight test functions/evidence owners, collecting 91 parameter
+cases, are partitioned into 32 class-owned ``test__ClassName.py`` modules under
+the canonical workflow/CPN software-verification directory and five
+artifact- or boundary-owned integration modules. The machine-readable manifest inventories
+all 49 public exports, including 17 classified enum/marker exceptions. Detailed
+ownership, commands, exclusions, and the resolved numeric-wire boundary are
+recorded in :doc:`cpn-contract`.
+
+The human-authorized controlled migration is complete for all 32 maintained
+class-owned CPN modules and the five maintained artifact- or boundary-owned
+integration modules.  Their 88 evidence owners retain ``SV-CPN-001`` through
+``SV-CPN-088`` and now use the unified module/test/helper grammar and semantic
+test names.  Complete one-to-one old/new pytest node mappings provide rename
+traceability; for example, current nodes include
+``test__CpnToken.py::test_field__iteration_index__rejects_boolean`` and
+``test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory``.
+Protected historical modules remain unchanged.
+
+This documentation and filename migration records structural ownership and
+traceability only.  Path changes are not new evidence, semantic validation,
+numerical verification, scientific validation, uncertainty quantification, or
+final acceptance, and they do not establish persistence, adapter, or
+cross-language behavior.
 
 Traceability and review
 -----------------------
@@ -827,8 +959,22 @@ Traceability and review
 Evidence identifiers connect public requirements, executable tests, Sphinx
 summaries, and task records.  Detailed assertions remain in test modules;
 Sphinx records the common standard and summarizes maintained numerical evidence.
-Reviews of migrated tests check evidence-class correctness, identifier
-uniqueness, non-tautological documentation, oracle independence, explicit
-acceptance criteria, failure interpretation, fault-injection scope, and the
-scientific-validation boundary.  Documentation and tests must remain
-synchronized as migration proceeds one approved object or subsystem at a time.
+Documentation and tests must remain synchronized as migration proceeds one
+approved object or subsystem at a time.
+
+Structural review checks exact heading and field occurrence/order, nonempty
+field bodies, marker/prefix/hierarchy/owner agreement, identifier uniqueness,
+helper nonownership, semantic name form, explicit primary SUT or artifact owner,
+parameter IDs, node-ID mappings, and separation of evidence classes.  Semantic
+review separately checks that requirements are public and non-tautological,
+methods exercise public boundaries, oracles are genuinely independent,
+acceptance follows exact-representation or justified-tolerance policy, and
+units, shapes, scales, warnings, zeros, boundaries, interpretations, and
+limitations are adequate.  It also checks that assertions, fixtures, schemas,
+source, specification, and documentation preserve the same scientific and
+public-contract meaning.
+
+Structural tooling reports syntax and inventory conformance only.  It cannot
+establish oracle independence, mathematical correctness, tolerance adequacy,
+scientific validity, uncertainty-quantification adequacy, or human acceptance;
+those require semantic review and, where protected, human authority.
