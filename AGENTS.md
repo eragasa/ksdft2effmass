@@ -224,8 +224,9 @@ requirements. Mutable state is owned by the controlling chain, active task,
 unresolved checkpoints, and latest durable human decisions—not by this
 snapshot.
 
-At this snapshot, P1 is active and blocked at unresolved `P1-HC01`; P2--P11 and
-all production or scientific execution remain blocked. Verify this against
+At this snapshot, P1 and the bounded EVIDENCE-DOC-1 maintenance task are closed
+as human-accepted `PASS`; no successor is active, and P2--P11 and all production
+or scientific execution remain blocked. Verify this against
 `.pi/chains/backend-neutral-kohn-sham-qe.chain.json` at session start and update
 stale prose rather than following it. Read
 `docs/architecture/colored-petri-net-workflows.md` and
@@ -249,9 +250,13 @@ Decision handling and closeout procedures are defined in
 uniquely required in-scope deterministic correction or a standing durable human
 decision. Pause for a genuine human decision when materially different options
 affect scientific meaning, public contracts, scope, dependencies, external data
-or execution, destructive actions, ownership, or acceptance. Final acceptance
-must be recorded durably, followed by closeout validation; stop before starting
-a successor task.
+or execution, destructive actions, ownership, or acceptance. A checkpoint block
+must be a validated commit pushed to the task branch before waiting for the
+human. After an unambiguous resolution, record and validate the decision, commit
+and push that resolution boundary, and only then resume authorized work. Apply
+the same validated commit-and-push boundary whenever the human explicitly
+accepts a coherent incremental change. Final acceptance must be recorded
+durably, followed by closeout validation; stop before starting a successor task.
 
 The human PI remains final authority for scientific meaning, mathematical and
 physical conventions, public APIs and serialization contracts, backward
@@ -445,8 +450,16 @@ For each task:
    - unresolved limitations;
    - scientific or expensive validations not performed.
 
-Do not commit, push, merge, tag, publish, or submit external jobs unless
-explicitly requested.
+Do not merge, tag, publish, submit external jobs, or otherwise perform an
+external or release action unless explicitly requested. Commits and pushes to
+the active task branch are additionally authorized—and required—at durable human
+decision boundaries: before waiting at a genuine checkpoint, after recording its
+resolution, and after explicit human acceptance of a coherent incremental
+change. Include only validated, in-scope state; never mix unrelated or unaccepted
+work into the boundary commit. Do not amend or rewrite a pushed decision-boundary
+commit. Roll back by revert or by branching from the accepted commit; do not
+reset shared history or force-push without explicit human approval. Direct
+pushes to `main` remain prohibited.
 
 ## Definition of done
 

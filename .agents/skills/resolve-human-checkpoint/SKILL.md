@@ -19,7 +19,14 @@ provided, or asks one concise clarification when the response is ambiguous.
 - the current human message;
 - unresolved checkpoint JSON files under `.pi/checkpoints/`;
 - the checkpoint schema at `.pi/checkpoints/checkpoint.schema.json`;
-- related task and episode records referenced by the checkpoint.
+- related task and episode records referenced by the checkpoint;
+- the pending checkpoint commit identity and active task branch; and
+- the expected remote containing the durable checkpoint boundary.
+
+A genuine pending checkpoint should already be committed and pushed with its
+validated pre-checkpoint state. If it is not, report the missing durable boundary
+and remain blocked rather than treating local-only state as a shared rollback
+anchor.
 
 Do not require the human to say `record this decision`, `resume the task`,
 `update the task file`, or `continue the chain`.
@@ -41,9 +48,13 @@ Do not require the human to say `record this decision`, `resume the task`,
    - update `record_paths` with the task, episode, and evidence files changed;
    - update the linked task and episode records;
    - set `resumption_status` to the current resumption state;
-   - resume the blocked task automatically;
-   - rerun required validation; and
+   - rerun required resolution validation;
+   - commit the coherent resolution as a separate task/checkpoint decision
+     boundary and push it to the active task branch;
+   - resume the blocked task automatically only after that push succeeds; and
    - report the outcome and remaining unresolved decisions.
+   If commit or push fails, preserve the written resolution records, report the
+   partial failure and commit/push status, and do not resume authorized work.
 6. If a bare `yes` or equivalent is the current response, resolve only when
    exactly one unresolved (`pending` or `blocked`) checkpoint exists and exactly
    one proposed approval is awaiting confirmation.
@@ -76,6 +87,8 @@ Report:
 - authorized scope;
 - task/episode/checkpoint files updated;
 - validation rerun;
+- pending-boundary and resolution commit identities;
+- branch, remote, and push status;
 - resumed or still-blocked status;
 - remaining genuine human decisions, if any.
 
@@ -94,8 +107,10 @@ idempotent no-op and do not resume work twice. If it is resolved differently,
 has changed identity, or the human response is ambiguous, return a structured
 conflict/ambiguity failure and stop. Record checkpoint, task, and episode updates
 before any separately authorized resumption; report every path successfully
-written if a later write or validation fails. Resumption is a distinct external
-operation and must not occur when the normalized decision does not authorize it.
+written if a later write, validation, commit, or push fails. The validated
+resolution commit must be pushed before resumption. Resumption is a distinct
+external operation and must not occur when the normalized decision does not
+authorize it or when the durable push failed.
 
 Retries require an immutable parent authorization identity or a request's
 pre-authorized retry policy, use new attempt identities, and retain earlier
@@ -103,4 +118,15 @@ failure/results. The result records skill identity/content hash; request, task,
 parent-workflow, and attempt identities; input identities; changed paths; normalized
 decision, validation commands/results, resumption status, warnings, and any
 partial-failure classification. Only the preserved human response supplies human
-acceptance authority; skill execution and validation do not.
+acceptance authority; skill execution, validation, commit, and push do not.
+
+## Incremental human-acceptance boundary
+
+When the human explicitly accepts a coherent incremental change outside a formal
+checkpoint, apply the same durability rule after validation: commit and push that
+accepted increment before continuing with unaccepted work. Do not invoke this
+skill merely for routine conversation, but preserve the accepted boundary under
+the standing policy in `AGENTS.md` and
+`docs/development/agent-control-plane.rst`. Do not amend or rewrite a pushed
+decision-boundary commit; use revert or a new branch for restoration unless the
+human explicitly authorizes destructive history rewriting.

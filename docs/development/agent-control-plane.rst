@@ -22,10 +22,9 @@ Colored Petri Net architecture and P0--P11 task program recorded in
 final acceptance through ``CPN-HC01`` on 2026-08-03, and the architecture task
 is closed. The human PI accepted bounded P0 as ``CONDITIONAL_PASS`` through
 resolved ``P0-HC01`` on 2026-08-03 and closed it. Bounded P0A
-packaging/configuration closed as human-accepted ``PASS``. P1 is the active
-production-contract task and is blocked at unresolved ``P1-HC01`` for its
-version-1 numeric wire contract. P2--P11 remain blocked, and no production
-QE/ABINIT/Wannier execution is authorized.
+packaging/configuration, P1, and the bounded EVIDENCE-DOC-1 maintenance task
+closed as human-accepted ``PASS``. No successor task is active. P2--P11 remain
+blocked, and no production QE/ABINIT/Wannier execution is authorized.
 Basis/state-space alignment remains a G01b work item, not a prerequisite of
 G01a or G02, and is not active.
 
@@ -89,6 +88,37 @@ but final-acceptance recordkeeping is administrative once the human gives
 acceptance: the agent records acceptance, updates the case register, episode, and
 active task, runs closeout validation, closes the task, and stops before starting
 another task.
+
+Durable Git decision boundaries
+-------------------------------
+
+A genuine human checkpoint is a version-control boundary, not merely a local JSON
+state. Before presenting a blocking checkpoint, the agent completes the bounded
+pre-checkpoint validation, commits the coherent task state together with the
+pending checkpoint, and pushes that commit to the active task branch. The task
+then waits. If commit or push fails, the agent reports the failure and remains
+blocked; an unpushed local checkpoint is not a durable shared rollback anchor.
+
+When the human answers unambiguously, the agent preserves the response, updates
+the checkpoint and linked control records, and runs the resolution validation.
+It then commits and pushes that resolution as a separate decision boundary before
+resuming the newly authorized work. A human-accepted final checkpoint is handled
+the same way before task closure is reported.
+
+The same rule applies when the human incrementally clarifies and explicitly
+accepts a coherent bounded change without creating a formal checkpoint. After
+validation, that accepted increment receives its own commit and push before
+unaccepted work continues. Routine discussion, progress narration, failed
+experiments, and unaccepted work do not create decision-boundary commits.
+
+Each boundary commit identifies the task and checkpoint or accepted increment.
+It contains only validated in-scope state and excludes unrelated or unaccepted
+changes. Once pushed, it is not amended, squashed away, rebased, or otherwise
+rewritten. Restoration normally uses a revert commit or a new branch from the
+accepted boundary; destructive reset or force-push requires explicit human
+approval. These standing commit-and-push rules apply only to the active task
+branch and do not authorize direct pushes to ``main``, merges, tags, releases, or
+publication.
 
 DataObject, ActionObject, and ResultObject policy
 -------------------------------------------------
