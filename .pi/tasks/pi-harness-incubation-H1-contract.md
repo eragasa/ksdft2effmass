@@ -1,6 +1,6 @@
 # H1 — Harness contract and package boundary
 
-Status: active and blocked at pending `H1-HC01`; corrected contract evidence and final reviews pass; no implementation authorized
+Status: active after resolved `H1-HC01` Option B; exactly one bounded `DiagnosticPath` contract correction authorized; final acceptance pending; no implementation authorized
 
 ## Objective
 
@@ -56,15 +56,22 @@ not required harness resources or reusable validator inputs.
 
 No production Python or textual-resource implementation, source movement, legacy retirement, package publication, P2 work, or scientific execution. H1 must not silently resolve conflicts retained by H0.
 
-## Required decision
+## Resolved decision and bounded correction
 
-H1 is blocked at `.pi/checkpoints/H1-HC01-harness-contract.json`, a genuine human
-checkpoint accepting, correcting, rejecting, or deferring the public
-internal API, version boundaries, profile/resource loading, structured errors,
-path rules, extraction boundary, and the exact ordered H3-then-H2 ownership
-plan. That plan must define paths, profiles, schemas, compatibility boundaries,
-and non-overlapping writer/reviewer ownership before H3 or H2 is separately
-activated. H1 acceptance does not activate H3.
+The human PI resolved `.pi/checkpoints/H1-HC01-harness-contract.json` as Option B
+on 2026-08-04: accept the H1 architecture subject to exactly one bounded
+contract-only correction. H1 must introduce the neutral `DiagnosticPath`
+semantic primitive and change `ValidationIssue.path` from
+`ResourcePath | None` to `DiagnosticPath | None` without weakening
+`ResourcePath` or `OwnershipScopePath`. The correction must reconcile all
+affected contract evidence, intended Python/Rust mappings, planned H2 tests,
+planned H3 schemas and fixtures, maintained documentation, validation, and
+focused independent reviews while retaining the original finding and correction
+trace.
+
+H1 remains active until the corrected contract returns to final human
+acceptance. H3 is not activated. H3-H5, P2-P11, implementation, resource/schema
+creation, external or scientific execution, and publication remain blocked.
 
 ## VVUQ boundary
 

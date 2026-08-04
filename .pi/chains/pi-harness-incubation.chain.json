@@ -3,7 +3,7 @@
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
   "description": "Separate harness-incubation project. H0 is closed as human-accepted planning evidence. H1 alone is active as a non-implementation contract task; H3, H2, and H4 remain sequentially blocked. After accepted H4, P2 and optional H5 each require their own explicit human activation.",
-  "status": "h1_active_blocked_at_H1-HC01_no_implementation",
+  "status": "h1_active_bounded_DiagnosticPath_contract_correction_no_implementation",
   "active_task": "H1",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -45,7 +45,7 @@
       "id": "H1",
       "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
       "prerequisites": ["H0:human_accepted"],
-      "status": "active_blocked_at_H1-HC01"
+      "status": "active_bounded_DiagnosticPath_contract_correction"
     },
     {
       "id": "H3",
@@ -117,6 +117,12 @@
       "decision": "A",
       "resolved_at": "2026-08-04T09:58:36Z",
       "result": "H1 -> H3 -> H2 -> H4 adopted; P2 and optional H5 are separately activated branches after accepted H4; no task activated."
+    },
+    {
+      "checkpoint": "H1-HC01",
+      "decision": "B",
+      "resolved_at": "2026-08-04T15:03:53Z",
+      "result": "The H1 architecture is accepted subject to exactly one bounded contract-only correction introducing neutral DiagnosticPath semantics for ValidationIssue.path; H1 remains active, final acceptance remains pending, and no implementation or successor is activated."
     }
   ],
   "activations": [
@@ -127,11 +133,11 @@
       "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
     }
   ],
-  "pending_checkpoints": ["H1-HC01"],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "H1-human-checkpoint",
-      "message": "H1 contract evidence, validation, and independent reviews pass. H1 remains active and is blocked at pending H1-HC01. H3, H2, H4, H5, and P2-P11 remain blocked. H1 acceptance does not activate H3; no implementation, extraction, package publication, external execution, or scientific execution is authorized."
+      "phase": "H1-bounded-contract-correction",
+      "message": "H1-HC01 resolved as Option B. H1 alone remains active for exactly one bounded DiagnosticPath contract correction, validation, focused independent review, and return to final human acceptance. H3, H2, H4, H5, and P2-P11 remain blocked; no implementation, resource/schema creation, extraction, package publication, external execution, or scientific execution is authorized."
     }
   ]
 }
