@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. The H4-HC03 stabilization was frozen at R4 and replayed exactly once, but R4 exposed a stale hard-coded full-Python-suite total in completion validation. H4-HC03 forbids R5/E5, so H4 is blocked, maintained routing remains legacy, and P2/H5/all successors remain inactive.",
-  "status": "H4_blocked_after_R4_material_defect_no_R5_authorized",
+  "description": "Separate harness-incubation project. After R4 exposed the omitted hard-coded full-suite total, the human directly instructed the root agent to change that hard-coded rule after being told it requires a successor replay-input boundary. Exactly the omitted same-run full-pytest rule correction and one final R5/E5 boundary are active. Maintained routing remains legacy; P2/H5/all successors remain inactive.",
+  "status": "H4_active_directly_authorized_omitted_full_pytest_rule_R5_E5",
   "active_task": "H4",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -75,7 +75,7 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "blocked_after_R4_material_defect_no_R5_authorized",
+      "status": "active_directly_authorized_omitted_full_pytest_rule_R5_E5",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
@@ -212,8 +212,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "stop-H4-after-R4-material-defect",
-      "message": "Stop under H4-HC03: no R5/E5 is authorized. Retain legacy route. H4 is not closed; P2, H5, P3-P11, scientific/external execution, publication, and release remain blocked."
+      "phase": "execute-omitted-full-pytest-rule-R5-E5",
+      "message": "Apply only the directly ordered removal of the hard-coded full-suite total using the accepted run-consistent pytest rule; validate, freeze one R5, replay once, create E5, targeted confirm, and conditionally complete the already accepted cutover. Maintained route remains legacy until all gates pass; no other correction or successor is authorized."
     }
   ]
 }

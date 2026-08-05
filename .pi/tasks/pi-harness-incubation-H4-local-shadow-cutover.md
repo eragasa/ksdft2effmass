@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: blocked after the single authorized R4 replay exposed a stale hard-coded full-Python-suite total in the completion validator; H4-HC03 forbids R5/E5, maintained route remains legacy, H4 is not closed, and P2 remains inactive
+Status: active under the subsequent direct human instruction to correct the omitted hard-coded full-suite rule using the same run-consistent pytest contract; this necessarily creates one final R5/E5 boundary, while maintained routing remains legacy and all successor/protected work remains inactive
 
 ## Objective
 
