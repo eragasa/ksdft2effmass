@@ -139,9 +139,9 @@
     },
     {
       "command": "python .pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
-      "status": "PENDING_GENERATED_ARTIFACT_COMMIT",
-      "exit_status": null,
-      "summary": "semantic evidence is finalized; completion must run after the generated artifacts are committed"
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "H4 completion: PASS: pairs=8 local_exports=30 generic_exports=41 clean_revision_replay=true"
     }
   ],
   "difference_summary": {
