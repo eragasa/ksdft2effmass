@@ -128,16 +128,16 @@ def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
     )
 
 
-def test_artifact__completion_gate__rejects_hand_authored_and_accepts_exact_fixture(
+def test_artifact__completion_gate__rejects_superseded_replay_and_accepts_fixture(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """Reject the old summary and accept an exact constructed replay fixture."""
+    """Reject the superseded replay and accept an exact constructed fixture."""
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     replay = load(evidence / "replay_selected_validators.py", "h4_replay_fixture")
     validator = load(evidence / "validate_h4_completion.py", "h4_completion_fixture")
-    old = json.loads((evidence / "shadow-parity-results.json").read_bytes())
-    assert validator.validate_parity(old) is not None
+    retained = json.loads((evidence / "shadow-parity-results.json").read_bytes())
+    assert "input identity mismatch" in validator.validate_parity(retained)
 
     revision = subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=root, text=True
@@ -209,6 +209,33 @@ def test_artifact__completion_gate__rejects_hand_authored_and_accepts_exact_fixt
     malformed_state["pairs"][0]["legacy"]["state"] = [["state", [1]]]
     assert "incomplete normalized observation" in validator.validate_parity(
         malformed_state
+    )
+
+    # Stable checksums exclude exactly self and three generated artifacts.
+    acceptance = json.loads((evidence / "acceptance-artifacts.json").read_bytes())
+    validation = json.loads((evidence / "validation-results.json").read_bytes())
+    parity = json.loads((evidence / "shadow-parity-results.json").read_bytes())
+    assert validator.validate_generated_evidence(acceptance, validation, parity) is None
+    catalog_paths = {
+        line.partition("  ")[2]
+        for line in (evidence / "checksums.sha256").read_text().splitlines()
+    }
+    assert (
+        validator.validate_checksum_policy(
+            acceptance, catalog_paths, len(catalog_paths)
+        )
+        is None
+    )
+    extra = copy.deepcopy(acceptance)
+    extra["checksum_exclusions"].append({"path": "extra", "reason": "not authorized"})
+    assert "exact contracted four" in validator.validate_checksum_policy(
+        extra, catalog_paths, len(catalog_paths)
+    )
+    included = catalog_paths | {
+        ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json"
+    }
+    assert "contains" in validator.validate_checksum_policy(
+        acceptance, included, len(catalog_paths)
     )
 
 

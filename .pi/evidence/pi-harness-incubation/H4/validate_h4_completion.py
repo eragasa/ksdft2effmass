@@ -43,6 +43,24 @@ OBSERVATION_KEYS = {
     "inventory",
     "report_identity",
 }
+CHECKSUM_EXCLUSIONS = [
+    {
+        "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
+        "reason": "The stable catalog cannot include its own content identity without self-reference.",
+    },
+    {
+        "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+        "reason": "Generated clean-replay output is validated structurally and against revision_identity by the semantic completion gate.",
+    },
+    {
+        "path": ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+        "reason": "The acceptance index owns the catalog count and exact exclusion policy and is validated structurally by the semantic completion gate.",
+    },
+    {
+        "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+        "reason": "Finalized command evidence is validated structurally by the semantic completion gate after stable-boundary checks complete.",
+    },
+]
 REQUIRED = (
     "acceptance-artifacts.json",
     "checksums.sha256",
@@ -151,6 +169,137 @@ def revision_blob_digest(root: Path, revision: str, path: str) -> str | None:
         if completed.returncode == 0
         else None
     )
+
+
+def validate_checksum_policy(
+    acceptance: object, catalog_paths: set[str], catalog_count: int
+) -> str | None:
+    if not isinstance(acceptance, dict):
+        return "acceptance index schema is invalid"
+    if acceptance.get("checksum_exclusions") != CHECKSUM_EXCLUSIONS:
+        return "checksum exclusion policy is not the exact contracted four"
+    excluded_paths = {item["path"] for item in CHECKSUM_EXCLUSIONS}
+    if catalog_paths & excluded_paths:
+        return "stable checksum catalog contains a generated/self-referential exclusion"
+    artifacts = [
+        item
+        for item in acceptance.get("artifacts", [])
+        if isinstance(item, dict)
+        and item.get("path") == ".pi/evidence/pi-harness-incubation/H4/checksums.sha256"
+    ]
+    if (
+        len(artifacts) != 1
+        or artifacts[0].get("entry_count") != catalog_count
+        or artifacts[0].get("status") != "stable_boundary_pass"
+    ):
+        return "stable checksum count/status does not agree with acceptance index"
+    return None
+
+
+def validate_generated_evidence(
+    acceptance: object, validation: object, parity: object
+) -> str | None:
+    if not isinstance(acceptance, dict) or not isinstance(parity, dict):
+        return "generated acceptance/parity evidence schema is invalid"
+    revision = parity.get("revision_identity")
+    provisional = (
+        acceptance.get("acceptance_status")
+        == "implementation_pass_new_clean_revision_replay_required"
+        and acceptance.get("last_clean_replay_revision") == revision
+        and "implementation_revision" not in acceptance
+    )
+    finalized = (
+        acceptance.get("acceptance_status") == "implementation_pass"
+        and acceptance.get("implementation_revision") == revision
+    )
+    if (
+        acceptance.get("schema_version") != 1
+        or acceptance.get("artifact_identity") != "H4.acceptance-index.v1"
+        or acceptance.get("task_id") != "H4"
+        or not (provisional or finalized)
+        or acceptance.get("implementation_evidence_status") != "PASS"
+        or acceptance.get("human_acceptance_claimed") is not False
+        or acceptance.get("authoritative_route") != "legacy_pending_h4_checkpoint"
+        or acceptance.get("review_gate")
+        != {"required": True, "status": "pending_independent_review"}
+    ):
+        return "implementation acceptance index is structurally inconsistent"
+    if not isinstance(validation, dict):
+        return "generated validation evidence schema is invalid"
+    expected_summaries = {
+        "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local": "21 passed",
+        "pytest -q python": "1104 passed",
+        "python harness/pi/validation/validate_h3_resources.py": "55 gates, 0 defects",
+        "python .pi/skills/validate_skill_capabilities.py": "6 skill records, 6 filesystem skills, 0 validation errors",
+    }
+    commands = validation.get("commands")
+    if not isinstance(commands, list) or any(
+        not isinstance(item, dict) for item in commands
+    ):
+        return "generated validation command inventory is invalid"
+    indexed = {item.get("command"): item for item in commands}
+    if len(indexed) != len(commands):
+        return "generated validation command identities are not unique"
+    if any(
+        indexed.get(command, {}).get("status") != "PASS"
+        or indexed.get(command, {}).get("exit_status") != 0
+        or indexed.get(command, {}).get("summary") != summary
+        for command, summary in expected_summaries.items()
+    ):
+        return "required parent-supplied validation facts are absent"
+    provisional_validation = (
+        provisional
+        and validation.get("last_clean_replay_revision") == revision
+        and "implementation_revision" not in validation
+        and validation.get("replay_label") == f"last-clean-replay:{revision}"
+        and validation.get("overall_status")
+        == "IMPLEMENTATION_PASS_NEW_CLEAN_REVISION_REPLAY_REQUIRED"
+        and validation.get("difference_summary")
+        == {
+            "last_clean_replay_equivalent": 4,
+            "last_clean_replay_intentional": 4,
+            "defect": 0,
+            "deferred": 0,
+            "superseded_by_evidence_edits": True,
+            "last_clean_replay_revision": revision,
+        }
+        and validation.get("deferred")
+        == [
+            "A new clean replay is required at the post-evidence-edit commit because current-file/revision identity equality is fail-closed."
+        ]
+    )
+    finalized_validation = (
+        finalized
+        and validation.get("implementation_revision") == revision
+        and validation.get("replay_label") == f"clean-revision:{revision}"
+        and validation.get("overall_status")
+        == "IMPLEMENTATION_PASS_PENDING_INDEPENDENT_REVIEW_AND_HUMAN_ACCEPTANCE"
+        and validation.get("difference_summary")
+        == {
+            "equivalent": 4,
+            "intentional": 4,
+            "defect": 0,
+            "deferred": 0,
+            "retained_clean_replay_revision": revision,
+        }
+        and validation.get("deferred") == []
+    )
+    if (
+        validation.get("schema_version") != 1
+        or validation.get("artifact_identity") != "H4.validation-results.v1"
+        or validation.get("task_id") != "H4"
+        or not (provisional_validation or finalized_validation)
+        or validation.get("defects") != []
+        or validation.get("review_gate")
+        != {"required": True, "status": "pending_independent_review"}
+        or validation.get("authoritative_route") != "legacy_pending_human_checkpoint"
+        or validation.get(
+            "authoritative_cutover_allowed_without_review_and_human_acceptance"
+        )
+        is not False
+    ):
+        return "generated validation evidence is structurally inconsistent"
+    return None
 
 
 def validate_unrelated_work(
@@ -353,6 +502,7 @@ def main() -> int:
     try:
         parity = json.loads((EVIDENCE / "shadow-parity-results.json").read_bytes())
         acceptance = json.loads((EVIDENCE / "acceptance-artifacts.json").read_bytes())
+        validation = json.loads((EVIDENCE / "validation-results.json").read_bytes())
         traceability = json.loads((EVIDENCE / "old-new-traceability.json").read_bytes())
         baseline = json.loads(
             (EVIDENCE / "unrelated-worktree-baseline.json").read_bytes()
@@ -367,6 +517,8 @@ def main() -> int:
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         return fail(f"invalid retained JSON: {exc}")
     if (reason := validate_parity(parity)) is not None:
+        return fail(reason)
+    if reason := validate_generated_evidence(acceptance, validation, parity):
         return fail(reason)
     if (
         route != {"rollback_route": "legacy", "route": "legacy", "schema_version": 1}
@@ -445,8 +597,6 @@ def main() -> int:
         or not limitation.get("starting_revision")
     ):
         return fail("historical pre-H4 replay limitation is absent")
-    if acceptance.get("acceptance_status") != "pass":
-        return fail("acceptance artifacts are not in pass state")
     namespace = ["SV-HL", 1, 13, 3]
     scope_ok = any(
         isinstance(x, list)
@@ -459,13 +609,6 @@ def main() -> int:
     if namespace not in profile.get("evidence_namespace_rules", []) or not scope_ok:
         return fail("required SV-HL profile handoff is not applied")
     catalog = (EVIDENCE / "checksums.sha256").read_text().splitlines()
-    artifacts = [
-        x
-        for x in acceptance.get("artifacts", [])
-        if x.get("path") == ".pi/evidence/pi-harness-incubation/H4/checksums.sha256"
-    ]
-    if len(artifacts) != 1 or artifacts[0].get("entry_count") != len(catalog):
-        return fail("checksum boundary count does not agree with acceptance index")
     catalog_paths: set[str] = set()
     for line in catalog:
         expected, separator, relative = line.partition("  ")
@@ -478,10 +621,15 @@ def main() -> int:
         ):
             return fail(f"invalid or mismatched checksum closure entry: {relative}")
         catalog_paths.add(relative)
+    if reason := validate_checksum_policy(acceptance, catalog_paths, len(catalog)):
+        return fail(reason)
     required_boundary = {
+        ".pi/evidence/pi-harness-incubation/H4/activation.json",
+        ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
+        ".pi/evidence/pi-harness-incubation/H4/old-new-traceability.json",
         ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py",
-        ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
-        ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+        ".pi/evidence/pi-harness-incubation/H4/task-ownership.json",
+        ".pi/evidence/pi-harness-incubation/H4/unrelated-worktree-baseline.json",
         ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
         "python/src/ksdft2effmass/harness/pi/local/__init__.py",
         "python/tests/software_verification/ksdft2effmass/harness/pi/local/__init__.py",
