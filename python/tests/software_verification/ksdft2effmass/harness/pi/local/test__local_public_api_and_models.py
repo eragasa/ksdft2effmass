@@ -113,7 +113,8 @@ def test_constructor__local_records__enforces_invariants_and_value_semantics(
         LocalValidationResult("PASS", (issue,))
     with pytest.raises(TypeError):
         AdaptationResult(object(), failed)
-    for mutable in ({"nested": []}, [()], ([],)):
+    mutable_cases: tuple[object, ...] = ({"nested": []}, [()], ([],))
+    for mutable in mutable_cases:
         with pytest.raises(TypeError):
             AdaptationResult(mutable, LocalValidationResult("PASS", ()))
     with pytest.raises(ValueError):
