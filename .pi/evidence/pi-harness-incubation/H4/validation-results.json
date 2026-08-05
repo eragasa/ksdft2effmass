@@ -2,8 +2,8 @@
   "schema_version": 1,
   "artifact_identity": "H4.validation-results.v1",
   "task_id": "H4",
-  "replay_label": "last-clean-replay:664c8614d7bfd201a3c445459e007c620fa0060e",
-  "overall_status": "IMPLEMENTATION_PASS_NEW_CLEAN_REVISION_REPLAY_REQUIRED",
+  "replay_label": "clean-revision:207ed757226c54998a65f3af0e480c248761f55f",
+  "overall_status": "IMPLEMENTATION_PASS_PENDING_INDEPENDENT_REVIEW_AND_HUMAN_ACCEPTANCE",
   "commands": [
     {
       "command": "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local",
@@ -12,7 +12,7 @@
       "summary": "21 passed"
     },
     {
-      "command": "clean replay at durable revision 664c8614d7bfd201a3c445459e007c620fa0060e",
+      "command": "clean replay at durable revision 207ed757226c54998a65f3af0e480c248761f55f",
       "status": "PASS",
       "exit_status": 0,
       "summary": "8 legacy and 8 local observations PASS; 4 equivalent, 4 intentional, 0 defect, 0 deferred"
@@ -139,32 +139,30 @@
     },
     {
       "command": "python .pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
-      "status": "EXPECTED_REJECTION",
-      "exit_status": 1,
-      "summary": "post-replay test bytes require one final clean replay after the evidence/test commit"
+      "status": "PENDING_GENERATED_ARTIFACT_COMMIT",
+      "exit_status": null,
+      "summary": "semantic evidence is finalized; completion must run after the generated artifacts are committed"
     }
   ],
   "difference_summary": {
-    "last_clean_replay_equivalent": 4,
-    "last_clean_replay_intentional": 4,
+    "equivalent": 4,
+    "intentional": 4,
     "defect": 0,
     "deferred": 0,
-    "superseded_by_evidence_edits": true,
-    "last_clean_replay_revision": "664c8614d7bfd201a3c445459e007c620fa0060e"
+    "retained_clean_replay_revision": "207ed757226c54998a65f3af0e480c248761f55f"
   },
   "out_of_scope_baseline_limitations": [
     "Global Ruff format scan: four pre-existing unchanged CPN tests require formatting.",
     "Global mypy: nine pre-existing H2 untyped-test errors remain; focused H4 source/tests pass all 15 files."
   ],
   "defects": [],
-  "deferred": [
-    "A new clean replay is required at the post-evidence-edit commit because current-file/revision identity equality is fail-closed."
-  ],
+  "deferred": [],
   "review_gate": {
     "required": true,
     "status": "pending_independent_review"
   },
   "authoritative_route": "legacy_pending_human_checkpoint",
   "authoritative_cutover_allowed_without_review_and_human_acceptance": false,
-  "last_clean_replay_revision": "664c8614d7bfd201a3c445459e007c620fa0060e"
+  "last_clean_replay_revision": "207ed757226c54998a65f3af0e480c248761f55f",
+  "implementation_revision": "207ed757226c54998a65f3af0e480c248761f55f"
 }
