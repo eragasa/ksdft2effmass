@@ -1,0 +1,57 @@
+{
+  "checkpoint_id": "H4-HC01",
+  "task_id": "H4",
+  "episode_id": "pi-harness-incubation-H4",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-05T05:58:41Z",
+  "question": "Does the human PI accept H4 as PASS and authorize the controlled closeout cutover that changes exactly harness/local/validation-route.json from legacy to local, reruns the named live consumer and rollback checks, records H4 as human-accepted, and closes H4 only, while explicitly accepting the retained static-verification limitations (repository-wide Ruff reports 43 errors; focused H4 source-and-test mypy reports one test-local annotation error; focused H4 Ruff and source-only mypy pass) and leaving H5, P2, scientific/external execution, publication, and release work inactive?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept H4 as PASS, authorize the controlled local-route cutover, and close H4 only.",
+      "consequence": "The checkpoint-resolution procedure records acceptance, changes only the maintained route owner from legacy to local, reruns the local consumer and rollback proof, updates H4 task/chain/acceptance closeout records, commits and pushes the closeout boundary, and stops. H5, P2, scientific/external execution, publication, release, and every other successor remain inactive pending separate explicit authorization."
+    },
+    {
+      "id": "B",
+      "summary": "Retain legacy authority and require explicitly specified further H4 work.",
+      "consequence": "H4 remains open and legacy-authoritative. The human-specified work is preserved verbatim and assessed against the frozen replay-input and evidence boundaries; no cutover or successor activation occurs."
+    },
+    {
+      "id": "C",
+      "summary": "Defer or reject H4 acceptance and cutover.",
+      "consequence": "H4 remains blocked at H4-HC01 with R, E, corrections, validation, and reviews retained. Legacy remains authoritative and no successor, external, scientific, publication, or release action begins."
+    }
+  ],
+  "recommendation": "Option A. Frozen replay-input revision be964976ef66b9a8d35f3929d8d24f31bd242084 and generated evidence revision afc403b1f7586c26d1ad8e7b45bb468a2313e90f retain eight identical-input pairs with all legacy/local observations PASS, four equivalent and four cited intentional differences, zero defects, and zero deferred pairs. The completion gate, 1107-test Python suite, H3 55-gate validator, skill, ownership, checkpoint, Sphinx, packaging/import, route-consumer, dependency/lock, diff, and unrelated-work checks pass. Independent architecture, skill/resource, and integration review closure is PASS after restoring accepted H1-H3 checksum catalogs and correcting false Ruff/mypy evidence. The remaining static limitations are accurately disclosed and make no scientific-validation, release, or successor-authorization claim.",
+  "blocked_scope": "H4 human acceptance, authoritative local-route cutover, H4 closure, H5 or P2 activation, scientific/external execution, publication, release, package publication, resource-byte restoration, and unrelated work.",
+  "safe_scope": "Read-only inspection of the frozen R revision, generated E artifacts and hashes, correction and review-closure records, validation results, cutover/rollback plan, route configuration, task/chain/checkpoint state, and this checkpoint. The resolve-human-checkpoint procedure may preserve and normalize an unambiguous human response and perform only the option-authorized deterministic H4 closeout.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/checkpoints/H4-HC01-harness-cutover.json",
+    ".pi/evidence/pi-harness-incubation/H4/activation.json",
+    ".pi/evidence/pi-harness-incubation/H4/task-ownership.json",
+    ".pi/evidence/pi-harness-incubation/H4/replay-inputs.json",
+    ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+    ".pi/evidence/pi-harness-incubation/H4/evidence-artifact-hashes.json",
+    ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+    ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+    ".pi/evidence/pi-harness-incubation/H4/review-closure.json",
+    ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
+    ".pi/evidence/pi-harness-incubation/H4/old-new-traceability.json",
+    ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+    ".pi/evidence/pi-harness-incubation/H1/checksums.sha256",
+    ".pi/evidence/pi-harness-incubation/H2/checksums.sha256",
+    ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
+    "harness/local/validation-route.json",
+    ".pi/skills/validate_harness.py"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "H4_blocked_pending_human_acceptance_and_cutover_decision; legacy_authoritative; H5_P2_and_all_other_successors_inactive"
+}

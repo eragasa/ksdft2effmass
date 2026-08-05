@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: active by separate human authorization on 2026-08-05; H4 only; final human acceptance/cutover checkpoint pending after implementation, parity, review, and validation
+Status: blocked at pending H4-HC01 human acceptance/cutover checkpoint after implementation, frozen-revision parity, correction, independent review closure, and final validation; legacy remains authoritative
 
 ## Objective
 

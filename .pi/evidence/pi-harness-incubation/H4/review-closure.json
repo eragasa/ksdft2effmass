@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.independent-review-closure.v1",
+  "task_id": "H4",
+  "replay_input_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084",
+  "evidence_revision": "afc403b1f7586c26d1ad8e7b45bb468a2313e90f",
+  "correction_revision": "232b61e7aeff6e0c4008fa7781a5ea61e0c04a8e",
+  "historical_catalog_restoration_revision": "b8ca72fabdb58e9e15abae79903176e31fe64e9d",
+  "overall_status": "PASS_WITH_RETAINED_STATIC_VERIFICATION_LIMITATIONS",
+  "reviews": [
+    {
+      "role": "architecture",
+      "phase": "closure",
+      "verdict": "PASS",
+      "artifact": ".pi-subagents/artifacts/3cd2bead-ccc3-4d85-b093-dd78626bcafb_ksdft2effmass.ksdft2effmass-harness-cutover-architecture-reviewer_0_output.md",
+      "sha256": "f1ff800f6598055f1218f487dc8abae2ede35f6e1c1bd83c1b6703eb66c2cdc0"
+    },
+    {
+      "role": "skill-resource",
+      "phase": "closure",
+      "verdict": "FAIL",
+      "artifact": ".pi-subagents/artifacts/3cd2bead-ccc3-4d85-b093-dd78626bcafb_ksdft2effmass.ksdft2effmass-harness-cutover-skill-resource-reviewer_1_output.md",
+      "sha256": "11ce7e5be31b6b1ae4414c6567800bc125fda6d4d3c0d8c042441d782a426a90",
+      "resolution": "Accepted H1-H3 checksum catalogs restored byte-for-byte from de8659bc5858a52de8f866ec73a14487bf480432 in b8ca72fabdb58e9e15abae79903176e31fe64e9d."
+    },
+    {
+      "role": "integration",
+      "phase": "closure",
+      "verdict": "FAIL",
+      "artifact": ".pi-subagents/artifacts/3cd2bead-ccc3-4d85-b093-dd78626bcafb_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_2_output.md",
+      "sha256": "df3a5061aca2109651017d7283fa708323eb11fcd58acdfe6192e42d64ddc4e3",
+      "resolution": "False Ruff and mypy PASS claims corrected, limitations and completion attestation scope disclosed, and E hashes regenerated in 232b61e7aeff6e0c4008fa7781a5ea61e0c04a8e."
+    },
+    {
+      "role": "skill-resource",
+      "phase": "focused-follow-up",
+      "verdict": "PASS",
+      "artifact": ".pi-subagents/artifacts/b78d5874-0154-438e-bafa-acab0f32a25e_ksdft2effmass.ksdft2effmass-harness-cutover-skill-resource-reviewer_0_output.md",
+      "sha256": "7e905d7724e55c8e0b6602bc894589f0a89292bdd67326e80a76af52bebb7f7f"
+    },
+    {
+      "role": "integration",
+      "phase": "focused-follow-up",
+      "verdict": "PASS",
+      "artifact": ".pi-subagents/artifacts/b78d5874-0154-438e-bafa-acab0f32a25e_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_1_output.md",
+      "sha256": "d17e6466107dc6d997a01fc961fb98918df5383b8296a22457fa2535b3975fbd"
+    }
+  ],
+  "retained_limitations": [
+    "Repository-wide Ruff exits 1 with 43 errors; the accurately scoped focused H4 Ruff command passes.",
+    "Focused H4 source-and-test mypy exits 1 with one missing local-variable annotation in a test; source-only mypy passes all eight local source files.",
+    "The completion gate validates retained evidence semantics and core gates but does not rerun every supplemental command.",
+    "Route rollback restores legacy routing only; restoring retired resource bytes requires a separate Git restoration from de8659bc5858a52de8f866ec73a14487bf480432."
+  ],
+  "human_acceptance_claimed": false,
+  "authoritative_route": "legacy_pending_h4_checkpoint",
+  "successor_activation": "none"
+}
