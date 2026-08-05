@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0, and harness H1 are closed as human-accepted PASS. No harness or CPN successor task is active. P2 requires accepted P1, accepted H4, and separate explicit P2 activation; optional H5 is not a P2 prerequisite. P2-P11 and production/scientific execution remain blocked and unauthorized.",
-  "status": "p1_and_h1_closed_p2_blocked_by_h4_and_explicit_activation",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0, H1, and H4 are closed as human-accepted PASS. No task is active. P2 prerequisites P1 and H4 are satisfied, but P2 requires a distinct durable activation boundary. Optional H5 is not a P2 prerequisite. P3-P11 and production/scientific execution remain blocked.",
+  "status": "p1_h4_closed_p2_awaiting_distinct_activation_boundary",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -176,7 +176,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "P1, harness H0, and harness H1 are human-accepted PASS. No successor is active; the harness project owns sequential H3 -> H2 -> H4 and optional H5, with separate explicit activation required for every successor. P2 requires accepted P1, accepted H4, and separate explicit P2 activation. H5 is not a P2 prerequisite. Neither P2 nor H5 activates automatically after H4. P2-P11 remain blocked and unauthorized until every prerequisite, task-specific ownership preflight, and explicit activation is satisfied.",
+  "launch_policy": "P1 and harness H4 are human-accepted PASS. No successor is active. P2 requires its distinct explicit activation boundary and validated task ownership before implementation; H5 is optional and not a prerequisite. P3-P11 remain blocked and unauthorized until every prerequisite and explicit activation is satisfied.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -248,8 +248,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "await-harness-H1-through-H4",
-      "message": "The backend-neutral CPN chain has no active CPN task. Harness H0 and H1 are human-accepted and closed; H3, H2, and H4 remain sequentially blocked and inactive. P2 requires accepted P1, accepted H4, and separate explicit activation. Optional H5 is separately activated after H4 and is not a P2 prerequisite. P3-P11 remain transitively blocked."
+      "phase": "await-explicit-P2-activation-boundary",
+      "message": "H4 is closed human-accepted PASS. P2 is eligible but inactive pending a distinct durable activation boundary and ownership preflight. H5, P3-P11, scientific/external execution, publication, and release remain blocked."
     }
   ]
 }

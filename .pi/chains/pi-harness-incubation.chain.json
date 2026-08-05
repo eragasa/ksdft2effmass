@@ -2,9 +2,9 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. After R4 exposed the omitted hard-coded full-suite total, the human directly instructed the root agent to change that hard-coded rule after being told it requires a successor replay-input boundary. Exactly the omitted same-run full-pytest rule correction and one final R5/E5 boundary are active. Maintained routing remains legacy; P2/H5/all successors remain inactive.",
-  "status": "H4_active_directly_authorized_omitted_full_pytest_rule_R5_E5",
-  "active_task": "H4",
+  "description": "Separate harness-incubation project. H0, H1, H3, H2, and H4 are closed as human-accepted PASS. H4 local routing is authoritative after corrected R5/E5 validation and rollback proof. H5 remains optional and inactive. No successor or protected work is active.",
+  "status": "H4_closed_human_accepted_PASS_local_authoritative",
+  "active_task": null,
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
   "architecture_documents": [
@@ -75,7 +75,7 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "active_directly_authorized_omitted_full_pytest_rule_R5_E5",
+      "status": "human_accepted_pass_local_authoritative",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
@@ -212,8 +212,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "execute-omitted-full-pytest-rule-R5-E5",
-      "message": "Apply only the directly ordered removal of the hard-coded full-suite total using the accepted run-consistent pytest rule; validate, freeze one R5, replay once, create E5, targeted confirm, and conditionally complete the already accepted cutover. Maintained route remains legacy until all gates pass; no other correction or successor is authorized."
+      "phase": "H4-closed",
+      "message": "H4 is human-accepted PASS and maintained local validation routing is authoritative with legacy rollback retained. No H5, P2, scientific/external execution, publication, or release action was activated in this boundary."
     }
   ]
 }

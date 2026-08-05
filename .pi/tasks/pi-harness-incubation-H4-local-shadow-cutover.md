@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: active under the subsequent direct human instruction to correct the omitted hard-coded full-suite rule using the same run-consistent pytest contract; this necessarily creates one final R5/E5 boundary, while maintained routing remains legacy and all successor/protected work remains inactive
+Status: closed as human-accepted PASS after corrected R5/E5 validation, PASS_WITH_ADVISORIES targeted confirmation, controlled local-route cutover, and rollback proof; local routing is authoritative, and no successor or protected work was activated
 
 ## Objective
 

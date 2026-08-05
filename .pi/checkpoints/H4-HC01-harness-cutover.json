@@ -61,7 +61,9 @@
     ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
     ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/evidence/pi-harness-incubation/H4/cutover-preflight-failure.json",
-    ".pi/checkpoints/H4-HC02-live-cutover-validator-conflict.json"
+    ".pi/checkpoints/H4-HC02-live-cutover-validator-conflict.json",
+    ".pi/evidence/pi-harness-incubation/H4/closeout-validation.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-R5-correction.json"
   ],
-  "resumption_status": "H4-HC01_Option_A_recorded_but_cutover_preflight_stopped_on_H3_failure_and_false_positive_consumer; H4_blocked_at_H4-HC02; primary_route_legacy; H4_not_closed; P2_inactive"
+  "resumption_status": "H4_closed_human_accepted_PASS_at_R5_E5_after_controlled_local_cutover_and_rollback_proof; local_authoritative; no_successor_activated"
 }

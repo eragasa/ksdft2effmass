@@ -6,7 +6,7 @@
   "evidence_revision": "afc403b1f7586c26d1ad8e7b45bb468a2313e90f",
   "correction_revision": "232b61e7aeff6e0c4008fa7781a5ea61e0c04a8e",
   "historical_catalog_restoration_revision": "b8ca72fabdb58e9e15abae79903176e31fe64e9d",
-  "overall_status": "PASS_WITH_RETAINED_GLOBAL_BASELINE_LIMITATIONS",
+  "overall_status": "PASS_WITH_ADVISORIES_HUMAN_ACCEPTED_LOCAL_CUTOVER",
   "reviews": [
     {
       "role": "architecture",
@@ -51,6 +51,13 @@
       "verdict": "PASS",
       "artifact": ".pi-subagents/artifacts/43e1fdba-f4b5-43f3-b7c7-73294b5d6616_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_output.md",
       "sha256": "8ca7fd91fc0d4bb648a68258369ff4bc22d54e8b96b087d9528adc45c1ac695e"
+    },
+    {
+      "role": "integration",
+      "phase": "final-targeted-E5-follow-up",
+      "verdict": "PASS_WITH_ADVISORIES",
+      "artifact": ".pi-subagents/artifacts/9fd48b75-90bf-4d25-9e9f-0b87dedcbe99_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_output.md",
+      "sha256": "f2b137e9a6892758db3b76cc23434a593ebdfcfd206015bc3701806f56a4d0e0"
     }
   ],
   "retained_limitations": [
@@ -59,9 +66,11 @@
     "The completion gate validates retained evidence semantics and core gates but does not rerun every supplemental validation command.",
     "Route rollback restores legacy routing only; restoring retired resource bytes requires a separate Git restoration from de8659bc5858a52de8f866ec73a14487bf480432."
   ],
-  "human_acceptance_claimed": false,
-  "authoritative_route": "legacy_pending_h4_checkpoint",
+  "human_acceptance_claimed": true,
+  "authoritative_route": "local",
   "successor_activation": "none",
   "replacement_replay_input_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
-  "replacement_evidence_revision": "c832ad2e800cb3534375a10ce64ed8ee97e28d76"
+  "replacement_evidence_revision": "c832ad2e800cb3534375a10ce64ed8ee97e28d76",
+  "final_replay_input_revision": "4efb86b276cbd896464c912fa1b4c9b8acc78458",
+  "final_evidence_revision": "cb839c328acb8ad7f222317f82917576db5841ad"
 }

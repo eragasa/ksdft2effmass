@@ -34,18 +34,14 @@
     }
   },
   "unrelated_baseline_note": "The recorded empty pre-H4 path docs/papers/ksdft2efffmas.P03.md was reconstructed only inside the isolated replay worktree after the human worktree renamed/replaced it; the primary worktree was not modified.",
-  "maintained_route": "legacy",
+  "maintained_route": "local",
   "targeted_integration_review": {
-    "status": "FAIL_CORRECTED_PENDING_TARGETED_FOLLOWUP",
-    "artifact": ".pi-subagents/artifacts/5355a427-268b-4d53-8e89-7f6d69a52054_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_output.md",
-    "sha256": "936b3f84d0ed88e49c1149af29a758b6ed3bf4d08f8280e4cb550b0898058cf4",
-    "corrected_findings": [
-      "isolated completion PASS retained in validation and correction records",
-      "checksum summary synchronized to 206 entries"
-    ],
-    "retained_advisory": "R5 cutover-plan prose says 13 occurrences; authoritative R5-derived inventory is 7 modules, 13 unique IDs, and 15 occurrences. The plan is a frozen R5 input and is not changed post-replay."
+    "status": "PASS_WITH_ADVISORIES",
+    "artifact": ".pi-subagents/artifacts/9fd48b75-90bf-4d25-9e9f-0b87dedcbe99_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_output.md",
+    "sha256": "f2b137e9a6892758db3b76cc23434a593ebdfcfd206015bc3701806f56a4d0e0",
+    "advisory": "Frozen-R5 plan prose says 13 occurrences; authoritative inventory is 7 modules, 13 unique IDs, 15 occurrences."
   },
-  "human_acceptance_claimed": false,
+  "human_acceptance_claimed": true,
   "p2_activated": false,
   "completion_validation": {
     "status": "PASS",
@@ -53,5 +49,7 @@
     "evidence_revision": "4572c6572973f59907a9952cd452e18d93589a47",
     "mode": "isolated detached worktree with frozen unrelated baseline reconstructed",
     "summary": "pairs=8 local_exports=30 generic_exports=41 clean_revision_replay=true"
-  }
+  },
+  "cutover_status": "PASS",
+  "h4_closed": true
 }
