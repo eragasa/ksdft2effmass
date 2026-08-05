@@ -181,13 +181,13 @@
       "command": "sha256sum -c .pi/evidence/pi-harness-incubation/H4/checksums.sha256",
       "status": "PASS",
       "exit_status": 0,
-      "summary": "205-entry stable authorized implementation/program/resource input boundary matched; exact five exclusions validated semantically"
+      "summary": "206-entry stable authorized implementation/program/resource input boundary matched; exact five exclusions validated semantically"
     },
     {
       "command": "python .pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
-      "status": "PENDING_GENERATED_ARTIFACT_COMMIT",
-      "exit_status": null,
-      "summary": "semantic evidence is finalized; completion must run after the generated artifacts are committed"
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "isolated E5 worktree at 4572c6572973f59907a9952cd452e18d93589a47: H4 completion PASS; pairs=8 local_exports=30 generic_exports=41 clean_revision_replay=true"
     },
     {
       "command": "R5 focused Ruff comparison against 651b8adb76ac9194972e3835f910d6485ee6ff76",
