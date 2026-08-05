@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.H4-HC03-R4-blocker.v1",
+  "task_id": "H4",
+  "checkpoint_id": "H4-HC03",
+  "normalized_decision": "A",
+  "replacement_replay_input_revision": "651b8adb76ac9194972e3835f910d6485ee6ff76",
+  "evidence_revision_role": "E4 failure evidence; the Git commit containing this record",
+  "maintained_route": "legacy",
+  "r4_replay": {
+    "execution_count": 1,
+    "isolated_detached_worktree": true,
+    "started_at": "2026-08-05T07:07:01Z",
+    "completed_at": "2026-08-05T07:07:08Z",
+    "exit_status": 0,
+    "stdout": "H4 replay: PASS: retained clean-revision observations written",
+    "stdout_sha256": "b68125d9313d80deda29e512708cb7c8293a0a59b38ec26dcd30e4ce83f9f3ed",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parity_path": ".pi/evidence/pi-harness-incubation/H4/H4-HC03-R4-shadow-parity.json",
+    "parity_sha256": "899e7cc60aa40bd896b6292a8d418c1dea18152698540e87912764fbb5285484",
+    "summary": {
+      "equivalent": 4,
+      "intentional": 4,
+      "defect": 0,
+      "deferred": 0
+    }
+  },
+  "focused_validation": {
+    "focused_h4_tests": "46 passed",
+    "full_python_tests": "1130 passed",
+    "h3_validation": "55 gates, 0 defects, including cache exclusion and explicit invalid maintained-text failure tests",
+    "maintained_legacy_consumer": "PASS",
+    "rollback_proof": "PASS",
+    "ruff_comparison": "9 retained H3 findings at H4-HC03 start and R4; zero introduced logical path/code/message findings",
+    "mypy_comparison": "8 baseline errors at H4-HC03 start and 6 at R4; zero introduced error facts"
+  },
+  "material_blocker": {
+    "code": "H4.R4.COMPLETION_FULL_SUITE_TOTAL_STALE",
+    "detail": "The R4 completion validator still hard-codes `pytest -q python` summary `1107 passed`, while the observed R4 full Python run passes 1130 tests. Truthfully recording 1130 fails completion; retaining 1107 would be a false R4 claim.",
+    "source_path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+    "scope_conflict": "H4-HC03 authorized removal of the incidental focused-suite total only and explicitly prohibited R5/E5. The full-suite hard-coded total cannot be corrected after frozen R4 without another replay-input revision."
+  },
+  "e4_finalized_as_implementation_pass": false,
+  "h4_completion_claimed": false,
+  "targeted_review_requested": false,
+  "local_cutover_performed": false,
+  "h4_closed": false,
+  "p2_activated": false
+}

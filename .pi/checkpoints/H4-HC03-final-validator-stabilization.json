@@ -42,7 +42,9 @@
     ".pi/checkpoints/H4-HC03-final-validator-stabilization.json",
     ".pi/evidence/pi-harness-incubation/H4/H4-R4-human-authorization.md",
     ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
-    ".pi/chains/pi-harness-incubation.chain.json"
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC03-R4-blocker.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC03-R4-shadow-parity.json"
   ],
-  "resumption_status": "H4_resumed_for_final_bounded_validator_stabilization_and_one_R4_E4_cycle; maintained_route_legacy_until_all_gates_pass; no_R5_E5; P2_H5_and_protected_execution_inactive"
+  "resumption_status": "H4-HC03_Option_A_R4_created_and_replayed_once_but_stale_full_suite_total_exposed; no_R5_E5_authorized; E4_retained_as_failure_evidence; targeted_review_and_cutover_not_performed; route_legacy; H4_not_closed; P2_inactive"
 }
