@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: blocked after the single authorized R3 replay exposed additional material focused-test/completion-evidence defects; H4-HC02 forbids R4/E4, maintained route remains legacy, H4 is not closed, and P2 remains inactive
+Status: active under direct H4-HC03 human authorization for one final bounded cache-scanning/completion-validator stabilization, exactly one R4/E4 cycle, targeted confirmation, and conditional already-authorized cutover closeout; maintained route remains legacy and no R5/E5 is authorized
 
 ## Objective
 
