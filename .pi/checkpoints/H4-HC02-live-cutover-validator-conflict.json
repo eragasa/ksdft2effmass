@@ -2,7 +2,7 @@
   "checkpoint_id": "H4-HC02",
   "task_id": "H4",
   "episode_id": "pi-harness-incubation-H4",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-05T06:22:59Z",
   "question": "How should H4 proceed after the authorized local-route cutover preflight demonstrated that the accepted H3 validator rejects route=local and the operational route consumer nevertheless reports a false-positive PASS because it ignores failed observations inside a successful no-write replay process?",
@@ -41,12 +41,18 @@
     ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
     "harness/pi/validation/validate_h3_resources.py",
     ".pi/skills/validate_harness.py",
-    "harness/local/validation-route.json"
+    "harness/local/validation-route.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC02-human-response.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "H4_blocked_at_H4-HC02_after_failed_local_cutover_preflight; legacy_authoritative; H4_not_closed; P2_H5_P3-P11_and_protected_execution_inactive"
+  "human_response": "A \u2014 authorize one bounded H4 correction.\n\nCorrect only:\n\n1. the H3 route gate so that `route=local` is accepted when evaluating the\n   human-authorized H4 local cutover, while preserving rejection of unknown,\n   malformed, or unauthorized routes;\n\n2. the operational consumer so its overall result is failure whenever any\n   required selected-validator observation fails, regardless of whether the\n   replay subprocess itself exits successfully.\n\nKeep these states distinct:\n\n- replay process completed;\n- observation parsed;\n- selected validator passed;\n- aggregate consumer passed.\n\nA successful process exit must not override a failed nested observation.\n\nAdd focused tests proving:\n\n- authorized `local` routing passes H3 route validation;\n- malformed and unsupported routes fail;\n- a successful replay process containing a failed H3 observation causes the\n  operational consumer to fail;\n- all required passing observations produce consumer PASS;\n- legacy routing behavior remains valid;\n- rollback still restores legacy routing.\n\nKeep the maintained primary route set to `legacy` throughout correction and\npreflight. Do not switch it to `local` until R3/E3, focused validation, H4\ncompletion, and targeted confirmation all pass.\n\nBecause these changes affect replay inputs:\n\n1. create exactly one replacement replay-input revision R3;\n2. execute one isolated replay of R3;\n3. create evidence revision E3 referencing R3 without requiring E3 = R3;\n4. run focused tests, Ruff, mypy, H3 validation, operational-consumer checks,\n   rollback proof, and H4 completion;\n5. request one targeted integration confirmation covering only the two corrected\n   defects and cutover safety;\n6. if all pass, perform the already authorized controlled route change from\n   `legacy` to `local`, rerun the live consumer and rollback proof, close H4,\n   commit, push, and stop.\n\nDo not create R4/E4 or start another broad review cycle. If R3/E3 exposes another\nmaterial defect, retain legacy authority, stop, and report the exact blocker.\n\nDo not activate P2, H5, scientific/external execution, publication, or release\nwork unless H4 is successfully closed and P2 is subsequently activated under\nseparate explicit authority.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-05T06:26:09Z",
+  "authorized_scope": "Perform exactly one bounded H4 correction to (1) the H3 route gate so authorized local cutover is accepted while malformed, unknown, and unauthorized routes remain rejected and (2) the operational consumer so process completion, parsed observations, selected-validator PASS, and aggregate PASS remain distinct and any failed required observation fails the aggregate. Add only focused tests for authorized local, malformed/unsupported rejection, nested failed-observation propagation, all-pass aggregate, legacy, and rollback. Keep the maintained route legacy through correction, focused tests/Ruff/mypy/H3/consumer/rollback validation, exactly one R3 replay, E3, H4 completion, and one targeted integration confirmation. If all pass, perform the already authorized local cutover, rerun live consumer and rollback proof, close H4, commit/push, and stop. No R4/E4, broad review, P2/H5 activation, scientific/external execution, publication, release, or unrelated work.",
+  "record_paths": [
+    ".pi/checkpoints/H4-HC02-live-cutover-validator-conflict.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC02-human-response.md",
+    ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+    ".pi/chains/pi-harness-incubation.chain.json"
+  ],
+  "resumption_status": "H4_resumed_for_one_bounded_H4-HC02_correction_R3_E3_targeted_confirmation_and_conditionally_authorized_cutover_closeout; maintained_route_legacy_until_all_preconditions_pass; P2_H5_and_protected_execution_inactive"
 }
