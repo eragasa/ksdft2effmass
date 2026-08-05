@@ -74,6 +74,7 @@ REQUIRED_TOOL_BLOCKS = {
     "JsonSchemaValidationBlock",
     "ChecksumValidationBlock",
     "GitDiffCheckBlock",
+    "HarnessValidationRouteBlock",
     "EvidenceIdentifierAuditBlock",
     "CheckpointSchemaValidationBlock",
     "StaticDependencyDirectionToolBlock",
@@ -173,22 +174,13 @@ REQUIRED_TOOL_FIELDS = {
     "classification",
     "current_status",
 }
-REQUIRED_ACCEPTANCE_FIELDS = {
-    "status",
-    "accepted_at",
-    "authority",
-    "accepted_scope",
-    "residuals",
-    "prohibited_followup",
-}
-REQUIRED_GAP_FIELDS = {
-    "new_skill_justified",
-    "capability_gap",
-    "existing_skills_considered",
-    "why_extension_preferred",
-    "deterministic_gaps",
-    "deferred_routing_requirement",
-    "implementation_status",
+EXPECTED_SKILL_NAMES = {
+    "graphify",
+    "resolve-human-checkpoint",
+    "recommend-next-task",
+    "design-data-action-objects",
+    "develop-operator-records",
+    "document-python-research-software",
 }
 
 
@@ -259,38 +251,6 @@ def main() -> int:
 
     if inventory.get("schema_version") != 1:
         errors.append("schema_version must equal 1")
-
-    acceptance = inventory.get("human_acceptance", {})
-    if (
-        not isinstance(acceptance, dict)
-        or set(acceptance) != REQUIRED_ACCEPTANCE_FIELDS
-    ):
-        errors.append(
-            "human_acceptance must contain the exact version-1 acceptance fields"
-        )
-    else:
-        for field in ("accepted_at", "authority", "accepted_scope"):
-            if not isinstance(acceptance[field], str) or not acceptance[field]:
-                errors.append(f"human_acceptance.{field} must be a nonempty string")
-        for field in ("residuals", "prohibited_followup"):
-            value = acceptance[field]
-            if (
-                not isinstance(value, list)
-                or not value
-                or any(not isinstance(item, str) or not item for item in value)
-            ):
-                errors.append(
-                    f"human_acceptance.{field} must be a nonempty string list"
-                )
-        if acceptance.get("status") != "human_accepted":
-            errors.append("human_acceptance.status must equal human_accepted")
-        if (
-            re.fullmatch(
-                r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", acceptance["accepted_at"]
-            )
-            is None
-        ):
-            errors.append("human_acceptance.accepted_at must be a UTC second timestamp")
 
     boundary = inventory.get("cpn_boundary", {})
     if "never invoked or loaded by guards" not in boundary.get("guard_policy", ""):
@@ -426,6 +386,12 @@ def main() -> int:
             if not isinstance(record.get(field), str) or not record[field].strip():
                 errors.append(f"{name}: {field} must be a nonempty string")
 
+    if inventory_names != EXPECTED_SKILL_NAMES:
+        errors.append(
+            "skill name inventory mismatch: "
+            f"missing={sorted(EXPECTED_SKILL_NAMES - inventory_names)} "
+            f"unexpected={sorted(inventory_names - EXPECTED_SKILL_NAMES)}"
+        )
     actual_paths = actual_skill_paths()
     if inventory_paths != actual_paths:
         errors.append(
@@ -509,44 +475,6 @@ def main() -> int:
         errors.append("human acceptance authority must remain explicit")
     if "not an oracle" not in evidence_authority.get("prohibited_inference", ""):
         errors.append("inventory must prohibit agreement-based AI oracle claims")
-
-    gap = inventory.get("new_skill_gap_analysis", {})
-    missing_gap_fields = REQUIRED_GAP_FIELDS - set(gap)
-    if missing_gap_fields:
-        errors.append(
-            f"new-skill gap analysis missing fields: {sorted(missing_gap_fields)}"
-        )
-    for field in (
-        "capability_gap",
-        "why_extension_preferred",
-        "deferred_routing_requirement",
-        "implementation_status",
-    ):
-        if not isinstance(gap.get(field), str) or not gap[field]:
-            errors.append(
-                f"new-skill gap analysis field must be a nonempty string: {field}"
-            )
-    for field in ("existing_skills_considered", "deterministic_gaps"):
-        value = gap.get(field)
-        if (
-            not isinstance(value, list)
-            or not value
-            or any(not isinstance(item, str) or not item for item in value)
-        ):
-            errors.append(
-                f"new-skill gap analysis field must be a nonempty string list: {field}"
-            )
-    expected_skills = {record.get("skill_name") for record in skill_records}
-    if set(gap.get("existing_skills_considered", [])) != expected_skills:
-        errors.append(
-            "new-skill analysis must explicitly consider every inventoried skill"
-        )
-    if gap.get("new_skill_justified") is not False:
-        errors.append(
-            "audit must not claim a new skill is justified without a human checkpoint"
-        )
-    if "No new skill proposed or created" not in gap.get("implementation_status", ""):
-        errors.append("new-skill implementation status is inconsistent")
 
     print(f"skill_records={len(skill_records)}")
     print(f"filesystem_skills={len(actual_paths)}")

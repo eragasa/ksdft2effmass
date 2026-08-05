@@ -2,7 +2,7 @@
 
 ## Composition
 
-`harness/local/profiles/ksdft2effmass-v1.json` is the H3 project-local profile instance with stable contract identity `ksdft2effmass.profile.v1`. It binds public contract version `1` to generic manifest `pih.generic.resources` version `1` and local extension manifest `ksdft2effmass.local.resources` version `1`. These are H1-governed H3 contract identities; final H3 human acceptance remains a separate gate.
+`harness/local/profiles/ksdft2effmass-v2.json` is the maintained project-local profile instance with identity `ksdft2effmass.profile.v2`. It binds public contract version `1` to generic manifest `pih.generic.resources` version `2` and local extension manifest `ksdft2effmass.local.resources` version `2`. Under the H1 version-boundary rules, the skill-name correction changes the profile instance and both manifest contents without changing the profile schema, Python public contract, serialized-record schemas, or the skill behavior version.
 
 The caller supplies the generic root, generic manifest and manifest byte identity, and the local root, local manifest and manifest byte identity explicitly. The profile names expected identities and versions; it contains no absolute root. Loading or resolution must not discover a profile or root from the current directory, Git, `.pi`, environment variables, parent directories, or installed-package fallback.
 
@@ -10,7 +10,9 @@ The local manifest has layer `local`, declares `extends_manifest_id = pih.generi
 
 - `ksdft2effmass.extension.evidence-documentation.v1`;
 - `ksdft2effmass.extension.ownership-compatibility.v1`; and
-- `ksdft2effmass.profile.v1`.
+- `ksdft2effmass.profile.v2`.
+
+The H4 identity mapping is `document-research-python` to `document-python-research-software`, `pih.skill.document-research-python.v1` to `pih.skill.document-python-research-software.v1`, `pih.manifest.skill-descriptor.document-research-python.v1` to `pih.manifest.skill-descriptor.document-python-research-software.v1`, and `ksdft2effmass.profile.v1` to `ksdft2effmass.profile.v2`. The renamed skill retains behavior version `1`; no compatibility alias is maintained.
 
 Local resources may depend on generic resources. They may not replace or reuse a generic resource ID or path. Generic resources never depend on these local identities. The only accepted direction is:
 

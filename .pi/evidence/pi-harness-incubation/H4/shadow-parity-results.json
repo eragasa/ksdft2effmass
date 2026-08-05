@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.shadow-parity-results.v1",
+  "task_id": "H4",
+  "replay_label": "worktree:3718b5d9fe24e9c56a48ab0efab4430fb7594b4f+H4-deterministic-handoffs",
+  "input_policy": "current-tree explicit repository/resource roots; identical selected bytes per pair; no ambient discovery",
+  "authoritative_route": "legacy_pending_h4_checkpoint",
+  "pairs": [
+    {
+      "pair_id": "task-chain-explicit-selection",
+      "inputs": [".pi/chains/pi-harness-incubation.chain.json", ".pi/evidence/pi-harness-incubation/H4/activation.json", ".pi/tasks/pi-harness-incubation-H{0,1,2,3,4,5}-*.md"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["H0", "H1", "H2", "H3", "H4", "H5"], "state": ["active:H4"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["H0", "H1", "H2", "H3", "H4", "H5"], "state": ["active:H4"]},
+      "differences": [], "classification": "equivalent", "authoritative_eligible": true
+    },
+    {
+      "pair_id": "checkpoint-validator",
+      "inputs": [".pi/checkpoints", ".pi/chains", ".pi/tasks"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["checkpoint_records:19", "unresolved:0", "duplicate_resolved:0"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["selected:H2-HC02", "resumption:resumed"]},
+      "differences": ["inventory"], "classification": "intentional", "rationale": "The explicit local adapter is selection-confined; the retained validator inventories the full declared set.", "authoritative_eligible": true
+    },
+    {
+      "pair_id": "ownership-validator-h4",
+      "inputs": [".pi/evidence/pi-harness-incubation/H4/task-ownership.json", ".pi/chains/pi-harness-incubation.chain.json"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["writers:4", "reviewers:3"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["writers:4", "reviewers:3"]},
+      "differences": [], "classification": "equivalent", "rationale": "The retained preflight was invoked with the required explicit --chain argument.", "authoritative_eligible": true
+    },
+    {
+      "pair_id": "ownership-validator-legacy-p1-boundary-owned",
+      "inputs": [".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json", ".pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-manifest.json"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["P1 task ownership preflight"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["task ownership normalized", "evidence relations:37", "boundary IDs:SV-CPN-027,SV-CPN-028,SV-CPN-087,SV-CPN-088", "boundary relation:artifact_owned/agreement/none"]},
+      "differences": ["inventory"], "classification": "intentional", "rationale": "The local compatibility boundary additionally normalizes the separately retained evidence-ownership manifest while preserving task-preflight PASS.", "authoritative_eligible": true
+    },
+    {
+      "pair_id": "evidence-id-audit-h4-selection",
+      "inputs": ["python/tests/software_verification/ksdft2effmass/harness/pi/local/test__*.py", "harness/local/profiles/ksdft2effmass-v2.json"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["modules:5", "occurrences:13", "issues:0"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["modules:5", "occurrences:13", "issues:0"]},
+      "differences": [], "classification": "equivalent", "rationale": "The v2 profile declares SV-HL-001..013 and the software-verification scope prefix.", "authoritative_eligible": true
+    },
+    {
+      "pair_id": "accepted-checksum-catalogs",
+      "inputs": ["H1/checksums.sha256", "H2/checksums.sha256", "H3/checksums.sha256"],
+      "legacy": {"status": "FAIL", "exit_status": 1, "inventory": ["H1:AGENTS current rename", "H2:four modified live H2 agent records", "H3:four missing old v1 paths", "H3:nine modified current resources"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["H3-resource-validator:gates=53,defects=0", "H4-checksum-catalog:complete authorized current boundary"]},
+      "differences": ["status", "exit_status", "inventory"], "classification": "intentional", "rationale": "H4 rename/resource/control authority intentionally changes current files while accepted H1-H3 catalogs remain unchanged legacy rollback oracles.", "authority": [".pi/evidence/pi-harness-incubation/H4/activation.json", ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md"], "authoritative_eligible": true
+    },
+    {
+      "pair_id": "skill-capability-and-explicit-descriptor-selection",
+      "inputs": [".pi/skills/skill-capability-inventory.json", "harness/pi/skills/document-python-research-software/descriptor.json"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["skill_records:6", "filesystem_skills:6", "validation_errors:0"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["selected:document-python-research-software"]},
+      "differences": ["inventory"], "classification": "intentional", "rationale": "AdaptSkillInventory consumes only the explicitly extracted descriptor; the separate live validator establishes the exact six identities.", "authoritative_eligible": true
+    },
+    {
+      "pair_id": "h3-resource-validator",
+      "inputs": ["harness/pi", "harness/local", "harness/local/profiles/ksdft2effmass-v2.json"],
+      "legacy": {"status": "PASS", "exit_status": 0, "inventory": ["gates:53", "defects:0"]},
+      "local": {"status": "PASS", "exit_status": 0, "inventory": ["gates:53", "defects:0"]},
+      "differences": [], "classification": "equivalent", "authoritative_eligible": true
+    }
+  ],
+  "summary": {"equivalent": 4, "intentional": 4, "defect": 0, "deferred": 0, "authoritative_cutover_allowed_after_independent_review_and_human_acceptance": true}
+}

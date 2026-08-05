@@ -34,6 +34,8 @@ PUBLIC_RECORDS = (
 )
 RESOURCE_KINDS = {"skill", "reference", "schema", "template", "profile",
                   "manifest", "script", "documentation"}
+CANONICAL_SKILL_ID = "document-python-research-software"
+CANONICAL_SKILL_RESOURCE_ID = "pih.skill.document-python-research-software.v1"
 REQUIRED_RESOLUTION_CASES = {
     "dependency-cycle", "duplicate-resource-id", "duplicate-resource-path",
     "generic-to-local-dependency", "incompatible-format-version",
@@ -325,9 +327,9 @@ def manifest_gate() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     generic = load_json(PI / "resource-manifest.json") or {}
     local = load_json(LOCAL / "resource-manifest.json") or {}
     profile_entries = [item for item in local.get("resources", [])
-                       if item.get("resource_kind") == "profile"]
+                       if str(item.get("path", "")).startswith("profiles/")]
     R.check(len(profile_entries) == 1, "manifest.local-profile-selection",
-            "local manifest must declare exactly one profile resource")
+            "local manifest must declare exactly one project profile resource")
     profile = load_json(LOCAL / profile_entries[0]["path"]) if len(profile_entries) == 1 else {}
     profile = profile or {}
     supported = {tuple(x) for x in profile.get("supported_resource_formats", [])}
@@ -356,8 +358,16 @@ def manifest_gate() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             actual_owned = {p.relative_to(root).as_posix() for family in
                             (root / "profiles", root / "extensions") if family.exists()
                             for p in family.rglob("*") if p.is_file()}
+            if (root / "validation-route.json").is_file():
+                actual_owned.add("validation-route.json")
         R.check(actual_owned == declared_paths, f"manifest.{layer}-declared-coverage",
                 f"undeclared={sorted(actual_owned-declared_paths)}, stale={sorted(declared_paths-actual_owned)}")
+    profile_id = profile.get("profile_id")
+    R.check(generic.get("manifest_version") == 2 and
+            local.get("manifest_version") == 2 and
+            isinstance(profile_id, str) and profile_id.endswith(".profile.v2"),
+            "manifest.naming-version-boundary",
+            "naming correction requires generic/local manifest version 2 and profile instance v2")
     R.check(local.get("extends_manifest_id") == generic.get("manifest_id") and
             profile.get("generic_manifest_id") == generic.get("manifest_id") and
             profile.get("generic_manifest_version") == generic.get("manifest_version") and
@@ -401,9 +411,45 @@ def profile_gate(profile: dict[str, Any], generic: dict[str, Any], local: dict[s
             "local extension or policy reference is not explicitly declared")
 
 
+def validation_route_gate(local: dict[str, Any]) -> None:
+    """Require the repository-local live-consumer route to be explicit and safe."""
+    route_path = LOCAL / "validation-route.json"
+    route = load_json(route_path) or {}
+    entries = [item for item in local.get("resources", [])
+               if item.get("path") == "validation-route.json"]
+    entry = entries[0] if len(entries) == 1 else {}
+    project_profiles = [item for item in local.get("resources", [])
+                        if str(item.get("path", "")).startswith("profiles/")]
+    project_profile_id = (project_profiles[0].get("resource_id")
+                          if len(project_profiles) == 1 else None)
+    R.check(
+        set(route) == {"rollback_route", "route", "schema_version"}
+        and route.get("schema_version") == 1
+        and route.get("route") == "legacy"
+        and route.get("rollback_route") == "legacy",
+        "route.explicit-legacy-default",
+        "validation route must be the closed schema-version-1 legacy/legacy configuration",
+    )
+    R.check(
+        len(entries) == 1
+        and entry.get("resource_kind") == "profile"
+        and entry.get("format_version") == 1
+        and entry.get("dependency_ids") == [project_profile_id],
+        "route.manifest-identity",
+        "validation route resource identity or dependency is invalid",
+    )
+
+
 def skill_gate(generic: dict[str, Any], profile: dict[str, Any]) -> None:
-    descriptor = load_json(PI / "skills/document-research-python/descriptor.json") or {}
+    descriptor = load_json(PI / "skills/document-python-research-software/descriptor.json") or {}
     resources = {x["resource_id"]: x for x in generic.get("resources", [])}
+    R.check(descriptor.get("skill_id") == CANONICAL_SKILL_ID and
+            descriptor.get("entry_resource_id") == CANONICAL_SKILL_RESOURCE_ID and
+            descriptor.get("behavior_version") == 1,
+            "skill.canonical-identity",
+            "descriptor must use the corrected skill identity at unchanged behavior version 1")
+    R.check(not (PI / "skills/document-research-python").exists(),
+            "skill.no-stale-alias", "old generic skill directory still exists")
     entry = resources.get(descriptor.get("entry_resource_id"))
     required = descriptor.get("required_resource_ids", [])
     R.check(entry is not None and entry.get("resource_kind") == "skill", "skill.entry", "entry is missing or not skill")
@@ -688,6 +734,7 @@ def main() -> int:
     semantic_invariant_gate(validators)
     generic, local, profile = manifest_gate()
     profile_gate(profile, generic, local)
+    validation_route_gate(local)
     skill_gate(generic, profile)
     resolution_gate()
     diagnostic_and_canonical_gate()

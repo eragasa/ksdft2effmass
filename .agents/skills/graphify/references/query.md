@@ -5,7 +5,7 @@ Load this when the user asks a question against an existing graph, or runs `/gra
 ## Read-only consumer profile
 
 Use this profile when the invoking contract permits no mutation, including
-`choose-next-task` in `ksdft2effmass`. Confirm that the existing
+`recommend-next-task` in `ksdft2effmass`. Confirm that the existing
 `graphify-out/graph.json` is readable, then run `graphify query`, `graphify path`,
 or `graphify explain` only. If constrained vocabulary is needed, read
 `graph.json` and print the selected vocabulary to stdout without writing

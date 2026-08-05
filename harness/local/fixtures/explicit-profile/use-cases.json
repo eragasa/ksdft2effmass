@@ -15,7 +15,7 @@
       "local_manifest_path": "../../local/resource-manifest.json",
       "expected": {
         "status": "PASS",
-        "profile_id": "ksdft2effmass.profile.v1"
+        "profile_id": "ksdft2effmass.profile.v2"
       }
     }
   ]

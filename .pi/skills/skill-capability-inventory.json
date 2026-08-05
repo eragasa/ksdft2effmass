@@ -1,28 +1,7 @@
 {
   "schema_version": 1,
-  "audit_date": "2026-08-04",
-  "maintenance_note": {
-    "task_id": "EVIDENCE-DOC-1",
-    "status": "human_accepted_bounded_maintenance_closed",
-    "change": "Hardened document-research-python with a shared class-owned/artifact-owned test-evidence documentation reference; routed develop-operator-records to it; retained historical first-line evidence-owner compatibility in the deterministic audit.",
-    "capability_boundary": "Structural documentation and evidence-identifier auditing only; no new scientific-validation or uncertainty-quantification capability is claimed."
-  },
-  "scope": "repository-local skills under .agents/skills and .pi/skills",
-  "harness_incubation_status": {
-    "project_id": "pi-harness-incubation",
-    "active_task": "H0",
-    "scope": "read-only inventory and ownership classification",
-    "initialization_effect": "No skill moved, retired, duplicated, or reclassified; H0 will classify current skills and validators before H1 proposes a generic contract.",
-    "implementation_status": "Generic harness enforcement, result schemas, profiles, and resource extraction remain prospective."
-  },
-  "human_acceptance": {
-    "status": "human_accepted",
-    "accepted_at": "2026-08-03T07:45:55Z",
-    "authority": "human PI",
-    "accepted_scope": "CPN skill-capability audit and bounded existing-skill hardening, including six skills, 13 review blocks, 12 deterministic tool blocks, invocation/evidence boundaries, retry/correlation semantics, and the recorded 22-test evidence-ID debt",
-    "residuals": ["22 unowned tests remain a separate bounded evidence-ID migration task", "runtime enforcement of skill invocation/result schemas remains prospective"],
-    "prohibited_followup": ["do not launch P0", "do not launch another task as part of this acceptance"]
-  },
+  "audit_date": "2026-08-05",
+  "scope": "live skill identity, capability, routing, resource, and validation inventory under .agents/skills and .pi/skills",
   "cpn_boundary": {
     "guard_policy": "Skills are never invoked or loaded by guards. Guards inspect immutable token fields only.",
     "invocation_policy": "An external agent or harness consumes a correlated SkillInvocationRequestToken outside guard evaluation and returns a SkillInvocationResultToken or SkillInvocationFailureToken.",
@@ -30,15 +9,94 @@
     "retry_policy": "Every retry binds to an immutable parent authorization identity or a request's pre-authorized retry policy, has a new attempt identity, and preserves prior results and findings."
   },
   "token_responsibilities": {
-    "SkillIdentityToken": ["stable_skill_name", "source_path", "content_sha256"],
-    "SkillCapabilityToken": ["supported_capability", "invocation_contract_version", "required_references", "permitted_side_effect_class", "required_authorization", "validation_status"],
-    "SkillInvocationRequestToken": ["request_identity", "requested_capability", "task_id", "immutable_artifact_references", "expected_output_schema", "evidence_classification", "permitted_mutation_scope", "termination_policy", "parent_workflow_id", "attempt_id", "retry_authorization_identity_or_policy"],
-    "SkillInvocationResultToken": ["request_identity", "task_id", "parent_workflow_id", "attempt_id", "skill_identity", "skill_content_sha256", "input_artifact_identities", "produced_artifacts", "structured_findings", "deterministic_commands", "command_results", "mutation_summary", "warnings", "failure_classification", "completion_status"],
-    "SkillInvocationFailureToken": ["request_identity", "task_id", "parent_workflow_id", "attempt_id", "retry_authorization_identity_or_policy", "failure_classification", "partial_effects", "retained_findings", "retry_eligibility"],
-    "SkillReviewFindingSetToken": ["review_scope", "finding_ids", "severity", "file_line_evidence", "recommendations", "unresolved_human_decisions"],
-    "DeterministicToolResultToken": ["tool_identity", "tool_version", "command", "environment_identity", "input_artifact_identities", "exit_status", "stdout_stderr_artifacts", "completion_status"],
-    "ParentVerificationToken": ["required_evidence_inventory", "verified_result_identities", "missing_or_rejected_evidence", "scope", "completion_status"],
-    "HumanAcceptanceResultToken": ["request_identity", "task_id", "human_response_artifact", "normalized_decision", "authorized_scope", "record_paths", "completion_status"]
+    "SkillIdentityToken": [
+      "stable_skill_name",
+      "source_path",
+      "content_sha256"
+    ],
+    "SkillCapabilityToken": [
+      "supported_capability",
+      "invocation_contract_version",
+      "required_references",
+      "permitted_side_effect_class",
+      "required_authorization",
+      "validation_status"
+    ],
+    "SkillInvocationRequestToken": [
+      "request_identity",
+      "requested_capability",
+      "task_id",
+      "immutable_artifact_references",
+      "expected_output_schema",
+      "evidence_classification",
+      "permitted_mutation_scope",
+      "termination_policy",
+      "parent_workflow_id",
+      "attempt_id",
+      "retry_authorization_identity_or_policy"
+    ],
+    "SkillInvocationResultToken": [
+      "request_identity",
+      "task_id",
+      "parent_workflow_id",
+      "attempt_id",
+      "skill_identity",
+      "skill_content_sha256",
+      "input_artifact_identities",
+      "produced_artifacts",
+      "structured_findings",
+      "deterministic_commands",
+      "command_results",
+      "mutation_summary",
+      "warnings",
+      "failure_classification",
+      "completion_status"
+    ],
+    "SkillInvocationFailureToken": [
+      "request_identity",
+      "task_id",
+      "parent_workflow_id",
+      "attempt_id",
+      "retry_authorization_identity_or_policy",
+      "failure_classification",
+      "partial_effects",
+      "retained_findings",
+      "retry_eligibility"
+    ],
+    "SkillReviewFindingSetToken": [
+      "review_scope",
+      "finding_ids",
+      "severity",
+      "file_line_evidence",
+      "recommendations",
+      "unresolved_human_decisions"
+    ],
+    "DeterministicToolResultToken": [
+      "tool_identity",
+      "tool_version",
+      "command",
+      "environment_identity",
+      "input_artifact_identities",
+      "exit_status",
+      "stdout_stderr_artifacts",
+      "completion_status"
+    ],
+    "ParentVerificationToken": [
+      "required_evidence_inventory",
+      "verified_result_identities",
+      "missing_or_rejected_evidence",
+      "scope",
+      "completion_status"
+    ],
+    "HumanAcceptanceResultToken": [
+      "request_identity",
+      "task_id",
+      "human_response_artifact",
+      "normalized_decision",
+      "authorized_scope",
+      "record_paths",
+      "completion_status"
+    ]
   },
   "evidence_authority": {
     "deterministic_verification_result": "May satisfy a software gate only when command, tool/environment identity, and input/output artifacts are recorded.",
@@ -51,15 +109,39 @@
     {
       "skill_name": "graphify",
       "path": ".agents/skills/graphify/SKILL.md",
-      "content_sha256": "c60f9ec7147c4940e9f44d13c2a0216049ec9198f25023f0322dda6333de08af",
+      "content_sha256": "5fbaa466c94e27f41f6eb66922561bb0138fcf627519c0310bcba1293008f372",
       "trigger_description": "Explicit Graphify requests or explicitly requested broad repository topology, dependency, or impact analysis allowed by the repository overlay.",
-      "current_consumers": ["AGENTS.md", ".pi/skills/choose-next-task/SKILL.md"],
-      "authoritative_references": [".agents/skills/graphify/references/ksdft2effmass-policy.md", "AGENTS.md", ".pi/tasks/graphify-integration.md"],
-      "inputs": ["explicit requested operation", "local corpus or existing graph identity", "permitted generated-output path", "authorization for any nonlocal operation"],
-      "outputs": ["derived graph/query result", "warnings", "command and generated-artifact references"],
-      "side_effects": ["read-only query when graph exists", "local ignored graphify-out writes only for separately requested builds"],
-      "external_tools_used": ["local graphify executable", "local Python graph tooling"],
-      "deterministic_scripts_used": ["Graphify AST extraction and graph commands; semantic extraction is not deterministic"],
+      "current_consumers": [
+        "AGENTS.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        ".agents/skills/graphify/references/ksdft2effmass-policy.md",
+        "AGENTS.md",
+        ".pi/tasks/graphify-integration.md"
+      ],
+      "inputs": [
+        "explicit requested operation",
+        "local corpus or existing graph identity",
+        "permitted generated-output path",
+        "authorization for any nonlocal operation"
+      ],
+      "outputs": [
+        "derived graph/query result",
+        "warnings",
+        "command and generated-artifact references"
+      ],
+      "side_effects": [
+        "read-only query when graph exists",
+        "local ignored graphify-out writes only for separately requested builds"
+      ],
+      "external_tools_used": [
+        "local graphify executable",
+        "local Python graph tooling"
+      ],
+      "deterministic_scripts_used": [
+        "Graphify AST extraction and graph commands; semantic extraction is not deterministic"
+      ],
       "authorization_requirements": "External semantic processing, clone/fetch/push, hooks, servers/watchers, installation, API keys, or transmission require separate explicit human approval and are prohibited by default.",
       "failure_behavior": "Report blocked or failed operation; never auto-install or switch to an external backend.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy; new attempt identity preserves prior derived outputs and warnings.",
@@ -67,7 +149,12 @@
       "evidence_classification": "derived advisory repository intelligence only",
       "current_validation_status": "Project overlay and narrowed trigger audited; no bounded query command/result is claimed by this audit; any generated graph remains nonauthoritative.",
       "primary_classification": "ADVISORY_REVIEW_ONLY",
-      "hardening_applied": ["narrowed project trigger", "explicit no-install/no-external-processing override", "clarified Obsidian opt-in", "added CPN invocation/retry boundary"],
+      "hardening_applied": [
+        "narrowed project trigger",
+        "explicit no-install/no-external-processing override",
+        "clarified Obsidian opt-in",
+        "added CPN invocation/retry boundary"
+      ],
       "stop_condition": "Stop with advisory output or blocked status; never approve architecture, science, a task, or execution."
     },
     {
@@ -75,13 +162,45 @@
       "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
       "content_sha256": "d72695a4483b09500da69048affbd1addb313a0830cc793b3aba5015f6eeee25",
       "trigger_description": "Exactly when an unresolved checkpoint exists and the current human message unambiguously answers it.",
-      "current_consumers": ["AGENTS.md", ".pi/skills/choose-next-task/SKILL.md"],
-      "authoritative_references": ["AGENTS.md", ".pi/checkpoints/checkpoint.schema.json", ".pi/checkpoints/README.md", "docs/development/agent-control-plane.rst"],
-      "inputs": ["checkpoint identity and expected status/hash", "human response", "linked task/episode identities", "permitted record paths", "pending checkpoint commit identity", "active task branch and expected remote"],
-      "outputs": ["resolved or unchanged checkpoint record", "normalized decision", "changed-path inventory", "validation status", "resolution commit identity and push status", "resumption status"],
-      "side_effects": ["authorized control-plane record writes", "validated decision-boundary commit and task-branch push", "separately authorized task resumption after successful push"],
-      "external_tools_used": ["filesystem JSON editing", "checkpoint validator", "Git commit and task-branch push"],
-      "deterministic_scripts_used": [".pi/checkpoints/validate_checkpoints.py"],
+      "current_consumers": [
+        "AGENTS.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/checkpoints/checkpoint.schema.json",
+        ".pi/checkpoints/README.md",
+        "docs/development/agent-control-plane.rst"
+      ],
+      "inputs": [
+        "checkpoint identity and expected status/hash",
+        "human response",
+        "linked task/episode identities",
+        "permitted record paths",
+        "pending checkpoint commit identity",
+        "active task branch and expected remote"
+      ],
+      "outputs": [
+        "resolved or unchanged checkpoint record",
+        "normalized decision",
+        "changed-path inventory",
+        "validation status",
+        "resolution commit identity and push status",
+        "resumption status"
+      ],
+      "side_effects": [
+        "authorized control-plane record writes",
+        "validated decision-boundary commit and task-branch push",
+        "separately authorized task resumption after successful push"
+      ],
+      "external_tools_used": [
+        "filesystem JSON editing",
+        "checkpoint validator",
+        "Git commit and task-branch push"
+      ],
+      "deterministic_scripts_used": [
+        ".pi/checkpoints/validate_checkpoints.py"
+      ],
       "authorization_requirements": "Only the preserved human response supplies decision authority. Standing human policy requires validated checkpoint and accepted-increment commits and pushes on the active task branch; resumption must remain within normalized scope and follows a successful resolution push.",
       "failure_behavior": "Ambiguity, changed identity/status, conflicting prior resolution, missing pending-boundary push, validation failure, or resolution commit/push failure returns structured failure and stops without resumption.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy; a new attempt preserves history, identical resolution is a no-op, and conflicting replay is rejected.",
@@ -89,21 +208,52 @@
       "evidence_classification": "human decision recording and control-plane evidence",
       "current_validation_status": "Trigger, replay, partial-failure, durable decision-boundary commit/push, and post-push resumption contract hardened; full Draft 2020-12 checkpoint validator passes.",
       "primary_classification": "HUMAN_DECISION_SUPPORT",
-      "hardening_applied": ["narrowed frontmatter trigger", "added expected-state, replay, and partial-failure rules", "required pushed pending and resolution decision boundaries", "required post-push resumption", "covered accepted incremental changes"],
+      "hardening_applied": [
+        "narrowed frontmatter trigger",
+        "added expected-state, replay, and partial-failure rules",
+        "required pushed pending and resolution decision boundaries",
+        "required post-push resumption",
+        "covered accepted incremental changes"
+      ],
       "stop_condition": "Stop after recording, validation, commit/push, and resumption status or one ambiguity question; never invent the decision and never resume after a failed push."
     },
     {
-      "skill_name": "choose-next-task",
-      "path": ".pi/skills/choose-next-task/SKILL.md",
-      "content_sha256": "2ab6130e5c38aef97509f584530fd4e7bf96e1f1802bb9cc6da638c0514bb398",
+      "skill_name": "recommend-next-task",
+      "path": ".pi/skills/recommend-next-task/SKILL.md",
+      "content_sha256": "bd7e91f72a252fe63b0f1f0a175cb87eca0e360984f17b859a1f176c4835e26d",
       "trigger_description": "Human asks what task is next or how to continue after repository-state reconstruction.",
-      "current_consumers": ["AGENTS.md"],
-      "authoritative_references": ["AGENTS.md", ".pi/tasks", ".pi/chains", ".pi/checkpoints", "docs/research", "docs/architecture"],
-      "inputs": ["repository snapshot/artifact identities", "task/checkpoint/decision records", "source/test/specification/documentation state"],
-      "outputs": ["verified state", "ranked candidate analysis", "exactly one advisory recommendation", "human-selection stop"],
-      "side_effects": ["none; read-only"],
-      "external_tools_used": ["repository read/search", "optional policy-bounded Graphify query"],
-      "deterministic_scripts_used": ["checkpoint validation where relevant"],
+      "current_consumers": [
+        ".agents/skills/graphify/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/tasks",
+        ".pi/chains",
+        ".pi/checkpoints",
+        "docs/research",
+        "docs/architecture"
+      ],
+      "inputs": [
+        "repository snapshot/artifact identities",
+        "task/checkpoint/decision records",
+        "source/test/specification/documentation state"
+      ],
+      "outputs": [
+        "verified state",
+        "ranked candidate analysis",
+        "exactly one advisory recommendation",
+        "human-selection stop"
+      ],
+      "side_effects": [
+        "none; read-only"
+      ],
+      "external_tools_used": [
+        "repository read/search",
+        "optional policy-bounded Graphify query"
+      ],
+      "deterministic_scripts_used": [
+        "checkpoint validation where relevant"
+      ],
       "authorization_requirements": "Human selection is required before task creation or launch.",
       "failure_behavior": "Return State reconstruction incomplete with one focused question when evidence is missing or conflicting.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy; a new attempt retains the prior recommendation, and a changed snapshot is a new input.",
@@ -111,21 +261,50 @@
       "evidence_classification": "advisory planning and human task-selection support",
       "current_validation_status": "Accepted historical fresh-session behavior; CPN snapshot/result boundary added; no task launch capability.",
       "primary_classification": "HUMAN_DECISION_SUPPORT",
-      "hardening_applied": ["added snapshot identity, result authority, retry, and no-launch CPN boundary"],
+      "hardening_applied": [
+        "added snapshot identity, result authority, retry, and no-launch CPN boundary"
+      ],
       "stop_condition": "Stop after exactly one recommendation and human-selection notice, or incomplete-state report."
     },
     {
       "skill_name": "design-data-action-objects",
       "path": ".pi/skills/design-data-action-objects/SKILL.md",
-      "content_sha256": "d501c3ce01d16481958833753326751f3a7789e0ad0ebef601b41934cb1e88db",
+      "content_sha256": "ee5c3f48b0e86d443cbf62124a181b8c70e25f2a6abd30bd2a50b5739a490bd7",
       "trigger_description": "New scientific object models, substantial refactors, object ownership questions, or Rust-portable Python design review.",
-      "current_consumers": [".pi/agents/ksdft2effmass-architecture.md", ".pi/agents/ksdft2effmass-documentation.md", ".pi/agents/ksdft2effmass-implementation.md", ".pi/agents/ksdft2effmass-tests.md", ".pi/agents/ksdft2effmass-integration-reviewer.md"],
-      "authoritative_references": ["AGENTS.md", ".pi/skills/design-data-action-objects/references/data-action-architecture.md"],
-      "inputs": ["task/workflow/attempt identities", "artifact paths", "ownership-review scope", "authoritative contract", "mutation scope"],
-      "outputs": ["structured PASS/FAIL/BLOCKED review findings", "commands", "mutation summary", "human decisions"],
-      "side_effects": ["read-only by default", "writes only under a separately authorized writer assignment"],
-      "external_tools_used": ["agent read/search and deterministic read-only commands"],
-      "deterministic_scripts_used": ["task-specific static checks; no universal deterministic architecture oracle"],
+      "current_consumers": [
+        ".pi/agents/ksdft2effmass-architecture.md",
+        ".pi/agents/ksdft2effmass-documentation.md",
+        ".pi/agents/ksdft2effmass-implementation.md",
+        ".pi/agents/ksdft2effmass-tests.md",
+        ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
+      ],
+      "inputs": [
+        "task/workflow/attempt identities",
+        "artifact paths",
+        "ownership-review scope",
+        "authoritative contract",
+        "mutation scope"
+      ],
+      "outputs": [
+        "structured PASS/FAIL/BLOCKED review findings",
+        "commands",
+        "mutation summary",
+        "human decisions"
+      ],
+      "side_effects": [
+        "read-only by default",
+        "writes only under a separately authorized writer assignment"
+      ],
+      "external_tools_used": [
+        "agent read/search and deterministic read-only commands"
+      ],
+      "deterministic_scripts_used": [
+        "task-specific static checks; no universal deterministic architecture oracle"
+      ],
       "authorization_requirements": "Human authority for scientific meaning, public contracts, architecture, and final acceptance.",
       "failure_behavior": "Missing/conflicting authority returns BLOCKED; protected choices are not inferred.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy and a new attempt identity with retained findings.",
@@ -133,22 +312,66 @@
       "evidence_classification": "agent architecture review findings",
       "current_validation_status": "Bounded CPN review contract added and consumed by established project agents; no deterministic acceptance authority.",
       "primary_classification": "COMPOSABLE_AFTER_HARDENING",
-      "hardening_applied": ["required inputs", "structured result", "mutation boundary", "failure/retry/idempotency", "exact stop"],
-      "remaining_hardening": ["enforce expected result and correlation schema in a future harness"],
+      "hardening_applied": [
+        "required inputs",
+        "structured result",
+        "mutation boundary",
+        "failure/retry/idempotency",
+        "exact stop"
+      ],
+      "remaining_hardening": [
+        "enforce expected result and correlation schema in a future harness"
+      ],
       "stop_condition": "Stop after requested ownership review; do not implement, launch, or accept work."
     },
     {
       "skill_name": "develop-operator-records",
       "path": ".pi/skills/develop-operator-records/SKILL.md",
-      "content_sha256": "470cff0de6f213b1195c1d628d8e611d2a1441982b94360ce78fb2e18767297c",
+      "content_sha256": "e8d44b72fe66cca45e76ee61e83b8bbb40f01b4880f9292b39409133b4c39aa8",
       "trigger_description": "Finite represented operator records, immediate metadata, analyzers, serialization, comparison prerequisites, tests, and documentation.",
-      "current_consumers": [".pi/agents/ksdft2effmass-architecture.md", ".pi/agents/ksdft2effmass-documentation.md", ".pi/agents/ksdft2effmass-implementation.md", ".pi/agents/ksdft2effmass-tests.md", ".pi/agents/ksdft2effmass-integration-reviewer.md"],
-      "authoritative_references": ["AGENTS.md", ".pi/skills/develop-operator-records/references/operator-record-architecture.md", ".pi/skills/document-research-python/references/test-evidence-documentation.md", "docs/verification/testing-and-evidence.rst"],
-      "inputs": ["selected REVIEW_ONLY or AUTHORIZED_OPERATOR_WORK profile", "approved task/contract", "artifact inventory", "evidence class", "mutation paths"],
-      "outputs": ["structured review or mutation result", "artifact identities", "commands/results", "evidence IDs/classes", "residual risks"],
-      "side_effects": ["none for review", "bounded operator source/test/specification/fixture/docs writes only when authorized"],
-      "external_tools_used": ["pytest", "Ruff", "mypy", "Sphinx", "jsonschema through focused tests"],
-      "deterministic_scripts_used": ["operator dependency-direction pytest", "schema/fixture pytest", ".pi/skills/audit_evidence_identifiers.py"],
+      "current_consumers": [
+        ".pi/agents/ksdft2effmass-architecture.md",
+        ".pi/agents/ksdft2effmass-documentation.md",
+        ".pi/agents/ksdft2effmass-implementation.md",
+        ".pi/agents/ksdft2effmass-tests.md",
+        ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/develop-operator-records/references/operator-record-architecture.md",
+        ".pi/skills/document-python-research-software/references/test-evidence-documentation.md",
+        "docs/verification/testing-and-evidence.rst"
+      ],
+      "inputs": [
+        "selected REVIEW_ONLY or AUTHORIZED_OPERATOR_WORK profile",
+        "approved task/contract",
+        "artifact inventory",
+        "evidence class",
+        "mutation paths"
+      ],
+      "outputs": [
+        "structured review or mutation result",
+        "artifact identities",
+        "commands/results",
+        "evidence IDs/classes",
+        "residual risks"
+      ],
+      "side_effects": [
+        "none for review",
+        "bounded operator source/test/specification/fixture/docs writes only when authorized"
+      ],
+      "external_tools_used": [
+        "pytest",
+        "Ruff",
+        "mypy",
+        "Sphinx",
+        "jsonschema through focused tests"
+      ],
+      "deterministic_scripts_used": [
+        "operator dependency-direction pytest",
+        "schema/fixture pytest",
+        ".pi/skills/audit_evidence_identifiers.py"
+      ],
       "authorization_requirements": "Approved operator task for mutation; human authority for scientific/public contracts and acceptance.",
       "failure_behavior": "Missing authorization, conflicting authority, partial write, unavailable artifacts, or failed required command returns structured failure.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy and a new attempt identity; mutation replay also requires parent verification of current files.",
@@ -156,22 +379,62 @@
       "evidence_classification": "operator software/numerical evidence orchestration plus agent review; never scientific acceptance",
       "current_validation_status": "Invocation profiles hardened and operator evidence routed to the shared documentation grammar; deterministic evidence audit supports fielded and historical owner declarations, but strict evidence-ID gate still depends on the current repository inventory and establishes no scientific validation or UQ.",
       "primary_classification": "COMPOSABLE_AFTER_HARDENING",
-      "hardening_applied": ["profile selection", "input/result schema requirements", "deterministic authority", "failure/retry/idempotency", "no-successor stop", "routed repository-wide test-evidence grammar to document-research-python shared reference"],
-      "remaining_hardening": ["resolve 22 strict evidence-owner gaps in a separately authorized test task", "enforce expected result schema in a future harness"],
+      "hardening_applied": [
+        "profile selection",
+        "input/result schema requirements",
+        "deterministic authority",
+        "failure/retry/idempotency",
+        "no-successor stop",
+        "routed repository-wide test-evidence grammar to document-python-research-software shared reference"
+      ],
+      "remaining_hardening": [
+        "resolve 22 strict evidence-owner gaps in a separately authorized test task",
+        "enforce expected result schema in a future harness"
+      ],
       "stop_condition": "Stop after requested profile result; never launch successor or claim human acceptance."
     },
     {
-      "skill_name": "document-research-python",
-      "path": ".pi/skills/document-research-python/SKILL.md",
-      "content_sha256": "b1fd3c22bc4e1b798e47796110e4f3f15f2085ac32a6a3c4396b599fb52c5393",
+      "skill_name": "document-python-research-software",
+      "path": ".pi/skills/document-python-research-software/SKILL.md",
+      "content_sha256": "e381be042b3befd4e889ebefcf29430c343332a5ffda631786367a6fa47ae811",
       "trigger_description": "Public Python API or scientific-convention documentation, source-documentation review, and Sphinx synchronization.",
-      "current_consumers": [".pi/agents/ksdft2effmass-documentation.md", ".pi/agents/ksdft2effmass-implementation.md", ".pi/agents/ksdft2effmass-tests.md", ".pi/agents/ksdft2effmass-integration-reviewer.md"],
-      "authoritative_references": ["AGENTS.md", ".pi/skills/document-research-python/references/test-evidence-documentation.md", "docs/development/source-documentation.rst", "docs/conf.py"],
-      "inputs": ["REVIEW_ONLY, AUTHORIZED_DOCS_WRITE, or separately test-owned AUTHORIZED_TEST_EVIDENCE_DOC_WRITE profile", "immutable source/test/schema/fixture/docs references", "authoritative conventions", "permitted paths", "class-owned or artifact-owned evidence module inventory and authorized migration scope"],
-      "outputs": ["structured documentation findings/changes", "Sphinx command result", "artifact identities", "warnings and human decisions", "structural and semantic test-evidence documentation findings kept distinct"],
-      "side_effects": ["none for review", "explicit documentation paths for authorized docs writer", "assigned test docstrings and semantic function names only for a separately validated test writer"],
-      "external_tools_used": ["Sphinx", "repository read/search"],
-      "deterministic_scripts_used": ["Sphinx warnings-as-errors command", ".pi/skills/audit_evidence_identifiers.py for structural owner inventory only"],
+      "current_consumers": [
+        ".pi/skills/develop-operator-records/SKILL.md",
+        "harness/pi/skills/document-python-research-software/descriptor.json"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/document-python-research-software/references/test-evidence-documentation.md",
+        "docs/development/source-documentation.rst",
+        "docs/conf.py"
+      ],
+      "inputs": [
+        "REVIEW_ONLY, AUTHORIZED_DOCS_WRITE, or separately test-owned AUTHORIZED_TEST_EVIDENCE_DOC_WRITE profile",
+        "immutable source/test/schema/fixture/docs references",
+        "authoritative conventions",
+        "permitted paths",
+        "class-owned or artifact-owned evidence module inventory and authorized migration scope"
+      ],
+      "outputs": [
+        "structured documentation findings/changes",
+        "Sphinx command result",
+        "artifact identities",
+        "warnings and human decisions",
+        "structural and semantic test-evidence documentation findings kept distinct"
+      ],
+      "side_effects": [
+        "none for review",
+        "explicit documentation paths for authorized docs writer",
+        "assigned test docstrings and semantic function names only for a separately validated test writer"
+      ],
+      "external_tools_used": [
+        "Sphinx",
+        "repository read/search"
+      ],
+      "deterministic_scripts_used": [
+        "Sphinx warnings-as-errors command",
+        ".pi/skills/audit_evidence_identifiers.py for structural owner inventory only"
+      ],
       "authorization_requirements": "No source/schema/fixture/dependency ownership transfer; test docstrings/names require an independently validated test-writer assignment; human authority remains required for scientific/public claims.",
       "failure_behavior": "Missing references, contract conflict, unauthorized mutation, or failed required command produces structured failure and stop.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy and a new attempt identity; writer replay also requires current file verification.",
@@ -179,65 +442,206 @@
       "evidence_classification": "agent documentation review plus deterministic documentation-build evidence",
       "current_validation_status": "Invocation profiles, deterministic Sphinx authority, and shared evidence-documentation grammar hardened; structural tooling does not establish oracle independence, scientific validation, or UQ; harness-level result-schema enforcement remains prospective.",
       "primary_classification": "COMPOSABLE_AFTER_HARDENING",
-      "hardening_applied": ["review/writer profiles", "inputs/outputs", "ownership and mutation boundaries", "structured failure/retry/idempotency", "Sphinx evidence authority", "shared class/artifact-owned evidence grammar and structural-versus-semantic review boundary", "bounded test-evidence documentation writer profile without ownership transfer"],
-      "remaining_hardening": ["enforce expected result schema in a future harness", "use only with task-specific documentation ownership"],
+      "hardening_applied": [
+        "review/writer profiles",
+        "inputs/outputs",
+        "ownership and mutation boundaries",
+        "structured failure/retry/idempotency",
+        "Sphinx evidence authority",
+        "shared class/artifact-owned evidence grammar and structural-versus-semantic review boundary",
+        "bounded test-evidence documentation writer profile without ownership transfer"
+      ],
+      "remaining_hardening": [
+        "enforce expected result schema in a future harness",
+        "use only with task-specific documentation ownership"
+      ],
       "stop_condition": "Stop after requested documentation result; do not accept work, launch successor, or retain generated build output."
     }
   ],
   "cpn_review_blocks": [
-    {"block": "ArchitectureContractReviewBlock", "kind": "agent_review", "evidence_owner": "design-data-action-objects applied by ksdft2effmass-architecture", "result": "SkillReviewFindingSetToken", "authority": "advisory; human acceptance remains separate"},
-    {"block": "SourceDocumentationReviewBlock", "kind": "agent_review", "evidence_owner": "document-research-python applied by documentation/integration reviewer", "result": "SkillReviewFindingSetToken", "authority": "advisory; Sphinx is separate deterministic evidence"},
-    {"block": "TestDocumentationReviewBlock", "kind": "agent_review", "evidence_owner": "develop-operator-records plus ksdft2effmass-tests/integration reviewer", "result": "SkillReviewFindingSetToken", "authority": "advisory"},
-    {"block": "VVUQClassificationReviewBlock", "kind": "agent_review", "evidence_owner": "develop-operator-records plus tests/integration reviewer", "result": "SkillReviewFindingSetToken", "authority": "advisory; cannot establish scientific validation or UQ"},
-    {"block": "PublicApiInventoryReviewBlock", "kind": "mixed", "evidence_owner": "develop-operator-records review plus deterministic __all__/test inventory command", "result": "SkillReviewFindingSetToken and DeterministicToolResultToken", "authority": "software inventory only"},
-    {"block": "StaticDependencyDirectionReviewBlock", "kind": "mixed", "evidence_owner": "operator dependency-direction pytest plus design/integration review", "result": "DeterministicToolResultToken and SkillReviewFindingSetToken", "authority": "software topology only"},
-    {"block": "SchemaFixtureReviewBlock", "kind": "mixed", "evidence_owner": "focused schema/fixture pytest plus develop-operator-records review", "result": "DeterministicToolResultToken and SkillReviewFindingSetToken", "authority": "software serialization evidence only"},
-    {"block": "NumericalEvidenceReviewBlock", "kind": "mixed", "evidence_owner": "numerical-verification pytest plus VVUQ review", "result": "DeterministicToolResultToken and SkillReviewFindingSetToken", "authority": "bounded numerical verification, never scientific validation"},
-    {"block": "IntegrationReviewBlock", "kind": "agent_review", "evidence_owner": "ksdft2effmass-integration-reviewer applying audited skills", "result": "SkillReviewFindingSetToken", "authority": "advisory to parent verification"},
-    {"block": "StalePathReviewBlock", "kind": "mixed", "evidence_owner": "deterministic path inventory plus integration review; Graphify optional advisory only", "result": "DeterministicToolResultToken and SkillReviewFindingSetToken", "authority": "software/control-plane evidence"},
-    {"block": "CheckpointReviewBlock", "kind": "human_decision_support", "evidence_owner": "resolve-human-checkpoint plus validate_checkpoints.py", "result": "human decision record and DeterministicToolResultToken", "authority": "human response only"},
-    {"block": "TaskSelectionReviewBlock", "kind": "human_decision_support", "evidence_owner": "choose-next-task", "result": "advisory recommendation artifact", "authority": "human selection required"},
-    {"block": "DocumentationSynchronizationReviewBlock", "kind": "agent_review", "evidence_owner": "document-research-python applied by documentation/integration reviewer", "result": "SkillReviewFindingSetToken", "authority": "advisory; Sphinx and link checks remain separate deterministic evidence"}
+    {
+      "block": "ArchitectureContractReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "design-data-action-objects applied by ksdft2effmass-architecture",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; human acceptance remains separate"
+    },
+    {
+      "block": "SourceDocumentationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "document-python-research-software applied by documentation/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; Sphinx is separate deterministic evidence"
+    },
+    {
+      "block": "TestDocumentationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "develop-operator-records plus ksdft2effmass-tests/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory"
+    },
+    {
+      "block": "VVUQClassificationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "develop-operator-records plus tests/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; cannot establish scientific validation or UQ"
+    },
+    {
+      "block": "PublicApiInventoryReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "develop-operator-records review plus deterministic __all__/test inventory command",
+      "result": "SkillReviewFindingSetToken and DeterministicToolResultToken",
+      "authority": "software inventory only"
+    },
+    {
+      "block": "StaticDependencyDirectionReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "operator dependency-direction pytest plus design/integration review",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "software topology only"
+    },
+    {
+      "block": "SchemaFixtureReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "focused schema/fixture pytest plus develop-operator-records review",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "software serialization evidence only"
+    },
+    {
+      "block": "NumericalEvidenceReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "numerical-verification pytest plus VVUQ review",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "bounded numerical verification, never scientific validation"
+    },
+    {
+      "block": "IntegrationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "ksdft2effmass-integration-reviewer applying audited skills",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory to parent verification"
+    },
+    {
+      "block": "StalePathReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "deterministic path inventory plus integration review; Graphify optional advisory only",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "software/control-plane evidence"
+    },
+    {
+      "block": "CheckpointReviewBlock",
+      "kind": "human_decision_support",
+      "evidence_owner": "resolve-human-checkpoint plus validate_checkpoints.py",
+      "result": "human decision record and DeterministicToolResultToken",
+      "authority": "human response only"
+    },
+    {
+      "block": "TaskSelectionReviewBlock",
+      "kind": "human_decision_support",
+      "evidence_owner": "recommend-next-task",
+      "result": "advisory recommendation artifact",
+      "authority": "human selection required"
+    },
+    {
+      "block": "DocumentationSynchronizationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "document-python-research-software applied by documentation/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; Sphinx and link checks remain separate deterministic evidence"
+    }
   ],
   "deterministic_tool_blocks": [
-    {"block": "PytestBlock", "command": "cd python && python3 -m pytest tests", "evidence_owner": "pytest", "classification": "software or declared numerical verification according to markers", "current_status": "established; not rerun by documentation/control-plane audit"},
-    {"block": "RuffFormatBlock", "command": "cd python && python3 -m ruff format --check .", "evidence_owner": "Ruff", "classification": "software formatting verification", "current_status": "established"},
-    {"block": "RuffLintBlock", "command": "cd python && python3 -m ruff check .", "evidence_owner": "Ruff", "classification": "software static verification", "current_status": "established"},
-    {"block": "MypyBlock", "command": "cd python && python3 -m mypy", "evidence_owner": "mypy", "classification": "software static verification", "current_status": "established"},
-    {"block": "SphinxWarningsAsErrorsBlock", "command": "PYTHONPATH=python/src python3 -m sphinx -W -b html docs <temporary-output>", "evidence_owner": "Sphinx", "classification": "documentation software verification", "current_status": "applicable and executed by this audit"},
-    {"block": "JsonSchemaValidationBlock", "command": "cd python && python3 -m pytest tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonFixtures.py", "evidence_owner": "pytest plus Draft 2020-12 jsonschema validator", "classification": "software serialization verification", "current_status": "existing executable owners"},
-    {"block": "ChecksumValidationBlock", "command": "shasum -a 256 <artifact>", "evidence_owner": "SHA-256 tool with exact artifact identity", "classification": "artifact-integrity verification", "current_status": "established command; per-artifact expected digest required"},
-    {"block": "GitDiffCheckBlock", "command": "git diff --check", "evidence_owner": "Git", "classification": "software/control-plane whitespace verification", "current_status": "applicable and executed by this audit"},
-    {"block": "EvidenceIdentifierAuditBlock", "command": "python3 .pi/skills/audit_evidence_identifiers.py --self-test --strict", "evidence_owner": ".pi/skills/audit_evidence_identifiers.py", "classification": "software evidence-inventory verification", "current_status": "Parser supports the new Evidence ID field and historical first-line declarations; self-test plus repository audit are required, and results remain structural ownership evidence only."},
-    {"block": "CheckpointSchemaValidationBlock", "command": "python3 .pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run", "evidence_owner": "Draft 2020-12 jsonschema validator plus checkpoint control script", "classification": "control-plane software verification", "current_status": "full-schema validation hardened and executed by this audit"},
-    {"block": "StaticDependencyDirectionToolBlock", "command": "cd python && python3 -m pytest tests/software_verification/ksdft2effmass/integration/test__OperatorComparisonDependencyDirection.py", "evidence_owner": "focused AST-based pytest", "classification": "software topology verification", "current_status": "existing executable owner; operator comparison scope only"},
-    {"block": "SkillCapabilityInventoryValidationBlock", "command": "python3 .pi/skills/validate_skill_capabilities.py", "evidence_owner": ".pi/skills/validate_skill_capabilities.py", "classification": "control-plane software verification", "current_status": "added and executed by this audit"}
-  ],
-  "prospective_subnet": {
-    "description": "Testing/review subnet architecture only; no SNAKES implementation.",
-    "sequence": [
-      "implementation_artifacts_ready -> request_static_verification -> static_verification_requested",
-      "static_verification_requested -> parallel RuffFormatBlock | RuffLintBlock | MypyBlock | StaticDependencyDirectionToolBlock",
-      "static_results_complete -> request_test_verification -> test_verification_requested",
-      "test_verification_requested -> parallel PytestBlock | EvidenceIdentifierAuditBlock; external agent performs VVUQClassificationReviewBlock",
-      "test_results_complete -> request_documentation_verification -> documentation_verification_requested",
-      "documentation_verification_requested -> SphinxWarningsAsErrorsBlock; external agent performs SourceDocumentationReviewBlock and DocumentationSynchronizationReviewBlock",
-      "all_required_evidence_present -> request_integration_review -> integration_review_requested",
-      "external integration reviewer -> integration_review_result_received -> review_findings_recorded",
-      "deterministic_results_complete + review_findings_recorded -> parent_verification_requested",
-      "parent verification pass -> human_acceptance_requested"
-    ],
-    "blocking_failure": "Any required deterministic nonzero result or missing result blocks the join; agent findings block parent verification according to severity and scope.",
-    "retry": "An immutable parent authorization identity or request pre-authorized retry policy permits correction with new artifact and attempt identities; prior failures/findings remain durable.",
-    "human_boundary": "Parent verification cannot grant final acceptance; protected decisions require a HumanAcceptanceResultToken."
-  },
-  "new_skill_gap_analysis": {
-    "new_skill_justified": false,
-    "capability_gap": "No current AI-skill gap. Existing skills plus project agents cover bounded architecture, operator, documentation, integration, checkpoint, task-selection, and advisory topology responsibilities.",
-    "existing_skills_considered": ["graphify", "resolve-human-checkpoint", "choose-next-task", "design-data-action-objects", "develop-operator-records", "document-research-python"],
-    "why_extension_preferred": "Observed gaps were trigger, invocation-contract, evidence-authority, deterministic-validation, and agent-routing defects within existing ownership.",
-    "deterministic_gaps": ["strict evidence-ID ownership currently reports 22 unowned test functions", "static dependency tooling is operator-subsystem-specific", "future harness enforcement of skill result schemas is not implemented"],
-    "deferred_routing_requirement": "Before any separately authorized P0 launch, assign task-specific implementation/test/review owners; do not default CPN production work to operator-only agents.",
-    "implementation_status": "No new skill proposed or created. No CPN runtime, SNAKES adapter, or production implementation created."
-  }
+    {
+      "block": "PytestBlock",
+      "command": "cd python && python3 -m pytest tests",
+      "evidence_owner": "pytest",
+      "classification": "software or declared numerical verification according to markers",
+      "current_status": "established; not rerun by documentation/control-plane audit"
+    },
+    {
+      "block": "RuffFormatBlock",
+      "command": "cd python && python3 -m ruff format --check .",
+      "evidence_owner": "Ruff",
+      "classification": "software formatting verification",
+      "current_status": "established"
+    },
+    {
+      "block": "RuffLintBlock",
+      "command": "cd python && python3 -m ruff check .",
+      "evidence_owner": "Ruff",
+      "classification": "software static verification",
+      "current_status": "established"
+    },
+    {
+      "block": "MypyBlock",
+      "command": "cd python && python3 -m mypy",
+      "evidence_owner": "mypy",
+      "classification": "software static verification",
+      "current_status": "established"
+    },
+    {
+      "block": "SphinxWarningsAsErrorsBlock",
+      "command": "PYTHONPATH=python/src python3 -m sphinx -W -b html docs <temporary-output>",
+      "evidence_owner": "Sphinx",
+      "classification": "documentation software verification",
+      "current_status": "applicable and executed by this audit"
+    },
+    {
+      "block": "JsonSchemaValidationBlock",
+      "command": "cd python && python3 -m pytest tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonFixtures.py",
+      "evidence_owner": "pytest plus Draft 2020-12 jsonschema validator",
+      "classification": "software serialization verification",
+      "current_status": "existing executable owners"
+    },
+    {
+      "block": "ChecksumValidationBlock",
+      "command": "shasum -a 256 <artifact>",
+      "evidence_owner": "SHA-256 tool with exact artifact identity",
+      "classification": "artifact-integrity verification",
+      "current_status": "established command; per-artifact expected digest required"
+    },
+    {
+      "block": "GitDiffCheckBlock",
+      "command": "git diff --check",
+      "evidence_owner": "Git",
+      "classification": "software/control-plane whitespace verification",
+      "current_status": "applicable and executed by this audit"
+    },
+    {
+      "block": "HarnessValidationRouteBlock",
+      "command": "python3 .pi/skills/validate_harness.py --repository-root <absolute-repository-root> --route-config <absolute-route-config>",
+      "evidence_owner": ".pi/skills/validate_harness.py with harness/local/validation-route.json",
+      "classification": "repository-local harness validation routing",
+      "current_status": "live consumer requires explicit absolute inputs; legacy is authoritative and rollback route is legacy"
+    },
+    {
+      "block": "EvidenceIdentifierAuditBlock",
+      "command": "python3 .pi/skills/audit_evidence_identifiers.py --self-test --strict",
+      "evidence_owner": ".pi/skills/audit_evidence_identifiers.py",
+      "classification": "software evidence-inventory verification",
+      "current_status": "Parser supports the new Evidence ID field and historical first-line declarations; self-test plus repository audit are required, and results remain structural ownership evidence only."
+    },
+    {
+      "block": "CheckpointSchemaValidationBlock",
+      "command": "python3 .pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run",
+      "evidence_owner": "Draft 2020-12 jsonschema validator plus checkpoint control script",
+      "classification": "control-plane software verification",
+      "current_status": "full-schema validation hardened and executed by this audit"
+    },
+    {
+      "block": "StaticDependencyDirectionToolBlock",
+      "command": "cd python && python3 -m pytest tests/software_verification/ksdft2effmass/integration/test__OperatorComparisonDependencyDirection.py",
+      "evidence_owner": "focused AST-based pytest",
+      "classification": "software topology verification",
+      "current_status": "existing executable owner; operator comparison scope only"
+    },
+    {
+      "block": "SkillCapabilityInventoryValidationBlock",
+      "command": "python3 .pi/skills/validate_skill_capabilities.py",
+      "evidence_owner": ".pi/skills/validate_skill_capabilities.py",
+      "classification": "control-plane software verification",
+      "current_status": "added and executed by this audit"
+    }
+  ]
 }

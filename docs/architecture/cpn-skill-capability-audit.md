@@ -48,19 +48,26 @@ policy, create a new attempt identity, and retain previous failures and findings
 
 ## Actual repository inventory
 
-Six repository-local skills exist in the working tree:
+The maintained source of truth for the live skill inventory is
+`.pi/skills/skill-capability-inventory.json`, checked against the six canonical
+filesystem roots. Task, checkpoint, and chain records are authoritative for
+execution state, but are not skill-inventory inputs; retaining mutable snapshots
+of them in the capability inventory would make that inventory stale.
 
 | Skill | Path | Primary CPN suitability | Main current consumers |
 |---|---|---|---|
-| `design-data-action-objects` | `.pi/skills/design-data-action-objects/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | five project agents |
-| `develop-operator-records` | `.pi/skills/develop-operator-records/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | five project agents and closed operator workflows |
-| `document-research-python` | `.pi/skills/document-research-python/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | implementation, test, documentation, and integration-review agents |
-| `graphify` | `.agents/skills/graphify/SKILL.md` | `ADVISORY_REVIEW_ONLY` | explicit Graphify use and optional `choose-next-task` support |
-| `choose-next-task` | `.pi/skills/choose-next-task/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent planning transitions |
-| `resolve-human-checkpoint` | `.agents/skills/resolve-human-checkpoint/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent checkpoint routing and `choose-next-task` handoff |
+| `design-data-action-objects` | `.pi/skills/design-data-action-objects/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project design and implementation agents |
+| `develop-operator-records` | `.pi/skills/develop-operator-records/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project operator agents and closed operator workflows |
+| `document-python-research-software` | `.pi/skills/document-python-research-software/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | implementation, test, documentation, and integration-review agents |
+| `graphify` | `.agents/skills/graphify/SKILL.md` | `ADVISORY_REVIEW_ONLY` | explicit Graphify use and optional `recommend-next-task` support |
+| `recommend-next-task` | `.pi/skills/recommend-next-task/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent planning transitions |
+| `resolve-human-checkpoint` | `.agents/skills/resolve-human-checkpoint/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent checkpoint routing and `recommend-next-task` handoff |
 
-No duplicate skill name or obsolete `use-graphify` skill exists. Project agents
-under `.pi/agents/` are consumers/executors, not additional skills. Deterministic
+The H4 renames from `choose-next-task` and `document-research-python` correct
+identity without expanding capability. Those old names remain traceable in H4
+migration evidence and historical records, not as live aliases. No duplicate
+canonical name or obsolete `use-graphify` skill exists. Project agents under
+`.pi/agents/` are consumers/executors, not additional skills. Deterministic
 commands and scripts are tool capabilities, not skills.
 
 ### Why some skills remain `COMPOSABLE_AFTER_HARDENING`
@@ -77,7 +84,7 @@ prevent an unqualified directly-composable classification.
 
 Graphify produces optional derived navigation evidence only. It cannot approve
 architecture, establish repository state, or become a scientific oracle.
-`choose-next-task` recommends one task and stops for human selection.
+`recommend-next-task` recommends one task and stops for human selection.
 `resolve-human-checkpoint` records an already supplied human decision; the skill
 does not create acceptance authority.
 
@@ -149,7 +156,7 @@ deterministic tool result. They do not independently satisfy final acceptance.
 | Responsibility | Existing owner | Result authority |
 |---|---|---|
 | `ArchitectureContractReviewBlock` | `design-data-action-objects` + architecture agent | advisory findings |
-| `SourceDocumentationReviewBlock` | `document-research-python` + documentation/integration agent | advisory findings |
+| `SourceDocumentationReviewBlock` | `document-python-research-software` + documentation/integration agent | advisory findings |
 | `TestDocumentationReviewBlock` | `develop-operator-records` + test/integration agent | advisory findings |
 | `VVUQClassificationReviewBlock` | operator skill + test/integration agent | advisory evidence classification |
 | `PublicApiInventoryReviewBlock` | operator skill + deterministic `__all__`/test inventory | mixed review/tool evidence |
@@ -159,7 +166,7 @@ deterministic tool result. They do not independently satisfy final acceptance.
 | `IntegrationReviewBlock` | project integration reviewer applying audited skills | advisory parent input |
 | `StalePathReviewBlock` | deterministic inventory/search + integration review; optional Graphify | software/control-plane evidence plus findings |
 | `CheckpointReviewBlock` | checkpoint skill + checkpoint validator | human decision record plus deterministic schema result |
-| `TaskSelectionReviewBlock` | `choose-next-task` | advisory recommendation; human selection required |
+| `TaskSelectionReviewBlock` | `recommend-next-task` | advisory recommendation; human selection required |
 | `DocumentationSynchronizationReviewBlock` | documentation skill + documentation/integration reviewer | advisory synchronization findings; deterministic Sphinx/link evidence remains separate |
 
 ## Deterministic tool blocks

@@ -6,7 +6,7 @@ tools: read, bash, edit, write
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: true
-skills: design-data-action-objects, document-research-python
+skills: design-data-action-objects, document-python-research-software
 acceptanceRole: writer
 ---
 

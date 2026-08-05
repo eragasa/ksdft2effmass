@@ -20,6 +20,6 @@ consequences, and evidence paths. Do not store full chat transcripts.
   protected human authority.
 
 New sessions must inspect unresolved checkpoints before invoking
-`choose-next-task`. If the current human message resolves a persisted checkpoint,
+`recommend-next-task`. If the current human message resolves a persisted checkpoint,
 the `resolve-human-checkpoint` skill records the decision and resumes the blocked
 task automatically.

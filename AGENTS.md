@@ -61,7 +61,7 @@ state from authoritative records in this order:
 If the current human message resolves a persisted checkpoint, follow
 `.agents/skills/resolve-human-checkpoint/SKILL.md`. Never infer approval from
 silence, timeout, an agent report, or a passing check. Use
-`.pi/skills/choose-next-task/SKILL.md` only when no task or checkpoint remains
+`.pi/skills/recommend-next-task/SKILL.md` only when no task or checkpoint remains
 active and the human asks what comes next; it is read-only and cannot launch
 work.
 
@@ -355,7 +355,7 @@ class per file; or class-owned and artifact-owned classification.
 
 Those conventions apply when an accepted task explicitly declares tests to be
 maintained verification evidence. Their detailed grammar is owned by
-`.pi/skills/document-research-python/references/test-evidence-documentation.md`;
+`.pi/skills/document-python-research-software/references/test-evidence-documentation.md`;
 subsystem-specific placement and evidence rules belong in the applicable skill,
 task, specification, or `docs/verification/` page.
 
@@ -402,7 +402,7 @@ owners:
 
 - checkpoint resolution: `.agents/skills/resolve-human-checkpoint/SKILL.md`;
 - test-evidence grammar:
-  `.pi/skills/document-research-python/references/test-evidence-documentation.md`;
+  `.pi/skills/document-python-research-software/references/test-evidence-documentation.md`;
 - DataObject/ActionObject design:
   `.pi/skills/design-data-action-objects/SKILL.md`;
 - task-ownership schemas and validation: `.pi/task-ownership/README.md`;

@@ -1,9 +1,9 @@
 ---
-name: choose-next-task
+name: recommend-next-task
 description: Determine and recommend the single next repository task after a milestone, review, or implementation completes. Use when the user asks what is next, what to do next, which task should follow, which project branch to pursue, where we are in a new session, or how to continue from the current repository state. Reconstruct state from authoritative repository evidence, dependencies, blockers, validation status, research goals, and publication relevance. Remain read-only and do not create or launch the task until the human selects it.
 ---
 
-# What Is Next?
+# Recommend Next Task
 
 Use this skill to recommend exactly one next repository task after a milestone,
 review, implementation, chain, or human final acceptance completes. The skill is
@@ -237,7 +237,7 @@ authoritative file that verifies each material conclusion.
 Use this structure:
 
 ```markdown
-# What Is Next?
+# Recommend Next Task
 
 ## Current verified state
 

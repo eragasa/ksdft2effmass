@@ -17,7 +17,7 @@ identifier namespaces. Software-verification modules use the `SV-*` namespaces
 and marker; numerical-verification modules use the `NV-*` namespaces and
 marker. Namespace stems, inclusive ranges, decimal widths, module scopes, and
 the exact protected unowned functions are data in
-`ksdft2effmass.profile.v1`.
+`ksdft2effmass.profile.v2`.
 
 `scientific_validation` and `uncertainty_quantification` are declared marker
 vocabulary only. Their presence does not create an evidence-ID family or imply

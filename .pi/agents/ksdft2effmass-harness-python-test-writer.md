@@ -6,7 +6,7 @@ tools: read, bash, edit, write
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: true
-skills: document-research-python
+skills: document-python-research-software
 acceptanceRole: writer
 ---
 

@@ -1,10 +1,10 @@
 ---
-name: document-research-python
+name: document-python-research-software
 description: Documents public Python APIs, serialization contracts, conceptual pages, and maintained test evidence under explicit path authorization.
 behavior-version: 1
 ---
 
-# Document Research Python
+# Document Python Research Software
 
 Use this skill when public Python APIs, serialized models, numerical conventions,
 or maintained Python documentation are created or changed.

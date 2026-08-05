@@ -32,7 +32,10 @@ The two renames correct names only and do not expand capability. `recommend-next
 - project-local adapters for current task, checkpoint, chain, agent, ownership, evidence, checksum, and legacy P1-v1 compatibility inputs selected for replay;
 - structured shadow execution and deterministic parity comparison of status, issue codes, paths, related identities, ordering, state, inventories, exit status, and generated reports;
 - explicit difference classification as `equivalent`, `intentional`, `defect`, or `deferred`;
-- controlled live-consumer routing, old/new identity traceability, rollback, and justified duplicate retirement/replacement;
+- controlled live-consumer routing with `.pi/skills/validate_harness.py` as the concrete consumer and `harness/local/validation-route.json` as the single route owner: the pending boundary selects legacy, human-acceptance closeout may change exactly that route to local, and rollback changes it to legacy and reruns identical commands;
+- pure `SelectValidationRoute` and `RollBackValidationRoute` actions that do not write configuration or restore filesystem resources; any restoration of old skill or version-1 profile bytes is a separate Git revert or checkout at the recorded H4 starting revision;
+- old/new identity traceability, including the requirement that historical `.pi/evidence/class-owned-evidence-convention/validate.py` replay use a pre-H4-revision worktree because its retained old skill path is not rewritten;
+- justified duplicate retirement/replacement;
 - canonical skill-name correction, accepted H3 resource identity updates required by the renames, and live-reference synchronization;
 - stale `.pi/skills/skill-capability-inventory.json` correction so it owns identity/capability/routing/resource/validation information but not mutable task status, checkpoint counts, or successor readiness;
 - maintained documentation, retained H4 evidence, independent review, bounded correction, validation, and one final H4 checkpoint.

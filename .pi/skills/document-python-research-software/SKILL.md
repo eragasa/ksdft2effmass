@@ -1,9 +1,9 @@
 ---
-name: document-research-python
+name: document-python-research-software
 description: Documents public research-software Python APIs and Sphinx pages. Use for new public Python APIs, scientific data models, numerical conventions, serialization schemas, and Sphinx conceptual or API documentation.
 ---
 
-# Document Research Python
+# Document Python Research Software
 
 Use this skill when public Python APIs or scientific conventions are created or changed.
 

@@ -1,8 +1,8 @@
 # PI Harness Skills and Textual Resources
 
-## Prospective resource boundary
+## Resource boundary
 
-When separately authorized, reusable non-Python harness material will belong under
+The accepted H3 snapshot and active H4 integration place reusable non-Python harness material under
 
 ```text
 harness/pi/
@@ -16,13 +16,17 @@ harness/local/
 
 Markdown under `harness/pi/` is operational agent material. Scientific explanation, user guides, and maintained architecture discussion remain under `docs/`.
 
-## Generic resource layout
+## Generic resource layout and identity
 
-H3 will define the concrete layout before H2 consumes resource and profile
-identities. The generic resource tree may contain accepted skills with their
-direct references and deterministic scripts, plus required templates, schemas,
-and a resource manifest. Exact names and serialized manifest fields remain
-contract decisions; no prospective example path is an implemented interface.
+H3 established the generic tree, direct references, schemas, fixtures, and
+manifests consumed by H2. Its accepted checksum catalog remains the historical
+version-1 rollback identity. H4's current live resource composition is manifest
+version 2: `pih.generic.resources` extends to
+`ksdft2effmass.local.resources`, and the explicitly supplied
+`ksdft2effmass.profile.v2` binds both manifest IDs and version 2. Resource entry
+schema and format versions remain 1; manifest revision and resource format are
+distinct identities. The v2 rename and content identities do not rewrite the
+accepted H3 v1 evidence.
 
 Only required files should be included. A skill should not accumulate redundant README files, changelogs, installation guides, or copied project history.
 
@@ -34,9 +38,11 @@ A reusable skill must state when it applies in its trigger description. It must 
 
 ## Evidence-documentation skill source
 
-The existing `document-research-python` evidence grammar is the sole source for
-future extraction or update. H1-H3 must not create an independent duplicate
-skill or competing grammar. The generic capability should support:
+The canonical live `document-python-research-software` skill and its directly
+referenced test-evidence grammar are the sole maintained source. The former
+`document-research-python` name is retained only in H3 historical identity and
+H4 rename traceability; it is not a live alias or competing grammar. The generic
+capability supports:
 
 - software-verification classification;
 - numerical-verification classification;
@@ -53,9 +59,11 @@ Project profiles supply marker names and evidence-ID prefixes.
 
 ## Resource manifest
 
-The resource manifest should identify each reusable resource by stable identity, kind, version, and path. It should support deterministic checks for missing, duplicated, or incompatible resources.
-
-The manifest must not treat a filesystem path as the resource's only identity.
+The generic and local manifests identify each reusable resource by stable
+`resource_id`, kind, format version, manifest-root-relative path, SHA-256 content
+identity, and dependency IDs. The generic manifest is the authoritative generic
+inventory; the local manifest may only extend its named generic base. Neither a
+filesystem path nor a stale task/checkpoint snapshot is a resource identity.
 
 ## Generic versus local content
 

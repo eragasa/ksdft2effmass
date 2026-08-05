@@ -154,7 +154,7 @@ assertions, fixtures, parameterization, and meaning, and update manifests,
 replay paths, inventories, checksums, documentation, and one-to-one pytest node
 maps together.  The exact grammar, approved ``workflow_cpn`` names, and review
 rules are maintained in
-``.pi/skills/document-research-python/references/test-evidence-documentation.md``.
+``.pi/skills/document-python-research-software/references/test-evidence-documentation.md``.
 
 Parameterization, representation, and independent oracles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

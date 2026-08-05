@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.acceptance-index.v1",
+  "task_id": "H4",
+  "acceptance_status": "implementation_pass_clean_revision_replay_required",
+  "human_acceptance_claimed": false,
+  "authoritative_route": "legacy_pending_h4_checkpoint",
+  "artifacts": [
+    {
+      "path": "python/src/ksdft2effmass/harness/pi/local",
+      "kind": "project_local_python",
+      "public_exports": 30,
+      "package_file_count": 8,
+      "status": "pass"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local",
+      "kind": "maintained_software_verification",
+      "evidence_ids": "SV-HL-001..013",
+      "public_exports": 30,
+      "status": "pass"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+      "kind": "shadow_parity",
+      "status": "schema_v2_clean_revision_replay_required"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
+      "kind": "cutover_rollback",
+      "status": "ready_for_independent_review"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/old-new-traceability.json",
+      "kind": "traceability",
+      "status": "complete"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+      "kind": "validation",
+      "status": "pass"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
+      "kind": "checksum_catalog",
+      "status": "generated",
+      "entry_count": 206,
+      "boundary": "complete authorized current H4 boundary; excludes catalog itself, unrelated work, deleted old paths, and H1-H3 historical evidence"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+      "kind": "completion_validator",
+      "status": "expected_rejection_until_clean_replay"
+    }
+  ],
+  "review_gate": {
+    "required": true,
+    "status": "pending_independent_review"
+  },
+  "baseline_limitations": [
+    "four pre-existing unchanged CPN tests fail the global Ruff format scan",
+    "nine pre-existing H2 untyped-test errors fail global mypy; focused H4 mypy passes 15 files"
+  ],
+  "claim_boundary": "Software-verification and migration evidence only; no numerical verification, scientific validation, UQ, release, external execution, authoritative cutover, or human acceptance claim."
+}

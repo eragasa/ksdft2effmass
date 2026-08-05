@@ -4,7 +4,7 @@
 
 `harness/pi/` is the generic textual-resource root. A caller supplies this root explicitly together with `harness/pi/resource-manifest.json`; neither the current directory, Git, caller-supplied runtime-state records, environment variables, parent-directory search, nor package fallback selects it. An optional project-local root and manifest are separate explicit inputs.
 
-The generic manifest has stable identity `pih.generic.resources`, manifest version `1`, and layer `generic`. Each resource entry is identified by its opaque, stable `resource_id`, not by its path. An entry also records its `resource_kind`, `format_version`, manifest-root-relative `ResourcePath`, exact SHA-256 `content_identity`, and complete, sorted `dependency_ids`. The manifest therefore distinguishes:
+The generic manifest has stable identity `pih.generic.resources`, manifest version `2`, and layer `generic`. Each resource entry is identified by its opaque, stable `resource_id`, not by its path. An entry also records its `resource_kind`, `format_version`, manifest-root-relative `ResourcePath`, exact SHA-256 `content_identity`, and complete, sorted `dependency_ids`. The manifest therefore distinguishes:
 
 - stable logical identity (`resource_id` or `manifest_id`);
 - contract revision (`format_version` or `manifest_version`);
@@ -15,9 +15,9 @@ Matching hashes establish byte equality only. They do not establish equal kind, 
 
 ## Accepted-contract generic identities
 
-The generic manifest is the authoritative inventory. In this page, “accepted-contract” identifies the accepted contract task governing the resource-task surface; it does not claim final resource-task human acceptance, which remains a separate gate. Its version-1 families are:
+The generic manifest is the authoritative inventory. In this page, “accepted-contract” identifies the accepted contract task governing the resource-task surface; it does not claim final resource-task human acceptance, which remains a separate gate. Its maintained families are:
 
-- `pih.skill.document-research-python.v1`, its descriptor `pih.manifest.skill-descriptor.document-research-python.v1`, and its directly referenced grammar `pih.reference.test-evidence-documentation.v1`;
+- `pih.skill.document-python-research-software.v1`, its descriptor `pih.manifest.skill-descriptor.document-python-research-software.v1`, and its directly referenced grammar `pih.reference.test-evidence-documentation.v1`;
 - record schemas under the `pih.schema.record-*.v1` identities;
 - reusable schema entry points `pih.schema.project-profile.v1`, `pih.schema.resource-manifest.v1`, and `pih.schema.skill-descriptor.v1`; and
 - `pih.schema.common-wire-definitions.v1` for shared wire definitions.

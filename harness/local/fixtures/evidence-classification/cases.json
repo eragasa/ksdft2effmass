@@ -12,6 +12,16 @@
       }
     },
     {
+      "case_id": "software-accepts-h4-local-id",
+      "module_path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/example.py",
+      "marker": "software_verification",
+      "evidence_id": "SV-HL-013",
+      "expected": {
+        "status": "PASS",
+        "classification": "software_verification"
+      }
+    },
+    {
       "case_id": "numerical-accepts-numerical-id",
       "module_path": "python/tests/numerical_verification/example.py",
       "marker": "numerical_verification",

@@ -4,11 +4,6 @@
   "starting_revision": "de8659bc5858a52de8f866ec73a14487bf480432",
   "entries": [
     {
-      "status": " M",
-      "path": "docs/meetings/20260728-LLENARIZAS.md",
-      "sha256": "40825e03b4ede52797ddd525979f66f5613986117f5196570a788a532cd136d4"
-    },
-    {
       "status": "??",
       "path": "docs/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
       "sha256": "4b1a2302ab47f7401b0531d9a89c29dfb05cebfc93e51eab1b8b2c96c351fa13"
@@ -19,15 +14,45 @@
       "sha256": "65c72b2f93301a6c67713cc3e22cf42f420b2443d471be5dcb90d64634235d11"
     },
     {
+      "status": " M",
+      "path": "docs/meetings/20260728-LLENARIZAS.md",
+      "sha256": "40825e03b4ede52797ddd525979f66f5613986117f5196570a788a532cd136d4"
+    },
+    {
       "status": "??",
       "path": "docs/meetings/20260804-LLENARIZAS.md",
       "sha256": "a8120b88c17841a415d098716f6272d0b34b334ac3ee6c1271af99c4ab7d2c6d"
     },
     {
       "status": "??",
+      "path": "docs/papers/agentic-development-case-study/ARXIV-READINESS.md",
+      "sha256": "a5df65f53b53a125cb93ebfccb2d0c37410d2d8e8e23d207ac684850553bc9d1"
+    },
+    {
+      "status": "??",
+      "path": "docs/papers/agentic-development-case-study/README.md",
+      "sha256": "1a07d8254c180df6da07f309f975cc95b0de1cc83641fec8f856f02134904be9"
+    },
+    {
+      "status": "??",
       "path": "docs/papers/ksdft2efffmas.P03.md",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "??",
+      "path": "docs/research/agentic-development-case-study/instruments/PROPOSED-REPOSITORY-CHANGES.md",
+      "sha256": "2bb808a6c8c73e6a1ac3604fd796b60796bf1d9b68291d8da9e0fa30f1e1fe5d"
+    },
+    {
+      "status": "??",
+      "path": "docs/research/agentic-development-case-study/instruments/context-management-overhead.md",
+      "sha256": "7a8e2a4926d5a87a8d5c24e8c25e1c71bc8bacb36267d91490e2468d1034f605"
+    },
+    {
+      "status": "??",
+      "path": "docs/research/agentic-development-case-study/manuscript-record.md",
+      "sha256": "adfda409f7c7e7a223635a6b6741e97ae43c64ebab98f87a4a3c4c0d80866bb3"
     }
   ],
-  "preservation_rule": "These five unrelated human/user paths predate H4, are outside H4 ownership, and must remain byte-unchanged and uncommitted by H4."
+  "preservation_rule": "These ten unrelated human/user paths predate or are concurrent with H4, are outside H4 ownership, and must remain byte-unchanged and uncommitted by H4."
 }

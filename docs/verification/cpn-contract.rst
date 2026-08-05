@@ -92,7 +92,7 @@ runtime/wire agreement remains separately owned by ``SV-CPN-087`` and
 Class filenames, artifact and boundary names, directional relations, and genuine
 Workflow ownership follow the concise rules in :doc:`testing-and-evidence`; the
 complete shared convention is
-``.pi/skills/document-research-python/references/test-evidence-documentation.md``.
+``.pi/skills/document-python-research-software/references/test-evidence-documentation.md``.
 
 The deterministic completeness command is::
 

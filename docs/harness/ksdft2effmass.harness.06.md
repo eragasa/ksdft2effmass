@@ -6,28 +6,40 @@ The local extension layer supplies the information that makes a generic harness 
 
 The local layer is an adapter and configuration boundary, not a fork of the harness.
 
-## Prospective Python-local layer
+## Python-local layer
 
-When separately authorized, project-specific Python functionality will belong under
+Active H4 places project-specific Python functionality under
 
 ```text
 python/src/ksdft2effmass/harness/pi/local/
 ```
 
-It may own:
+Its public package exports 30 names: record adapters
+(`AdaptAgentRecords`, `AdaptChainRecord`, `AdaptCheckpointRecords`,
+`AdaptChecksumCatalog`, `AdaptEvidenceOwnershipManifest`,
+`AdaptOwnershipManifest`, `AdaptSkillInventory`, `AdaptTaskRecords`, and
+`SelectEvidenceModules`); composition and validation actions
+(`LoadLocalHarnessContext`, `ValidateLocalRepository`); routing actions and
+records (`SelectValidationRoute`, `RollBackValidationRoute`, `ValidationRoute`,
+`RouteConfiguration`, and `RouteSelection`); shadow records/actions
+(`LegacyInvocation`, `ShadowObservation`, `ShadowPairResult`,
+`ShadowReplayResult`, `CompareShadowPair`, and `ReplayShadowSuite`); and local
+records/results (`RepositoryRoots`, `LocalHarnessContext`, `LocalIssue`,
+`LocalValidationResult`, `AdaptationResult`, `EvidenceOwnershipRelation`,
+`AdaptedRepositoryRecords`, and `RepositoryValidationResult`).
 
-- profile construction;
-- repository-path mapping;
-- local validation composition;
-- project-specific structured issue codes when approved;
-- adapters between generic harness records and `.pi` records;
-- explicit routing to project-local skills.
+These APIs adapt caller-supplied bytes and observations; they do not discover or
+execute legacy commands. `SelectValidationRoute` and
+`RollBackValidationRoute` are pure actions over caller-supplied
+`RouteConfiguration` values; neither writes route configuration or restores
+filesystem resources. The concrete live consumer is
+`.pi/skills/validate_harness.py`, and `harness/local/validation-route.json` is
+its single route owner. The local package imports the generic harness. The
+generic package does not import the local package or project-domain modules.
 
-It may import both the generic harness and project-domain modules. The generic layer may not import it.
+## Textual-local layer
 
-## Prospective textual-local layer
-
-When separately authorized, project-specific textual resources will belong under
+Active H4 places project-specific textual resources under
 
 ```text
 harness/local/
@@ -48,14 +60,15 @@ It must not copy complete generic skills or validators.
 
 The harness must not discover the local profile merely because it is executed inside this repository. The caller supplies the profile explicitly.
 
-Conceptually,
-
-```python
-profile = load_project_profile(profile_path)
-result = validator.execute(record, profile)
-```
-
-This makes tests reproducible and prevents accidental coupling to the current working directory.
+The caller constructs `RepositoryRoots` with three absolute, existing, distinct
+paths: the repository root, `harness/pi/` generic resource root, and
+`harness/local/` local resource root. Both resource roots must be below the
+repository root. `LoadLocalHarnessContext` also receives exact profile and
+manifest bytes plus their declared SHA-256 identities; it validates the v2
+profile/manifest composition before returning a context. There is no current-
+working-directory fallback, environment lookup, or ambient profile discovery.
+This makes tests reproducible and prevents accidental coupling to invocation
+location.
 
 ## Extension limits
 
@@ -82,9 +95,17 @@ Each rule has one authoritative owner.
 
 If a local file restates a generic rule for convenience, it risks becoming a divergent implementation. Prefer a reference or configured extension.
 
+## Retained ownership compatibility
+
+The P1 v1 evidence inventory retains the local spelling `boundary_owned`. The
+local `AdaptEvidenceOwnershipManifest` maps it to the generic
+`artifact_owned` kind and adds explicit `agreement` relation metadata with the
+preserved left/right owner IDs and direction `none`. It does not introduce a
+third generic ownership kind or change the historical P1 manifest.
+
 ## Testing the boundary
 
-`artifact_owned` relation tests should establish:
+`artifact_owned` relation tests establish:
 
 - local configuration is accepted by the generic contract;
 - invalid local configuration fails structurally;

@@ -29,15 +29,16 @@
           ".agents/skills/graphify",
           ".agents/skills/resolve-human-checkpoint",
           ".pi/skills/choose-next-task",
-          ".pi/skills/recommend-next-task",
           ".pi/skills/design-data-action-objects",
           ".pi/skills/develop-operator-records",
-          ".pi/skills/document-research-python",
           ".pi/skills/document-python-research-software",
+          ".pi/skills/document-research-python",
+          ".pi/skills/recommend-next-task",
           ".pi/skills/skill-capability-inventory.json",
+          ".pi/skills/validate_harness.py",
           ".pi/skills/validate_skill_capabilities.py",
-          "harness/pi",
-          "harness/local"
+          "harness/local",
+          "harness/pi"
         ]
       },
       {

@@ -173,13 +173,57 @@ and resumes only the authorized incomplete work without requiring the human to
 paste the previous checkpoint report. If a checkpoint was already resolved, the
 decision is not requested again.
 
-The ``choose-next-task`` skill is designed to work without chat history. It is
+The ``recommend-next-task`` skill is designed to work without chat history. It is
 invoked only when no task or checkpoint remains active and the human asks for a
 planning transition. It reconstructs state from ``AGENTS.md``, checkpoint and
 task records, chains, skills, agents, source, tests, specifications,
 documentation, integration-review evidence, and version-control status. Graphify
 may accelerate broad topology questions, but any graph-derived conclusion must
 be verified against authoritative files before it affects a recommendation.
+
+H4 local harness routing
+------------------------
+
+The project-local public package is
+``ksdft2effmass.harness.pi.local``. Its 30-name ``__all__`` exposes explicit-root
+context composition, adapters for selected live records and retained evidence,
+local validation, pure route selection and rollback, and deterministic shadow
+comparison records/actions. Callers supply the repository root, generic
+``harness/pi/`` root, local ``harness/local/`` root, exact manifest/profile bytes
+and identities, and externally collected legacy/local observations. The package
+has no ambient repository discovery and does not execute a legacy command.
+
+The live resource pair is generic/local manifest version 2 with explicit
+``ksdft2effmass.profile.v2`` composition. Accepted H3 checksum evidence remains
+the historical version-1 resource snapshot and rollback oracle; it is not
+rewritten to match current v2 identities. The generic manifest is the generic
+resource-inventory source of truth. The six-skill capability inventory is
+``.pi/skills/skill-capability-inventory.json`` checked against canonical live
+roots; mutable task, chain, or checkpoint snapshots do not belong in it.
+
+The retained P1 version-1 evidence manifest's ``boundary_owned`` label is a
+project-local compatibility input. The local adapter emits generic
+``artifact_owned`` with explicit nondirectional ``agreement`` metadata and
+preserved participant identities. This does not add a generic ownership kind.
+
+The concrete live consumer is ``.pi/skills/validate_harness.py``, and
+``harness/local/validation-route.json`` is the single owner of its route
+selection. At the pending H4 boundary that file selects
+``ValidationRoute.LEGACY``. Shadow pairs are classified exactly as
+``equivalent``, ``intentional``, ``deferred``, or ``defect``; deferred and defect
+pairs prohibit cutover. Only human-acceptance closeout may change exactly that
+route value to ``ValidationRoute.LOCAL``, after every pair is eligible and all
+gates and reviews pass; no other file or ambient default selects authority.
+
+``RollBackValidationRoute`` is the pure local action that changes an explicit
+configuration back to ``ValidationRoute.LEGACY``. Operational rollback changes
+the single route-owner file to legacy and reruns the identical validation
+commands. The action does not restore, delete, or otherwise mutate filesystem
+resources. If the prior skill or version-1 profile bytes are also needed, they
+are restored separately with a Git revert or checkout from the recorded H4
+starting revision. The former skill names remain only in explicit migration
+traceability and historical records, not as live aliases. H4 remains active; H5
+and P2 remain blocked and require separate explicit activation.
 
 Colored Petri Net workflow control
 -----------------------------------

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.validation-results.v1",
+  "task_id": "H4",
+  "replay_label": "active-worktree:H4-authorized-correction-pass",
+  "overall_status": "IMPLEMENTATION_PASS_CLEAN_REVISION_REPLAY_REQUIRED",
+  "commands": [
+    {
+      "command": "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "20 passed"
+    },
+    {
+      "command": "schema-v2 parity negative fixtures for revision blob, identity-set hash, normalized issue/state, and unrelated dirty inventory",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "all controlled corruptions rejected fail-closed"
+    },
+    {
+      "command": "validate_harness.py with explicit temporary legacy/local/shadow route configurations",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "all three concrete consumer routes passed; maintained route remained byte-identical legacy"
+    },
+    {
+      "command": "pytest -q python",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "1097 passed"
+    },
+    {
+      "command": "generic AuditEvidenceIdentifiers over five H4 local test modules with explicit ksdft2effmass-v2 profile",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "5 modules, 13 occurrences, 0 issues"
+    },
+    {
+      "command": "ruff check .",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "full lint passed; parent validation handoff"
+    },
+    {
+      "command": "ruff format --check <affected H4 paths>",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "affected H4 formatting passed; parent validation handoff"
+    },
+    {
+      "command": "cd python && ruff format --check .",
+      "status": "OUT_OF_SCOPE_BASELINE",
+      "exit_status": 1,
+      "summary": "four pre-existing unchanged CPN tests require formatting: test__InputInscription.py, test__OutputInscription.py, test__TokenOutcome.py, and test__TransitionDefinition.py; no H4-owned file implicated and no baseline file edited"
+    },
+    {
+      "command": "cd python && MYPYPATH=src mypy src/ksdft2effmass/harness/pi/local tests/software_verification/ksdft2effmass/harness/pi/local",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "15 source/test files passed"
+    },
+    {
+      "command": "cd python && mypy",
+      "status": "OUT_OF_SCOPE_BASELINE",
+      "exit_status": 1,
+      "summary": "nine pre-existing H2 untyped-test errors in seven generic harness test files remain after the H4 relative-conftest issue was fixed; no H4-owned file implicated"
+    },
+    {
+      "command": "python harness/pi/validation/validate_h3_resources.py",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "53 gates, 0 defects"
+    },
+    {
+      "command": "python .pi/skills/validate_skill_capabilities.py",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "6 skill records, 6 filesystem skills, 0 validation errors"
+    },
+    {
+      "command": "sphinx-build -W",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "warnings-as-errors documentation build passed; parent validation handoff"
+    },
+    {
+      "command": "clean wheel build/install/import smoke",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "generic exports=41, local exports=30, local package files=8, textual harness package files=0; parent validation handoff"
+    },
+    {
+      "command": "python .pi/checkpoints/validate_checkpoints.py --dry-run",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "19 records, 0 unresolved, 0 duplicate resolved decisions"
+    },
+    {
+      "command": "python .pi/task-ownership/validate_task_ownership.py --task H4 --chain .pi/chains/pi-harness-incubation.chain.json",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "H4 ownership preflight passed"
+    },
+    {
+      "command": "dependency, lock-scope, unrelated-worktree, and diff hygiene gates",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "no dependency/lock widening; unrelated baseline preserved; diff checks passed; parent validation handoff"
+    },
+    {
+      "command": "AdaptOwnershipManifest(P1 task ownership) plus AdaptEvidenceOwnershipManifest(P1 test ownership)",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "task PASS; 37 evidence relations; exact boundary-owned compatibility mapping preserved four IDs"
+    },
+    {
+      "command": "AdaptSkillInventory(explicit document-python-research-software descriptor)",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "one explicitly selected descriptor; no fabricated descriptors"
+    },
+    {
+      "command": "sha256sum -c H1/H2/H3 accepted catalogs",
+      "status": "EXPECTED_INTENTIONAL_DIFFERENCE",
+      "exit_status": 1,
+      "summary": "H1: AGENTS current rename; H2: four live H2 agent records; H3: four missing old v1 paths plus nine modified current resources. Historical rollback catalogs remain unchanged under H4 authority."
+    },
+    {
+      "command": "sha256sum -c .pi/evidence/pi-harness-incubation/H4/checksums.sha256",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "complete authorized current H4 boundary matched"
+    },
+    {
+      "command": "python .pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+      "status": "EXPECTED_REJECTION",
+      "exit_status": 1,
+      "summary": "fail-closed rejection of schema-v1 hand-authored worktree parity; clean implementation-boundary replay still required"
+    }
+  ],
+  "difference_summary": {
+    "contracted_equivalent": 4,
+    "contracted_intentional": 4,
+    "defect": 0,
+    "deferred": 0,
+    "retained_clean_replay": "required_after_commit"
+  },
+  "out_of_scope_baseline_limitations": [
+    "Global Ruff format scan: four pre-existing unchanged CPN tests require formatting.",
+    "Global mypy: nine pre-existing H2 untyped-test errors remain; focused H4 source/tests pass all 15 files."
+  ],
+  "defects": [],
+  "deferred": [
+    "Retained schema-v2 parity observations must be generated by replay_selected_validators.py from the later clean implementation-boundary revision."
+  ],
+  "review_gate": {
+    "required": true,
+    "status": "pending_independent_review"
+  },
+  "authoritative_route": "legacy_pending_human_checkpoint",
+  "authoritative_cutover_allowed_without_review_and_human_acceptance": false
+}
