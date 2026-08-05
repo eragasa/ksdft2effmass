@@ -228,7 +228,7 @@ def validate_generated_evidence(
         return "generated validation evidence schema is invalid"
     expected_summaries = {
         "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local": "21 passed",
-        "pytest -q python": "1104 passed",
+        "pytest -q python": "1105 passed",
         "python harness/pi/validation/validate_h3_resources.py": "55 gates, 0 defects",
         "python .pi/skills/validate_skill_capabilities.py": "6 skill records, 6 filesystem skills, 0 validation errors",
     }

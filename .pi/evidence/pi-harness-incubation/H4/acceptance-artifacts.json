@@ -2,7 +2,7 @@
   "schema_version": 1,
   "artifact_identity": "H4.acceptance-index.v1",
   "task_id": "H4",
-  "acceptance_status": "implementation_pass",
+  "acceptance_status": "implementation_pass_new_clean_revision_replay_required",
   "human_acceptance_claimed": false,
   "authoritative_route": "legacy_pending_h4_checkpoint",
   "artifacts": [
@@ -23,7 +23,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
       "kind": "shadow_parity",
-      "status": "pass_clean_revision_replay"
+      "status": "superseded_by_post_replay_validation_correction"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
@@ -50,7 +50,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
       "kind": "completion_validator",
-      "status": "semantic_pass_pending_generated_artifact_commit"
+      "status": "semantic_pass_new_clean_replay_required"
     }
   ],
   "review_gate": {
@@ -81,6 +81,5 @@
       "reason": "Finalized command evidence is validated structurally by the semantic completion gate after stable-boundary checks complete."
     }
   ],
-  "last_clean_replay_revision": "207ed757226c54998a65f3af0e480c248761f55f",
-  "implementation_revision": "207ed757226c54998a65f3af0e480c248761f55f"
+  "last_clean_replay_revision": "207ed757226c54998a65f3af0e480c248761f55f"
 }
