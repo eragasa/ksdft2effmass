@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0, H1, and H4 are closed as human-accepted PASS. No task is active. P2 prerequisites P1 and H4 are satisfied, but P2 requires a distinct durable activation boundary. Optional H5 is not a P2 prerequisite. P3-P11 and production/scientific execution remain blocked.",
-  "status": "p1_h4_closed_p2_awaiting_distinct_activation_boundary",
-  "active_task": null,
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, and harness H0-H4 are closed as human-accepted PASS. P2 implementation is complete and blocked at pending final human acceptance P2-HC01. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_implementation_complete_awaiting_human_acceptance",
+  "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -67,7 +67,8 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "blocked"
+      "status": "blocked_at_P2-HC01_final_human_acceptance",
+      "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
       "id": "P3",
@@ -176,7 +177,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "P1 and harness H4 are human-accepted PASS. No successor is active. P2 requires its distinct explicit activation boundary and validated task ownership before implementation; H5 is optional and not a prerequisite. P3-P11 remain blocked and unauthorized until every prerequisite and explicit activation is satisfied.",
+  "launch_policy": "P2 alone is explicitly active after P1 and H4 human-accepted PASS and validated task ownership. H5 and P3-P11 remain blocked and unauthorized. P2 permits immutable project records, strict schemas/serialization, software verification, documentation, bounded replay, consolidated review, final checkpoint, and pending-boundary commit/push only; it does not authorize scientific/external execution, publication, or release.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -243,13 +244,22 @@
       "activated_after": "P0A closeout validation passed",
       "authority": "Separate authorization in the preserved P0A-HC01 human response",
       "scope": "Executable project-owned backend-neutral CPN contract in production source, focused tests, required schemas/fixtures/documentation/reviews; no SNAKES adapter, persistence implementation, workflow/scientific execution, or P2-P11 work."
+    },
+    {
+      "task": "P2",
+      "authorized_at": "2026-08-05T15:42:27Z",
+      "activated_after": "P1 and H4 human-accepted PASS, zero unresolved checkpoints, maintained local-route consumer PASS, and durable ownership preflight",
+      "authority": "Current human instruction titled P2 \u2014 Activate and implement provenance and external-tool capability records",
+      "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     }
   ],
-  "pending_checkpoints": [],
+  "pending_checkpoints": [
+    ".pi/checkpoints/P2-HC01-final-acceptance.json"
+  ],
   "chain": [
     {
-      "phase": "await-explicit-P2-activation-boundary",
-      "message": "H4 is closed human-accepted PASS. P2 is eligible but inactive pending a distinct durable activation boundary and ownership preflight. H5, P3-P11, scientific/external execution, publication, and release remain blocked."
+      "phase": "P2-awaiting-final-human-acceptance",
+      "message": "P2 implementation, software verification, documentation, bounded replay, consolidated review/correction, and parent verification are complete. P2 remains active but blocked at P2-HC01. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
     }
   ]
 }

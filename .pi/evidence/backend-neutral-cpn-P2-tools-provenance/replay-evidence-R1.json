@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "replay_id": "P2-R1",
+  "input_set_sha256": "51f44e9d783448c9fba2d1fc3e131ef2daf44da42e9fa7b22091bf6528086bf6",
+  "input_mismatches": [],
+  "observations": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "python/tests/software_verification/ksdft2effmass/provenance",
+        "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
+        "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py",
+        "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py",
+        "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py",
+        "python/tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py"
+      ],
+      "exit_status": 0,
+      "stdout_sha256": "0c927860f7500d9cfa9379a4afc21de3bd54d211fc314149d9242743d7d0129a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python",
+        ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py"
+      ],
+      "exit_status": 0,
+      "stdout_sha256": "5a8063e4f4aefbcfa7485bc660d36805bef685ab61fa3b1cb30325371f856540",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "status": "PASS",
+  "claim_boundary": "software verification only; no numerical verification, scientific validation, uncertainty quantification, external execution, publication, or release"
+}

@@ -11,12 +11,14 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    concepts/operator-records
    concepts/cpn-contract
 
+The Markdown-first provenance concept page is available as a
+:download:`maintained source page <concepts/provenance-and-artifacts.md>`.
+
 .. toctree::
    :maxdepth: 2
    :caption: API reference
 
-   api/operators
-   api/workflows-cpn
+   api/index
 
 .. toctree::
    :maxdepth: 1
@@ -32,6 +34,7 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    verification/operator-record-difference
    verification/operator-record-residual-analyzer
    verification/cpn-contract
+   verification/provenance-contract
 
 .. toctree::
    :maxdepth: 1
@@ -85,6 +88,7 @@ does not broadly collect other Markdown trees.
    user-guide/cross-backend-verification
    user-guide/wannier90
    user-guide/provenance-and-artifacts
+   user-guide/external-tool-lifecycle
    user-guide/troubleshooting
 
 Uncollected Markdown records

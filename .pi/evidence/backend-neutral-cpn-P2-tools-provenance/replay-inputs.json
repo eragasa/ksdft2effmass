@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "replay_id": "P2-R2",
+  "replaces": "P2-R1 after one material consolidated correction",
+  "boundary": "post-review corrected source-schema-test-documentation identities",
+  "inputs": [
+    {
+      "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json",
+      "sha256": "e375b540553b3cf7e6da716568392e3792730ed641774d74cd15f2d3ab1dd1de"
+    },
+    {
+      "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/replay_p2.py",
+      "sha256": "2ece1f6f15f98de474e68be720bb804ab69378b305b6668bcb2c10f875a59bbb"
+    },
+    {
+      "path": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+      "sha256": "9fd5af01b9511c01f7c039ba9d6a83e5d249ab92e5f904c094141d31e74a84cd"
+    },
+    {
+      "path": "docs/api/provenance.md",
+      "sha256": "c0d8ca20d9e2f427e5fc16a04d61454694d031dff0808c37dba0c0c2d85c864a"
+    },
+    {
+      "path": "docs/concepts/provenance-and-artifacts.md",
+      "sha256": "aad1f758e1523598f6e9134541eb6111b96722eddbdeffba243d3725223299d9"
+    },
+    {
+      "path": "docs/user-guide/external-tool-lifecycle.md",
+      "sha256": "d5820bf42c631b6f3e886b15bb9e4a474d5457373a9d9021fff8a0867044e154"
+    },
+    {
+      "path": "docs/user-guide/provenance-and-artifacts.md",
+      "sha256": "28b384bbd5d2fe4f5a0191d11b95569d299b187ea51c5f505b7accb47c0c4e7a"
+    },
+    {
+      "path": "docs/verification/provenance-contract.rst",
+      "sha256": "53d7c7c4f985fb5ebae4b73485d06b95b3c7c3f9967246e1d0a1e64ce67b6a2f"
+    },
+    {
+      "path": "python/src/ksdft2effmass/provenance/__init__.py",
+      "sha256": "3e871defd99acb5fc741069fa354430091ddb0505b2bff338afdf59e5b5cbc69"
+    },
+    {
+      "path": "python/src/ksdft2effmass/provenance/actions.py",
+      "sha256": "66086f4cc37e5990a2cedcd27cbea2472c1b441c25a64edc1c9b88d208268652"
+    },
+    {
+      "path": "python/src/ksdft2effmass/provenance/records.py",
+      "sha256": "19f4af4efc071dfb65e3a9d9f2449ec7df5ab0ecbbd1b4745fc120845b97c6ae"
+    },
+    {
+      "path": "python/src/ksdft2effmass/provenance/serialization.py",
+      "sha256": "5050e265afbac167f0c31d6168214b9c547a1b64b447da88637c0eba0bc35043"
+    },
+    {
+      "path": "python/src/ksdft2effmass/provenance/tools.py",
+      "sha256": "cebb526076411964b7c501bcb56874d6ccdb2f04dc6bc5c2f6ccc923d94977ac"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py",
+      "sha256": "201ccd217fd1f018e2a2d3e51ba4b341bd04f140b949f6e043a1454a6218e49a"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py",
+      "sha256": "a8f93cc6b5813f9c65e1920d812de41748e5d638d24af81f7ef02ac811f283ac"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
+      "sha256": "574d432cd28d6332534bbefc81402b76dcaa2bd5997ff1b50980cfc3636143a2"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py",
+      "sha256": "82f67833d94c3e5b128ea1157f8239f130d8cbc19c3282c331e873aa63e40124"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py",
+      "sha256": "bb49d06932316398fc6930ef62ac95a63c6447e20cc1459f959cfc5e441def5d"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/__init__.py",
+      "sha256": "63b68c88ae1517c572cdda46463b63b7b375ddc0afd51c57ff07b3abad23c75b"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentity.py",
+      "sha256": "b63ed771eeb353033b3867262116e3d2038f560889b5a76f82917c0fb5efd63d"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
+      "sha256": "5c78ebb15c87f1412dba3379bb91e27b9b114a663539e9a4e0df4b2b7d0df0c4"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
+      "sha256": "4359e73daef8c4a1555265eadd8c5bbe902dd60525eb80f0c872b42f9eb0714b"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "sha256": "603a77eef69d609047b7b7a501b39a322d04f64d7af6191e87926bd4d9b43f47"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactReference.py",
+      "sha256": "ec1d8bfe741057dd4617b42483bd80bdd89847387fe94b3b12dbcc7bc79afb16"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactSpecification.py",
+      "sha256": "6c33cf573085f04d0a7b2ffff20b859c5dfbd8b0b9fa8a37d7771873aba807bf"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
+      "sha256": "77edf283b6035e7446f3f7880d5b51fea5903a47ee1b03fa7842a890b383cfd0"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+      "sha256": "5628e2902a71ef2a439891ed4f980a1d8358a2b36d335b545b4d81cc031b5b99"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
+      "sha256": "a2b7fd8a16e14e1a553111296c7325d66128b3c8af3c04c937e3623461e6c0d7"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py",
+      "sha256": "3cf21c85b157228e7cccaacaa63c6ee35fa43bcf2c09cb5a835ce6186e6a1823"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "sha256": "40c423b7cf15cbae74f9e0b458fb65daed2b66048a0687f7e2e9a102967f7309"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "sha256": "8ad26147b4a3b5944b0ea6dbea41982c1cc07135ab5d566921ab18092258e3f5"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "sha256": "2c009bfc7197aebcea5d9e0766d4e8703d4d725feee9d6893b26985a9adca9d4"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "sha256": "dad513bc91930a6fa769a576da20bb676fd86bc0f1c4ebb770544503b0f079da"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py",
+      "sha256": "cd2f04c946f29d432c99a57cdb0f9ea3e602a768967e977ba38bfca8154b9005"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py",
+      "sha256": "2886fba6b25f28830e1bd8bb492caef89d6884f77604bf0b91ae9dde0e76c0c8"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
+      "sha256": "b2af0348ce7b8d729ea939cb077d97f43ec1828c426d4df8b98c80a05f519132"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "sha256": "5b9a2a92de9fab1ce7fadf0363182397a4f79008c3ac82b978faab4df3658609"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "sha256": "ddc3933b463be1aa27a0d2ee4a7a911919b64dc16b830f0ac174a87234c39bbe"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py",
+      "sha256": "a0d81e513a7e70f8e3948ddf7301dcb6ffca2889c0ea0eeffe9454bdb6f87b0a"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+      "sha256": "031c960e8c2d7a38b06e3c1253e2bd920b0b35a8d20eae4fb0f535c5cb6fa526"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceRecord.py",
+      "sha256": "96fbe50fb9bb8a734fd398e45207dae78ac68c8f61bafb39db6420a66d2cb377"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py",
+      "sha256": "d00ae075003b7fb851bd40e450f8615134c49f478aa013ab8230688a58d982f8"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+      "sha256": "0567b2d6959627d50884ab88b8c52dd13d553a3685773010be5b99c8f677ae83"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/bom.json",
+      "sha256": "928084724d8f911eb66ce38db984d55423421cb56b50ed6e9b6a3b5e61b04352"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/boolean-byte-size.json",
+      "sha256": "5186d3a2f2c934d4b8d888e363d20f6193187bb7423a1c8446602bb670d90b85"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/c1-control-path.json",
+      "sha256": "07f8aac3ad783ea236227e921b3c7100084f54d3537663b3a8294737f22e1013"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/duplicate-key.json",
+      "sha256": "ccea9e4b77dca0804948c5a1b6d78e8f83d432aec9ffe735552ca903050247f4"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/floating-byte-size.json",
+      "sha256": "0d335d2d87c7ff57410768805fceadc975e35ba89849c2de9a23834f5af872f2"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/impossible-calendar-date.json",
+      "sha256": "5093dc89136612c6fb86eb0db702910b147d0850cc338432c7dfdbe989280750"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/legacy-environment-record.json",
+      "sha256": "84c75dfcc4b0bff5e3d51bf1d71c001a6b4076af1b0ee833b7ddf6f572525b2e"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/legacy-failure-message.json",
+      "sha256": "bdbb70d0f58f7ff32e6f519d3fb3ce01d2f7f67c89cdb9beec78b38d895a892f"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/legacy-manifest-arguments.json",
+      "sha256": "c4f6485b34c69d627e8b9967e9632482695c7a8925d779775e32139edc61cac2"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/legacy-manifest-environment.json",
+      "sha256": "9e4472fc8c43becf5bff3e605b31e390bfd7cf543b8a3e77f3042e465b608a49"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/legacy-retryable-field.json",
+      "sha256": "9c4dd6bf4812bb5ce99f68a1553dfd988e05c15a3416e453ef9098179c62ba18"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/legacy-verification-detail.json",
+      "sha256": "626556dcbe3d3a187b4aef2fd6a2318bbb0a472ff09f30a9180f061e443e5715"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/malformed.json",
+      "sha256": "4ed4c43a01bfb7014455df72484b422123955fd3fbdb2810d3bdd3a6e779ee88"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/missing-attempt-id.json",
+      "sha256": "89f5f83c7fe9ead0cb105271215d7c81212e5728c7e6e50657388ee71d3fe892"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/non-nfc-path.json",
+      "sha256": "595cf11642ce6d921ac28764046bc407bed2149d19e3ff70efd925a7d01a976c"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/nonfinite.json",
+      "sha256": "447c4112c7bc92b3d1d50f26e34db2e1c640b1a01a7c2d8d8004c1a64fc0122d"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/numeric-string-byte-size.json",
+      "sha256": "16a4fd826c1b0f8f3bb5f6d4f82aad01d41301de47cf7f63805082be5bfe74a8"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/raw-observed-version.json",
+      "sha256": "58ef381fc87b83d44e4c87047a4f28f617e5de85952be02e72b99efc1fdd234e"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/raw-requested-version.json",
+      "sha256": "8f94048a76bb8bc0eb8045a29934cf27a90f6e0fad54ca0d1e67d8c58b0de697"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/surrogate.json",
+      "sha256": "7f5400f59ba641efb1c3becbe16de22a51b34b1ae8d9b76923d492eb873c7dd6"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/u64-overflow.json",
+      "sha256": "5a58d658f2984ad7cecd6d4756c078d4d4850152e8e9cbe0c70fc433f3f2fc25"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/unknown-key.json",
+      "sha256": "ea9f3c4a6004aacf96153aef0b152658d0719fff783020c659b04f569d1b6f31"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/unsorted-identifiers.json",
+      "sha256": "971cbfd230441fd8f491503d5411bc92aff2584b2500cf88ea536a13ff0a3d75"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/uppercase-sha256.json",
+      "sha256": "77715641cb76c5bf3f14cbcb03c24584c4d2293e308622df55a1c4cc1fd99e01"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/windows-device-path.json",
+      "sha256": "efc3c65091aee2f9341121285d46361028d5605943bdbbbddcf89384824672db"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/invalid/windows-drive-path.json",
+      "sha256": "244de036b6a9697043231c59d072829a1bd4d1eda8d80da7c5c8a2c69860dca9"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/artifact_identity.json",
+      "sha256": "0f10e4f6b26c7a7589f717d29bdf1c4691794352436fd9f83bca5baeeeb3d4f8"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/artifact_identity_verification_result.json",
+      "sha256": "c1022fbf5b7c406b5bb1b96194b08ce2ff7fe0cac6767eb3af8a9ea2333483be"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/artifact_location.json",
+      "sha256": "4dc808392b2e93d34571c459f4b3e432921bc187ad90d5f1b7065e70f640a7eb"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/artifact_reference.json",
+      "sha256": "1876be60228c0a75706a2d25f5523398fde3c36afa59f875c2a0dbb3d0ca42de"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/artifact_specification.json",
+      "sha256": "c89d647917b4e6c3f6f55bbb1d55fe77afdfe34469ac6c8372af442b505b2aa8"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/declared_capability.json",
+      "sha256": "3146e3a291079b62da54a55c8ffc3c3a8e7bb10d062d05efb0ae1d039049e481"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/execution_correlation_result.json",
+      "sha256": "0a05f3903087f45a5aee682695a2eadc1e9fe462c9af89d1b8031901aa876839"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/external_execution_failure.json",
+      "sha256": "b4408c00aa175d0d3af0c9379100e7dc43d30eb83e318314cddb6ca88a1c072d"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/external_execution_request.json",
+      "sha256": "b4c11926f7a702dbce7d62f8267ccd68d2d5ce1e480f822e43ec48a4c1bdb4c7"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/external_execution_result.json",
+      "sha256": "feec3a1b5128ebd17cab57e0a192925b1f2369558d9f2a7d95c5e2f133ae3c22"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/external_tool_identity.json",
+      "sha256": "c8644a553fe29105403b26d271ef2d777afa684009972775b32c038a56d1449e"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/external_tool_specification.json",
+      "sha256": "4dbe3fd4b8a8d18cdfcd35e5850ec0e6d6fcdded45d18adcdcf7b815a66a2ed0"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/installation_observation.json",
+      "sha256": "2004dc66b86f0dce1dc55dfaa5900243a843b55f3ede9d9cf19eb86673ae6cc9"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/lineage_relation.json",
+      "sha256": "38176a78d065c857973b98f3707cdc91b2a3215ce66604578fcb5f3b3fe250a9"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/provenance_record.json",
+      "sha256": "ee0327e7d335ae2b5e9d58e694fefe2b0ffe887c282f173471b0cd7255378c23"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/run_manifest.json",
+      "sha256": "470929204dc1eca2aca42efe55355e3ebfbba9f2dc90647deecf2d2724fc2452"
+    },
+    {
+      "path": "specification/provenance/v1/fixtures/valid/verification_observation.json",
+      "sha256": "b4a2e5c325f8033d5b96d684b9d972718bbaacf6cdfb6a819f26be9a924b85d1"
+    },
+    {
+      "path": "specification/provenance/v1/provenance-v1.schema.json",
+      "sha256": "fd02e3d7a0f0db4297ea0c3789e1cf2df434c798c13242dd101a63202b7eb978"
+    }
+  ],
+  "commands": [
+    [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "python/tests/software_verification/ksdft2effmass/provenance",
+      "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py",
+      "python/tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py"
+    ],
+    [
+      "python",
+      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py"
+    ]
+  ],
+  "generated_evidence_excluded": "replay-evidence.json is generated E and is not part of R"
+}

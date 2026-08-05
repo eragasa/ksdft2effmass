@@ -124,12 +124,14 @@ Operational failures raise `CpnContractError` subclasses retaining immutable
 P1 does not implement SNAKES adaptation, authoritative persistence, external
 execution, provenance/tool objects, scientific payloads, a concrete workflow,
 QE/Wannier integration, identity generation, or Rust code. True u64 artifact
-sizes or counters are not P1 expression values; explicitly typed fields for
-those quantities are deferred to P2 and are not implemented. The JSON schemas
+sizes or counters are not P1 expression values. P2 now provisionally implements
+an explicit u64 artifact byte-size field, pending P2 acceptance; it does not add
+an unsigned P1 expression-value tag. The JSON schemas
 and synthetic tests are software-verification and contract-conformance evidence.
 They are not numerical verification, scientific validation, uncertainty
 quantification, SNAKES verification, or permission to execute calculations. `P1-HC01` Option A and `P1-HC02` Option B are resolved. Final P1
 acceptance was granted as Option A through `P1-HC03` on 2026-08-04, after
-reviews and parent verification; P1 is closed as human-accepted `PASS`. No
-successor was selected or launched, and P2--P11 and production or scientific
-execution remain blocked and unauthorized.
+reviews and parent verification; P1 is closed as human-accepted `PASS`. P2 is
+active and provisional pending correction review, replacement replay, parent
+verification, and human acceptance. H5 and P3--P11 remain inactive, and
+production or scientific execution remains unauthorized.

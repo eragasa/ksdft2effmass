@@ -1,0 +1,1063 @@
+{
+  "$defs": {
+    "ArtifactIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "byte_size": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "record_type": {
+          "const": "artifact_identity",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "artifact_id",
+        "byte_size",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "ArtifactIdentityVerificationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "expected_byte_size": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "expected_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "observed_byte_size": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "observed_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "artifact_identity_verification_result",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "artifact_id",
+        "expected_byte_size",
+        "expected_sha256",
+        "observed_byte_size",
+        "observed_sha256"
+      ],
+      "type": "object"
+    },
+    "ArtifactLocation": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "root_relative"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "external_descriptor_id": {
+                "type": "null"
+              },
+              "path": {
+                "description": "NFC root-relative POSIX lexical path; implementations MUST additionally reject case-insensitive Windows device components.",
+                "format": "nfc",
+                "minLength": 1,
+                "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM]1|[cC][oO][mM]2|[cC][oO][mM]3|[cC][oO][mM]4|[cC][oO][mM]5|[cC][oO][mM]6|[cC][oO][mM]7|[cC][oO][mM]8|[cC][oO][mM]9|[lL][pP][tT]1|[lL][pP][tT]2|[lL][pP][tT]3|[lL][pP][tT]4|[lL][pP][tT]5|[lL][pP][tT]6|[lL][pP][tT]7|[lL][pP][tT]8|[lL][pP][tT]9)(?:\\.[^/]*)?(?:/|$))(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\\\\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029])[^/]+(?:/[^/]+)*$",
+                "type": "string"
+              },
+              "root_id": {
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "external_descriptor"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "external_descriptor_id": {
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+                "type": "string"
+              },
+              "path": {
+                "type": "null"
+              },
+              "root_id": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "artifact_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "external_descriptor_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "root_relative",
+            "external_descriptor"
+          ]
+        },
+        "path": {
+          "anyOf": [
+            {
+              "description": "NFC root-relative POSIX lexical path; implementations MUST additionally reject case-insensitive Windows device components.",
+              "format": "nfc",
+              "minLength": 1,
+              "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM]1|[cC][oO][mM]2|[cC][oO][mM]3|[cC][oO][mM]4|[cC][oO][mM]5|[cC][oO][mM]6|[cC][oO][mM]7|[cC][oO][mM]8|[cC][oO][mM]9|[lL][pP][tT]1|[lL][pP][tT]2|[lL][pP][tT]3|[lL][pP][tT]4|[lL][pP][tT]5|[lL][pP][tT]6|[lL][pP][tT]7|[lL][pP][tT]8|[lL][pP][tT]9)(?:\\.[^/]*)?(?:/|$))(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\\\\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029])[^/]+(?:/[^/]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_type": {
+          "const": "artifact_location",
+          "type": "string"
+        },
+        "root_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "artifact_id",
+        "external_descriptor_id",
+        "kind",
+        "path",
+        "root_id"
+      ],
+      "type": "object"
+    },
+    "ArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "additionalProperties": false,
+          "properties": {
+            "artifact_id": {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "type": "string"
+            },
+            "byte_size": {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "artifact_id",
+            "byte_size",
+            "sha256"
+          ],
+          "type": "object"
+        },
+        "producer_manifest_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "artifact_reference",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "specification": {
+          "additionalProperties": false,
+          "properties": {
+            "format": {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "type": "string"
+            },
+            "logical_path": {
+              "description": "NFC root-relative POSIX lexical path; implementations MUST additionally reject case-insensitive Windows device components.",
+              "format": "nfc",
+              "minLength": 1,
+              "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM]1|[cC][oO][mM]2|[cC][oO][mM]3|[cC][oO][mM]4|[cC][oO][mM]5|[cC][oO][mM]6|[cC][oO][mM]7|[cC][oO][mM]8|[cC][oO][mM]9|[lL][pP][tT]1|[lL][pP][tT]2|[lL][pP][tT]3|[lL][pP][tT]4|[lL][pP][tT]5|[lL][pP][tT]6|[lL][pP][tT]7|[lL][pP][tT]8|[lL][pP][tT]9)(?:\\.[^/]*)?(?:/|$))(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\\\\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029])[^/]+(?:/[^/]+)*$",
+              "type": "string"
+            },
+            "retention_policy": {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "type": "string"
+            },
+            "semantic_role": {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "format",
+            "logical_path",
+            "retention_policy",
+            "semantic_role"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "identity",
+        "producer_manifest_id",
+        "specification"
+      ],
+      "type": "object"
+    },
+    "ArtifactSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "logical_path": {
+          "description": "NFC root-relative POSIX lexical path; implementations MUST additionally reject case-insensitive Windows device components.",
+          "format": "nfc",
+          "minLength": 1,
+          "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM]1|[cC][oO][mM]2|[cC][oO][mM]3|[cC][oO][mM]4|[cC][oO][mM]5|[cC][oO][mM]6|[cC][oO][mM]7|[cC][oO][mM]8|[cC][oO][mM]9|[lL][pP][tT]1|[lL][pP][tT]2|[lL][pP][tT]3|[lL][pP][tT]4|[lL][pP][tT]5|[lL][pP][tT]6|[lL][pP][tT]7|[lL][pP][tT]8|[lL][pP][tT]9)(?:\\.[^/]*)?(?:/|$))(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\\\\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029])[^/]+(?:/[^/]+)*$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "artifact_specification",
+          "type": "string"
+        },
+        "retention_policy": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "semantic_role": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "format",
+        "logical_path",
+        "retention_policy",
+        "semantic_role"
+      ],
+      "type": "object"
+    },
+    "DeclaredCapability": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "execute",
+            "parse",
+            "render",
+            "transfer"
+          ]
+        },
+        "name": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "declared_capability",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "specification_version": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "tool_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "capability_id",
+        "kind",
+        "name",
+        "specification_version",
+        "tool_id"
+      ],
+      "type": "object"
+    },
+    "ExecutionCorrelationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "issues": {
+          "items": {
+            "enum": [
+              "request_id_mismatch",
+              "correlation_id_mismatch",
+              "attempt_id_mismatch"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "outcome_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "execution_correlation_result",
+          "type": "string"
+        },
+        "request_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "issues",
+        "outcome_id",
+        "request_id"
+      ],
+      "type": "object"
+    },
+    "ExternalExecutionFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "code": {
+          "enum": [
+            "unavailable",
+            "not_authorized",
+            "rejected",
+            "interrupted",
+            "malformed_result",
+            "internal_error"
+          ]
+        },
+        "correlation_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "diagnostic_paths": {
+          "items": {
+            "description": "NFC root-relative POSIX lexical path; implementations MUST additionally reject case-insensitive Windows device components.",
+            "format": "nfc",
+            "minLength": 1,
+            "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM]1|[cC][oO][mM]2|[cC][oO][mM]3|[cC][oO][mM]4|[cC][oO][mM]5|[cC][oO][mM]6|[cC][oO][mM]7|[cC][oO][mM]8|[cC][oO][mM]9|[lL][pP][tT]1|[lL][pP][tT]2|[lL][pP][tT]3|[lL][pP][tT]4|[lL][pP][tT]5|[lL][pP][tT]6|[lL][pP][tT]7|[lL][pP][tT]8|[lL][pP][tT]9)(?:\\.[^/]*)?(?:/|$))(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\\\\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029])[^/]+(?:/[^/]+)*$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "failure_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "external_execution_failure",
+          "type": "string"
+        },
+        "request_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "stage": {
+          "enum": [
+            "request_acceptance",
+            "execution",
+            "result_capture"
+          ]
+        }
+      },
+      "required": [
+        "attempt_id",
+        "code",
+        "correlation_id",
+        "diagnostic_paths",
+        "failure_id",
+        "provenance_id",
+        "record_type",
+        "request_id",
+        "schema_version",
+        "stage"
+      ],
+      "type": "object"
+    },
+    "ExternalExecutionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "authorization_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "capability_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "correlation_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "expected_output_roles": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "input_artifact_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "installation_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "external_execution_request",
+          "type": "string"
+        },
+        "request_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "retry_parent_request_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "tool_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "attempt_id",
+        "authorization_id",
+        "capability_id",
+        "correlation_id",
+        "expected_output_roles",
+        "input_artifact_ids",
+        "installation_id",
+        "provenance_id",
+        "record_type",
+        "request_id",
+        "retry_parent_request_id",
+        "schema_version",
+        "tool_id"
+      ],
+      "type": "object"
+    },
+    "ExternalExecutionResult": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "correlation_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "manifest_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "output_artifact_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "external_execution_result",
+          "type": "string"
+        },
+        "request_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "result_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "status": {
+          "const": "completed"
+        }
+      },
+      "required": [
+        "attempt_id",
+        "correlation_id",
+        "manifest_id",
+        "output_artifact_ids",
+        "provenance_id",
+        "record_type",
+        "request_id",
+        "result_id",
+        "schema_version",
+        "status"
+      ],
+      "type": "object"
+    },
+    "ExternalToolIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "implementation_family": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "external_tool_identity",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "tool_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "implementation_family",
+        "tool_id"
+      ],
+      "type": "object"
+    },
+    "ExternalToolSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "executable_or_package_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "external_tool_specification",
+          "type": "string"
+        },
+        "requested_version": {
+          "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "specification_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "tool_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "executable_or_package_id",
+        "requested_version",
+        "specification_id",
+        "tool_id"
+      ],
+      "type": "object"
+    },
+    "InstallationObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "environment_record_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "executable_or_package_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "executable_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "installation_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "observed_version": {
+          "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$",
+          "type": "string"
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "installation_observation",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "specification_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "tool_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "environment_record_id",
+        "executable_or_package_id",
+        "executable_sha256",
+        "installation_id",
+        "observed_version",
+        "provenance_id",
+        "specification_id",
+        "tool_id"
+      ],
+      "type": "object"
+    },
+    "LineageRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "child_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "derived",
+            "representation",
+            "retry"
+          ]
+        },
+        "lineage_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "parent_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "lineage_relation",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "child_id",
+        "kind",
+        "lineage_id",
+        "parent_id",
+        "provenance_id"
+      ],
+      "type": "object"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "manifest_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "parent_provenance_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "provenance_record",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "artifact_ids",
+        "manifest_id",
+        "parent_provenance_ids",
+        "provenance_id"
+      ],
+      "type": "object"
+    },
+    "RunManifest": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "finished_at": {
+                "format": "date-time",
+                "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\dZ$",
+                "type": "string"
+              }
+            }
+          },
+          "if": {
+            "properties": {
+              "state": {
+                "const": "declared"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "finished_at": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "dependency_manifest_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\dZ$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input_artifact_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "manifest_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "output_artifact_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "record_type": {
+          "const": "run_manifest",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "specification_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\dZ$",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "declared",
+            "complete",
+            "failed"
+          ]
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "dependency_manifest_ids",
+        "finished_at",
+        "input_artifact_ids",
+        "manifest_id",
+        "output_artifact_ids",
+        "specification_id",
+        "started_at",
+        "state"
+      ],
+      "type": "object"
+    },
+    "VerificationObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "evidence_artifact_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "installation_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "provenance_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "record_type": {
+          "const": "verification_observation",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "rejected",
+            "unavailable"
+          ]
+        },
+        "verification_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "capability_id",
+        "evidence_artifact_ids",
+        "installation_id",
+        "provenance_id",
+        "status",
+        "verification_id"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://ksdft2effmass.org/specification/provenance/v1/provenance-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Strict version-1 wire shapes. Arrays documented as deterministic must also be lexically sorted by implementations. The standard date-time and declared nfc formats must be asserted by schema-validation callers; constructors and the strict serializer always enforce calendar-valid UTC-second timestamps and NFC. The strict JSON parser additionally rejects duplicate keys, BOMs, malformed Unicode, non-finite values, every floating-point lexical form, and runtime relational invariants not expressible by Draft 2020-12.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/ArtifactIdentity"
+    },
+    {
+      "$ref": "#/$defs/ArtifactSpecification"
+    },
+    {
+      "$ref": "#/$defs/ArtifactReference"
+    },
+    {
+      "$ref": "#/$defs/ArtifactLocation"
+    },
+    {
+      "$ref": "#/$defs/RunManifest"
+    },
+    {
+      "$ref": "#/$defs/ProvenanceRecord"
+    },
+    {
+      "$ref": "#/$defs/LineageRelation"
+    },
+    {
+      "$ref": "#/$defs/ExternalToolIdentity"
+    },
+    {
+      "$ref": "#/$defs/ExternalToolSpecification"
+    },
+    {
+      "$ref": "#/$defs/DeclaredCapability"
+    },
+    {
+      "$ref": "#/$defs/InstallationObservation"
+    },
+    {
+      "$ref": "#/$defs/VerificationObservation"
+    },
+    {
+      "$ref": "#/$defs/ExternalExecutionRequest"
+    },
+    {
+      "$ref": "#/$defs/ExternalExecutionResult"
+    },
+    {
+      "$ref": "#/$defs/ExternalExecutionFailure"
+    },
+    {
+      "$ref": "#/$defs/ArtifactIdentityVerificationResult"
+    },
+    {
+      "$ref": "#/$defs/ExecutionCorrelationResult"
+    }
+  ],
+  "title": "ksdft2effmass provenance and external-tool records version 1"
+}

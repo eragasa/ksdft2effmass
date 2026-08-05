@@ -38,9 +38,11 @@ backend name.
 - **Quantum ESPRESSO:** planned initial production backend; bounded P0 is closed
   and human-accepted as `CONDITIONAL_PASS`, and P0A packaging/configuration is
   closed and human-accepted. P1 has implemented only the backend-neutral CPN
-  contract and remains active pending review, verification, and human
-  acceptance. The QE adapter, concrete workflows, external execution, and
-  P2–P11 remain blocked and unauthorized.
+  contract, which is closed and human-accepted. P2 is active and its
+  provenance/external-tool implementation is provisional pending correction
+  review, replacement replay, parent verification, and human acceptance. H5 and
+  P3–P11 remain inactive. The QE adapter, concrete workflows, and external,
+  production, or scientific execution remain unauthorized.
 - **ABINIT:** planned, deferred conformance backend after the first accepted
   end-to-end dopant result; not installed or verified.
 - **Hybrid GKS:** planned, deferred; no runtime support is claimed.

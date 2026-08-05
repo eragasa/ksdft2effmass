@@ -120,12 +120,13 @@ message, and optional model, transition, place, and token identities:
 :members:
 ```
 
-This API is control-flow software. True u64 artifact sizes and counters are
-deferred P2 fields that would require their own explicit types; P1 implements
-neither those fields nor an unsigned expression-value tag. `P1-HC01` Option A and `P1-HC02` Option B are resolved. Final P1 acceptance
+This API is control-flow software. P1 implements neither true u64 artifact-size
+fields nor an unsigned expression-value tag. P2 now provisionally implements
+explicit u64 artifact byte sizes; that P2 contract remains pending acceptance. `P1-HC01` Option A and `P1-HC02` Option B are resolved. Final P1 acceptance
 was granted as Option A through `P1-HC03` on 2026-08-04, after reviews and
-parent verification; P1 is closed as human-accepted `PASS`. No successor was
-selected or launched, and P2--P11 and production or scientific execution
-remain blocked and unauthorized. The API reports no physical units or
+parent verification; P1 is closed as human-accepted `PASS`. P2 is active and
+provisional pending correction review, replacement replay, parent verification,
+and human acceptance. H5 and P3--P11 remain inactive, and production or
+scientific execution remains unauthorized. The API reports no physical units or
 scientific acceptance criterion and supplies no numerical verification,
 scientific validation, or uncertainty quantification.

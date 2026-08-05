@@ -1,0 +1,1 @@
+{"attempt_id":"attempt.1","code":"interrupted","correlation_id":"correlation.1","diagnostic_paths":[],"failure_id":"failure.1","provenance_id":"provenance.1","record_type":"external_execution_failure","request_id":"request.1","retryable":true,"schema_version":1,"stage":"execution"}

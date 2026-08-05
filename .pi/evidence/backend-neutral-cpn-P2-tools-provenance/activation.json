@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "activated_at": "2026-08-05T15:42:27Z",
+  "authority": "Current human instruction titled P2 — Activate and implement provenance and external-tool capability records",
+  "starting_revision": "fb43f32307d326396ac095dd58011c16861d0d82",
+  "prerequisites": {
+    "P1_human_accepted_PASS": ".pi/checkpoints/P1-HC03-final-acceptance.json",
+    "H4_human_accepted_PASS": ".pi/checkpoints/H4-HC01-harness-cutover.json",
+    "maintained_harness_route": "local",
+    "live_local_consumer_and_rollback_proof": ".pi/evidence/pi-harness-incubation/H4/closeout-validation.json",
+    "unresolved_checkpoints": 0
+  },
+  "activation": {
+    "task": "P2",
+    "status": "active",
+    "scope": "Project-owned immutable artifact, provenance, lineage, external-tool lifecycle, request, result, failure, strict JSON schema/serialization, software-verification, documentation, bounded replay, one consolidated review, and final P2 checkpoint only."
+  },
+  "inactive_scope": [
+    "H5",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "scientific execution",
+    "external-tool execution",
+    "publication",
+    "release"
+  ],
+  "contract_reconciliation": {
+    "artifact_location_representation": "immutable ArtifactLocation DataObject, as explicitly required by the current human objective and maintained provenance documentation",
+    "artifact_byte_size": "unsigned 64-bit integer range 0 through 18446744073709551615; booleans and numeric strings rejected",
+    "canonical_json": "strict RFC 8259 input with duplicate-key, BOM, non-finite-number, unknown-key, and malformed-Unicode rejection; deterministic RFC 8785-compatible compact sorted-key UTF-8 JSON followed by one LF; P2 contains no floating-point fields",
+    "path_contract": "project-owned artifact logical and diagnostic path fields apply the accepted H1/H2 root-relative NFC POSIX lexical contract without importing harness types",
+    "storage_boundary": "root-relative paths or opaque approved external-location descriptor identifiers only; no ambient root discovery, URI credentials, storage I/O, or resolver framework",
+    "protected_conflict": "none after applying the current human instruction and accepted maintained documentation"
+  },
+  "harness_preflight": {
+    "command": "python .pi/skills/validate_harness.py --repository-root $PWD --route-config $PWD/harness/local/validation-route.json",
+    "selected_route": "local",
+    "status": "PASS"
+  }
+}
