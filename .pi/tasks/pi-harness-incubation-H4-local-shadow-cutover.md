@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: blocked at reissued H4-HC01 human acceptance/cutover after the Option-B test-local typing correction, focused validation, replacement R2/E2 replay cycle, targeted integration confirmation, and completion validation; legacy remains authoritative
+Status: corrected H4 human-accepted by H4-HC01 Option A; controlled local-route cutover and H4 closeout authorized and in progress; P2 activation remains separate until the H4 closeout boundary is pushed and verified
 
 ## Objective
 

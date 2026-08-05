@@ -25,7 +25,7 @@ a88fccd4649f4bf4c7066831df7defc86ecbbabc8ae4f9118e97216652c447ef  .pi/agents/ksd
 40d286fb2413677fb4ed699e135ef4addfc4e9df4a9229d90e105804792377a3  .pi/agents/ksdft2effmass-implementation.md
 74b6ca2fcf567141a81111473151959606562e859aef6994cd670c579b077763  .pi/agents/ksdft2effmass-integration-reviewer.md
 bc38ff7d41e2e78c4de1f26672ae07a23d41fb3f4fa42802f88b48adb0047483  .pi/agents/ksdft2effmass-tests.md
-5a64e0ee01672e98d7da0e76ce1825364f73603e990a03e0cafb55d81597663d  .pi/chains/pi-harness-incubation.chain.json
+549ecaf07274aeb822ecad96e2602dc8d7ca71edcb052b7f7cccb8c8dc196f9d  .pi/chains/pi-harness-incubation.chain.json
 24c60974a54d77af8a909c7e461b69a48ce66b5cd7015cb460f5a44fd50c9010  .pi/checkpoints/README.md
 f630a12f74cf16073efc59f97fc9dbcf1779ee48fad1d104cf18de8503a5c4d9  .pi/evidence/pi-harness-incubation/H4/activation.json
 19ec170e8ec54250d6107f5e361b2c35c8815cd02529178e8e09b8500cae3485  .pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md
@@ -46,7 +46,7 @@ bd7e91f72a252fe63b0f1f0a175cb87eca0e360984f17b859a1f176c4835e26d  .pi/skills/rec
 36dd947f0662f779f5118fc674a1f9fd53d69ac61fe7f62747728134b92b3113  .pi/skills/skill-capability-inventory.json
 d051a38abab0905fa5c6cb86f9a2c5fee4275d4d95a43ced2eb15a38d03d39e7  .pi/skills/validate_harness.py
 c916fcf223a616bf34474583a142c13f9c632b7774066f904b4648d8ba0fb07d  .pi/skills/validate_skill_capabilities.py
-6cbadb6c543f181bfd04f6fdab491321974cfebc4c1a4551bb79f791da060111  .pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md
+2c939a13aea0e5dfa9e905be846279c809b853031703f17cc639faffc8e4fe65  .pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md
 78dd1242aa9cb9428d80713d5662bd55345a6c44d01ec7eedbcdd9848b650655  AGENTS.md
 89ede66f68f3e0bfc4e2dfb7ea29e693f9a6cebb98446ef1ba121bf5fdff7455  docs/architecture/cpn-skill-capability-audit.md
 0c16e17e1427546014376d0e9d951a6343705ee64a7a0f780c0774565c30c05e  docs/development/agent-control-plane.rst

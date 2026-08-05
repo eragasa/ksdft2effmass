@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0, H1, H3, and H2 are closed as human-accepted PASS. H4-HC01 Option-B correction, replacement R2/E2 replay cycle, targeted integration confirmation, and final validation are complete; corrected H4 is blocked at reissued H4-HC01 human acceptance/cutover. H5, P2, and all other successors remain blocked and inactive.",
-  "status": "H4_blocked_pending_corrected_H4-HC01_human_acceptance",
+  "description": "Separate harness-incubation project. Corrected H4-HC01 Option A is human accepted and authorizes only controlled local-route cutover and H4 closeout. P2 may activate only after the distinct H4 closeout boundary is pushed and verified. H5 and all other successors remain blocked and inactive.",
+  "status": "H4_active_authorized_cutover_closeout",
   "active_task": "H4",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -75,7 +75,7 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "blocked_pending_corrected_H4-HC01",
+      "status": "active_authorized_cutover_closeout",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
@@ -166,9 +166,9 @@
     },
     {
       "checkpoint": "H4-HC01",
-      "decision": "B",
-      "resolved_at": "2026-08-05T06:04:36Z",
-      "result": "Option B bounded correction completed at R2/E2 with one replay and targeted PASS; H4-HC01 reissued for corrected final acceptance/cutover."
+      "decision": "A",
+      "resolved_at": "2026-08-05T06:20:49Z",
+      "result": "Initial Option B correction completed at R2/E2; corrected reissued H4-HC01 Option A human-accepted H4 and authorized controlled local-route cutover and closeout only."
     }
   ],
   "activations": [
@@ -197,18 +197,11 @@
       "scope": "H4 project-local Python, tests and deterministic parity evidence, canonical two-skill rename and live resource synchronization, stale inventory correction, maintained documentation/control synchronization, independent review, bounded correction, final verification, and one final H4 checkpoint only; no H5/P2/scientific/external/publication/release activation."
     }
   ],
-  "pending_checkpoints": [
-    {
-      "checkpoint": "H4-HC01",
-      "path": ".pi/checkpoints/H4-HC01-harness-cutover.json",
-      "blocked_task": "H4",
-      "decision": "corrected_human_acceptance_and_controlled_cutover"
-    }
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "await-corrected-H4-human-acceptance-cutover",
-      "message": "The H4-HC01 Option-B test-local typing correction, focused validation, one replacement R2 replay, E2 evidence, targeted integration confirmation, and completion validation are complete. Legacy remains authoritative until corrected H4-HC01 is resolved. H5, P2-P11, scientific/external execution, publication, and release remain blocked."
+      "phase": "execute-H4-authorized-cutover-closeout",
+      "message": "Perform only the accepted maintained local-route cutover, named consumer and rollback proof, coherent H4 closeout records, validation, commit/push, and remote verification. Do not activate P2 within the H4 closeout boundary. H5, P3-P11, scientific/external execution, publication, and release remain blocked."
     }
   ]
 }

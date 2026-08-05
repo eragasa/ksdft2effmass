@@ -2,7 +2,7 @@
   "checkpoint_id": "H4-HC01",
   "task_id": "H4",
   "episode_id": "pi-harness-incubation-H4",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-05T06:16:08Z",
   "question": "Does the human PI accept corrected H4 as PASS at replacement replay-input revision R2 a9b67dd9974fd94b98c2bec8b0c76a4201c38418 and evidence revision E2 c832ad2e800cb3534375a10ce64ed8ee97e28d76, and authorize the controlled closeout cutover that changes exactly harness/local/validation-route.json from legacy to local, reruns the named live consumer and rollback checks, records H4 as human-accepted, and closes H4 only, while retaining the repository-wide 43 Ruff findings and nine pre-existing global H2 mypy errors as baseline limitations and recognizing that focused H4 source-and-test mypy, focused tests, focused Ruff, one isolated R2 replay, targeted integration confirmation, and the H4 completion gate pass?",
@@ -48,12 +48,18 @@
     "harness/local/validation-route.json",
     ".pi/skills/validate_harness.py",
     ".pi/evidence/pi-harness-incubation/H4/H4-HC01-human-response.md",
-    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-option-B-correction.json"
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-option-B-correction.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-final-human-response.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "H4_blocked_pending_corrected_H4-HC01_human_acceptance_and_cutover_decision; legacy_authoritative; H5_P2_and_all_other_successors_inactive"
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-05T06:20:49Z",
+  "authorized_scope": "Accept corrected H4 as PASS; perform only the controlled local-route cutover by changing the maintained route owner from legacy to local with required resource-identity synchronization; run the named local route consumer and bounded rollback proof; update only H4 task, chain, checkpoint, acceptance, validation, review, checksum, route/resource, and closeout records required for a coherent boundary; close H4; commit and push the H4 closeout; verify remote identity; and stop the H4 boundary. Do not activate H5, P3-P11, scientific/external execution, publication, release, or unrelated work. P2 activation, separately authorized by the subsequent human instruction, may begin only after the H4 closeout boundary is durably pushed and verified.",
+  "record_paths": [
+    ".pi/checkpoints/H4-HC01-harness-cutover.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-final-human-response.md",
+    ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+    ".pi/chains/pi-harness-incubation.chain.json"
+  ],
+  "resumption_status": "H4_resumed_for_controlled_local_route_cutover_and_closeout_only; P2_may_activate_only_after_separate_durable_H4_closeout_boundary; H5_P3-P11_and_protected_execution_inactive"
 }
