@@ -11,11 +11,11 @@
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
-      "sha256": "015a2ea97bdb3d49b12fa4a1f356396261cd5df0f4c5326d10888908f3e0e578"
+      "sha256": "a0b53f884e2c31b83c7de27633a72d58b999880ea626c6d7a03a776b15a215a0"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
-      "sha256": "5d6e45980c51def8b09961b9ded4cbccc0324fd1e6e101b1180caf6b996fe03b"
+      "sha256": "2cc92bf326a996582022ee000a6768e2450bc6c6c73cdeb7309b7ae5bdf72168"
     }
   ]
 }

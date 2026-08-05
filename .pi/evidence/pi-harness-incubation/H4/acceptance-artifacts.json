@@ -58,9 +58,15 @@
     "status": "pending_independent_review"
   },
   "baseline_limitations": [
+    "repository-wide Ruff check exits 1 with 43 errors; the passing focused H4 Ruff path set excludes the legacy H3 standalone validator",
     "four pre-existing unchanged CPN tests fail the global Ruff format scan",
-    "nine pre-existing H2 untyped-test errors fail global mypy; focused H4 mypy passes 15 files"
+    "global mypy reports nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy reports one missing mutable-variable annotation in test__local_public_api_and_models.py:116; source-only mypy passes all 8 local source files"
   ],
+  "static_verification_limitations": [
+    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The narrower passing Ruff record covers only the explicit H4 path set and excludes harness/pi/validation/validate_h3_resources.py.",
+    "Focused local source-and-test mypy is not clean: test__local_public_api_and_models.py:116 needs a type annotation for mutable. The passing mypy record covers only the 8 local source files."
+  ],
+  "completion_gate_attestation_scope": "validate_h4_completion.py validates retained H4 evidence semantics, hashes, frozen-revision parity identity, checksum policy, legacy routing, and public export inventories, and executes the maintained legacy route consumer. It does not rerun or attest every supplemental command recorded in validation-results.json.",
   "claim_boundary": "Software-verification and migration evidence only; no numerical verification, scientific validation, UQ, release, external execution, authoritative cutover, or human acceptance claim.",
   "implementation_evidence_status": "PASS",
   "checksum_exclusions": [
