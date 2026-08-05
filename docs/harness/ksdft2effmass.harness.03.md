@@ -1,97 +1,329 @@
 # PI Harness Python Implementation Boundary
 
-## Prospective incubation namespace
+## Implemented H2 boundary
 
-When separately authorized, generic Python functionality will be incubated under
-
-```text
-python/src/ksdft2effmass/harness/pi/
-```
-
-Project-specific extensions will be isolated under
-
-```text
-python/src/ksdft2effmass/harness/pi/local/
-```
-
-This accepted placement preserves a visible extraction boundary. H0 did not
-create either namespace, and H1 acceptance alone will not constitute Python
-implementation authorization.
-
-## Import discipline
-
-H1 will decide exact public and internal names. The following placeholders are
-non-normative and illustrate only relative import direction:
+Active H2 implements the accepted version-1 generic contract at
+`python/src/ksdft2effmass/harness/pi/`. The supported public import path during
+incubation is:
 
 ```python
-from .checkpoints import AcceptedCheckpointType
-from .validation import AcceptedValidationResultType
+import ksdft2effmass.harness.pi as pi_harness
 ```
 
-Generic modules should not use incubation-specific absolute imports internally.
-For the same non-normative placeholders, avoid:
+The package contains immutable records and results plus concrete stateless
+actions. It is not a workflow engine and does not discover project state. H4
+owns all future project-local Python integration under
+`python/src/ksdft2effmass/harness/pi/local/`; H2 creates no local adapter or
+cutover behavior.
 
-```python
-from ksdft2effmass.harness.pi.checkpoints import AcceptedCheckpointType
-```
+## Exact public surface
 
-Relative imports reduce the mechanical work required when the generic modules later move to an independent namespace.
+The generic public contract has exactly **36 interfaces**. The package also
+exports five semantic primitives, giving 41 names in `__all__`. The 36
+interfaces are the following.
 
-## Prohibited generic imports
-
-Generic harness code must not import:
-
-- `ksdft2effmass.workflows.cpn`;
-- electronic-structure domain objects;
-- QE or Wannier adapters;
-- SNAKES;
-- modules under `.local`;
-- repository-specific task definitions.
-
-The local layer may import the generic harness and project-domain modules when it is implementing an explicitly project-owned adapter.
-
-## Resource loading
-
-Generic Python code must not infer resources from `Path.cwd()`, a Git root, or a fixed repository layout. It receives a resource root or resolved resource reference through the accepted contract.
-
-During incubation, the caller may explicitly supply `harness/pi/`. After extraction, the same resource interface may use package resources without changing the higher-level contract.
-
-## Path safety
-
-Any action that resolves caller-supplied relative paths must enforce confinement to the approved root. Resolution must reject traversal outside that root, including normalized `..` segments and symlink escapes where relevant.
-
-Path validation is software verification and security hardening. It does not establish scientific validity.
-
-## Public API discipline
-
-The public namespace should expose only accepted records and actions. It should not export:
-
-- project-local adapters;
-- mutable repositories;
-- subprocess clients;
-- scheduler handles;
-- undocumented filesystem helpers;
-- scientific workflow objects.
-
-Every public class receives one `class_owned` software-verification module.
-Schemas, package surfaces, and cross-surface agreements use `artifact_owned`
-modules. Agreement and direction are artifact relation metadata rather than a
-third generic primary ownership kind. Legacy `boundary_owned` terminology may
-remain only as explicit project-local compatibility input until authorized
-migration.
-
-## Extraction transition
-
-The eventual package may use an external namespace such as `pi_harness`. A temporary compatibility facade may preserve current imports during migration, but it must not become a second implementation.
-
-The intended transition is
+### DataObjects (14)
 
 ```text
-ksdft2effmass.harness.pi      → external generic package
-ksdft2effmass.harness.pi.local → retained project adapter
+ArtifactIdentity
+ResourceReference
+ResourceManifest
+ProjectProfile
+SkillDescriptor
+OwnershipScope
+AgentDescriptorView
+EvidenceIdentifierOccurrence
+OwnershipManifestView
+CheckpointRecord
+TaskReference
+ChainView
+ChecksumEntry
+ChecksumManifest
 ```
 
-The final distribution and import names remain an H5 package-readiness decision.
+### ResultObjects (8)
+
+```text
+ValidationIssue
+ValidationResult
+ProjectProfileLoadResult
+ResourceResolutionResult
+ChainEvaluationResult
+EvidenceAuditResult
+JsonSerializationResult
+JsonDeserializationResult
+```
+
+### Public support interfaces (3)
+
+```text
+WireRecordKind
+HarnessWireRecord
+HarnessInternalError
+```
+
+`WireRecordKind` is the closed enum of the 16 public-JSON record class names.
+`HarnessWireRecord` is the corresponding closed typing union and adds no wire
+discriminator. `HarnessInternalError` is a nonserialized `RuntimeError` for
+unexpected programming or post-selection runtime failure; its immutable public
+attributes are `operation` and `detail`.
+
+### ActionObjects (11)
+
+```text
+SerializeJsonRecord
+DeserializeJsonRecord
+LoadProjectProfile
+ResolveResource
+ValidateResourceManifest
+ValidateOwnershipManifest
+ValidateCheckpointSet
+EvaluateChainState
+AuditEvidenceIdentifiers
+ValidateChecksumManifest
+ValidateSkillResources
+```
+
+The five additional exported semantic primitives are `Identifier`,
+`ResourcePath`, `OwnershipScopePath`, `DiagnosticPath`, and `Version`. They are
+immutable built-in `str` or `int` values in Python, not additional DataObjects,
+ResultObjects, or ActionObjects. The intended Rust boundary uses validated
+newtypes for all five.
+
+Users import every public name from the package boundary, not from implementation
+modules. For example:
+
+```python
+from ksdft2effmass.harness.pi import (
+    ArtifactIdentity,
+    ResolveResource,
+    ValidationResult,
+    WireRecordKind,
+)
+```
+
+No abstract DataObject, ResultObject, ActionObject, or Workflow base class is
+public or required.
+
+## DataObject, ResultObject, and ActionObject rules
+
+All DataObjects and ResultObjects are operationally immutable, have no dynamic
+attributes, retain tuples rather than mutable sequences, and compare by exact
+field values in declared field order. The sole exception to public result
+equality is the workstation-specific `resolved_path` in
+`ResourceResolutionResult`. Runtime `pathlib.Path` values occur only as explicit
+action inputs or as that nonserialized result field.
+
+Direct Python construction is strict: the wrong semantic type raises
+`TypeError`, while a value of the right semantic type that violates an intrinsic
+invariant raises `ValueError`. Boolean values are rejected where an integer is
+required; numeric strings are not accepted as numbers. `Version` values are
+integers from 1 through $2^{53}-1$, excluding `bool`. Identifiers are nonempty,
+case-sensitive ASCII strings with the accepted character grammar and are not
+normalized or interpreted as hierarchies.
+
+Every ActionObject is a concrete, fieldless class with an `execute` method. An
+action retains no root, profile, cache, repository, client, or mutable state.
+Expected malformed external input is represented by deterministic issues in a
+result, normally with `FAIL` and no partially trusted primary value. Wrong
+direct argument types may raise `TypeError`; impossible internal states and
+post-selection I/O races remain exceptions rather than being converted into a
+misleading validation result.
+
+## Strict wire contract
+
+The 16 public-JSON records are the 14 DataObjects plus `ValidationIssue` and
+`ValidationResult`. Each is one strict UTF-8 RFC 8259 JSON object with
+`schema_version` first in the Python field contract and equal to integer `1`.
+Field names, types, nullability, and construction order are fixed. Input rejects:
+
+- invalid UTF-8, a BOM, invalid JSON, unpaired surrogates, and duplicate keys;
+- unknown or omitted fields and undeclared `null` values;
+- Boolean integer values, numeric strings, nonfinite numbers, and out-of-range
+  integers; and
+- unsupported versions or violated record invariants.
+
+Optional fields are present and use JSON `null`; they are never omitted. JSON
+member order has no input meaning. Canonical output is RFC 8785 JSON
+Canonicalization Scheme bytes, encoded as UTF-8 without a BOM and followed by
+exactly one LF byte. Arrays preserve their declared semantic order, while
+canonical-set fields are sorted before serialization. There are no floating
+point fields. `SerializeJsonRecord` uses the closed union without reflection or
+a registry; `DeserializeJsonRecord` requires an explicit `WireRecordKind` and
+never infers a kind, discovers a schema, or returns a partial record.
+
+`ArtifactIdentity` supports only SHA-256 with a 64-character lowercase
+hexadecimal digest. It states exact byte identity only, not provenance, semantic
+equivalence, correctness, or acceptance.
+
+## Three serialized path meanings
+
+`ResourcePath`, `OwnershipScopePath`, and `DiagnosticPath` share strict,
+case-sensitive lexical syntax: nonempty NFC Unicode, root-relative POSIX
+segments, and no absolute form, empty/`.`/`..` segment, repeated or trailing
+separator, backslash, control character, malformed surrogate, or Windows
+drive/device/UNC spelling. Invalid input is rejected rather than normalized.
+Their meanings remain distinct:
+
+- `ResourcePath` identifies a manifest-root-relative regular-file resource.
+- `OwnershipScopePath` identifies a repository-relative file or
+  directory-tree declaration whose `OwnershipScope.scope_kind` supplies exact
+  containment semantics.
+- `DiagnosticPath` is the neutral lexical location in
+  `ValidationIssue.path`. It may denote a file, directory, or ownership-scope
+  prefix and makes no existence, regular-file, or containment claim.
+
+A validator may preserve the lexical spelling of a valid specialized path in a
+diagnostic, but this does not weaken the source type. In particular, a
+directory-tree ownership finding is not mislabeled as a resource file.
+
+## Deterministic validation
+
+The version-1 `PIH.<AREA>.<CONDITION>` issue registry is closed. Generic results
+cannot contain project-local issue codes. Every registered issue is `ERROR`
+except `PIH.EVIDENCE.PROTECTED_GAP`, which is the sole `WARNING`; version 1 has
+no registered `INFO` code. Local policy cannot downgrade severity.
+
+The machine duplicate key is `(severity, code, subject_id, path, related_ids)`.
+Exact duplicates are coalesced, and issues sort by severity rank, code, optional
+subject, optional diagnostic path, related IDs, then message. Sorting is
+independent of traversal order, mapping insertion order, hash iteration, locale,
+current directory, and host case behavior. Empty or all-info results are
+`PASS`; warnings without errors are `WARN`; any error is `FAIL`. Message prose is
+explanatory rather than machine protocol.
+
+## Explicit-root manifests and resources
+
+`LoadProjectProfile` consumes supplied bytes, optional expected byte identity,
+and explicit supported schema and public-contract version tuples. It performs no
+path or environment lookup.
+
+`ResolveResource` receives a resource ID, an explicit absolute generic root,
+generic manifest and canonical-byte identity, optional corresponding local
+inputs, and a validated project profile. Roots are never serialized. Resolution
+validates manifest/profile identity and version compatibility before selection,
+then enforces lexical path validity, exact component case, absence of symlink
+components, resolved confinement beneath the canonical root, regular-file type,
+and exact SHA-256 content identity. Missing, ambiguous, escaped, symlinked,
+non-file, case-mismatched, or hash-mismatched resources return no selected path
+or reference.
+
+The only version-1 overlay policy is `extend_only`:
+
+```text
+local Python -> generic Python
+generic Python -/-> local Python
+local resources -> generic resource contracts
+generic resources -/-> project-local identities
+runtime .pi state -/-> generic package contents
+```
+
+A local manifest may add identities and depend on its named generic base. It may
+not replace or reuse a generic resource ID or path, even when bytes match. A
+generic resource may not depend on a local resource. There is no precedence
+winner, fallback root, network fetch, installation, current-directory search,
+Git-root search, `.pi` discovery, environment expansion, package-resource
+fallback, or ambient global skill inheritance.
+
+## Structural actions and their limits
+
+- `ValidateResourceManifest` checks manifest binding, unique IDs and paths,
+  supported kinds and versions, dependency completeness and acyclicity,
+  generic-to-local prohibition, and extension-only overlays. It neither resolves
+  bytes nor authorizes a resource.
+- `ValidateOwnershipManifest` checks the normalized version-2 view against an
+  explicit chain, agent views, and profile: task/agent/role agreement,
+  nonoverlapping scopes, reviewer independence, completion binding, and profile
+  support. H4, not the generic action, owns parsing current agent files and
+  legacy P1 compatibility.
+- `ValidateCheckpointSet` checks duplicate identities, task links, lifecycle
+  vocabulary, unresolved/resolved field combinations, and duplicate normalized
+  decisions. It never chooses or normalizes a decision, infers approval from
+  silence, writes a checkpoint, resumes work, or activates a successor.
+- `EvaluateChainState` derives identifier-sorted active, blocked, and
+  structurally ready task facts from an explicit chain, checkpoints, complete
+  known external prerequisites, their satisfied subset, and profile vocabulary.
+  A failed validation returns empty fact tuples. Readiness is not authorization;
+  the action does not dispatch, mutate state or Git, or interpret scientific
+  meaning.
+- `ValidateChecksumManifest` compares a nonempty, path-sorted manifest with
+  regular files confined below an explicit root. Checksums establish byte
+  identity only; the action does not repair, delete, attest provenance, or claim
+  semantic or scientific correctness.
+- `AuditEvidenceIdentifiers` parses only supplied `(ResourcePath, bytes)` Python
+  modules. It applies explicit profile marker, namespace/range, scope, and exact
+  protected-gap facts and returns occurrences sorted by ID, path, and one-based
+  line. It performs no filesystem discovery, test execution, AST mutation,
+  filename-policy interpretation, evidence writing, or VVUQ judgment.
+- `ValidateSkillResources` validates explicitly supplied descriptors and
+  manifest closure, entry kind, behavior-version support, policy identity, and
+  overlay direction. A `SkillDescriptor` describes triggers, required resources,
+  side-effect class, authorization policy, retry policy, and termination policy;
+  it neither dispatches an agent nor grants authorization.
+
+The generic primary evidence kinds remain exactly `class_owned` and
+`artifact_owned`. Agreement and direction are artifact relation metadata, not a
+third ownership kind. Legacy `boundary_owned` is project-local compatibility
+input only.
+
+## Accepted H3 resources and vectors
+
+H2 consumes the human-accepted H3 trees under `harness/pi/` and
+`harness/local/` read-only. They provide the generic and extension manifests,
+strict Draft 2020-12 schemas, project-profile instance, valid/invalid fixtures,
+resource-resolution and semantic-invariant oracles, the generic evidence skill
+and references, and the H3 completion validator. The local tree is explicit
+project configuration; it is not imported into generic Python or embedded as a
+generic default.
+
+`harness/pi/fixtures/canonical/canonical-json-vectors.json` contains 17 accepted
+RFC-8785-plus-LF vectors: one for each of the 16 public-JSON record kinds and one
+additional `DiagnosticPath` NFC-spelling case. The diagnostic-path oracle
+contains four valid and nineteen invalid cases. These resources fix textual
+software-verification inputs and expected acceptance partitions. They are not
+generated truth from the H2 implementation, and passing against them does not
+establish intended Rust conformance. H2 does not modify H3 schemas, manifests,
+fixtures, profiles, skills, or handoff records.
+
+## Import and dependency discipline
+
+Internal generic imports remain relative. Generic modules do not import the
+project-local layer, `ksdft2effmass.workflows.cpn`, electronic-structure domain
+objects, QE or Wannier adapters, SNAKES, repository-specific task definitions,
+or H3 resources as executable Python. Public records contain no credentials,
+open files, sockets, mutable mappings or sequences, closures, subprocess or
+scheduler handles, Git clients, mutable service clients, or imported scientific
+objects.
+
+## Claim boundary and exclusions
+
+H2 evidence is **software verification only**. A `PASS` means that supplied
+inputs satisfy the documented structural contract. It does not establish human
+acceptance, task authorization, successor activation, command correctness,
+numerical verification, scientific validation, uncertainty quantification,
+physical correctness, package readiness, release status, or publication
+permission. No actual numerical algorithm is implemented here, so numerical
+verification is not applicable; scientific validation and uncertainty
+quantification are also not applicable.
+
+The following remain outside H2:
+
+- H4 local integration, compatibility adapters, shadow replay, parity,
+  rollback, retirement, and cutover;
+- H5 distribution naming, extraction, compatibility facade, packaging,
+  publication, or release readiness;
+- P2 and all scientific or protected execution, including QE and Wannier90;
+- SQLite or any mutable repository;
+- workflow engines, dispatch, runners, command execution, Git mutation,
+  subprocesses, schedulers, plugins, registries, service locators, and dynamic
+  imports;
+- command specification/result wire records, universal filename policy,
+  Graphify integration, and scientific validation/UQ result types.
+
+The intended later extraction may move the generic implementation to an
+independent namespace, while H4's project adapter remains local. The final
+standalone import and distribution names are an H5 decision. No compatibility
+facade or second implementation exists in H2.
 
 ## Navigation
 

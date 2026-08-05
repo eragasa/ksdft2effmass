@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "task_id": "H2",
+  "status": "incomplete_fail",
+  "claim_boundary": "Observed deterministic software-verification and packaging gates only; no numerical verification, scientific validation, physical correctness, uncertainty quantification, human acceptance, or executable Rust conformance is claimed.",
+  "results": [
+    {
+      "gate": "accepted H3 resource replay",
+      "command": "python harness/pi/validate_h3_resources.py",
+      "result": "PASS",
+      "summary": "46 gates passed."
+    },
+    {
+      "gate": "H2 task ownership",
+      "command": "python .pi/task-ownership/validate_task_ownership.py --task H2 --chain .pi/chains/pi-harness-incubation.chain.json",
+      "result": "PASS",
+      "summary": "H2 ownership preflight passed."
+    },
+    {
+      "gate": "checkpoint integrity",
+      "command": "python .pi/checkpoints/validate_checkpoints.py",
+      "result": "PASS",
+      "summary": "17 checkpoint records; zero unresolved checkpoints and zero duplicate resolved decisions."
+    },
+    {
+      "gate": "initial focused H2 pytest",
+      "command": "uv run --project python pytest -q python/tests/software_verification/ksdft2effmass/harness/pi",
+      "result": "PASS",
+      "summary": "45 passed before the consolidated correction."
+    },
+    {
+      "gate": "last corrected focused H2 pytest",
+      "command": "uv run --project python pytest -q python/tests/software_verification/ksdft2effmass/harness/pi",
+      "result": "FAIL",
+      "summary": "59 collected: 58 passed, 1 failed. Remaining failure was the H3 resource-resolution structured-action corpus issue set."
+    },
+    {
+      "gate": "full Python suite before correction",
+      "command": "source .venv/bin/activate && python -m pytest -q python/tests",
+      "result": "PASS",
+      "summary": "1057 passed from repository-root cwd."
+    },
+    {
+      "gate": "Python-project cwd before correction",
+      "command": "source .venv/bin/activate && cd python && python -m pytest -q",
+      "result": "FAIL",
+      "summary": "20 failed, 1037 passed because H2 fixture paths depended on cwd; correction work replaced those roots with Path(__file__).resolve()-derived roots."
+    },
+    {
+      "gate": "focused Ruff lint and format",
+      "command": "uv run --project python ruff check python/tests/software_verification/ksdft2effmass/harness/pi && uv run --project python ruff format --check python/tests/software_verification/ksdft2effmass/harness/pi",
+      "result": "PASS",
+      "summary": "Focused corrected H2 test surface passed at the last observed parallel invocation."
+    },
+    {
+      "gate": "focused production Ruff and format",
+      "command": "uv run --project python ruff check python/src/ksdft2effmass/harness/pi && uv run --project python ruff format --check python/src/ksdft2effmass/harness/pi",
+      "result": "PASS",
+      "summary": "Implementation-writer focused checks passed."
+    },
+    {
+      "gate": "source-only no-incremental mypy",
+      "command": "uv run --project python mypy --no-incremental python/src/ksdft2effmass/harness/pi",
+      "result": "PASS",
+      "summary": "Corrected production typing passed."
+    },
+    {
+      "gate": "isolated Sphinx warnings-as-errors",
+      "command": "uv run --isolated --offline --locked --project python --extra docs sphinx-build -W -b html docs <temporary-output>",
+      "result": "PASS",
+      "summary": "42 sources built in the independent integration environment. A separate non-isolated completion invocation failed only because myst_parser was unavailable."
+    },
+    {
+      "gate": "pre-correction completion validator",
+      "command": "uv run --isolated --offline --locked --project python --extra dev --extra docs python python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+      "result": "PASS",
+      "summary": "H3, ownership, collection, 45 tests, validator Ruff/format, mypy, Sphinx, 39 modules, and 45 provisional evidence IDs passed; independent review later found the validator suppressed configured E501 and overstated coverage."
+    },
+    {
+      "gate": "configured full Ruff lint",
+      "command": "source .venv/bin/activate && python -m ruff check python/src python/tests",
+      "result": "FAIL",
+      "summary": "332 E501 findings on the broader pre-existing Python surface; unrelated to the focused H2 correction and not edited here."
+    },
+    {
+      "gate": "configured broader Ruff format",
+      "command": "uv run --project python ruff format --check python/src python/tests",
+      "result": "FAIL",
+      "summary": "Broader pre-existing formatting failures were observed outside the focused H2 surface; no unrelated files were reformatted."
+    },
+    {
+      "gate": "package build install and neutral-cwd import",
+      "command": "uv build --offline --sdist --wheel --out-dir <temporary-dist> python && uv pip install --offline --no-deps --target <temporary-site> <built-wheel> && (cd /tmp && PYTHONPATH=<temporary-site> python -c 'import ksdft2effmass.harness.pi as api; print(len(api.__all__))')",
+      "result": "PASS_WITH_WARNING",
+      "summary": "sdist and wheel build, isolated install, and import passed; the sdist build emitted a README-path warning. The installed API exposed 41 public names."
+    },
+    {
+      "gate": "staging",
+      "command": "git diff --cached --quiet",
+      "result": "PASS",
+      "summary": "No staged files."
+    }
+  ],
+  "residual_failures": [
+    "The corrected focused suite remains 58 PASS / 1 FAIL.",
+    "Accepted H1 constructor/wire invariants conflict with accepted H3 action-level duplicate/overlay fixtures; see contract-conflict.md.",
+    "No corrected final completion run, second independent review, final checksum catalog, H2-to-H4 handoff, or human acceptance exists."
+  ]
+}

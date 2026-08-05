@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task_id": "H2",
+  "parent_workflow_id": "pi-harness-incubation",
+  "activation_id": "H2-activation-2026-08-04T18:17:13Z",
+  "authority": {
+    "source": "Current human instruction titled Activate and execute H2 under its existing accepted task, H1 contract, H3 resources, ownership, review, and validation requirements",
+    "kind": "separate explicit H2-only activation",
+    "received_at": "2026-08-04T18:17:13Z"
+  },
+  "starting_revision": "ea96ca5eff3a1f51e9a5dd6e8b0a1fce6c4d70e1",
+  "prerequisite_evidence": {
+    "h1_status": "human_accepted_pass",
+    "h1_checkpoint": ".pi/checkpoints/H1-HC02-final-acceptance.json",
+    "h3_status": "human_accepted_pass",
+    "h3_checkpoint": ".pi/checkpoints/H3-HC01-final-acceptance.json",
+    "policy_constitution_status": "human_accepted_pass",
+    "policy_constitution_checkpoint": ".pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json",
+    "unresolved_checkpoints_before_activation": 0,
+    "active_task_before_activation": null,
+    "h3_prerequisite_satisfied": true,
+    "h2_next_in_chain": true,
+    "origin_dev_revision": "ea96ca5eff3a1f51e9a5dd6e8b0a1fce6c4d70e1"
+  },
+  "ownership_manifest": ".pi/evidence/pi-harness-incubation/H2/task-ownership.json",
+  "unrelated_worktree_baseline": ".pi/evidence/pi-harness-incubation/H2/unrelated-worktree-baseline.json",
+  "activated_scope": "H2 generic Python production source, exact independent software-verification modules, maintained H2 documentation, retained H2 evidence, independent read-only reviews, one consolidated correction cycle if required, final verification, one final H2 human checkpoint, and coherent commit/push to dev.",
+  "blocked_scope": "H4, H5, P2-P11; project-local Python and cutover; accepted H3 resource mutation; dependencies and lockfiles; SQLite; live-skill retirement; protected, numerical, scientific, external, release, or publication execution; unrelated work.",
+  "status": "active"
+}

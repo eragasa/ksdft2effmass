@@ -1,0 +1,114 @@
+{
+  "schema_version": 2,
+  "task_id": "H2",
+  "task_record": ".pi/tasks/pi-harness-incubation-H2-python-core.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "harness-python-implementation-writer",
+        "agent": "ksdft2effmass-harness-python-implementation-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-python-implementation-writer.md",
+        "owned_paths": [
+          "python/src/ksdft2effmass/harness/pi/__init__.py",
+          "python/src/ksdft2effmass/harness/pi/identity.py",
+          "python/src/ksdft2effmass/harness/pi/resources.py",
+          "python/src/ksdft2effmass/harness/pi/profiles.py",
+          "python/src/ksdft2effmass/harness/pi/validation.py",
+          "python/src/ksdft2effmass/harness/pi/ownership.py",
+          "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+          "python/src/ksdft2effmass/harness/pi/chains.py",
+          "python/src/ksdft2effmass/harness/pi/checksums.py",
+          "python/src/ksdft2effmass/harness/pi/evidence.py"
+        ]
+      },
+      {
+        "role": "harness-python-test-writer",
+        "agent": "ksdft2effmass-harness-python-test-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-python-test-writer.md",
+        "owned_paths": [
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ArtifactIdentity.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceReference.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfile.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__SkillDescriptor.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipScope.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__AgentDescriptorView.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceIdentifierOccurrence.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipManifestView.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointRecord.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskReference.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainView.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumEntry.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfileLoadResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceResolutionResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainEvaluationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceAuditResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonSerializationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonDeserializationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__WireRecordKind.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__HarnessInternalError.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__SerializeJsonRecord.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__DeserializeJsonRecord.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__LoadProjectProfile.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResolveResource.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateResourceManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateOwnershipManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateCheckpointSet.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvaluateChainState.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateChecksumManifest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateSkillResources.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py"
+        ]
+      },
+      {
+        "role": "harness-python-documentation-writer",
+        "agent": "ksdft2effmass-harness-python-documentation-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-python-documentation-writer.md",
+        "owned_paths": [
+          "docs/harness/ksdft2effmass.harness.03.md"
+        ]
+      },
+      {
+        "role": "harness-h2-verification-evidence-writer",
+        "agent": "ksdft2effmass-harness-h2-verification-evidence-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-h2-verification-evidence-writer.md",
+        "owned_paths": [
+          ".pi/evidence/pi-harness-incubation/H2"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "harness-python-architecture-rust-reviewer",
+        "agent": "ksdft2effmass-harness-python-architecture-rust-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-python-architecture-rust-reviewer.md"
+      },
+      {
+        "role": "harness-python-evidence-vvuq-reviewer",
+        "agent": "ksdft2effmass-harness-python-evidence-vvuq-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-python-evidence-vvuq-reviewer.md"
+      },
+      {
+        "role": "harness-python-integration-reviewer",
+        "agent": "ksdft2effmass-harness-python-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-python-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+    "command": [
+      "python",
+      "python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py"
+    ],
+    "required_before_review": true
+  }
+}

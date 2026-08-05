@@ -1,0 +1,61 @@
+{
+  "checkpoint_id": "H2-HC01",
+  "task_id": "H2",
+  "episode_id": "pi-harness-incubation-H2",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-04T23:51:30Z",
+  "question": "Which accepted public-contract boundary should own relationally invalid resource manifests, given that accepted H1 constructors and strict deserialization reject duplicate resource IDs/paths and self-dependencies before a ResourceManifest exists, while accepted H1 action semantics and accepted H3 resolution oracles require ValidateResourceManifest to receive those states and emit PIH.RESOURCE.DUPLICATE_ID, DUPLICATE_PATH, and OVERLAY_REPLACEMENT?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize a bounded upstream H1/H3 contract correction that moves the affected manifest relational invalidity to ValidateResourceManifest.",
+      "consequence": "Keep H2 blocked. Explicitly revise the accepted constructor/wire/schema boundary so relationally invalid but structurally representable manifests can reach ValidateResourceManifest, reconcile the affected H1 invariant/version rules and H3 schemas/fixtures/oracles, independently review that upstream correction, and resume H2 only under a separately recorded bounded authorization. No H4 or other successor activates."
+    },
+    {
+      "id": "B",
+      "summary": "Preserve strict H1 constructors/deserialization and revise the conflicting H1 action-code ownership and H3 action oracles.",
+      "consequence": "Keep H2 blocked. Treat duplicate/self-dependent manifest inputs as PIH.WIRE.INVALID_VALUE with no ResourceManifest, remove or reassign unreachable action expectations, reconcile accepted H1/H3 evidence and versions under explicit authority, and resume H2 only after independent review. No H4 or other successor activates."
+    },
+    {
+      "id": "C",
+      "summary": "Reject both corrections and reopen the broader version-1 manifest-validation contract.",
+      "consequence": "Keep H2 blocked and reopen only the human-specified manifest construction, deserialization, schema, issue-code, and action boundary. No implementation correction or successor work resumes until a replacement contract is accepted."
+    },
+    {
+      "id": "D",
+      "summary": "Defer the decision.",
+      "consequence": "Retain the provisional H2 implementation, tests, reviews, and failed correction evidence without commit/push or final H2 acceptance. H2 remains blocked; H4, H5, P2, project-local cutover, SQLite, protected execution, and scientific execution remain unstarted."
+    }
+  ],
+  "recommendation": "Option A. It preserves the accepted purpose of ValidateResourceManifest and the DataObject/ActionObject rule that cross-resource duplicate, overlay, and dependency relations belong to the ActionObject. Because H1 and H3 are already human-accepted, this must be an explicit bounded upstream contract/resource correction with version-boundary reconciliation, not an H2 implementation guess.",
+  "blocked_scope": "H2 completion, further writer/reviewer loops, final H2 acceptance checkpoint, commit/push of the H2 boundary, H4/H5/P2 activation, project-local Python/cutover, accepted H3 mutation, SQLite, live-skill retirement, dependencies/lockfiles, protected/external/numerical/scientific/release/publication execution, and unrelated user work.",
+  "safe_scope": "Read-only inspection of H1 field/wire/action/version contracts, accepted H3 schemas and resource-resolution fixtures/oracles, provisional H2 source/tests/docs, initial reviews, the single correction-cycle record, validation evidence, and this checkpoint. The resolve-human-checkpoint procedure may record an unambiguous human choice and authorize only its bounded upstream correction/resumption scope.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/pi-harness-incubation-H2-python-core.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+    ".pi/evidence/pi-harness-incubation/H1/issue-code-and-ordering-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/version-boundaries.md",
+    ".pi/evidence/pi-harness-incubation/H1/h3-h2-ownership-plan.json",
+    "harness/pi/schemas/records/resource-reference.schema.json",
+    "harness/pi/schemas/records/resource-manifest.schema.json",
+    "harness/pi/fixtures/resource-resolution/oracle-index.json",
+    "harness/pi/fixtures/resource-resolution/cases/duplicate-resource-id.json",
+    "harness/pi/fixtures/resource-resolution/cases/duplicate-resource-path.json",
+    "harness/pi/fixtures/resource-resolution/cases/local-overlay-duplicate-id.json",
+    "harness/pi/fixtures/resource-resolution/cases/local-overlay-duplicate-path.json",
+    ".pi/evidence/pi-harness-incubation/H2/contract-conflict.md",
+    ".pi/evidence/pi-harness-incubation/H2/correction-cycle.md",
+    ".pi/evidence/pi-harness-incubation/H2/validation-results.json",
+    ".pi/checkpoints/H2-HC01-manifest-relational-validity-boundary.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "H2_blocked_after_single_consolidated_correction_cycle_pending_manifest_relational_validity_boundary_decision; no_final_acceptance_commit_push_or_successor_activation"
+}
