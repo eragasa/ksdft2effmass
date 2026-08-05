@@ -107,6 +107,7 @@ def catalog_targets() -> list[str]:
         _digest, marker, relative = line.partition("  ")
         mutable_closeout = {
             ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+            ".pi/evidence/pi-harness-incubation/H4/evidence-artifact-hashes.json",
             ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
             ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
         }
@@ -483,11 +484,19 @@ def retained() -> dict[str, Any]:
             }
         )
     counts = Counter(x["classification"] for x in pairs)
+    replay_program = (
+        ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py"
+    )
+    replay_program_digest = revision_blob_digest(revision, replay_program)
+    if replay_program_digest is None:
+        raise RuntimeError("replay program is absent from durable revision")
     return {
         "schema_version": 2,
         "artifact_identity": "H4.shadow-parity-results.v2",
         "task_id": "H4",
-        "replay_program": ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py",
+        "replay_program": replay_program,
+        "replay_program_sha256": replay_program_digest,
+        "replay_input_definition": ".pi/evidence/pi-harness-incubation/H4/replay-inputs.json",
         "revision_identity": revision,
         "clean_revision_replay": True,
         "input_policy": "each pair shares one exact path/hash identity set across both sides",

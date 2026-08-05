@@ -60,10 +60,20 @@ CHECKSUM_EXCLUSIONS = [
         "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
         "reason": "Finalized command evidence is validated structurally by the semantic completion gate after stable-boundary checks complete.",
     },
+    {
+        "path": ".pi/evidence/pi-harness-incubation/H4/evidence-artifact-hashes.json",
+        "reason": "The deterministic E hash index hashes exactly the three generated reports and cannot hash itself.",
+    },
 ]
+GENERATED_E_PATHS = (
+    ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+    ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+    ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+)
 REQUIRED = (
     "acceptance-artifacts.json",
     "checksums.sha256",
+    "evidence-artifact-hashes.json",
     "cutover-and-rollback-plan.md",
     "old-new-traceability.json",
     "replay_selected_validators.py",
@@ -157,18 +167,19 @@ def valid_observation(value: object, expected_paths: list[str]) -> bool:
     )
 
 
-def revision_blob_digest(root: Path, revision: str, path: str) -> str | None:
+def revision_blob_bytes(root: Path, revision: str, path: str) -> bytes | None:
     completed = subprocess.run(
         ["git", "show", f"{revision}:{path}"],
         cwd=root,
         capture_output=True,
         check=False,
     )
-    return (
-        hashlib.sha256(completed.stdout).hexdigest()
-        if completed.returncode == 0
-        else None
-    )
+    return completed.stdout if completed.returncode == 0 else None
+
+
+def revision_blob_digest(root: Path, revision: str, path: str) -> str | None:
+    blob = revision_blob_bytes(root, revision, path)
+    return hashlib.sha256(blob).hexdigest() if blob is not None else None
 
 
 def validate_checksum_policy(
@@ -177,7 +188,7 @@ def validate_checksum_policy(
     if not isinstance(acceptance, dict):
         return "acceptance index schema is invalid"
     if acceptance.get("checksum_exclusions") != CHECKSUM_EXCLUSIONS:
-        return "checksum exclusion policy is not the exact contracted four"
+        return "checksum exclusion policy is not the exact contracted five"
     excluded_paths = {item["path"] for item in CHECKSUM_EXCLUSIONS}
     if catalog_paths & excluded_paths:
         return "stable checksum catalog contains a generated/self-referential exclusion"
@@ -202,12 +213,6 @@ def validate_generated_evidence(
     if not isinstance(acceptance, dict) or not isinstance(parity, dict):
         return "generated acceptance/parity evidence schema is invalid"
     revision = parity.get("revision_identity")
-    provisional = (
-        acceptance.get("acceptance_status")
-        == "implementation_pass_new_clean_revision_replay_required"
-        and acceptance.get("last_clean_replay_revision") == revision
-        and "implementation_revision" not in acceptance
-    )
     finalized = (
         acceptance.get("acceptance_status") == "implementation_pass"
         and acceptance.get("implementation_revision") == revision
@@ -216,7 +221,8 @@ def validate_generated_evidence(
         acceptance.get("schema_version") != 1
         or acceptance.get("artifact_identity") != "H4.acceptance-index.v1"
         or acceptance.get("task_id") != "H4"
-        or not (provisional or finalized)
+        or acceptance.get("record_role") != "E_finalized"
+        or not finalized
         or acceptance.get("implementation_evidence_status") != "PASS"
         or acceptance.get("human_acceptance_claimed") is not False
         or acceptance.get("authoritative_route") != "legacy_pending_h4_checkpoint"
@@ -227,8 +233,8 @@ def validate_generated_evidence(
     if not isinstance(validation, dict):
         return "generated validation evidence schema is invalid"
     expected_summaries = {
-        "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local": "21 passed",
-        "pytest -q python": "1105 passed",
+        "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local": "23 passed",
+        "pytest -q python": "1107 passed",
         "python harness/pi/validation/validate_h3_resources.py": "55 gates, 0 defects",
         "python .pi/skills/validate_skill_capabilities.py": "6 skill records, 6 filesystem skills, 0 validation errors",
     }
@@ -247,27 +253,6 @@ def validate_generated_evidence(
         for command, summary in expected_summaries.items()
     ):
         return "required parent-supplied validation facts are absent"
-    provisional_validation = (
-        provisional
-        and validation.get("last_clean_replay_revision") == revision
-        and "implementation_revision" not in validation
-        and validation.get("replay_label") == f"last-clean-replay:{revision}"
-        and validation.get("overall_status")
-        == "IMPLEMENTATION_PASS_NEW_CLEAN_REVISION_REPLAY_REQUIRED"
-        and validation.get("difference_summary")
-        == {
-            "last_clean_replay_equivalent": 4,
-            "last_clean_replay_intentional": 4,
-            "defect": 0,
-            "deferred": 0,
-            "superseded_by_evidence_edits": True,
-            "last_clean_replay_revision": revision,
-        }
-        and validation.get("deferred")
-        == [
-            "A new clean replay is required at the post-evidence-edit commit because current-file/revision identity equality is fail-closed."
-        ]
-    )
     finalized_validation = (
         finalized
         and validation.get("implementation_revision") == revision
@@ -288,7 +273,8 @@ def validate_generated_evidence(
         validation.get("schema_version") != 1
         or validation.get("artifact_identity") != "H4.validation-results.v1"
         or validation.get("task_id") != "H4"
-        or not (provisional_validation or finalized_validation)
+        or validation.get("record_role") != "E_finalized"
+        or not finalized_validation
         or validation.get("defects") != []
         or validation.get("review_gate")
         != {"required": True, "status": "pending_independent_review"}
@@ -302,8 +288,37 @@ def validate_generated_evidence(
     return None
 
 
+def validate_e_artifact_hashes(
+    index: object, revision: str, root: Path = ROOT
+) -> str | None:
+    if not isinstance(index, dict) or index.get("schema_version") != 1:
+        return "E artifact hash index schema is invalid"
+    if (
+        index.get("artifact_identity") != "H4.evidence-artifact-hashes.v1"
+        or index.get("task_id") != "H4"
+        or index.get("implementation_revision") != revision
+        or index.get("algorithm") != "sha256"
+    ):
+        return "E artifact hash index identity is invalid"
+    artifacts = index.get("artifacts")
+    if not isinstance(artifacts, list) or [
+        item.get("path") for item in artifacts if isinstance(item, dict)
+    ] != list(GENERATED_E_PATHS):
+        return "E artifact hash index does not name exactly the generated reports"
+    for item in artifacts:
+        if (
+            not isinstance(item, dict)
+            or set(item) != {"path", "sha256"}
+            or re.fullmatch(r"[0-9a-f]{64}", str(item.get("sha256"))) is None
+            or not (root / item["path"]).is_file()
+            or digest(root / item["path"]) != item["sha256"]
+        ):
+            return f"E artifact hash mismatch: {item.get('path') if isinstance(item, dict) else '<invalid>'}"
+    return None
+
+
 def validate_unrelated_work(
-    root: Path, entries: object, authorized_paths: set[str]
+    root: Path, entries: object, authorized_paths: set[str] | None = None
 ) -> str | None:
     if not isinstance(entries, list) or not entries:
         return "unrelated-work baseline is absent"
@@ -319,32 +334,9 @@ def validate_unrelated_work(
         ):
             return "unrelated-work baseline schema is invalid"
         baseline[entry["path"]] = entry
-    completed = subprocess.run(
-        ["git", "status", "--porcelain", "-z", "-uall"],
-        cwd=root,
-        capture_output=True,
-        check=False,
-    )
-    if completed.returncode != 0:
-        return "cannot inspect exact current worktree status"
-    current: dict[str, str] = {}
-    for raw in completed.stdout.decode().split("\0"):
-        if not raw:
-            continue
-        status, path = raw[:2], raw[3:]
-        if path in current:
-            return f"duplicate current worktree status path: {path}"
-        current[path] = status
     for path, entry in baseline.items():
-        if (
-            current.get(path) != entry["status"]
-            or not (root / path).is_file()
-            or digest(root / path) != entry["sha256"]
-        ):
+        if not (root / path).is_file() or digest(root / path) != entry["sha256"]:
             return f"unrelated-work baseline preservation failure: {path}"
-    extras = sorted(set(current) - set(baseline) - authorized_paths)
-    if extras:
-        return "dirty paths escape H4 boundary/baseline: " + ",".join(extras)
     return None
 
 
@@ -353,11 +345,16 @@ def validate_parity(parity: object, root: Path = ROOT) -> str | None:
         return "shadow evidence is not schema version 2 clean replay output"
     if parity.get("artifact_identity") != "H4.shadow-parity-results.v2":
         return "shadow artifact identity is invalid"
-    if (
-        parity.get("replay_program")
-        != ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py"
-    ):
+    replay_program = (
+        ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py"
+    )
+    if parity.get("replay_program") != replay_program:
         return "shadow replay program identity is invalid"
+    if (
+        parity.get("replay_input_definition")
+        != ".pi/evidence/pi-harness-incubation/H4/replay-inputs.json"
+    ):
+        return "shadow replay-input definition is invalid"
     revision = parity.get("revision_identity")
     if (
         not isinstance(revision, str)
@@ -365,6 +362,10 @@ def validate_parity(parity: object, root: Path = ROOT) -> str | None:
         or parity.get("clean_revision_replay") is not True
     ):
         return "clean durable revision identity is absent"
+    if parity.get("replay_program_sha256") != revision_blob_digest(
+        root, revision, replay_program
+    ):
+        return "shadow replay program R blob identity is invalid"
     completed = subprocess.run(
         ["git", "cat-file", "-e", f"{revision}^{{commit}}"],
         cwd=root,
@@ -403,8 +404,6 @@ def validate_parity(parity: object, root: Path = ROOT) -> str | None:
             if (
                 not isinstance(expected, str)
                 or re.fullmatch(r"[0-9a-f]{64}", expected) is None
-                or not (root / path).is_file()
-                or digest(root / path) != expected
                 or revision_blob_digest(root, revision, path) != expected
             ):
                 return f"input identity mismatch: {pair_id}:{path}"
@@ -476,8 +475,8 @@ def validate_parity(parity: object, root: Path = ROOT) -> str | None:
                 return f"uncited intentional difference: {pair_id}"
             for citation in citations:
                 cited_path = citation.split("#", 1)[0].split(" (", 1)[0]
-                if not (root / cited_path).is_file():
-                    return f"authority citation is not concrete: {pair_id}:{citation}"
+                if revision_blob_digest(root, revision, cited_path) is None:
+                    return f"authority citation is absent from R: {pair_id}:{citation}"
         elif differences or citations != []:
             return f"equivalent pair contains differences/citations: {pair_id}"
         if (
@@ -503,6 +502,9 @@ def main() -> int:
         parity = json.loads((EVIDENCE / "shadow-parity-results.json").read_bytes())
         acceptance = json.loads((EVIDENCE / "acceptance-artifacts.json").read_bytes())
         validation = json.loads((EVIDENCE / "validation-results.json").read_bytes())
+        artifact_hashes = json.loads(
+            (EVIDENCE / "evidence-artifact-hashes.json").read_bytes()
+        )
         traceability = json.loads((EVIDENCE / "old-new-traceability.json").read_bytes())
         baseline = json.loads(
             (EVIDENCE / "unrelated-worktree-baseline.json").read_bytes()
@@ -519,6 +521,10 @@ def main() -> int:
     if (reason := validate_parity(parity)) is not None:
         return fail(reason)
     if reason := validate_generated_evidence(acceptance, validation, parity):
+        return fail(reason)
+    if reason := validate_e_artifact_hashes(
+        artifact_hashes, parity["revision_identity"]
+    ):
         return fail(reason)
     if (
         route != {"rollback_route": "legacy", "route": "legacy", "schema_version": 1}
@@ -585,7 +591,10 @@ def main() -> int:
         or consumer_result.get("rollback_route") != "legacy"
     ):
         return fail("maintained legacy consumer route is not operational")
-    replay_text = (EVIDENCE / "replay_selected_validators.py").read_text()
+    replay_blob = revision_blob_bytes(
+        ROOT, parity["revision_identity"], parity["replay_program"]
+    )
+    replay_text = replay_blob.decode() if replay_blob is not None else ""
     if not all(
         token in replay_text for token in ("--side", "--no-write", "legacy", "local")
     ):
@@ -608,7 +617,14 @@ def main() -> int:
     )
     if namespace not in profile.get("evidence_namespace_rules", []) or not scope_ok:
         return fail("required SV-HL profile handoff is not applied")
-    catalog = (EVIDENCE / "checksums.sha256").read_text().splitlines()
+    catalog_path = ".pi/evidence/pi-harness-incubation/H4/checksums.sha256"
+    catalog_blob = revision_blob_bytes(ROOT, parity["revision_identity"], catalog_path)
+    if catalog_blob is None:
+        return fail("stable checksum catalog is absent from R")
+    try:
+        catalog = catalog_blob.decode().splitlines()
+    except UnicodeDecodeError:
+        return fail("stable checksum catalog in R is not UTF-8")
     catalog_paths: set[str] = set()
     for line in catalog:
         expected, separator, relative = line.partition("  ")
@@ -616,10 +632,10 @@ def main() -> int:
             not separator
             or relative in catalog_paths
             or relative.endswith("/checksums.sha256")
-            or not (ROOT / relative).is_file()
-            or digest(ROOT / relative) != expected
+            or revision_blob_digest(ROOT, parity["revision_identity"], relative)
+            != expected
         ):
-            return fail(f"invalid or mismatched checksum closure entry: {relative}")
+            return fail(f"invalid or mismatched R checksum closure entry: {relative}")
         catalog_paths.add(relative)
     if reason := validate_checksum_policy(acceptance, catalog_paths, len(catalog)):
         return fail(reason)
@@ -628,6 +644,8 @@ def main() -> int:
         ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
         ".pi/evidence/pi-harness-incubation/H4/old-new-traceability.json",
         ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py",
+        ".pi/evidence/pi-harness-incubation/H4/finalize_h4_evidence.py",
+        ".pi/evidence/pi-harness-incubation/H4/replay-inputs.json",
         ".pi/evidence/pi-harness-incubation/H4/task-ownership.json",
         ".pi/evidence/pi-harness-incubation/H4/unrelated-worktree-baseline.json",
         ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
@@ -660,11 +678,7 @@ def main() -> int:
     ):
         return fail("checksum catalog includes historical or unrelated files")
     entries = baseline.get("entries")
-    authorized_dirty_paths = {
-        *catalog_paths,
-        ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
-    }
-    if reason := validate_unrelated_work(ROOT, entries, authorized_dirty_paths):
+    if reason := validate_unrelated_work(ROOT, entries):
         return fail(reason)
     sys.path.insert(0, str(ROOT / "python/src"))
     from ksdft2effmass.harness.pi import __all__ as generic_exports

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "artifact_identity": "H4.acceptance-index.v1",
   "task_id": "H4",
-  "acceptance_status": "implementation_pass_new_clean_revision_replay_required",
+  "acceptance_status": "R_PLACEHOLDER_REPLAY_AND_FINALIZATION_REQUIRED",
   "human_acceptance_claimed": false,
   "authoritative_route": "legacy_pending_h4_checkpoint",
   "artifacts": [
@@ -23,7 +23,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
       "kind": "shadow_parity",
-      "status": "superseded_by_post_replay_validation_correction"
+      "status": "R_placeholder_generated_non_input"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
@@ -38,19 +38,19 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
       "kind": "validation",
-      "status": "pass"
+      "status": "R_placeholder_generated_non_input"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
       "kind": "checksum_catalog",
       "status": "stable_boundary_pass",
-      "entry_count": 203,
-      "boundary": "stable authorized H4 implementation/program/resource boundary; exact four exclusions declared in checksum_exclusions"
+      "entry_count": 205,
+      "boundary": "stable authorized H4 implementation/program/resource input boundary; exact five exclusions declared in checksum_exclusions"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
       "kind": "completion_validator",
-      "status": "semantic_pass_new_clean_replay_required"
+      "status": "R_placeholder_generated_non_input"
     }
   ],
   "review_gate": {
@@ -62,7 +62,7 @@
     "nine pre-existing H2 untyped-test errors fail global mypy; focused H4 mypy passes 15 files"
   ],
   "claim_boundary": "Software-verification and migration evidence only; no numerical verification, scientific validation, UQ, release, external execution, authoritative cutover, or human acceptance claim.",
-  "implementation_evidence_status": "PASS",
+  "implementation_evidence_status": "PENDING_E",
   "checksum_exclusions": [
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
@@ -79,7 +79,11 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
       "reason": "Finalized command evidence is validated structurally by the semantic completion gate after stable-boundary checks complete."
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/evidence-artifact-hashes.json",
+      "reason": "The deterministic E hash index hashes exactly the three generated reports and cannot hash itself."
     }
   ],
-  "last_clean_replay_revision": "207ed757226c54998a65f3af0e480c248761f55f"
+  "record_role": "R_placeholder_not_E"
 }

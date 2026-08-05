@@ -128,146 +128,126 @@ def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
     )
 
 
-def test_artifact__completion_gate__validates_clean_replay_and_rejects_mutations(
-    monkeypatch: pytest.MonkeyPatch,
+def test_artifact__parity_identity__is_bound_only_to_declared_git_blobs(
     tmp_path: Path,
 ) -> None:
-    """Validate the retained clean replay and reject constructed mutations."""
+    """Current R-input edits are irrelevant, while a different R blob fails."""
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
-    replay = load(evidence / "replay_selected_validators.py", "h4_replay_fixture")
     validator = load(evidence / "validate_h4_completion.py", "h4_completion_fixture")
     retained = json.loads((evidence / "shadow-parity-results.json").read_bytes())
-    retained_root = tmp_path / "retained-revision"
+    revision = retained["revision_identity"]
+    retained["replay_program_sha256"] = validator.revision_blob_digest(
+        root, revision, retained["replay_program"]
+    )
+    retained["replay_input_definition"] = (
+        ".pi/evidence/pi-harness-incubation/H4/replay-inputs.json"
+    )
+    assert validator.validate_parity(retained, root) is None
+
+    evidence_pair = next(
+        pair
+        for pair in retained["pairs"]
+        if pair["pair_id"] == "evidence-id-audit-h4-selection"
+    )
+    first_path = next(
+        item["path"]
+        for item in evidence_pair["input_identities"]
+        if item["path"].endswith("test__h4_replay_and_completion_evidence.py")
+    )
+    current_copy = root / first_path
+    original = current_copy.read_bytes()
+    try:
+        current_copy.write_bytes(original + b"\ncurrent-copy-only mutation\n")
+        assert validator.validate_parity(retained, root) is None
+    finally:
+        current_copy.write_bytes(original)
+
+    changed_root = tmp_path / "changed-r"
     subprocess.run(
-        [
-            "git",
-            "worktree",
-            "add",
-            "--detach",
-            str(retained_root),
-            retained["revision_identity"],
-        ],
+        ["git", "worktree", "add", "--detach", str(changed_root), revision],
         cwd=root,
         check=True,
         capture_output=True,
         text=True,
     )
     try:
-        assert validator.validate_parity(retained, retained_root) is None
+        changed = changed_root / first_path
+        changed.write_bytes(changed.read_bytes() + b"\nchanged R blob\n")
+        subprocess.run(
+            ["git", "add", first_path],
+            cwd=changed_root,
+            check=True,
+            capture_output=True,
+        )
+        subprocess.run(
+            [
+                "git",
+                "-c",
+                "user.name=H4 Test",
+                "-c",
+                "user.email=h4@example.invalid",
+                "commit",
+                "-m",
+                "synthetic changed R",
+            ],
+            cwd=changed_root,
+            check=True,
+            capture_output=True,
+        )
+        changed_revision = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=changed_root, text=True
+        ).strip()
+        changed_parity = copy.deepcopy(retained)
+        changed_parity["revision_identity"] = changed_revision
+        changed_parity["replay_program_sha256"] = validator.revision_blob_digest(
+            changed_root, changed_revision, retained["replay_program"]
+        )
+        assert "input identity mismatch" in validator.validate_parity(
+            changed_parity, changed_root
+        )
     finally:
         subprocess.run(
-            ["git", "worktree", "remove", "--force", str(retained_root)],
+            ["git", "worktree", "remove", "--force", str(changed_root)],
             cwd=root,
             check=True,
             capture_output=True,
-            text=True,
         )
 
-    revision = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=root, text=True
-    ).strip()
-    monkeypatch.setattr(replay, "durable_revision", lambda: (revision, []))
-    # The active worktree checksum catalog is intentionally stale until the
-    # implementation-boundary commit.  For this schema fixture only, force the
-    # deterministic command oracle to PASS; hashes and observations remain real.
-    original = replay.base_status
 
-    def passing_checksum(pair_id: str, command: list[str]) -> tuple[int, str]:
-        if pair_id == "accepted-checksum-catalogs":
-            return 0, ""
-        return original(pair_id, command)
-
-    monkeypatch.setattr(replay, "base_status", passing_checksum)
-    monkeypatch.setattr(
-        replay,
-        "revision_blob_digest",
-        lambda selected_revision, path: replay.sha256((root / path).read_bytes()),
-    )
-    fixture = replay.retained()
-    monkeypatch.setattr(
-        replay, "revision_blob_digest", lambda selected_revision, path: "0" * 64
-    )
-    with pytest.raises(RuntimeError, match="differs from durable revision"):
-        replay.retained()
-    monkeypatch.setattr(
-        validator,
-        "revision_blob_digest",
-        lambda selected_root, selected_revision, path: validator.digest(
-            selected_root / path
-        ),
-    )
-    assert validator.validate_parity(fixture) is None
-
-    wrong_hash = copy.deepcopy(fixture)
-    wrong_hash["pairs"][0]["input_set_hash"] = "0" * 64
-    assert "input set hash mismatch" in validator.validate_parity(wrong_hash)
-
-    original_blob_digest = validator.revision_blob_digest
-    first_path = fixture["pairs"][0]["input_identities"][0]["path"]
-    monkeypatch.setattr(
-        validator,
-        "revision_blob_digest",
-        lambda selected_root, selected_revision, path: (
-            "0" * 64
-            if path == first_path
-            else original_blob_digest(selected_root, selected_revision, path)
-        ),
-    )
-    assert "input identity mismatch" in validator.validate_parity(fixture)
-
-    monkeypatch.setattr(
-        validator,
-        "revision_blob_digest",
-        lambda selected_root, selected_revision, path: validator.digest(
-            selected_root / path
-        ),
-    )
-    malformed_issue = copy.deepcopy(fixture)
-    malformed_issue["pairs"][0]["legacy"]["issue_facts"] = [
-        ["CODE", "ERROR", None, None, ["z", "a"]]
-    ]
-    assert "incomplete normalized observation" in validator.validate_parity(
-        malformed_issue
-    )
-    malformed_state = copy.deepcopy(fixture)
-    malformed_state["pairs"][0]["legacy"]["state"] = [["state", [1]]]
-    assert "incomplete normalized observation" in validator.validate_parity(
-        malformed_state
-    )
-
-    # Stable checksums exclude exactly self and three generated artifacts.
-    acceptance = json.loads((evidence / "acceptance-artifacts.json").read_bytes())
-    validation = json.loads((evidence / "validation-results.json").read_bytes())
-    parity = json.loads((evidence / "shadow-parity-results.json").read_bytes())
-    assert validator.validate_generated_evidence(acceptance, validation, parity) is None
-    catalog_paths = {
-        line.partition("  ")[2]
-        for line in (evidence / "checksums.sha256").read_text().splitlines()
-    }
-    assert (
-        validator.validate_checksum_policy(
-            acceptance, catalog_paths, len(catalog_paths)
-        )
-        is None
-    )
-    extra = copy.deepcopy(acceptance)
-    extra["checksum_exclusions"].append({"path": "extra", "reason": "not authorized"})
-    assert "exact contracted four" in validator.validate_checksum_policy(
-        extra, catalog_paths, len(catalog_paths)
-    )
-    included = catalog_paths | {
-        ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json"
-    }
-    assert "contains" in validator.validate_checksum_policy(
-        acceptance, included, len(catalog_paths)
-    )
-
-
-def test_artifact__unrelated_inventory__rejects_unrecorded_dirty_path(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+def test_artifact__e_hash_index__rejects_generated_artifact_tampering(
+    tmp_path: Path,
 ) -> None:
-    """No dirty path outside the H4 boundary or exact baseline can escape."""
+    """The deterministic E index covers exactly the three generated reports."""
+    root = repository_root()
+    evidence = root / ".pi/evidence/pi-harness-incubation/H4"
+    validator = load(evidence / "validate_h4_completion.py", "h4_hash_fixture")
+    revision = "1" * 40
+    artifacts = []
+    for relative in validator.GENERATED_E_PATHS:
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(relative + "\n")
+        artifacts.append({"path": relative, "sha256": validator.digest(target)})
+    index = {
+        "schema_version": 1,
+        "artifact_identity": "H4.evidence-artifact-hashes.v1",
+        "task_id": "H4",
+        "implementation_revision": revision,
+        "algorithm": "sha256",
+        "artifacts": artifacts,
+    }
+    assert validator.validate_e_artifact_hashes(index, revision, tmp_path) is None
+    (tmp_path / validator.GENERATED_E_PATHS[0]).write_text("tampered\n")
+    assert "E artifact hash mismatch" in validator.validate_e_artifact_hashes(
+        index, revision, tmp_path
+    )
+
+
+def test_artifact__unrelated_inventory__checks_hashes_without_status_equality(
+    tmp_path: Path,
+) -> None:
+    """Recorded unrelated hashes remain optional and later E files are tolerated."""
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     validator = load(evidence / "validate_h4_completion.py", "h4_status_fixture")
@@ -280,17 +260,38 @@ def test_artifact__unrelated_inventory__rejects_unrecorded_dirty_path(
         }
     ]
 
-    class Result:
-        returncode = 0
-        stdout = b"?? unrelated.txt\x00?? escaped.txt\x00"
+    (tmp_path / "later-e.json").write_text("{}\n")
+    assert validator.validate_unrelated_work(tmp_path, baseline) is None
+    (tmp_path / "unrelated.txt").write_text("changed\n")
+    assert "preservation failure" in validator.validate_unrelated_work(
+        tmp_path, baseline
+    )
 
-    monkeypatch.setattr(validator.subprocess, "run", lambda *args, **kwargs: Result())
-    assert "dirty paths escape" in validator.validate_unrelated_work(
-        tmp_path, baseline, set()
-    )
-    assert (
-        validator.validate_unrelated_work(tmp_path, baseline, {"escaped.txt"}) is None
-    )
+
+def test_artifact__replay_input_definition__excludes_every_generated_e_artifact() -> (
+    None
+):
+    """R owns stable inputs only; generated reports and their index stay outside."""
+    root = repository_root()
+    evidence = root / ".pi/evidence/pi-harness-incubation/H4"
+    definition = json.loads((evidence / "replay-inputs.json").read_bytes())
+    excluded = {
+        ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+        ".pi/evidence/pi-harness-incubation/H4/evidence-artifact-hashes.json",
+        ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+        ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+    }
+    assert set(definition["generated_non_inputs"]) == excluded
+    catalog_paths = {
+        line.partition("  ")[2]
+        for line in (evidence / "checksums.sha256").read_text().splitlines()
+    }
+    assert excluded.isdisjoint(catalog_paths)
+    assert ".pi/evidence/pi-harness-incubation/H4/checksums.sha256" not in catalog_paths
+    assert set(definition["classes"].values()) <= catalog_paths | {
+        ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local",
+    }
 
 
 def test_workflow__concrete_consumer__passes_all_explicit_routes(
