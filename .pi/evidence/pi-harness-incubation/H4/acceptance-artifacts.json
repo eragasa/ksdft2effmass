@@ -2,7 +2,7 @@
   "schema_version": 1,
   "artifact_identity": "H4.acceptance-index.v1",
   "task_id": "H4",
-  "acceptance_status": "R_PLACEHOLDER_REPLAY_AND_FINALIZATION_REQUIRED",
+  "acceptance_status": "implementation_pass",
   "human_acceptance_claimed": false,
   "authoritative_route": "legacy_pending_h4_checkpoint",
   "artifacts": [
@@ -23,7 +23,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
       "kind": "shadow_parity",
-      "status": "R_placeholder_generated_non_input"
+      "status": "pass_clean_revision_replay"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
@@ -38,7 +38,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
       "kind": "validation",
-      "status": "R_placeholder_generated_non_input"
+      "status": "implementation_pass_pending_review"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
@@ -50,7 +50,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
       "kind": "completion_validator",
-      "status": "R_placeholder_generated_non_input"
+      "status": "ready_for_post_commit_e_validation"
     }
   ],
   "review_gate": {
@@ -62,7 +62,7 @@
     "nine pre-existing H2 untyped-test errors fail global mypy; focused H4 mypy passes 15 files"
   ],
   "claim_boundary": "Software-verification and migration evidence only; no numerical verification, scientific validation, UQ, release, external execution, authoritative cutover, or human acceptance claim.",
-  "implementation_evidence_status": "PENDING_E",
+  "implementation_evidence_status": "PASS",
   "checksum_exclusions": [
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
@@ -85,5 +85,6 @@
       "reason": "The deterministic E hash index hashes exactly the three generated reports and cannot hash itself."
     }
   ],
-  "record_role": "R_placeholder_not_E"
+  "record_role": "E_finalized",
+  "implementation_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084"
 }

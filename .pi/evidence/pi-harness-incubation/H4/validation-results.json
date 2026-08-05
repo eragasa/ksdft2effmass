@@ -2,8 +2,8 @@
   "schema_version": 1,
   "artifact_identity": "H4.validation-results.v1",
   "task_id": "H4",
-  "replay_label": "R-placeholder",
-  "overall_status": "R_PLACEHOLDER_REPLAY_AND_FINALIZATION_REQUIRED",
+  "replay_label": "clean-revision:be964976ef66b9a8d35f3929d8d24f31bd242084",
+  "overall_status": "IMPLEMENTATION_PASS_PENDING_INDEPENDENT_REVIEW_AND_HUMAN_ACCEPTANCE",
   "commands": [
     {
       "command": "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local",
@@ -12,10 +12,10 @@
       "summary": "23 passed"
     },
     {
-      "command": "clean replay at durable revision R",
-      "status": "PENDING_E",
-      "exit_status": null,
-      "summary": "R placeholder; isolated replay has not been retained as E"
+      "command": "clean replay at durable revision be964976ef66b9a8d35f3929d8d24f31bd242084",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "8 legacy and 8 local observations PASS; 4 equivalent, 4 intentional, 0 defect, 0 deferred"
     },
     {
       "command": "schema-v2 parity negative fixtures for revision blob, identity-set hash, normalized issue/state, and unrelated dirty inventory",
@@ -144,20 +144,25 @@
       "summary": "semantic evidence is finalized; completion must run after the generated artifacts are committed"
     }
   ],
-  "difference_summary": {},
+  "difference_summary": {
+    "equivalent": 4,
+    "intentional": 4,
+    "defect": 0,
+    "deferred": 0,
+    "retained_clean_replay_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084"
+  },
   "out_of_scope_baseline_limitations": [
     "Global Ruff format scan: four pre-existing unchanged CPN tests require formatting.",
     "Global mypy: nine pre-existing H2 untyped-test errors remain; focused H4 source/tests pass all 15 files."
   ],
   "defects": [],
-  "deferred": [
-    "Finalized E and its hash index do not exist in R."
-  ],
+  "deferred": [],
   "review_gate": {
     "required": true,
     "status": "pending_independent_review"
   },
   "authoritative_route": "legacy_pending_human_checkpoint",
   "authoritative_cutover_allowed_without_review_and_human_acceptance": false,
-  "record_role": "R_placeholder_not_E"
+  "record_role": "E_finalized",
+  "implementation_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084"
 }

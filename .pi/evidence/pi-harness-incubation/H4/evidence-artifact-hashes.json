@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.evidence-artifact-hashes.v1",
+  "task_id": "H4",
+  "implementation_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084",
+  "algorithm": "sha256",
+  "artifacts": [
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+      "sha256": "c1e350431ca9a19dacbcf3c09a6e5fe0b320fd6fd1fe94dcfa853e8dc58178ad"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
+      "sha256": "015a2ea97bdb3d49b12fa4a1f356396261cd5df0f4c5326d10888908f3e0e578"
+    },
+    {
+      "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+      "sha256": "5d6e45980c51def8b09961b9ded4cbccc0324fd1e6e101b1180caf6b996fe03b"
+    }
+  ]
+}
