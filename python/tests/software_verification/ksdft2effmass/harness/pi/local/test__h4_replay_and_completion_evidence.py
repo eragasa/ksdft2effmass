@@ -337,6 +337,216 @@ def test_workflow__concrete_consumer__passes_all_explicit_routes(
     assert maintained.read_bytes() == maintained_bytes
 
 
+def _completion_records(
+    validator: Any,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    root = repository_root()
+    evidence = root / ".pi/evidence/pi-harness-incubation/H4"
+    acceptance = json.loads((evidence / "acceptance-artifacts.json").read_bytes())
+    validation = json.loads((evidence / "validation-results.json").read_bytes())
+    parity = json.loads((evidence / "shadow-parity-results.json").read_bytes())
+    inventory = validator.derive_test_evidence_inventory(
+        root, parity["revision_identity"]
+    )
+    assert not isinstance(inventory, str)
+    modules, evidence_ids, occurrences = inventory
+    audit = next(
+        item
+        for item in validation["commands"]
+        if item["command"].startswith("generic AuditEvidenceIdentifiers")
+    )
+    audit["command"] = (
+        f"generic AuditEvidenceIdentifiers over {len(modules)} H4 local test modules "
+        "with explicit ksdft2effmass-v2 profile"
+    )
+    audit["summary"] = f"{len(modules)} modules, {occurrences} occurrences, 0 issues"
+    audit["module_inventory"] = modules
+    audit["evidence_id_inventory"] = evidence_ids
+    return acceptance, validation, parity
+
+
+def test_completion__focused_pytest__requires_pass_and_integer_zero() -> None:
+    """Nonzero or boolean exit status cannot attest the focused run."""
+    root = repository_root()
+    validator = load(
+        root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "h4_focused_status_fixture",
+    )
+    assert validator.validate_focused_pytest_record(
+        {"status": "PASS", "exit_status": 1, "summary": "focused suite passed"}
+    )
+    assert validator.validate_focused_pytest_record(
+        {"status": "PASS", "exit_status": True, "summary": "focused suite passed"}
+    )
+    acceptance, validation, parity = _completion_records(validator)
+    focused = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
+    )
+    focused.update(summary="focused suite passed", exit_status=1)
+    assert "not PASS" in validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    )
+
+
+def test_completion__focused_pytest__accepts_pass_without_fixed_total() -> None:
+    """A successful focused run need not retain a test-count contract."""
+    root = repository_root()
+    validator = load(
+        root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "h4_focused_no_count_fixture",
+    )
+    assert (
+        validator.validate_focused_pytest_record(
+            {"status": "PASS", "exit_status": 0, "summary": "focused suite passed"}
+        )
+        is None
+    )
+    acceptance, validation, parity = _completion_records(validator)
+    focused = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
+    )
+    focused["summary"] = "focused suite passed"
+    assert validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    ) is None
+
+
+def test_completion__focused_pytest__rejects_falsified_retained_count() -> None:
+    """Summary, reported, and same-run observed counts must agree exactly."""
+    root = repository_root()
+    validator = load(
+        root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "h4_focused_false_count_fixture",
+    )
+    record = {
+        "status": "PASS",
+        "exit_status": 0,
+        "summary": "23 passed",
+        "reported_count": 23,
+        "observed_count": 8,
+    }
+    assert "mismatched" in validator.validate_focused_pytest_record(record)
+    acceptance, validation, parity = _completion_records(validator)
+    focused = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
+    )
+    focused.update(record)
+    assert "mismatched" in validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    )
+
+
+def test_completion__focused_pytest__accepts_true_same_run_count() -> None:
+    """A retained count remains valid when all same-run count facts agree."""
+    root = repository_root()
+    validator = load(
+        root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "h4_focused_true_count_fixture",
+    )
+    record = {
+        "status": "PASS",
+        "exit_status": 0,
+        "summary": "7 passed",
+        "reported_count": 7,
+        "observed_count": 7,
+    }
+    assert validator.validate_focused_pytest_record(record) is None
+    acceptance, validation, parity = _completion_records(validator)
+    focused = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
+    )
+    focused.update(record)
+    assert validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    ) is None
+
+
+def test_completion__frozen_inventory__rejects_independent_e_mismatch() -> None:
+    """E cannot substitute its own module or evidence-ID inventory for R blobs."""
+    root = repository_root()
+    validator = load(
+        root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "h4_inventory_fixture",
+    )
+    acceptance, validation, parity = _completion_records(validator)
+    focused = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
+    )
+    focused["summary"] = "focused suite passed"
+    assert (
+        validator.validate_generated_evidence(
+            acceptance, validation, parity, root
+        )
+        is None
+    )
+    audit = next(
+        item
+        for item in validation["commands"]
+        if item["command"].startswith("generic AuditEvidenceIdentifiers")
+    )
+    audit["evidence_id_inventory"] = audit["evidence_id_inventory"][:-1]
+    assert "inventory does not match" in validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    )
+
+
+def test_h3_leakage__import_cache_and_bytecode_are_ignored(tmp_path: Path) -> None:
+    """Import caches plus explicit pyc/pyo files are outside the text scan."""
+    root = repository_root()
+    source = root / "harness/pi/validation/validate_h3_resources.py"
+    validator = load(source, "h3_cache_fixture")
+    assert any(source.parent.glob("__pycache__/validate_h3_resources*.pyc"))
+    generic = tmp_path / "pi"
+    generic.mkdir()
+    (generic / "resource-manifest.json").write_text('{"resources": []}')
+    (generic / "safe.py").write_text("portable = True\n")
+    (generic / "junk.pyc").write_bytes(b"\xffproject-local")
+    (generic / "junk.pyo").write_bytes(b"\xffproject-local")
+    cache = generic / "__pycache__"
+    cache.mkdir()
+    (cache / "cached.py").write_bytes(b"\xffproject-local")
+    validator.PI = generic
+    validator.HARNESS_ROOT = tmp_path
+    validator.R = validator.Report()
+    validator.leakage_gate({}, {"resources": []})
+    assert validator.R.failures == []
+
+
+def test_h3_leakage__invalid_utf8_maintained_text_fails_explicitly(
+    tmp_path: Path,
+) -> None:
+    """A manifest-declared maintained text path cannot evade UTF-8 validation."""
+    root = repository_root()
+    validator = load(
+        root / "harness/pi/validation/validate_h3_resources.py",
+        "h3_invalid_utf8_fixture",
+    )
+    generic = tmp_path / "pi"
+    generic.mkdir()
+    manifest = {"resources": [{"path": "declared.resource"}]}
+    (generic / "resource-manifest.json").write_text(json.dumps(manifest))
+    (generic / "declared.resource").write_bytes(b"\xff")
+    validator.PI = generic
+    validator.HARNESS_ROOT = tmp_path
+    validator.R = validator.Report()
+    validator.leakage_gate({}, manifest)
+    assert any(
+        failure.startswith("leakage.generic-text-utf8:")
+        and "declared.resource" in failure
+        for failure in validator.R.failures
+    )
+
+
 def test_artifact__local_manifest__owns_exact_maintained_route_identity() -> None:
     """The local manifest binds the exact maintained legacy route bytes."""
     root = repository_root()

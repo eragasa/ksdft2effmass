@@ -70,6 +70,12 @@ GENERATED_E_PATHS = (
     ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
     ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
 )
+FOCUSED_PYTEST_COMMAND = (
+    "python -m pytest -q "
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local"
+)
+LOCAL_TEST_ROOT = "python/tests/software_verification/ksdft2effmass/harness/pi/local"
+EVIDENCE_ID_PATTERN = re.compile(r"SV-HL-[0-9]{3}")
 REQUIRED = (
     "acceptance-artifacts.json",
     "checksums.sha256",
@@ -110,7 +116,7 @@ def valid_observation(value: object, expected_paths: list[str]) -> bool:
     state = value.get("state")
     valid_issues = isinstance(issue_facts, list)
     issue_keys: list[tuple[str, str, str, str, tuple[str, ...]]] = []
-    if valid_issues:
+    if isinstance(issue_facts, list):
         for fact in issue_facts:
             if not isinstance(fact, list) or len(fact) != 5:
                 valid_issues = False
@@ -133,7 +139,7 @@ def valid_observation(value: object, expected_paths: list[str]) -> bool:
         valid_issues = valid_issues and issue_keys == sorted(set(issue_keys))
     valid_state = isinstance(state, list)
     state_keys: list[tuple[str, tuple[str, ...]]] = []
-    if valid_state:
+    if isinstance(state, list):
         for fact in state:
             if (
                 not isinstance(fact, list)
@@ -207,8 +213,81 @@ def validate_checksum_policy(
     return None
 
 
+def derive_test_evidence_inventory(
+    root: Path, revision: str
+) -> tuple[list[str], list[str], int] | str:
+    """Derive maintained evidence-bearing tests and IDs only from frozen Git blobs."""
+    completed = subprocess.run(
+        ["git", "ls-tree", "-r", "--name-only", revision, "--", LOCAL_TEST_ROOT],
+        cwd=root,
+        capture_output=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        return "maintained local test inventory is unavailable from R"
+    try:
+        paths = completed.stdout.decode("utf-8").splitlines()
+    except UnicodeDecodeError:
+        return "maintained local test path inventory in R is not UTF-8"
+    candidates = sorted(
+        path
+        for path in paths
+        if Path(path).name.startswith("test__") and path.endswith(".py")
+    )
+    occurrences: list[str] = []
+    for path in candidates:
+        blob = revision_blob_bytes(root, revision, path)
+        try:
+            text = blob.decode("utf-8") if blob is not None else ""
+        except UnicodeDecodeError:
+            return f"manifest-declared maintained text path in R is not UTF-8: {path}"
+        occurrences.extend(EVIDENCE_ID_PATTERN.findall(text))
+    return candidates, sorted(set(occurrences)), len(occurrences)
+
+
+def validate_focused_pytest_record(record: object) -> str | None:
+    """Validate status and an optional count tied to the recorded focused run."""
+    if not isinstance(record, dict):
+        return "focused pytest validation record is absent"
+    exit_status = record.get("exit_status")
+    if (
+        record.get("status") != "PASS"
+        or not isinstance(exit_status, int)
+        or isinstance(exit_status, bool)
+        or exit_status != 0
+    ):
+        return "focused pytest validation record is not PASS with integer exit_status 0"
+    summary = record.get("summary")
+    if not isinstance(summary, str):
+        return "focused pytest validation summary is invalid"
+    summary_matches = re.findall(r"(?<![0-9])(\d+) passed\b", summary)
+    has_count_contract = bool(summary_matches) or any(
+        key in record for key in ("reported_count", "observed_count")
+    )
+    if not has_count_contract:
+        return None
+    reported = record.get("reported_count")
+    observed = record.get("observed_count")
+    if (
+        len(summary_matches) != 1
+        or not isinstance(reported, int)
+        or isinstance(reported, bool)
+        or reported < 0
+        or not isinstance(observed, int)
+        or isinstance(observed, bool)
+        or observed < 0
+        or int(summary_matches[0]) != reported
+        or reported != observed
+    ):
+        return "focused pytest same-run count contract is invalid or mismatched"
+    return None
+
+
 def validate_generated_evidence(
-    acceptance: object, validation: object, parity: object
+    acceptance: object,
+    validation: object,
+    parity: object,
+    root: Path = ROOT,
 ) -> str | None:
     if not isinstance(acceptance, dict) or not isinstance(parity, dict):
         return "generated acceptance/parity evidence schema is invalid"
@@ -232,8 +311,11 @@ def validate_generated_evidence(
         return "implementation acceptance index is structurally inconsistent"
     if not isinstance(validation, dict):
         return "generated validation evidence schema is invalid"
+    inventory = derive_test_evidence_inventory(root, str(revision))
+    if isinstance(inventory, str):
+        return inventory
+    modules, evidence_ids, occurrence_count = inventory
     expected_summaries = {
-        "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local": "23 passed",
         "pytest -q python": "1107 passed",
         "python harness/pi/validation/validate_h3_resources.py": "55 gates, 0 defects",
         "python .pi/skills/validate_skill_capabilities.py": "6 skill records, 6 filesystem skills, 0 validation errors",
@@ -253,6 +335,24 @@ def validate_generated_evidence(
         for command, summary in expected_summaries.items()
     ):
         return "required parent-supplied validation facts are absent"
+    focused = indexed.get(FOCUSED_PYTEST_COMMAND)
+    if reason := validate_focused_pytest_record(focused):
+        return reason
+    audit_command = (
+        "generic AuditEvidenceIdentifiers over "
+        f"{len(modules)} H4 local test modules with explicit ksdft2effmass-v2 profile"
+    )
+    audit = indexed.get(audit_command)
+    if (
+        not isinstance(audit, dict)
+        or audit.get("status") != "PASS"
+        or audit.get("exit_status") != 0
+        or audit.get("summary")
+        != f"{len(modules)} modules, {occurrence_count} occurrences, 0 issues"
+        or audit.get("module_inventory") != modules
+        or audit.get("evidence_id_inventory") != evidence_ids
+    ):
+        return "E validation module/evidence inventory does not match frozen R blobs"
     finalized_validation = (
         finalized
         and validation.get("implementation_revision") == revision

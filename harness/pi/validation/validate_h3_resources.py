@@ -699,9 +699,25 @@ def leakage_gate(profile: dict[str, Any], local: dict[str, Any]) -> None:
     task_pattern = re.compile(r"\b[HP][0-9]+\b")
     runtime_state_pattern = re.compile(r"\." + r"pi(?:/|`)")
     findings: list[str] = []
-    paths = sorted(p for p in PI.rglob("*") if p.is_file())
+    maintained_text_paths = {
+        str(item.get("path")) for item in (load_json(PI / "resource-manifest.json") or {}).get("resources", [])
+        if isinstance(item.get("path"), str)
+    }
+    supported_text_suffixes = {".json", ".md", ".py", ".txt"}
+    paths = sorted(
+        path for path in PI.rglob("*")
+        if path.is_file()
+        and "__pycache__" not in path.relative_to(PI).parts
+        and path.suffix not in {".pyc", ".pyo"}
+        and (path.suffix in supported_text_suffixes
+             or path.relative_to(PI).as_posix() in maintained_text_paths)
+    )
     for path in paths:
-        text = path.read_text(encoding="utf-8")
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError as exc:
+            R.fail("leakage.generic-text-utf8", f"{rel(path)}: {exc}")
+            continue
         for label, literals in literal_groups.items():
             for literal in sorted(literals):
                 pattern = re.compile(re.escape(literal), re.I)
