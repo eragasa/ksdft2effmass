@@ -58,13 +58,13 @@
     "status": "pending_independent_review"
   },
   "baseline_limitations": [
-    "repository-wide Ruff check at R2 exits 1 with 43 errors; H4 introduced zero logical (path, code, message) findings relative to its 44-finding starting revision and removed one EXE001 finding",
+    "repository-wide Ruff retains 43 findings; R5 introduces zero logical Ruff findings relative to R4",
     "four pre-existing unchanged CPN tests fail the global Ruff format scan",
-    "global mypy retains nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy passes all 16 files"
+    "focused R5 mypy retains six pre-existing H3 validator errors and introduces none; project-local H4 source/tests are clean"
   ],
   "static_verification_limitations": [
-    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The focused H4 Ruff path set passes and H4 introduced no logical Ruff findings relative to starting revision 3718b5d9fe24e9c56a48ab0efab4430fb7594b4f.",
-    "Global mypy retains pre-existing H2 test-typing debt outside H4. Focused H4 source-and-test mypy passes all 16 files."
+    "Repository-wide Ruff exits 1 with 43 retained errors; focused R5 comparison introduces none.",
+    "Focused mypy retains six pre-existing H3 validator errors; R5 introduces none."
   ],
   "completion_gate_attestation_scope": "validate_h4_completion.py validates retained H4 evidence semantics, hashes, frozen-revision parity identity, checksum policy, legacy routing, and public export inventories, and executes the maintained legacy route consumer. It does not rerun or attest every supplemental command recorded in validation-results.json.",
   "claim_boundary": "Software-verification and migration evidence only; no numerical verification, scientific validation, UQ, release, external execution, authoritative cutover, or human acceptance claim.",
@@ -92,5 +92,5 @@
     }
   ],
   "record_role": "E_finalized",
-  "implementation_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418"
+  "implementation_revision": "4efb86b276cbd896464c912fa1b4c9b8acc78458"
 }

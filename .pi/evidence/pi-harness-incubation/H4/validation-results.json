@@ -2,17 +2,19 @@
   "schema_version": 1,
   "artifact_identity": "H4.validation-results.v1",
   "task_id": "H4",
-  "replay_label": "clean-revision:a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
+  "replay_label": "clean-revision:4efb86b276cbd896464c912fa1b4c9b8acc78458",
   "overall_status": "IMPLEMENTATION_PASS_PENDING_INDEPENDENT_REVIEW_AND_HUMAN_ACCEPTANCE",
   "commands": [
     {
       "command": "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi/local",
       "status": "PASS",
       "exit_status": 0,
-      "summary": "23 passed"
+      "summary": "47 passed",
+      "reported_count": 47,
+      "observed_count": 47
     },
     {
-      "command": "clean replay at durable revision a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
+      "command": "clean replay at durable revision 4efb86b276cbd896464c912fa1b4c9b8acc78458",
       "status": "PASS",
       "exit_status": 0,
       "summary": "8 legacy and 8 local observations PASS; 4 equivalent, 4 intentional, 0 defect, 0 deferred"
@@ -33,13 +35,39 @@
       "command": "pytest -q python",
       "status": "PASS",
       "exit_status": 0,
-      "summary": "1107 passed"
+      "summary": "1131 passed",
+      "reported_count": 1131,
+      "observed_count": 1131
     },
     {
-      "command": "generic AuditEvidenceIdentifiers over five H4 local test modules with explicit ksdft2effmass-v2 profile",
+      "command": "generic AuditEvidenceIdentifiers over 7 H4 local test modules with explicit ksdft2effmass-v2 profile",
       "status": "PASS",
       "exit_status": 0,
-      "summary": "5 modules, 13 occurrences, 0 issues"
+      "summary": "7 modules, 15 occurrences, 0 issues",
+      "module_inventory": [
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_repository_validation.py",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_routing_and_shadow.py",
+        "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_strict_adapters.py"
+      ],
+      "evidence_id_inventory": [
+        "SV-HL-001",
+        "SV-HL-002",
+        "SV-HL-003",
+        "SV-HL-004",
+        "SV-HL-005",
+        "SV-HL-006",
+        "SV-HL-007",
+        "SV-HL-008",
+        "SV-HL-009",
+        "SV-HL-010",
+        "SV-HL-011",
+        "SV-HL-012",
+        "SV-HL-013"
+      ]
     },
     {
       "command": "ruff check .",
@@ -160,6 +188,24 @@
       "status": "PENDING_GENERATED_ARTIFACT_COMMIT",
       "exit_status": null,
       "summary": "semantic evidence is finalized; completion must run after the generated artifacts are committed"
+    },
+    {
+      "command": "R5 focused Ruff comparison against 651b8adb76ac9194972e3835f910d6485ee6ff76",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "9 retained H3 findings on each side; zero introduced logical path/code/message findings"
+    },
+    {
+      "command": "R5 focused mypy comparison against 651b8adb76ac9194972e3835f910d6485ee6ff76",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "6 retained H3 errors on each side; zero introduced error facts"
+    },
+    {
+      "command": "H4-HC03 cache exclusion and invalid declared-text negative tests",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "__pycache__, pyc, and pyo ignored; invalid UTF-8 declared maintained text rejected"
     }
   ],
   "difference_summary": {
@@ -167,16 +213,16 @@
     "intentional": 4,
     "defect": 0,
     "deferred": 0,
-    "retained_clean_replay_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418"
+    "retained_clean_replay_revision": "4efb86b276cbd896464c912fa1b4c9b8acc78458"
   },
   "out_of_scope_baseline_limitations": [
-    "Repository-wide Ruff check at R2 exits 1 with 43 retained findings. Compared with 44 findings at the H4 starting revision, the logical (path, code, message) multiset has zero introduced findings and one removed EXE001 finding for validate_h4_completion.py; unchanged findings may have shifted line locations.",
-    "Global Ruff format scan: four pre-existing unchanged CPN tests require formatting.",
-    "Global mypy retains nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy passes all 16 source/test files after the bounded test-local annotation correction."
+    "Repository-wide Ruff retains 43 findings; the R5 correction introduces zero logical findings relative to R4.",
+    "Global Ruff format retains four pre-existing unchanged CPN test formatting findings.",
+    "Focused R5 mypy retains six pre-existing H3 validator errors and introduces zero; previously disclosed global H2 test-typing debt remains outside H4."
   ],
   "static_verification_limitations": [
-    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The focused H4 Ruff path set passes, and comparison with H4 starting revision 3718b5d9fe24e9c56a48ab0efab4430fb7594b4f finds zero introduced logical (path, code, message) findings.",
-    "Global mypy retains pre-existing H2 untyped-test debt outside H4. Focused H4 source-and-test mypy passes all 16 files."
+    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 retained errors. R5 focused comparison against R4 finds zero introduced logical path/code/message findings.",
+    "Focused mypy including the legacy H3 validator retains six pre-existing H3 errors; R5 introduces none. Focused H4 project-local source and tests remain clean."
   ],
   "completion_gate_attestation_scope": "validate_h4_completion.py validates retained H4 evidence semantics, hashes, frozen-revision parity identity, checksum policy, legacy routing, and public export inventories, and executes the maintained legacy route consumer. It does not rerun or attest every supplemental command recorded in this report.",
   "defects": [],
@@ -188,5 +234,5 @@
   "authoritative_route": "legacy_pending_human_checkpoint",
   "authoritative_cutover_allowed_without_review_and_human_acceptance": false,
   "record_role": "E_finalized",
-  "implementation_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418"
+  "implementation_revision": "4efb86b276cbd896464c912fa1b4c9b8acc78458"
 }

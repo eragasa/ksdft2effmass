@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.R5-hard-coded-pytest-rule-correction.v1",
+  "task_id": "H4",
+  "direct_human_authorization": ".pi/evidence/pi-harness-incubation/H4/H4-R5-direct-human-correction.md",
+  "replacement_replay_input_revision": "4efb86b276cbd896464c912fa1b4c9b8acc78458",
+  "evidence_revision_role": "E5; the Git commit containing this record and finalized generated artifacts",
+  "correction": "Both focused and full pytest records require PASS with integer exit status zero and use the same optional same-run reported/observed count contract; no pytest total is embedded in validator source.",
+  "validation": {
+    "focused_h4_tests": "47 passed",
+    "full_python_tests": "1131 passed",
+    "h3": "55 gates, 0 defects",
+    "maintained_legacy_consumer": "PASS",
+    "rollback": "PASS",
+    "global_ruff": "43 retained errors",
+    "r5_ruff_introduced": 0,
+    "r5_mypy_introduced": 0
+  },
+  "replay": {
+    "execution_count": 1,
+    "isolated_detached_worktree": true,
+    "started_at": "2026-08-05T15:16:16Z",
+    "completed_at": "2026-08-05T15:16:22Z",
+    "exit_status": 0,
+    "stdout": "H4 replay: PASS: retained clean-revision observations written",
+    "stdout_sha256": "b68125d9313d80deda29e512708cb7c8293a0a59b38ec26dcd30e4ce83f9f3ed",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parity_sha256": "2a3aa25eebcd88c140cc6c5b0e7a98f0b4be2b3eb2fe2d70f0f0334ef79561fe",
+    "summary": {
+      "equivalent": 4,
+      "intentional": 4,
+      "defect": 0,
+      "deferred": 0
+    }
+  },
+  "unrelated_baseline_note": "The recorded empty pre-H4 path docs/papers/ksdft2efffmas.P03.md was reconstructed only inside the isolated replay worktree after the human worktree renamed/replaced it; the primary worktree was not modified.",
+  "maintained_route": "legacy",
+  "targeted_integration_review": "pending",
+  "human_acceptance_claimed": false,
+  "p2_activated": false
+}
