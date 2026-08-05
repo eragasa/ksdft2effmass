@@ -1,98 +1,123 @@
 {
   "schema_version": 1,
   "task_id": "H2",
-  "status": "incomplete_fail",
-  "claim_boundary": "Observed deterministic software-verification and packaging gates only; no numerical verification, scientific validation, physical correctness, uncertainty quantification, human acceptance, or executable Rust conformance is claimed.",
+  "status": "integrated_review_pass_pending_human_acceptance",
+  "authority": "Resolved H2-HC01 Option A bounded correction",
+  "claim_boundary": "Observed deterministic software-verification, documentation, packaging, ownership, checkpoint, checksum, review, and worktree-preservation gates only; no human acceptance, numerical verification, scientific validation, physical correctness, uncertainty quantification, release, or successor activation is claimed.",
   "results": [
     {
-      "gate": "accepted H3 resource replay",
-      "command": "python harness/pi/validate_h3_resources.py",
+      "gate": "H3 Option-A resource replay",
+      "command": "python harness/pi/validation/validate_h3_resources.py",
       "result": "PASS",
-      "summary": "46 gates passed."
+      "summary": "RESOURCE VALIDATION PASS; gates_passed=50 defects=0."
+    },
+    {
+      "gate": "H3 checksum catalog",
+      "command": "sha256sum -c .pi/evidence/pi-harness-incubation/H3/checksums.sha256",
+      "result": "PASS",
+      "summary": "160 files verified, including the resource-resolution self-dependency fixture."
     },
     {
       "gate": "H2 task ownership",
       "command": "python .pi/task-ownership/validate_task_ownership.py --task H2 --chain .pi/chains/pi-harness-incubation.chain.json",
       "result": "PASS",
-      "summary": "H2 ownership preflight passed."
+      "summary": "task ownership preflight passed."
     },
     {
       "gate": "checkpoint integrity",
       "command": "python .pi/checkpoints/validate_checkpoints.py",
       "result": "PASS",
-      "summary": "17 checkpoint records; zero unresolved checkpoints and zero duplicate resolved decisions."
+      "summary": "checkpoint_records_validated=18; unresolved_checkpoints=0; duplicate_resolved_decisions=0."
     },
     {
-      "gate": "initial focused H2 pytest",
-      "command": "uv run --project python pytest -q python/tests/software_verification/ksdft2effmass/harness/pi",
+      "gate": "focused H2 software verification",
+      "command": "python -m pytest -q python/tests/software_verification/ksdft2effmass/harness/pi",
       "result": "PASS",
-      "summary": "45 passed before the consolidated correction."
+      "summary": "72 passed."
     },
     {
-      "gate": "last corrected focused H2 pytest",
-      "command": "uv run --project python pytest -q python/tests/software_verification/ksdft2effmass/harness/pi",
-      "result": "FAIL",
-      "summary": "59 collected: 58 passed, 1 failed. Remaining failure was the H3 resource-resolution structured-action corpus issue set."
-    },
-    {
-      "gate": "full Python suite before correction",
-      "command": "source .venv/bin/activate && python -m pytest -q python/tests",
+      "gate": "full Python suite",
+      "command": "python -m pytest -q python/tests",
       "result": "PASS",
-      "summary": "1057 passed from repository-root cwd."
+      "summary": "1084 passed."
     },
     {
-      "gate": "Python-project cwd before correction",
-      "command": "source .venv/bin/activate && cd python && python -m pytest -q",
-      "result": "FAIL",
-      "summary": "20 failed, 1037 passed because H2 fixture paths depended on cwd; correction work replaced those roots with Path(__file__).resolve()-derived roots."
-    },
-    {
-      "gate": "focused Ruff lint and format",
-      "command": "uv run --project python ruff check python/tests/software_verification/ksdft2effmass/harness/pi && uv run --project python ruff format --check python/tests/software_verification/ksdft2effmass/harness/pi",
+      "gate": "focused Ruff lint",
+      "command": "python -m ruff check python/src/ksdft2effmass/harness/pi python/tests/software_verification/ksdft2effmass/harness/pi",
       "result": "PASS",
-      "summary": "Focused corrected H2 test surface passed at the last observed parallel invocation."
+      "summary": "Ruff lint passed on the H2 source and test surface."
     },
     {
-      "gate": "focused production Ruff and format",
-      "command": "uv run --project python ruff check python/src/ksdft2effmass/harness/pi && uv run --project python ruff format --check python/src/ksdft2effmass/harness/pi",
+      "gate": "focused Ruff format",
+      "command": "python -m ruff format --check python/src/ksdft2effmass/harness/pi python/tests/software_verification/ksdft2effmass/harness/pi",
       "result": "PASS",
-      "summary": "Implementation-writer focused checks passed."
+      "summary": "Ruff format check passed on the H2 source and test surface."
     },
     {
-      "gate": "source-only no-incremental mypy",
-      "command": "uv run --project python mypy --no-incremental python/src/ksdft2effmass/harness/pi",
+      "gate": "source-and-test mypy",
+      "command": "python -m mypy --no-incremental python/src/ksdft2effmass/harness/pi python/tests/software_verification/ksdft2effmass/harness/pi",
       "result": "PASS",
-      "summary": "Corrected production typing passed."
+      "summary": "Success: no issues found in 50 source files."
     },
     {
-      "gate": "isolated Sphinx warnings-as-errors",
-      "command": "uv run --isolated --offline --locked --project python --extra docs sphinx-build -W -b html docs <temporary-output>",
+      "gate": "H2 completion validator",
+      "command": "python python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
       "result": "PASS",
-      "summary": "42 sources built in the independent integration environment. A separate non-isolated completion invocation failed only because myst_parser was unavailable."
+      "summary": "All embedded gates passed, including accepted H3 replay, ownership, collection, 72 tests, Ruff lint/format, mypy, and Sphinx -W; modules=39 evidence_ids=65."
     },
     {
-      "gate": "pre-correction completion validator",
-      "command": "uv run --isolated --offline --locked --project python --extra dev --extra docs python python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+      "gate": "package wheel build, isolated install, and neutral-cwd import",
+      "command": "build wheel; install it with --no-deps into a temporary target; import ksdft2effmass.harness.pi from a neutral cwd",
       "result": "PASS",
-      "summary": "H3, ownership, collection, 45 tests, validator Ruff/format, mypy, Sphinx, 39 modules, and 45 provisional evidence IDs passed; independent review later found the validator suppressed configured E501 and overstated coverage."
+      "summary": "Wheel build/install/import passed; __all__ contains 41 total exports: 36 accepted interfaces plus five semantic/support types."
     },
     {
-      "gate": "configured full Ruff lint",
-      "command": "source .venv/bin/activate && python -m ruff check python/src python/tests",
-      "result": "FAIL",
-      "summary": "332 E501 findings on the broader pre-existing Python surface; unrelated to the focused H2 correction and not edited here."
+      "gate": "dependency and lockfile nonmutation",
+      "command": "git diff --name-only -- pyproject.toml python/pyproject.toml uv.lock python/uv.lock",
+      "result": "PASS",
+      "summary": "No dependency declaration or lockfile changed. myst-parser was installed only into the existing local .venv from the already-declared docs extra to run Sphinx in the non-isolated completion validator."
     },
     {
-      "gate": "configured broader Ruff format",
-      "command": "uv run --project python ruff format --check python/src python/tests",
-      "result": "FAIL",
-      "summary": "Broader pre-existing formatting failures were observed outside the focused H2 surface; no unrelated files were reformatted."
+      "gate": "deterministic resource compatibility classification",
+      "command": "SV-HARNESS-065 within focused H2 pytest",
+      "result": "PASS",
+      "summary": "Absent profiled kind reports PIH.RESOURCE.KIND_UNSUPPORTED; unsupported version of a supported kind reports PIH.RESOURCE.VERSION_INCOMPATIBLE."
     },
     {
-      "gate": "package build install and neutral-cwd import",
-      "command": "uv build --offline --sdist --wheel --out-dir <temporary-dist> python && uv pip install --offline --no-deps --target <temporary-site> <built-wheel> && (cd /tmp && PYTHONPATH=<temporary-site> python -c 'import ksdft2effmass.harness.pi as api; print(len(api.__all__))')",
-      "result": "PASS_WITH_WARNING",
-      "summary": "sdist and wheel build, isolated install, and import passed; the sdist build emitted a README-path warning. The installed API exposed 41 public names."
+      "gate": "Option-A architecture integrated review",
+      "command": "read-only reviewer run c068db8f",
+      "result": "PASS",
+      "summary": "No blocker, high, medium, or low architecture/Rust-portability finding. Rust portability is design/contract intent only."
+    },
+    {
+      "gate": "Option-A integration integrated review",
+      "command": "read-only reviewer run c068db8f",
+      "result": "PASS",
+      "summary": "No blocker, major, or minor integration finding."
+    },
+    {
+      "gate": "Option-A evidence/VVUQ integrated review",
+      "command": "read-only reviewer runs c068db8f, 67114f24, and fe7b921c",
+      "result": "PASS",
+      "summary": "Initial FAIL identified semantic naming, completion grammar, serialization round-trip, and private-helper coverage defects; bounded deterministic corrections closed all findings. Final closure independently repeated the private-helper negative probe and emitted unambiguous PASS with no findings."
+    },
+    {
+      "gate": "final evidence/VVUQ closure subprocess status",
+      "command": "reviewer run fe7b921c",
+      "result": "PROCESS_BUDGET_EXCEEDED_AFTER_PASS_OUTPUT",
+      "summary": "The subprocess emitted complete PASS/no-findings output after independently repeating the negative probe, then exceeded its turn budget and ended exitCode=1 with SIGINT; runtime acceptance was not evaluated."
+    },
+    {
+      "gate": "unrelated-work preservation",
+      "command": "SHA-256 comparison against .pi/evidence/pi-harness-incubation/H2/unrelated-worktree-baseline.json",
+      "result": "PASS",
+      "summary": "All five unrelated path hashes matched their retained baseline values."
+    },
+    {
+      "gate": "diff whitespace check",
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
     },
     {
       "gate": "staging",
@@ -101,9 +126,14 @@
       "summary": "No staged files."
     }
   ],
-  "residual_failures": [
-    "The corrected focused suite remains 58 PASS / 1 FAIL.",
-    "Accepted H1 constructor/wire invariants conflict with accepted H3 action-level duplicate/overlay fixtures; see contract-conflict.md.",
-    "No corrected final completion run, second independent review, final checksum catalog, H2-to-H4 handoff, or human acceptance exists."
+  "correction_record": ".pi/evidence/pi-harness-incubation/H2/H2-HC01-option-a-correction.md",
+  "review_records": [
+    ".pi/evidence/pi-harness-incubation/H2/review-architecture-option-a.md",
+    ".pi/evidence/pi-harness-incubation/H2/review-integration-option-a.md",
+    ".pi/evidence/pi-harness-incubation/H2/review-evidence-vvuq-option-a.md"
+  ],
+  "residual_risks": [
+    "The final evidence/VVUQ closure subprocess exceeded its turn budget after emitting an unambiguous PASS with no findings; its process exit remained nonzero and runtime acceptance was not evaluated.",
+    "No final H2 acceptance checkpoint or human final acceptance is claimed; H2 remains active."
   ]
 }

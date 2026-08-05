@@ -62,3 +62,53 @@ def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
         assert type(value) is not list
     with pytest.raises((AttributeError, TypeError)):
         setattr(result.record, next(iter(result.record.__dataclass_fields__)), None)
+
+
+def test_constructor__canonical_resources__preserves_relational_duplicates() -> None:
+    """Evidence ID
+    SV-HARNESS-061
+    Requirement
+    Canonical manifest ordering preserves duplicate IDs, duplicate paths, and exact
+    duplicate entries for later relational validation.
+    Method
+    Construct four references in reverse canonical order, including one ID duplicate,
+    one path duplicate, and an exact duplicate, then construct a generic manifest.
+    Oracle
+    The corrected H1 field contract fixes stable canonical sorting without
+    deduplication; Python tuple multiplicity supplies the independent exact-count
+    oracle.
+    Acceptance
+    The manifest has four entries in canonical order, both duplicated fields occur with
+    count three, and the exact reference occurs twice.
+    Interpretation
+    Failure identifies unauthorized constructor rejection, lossy canonicalization, or
+    contract/test-data drift.
+    Limitations
+    This test does not accept the candidate manifest; scientific validation, UQ,
+    physical correctness, and Rust conformance are excluded.
+    """
+    from ksdft2effmass.harness.pi import ArtifactIdentity, ResourceReference
+
+    identity = ArtifactIdentity(1, "sha256", "0" * 64)
+    exact = ResourceReference(
+        1, "example.a", "reference", 1, "references/a.txt", identity, ()
+    )
+    duplicate_id = ResourceReference(
+        1, "example.a", "reference", 1, "references/b.txt", identity, ()
+    )
+    duplicate_path = ResourceReference(
+        1, "example.b", "reference", 1, "references/a.txt", identity, ()
+    )
+    manifest = SUT(
+        1,
+        "example.generic",
+        1,
+        "generic",
+        None,
+        (duplicate_path, duplicate_id, exact, exact),
+    )
+
+    assert manifest.resources == (exact, exact, duplicate_id, duplicate_path)
+    assert sum(item.resource_id == "example.a" for item in manifest.resources) == 3
+    assert sum(item.path == "references/a.txt" for item in manifest.resources) == 3
+    assert manifest.resources.count(exact) == 2

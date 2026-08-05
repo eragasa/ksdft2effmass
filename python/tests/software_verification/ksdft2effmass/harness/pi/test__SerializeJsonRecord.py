@@ -47,7 +47,7 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
-def test_execute__valid_and_invalid__returns_exact_partition() -> None:
+def test_method__execute_valid_and_invalid__returns_exact_partition() -> None:
     """Evidence ID
     SV-HARNESS-049
     Requirement
@@ -80,6 +80,7 @@ def test_execute__valid_and_invalid__returns_exact_partition() -> None:
         b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","schema_version":1}\n'
     )
     assert result.payload == expected
+    assert result.content_identity is not None
     assert result.content_identity.digest == hashlib.sha256(expected).hexdigest()
     with pytest.raises(TypeError):
-        SUT().execute(object())
+        SUT().execute(object())  # type: ignore[arg-type]

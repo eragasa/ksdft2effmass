@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "H1",
-  "status": "H1-HC01_Option_B_DiagnosticPath_correction_pending_final_acceptance_not_activated",
+  "status": "H2-HC01_Option_A_bounded_H1_H3_H2_correction_active",
   "sequence": [
     "H3",
     "H2",
@@ -184,7 +184,13 @@
         "no .pi runtime-state replacement",
         "no H2/H4/P2 activation",
         "no generated execution results stored in ownership declarations"
-      ]
+      ],
+      "manifest_relational_validity_correction": {
+        "schema_owner": "harness-generic-resource-writer",
+        "fixture_owner": "harness-resource-test-writer",
+        "validator_owner": "harness-resource-validation-writer",
+        "obligation": "Version-1 schemas represent self-dependency and duplicate manifest entries; semantic/resource-resolution oracles require successful deserialization followed by PIH.RESOURCE failure; generic manifest/handoff/checksums are re-identified."
+      }
     },
     {
       "task_id": "H2",
@@ -410,6 +416,12 @@
         "no project-domain import",
         "no scientific or numerical algorithm",
         "no H4/P2 activation"
+      ],
+      "manifest_relational_validity_test_obligations": [
+        "construct and round-trip structurally valid relationally invalid candidates",
+        "ValidateResourceManifest reports duplicate ID, duplicate path, and self-edge/cycle with existing codes and precedence",
+        "ResolveResource and ValidateSkillResources propagate manifest failure and short-circuit",
+        "accepted H3 fixtures agree with Python behavior"
       ]
     },
     {

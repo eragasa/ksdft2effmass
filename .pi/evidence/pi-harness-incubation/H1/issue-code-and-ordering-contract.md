@@ -79,7 +79,7 @@ action-specific comparison code.
 | `DeserializeJsonRecord` / `LoadProjectProfile` | `PIH.WIRE.INVALID_UTF8`, `INVALID_JSON`, `DUPLICATE_KEY`; then `UNKNOWN_FIELD`, `MISSING_FIELD`, `INVALID_TYPE`, `INVALID_VALUE`,
 `UNSUPPORTED_VERSION`; then intrinsic `ID`, `PATH`, `ARTIFACT`, and profile invariants. For `LoadProjectProfile`, comparison of two valid identities uses `PIH.PROFILE.IDENTITY_MISMATCH`. |
 | `SerializeJsonRecord` | a value outside `HarnessWireRecord` raises Python `TypeError`; a valid record produces no issue; bypassed/impossible internal invalidity raises `HarnessInternalError`. It never uses structured invalidity for an out-of-union call. |
-| `ValidateResourceManifest` | manifest identity/base mismatch; duplicate resource ID; duplicate resource path; unsupported kind; unsupported `(kind, format_version)` pair; missing dependency; generic-to-local edge; dependency cycle; forbidden overlay replacement. One duplicate uses `PIH.RESOURCE.*`, not `PIH.ID.DUPLICATE`. |
+| `ValidateResourceManifest` | manifest/profile identity and base mismatch; duplicate resource ID; duplicate resource path; forbidden local replacement of a generic ID/path; unsupported kind; unsupported `(kind, format_version)` pair; missing dependency; generic-to-local edge; dependency cycle, including a self-edge. One duplicate uses `PIH.RESOURCE.*`, not `PIH.ID.DUPLICATE`; a self-edge uses `PIH.RESOURCE.DEPENDENCY_CYCLE`. |
 | `ResolveResource` | manifest validation first; then `NOT_FOUND`/`AMBIGUOUS_SELECTION`; then intrinsic `PIH.PATH.*` in lexical, root, exact-case, symlink, escape, missing, not-file order; then `PIH.ARTIFACT.HASH_MISMATCH`. |
 | `ValidateOwnershipManifest` | task mismatch; missing/mismatched agent; duplicate role; intrinsic scope path; cross-writer overlap; reviewer independence; completion binding; unsupported orchestration profile. Ownership duplicates use `PIH.OWNERSHIP.*`. |
 | `ValidateCheckpointSet` | duplicate checkpoint ID; unknown task; unknown status; state contradiction; duplicate normalized decision. Checkpoint identity duplicates use `PIH.CHECKPOINT.DUPLICATE_ID`. |
@@ -90,11 +90,18 @@ action-specific comparison code.
 | `ValidateChecksumManifest` | invalid root and intrinsic entry path use `PIH.PATH.*`; duplicate valid entry path uses `PIH.CHECKSUM.ENTRY_DUPLICATE`; missing valid entry uses `FILE_MISSING`; valid-file digest mismatch uses `HASH_MISMATCH`. Symlink, escape, exact case, and not-file remain the corresponding `PIH.PATH.*` condition. |
 | `ValidateSkillResources` | first applies and propagates the complete `ValidateResourceManifest` `PIH.RESOURCE.*` findings, including forbidden overlay; only after a valid manifest pair does it emit duplicate skill ID, missing/wrong-kind entry, incomplete closure, unsupported `(skill_id, behavior_version)` pair, or unknown/incompatible authorization policy. Skill duplicates use `PIH.SKILL.DUPLICATE_ID`. |
 
-When several independent fields are invalid and construction can continue safely,
-all applicable issues are emitted and sorted. When a parent object cannot be
-constructed, dependent relational/filesystem checks are suppressed. No action
-emits both a generic duplicate code and its capability-specific duplicate code
-for the same pair.
+When several independent intrinsic fields are invalid and construction can
+continue safely, all applicable issues are emitted and sorted. Structurally
+valid candidate manifests preserve relational defects for
+`ValidateResourceManifest`; those defects are not wire failures. Within manifest
+validation, duplicate ID/path and forbidden-overlay findings are emitted before
+dependency graph analysis. An invalid dependency edge (missing or
+generic-to-local) is not traversed for cycle detection, preventing a dependent
+later-stage cycle finding for the same invalid edge. A self-edge is a valid graph
+edge for representation and is reported as `PIH.RESOURCE.DEPENDENCY_CYCLE`.
+When an intrinsically invalid parent object cannot be constructed, dependent
+relational/filesystem checks are suppressed. No action emits both a generic
+duplicate code and its capability-specific duplicate code for the same pair.
 
 ## Subject and path
 

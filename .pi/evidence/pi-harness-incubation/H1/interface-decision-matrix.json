@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "H1",
-  "decision_status": "H1-HC01_Option_B_bounded_DiagnosticPath_correction_pending_final_acceptance",
+  "decision_status": "H2-HC01_Option_A_bounded_version_1_contract_resource_correction",
   "semantic_primitives": {
     "DiagnosticPath": {
       "python": "immutable built-in str validated as a nonempty NFC-normalized root-relative POSIX lexical path with no absolute/traversal/empty/repeated/trailing/control/Windows syntax and exact case-sensitive comparison",
@@ -518,7 +518,8 @@
         ".pi/skills/skill-capability-inventory.json",
         ".pi/skills/validate_skill_capabilities.py",
         "SKILL.md direct references"
-      ]
+      ],
+      "invariant_ownership": "Intrinsic dependency-ID uniqueness/canonical order remains construction/deserialization-owned; self-dependency is representable and ValidateResourceManifest-owned."
     },
     "ResourceManifest": {
       "fields": "manifest id/version/layer/base/resources",
@@ -526,7 +527,8 @@
         ".pi/skills/skill-capability-inventory.json current inventory identity/version fields",
         ".agents/skills/graphify repository overlay versus global fallback",
         "SKILL.md direct-reference closure and validate_skill_capabilities.py"
-      ]
+      ],
+      "invariant_ownership": "Intrinsic nonempty immutable tuple and complete-key canonical ordering preserve duplicates; duplicate IDs/paths and all manifest relations are ValidateResourceManifest-owned."
     },
     "ProjectProfile": {
       "fields": "manifest IDs/versions, closed supported resource/skill pairs, complete evidence namespace generation and module-scope marker/namespace rules, exact protected unowned (path,function) gaps, lifecycle vocabularies, compatibility version/extensions",
@@ -635,7 +637,8 @@
         "H0 finding 3 generic/local validator decomposition",
         "H0 finding 6 zero implicit roots",
         "current validators hard-coded inputs to be supplied explicitly"
-      ]
+      ],
+      "manifest_validation_obligation": "ValidateResourceManifest owns duplicate IDs/paths, self/cycles, missing/generic-to-local edges, compatibility/mismatch, and replacement; ResolveResource and ValidateSkillResources short-circuit on failure."
     },
     "WireRecordKind": {
       "fields": "closed record-kind values",
@@ -690,6 +693,10 @@
       "fields": "closed record/validation",
       "evidence": [
         "current checkpoint and ownership validators reject malformed JSON before trusted records"
+      ],
+      "future_obligations": [
+        "Relationally invalid but structurally valid resource candidates deserialize successfully.",
+        "Success does not imply manifest validity or downstream usability."
       ]
     }
   }

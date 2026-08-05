@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/resource-manifest.schema.json",
   "title": "ResourceManifest",
   "type": "object",
-  "description": "The layer/extends_manifest_id pairing is enforced by this schema: generic requires null and local requires an Identifier. JSON Schema cannot compare resource_id or path properties across array elements, sort by a property, or evaluate dependency-layer membership and graph acyclicity; ValidateResourceManifest must enforce those semantic constraints. Schema conformance alone does not authorize or accept a manifest.",
+  "description": "The intrinsic layer/extends_manifest_id pairing is enforced by this schema: generic requires null and local requires an Identifier. Relationally invalid candidate manifests remain representable: ValidateResourceManifest owns duplicate resource IDs/paths, self-edges, missing/cyclic or generic-to-local dependencies, compatibility, manifest mismatch, and forbidden local replacement. Schema conformance alone does not authorize or accept a manifest.",
   "properties": {
     "schema_version": {
       "type": "integer",
@@ -37,8 +37,7 @@
         "$ref": "resource-reference.schema.json"
       },
       "minItems": 1,
-      "uniqueItems": true,
-      "description": "Strictly resource_id-sorted with unique resource IDs and paths; dependencies form an acyclic valid layer graph."
+      "description": "Nonempty and canonically ordered by the complete represented resource key while preserving duplicate IDs, duplicate paths, and exact duplicate entries for deterministic relational validation."
     }
   },
   "required": [

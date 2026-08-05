@@ -143,5 +143,10 @@
   "expected": {
     "status": "FAIL",
     "issue_code": "PIH.RESOURCE.DUPLICATE_PATH"
-  }
+  },
+  "deserialization_expectation": {
+    "status": "PASS",
+    "issue_code": null
+  },
+  "downstream_expectation": "manifest_failure_propagated_no_selection"
 }

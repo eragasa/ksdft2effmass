@@ -10,9 +10,10 @@ detailed decision artifacts are retained under
 `.pi` task, chain, and checkpoint records remain the authority for execution
 state.
 
-The accepted contract is not implemented. H1 created no Python namespace,
-resource root, schema, fixture, package, runner, or dispatch mechanism. Final H1
-acceptance did not activate H3.
+H1 originally created no implementation or resources. Under resolved
+`H2-HC01` Option A, the directly affected version-1 contract/resources are
+boundedly corrected before H2 final acceptance; no interface, issue code, schema
+version, generic/local policy, or successor scope is added.
 
 ## Proposed version-1 public surface
 
@@ -121,7 +122,12 @@ fields, explicit `null` only for declared optional values, duplicate-key and
 unknown-field rejection, Boolean exclusion from integer fields, deterministic
 array rules, and RFC 8785 canonical output plus one LF. Named serializer and
 deserializer ActionObjects own the wire operation; DataObjects do not serialize
-themselves. H1 provides field tables and draft wire
+themselves. Successful construction/deserialization establishes intrinsic
+record validity only. `ResourceReference` self-edges and duplicate
+`ResourceManifest` entries are representable; manifest entries are
+complete-key canonically ordered without deduplication. `ValidateResourceManifest`
+owns duplicate IDs/paths, self/cycles, missing or generic-to-local dependencies,
+compatibility/mismatch, and forbidden replacement. H1 provides field/wire
 rules; H3 owns accepted schemas and fixtures.
 
 `ArtifactIdentity` accepts SHA-256 only in version 1 and requires lowercase
@@ -144,10 +150,12 @@ The sole proposed version-1 overlay policy is `extend_only`:
 - duplicates fail even when hashes match;
 - no ambient global fallback exists.
 
-Resolution checks lexical and resolved confinement, exact component case,
-absence of symlinks, regular-file type, dependency/version compatibility, and
-selected byte identity. A resolved `pathlib.Path` is runtime-only and never
-serialized as durable identity.
+Resolution first propagates complete manifest-validation failure and performs
+no selection or filesystem interpretation for an invalid candidate. Skill
+resource validation has the same short-circuit. Only a valid manifest proceeds
+to lexical/resolved confinement, exact component case, symlink, regular-file,
+dependency/version, and selected-byte checks. A resolved `pathlib.Path` is
+runtime-only and never serialized as durable identity.
 
 ## Project profile
 

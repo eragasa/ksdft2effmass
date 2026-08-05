@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/resource-reference.schema.json",
   "title": "ResourceReference",
   "type": "object",
-  "description": "JSON Schema enforces field shape and whole-array uniqueness. It cannot compare resource_id with dependency_ids or assert identifier ordering; ValidateResourceManifest must reject self-dependency and noncanonical dependency ordering. Schema conformance alone does not establish a resolvable or accepted resource.",
+  "description": "JSON Schema enforces intrinsic field shape and dependency-array uniqueness. Dependency ordering remains an intrinsic constructor/deserializer invariant. A resource_id may occur in dependency_ids so the self-edge is representable; ValidateResourceManifest reports it as PIH.RESOURCE.DEPENDENCY_CYCLE. Schema conformance alone does not establish a resolvable or accepted resource.",
   "properties": {
     "schema_version": {
       "type": "integer",
@@ -39,7 +39,7 @@
         "$ref": "common.schema.json#/$defs/Identifier"
       },
       "uniqueItems": true,
-      "description": "Whole-array duplicates are rejected here. Strict identifier ordering and the cross-value rule that resource_id must not occur in dependency_ids are semantic-validator responsibilities."
+      "description": "Duplicate dependency IDs are rejected here. Strict identifier ordering is an intrinsic constructor/deserializer invariant; self-dependency is representable and belongs to ValidateResourceManifest."
     }
   },
   "required": [

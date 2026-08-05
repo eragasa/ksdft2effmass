@@ -2,9 +2,14 @@
 
 ## Implemented H2 boundary
 
-Active H2 implements the accepted version-1 generic contract at
-`python/src/ksdft2effmass/harness/pi/`. The supported public import path during
-incubation is:
+Active H2 is the in-progress implementation of the accepted version-1 generic
+contract at `python/src/ksdft2effmass/harness/pi/`. Resolved `H2-HC01` Option A
+is a bounded version-1 pre-acceptance correction: it changes invariant ownership
+for resource manifest candidates without adding an interface, issue code, schema
+version, or overlay capability. This page states the corrected required public
+behavior; it does not claim that every implementation gate already passes. The
+corrected H2 boundary remains provisional pending the required review and human
+acceptance. The supported public import path during incubation is:
 
 ```python
 import ksdft2effmass.harness.pi as pi_harness
@@ -130,7 +135,27 @@ direct argument types may raise `TypeError`; impossible internal states and
 post-selection I/O races remain exceptions rather than being converted into a
 misleading validation result.
 
-## Strict wire contract
+## Candidate-record construction and strict wire contract
+
+Construction owns intrinsic validity, not validity of relations among manifest
+entries or layers. In particular:
+
+- `ResourceReference` construction checks exact field types, identifier syntax,
+  the closed resource-kind value, version bounds, lexical `ResourcePath`, content
+  identity, immutable tuple storage, and dependency-ID uniqueness and canonical
+  ordering. A dependency equal to the reference's own `resource_id` is retained
+  as a representable self-edge.
+- `ResourceManifest` construction checks exact field types, manifest identity and
+  version, the `generic`/`local` layer, the structural relationship between layer
+  and `extends_manifest_id`, a nonempty immutable tuple of
+  `ResourceReference`s, and deterministic ordering by the complete represented
+  resource key `(resource_id, path, resource_kind, format_version,
+  content_identity.algorithm, content_identity.digest, dependency_ids)`.
+  Ordering does not deduplicate: repeated IDs, repeated paths, and even exact
+  duplicate entries remain present for relational validation.
+
+Consequently, a constructed candidate is intrinsically well formed but is not
+thereby an accepted, authorized, resolvable, or capability-valid manifest.
 
 The 16 public-JSON records are the 14 DataObjects plus `ValidationIssue` and
 `ValidationResult`. Each is one strict UTF-8 RFC 8259 JSON object with
@@ -141,7 +166,13 @@ Field names, types, nullability, and construction order are fixed. Input rejects
 - unknown or omitted fields and undeclared `null` values;
 - Boolean integer values, numeric strings, nonfinite numbers, and out-of-range
   integers; and
-- unsupported versions or violated record invariants.
+- unsupported versions or violated intrinsic record invariants.
+
+`DeserializeJsonRecord` applies those wire and intrinsic checks and returns no
+partial record on their failure. It does not perform manifest-relational
+validation. Structurally valid candidates containing a reference self-edge or
+duplicate manifest entry IDs/paths therefore deserialize successfully and
+preserve those defects for `ValidateResourceManifest`.
 
 Optional fields are present and use JSON `null`; they are never omitted. JSON
 member order has no input meaning. Canonical output is RFC 8785 JSON
@@ -227,10 +258,25 @@ fallback, or ambient global skill inheritance.
 
 ## Structural actions and their limits
 
-- `ValidateResourceManifest` checks manifest binding, unique IDs and paths,
-  supported kinds and versions, dependency completeness and acyclicity,
-  generic-to-local prohibition, and extension-only overlays. It neither resolves
-  bytes nor authorizes a resource.
+- `ValidateResourceManifest` is the sole owner of relational manifest validity.
+  It checks, in accepted stage precedence, manifest/profile identity, canonical
+  manifest-byte identity, generic/local presence and base binding; duplicate IDs
+  and paths within each manifest; forbidden local reuse of a generic ID or path;
+  supported resource kind/format pairs; missing dependencies;
+  generic-to-local edges; and dependency cycles, including self-edges. Invalid
+  missing or generic-to-local edges are not traversed for a dependent cycle
+  finding. Findings use the existing codes
+  `PIH.RESOURCE.MANIFEST_MISMATCH`, `DUPLICATE_ID`, `DUPLICATE_PATH`,
+  `OVERLAY_REPLACEMENT`, `KIND_UNSUPPORTED`, `VERSION_INCOMPATIBLE`,
+  `MISSING_DEPENDENCY`, `GENERIC_TO_LOCAL_DEPENDENCY`, and
+  `DEPENDENCY_CYCLE`. Within the intrinsically valid closed resource-kind enum,
+  a kind absent from every profile-supported pair is `KIND_UNSUPPORTED`; a kind
+  present in the profile at other versions but not at the supplied version is
+  `VERSION_INCOMPATIBLE`. A self-edge is `DEPENDENCY_CYCLE`, not a new code,
+  and a within-manifest duplicate is capability-specific rather than
+  `PIH.ID.DUPLICATE`. Independent findings are collected and then use the
+  contract-wide deterministic issue ordering and duplicate coalescing. The
+  action neither resolves bytes nor authorizes a resource.
 - `ValidateOwnershipManifest` checks the normalized version-2 view against an
   explicit chain, agent views, and profile: task/agent/role agreement,
   nonoverlapping scopes, reviewer independence, completion binding, and profile
@@ -255,21 +301,34 @@ fallback, or ambient global skill inheritance.
   protected-gap facts and returns occurrences sorted by ID, path, and one-based
   line. It performs no filesystem discovery, test execution, AST mutation,
   filename-policy interpretation, evidence writing, or VVUQ judgment.
-- `ValidateSkillResources` validates explicitly supplied descriptors and
-  manifest closure, entry kind, behavior-version support, policy identity, and
-  overlay direction. A `SkillDescriptor` describes triggers, required resources,
+- `ValidateSkillResources` first calls `ValidateResourceManifest`. On manifest
+  `FAIL` it returns that complete validation result unchanged and performs no
+  descriptor or skill-closure interpretation. Only a valid manifest pair reaches
+  descriptor uniqueness, closure, entry-kind, behavior-version, and policy
+  checks. A `SkillDescriptor` describes triggers, required resources,
   side-effect class, authorization policy, retry policy, and termination policy;
   it neither dispatches an agent nor grants authorization.
+
+`ResolveResource` has the same manifest gate: on manifest `FAIL`, it returns no
+`reference` or `resolved_path`, propagates the complete manifest-validation
+result, and performs no resource selection or filesystem interpretation. Thus a
+relationally invalid candidate cannot reach `NOT_FOUND`, ambiguous-selection,
+path, or content-hash processing.
 
 The generic primary evidence kinds remain exactly `class_owned` and
 `artifact_owned`. Agreement and direction are artifact relation metadata, not a
 third ownership kind. Legacy `boundary_owned` is project-local compatibility
 input only.
 
-## Accepted H3 resources and vectors
+## H3 resource inputs and vectors
 
-H2 consumes the human-accepted H3 trees under `harness/pi/` and
-`harness/local/` read-only. They provide the generic and extension manifests,
+H2 consumes the H3 trees under `harness/pi/` and `harness/local/` read-only.
+The corrected resource inputs for resolved `H2-HC01` Option A encode duplicate
+ID, duplicate path, and self-dependency cases as successful deserialization
+followed by, respectively, `PIH.RESOURCE.DUPLICATE_ID`,
+`PIH.RESOURCE.DUPLICATE_PATH`, and `PIH.RESOURCE.DEPENDENCY_CYCLE` from
+manifest validation. Their downstream oracle is manifest-failure propagation
+without selection. These inputs provide the generic and extension manifests,
 strict Draft 2020-12 schemas, project-profile instance, valid/invalid fixtures,
 resource-resolution and semantic-invariant oracles, the generic evidence skill
 and references, and the H3 completion validator. The local tree is explicit
@@ -280,7 +339,7 @@ generic default.
 RFC-8785-plus-LF vectors: one for each of the 16 public-JSON record kinds and one
 additional `DiagnosticPath` NFC-spelling case. The diagnostic-path oracle
 contains four valid and nineteen invalid cases. These resources fix textual
-software-verification inputs and expected acceptance partitions. They are not
+software-verification inputs and expected result partitions. They are not
 generated truth from the H2 implementation, and passing against them does not
 establish intended Rust conformance. H2 does not modify H3 schemas, manifests,
 fixtures, profiles, skills, or handoff records.

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "task_id": "H2",
+  "phase": "validated_boundary_checkpoint_pending",
+  "result": "PASS",
+  "checks": [
+    {
+      "check": "H3_resource_validator",
+      "command": "python harness/pi/validation/validate_h3_resources.py",
+      "result": "PASS",
+      "summary": "50 gates passed; zero defects."
+    },
+    {
+      "check": "H2_completion_validator",
+      "command": "python python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+      "result": "PASS",
+      "summary": "39 maintained test modules; 65 evidence identifiers; focused tests, Ruff, mypy, and Sphinx warnings-as-errors passed."
+    },
+    {
+      "check": "full_Python_suite",
+      "command": "python -m pytest -q python/tests",
+      "result": "PASS",
+      "summary": "1084 tests passed."
+    },
+    {
+      "check": "package_and_public_import",
+      "command": "build wheel/sdist; clean target install; neutral-cwd public import audit",
+      "result": "PASS",
+      "summary": "Build, install, and import passed; 41 exports comprise 36 accepted interfaces and five semantic/support types."
+    },
+    {
+      "check": "integrated_independent_review",
+      "command": "review retained Option-A architecture, evidence/VVUQ, and integration records",
+      "result": "PASS",
+      "summary": "Architecture and integration reviews passed directly; evidence/VVUQ findings were deterministically corrected and final closure output reported PASS after a negative probe."
+    },
+    {
+      "check": "ownership",
+      "command": "python .pi/task-ownership/validate_task_ownership.py --task H2 --chain .pi/chains/pi-harness-incubation.chain.json",
+      "result": "PASS",
+      "summary": "Version-2 ownership preflight passed."
+    },
+    {
+      "check": "checkpoint_integrity",
+      "command": "python .pi/checkpoints/validate_checkpoints.py",
+      "result": "PASS",
+      "summary": "19 records validated; exactly one unresolved checkpoint, H2-HC02; zero duplicate resolved decisions."
+    },
+    {
+      "check": "H1_H3_checksum_and_handoff",
+      "command": "shasum -a 256 -c H1/checksums.sha256 and H3/checksums.sha256; replay H3 handoff identities",
+      "result": "PASS",
+      "summary": "49 H1 entries and 160 H3 entries verified; H3 handoff identities agree."
+    },
+    {
+      "check": "dependency_lock_scope_and_diff",
+      "command": "dependency/lock/prohibited-scope scans; git diff --check; no-staged-files check",
+      "result": "PASS",
+      "summary": "No dependency, lockfile, H4/local Python, SQLite, CPN, or scientific-scope mutation; no whitespace defects; no staged files before boundary staging."
+    },
+    {
+      "check": "unrelated_work_preservation",
+      "command": "SHA-256 replay against unrelated-worktree-baseline.json",
+      "result": "PASS",
+      "summary": "All five unrelated user paths retain their activation hashes."
+    }
+  ],
+  "checksum_path": ".pi/evidence/pi-harness-incubation/H2/checksums.sha256",
+  "checksum_generated": true,
+  "checkpoint_path": ".pi/checkpoints/H2-HC02-final-acceptance.json",
+  "checkpoint_created": true,
+  "checkpoint_status": "pending",
+  "unresolved_checkpoints": 1,
+  "human_accepted": false,
+  "h4_status": "inactive_blocked_pending_separate_explicit_authorization"
+}

@@ -1,6 +1,6 @@
 # H2 — Generic Python harness implementation
 
-Status: active for the bounded `H2-HC01` Option-A H1/H3/H2 manifest-relational-validity correction after the resolution boundary is committed and pushed; no final acceptance or successor activation
+Status: validated implementation boundary awaiting human decision at pending `H2-HC02`; no final acceptance or successor activation
 
 ## Objective
 
@@ -74,9 +74,15 @@ reviewers. It adds no interface or contract version. H4, H5, P2, local Python,
 SQLite, dependencies/locks, live-skill cutover, CPN/scientific code, protected
 execution, and unrelated work remain outside scope.
 
-## Stop
+## Final acceptance boundary
 
-H2 concludes only at separate final human acceptance after the protected
-conflict is resolved and all required gates and reviews pass. Accepted H2 would
-satisfy H4's prerequisite but would not activate H4; H4 requires its own separate
-human authorization.
+The resolved Option-A correction, H2 implementation, independent tests,
+documentation, retained evidence, integrated review and deterministic finding
+closure, final verification, and checksums are complete. The pushed boundary is
+blocked at pending `.pi/checkpoints/H2-HC02-final-acceptance.json`.
+
+H2 concludes only after a separate human decision at `H2-HC02`. Accepted H2
+would satisfy H4's prerequisite but would not activate H4; H4 requires its own
+separate human authorization. No additional review/correction loop, H4/H5/P2
+activation, project-local cutover, SQLite work, protected execution, or
+scientific execution is authorized while this checkpoint remains pending.

@@ -16,7 +16,12 @@
         "issue_code": "PIH.RESOURCE.DUPLICATE_ID"
       },
       "selected_layer": null,
-      "selected_relative_path": null
+      "selected_relative_path": null,
+      "deserialization_expectation": {
+        "status": "PASS",
+        "issue_code": null
+      },
+      "downstream_expectation": "manifest_failure_propagated_no_selection"
     },
     {
       "case_id": "duplicate-resource-path",
@@ -25,7 +30,12 @@
         "issue_code": "PIH.RESOURCE.DUPLICATE_PATH"
       },
       "selected_layer": null,
-      "selected_relative_path": null
+      "selected_relative_path": null,
+      "deserialization_expectation": {
+        "status": "PASS",
+        "issue_code": null
+      },
+      "downstream_expectation": "manifest_failure_propagated_no_selection"
     },
     {
       "case_id": "generic-to-local-dependency",
@@ -161,6 +171,20 @@
       },
       "selected_layer": null,
       "selected_relative_path": null
+    },
+    {
+      "case_id": "self-dependency",
+      "deserialization_expectation": {
+        "status": "PASS",
+        "issue_code": null
+      },
+      "expected": {
+        "status": "FAIL",
+        "issue_code": "PIH.RESOURCE.DEPENDENCY_CYCLE"
+      },
+      "selected_layer": null,
+      "selected_relative_path": null,
+      "downstream_expectation": "manifest_failure_propagated_no_selection"
     }
   ],
   "temporary_tree_policy": "Declarative setup operations run only in a disposable copy. No symlink is stored in the repository. Symlink components are rejected before resolved-confinement escape under the accepted path contract."

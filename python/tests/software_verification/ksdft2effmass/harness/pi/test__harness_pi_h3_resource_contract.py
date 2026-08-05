@@ -73,6 +73,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
             WireRecordKind(vector["record_kind"]), payload
         )
         assert decoded.validation.status == "PASS", vector["vector_id"]
+        assert decoded.record is not None
         encoded = SerializeJsonRecord().execute(decoded.record)
         expected = vector["canonical_json"].encode()
         assert encoded.payload == expected, vector["vector_id"]
@@ -178,7 +179,7 @@ def test_artifact__diagnostic_path_corpus__matches_python_construction() -> None
 
 def _decode_case_record(kind: WireRecordKind, value: object) -> object:
     """Evidence ID
-    Supports SV-HARNESS-046 and SV-HARNESS-047; owns no identifier.
+    Supports SV-HARNESS-046 and SV-HARNESS-047; owns no separate identifier.
     Requirement
     Case records must be constructed only through the public wire boundary.
     Method
@@ -210,7 +211,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
     Copy the H3 roots, apply declared symlinks, decode records publicly, and run
     manifest validation or resource resolution with explicit roots.
     Oracle
-    The accepted H3 oracle index fixes all 18 acceptance partitions and codes.
+    The accepted H3 oracle index fixes all 19 acceptance partitions and codes.
     Acceptance
     Status and sole expected code match; PASS selects the declared layer/path;
     FAIL returns no partial path or reference.
@@ -220,6 +221,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
     The disposable filesystem checks software confinement, not provenance.
     """
     import shutil
+    from collections import Counter
 
     from ksdft2effmass.harness.pi import (
         ProjectProfile,
@@ -231,7 +233,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
 
     base = ROOT / "harness/pi/fixtures/resource-resolution"
     index = json.loads((base / "oracle-index.json").read_text())
-    assert len(index["cases"]) == 18
+    assert len(index["cases"]) == 19
     for oracle in index["cases"]:
         case = json.loads((base / "cases" / f"{oracle['case_id']}.json").read_text())
         work = tmp_path / oracle["case_id"]
@@ -243,25 +245,14 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
                 operation["target"],
                 target_is_directory=operation["target_is_directory"],
             )
-        if oracle["case_id"] in {"duplicate-resource-id", "duplicate-resource-path"}:
-            payload = (
-                json.dumps(case["generic_manifest"], ensure_ascii=False) + "\n"
-            ).encode()
-            rejected = DeserializeJsonRecord().execute(
-                WireRecordKind.ResourceManifest, payload
-            )
-            assert rejected.record is None
-            assert [issue.code for issue in rejected.validation.issues] == [
-                "PIH.WIRE.INVALID_VALUE"
-            ]
-            continue
         generic = _decode_case_record(
             WireRecordKind.ResourceManifest, case["generic_manifest"]
         )
         profile = _decode_case_record(WireRecordKind.ProjectProfile, case["profile"])
         assert isinstance(generic, ResourceManifest)
         assert isinstance(profile, ProjectProfile)
-        generic_identity = SerializeJsonRecord().execute(generic).content_identity
+        generic_serialized = SerializeJsonRecord().execute(generic)
+        generic_identity = generic_serialized.content_identity
         assert generic_identity is not None
         local_data = case["local_manifest"]
         local = (
@@ -270,13 +261,43 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
             else None
         )
         assert local is None or isinstance(local, ResourceManifest)
+        local_serialized = (
+            SerializeJsonRecord().execute(local) if local is not None else None
+        )
         local_identity = (
-            SerializeJsonRecord().execute(local).content_identity
-            if local is not None
-            else None
+            local_serialized.content_identity if local_serialized is not None else None
         )
         expected = oracle["expected"]
         if case["resource_id"] is None:
+            candidates = [(generic, generic_serialized)]
+            if local is not None:
+                assert local_serialized is not None
+                candidates.append((local, local_serialized))
+            for candidate, serialized in candidates:
+                assert serialized.validation.status == "PASS"
+                assert serialized.payload is not None
+                round_trip = DeserializeJsonRecord().execute(
+                    WireRecordKind.ResourceManifest, serialized.payload
+                )
+                assert round_trip.validation.status == "PASS"
+                assert round_trip.record == candidate
+                assert isinstance(round_trip.record, ResourceManifest)
+                assert Counter(
+                    (resource.resource_id, str(resource.path))
+                    for resource in round_trip.record.resources
+                ) == Counter(
+                    (resource.resource_id, str(resource.path))
+                    for resource in candidate.resources
+                )
+                assert Counter(
+                    (resource.resource_id, dependency_id)
+                    for resource in round_trip.record.resources
+                    for dependency_id in resource.dependency_ids
+                ) == Counter(
+                    (resource.resource_id, dependency_id)
+                    for resource in candidate.resources
+                    for dependency_id in resource.dependency_ids
+                )
             validation = ValidateResourceManifest().execute(
                 generic,
                 generic_identity,
@@ -285,9 +306,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
                 profile,
             )
             assert validation.status == expected["status"], oracle["case_id"]
-            assert expected["issue_code"] in {
-                issue.code for issue in validation.issues
-            }
+            assert expected["issue_code"] in {issue.code for issue in validation.issues}
             continue
         result = ResolveResource().execute(
             case["resource_id"],
@@ -330,12 +349,12 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
     Oracle
     The accepted seven-case H3 index fixes schema and semantic expectations.
     Acceptance
-    Schema-rejected cases are not decoded; each semantic case fails with the
-    exact code and no partial record.
+    Schema-rejected cases are not decoded; each decoded semantic case returns its
+    exact declared status/code partition and record presence.
     Interpretation
     Failure identifies H3/schema/decoder contract drift.
     Limitations
-    Constructor rejection preserves unreachable duplicate/overlap ambiguity.
+    Relational manifest acceptance is owned by the resource-resolution evidence.
     """
     base = ROOT / "harness/pi/fixtures/semantic-invariants"
     index = json.loads((base / "oracle-index.json").read_text())
@@ -351,8 +370,12 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
             WireRecordKind(case["record_kind"]), payload
         )
         assert result.validation.status == expectation["status"]
-        assert result.record is None
-        assert [issue.code for issue in result.validation.issues] == [
-            expectation["issue_code"]
-        ]
+        if expectation["status"] == "PASS":
+            assert result.record is not None
+            assert result.validation.issues == ()
+        else:
+            assert result.record is None
+            assert [issue.code for issue in result.validation.issues] == [
+                expectation["issue_code"]
+            ]
     assert len(seen) == 7

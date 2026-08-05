@@ -49,11 +49,14 @@
       "schema_expectation": "accept",
       "semantic_validator_expectation": {
         "stage": "DeserializeJsonRecord",
-        "status": "FAIL",
-        "issue_code": "PIH.WIRE.INVALID_VALUE"
+        "status": "PASS",
+        "issue_code": null,
+        "next_stage": "ValidateResourceManifest",
+        "next_status": "FAIL",
+        "next_issue_code": "PIH.RESOURCE.DEPENDENCY_CYCLE"
       },
-      "reason": "Cross-field equality cannot be excluded by the current structural array schema.",
-      "downstream_context": "A manifest-level validator may additionally classify the self-edge as PIH.RESOURCE.DEPENDENCY_CYCLE."
+      "reason": "Self-dependency is structurally representable and deserializes successfully; manifest relational validity belongs to ValidateResourceManifest.",
+      "downstream_context": "Resolution and skill validation short-circuit after the propagated manifest-validation failure."
     },
     {
       "case_id": "task-reference-self-prerequisite",

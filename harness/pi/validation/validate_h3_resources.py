@@ -38,7 +38,7 @@ REQUIRED_RESOLUTION_CASES = {
     "dependency-cycle", "duplicate-resource-id", "duplicate-resource-path",
     "generic-to-local-dependency", "incompatible-format-version",
     "local-overlay-duplicate-id", "local-overlay-duplicate-path",
-    "manifest-profile-incompatible", "missing-dependency",
+    "manifest-profile-incompatible", "missing-dependency", "self-dependency",
     "resolve-generic-leaf", "resolve-local-extension", "resource-file-missing",
     "resource-not-found", "resource-not-file", "resource-symlink",
     "resource-hash-mismatch", "resource-case-mismatch",
@@ -192,6 +192,14 @@ def schema_and_fixture_gate() -> tuple[dict[str, Any], dict[str, Any]]:
         if isinstance(schema, dict):
             validators[name] = Draft202012Validator(
                 schema, resolver=RefResolver.from_schema(schema, store=store), format_checker=checker)
+    manifest_validator = validators.get("resource-manifest")
+    manifest_fixture = load_json(PI / "fixtures/valid/resource-manifest.json")
+    if manifest_validator is not None and isinstance(manifest_fixture, dict):
+        duplicate_candidate = dict(manifest_fixture)
+        duplicate_candidate["resources"] = list(manifest_fixture["resources"]) * 2
+        R.check(not list(manifest_validator.iter_errors(duplicate_candidate)),
+                "schema.resource-manifest-preserves-exact-duplicates",
+                "resource manifest schema must represent exact duplicate entries for relational validation")
     for name in PUBLIC_RECORDS:
         validator = validators.get(name)
         valid = load_json(PI / f"fixtures/valid/{name}.json")
@@ -243,18 +251,28 @@ def semantic_invariant_gate(validators: dict[str, Any]) -> None:
             R.check(semantic == {"stage": "not_run"}, "semantic-invariant.schema-short-circuit",
                     f"{case_id}: rejected schema case must not run semantics")
             continue
-        invalid = False
         if kind == "ResourceReference":
-            invalid = instance.get("resource_id") in instance.get("dependency_ids", [])
+            self_edge = instance.get("resource_id") in instance.get("dependency_ids", [])
+            valid_boundary = (self_edge and semantic.get("stage") == "DeserializeJsonRecord" and
+                              semantic.get("status") == "PASS" and semantic.get("issue_code") is None and
+                              semantic.get("next_stage") == "ValidateResourceManifest" and
+                              semantic.get("next_status") == "FAIL" and
+                              semantic.get("next_issue_code") == "PIH.RESOURCE.DEPENDENCY_CYCLE")
         elif kind == "TaskReference":
             invalid = instance.get("task_id") in instance.get("task_prerequisite_ids", [])
+            valid_boundary = (invalid and semantic.get("stage") == "DeserializeJsonRecord" and
+                              semantic.get("status") == "FAIL" and
+                              semantic.get("issue_code") == "PIH.WIRE.INVALID_VALUE")
         elif kind == "ChainView":
             task_ids = {task.get("task_id") for task in instance.get("tasks", [])}
             invalid = not set(instance.get("explicitly_activated_task_ids", [])) <= task_ids
-        R.check(invalid and semantic.get("stage") == "DeserializeJsonRecord" and
-                semantic.get("status") == "FAIL" and semantic.get("issue_code") == "PIH.WIRE.INVALID_VALUE",
-                "semantic-invariant.cross-value-rejection",
-                f"{case_id}: semantic rejection expectation or deterministic check differs")
+            valid_boundary = (invalid and semantic.get("stage") == "DeserializeJsonRecord" and
+                              semantic.get("status") == "FAIL" and
+                              semantic.get("issue_code") == "PIH.WIRE.INVALID_VALUE")
+        else:
+            valid_boundary = False
+        R.check(valid_boundary, "semantic-invariant.cross-value-boundary",
+                f"{case_id}: semantic stage expectation or deterministic check differs")
 
 
 def manifest_problems(manifest: dict[str, Any], generic: dict[str, Any] | None,
@@ -263,7 +281,11 @@ def manifest_problems(manifest: dict[str, Any], generic: dict[str, Any] | None,
     resources = manifest.get("resources", [])
     ids = [x.get("resource_id") for x in resources]
     paths = [x.get("path") for x in resources]
-    if not strictly_sorted(ids): problems.append("resources are not strictly resource_id-sorted")
+    keys = [(x.get("resource_id"), x.get("path"), x.get("resource_kind"),
+             x.get("format_version"), x.get("content_identity", {}).get("algorithm"),
+             x.get("content_identity", {}).get("digest"), tuple(x.get("dependency_ids", [])))
+            for x in resources]
+    if keys != sorted(keys): problems.append("resources are not complete-key canonically ordered")
     if len(ids) != len(set(ids)): problems.append("duplicate resource ID")
     if len(paths) != len(set(paths)): problems.append("duplicate resource path")
     if manifest.get("layer") == "generic" and manifest.get("extends_manifest_id") is not None:
@@ -417,7 +439,12 @@ def classify_manifest_case(case: dict[str, Any],
     local_ids: set[str] = set(); local_paths: set[str] = set()
     if local:
         if local.get("extends_manifest_id") != generic.get("manifest_id"): return "FAIL", "PIH.RESOURCE.MANIFEST_MISMATCH"
-        lres = local.get("resources", []); local_ids = {x.get("resource_id") for x in lres}; local_paths = {x.get("path") for x in lres}
+        lres = local.get("resources", [])
+        local_id_list = [x.get("resource_id") for x in lres]
+        local_path_list = [x.get("path") for x in lres]
+        if len(local_id_list) != len(set(local_id_list)): return "FAIL", "PIH.RESOURCE.DUPLICATE_ID"
+        if len(local_path_list) != len(set(local_path_list)): return "FAIL", "PIH.RESOURCE.DUPLICATE_PATH"
+        local_ids = set(local_id_list); local_paths = set(local_path_list)
         if set(ids) & local_ids or set(paths) & local_paths: return "FAIL", "PIH.RESOURCE.OVERLAY_REPLACEMENT"
     supported = {tuple(x) for x in profile.get("supported_resource_formats", [])}
     all_ids = set(ids) | local_ids
@@ -517,13 +544,26 @@ def resolution_gate() -> None:
     for path in case_paths:
         case = load_json(path)
         if not isinstance(case, dict): continue
+        deserialization = case.get("deserialization_expectation")
+        if path.stem in {"duplicate-resource-id", "duplicate-resource-path", "self-dependency"}:
+            R.check(deserialization == {"status": "PASS", "issue_code": None},
+                    "resolution.relational-candidate-deserializes",
+                    f"{path.stem}: relationally invalid candidate must deserialize successfully")
+            R.check(case.get("downstream_expectation") == "manifest_failure_propagated_no_selection",
+                    "resolution.invalid-manifest-short-circuit",
+                    f"{path.stem}: downstream action must propagate failure without selection")
         actual = evaluate_resolution_case(case, base)
         expected = case.get("expected", {})
         R.check(actual == (expected.get("status"), expected.get("issue_code")),
                 "resolution.case-oracle", f"{path.stem}: expected {(expected.get('status'), expected.get('issue_code'))}, got {actual}")
-        indexed = oracle_cases.get(path.stem, {}).get("expected", {})
+        indexed_case = oracle_cases.get(path.stem, {})
+        indexed = indexed_case.get("expected", {})
         R.check((indexed.get("status"), indexed.get("issue_code")) == actual,
                 "resolution.index-oracle", f"{path.stem}: index disagrees with evaluated case")
+        if deserialization is not None:
+            R.check(indexed_case.get("deserialization_expectation") == deserialization,
+                    "resolution.deserialization-index-oracle",
+                    f"{path.stem}: deserialization boundary differs from index")
 
 
 def diagnostic_and_canonical_gate() -> None:

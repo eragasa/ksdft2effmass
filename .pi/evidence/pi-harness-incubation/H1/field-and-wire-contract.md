@@ -49,9 +49,12 @@ accepted resources.
 
 A malformed serialized record yields a `ValidationResult` containing an `ERROR`
 issue owned by the relevant `PIH.WIRE.*`, `PIH.PATH.*`, or capability namespace.
-It does not produce a partially trusted record. Serialization attests represented
-bytes only; it does not establish provenance, human acceptance, or semantic
-correctness.
+It does not produce a partially trusted record. A structurally valid
+`ResourceReference` or `ResourceManifest` candidate may contain relational
+manifest defects and therefore deserialize successfully; callers must use
+`ValidateResourceManifest` before resolution or skill validation. Serialization
+attests represented bytes only; it does not establish provenance, manifest
+validity, human acceptance, or semantic correctness.
 
 ## Included DataObjects
 
@@ -89,7 +92,7 @@ Role: DataObject. Public JSON: yes.
 | 4 | `format_version` | `Version` | yes | behavior/format version of this resource | `Version` |
 | 5 | `path` | `ResourcePath` | yes | manifest-root-relative file path | `ResourcePath` |
 | 6 | `content_identity` | `ArtifactIdentity` | yes | identity of exact file bytes | `ArtifactIdentity` |
-| 7 | `dependency_ids` | `tuple[Identifier, ...]` | yes | unique, strictly identifier-sorted, no self-reference | `Vec<Identifier>` |
+| 7 | `dependency_ids` | `tuple[Identifier, ...]` | yes | unique and strictly identifier-sorted; a self-edge is structurally representable and is relationally invalid under `ValidateResourceManifest` | `Vec<Identifier>` |
 
 Only regular files are resources in version 1. Directory resources, globs,
 URLs, package names, ambient discovery, executable objects, and imported Python
@@ -106,13 +109,22 @@ Role: DataObject. Public JSON: yes.
 | 3 | `manifest_version` | `Version` | yes | resource-manifest content contract revision | `Version` |
 | 4 | `layer` | `str` | yes | `generic` or `local` | `ManifestLayer` enum |
 | 5 | `extends_manifest_id` | `Identifier | None` | yes | `null` for generic; required for local and names the generic manifest | `Option<Identifier>` |
-| 6 | `resources` | `tuple[ResourceReference, ...]` | yes | nonempty, unique and strictly sorted by `resource_id`; paths also unique | `Vec<ResourceReference>` |
+| 6 | `resources` | `tuple[ResourceReference, ...]` | yes | nonempty; constructor canonicalizes to an immutable tuple ordered by the complete represented resource key while preserving duplicate IDs, duplicate paths, and exact duplicate entries for relational validation | `Vec<ResourceReference>` |
 
+The complete represented resource ordering key is
+`(resource_id, path, resource_kind, format_version, content_identity.algorithm,
+content_identity.digest, dependency_ids)`; all version-1 schema-version fields
+are fixed at `1`. Construction and deserialization establish only structural
+candidate-manifest validity. They do not establish manifest acceptance,
+authorization, resolvability, or capability validity. `ValidateResourceManifest` owns
+cross-record relations: duplicate resource IDs and paths, self-edges, missing
+dependencies, dependency cycles, generic-to-local dependencies, incompatible
+kind/format, generic/local manifest mismatch, and forbidden local replacement.
 Dependencies must resolve in the same manifest, or from a local manifest into
-its named generic base. Dependency graphs are acyclic. Generic resources cannot
-depend on local identities. A local manifest is an explicit extension overlay;
-version 1 permits extension only and forbids replacement of a generic
-`resource_id` or path, even when hashes match.
+its named generic base. Generic resources cannot depend on local identities. A
+local manifest is an explicit extension overlay; version 1 permits extension
+only and forbids replacement of a generic `resource_id` or path, even when
+hashes match.
 
 ### `ProjectProfile`
 

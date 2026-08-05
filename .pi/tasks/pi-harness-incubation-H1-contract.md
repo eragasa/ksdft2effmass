@@ -1,6 +1,6 @@
 # H1 — Harness contract and package boundary
 
-Status: closed as human-accepted `PASS` through resolved `H1-HC02`; accepted contract and bounded `DiagnosticPath` correction preserved; no successor activated
+Status: human-accepted H1 retained with the bounded version-1 `H2-HC01` Option-A contract/resource correction active under H2; no interface/version expansion
 
 ## Objective
 
@@ -75,6 +75,17 @@ human-accepted `PASS` after one deterministic closeout validation. The accepted
 contract, correction history, reviews, and checkpoint responses remain retained.
 H3 was not activated. H3-H5, P2-P11, implementation, resource/schema creation,
 external or scientific execution, and publication remain blocked.
+
+## Bounded H2-HC01 correction
+
+Resolved `H2-HC01` Option A authorizes only the directly affected version-1
+boundary correction: `ResourceReference` self-dependency and duplicate
+`ResourceManifest` entries remain structurally representable, while
+`ValidateResourceManifest` owns manifest relations and downstream actions
+short-circuit on its failure. Intrinsic constructor/deserializer validation,
+all public interfaces/codes/versions, and extension-only generic/local policy
+remain unchanged. This is a pre-H2-acceptance correction, not H1 reopening or
+successor activation.
 
 ## VVUQ boundary
 

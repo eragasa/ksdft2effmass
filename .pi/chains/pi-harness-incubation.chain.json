@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0, H1, and H3 are closed as human-accepted PASS. H2 is the sole active task under resolved H2-HC01 Option A for one bounded H1/H3/H2 manifest-relational-validity correction after its resolution boundary is pushed. H4 and all other successors remain blocked.",
-  "status": "h2_hc01_option_a_correction_authorized",
+  "description": "Separate harness-incubation project. H0, H1, and H3 are closed as human-accepted PASS. The validated H2 Option-A correction and implementation boundary is pushed and awaiting the human decision at H2-HC02. H4 and all other successors remain blocked and inactive.",
+  "status": "awaiting_H2_HC02_human_acceptance",
   "active_task": "H2",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -38,39 +38,52 @@
     {
       "id": "H0",
       "record": ".pi/tasks/pi-harness-incubation-H0-inventory.md",
-      "prerequisites": ["P1:human_accepted"],
+      "prerequisites": [
+        "P1:human_accepted"
+      ],
       "status": "human_accepted_pass"
     },
     {
       "id": "H1",
       "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
-      "prerequisites": ["H0:human_accepted"],
+      "prerequisites": [
+        "H0:human_accepted"
+      ],
       "status": "human_accepted_pass"
     },
     {
       "id": "H3",
       "record": ".pi/tasks/pi-harness-incubation-H3-resources.md",
-      "prerequisites": ["H1:human_accepted"],
+      "prerequisites": [
+        "H1:human_accepted"
+      ],
       "status": "human_accepted_pass",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H3/task-ownership.json"
     },
     {
       "id": "H2",
       "record": ".pi/tasks/pi-harness-incubation-H2-python-core.md",
-      "prerequisites": ["H3:human_accepted"],
-      "status": "active",
+      "prerequisites": [
+        "H3:human_accepted"
+      ],
+      "status": "awaiting_human_acceptance",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H2/task-ownership.json"
     },
     {
       "id": "H4",
       "record": ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
-      "prerequisites": ["H2:human_accepted"],
+      "prerequisites": [
+        "H2:human_accepted"
+      ],
       "status": "blocked"
     },
     {
       "id": "H5",
       "record": ".pi/tasks/pi-harness-incubation-H5-extraction-readiness.md",
-      "prerequisites": ["H4:human_accepted", "explicit_activation:H5"],
+      "prerequisites": [
+        "H4:human_accepted",
+        "explicit_activation:H5"
+      ],
       "status": "blocked"
     }
   ],
@@ -149,7 +162,7 @@
     {
       "task": "H1",
       "authorized_at": "2026-08-04T13:28:09Z",
-      "authority": "Explicit human instruction titled Activate and execute H1 — PI Harness contract and package boundary",
+      "authority": "Explicit human instruction titled Activate and execute H1 \u2014 PI Harness contract and package boundary",
       "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
     },
     {
@@ -165,11 +178,13 @@
       "scope": "H2 generic Python implementation, exact independent software-verification modules, maintained H2 documentation, retained evidence, independent read-only reviews, one permitted consolidated correction cycle, final verification, final H2 human checkpoint, and coherent commit/push only; no H4/H5/P2 activation or project-local cutover."
     }
   ],
-  "pending_checkpoints": [],
+  "pending_checkpoints": [
+    "H2-HC02"
+  ],
   "chain": [
     {
-      "phase": "execute-H2-HC01-option-a-bounded-correction",
-      "message": "After the H2-HC01 resolution boundary is committed and pushed, reconcile only directly affected H1/H3/H2 manifest relational-validity semantics, finish H2 deterministic hygiene and validation, run one integrated focused re-review, correct only uniquely determined defects, and if all gates pass create and push the single final H2 acceptance checkpoint. H4, H5, P2-P11, local cutover, SQLite, dependencies/locks, protected execution, and scientific execution remain blocked."
+      "phase": "await-H2-HC02-final-acceptance",
+      "message": "H2 Option-A correction, implementation, verification, documentation, integrated independent review and bounded finding closure, final validation, and checksums are complete and pushed. Await the human decision at H2-HC02. H4, H5, P2-P11, project-local cutover, SQLite, live-skill retirement, protected execution, and scientific execution remain blocked; no successor activates automatically."
     }
   ]
 }

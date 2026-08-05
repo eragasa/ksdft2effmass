@@ -47,7 +47,7 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
-def test_execute__valid_and_invalid__returns_exact_partition() -> None:
+def test_method__execute_valid_and_invalid__returns_exact_partition() -> None:
     """Evidence ID
     SV-HARNESS-059
     Requirement
@@ -95,6 +95,7 @@ def test_execute__valid_and_invalid__returns_exact_partition() -> None:
     profile = decode(WireRecordKind.ProjectProfile, case["profile"])
     assert isinstance(generic, ResourceManifest) and isinstance(profile, ProjectProfile)
     identity = SerializeJsonRecord().execute(generic).content_identity
+    assert identity is not None
     assert SUT().execute((), generic, identity, None, None, profile).status == "PASS"
     descriptor = SkillDescriptor(
         1,
@@ -114,3 +115,89 @@ def test_execute__valid_and_invalid__returns_exact_partition() -> None:
         "PIH.SKILL.ENTRY_MISSING",
         "PIH.SKILL.CLOSURE_INCOMPLETE",
     }
+
+
+@pytest.mark.parametrize(
+    ("case_id", "expected_code"),
+    [
+        ("duplicate-resource-id", "PIH.RESOURCE.DUPLICATE_ID"),
+        ("duplicate-resource-path", "PIH.RESOURCE.DUPLICATE_PATH"),
+        ("self-dependency", "PIH.RESOURCE.DEPENDENCY_CYCLE"),
+    ],
+)
+def test_method__execute_invalid_manifest__short_circuits_before_skill_interpretation(
+    case_id: str, expected_code: str
+) -> None:
+    """Evidence ID
+    SV-HARNESS-064
+    Requirement
+    ValidateSkillResources propagates invalid-manifest findings and does not interpret
+    skill descriptors after the manifest gate fails.
+    Method
+    Deserialize each corrected H3 candidate and validate a deliberately invalid skill
+    descriptor whose interpretation would otherwise emit PIH.SKILL findings.
+    Oracle
+    Corrected H1 action precedence requires the exact H3 manifest code and forbids
+    subsequent skill interpretation on a failed manifest.
+    Acceptance
+    The result contains exactly the singleton expected PIH.RESOURCE code and no
+    PIH.SKILL code or other interpreted finding.
+    Interpretation
+    Failure identifies gate bypass, partial interpretation, ordering drift, or an H3
+    fixture/oracle mismatch.
+    Limitations
+    Only the corrected relational candidates are covered; scientific validation, UQ,
+    physical correctness, and Rust conformance are excluded.
+    """
+    import json
+    from pathlib import Path
+
+    from ksdft2effmass.harness.pi import (
+        DeserializeJsonRecord,
+        ProjectProfile,
+        ResourceManifest,
+        SerializeJsonRecord,
+        SkillDescriptor,
+        WireRecordKind,
+    )
+
+    root = Path(__file__).resolve().parents[6]
+    case = json.loads(
+        (
+            root / f"harness/pi/fixtures/resource-resolution/cases/{case_id}.json"
+        ).read_text()
+    )
+    manifest_result = DeserializeJsonRecord().execute(
+        WireRecordKind.ResourceManifest,
+        (json.dumps(case["generic_manifest"]) + "\n").encode(),
+    )
+    profile_result = DeserializeJsonRecord().execute(
+        WireRecordKind.ProjectProfile,
+        (json.dumps(case["profile"]) + "\n").encode(),
+    )
+    assert isinstance(manifest_result.record, ResourceManifest)
+    assert isinstance(profile_result.record, ProjectProfile)
+    identity = SerializeJsonRecord().execute(manifest_result.record).content_identity
+    assert identity is not None
+    descriptor = SkillDescriptor(
+        1,
+        "missing-skill",
+        1,
+        "missing-entry",
+        ("cap",),
+        ("missing-entry",),
+        "read_only",
+        "missing-policy",
+        "none",
+        "stop_after_result",
+    )
+
+    result = SUT().execute(
+        (descriptor,),
+        manifest_result.record,
+        identity,
+        None,
+        None,
+        profile_result.record,
+    )
+    assert [issue.code for issue in result.issues] == [expected_code]

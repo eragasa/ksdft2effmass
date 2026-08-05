@@ -1,5 +1,5 @@
 {
-  "case_id": "duplicate-resource-id",
+  "case_id": "self-dependency",
   "generic_root": "roots/generic",
   "generic_manifest": {
     "schema_version": 1,
@@ -19,35 +19,9 @@
           "algorithm": "sha256",
           "digest": "6e85ce779ea48ff24964dc237d21dc3323d261f827c02dc65eb7f6abe948239e"
         },
-        "dependency_ids": []
-      },
-      {
-        "schema_version": 1,
-        "resource_id": "example.leaf.v1",
-        "resource_kind": "reference",
-        "format_version": 1,
-        "path": "references/leaf.txt",
-        "content_identity": {
-          "schema_version": 1,
-          "algorithm": "sha256",
-          "digest": "952324f24897250442365021d71f367da0fb2ba7d8f52a4b4b4477533ba06a0b"
-        },
         "dependency_ids": [
           "example.base.v1"
         ]
-      },
-      {
-        "schema_version": 1,
-        "resource_id": "example.leaf.v1",
-        "resource_kind": "reference",
-        "format_version": 1,
-        "path": "references/other.txt",
-        "content_identity": {
-          "schema_version": 1,
-          "algorithm": "sha256",
-          "digest": "0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        "dependency_ids": []
       }
     ]
   },
@@ -142,7 +116,7 @@
   "resource_id": null,
   "expected": {
     "status": "FAIL",
-    "issue_code": "PIH.RESOURCE.DUPLICATE_ID"
+    "issue_code": "PIH.RESOURCE.DEPENDENCY_CYCLE"
   },
   "deserialization_expectation": {
     "status": "PASS",

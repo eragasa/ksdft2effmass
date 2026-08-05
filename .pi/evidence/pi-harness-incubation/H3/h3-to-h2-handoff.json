@@ -3,16 +3,16 @@
   "handoff_id": "H3-to-H2.human-accepted.v1",
   "source_task": "H3",
   "target_task": "H2",
-  "handoff_status": "human_accepted_available_as_H2_prerequisite_input_H2_inactive",
+  "handoff_status": "human_accepted_H3_inputs_boundedly_corrected_under_H2_HC01_Option_A_for_active_H2",
   "accepted_input_contract": {
-    "condition": "Human acceptance through resolved H3-HC01 makes these exact path and identity pairs available as H2 prerequisite inputs. H2 remains inactive and requires separate explicit activation and its own validated ownership manifest.",
+    "condition": "Resolved H2-HC01 Option A boundedly corrects the exact version-1 H1/H3 inputs before H2 final acceptance; H2 is active only for that correction and no successor is activated.",
     "inputs": [
       {
         "artifact_identity": "H3.acceptance-index.v1",
         "path": ".pi/evidence/pi-harness-incubation/H3/acceptance-index.json",
         "content_identity": {
           "algorithm": "sha256",
-          "digest": "3c7b6d4572eb9548596dcee3c2dc6ae479acecf2b6427cd152ffabb969e65f17"
+          "digest": "ffb6e9590ffa8f88c97fefb0de85561620a9361476ee99c4f208ad2744ca3a81"
         }
       },
       {
@@ -21,7 +21,7 @@
         "represented_identity": "pih.generic.resources@1",
         "content_identity": {
           "algorithm": "sha256",
-          "digest": "8a681a17ab9920b64c78ec76c3d8bb08d20924e6222cc5f9fcafdd6065f3b183"
+          "digest": "19eda80f36441b71dd76935334294722b8f7f824aad8ef17cb95a116f3bf65af"
         }
       },
       {
@@ -47,7 +47,7 @@
         "path": "harness/pi/validation/validate_h3_resources.py",
         "content_identity": {
           "algorithm": "sha256",
-          "digest": "db86f2adb546a27a068719b4886066985a91865564bc55cb9eb7757699687ae8"
+          "digest": "bf066c4c865d97d872ce61d29d5c3c9b34cb573503e5bff88108dfdb1dabbc9f"
         }
       }
     ]
@@ -146,9 +146,9 @@
       "status": "satisfied"
     },
     "H2_activation": {
-      "status": "inactive_blocked",
+      "status": "active_bounded_H2_HC01_Option_A_correction",
       "automatic_activation": false,
-      "statement": "H3 acceptance satisfies the prerequisite, but H2 remains inactive pending separate explicit H2 authorization and its own validated task-ownership manifest."
+      "statement": "H2 is active only for the resolved bounded correction; H4 and other successors remain blocked."
     }
   },
   "revision_and_preservation": {
@@ -208,5 +208,12 @@
     "checkpoint_created": true,
     "checkpoint_status": "resolved"
   },
-  "human_accepted": true
+  "human_accepted": true,
+  "bounded_correction": {
+    "decision": "H2-HC01 Option A",
+    "schema_version_retained": 1,
+    "public_interfaces_retained": true,
+    "issue_codes_retained": true,
+    "evidence": ".pi/evidence/pi-harness-incubation/H3/H2-HC01-option-a-correction.md"
+  }
 }

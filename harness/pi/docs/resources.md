@@ -22,7 +22,7 @@ The generic manifest is the authoritative inventory. In this page, “accepted-c
 - reusable schema entry points `pih.schema.project-profile.v1`, `pih.schema.resource-manifest.v1`, and `pih.schema.skill-descriptor.v1`; and
 - `pih.schema.common-wire-definitions.v1` for shared wire definitions.
 
-The skill descriptor names its entry and complete required-resource closure. The manifest dependency graph must also be complete and acyclic: every dependency resolves by stable ID in the selected manifest pair, and every skill closure includes its entry and directly required resources. Missing, duplicate, cyclic, incompatible, or undeclared references fail closed. A successful structural check does not authorize invocation of a skill; the descriptor's declared authorization, side-effect, retry, and termination policies remain separate facts.
+The skill descriptor names its entry and complete required-resource closure. Construction and deserialization retain intrinsic validation but produce only candidate records: a resource self-edge and duplicate manifest entries remain representable. Manifest resources use deterministic complete-key canonical ordering and preserve duplicates. `ValidateResourceManifest` then owns duplicate IDs/paths, self/cycles, missing or generic-to-local dependencies, compatibility/mismatch, and forbidden replacement. `ResolveResource` and skill validation propagate its failure and short-circuit without selecting or interpreting resources. A successful structural check does not authorize invocation of a skill; authorization, side-effect, retry, and termination policies remain separate facts.
 
 The documentation in `harness/pi/docs/` explains the accepted resources but is not a second manifest, skill descriptor, schema, or procedure. Where an identity or hash differs from prose, the selected manifest and exact resource bytes govern.
 
@@ -51,7 +51,7 @@ All three reject absolute paths, empty or `.`/`..` segments, repeated or trailin
 
 ## Fixtures and canonical vectors
 
-`harness/pi/fixtures/fixture-index.json` indexes public-record schema fixtures, DiagnosticPath cases, resource-resolution cases, and canonical JSON vectors. The resolution oracle covers valid generic and local selection as well as duplicate ID/path, missing dependency, cycle, incompatible version, generic-to-local dependency, forbidden replacement, absent file, and absent resource failures. DiagnosticPath fixtures include regular-file, directory-tree, `null`, and NFC spellings plus malformed platform-independent cases.
+`harness/pi/fixtures/fixture-index.json` indexes public-record schema fixtures, DiagnosticPath cases, resource-resolution cases, and canonical JSON vectors. The resolution oracle covers valid generic and local selection as well as successful deserialization followed by capability-specific failure for duplicate ID/path and self-dependency, plus missing dependency, cycle, incompatible version, generic-to-local dependency, forbidden replacement, absent file, and absent resource failures. DiagnosticPath fixtures include regular-file, directory-tree, `null`, and NFC spellings plus malformed platform-independent cases.
 
 `harness/pi/fixtures/canonical/canonical-json-vectors.json` supplies the canonical record vectors: RFC 8785 JSON encoded as UTF-8 followed by exactly one LF, with an expected SHA-256. These vectors preserve exact DiagnosticPath spelling and are the shared input for later Python-consumer encoding/decoding and intended Rust agreement. They are contract fixtures, not execution results.
 

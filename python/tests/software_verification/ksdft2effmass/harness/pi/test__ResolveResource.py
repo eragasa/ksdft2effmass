@@ -47,7 +47,7 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
-def test_execute__valid_and_invalid__returns_exact_partition(tmp_path) -> None:
+def test_method__execute_valid_and_invalid__returns_exact_partition(tmp_path) -> None:
     """Evidence ID
     SV-HARNESS-052
     Requirement
@@ -95,6 +95,7 @@ def test_execute__valid_and_invalid__returns_exact_partition(tmp_path) -> None:
     profile = decode(WireRecordKind.ProjectProfile, case["profile"])
     assert isinstance(generic, ResourceManifest) and isinstance(profile, ProjectProfile)
     identity = SerializeJsonRecord().execute(generic).content_identity
+    assert identity is not None
     work = tmp_path / "roots"
     shutil.copytree(root / "harness/pi/fixtures/resource-resolution/roots", work)
     valid = SUT().execute(
@@ -122,3 +123,80 @@ def test_execute__valid_and_invalid__returns_exact_partition(tmp_path) -> None:
     assert [issue.code for issue in invalid.validation.issues] == [
         "PIH.RESOURCE.NOT_FOUND"
     ]
+
+
+@pytest.mark.parametrize(
+    ("case_id", "expected_code"),
+    [
+        ("duplicate-resource-id", "PIH.RESOURCE.DUPLICATE_ID"),
+        ("duplicate-resource-path", "PIH.RESOURCE.DUPLICATE_PATH"),
+        ("self-dependency", "PIH.RESOURCE.DEPENDENCY_CYCLE"),
+    ],
+)
+def test_method__execute_invalid_manifest__short_circuits_without_selection(
+    tmp_path, case_id: str, expected_code: str
+) -> None:
+    """Evidence ID
+    SV-HARNESS-063
+    Requirement
+    ResolveResource validates a manifest first and returns no selected/interpreted
+    resource result when that manifest is relationally invalid.
+    Method
+    Deserialize each corrected H3 candidate, supply a deliberately absent explicit
+    root, and request a represented resource ID through the public action.
+    Oracle
+    Corrected H1 action precedence fixes manifest failure before filesystem access;
+    H3 fixes the exact relational issue code for each candidate.
+    Acceptance
+    The exact singleton manifest code is propagated and both ``reference`` and
+    ``resolved_path`` are None; no root needs to exist.
+    Interpretation
+    Failure identifies manifest-gate bypass, partial-result leakage, precedence drift,
+    or H3 fixture disagreement.
+    Limitations
+    Only the corrected duplicate/self-edge partitions are covered; no physical,
+    scientific-validation, UQ, or Rust-conformance claim is made.
+    """
+    import json
+    from pathlib import Path
+
+    from ksdft2effmass.harness.pi import (
+        DeserializeJsonRecord,
+        ProjectProfile,
+        ResourceManifest,
+        SerializeJsonRecord,
+        WireRecordKind,
+    )
+
+    root = Path(__file__).resolve().parents[6]
+    case = json.loads(
+        (
+            root / f"harness/pi/fixtures/resource-resolution/cases/{case_id}.json"
+        ).read_text()
+    )
+    manifest_result = DeserializeJsonRecord().execute(
+        WireRecordKind.ResourceManifest,
+        (json.dumps(case["generic_manifest"]) + "\n").encode(),
+    )
+    profile_result = DeserializeJsonRecord().execute(
+        WireRecordKind.ProjectProfile,
+        (json.dumps(case["profile"]) + "\n").encode(),
+    )
+    assert isinstance(manifest_result.record, ResourceManifest)
+    assert isinstance(profile_result.record, ProjectProfile)
+    identity = SerializeJsonRecord().execute(manifest_result.record).content_identity
+    assert identity is not None
+
+    result = SUT().execute(
+        manifest_result.record.resources[0].resource_id,
+        tmp_path / "intentionally-absent-root",
+        manifest_result.record,
+        identity,
+        None,
+        None,
+        None,
+        profile_result.record,
+    )
+    assert [issue.code for issue in result.validation.issues] == [expected_code]
+    assert result.reference is None
+    assert result.resolved_path is None

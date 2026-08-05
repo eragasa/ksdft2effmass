@@ -1,6 +1,6 @@
 # H3 — Skills and textual-resource extraction
 
-Status: closed as human-accepted `PASS` through resolved `H3-HC01`; H2 prerequisite satisfied but H2 remains inactive and separately authorized
+Status: human-accepted H3 retained with the bounded `H2-HC01` Option-A resource correction active under H2; no resource/interface version expansion
 
 ## Objective
 
@@ -51,6 +51,16 @@ PI accepted Option A through resolved
 `.pi/checkpoints/H3-HC01-final-acceptance.json` on 2026-08-04. H3 is closed as
 human-accepted `PASS`. This acceptance satisfies H2's H3 prerequisite but does
 not activate H2 or any other successor.
+
+## Bounded H2-HC01 correction
+
+Resolved `H2-HC01` Option A authorizes reconciliation of only the affected H3
+schemas, semantic/resource-resolution fixtures and oracles, generic manifest
+byte identities, validator, handoff, documentation, and checksum evidence.
+Schemas retain version 1 and represent self-dependency plus duplicate manifest
+entries; their successful deserialization is followed by capability-specific
+`ValidateResourceManifest` failure. No generic/local policy, local resource,
+public interface, or issue code is added.
 
 ## Stop
 

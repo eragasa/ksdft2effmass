@@ -1,7 +1,7 @@
 # H1 independent version boundaries
 
-Status: corrected under resolved `H1-HC01` Option B and pending final H1 human
-acceptance.
+Status: version 1 retained under the bounded pre-acceptance `H2-HC01` Option-A
+contract/resource correction.
 
 ## Independent version axes
 
@@ -47,6 +47,7 @@ acceptance or scientific validity.
 | Add an optional JSON field to a v1 record | rejected by v1 unknown-field policy; requires a new integer serialized-record schema version and migration |
 | Add a required JSON field, rename a field, change type/nullability, or reinterpret a field | contract-breaking serialized-record change |
 | Expand an enum accepted by a record | version 1 is closed; requires a new integer schema/contract version and explicit compatibility decision |
+| Move a manifest relation between candidate-record construction/deserialization and `ValidateResourceManifest` after an accepted implementation or release | contract-breaking new integer Python/record version |
 | Relax identifier/path confinement, permit hidden discovery, or allow local replacement overlays | contract-breaking and requires human decision |
 | Add SHA algorithm beyond SHA-256 | new artifact-identity schema/version and compatibility declaration; no silent acceptance |
 | Change profile values while retaining schema and meaning | profile instance revision only; Python API unchanged |
@@ -89,6 +90,20 @@ version boundary stated above.
 `ResourcePath` and `OwnershipScopePath` retain their specialized version-1
 meanings. No serialization, integer, checksum, overlay, evidence-kind, or
 generic/local decision is reopened.
+
+## Pre-acceptance H2-HC01 Option-A correction
+
+The human-resolved bounded correction changes no field, interface, issue code,
+integer version, generic/local policy, or released behavior. Before H2 final
+acceptance and before any harness package release, version-1 candidate-record
+construction/deserialization is corrected to preserve representable manifest
+relations (self-edges and duplicate manifest entries) for
+`ValidateResourceManifest`. Intrinsic field/type/enum/scalar/path, tuple,
+field-local uniqueness, canonical-ordering, and generic/local structural checks
+remain unchanged. Because no accepted H2 implementation or released package
+exists, this establishes the coherent version-1 boundary rather than a
+migration. Making the same ownership change after H2 acceptance or release
+would require the contract-breaking boundary above.
 
 ## Initial values proposed at H1-HC01
 

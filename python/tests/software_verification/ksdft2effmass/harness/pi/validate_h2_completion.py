@@ -6,6 +6,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -68,6 +69,24 @@ FIELDS = (
     "Interpretation",
     "Limitations",
 )
+SURFACES = (
+    "constructor",
+    "field",
+    "property",
+    "method",
+    "classmethod",
+    "staticmethod",
+    "protocol",
+    "public_api",
+    "artifact",
+    "workflow",
+)
+SNAKE_CASE = r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*"
+TEST_NAME = re.compile(rf"test_(?:{'|'.join(SURFACES)})__{SNAKE_CASE}__{SNAKE_CASE}")
+HELPER_EVIDENCE_ID = re.compile(
+    r"Supports SV-HARNESS-\d{3}(?: and SV-HARNESS-\d{3})*; "
+    r"owns no separate identifier\."
+)
 SOURCE_FILES = (
     "__init__.py",
     "identity.py",
@@ -86,6 +105,28 @@ def fail(message: str) -> None:
     raise SystemExit(f"H2 completion: FAIL: {message}")
 
 
+def field_bodies(doc: str, path: Path, function_name: str) -> dict[str, str]:
+    """Return exact field bodies after enforcing the maintained grammar."""
+    lines = [line.strip() for line in doc.splitlines()]
+    occurrences = {
+        field: [index for index, line in enumerate(lines) if line == field]
+        for field in FIELDS
+    }
+    if any(len(indices) != 1 for indices in occurrences.values()):
+        fail(f"evidence field multiplicity: {path}:{function_name}")
+    positions = [occurrences[field][0] for field in FIELDS]
+    if positions != sorted(positions):
+        fail(f"evidence fields out of order: {path}:{function_name}")
+    bodies: dict[str, str] = {}
+    for index, field in enumerate(FIELDS):
+        end = positions[index + 1] if index + 1 < len(FIELDS) else len(lines)
+        body = "\n".join(lines[positions[index] + 1 : end]).strip()
+        if not body:
+            fail(f"empty evidence field {field}: {path}:{function_name}")
+        bodies[field] = body
+    return bodies
+
+
 def check_structure(repo: Path, tests: Path) -> tuple[int, int]:
     expected = {f"test__{name}.py" for name in CLASS_NAMES} | set(ARTIFACT_MODULES)
     actual = {p.name for p in tests.glob("test__*.py")}
@@ -99,13 +140,26 @@ def check_structure(repo: Path, tests: Path) -> tuple[int, int]:
         source = path.read_text(encoding="utf-8")
         tree = ast.parse(source, filename=str(path))
         module_doc = ast.get_docstring(tree, clean=False) or ""
-        positions = [module_doc.find(heading) for heading in HEADINGS]
-        if any(position < 0 for position in positions) or positions != sorted(
-            positions
-        ):
-            fail(f"module headings missing/out of order: {path}")
-        if any(module_doc.count(heading) != 1 for heading in HEADINGS):
+        module_lines = [line.strip() for line in module_doc.splitlines()]
+        heading_occurrences = {
+            heading: [
+                index for index, line in enumerate(module_lines) if line == heading
+            ]
+            for heading in HEADINGS
+        }
+        if any(len(indices) != 1 for indices in heading_occurrences.values()):
             fail(f"module heading multiplicity: {path}")
+        heading_positions = [heading_occurrences[heading][0] for heading in HEADINGS]
+        if heading_positions != sorted(heading_positions):
+            fail(f"module headings out of order: {path}")
+        for index, heading in enumerate(HEADINGS):
+            end = (
+                heading_positions[index + 1]
+                if index + 1 < len(HEADINGS)
+                else len(module_lines)
+            )
+            if not "\n".join(module_lines[heading_positions[index] + 1 : end]).strip():
+                fail(f"empty module heading {heading}: {path}")
         class_stem = path.stem.removeprefix("test__")
         if class_stem in CLASS_NAMES:
             assignments = [
@@ -123,27 +177,20 @@ def check_structure(repo: Path, tests: Path) -> tuple[int, int]:
         for node in tree.body:
             if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 continue
-            if node.name.startswith("test_"):
+            is_test = node.name.startswith("test_")
+            if is_test:
                 collected_functions += 1
-                parts = node.name.split("__")
-                if len(parts) != 3 or not parts[0].startswith("test_"):
+                if TEST_NAME.fullmatch(node.name) is None:
                     fail(f"nonsemantic test name: {path}:{node.name}")
             doc = ast.get_docstring(node, clean=False) or ""
-            if node.name.startswith("test_") or not node.name.startswith("_"):
-                positions = [doc.find(field) for field in FIELDS]
-                if any(position < 0 for position in positions) or positions != sorted(
-                    positions
-                ):
-                    fail(f"evidence fields missing/out of order: {path}:{node.name}")
-                if any(doc.count(field) != 1 for field in FIELDS):
-                    fail(f"evidence field multiplicity: {path}:{node.name}")
-                start = doc.index("Evidence ID") + len("Evidence ID")
-                end = doc.index("Requirement", start)
-                eid = doc[start:end].strip()
-                if node.name.startswith("test_"):
-                    if not eid.startswith("H2-SV-"):
-                        fail(f"invalid evidence ID: {path}:{node.name}:{eid}")
-                    evidence_ids.append(eid)
+            bodies = field_bodies(doc, path, node.name)
+            evidence_id = bodies["Evidence ID"]
+            if is_test:
+                if re.fullmatch(r"SV-HARNESS-\d{3}", evidence_id) is None:
+                    fail(f"invalid evidence ID: {path}:{node.name}:{evidence_id}")
+                evidence_ids.append(evidence_id)
+            elif HELPER_EVIDENCE_ID.fullmatch(evidence_id) is None:
+                fail(f"invalid helper evidence grammar: {path}:{node.name}")
     if len(evidence_ids) != len(set(evidence_ids)):
         fail("duplicate H2 evidence identifiers")
     return len(expected), len(evidence_ids)

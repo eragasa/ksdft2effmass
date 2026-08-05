@@ -5,6 +5,19 @@
   "owners": {
     "writers": [
       {
+        "role": "harness-option-a-contract-resource-writer",
+        "agent": "ksdft2effmass-harness-option-a-contract-resource-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-option-a-contract-resource-writer.md",
+        "owned_paths": [
+          ".pi/evidence/pi-harness-incubation/H1",
+          ".pi/evidence/pi-harness-incubation/H3",
+          ".pi/tasks/pi-harness-incubation-H1-contract.md",
+          ".pi/tasks/pi-harness-incubation-H3-resources.md",
+          "harness/pi",
+          "docs/harness/ksdft2effmass.harness.02.md"
+        ]
+      },
+      {
         "role": "harness-python-implementation-writer",
         "agent": "ksdft2effmass-harness-python-implementation-writer",
         "agent_record": ".pi/agents/ksdft2effmass-harness-python-implementation-writer.md",

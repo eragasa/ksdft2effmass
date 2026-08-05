@@ -2,8 +2,8 @@
   "schema_version": 1,
   "artifact_identity": "H3.acceptance-index.v1",
   "task_id": "H3",
-  "phase": "human_accepted_closeout",
-  "acceptance_status": "human_accepted_pass",
+  "phase": "human_accepted_H3_with_H2_HC01_Option_A_bounded_correction",
+  "acceptance_status": "human_accepted_H3_inputs_boundedly_corrected_pre_H2_acceptance",
   "outputs": [
     {
       "artifact_identity": "H3.acceptance-index.v1",
@@ -20,10 +20,10 @@
         "manifest_id": "pih.generic.resources",
         "manifest_version": 1
       },
-      "status": "human_accepted_pass",
+      "status": "boundedly_corrected_version_1",
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "8a681a17ab9920b64c78ec76c3d8bb08d20924e6222cc5f9fcafdd6065f3b183"
+        "digest": "19eda80f36441b71dd76935334294722b8f7f824aad8ef17cb95a116f3bf65af"
       }
     },
     {
@@ -67,10 +67,10 @@
         "python",
         "harness/pi/validation/validate_h3_resources.py"
       ],
-      "status": "human_accepted_pass",
+      "status": "boundedly_corrected_version_1",
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "db86f2adb546a27a068719b4886066985a91865564bc55cb9eb7757699687ae8"
+        "digest": "bf066c4c865d97d872ce61d29d5c3c9b34cb573503e5bff88108dfdb1dabbc9f"
       }
     }
   ],
@@ -81,7 +81,9 @@
     ".pi/evidence/pi-harness-incubation/H3/validation-results.json",
     ".pi/evidence/pi-harness-incubation/H3/external-control-validation.json",
     ".pi/evidence/pi-harness-incubation/H3/consolidated-correction-1.md",
-    ".pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json"
+    ".pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json",
+    ".pi/evidence/pi-harness-incubation/H3/H2-HC01-option-a-correction.md",
+    ".pi/evidence/pi-harness-incubation/H3/H2-HC01-option-a-validation.json"
   ],
   "review_artifacts": [
     {
@@ -142,5 +144,12 @@
     "checkpoint_created": true,
     "checkpoint_status": "resolved"
   },
-  "human_accepted": true
+  "human_accepted": true,
+  "bounded_correction": {
+    "authority": ".pi/checkpoints/H2-HC01-manifest-relational-validity-boundary.json",
+    "decision": "A",
+    "contract_version": 1,
+    "interface_version": 1,
+    "evidence": ".pi/evidence/pi-harness-incubation/H3/H2-HC01-option-a-correction.md"
+  }
 }

@@ -72,8 +72,6 @@ class ResourceReference:
         for x in self.dependency_ids:
             _require_identifier(x, "dependency_id")
         _require_sorted_unique(self.dependency_ids, "dependency_ids")
-        if self.resource_id in self.dependency_ids:
-            raise ValueError("resource cannot depend on itself")
 
 
 @dataclass(frozen=True, slots=True)
@@ -104,11 +102,21 @@ class ResourceManifest:
             raise ValueError("resources must be nonempty")
         if any(type(x) is not ResourceReference for x in self.resources):
             raise TypeError("resources must contain ResourceReference")
-        ids = tuple(x.resource_id for x in self.resources)
-        if ids != tuple(sorted(ids)) or len(set(ids)) != len(ids):
-            raise ValueError("resources must be unique and resource_id-sorted")
-        if len({x.path for x in self.resources}) != len(self.resources):
-            raise ValueError("resource paths must be unique")
+        canonical = tuple(
+            sorted(
+                self.resources,
+                key=lambda resource: (
+                    resource.resource_id,
+                    resource.path,
+                    resource.resource_kind,
+                    resource.format_version,
+                    resource.content_identity.algorithm,
+                    resource.content_identity.digest,
+                    resource.dependency_ids,
+                ),
+            )
+        )
+        object.__setattr__(self, "resources", canonical)
 
 
 @dataclass(frozen=True, slots=True)
@@ -257,8 +265,42 @@ class ValidateResourceManifest:
                         local_manifest.manifest_id,
                     )
                 )
-        gm, lm = _manifest_maps(generic_manifest, local_manifest)
-        for rid in sorted(set(gm) & set(lm)):
+        generic_resources = generic_manifest.resources
+        local_resources = () if local_manifest is None else local_manifest.resources
+
+        for resources in (generic_resources, local_resources):
+            ids = tuple(resource.resource_id for resource in resources)
+            for rid in sorted({value for value in ids if ids.count(value) > 1}):
+                issues.append(
+                    _issue(
+                        "PIH.RESOURCE.DUPLICATE_ID",
+                        "Resource ID occurs more than once in one manifest.",
+                        rid,
+                    )
+                )
+            paths = tuple(resource.path for resource in resources)
+            for path in sorted({value for value in paths if paths.count(value) > 1}):
+                related_ids = tuple(
+                    sorted(
+                        {
+                            resource.resource_id
+                            for resource in resources
+                            if resource.path == path
+                        }
+                    )
+                )
+                issues.append(
+                    _issue(
+                        "PIH.RESOURCE.DUPLICATE_PATH",
+                        "Resource path occurs more than once in one manifest.",
+                        path=path,
+                        related_ids=related_ids,
+                    )
+                )
+
+        generic_ids = {resource.resource_id for resource in generic_resources}
+        local_ids = {resource.resource_id for resource in local_resources}
+        for rid in sorted(generic_ids & local_ids):
             issues.append(
                 _issue(
                     "PIH.RESOURCE.OVERLAY_REPLACEMENT",
@@ -266,54 +308,84 @@ class ValidateResourceManifest:
                     rid,
                 )
             )
-        gpaths = {r.path: r.resource_id for r in gm.values()}
-        for r in lm.values():
-            if r.path in gpaths:
+        generic_paths = {resource.path for resource in generic_resources}
+        for resource in local_resources:
+            if resource.path in generic_paths:
+                related_ids = tuple(
+                    sorted(
+                        {
+                            generic.resource_id
+                            for generic in generic_resources
+                            if generic.path == resource.path
+                        }
+                    )
+                )
                 issues.append(
                     _issue(
                         "PIH.RESOURCE.OVERLAY_REPLACEMENT",
                         "Local resource reuses a generic path.",
-                        r.resource_id,
-                        r.path,
-                        (gpaths[r.path],),
+                        resource.resource_id,
+                        resource.path,
+                        related_ids,
                     )
                 )
+
         supported = set(profile.supported_resource_formats)
-        all_ids = set(gm) | set(lm)
-        graph: dict[str, tuple[str, ...]] = {}
-        for layer, mapping in (("generic", gm), ("local", lm)):
-            for rid, r in sorted(mapping.items()):
-                if (r.resource_kind, r.format_version) not in supported:
+        supported_kinds = {kind for kind, _ in supported}
+        all_ids = generic_ids | local_ids
+        graph_sets: dict[str, set[str]] = {}
+        for layer, resources in (
+            ("generic", generic_resources),
+            ("local", local_resources),
+        ):
+            for resource in resources:
+                rid = resource.resource_id
+                if resource.resource_kind not in supported_kinds:
+                    issues.append(
+                        _issue(
+                            "PIH.RESOURCE.KIND_UNSUPPORTED",
+                            "Resource kind is not profiled.",
+                            rid,
+                            resource.path,
+                        )
+                    )
+                elif (resource.resource_kind, resource.format_version) not in supported:
                     issues.append(
                         _issue(
                             "PIH.RESOURCE.VERSION_INCOMPATIBLE",
-                            "Resource format is not profiled.",
+                            "Resource format version is not profiled.",
                             rid,
-                            r.path,
+                            resource.path,
                         )
                     )
-                for dep in r.dependency_ids:
+                valid_edges = graph_sets.setdefault(rid, set())
+                for dep in resource.dependency_ids:
                     if dep not in all_ids:
                         issues.append(
                             _issue(
                                 "PIH.RESOURCE.MISSING_DEPENDENCY",
                                 "Dependency is absent.",
                                 rid,
-                                r.path,
+                                resource.path,
                                 (dep,),
                             )
                         )
-                    elif layer == "generic" and dep in lm:
+                    elif layer == "generic" and dep in local_ids:
                         issues.append(
                             _issue(
                                 "PIH.RESOURCE.GENERIC_TO_LOCAL_DEPENDENCY",
                                 "Generic resource depends on local resource.",
                                 rid,
-                                r.path,
+                                resource.path,
                                 (dep,),
                             )
                         )
-                graph[rid] = r.dependency_ids
+                    else:
+                        valid_edges.add(dep)
+        graph = {
+            resource_id: tuple(sorted(dependency_ids))
+            for resource_id, dependency_ids in graph_sets.items()
+        }
         visiting: set[str] = set()
         done: set[str] = set()
 
@@ -417,6 +489,8 @@ class ResolveResource:
             local_manifest_identity,
             profile,
         )
+        if validation.status == "FAIL":
+            return ResourceResolutionResult(None, None, validation)
         expects_local = profile.local_manifest_id is not None
         root_presence_matches = (expects_local and local_root is not None) or (
             not expects_local and local_root is None
@@ -524,9 +598,6 @@ class ValidateSkillResources:
         local_manifest_identity: ArtifactIdentity | None,
         profile: ProjectProfile,
     ) -> ValidationResult:
-        _require_tuple(descriptors, "descriptors")
-        if any(type(d) is not SkillDescriptor for d in descriptors):
-            raise TypeError("descriptors must contain SkillDescriptor")
         base = ValidateResourceManifest().execute(
             generic_manifest,
             generic_manifest_identity,
@@ -536,6 +607,9 @@ class ValidateSkillResources:
         )
         if base.status == "FAIL":
             return base
+        _require_tuple(descriptors, "descriptors")
+        if any(type(d) is not SkillDescriptor for d in descriptors):
+            raise TypeError("descriptors must contain SkillDescriptor")
         from .profiles import ProjectProfile
 
         if type(profile) is not ProjectProfile:
