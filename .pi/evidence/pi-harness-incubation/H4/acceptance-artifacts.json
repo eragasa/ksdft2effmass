@@ -23,7 +23,7 @@
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
       "kind": "shadow_parity",
-      "status": "superseded_by_post_replay_evidence_edits"
+      "status": "superseded_by_post_replay_test_edit"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
@@ -81,5 +81,5 @@
       "reason": "Finalized command evidence is validated structurally by the semantic completion gate after stable-boundary checks complete."
     }
   ],
-  "last_clean_replay_revision": "6bc29a2463d91c72dddfe2b66a23b5a4689ae819"
+  "last_clean_replay_revision": "664c8614d7bfd201a3c445459e007c620fa0060e"
 }

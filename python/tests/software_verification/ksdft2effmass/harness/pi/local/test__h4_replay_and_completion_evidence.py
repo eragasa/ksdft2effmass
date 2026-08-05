@@ -128,16 +128,41 @@ def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
     )
 
 
-def test_artifact__completion_gate__rejects_superseded_replay_and_accepts_fixture(
+def test_artifact__completion_gate__validates_clean_replay_and_rejects_mutations(
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
-    """Reject the superseded replay and accept an exact constructed fixture."""
+    """Validate the retained clean replay and reject constructed mutations."""
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     replay = load(evidence / "replay_selected_validators.py", "h4_replay_fixture")
     validator = load(evidence / "validate_h4_completion.py", "h4_completion_fixture")
     retained = json.loads((evidence / "shadow-parity-results.json").read_bytes())
-    assert "input identity mismatch" in validator.validate_parity(retained)
+    retained_root = tmp_path / "retained-revision"
+    subprocess.run(
+        [
+            "git",
+            "worktree",
+            "add",
+            "--detach",
+            str(retained_root),
+            retained["revision_identity"],
+        ],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    try:
+        assert validator.validate_parity(retained, retained_root) is None
+    finally:
+        subprocess.run(
+            ["git", "worktree", "remove", "--force", str(retained_root)],
+            cwd=root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
 
     revision = subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=root, text=True
