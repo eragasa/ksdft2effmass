@@ -6,7 +6,7 @@
   "evidence_revision": "afc403b1f7586c26d1ad8e7b45bb468a2313e90f",
   "correction_revision": "232b61e7aeff6e0c4008fa7781a5ea61e0c04a8e",
   "historical_catalog_restoration_revision": "b8ca72fabdb58e9e15abae79903176e31fe64e9d",
-  "overall_status": "PASS_WITH_RETAINED_STATIC_VERIFICATION_LIMITATIONS",
+  "overall_status": "PASS_WITH_RETAINED_GLOBAL_BASELINE_LIMITATIONS",
   "reviews": [
     {
       "role": "architecture",
@@ -44,15 +44,24 @@
       "verdict": "PASS",
       "artifact": ".pi-subagents/artifacts/b78d5874-0154-438e-bafa-acab0f32a25e_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_1_output.md",
       "sha256": "d17e6466107dc6d997a01fc961fb98918df5383b8296a22457fa2535b3975fbd"
+    },
+    {
+      "role": "integration",
+      "phase": "H4-HC01-option-B-targeted-confirmation",
+      "verdict": "PASS",
+      "artifact": ".pi-subagents/artifacts/43e1fdba-f4b5-43f3-b7c7-73294b5d6616_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_output.md",
+      "sha256": "8ca7fd91fc0d4bb648a68258369ff4bc22d54e8b96b087d9528adc45c1ac695e"
     }
   ],
   "retained_limitations": [
-    "Repository-wide Ruff exits 1 with 43 errors; the accurately scoped focused H4 Ruff command passes.",
-    "Focused H4 source-and-test mypy exits 1 with one missing local-variable annotation in a test; source-only mypy passes all eight local source files.",
-    "The completion gate validates retained evidence semantics and core gates but does not rerun every supplemental command.",
+    "Repository-wide Ruff exits 1 with 43 retained findings. H4 introduced zero logical (path, code, message) findings relative to its 44-finding starting revision and removed one EXE001 finding.",
+    "Global mypy retains nine disclosed pre-existing H2 test errors; focused H4 source-and-test mypy passes all 16 files.",
+    "The completion gate validates retained evidence semantics and core gates but does not rerun every supplemental validation command.",
     "Route rollback restores legacy routing only; restoring retired resource bytes requires a separate Git restoration from de8659bc5858a52de8f866ec73a14487bf480432."
   ],
   "human_acceptance_claimed": false,
   "authoritative_route": "legacy_pending_h4_checkpoint",
-  "successor_activation": "none"
+  "successor_activation": "none",
+  "replacement_replay_input_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
+  "replacement_evidence_revision": "c832ad2e800cb3534375a10ce64ed8ee97e28d76"
 }

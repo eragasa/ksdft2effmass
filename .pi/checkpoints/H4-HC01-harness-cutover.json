@@ -2,28 +2,28 @@
   "checkpoint_id": "H4-HC01",
   "task_id": "H4",
   "episode_id": "pi-harness-incubation-H4",
-  "status": "resolved",
+  "status": "pending",
   "decision_class": "genuine_human_decision",
-  "created_at": "2026-08-05T05:58:41Z",
-  "question": "Does the human PI accept H4 as PASS and authorize the controlled closeout cutover that changes exactly harness/local/validation-route.json from legacy to local, reruns the named live consumer and rollback checks, records H4 as human-accepted, and closes H4 only, while explicitly accepting the retained static-verification limitations (repository-wide Ruff reports 43 errors; focused H4 source-and-test mypy reports one test-local annotation error; focused H4 Ruff and source-only mypy pass) and leaving H5, P2, scientific/external execution, publication, and release work inactive?",
+  "created_at": "2026-08-05T06:16:08Z",
+  "question": "Does the human PI accept corrected H4 as PASS at replacement replay-input revision R2 a9b67dd9974fd94b98c2bec8b0c76a4201c38418 and evidence revision E2 c832ad2e800cb3534375a10ce64ed8ee97e28d76, and authorize the controlled closeout cutover that changes exactly harness/local/validation-route.json from legacy to local, reruns the named live consumer and rollback checks, records H4 as human-accepted, and closes H4 only, while retaining the repository-wide 43 Ruff findings and nine pre-existing global H2 mypy errors as baseline limitations and recognizing that focused H4 source-and-test mypy, focused tests, focused Ruff, one isolated R2 replay, targeted integration confirmation, and the H4 completion gate pass?",
   "options": [
     {
       "id": "A",
-      "summary": "Accept H4 as PASS, authorize the controlled local-route cutover, and close H4 only.",
+      "summary": "Accept corrected H4 as PASS, authorize the controlled local-route cutover, and close H4 only.",
       "consequence": "The checkpoint-resolution procedure records acceptance, changes only the maintained route owner from legacy to local, reruns the local consumer and rollback proof, updates H4 task/chain/acceptance closeout records, commits and pushes the closeout boundary, and stops. H5, P2, scientific/external execution, publication, release, and every other successor remain inactive pending separate explicit authorization."
     },
     {
       "id": "B",
-      "summary": "Retain legacy authority and require explicitly specified further H4 work.",
-      "consequence": "H4 remains open and legacy-authoritative. The human-specified work is preserved verbatim and assessed against the frozen replay-input and evidence boundaries; no cutover or successor activation occurs."
+      "summary": "Retain legacy authority and do not accept or cut over H4.",
+      "consequence": "H4 remains blocked and legacy-authoritative with the completed bounded correction, R2, E2, replay, validation, and targeted review retained. No additional correction cycle, cutover, or successor activation is automatically authorized."
     },
     {
       "id": "C",
-      "summary": "Defer or reject H4 acceptance and cutover.",
-      "consequence": "H4 remains blocked at H4-HC01 with R, E, corrections, validation, and reviews retained. Legacy remains authoritative and no successor, external, scientific, publication, or release action begins."
+      "summary": "Defer the corrected H4 acceptance/cutover decision.",
+      "consequence": "H4 remains blocked at H4-HC01 and legacy remains authoritative. No additional work, successor, external/scientific execution, publication, or release action begins."
     }
   ],
-  "recommendation": "Option A. Frozen replay-input revision be964976ef66b9a8d35f3929d8d24f31bd242084 and generated evidence revision afc403b1f7586c26d1ad8e7b45bb468a2313e90f retain eight identical-input pairs with all legacy/local observations PASS, four equivalent and four cited intentional differences, zero defects, and zero deferred pairs. The completion gate, 1107-test Python suite, H3 55-gate validator, skill, ownership, checkpoint, Sphinx, packaging/import, route-consumer, dependency/lock, diff, and unrelated-work checks pass. Independent architecture, skill/resource, and integration review closure is PASS after restoring accepted H1-H3 checksum catalogs and correcting false Ruff/mypy evidence. The remaining static limitations are accurately disclosed and make no scientific-validation, release, or successor-authorization claim.",
+  "recommendation": "Option A. The single authorized correction changes only a test-local collection annotation and now gives focused H4 source-and-test mypy PASS across 16 files without changing values, assertions, public contract, behavior, or evidence meaning. R2 was replayed exactly once in an isolated worktree and retains eight PASS pairs: four equivalent, four cited intentional, zero defects, and zero deferred. E2 references R2 without equating them. Focused tests and Ruff pass; H4 introduced zero logical Ruff findings relative to its starting revision and removed one finding. Targeted integration confirmation and H4 completion pass. Repository-wide Ruff retains 43 findings and global mypy retains nine pre-existing H2 errors, both explicitly limited to baseline debt. Legacy remains authoritative pending this decision.",
   "blocked_scope": "H4 human acceptance, authoritative local-route cutover, H4 closure, H5 or P2 activation, scientific/external execution, publication, release, package publication, resource-byte restoration, and unrelated work.",
   "safe_scope": "Read-only inspection of the frozen R revision, generated E artifacts and hashes, correction and review-closure records, validation results, cutover/rollback plan, route configuration, task/chain/checkpoint state, and this checkpoint. The resolve-human-checkpoint procedure may preserve and normalize an unambiguous human response and perform only the option-authorized deterministic H4 closeout.",
   "authoritative_files": [
@@ -46,17 +46,14 @@
     ".pi/evidence/pi-harness-incubation/H2/checksums.sha256",
     ".pi/evidence/pi-harness-incubation/H3/checksums.sha256",
     "harness/local/validation-route.json",
-    ".pi/skills/validate_harness.py"
-  ],
-  "human_response": "B \u2014 retain legacy authority and perform one bounded H4 correction.\n\nCorrect the H4-owned mypy failure in:\n\npython/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py:116\n\nAdd an explicit type for the heterogeneous mutable test-case collection without changing the tested behavior, accepted public contract, assertions, or evidence meaning.\n\nThen:\n\n1. run focused H4 source-and-test mypy and require PASS;\n2. run the focused H4 tests and require PASS;\n3. run focused H4 Ruff and require PASS;\n4. because the test is a replay input, create one replacement replay-input revision R2;\n5. replay R2 once in an isolated clean worktree;\n6. create evidence revision E2 referencing R2 without requiring E2 = R2;\n7. update only t[118;1:3uhe affected H4 evidence and checkpoint records;\n8. request only a targeted integration-review confirmation of this correction\u2014do not rerun all three full reviews;\n9. rerun the H4 completion validator;\n10. return directly to H4-HC01 and stop.\n\nThe repository-wide 43 Ruff findings and pre-existing global mypy debt may remain explicitly retained baseline limitations. Verify and record that H4 introduced no new Ruff findings relative to its starting revision.\n\nDo not expand this correction into baseline cleanup, another general review cycle, replay redesign, H5, P2, scientific/external execution, publication, or release work.",
-  "normalized_decision": "B",
-  "resolved_at": "2026-08-05T06:04:36Z",
-  "authorized_scope": "Retain legacy authority and perform exactly one bounded H4 correction: add an explicit type for the heterogeneous mutable test-case collection at test__local_public_api_and_models.py:116 without changing behavior, public contract, assertions, or evidence meaning; require focused H4 source-and-test mypy, focused H4 tests, and focused H4 Ruff PASS; verify and record no new H4 Ruff findings relative to the H4 starting revision; create one replacement frozen replay-input revision R2; replay R2 exactly once in an isolated clean worktree; create E2 referencing R2 without requiring E2 to equal R2; update only affected H4 evidence and checkpoint/control records; obtain only one targeted integration-review confirmation; rerun H4 completion; and return directly to H4-HC01. No baseline cleanup, general review cycle, replay redesign, cutover, H5, P2, scientific/external execution, publication, or release is authorized.",
-  "record_paths": [
-    ".pi/checkpoints/H4-HC01-harness-cutover.json",
+    ".pi/skills/validate_harness.py",
     ".pi/evidence/pi-harness-incubation/H4/H4-HC01-human-response.md",
-    ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
-    ".pi/chains/pi-harness-incubation.chain.json"
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-option-B-correction.json"
   ],
-  "resumption_status": "H4_resumed_for_exactly_one_bounded_mypy_correction_and_R2_E2_replay_cycle; legacy_authoritative; return_to_H4-HC01_required; H5_P2_and_all_other_successors_inactive"
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "H4_blocked_pending_corrected_H4-HC01_human_acceptance_and_cutover_decision; legacy_authoritative; H5_P2_and_all_other_successors_inactive"
 }

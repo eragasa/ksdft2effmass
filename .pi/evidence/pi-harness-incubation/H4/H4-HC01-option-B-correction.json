@@ -77,7 +77,19 @@
   },
   "route": "legacy",
   "human_acceptance_claimed": false,
-  "targeted_integration_review": "pending",
+  "targeted_integration_review": {
+    "scope": "H4-HC01 Option-B correction only; no repeated architecture or skill/resource review",
+    "verdict": "PASS",
+    "artifact": ".pi-subagents/artifacts/43e1fdba-f4b5-43f3-b7c7-73294b5d6616_ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer_output.md",
+    "sha256": "8ca7fd91fc0d4bb648a68258369ff4bc22d54e8b96b087d9528adc45c1ac695e",
+    "material_findings": [],
+    "residual_limitations": [
+      "repository-wide Ruff retains 43 findings",
+      "global mypy retains nine disclosed pre-existing H2 test errors",
+      "human acceptance and route cutover remain pending"
+    ],
+    "replay_rerun_by_reviewer": false
+  },
   "scope_exclusions": [
     "baseline cleanup",
     "general review cycle",
@@ -87,5 +99,6 @@
     "scientific or external execution",
     "publication",
     "release"
-  ]
+  ],
+  "evidence_revision": "c832ad2e800cb3534375a10ce64ed8ee97e28d76"
 }
