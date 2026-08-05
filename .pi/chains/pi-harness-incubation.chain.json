@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0, H1, H3, and H2 are closed as human-accepted PASS. H4 implementation, frozen-revision parity, correction, independent review closure, and final validation are complete; H4 is blocked at pending H4-HC01 human acceptance/cutover. H5, P2, and all other successors remain blocked and inactive.",
-  "status": "H4_blocked_pending_human_acceptance",
+  "description": "Separate harness-incubation project. H0, H1, H3, and H2 are closed as human-accepted PASS. H4-HC01 Option B retains legacy authority and authorizes exactly one bounded H4 mypy correction with one replacement R2/E2 replay cycle and targeted integration confirmation. H5, P2, and all other successors remain blocked and inactive.",
+  "status": "H4_active_bounded_H4-HC01_option_B_correction",
   "active_task": "H4",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -75,7 +75,7 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "blocked_pending_H4-HC01",
+      "status": "active_bounded_H4-HC01_option_B_correction",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
@@ -163,6 +163,12 @@
       "decision": "A",
       "resolved_at": "2026-08-05T01:12:46Z",
       "result": "H2 closed as human-accepted PASS after bounded deterministic closeout validation; H4 prerequisite satisfied but H4 and every successor remain inactive pending separate explicit human authorization."
+    },
+    {
+      "checkpoint": "H4-HC01",
+      "decision": "B",
+      "resolved_at": "2026-08-05T06:04:36Z",
+      "result": "Legacy authority retained; exactly one bounded H4 test-typing correction, replacement R2/E2 replay cycle, targeted integration confirmation, and return to H4-HC01 authorized; no cutover or successor activated."
     }
   ],
   "activations": [
@@ -191,18 +197,11 @@
       "scope": "H4 project-local Python, tests and deterministic parity evidence, canonical two-skill rename and live resource synchronization, stale inventory correction, maintained documentation/control synchronization, independent review, bounded correction, final verification, and one final H4 checkpoint only; no H5/P2/scientific/external/publication/release activation."
     }
   ],
-  "pending_checkpoints": [
-    {
-      "checkpoint": "H4-HC01",
-      "path": ".pi/checkpoints/H4-HC01-harness-cutover.json",
-      "blocked_task": "H4",
-      "decision": "human_acceptance_and_controlled_cutover"
-    }
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "await-H4-human-acceptance-cutover",
-      "message": "H4 implementation, frozen R replay, generated E evidence, deterministic corrections, independent review closure, and final validation are complete. Legacy remains authoritative until H4-HC01 is resolved. H5, P2-P11, scientific/external execution, publication, and release remain blocked."
+      "phase": "execute-H4-HC01-option-B-bounded-correction",
+      "message": "Perform only the authorized test-local typing correction, focused mypy/tests/Ruff validation, one replacement R2, one isolated replay, E2, targeted integration confirmation, completion validation, and return to H4-HC01. Legacy remains authoritative; H5, P2-P11, scientific/external execution, publication, and release remain blocked."
     }
   ]
 }

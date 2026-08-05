@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: blocked at pending H4-HC01 human acceptance/cutover checkpoint after implementation, frozen-revision parity, correction, independent review closure, and final validation; legacy remains authoritative
+Status: active for exactly one bounded H4-HC01 Option-B correction: fix the H4-owned test-local mypy annotation, validate focused mypy/tests/Ruff, create one replacement R2 and one isolated replay/E2, obtain targeted integration confirmation, rerun completion, and return to H4-HC01; legacy remains authoritative
 
 ## Objective
 

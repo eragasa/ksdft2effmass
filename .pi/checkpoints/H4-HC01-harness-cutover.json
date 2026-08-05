@@ -2,7 +2,7 @@
   "checkpoint_id": "H4-HC01",
   "task_id": "H4",
   "episode_id": "pi-harness-incubation-H4",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-05T05:58:41Z",
   "question": "Does the human PI accept H4 as PASS and authorize the controlled closeout cutover that changes exactly harness/local/validation-route.json from legacy to local, reruns the named live consumer and rollback checks, records H4 as human-accepted, and closes H4 only, while explicitly accepting the retained static-verification limitations (repository-wide Ruff reports 43 errors; focused H4 source-and-test mypy reports one test-local annotation error; focused H4 Ruff and source-only mypy pass) and leaving H5, P2, scientific/external execution, publication, and release work inactive?",
@@ -48,10 +48,15 @@
     "harness/local/validation-route.json",
     ".pi/skills/validate_harness.py"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "H4_blocked_pending_human_acceptance_and_cutover_decision; legacy_authoritative; H5_P2_and_all_other_successors_inactive"
+  "human_response": "B \u2014 retain legacy authority and perform one bounded H4 correction.\n\nCorrect the H4-owned mypy failure in:\n\npython/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py:116\n\nAdd an explicit type for the heterogeneous mutable test-case collection without changing the tested behavior, accepted public contract, assertions, or evidence meaning.\n\nThen:\n\n1. run focused H4 source-and-test mypy and require PASS;\n2. run the focused H4 tests and require PASS;\n3. run focused H4 Ruff and require PASS;\n4. because the test is a replay input, create one replacement replay-input revision R2;\n5. replay R2 once in an isolated clean worktree;\n6. create evidence revision E2 referencing R2 without requiring E2 = R2;\n7. update only t[118;1:3uhe affected H4 evidence and checkpoint records;\n8. request only a targeted integration-review confirmation of this correction\u2014do not rerun all three full reviews;\n9. rerun the H4 completion validator;\n10. return directly to H4-HC01 and stop.\n\nThe repository-wide 43 Ruff findings and pre-existing global mypy debt may remain explicitly retained baseline limitations. Verify and record that H4 introduced no new Ruff findings relative to its starting revision.\n\nDo not expand this correction into baseline cleanup, another general review cycle, replay redesign, H5, P2, scientific/external execution, publication, or release work.",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-05T06:04:36Z",
+  "authorized_scope": "Retain legacy authority and perform exactly one bounded H4 correction: add an explicit type for the heterogeneous mutable test-case collection at test__local_public_api_and_models.py:116 without changing behavior, public contract, assertions, or evidence meaning; require focused H4 source-and-test mypy, focused H4 tests, and focused H4 Ruff PASS; verify and record no new H4 Ruff findings relative to the H4 starting revision; create one replacement frozen replay-input revision R2; replay R2 exactly once in an isolated clean worktree; create E2 referencing R2 without requiring E2 to equal R2; update only affected H4 evidence and checkpoint/control records; obtain only one targeted integration-review confirmation; rerun H4 completion; and return directly to H4-HC01. No baseline cleanup, general review cycle, replay redesign, cutover, H5, P2, scientific/external execution, publication, or release is authorized.",
+  "record_paths": [
+    ".pi/checkpoints/H4-HC01-harness-cutover.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-human-response.md",
+    ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+    ".pi/chains/pi-harness-incubation.chain.json"
+  ],
+  "resumption_status": "H4_resumed_for_exactly_one_bounded_mypy_correction_and_R2_E2_replay_cycle; legacy_authoritative; return_to_H4-HC01_required; H5_P2_and_all_other_successors_inactive"
 }
