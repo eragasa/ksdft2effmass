@@ -2,9 +2,9 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0, H1, H3, and H2 are closed as human-accepted PASS. H2 acceptance satisfies H4's prerequisite but does not activate H4. H4, H5, P2, and all other successors remain blocked and inactive pending separate explicit human authorization.",
-  "status": "H2_human_accepted_pass_no_successor_active",
-  "active_task": null,
+  "description": "Separate harness-incubation project. H0, H1, H3, and H2 are closed as human-accepted PASS. H4 is separately activated for project-local Python integration, canonical live skill-name correction, shadow parity, controlled cutover, rollback, and final human checkpoint. H5, P2, and all other successors remain blocked and inactive.",
+  "status": "H4_active",
+  "active_task": "H4",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
   "architecture_documents": [
@@ -75,7 +75,8 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "blocked"
+      "status": "active",
+      "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
       "id": "H5",
@@ -182,13 +183,19 @@
       "authorized_at": "2026-08-04T18:17:13Z",
       "authority": "Explicit human instruction titled Activate and execute H2 under its existing accepted task, H1 contract, H3 resources, ownership, review, and validation requirements",
       "scope": "H2 generic Python implementation, exact independent software-verification modules, maintained H2 documentation, retained evidence, independent read-only reviews, one permitted consolidated correction cycle, final verification, final H2 human checkpoint, and coherent commit/push only; no H4/H5/P2 activation or project-local cutover."
+    },
+    {
+      "task": "H4",
+      "authorized_at": "2026-08-05",
+      "authority": "Explicit human instruction titled Activate and execute H4 \u2014 project-local harness cutover and skill-name correction",
+      "scope": "H4 project-local Python, tests and deterministic parity evidence, canonical two-skill rename and live resource synchronization, stale inventory correction, maintained documentation/control synchronization, independent review, bounded correction, final verification, and one final H4 checkpoint only; no H5/P2/scientific/external/publication/release activation."
     }
   ],
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "H2-closed-await-separate-successor-authorization",
-      "message": "H2 is closed as human-accepted PASS at H2-HC02. No task is active. H4, H5, P2-P11, project-local cutover, SQLite, live-skill retirement, protected or external execution, scientific execution, publication, and release work remain blocked or unauthorized until separately and explicitly authorized by the human PI."
+      "phase": "execute-H4-project-local-shadow-cutover",
+      "message": "H4 alone is active. Implement explicit local-to-generic adapters, canonical skill-name correction, shadow parity, controlled cutover and rollback, retained evidence, independent review, final validation, and one pending H4 acceptance checkpoint. H5, P2-P11, scientific/external execution, publication, and release remain blocked."
     }
   ]
 }

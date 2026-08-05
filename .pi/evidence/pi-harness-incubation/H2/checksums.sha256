@@ -6,10 +6,10 @@ ba71e74a354ff4ec18c54e7ec47d6632319e406ae71d33c31ecb4f091b69a89b  .pi/agents/ksd
 d32844f6df93dbed84ae3081998801c94b02a9083551cb17db5f7898bbbfaee4  .pi/agents/ksdft2effmass-harness-python-implementation-writer.md
 eec85e6aec29efe7d1160ebc6fd7619c76af4f6c6f68e1b6fb3698c95ed08fda  .pi/agents/ksdft2effmass-harness-python-integration-reviewer.md
 3187e761bcabcaac137f53ce85b7b094f6c4745d5af019775d86cc5d43c272d5  .pi/agents/ksdft2effmass-harness-python-test-writer.md
-5aba5b02e74e0a03804035b5f3d7aa500a32ed83a52984e74d8e7633848dd9c6  .pi/chains/pi-harness-incubation.chain.json
+c626f1a5b5b200ac6b50732dd78b8033839b55681ce51cc32cd461b3792fde97  .pi/chains/pi-harness-incubation.chain.json
 1c0083ea4a54c77349c4b50a0b6fa30db69816535edf5a1f20853f0e59c663b8  .pi/checkpoints/H2-HC01-manifest-relational-validity-boundary.json
 d8e6197a3afad5702d35bf046d9ef89b5f1bcc5942eef87f01b443dbe6aeda95  .pi/checkpoints/H2-HC02-final-acceptance.json
-2149274b2323f0b689c93ddbfc230f7df8a05795dd1aadc12379906241c51293  .pi/evidence/pi-harness-incubation/H1/checksums.sha256
+305903cf56ceb448c6a476a9e6785d31b220f7cef81fdf1e2721defd97fcfdde  .pi/evidence/pi-harness-incubation/H1/checksums.sha256
 8b5da9be4d15d2c4455f0fd9789a0b991232ffd64b2a3fb3b40cd003061aa020  .pi/evidence/pi-harness-incubation/H2/H2-HC01-human-response.md
 b6f5eb986685d90e030a631688d0aad89ad7b9b56649ef5a24945575e247f480  .pi/evidence/pi-harness-incubation/H2/H2-HC01-option-a-correction.md
 22fb9b9b7e712a9aa45debea8818ecba10989717df02d3240ef51b7c3cc0990a  .pi/evidence/pi-harness-incubation/H2/acceptance-index.json
@@ -27,7 +27,7 @@ d2760c26e54389a38850c90e48cf8796fe5608c38b4fbd6e290e2b3476b7d9af  .pi/evidence/p
 03dc2721e3d63bb1b4e272ff0f53f4336c6a32f08ca5face0ed20307b8ee419b  .pi/evidence/pi-harness-incubation/H2/task-ownership.json
 03dd91eae75f1cc1913b75bb4474e4f3f3f32079e07bea4669e72d2ae9d8fb77  .pi/evidence/pi-harness-incubation/H2/unrelated-worktree-baseline.json
 0d46f23d227fe719bf7a0e873a5a35f0c9d1ddd4810965d86834c0d74c4736d2  .pi/evidence/pi-harness-incubation/H2/validation-results.json
-37ee66bcdb9178f8f102a9297a8a2d3463bbd3b6eee064e54324c2750669be60  .pi/evidence/pi-harness-incubation/H3/checksums.sha256
+fb9bec7a64a8df25f6d4e99965564dc457fa91263247015c264c42cef3bee4e1  .pi/evidence/pi-harness-incubation/H3/checksums.sha256
 b63862e28592f852f35f8325ced6aacb6204442d4ef8ef4bfd9907276dc81d6d  .pi/evidence/pi-harness-incubation/H3/h3-to-h2-handoff.json
 2680f65904a295f5819e825e2e1c15a1df046ed365f99d90e533bbbcc3c8962f  .pi/tasks/pi-harness-incubation-H2-python-core.md
 77a6d029732201c56b60b57b7c704f56a6b99ba9d7039ae77a2ac2e50d9b37ac  docs/harness/ksdft2effmass.harness.03.md

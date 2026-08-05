@@ -1,42 +1,64 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: blocked by accepted H2; inactive and no integration or cutover authorized
+Status: active by separate human authorization on 2026-08-05; H4 only; final human acceptance/cutover checkpoint pending after implementation, parity, review, and validation
 
 ## Objective
 
-Integrate the generic Python/resources with the project-local overlay, run legacy and extracted behavior in shadow mode against identical retained inputs, compare structured outcomes, and propose controlled authoritative cutover.
+Integrate the accepted generic H2 Python/resources with the project-local H3 overlay, run retained legacy and new local behavior in shadow mode against identical declared inputs, compare structured outcomes, synchronize the canonical six live skill names, and propose a controlled authoritative cutover with validated rollback.
 
-## Prerequisites
+## Prerequisites and activation
 
-`H2:human_accepted`. Accepted H3 and H1 are transitive prerequisites through
-H2. H4 requires its own separate activation; accepted H2 does not activate H4.
+`H2:human_accepted` is satisfied at resolved `H2-HC02`; accepted H1 and H3 are transitive prerequisites. The human PI separately activated H4 in the instruction titled **Activate and execute H4 — project-local harness cutover and skill-name correction**. Activation is retained at `.pi/evidence/pi-harness-incubation/H4/activation.json`. The required version-2 ownership manifest is `.pi/evidence/pi-harness-incubation/H4/task-ownership.json` and must validate before writers launch.
+
+This activation authorizes H4 only. It does not activate H5, P2, scientific or external execution, publication, or release work.
+
+## Canonical live skill names
+
+H4 reconciles the six maintained live skills to:
+
+- `graphify`;
+- `resolve-human-checkpoint`;
+- `recommend-next-task` (renamed from `choose-next-task`);
+- `design-data-action-objects`;
+- `develop-operator-records`;
+- `document-python-research-software` (renamed from `document-research-python`).
+
+The two renames correct names only and do not expand capability. `recommend-next-task` remains read-only, reconstructs authoritative repository state, recommends exactly one next task, and never chooses, creates, activates, or authorizes it. `document-python-research-software` retains ownership of public Python research-software API, scientific/numerical convention, Sphinx, and test-evidence documentation. Live references, descriptors, manifests, profiles, fixtures, canonical vectors, agents, validators, inventories, and maintained docs must agree. Historical evidence remains historically accurate and is not rewritten. Aliases are prohibited unless executable historical replay demonstrates they are required.
 
 ## Planned scope
 
-- explicit project-profile loading with no implicit repository discovery;
-- project-local adapters and extensions;
-- shadow replay of task/checkpoint/chain, ownership, evidence-ID, checksum, and validator behavior;
-- structured comparison of status, issue codes/paths/identities, ordering, exit status, and generated reports;
-- approved normalization only for nondeterministic presentation fields;
-- one-to-one path/node/evidence traceability for any later authorized rename;
-- cutover/retirement proposal with rollback procedure.
+- project-local Python under `python/src/ksdft2effmass/harness/pi/local/` using only `local -> generic` dependency direction;
+- explicit project-profile and repository-root composition with no ambient discovery;
+- project-local adapters for current task, checkpoint, chain, agent, ownership, evidence, checksum, and legacy P1-v1 compatibility inputs selected for replay;
+- structured shadow execution and deterministic parity comparison of status, issue codes, paths, related identities, ordering, state, inventories, exit status, and generated reports;
+- explicit difference classification as `equivalent`, `intentional`, `defect`, or `deferred`;
+- controlled live-consumer routing, old/new identity traceability, rollback, and justified duplicate retirement/replacement;
+- canonical skill-name correction, accepted H3 resource identity updates required by the renames, and live-reference synchronization;
+- stale `.pi/skills/skill-capability-inventory.json` correction so it owns identity/capability/routing/resource/validation information but not mutable task status, checkpoint counts, or successor readiness;
+- maintained documentation, retained H4 evidence, independent review, bounded correction, validation, and one final H4 checkpoint.
+
+## Ownership and review
+
+Four non-overlapping writer roles own local Python; independent tests/parity evidence; skills/resources/manifests; and maintained documentation/control-plane synchronization. Three independent read-only reviewers own generic/local architecture, skill/resource compatibility, and integration/parity/cutover safety. Writers do not approve their own work. Findings should be consolidated into at most one bounded correction pass when possible.
 
 ## Exclusions
 
-No silent difference acceptance, no historical evidence rewrite, no duplicate
-retirement before human authorization, no standalone package extraction or
-readiness claim, no package publication, no P2 or H5 work, and no scientific
-execution.
+No silent difference acceptance; no historical evidence rewrite; no generic-to-local dependency; no H2 generic contract change without a genuine incompatibility checkpoint; no SQLite, workflow engine, CPN implementation, P2 provenance/tool work, scientific calculation, external execution, package publication, release, or H5 extraction. Dependency and lockfile changes are not authorized.
 
-## Required checkpoint
+## Verification and evidence
 
-H4 concludes at a genuine cutover checkpoint selecting accepted
-cutover/verified retirement, continued shadow mode, bounded correction,
-rejection, or deferral. A rollback restores prior routing without deleting
-migration evidence. Accepted H4 establishes project-local harness integration
-and cutover behavior only. It activates neither P2 nor optional H5; each requires
-its own separate human authorization.
+H4 must verify canonical live skill closure and stale-directory removal; H3 schema/fixture/canonical/manifest consistency; explicit local-to-generic imports; public local imports and package artifacts; focused local tests; every selected legacy/new shadow pair; exact parity classification; Ruff, mypy, full Python tests, Sphinx warnings-as-errors, ownership/checkpoints, dependency/lock scope, diff hygiene, and unrelated-work preservation. Software verification and migration evidence make no numerical-verification, scientific-validation, or UQ claim.
 
-## VVUQ boundary
+Required retained outputs include:
 
-Shadow parity is software-verification evidence. It is not scientific validation, UQ, or proof of scientific workflow correctness.
+- `H4.acceptance-index.v1`;
+- `.pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py`;
+- `.pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json`;
+- `.pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md`;
+- `.pi/checkpoints/H4-HC01-harness-cutover.json`.
+
+## Decision behavior and stop
+
+Apply uniquely determined corrections implied by accepted H1-H4 authority without a checkpoint. Create an interim checkpoint only for a genuine unresolved executable backward-compatibility choice, material H2 generic-contract change, deletion of an authoritative live capability, conflicting accepted resource identities, or irreversible cutover without validated rollback.
+
+Otherwise complete H4, run independent reviews and final verification, create the single final H4 human-acceptance/cutover checkpoint, commit and push its pending boundary, and stop. H4 acceptance would activate neither H5 nor P2; each requires separate explicit human authorization.

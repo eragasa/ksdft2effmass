@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "task_id": "H4",
+  "task_record": ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "harness-local-python-writer",
+        "agent": "ksdft2effmass-harness-local-python-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-local-python-writer.md",
+        "owned_paths": [
+          "python/src/ksdft2effmass/harness/pi/local"
+        ]
+      },
+      {
+        "role": "harness-local-test-parity-writer",
+        "agent": "ksdft2effmass-harness-local-test-parity-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
+        "owned_paths": [
+          "python/tests/software_verification/ksdft2effmass/harness/pi/local",
+          ".pi/evidence/pi-harness-incubation/H4"
+        ]
+      },
+      {
+        "role": "harness-skill-resource-cutover-writer",
+        "agent": "ksdft2effmass-harness-skill-resource-cutover-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-skill-resource-cutover-writer.md",
+        "owned_paths": [
+          ".agents/skills/graphify",
+          ".agents/skills/resolve-human-checkpoint",
+          ".pi/skills/choose-next-task",
+          ".pi/skills/recommend-next-task",
+          ".pi/skills/design-data-action-objects",
+          ".pi/skills/develop-operator-records",
+          ".pi/skills/document-research-python",
+          ".pi/skills/document-python-research-software",
+          ".pi/skills/skill-capability-inventory.json",
+          ".pi/skills/validate_skill_capabilities.py",
+          "harness/pi",
+          "harness/local"
+        ]
+      },
+      {
+        "role": "harness-local-doc-control-writer",
+        "agent": "ksdft2effmass-harness-local-doc-control-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-local-doc-control-writer.md",
+        "owned_paths": [
+          "AGENTS.md",
+          ".pi/agents",
+          ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+          ".pi/chains/pi-harness-incubation.chain.json",
+          ".pi/checkpoints/README.md",
+          "docs/architecture/cpn-skill-capability-audit.md",
+          "docs/development/agent-control-plane.rst",
+          "docs/harness/ksdft2effmass.harness.04.md",
+          "docs/harness/ksdft2effmass.harness.06.md",
+          "docs/harness/ksdft2effmass.harness.07.md",
+          "docs/verification/cpn-contract.rst",
+          "docs/verification/testing-and-evidence.rst"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "harness-cutover-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-cutover-architecture-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-cutover-architecture-reviewer.md"
+      },
+      {
+        "role": "harness-cutover-skill-resource-reviewer",
+        "agent": "ksdft2effmass-harness-cutover-skill-resource-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-cutover-skill-resource-reviewer.md"
+      },
+      {
+        "role": "harness-cutover-integration-reviewer",
+        "agent": "ksdft2effmass-harness-cutover-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-cutover-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+    "command": [
+      "python",
+      ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py"
+    ],
+    "required_before_review": true
+  }
+}
