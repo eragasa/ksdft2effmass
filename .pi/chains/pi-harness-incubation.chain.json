@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0, H1, and H3 are closed as human-accepted PASS. H2 remains the sole active task but is blocked at pending H2-HC01 after its single correction cycle exposed a protected accepted H1/H3 manifest-relational-validity conflict. No final H2 checkpoint, commit/push, or successor activation occurred.",
-  "status": "h2_blocked_pending_hc01",
+  "description": "Separate harness-incubation project. H0, H1, and H3 are closed as human-accepted PASS. H2 is the sole active task under resolved H2-HC01 Option A for one bounded H1/H3/H2 manifest-relational-validity correction after its resolution boundary is pushed. H4 and all other successors remain blocked.",
+  "status": "h2_hc01_option_a_correction_authorized",
   "active_task": "H2",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -137,6 +137,12 @@
       "decision": "A",
       "resolved_at": "2026-08-04T18:08:31Z",
       "result": "H3 closed as human-accepted PASS after deterministic administrative closeout; H2 prerequisite satisfied but no successor activated."
+    },
+    {
+      "checkpoint": "H2-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-05T00:04:51Z",
+      "result": "After recovered pending boundary 7f8c3d781bff535dd355d47ad0172d0b5f35bee1, the human PI authorized one bounded version-1 H1/H3/H2 correction moving manifest relational validity from strict construction/deserialization to ValidateResourceManifest; no successor activated."
     }
   ],
   "activations": [
@@ -159,18 +165,11 @@
       "scope": "H2 generic Python implementation, exact independent software-verification modules, maintained H2 documentation, retained evidence, independent read-only reviews, one permitted consolidated correction cycle, final verification, final H2 human checkpoint, and coherent commit/push only; no H4/H5/P2 activation or project-local cutover."
     }
   ],
-  "pending_checkpoints": [
-    {
-      "checkpoint": "H2-HC01",
-      "path": ".pi/checkpoints/H2-HC01-manifest-relational-validity-boundary.json",
-      "task": "H2",
-      "reason": "Accepted H1 strict constructor/wire invalidity conflicts with accepted H1 action-specific manifest diagnostics and accepted H3 resource-resolution oracles."
-    }
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "await-H2-HC01-manifest-relational-validity-boundary",
-      "message": "H2 is blocked after its single consolidated correction cycle. H2-HC01 must resolve whether relationally invalid manifests are representable inputs to ValidateResourceManifest or are rejected at strict construction/wire decoding. No further writer/reviewer loop, final H2 acceptance checkpoint, commit/push, H4/H5/P2 activation, project-local cutover, SQLite, protected execution, or scientific execution is authorized."
+      "phase": "execute-H2-HC01-option-a-bounded-correction",
+      "message": "After the H2-HC01 resolution boundary is committed and pushed, reconcile only directly affected H1/H3/H2 manifest relational-validity semantics, finish H2 deterministic hygiene and validation, run one integrated focused re-review, correct only uniquely determined defects, and if all gates pass create and push the single final H2 acceptance checkpoint. H4, H5, P2-P11, local cutover, SQLite, dependencies/locks, protected execution, and scientific execution remain blocked."
     }
   ]
 }

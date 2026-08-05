@@ -1,6 +1,6 @@
 # H2 — Generic Python harness implementation
 
-Status: blocked at pending `H2-HC01` after the single consolidated correction cycle exposed an accepted H1/H3 manifest-relational-validity contract conflict; no final acceptance, commit, push, or successor activation
+Status: active for the bounded `H2-HC01` Option-A H1/H3/H2 manifest-relational-validity correction after the resolution boundary is committed and pushed; no final acceptance or successor activation
 
 ## Objective
 
@@ -48,23 +48,31 @@ H2 follows accepted H3 and must not overlap H3. It implements the accepted
 generic Python contract against the generic and local textual resource
 identities established by H3.
 
-## Current protected conflict
+## Resolved protected boundary and authorized correction
 
 The initial implementation, independent tests, documentation, validation, and
-three independent reviews entered the accepted single consolidated correction
-cycle. That cycle exposed a protected conflict between accepted H1/H3 inputs:
-strict `ResourceReference`/`ResourceManifest` construction and deserialization
-reject duplicate resource identities/paths and self-dependencies before a
-manifest object exists, while `ValidateResourceManifest` and accepted H3
-resource-resolution oracles require those states to reach the action and produce
-capability-specific `PIH.RESOURCE.*` findings. No H2-only change can satisfy both
-without changing an accepted public contract or accepted H3 resource.
+three independent reviews exposed a protected conflict between accepted H1/H3
+inputs. The human PI resolved `H2-HC01` as Option A on 2026-08-05 after the
+pending conflict boundary was recovered and pushed at
+`7f8c3d781bff535dd355d47ad0172d0b5f35bee1`.
 
-`.pi/checkpoints/H2-HC01-manifest-relational-validity-boundary.json` owns the
-human decision. H2 is blocked there with provisional source, tests,
-documentation, review findings, and correction evidence retained. The final H2
-acceptance checkpoint was not created; the H2 boundary was not committed or
-pushed.
+The bounded correction keeps field presence, exact semantic types, enum/scalar
+and lexical-path rules, immutable tuple storage, field-local uniqueness,
+canonical ordering, and generic/local layer shape intrinsic to version-1 record
+construction and deserialization. It moves relational manifest validity to
+`ValidateResourceManifest`, including duplicate entry IDs/paths, self-edges,
+missing dependencies, dependency cycles, generic-to-local edges, incompatible
+kind/format, generic/local mismatch, and forbidden local replacement. A
+structurally valid candidate manifest may therefore construct and deserialize
+without being accepted, authorized, resolvable, or capability-valid.
+
+The correction may reconcile only directly affected H1 contract evidence, H3
+schemas/fixtures/oracles/manifests/handoff/validator/docs/checksums, H2
+source/tests/docs/evidence, remaining deterministic H2 hygiene, declared
+validation, and one integrated focused re-review by the existing independent
+reviewers. It adds no interface or contract version. H4, H5, P2, local Python,
+SQLite, dependencies/locks, live-skill cutover, CPN/scientific code, protected
+execution, and unrelated work remain outside scope.
 
 ## Stop
 
