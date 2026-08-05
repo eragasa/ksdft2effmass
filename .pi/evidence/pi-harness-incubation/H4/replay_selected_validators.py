@@ -201,7 +201,7 @@ def command_for(side: str, pair_id: str) -> list[str]:
         return common[pair_id]
     return [
         py,
-        str(Path(__file__).relative_to(ROOT)),
+        str(Path(__file__).resolve().relative_to(ROOT)),
         "--side",
         side,
         "--pair",

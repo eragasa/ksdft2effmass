@@ -93,6 +93,41 @@ def test_workflow__side_selection__runs_exact_suite_without_evidence_mutation() 
     assert after == before
 
 
+def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
+    tmp_path: Path,
+) -> None:
+    """A symlink spelling and resolved repository root compose deterministically."""
+    root = repository_root()
+    linked_root = tmp_path / "repository-link"
+    linked_root.symlink_to(root, target_is_directory=True)
+    linked_program = (
+        linked_root
+        / ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py"
+    )
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(linked_program),
+            "--side",
+            "legacy",
+            "--pair",
+            "task-chain-explicit-selection",
+            "--no-write",
+        ],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr
+    payload = json.loads(completed.stdout)
+    assert payload["pair_ids"] == ["task-chain-explicit-selection"]
+    command = payload["observations"][0]["observation"]["command"]
+    assert command[1] == (
+        ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py"
+    )
+
+
 def test_artifact__completion_gate__rejects_hand_authored_and_accepts_exact_fixture(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
