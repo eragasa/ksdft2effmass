@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H4-HC02 Option A authorizes exactly one bounded H3 route-gate and operational-consumer correction, one R3/E3 cycle, targeted confirmation, and conditional already-authorized cutover closeout. Maintained routing remains legacy until all preconditions pass. P2, H5, and all other successors remain inactive.",
-  "status": "H4_active_bounded_H4-HC02_correction",
+  "description": "Separate harness-incubation project. The H4-HC02 two-defect correction was frozen at R3 and replayed exactly once, but R3 exposed additional material focused-test and completion-evidence defects. H4-HC02 forbids R4/E4, so H4 is blocked, maintained routing remains legacy, and P2/H5/all successors remain inactive.",
+  "status": "H4_blocked_after_R3_material_defect_no_R4_authorized",
   "active_task": "H4",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -75,7 +75,7 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "active_bounded_H4-HC02_correction",
+      "status": "blocked_after_R3_material_defect_no_R4_authorized",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
@@ -174,7 +174,7 @@
       "checkpoint": "H4-HC02",
       "decision": "A",
       "resolved_at": "2026-08-05T06:26:09Z",
-      "result": "One bounded two-defect correction, focused tests and validation, exactly one R3/E3 replay cycle, one targeted confirmation, and conditional already-authorized cutover closeout authorized; maintained route remains legacy until prerequisites pass."
+      "result": "Option A correction frozen at R3 and replayed once; additional material focused-test/completion-summary defects exposed; no R4/E4 authorized; legacy retained and H4 not closed."
     }
   ],
   "activations": [
@@ -206,8 +206,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "execute-H4-HC02-bounded-correction",
-      "message": "Correct only the H3 authorized-local gate and nested-observation consumer failure propagation; add focused tests; keep maintained legacy; create exactly one R3/E3 cycle; obtain one targeted confirmation; conditionally cut over and close only if all gates pass. No R4/E4, broad review, P2/H5, protected execution, publication, or release."
+      "phase": "stop-H4-after-R3-material-defect",
+      "message": "Stop under H4-HC02: no R4/E4 or broad review is authorized. Retain legacy route. H4 is not closed; P2, H5, P3-P11, scientific/external execution, publication, and release remain blocked."
     }
   ]
 }

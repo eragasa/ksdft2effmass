@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: active for exactly one H4-HC02 Option-A correction to the H3 authorized-local route gate and operational-consumer nested-failure propagation, followed by one R3/E3 cycle, targeted confirmation, and conditional already-authorized cutover closeout; maintained route remains legacy until all prerequisites pass
+Status: blocked after the single authorized R3 replay exposed additional material focused-test/completion-evidence defects; H4-HC02 forbids R4/E4, maintained route remains legacy, H4 is not closed, and P2 remains inactive
 
 ## Objective
 

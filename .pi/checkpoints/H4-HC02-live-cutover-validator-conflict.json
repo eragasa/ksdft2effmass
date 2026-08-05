@@ -52,7 +52,9 @@
     ".pi/checkpoints/H4-HC02-live-cutover-validator-conflict.json",
     ".pi/evidence/pi-harness-incubation/H4/H4-HC02-human-response.md",
     ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
-    ".pi/chains/pi-harness-incubation.chain.json"
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC02-R3-blocker.json",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC02-R3-shadow-parity.json"
   ],
-  "resumption_status": "H4_resumed_for_one_bounded_H4-HC02_correction_R3_E3_targeted_confirmation_and_conditionally_authorized_cutover_closeout; maintained_route_legacy_until_all_preconditions_pass; P2_H5_and_protected_execution_inactive"
+  "resumption_status": "H4-HC02_Option_A_R3_created_and_replayed_once_but_additional_material_defects_exposed; no_R4_E4_authorized; targeted_review_and_cutover_not_performed; route_legacy; H4_not_closed; P2_inactive"
 }
