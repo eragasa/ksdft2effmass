@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "task_id": "H2",
+  "phase": "human_acceptance_closeout",
+  "result": "PASS",
+  "checkpoint": {
+    "checkpoint_id": "H2-HC02",
+    "normalized_decision": "A",
+    "status": "resolved",
+    "resolved_at": "2026-08-05T01:12:46Z"
+  },
+  "checks": [
+    {
+      "check": "checkpoint_integrity",
+      "command": "python .pi/checkpoints/validate_checkpoints.py",
+      "result": "PASS",
+      "summary": "19 records validated; zero unresolved checkpoints; zero duplicate resolved decisions."
+    },
+    {
+      "check": "ownership",
+      "command": "python .pi/task-ownership/validate_task_ownership.py --task H2 --chain .pi/chains/pi-harness-incubation.chain.json",
+      "result": "PASS",
+      "summary": "H2 version-2 ownership preflight passed."
+    },
+    {
+      "check": "H1_H3_H2_checksums",
+      "command": "shasum -a 256 -c each H1, H3, and H2 checksum catalog",
+      "result": "PASS",
+      "summary": "49 H1 entries, 160 H3 entries, and 83 H2 entries verified with zero digest defects."
+    },
+    {
+      "check": "H3_resource_validator",
+      "command": "python harness/pi/validation/validate_h3_resources.py",
+      "result": "PASS",
+      "summary": "50 gates passed; zero defects."
+    },
+    {
+      "check": "H2_completion_validator",
+      "command": "python python/tests/software_verification/ksdft2effmass/harness/pi/validate_h2_completion.py",
+      "result": "PASS",
+      "summary": "39 maintained test modules and 65 evidence identifiers passed, including focused tests, Ruff, mypy, and Sphinx warnings-as-errors."
+    },
+    {
+      "check": "control_scope",
+      "command": "inspect chain task states and prohibited-scope diff",
+      "result": "PASS",
+      "summary": "No active task; H2 human-accepted PASS; H4 and H5 blocked; no H4, H5, P2, scientific/external execution, publication, release, dependency, lockfile, or unrelated-work mutation."
+    },
+    {
+      "check": "unrelated_work_preservation",
+      "command": "SHA-256 replay against unrelated-worktree-baseline.json",
+      "result": "PASS",
+      "summary": "All five unrelated user paths retain their activation hashes."
+    },
+    {
+      "check": "diff_hygiene",
+      "command": "git diff --check and staged-path scope inspection",
+      "result": "PASS",
+      "summary": "No whitespace defects; closeout staging is limited to authorized control and acceptance records."
+    }
+  ],
+  "pending_boundary_commit": "59379981c42c0705c24f97fe710f614bc91c9139",
+  "human_accepted": true,
+  "successor_activated": false,
+  "stop_after_push": true
+}

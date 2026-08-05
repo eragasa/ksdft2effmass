@@ -2,7 +2,7 @@
   "checkpoint_id": "H2-HC02",
   "task_id": "H2",
   "episode_id": "pi-harness-incubation-H2",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-05T01:03:49Z",
   "question": "Does the human PI accept H2 as PASS, including the accepted 36-interface generic Python harness, five semantic/support types, resolved H2-HC01 Option-A H1/H3/H2 manifest-relational-validity correction, 39 independent software-verification modules, maintained documentation, retained evidence, integrated independent reviews and bounded deterministic finding closure, packaging/import checks, and final validation, while leaving H4 and every other successor inactive pending separate explicit authorization?",
@@ -43,10 +43,19 @@
     "python/tests/software_verification/ksdft2effmass/harness/pi/",
     "docs/harness/ksdft2effmass.harness.03.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "H2_validated_boundary_committed_and_pushed_pending_H2_HC02_human_acceptance; H4_and_all_successors_inactive"
+  "human_response": "A \u2014 Accept H2 as PASS and close H2 only.\n\nPreserve this response verbatim in H2-HC02, run the bounded closeout validation, update the H2 task/chain/acceptance records, commit, and push.\n\nDo not activate H4, H5, P2, scientific execution, external execution, publication, or release work. Stop after reporting the closeout commit and remote identity.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-05T01:12:46Z",
+  "authorized_scope": "Resolve H2-HC02 as Option A; mark H2 human-accepted PASS and close H2 only; update the H2 task, harness-incubation chain, acceptance/closeout/checksum records; run bounded deterministic closeout validation; commit and push the separate H2 acceptance boundary to dev; verify remote identity; and stop. H4, H5, P2-P11, project-local cutover, scientific or external execution, publication, release, and all other successors remain inactive or blocked.",
+  "record_paths": [
+    ".pi/checkpoints/H2-HC02-final-acceptance.json",
+    ".pi/tasks/pi-harness-incubation-H2-python-core.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H2/acceptance-index.json",
+    ".pi/evidence/pi-harness-incubation/H2/closeout-validation.json",
+    ".pi/evidence/pi-harness-incubation/H2/checksums.sha256",
+    ".pi/evidence/pi-harness-incubation/H1/checksums.sha256",
+    ".pi/evidence/pi-harness-incubation/H3/checksums.sha256"
+  ],
+  "resumption_status": "H2_closed_human_accepted_PASS; H4_H5_P2_and_all_successors_inactive_pending_separate_explicit_human_authorization"
 }

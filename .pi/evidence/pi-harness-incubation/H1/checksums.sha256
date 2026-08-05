@@ -1,5 +1,5 @@
 445440c51f12d5996e1eebe1a77f28bd67afc4324c14ffdaee8161e16341d899  .pi/chains/backend-neutral-kohn-sham-qe.chain.json
-4a862438dcb42aad24422c423787513afe28681984f94683f21995041b8372de  .pi/chains/pi-harness-incubation.chain.json
+5aba5b02e74e0a03804035b5f3d7aa500a32ed83a52984e74d8e7633848dd9c6  .pi/chains/pi-harness-incubation.chain.json
 408ffecfb2bed0b38f37a7e2580a49e59fa087ef08d0b66cdf17d4ea41017754  .pi/checkpoints/H1-HC01-harness-contract.json
 af5167c15789cece90637be51335fe0a545ffc2d87bf06135b11a543eb97d21e  .pi/checkpoints/H1-HC02-final-acceptance.json
 459ecf6201543f74c57f4277ee760b33206def1d3f9598b603e671d0fefe86ab  .pi/evidence/pi-harness-incubation/H1/H1-HC01-diagnostic-path-correction.md
@@ -42,7 +42,7 @@ ef06f25513480e8b9a9e749bf9487f612513f8baa184b4d409cff23ec7d8eaa9  .pi/evidence/p
 881f871942b1c35036c196b2127faa177a2f3da62a35e873c9d2a3568eae743a  .pi/evidence/pi-harness-incubation/H1/validation-results.json
 34c34b83ae78b54eea1204c95a60a21d7b6b14ca425a659cd2cd53bb1f18ff58  .pi/evidence/pi-harness-incubation/H1/version-boundaries.md
 16b178624908a41b2b9c451f2c9eaa4cf7d0e440cef542be6c918d5b1a3bb38f  .pi/tasks/pi-harness-incubation-H1-contract.md
-9d9a206697386e9eb443349790aad0d97b7f4b800985d186c6b6ad626a36ba47  .pi/tasks/pi-harness-incubation-H2-python-core.md
+2680f65904a295f5819e825e2e1c15a1df046ed365f99d90e533bbbcc3c8962f  .pi/tasks/pi-harness-incubation-H2-python-core.md
 83fe408b623b3b2a34e20192f9383582e4668583a67bb59bda958f6d502a20ac  .pi/tasks/pi-harness-incubation-H3-resources.md
 66a0ff8c71850fff2f227b8557370059169ce0ae33eeb654bd450eba3e6ae299  AGENTS.md
 514b54691bbc9a7760995bffe97bbe2f8725eda56c6e66f146be99ff90f6cbfd  docs/harness/ksdft2effmass.harness.00.md

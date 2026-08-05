@@ -1,6 +1,6 @@
 # H2 — Generic Python harness implementation
 
-Status: validated implementation boundary awaiting human decision at pending `H2-HC02`; no final acceptance or successor activation
+Status: closed as human-accepted PASS at resolved `H2-HC02`; no successor activation
 
 ## Objective
 
@@ -78,11 +78,12 @@ execution, and unrelated work remain outside scope.
 
 The resolved Option-A correction, H2 implementation, independent tests,
 documentation, retained evidence, integrated review and deterministic finding
-closure, final verification, and checksums are complete. The pushed boundary is
-blocked at pending `.pi/checkpoints/H2-HC02-final-acceptance.json`.
+closure, final verification, and checksums were accepted by the human PI as
+PASS at resolved `.pi/checkpoints/H2-HC02-final-acceptance.json` on
+2026-08-05. H2 is closed.
 
-H2 concludes only after a separate human decision at `H2-HC02`. Accepted H2
-would satisfy H4's prerequisite but would not activate H4; H4 requires its own
-separate human authorization. No additional review/correction loop, H4/H5/P2
-activation, project-local cutover, SQLite work, protected execution, or
-scientific execution is authorized while this checkpoint remains pending.
+H2 acceptance satisfies H4's prerequisite but does not activate H4. H4 requires
+its own separate human authorization. No additional review/correction loop,
+H4/H5/P2 activation, project-local cutover, SQLite work, protected or external
+execution, scientific execution, publication, or release work is authorized by
+this acceptance.
