@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "skill": {
+    "name": "resolve-human-checkpoint",
+    "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "sha256": "d72695a4483b09500da69048affbd1addb313a0830cc793b3aba5015f6eeee25"
+  },
+  "request_id": "P2-HC01-human-option-B-2026-08-05T17:52:23Z",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "task_id": "P2",
+  "attempt_id": "P2-HC01-resolution-attempt-1",
+  "input_checkpoint": {
+    "checkpoint_id": "P2-HC01",
+    "expected_status": "pending",
+    "sha256": "f1097552e29f840d45e0fb5443e178b894a66aafc8d128d278f85a6eed62ec9d"
+  },
+  "preserved_human_response": "Resolve `P2-HC01` as **Option B** and perform one bounded correction of `records.py` and its directly owned verification surface.",
+  "normalized_decision": "B",
+  "changed_paths": [
+    ".pi/checkpoints/P2-HC01-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC01-resolution.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
+  ],
+  "validation": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python .pi/checkpoints/validate_checkpoints.py",
+        "result": "passed: 23 checkpoint records; zero unresolved; zero duplicate resolved decisions"
+      },
+      {
+        "command": "python .pi/task-ownership/validate_task_ownership.py --task P2",
+        "result": "passed: bounded implementation/documentation and verification/schema/fixture ownership with independent reviewer"
+      },
+      {
+        "command": "python -m json.tool <changed control JSON records> and git diff --check -- <changed control records>",
+        "result": "passed"
+      }
+    ]
+  },
+  "resumption_status": "Option-B bounded correction authorized but not resumed until this validated resolution boundary is committed and pushed to origin/dev",
+  "warnings": [
+    "P2 remains open; this decision is not final P2 acceptance.",
+    "R1 and R2 remain immutable; no R3/E3, H5, P3-P11, external/scientific execution, publication, or release is authorized."
+  ],
+  "partial_failure": null
+}

@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC01",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-05T17:31:00Z",
   "question": "Should P2 receive final human acceptance after implementation of the immutable provenance and external-tool lifecycle contract, focused software verification, one consolidated independent review and correction cycle, bounded R1/R2 replay, and final parent verification, with the recorded historical H4 full-suite baseline and final-boundary replay limitation?",
@@ -47,10 +47,16 @@
     "docs/user-guide/external-tool-lifecycle.md",
     "docs/verification/provenance-contract.rst"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "P2_implementation_complete_blocked_pending_final_human_acceptance; no_successor_active"
+  "human_response": "Resolve `P2-HC01` as **Option B** and perform one bounded correction of `records.py` and its directly owned verification surface.",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-05T17:52:23Z",
+  "authorized_scope": "Keep P2 open and perform exactly one post-R2 bounded correction limited to python/src/ksdft2effmass/provenance/records.py; the seven named class-owned record test modules; directly corresponding specification/provenance/v1 schema and fixtures; directly affected provenance API, concept, and verification documentation; and P2 task, checkpoint, completion, review, ownership, and evidence records. Authorize separate implementation and verification writers, one targeted independent review, at most one small material correction pass, renewed final P2 acceptance checkpoint, and commit/push. R1/R2 remain immutable; no R3/E3, H5, P3-P11, external/scientific execution, publication, or release is authorized.",
+  "record_paths": [
+    ".pi/checkpoints/P2-HC01-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC01-resolution.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
+  ],
+  "resumption_status": "option_B_bounded_correction_authorized_pending_durable_resolution_push; P2_open; no_successor_active"
 }

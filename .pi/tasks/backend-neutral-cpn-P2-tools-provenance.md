@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: implementation complete; active and blocked at pending final human-acceptance checkpoint `P2-HC01`
+Status: open; `P2-HC01` resolved as Option B; one post-R2 bounded correction is active after the durable resolution push
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -28,8 +28,12 @@ P2 uses an immutable `ArtifactLocation` DataObject because the current human obj
 
 These bounded choices implement the accepted architecture without importing harness, CPN, SNAKES, backend, scheduler, subprocess-client, or mutable-client objects into durable payloads. They do not authorize storage I/O, external execution, QE or Wannier90 adapters, scientific interpretation, numerical acceptance, scientific validation, or UQ.
 
+## Option-B bounded correction
+
+The human PI resolved `P2-HC01` as Option B on 2026-08-05 and authorized exactly one post-R2 bounded correction of `python/src/ksdft2effmass/provenance/records.py` and its directly owned verification surface. The correction removes dangling module-level validator callables, places intrinsic invariants visibly in the seven owning records, rejects direct `RunManifest` self-dependency, completes the seven class-owned evidence modules, adds the corresponding schema/runtime invalid fixture, and synchronizes directly affected provenance documentation. Separate implementation and verification writers and one targeted independent reviewer are required; at most one small correction pass may address a material review finding.
+
+R1 and R2 remain immutable historical evidence. No R3/E3 is authorized. The corrected current boundary is covered by deterministic validation and targeted review, followed by a renewed final P2 human-acceptance checkpoint, commit, and push.
+
 ## Completion boundary
 
-Implementation, schema/fixtures, class-owned and artifact-owned software verification, maintained documentation, one consolidated independent review, one correction cycle, the ordinary R1 replay, the single replacement R2 replay, and parent verification are complete. The final root correction rejects single-backslash diagnostic paths; it is covered by focused and final deterministic checks but not a prohibited third replay. The full Python and mypy runs retain only the starting-revision H4/H2 harness baselines documented in parent verification. P2 is not closed or human-accepted and remains blocked at `.pi/checkpoints/P2-HC01-final-acceptance.json`.
-
-H5, P3--P11, scientific/external execution, publication, and release remain inactive.
+P2 remains open during this bounded correction and will remain open pending renewed human acceptance after correction validation. H5, P3--P11, scientific/external execution, publication, and release remain inactive.

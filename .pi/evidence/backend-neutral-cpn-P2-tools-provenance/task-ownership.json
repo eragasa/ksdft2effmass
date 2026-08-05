@@ -5,47 +5,32 @@
   "owners": {
     "writers": [
       {
-        "role": "implementation-writer",
+        "role": "implementation-and-documentation-writer",
         "agent": "ksdft2effmass-implementation",
         "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
         "owned_paths": [
-          "python/src/ksdft2effmass/provenance",
-          "specification/provenance"
+          "python/src/ksdft2effmass/provenance/records.py",
+          "docs/api/provenance.md",
+          "docs/concepts/provenance-and-artifacts.md",
+          "docs/user-guide/provenance-and-artifacts.md",
+          "docs/verification/provenance-contract.rst"
         ]
       },
       {
-        "role": "verification-writer",
+        "role": "verification-schema-fixture-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
-          "python/tests/software_verification/ksdft2effmass/provenance",
-          "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
-          "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentity.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactSpecification.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactReference.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceRecord.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
           "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py",
-          "python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py",
-          "python/tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py"
-        ]
-      },
-      {
-        "role": "documentation-writer",
-        "agent": "ksdft2effmass-documentation",
-        "agent_record": ".pi/agents/ksdft2effmass-documentation.md",
-        "owned_paths": [
-          "docs/api/index.rst",
-          "docs/api/provenance.md",
-          "docs/api/workflows-cpn.md",
-          "docs/concepts/cpn-contract.md",
-          "docs/concepts/provenance-and-artifacts.md",
-          "docs/index.rst",
-          "docs/user-guide/colored-petri-nets.md",
-          "docs/user-guide/dft-backends.md",
-          "docs/user-guide/external-dependencies.md",
-          "docs/user-guide/external-tool-lifecycle.md",
-          "docs/user-guide/index.md",
-          "docs/user-guide/installation.md",
-          "docs/user-guide/provenance-and-artifacts.md",
-          "docs/verification/cpn-contract.rst",
-          "docs/verification/provenance-contract.rst"
+          "specification/provenance/v1/provenance-v1.schema.json",
+          "specification/provenance/v1/fixtures"
         ]
       }
     ],
