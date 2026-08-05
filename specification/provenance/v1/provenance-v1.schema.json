@@ -839,6 +839,7 @@
       "type": "object"
     },
     "RunManifest": {
+      "$comment": "Draft 2020-12 validates this wire structure but cannot compare manifest_id with dependency_manifest_ids members; the strict runtime additionally rejects direct self-dependency.",
       "additionalProperties": false,
       "allOf": [
         {

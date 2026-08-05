@@ -13,7 +13,7 @@ calculation.
 | `ArtifactSpecification` | NFC root-relative POSIX lexical `logical_path`; identifier-valued `format`, `semantic_role`, and `retention_policy`. Retention metadata grants no deletion authority. |
 | `ArtifactReference` | `identity`, `specification`, and `producer_manifest_id`. Its `artifact_id`, `logical_path`, `sha256`, and `byte_size` properties are exact views of nested state. It contains no deployment location and does not imply local presence. |
 | `ArtifactLocation` | `artifact_id` and `kind`. `ROOT_RELATIVE` requires `root_id` and `path` and forbids `external_descriptor_id`; `EXTERNAL_DESCRIPTOR` requires the opaque approved descriptor and forbids `root_id`/`path`. It records observed or authorized deployment metadata without resolving it or asserting that bytes exist. |
-| `RunManifest` | `manifest_id` is the attempt identity; the record also stores specification, sorted unique artifact/dependency IDs, actual UTC calendar timestamps, and `ManifestState`. `DECLARED` has no `finished_at`; terminal `COMPLETE`/`FAILED` require it, not before `started_at`. Impossible calendar dates are rejected. Completion is not scientific acceptance. There are no raw argument or environment-value fields. |
+| `RunManifest` | `manifest_id` is the attempt identity; the record also stores specification, sorted unique artifact/dependency IDs, actual UTC calendar timestamps, and `ManifestState`. `output_artifact_ids` are preallocated expected identities, so `DECLARED` may contain them before bytes or a terminal outcome exist. `DECLARED` has no `finished_at`; terminal `COMPLETE`/`FAILED` require it, not before `started_at`. Impossible calendar dates and direct self-dependency are rejected; this local check does not detect graph-wide cycles. Completion is not scientific acceptance. There are no raw argument or environment-value fields. |
 | `ProvenanceRecord` | `provenance_id`, `manifest_id`, sorted unique direct `parent_provenance_ids`, and sorted unique `artifact_ids`; self-parenting is forbidden. |
 | `LineageRelation` | Directed `parent_id` to distinct `child_id`, classified by `LineageKind`, and supported by `provenance_id`. |
 
@@ -77,11 +77,14 @@ The schema owns wire structure: exact members, required/null forms, primitive
 types, enums, identifier/digest/path patterns, numeric bounds, unique arrays,
 and its declared conditional shapes. The strict parser additionally rejects
 syntax forms JSON Schema does not observe, such as duplicate keys, BOMs, and
-floating lexical forms. Python constructors own intrinsic and relational rules
-such as NFC, lexical tuple ordering, real calendar dates and timestamp order,
-non-self provenance/lineage/retry relations, location-branch consistency, and
-status derivation. Schema conformance alone is therefore not construction of a
-valid Python record; the serializer boundary applies both layers.
+floating lexical forms. Each public record owns its intrinsic validation directly in its own constructor;
+there is no shared callable field-validator API. Python constructors own NFC,
+lexical tuple ordering, real calendar dates and timestamp order, direct non-self
+manifest/provenance/lineage/retry relations, location-branch consistency, and
+status derivation. Cross-record existence, graph-wide cycle detection, and
+other repository-level relational validity require a separate boundary. Schema
+conformance alone is therefore not construction of a valid Python record; the
+serializer boundary applies both layers.
 
 ## Common scalar and collection rules
 

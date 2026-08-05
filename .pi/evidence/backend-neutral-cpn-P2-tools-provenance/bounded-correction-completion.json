@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "correction_id": "P2-HC01-option-B-post-R2-bounded-correction",
+  "status": "PASS_PENDING_RENEWED_HUMAN_ACCEPTANCE",
+  "resolution_commit": "0a6a1396aeb448a19d67be49a5dcb6b8eb889e26",
+  "replay_disposition": "R1_and_R2_immutable_no_R3_or_E3",
+  "source": {
+    "removed_helpers": [
+      "_require_text",
+      "_require_identifier",
+      "_require_sha256",
+      "_require_root_relative_path",
+      "_require_identifier_tuple"
+    ],
+    "added_invariant": "RunManifest rejects manifest_id in dependency_manifest_ids",
+    "module_level_callables": 0
+  },
+  "evidence_ids_added": "SV-PROV-080..SV-PROV-103",
+  "declared_output_disposition": "preallocated_expected_output_identities_per_accepted_manifest_preallocated_identity_architecture",
+  "schema_runtime_disposition": "direct-self-dependent fixture is structurally schema-valid, runtime-relationally invalid, and rejected by strict public deserialization",
+  "validation": {
+    "class_owned_tests": "85 passed",
+    "schema_fixture_runtime_tests": "8 passed",
+    "focused_p2_tests": "140 passed plus 1 wheel test passed in declared root environment",
+    "branch_coverage": "97 percent; 352 statements; 8 missed; 264 branches; 8 partial",
+    "ruff": "PASS",
+    "mypy": "PASS; 35 source files",
+    "sphinx_warnings_as_errors": "PASS; 45 sources",
+    "completion_ownership_checkpoint": "PASS",
+    "maintained_local_route": "PASS; selected route local",
+    "dependencies_and_locks": "unchanged",
+    "git_diff_check": "PASS",
+    "unrelated_work": "preserved"
+  },
+  "review": {
+    "reviewer_result": "FAIL",
+    "final_disposition": "one higher-authority heading finding overridden; one missing-Raises finding corrected in the sole small correction pass; no repeated general review",
+    "artifact": ".pi-subagents/artifacts/f0187a6c_ksdft2effmass.ksdft2effmass-integration-reviewer_0_output.md"
+  },
+  "successor_activation": "none"
+}

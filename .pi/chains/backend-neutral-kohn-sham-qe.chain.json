@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, and harness H0-H4 are closed as human-accepted PASS. P2-HC01 is resolved as Option B and one post-R2 bounded P2 correction is active. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_option_B_bounded_correction_active",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, and harness H0-H4 are closed as human-accepted PASS. The P2-HC01 Option-B post-R2 bounded correction is complete and P2 is blocked at renewed final acceptance P2-HC02. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_bounded_correction_complete_awaiting_renewed_human_acceptance",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "option_B_bounded_correction_active",
+      "status": "blocked_at_P2-HC02_renewed_final_human_acceptance",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -253,11 +253,13 @@
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     }
   ],
-  "pending_checkpoints": [],
+  "pending_checkpoints": [
+    ".pi/checkpoints/P2-HC02-final-acceptance.json"
+  ],
   "chain": [
     {
-      "phase": "P2-option-B-bounded-correction",
-      "message": "P2-HC01 Option B authorizes one post-R2 bounded correction of records.py and its directly owned verification surface, separate implementation and verification writers, one targeted review, and at most one small material correction pass. R1/R2 remain immutable; no R3/E3 or successor is authorized."
+      "phase": "P2-awaiting-renewed-final-human-acceptance",
+      "message": "The P2-HC01 Option-B post-R2 correction, current-boundary deterministic validation, targeted review, and sole small correction pass are complete. P2 remains open at P2-HC02. R1/R2 remain immutable; no R3/E3, H5, P3-P11, external/scientific execution, publication, or release is active."
     }
   ]
 }

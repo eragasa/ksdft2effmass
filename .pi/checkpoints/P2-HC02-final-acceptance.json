@@ -1,0 +1,51 @@
+{
+  "checkpoint_id": "P2-HC02",
+  "task_id": "P2",
+  "episode_id": "backend-neutral-cpn-P2-tools-provenance",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-05T19:01:23Z",
+  "question": "Should P2 receive renewed final human acceptance after the P2-HC01 Option-B post-R2 bounded correction removed dangling validators, made the seven records own their intrinsic invariants, rejected direct RunManifest self-dependency, completed the directly owned verification/schema/documentation surface, and passed current-boundary deterministic validation with the recorded targeted-review disposition?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept corrected P2 as PASS and close P2 only.",
+      "consequence": "Record human acceptance of the corrected P2 public software contract and close P2 after deterministic closeout validation. P3 becomes prerequisite-eligible but is not activated. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    },
+    {
+      "id": "B",
+      "summary": "Request another specifically authorized disposition.",
+      "consequence": "Keep P2 open. Because the authorized post-R2 correction and small review correction pass are consumed, any further mutation requires explicit new scope and process authorization. No successor or execution becomes active."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer P2.",
+      "consequence": "Keep P2 open and blocked. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    }
+  ],
+  "recommendation": "Option A with the recorded limitations. The corrected record-local contract, class-owned evidence, schema/runtime fixture layering, documentation, focused tests, branch diagnostic, Ruff, mypy, Sphinx, completion/ownership/checkpoint gates, maintained local route, dependency/lockfile nonmutation, and unrelated-work preservation pass. The single reviewer confirmed all substantive correction requirements; its lower-authority heading finding was inapplicable under the explicit human instruction, and its missing-Raises finding was corrected and deterministically revalidated without a repeated general review. R1/R2 remain immutable and no R3/E3 exists.",
+  "blocked_scope": "P2 closure and human acceptance; H5 or P3-P11 activation; scientific or external-tool execution; publication; release.",
+  "safe_scope": "Read-only inspection of the bounded correction, source, schema, fixtures, tests, documentation, review, parent verification, completion evidence, task/chain/checkpoint state, commit, and remote identity. Deterministic checkpoint validation is permitted. No successor launch or protected execution is permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/checkpoints/P2-HC01-final-acceptance.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/bounded-correction-completion.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/bounded-correction-review.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/bounded-correction-parent-verification.md",
+    "python/src/ksdft2effmass/provenance/records.py",
+    "specification/provenance/v1/provenance-v1.schema.json",
+    "specification/provenance/v1/fixtures/invalid/direct-self-dependent-run-manifest.json",
+    "docs/api/provenance.md",
+    "docs/concepts/provenance-and-artifacts.md",
+    "docs/user-guide/provenance-and-artifacts.md",
+    "docs/verification/provenance-contract.rst"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "P2_bounded_correction_complete_blocked_pending_renewed_final_human_acceptance; no_successor_active"
+}

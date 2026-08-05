@@ -1,11 +1,19 @@
-"""Evidence class and represented meaning
-Software verification of immutable execution-attempt manifests.
-Owned contract, oracle, and scope
-RunManifest is the SUT; exact safe fields, canonical tuples, real timestamps, and state
-rules are the oracle.
+r"""Software verification of ``RunManifest``.
+
+Facet and represented meaning
+-----------------------------
+This module verifies immutable declared and terminal execution-attempt manifests,
+including expected output identities, timestamps, lifecycle state, and dependencies.
+
+Intrinsic and cross-object scope
+--------------------------------
+``RunManifest`` is the sole SUT; field-local invariants and direct self-dependency are
+intrinsic. Cross-manifest existence, graph-wide cycles, and execution are excluded.
+
 VVUQ and scientific exclusions
-Evidence excludes execution, numerical verification, scientific validation, UQ, physical
-correctness, and cross-language conformance.
+------------------------------
+Evidence excludes external execution, output-byte observation, numerical verification,
+scientific validation, UQ, physical correctness, and cross-language conformance.
 """
 
 from dataclasses import FrozenInstanceError, fields
@@ -105,12 +113,17 @@ def test_constructor__canonical_identifier_tuples__rejects_noncanonical_inputs()
     Limitations
     Cross-record existence is outside intrinsic construction.
     """
-    with pytest.raises(TypeError):
-        _manifest(input_artifact_ids=["a"])
-    with pytest.raises(ValueError):
-        _manifest(input_artifact_ids=("b", "a"))
-    with pytest.raises(ValueError):
-        _manifest(dependency_manifest_ids=("a", "a"))
+    for field_name in (
+        "input_artifact_ids",
+        "output_artifact_ids",
+        "dependency_manifest_ids",
+    ):
+        with pytest.raises(TypeError):
+            _manifest(**{field_name: ["a"]})
+        with pytest.raises(ValueError):
+            _manifest(**{field_name: ("b", "a")})
+        with pytest.raises(ValueError):
+            _manifest(**{field_name: ("a", "a")})
 
 
 def test_constructor__state_timestamp_correlation__enforces_terminal_boundaries() -> (
@@ -141,10 +154,18 @@ def test_constructor__state_timestamp_correlation__enforces_terminal_boundaries(
         ).state
         is ManifestState.COMPLETE
     )
+    assert (
+        _manifest(
+            state=ManifestState.FAILED,
+            finished_at="2026-08-05T12:00:00Z",
+        ).state
+        is ManifestState.FAILED
+    )
     for changes in (
         {"state": ManifestState.DECLARED, "finished_at": "2026-08-05T12:01:00Z"},
         {"state": ManifestState.FAILED},
         {"state": ManifestState.COMPLETE, "finished_at": "2026-08-05T11:59:59Z"},
+        {"state": ManifestState.COMPLETE, "finished_at": "not-time"},
         {"started_at": "not-time"},
     ):
         with pytest.raises(ValueError):
@@ -200,3 +221,135 @@ def test_constructor__calendar_timestamps__rejects_impossible_dates() -> None:
             _manifest(started_at=timestamp)
         with pytest.raises(ValueError):
             _manifest(state=ManifestState.COMPLETE, finished_at=timestamp)
+
+
+def test_constructor__declared_output_ids__preserves_preallocation() -> None:
+    """Evidence ID
+    SV-PROV-093
+    Requirement
+    A DECLARED manifest may store preallocated expected output identities before bytes
+    or a terminal outcome exists.
+    Method
+    Construct a declared manifest with a sorted nonempty output tuple and no finish
+    time.
+    Oracle
+    The implementation and directly synchronized documentation explicitly define outputs
+    as expected identities rather than observations.
+    Acceptance
+    Construction succeeds, state remains DECLARED, finish is absent, and outputs are
+    exact.
+    Interpretation
+    Failure would restore an unapproved requirement that declared outputs already exist.
+    Limitations
+    The test does not assert that output bytes exist, were observed, or are accepted.
+    """
+    value = _manifest(output_artifact_ids=("output-a", "output-b"))
+    assert value.state is ManifestState.DECLARED
+    assert value.finished_at is None
+    assert value.output_artifact_ids == ("output-a", "output-b")
+
+
+@pytest.mark.parametrize("field", ["manifest_id", "specification_id"])
+def test_field__manifest_scalar_identifiers__enforce_portable_contract(
+    field: str,
+) -> None:
+    """Evidence ID
+    SV-PROV-094
+    Requirement
+    Manifest and specification identities are built-in, nonempty NFC bounded
+    identifiers.
+    Method
+    Replace each scalar field with wrong-type and invalid Unicode or grammar values.
+    Oracle
+    The public identifier contract independently classifies the supplied partitions.
+    Acceptance
+    Bytes raise TypeError and all invalid strings raise ValueError for both fields.
+    Interpretation
+    Failure admits a nonportable durable manifest identity.
+    Limitations
+    Cross-record existence and uniqueness are excluded.
+    """
+    for invalid in (b"id", "", "bad id", "e\u0301", "\ud800", "a" * 129):
+        expected = TypeError if type(invalid) is bytes else ValueError
+        with pytest.raises(expected):
+            _manifest(**{field: invalid})
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    ["input_artifact_ids", "output_artifact_ids", "dependency_manifest_ids"],
+)
+def test_field__identifier_tuple_members__enforce_portable_contract(
+    field_name: str,
+) -> None:
+    """Evidence ID
+    SV-PROV-095
+    Requirement
+    Every member of each manifest identifier tuple is a portable built-in identifier.
+    Method
+    Put wrong-type, empty, spaced, decomposed, surrogate, and overlength members into
+    each otherwise valid tuple.
+    Oracle
+    The tuple-member identifier grammar classifies the same partitions for all fields.
+    Acceptance
+    Wrong-type members raise TypeError and invalid strings raise ValueError.
+    Interpretation
+    Failure exposes incomplete validation in the named collection.
+    Limitations
+    Referenced artifacts and manifests are not resolved.
+    """
+    for invalid in (b"id", "", "bad id", "e\u0301", "\ud800", "a" * 129):
+        expected = TypeError if type(invalid) is bytes else ValueError
+        with pytest.raises(expected):
+            _manifest(**{field_name: (invalid,)})
+
+
+def test_constructor__direct_self_dependency__rejects_record_local_cycle() -> None:
+    """Evidence ID
+    SV-PROV-096
+    Requirement
+    A manifest cannot list its own manifest_id as a direct dependency.
+    Method
+    Construct an otherwise valid manifest whose sole dependency equals manifest_id.
+    Oracle
+    Equality of the two public identifier values is an independent exact oracle.
+    Acceptance
+    Construction raises ValueError.
+    Interpretation
+    Failure permits a record-local dependency self-edge.
+    Limitations
+    Indirect and graph-wide cycles across multiple manifests are excluded.
+    """
+    with pytest.raises(ValueError):
+        _manifest(dependency_manifest_ids=("manifest-1",))
+
+
+def test_property__timestamp_types_and_exact_value_semantics__enforce_contract() -> (
+    None
+):
+    """Evidence ID
+    SV-PROV-097
+    Requirement
+    Timestamps are built-in strings and manifest equality is exact over represented
+    state.
+    Method
+    Pass bytes for each timestamp boundary, then compare equal and output-different
+    records.
+    Oracle
+    Public semantic types and frozen dataclass fields define the expected outcomes.
+    Acceptance
+    Bytes raise TypeError; equal records compare equal and changed outputs compare
+    unequal.
+    Interpretation
+    Failure indicates timestamp coercion or incomplete value semantics.
+    Limitations
+    Clock accuracy and execution observation are excluded.
+    """
+    with pytest.raises(TypeError):
+        _manifest(started_at=b"2026-08-05T12:00:00Z")
+    with pytest.raises(TypeError):
+        _manifest(state=ManifestState.COMPLETE, finished_at=b"time")
+    with pytest.raises(TypeError):
+        _manifest(state="declared")
+    assert _manifest() == _manifest()
+    assert _manifest() != _manifest(output_artifact_ids=("output-a",))

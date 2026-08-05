@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: open; `P2-HC01` resolved as Option B; one post-R2 bounded correction is active after the durable resolution push
+Status: post-R2 bounded correction complete; open and blocked at renewed final human-acceptance checkpoint `P2-HC02`
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -36,4 +36,6 @@ R1 and R2 remain immutable historical evidence. No R3/E3 is authorized. The corr
 
 ## Completion boundary
 
-P2 remains open during this bounded correction and will remain open pending renewed human acceptance after correction validation. H5, P3--P11, scientific/external execution, publication, and release remain inactive.
+The Option-B correction is complete. Current-boundary deterministic validation passes, including focused software verification, schema/runtime fixture agreement, branch-coverage diagnostics, Ruff, mypy, Sphinx warnings-as-errors, P2 completion and ownership, checkpoint validation, the maintained local harness route, dependency/lockfile nonmutation, and unrelated-work preservation. The single targeted reviewer confirmed the substantive correction and returned one inapplicable lower-authority heading finding plus one source-docstring finding; the latter was corrected in the sole small correction pass and revalidated. No second general review or R3/E3 was performed.
+
+P2 remains open and blocked at `.pi/checkpoints/P2-HC02-final-acceptance.json` pending renewed human acceptance. H5, P3--P11, scientific/external execution, publication, and release remain inactive.

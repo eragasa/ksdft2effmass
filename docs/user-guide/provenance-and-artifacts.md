@@ -63,10 +63,14 @@ links and filesystem state are never consulted.
 ## Preserve attempt history and relationships
 
 `RunManifest` records one attempt—identified by `manifest_id`—and distinguishes
-`DECLARED`, `COMPLETE`, and `FAILED`. A terminal manifest has `finished_at`; a
-declared one does not. Timestamps must name real UTC calendar seconds, and finish
-must not precede start. Completion is process history, not solver convergence or
-scientific acceptance. An external retry uses new request and `attempt_id`
+`DECLARED`, `COMPLETE`, and `FAILED`. Its output artifact IDs are preallocated
+expected identities: a declared manifest may list them before bytes exist, but
+this does not assert observation or completion. A terminal manifest has
+`finished_at`; a declared one does not. Timestamps must name real UTC calendar
+seconds, and finish must not precede start. A manifest cannot directly depend on
+itself; checking cycles across multiple manifests belongs to a separate
+repository or workflow boundary. Completion is process history, not solver
+convergence or scientific acceptance. An external retry uses new request and `attempt_id`
 values, may name the distinct prior request with `retry_parent_request_id`,
 requires separate authorization, and retains the failed attempt.
 
@@ -91,11 +95,13 @@ Output is compact sorted-key UTF-8 JSON with exactly one trailing LF. Input is
 strict: duplicate/unknown/missing keys, BOMs, malformed JSON or Unicode,
 surrogates, floating-point and non-finite numbers, wrong versions/types/enums,
 and object-invariant failures raise `ProvenanceJsonError`. Arrays that represent
-deterministic sets remain sorted and duplicate-free. The schema checks wire
-structure; the Python boundary additionally owns intrinsic and relational rules
+deterministic sets remain sorted and duplicate-free. Each public record owns its
+intrinsic constructor checks directly. The schema checks wire structure; the
+Python boundary additionally owns intrinsic and record-local relational rules
 including NFC, lexical ordering, actual calendar validity, timestamp ordering,
-non-self relations, location alternatives, and derived statuses. Schema
-acceptance alone is not a valid Python record. See the [public API contract on the development
+direct non-self relations, location alternatives, and derived statuses.
+Cross-record existence and graph-wide cycle validity require a separate
+boundary. Schema acceptance alone is not a valid Python record. See the [public API contract on the development
 branch](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/api/provenance.md)
 and `specification/provenance/v1/provenance-v1.schema.json`.
 

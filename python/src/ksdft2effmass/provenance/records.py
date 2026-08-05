@@ -18,87 +18,20 @@ _MAX_U64 = 18_446_744_073_709_551_615
 _ID_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z")
 _SHA256_PATTERN = re.compile(r"[0-9a-f]{64}\Z")
 _DRIVE_PATTERN = re.compile(r"^[A-Za-z]:")
-_WINDOWS_DEVICE_NAMES = {
-    "CON",
-    "PRN",
-    "AUX",
-    "NUL",
-    *(f"COM{index}" for index in range(1, 10)),
-    *(f"LPT{index}" for index in range(1, 10)),
-}
+_WINDOWS_DEVICE_NAMES = frozenset(
+    {
+        "CON",
+        "PRN",
+        "AUX",
+        "NUL",
+        *(f"COM{index}" for index in range(1, 10)),
+        *(f"LPT{index}" for index in range(1, 10)),
+    }
+)
 _TIMESTAMP_PATTERN = re.compile(
     r"[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])"
     r"T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z\Z"
 )
-
-
-def _require_text(value: object, name: str) -> str:
-    """Return a nonempty, scalar-Unicode string owned by a record field."""
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a built-in str")
-    if not value:
-        raise ValueError(f"{name} must not be empty")
-    if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
-        raise ValueError(f"{name} must not contain Unicode surrogate code points")
-    if unicodedata.normalize("NFC", value) != value:
-        raise ValueError(f"{name} must be Unicode NFC")
-    return value
-
-
-def _require_identifier(value: object, name: str) -> str:
-    """Validate a bounded portable identifier without interpreting its prefix."""
-    text = _require_text(value, name)
-    if _ID_PATTERN.fullmatch(text) is None:
-        raise ValueError(f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}")
-    return text
-
-
-def _require_sha256(value: object, name: str) -> str:
-    """Validate the lowercase hexadecimal representation of a SHA-256 digest."""
-    text = _require_text(value, name)
-    if _SHA256_PATTERN.fullmatch(text) is None:
-        raise ValueError(f"{name} must be a 64-character lowercase SHA-256 digest")
-    return text
-
-
-def _require_root_relative_path(value: object, name: str) -> str:
-    """Validate an NFC, root-relative, POSIX lexical path.
-
-    The path is lexical only: this function never queries a filesystem or
-    resolves symbolic links.
-    """
-    text = _require_text(value, name)
-    if text.startswith("/") or _DRIVE_PATTERN.match(text):
-        raise ValueError(f"{name} must not use absolute or Windows drive syntax")
-    if "\\" in text or text.endswith("/") or "//" in text:
-        raise ValueError(f"{name} must be a root-relative POSIX lexical path")
-    parts = text.split("/")
-    if any(part in {"", ".", ".."} for part in parts):
-        raise ValueError(f"{name} must not contain empty, '.' or '..' components")
-    for part in parts:
-        if part.split(".", 1)[0].upper() in _WINDOWS_DEVICE_NAMES:
-            raise ValueError(f"{name} must not contain a Windows device name")
-    if any(
-        ord(character) < 0x20
-        or 0x7F <= ord(character) <= 0x9F
-        or ord(character) in {0x2028, 0x2029}
-        for character in text
-    ):
-        raise ValueError(f"{name} must not contain C0/C1 or line controls")
-    return text
-
-
-def _require_identifier_tuple(value: object, name: str) -> tuple[str, ...]:
-    """Require an immutable, unique tuple in deterministic lexical order."""
-    if type(value) is not tuple:
-        raise TypeError(f"{name} must be a built-in tuple")
-    checked = tuple(
-        _require_identifier(item, f"{name}[{index}]")
-        for index, item in enumerate(value)
-    )
-    if checked != tuple(sorted(checked)) or len(set(checked)) != len(checked):
-        raise ValueError(f"{name} must be unique and lexically sorted")
-    return checked
 
 
 class ArtifactLocationKind(StrEnum):
@@ -178,8 +111,31 @@ class ArtifactIdentity:
     byte_size: int
 
     def __post_init__(self) -> None:
-        _require_identifier(self.artifact_id, "artifact_id")
-        _require_sha256(self.sha256, "sha256")
+        """Validate this artifact's portable identifier and exact byte identity."""
+        if type(self.artifact_id) is not str:
+            raise TypeError("artifact_id must be a built-in str")
+        if not self.artifact_id:
+            raise ValueError("artifact_id must not be empty")
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in self.artifact_id):
+            raise ValueError(
+                "artifact_id must not contain Unicode surrogate code points"
+            )
+        if unicodedata.normalize("NFC", self.artifact_id) != self.artifact_id:
+            raise ValueError("artifact_id must be Unicode NFC")
+        if _ID_PATTERN.fullmatch(self.artifact_id) is None:
+            raise ValueError("artifact_id must match [A-Za-z0-9][A-Za-z0-9._:-]{0,127}")
+
+        if type(self.sha256) is not str:
+            raise TypeError("sha256 must be a built-in str")
+        if not self.sha256:
+            raise ValueError("sha256 must not be empty")
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in self.sha256):
+            raise ValueError("sha256 must not contain Unicode surrogate code points")
+        if unicodedata.normalize("NFC", self.sha256) != self.sha256:
+            raise ValueError("sha256 must be Unicode NFC")
+        if _SHA256_PATTERN.fullmatch(self.sha256) is None:
+            raise ValueError("sha256 must be a 64-character lowercase SHA-256 digest")
+
         if type(self.byte_size) is not int:
             raise TypeError("byte_size must be a built-in int excluding bool")
         if not 0 <= self.byte_size <= _MAX_U64:
@@ -200,6 +156,15 @@ class ArtifactSpecification:
         Declared artifact role; this is metadata, not scientific acceptance.
     retention_policy
         Retention-policy identifier.  It never grants deletion authority.
+
+    Raises
+    ------
+    TypeError
+        If any field is not a built-in string.
+    ValueError
+        If ``logical_path`` violates the root-relative POSIX lexical-path
+        contract or any identifier is empty, non-NFC, contains a Unicode
+        surrogate, or violates the portable identifier grammar.
     """
 
     logical_path: str
@@ -208,10 +173,62 @@ class ArtifactSpecification:
     retention_policy: str
 
     def __post_init__(self) -> None:
-        _require_root_relative_path(self.logical_path, "logical_path")
-        _require_identifier(self.format, "format")
-        _require_identifier(self.semantic_role, "semantic_role")
-        _require_identifier(self.retention_policy, "retention_policy")
+        """Validate this specification's lexical path and metadata identifiers."""
+        if type(self.logical_path) is not str:
+            raise TypeError("logical_path must be a built-in str")
+        if not self.logical_path:
+            raise ValueError("logical_path must not be empty")
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in self.logical_path):
+            raise ValueError(
+                "logical_path must not contain Unicode surrogate code points"
+            )
+        if unicodedata.normalize("NFC", self.logical_path) != self.logical_path:
+            raise ValueError("logical_path must be Unicode NFC")
+        if self.logical_path.startswith("/") or _DRIVE_PATTERN.match(self.logical_path):
+            raise ValueError(
+                "logical_path must not use absolute or Windows drive syntax"
+            )
+        if (
+            "\\" in self.logical_path
+            or self.logical_path.endswith("/")
+            or "//" in self.logical_path
+        ):
+            raise ValueError("logical_path must be a root-relative POSIX lexical path")
+        logical_path_parts = self.logical_path.split("/")
+        if any(part in {"", ".", ".."} for part in logical_path_parts):
+            raise ValueError(
+                "logical_path must not contain empty, '.' or '..' components"
+            )
+        for part in logical_path_parts:
+            if part.split(".", 1)[0].upper() in _WINDOWS_DEVICE_NAMES:
+                raise ValueError("logical_path must not contain a Windows device name")
+        if any(
+            ord(character) < 0x20
+            or 0x7F <= ord(character) <= 0x9F
+            or ord(character) in {0x2028, 0x2029}
+            for character in self.logical_path
+        ):
+            raise ValueError("logical_path must not contain C0/C1 or line controls")
+
+        for name, value in (
+            ("format", self.format),
+            ("semantic_role", self.semantic_role),
+            ("retention_policy", self.retention_policy),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in str")
+            if not value:
+                raise ValueError(f"{name} must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
+                raise ValueError(
+                    f"{name} must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", value) != value:
+                raise ValueError(f"{name} must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(value) is None:
+                raise ValueError(
+                    f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                )
 
 
 @dataclass(frozen=True, slots=True)
@@ -227,6 +244,15 @@ class ArtifactReference:
     producer_manifest_id
         Opaque identity of the manifest that produced the artifact.
 
+    Raises
+    ------
+    TypeError
+        If ``identity`` or ``specification`` has the wrong record type, or if
+        ``producer_manifest_id`` is not a built-in string.
+    ValueError
+        If ``producer_manifest_id`` is empty, non-NFC, contains a Unicode
+        surrogate, or violates the portable identifier grammar.
+
     Notes
     -----
     This object deliberately contains no deployment location.  The convenience
@@ -239,11 +265,31 @@ class ArtifactReference:
     producer_manifest_id: str
 
     def __post_init__(self) -> None:
+        """Validate this reference's nested records and producer identity."""
         if not isinstance(self.identity, ArtifactIdentity):
             raise TypeError("identity must be an ArtifactIdentity")
         if not isinstance(self.specification, ArtifactSpecification):
             raise TypeError("specification must be an ArtifactSpecification")
-        _require_identifier(self.producer_manifest_id, "producer_manifest_id")
+        if type(self.producer_manifest_id) is not str:
+            raise TypeError("producer_manifest_id must be a built-in str")
+        if not self.producer_manifest_id:
+            raise ValueError("producer_manifest_id must not be empty")
+        if any(
+            0xD800 <= ord(character) <= 0xDFFF
+            for character in self.producer_manifest_id
+        ):
+            raise ValueError(
+                "producer_manifest_id must not contain Unicode surrogate code points"
+            )
+        if (
+            unicodedata.normalize("NFC", self.producer_manifest_id)
+            != self.producer_manifest_id
+        ):
+            raise ValueError("producer_manifest_id must be Unicode NFC")
+        if _ID_PATTERN.fullmatch(self.producer_manifest_id) is None:
+            raise ValueError(
+                "producer_manifest_id must match [A-Za-z0-9][A-Za-z0-9._:-]{0,127}"
+            )
 
     @property
     def artifact_id(self) -> str:
@@ -303,18 +349,88 @@ class ArtifactLocation:
     external_descriptor_id: str | None = None
 
     def __post_init__(self) -> None:
-        _require_identifier(self.artifact_id, "artifact_id")
+        """Validate this location's artifact identity and selected representation."""
+        if type(self.artifact_id) is not str:
+            raise TypeError("artifact_id must be a built-in str")
+        if not self.artifact_id:
+            raise ValueError("artifact_id must not be empty")
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in self.artifact_id):
+            raise ValueError(
+                "artifact_id must not contain Unicode surrogate code points"
+            )
+        if unicodedata.normalize("NFC", self.artifact_id) != self.artifact_id:
+            raise ValueError("artifact_id must be Unicode NFC")
+        if _ID_PATTERN.fullmatch(self.artifact_id) is None:
+            raise ValueError("artifact_id must match [A-Za-z0-9][A-Za-z0-9._:-]{0,127}")
         if not isinstance(self.kind, ArtifactLocationKind):
             raise TypeError("kind must be an ArtifactLocationKind")
+
         if self.kind is ArtifactLocationKind.ROOT_RELATIVE:
-            _require_identifier(self.root_id, "root_id")
-            _require_root_relative_path(self.path, "path")
+            if type(self.root_id) is not str:
+                raise TypeError("root_id must be a built-in str")
+            if not self.root_id:
+                raise ValueError("root_id must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in self.root_id):
+                raise ValueError(
+                    "root_id must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", self.root_id) != self.root_id:
+                raise ValueError("root_id must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(self.root_id) is None:
+                raise ValueError("root_id must match [A-Za-z0-9][A-Za-z0-9._:-]{0,127}")
+
+            if type(self.path) is not str:
+                raise TypeError("path must be a built-in str")
+            if not self.path:
+                raise ValueError("path must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in self.path):
+                raise ValueError("path must not contain Unicode surrogate code points")
+            if unicodedata.normalize("NFC", self.path) != self.path:
+                raise ValueError("path must be Unicode NFC")
+            if self.path.startswith("/") or _DRIVE_PATTERN.match(self.path):
+                raise ValueError("path must not use absolute or Windows drive syntax")
+            if "\\" in self.path or self.path.endswith("/") or "//" in self.path:
+                raise ValueError("path must be a root-relative POSIX lexical path")
+            path_parts = self.path.split("/")
+            if any(part in {"", ".", ".."} for part in path_parts):
+                raise ValueError("path must not contain empty, '.' or '..' components")
+            for part in path_parts:
+                if part.split(".", 1)[0].upper() in _WINDOWS_DEVICE_NAMES:
+                    raise ValueError("path must not contain a Windows device name")
+            if any(
+                ord(character) < 0x20
+                or 0x7F <= ord(character) <= 0x9F
+                or ord(character) in {0x2028, 0x2029}
+                for character in self.path
+            ):
+                raise ValueError("path must not contain C0/C1 or line controls")
             if self.external_descriptor_id is not None:
                 raise ValueError(
                     "external_descriptor_id must be absent for a root-relative location"
                 )
         else:
-            _require_identifier(self.external_descriptor_id, "external_descriptor_id")
+            if type(self.external_descriptor_id) is not str:
+                raise TypeError("external_descriptor_id must be a built-in str")
+            if not self.external_descriptor_id:
+                raise ValueError("external_descriptor_id must not be empty")
+            if any(
+                0xD800 <= ord(character) <= 0xDFFF
+                for character in self.external_descriptor_id
+            ):
+                raise ValueError(
+                    "external_descriptor_id must not contain Unicode surrogate "
+                    "code points"
+                )
+            if (
+                unicodedata.normalize("NFC", self.external_descriptor_id)
+                != self.external_descriptor_id
+            ):
+                raise ValueError("external_descriptor_id must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(self.external_descriptor_id) is None:
+                raise ValueError(
+                    "external_descriptor_id must match "
+                    "[A-Za-z0-9][A-Za-z0-9._:-]{0,127}"
+                )
             if self.root_id is not None or self.path is not None:
                 raise ValueError(
                     "root_id and path must be absent for an external descriptor"
@@ -331,8 +447,12 @@ class RunManifest:
         Preallocated opaque manifest identifier.
     specification_id
         Identity of the immutable operation specification.
-    input_artifact_ids, output_artifact_ids
-        Ordered, duplicate-free artifact identifiers.
+    input_artifact_ids
+        Ordered, duplicate-free identities of declared input artifacts.
+    output_artifact_ids
+        Ordered, duplicate-free, preallocated expected output identities.  A
+        ``DECLARED`` manifest may contain them before the corresponding bytes
+        or terminal execution outcome exist.
     started_at, finished_at
         UTC timestamps in ``YYYY-MM-DDTHH:MM:SSZ`` form. ``finished_at`` is
         absent only for ``DECLARED``.
@@ -359,14 +479,59 @@ class RunManifest:
     state: ManifestState
 
     def __post_init__(self) -> None:
-        _require_identifier(self.manifest_id, "manifest_id")
-        _require_identifier(self.specification_id, "specification_id")
-        object.__setattr__(
-            self,
-            "input_artifact_ids",
-            _require_identifier_tuple(self.input_artifact_ids, "input_artifact_ids"),
-        )
-        _require_text(self.started_at, "started_at")
+        """Validate this attempt's identifiers, times, lifecycle, and dependencies."""
+        for name, value in (
+            ("manifest_id", self.manifest_id),
+            ("specification_id", self.specification_id),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in str")
+            if not value:
+                raise ValueError(f"{name} must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
+                raise ValueError(
+                    f"{name} must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", value) != value:
+                raise ValueError(f"{name} must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(value) is None:
+                raise ValueError(
+                    f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                )
+
+        if type(self.input_artifact_ids) is not tuple:
+            raise TypeError("input_artifact_ids must be a built-in tuple")
+        for index, artifact_id in enumerate(self.input_artifact_ids):
+            name = f"input_artifact_ids[{index}]"
+            if type(artifact_id) is not str:
+                raise TypeError(f"{name} must be a built-in str")
+            if not artifact_id:
+                raise ValueError(f"{name} must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in artifact_id):
+                raise ValueError(
+                    f"{name} must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", artifact_id) != artifact_id:
+                raise ValueError(f"{name} must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(artifact_id) is None:
+                raise ValueError(
+                    f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                )
+        if self.input_artifact_ids != tuple(sorted(self.input_artifact_ids)) or len(
+            set(self.input_artifact_ids)
+        ) != len(self.input_artifact_ids):
+            raise ValueError("input_artifact_ids must be unique and lexically sorted")
+
+        if type(self.started_at) is not str:
+            raise TypeError("started_at must be a built-in str")
+        if not self.started_at:
+            raise ValueError("started_at must not be empty")
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in self.started_at):
+            raise ValueError(
+                "started_at must not contain Unicode surrogate code points"
+            )
+        if unicodedata.normalize("NFC", self.started_at) != self.started_at:
+            raise ValueError("started_at must be Unicode NFC")
         if _TIMESTAMP_PATTERN.fullmatch(self.started_at) is None:
             raise ValueError("started_at must be an RFC 3339 UTC second timestamp")
         try:
@@ -375,13 +540,25 @@ class RunManifest:
             raise ValueError(
                 "started_at must be a real UTC calendar timestamp"
             ) from error
+
         if not isinstance(self.state, ManifestState):
             raise TypeError("state must be a ManifestState")
         if self.finished_at is None:
             if self.state is not ManifestState.DECLARED:
                 raise ValueError("finished_at is required for a terminal manifest")
         else:
-            _require_text(self.finished_at, "finished_at")
+            if type(self.finished_at) is not str:
+                raise TypeError("finished_at must be a built-in str")
+            if not self.finished_at:
+                raise ValueError("finished_at must not be empty")
+            if any(
+                0xD800 <= ord(character) <= 0xDFFF for character in self.finished_at
+            ):
+                raise ValueError(
+                    "finished_at must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", self.finished_at) != self.finished_at:
+                raise ValueError("finished_at must be Unicode NFC")
             if _TIMESTAMP_PATTERN.fullmatch(self.finished_at) is None:
                 raise ValueError("finished_at must be an RFC 3339 UTC second timestamp")
             try:
@@ -394,18 +571,36 @@ class RunManifest:
                 raise ValueError("finished_at must be absent for a declared manifest")
             if finished < started:
                 raise ValueError("finished_at must not precede started_at")
-        object.__setattr__(
-            self,
-            "output_artifact_ids",
-            _require_identifier_tuple(self.output_artifact_ids, "output_artifact_ids"),
-        )
-        object.__setattr__(
-            self,
-            "dependency_manifest_ids",
-            _require_identifier_tuple(
-                self.dependency_manifest_ids, "dependency_manifest_ids"
-            ),
-        )
+
+        for field_name, identifiers in (
+            ("output_artifact_ids", self.output_artifact_ids),
+            ("dependency_manifest_ids", self.dependency_manifest_ids),
+        ):
+            if type(identifiers) is not tuple:
+                raise TypeError(f"{field_name} must be a built-in tuple")
+            for index, identifier in enumerate(identifiers):
+                name = f"{field_name}[{index}]"
+                if type(identifier) is not str:
+                    raise TypeError(f"{name} must be a built-in str")
+                if not identifier:
+                    raise ValueError(f"{name} must not be empty")
+                if any(0xD800 <= ord(character) <= 0xDFFF for character in identifier):
+                    raise ValueError(
+                        f"{name} must not contain Unicode surrogate code points"
+                    )
+                if unicodedata.normalize("NFC", identifier) != identifier:
+                    raise ValueError(f"{name} must be Unicode NFC")
+                if _ID_PATTERN.fullmatch(identifier) is None:
+                    raise ValueError(
+                        f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                    )
+            if identifiers != tuple(sorted(identifiers)) or len(
+                set(identifiers)
+            ) != len(identifiers):
+                raise ValueError(f"{field_name} must be unique and lexically sorted")
+
+        if self.manifest_id in self.dependency_manifest_ids:
+            raise ValueError("a run manifest must not depend on itself")
 
 
 @dataclass(frozen=True, slots=True)
@@ -422,6 +617,16 @@ class ProvenanceRecord:
         Ordered, duplicate-free direct provenance parents.
     artifact_ids
         Ordered, duplicate-free artifacts covered by this record.
+
+    Raises
+    ------
+    TypeError
+        If an identity is not a built-in string, either collection is not a
+        built-in tuple, or a tuple member is not a built-in string.
+    ValueError
+        If an identifier violates its lexical contract, either collection is
+        not unique and lexically sorted, or the record names itself as a direct
+        parent.
     """
 
     provenance_id: str
@@ -430,19 +635,55 @@ class ProvenanceRecord:
     artifact_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        _require_identifier(self.provenance_id, "provenance_id")
-        _require_identifier(self.manifest_id, "manifest_id")
-        parents = _require_identifier_tuple(
-            self.parent_provenance_ids, "parent_provenance_ids"
-        )
-        if self.provenance_id in parents:
+        """Validate this record's identifiers and direct-parent relationship."""
+        for name, value in (
+            ("provenance_id", self.provenance_id),
+            ("manifest_id", self.manifest_id),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in str")
+            if not value:
+                raise ValueError(f"{name} must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
+                raise ValueError(
+                    f"{name} must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", value) != value:
+                raise ValueError(f"{name} must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(value) is None:
+                raise ValueError(
+                    f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                )
+
+        for field_name, identifiers in (
+            ("parent_provenance_ids", self.parent_provenance_ids),
+            ("artifact_ids", self.artifact_ids),
+        ):
+            if type(identifiers) is not tuple:
+                raise TypeError(f"{field_name} must be a built-in tuple")
+            for index, identifier in enumerate(identifiers):
+                name = f"{field_name}[{index}]"
+                if type(identifier) is not str:
+                    raise TypeError(f"{name} must be a built-in str")
+                if not identifier:
+                    raise ValueError(f"{name} must not be empty")
+                if any(0xD800 <= ord(character) <= 0xDFFF for character in identifier):
+                    raise ValueError(
+                        f"{name} must not contain Unicode surrogate code points"
+                    )
+                if unicodedata.normalize("NFC", identifier) != identifier:
+                    raise ValueError(f"{name} must be Unicode NFC")
+                if _ID_PATTERN.fullmatch(identifier) is None:
+                    raise ValueError(
+                        f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                    )
+            if identifiers != tuple(sorted(identifiers)) or len(
+                set(identifiers)
+            ) != len(identifiers):
+                raise ValueError(f"{field_name} must be unique and lexically sorted")
+
+        if self.provenance_id in self.parent_provenance_ids:
             raise ValueError("a provenance record must not be its own parent")
-        object.__setattr__(self, "parent_provenance_ids", parents)
-        object.__setattr__(
-            self,
-            "artifact_ids",
-            _require_identifier_tuple(self.artifact_ids, "artifact_ids"),
-        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -459,6 +700,15 @@ class LineageRelation:
         Meaning of the directed edge.
     provenance_id
         Provenance record supporting the relationship.
+
+    Raises
+    ------
+    TypeError
+        If an identity is not a built-in string or ``kind`` is not a
+        :class:`LineageKind` member.
+    ValueError
+        If an identifier violates its lexical contract or ``parent_id`` and
+        ``child_id`` are equal.
     """
 
     lineage_id: str
@@ -468,11 +718,42 @@ class LineageRelation:
     provenance_id: str
 
     def __post_init__(self) -> None:
-        _require_identifier(self.lineage_id, "lineage_id")
-        _require_identifier(self.parent_id, "parent_id")
-        _require_identifier(self.child_id, "child_id")
+        """Validate this directed edge's identifiers, direction, and vocabulary."""
+        for name, value in (
+            ("lineage_id", self.lineage_id),
+            ("parent_id", self.parent_id),
+            ("child_id", self.child_id),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in str")
+            if not value:
+                raise ValueError(f"{name} must not be empty")
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
+                raise ValueError(
+                    f"{name} must not contain Unicode surrogate code points"
+                )
+            if unicodedata.normalize("NFC", value) != value:
+                raise ValueError(f"{name} must be Unicode NFC")
+            if _ID_PATTERN.fullmatch(value) is None:
+                raise ValueError(
+                    f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
+                )
         if self.parent_id == self.child_id:
             raise ValueError("parent_id and child_id must differ")
         if not isinstance(self.kind, LineageKind):
             raise TypeError("kind must be a LineageKind")
-        _require_identifier(self.provenance_id, "provenance_id")
+
+        if type(self.provenance_id) is not str:
+            raise TypeError("provenance_id must be a built-in str")
+        if not self.provenance_id:
+            raise ValueError("provenance_id must not be empty")
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in self.provenance_id):
+            raise ValueError(
+                "provenance_id must not contain Unicode surrogate code points"
+            )
+        if unicodedata.normalize("NFC", self.provenance_id) != self.provenance_id:
+            raise ValueError("provenance_id must be Unicode NFC")
+        if _ID_PATTERN.fullmatch(self.provenance_id) is None:
+            raise ValueError(
+                "provenance_id must match [A-Za-z0-9][A-Za-z0-9._:-]{0,127}"
+            )

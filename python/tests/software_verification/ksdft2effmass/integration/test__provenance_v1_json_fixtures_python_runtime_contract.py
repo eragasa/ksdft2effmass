@@ -186,3 +186,35 @@ def test_artifact__corrected_invalid_fixtures__reject_legacy_channels() -> None:
     for stem in sorted(required):
         with pytest.raises(ProvenanceJsonError):
             serializer.deserialize(by_stem[stem].read_text(encoding="utf-8"))
+
+
+def test_artifact__direct_self_dependency_fixture__has_layered_classification() -> None:
+    """Evidence ID
+    SV-PROV-103
+    Requirement
+    The direct-self-dependency fixture remains overall invalid even though Draft 2020-12
+    can validate its unrelated wire structure but cannot compare two member values.
+    Method
+    Require the precise invalid fixture, validate its decoded object against the public
+    schema, then pass the original text to the public strict deserializer.
+    Oracle
+    The fixture directory supplies overall classification; exact equality between
+    manifest_id and its dependency member independently supplies the runtime oracle.
+    Acceptance
+    Schema validation succeeds, identifiers are exactly equal, and deserialization
+    raises ProvenanceJsonError while the fixture remains in the invalid family.
+    Interpretation
+    Pass demonstrates honest structural-schema/runtime-relational layering; failure
+    means fixture, schema claim, runtime enforcement, or classification drift.
+    Limitations
+    Draft 2020-12 is not claimed to express member inequality, and indirect dependency
+    cycles or cross-record existence are excluded.
+    """
+    path = ROOT / "fixtures/invalid/direct-self-dependent-run-manifest.json"
+    assert path in INVALID
+    text = path.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    _validator().validate(payload)
+    assert payload["manifest_id"] == payload["dependency_manifest_ids"][0]
+    with pytest.raises(ProvenanceJsonError):
+        ProvenanceJsonSerializer().deserialize(text)

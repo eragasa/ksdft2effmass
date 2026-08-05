@@ -23,8 +23,9 @@ artifact/boundary modules under
 checks:
 
 * artifact identity, specification, reference, location, manifest, provenance,
-  and directed lineage construction and invariants, including real UTC calendar
-  dates and timestamp ordering;
+  and directed lineage construction and owner-local invariants, including real
+  UTC calendar dates, timestamp ordering, and direct manifest self-dependency
+  rejection;
 * tool identity/specification, declared capability, installation observation,
   capability verification, immutable request, completed result, and structured
   failure distinctions, with explicit attempt and optional retry-parent IDs;
@@ -47,12 +48,15 @@ Canonical output is compact sorted-key UTF-8 JSON followed by one line feed.
 The schema owns exact wire members, required/null forms, primitive types, enum
 values, patterns, numeric bounds, unique arrays, and declared conditional
 shapes.  The strict parser additionally owns duplicate-key, BOM, malformed JSON,
-and floating lexical-form rejection.  Python constructors own intrinsic and
-relational checks that the schema does not claim to complete, including NFC,
-deterministic lexical ordering, actual calendar dates, timestamp ordering,
-non-self provenance/lineage/retry relations, location-alternative consistency,
-and status derivation.  Boundary evidence constructs records after schema
-checks rather than treating schema acceptance alone as full runtime validity.
+and floating lexical-form rejection.  Each public record owns its intrinsic constructor validation directly, without
+shared callable field validators.  Python constructors own intrinsic and
+record-local relational checks that the schema does not claim to complete,
+including NFC, deterministic lexical ordering, actual calendar dates, timestamp
+ordering, direct non-self manifest/provenance/lineage/retry relations,
+location-alternative consistency, and status derivation.  Cross-record existence
+and graph-wide cycle detection remain separate repository or workflow concerns.
+Boundary evidence constructs records after schema checks rather than treating
+schema acceptance alone as full runtime relational validity.
 
 Interpretation and limitations
 ------------------------------
@@ -64,7 +68,9 @@ correlation, and attempt identity agreement only.  Retry-parent lineage and
 separate authorization remain outside that derived status.
 ``VerificationStatus.VERIFIED`` establishes only the represented
 software-capability observation.  ``COMPLETED`` establishes only completion at
-the external boundary.
+the external boundary.  ``RunManifest.output_artifact_ids`` are preallocated
+expected identities and may therefore be nonempty in ``DECLARED``; they do not
+establish that output bytes were observed.
 
 No test invokes QE, Wannier90, a scheduler, a network, or a filesystem-backed
 artifact resolver.  Tests use synthetic records and fixtures.  They do not

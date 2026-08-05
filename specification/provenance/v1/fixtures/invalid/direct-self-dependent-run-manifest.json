@@ -1,0 +1,1 @@
+{"dependency_manifest_ids":["manifest.run"],"finished_at":null,"input_artifact_ids":["artifact.input"],"manifest_id":"manifest.run","output_artifact_ids":["artifact.expected"],"record_type":"run_manifest","schema_version":1,"specification_id":"spec.run","started_at":"2026-08-05T15:00:00Z","state":"declared"}

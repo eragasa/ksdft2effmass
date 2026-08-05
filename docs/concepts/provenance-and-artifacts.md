@@ -24,8 +24,12 @@ an ambient-current-directory path.
 
 A `RunManifest` records one declared or terminal attempt; its `manifest_id` is
 the attempt identity. Inputs, outputs, and dependencies are identities rather
-than embedded payloads. Timestamps identify actual UTC calendar seconds, not
-merely strings matching a numeric shape. `COMPLETE` means that the represented
+than embedded payloads. Output IDs are preallocated expected identities, so a
+`DECLARED` manifest may name expected outputs before their bytes exist or an
+attempt reaches a terminal outcome. Timestamps identify actual UTC calendar
+seconds, not merely strings matching a numeric shape. The record rejects a
+direct dependency on its own `manifest_id`; graph-wide dependency cycles remain
+a relational concern outside one manifest. `COMPLETE` means that the represented
 execution attempt completed; it does not mean solver convergence,
 numerical-protocol acceptance, or scientific acceptance. A failed attempt
 remains durable. An `ExternalExecutionRequest` carries its own `attempt_id` and
@@ -43,8 +47,10 @@ representation and common-parent requirements.
 
 ## DataObject/ActionObject boundary
 
-All records and results are frozen, slotted value objects. They validate only
-intrinsic represented invariants. `ArtifactIdentityVerifier` compares an
+All records and results are frozen, slotted value objects. Each record validates
+its own intrinsic represented invariants directly; shared callable validators
+and cross-record constructor dispatch are not part of the contract.
+`ArtifactIdentityVerifier` compares an
 already observed digest and size against a reference; it performs no file I/O.
 `ExecutionOutcomeCorrelator` compares request, correlation, and attempt
 identities without interpreting outputs. Verification and correlation result
@@ -54,10 +60,12 @@ These ActionObjects are stateless and do not hide deployment or scientific
 policy. Public string-valued enum vocabularies use `StrEnum`.
 
 The schema owns structural wire constraints; strict JSON parsing also rejects
-syntax-level defects, while Python constructors own intrinsic and relational
-checks such as NFC, deterministic ordering, actual calendar validity,
-timestamp ordering, non-self relations, and derived statuses. Schema acceptance
-alone does not establish all Python invariants.
+syntax-level defects, while Python constructors own intrinsic and record-local
+relational checks such as NFC, deterministic ordering, actual calendar validity,
+timestamp ordering, direct non-self relations, and derived statuses. Cross-record
+existence and graph-wide acyclicity require a separate repository or workflow
+boundary. Schema acceptance alone does not establish all runtime relational
+validity or Python invariants.
 
 Durable values categorically exclude credentials, open files,
 process/scheduler handles, mutable clients, closures, live external-library
