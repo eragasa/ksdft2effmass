@@ -88,46 +88,90 @@ def run_replay(root: Path, side: str) -> tuple[dict[str, Any], dict[str, Any] | 
             text=True,
             check=False,
         )
-        exit_status = completed.returncode
-        payload = json.loads(completed.stdout) if exit_status == 0 else None
-        if not isinstance(payload, dict) or payload.get("side") != side:
-            payload = None
-            if exit_status == 0:
-                exit_status = 1
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
-        exit_status = 127
-        payload = None
-    return {"command_id": command_id, "exit_status": exit_status}, payload
+    except OSError:
+        return {"command_id": command_id, "exit_status": 127}, None
+    try:
+        parsed = json.loads(completed.stdout)
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        parsed = None
+    payload = parsed if isinstance(parsed, dict) else None
+    return {
+        "command_id": command_id,
+        "exit_status": completed.returncode,
+    }, payload
+
+
+def indexed_observations(
+    payload: dict[str, Any] | None, side: str
+) -> dict[str, dict[str, Any]]:
+    expected_ids = set(PAIR_CLASSIFICATIONS)
+    if (
+        payload is None
+        or set(payload) != {"observations", "pair_ids", "schema_version", "side"}
+        or payload.get("schema_version") != 1
+        or payload.get("side") != side
+    ):
+        return {}
+    pair_ids = payload.get("pair_ids")
+    observations = payload.get("observations")
+    if (
+        not isinstance(pair_ids, list)
+        or any(not isinstance(pair_id, str) for pair_id in pair_ids)
+        or len(pair_ids) != len(set(pair_ids))
+        or set(pair_ids) != expected_ids
+        or not isinstance(observations, list)
+    ):
+        return {}
+    result: dict[str, dict[str, Any]] = {}
+    required_observation_keys = {"command", *COMPARISON_KEYS}
+    for item in observations:
+        if (
+            not isinstance(item, dict)
+            or set(item)
+            != {"input_identities", "input_set_hash", "observation", "pair_id"}
+            or not isinstance(item.get("pair_id"), str)
+            or not isinstance(item.get("input_identities"), list)
+            or not isinstance(item.get("input_set_hash"), str)
+            or not isinstance(item.get("observation"), dict)
+            or set(item["observation"]) != required_observation_keys
+        ):
+            return {}
+        result[item["pair_id"]] = item
+    if (
+        len(result) != len(observations)
+        or set(result) != expected_ids
+        or set(result) != set(pair_ids)
+    ):
+        return {}
+    return result
+
+
+def observations_pass(observations: dict[str, dict[str, Any]]) -> bool:
+    expected_ids = set(PAIR_CLASSIFICATIONS)
+    return set(observations) == expected_ids and all(
+        item["observation"].get("status") == "PASS"
+        and type(item["observation"].get("exit_status")) is int
+        and item["observation"]["exit_status"] == 0
+        for item in observations.values()
+    )
 
 
 def run_route(root: Path, name: str) -> dict[str, Any]:
-    command, _payload = run_replay(root, name)
+    command, payload = run_replay(root, name)
+    observations = indexed_observations(payload, name)
+    passed = command["exit_status"] == 0 and observations_pass(observations)
     return {
         "route": name,
-        "status": "PASS" if command["exit_status"] == 0 else "FAIL",
+        "status": "PASS" if passed else "FAIL",
         "commands": [command],
     }
-
-
-def indexed_observations(payload: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
-    if payload is None or payload.get("schema_version") != 1:
-        return {}
-    observations = payload.get("observations")
-    if not isinstance(observations, list):
-        return {}
-    result: dict[str, dict[str, Any]] = {}
-    for item in observations:
-        if not isinstance(item, dict) or not isinstance(item.get("pair_id"), str):
-            return {}
-        result[item["pair_id"]] = item
-    return result if len(result) == len(observations) else {}
 
 
 def run_shadow(root: Path) -> dict[str, Any]:
     legacy_command, legacy_payload = run_replay(root, "legacy")
     local_command, local_payload = run_replay(root, "local")
-    legacy = indexed_observations(legacy_payload)
-    local = indexed_observations(local_payload)
+    legacy = indexed_observations(legacy_payload, "legacy")
+    local = indexed_observations(local_payload, "local")
     classifications: dict[str, str] = {}
     expected_ids = set(PAIR_CLASSIFICATIONS)
     if set(legacy) == expected_ids and set(local) == expected_ids:
@@ -166,6 +210,8 @@ def run_shadow(root: Path) -> dict[str, Any]:
     commands = [legacy_command, local_command]
     passed = (
         all(command["exit_status"] == 0 for command in commands)
+        and observations_pass(legacy)
+        and observations_pass(local)
         and set(classifications) == expected_ids
         and all(
             value in {"equivalent", "intentional"} for value in classifications.values()

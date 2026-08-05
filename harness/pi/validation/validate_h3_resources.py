@@ -425,10 +425,10 @@ def validation_route_gate(local: dict[str, Any]) -> None:
     R.check(
         set(route) == {"rollback_route", "route", "schema_version"}
         and route.get("schema_version") == 1
-        and route.get("route") == "legacy"
+        and route.get("route") in {"legacy", "local"}
         and route.get("rollback_route") == "legacy",
-        "route.explicit-legacy-default",
-        "validation route must be the closed schema-version-1 legacy/legacy configuration",
+        "route.explicit-maintained-route",
+        "validation route must be a closed schema-version-1 legacy/local route with legacy rollback",
     )
     R.check(
         len(entries) == 1
