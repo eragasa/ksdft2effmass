@@ -58,13 +58,13 @@
     "status": "pending_independent_review"
   },
   "baseline_limitations": [
-    "repository-wide Ruff check exits 1 with 43 errors; the passing focused H4 Ruff path set excludes the legacy H3 standalone validator",
+    "repository-wide Ruff check at R2 exits 1 with 43 errors; H4 introduced zero logical (path, code, message) findings relative to its 44-finding starting revision and removed one EXE001 finding",
     "four pre-existing unchanged CPN tests fail the global Ruff format scan",
-    "global mypy reports nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy reports one missing mutable-variable annotation in test__local_public_api_and_models.py:116; source-only mypy passes all 8 local source files"
+    "global mypy retains nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy passes all 16 files"
   ],
   "static_verification_limitations": [
-    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The narrower passing Ruff record covers only the explicit H4 path set and excludes harness/pi/validation/validate_h3_resources.py.",
-    "Focused local source-and-test mypy is not clean: test__local_public_api_and_models.py:116 needs a type annotation for mutable. The passing mypy record covers only the 8 local source files."
+    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The focused H4 Ruff path set passes and H4 introduced no logical Ruff findings relative to starting revision 3718b5d9fe24e9c56a48ab0efab4430fb7594b4f.",
+    "Global mypy retains pre-existing H2 test-typing debt outside H4. Focused H4 source-and-test mypy passes all 16 files."
   ],
   "completion_gate_attestation_scope": "validate_h4_completion.py validates retained H4 evidence semantics, hashes, frozen-revision parity identity, checksum policy, legacy routing, and public export inventories, and executes the maintained legacy route consumer. It does not rerun or attest every supplemental command recorded in validation-results.json.",
   "claim_boundary": "Software-verification and migration evidence only; no numerical verification, scientific validation, UQ, release, external execution, authoritative cutover, or human acceptance claim.",
@@ -92,5 +92,5 @@
     }
   ],
   "record_role": "E_finalized",
-  "implementation_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084"
+  "implementation_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418"
 }

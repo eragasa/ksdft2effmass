@@ -2,7 +2,7 @@
   "schema_version": 1,
   "artifact_identity": "H4.validation-results.v1",
   "task_id": "H4",
-  "replay_label": "clean-revision:be964976ef66b9a8d35f3929d8d24f31bd242084",
+  "replay_label": "clean-revision:a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
   "overall_status": "IMPLEMENTATION_PASS_PENDING_INDEPENDENT_REVIEW_AND_HUMAN_ACCEPTANCE",
   "commands": [
     {
@@ -12,7 +12,7 @@
       "summary": "23 passed"
     },
     {
-      "command": "clean replay at durable revision be964976ef66b9a8d35f3929d8d24f31bd242084",
+      "command": "clean replay at durable revision a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
       "status": "PASS",
       "exit_status": 0,
       "summary": "8 legacy and 8 local observations PASS; 4 equivalent, 4 intentional, 0 defect, 0 deferred"
@@ -48,6 +48,12 @@
       "summary": "43 errors"
     },
     {
+      "command": "ruff check . --output-format json at H4 starting revision 3718b5d9fe24e9c56a48ab0efab4430fb7594b4f and replacement replay-input revision a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "H4 start: 44 findings; R2: 43 findings; 0 introduced logical (path, code, message) findings and 1 removed EXE001 finding; unchanged findings may have shifted line locations"
+    },
+    {
       "command": "ruff check python/src/ksdft2effmass/harness/pi/local python/tests/software_verification/ksdft2effmass/harness/pi/local .pi/evidence/pi-harness-incubation/H4 .pi/skills/validate_harness.py .pi/skills/validate_skill_capabilities.py",
       "status": "PASS",
       "exit_status": 0,
@@ -67,9 +73,9 @@
     },
     {
       "command": "cd python && MYPYPATH=src mypy src/ksdft2effmass/harness/pi/local tests/software_verification/ksdft2effmass/harness/pi/local",
-      "status": "FAIL",
-      "exit_status": 1,
-      "summary": "1 error in 1 file (checked 16 source files): test__local_public_api_and_models.py:116 needs type annotation for mutable"
+      "status": "PASS",
+      "exit_status": 0,
+      "summary": "Success: no issues found in 16 source files"
     },
     {
       "command": "cd python && MYPYPATH=src mypy src/ksdft2effmass/harness/pi/local",
@@ -161,16 +167,16 @@
     "intentional": 4,
     "defect": 0,
     "deferred": 0,
-    "retained_clean_replay_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084"
+    "retained_clean_replay_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418"
   },
   "out_of_scope_baseline_limitations": [
-    "Global Ruff check reports 43 errors, including retained historical evidence and the legacy H3 standalone validator; the executed focused H4 Ruff path set excludes that legacy validator and passes.",
+    "Repository-wide Ruff check at R2 exits 1 with 43 retained findings. Compared with 44 findings at the H4 starting revision, the logical (path, code, message) multiset has zero introduced findings and one removed EXE001 finding for validate_h4_completion.py; unchanged findings may have shifted line locations.",
     "Global Ruff format scan: four pre-existing unchanged CPN tests require formatting.",
-    "Global mypy reports nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy additionally reports one missing mutable-variable annotation in test__local_public_api_and_models.py:116, while source-only mypy passes all 8 local source files."
+    "Global mypy retains nine pre-existing H2 untyped-test errors; focused H4 source-and-test mypy passes all 16 source/test files after the bounded test-local annotation correction."
   ],
   "static_verification_limitations": [
-    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The narrower passing Ruff record covers only the explicit H4 path set and excludes harness/pi/validation/validate_h3_resources.py.",
-    "Focused local source-and-test mypy is not clean: test__local_public_api_and_models.py:116 needs a type annotation for mutable. The passing mypy record covers only the 8 local source files."
+    "Repository-wide Ruff is not clean: ruff check . exits 1 with 43 errors. The focused H4 Ruff path set passes, and comparison with H4 starting revision 3718b5d9fe24e9c56a48ab0efab4430fb7594b4f finds zero introduced logical (path, code, message) findings.",
+    "Global mypy retains pre-existing H2 untyped-test debt outside H4. Focused H4 source-and-test mypy passes all 16 files."
   ],
   "completion_gate_attestation_scope": "validate_h4_completion.py validates retained H4 evidence semantics, hashes, frozen-revision parity identity, checksum policy, legacy routing, and public export inventories, and executes the maintained legacy route consumer. It does not rerun or attest every supplemental command recorded in this report.",
   "defects": [],
@@ -182,5 +188,5 @@
   "authoritative_route": "legacy_pending_human_checkpoint",
   "authoritative_cutover_allowed_without_review_and_human_acceptance": false,
   "record_role": "E_finalized",
-  "implementation_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084"
+  "implementation_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418"
 }

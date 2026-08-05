@@ -2,20 +2,20 @@
   "schema_version": 1,
   "artifact_identity": "H4.evidence-artifact-hashes.v1",
   "task_id": "H4",
-  "implementation_revision": "be964976ef66b9a8d35f3929d8d24f31bd242084",
+  "implementation_revision": "a9b67dd9974fd94b98c2bec8b0c76a4201c38418",
   "algorithm": "sha256",
   "artifacts": [
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
-      "sha256": "c1e350431ca9a19dacbcf3c09a6e5fe0b320fd6fd1fe94dcfa853e8dc58178ad"
+      "sha256": "655e67509e9a1385ef8daf74f4fbc4c72a842bfb0efcdd739bae72ee784f989f"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/acceptance-artifacts.json",
-      "sha256": "a0b53f884e2c31b83c7de27633a72d58b999880ea626c6d7a03a776b15a215a0"
+      "sha256": "eaa41452bc37382fbc8ce2649c826a8e85d2cf0b1946500f1e5a96ab418e802a"
     },
     {
       "path": ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
-      "sha256": "2cc92bf326a996582022ee000a6768e2450bc6c6c73cdeb7309b7ae5bdf72168"
+      "sha256": "6c9ebc2952f81c813b6a095d0b2ae1bf8bd9f812afb4475421270f34346417d1"
     }
   ]
 }
