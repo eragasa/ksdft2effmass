@@ -44,7 +44,7 @@
       "path": ".pi/evidence/pi-harness-incubation/H4/checksums.sha256",
       "kind": "checksum_catalog",
       "status": "stable_boundary_pass",
-      "entry_count": 205,
+      "entry_count": 206,
       "boundary": "stable authorized H4 implementation/program/resource input boundary; exact five exclusions declared in checksum_exclusions"
     },
     {
