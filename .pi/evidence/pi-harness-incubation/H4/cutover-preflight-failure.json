@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "H4.cutover-preflight-failure.v1",
+  "task_id": "H4",
+  "checkpoint_authority": "H4-HC01:Option-A",
+  "attempted_at": "2026-08-05T06:22:59Z",
+  "preflight_revision": "f29140621b10bae356b5443bc8d7c2a8e5cad937",
+  "mode": "isolated_detached_worktree_with_simulated_local_route_and_synchronized_manifest_digest",
+  "primary_worktree_route_changed": false,
+  "primary_authoritative_route": "legacy",
+  "retained_replay_written": false,
+  "commands": [
+    {
+      "command": "python harness/pi/validation/validate_h3_resources.py",
+      "exit_status": 1,
+      "status": "FAIL",
+      "finding": "route.explicit-legacy-default rejects route=local",
+      "output_sha256": "0f0f49a81ef35f26f52ded37fa251cd4c4fab5934c9f0468ba889a119743b91c"
+    },
+    {
+      "command": "python .pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py --side local --no-write",
+      "exit_status": 0,
+      "status": "PROCESS_PASS_WITH_FAILED_H3_OBSERVATION",
+      "finding": "h3-resource-validator observation has status FAIL and exit_status 1 while the replay process exits 0",
+      "output_sha256": "c49ca0d8ce598d5dd287c9c3d86d9f30ca9ba827f703e5a8de5baee9c8cb6d1c"
+    },
+    {
+      "command": "python .pi/skills/validate_harness.py --repository-root <isolated-worktree> --route-config <isolated-worktree>/harness/local/validation-route.json",
+      "exit_status": 0,
+      "status": "FALSE_POSITIVE_PASS",
+      "finding": "run_route derives PASS only from replay process exit and does not reject failed selected observations",
+      "output_sha256": "cec11c4dd57bd5d52c5e91d5e4cd5edb9576fe6940793b91d6a2e98a20a6f13c"
+    }
+  ],
+  "material_defects": [
+    "The accepted H3 validator unconditionally requires the maintained route to remain legacy, so the authorized local cutover fails an exact retained pair.",
+    "The operational consumer reports local PASS even when the retained local payload contains a failed H3 observation."
+  ],
+  "stop_condition": ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md requires stopping on a failed H3 resource validator or defect observation.",
+  "correction_boundary": "Both implicated files are R2 replay inputs. Correcting them would require explicit authority for another replacement replay boundary and a bounded contract correction beyond H4-HC01 Option A.",
+  "h4_closed": false,
+  "p2_activation_allowed": false,
+  "scope_expansion_performed": false
+}

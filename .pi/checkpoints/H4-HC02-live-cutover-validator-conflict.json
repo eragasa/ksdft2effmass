@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "H4-HC02",
+  "task_id": "H4",
+  "episode_id": "pi-harness-incubation-H4",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-05T06:22:59Z",
+  "question": "How should H4 proceed after the authorized local-route cutover preflight demonstrated that the accepted H3 validator rejects route=local and the operational route consumer nevertheless reports a false-positive PASS because it ignores failed observations inside a successful no-write replay process?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize one bounded H4 cutover-contract correction and replacement R3/E3 boundary.",
+      "consequence": "Correct only the H3 route gate so a human-accepted local route is valid while legacy rollback remains valid, and correct the operational consumer so any failed selected observation makes legacy/local routing fail. Add focused tests, create one replacement R3, replay R3 exactly once, create E3, obtain one targeted integration confirmation, rerun completion/cutover checks, return directly to H4-HC02 for final cutover acceptance, and keep legacy authoritative meanwhile. This explicitly supersedes the prior no-further-replay/correction limit only for these two demonstrated defects."
+    },
+    {
+      "id": "B",
+      "summary": "Retain legacy authority and do not authorize another H4 correction.",
+      "consequence": "Preserve the failed preflight, keep H4 open and blocked without local cutover, and do not activate P2 or another successor. No false PASS is accepted as cutover evidence."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the decision.",
+      "consequence": "Keep H4 blocked at H4-HC02 and legacy-authoritative with no correction, replay, cutover, P2 activation, external/scientific execution, publication, or release work."
+    }
+  ],
+  "recommendation": "Option A. The isolated preflight found two concrete, reproducible integration defects at the authorized cutover boundary: the H3 gate hard-codes the pre-cutover legacy default, and the operational consumer treats replay process success as validation success without inspecting the eight observation statuses. Closing H4 or activating P2 with that false-positive route would violate the accepted stop conditions. A bounded correction to exactly those two replay-input files, their focused tests, one R3/E3 cycle, and one targeted confirmation is the smallest contract-coherent remedy.",
+  "blocked_scope": "H4 local-route cutover and closure; P2 activation or execution; H5; P3-P11; scientific/external execution; publication; release; acceptance of a false-positive validation result; unrelated work.",
+  "safe_scope": "Read-only inspection of H4-HC01, R2/E2, the isolated cutover-preflight failure, the H3 route gate, the operational consumer pass logic, retained route/rollback contracts, and this checkpoint. The resolve-human-checkpoint procedure may record an unambiguous response and resume only the selected bounded scope.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/H4-HC01-harness-cutover.json",
+    ".pi/checkpoints/H4-HC02-live-cutover-validator-conflict.json",
+    ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/pi-harness-incubation/H4/cutover-preflight-failure.json",
+    ".pi/evidence/pi-harness-incubation/H4/cutover-and-rollback-plan.md",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-final-human-response.md",
+    ".pi/evidence/pi-harness-incubation/H4/H4-HC01-option-B-correction.json",
+    ".pi/evidence/pi-harness-incubation/H4/shadow-parity-results.json",
+    ".pi/evidence/pi-harness-incubation/H4/validation-results.json",
+    "harness/pi/validation/validate_h3_resources.py",
+    ".pi/skills/validate_harness.py",
+    "harness/local/validation-route.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "H4_blocked_at_H4-HC02_after_failed_local_cutover_preflight; legacy_authoritative; H4_not_closed; P2_H5_P3-P11_and_protected_execution_inactive"
+}

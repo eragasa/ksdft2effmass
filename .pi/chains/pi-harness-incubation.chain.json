@@ -2,8 +2,8 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. Corrected H4-HC01 Option A is human accepted and authorizes only controlled local-route cutover and H4 closeout. P2 may activate only after the distinct H4 closeout boundary is pushed and verified. H5 and all other successors remain blocked and inactive.",
-  "status": "H4_active_authorized_cutover_closeout",
+  "description": "Separate harness-incubation project. Corrected H4-HC01 Option A accepted H4 and authorized controlled cutover, but isolated cutover preflight found a failing H3 local-route gate and false-positive consumer PASS. H4 is blocked at H4-HC02; legacy remains authoritative. P2, H5, and all other successors remain blocked and inactive.",
+  "status": "H4_blocked_pending_H4-HC02_live_cutover_validator_conflict",
   "active_task": "H4",
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
   "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
@@ -75,7 +75,7 @@
       "prerequisites": [
         "H2:human_accepted"
       ],
-      "status": "active_authorized_cutover_closeout",
+      "status": "blocked_pending_H4-HC02",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
@@ -197,11 +197,18 @@
       "scope": "H4 project-local Python, tests and deterministic parity evidence, canonical two-skill rename and live resource synchronization, stale inventory correction, maintained documentation/control synchronization, independent review, bounded correction, final verification, and one final H4 checkpoint only; no H5/P2/scientific/external/publication/release activation."
     }
   ],
-  "pending_checkpoints": [],
+  "pending_checkpoints": [
+    {
+      "checkpoint": "H4-HC02",
+      "path": ".pi/checkpoints/H4-HC02-live-cutover-validator-conflict.json",
+      "blocked_task": "H4",
+      "decision": "live_cutover_validator_and_consumer_contract_correction"
+    }
+  ],
   "chain": [
     {
-      "phase": "execute-H4-authorized-cutover-closeout",
-      "message": "Perform only the accepted maintained local-route cutover, named consumer and rollback proof, coherent H4 closeout records, validation, commit/push, and remote verification. Do not activate P2 within the H4 closeout boundary. H5, P3-P11, scientific/external execution, publication, and release remain blocked."
+      "phase": "await-H4-HC02-live-cutover-conflict-decision",
+      "message": "The authorized isolated local cutover preflight failed the H3 route gate and exposed a false-positive operational-consumer PASS. Primary routing remains legacy. H4 is not closed; P2, H5, P3-P11, scientific/external execution, publication, and release remain blocked."
     }
   ]
 }

@@ -1,6 +1,6 @@
 # H4 — Project-local integration, shadow replay, and cutover
 
-Status: corrected H4 human-accepted by H4-HC01 Option A; controlled local-route cutover and H4 closeout authorized and in progress; P2 activation remains separate until the H4 closeout boundary is pushed and verified
+Status: blocked at H4-HC02 after the authorized isolated local-cutover preflight found an H3 route-gate failure and a false-positive operational-consumer PASS; primary route remains legacy, H4 is not closed, and P2 remains blocked
 
 ## Objective
 
