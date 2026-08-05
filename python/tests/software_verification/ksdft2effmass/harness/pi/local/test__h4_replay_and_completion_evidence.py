@@ -362,6 +362,18 @@ def _completion_records(
     audit["summary"] = f"{len(modules)} modules, {occurrences} occurrences, 0 issues"
     audit["module_inventory"] = modules
     audit["evidence_id_inventory"] = evidence_ids
+    focused = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
+    )
+    focused["summary"] = "focused suite passed"
+    full = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FULL_PYTEST_COMMAND
+    )
+    full["summary"] = "full suite passed"
     return acceptance, validation, parity
 
 
@@ -372,10 +384,10 @@ def test_completion__focused_pytest__requires_pass_and_integer_zero() -> None:
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
         "h4_focused_status_fixture",
     )
-    assert validator.validate_focused_pytest_record(
+    assert validator.validate_pytest_record(
         {"status": "PASS", "exit_status": 1, "summary": "focused suite passed"}
     )
-    assert validator.validate_focused_pytest_record(
+    assert validator.validate_pytest_record(
         {"status": "PASS", "exit_status": True, "summary": "focused suite passed"}
     )
     acceptance, validation, parity = _completion_records(validator)
@@ -398,7 +410,7 @@ def test_completion__focused_pytest__accepts_pass_without_fixed_total() -> None:
         "h4_focused_no_count_fixture",
     )
     assert (
-        validator.validate_focused_pytest_record(
+        validator.validate_pytest_record(
             {"status": "PASS", "exit_status": 0, "summary": "focused suite passed"}
         )
         is None
@@ -429,7 +441,7 @@ def test_completion__focused_pytest__rejects_falsified_retained_count() -> None:
         "reported_count": 23,
         "observed_count": 8,
     }
-    assert "mismatched" in validator.validate_focused_pytest_record(record)
+    assert "mismatched" in validator.validate_pytest_record(record)
     acceptance, validation, parity = _completion_records(validator)
     focused = next(
         item
@@ -456,7 +468,7 @@ def test_completion__focused_pytest__accepts_true_same_run_count() -> None:
         "reported_count": 7,
         "observed_count": 7,
     }
-    assert validator.validate_focused_pytest_record(record) is None
+    assert validator.validate_pytest_record(record) is None
     acceptance, validation, parity = _completion_records(validator)
     focused = next(
         item
@@ -467,6 +479,29 @@ def test_completion__focused_pytest__accepts_true_same_run_count() -> None:
     assert validator.validate_generated_evidence(
         acceptance, validation, parity, root
     ) is None
+
+
+def test_completion__full_pytest__uses_same_run_count_without_fixed_total() -> None:
+    """Full-suite counts follow the same run-consistent contract as focused tests."""
+    root = repository_root()
+    validator = load(
+        root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
+        "h4_full_count_fixture",
+    )
+    acceptance, validation, parity = _completion_records(validator)
+    full = next(
+        item
+        for item in validation["commands"]
+        if item["command"] == validator.FULL_PYTEST_COMMAND
+    )
+    full.update(summary="1130 passed", reported_count=1130, observed_count=1130)
+    assert validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    ) is None
+    full["reported_count"] = 1107
+    assert "mismatched" in validator.validate_generated_evidence(
+        acceptance, validation, parity, root
+    )
 
 
 def test_completion__frozen_inventory__rejects_independent_e_mismatch() -> None:

@@ -74,6 +74,7 @@ FOCUSED_PYTEST_COMMAND = (
     "python -m pytest -q "
     "python/tests/software_verification/ksdft2effmass/harness/pi/local"
 )
+FULL_PYTEST_COMMAND = "pytest -q python"
 LOCAL_TEST_ROOT = "python/tests/software_verification/ksdft2effmass/harness/pi/local"
 EVIDENCE_ID_PATTERN = re.compile(r"SV-HL-[0-9]{3}")
 REQUIRED = (
@@ -245,10 +246,10 @@ def derive_test_evidence_inventory(
     return candidates, sorted(set(occurrences)), len(occurrences)
 
 
-def validate_focused_pytest_record(record: object) -> str | None:
-    """Validate status and an optional count tied to the recorded focused run."""
+def validate_pytest_record(record: object, label: str = "focused") -> str | None:
+    """Validate pytest success and an optional count tied to the same recorded run."""
     if not isinstance(record, dict):
-        return "focused pytest validation record is absent"
+        return f"{label} pytest validation record is absent"
     exit_status = record.get("exit_status")
     if (
         record.get("status") != "PASS"
@@ -256,10 +257,13 @@ def validate_focused_pytest_record(record: object) -> str | None:
         or isinstance(exit_status, bool)
         or exit_status != 0
     ):
-        return "focused pytest validation record is not PASS with integer exit_status 0"
+        return (
+            f"{label} pytest validation record is not PASS with "
+            "integer exit_status 0"
+        )
     summary = record.get("summary")
     if not isinstance(summary, str):
-        return "focused pytest validation summary is invalid"
+        return f"{label} pytest validation summary is invalid"
     summary_matches = re.findall(r"(?<![0-9])(\d+) passed\b", summary)
     has_count_contract = bool(summary_matches) or any(
         key in record for key in ("reported_count", "observed_count")
@@ -279,7 +283,7 @@ def validate_focused_pytest_record(record: object) -> str | None:
         or int(summary_matches[0]) != reported
         or reported != observed
     ):
-        return "focused pytest same-run count contract is invalid or mismatched"
+        return f"{label} pytest same-run count contract is invalid or mismatched"
     return None
 
 
@@ -316,7 +320,6 @@ def validate_generated_evidence(
         return inventory
     modules, evidence_ids, occurrence_count = inventory
     expected_summaries = {
-        "pytest -q python": "1107 passed",
         "python harness/pi/validation/validate_h3_resources.py": "55 gates, 0 defects",
         "python .pi/skills/validate_skill_capabilities.py": "6 skill records, 6 filesystem skills, 0 validation errors",
     }
@@ -335,9 +338,12 @@ def validate_generated_evidence(
         for command, summary in expected_summaries.items()
     ):
         return "required parent-supplied validation facts are absent"
-    focused = indexed.get(FOCUSED_PYTEST_COMMAND)
-    if reason := validate_focused_pytest_record(focused):
-        return reason
+    for label, command in (
+        ("focused", FOCUSED_PYTEST_COMMAND),
+        ("full", FULL_PYTEST_COMMAND),
+    ):
+        if reason := validate_pytest_record(indexed.get(command), label):
+            return reason
     audit_command = (
         "generic AuditEvidenceIdentifiers over "
         f"{len(modules)} H4 local test modules with explicit ksdft2effmass-v2 profile"
