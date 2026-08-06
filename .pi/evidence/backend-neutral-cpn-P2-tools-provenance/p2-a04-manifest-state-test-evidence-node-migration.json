@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_artifact__enum_values__matches_exact_manifest_lifecycle_vocabulary"
+  ],
+  "expected_new_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_artifact__enum_values__matches_exact_manifest_lifecycle_vocabulary",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    }
+  ]
+}
