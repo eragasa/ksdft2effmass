@@ -5,19 +5,7 @@
   "owners": {
     "writers": [
       {
-        "role": "implementation-and-documentation-writer",
-        "agent": "ksdft2effmass-implementation",
-        "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
-        "owned_paths": [
-          "python/src/ksdft2effmass/provenance/records.py",
-          "docs/api/provenance.md",
-          "docs/concepts/provenance-and-artifacts.md",
-          "docs/user-guide/provenance-and-artifacts.md",
-          "docs/verification/provenance-contract.rst"
-        ]
-      },
-      {
-        "role": "verification-schema-fixture-writer",
+        "role": "p2-test-evidence-migration-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
@@ -29,14 +17,16 @@
           "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceRecord.py",
           "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
           "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py",
-          "specification/provenance/v1/provenance-v1.schema.json",
-          "specification/provenance/v1/fixtures"
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-inventory.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-implementation.md"
         ]
       }
     ],
     "reviewers": [
       {
-        "role": "consolidated-public-contract-integration-reviewer",
+        "role": "targeted-test-evidence-reviewer",
         "agent": "ksdft2effmass-integration-reviewer",
         "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
       }
