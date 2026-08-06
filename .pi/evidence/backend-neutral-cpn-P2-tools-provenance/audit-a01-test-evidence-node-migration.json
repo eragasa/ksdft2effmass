@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[execute]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[parse]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[render]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[transfer]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__invalid_value_lookup__raises_value_error[unknown_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__invalid_value_lookup__raises_value_error[integer_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__invalid_name_lookup__raises_key_error",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__field_mapping__stores_exact_declared_types_and_values",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[implementation_family]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[non_nfc_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[overlength_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_method__eq__compares_complete_represented_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__durable_surface__excludes_runtime_credentials_and_handles",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__field_mapping__stores_exact_declared_types_and_values",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[specification_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[requested_version]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[executable_or_package_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[non_nfc_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[overlength_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_method__eq__compares_complete_represented_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__durable_surface__excludes_runtime_credentials_and_handles",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__requested_version_value__rejects_nonportable_text",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__field_mapping__stores_exact_declaration",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_name]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[specification_version]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__kind_semantic_type__rejects_string_lookalike",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__portable_text_value__rejects_invalid_identifier",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_method__eq__compares_complete_represented_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__durable_surface__excludes_runtime_state"
+  ],
+  "expected_new_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[execute_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[parse_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[render_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[transfer_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__rejects_values_outside_vocabulary[unknown_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__rejects_values_outside_vocabulary[integer_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__field_mapping__stores_exact_declared_types_and_values",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[implementation_family]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_empty_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_non_nfc_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_overlength_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_method__eq__compares_complete_represented_state[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__durable_surface__excludes_runtime_credentials_and_handles",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__field_mapping__stores_exact_declared_types_and_values",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[specification_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[requested_version]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[executable_or_package_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_empty_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_non_nfc_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_overlength_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_method__eq__compares_complete_represented_state[specification_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__durable_surface__excludes_runtime_credentials_and_handles",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__requested_version_value__rejects_nonportable_text[leading_prohibited_character]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__field_mapping__stores_exact_declaration",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[tool_id]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_name]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[specification_version]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__kind_semantic_type__rejects_string_lookalike",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__portable_text_value__rejects_invalid_identifier[capability_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_method__eq__compares_complete_represented_state[kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__durable_surface__excludes_runtime_state"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[execute]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[execute_value]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[parse]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[parse_value]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[render]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[render_value]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__value_and_name_lookup__return_member_identity[transfer]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__resolves_each_wire_value[transfer_value]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__invalid_value_lookup__raises_value_error[unknown_value]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__rejects_values_outside_vocabulary[unknown_value]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__invalid_value_lookup__raises_value_error[integer_wrong_type]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__rejects_values_outside_vocabulary[integer_wrong_type]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_protocol__invalid_name_lookup__raises_key_error",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__field_mapping__stores_exact_declared_types_and_values",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__field_mapping__stores_exact_declared_types_and_values"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[implementation_family]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__text_semantic_type__rejects_non_builtin_string[implementation_family]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[empty_text]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_empty_identifier]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[embedded_space]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_embedded_space]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[non_nfc_text]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_non_nfc_identifier]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[unicode_surrogate]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_unicode_surrogate]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[overlength_text]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_constructor__portable_text_value__rejects_invalid_grammar[tool_id_overlength_identifier]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__frozen_assignment__rejects_reassignment",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__frozen_assignment__rejects_reassignment"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_method__eq__compares_complete_represented_state",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_method__eq__compares_complete_represented_state[tool_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__durable_surface__excludes_runtime_credentials_and_handles",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py::test_field__durable_surface__excludes_runtime_credentials_and_handles"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__field_mapping__stores_exact_declared_types_and_values",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__field_mapping__stores_exact_declared_types_and_values"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[specification_id]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[specification_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[tool_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[requested_version]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[requested_version]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[executable_or_package_id]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__text_semantic_type__rejects_non_builtin_string[executable_or_package_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[empty_text]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_empty_identifier]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[embedded_space]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_embedded_space]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[non_nfc_text]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_non_nfc_identifier]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[unicode_surrogate]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_unicode_surrogate]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[overlength_text]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__portable_text_value__rejects_invalid_grammar[specification_id_overlength_identifier]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__frozen_assignment__rejects_reassignment",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__frozen_assignment__rejects_reassignment"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_method__eq__compares_complete_represented_state",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_method__eq__compares_complete_represented_state[specification_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__durable_surface__excludes_runtime_credentials_and_handles",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_field__durable_surface__excludes_runtime_credentials_and_handles"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__requested_version_value__rejects_nonportable_text",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py::test_constructor__requested_version_value__rejects_nonportable_text[leading_prohibited_character]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__field_mapping__stores_exact_declaration",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__field_mapping__stores_exact_declaration"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_id]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[tool_id]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[tool_id]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_name]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[capability_name]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[specification_version]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__text_semantic_type__rejects_non_string[specification_version]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__kind_semantic_type__rejects_string_lookalike",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__kind_semantic_type__rejects_string_lookalike"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__portable_text_value__rejects_invalid_identifier",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_constructor__portable_text_value__rejects_invalid_identifier[capability_id_embedded_space]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__frozen_assignment__rejects_reassignment",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__frozen_assignment__rejects_reassignment"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_method__eq__compares_complete_represented_state",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_method__eq__compares_complete_represented_state[kind]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__durable_surface__excludes_runtime_state",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py::test_field__durable_surface__excludes_runtime_state"
+    }
+  ]
+}

@@ -2,24 +2,22 @@ r"""Software verification of ``CapabilityKind``.
 
 Facet and represented meaning
 -----------------------------
-This class-owned evidence verifies the exact closed wire vocabulary and Python ``StrEnum`` lookup behavior..
+This class-owned evidence verifies the closed wire vocabulary and the public
+``StrEnum`` value- and name-lookup surfaces.
 
 Intrinsic and cross-object scope
 --------------------------------
-The sole primary SUT is ``CapabilityKind``; collaborators only supply public constructor
-inputs or expose declared Python value semantics. Oracles are the accepted
-field, enum, dataclass, tuple, and exception contracts. Values are synthetic,
-dimensionless metadata at ordinary lexical scales; no warnings are expected.
+The sole primary SUT is ``CapabilityKind``. Fixed version-1 names and values
+provide the oracle for synthetic, dimensionless metadata. No warnings are
+expected, and no collaborator is a co-owner.
 
 VVUQ and scientific exclusions
 ------------------------------
-Passing establishes only the stated software contract. Failure indicates a
-production, test-input, or accepted-contract mismatch. This evidence does not
-establish numerical verification, physical correctness, scientific validation,
-uncertainty quantification, portability, or cross-language agreement.
+Passing establishes only the stated enum contract; failure indicates a source,
+test-oracle, or accepted-contract mismatch. This evidence does not establish
+numerical verification, physical correctness, scientific validation, UQ,
+portability, or cross-language agreement.
 """
-
-# ruff: noqa: E501
 
 from enum import StrEnum
 from typing import Any, cast
@@ -36,17 +34,20 @@ def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
     """Evidence ID
     SV-PROV-030
     Requirement
-    The enum has the exact versioned names, values, declaration order, no aliases, and is a StrEnum subclass.
+    The enum exposes the exact ordered version-1 names and values without aliases.
     Method
-    Inspect public iteration, ``__members__``, and subclass identity without invoking production reachability.
+    Inspect iteration, the public member mapping, and ``StrEnum`` inheritance.
     Oracle
-    The accepted literal name/value sequence is independent version-1 vocabulary.
+    The accepted vocabulary is EXECUTE/execute, PARSE/parse, RENDER/render, and
+    TRANSFER/transfer in that order.
     Acceptance
-    Names, values, order, member keys, member count, and StrEnum inheritance match exactly.
+    Names, values, order, member keys, member count, and inheritance match exactly.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    A pass confirms the closed vocabulary; a failure identifies source, oracle, or
+    contract drift.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This does not test lookup errors, external behavior, numerical verification,
+    validation, UQ, portability, or cross-language agreement.
     """
     expected = (
         ("EXECUTE", "execute"),
@@ -56,44 +57,70 @@ def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
     )
     assert issubclass(SUT, StrEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
-    assert tuple(SUT.__members__) == (
-        "EXECUTE",
-        "PARSE",
-        "RENDER",
-        "TRANSFER",
-    )
+    assert tuple(SUT.__members__) == tuple(name for name, _ in expected)
     assert len(SUT.__members__) == len(tuple(SUT))
 
 
 @pytest.mark.parametrize(
-    ("value", "name"),
+    ("value", "expected"),
     [
-        pytest.param("execute", "EXECUTE", id="execute"),
-        pytest.param("parse", "PARSE", id="parse"),
-        pytest.param("render", "RENDER", id="render"),
-        pytest.param("transfer", "TRANSFER", id="transfer"),
+        pytest.param("execute", CapabilityKind.EXECUTE, id="execute_value"),
+        pytest.param("parse", CapabilityKind.PARSE, id="parse_value"),
+        pytest.param("render", CapabilityKind.RENDER, id="render_value"),
+        pytest.param("transfer", CapabilityKind.TRANSFER, id="transfer_value"),
     ],
 )
-def test_protocol__value_and_name_lookup__return_member_identity(
-    value: str, name: str
+def test_method__call__resolves_each_wire_value(
+    value: str, expected: CapabilityKind
 ) -> None:
     """Evidence ID
     SV-PROV-176
     Requirement
-    Every accepted value and name lookup resolves to the same canonical enum member.
+    Calling the enum class with each accepted wire value returns its canonical member.
     Method
-    Perform public value construction and bracketed name lookup for each explicitly identified vocabulary member.
+    Call the public enum constructor for each explicitly named version-1 value.
     Oracle
-    Python Enum identity semantics plus the accepted literal mapping determine the member.
+    The fixed value-to-member pairs are declared independently in the parameter table.
     Acceptance
-    Both lookup forms are identical to ``SUT.__members__[name]`` for every case.
+    Each call returns the expected member by identity and emits no warning.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    A pass confirms value lookup; a failure identifies constructor or vocabulary drift.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This does not test name lookup, external behavior, validation, UQ, portability,
+    or cross-language agreement.
     """
-    expected = SUT.__members__[name]
     assert SUT(value) is expected
+
+
+@pytest.mark.parametrize(
+    ("name", "expected"),
+    [
+        pytest.param("EXECUTE", CapabilityKind.EXECUTE, id="execute_name"),
+        pytest.param("PARSE", CapabilityKind.PARSE, id="parse_name"),
+        pytest.param("RENDER", CapabilityKind.RENDER, id="render_name"),
+        pytest.param("TRANSFER", CapabilityKind.TRANSFER, id="transfer_name"),
+    ],
+)
+def test_method__getitem__resolves_each_member_name(
+    name: str, expected: CapabilityKind
+) -> None:
+    """Evidence ID
+    SV-PROV-238
+    Requirement
+    Bracketed enum lookup resolves every accepted member name to its canonical member.
+    Method
+    Apply the public class subscription surface to each explicit version-1 name.
+    Oracle
+    The fixed name-to-member pairs are declared independently in the parameter table.
+    Acceptance
+    Each lookup returns the expected member by identity and emits no warning.
+    Interpretation
+    A pass confirms name lookup; a failure identifies subscription or name-
+    vocabulary drift.
+    Limitations
+    This new owner does not test value construction, external behavior, validation,
+    UQ, portability, or cross-language agreement.
+    """
     assert cast(Any, SUT)[name] is expected
 
 
@@ -104,43 +131,46 @@ def test_protocol__value_and_name_lookup__return_member_identity(
         pytest.param(1, id="integer_wrong_type"),
     ],
 )
-def test_protocol__invalid_value_lookup__raises_value_error(
+def test_method__call__rejects_values_outside_vocabulary(
     invalid_value: object,
 ) -> None:
     """Evidence ID
     SV-PROV-177
     Requirement
-    Values outside the closed vocabulary cannot construct a member.
+    Calling the enum class with a value outside its vocabulary fails.
     Method
-    Call the public enum constructor with semantic unknown-text and wrong-type partitions.
+    Call the public constructor with unknown-text and integer partitions.
     Oracle
-    Python Enum lookup rejects values absent from the accepted literal vocabulary.
+    Neither value occurs in the accepted four-value vocabulary.
     Acceptance
-    Each value raises ValueError and no member is returned.
+    Each call raises ``ValueError`` and returns no member.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    A pass confirms closed value lookup; a failure indicates an unexpectedly
+    accepted value.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This does not characterize every Python type or establish external behavior,
+    validation, UQ, portability, or cross-language agreement.
     """
     with pytest.raises(ValueError):
         SUT(cast(Any, invalid_value))
 
 
-def test_protocol__invalid_name_lookup__raises_key_error() -> None:
+def test_method__getitem__rejects_unknown_member_name() -> None:
     """Evidence ID
     SV-PROV-178
     Requirement
-    Names outside the closed vocabulary cannot resolve a member.
+    Bracketed enum lookup rejects names outside the closed member-name set.
     Method
-    Use public bracketed name lookup with a fixed absent name.
+    Look up the fixed absent name ``UNKNOWN`` through class subscription.
     Oracle
-    The accepted literal member-name set excludes ``UNKNOWN``.
+    The accepted member names are exactly EXECUTE, PARSE, RENDER, and TRANSFER.
     Acceptance
-    Lookup raises KeyError.
+    Lookup raises ``KeyError`` and returns no member.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    A pass confirms closed name lookup; a failure indicates name-vocabulary drift.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This tests one representative absent name, not external behavior, validation,
+    UQ, portability, or cross-language agreement.
     """
     with pytest.raises(KeyError):
         cast(Any, SUT)["UNKNOWN"]

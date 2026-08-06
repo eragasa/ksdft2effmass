@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "queue_id": "P2-PROVENANCE-AUDIT-1",
+  "audit_item": "A01",
+  "status": "audited_and_cleared",
+  "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
+  "correction_revision": "durable boundary commit containing this record",
+  "production_source": {
+    "path": "python/src/ksdft2effmass/provenance/external_tools.py",
+    "modified": false,
+    "sha256": "5a781439a1e654d53008abb35fe2cdd34fce127b1d3d275d2c618fee0f3a8cd9"
+  },
+  "test_evidence": {
+    "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+    "modules": 4,
+    "test_functions": 26,
+    "unique_evidence_owners": 26,
+    "collected_cases": 97,
+    "historical_nodes": 43,
+    "mapped_nodes": 43,
+    "genuinely_new_nodes": 54,
+    "historical_evidence_ids": 24,
+    "new_evidence_ids": ["SV-PROV-237", "SV-PROV-238"],
+    "helpers": 0
+  },
+  "findings_disposition": {
+    "field_wise_invalidity": "corrected for every directly validated identifier field and required partition",
+    "requested_version_grammar": "corrected with valid length 1/64 and all seven invalid partitions",
+    "equality": "corrected with every represented field independently varied",
+    "enum_surfaces": "corrected to concrete call and getitem method surfaces",
+    "formatting_and_prose": "E501 suppression removed; formatting and seven-field prose corrected",
+    "production_defects": "none found"
+  },
+  "validation": {
+    "generic_validator": "PASS; four modules, 26 owners, 85 static parameter cases, zero findings",
+    "a01_tests": "97 passed",
+    "complete_provenance_tests": "547 passed",
+    "focused_integration": "144 passed",
+    "external_tools_branch_coverage": "100%; 78 statements, 50 branches, zero uncovered or partial",
+    "ruff": "PASS",
+    "mypy": "PASS; five files",
+    "sphinx_warnings_as_errors": "PASS; 45 sources",
+    "public_api_and_serialization": "PASS; unchanged",
+    "schemas_fixtures_dependencies_locks": "byte-unchanged",
+    "local_harness_route": "local; PASS",
+    "ownership_p2_a01_checkpoint": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "review": {
+    "run": "e27c381a-4ff3-49a4-b216-b91565d91dcd",
+    "result": "PASS",
+    "material_findings": 0,
+    "correction_pass": "not required",
+    "second_review": false
+  },
+  "next_item": "A02",
+  "next_item_started": false,
+  "p2_checkpoint": "P2-HC05 remains pending"
+}

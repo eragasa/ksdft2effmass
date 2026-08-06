@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "queue_id": "P2-PROVENANCE-AUDIT-1",
+  "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
+  "execution_policy": "strictly_ordered_single_mutable_item",
+  "active_item": null,
+  "next_item": "A02",
+  "items": [
+    {
+      "id": "A00",
+      "title": "actions.py",
+      "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/actions.py"],
+      "owned_test_paths": [
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py"
+      ],
+      "audit_starting_revision": "28ae9a68956428b2760c00c0271f925a29688493",
+      "concrete_findings": ["Private source helpers were removed; direct validation, seven class owners, and semantic inspection were completed."],
+      "correction_revision": "4bd5a607dda238475322e32207897512a73e20a0",
+      "exact_deterministic_commands": ["python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-node-migration.json", "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py"],
+      "generic_validator_result": "PASS; zero findings",
+      "semantic_review_disposition": "Independent semantic inspection completed; applicable findings corrected in one consolidated pass.",
+      "residual_limitations": ["Software verification does not establish file observation, execution validity, scientific validation, UQ, or human acceptance."],
+      "final_status": "audited_and_cleared"
+    },
+    {
+      "id": "A01",
+      "title": "external_tools.py",
+      "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/external_tools.py"],
+      "owned_test_paths": [
+        "python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py"
+      ],
+      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
+      "concrete_findings": [
+        "Malformed-value evidence does not independently cover every validated field.",
+        "Equality evidence does not independently vary every represented field.",
+        "Requested-version grammar coverage is incomplete.",
+        "Enum lookup tests use vague protocol surfaces rather than concrete method surfaces.",
+        "Blanket E501 suppression conceals formatting debt.",
+        "Generated prose contains overlong lines, generic wording, and doubled punctuation."
+      ],
+      "correction_revision": "durable boundary commit containing this queue record",
+      "exact_deterministic_commands": [
+        "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/audit-a01-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/audit-a01-test-evidence-node-migration.json",
+        "cd python && uv run pytest --collect-only -q tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance",
+        "cd python && uv run --with pip pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py",
+        "cd python && rm -f /tmp/.coverage.a01* && COVERAGE_FILE=/tmp/.coverage.a01 uv run pytest -q --cov=ksdft2effmass.provenance.external_tools --cov-branch --cov-report=term-missing tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+        "cd python && uv run ruff format --check tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py && uv run ruff check tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+        "cd python && uv run mypy src/ksdft2effmass/provenance/external_tools.py tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+        "uv run --project python sphinx-build -W -b html docs /tmp/ksdft2effmass-p2-a01-sphinx",
+        "python harness/local/validation/replay_current_validators.py --repository-root $PWD",
+        "python .pi/task-ownership/validate_task_ownership.py --task P2",
+        "python .pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
+        "python .pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_audit_a01.py",
+        "python .pi/checkpoints/validate_checkpoints.py",
+        "git diff --check"
+      ],
+      "generic_validator_result": {"status": "PASS", "findings": 0, "modules": 4, "test_functions": 26, "unique_evidence_owners": 26, "static_collected_parameter_cases": 85},
+      "semantic_review_disposition": "PASS in sole targeted review e27c381a-4ff3-49a4-b216-b91565d91dcd; no material findings and no correction pass required.",
+      "residual_limitations": ["Software verification and semantic review do not establish external-tool availability, execution correctness, provenance truth, numerical verification, scientific validation, UQ, portability, release readiness, P2 completion, or human acceptance."],
+      "final_status": "audited_and_cleared"
+    },
+    {
+      "id": "A02",
+      "title": "tool_observations.py",
+      "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/tool_observations.py"],
+      "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py", "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py", "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py"],
+      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+    },
+    {
+      "id": "A03",
+      "title": "external_execution.py",
+      "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/external_execution.py"],
+      "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py"],
+      "internal_collaborators": ["ExternalExecutionOutcome"],
+      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+    },
+    {
+      "id": "A04",
+      "title": "records.py enum follow-up",
+      "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/records.py"],
+      "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py", "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py"],
+      "audit_scope": "Enum follow-up only unless a directly related defect is discovered; ArtifactLocationKind and LineageKind currently lack dedicated modules.",
+      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Record classes were previously audited; enum follow-up remains."], "final_status": "pending_read_only_audit"
+    },
+    {
+      "id": "A05",
+      "title": "serialization.py",
+      "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/serialization.py"],
+      "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py"],
+      "design_question": "Does _DuplicateKeyError remain necessary, or can duplicate-key rejection be implemented without a private class while preserving public exception behavior?",
+      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started; design question remains read-only.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+    },
+    {
+      "id": "A06", "title": "package API boundary", "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/__init__.py"], "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py"], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+    },
+    {
+      "id": "A07", "title": "import dependency direction", "source_or_artifact_paths": ["python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py"], "owned_test_paths": [], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending artifact audit."], "final_status": "pending_artifact_audit"
+    },
+    {
+      "id": "A08", "title": "wheel/package contract", "source_or_artifact_paths": ["python/tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py"], "owned_test_paths": [], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending artifact audit."], "final_status": "pending_artifact_audit"
+    },
+    {
+      "id": "A09", "title": "schema/fixture/runtime agreement", "source_or_artifact_paths": ["python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py"], "owned_test_paths": [], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending artifact audit."], "final_status": "pending_artifact_audit"
+    },
+    {
+      "id": "A10", "title": "Python/JSON wire contract", "source_or_artifact_paths": ["python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py"], "owned_test_paths": [], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending artifact audit."], "final_status": "pending_artifact_audit"
+    },
+    {
+      "id": "A11", "title": "versioned schema and fixture family", "source_or_artifact_paths": ["specification/provenance/v1/"], "owned_test_paths": [], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started; treat as one versioned artifact family.", "residual_limitations": ["Pending artifact audit."], "final_status": "pending_artifact_audit"
+    }
+  ],
+  "claim_boundary": "Deterministic structural validation does not establish oracle correctness, field coverage, exception partitioning, semantic cohesion, numerical verification, scientific validation, uncertainty quantification, or human acceptance. P2 acceptance requires A00-A11 audited_and_cleared and separate human acceptance at P2-HC05."
+}
