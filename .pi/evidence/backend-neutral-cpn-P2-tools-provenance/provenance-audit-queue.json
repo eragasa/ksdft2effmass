@@ -156,10 +156,19 @@
           "historical_ids_preserved": ["SV-PROV-074", "SV-PROV-188", "SV-PROV-189", "SV-PROV-190"],
           "new_ids": ["SV-PROV-286", "SV-PROV-287"],
           "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-failure-code-test-evidence-node-migration.json"
+        },
+        {
+          "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+          "human_audit_status": "failed",
+          "finding_summary": "Identifier, optional retry-parent, tuple-member/relation, frozen-field, equality, stored-type, helper, formatting, prose, and request-lifecycle evidence was incomplete or overbroad.",
+          "correction_status": "bounded_correction_implemented",
+          "deterministic_validation": "passed",
+          "historical_ids_preserved": ["SV-PROV-037", "SV-PROV-038", "SV-PROV-039", "SV-PROV-078", "SV-PROV-217", "SV-PROV-218", "SV-PROV-219", "SV-PROV-220", "SV-PROV-221"],
+          "new_ids": ["SV-PROV-288", "SV-PROV-289", "SV-PROV-290", "SV-PROV-291", "SV-PROV-292", "SV-PROV-293", "SV-PROV-294", "SV-PROV-295", "SV-PROV-296", "SV-PROV-297", "SV-PROV-298", "SV-PROV-299", "SV-PROV-300", "SV-PROV-301", "SV-PROV-302", "SV-PROV-303", "SV-PROV-304", "SV-PROV-305", "SV-PROV-306", "SV-PROV-307", "SV-PROV-308", "SV-PROV-309", "SV-PROV-310", "SV-PROV-311", "SV-PROV-312", "SV-PROV-313"],
+          "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-request-test-evidence-node-migration.json"
         }
       ],
       "remaining_human_audit_targets": [
-        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
         "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
         "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py"
       ],
@@ -184,16 +193,23 @@
         "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
         "cd python && COVERAGE_FILE=/tmp/.coverage.p2a03-code uv run pytest -q --cov=ksdft2effmass.provenance.external_execution --cov-branch --cov-report=term-missing tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
         "cd python && uv run ruff format --check tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py && uv run ruff check tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
-        "cd python && uv run mypy src/ksdft2effmass/provenance/external_execution.py tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py"
+        "cd python && uv run mypy src/ksdft2effmass/provenance/external_execution.py tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+        "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-request-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-request-test-evidence-node-migration.json",
+        "cd python && uv run pytest --collect-only -q tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+        "cd python && COVERAGE_FILE=/tmp/.coverage.p2a03-request uv run pytest -q --cov=ksdft2effmass.provenance.external_execution --cov-branch --cov-report=term-missing --cov-report=json:/tmp/p2a03-request-coverage.json tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+        "cd python && uv run ruff format --check tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py && uv run ruff check tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+        "cd python && uv run mypy src/ksdft2effmass/provenance/external_execution.py tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py"
       ],
       "generic_validator_result": {"status": "PASS", "findings": 0, "modules": 1, "test_functions": 6, "unique_evidence_owners": 6, "static_collected_parameter_cases": 0},
       "partial_structural_results": [
         {"path": "test__ExternalExecutionStatus.py", "status": "PASS", "test_functions": 6, "collected_cases": 6, "findings": 0},
         {"path": "test__ExternalFailureStage.py", "status": "PASS", "test_functions": 6, "collected_cases": 10, "findings": 0},
-        {"path": "test__ExternalFailureCode.py", "status": "PASS", "test_functions": 6, "collected_cases": 16, "findings": 0}
+        {"path": "test__ExternalFailureCode.py", "status": "PASS", "test_functions": 6, "collected_cases": 16, "findings": 0},
+        {"path": "test__ExternalExecutionRequest.py", "status": "PASS", "test_functions": 35, "collected_cases": 146, "findings": 0}
       ],
-      "semantic_review_disposition": "Three P2-A03 enum human-audit corrections passed deterministic validation; no general independent review was launched.",
-      "residual_limitations": ["The remaining three P2-A03 record modules have not completed human audit and correction."],
+      "semantic_review_disposition": "Three enum and one request-record P2-A03 human-audit corrections passed deterministic validation; no general independent review was launched.",
+      "residual_limitations": ["The result and failure P2-A03 record modules have not completed human audit and correction."],
       "final_status": "pending_read_only_audit"
     },
     {
