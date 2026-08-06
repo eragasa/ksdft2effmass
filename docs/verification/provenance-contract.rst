@@ -20,12 +20,14 @@ surface under
 ``python/tests/software_verification/ksdft2effmass/provenance`` and the
 artifact/boundary modules under
 ``python/tests/software_verification/ksdft2effmass/integration``.  For the
-external-tool decomposition specifically, the maintained inventory records 13
-class-owned software-verification modules, 85 test functions with 85 unique
-evidence owners, and 145 collected cases.  Of those collected nodes, 24 are
-one-to-one mappings of historical nodes and 121 are genuinely new.  Test
-functions, evidence owners, and collected parameter cases are different
-quantities; these counts do not describe the entire P2 verification tree.
+external-tool decomposition specifically, the durable tools-decomposition
+boundary inventory recorded 13 class-owned software-verification modules, 85
+test functions with 85 unique evidence owners, and 145 collected cases.  Of
+those boundary nodes, 24 were one-to-one mappings of historical nodes and 121
+were genuinely new.  Ordered P2 audit items maintain their own current
+inventories, so test functions, evidence owners, and collection counts evolve
+as bounded evidence corrections are cleared.  These quantities are different,
+and the boundary counts do not describe the entire P2 verification tree.
 
 The actions correction separately assigns class-owned modules to the two
 statuses, the issue enum, the two results, and the two stateless actions.  The

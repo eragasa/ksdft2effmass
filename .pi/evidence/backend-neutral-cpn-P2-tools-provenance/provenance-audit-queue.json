@@ -4,8 +4,8 @@
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
-  "active_item": null,
-  "next_item": "P2-A02",
+  "active_item": "P2-A02",
+  "next_item": null,
   "items": [
     {
       "id": "P2-A00",
@@ -76,7 +76,27 @@
       "title": "tool_observations.py",
       "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/tool_observations.py"],
       "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py", "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py", "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py"],
-      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+      "audit_starting_revision": "c4f4e5436e6a7fc2e92cb4b6b6713aa38886d485",
+      "concrete_findings": [
+        "Malformed identifiers were not exercised through every validated field or every required lexical partition.",
+        "Observed-version, executable-digest, evidence-member, and provenance-identifier coverage was incomplete.",
+        "Equality and frozen-state evidence did not independently exercise every represented field.",
+        "Enum call and item lookup were combined under vague protocol surfaces.",
+        "Blanket E501 suppression, doubled punctuation, generic prose, and mixed requirements reduced evidence precision."
+      ],
+      "status_history": [
+        "pending_read_only_audit",
+        "human_audit_failed",
+        "bounded_correction_active",
+        "deterministic_validation_passed",
+        "targeted_review_complete"
+      ],
+      "correction_revision": null,
+      "exact_deterministic_commands": [],
+      "generic_validator_result": null,
+      "semantic_review_disposition": "The sole targeted review reported two bounded findings; both were dispositioned in one consolidated correction pass without a second review.",
+      "residual_limitations": ["Software verification does not establish provenance truth or scientific claims."],
+      "final_status": "targeted_review_complete"
     },
     {
       "id": "P2-A03",

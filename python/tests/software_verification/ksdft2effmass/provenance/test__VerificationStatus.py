@@ -2,24 +2,21 @@ r"""Software verification of ``VerificationStatus``.
 
 Facet and represented meaning
 -----------------------------
-This class-owned evidence verifies the exact closed wire vocabulary and Python ``StrEnum`` lookup behavior..
+This class-owned evidence verifies the exact ``StrEnum`` vocabulary and its
+public value-construction and name-lookup surfaces.
 
 Intrinsic and cross-object scope
 --------------------------------
-The sole primary SUT is ``VerificationStatus``; collaborators only supply public constructor
-inputs or expose declared Python value semantics. Oracles are the accepted
-field, enum, dataclass, tuple, and exception contracts. Values are synthetic,
-dimensionless metadata at ordinary lexical scales; no warnings are expected.
+The sole SUT is ``VerificationStatus``. Literal version-1 names and values plus
+Python enum semantics provide independent exact oracles; no collaborator is a
+co-owner, and no warnings are expected.
 
 VVUQ and scientific exclusions
 ------------------------------
-Passing establishes only the stated software contract. Failure indicates a
-production, test-input, or accepted-contract mismatch. This evidence does not
-establish numerical verification, physical correctness, scientific validation,
-uncertainty quantification, portability, or cross-language agreement.
+Passing establishes only the stated software vocabulary and lookup behavior.
+It does not establish tool execution, numerical verification, physical
+correctness, scientific validation, UQ, portability, or cross-language agreement.
 """
-
-# ruff: noqa: E501
 
 from enum import StrEnum
 from typing import Any, cast
@@ -32,112 +29,147 @@ SUT = VerificationStatus
 pytestmark = pytest.mark.software_verification
 
 
-def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
+def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> None:
     """Evidence ID
     SV-PROV-036
     Requirement
-    The enum has the exact versioned names, values, declaration order, no aliases, and is a StrEnum subclass.
+    The wire vocabulary is an alias-free StrEnum with three ordered members.
     Method
-    Inspect public iteration, ``__members__``, and subclass identity without invoking production reachability.
+    Inspect public iteration, member mapping, values, type, and counts.
     Oracle
-    The accepted literal name/value sequence is independent version-1 vocabulary.
+    The accepted sequence pairs each declared name with its lowercase wire value.
     Acceptance
-    Names, values, order, member keys, member count, and StrEnum inheritance match exactly.
+    Type, order, names, values, key order, alias absence, and count match exactly.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Failure identifies a vocabulary, enum-type, ordering, alias, or test-oracle defect.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This does not exercise lookup, serialization, execution, validation, or UQ.
     """
     expected = (
         ("VERIFIED", "verified"),
         ("REJECTED", "rejected"),
         ("UNAVAILABLE", "unavailable"),
     )
-    assert issubclass(SUT, StrEnum)
+    assert SUT.__bases__ == (StrEnum,)
     assert tuple((member.name, member.value) for member in SUT) == expected
-    assert tuple(SUT.__members__) == (
-        "VERIFIED",
-        "REJECTED",
-        "UNAVAILABLE",
-    )
-    assert len(SUT.__members__) == len(tuple(SUT))
+    assert tuple(SUT.__members__) == tuple(name for name, _ in expected)
+    assert len(SUT.__members__) == 3
+    assert len(tuple(SUT)) == 3
 
 
 @pytest.mark.parametrize(
-    ("value", "name"),
+    ("value", "expected"),
     [
-        pytest.param("verified", "VERIFIED", id="verified"),
-        pytest.param("rejected", "REJECTED", id="rejected"),
-        pytest.param("unavailable", "UNAVAILABLE", id="unavailable"),
+        pytest.param("verified", SUT.VERIFIED, id="verified_wire_value"),
+        pytest.param("rejected", SUT.REJECTED, id="rejected_wire_value"),
+        pytest.param("unavailable", SUT.UNAVAILABLE, id="unavailable_wire_value"),
     ],
 )
-def test_protocol__value_and_name_lookup__return_member_identity(
-    value: str, name: str
+def test_method__call__constructs_member_from_each_wire_value(
+    value: str, expected: VerificationStatus
 ) -> None:
     """Evidence ID
     SV-PROV-179
     Requirement
-    Every accepted value and name lookup resolves to the same canonical enum member.
+    Each accepted wire value constructs its canonical enum member.
     Method
-    Perform public value construction and bracketed name lookup for each explicitly identified vocabulary member.
+    Call the public enum value-construction surface for one named value partition.
     Oracle
-    Python Enum identity semantics plus the accepted literal mapping determine the member.
+    The accepted literal value-to-member mapping fixes the expected identity.
     Acceptance
-    Both lookup forms are identical to ``SUT.__members__[name]`` for every case.
+    Construction returns the exact expected member by identity without warnings.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Failure identifies value lookup, vocabulary, parameter, or oracle drift.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    Name lookup, invalid values, tools, scientific validation, and UQ are excluded.
     """
-    expected = SUT.__members__[name]
     assert SUT(value) is expected
-    assert cast(Any, SUT)[name] is expected
 
 
 @pytest.mark.parametrize(
-    "invalid_value",
+    ("name", "expected"),
     [
-        pytest.param("unknown", id="unknown_value"),
-        pytest.param(1, id="integer_wrong_type"),
+        pytest.param("VERIFIED", SUT.VERIFIED, id="verified_member_name"),
+        pytest.param("REJECTED", SUT.REJECTED, id="rejected_member_name"),
+        pytest.param("UNAVAILABLE", SUT.UNAVAILABLE, id="unavailable_member_name"),
     ],
 )
-def test_protocol__invalid_value_lookup__raises_value_error(
-    invalid_value: object,
+def test_method__getitem__returns_member_for_each_declared_name(
+    name: str, expected: VerificationStatus
 ) -> None:
+    """Evidence ID
+    SV-PROV-239
+    Requirement
+    Each declared member name resolves to its canonical enum member.
+    Method
+    Apply bracketed enum-name lookup to one explicit name partition.
+    Oracle
+    The accepted literal name-to-member mapping fixes the expected identity.
+    Acceptance
+    Lookup returns the exact expected member by identity without warnings.
+    Interpretation
+    Failure identifies name lookup, vocabulary, parameter, or oracle drift.
+    Limitations
+    Value construction, invalid names, execution, validation, and UQ are excluded.
+    """
+    assert cast(Any, SUT)[name] is expected
+
+
+def test_method__call__rejects_unknown_wire_value() -> None:
     """Evidence ID
     SV-PROV-180
     Requirement
-    Values outside the closed vocabulary cannot construct a member.
+    Text outside the closed wire vocabulary cannot construct a member.
     Method
-    Call the public enum constructor with semantic unknown-text and wrong-type partitions.
+    Call value construction with the fixed absent string ``unknown``.
     Oracle
-    Python Enum lookup rejects values absent from the accepted literal vocabulary.
+    The accepted three-value vocabulary contains no ``unknown`` value.
     Acceptance
-    Each value raises ValueError and no member is returned.
+    Construction raises exactly the public ValueError category.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Failure identifies accidental vocabulary widening or exception-contract drift.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    Wrong semantic types, name lookup, execution, validation, and UQ are excluded.
     """
     with pytest.raises(ValueError):
-        SUT(cast(Any, invalid_value))
+        SUT("unknown")
 
 
-def test_protocol__invalid_name_lookup__raises_key_error() -> None:
+def test_method__call__rejects_wrong_semantic_type() -> None:
+    """Evidence ID
+    SV-PROV-240
+    Requirement
+    A non-string integer is not an accepted enum wire value.
+    Method
+    Call value construction with integer one through the deliberate invalid boundary.
+    Oracle
+    The closed vocabulary contains strings only; Python Enum reports absent values.
+    Acceptance
+    Construction raises exactly ValueError and returns no member.
+    Interpretation
+    Failure identifies accidental coercion or enum exception-contract drift.
+    Limitations
+    This records Enum rejection, not record-constructor TypeError policy.
+    """
+    with pytest.raises(ValueError):
+        SUT(cast(Any, 1))
+
+
+def test_method__getitem__rejects_unknown_member_name() -> None:
     """Evidence ID
     SV-PROV-181
     Requirement
-    Names outside the closed vocabulary cannot resolve a member.
+    A name outside the declared member-name set cannot resolve a member.
     Method
-    Use public bracketed name lookup with a fixed absent name.
+    Apply bracketed name lookup to the fixed absent name ``UNKNOWN``.
     Oracle
-    The accepted literal member-name set excludes ``UNKNOWN``.
+    The accepted name set contains exactly VERIFIED, REJECTED, and UNAVAILABLE.
     Acceptance
-    Lookup raises KeyError.
+    Lookup raises exactly KeyError and returns no member.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Failure identifies accidental aliasing, name widening, or exception drift.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    Value construction, case normalization, execution, validation, and UQ are excluded.
     """
     with pytest.raises(KeyError):
         cast(Any, SUT)["UNKNOWN"]

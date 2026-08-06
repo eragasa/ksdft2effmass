@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "VerificationStatus"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "InstallationObservation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "VerificationObservation"
+    }
+  ]
+}

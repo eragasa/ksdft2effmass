@@ -5,32 +5,38 @@
   "owners": {
     "writers": [
       {
-        "role": "p2-a01-test-evidence-writer",
+        "role": "p2-a02-test-evidence-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
-          "python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a01-test-evidence-ownership.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a01-test-evidence-node-migration.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a01-test-evidence-inventory.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a01-test-evidence-implementation.md"
+          "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py"
+        ]
+      },
+      {
+        "role": "p2-a02-documentation-writer",
+        "agent": "ksdft2effmass-documentation",
+        "agent_record": ".pi/agents/ksdft2effmass-documentation.md",
+        "owned_paths": [
+          "docs/verification/provenance-contract.rst"
         ]
       }
     ],
     "reviewers": [
       {
-        "role": "p2-a01-targeted-reviewer",
+        "role": "p2-a02-targeted-reviewer",
         "agent": "ksdft2effmass-integration-reviewer",
         "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
       }
     ]
   },
   "completion_validator": {
-    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a01.py",
-    "command": ["python", ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a01.py"],
+    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a02.py",
+    "command": [
+      "python",
+      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a02.py"
+    ],
     "required_before_review": true
   }
 }
