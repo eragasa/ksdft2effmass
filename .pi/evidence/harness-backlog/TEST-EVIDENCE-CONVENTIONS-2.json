@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "proposal_id": "TEST-EVIDENCE-CONVENTIONS-2",
+  "title": "Prevent recurring mixed-surface and generated-prose defects in Python test evidence",
+  "status": "proposed_inactive",
+  "activation_authorized": false,
+  "implementation_authorized": false,
+  "task_record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+  "proposed_targets": [
+    "harness/pi/skills/develop-python-test-evidence/",
+    "harness/pi/validation/validate_python_test_evidence.py",
+    "harness/pi/fixtures/python-test-evidence/"
+  ],
+  "current_route_change_authorized": false,
+  "prerequisite_for": [],
+  "checkpoint_required_to_record_proposal": false,
+  "relationship_to_current_work": {
+    "p2_a02_examples_retained": true,
+    "p2_a03_audit_unchanged": true,
+    "retroactive_invalidation": false,
+    "implementation_requires_separate_human_activation": true
+  },
+  "rule_classes": {
+    "deterministic_candidates": [
+      "reject_known_vague_test_surfaces",
+      "detect_mixed_enum_call_and_getitem",
+      "detect_mixed_unknown_value_and_wrong_type_partitions",
+      "flag_circular_successful_enum_lookup_oracle",
+      "reject_blanket_e501_suppression",
+      "detect_minimum_prose_defects",
+      "require_structured_equality_field_inventory_when_completeness_is_claimed",
+      "require_frozen_field_inventory_when_all_fields_are_claimed",
+      "retain_structural_pass_claim_boundary"
+    ],
+    "advisory_or_human_only": [
+      "semantic_partition_cohesion",
+      "genuine_oracle_independence",
+      "invariant_identification_completeness",
+      "test_proportionality",
+      "scientific_lifecycle_accuracy",
+      "numerical_tolerance_adequacy"
+    ]
+  },
+  "active_task_or_chain": false,
+  "writer_assignments_created": false,
+  "reviewer_assignments_created": false,
+  "completion_evidence_created": false
+}
