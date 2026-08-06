@@ -122,7 +122,46 @@
       "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/external_execution.py"],
       "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py"],
       "internal_collaborators": ["ExternalExecutionOutcome"],
-      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+      "audit_starting_revision": "e6640d81c6e500698547eb72ccdea3fc508509db",
+      "concrete_findings": [
+        "ExternalExecutionStatus combined value construction and name lookup under a vague protocol surface.",
+        "Successful name lookup used a partly circular member-mapping oracle and unnecessary singleton parameterization.",
+        "Unknown-value and wrong-type construction partitions shared one evidence owner.",
+        "Blanket E501 suppression, doubled punctuation, generic prose, and irrelevant dataclass/tuple scope wording reduced precision."
+      ],
+      "partial_audits": [
+        {
+          "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+          "human_audit_status": "failed",
+          "correction_status": "bounded_correction_implemented",
+          "deterministic_validation": "passed",
+          "historical_ids_preserved": ["SV-PROV-042", "SV-PROV-182", "SV-PROV-183", "SV-PROV-184"],
+          "new_ids": ["SV-PROV-282", "SV-PROV-283"],
+          "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-status-test-evidence-node-migration.json"
+        }
+      ],
+      "remaining_human_audit_targets": [
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py"
+      ],
+      "correction_revision": null,
+      "exact_deterministic_commands": [
+        "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-status-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-status-test-evidence-node-migration.json",
+        "cd python && uv run pytest --collect-only -q tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+        "cd python && COVERAGE_FILE=/tmp/.coverage.p2a03-status uv run pytest -q --cov=ksdft2effmass.provenance.external_execution --cov-branch --cov-report=term-missing tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+        "cd python && uv run ruff format --check tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py && uv run ruff check tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+        "cd python && uv run mypy src/ksdft2effmass/provenance/external_execution.py tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
+        "git diff --check"
+      ],
+      "generic_validator_result": {"status": "PASS", "findings": 0, "modules": 1, "test_functions": 6, "unique_evidence_owners": 6, "static_collected_parameter_cases": 0},
+      "semantic_review_disposition": "ExternalExecutionStatus human-audit correction passed deterministic validation; no general independent review was launched.",
+      "residual_limitations": ["The remaining five P2-A03 modules have not yet been human-audited and corrected."],
+      "final_status": "pending_read_only_audit"
     },
     {
       "id": "P2-A04",

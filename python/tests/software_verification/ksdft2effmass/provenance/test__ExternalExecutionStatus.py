@@ -2,24 +2,23 @@ r"""Software verification of ``ExternalExecutionStatus``.
 
 Facet and represented meaning
 -----------------------------
-This class-owned evidence verifies the exact closed wire vocabulary and Python ``StrEnum`` lookup behavior..
+This class-owned evidence verifies the closed one-member wire vocabulary,
+``StrEnum`` inheritance, exact name and value, declaration order, absence of
+aliases, value construction, name lookup, and rejection behavior.
 
 Intrinsic and cross-object scope
 --------------------------------
-The sole primary SUT is ``ExternalExecutionStatus``; collaborators only supply public constructor
-inputs or expose declared Python value semantics. Oracles are the accepted
-field, enum, dataclass, tuple, and exception contracts. Values are synthetic,
-dimensionless metadata at ordinary lexical scales; no warnings are expected.
+The sole SUT is ``ExternalExecutionStatus``. The literal version-1 vocabulary
+``COMPLETED = "completed"`` and Python enum semantics provide exact oracles.
+No collaborator is a co-owner, and construction and lookup perform no I/O.
 
 VVUQ and scientific exclusions
 ------------------------------
-Passing establishes only the stated software contract. Failure indicates a
-production, test-input, or accepted-contract mismatch. This evidence does not
-establish numerical verification, physical correctness, scientific validation,
-uncertainty quantification, portability, or cross-language agreement.
+``ExternalExecutionStatus.COMPLETED`` means only that the external boundary
+completed. It does not establish solver convergence, parsing correctness,
+numerical acceptance, scientific validation, UQ, external-tool correctness, or
+provenance truth.
 """
-
-# ruff: noqa: E501
 
 from enum import StrEnum
 from typing import Any, cast
@@ -32,102 +31,123 @@ SUT = ExternalExecutionStatus
 pytestmark = pytest.mark.software_verification
 
 
-def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
+def test_field__wire_vocabulary__has_exact_order_name_value_and_count() -> None:
     """Evidence ID
     SV-PROV-042
     Requirement
-    The enum has the exact versioned names, values, declaration order, no aliases, and is a StrEnum subclass.
+    The enum is an alias-free StrEnum with only ``COMPLETED = "completed"``.
     Method
-    Inspect public iteration, ``__members__``, and subclass identity without invoking production reachability.
+    Inspect inheritance, iteration, the public member mapping, and member counts.
     Oracle
-    The accepted literal name/value sequence is independent version-1 vocabulary.
+    The accepted version-1 vocabulary contains the single literal name/value pair.
     Acceptance
-    Names, values, order, member keys, member count, and StrEnum inheritance match exactly.
+    Inheritance, order, name, value, member keys, alias absence, and count are exact.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Passing establishes the exact closed one-member execution-status vocabulary.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This test does not exercise lookup or establish any execution outcome quality.
     """
     expected = (("COMPLETED", "completed"),)
     assert issubclass(SUT, StrEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == ("COMPLETED",)
-    assert len(SUT.__members__) == len(tuple(SUT))
+    assert len(SUT.__members__) == 1
+    assert len(tuple(SUT)) == 1
 
 
-@pytest.mark.parametrize(
-    ("value", "name"),
-    [
-        pytest.param("completed", "COMPLETED", id="completed"),
-    ],
-)
-def test_protocol__value_and_name_lookup__return_member_identity(
-    value: str, name: str
-) -> None:
+def test_method__call__constructs_completed_member_from_wire_value() -> None:
     """Evidence ID
     SV-PROV-182
     Requirement
-    Every accepted value and name lookup resolves to the same canonical enum member.
+    The exact wire value ``completed`` constructs the sole canonical member.
     Method
-    Perform public value construction and bracketed name lookup for each explicitly identified vocabulary member.
+    Call the public enum value constructor with the accepted literal wire value.
     Oracle
-    Python Enum identity semantics plus the accepted literal mapping determine the member.
+    The literal public member ``ExternalExecutionStatus.COMPLETED`` is canonical.
     Acceptance
-    Both lookup forms are identical to ``SUT.__members__[name]`` for every case.
+    Value construction returns that member by identity.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Passing establishes that the exact wire value constructs the completion member.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    Construction does not establish convergence, parsing, or external-tool correctness.
     """
-    expected = SUT.__members__[name]
-    assert SUT(value) is expected
-    assert cast(Any, SUT)[name] is expected
+    assert ExternalExecutionStatus("completed") is ExternalExecutionStatus.COMPLETED
 
 
-@pytest.mark.parametrize(
-    "invalid_value",
-    [
-        pytest.param("unknown", id="unknown_value"),
-        pytest.param(1, id="integer_wrong_type"),
-    ],
-)
-def test_protocol__invalid_value_lookup__raises_value_error(
-    invalid_value: object,
-) -> None:
+def test_method__getitem__returns_completed_member_from_declared_name() -> None:
+    """Evidence ID
+    SV-PROV-282
+    Requirement
+    The declared name ``COMPLETED`` resolves to the sole canonical member.
+    Method
+    Apply public bracketed name lookup with the exact declared literal name.
+    Oracle
+    The literal public member ``ExternalExecutionStatus.COMPLETED`` is canonical.
+    Acceptance
+    Name lookup returns that member by identity.
+    Interpretation
+    Passing establishes exact declared-name lookup for the completion member.
+    Limitations
+    Name lookup does not establish execution correctness or provenance truth.
+    """
+    assert ExternalExecutionStatus["COMPLETED"] is ExternalExecutionStatus.COMPLETED
+
+
+def test_method__call__rejects_unknown_wire_value() -> None:
     """Evidence ID
     SV-PROV-183
     Requirement
-    Values outside the closed vocabulary cannot construct a member.
+    Unknown text cannot construct a member of the closed wire vocabulary.
     Method
-    Call the public enum constructor with semantic unknown-text and wrong-type partitions.
+    Call value construction with the fixed absent string ``unknown``.
     Oracle
-    Python Enum lookup rejects values absent from the accepted literal vocabulary.
+    The sole accepted wire value is ``completed``; ``unknown`` is absent.
     Acceptance
-    Each value raises ValueError and no member is returned.
+    Construction raises exactly ``ValueError``.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Passing establishes rejection of unknown textual wire values.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    Wrong semantic types and name lookup are separate evidence owners.
     """
     with pytest.raises(ValueError):
-        SUT(cast(Any, invalid_value))
+        ExternalExecutionStatus("unknown")
 
 
-def test_protocol__invalid_name_lookup__raises_key_error() -> None:
+def test_method__call__rejects_wrong_semantic_type() -> None:
+    """Evidence ID
+    SV-PROV-283
+    Requirement
+    Integer input cannot construct a member of the string-valued vocabulary.
+    Method
+    Call value construction with integer one through the invalid public boundary.
+    Oracle
+    Python enum construction finds no integer in the one-string-value vocabulary.
+    Acceptance
+    Construction raises exactly ``ValueError``.
+    Interpretation
+    Passing establishes rejection of the independently wrong-type input partition.
+    Limitations
+    This records enum ``ValueError`` behavior, not record-constructor type policy.
+    """
+    with pytest.raises(ValueError):
+        ExternalExecutionStatus(cast(Any, 1))
+
+
+def test_method__getitem__rejects_unknown_member_name() -> None:
     """Evidence ID
     SV-PROV-184
     Requirement
-    Names outside the closed vocabulary cannot resolve a member.
+    An undeclared member name cannot resolve through bracketed name lookup.
     Method
-    Use public bracketed name lookup with a fixed absent name.
+    Apply public name lookup with the fixed absent name ``UNKNOWN``.
     Oracle
-    The accepted literal member-name set excludes ``UNKNOWN``.
+    The sole declared name is ``COMPLETED``; ``UNKNOWN`` is absent.
     Acceptance
-    Lookup raises KeyError.
+    Name lookup raises exactly ``KeyError``.
     Interpretation
-    A pass confirms this bounded software contract; a failure identifies an implementation, test-input, or contract mismatch.
+    Passing establishes rejection of names outside the closed declaration.
     Limitations
-    Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
+    This does not test value construction or case normalization.
     """
     with pytest.raises(KeyError):
-        cast(Any, SUT)["UNKNOWN"]
+        ExternalExecutionStatus["UNKNOWN"]
