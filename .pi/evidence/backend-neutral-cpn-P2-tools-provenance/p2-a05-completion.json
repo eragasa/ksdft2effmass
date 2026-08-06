@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "audit_item": "P2-A05",
+  "status": "audited_and_cleared",
+  "starting_revision": "2099b2c6f9ab4b6709cbb4b02290359a89569532",
+  "correction_revision": "durable boundary commit containing this record",
+  "test_evidence_invocation": {
+    "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+    "request_id": "P2-PROVENANCE-AUDIT-1:P2-A05",
+    "task_id": "P2",
+    "parent_workflow": "backend-neutral-kohn-sham-qe",
+    "attempt_id": "P2-A05-correction-1",
+    "evidence_class": "software_verification",
+    "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-test-evidence-ownership.json",
+    "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-test-evidence-node-migration.json",
+    "inventory_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-test-evidence-inventory.json",
+    "stop_policy": "Stop on material deterministic conflict, unauthorized mutation, incomplete migration, or a failed required gate; do not launch another semantic audit or P2-A06."
+  },
+  "production_correction": {
+    "duplicate_key_private_exception": "removed",
+    "replacement_private_exception": false,
+    "duplicate_key_behavior": "_strict_object raises exact ProvenanceJsonError directly",
+    "malformed_json_behavior": "deserialize translates JSONDecodeError to exact ProvenanceJsonError with chaining",
+    "public_signatures_unchanged": true,
+    "public_exports_unchanged": true,
+    "canonical_output_unchanged": true,
+    "record_mappings_unchanged": true,
+    "source_sha256": "1d3c167f580438605479dbcc80d99bac68c821b2f0c78e38860efd6768d0720d"
+  },
+  "ownership": {
+    "class_owned_modules": 2,
+    "artifact_owned_modules": 0,
+    "suts": ["ProvenanceJsonError", "ProvenanceJsonSerializer"],
+    "test_functions": 22,
+    "evidence_owners": 22,
+    "helper_functions": 0,
+    "parameterized_functions": 1,
+    "static_parameter_cases": 3,
+    "collected_cases": 24
+  },
+  "migration": {
+    "historical_nodes": 6,
+    "current_successors": 6,
+    "complete_one_to_one": true,
+    "historical_evidence_ids": ["SV-PROV-056", "SV-PROV-057", "SV-PROV-058", "SV-PROV-059", "SV-PROV-060", "SV-PROV-061"],
+    "sv_prov_057_cross_module_move_count": 1,
+    "sv_prov_060_successor": "test_method__deserialize__rejects_duplicate_object_member",
+    "new_evidence_ids": ["SV-PROV-378", "SV-PROV-379", "SV-PROV-380", "SV-PROV-381", "SV-PROV-382", "SV-PROV-383", "SV-PROV-384", "SV-PROV-385", "SV-PROV-386", "SV-PROV-387", "SV-PROV-388", "SV-PROV-389", "SV-PROV-390", "SV-PROV-391", "SV-PROV-392", "SV-PROV-393"],
+    "new_evidence_owners": 16,
+    "new_collected_cases": 18
+  },
+  "structural_validator_exact_result": {
+    "claim_boundary": ["oracle independence", "mathematical correctness", "property/surface correctness", "test cohesion", "tolerance adequacy", "scientific validity", "uncertainty quantification", "human acceptance"],
+    "counts": {
+      "artifact_owned_modules": 0,
+      "class_owned_modules": 2,
+      "evidence_class_modules": {"numerical_verification": 0, "scientific_validation": 0, "software_verification": 2, "uncertainty_quantification": 0},
+      "findings_by_code": {},
+      "helper_functions": 0,
+      "modules": 2,
+      "parameterized_functions": 1,
+      "static_collected_parameter_cases": 3,
+      "test_functions": 22,
+      "unique_evidence_owners": 22
+    },
+    "findings": [],
+    "paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py"],
+    "schema_version": 1,
+    "status": "PASS"
+  },
+  "deterministic_results": {
+    "pytest_collect_only": "24 tests collected",
+    "focused_pytest": "24 passed",
+    "diagnostic_coverage": "205 statements, 106 branches, 100%; coverage reveals execution only and does not establish semantic or scientific correctness",
+    "coverage_fixture_pytest": "159 passed",
+    "coverage_diagnostic_script_sha256": "a7589716833a2bee1c259f0c5bbef8e98801c3cf72a110e9ee87fcd952690575",
+    "fixture_wire_regression": "138 passed",
+    "ruff_format_and_lint": "PASS",
+    "mypy": "Success: no issues found in 3 source files",
+    "public_api_regression": "3 passed",
+    "unique_evidence_id_validation": "PASS: 489 documented test owners; P2-A05 new IDs SV-PROV-378--SV-PROV-393 unique",
+    "schema_fixture_nonmutation": "PASS",
+    "dependency_lock_nonmutation": "PASS",
+    "inactive_backlog_nonmutation": "PASS; TEST-EVIDENCE-CONVENTIONS-2 proposed_inactive",
+    "harness_skill_validator_fixture_route_nonmutation": "PASS",
+    "git_diff_check": "PASS",
+    "unrelated_work_preservation": "PASS; clean starting tree and only authorized paths changed"
+  },
+  "protected_inactive_backlog": {
+    "files_byte_identical_to_starting_revision": true,
+    "status": "proposed_inactive",
+    "activation_authorized": false,
+    "implementation_authorized": false
+  },
+  "semantic_review_disposition": "The human audit was already complete. This correction did not repeat, replace, broaden, or delegate that audit.",
+  "next_item": "P2-A06",
+  "next_item_started": false,
+  "p2_status": "open_and_unaccepted",
+  "claim_boundary": "Software verification and complete diagnostic coverage do not establish complete schema-family agreement, Rust conformance, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness."
+}

@@ -83,16 +83,12 @@ class ProvenanceJsonError(ValueError):
     """
 
 
-class _DuplicateKeyError(ValueError):
-    """Internal signal used by the strict object-pairs decoder."""
-
-
 def _strict_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     """Build one JSON object while rejecting duplicate member names."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
-            raise _DuplicateKeyError(f"duplicate JSON key: {key}")
+            raise ProvenanceJsonError(f"duplicate JSON key: {key}")
         result[key] = value
     return result
 
@@ -703,7 +699,6 @@ class ProvenanceJsonSerializer:
         except ProvenanceJsonError:
             raise
         except (
-            _DuplicateKeyError,
             json.JSONDecodeError,
             TypeError,
             ValueError,

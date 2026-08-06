@@ -5,7 +5,7 @@
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
   "active_item": null,
-  "next_item": "P2-A05",
+  "next_item": "P2-A06",
   "items": [
     {
       "id": "P2-A00",
@@ -374,8 +374,30 @@
       "title": "serialization.py",
       "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/serialization.py"],
       "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py"],
-      "design_question": "Does _DuplicateKeyError remain necessary, or can duplicate-key rejection be implemented without a private class while preserving public exception behavior?",
-      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started; design question remains read-only.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
+      "design_question": "Resolved by completed human audit: _DuplicateKeyError is unnecessary; _strict_object raises ProvenanceJsonError directly while preserving the public strict-JSON boundary.",
+      "audit_starting_revision": "2099b2c6f9ab4b6709cbb4b02290359a89569532",
+      "concrete_findings": [
+        "Remove _DuplicateKeyError and raise ProvenanceJsonError directly for duplicate keys without rewriting other mapping helpers.",
+        "Keep ProvenanceJsonError as the sole class-owned SUT in its module and move SV-PROV-057 to the serializer owner.",
+        "Use concrete serialize/deserialize surfaces, preserve SV-PROV-058, SV-PROV-059, and SV-PROV-061, and split strict-input partitions from SV-PROV-060.",
+        "Add exact unsupported-record TypeError evidence and assign the next unused stable IDs to genuinely new evidence owners."
+      ],
+      "correction_revision": "durable boundary commit containing this queue record",
+      "exact_deterministic_commands": [
+        "python harness/pi/validation/validate_python_test_evidence.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-test-evidence-node-migration.json python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+        "cd python && .venv/bin/pytest --collect-only -q tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+        "cd python && .venv/bin/pytest -q tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+        "cd python && .venv/bin/coverage run --branch --source=ksdft2effmass.provenance.serialization -m pytest -q tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py && .venv/bin/coverage run --branch --source=ksdft2effmass.provenance.serialization --append /tmp/p2a05_coverage_diagnostics.py && .venv/bin/coverage report -m",
+        "cd python && .venv/bin/pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py",
+        "cd python && .venv/bin/ruff format --check src/ksdft2effmass/provenance/serialization.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py && .venv/bin/ruff check src/ksdft2effmass/provenance/serialization.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+        "cd python && .venv/bin/mypy src/ksdft2effmass/provenance/serialization.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+        "cd python && .venv/bin/pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
+        "git diff --check"
+      ],
+      "generic_validator_result": {"status": "PASS", "findings": [], "modules": 2, "class_owned_modules": 2, "test_functions": 22, "static_parameter_cases": 3, "unique_evidence_owners": 22, "helper_functions": 0},
+      "semantic_review_disposition": "The completed human audit supplied the authoritative findings. The bounded correction implemented only those findings; no replacement or additional semantic audit was launched.",
+      "residual_limitations": ["One representative serializer round trip does not establish complete schema-family agreement, Rust conformance, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness."],
+      "final_status": "audited_and_cleared"
     },
     {
       "id": "P2-A06", "title": "package API boundary", "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/__init__.py"], "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py"], "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Pending semantic audit."], "final_status": "pending_read_only_audit"
