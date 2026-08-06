@@ -20,7 +20,7 @@ import pytest
 
 from ksdft2effmass import provenance
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
+REPO_ROOT = Path(__file__).resolve().parents[6]
 SCHEMA_PATH = REPO_ROOT / "specification/provenance/v1/provenance-v1.schema.json"
 pytestmark = pytest.mark.software_verification
 

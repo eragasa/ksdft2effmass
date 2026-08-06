@@ -178,11 +178,11 @@
     "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_semantic_types__reject_bytes[child_identifier]",
     "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_semantic_types__reject_bytes[provenance_identifier]",
     "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_method__eq__includes_direction_and_kind",
-    "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_fixtures__pass_schema_validation[artifact_identity]",
-    "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime[bom]",
-    "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__fixture_types__cover_serializable_schema_inventory",
-    "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__corrected_invalid_fixtures__reject_legacy_channels[impossible_calendar_date]",
-    "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__direct_self_dependency_fixture__has_layered_classification"
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__valid_fixtures__pass_schema_validation[artifact_identity]",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime[bom]",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__fixture_types__cover_serializable_schema_inventory",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__corrected_invalid_fixtures__reject_legacy_channels[impossible_calendar_date]",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__direct_self_dependency_fixture__has_layered_classification"
   ],
   "mappings": [
     {
@@ -527,23 +527,23 @@
     },
     {
       "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_fixtures__pass_schema_runtime_and_round_trip",
-      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_fixtures__pass_schema_validation[artifact_identity]"
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__valid_fixtures__pass_schema_validation[artifact_identity]"
     },
     {
       "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime",
-      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime[bom]"
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime[bom]"
     },
     {
       "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__fixture_types__cover_serializable_schema_inventory",
-      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__fixture_types__cover_serializable_schema_inventory"
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__fixture_types__cover_serializable_schema_inventory"
     },
     {
       "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__corrected_invalid_fixtures__reject_legacy_channels",
-      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__corrected_invalid_fixtures__reject_legacy_channels[impossible_calendar_date]"
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__corrected_invalid_fixtures__reject_legacy_channels[impossible_calendar_date]"
     },
     {
       "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__direct_self_dependency_fixture__has_layered_classification",
-      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py::test_artifact__direct_self_dependency_fixture__has_layered_classification"
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__direct_self_dependency_fixture__has_layered_classification"
     }
   ]
 }

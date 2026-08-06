@@ -28,7 +28,7 @@ import pytest
 
 from ksdft2effmass.provenance import ProvenanceJsonError, ProvenanceJsonSerializer
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
+REPO_ROOT = Path(__file__).resolve().parents[6]
 ROOT = REPO_ROOT / "specification/provenance/v1"
 VALID = tuple(sorted((ROOT / "fixtures/valid").glob("*.json")))
 INVALID = tuple(sorted((ROOT / "fixtures/invalid").glob("*.json")))

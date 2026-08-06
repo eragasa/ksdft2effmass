@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
+REPO_ROOT = Path(__file__).resolve().parents[6]
 SOURCE = REPO_ROOT / "python/src/ksdft2effmass/provenance"
 pytestmark = pytest.mark.software_verification
 

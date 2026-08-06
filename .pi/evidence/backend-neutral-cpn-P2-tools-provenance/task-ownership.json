@@ -5,37 +5,47 @@
   "owners": {
     "writers": [
       {
-        "role": "p2-a02-test-evidence-writer",
+        "role": "p2-a06-test-and-control-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
-          "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py"
-        ]
-      },
-      {
-        "role": "p2-a02-documentation-writer",
-        "agent": "ksdft2effmass-documentation",
-        "agent_record": ".pi/agents/ksdft2effmass-documentation.md",
-        "owned_paths": [
-          "docs/verification/provenance-contract.rst"
+          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__public_api.py",
+          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py",
+          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_contract_v1.py",
+          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py",
+          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-inventory.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-public-api-test-evidence-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-public-api-test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-integration-family-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-test-evidence-inventory.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-review.md",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-completion.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a06-parent-verification.md",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json",
+          ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+          ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
         ]
       }
     ],
     "reviewers": [
       {
-        "role": "p2-a02-targeted-reviewer",
+        "role": "p2-a06-targeted-read-only-reviewer",
         "agent": "ksdft2effmass-integration-reviewer",
         "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
       }
     ]
   },
   "completion_validator": {
-    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a02.py",
+    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
     "command": [
       "python",
-      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a02.py"
+      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py"
     ],
     "required_before_review": true
   }

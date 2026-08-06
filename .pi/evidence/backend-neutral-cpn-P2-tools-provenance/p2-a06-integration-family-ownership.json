@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "audit_item": "P2-A06",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__public_api.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "the ``ksdft2effmass.provenance`` public API artifact"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "provenance import dependency direction"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_contract_v1.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "provenance version-1 Python and JSON contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "provenance version-1 JSON fixture and runtime agreement"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "provenance wheel package content and isolated import"
+    }
+  ],
+  "later_audit_status": {
+    "P2-A07": "pending_artifact_audit",
+    "P2-A08": "pending_artifact_audit",
+    "P2-A09": "pending_artifact_audit",
+    "P2-A10": "pending_artifact_audit",
+    "P2-A11": "pending_artifact_audit"
+  }
+}

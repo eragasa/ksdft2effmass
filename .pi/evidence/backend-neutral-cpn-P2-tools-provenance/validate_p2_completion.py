@@ -12,8 +12,8 @@ SOURCE = ROOT / "python/src/ksdft2effmass/provenance"
 TESTS = ROOT / "python/tests/software_verification/ksdft2effmass/provenance"
 SCHEMA = ROOT / "specification/provenance/v1"
 ARTIFACT_TEST = (
-    ROOT / "python/tests/software_verification/ksdft2effmass/integration/"
-    "test__provenance_v1_json_fixtures_python_runtime_contract.py"
+    ROOT / "python/tests/software_verification/ksdft2effmass/integration/provenance/"
+    "test__json_fixtures_runtime_agreement_v1.py"
 )
 EVIDENCE_ROOT = ROOT / ".pi/evidence/backend-neutral-cpn-P2-tools-provenance"
 OWNERSHIP_PATH = EVIDENCE_ROOT / "test-evidence-ownership.json"

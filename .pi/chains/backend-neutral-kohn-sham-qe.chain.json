@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A05 are audited_and_cleared; P2-A06 is next but not started; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_a05_cleared_p2_a06_next_not_started",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A06 are audited_and_cleared; P2-A07 is next but not started; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_a06_cleared_p2_a07_next_not_started",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "open_p2_a05_cleared_p2_a06_next_not_started",
+      "status": "open_p2_a06_cleared_p2_a07_next_not_started",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -274,8 +274,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-provenance-audit-queue-P2-A06-next-not-started",
-      "message": "P2-A00 through P2-A05 are audited_and_cleared. The human-audited P2-A05 serialization correction and deterministic completion checks passed. P2-A06 is next but not started. P2 remains open and unaccepted; successors and protected execution remain inactive."
+      "phase": "P2-provenance-audit-queue-P2-A07-next-not-started",
+      "message": "P2-A00 through P2-A06 are audited_and_cleared. The human-audited P2-A06 public-API correction and complete provenance integration-family path migration passed deterministic validation and one targeted review. P2-A07 is next but not started. P2 remains open and unaccepted; successors and protected execution remain inactive."
     }
   ]
 }
