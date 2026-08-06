@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A02 are audited_and_cleared; P2-A03 is next but unstarted; P2 remains open at pending P2-HC06. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_a02_cleared_awaiting_P2-HC06",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A02 are audited_and_cleared; P2-A03 is active only for the bounded ExternalExecutionResult correction; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_a03_external_execution_result_correction_active",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "open_at_P2-HC06_p2_a03_next_unstarted",
+      "status": "open_p2_a03_external_execution_result_correction_active",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -247,6 +247,12 @@
       "decision": "B",
       "resolved_at": "2026-08-06T16:51:37Z",
       "result": "P2 remains open; one nomenclature-only correction is authorized to identify nested provenance audit items as P2-A00--P2-A11 and synchronize directly affected evidence/control paths. P2-A02 is not started; successors and protected execution remain inactive."
+    },
+    {
+      "checkpoint": "P2-HC06-final-acceptance",
+      "decision": "A",
+      "resolved_at": "2026-08-06T18:38:46Z",
+      "result": "P2-A02 remains audited_and_cleared; the explicitly bounded P2-A03 ExternalExecutionResult correction and ExternalExecutionOutcome artifact-ownership move are authorized. P2 remains open and unaccepted; ExternalExecutionFailure, successors, and protected execution remain inactive."
     }
   ],
   "activations": [
@@ -265,17 +271,11 @@
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     }
   ],
-  "pending_checkpoints": [
-    {
-      "checkpoint": "P2-HC06-final-acceptance",
-      "status": "pending",
-      "result": "P2-A02 is durable and cleared; P2-A03 is next but unstarted; P2 remains open and unaccepted."
-    }
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-provenance-audit-queue-P2-A03-next-not-started",
-      "message": "P2-A00 through P2-A02 are audited_and_cleared. P2-HC05 is superseded without P2 acceptance; P2-HC06 is pending. P2-A03 is next but not started. P2 remains open and unaccepted; no successor or protected execution is active."
+      "phase": "P2-A03-ExternalExecutionResult-bounded-correction-active",
+      "message": "P2-A00 through P2-A02 are audited_and_cleared. P2-HC06 resolved as Option A. P2-A03 is active only for the human-audited ExternalExecutionResult correction and internal ExternalExecutionOutcome artifact-ownership move. P2-A03 and P2 remain open; ExternalExecutionFailure, successors, and protected execution are inactive."
     }
   ]
 }

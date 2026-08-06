@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC06",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-06T17:52:19Z",
   "question": "Does the human PI accept the durable P2-A02 audit clearance and authorize the ordered provenance audit to continue later with P2-A03, while keeping P2 open and unaccepted until P2-A00--P2-A11 are all audited_and_cleared?",
@@ -46,15 +46,16 @@
     "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
     "docs/verification/provenance-contract.rst"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "Correct `ExternalExecutionResult` test evidence within `P2-A03`. Implement the bounded correction from the completed human audit, move `ExternalExecutionOutcome` to artifact ownership, keep `ExternalExecutionFailure` untouched, leave P2-A03 open, and commit and push only authorized changes after deterministic checks pass.",
+  "normalized_decision": "A — accept durable P2-A02 clearance and authorize the explicitly bounded P2-A03 ExternalExecutionResult correction while P2 remains open and unaccepted",
+  "resolved_at": "2026-08-06T18:38:46Z",
+  "authorized_scope": "Resume only the human-audited P2-A03 correction of test__ExternalExecutionResult.py; move the internal ExternalExecutionOutcome alias assertion to one convention-compliant artifact-owned module; update only required append-only P2-A03 ownership, migration, audit-progress, and evidence records; run the enumerated focused deterministic checks; then commit and push the authorized correction to origin/dev. ExternalExecutionFailure, production source, schemas, fixtures, dependencies, locks, successors, protected execution, publication, and release remain unauthorized.",
   "record_paths": [
     ".pi/checkpoints/P2-HC06-final-acceptance.json",
     ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
     ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
-    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json"
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC06-resolution.json"
   ],
-  "resumption_status": "pending human disposition; P2-A02 durable and cleared; P2-A03 next but unstarted; P2 open and unaccepted"
+  "resumption_status": "P2-A03 resumed only for the explicitly bounded ExternalExecutionResult correction after this resolution boundary is validated, committed, and pushed; P2 remains open and unaccepted"
 }

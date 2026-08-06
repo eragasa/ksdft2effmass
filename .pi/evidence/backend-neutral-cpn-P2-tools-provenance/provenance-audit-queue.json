@@ -4,8 +4,8 @@
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
-  "active_item": null,
-  "next_item": "P2-A03",
+  "active_item": "P2-A03",
+  "next_item": null,
   "items": [
     {
       "id": "P2-A00",
