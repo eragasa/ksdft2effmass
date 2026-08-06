@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "audit_item": "P2-A04",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ArtifactLocationKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ArtifactLocation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ManifestState"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "LineageKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "LineageRelation"
+    }
+  ],
+  "dedicated_enum_modules": [
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py"
+  ],
+  "counts": {
+    "modules": 5,
+    "class_owned_modules": 5,
+    "dedicated_enum_class_owned_modules": 3,
+    "artifact_owned_modules": 0,
+    "test_functions": 38,
+    "evidence_owners": 38,
+    "helper_functions": 0,
+    "parameterized_functions": 13,
+    "static_parameter_cases": 74,
+    "collected_cases": 99,
+    "historical_mapped_nodes": 3,
+    "new_collected_cases": 96
+  },
+  "evidence_owners": [
+    {
+      "evidence_id": "SV-PROV-011",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "function": "test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    },
+    {
+      "evidence_id": "SV-PROV-363",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "function": "test_method__call__constructs_each_kind_from_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-364",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "function": "test_method__getitem__returns_each_kind_from_declared_name"
+    },
+    {
+      "evidence_id": "SV-PROV-365",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "function": "test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-366",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "function": "test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "evidence_id": "SV-PROV-367",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "function": "test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "evidence_id": "SV-PROV-009",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_constructor__tagged_location_forms__maps_exclusive_fields"
+    },
+    {
+      "evidence_id": "SV-PROV-010",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_constructor__kind_semantic_type__rejects_string_lookalike"
+    },
+    {
+      "evidence_id": "SV-PROV-117",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_constructor__root_branch_completeness__requires_root_identifier"
+    },
+    {
+      "evidence_id": "SV-PROV-118",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_constructor__branch_exclusivity__rejects_mixed_fields"
+    },
+    {
+      "evidence_id": "SV-PROV-109",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__frozen_assignment__rejects_reassignment"
+    },
+    {
+      "evidence_id": "SV-PROV-088",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__root_location_identifier_values__reject_nonportable_text"
+    },
+    {
+      "evidence_id": "SV-PROV-119",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__root_location_identifier_semantic_types__reject_bytes"
+    },
+    {
+      "evidence_id": "SV-PROV-089",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__root_relative_path__rejects_nonportable_lexical_forms"
+    },
+    {
+      "evidence_id": "SV-PROV-090",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__root_relative_path_semantic_type__rejects_non_string_values"
+    },
+    {
+      "evidence_id": "SV-PROV-091",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__external_descriptor_identifier_values__reject_nonportable_text"
+    },
+    {
+      "evidence_id": "SV-PROV-120",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__external_descriptor_presence__rejects_missing_value"
+    },
+    {
+      "evidence_id": "SV-PROV-121",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_field__external_descriptor_semantic_type__rejects_bytes"
+    },
+    {
+      "evidence_id": "SV-PROV-092",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "function": "test_method__eq__includes_tag_and_branch_payload"
+    },
+    {
+      "evidence_id": "SV-PROV-075",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "function": "test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    },
+    {
+      "evidence_id": "SV-PROV-368",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "function": "test_method__call__constructs_each_state_from_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-369",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "function": "test_method__getitem__returns_each_state_from_declared_name"
+    },
+    {
+      "evidence_id": "SV-PROV-370",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "function": "test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-371",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "function": "test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "evidence_id": "SV-PROV-372",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "function": "test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "evidence_id": "SV-PROV-019",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "function": "test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    },
+    {
+      "evidence_id": "SV-PROV-373",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "function": "test_method__call__constructs_each_kind_from_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-374",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "function": "test_method__getitem__returns_each_kind_from_declared_name"
+    },
+    {
+      "evidence_id": "SV-PROV-375",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "function": "test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-376",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "function": "test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "evidence_id": "SV-PROV-377",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "function": "test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "evidence_id": "SV-PROV-017",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_constructor__directed_lineage_fields__maps_parent_to_child"
+    },
+    {
+      "evidence_id": "SV-PROV-018",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_constructor__distinct_endpoints__rejects_self_edge"
+    },
+    {
+      "evidence_id": "SV-PROV-133",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_constructor__kind_semantic_type__rejects_string_lookalike"
+    },
+    {
+      "evidence_id": "SV-PROV-101",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_field__lineage_identifier_values__reject_nonportable_text"
+    },
+    {
+      "evidence_id": "SV-PROV-134",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_field__lineage_identifier_semantic_types__reject_bytes"
+    },
+    {
+      "evidence_id": "SV-PROV-102",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_method__eq__includes_direction_and_kind"
+    },
+    {
+      "evidence_id": "SV-PROV-113",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "function": "test_field__frozen_assignment__rejects_reassignment"
+    }
+  ],
+  "collected_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__call__constructs_each_kind_from_wire_value[root_relative_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__call__constructs_each_kind_from_wire_value[external_descriptor_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__getitem__returns_each_kind_from_declared_name[root_relative_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__getitem__returns_each_kind_from_declared_name[external_descriptor_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__call__constructs_each_state_from_wire_value[declared_state]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__call__constructs_each_state_from_wire_value[complete_state]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__call__constructs_each_state_from_wire_value[failed_state]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__getitem__returns_each_state_from_declared_name[declared_state]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__getitem__returns_each_state_from_declared_name[complete_state]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__getitem__returns_each_state_from_declared_name[failed_state]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__call__constructs_each_kind_from_wire_value[derived_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__call__constructs_each_kind_from_wire_value[representation_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__call__constructs_each_kind_from_wire_value[retry_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__getitem__returns_each_kind_from_declared_name[derived_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__getitem__returns_each_kind_from_declared_name[representation_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__getitem__returns_each_kind_from_declared_name[retry_kind]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_constructor__tagged_location_forms__maps_exclusive_fields",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_constructor__kind_semantic_type__rejects_string_lookalike",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_constructor__root_branch_completeness__requires_root_identifier",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_constructor__branch_exclusivity__rejects_mixed_fields[descriptor_on_root_branch]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_constructor__branch_exclusivity__rejects_mixed_fields[root_identifier_on_external_branch]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_constructor__branch_exclusivity__rejects_mixed_fields[path_on_external_branch]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__frozen_assignment__rejects_reassignment",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[empty_identifier-artifact_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[empty_identifier-root_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[embedded_space-artifact_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[embedded_space-root_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[non_nfc_identifier-artifact_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[non_nfc_identifier-root_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[unicode_surrogate-artifact_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[unicode_surrogate-root_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[overlength_identifier-artifact_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_values__reject_nonportable_text[overlength_identifier-root_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_semantic_types__reject_bytes[artifact_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_location_identifier_semantic_types__reject_bytes[root_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[empty_path]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[absolute_posix_path]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[parent_traversal]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[dot_component]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[repeated_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[trailing_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[backslash_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[windows_drive_path]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[windows_device_root]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[windows_device_nested]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[non_nfc_path]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[c1_control]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[unicode_line_control]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path__rejects_nonportable_lexical_forms[unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__root_relative_path_semantic_type__rejects_non_string_values",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_identifier_values__reject_nonportable_text[empty_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_identifier_values__reject_nonportable_text[embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_identifier_values__reject_nonportable_text[non_nfc_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_identifier_values__reject_nonportable_text[unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_identifier_values__reject_nonportable_text[overlength_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_presence__rejects_missing_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_field__external_descriptor_semantic_type__rejects_bytes",
+    "tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py::test_method__eq__includes_tag_and_branch_payload",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_constructor__directed_lineage_fields__maps_parent_to_child",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_constructor__distinct_endpoints__rejects_self_edge",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_constructor__kind_semantic_type__rejects_string_lookalike",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[empty_identifier-lineage_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[empty_identifier-parent_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[empty_identifier-child_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[empty_identifier-provenance_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[embedded_space-lineage_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[embedded_space-parent_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[embedded_space-child_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[embedded_space-provenance_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[non_nfc_identifier-lineage_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[non_nfc_identifier-parent_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[non_nfc_identifier-child_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[non_nfc_identifier-provenance_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[unicode_surrogate-lineage_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[unicode_surrogate-parent_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[unicode_surrogate-child_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[unicode_surrogate-provenance_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[overlength_identifier-lineage_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[overlength_identifier-parent_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[overlength_identifier-child_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_values__reject_nonportable_text[overlength_identifier-provenance_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_semantic_types__reject_bytes[lineage_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_semantic_types__reject_bytes[parent_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_semantic_types__reject_bytes[child_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__lineage_identifier_semantic_types__reject_bytes[provenance_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_method__eq__includes_direction_and_kind",
+    "tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py::test_field__frozen_assignment__rejects_reassignment"
+  ],
+  "historical_node_migration": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-node-migration.json"
+}

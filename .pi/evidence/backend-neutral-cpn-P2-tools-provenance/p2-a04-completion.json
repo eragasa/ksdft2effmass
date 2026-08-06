@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "audit_item": "P2-A04",
+  "status": "audited_and_cleared",
+  "starting_revision": "9c7bdbe70a6d2cb794ecd96883f4146ec8f603a5",
+  "correction_revision": "durable boundary commit containing this record",
+  "ownership": {
+    "record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-ownership.json",
+    "class_owned_modules": 5,
+    "dedicated_enum_class_owned_modules": 3,
+    "artifact_owned_modules": 0
+  },
+  "migration": {
+    "record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-node-migration.json",
+    "historical_nodes": 3,
+    "current_successors": 3,
+    "complete_one_to_one": true
+  },
+  "inventory": {
+    "record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-inventory.json",
+    "evidence_owners": 38,
+    "helper_functions": 0,
+    "collected_cases": 99,
+    "new_collected_cases": 96
+  },
+  "lineage_file_specific": {
+    "new_module_collected_cases": 10,
+    "two_module_collected_cases": 39,
+    "pytest": "39 passed",
+    "structural_validator": "PASS with zero findings",
+    "ruff": "PASS",
+    "mypy": "PASS",
+    "focused_public_api": "3 passed",
+    "focused_serializer_enum_type": "1 passed",
+    "sv_prov_019_moved_once": true,
+    "sv_prov_133_unchanged": true
+  },
+  "aggregate_validation": {
+    "structural_validator": "PASS with zero findings",
+    "pytest": "99 passed",
+    "ruff_format_and_lint": "PASS",
+    "mypy": "PASS",
+    "unique_evidence_ids": 38,
+    "no_vague_enum_surfaces": true,
+    "no_file_level_e501_suppression": true,
+    "production_source_nonmutation": "PASS",
+    "inactive_backlog_nonmutation": "PASS",
+    "harness_and_route_nonmutation": "PASS",
+    "git_diff_check": "PASS",
+    "findings": []
+  },
+  "protected_inactive_backlog": {
+    "status": "proposed_inactive",
+    "activation_authorized": false,
+    "implementation_authorized": false,
+    "byte_identical_to_starting_revision": true
+  },
+  "production_source_modified": false,
+  "next_item": "P2-A05",
+  "next_item_started": false,
+  "p2_status": "open_and_unaccepted",
+  "claim_boundary": "Software verification and deterministic consistency do not establish lineage truth, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness."
+}

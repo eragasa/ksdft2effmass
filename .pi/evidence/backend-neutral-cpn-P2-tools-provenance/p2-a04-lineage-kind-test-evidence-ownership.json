@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "LineageKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "LineageRelation"
+    }
+  ]
+}

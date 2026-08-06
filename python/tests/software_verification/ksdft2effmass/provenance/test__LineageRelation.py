@@ -96,29 +96,6 @@ def test_constructor__kind_semantic_type__rejects_string_lookalike() -> None:
         SUT("l", "a", "b", "derived", "p")  # type: ignore[arg-type]
 
 
-def test_field__lineage_enum_values__match_version_one_vocabulary() -> None:
-    """Evidence ID
-    SV-PROV-019
-    Requirement
-    The complete lineage vocabulary is derived, representation, retry in declared order.
-    Method
-    Enumerate public LineageKind members and read their values.
-    Oracle
-    The accepted version-1 enum artifact fixes the exact tuple.
-    Acceptance
-    Values equal the three expected lowercase strings exactly.
-    Interpretation
-    Failure indicates a public or wire vocabulary change.
-    Limitations
-    Cross-language enum conformance is not claimed.
-    """
-    assert tuple(item.value for item in LineageKind) == (
-        "derived",
-        "representation",
-        "retry",
-    )
-
-
 @pytest.mark.parametrize(
     "field",
     [

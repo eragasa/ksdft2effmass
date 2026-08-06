@@ -4,8 +4,8 @@
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
-  "active_item": "P2-A04",
-  "next_item": null,
+  "active_item": null,
+  "next_item": "P2-A05",
   "items": [
     {
       "id": "P2-A00",
@@ -304,11 +304,23 @@
           "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-manifest-state-test-evidence-ownership.json",
           "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-manifest-state-test-evidence-node-migration.json",
           "implementation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-manifest-state-partial-correction.md"
+        },
+        {
+          "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+          "additional_record_path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+          "human_audit_status": "failed",
+          "finding_summary": "LineageKind lacked a dedicated class-owned module; SV-PROV-019 was misowned by LineageRelation and omitted StrEnum, paired vocabulary, alias, lookup, and rejection evidence; SV-PROV-133 correctly remained with LineageRelation.",
+          "correction_status": "bounded_correction_implemented",
+          "deterministic_validation": "passed",
+          "historical_ids_preserved": ["SV-PROV-019"],
+          "retained_relation_ids": ["SV-PROV-133"],
+          "new_ids": ["SV-PROV-373", "SV-PROV-374", "SV-PROV-375", "SV-PROV-376", "SV-PROV-377"],
+          "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-lineage-kind-test-evidence-ownership.json",
+          "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-lineage-kind-test-evidence-node-migration.json",
+          "implementation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-lineage-kind-partial-correction.md"
         }
       ],
-      "remaining_human_audit_targets": [
-        "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py"
-      ],
+      "remaining_human_audit_targets": [],
       "correction_revision": null,
       "exact_deterministic_commands": [
         "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-test-evidence-node-migration.json",
@@ -333,11 +345,29 @@
       "generic_validator_result": {"status": "PASS", "findings": 0, "modules": 2, "class_owned_modules": 2, "artifact_owned_modules": 0, "test_functions": 19, "unique_evidence_owners": 19, "helper_functions": 0, "static_collected_parameter_cases": 38},
       "partial_structural_results": [
         {"path": "test__ArtifactLocationKind.py", "status": "PASS", "test_functions": 6, "collected_cases": 8, "findings": 0},
-        {"path": "test__ManifestState.py", "status": "PASS", "class_owned_modules": 1, "artifact_owned_modules": 0, "test_functions": 6, "evidence_owners": 6, "helper_functions": 0, "static_parameter_cases": 6, "collected_cases": 10, "findings": 0}
+        {"path": "test__ManifestState.py", "status": "PASS", "class_owned_modules": 1, "artifact_owned_modules": 0, "test_functions": 6, "evidence_owners": 6, "helper_functions": 0, "static_parameter_cases": 6, "collected_cases": 10, "findings": 0},
+        {"paths": ["test__LineageKind.py", "test__LineageRelation.py"], "status": "PASS", "class_owned_modules": 2, "artifact_owned_modules": 0, "test_functions": 13, "evidence_owners": 13, "helper_functions": 0, "static_parameter_cases": 30, "collected_cases": 39, "findings": 0}
       ],
-      "semantic_review_disposition": "ArtifactLocationKind and ManifestState human-audit corrections passed deterministic validation; no general independent review was launched.",
-      "residual_limitations": ["LineageKind remains unaudited within P2-A04; P2-A04 remains open."],
-      "final_status": "pending_read_only_audit"
+      "aggregate_consistency": {
+        "status": "PASS",
+        "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-ownership.json",
+        "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-node-migration.json",
+        "inventory_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-test-evidence-inventory.json",
+        "completion_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-completion.json",
+        "parent_verification": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-parent-verification.md",
+        "class_owned_modules": 5,
+        "dedicated_enum_class_owned_modules": 3,
+        "artifact_owned_modules": 0,
+        "evidence_owners": 38,
+        "helper_functions": 0,
+        "collected_cases": 99,
+        "historical_mapped_nodes": 3,
+        "pytest": "99 passed",
+        "findings": []
+      },
+      "semantic_review_disposition": "ArtifactLocationKind, ManifestState, and LineageKind completed authoritative human audits and bounded corrections. The final aggregate deterministic consistency check passed; no general independent review was launched.",
+      "residual_limitations": ["Software verification does not establish lineage truth, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness."],
+      "final_status": "audited_and_cleared"
     },
     {
       "id": "P2-A05",

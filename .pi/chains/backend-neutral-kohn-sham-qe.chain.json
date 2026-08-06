@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A03 are audited_and_cleared; P2-A04 remains open after the ArtifactLocationKind and ManifestState corrections, with LineageKind the next human-audit target; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_a04_open_lineage_kind_next",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A04 are audited_and_cleared; P2-A05 is next but not started; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_a04_cleared_p2_a05_next_not_started",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "open_p2_a04_lineage_kind_next",
+      "status": "open_p2_a04_cleared_p2_a05_next_not_started",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -274,8 +274,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-A04-LineageKind-next-human-audit-target",
-      "message": "P2-A00 through P2-A03 are audited_and_cleared. The bounded ArtifactLocationKind and ManifestState ownership and enum-contract corrections passed deterministic validation. P2-A04 remains open; LineageKind is the next human-audit target but was not created, modified, or started. P2 remains open and unaccepted; successors and protected execution remain inactive."
+      "phase": "P2-provenance-audit-queue-P2-A05-next-not-started",
+      "message": "P2-A00 through P2-A04 are audited_and_cleared. The final LineageKind correction and aggregate P2-A04 consistency check passed. P2-A05 is next but not started. P2 remains open and unaccepted; successors and protected execution remain inactive."
     }
   ]
 }
