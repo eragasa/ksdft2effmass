@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC02",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-05T19:01:23Z",
   "question": "Should P2 receive renewed final human acceptance after the P2-HC01 Option-B post-R2 bounded correction removed dangling validators, made the seven records own their intrinsic invariants, rejected direct RunManifest self-dependency, completed the directly owned verification/schema/documentation surface, and passed current-boundary deterministic validation with the recorded targeted-review disposition?",
@@ -42,10 +42,16 @@
     "docs/user-guide/provenance-and-artifacts.md",
     "docs/verification/provenance-contract.rst"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "P2_bounded_correction_complete_blocked_pending_renewed_final_human_acceptance; no_successor_active"
+  "human_response": "B — Keep P2 open and authorize one test-evidence-only migration of the seven records.py class-owned modules and the directly related fixture/runtime artifact module using the accepted develop-python-test-evidence skill.\n\nProduction source, public behavior, schemas, fixtures, serialization, dependencies, lockfiles, scientific meaning, and P2 successors remain unchanged. Preserve existing evidence IDs and assertions except for the mechanical splitting needed to give each test one correctly named public surface. No R3/E3 is authorized.",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-06T03:44:34Z",
+  "authorized_scope": "One test-evidence-only migration using develop-python-test-evidence with profile AUTHORIZED_TEST_EVIDENCE_WRITE: exactly seven records.py class-owned test modules and the directly related fixture/runtime artifact-owned module, explicit ownership and one-to-one node migration records, P2 test ownership/completeness records, directly affected test-evidence documentation, task/review/completion records, and renewed P2-HC03 checkpoint. Production source, public behavior, schemas, fixtures, serialization, dependencies, lockfiles, scientific meaning, historical R1/R2, R3/E3, and P2 successors are excluded.",
+  "record_paths": [
+    ".pi/checkpoints/P2-HC02-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC02-resolution.json"
+  ],
+  "resumption_status": "P2_open_active_for_one_authorized_test_evidence_only_migration; P3-P11_H5_and_protected_execution_inactive"
+
 }

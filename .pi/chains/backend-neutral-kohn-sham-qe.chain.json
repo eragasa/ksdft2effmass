@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, and harness H0-H4 are closed as human-accepted PASS. The P2-HC01 Option-B post-R2 bounded correction is complete and P2 is blocked at renewed final acceptance P2-HC02. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_bounded_correction_complete_awaiting_renewed_human_acceptance",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, and harness H0-H4 plus TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-HC02 Option B authorizes one test-evidence-only migration; P2 remains open. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_test_evidence_migration_active",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "blocked_at_P2-HC02_renewed_final_human_acceptance",
+      "status": "active_P2-HC02_option_B_test_evidence_only_migration",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -235,6 +235,12 @@
       "decision": "A",
       "resolved_at": "2026-08-04T15:42:45Z",
       "result": "Harness H1 closed as human-accepted PASS after one deterministic closeout validation; no H3, H2, H4, H5, P2, implementation, or execution was activated."
+    },
+    {
+      "checkpoint": "P2-HC02-final-acceptance",
+      "decision": "B",
+      "resolved_at": "2026-08-06T03:44:34Z",
+      "result": "P2 remains open; one test-evidence-only migration is authorized for eight supplied test modules using develop-python-test-evidence. Production/schema/fixture/dependency/lock/scientific meaning and successors remain unchanged; no R3/E3."
     }
   ],
   "activations": [
@@ -253,13 +259,11 @@
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     }
   ],
-  "pending_checkpoints": [
-    ".pi/checkpoints/P2-HC02-final-acceptance.json"
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-awaiting-renewed-final-human-acceptance",
-      "message": "The P2-HC01 Option-B post-R2 correction, current-boundary deterministic validation, targeted review, and sole small correction pass are complete. P2 remains open at P2-HC02. R1/R2 remain immutable; no R3/E3, H5, P3-P11, external/scientific execution, publication, or release is active."
+      "phase": "P2-HC02-option-B-test-evidence-migration",
+      "message": "One test-evidence-only migration is authorized for exactly seven records.py class-owned modules and one related fixture/runtime artifact-owned module using develop-python-test-evidence AUTHORIZED_TEST_EVIDENCE_WRITE. Production/source/schema/fixture/dependency/lock/scientific meaning and R1/R2 remain unchanged; no R3/E3 or successor is active."
     }
   ]
 }
