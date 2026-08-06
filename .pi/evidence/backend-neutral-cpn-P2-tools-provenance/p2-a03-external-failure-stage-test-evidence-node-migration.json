@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__value_and_name_lookup__return_member_identity[request_acceptance]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__value_and_name_lookup__return_member_identity[execution]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__value_and_name_lookup__return_member_identity[result_capture]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__invalid_value_lookup__raises_value_error[unknown_value]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__invalid_value_lookup__raises_value_error[integer_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__invalid_name_lookup__raises_key_error"
+  ],
+  "expected_new_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[request_acceptance_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[execution_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[result_capture_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__getitem__rejects_unknown_member_name"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__value_and_name_lookup__return_member_identity[request_acceptance]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[request_acceptance_stage]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__value_and_name_lookup__return_member_identity[execution]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[execution_stage]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__value_and_name_lookup__return_member_identity[result_capture]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[result_capture_stage]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__invalid_value_lookup__raises_value_error[unknown_value]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__invalid_value_lookup__raises_value_error[integer_wrong_type]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_protocol__invalid_name_lookup__raises_key_error",
+      "new_node_id": "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__getitem__rejects_unknown_member_name"
+    }
+  ]
+}
