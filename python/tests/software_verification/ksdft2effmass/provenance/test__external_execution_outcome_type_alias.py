@@ -21,10 +21,7 @@ nonexport boundary, and absence of a runtime wrapper. It does not establish
 result or failure field behavior, execution success, output correctness,
 provenance truth, numerical verification, scientific validation, UQ,
 portability, or cross-language agreement.
-"""
-
-# The convention-required fully qualified artifact opening exceeds 88 columns.
-# ruff: noqa: E501
+"""  # noqa: E501
 
 from types import UnionType
 from typing import get_args, get_origin

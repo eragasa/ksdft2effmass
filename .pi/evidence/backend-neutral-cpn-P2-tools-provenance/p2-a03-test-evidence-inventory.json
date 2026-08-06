@@ -1,0 +1,1090 @@
+{
+  "schema_version": 1,
+  "audit_item": "P2-A03",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ExternalExecutionStatus"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ExternalFailureStage"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ExternalFailureCode"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ExternalExecutionRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ExternalExecutionResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "ksdft2effmass.provenance.external_execution.ExternalExecutionOutcome"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ExternalExecutionFailure"
+    }
+  ],
+  "counts": {
+    "modules": 7,
+    "class_owned_modules": 6,
+    "artifact_owned_modules": 1,
+    "test_functions": 121,
+    "evidence_owners": 121,
+    "helper_functions": 3,
+    "parameterized_functions": 60,
+    "static_parameter_cases": 344,
+    "collected_cases": 405,
+    "historical_mapped_nodes": 70,
+    "new_collected_cases": 335
+  },
+  "helpers": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "make_external_execution_request"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "make_external_execution_result"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "make_external_execution_failure"
+    }
+  ],
+  "evidence_owners": [
+    {
+      "evidence_id": "SV-PROV-042",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "function": "test_field__wire_vocabulary__has_exact_order_name_value_and_count"
+    },
+    {
+      "evidence_id": "SV-PROV-182",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "function": "test_method__call__constructs_completed_member_from_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-282",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "function": "test_method__getitem__returns_completed_member_from_declared_name"
+    },
+    {
+      "evidence_id": "SV-PROV-183",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "function": "test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-283",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "function": "test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "evidence_id": "SV-PROV-184",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "function": "test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "evidence_id": "SV-PROV-045",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "function": "test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    },
+    {
+      "evidence_id": "SV-PROV-185",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "function": "test_method__call__constructs_each_stage_from_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-284",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "function": "test_method__getitem__returns_each_stage_from_declared_name"
+    },
+    {
+      "evidence_id": "SV-PROV-186",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "function": "test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-285",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "function": "test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "evidence_id": "SV-PROV-187",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "function": "test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "evidence_id": "SV-PROV-074",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "function": "test_field__wire_vocabulary__has_exact_order_names_values_and_count"
+    },
+    {
+      "evidence_id": "SV-PROV-188",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "function": "test_method__call__constructs_each_code_from_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-286",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "function": "test_method__getitem__returns_each_code_from_declared_name"
+    },
+    {
+      "evidence_id": "SV-PROV-189",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "function": "test_method__call__rejects_unknown_wire_value"
+    },
+    {
+      "evidence_id": "SV-PROV-287",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "function": "test_method__call__rejects_wrong_semantic_type"
+    },
+    {
+      "evidence_id": "SV-PROV-190",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "function": "test_method__getitem__rejects_unknown_member_name"
+    },
+    {
+      "evidence_id": "SV-PROV-037",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__field_mapping__stores_exact_values_types_and_order"
+    },
+    {
+      "evidence_id": "SV-PROV-288",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifiers__accept_valid_length_partitions"
+    },
+    {
+      "evidence_id": "SV-PROV-219",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_type__rejects_bytes_wrong_type"
+    },
+    {
+      "evidence_id": "SV-PROV-289",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_empty__rejects_empty_text"
+    },
+    {
+      "evidence_id": "SV-PROV-290",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_grammar__rejects_embedded_space"
+    },
+    {
+      "evidence_id": "SV-PROV-291",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen"
+    },
+    {
+      "evidence_id": "SV-PROV-292",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_surrogate__rejects_unicode_surrogate"
+    },
+    {
+      "evidence_id": "SV-PROV-293",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_nfc__rejects_non_nfc"
+    },
+    {
+      "evidence_id": "SV-PROV-294",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__required_identifier_length__rejects_overlength_129"
+    },
+    {
+      "evidence_id": "SV-PROV-078",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent__accepts_optional_valid_states"
+    },
+    {
+      "evidence_id": "SV-PROV-295",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-296",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_empty__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-297",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_grammar__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-298",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_leading__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-299",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_surrogate__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-300",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_nfc__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-301",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_length__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-217",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__retry_parent_relation__rejects_direct_self_reference"
+    },
+    {
+      "evidence_id": "SV-PROV-038",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__identifier_tuples__accept_canonical_states"
+    },
+    {
+      "evidence_id": "SV-PROV-218",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_container_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-302",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-303",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_nonempty__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-304",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_grammar__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-305",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_leading_character__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-306",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_unicode_surrogate__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-307",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_unicode_nfc__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-308",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_member_length__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-309",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_ordering__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-310",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_constructor__tuple_uniqueness__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-220",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_field__frozen_state__rejects_every_public_field_reassignment"
+    },
+    {
+      "evidence_id": "SV-PROV-221",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_method__eq__compares_every_public_field"
+    },
+    {
+      "evidence_id": "SV-PROV-311",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_method__eq__distinguishes_retry_parent_in_both_directions"
+    },
+    {
+      "evidence_id": "SV-PROV-312",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_method__eq__distinguishes_distinct_valid_tuple_state"
+    },
+    {
+      "evidence_id": "SV-PROV-313",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_method__eq__returns_unequal_for_unrelated_object"
+    },
+    {
+      "evidence_id": "SV-PROV-039",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "function": "test_field__durable_boundary__contains_authorization_identity_only"
+    },
+    {
+      "evidence_id": "SV-PROV-040",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__field_mapping__stores_exact_values_types_and_order"
+    },
+    {
+      "evidence_id": "SV-PROV-314",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifiers__accept_valid_length_partitions"
+    },
+    {
+      "evidence_id": "SV-PROV-224",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_type__rejects_bytes_wrong_type"
+    },
+    {
+      "evidence_id": "SV-PROV-315",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_empty__rejects_empty_text"
+    },
+    {
+      "evidence_id": "SV-PROV-316",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_grammar__rejects_embedded_space"
+    },
+    {
+      "evidence_id": "SV-PROV-317",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_leading__rejects_invalid_leading_hyphen"
+    },
+    {
+      "evidence_id": "SV-PROV-318",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_surrogate__rejects_unicode_surrogate"
+    },
+    {
+      "evidence_id": "SV-PROV-319",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_nfc__rejects_non_nfc"
+    },
+    {
+      "evidence_id": "SV-PROV-320",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__identifier_length__rejects_overlength_129"
+    },
+    {
+      "evidence_id": "SV-PROV-321",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__status_exact_type__accepts_completed_member"
+    },
+    {
+      "evidence_id": "SV-PROV-223",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__status_type__rejects_string_lookalike"
+    },
+    {
+      "evidence_id": "SV-PROV-322",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__status_type__rejects_unrelated_integer"
+    },
+    {
+      "evidence_id": "SV-PROV-041",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids__accepts_canonical_states"
+    },
+    {
+      "evidence_id": "SV-PROV-222",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_container_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-323",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_member_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-324",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_member_nonempty__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-325",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_member_grammar__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-326",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_member_leading__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-327",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_member_unicode__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-328",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_member_length__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-329",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_ordering__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-330",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_constructor__output_artifact_ids_uniqueness__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-227",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_field__frozen_state__rejects_every_public_field_reassignment"
+    },
+    {
+      "evidence_id": "SV-PROV-331",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_method__eq__identical_state__compares_equal"
+    },
+    {
+      "evidence_id": "SV-PROV-228",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_method__eq__valid_field_states__affect_equality"
+    },
+    {
+      "evidence_id": "SV-PROV-332",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_method__eq__unrelated_object__compares_unequal"
+    },
+    {
+      "evidence_id": "SV-PROV-225",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_field__completion_lifecycle__excludes_later_decisions"
+    },
+    {
+      "evidence_id": "SV-PROV-229",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "function": "test_field__durable_boundary__excludes_runtime_state"
+    },
+    {
+      "evidence_id": "SV-PROV-226",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
+      "function": "test_artifact__external_execution_outcome__preserves_internal_union_boundary"
+    },
+    {
+      "evidence_id": "SV-PROV-043",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__field_mapping__stores_exact_values_types_and_order"
+    },
+    {
+      "evidence_id": "SV-PROV-333",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifiers__accept_valid_length_partitions"
+    },
+    {
+      "evidence_id": "SV-PROV-232",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-334",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_empty__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-335",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_grammar__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-336",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_leading__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-337",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_surrogate__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-338",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_nfc__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-339",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__identifier_length__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-340",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__stage_exact_type__accepts_every_member"
+    },
+    {
+      "evidence_id": "SV-PROV-231",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__stage_type__rejects_wire_string_lookalikes"
+    },
+    {
+      "evidence_id": "SV-PROV-341",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__stage_type__rejects_unrelated_integer"
+    },
+    {
+      "evidence_id": "SV-PROV-342",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__stage_type__rejects_failure_code_member"
+    },
+    {
+      "evidence_id": "SV-PROV-343",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__code_exact_type__accepts_every_member"
+    },
+    {
+      "evidence_id": "SV-PROV-344",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__code_type__rejects_wire_string_lookalikes"
+    },
+    {
+      "evidence_id": "SV-PROV-345",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__code_type__rejects_unrelated_integer"
+    },
+    {
+      "evidence_id": "SV-PROV-346",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__code_type__rejects_failure_stage_member"
+    },
+    {
+      "evidence_id": "SV-PROV-044",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths__accepts_lexically_safe_states"
+    },
+    {
+      "evidence_id": "SV-PROV-230",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_container_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-347",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_member_type__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-348",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_member_nonempty__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-349",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_member_surrogate__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-350",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_member_nfc__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-351",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_absolute_posix__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-352",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_windows_drive__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-353",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_separator_syntax__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-354",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_relative_components__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-355",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_windows_devices__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-356",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_control_characters__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-357",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_ordering__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-358",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_constructor__diagnostic_paths_uniqueness__rejects_invalid_state"
+    },
+    {
+      "evidence_id": "SV-PROV-234",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_field__frozen_state__rejects_every_public_field_reassignment"
+    },
+    {
+      "evidence_id": "SV-PROV-359",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_method__eq__identical_state__compares_equal"
+    },
+    {
+      "evidence_id": "SV-PROV-235",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_method__eq__valid_field_states__affect_equality"
+    },
+    {
+      "evidence_id": "SV-PROV-361",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_method__eq__failure_stages__remain_distinguishable"
+    },
+    {
+      "evidence_id": "SV-PROV-362",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_method__eq__failure_codes__remain_distinguishable"
+    },
+    {
+      "evidence_id": "SV-PROV-360",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_method__eq__unrelated_object__compares_unequal"
+    },
+    {
+      "evidence_id": "SV-PROV-233",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_field__failure_lifecycle__separates_result_and_later_decisions"
+    },
+    {
+      "evidence_id": "SV-PROV-236",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "function": "test_field__durable_boundary__excludes_raw_runtime_and_secret_state"
+    }
+  ],
+  "collected_node_ids": [
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py::test_field__wire_vocabulary__has_exact_order_name_value_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py::test_method__call__constructs_completed_member_from_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py::test_method__getitem__returns_completed_member_from_declared_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[request_acceptance_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[execution_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__constructs_each_stage_from_wire_value[result_capture_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__getitem__returns_each_stage_from_declared_name[request_acceptance_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__getitem__returns_each_stage_from_declared_name[execution_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__getitem__returns_each_stage_from_declared_name[result_capture_stage]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_field__wire_vocabulary__has_exact_order_names_values_and_count",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__constructs_each_code_from_wire_value[unavailable_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__constructs_each_code_from_wire_value[not_authorized_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__constructs_each_code_from_wire_value[rejected_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__constructs_each_code_from_wire_value[interrupted_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__constructs_each_code_from_wire_value[malformed_result_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__constructs_each_code_from_wire_value[internal_error_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__returns_each_code_from_declared_name[unavailable_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__returns_each_code_from_declared_name[not_authorized_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__returns_each_code_from_declared_name[rejected_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__returns_each_code_from_declared_name[interrupted_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__returns_each_code_from_declared_name[malformed_result_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__returns_each_code_from_declared_name[internal_error_code]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__rejects_unknown_wire_value",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__call__rejects_wrong_semantic_type",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py::test_method__getitem__rejects_unknown_member_name",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__field_mapping__stores_exact_values_types_and_order",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[request_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[request_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[request_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[correlation_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[correlation_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[correlation_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[attempt_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[attempt_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[attempt_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[tool_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[tool_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[tool_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[capability_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[capability_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[capability_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[installation_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[installation_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[installation_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[authorization_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[authorization_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[authorization_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[provenance_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[provenance_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifiers__accept_valid_length_partitions[provenance_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[request_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[correlation_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[attempt_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[tool_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[capability_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[installation_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[authorization_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_type__rejects_bytes_wrong_type[provenance_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[request_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[correlation_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[attempt_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[tool_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[capability_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[installation_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[authorization_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_empty__rejects_empty_text[provenance_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[request_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[correlation_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[attempt_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[tool_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[capability_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[installation_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[authorization_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_grammar__rejects_embedded_space[provenance_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[request_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[correlation_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[attempt_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[tool_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[capability_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[installation_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[authorization_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_leading__rejects_invalid_leading_hyphen[provenance_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[request_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[correlation_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[attempt_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[tool_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[capability_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[installation_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[authorization_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_surrogate__rejects_unicode_surrogate[provenance_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[request_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[correlation_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[attempt_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[tool_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[capability_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[installation_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[authorization_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_nfc__rejects_non_nfc[provenance_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[request_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[correlation_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[attempt_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[tool_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[capability_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[installation_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[authorization_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__required_identifier_length__rejects_overlength_129[provenance_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent__accepts_optional_valid_states[retry_parent_none]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent__accepts_optional_valid_states[retry_parent_distinct_ordinary]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent__accepts_optional_valid_states[retry_parent_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent__accepts_optional_valid_states[retry_parent_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_type__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_empty__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_grammar__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_leading__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_surrogate__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_nfc__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_length__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__retry_parent_relation__rejects_direct_self_reference",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__identifier_tuples__accept_canonical_states[input_artifact_ids_empty_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__identifier_tuples__accept_canonical_states[input_artifact_ids_singleton_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__identifier_tuples__accept_canonical_states[input_artifact_ids_unique_lexically_sorted_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__identifier_tuples__accept_canonical_states[expected_output_roles_empty_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__identifier_tuples__accept_canonical_states[expected_output_roles_singleton_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__identifier_tuples__accept_canonical_states[expected_output_roles_unique_lexically_sorted_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_container_type__rejects_invalid_state[input_artifact_ids_list_wrong_container_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_container_type__rejects_invalid_state[expected_output_roles_list_wrong_container_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_type__rejects_invalid_state[input_artifact_ids_integer_wrong_member_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_type__rejects_invalid_state[expected_output_roles_integer_wrong_member_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_nonempty__rejects_invalid_state[input_artifact_ids_empty_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_nonempty__rejects_invalid_state[expected_output_roles_empty_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_grammar__rejects_invalid_state[input_artifact_ids_embedded_space_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_grammar__rejects_invalid_state[expected_output_roles_embedded_space_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_leading_character__rejects_invalid_state[input_artifact_ids_invalid_leading_hyphen_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_leading_character__rejects_invalid_state[expected_output_roles_invalid_leading_hyphen_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_unicode_surrogate__rejects_invalid_state[input_artifact_ids_unicode_surrogate_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_unicode_surrogate__rejects_invalid_state[expected_output_roles_unicode_surrogate_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_unicode_nfc__rejects_invalid_state[input_artifact_ids_non_nfc_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_unicode_nfc__rejects_invalid_state[expected_output_roles_non_nfc_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_length__rejects_invalid_state[input_artifact_ids_overlength_129_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_member_length__rejects_invalid_state[expected_output_roles_overlength_129_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_ordering__rejects_invalid_state[input_artifact_ids_reverse_lexical_order]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_ordering__rejects_invalid_state[expected_output_roles_reverse_lexical_order]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_uniqueness__rejects_invalid_state[input_artifact_ids_duplicate_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_constructor__tuple_uniqueness__rejects_invalid_state[expected_output_roles_duplicate_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[request_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[correlation_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[attempt_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[retry_parent_request_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[tool_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[capability_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[installation_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[authorization_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[input_artifact_ids_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[expected_output_roles_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__frozen_state__rejects_every_public_field_reassignment[provenance_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[request_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[correlation_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[attempt_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[retry_parent_request_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[tool_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[capability_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[installation_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[authorization_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[input_artifact_ids_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[expected_output_roles_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__compares_every_public_field[provenance_id_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__distinguishes_retry_parent_in_both_directions",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__distinguishes_distinct_valid_tuple_state[input_artifact_ids_distinct_valid_tuple_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__distinguishes_distinct_valid_tuple_state[expected_output_roles_distinct_valid_tuple_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_method__eq__returns_unequal_for_unrelated_object",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py::test_field__durable_boundary__contains_authorization_identity_only",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__field_mapping__stores_exact_values_types_and_order",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[result_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[result_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[result_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[request_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[request_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[request_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[correlation_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[correlation_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[correlation_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[attempt_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[attempt_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[attempt_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[manifest_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[manifest_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[manifest_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[provenance_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[provenance_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifiers__accept_valid_length_partitions[provenance_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_type__rejects_bytes_wrong_type[result_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_type__rejects_bytes_wrong_type[request_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_type__rejects_bytes_wrong_type[correlation_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_type__rejects_bytes_wrong_type[attempt_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_type__rejects_bytes_wrong_type[manifest_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_type__rejects_bytes_wrong_type[provenance_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_empty__rejects_empty_text[result_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_empty__rejects_empty_text[request_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_empty__rejects_empty_text[correlation_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_empty__rejects_empty_text[attempt_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_empty__rejects_empty_text[manifest_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_empty__rejects_empty_text[provenance_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_grammar__rejects_embedded_space[result_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_grammar__rejects_embedded_space[request_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_grammar__rejects_embedded_space[correlation_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_grammar__rejects_embedded_space[attempt_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_grammar__rejects_embedded_space[manifest_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_grammar__rejects_embedded_space[provenance_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_leading__rejects_invalid_leading_hyphen[result_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_leading__rejects_invalid_leading_hyphen[request_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_leading__rejects_invalid_leading_hyphen[correlation_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_leading__rejects_invalid_leading_hyphen[attempt_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_leading__rejects_invalid_leading_hyphen[manifest_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_leading__rejects_invalid_leading_hyphen[provenance_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_surrogate__rejects_unicode_surrogate[result_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_surrogate__rejects_unicode_surrogate[request_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_surrogate__rejects_unicode_surrogate[correlation_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_surrogate__rejects_unicode_surrogate[attempt_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_surrogate__rejects_unicode_surrogate[manifest_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_surrogate__rejects_unicode_surrogate[provenance_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_nfc__rejects_non_nfc[result_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_nfc__rejects_non_nfc[request_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_nfc__rejects_non_nfc[correlation_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_nfc__rejects_non_nfc[attempt_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_nfc__rejects_non_nfc[manifest_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_nfc__rejects_non_nfc[provenance_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_length__rejects_overlength_129[result_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_length__rejects_overlength_129[request_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_length__rejects_overlength_129[correlation_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_length__rejects_overlength_129[attempt_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_length__rejects_overlength_129[manifest_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__identifier_length__rejects_overlength_129[provenance_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__status_exact_type__accepts_completed_member",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__status_type__rejects_string_lookalike",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__status_type__rejects_unrelated_integer",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids__accepts_canonical_states[empty_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids__accepts_canonical_states[singleton_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids__accepts_canonical_states[unique_lexically_sorted_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_container_type__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_type__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_nonempty__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_grammar__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_leading__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_unicode__rejects_invalid_state[member_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_unicode__rejects_invalid_state[member_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_member_length__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_ordering__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_constructor__output_artifact_ids_uniqueness__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[result_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[request_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[correlation_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[attempt_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[status_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[output_artifact_ids_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[manifest_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__frozen_state__rejects_every_public_field_reassignment[provenance_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__identical_state__compares_equal",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[result_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[request_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[correlation_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[attempt_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[output_artifact_ids_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[manifest_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__valid_field_states__affect_equality[provenance_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_method__eq__unrelated_object__compares_unequal",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__completion_lifecycle__excludes_later_decisions",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py::test_field__durable_boundary__excludes_runtime_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__field_mapping__stores_exact_values_types_and_order",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[failure_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[failure_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[failure_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[request_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[request_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[request_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[correlation_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[correlation_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[correlation_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[attempt_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[attempt_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[attempt_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[provenance_id_ordinary_valid_identifier]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[provenance_id_minimum_length_1]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifiers__accept_valid_length_partitions[provenance_id_maximum_length_128]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_type__rejects_invalid_state[failure_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_type__rejects_invalid_state[request_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_type__rejects_invalid_state[correlation_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_type__rejects_invalid_state[attempt_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_type__rejects_invalid_state[provenance_id_bytes_wrong_type]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_empty__rejects_invalid_state[failure_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_empty__rejects_invalid_state[request_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_empty__rejects_invalid_state[correlation_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_empty__rejects_invalid_state[attempt_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_empty__rejects_invalid_state[provenance_id_empty_text]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_grammar__rejects_invalid_state[failure_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_grammar__rejects_invalid_state[request_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_grammar__rejects_invalid_state[correlation_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_grammar__rejects_invalid_state[attempt_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_grammar__rejects_invalid_state[provenance_id_embedded_space]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_leading__rejects_invalid_state[failure_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_leading__rejects_invalid_state[request_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_leading__rejects_invalid_state[correlation_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_leading__rejects_invalid_state[attempt_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_leading__rejects_invalid_state[provenance_id_invalid_leading_hyphen]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_surrogate__rejects_invalid_state[failure_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_surrogate__rejects_invalid_state[request_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_surrogate__rejects_invalid_state[correlation_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_surrogate__rejects_invalid_state[attempt_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_surrogate__rejects_invalid_state[provenance_id_unicode_surrogate]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_nfc__rejects_invalid_state[failure_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_nfc__rejects_invalid_state[request_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_nfc__rejects_invalid_state[correlation_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_nfc__rejects_invalid_state[attempt_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_nfc__rejects_invalid_state[provenance_id_non_nfc]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_length__rejects_invalid_state[failure_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_length__rejects_invalid_state[request_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_length__rejects_invalid_state[correlation_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_length__rejects_invalid_state[attempt_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__identifier_length__rejects_invalid_state[provenance_id_overlength_129]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_exact_type__accepts_every_member[request_acceptance_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_exact_type__accepts_every_member[execution_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_exact_type__accepts_every_member[result_capture_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_type__rejects_wire_string_lookalikes[request_acceptance_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_type__rejects_wire_string_lookalikes[execution_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_type__rejects_wire_string_lookalikes[result_capture_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_type__rejects_unrelated_integer",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__stage_type__rejects_failure_code_member",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_exact_type__accepts_every_member[unavailable_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_exact_type__accepts_every_member[not_authorized_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_exact_type__accepts_every_member[rejected_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_exact_type__accepts_every_member[interrupted_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_exact_type__accepts_every_member[malformed_result_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_exact_type__accepts_every_member[internal_error_exact_member]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_wire_string_lookalikes[unavailable_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_wire_string_lookalikes[not_authorized_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_wire_string_lookalikes[rejected_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_wire_string_lookalikes[interrupted_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_wire_string_lookalikes[malformed_result_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_wire_string_lookalikes[internal_error_string_lookalike]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_unrelated_integer",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__code_type__rejects_failure_stage_member",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[empty_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[singleton_builtin_tuple]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[sorted_path_pair]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[ordinary_nested_path]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[nfc_unicode_path]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[exact_case_preserved]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths__accepts_lexically_safe_states[exact_spelling_preserved]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_container_type__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_member_type__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_member_nonempty__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_member_surrogate__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_member_nfc__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_absolute_posix__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_windows_drive__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_separator_syntax__rejects_invalid_state[backslash_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_separator_syntax__rejects_invalid_state[trailing_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_separator_syntax__rejects_invalid_state[repeated_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_separator_syntax__rejects_invalid_state[empty_path_component]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_relative_components__rejects_invalid_state[dot_component]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_relative_components__rejects_invalid_state[parent_component]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_windows_devices__rejects_invalid_state[windows_device_name]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_windows_devices__rejects_invalid_state[nested_windows_device_name]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_windows_devices__rejects_invalid_state[windows_device_name_with_extension]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_control_characters__rejects_invalid_state[c0_control_character]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_control_characters__rejects_invalid_state[del_control_character]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_control_characters__rejects_invalid_state[c1_control_character]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_control_characters__rejects_invalid_state[unicode_line_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_control_characters__rejects_invalid_state[unicode_paragraph_separator]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_ordering__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_constructor__diagnostic_paths_uniqueness__rejects_invalid_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[failure_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[request_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[correlation_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[attempt_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[stage_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[code_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[diagnostic_paths_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__frozen_state__rejects_every_public_field_reassignment[provenance_id_frozen_reassignment]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__identical_state__compares_equal",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[failure_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[request_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[correlation_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[attempt_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[stage_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[code_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[diagnostic_paths_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__valid_field_states__affect_equality[provenance_id_valid_state_affects_equality]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_stages__remain_distinguishable[request_acceptance_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_stages__remain_distinguishable[result_capture_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_codes__remain_distinguishable[unavailable_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_codes__remain_distinguishable[not_authorized_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_codes__remain_distinguishable[rejected_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_codes__remain_distinguishable[malformed_result_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__failure_codes__remain_distinguishable[internal_error_distinguishable]",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_method__eq__unrelated_object__compares_unequal",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__failure_lifecycle__separates_result_and_later_decisions",
+    "tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py::test_field__durable_boundary__excludes_raw_runtime_and_secret_state",
+    "tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py::test_artifact__external_execution_outcome__preserves_internal_union_boundary"
+  ],
+  "historical_node_migration": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-test-evidence-node-migration.json"
+}

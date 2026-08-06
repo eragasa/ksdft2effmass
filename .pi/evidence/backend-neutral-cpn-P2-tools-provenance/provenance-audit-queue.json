@@ -4,8 +4,8 @@
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
-  "active_item": "P2-A03",
-  "next_item": null,
+  "active_item": null,
+  "next_item": "P2-A04",
   "items": [
     {
       "id": "P2-A00",
@@ -179,11 +179,27 @@
           "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-result-test-evidence-ownership.json",
           "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-result-test-evidence-node-migration.json",
           "implementation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-result-partial-correction.md"
+        },
+        {
+          "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+          "human_audit_status": "failed",
+          "finding_summary": "Identifier, enum, diagnostic-path lexical and relation, frozen-field, equality, stored-type, helper, lifecycle, formatting, and prose evidence was incomplete, overbroad, or generic.",
+          "correction_status": "bounded_correction_implemented",
+          "deterministic_validation": "passed",
+          "historical_ids_preserved": ["SV-PROV-043", "SV-PROV-044", "SV-PROV-230", "SV-PROV-231", "SV-PROV-232", "SV-PROV-233", "SV-PROV-234", "SV-PROV-235", "SV-PROV-236"],
+          "new_ids": ["SV-PROV-333", "SV-PROV-334", "SV-PROV-335", "SV-PROV-336", "SV-PROV-337", "SV-PROV-338", "SV-PROV-339", "SV-PROV-340", "SV-PROV-341", "SV-PROV-342", "SV-PROV-343", "SV-PROV-344", "SV-PROV-345", "SV-PROV-346", "SV-PROV-347", "SV-PROV-348", "SV-PROV-349", "SV-PROV-350", "SV-PROV-351", "SV-PROV-352", "SV-PROV-353", "SV-PROV-354", "SV-PROV-355", "SV-PROV-356", "SV-PROV-357", "SV-PROV-358", "SV-PROV-359", "SV-PROV-360", "SV-PROV-361", "SV-PROV-362"],
+          "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-failure-test-evidence-ownership.json",
+          "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-failure-test-evidence-node-migration.json",
+          "implementation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-failure-partial-correction.md"
+        },
+        {
+          "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
+          "correction_status": "mechanical_e501_blocker_removed",
+          "semantic_change": false,
+          "detail": "Removed the blanket file-level E501 suppression and retained only a closing-line E501 suppression for the convention-required 98-column raw artifact opening; assertions, imports, test name, evidence ID, ownership, and alias expectations are unchanged."
         }
       ],
-      "remaining_human_audit_targets": [
-        "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py"
-      ],
+      "remaining_human_audit_targets": [],
       "correction_revision": null,
       "exact_deterministic_commands": [
         "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-status-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-external-execution-status-test-evidence-node-migration.json",
@@ -229,11 +245,29 @@
         {"path": "test__ExternalFailureStage.py", "status": "PASS", "test_functions": 6, "collected_cases": 10, "findings": 0},
         {"path": "test__ExternalFailureCode.py", "status": "PASS", "test_functions": 6, "collected_cases": 16, "findings": 0},
         {"path": "test__ExternalExecutionRequest.py", "status": "PASS", "test_functions": 35, "collected_cases": 146, "findings": 0},
-        {"paths": ["test__ExternalExecutionResult.py", "test__external_execution_outcome_type_alias.py"], "status": "PASS", "class_owned_modules": 1, "artifact_owned_modules": 1, "test_functions": 29, "evidence_owners": 29, "helper_functions": 1, "static_parameter_cases": 80, "collected_cases": 97, "findings": 0}
+        {"paths": ["test__ExternalExecutionResult.py", "test__external_execution_outcome_type_alias.py"], "status": "PASS", "class_owned_modules": 1, "artifact_owned_modules": 1, "test_functions": 29, "evidence_owners": 29, "helper_functions": 1, "static_parameter_cases": 80, "collected_cases": 97, "findings": 0},
+        {"path": "test__ExternalExecutionFailure.py", "status": "PASS", "class_owned_modules": 1, "artifact_owned_modules": 0, "test_functions": 39, "evidence_owners": 39, "helper_functions": 1, "static_parameter_cases": 112, "collected_cases": 130, "findings": 0}
       ],
-      "semantic_review_disposition": "Three enum, request-record, and result-record P2-A03 human-audit corrections passed deterministic validation. ExternalExecutionOutcome moved to artifact ownership. No general independent review was launched.",
-      "residual_limitations": ["ExternalExecutionFailure has not completed human audit and correction; P2-A03 remains open."],
-      "final_status": "pending_read_only_audit"
+      "aggregate_consistency": {
+        "status": "PASS",
+        "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-test-evidence-ownership.json",
+        "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-test-evidence-node-migration.json",
+        "inventory_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-test-evidence-inventory.json",
+        "completion_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-completion.json",
+        "parent_verification": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a03-parent-verification.md",
+        "class_owned_modules": 6,
+        "artifact_owned_modules": 1,
+        "evidence_owners": 121,
+        "helper_functions": 3,
+        "collected_cases": 405,
+        "historical_mapped_nodes": 70,
+        "pytest": "405 passed",
+        "coverage": "225/225 statements and 158/158 branches",
+        "findings": []
+      },
+      "semantic_review_disposition": "All six class-owned modules completed authoritative human file audits and bounded corrections; ExternalExecutionOutcome has dedicated artifact ownership. The final aggregate deterministic consistency check passed. No general independent review was launched.",
+      "residual_limitations": ["Software verification does not establish external execution correctness, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness."],
+      "final_status": "audited_and_cleared"
     },
     {
       "id": "P2-A04",
