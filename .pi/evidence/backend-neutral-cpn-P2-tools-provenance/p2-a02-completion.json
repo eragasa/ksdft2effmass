@@ -3,9 +3,9 @@
   "task_id": "P2",
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "audit_item": "P2-A02",
-  "status": "targeted_review_complete_pending_parent_verification_and_durable_commit",
+  "status": "audited_and_cleared",
   "audit_starting_revision": "c4f4e5436e6a7fc2e92cb4b6b6713aa38886d485",
-  "correction_revision": null,
+  "correction_revision": "379c491e41752bebda5d7cb6324eb6c820223609",
   "production_source": {
     "path": "python/src/ksdft2effmass/provenance/tool_observations.py",
     "modified": false,

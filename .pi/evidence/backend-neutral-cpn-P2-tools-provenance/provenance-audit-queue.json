@@ -4,8 +4,8 @@
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
-  "active_item": "P2-A02",
-  "next_item": null,
+  "active_item": null,
+  "next_item": "P2-A03",
   "items": [
     {
       "id": "P2-A00",
@@ -89,14 +89,32 @@
         "human_audit_failed",
         "bounded_correction_active",
         "deterministic_validation_passed",
-        "targeted_review_complete"
+        "targeted_review_complete",
+        "audited_and_cleared"
       ],
-      "correction_revision": null,
-      "exact_deterministic_commands": [],
-      "generic_validator_result": null,
+      "correction_revision": "379c491e41752bebda5d7cb6324eb6c820223609",
+      "exact_deterministic_commands": [
+        "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-test-evidence-node-migration.json",
+        "cd python && uv run pytest --collect-only -q tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance",
+        "cd python && uv run --with pip pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_python_import_dependency_direction.py tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py tests/software_verification/ksdft2effmass/integration/test__provenance_package_wheel_contract.py",
+        "cd python && COVERAGE_FILE=/tmp/.coverage.p2a02 uv run pytest -q --cov=ksdft2effmass.provenance.tool_observations --cov-branch --cov-report=term-missing tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+        "cd python && uv run ruff format --check tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py && uv run ruff check tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+        "cd python && uv run mypy src/ksdft2effmass/provenance/tool_observations.py tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+        "uv run --project python sphinx-build -W -b html docs /tmp/ksdft2effmass-p2-a02-sphinx-final",
+        "python .pi/task-ownership/validate_task_ownership.py --task P2",
+        "python .pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
+        "python .pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a02.py",
+        "python .pi/checkpoints/validate_checkpoints.py",
+        "python .pi/skills/validate_skill_capabilities.py",
+        "python .pi/skills/validate_harness.py --repository-root $PWD --route-config $PWD/harness/local/validation-route.json",
+        "git diff --check"
+      ],
+      "generic_validator_result": {"status": "PASS", "findings": 0, "modules": 3, "test_functions": 64, "unique_evidence_owners": 64, "static_collected_parameter_cases": 157},
       "semantic_review_disposition": "The sole targeted review reported two bounded findings; both were dispositioned in one consolidated correction pass without a second review.",
       "residual_limitations": ["Software verification does not establish provenance truth or scientific claims."],
-      "final_status": "targeted_review_complete"
+      "final_status": "audited_and_cleared"
     },
     {
       "id": "P2-A03",

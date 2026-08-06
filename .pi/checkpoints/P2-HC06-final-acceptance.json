@@ -1,0 +1,60 @@
+{
+  "checkpoint_id": "P2-HC06",
+  "task_id": "P2",
+  "episode_id": "backend-neutral-cpn-P2-tools-provenance",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-06T17:52:19Z",
+  "question": "Does the human PI accept the durable P2-A02 audit clearance and authorize the ordered provenance audit to continue later with P2-A03, while keeping P2 open and unaccepted until P2-A00--P2-A11 are all audited_and_cleared?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept P2-A02 clearance and permit a separately launched P2-A03 audit.",
+      "consequence": "P2-A02 remains audited_and_cleared. P2 stays open and unaccepted; P2-A03 becomes launch-eligible but is not started by checkpoint resolution. P3, H5, protected execution, publication, and release remain inactive."
+    },
+    {
+      "id": "B",
+      "summary": "Request another explicitly bounded P2-A02 disposition.",
+      "consequence": "Keep P2 open and pause the queue. Any further P2-A02 mutation requires the human-specified bounded scope. P2-A03 and all successors remain unstarted."
+    },
+    {
+      "id": "C",
+      "summary": "Defer continuation of the P2 provenance audit queue.",
+      "consequence": "Retain the durable P2-A02 evidence and keep P2, P2-A03, P3, H5, protected execution, publication, and release inactive pending a later human decision."
+    }
+  ],
+  "recommendation": "Option A. P2-A02 corrected every authoritative human-audit finding without changing production source, passed deterministic validation including 100% diagnostic statement and branch coverage, and dispositioned the sole targeted review in one consolidated correction pass. This recommendation concerns only P2-A02 clearance and later P2-A03 eligibility; it is not P2 human acceptance.",
+  "blocked_scope": "P2-A03 launch or mutation; P2 closure or human acceptance; H5 or P3-P11 activation; scientific or external execution; publication; release.",
+  "safe_scope": "Read-only inspection and deterministic replay of the durable P2-A02 source hash, three class-owned modules, ownership and migration records, evidence inventory, review disposition, completion and parent verification, queue state, and control-plane validators. Checkpoint resolution may record an unambiguous human choice but does not itself launch P2-A03.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-test-evidence-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-test-evidence-node-migration.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-test-evidence-inventory.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-test-evidence-implementation.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-review.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-completion.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a02-parent-verification.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_a02.py",
+    "python/src/ksdft2effmass/provenance/tool_observations.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+    "docs/verification/provenance-contract.rst"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/P2-HC06-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json"
+  ],
+  "resumption_status": "pending human disposition; P2-A02 durable and cleared; P2-A03 next but unstarted; P2 open and unaccepted"
+}

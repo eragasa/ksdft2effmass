@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC05",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "resolved",
+  "status": "superseded",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-06T06:54:01Z",
   "question": "Should P2 receive renewed final human acceptance after the durable P2-TOOLS-DECOMPOSITION-1 correction split the former internal provenance/tools.py implementation into cohesive declaration, observation, and execution modules, localized intrinsic validation, completed the exact 13 class-owned software-verification modules, preserved the accepted package API and version-1 serialization contract, and removed the unsupported tools module path?",
@@ -62,5 +62,5 @@
     ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC05-resolution.json"
   ],
-  "resumption_status": "P2 open; bounded P2 audit-item nomenclature correction authorized but not resumed until the validated resolution boundary is committed and pushed; no successor active"
+  "resumption_status": "superseded after durable P2-A02 correction 379c491e41752bebda5d7cb6324eb6c820223609; renewed pending checkpoint P2-HC06 created; P2 remains open and unaccepted; P2-A03 is next but unstarted"
 }

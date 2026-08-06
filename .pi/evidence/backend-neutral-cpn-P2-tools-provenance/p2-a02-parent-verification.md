@@ -1,6 +1,6 @@
 # P2-A02 provenance audit parent verification
 
-Status: **PASS pending durable correction commit**
+Status: **PASS — correction durable at `379c491e41752bebda5d7cb6324eb6c820223609`; P2-A02 audited_and_cleared**
 
 Starting revision: `c4f4e5436e6a7fc2e92cb4b6b6713aa38886d485` with
 `HEAD == origin/dev` and a clean task baseline after the separately authorized
@@ -60,4 +60,6 @@ Passing software verification and review do not establish external-tool
 availability, execution correctness, provenance truth, numerical verification,
 scientific validation, UQ, portability, release readiness, P2 completion, or
 P2 human acceptance. P2-A03, P3, H5, protected execution, publication, and
-release remain unstarted.
+release remain unstarted. The queue now has no active item and identifies P2-A03
+as next but unstarted. P2 remains open and unaccepted at renewed checkpoint
+`.pi/checkpoints/P2-HC06-final-acceptance.json`.
