@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: open and active for one explicitly authorized bounded `provenance/actions.py` and owned test-evidence correction; `P2-HC03` remains pending and unaccepted
+Status: bounded `provenance/actions.py` and owned test-evidence correction validated; awaiting durable correction commit while `P2-HC03` remains pending and unaccepted
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -51,5 +51,7 @@ One targeted reviewer returned material semantic findings. The sole writer compl
 Focused tests, collection, branch diagnostics, Ruff, mypy, Sphinx, P2 ownership/completion, checkpoint validation, H3 resources, skill capabilities, selected local route, protected hash nonmutation, dependency/lock nonmutation, and diff checks pass. P2 remained open at `.pi/checkpoints/P2-HC03-final-acceptance.json` until the current human instruction authorized one further bounded correction of `python/src/ksdft2effmass/provenance/actions.py`, seven class-owned action/result/enum test modules, three directly affected maintained documentation pages, and their current-boundary evidence/control records. Separate source, test-evidence, and documentation writers plus one targeted read-only reviewer are required. The parent owns integration, validation, checkpoint state, and durable commits.
 
 The correction removes `_require_identifier` and `_require_sha256`, moves intrinsic validation directly into owning `__post_init__`/`execute` methods, preserves public behavior and signatures, migrates the seven class-owned test surfaces under `develop-python-test-evidence`, and documents the public operation/claim boundaries under `document-python-research-software`. Production outside `actions.py`, exports, schemas, fixtures, serialization, dependencies, locks, external-tool lifecycle meaning, and scientific meaning remain protected. R1/R2 stay immutable; no replay is authorized.
+
+Implementation, test-evidence migration, documentation, one targeted review, one consolidated correction pass, and parent deterministic validation are complete. `actions.py` has no private validation helpers or replacement private machinery; seven class-owned modules and their complete migration records pass the accepted test-evidence convention. Public exports/signatures/vocabularies, schemas/fixtures, serialization, dependencies/locks, and successor state are unchanged.
 
 No R3/E3, H5, P3--P11, scientific/external execution, publication, or release is active. After the correction is durably committed and pushed, `P2-HC03` will be superseded without resolution and one renewed pending final-acceptance checkpoint will be created.

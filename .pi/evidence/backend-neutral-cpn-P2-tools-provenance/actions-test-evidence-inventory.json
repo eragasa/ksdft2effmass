@@ -1,0 +1,711 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "correction_id": "P2-ACTIONS-EVIDENCE-1",
+  "attempt_id": "42a45984-run-1-revival-1-correction-1",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "evidence_class": "software_verification",
+  "paths": [
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py"
+  ],
+  "counts": {
+    "modules": 7,
+    "test_functions": 42,
+    "collected_cases": 103,
+    "unique_evidence_owners": 42,
+    "helpers": 2,
+    "class_owned_modules": 7,
+    "artifact_owned_modules": 0,
+    "software_verification_modules": 7,
+    "historical_old_nodes": 11,
+    "migration_new_nodes": 11,
+    "current_nodes": 103,
+    "historical_unchanged_nodes": 0,
+    "historical_replacement_nodes": 11,
+    "genuinely_new_current_nodes": 92,
+    "reviewed_pre_correction_nodes": 101,
+    "correction_retained_nodes": 100,
+    "correction_replacement_nodes": 1,
+    "correction_new_nodes_without_predecessor": 2
+  },
+  "historical_evidence_ids": [
+    "SV-PROV-046",
+    "SV-PROV-047",
+    "SV-PROV-048",
+    "SV-PROV-049",
+    "SV-PROV-050",
+    "SV-PROV-051",
+    "SV-PROV-052",
+    "SV-PROV-053",
+    "SV-PROV-054",
+    "SV-PROV-055",
+    "SV-PROV-073"
+  ],
+  "new_evidence_ids": [
+    {
+      "evidence_id": "SV-PROV-144",
+      "rationale": "Result dataclass field inventory split from derived-status behavior."
+    },
+    {
+      "evidence_id": "SV-PROV-145",
+      "rationale": "Artifact identifier semantic TypeError partition split from malformed identifier values."
+    },
+    {
+      "evidence_id": "SV-PROV-146",
+      "rationale": "Artifact identifier malformed-value partition split from semantic typing."
+    },
+    {
+      "evidence_id": "SV-PROV-147",
+      "rationale": "Expected and observed digest semantic TypeError partitions split from digest grammar values."
+    },
+    {
+      "evidence_id": "SV-PROV-148",
+      "rationale": "Expected and observed digest grammar ValueError partitions split from semantic typing."
+    },
+    {
+      "evidence_id": "SV-PROV-149",
+      "rationale": "Expected and observed byte-size semantic TypeError partitions split from Boolean and range cases."
+    },
+    {
+      "evidence_id": "SV-PROV-150",
+      "rationale": "Inclusive u64 endpoint acceptance split from rejected out-of-range values."
+    },
+    {
+      "evidence_id": "SV-PROV-151",
+      "rationale": "Expected and observed byte-size u64 ValueError partitions split from semantic typing and valid bounds."
+    },
+    {
+      "evidence_id": "SV-PROV-152",
+      "rationale": "Verification-result frozen assignment split from construction and equality."
+    },
+    {
+      "evidence_id": "SV-PROV-153",
+      "rationale": "Verification-result exact equality split from operational immutability."
+    },
+    {
+      "evidence_id": "SV-PROV-154",
+      "rationale": "Verifier result-field mapping split from exact match/mismatch classification."
+    },
+    {
+      "evidence_id": "SV-PROV-155",
+      "rationale": "Verifier observed-digest semantic TypeError boundary split from malformed digest strings."
+    },
+    {
+      "evidence_id": "SV-PROV-156",
+      "rationale": "Verifier observed-digest grammar ValueError partition split from semantic typing."
+    },
+    {
+      "evidence_id": "SV-PROV-157",
+      "rationale": "Verifier observed-size numeric-string TypeError partition split from Boolean and range cases."
+    },
+    {
+      "evidence_id": "SV-PROV-158",
+      "rationale": "Verifier observed-size Boolean rejection split because bool is an int subclass."
+    },
+    {
+      "evidence_id": "SV-PROV-159",
+      "rationale": "Verifier inclusive u64 endpoint acceptance split from rejected out-of-range values."
+    },
+    {
+      "evidence_id": "SV-PROV-160",
+      "rationale": "Verifier observed-size u64 ValueError partition split from semantic typing and valid bounds."
+    },
+    {
+      "evidence_id": "SV-PROV-161",
+      "rationale": "Verifier no-file-API surface split from comparison execution behavior."
+    },
+    {
+      "evidence_id": "SV-PROV-162",
+      "rationale": "Verifier stateless repeatability split from individual result mapping."
+    },
+    {
+      "evidence_id": "SV-PROV-164",
+      "rationale": "Correlation-result field inventory split from status behavior."
+    },
+    {
+      "evidence_id": "SV-PROV-165",
+      "rationale": "All singleton, two-issue, and complete canonical tuples receive an independent accepted-state owner."
+    },
+    {
+      "evidence_id": "SV-PROV-166",
+      "rationale": "Request/outcome identifier semantic TypeError partitions split from malformed values."
+    },
+    {
+      "evidence_id": "SV-PROV-167",
+      "rationale": "Request/outcome malformed identifier ValueError partitions split from semantic typing."
+    },
+    {
+      "evidence_id": "SV-PROV-168",
+      "rationale": "Issue-member enum semantic type split from issues-container tuple typing."
+    },
+    {
+      "evidence_id": "SV-PROV-169",
+      "rationale": "Issue duplicate/order ValueError partition split from tuple/member TypeErrors."
+    },
+    {
+      "evidence_id": "SV-PROV-170",
+      "rationale": "Correlation-result frozen assignment split from construction and equality."
+    },
+    {
+      "evidence_id": "SV-PROV-171",
+      "rationale": "Correlation-result exact equality split from operational immutability."
+    },
+    {
+      "evidence_id": "SV-PROV-172",
+      "rationale": "All eight structured-failure identity combinations split from the result outcome family."
+    },
+    {
+      "evidence_id": "SV-PROV-173",
+      "rationale": "Invalid outcome semantic type split from invalid request semantic type."
+    },
+    {
+      "evidence_id": "SV-PROV-174",
+      "rationale": "ArtifactIdentityVerificationResult constructor mapping receives a post-review owner because historical SV-PROV-046 is restored to derived status."
+    },
+    {
+      "evidence_id": "SV-PROV-175",
+      "rationale": "ExecutionCorrelationResult constructor mapping receives a post-review owner because historical SV-PROV-051 is restored to derived status."
+    }
+  ],
+  "historical_module_inventory": {
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py": [],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_constructor__verification_fields__maps_values_and_derives_status",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_constructor__digest_and_size_types__rejects_invalid_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__verification_status_values__are_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_exact_identity__returns_verified_or_mismatch_without_io",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_input_boundary__rejects_wrong_types_and_invalid_u64"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py": [],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_artifact__enum_values__matches_exact_correlation_issue_vocabulary"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_constructor__correlation_fields__derive_status_from_issues",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_constructor__issue_order_and_uniqueness__rejects_noncanonical_states",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__correlation_enum_values__match_closed_taxonomy"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_correlation__covers_result_failure_and_attempt_identity",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_semantic_types__rejects_unrecognized_records"
+    ]
+  },
+  "migration_new_node_inventory": {
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py::test_field__verification_status_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[observed_size_boolean]"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_reference_type__rejects_mapping_lookalike"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py::test_field__correlation_status_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_field__correlation_issue_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[no_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issues_tuple_type__rejects_list"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_request_type__rejects_mapping_lookalike"
+    ]
+  },
+  "current_collection_inventory": {
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py::test_field__verification_status_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_constructor__verification_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_and_size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_semantic_type__rejects_non_builtin_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[expected_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[observed_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[expected_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[observed_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[expected_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[observed_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_method__eq__compares_complete_represented_state"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_and_size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_result_mapping__copies_expected_and_observed_identity",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_reference_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_type__rejects_non_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_type__rejects_numeric_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_boolean__rejects_bool",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_file_api__requires_preobserved_values_only",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_stateless_repeat__returns_equal_results"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py::test_field__correlation_status_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_field__correlation_issue_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_constructor__correlation_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[no_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[one_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[attempt_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_correlation_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[all_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[request_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[outcome_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issues_tuple_type__rejects_list",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_member_type__rejects_string_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[duplicate_request_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[reverse_order]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_method__eq__compares_complete_represented_state"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_request_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_outcome_type__rejects_mapping_lookalike"
+    ]
+  },
+  "historical_to_current_partition": {
+    "retained_or_replacement_nodes": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[observed_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py::test_field__verification_status_vocabulary__is_exact",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_reference_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_field__correlation_issue_vocabulary__is_exact",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[no_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issues_tuple_type__rejects_list",
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py::test_field__correlation_status_vocabulary__is_exact",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_request_type__rejects_mapping_lookalike"
+    ],
+    "new_nodes_without_historical_predecessor": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_constructor__verification_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_and_size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_semantic_type__rejects_non_builtin_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[expected_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[observed_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[expected_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[observed_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[expected_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_method__eq__compares_complete_represented_state",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_and_size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_result_mapping__copies_expected_and_observed_identity",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_type__rejects_non_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_type__rejects_numeric_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_boolean__rejects_bool",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_file_api__requires_preobserved_values_only",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_stateless_repeat__returns_equal_results",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_constructor__correlation_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[one_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[attempt_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_correlation_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[all_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[request_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[outcome_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_member_type__rejects_string_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[duplicate_request_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[reverse_order]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_method__eq__compares_complete_represented_state",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_outcome_type__rejects_mapping_lookalike"
+    ]
+  },
+  "superseded_pre_review_evidence_ids": [
+    {
+      "evidence_id": "SV-PROV-143",
+      "disposition": "Not reassigned; its provisional status requirement is restored to historical owner SV-PROV-046."
+    },
+    {
+      "evidence_id": "SV-PROV-163",
+      "disposition": "Not reassigned; its provisional status requirement is restored to historical owner SV-PROV-051."
+    }
+  ],
+  "reviewed_evidence_id_corrections": [
+    {
+      "historical_evidence_id": "SV-PROV-046",
+      "restored_owner": "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[verified]",
+      "supplementary_status_storage_owner": "SV-PROV-144",
+      "new_constructor_owner": "SV-PROV-174"
+    },
+    {
+      "historical_evidence_id": "SV-PROV-051",
+      "restored_owner": "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[no_issues]",
+      "supplementary_status_storage_owner": "SV-PROV-164",
+      "new_constructor_owner": "SV-PROV-175"
+    }
+  ],
+  "reviewed_pre_correction_module_inventory": {
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py::test_field__verification_status_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_constructor__verification_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_semantic_type__rejects_non_builtin_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[expected_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[observed_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[expected_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[observed_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[expected_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[observed_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_method__eq__compares_complete_represented_state"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_result_mapping__copies_expected_and_observed_identity",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_reference_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_type__rejects_non_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_type__rejects_numeric_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_boolean__rejects_bool",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_file_api__requires_preobserved_values_only",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_stateless_repeat__returns_equal_results"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py::test_field__correlation_status_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_artifact__correlation_issue_vocabulary__is_exact"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_constructor__correlation_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[no_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[one_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[attempt_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_correlation_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[all_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[request_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[outcome_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issues_tuple_type__rejects_list",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_member_type__rejects_string_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[duplicate_request_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[reverse_order]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_method__eq__compares_complete_represented_state"
+    ],
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_request_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_outcome_type__rejects_mapping_lookalike"
+    ]
+  },
+  "reviewed_to_corrected_partition": {
+    "retained_nodes": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_constructor__verification_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_semantic_type__rejects_non_builtin_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__artifact_identifier_value__rejects_nonportable_text[unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[expected_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_boolean__rejects_bool[observed_size_boolean]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[expected_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_semantic_type__rejects_non_integer[observed_size]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[expected_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__byte_size_value__rejects_outside_u64[observed_u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[expected_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_semantic_type__rejects_non_string[observed_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[expected_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__digest_value__rejects_malformed_sha256[observed_uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_method__eq__compares_complete_represented_state",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py::test_field__verification_status_vocabulary__is_exact",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_boolean__rejects_bool",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[maximum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_bounds__accepts_inclusive_u64[minimum_u64]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_type__rejects_numeric_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[negative_one]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_byte_size_value__rejects_outside_u64[u64_overflow]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_type__rejects_non_string",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[empty_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[nonhex_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[short_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_digest_value__rejects_malformed_sha256[uppercase_digest]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_file_api__requires_preobserved_values_only",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[verified]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_reference_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_result_mapping__copies_expected_and_observed_identity",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_stateless_repeat__returns_equal_results",
+      "tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py::test_field__correlation_status_vocabulary__is_exact",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_constructor__correlation_fields__maps_exact_values",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__frozen_assignment__rejects_reassignment",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[outcome_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_semantic_type__rejects_non_string[request_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[outcome_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_embedded_space]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_empty_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_non_nfc_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_overlength_identifier]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__identifier_value__rejects_nonportable_text[request_unicode_surrogate]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[duplicate_request_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_canonicalization__rejects_duplicates_and_wrong_order[reverse_order]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_member_type__rejects_string_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[all_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[attempt_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[correlation_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_attempt_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_correlation_pair]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issue_tuple_cases__accepts_canonical_subsets[request_singleton]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__issues_tuple_type__rejects_list",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_field__status_storage__excludes_derived_property",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_method__eq__compares_complete_represented_state",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[no_issues]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py::test_property__status__derives_from_issue_emptiness[one_issue]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_failure_identity_combinations__returns_exact_correlation[request_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_outcome_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_request_type__rejects_mapping_lookalike",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_match]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[all_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[attempt_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[correlation_only_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_attempt_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_correlation_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py::test_method__execute_result_identity_combinations__returns_exact_correlation[request_only_mismatch]"
+    ],
+    "replacement_mappings": [
+      {
+        "reviewed_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_artifact__correlation_issue_vocabulary__is_exact",
+        "corrected_node_id": "tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py::test_field__correlation_issue_vocabulary__is_exact"
+      }
+    ],
+    "new_nodes_without_reviewed_predecessor": [
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py::test_property__status__derives_exact_identity_outcome[digest_and_size_mismatch]",
+      "tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py::test_method__execute_identity_comparison__returns_exact_status[digest_and_size_mismatch]"
+    ]
+  }
+}

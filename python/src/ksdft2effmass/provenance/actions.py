@@ -1,4 +1,22 @@
-"""Stateless provenance verification and correlation ActionObjects."""
+"""Represented artifact-identity verification and execution correlation.
+
+This module defines immutable ResultObjects and stateless ActionObjects for two
+nonnumerical operations.  :class:`ArtifactIdentityVerifier` compares an
+already-observed SHA-256 digest and byte count with the expected values in an
+:class:`~ksdft2effmass.provenance.ArtifactReference`.
+:class:`ExecutionOutcomeCorrelator` compares the request, correlation, and
+attempt identifiers of an immutable request and outcome.  Both operations use
+exact equality and return deterministically represented findings.
+
+The actions validate their direct scalar inputs but do not acquire observations,
+read artifacts, resolve locations, execute tools, mutate records, or perform
+serialization.  Digest-and-size agreement establishes represented byte identity,
+not artifact availability, format validity, provenance truth, authorization, or
+scientific meaning.  Identity correlation is independent of whether the outcome
+represents completion or failure and does not establish successful execution,
+solver convergence, numerical acceptance, scientific validation, or uncertainty
+quantification.
+"""
 
 from __future__ import annotations
 
@@ -14,38 +32,25 @@ from .tools import (
     ExternalExecutionResult,
 )
 
-_MAX_U64 = 18_446_744_073_709_551_615
-_ID_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z")
-_SHA256_PATTERN = re.compile(r"[0-9a-f]{64}\Z")
-
-
-def _require_identifier(value: object, name: str) -> str:
-    """Validate an owner-local portable result identifier."""
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a built-in str")
-    if _ID_PATTERN.fullmatch(value) is None:
-        raise ValueError(f"{name} is not a portable identifier")
-    return value
-
-
-def _require_sha256(value: object, name: str) -> str:
-    """Validate an owner-local lowercase SHA-256 digest."""
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a built-in str")
-    if _SHA256_PATTERN.fullmatch(value) is None:
-        raise ValueError(f"{name} must be a lowercase SHA-256 digest")
-    return value
-
 
 class ArtifactIdentityVerificationStatus(StrEnum):
-    """Derived exact content-identity verification outcome.
+    """Derived result of exact represented artifact-identity verification.
 
     Attributes
     ----------
     VERIFIED
-        Observed digest and size both equal their expected values.
+        The observed lowercase SHA-256 digest and unsigned 64-bit byte size
+        both equal the expected values exactly.
     MISMATCH
-        At least one observed identity component differs.
+        The observed digest, byte size, or both differ from the expected
+        values.
+
+    Notes
+    -----
+    These values classify only the comparison represented by
+    :class:`ArtifactIdentityVerificationResult`.  ``VERIFIED`` does not claim
+    that this module observed or read the bytes, nor does it establish format,
+    provenance, availability, or scientific validity.
     """
 
     VERIFIED = "verified"
@@ -53,14 +58,20 @@ class ArtifactIdentityVerificationStatus(StrEnum):
 
 
 class CorrelationStatus(StrEnum):
-    """Derived request/outcome identity-correlation outcome.
+    """Derived result of exact request/outcome identity correlation.
 
     Attributes
     ----------
     CORRELATED
-        Request, correlation, and attempt identities all match.
+        Request, correlation, and attempt identifiers all agree exactly.
     MISMATCH
-        At least one required identity differs.
+        At least one of the three required identifiers differs.
+
+    Notes
+    -----
+    Correlation is an identity claim, not a completion claim.  A structured
+    failure with matching identifiers is ``CORRELATED``; a completed result
+    with any differing identifier is ``MISMATCH``.
     """
 
     CORRELATED = "correlated"
@@ -68,12 +79,25 @@ class CorrelationStatus(StrEnum):
 
 
 class CorrelationIssue(StrEnum):
-    """Closed set of request/outcome correlation defects.
+    """Closed, deterministically ordered execution-correlation issue set.
 
     Attributes
     ----------
-    REQUEST_ID_MISMATCH, CORRELATION_ID_MISMATCH, ATTEMPT_ID_MISMATCH
-        The corresponding immutable identity differs across the boundary.
+    REQUEST_ID_MISMATCH
+        The outcome's request identifier differs from the inspected request's
+        identifier.
+    CORRELATION_ID_MISMATCH
+        The outcome's correlation identifier differs from the inspected
+        request's correlation identifier.
+    ATTEMPT_ID_MISMATCH
+        The outcome's attempt identifier differs from the inspected request's
+        attempt identifier.
+
+    Notes
+    -----
+    Issue tuples use the declaration order shown above: request, correlation,
+    then attempt.  The vocabulary does not describe authorization, retry
+    lineage, execution completion, output correctness, or scientific meaning.
     """
 
     REQUEST_ID_MISMATCH = "request_id_mismatch"
@@ -83,21 +107,42 @@ class CorrelationIssue(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class ArtifactIdentityVerificationResult:
-    """Immutable result of exact SHA-256 and byte-size verification.
+    """Immutable result of an exact represented-byte identity comparison.
 
     Parameters
     ----------
     artifact_id
-        Stable identity copied from the verified reference.
-    expected_sha256, observed_sha256
-        Expected and observed lowercase SHA-256 digests.
-    expected_byte_size, observed_byte_size
-        Expected and observed unsigned 64-bit byte sizes.
+        Portable identifier of the referenced artifact.  It must be a built-in
+        string matching ``[A-Za-z0-9][A-Za-z0-9._:-]{0,127}``.
+    expected_sha256
+        Expected SHA-256 digest, represented by exactly 64 lowercase
+        hexadecimal characters.
+    observed_sha256
+        Already-observed SHA-256 digest, represented by exactly 64 lowercase
+        hexadecimal characters.
+    expected_byte_size
+        Expected byte count as a built-in integer in the inclusive unsigned
+        64-bit range $[0, 2^{64}-1]$.  Booleans are rejected.
+    observed_byte_size
+        Already-observed byte count under the same unsigned 64-bit contract.
+
+    Raises
+    ------
+    TypeError
+        If an identifier or digest is not a built-in :class:`str`, or a byte
+        size is not a built-in :class:`int` excluding :class:`bool`.
+    ValueError
+        If the identifier grammar, exact digest representation, or unsigned
+        64-bit range is violated.
 
     Notes
     -----
-    This result verifies represented bytes only.  It does not establish format
-    validity, provenance truth, scientific meaning, or human acceptance.
+    All five fields are stored unchanged; construction performs no
+    canonicalization, hashing, byte observation, or input/output.  ``status`` is
+    derived on access and is neither stored constructor state nor a wire field.
+    Agreement establishes only exact equality of the represented digest and
+    size, not collision-free identity, format validity, provenance truth,
+    artifact availability, or scientific validity.
     """
 
     artifact_id: str
@@ -107,21 +152,49 @@ class ArtifactIdentityVerificationResult:
     observed_byte_size: int
 
     def __post_init__(self) -> None:
-        _require_identifier(self.artifact_id, "artifact_id")
+        """Validate the intrinsic identifier, digest, and byte-size fields."""
+        if type(self.artifact_id) is not str:
+            raise TypeError("artifact_id must be a built-in str")
+        if (
+            re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", self.artifact_id)
+            is None
+        ):
+            raise ValueError("artifact_id is not a portable identifier")
+
         if type(self.expected_byte_size) is not int:
             raise TypeError("expected_byte_size must be a built-in int excluding bool")
         if type(self.observed_byte_size) is not int:
             raise TypeError("observed_byte_size must be a built-in int excluding bool")
-        if not 0 <= self.expected_byte_size <= _MAX_U64:
+        if not 0 <= self.expected_byte_size <= 18_446_744_073_709_551_615:
             raise ValueError("expected_byte_size must be in the unsigned 64-bit range")
-        if not 0 <= self.observed_byte_size <= _MAX_U64:
+        if not 0 <= self.observed_byte_size <= 18_446_744_073_709_551_615:
             raise ValueError("observed_byte_size must be in the unsigned 64-bit range")
-        _require_sha256(self.expected_sha256, "expected_sha256")
-        _require_sha256(self.observed_sha256, "observed_sha256")
+
+        if type(self.expected_sha256) is not str:
+            raise TypeError("expected_sha256 must be a built-in str")
+        if re.fullmatch(r"[0-9a-f]{64}\Z", self.expected_sha256) is None:
+            raise ValueError("expected_sha256 must be a lowercase SHA-256 digest")
+        if type(self.observed_sha256) is not str:
+            raise TypeError("observed_sha256 must be a built-in str")
+        if re.fullmatch(r"[0-9a-f]{64}\Z", self.observed_sha256) is None:
+            raise ValueError("observed_sha256 must be a lowercase SHA-256 digest")
 
     @property
     def status(self) -> ArtifactIdentityVerificationStatus:
-        """Derive verification status from exact digest and size equality."""
+        """Derive the exact represented identity-verification status.
+
+        Returns
+        -------
+        ArtifactIdentityVerificationStatus
+            :attr:`ArtifactIdentityVerificationStatus.VERIFIED` exactly when
+            both digest and byte-size pairs compare equal; otherwise
+            :attr:`ArtifactIdentityVerificationStatus.MISMATCH`.
+
+        Notes
+        -----
+        The property has no tolerance, normalization, caching, mutation, or
+        input/output.  Its result is not stored or serialized.
+        """
         matches = (
             self.expected_sha256 == self.observed_sha256
             and self.expected_byte_size == self.observed_byte_size
@@ -135,9 +208,12 @@ class ArtifactIdentityVerificationResult:
 
 @dataclass(frozen=True, slots=True)
 class ArtifactIdentityVerifier:
-    """Stateless exact verifier for an observed artifact identity.
+    """Stateless ActionObject for exact represented artifact-identity comparison.
 
-    The action accepts already observed values and performs no file access.
+    The action has no constructor parameters or stored policy.  Callers provide
+    an immutable reference and values observed elsewhere to :meth:`execute`.
+    The action performs no file access, digest computation, location resolution,
+    observation acquisition, or artifact mutation.
     """
 
     def execute(
@@ -146,35 +222,53 @@ class ArtifactIdentityVerifier:
         observed_sha256: str,
         observed_byte_size: int,
     ) -> ArtifactIdentityVerificationResult:
-        """Compare observed content identity with an artifact reference.
+        """Compare already-observed content identity with a reference.
 
         Parameters
         ----------
         reference
-            Portable artifact reference supplying expected identity.
+            Immutable artifact reference supplying ``artifact_id``, expected
+            lowercase SHA-256 digest, and expected byte size.
         observed_sha256
-            Observed 64-character lowercase SHA-256 digest.
+            Digest obtained by a separately controlled observation boundary,
+            expressed as exactly 64 lowercase hexadecimal characters.  The
+            value is checked but not normalized or recomputed.
         observed_byte_size
-            Observed byte size in the unsigned 64-bit range.
+            Byte count obtained by that boundary, expressed as a built-in
+            integer in $[0, 2^{64}-1]$; booleans are rejected.
 
         Returns
         -------
         ArtifactIdentityVerificationResult
-            Exact, immutable comparison result.
+            Immutable expected/observed values whose ``status`` is derived by
+            exact digest and size equality.
 
         Raises
         ------
         TypeError
-            If an argument has the wrong semantic type; booleans are not sizes.
+            If ``reference`` is not an :class:`ArtifactReference`, the digest
+            is not a built-in string, or the size is not a built-in integer
+            excluding booleans.
         ValueError
-            If an observed digest or byte size violates its intrinsic format.
+            If the observed digest is not exactly 64 lowercase hexadecimal
+            characters or the observed size is outside the unsigned 64-bit
+            range.
+
+        Notes
+        -----
+        The result reports represented identity agreement only.  This method
+        neither reads bytes nor establishes format correctness, provenance,
+        availability, authorization, or scientific acceptance.
         """
         if not isinstance(reference, ArtifactReference):
             raise TypeError("reference must be an ArtifactReference")
-        _require_sha256(observed_sha256, "observed_sha256")
+        if type(observed_sha256) is not str:
+            raise TypeError("observed_sha256 must be a built-in str")
+        if re.fullmatch(r"[0-9a-f]{64}\Z", observed_sha256) is None:
+            raise ValueError("observed_sha256 must be a lowercase SHA-256 digest")
         if type(observed_byte_size) is not int:
             raise TypeError("observed_byte_size must be a built-in int excluding bool")
-        if not 0 <= observed_byte_size <= _MAX_U64:
+        if not 0 <= observed_byte_size <= 18_446_744_073_709_551_615:
             raise ValueError("observed_byte_size must be in the unsigned 64-bit range")
         return ArtifactIdentityVerificationResult(
             artifact_id=reference.artifact_id,
@@ -187,14 +281,39 @@ class ArtifactIdentityVerifier:
 
 @dataclass(frozen=True, slots=True)
 class ExecutionCorrelationResult:
-    """Immutable result of request/outcome identity correlation.
+    """Immutable result of exact request/outcome identity correlation.
 
     Parameters
     ----------
-    request_id, outcome_id
-        Inspected request and result-or-failure identities.
+    request_id
+        Portable identifier of the inspected request, stored unchanged.  It
+        must match ``[A-Za-z0-9][A-Za-z0-9._:-]{0,127}``.
+    outcome_id
+        Portable ``result_id`` or ``failure_id`` of the inspected outcome,
+        stored unchanged under the same identifier grammar.
     issues
-        Deterministically ordered request, correlation, and attempt defects.
+        Built-in tuple of :class:`CorrelationIssue` members.  Members must be
+        unique and appear in deterministic request, correlation, then attempt
+        order; any ordered subset is valid.
+
+    Raises
+    ------
+    TypeError
+        If an identifier is not a built-in string, ``issues`` is not a built-in
+        tuple, or a member is not a :class:`CorrelationIssue`.
+    ValueError
+        If an identifier violates the portable grammar or issues are duplicated
+        or out of deterministic order.
+
+    Notes
+    -----
+    Construction performs validation but no canonicalization: identifiers and
+    the issue tuple are retained as supplied.  ``status`` is derived from issue
+    emptiness and is neither stored constructor state nor a wire field.  The
+    result does not retain the correlation or attempt identifiers themselves;
+    it records their mismatches through ``issues``.  Correlation neither
+    executes a request nor interprets completion, failure, artifacts,
+    authorization, retry lineage, or scientific correctness.
     """
 
     request_id: str
@@ -202,8 +321,21 @@ class ExecutionCorrelationResult:
     issues: tuple[CorrelationIssue, ...]
 
     def __post_init__(self) -> None:
-        _require_identifier(self.request_id, "request_id")
-        _require_identifier(self.outcome_id, "outcome_id")
+        """Validate identifiers and the canonical issue-set representation."""
+        if type(self.request_id) is not str:
+            raise TypeError("request_id must be a built-in str")
+        if (
+            re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", self.request_id)
+            is None
+        ):
+            raise ValueError("request_id is not a portable identifier")
+        if type(self.outcome_id) is not str:
+            raise TypeError("outcome_id must be a built-in str")
+        if (
+            re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", self.outcome_id)
+            is None
+        ):
+            raise ValueError("outcome_id is not a portable identifier")
         if type(self.issues) is not tuple:
             raise TypeError("issues must be a built-in tuple")
         issues = tuple(self.issues)
@@ -223,7 +355,20 @@ class ExecutionCorrelationResult:
 
     @property
     def status(self) -> CorrelationStatus:
-        """Derive correlation status from the exact issue tuple."""
+        """Derive identity-correlation status from the exact issue tuple.
+
+        Returns
+        -------
+        CorrelationStatus
+            :attr:`CorrelationStatus.CORRELATED` when ``issues`` is empty;
+            otherwise :attr:`CorrelationStatus.MISMATCH`.
+
+        Notes
+        -----
+        The property is unstored and has no side effects.  It intentionally
+        does not consult an external result's completion status or distinguish
+        a completed result from a structured failure.
+        """
         return (
             CorrelationStatus.CORRELATED
             if not self.issues
@@ -233,31 +378,52 @@ class ExecutionCorrelationResult:
 
 @dataclass(frozen=True, slots=True)
 class ExecutionOutcomeCorrelator:
-    """Stateless verifier of immutable request/result-or-failure correlation."""
+    """Stateless ActionObject for request/result-or-failure identity correlation.
+
+    The action has no constructor parameters or stored policy.  It compares
+    three immutable identity joins and emits a deterministic issue tuple.  It
+    performs no external execution, input/output, retry, authorization check,
+    output inspection, or mutation.
+    """
 
     def execute(
         self,
         request: ExternalExecutionRequest,
         outcome: ExternalExecutionOutcome,
     ) -> ExecutionCorrelationResult:
-        """Verify request, correlation, and attempt IDs without mutation.
+        """Correlate a request with an immutable result or failure.
 
         Parameters
         ----------
         request
-            Immutable external execution request.
+            Immutable request supplying the authoritative ``request_id``,
+            ``correlation_id``, and ``attempt_id`` for this comparison.
         outcome
-            Immutable external result or structured failure.
+            Immutable :class:`ExternalExecutionResult` or
+            :class:`ExternalExecutionFailure` supplying copied join identities
+            and its own ``result_id`` or ``failure_id``.
 
         Returns
         -------
         ExecutionCorrelationResult
-            Deterministically ordered correlation findings.
+            Result containing the request identifier, the outcome's own
+            identifier, and a unique issue tuple ordered by request,
+            correlation, then attempt mismatch.
 
         Raises
         ------
         TypeError
-            If either argument is not an accepted public record type.
+            If ``request`` is not an :class:`ExternalExecutionRequest` or
+            ``outcome`` is neither an :class:`ExternalExecutionResult` nor an
+            :class:`ExternalExecutionFailure`.  Inputs are not coerced.
+
+        Notes
+        -----
+        Each identifier comparison uses exact string equality.  A matching
+        failure is correlated, while a completed result with a differing join
+        identity is not.  The method does not execute the request or establish
+        authorization, completion, output validity, provenance truth, solver
+        convergence, numerical acceptance, or scientific validity.
         """
         if not isinstance(request, ExternalExecutionRequest):
             raise TypeError("request must be an ExternalExecutionRequest")
@@ -265,6 +431,8 @@ class ExecutionOutcomeCorrelator:
             raise TypeError(
                 "outcome must be an ExternalExecutionResult or ExternalExecutionFailure"
             )
+
+        # The public issue order is part of the deterministic result contract.
         issues: list[CorrelationIssue] = []
         if request.request_id != outcome.request_id:
             issues.append(CorrelationIssue.REQUEST_ID_MISMATCH)

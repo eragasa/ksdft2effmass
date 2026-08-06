@@ -45,16 +45,22 @@ exactly `derived`, `representation`, or `retry`.
 
 | Public object | Contract |
 |---|---|
-| `ArtifactIdentityVerifier` | `execute(reference, observed_sha256, observed_byte_size)` compares already observed values; it never reads a file. |
-| `ArtifactIdentityVerificationResult` | Stores expected/observed digest and u64 size. Its non-constructor, non-wire `status` property derives `VERIFIED` exactly when both match and `MISMATCH` otherwise. It verifies represented bytes only. |
-| `ExecutionOutcomeCorrelator` | `execute(request, outcome)` checks request, correlation, and attempt IDs for a result or failure without mutation. |
-| `ExecutionCorrelationResult` | Stores the issue tuple. Its non-constructor, non-wire `status` property derives `CORRELATED` exactly when `issues` is empty. Issues are unique and ordered request-ID, correlation-ID, then attempt-ID mismatch. |
+| `ArtifactIdentityVerifier` | Stateless `execute(reference, observed_sha256, observed_byte_size)` compares caller-supplied, already observed values; it validates its direct scalar inputs but never observes bytes, computes a digest, or reads a file. |
+| `ArtifactIdentityVerificationResult` | Stores the artifact ID and expected/observed digest and u64 size. It validates those intrinsic fields directly. Its non-constructor, non-wire `status` property derives `VERIFIED` exactly when both represented pairs match and `MISMATCH` otherwise. |
+| `ExecutionOutcomeCorrelator` | Stateless `execute(request, outcome)` checks request, correlation, and attempt IDs for either a completed result or a structured failure without mutation or I/O. A correlated failure remains a failure; a completed result with an identity mismatch remains `MISMATCH`. |
+| `ExecutionCorrelationResult` | Stores request and outcome IDs plus the issue tuple, and validates those intrinsic fields directly. Its non-constructor, non-wire `status` property derives `CORRELATED` exactly when `issues` is empty. Issues are unique and ordered exactly request-ID, correlation-ID, then attempt-ID mismatch. |
 
 `ArtifactIdentityVerificationStatus` is `verified` or `mismatch`;
 `CorrelationStatus` is `correlated` or `mismatch`; `CorrelationIssue` is
 `request_id_mismatch`, `correlation_id_mismatch`, or `attempt_id_mismatch` in
-that deterministic order. All public string-valued enums are Python `StrEnum`
-classes; Python record fields require enum members rather than arbitrary strings.
+that deterministic order, including when only a subset is present. All public
+string-valued enums are Python `StrEnum` classes; Python record fields require
+enum members rather than arbitrary strings.
+
+These comparisons are pure represented-state operations. They do not establish
+file observation, format validity, provenance truth, numerical acceptance,
+scientific validation, uncertainty quantification, physical correctness, human
+acceptance, or the validity of external execution.
 
 ## Strict JSON action and error
 

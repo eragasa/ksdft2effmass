@@ -50,10 +50,10 @@
     ]
   },
   "completion_validator": {
-    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
+    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_actions_correction.py",
     "command": [
       "python",
-      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py"
+      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_actions_correction.py"
     ],
     "required_before_review": true
   }

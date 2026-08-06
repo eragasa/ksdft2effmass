@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "P2",
   "correction_id": "P2-ACTIONS-EVIDENCE-1",
-  "status": "active",
+  "status": "validated_ready_for_durable_correction_commit",
   "authority": "Current human instruction titled P2 bounded correction — provenance/actions.py and owned test evidence",
   "starting_revision": "28ae9a68956428b2760c00c0271f925a29688493",
   "origin_dev_at_start": "28ae9a68956428b2760c00c0271f925a29688493",

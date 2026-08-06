@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "ArtifactIdentityVerificationStatus"},
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "ArtifactIdentityVerificationResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "ArtifactIdentityVerifier"},
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "CorrelationStatus"},
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "CorrelationIssue"},
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "ExecutionCorrelationResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py", "mode": "class_owned", "evidence_class": "software_verification", "sut": "ExecutionOutcomeCorrelator"}
+  ]
+}

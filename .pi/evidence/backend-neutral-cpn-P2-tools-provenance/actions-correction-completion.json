@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "correction_id": "P2-ACTIONS-EVIDENCE-1",
+  "status": "PASS_READY_FOR_DURABLE_CORRECTION_COMMIT",
+  "starting_revision": "28ae9a68956428b2760c00c0271f925a29688493",
+  "preflight_commit": "5a7b798c43a020fe0bba4792a30a01254c5bd150",
+  "source": {
+    "path": "python/src/ksdft2effmass/provenance/actions.py",
+    "starting_sha256": "66086f4cc37e5990a2cedcd27cbea2472c1b441c25a64edc1c9b88d208268652",
+    "corrected_sha256": "87a808c5d3508817b7c5e7b6e57f5188acb03468199d788b8b536c7687c599e8",
+    "removed_helpers": ["_require_identifier", "_require_sha256"],
+    "public_classes": 7,
+    "private_module_definitions": 0,
+    "unexecuted_statements": 0,
+    "unexecuted_branches": 0
+  },
+  "test_evidence": {
+    "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+    "modules": 7,
+    "class_owned_modules": 7,
+    "software_verification_modules": 7,
+    "test_functions": 42,
+    "unique_evidence_owners": 42,
+    "helpers": 2,
+    "collected_cases": 103,
+    "historical_ids": [
+      "SV-PROV-046", "SV-PROV-047", "SV-PROV-048", "SV-PROV-049",
+      "SV-PROV-050", "SV-PROV-051", "SV-PROV-052", "SV-PROV-053",
+      "SV-PROV-054", "SV-PROV-055", "SV-PROV-073"
+    ],
+    "new_ids": "SV-PROV-144..175 excluding superseded provisional 143 and 163",
+    "historical_nodes": 11,
+    "mapped_nodes": 11,
+    "genuinely_new_nodes": 92,
+    "migration": "complete semantic one-to-one"
+  },
+  "observed_validation": {
+    "structural_validator": "PASS; zero findings; 80 static parameter cases",
+    "collection_inventory": "PASS; 103 complete nodes",
+    "seven_modules": "103 passed",
+    "focused_actions_provenance": "372 passed",
+    "complete_focused_p2": "507 passed",
+    "actions_branch_coverage": "100%; 103 statements, 54 branches, zero missed or partial",
+    "ruff": "PASS",
+    "mypy": "PASS; 48 source files",
+    "sphinx_warnings_as_errors": "PASS; 45 sources",
+    "actions_completion_validator": "PASS",
+    "p2_completion_validator": "PASS",
+    "ownership_preflight": "PASS",
+    "checkpoint_validation": "PASS; P2-HC03 remains sole unresolved checkpoint",
+    "h3_and_skill_capabilities": "PASS",
+    "selected_harness_route": "local; PASS",
+    "git_diff_check": "PASS"
+  },
+  "protected_nonmutation": {
+    "public_init_sha256": "3e871defd99acb5fc741069fa354430091ddb0505b2bff338afdf59e5b5cbc69",
+    "public_shape": "unchanged from starting revision",
+    "schema_fixture_files": 45,
+    "schema_fixture_aggregate_sha256": "d0c6e4d849ec51e6c01d4cdb9255b3612720b7d6c706d9b6f84d32249108d453",
+    "python_pyproject_sha256": "5d6318812c7db69b7b1d5d742bbd9be903419a2c5bd702ed90a240a73d661f6c",
+    "python_uv_lock_sha256": "186504b6dc24b054c15ef01ed3219c6829f83585a0d7c6a551d79ede37cb7368",
+    "serialization": "unchanged",
+    "r1_r2": "unchanged",
+    "r3_e3": "not created",
+    "successors": "inactive"
+  },
+  "review": {
+    "result": "FAIL",
+    "correction_pass": "one consolidated pass completed",
+    "applicable_findings": "all corrected and deterministically revalidated",
+    "second_review": "not performed"
+  },
+  "checkpoint_transition": "P2-HC03 remains pending until this correction commit is durable; it will then be superseded without resolution by one renewed pending checkpoint"
+}

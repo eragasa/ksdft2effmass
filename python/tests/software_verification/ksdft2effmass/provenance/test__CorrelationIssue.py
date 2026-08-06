@@ -1,10 +1,19 @@
-"""Evidence class and represented meaning
-Software verification of the exact correlation-issue enum artifact.
-Owned contract, oracle, and scope
-CorrelationIssue is the SUT; the accepted version-1 issue vocabulary is the oracle.
+r"""Software verification of ``CorrelationIssue``.
+
+Facet and represented meaning
+-----------------------------
+This module verifies the closed request/outcome identity-defect vocabulary.
+
+Intrinsic and cross-object scope
+--------------------------------
+``CorrelationIssue`` is the sole SUT; public enum names, values, and deterministic order
+are fixed by the P2 correlation contract.
+
 VVUQ and scientific exclusions
-Evidence excludes execution, numerical verification, scientific validation, UQ, physical
-correctness, and cross-language conformance.
+------------------------------
+Passing establishes only software vocabulary. It excludes external execution,
+provenance truth, numerical verification, scientific validation, UQ, portability, and
+cross-language conformance.
 """
 
 import pytest
@@ -15,23 +24,21 @@ SUT = CorrelationIssue
 pytestmark = pytest.mark.software_verification
 
 
-def test_artifact__enum_values__matches_exact_correlation_issue_vocabulary() -> None:
+def test_field__correlation_issue_vocabulary__is_exact() -> None:
     """Evidence ID
     SV-PROV-073
     Requirement
-    Public correlation issues are exactly request, correlation, then attempt-ID
-    mismatch.
+    Issues are exactly request, correlation, then attempt identifier mismatch.
     Method
-    Enumerate the public enum and inspect names and values without invoking an action.
+    Enumerate the public string enum without invoking a correlator.
     Oracle
-    The accepted version-1 correlation taxonomy fixes both exact ordered tuples.
+    The accepted P2 taxonomy independently fixes names, values, and order.
     Acceptance
-    Names and values equal the independently listed tuples exactly.
+    Names and values equal the literal expected tuples exactly.
     Interpretation
-    Failure indicates public or wire taxonomy drift.
+    Failure indicates public or serialized issue-taxonomy drift.
     Limitations
-    Reachability is covered by ExecutionOutcomeCorrelator; no execution or scientific
-    claim is made.
+    Reachability is owned by ExecutionOutcomeCorrelator; no execution claim is made.
     """
     assert tuple(item.name for item in SUT) == (
         "REQUEST_ID_MISMATCH",

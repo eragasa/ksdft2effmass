@@ -47,17 +47,29 @@ representation and common-parent requirements.
 
 ## DataObject/ActionObject boundary
 
-All records and results are frozen, slotted value objects. Each record validates
-its own intrinsic represented invariants directly; shared callable validators
-and cross-record constructor dispatch are not part of the contract.
-`ArtifactIdentityVerifier` compares an
-already observed digest and size against a reference; it performs no file I/O.
+All records and results are frozen, slotted value objects. Each owning class
+validates its intrinsic represented invariants directly in construction or,
+for an action's direct scalar inputs, in `execute`; removed module-level helper
+callables are not a public validation layer. Cross-record constructor dispatch
+is also not part of the contract.
+
+`ArtifactIdentityVerifier` accepts a digest and size that a caller has already
+observed elsewhere and compares their represented values against a reference.
+The word *observed* identifies the role of those inputs; the action does not
+observe bytes, compute a digest, open a path, or perform file I/O.
 `ExecutionOutcomeCorrelator` compares request, correlation, and attempt
-identities without interpreting outputs. Verification and correlation result
-statuses are derived properties of exact represented state, not constructor or
-wire fields. `ProvenanceJsonSerializer` owns the strict version-1 wire boundary.
-These ActionObjects are stateless and do not hide deployment or scientific
-policy. Public string-valued enum vocabularies use `StrEnum`.
+identities for either a result or a structured failure without interpreting the
+outcome. Its issue tuple is the exact mismatching subset in request-ID,
+correlation-ID, then attempt-ID order. A matching failure is `CORRELATED`; a
+completed result with a mismatching join identity is `MISMATCH`, because
+completion and identity correlation are separate claims.
+
+Verification and correlation result statuses are derived properties of exact
+represented state, not stored constructor or wire fields.
+`ProvenanceJsonSerializer` owns the strict version-1 wire boundary. These
+ActionObjects have no fields or retained policy: they are stateless and perform
+no I/O, execution, mutation, or hidden deployment or scientific policy. Public
+string-valued enum vocabularies use `StrEnum`.
 
 The schema owns structural wire constraints; strict JSON parsing also rejects
 syntax-level defects, while Python constructors own intrinsic and record-local
@@ -77,9 +89,11 @@ other secrets in them or in referenced records.
 
 ## Evidence boundary
 
-Exact digest/size agreement establishes represented-byte identity only.
-Lifecycle verification establishes a declared software capability only.
-Correlation establishes identity agreement only. P2 evidence is software
-verification. Numerical verification, scientific validation, and uncertainty
-quantification are not applicable to these nonnumerical records and are neither
-performed nor claimed.
+Exact digest/size agreement establishes represented-byte identity only; it is
+not evidence that this action observed a file. Lifecycle verification
+establishes a declared software capability only. Correlation establishes
+request/result-or-failure identity agreement only, independently of completion.
+These claims exclude file observation, format validity, provenance truth,
+numerical acceptance, scientific validation, uncertainty quantification,
+physical correctness, human acceptance, and external-execution validity. P2
+evidence is software verification only.

@@ -15,12 +15,15 @@ made for them.
 Maintained evidence
 -------------------
 
-Stable identifiers ``SV-PROV-001`` through ``SV-PROV-075`` cover the maintained
+Stable ``SV-PROV`` identifiers declared by the maintained modules cover the
 surface under
-``python/tests/software_verification/ksdft2effmass/provenance`` and the five
+``python/tests/software_verification/ksdft2effmass/provenance`` and the
 artifact/boundary modules under
-``python/tests/software_verification/ksdft2effmass/integration``.  The evidence
-checks:
+``python/tests/software_verification/ksdft2effmass/integration``.  The current
+actions correction assigns separate class-owned modules to the two statuses,
+the issue enum, the two results, and the two stateless actions.  No aggregate
+identifier range or test total is asserted here because those inventories are
+owned by the task evidence records.  The evidence checks:
 
 * artifact identity, specification, reference, location, manifest, provenance,
   and directed lineage construction and owner-local invariants, including real
@@ -29,8 +32,10 @@ checks:
 * tool identity/specification, declared capability, installation observation,
   capability verification, immutable request, completed result, and structured
   failure distinctions, with explicit attempt and optional retry-parent IDs;
-* exact digest/u64 verification and three-identity
-  request/result-or-failure correlation, including derived non-wire statuses;
+* exact comparison of caller-supplied digest/u64 observations and
+  three-identity request/result-or-failure correlation, including derived
+  non-wire statuses, all mismatch subsets, and exact request, correlation, then
+  attempt issue order;
 * every public export, ``StrEnum`` vocabulary, and ``ProvenanceJsonError``
   taxonomy;
 * strict runtime/schema/fixture agreement, including duplicate/unknown-key, BOM,
@@ -48,9 +53,10 @@ Canonical output is compact sorted-key UTF-8 JSON followed by one line feed.
 The schema owns exact wire members, required/null forms, primitive types, enum
 values, patterns, numeric bounds, unique arrays, and declared conditional
 shapes.  The strict parser additionally owns duplicate-key, BOM, malformed JSON,
-and floating lexical-form rejection.  Each public record owns its intrinsic constructor validation directly, without
-shared callable field validators.  Python constructors own intrinsic and
-record-local relational checks that the schema does not claim to complete,
+and floating lexical-form rejection.  Each public record or result owns its intrinsic constructor validation
+directly, without shared callable field validators; each stateless action owns
+validation of its direct ``execute`` inputs.  Python constructors own intrinsic
+and record-local relational checks that the schema does not claim to complete,
 including NFC, deterministic lexical ordering, actual calendar dates, timestamp
 ordering, direct non-self manifest/provenance/lineage/retry relations,
 location-alternative consistency, and status derivation.  Cross-record existence
@@ -61,11 +67,15 @@ schema acceptance alone as full runtime relational validity.
 Interpretation and limitations
 ------------------------------
 
-A passing identity comparison establishes exact represented digest and byte-size
-agreement, not format validity, provenance truth, local availability, or
-scientific meaning.  A passing correlation comparison establishes request,
-correlation, and attempt identity agreement only.  Retry-parent lineage and
-separate authorization remain outside that derived status.
+A passing identity comparison establishes exact agreement of represented digest
+and byte-size values supplied after observation elsewhere.  It does not
+establish that the action observed a file or computed the digest.  A passing
+correlation comparison establishes request, correlation, and attempt identity
+agreement only.  The status is derived from issue-tuple emptiness and is not
+stored or serialized.  A matching structured failure is therefore correlated,
+while a completed result with any join mismatch is not.  Completion and
+identity correlation remain separate claims.  Retry-parent lineage and separate
+authorization remain outside that derived status.
 ``VerificationStatus.VERIFIED`` establishes only the represented
 software-capability observation.  ``COMPLETED`` establishes only completion at
 the external boundary.  ``RunManifest.output_artifact_ids`` are preallocated
@@ -74,9 +84,11 @@ establish that output bytes were observed.
 
 No test invokes QE, Wannier90, a scheduler, a network, or a filesystem-backed
 artifact resolver.  Tests use synthetic records and fixtures.  They do not
-establish executable correctness, SCF convergence, parser/scientific adapter
-correctness, numerical accuracy, physical-model validity, scientific validation,
-uncertainty propagation, Rust conformance, authorization, or human acceptance.
+establish file observation, format validity, provenance truth, external-execution
+validity, executable correctness, SCF convergence, parser/scientific adapter
+correctness, numerical acceptance or accuracy, physical correctness,
+scientific validation, uncertainty quantification, Rust conformance,
+authorization, or human acceptance.
 Future concrete QE/Wannier adapters and their separately classified evidence
 remain owned by later tasks; this contract is not a plugin framework.
 
