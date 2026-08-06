@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC04",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "pending",
+  "status": "superseded",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-06T05:36:41Z",
   "question": "Should P2 receive renewed final human acceptance after the durable P2-ACTIONS-EVIDENCE-1 correction removed private actions.py validation helpers, localized intrinsic validation, completed public documentation, migrated seven class-owned action/result/enum evidence modules, resolved the sole targeted review through one consolidated correction pass, and preserved public APIs, schemas, fixtures, serialization, dependencies, locks, and successor state?",
@@ -57,5 +57,5 @@
   "resolved_at": null,
   "authorized_scope": null,
   "record_paths": [],
-  "resumption_status": "P2_actions_correction_durable_blocked_pending_P2-HC04; no_successor_active"
+  "resumption_status": "superseded_without_resolution_after_durable_P2-TOOLS-DECOMPOSITION-1_correction; renewed_final_acceptance_at_P2-HC05; no_successor_active"
 }

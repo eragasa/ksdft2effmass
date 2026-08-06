@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: bounded `provenance/actions.py` and owned test-evidence correction durable; P2 remains open and blocked at renewed final-acceptance checkpoint `P2-HC04`
+Status: bounded `provenance/tools.py` lifecycle-ownership decomposition durable; P2 remains open and blocked at renewed final-acceptance checkpoint `P2-HC05`
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -57,3 +57,11 @@ Implementation, test-evidence migration, documentation, one targeted review, one
 The correction is durable at `4bd5a607dda238475322e32207897512a73e20a0` and matches `origin/dev`. `P2-HC03` was superseded without resolution; renewed final acceptance is pending at `.pi/checkpoints/P2-HC04-final-acceptance.json`.
 
 No R3/E3, H5, P3--P11, scientific/external execution, publication, or release is active.
+
+## P2 tools lifecycle-ownership decomposition
+
+The current human instruction authorized `P2-TOOLS-DECOMPOSITION-1` while P2 remained open. Documentation inspection established that only `ksdft2effmass.provenance` is a supported import path; `ksdft2effmass.provenance.tools` had no supported module-path contract. The former implementation module was therefore removed and replaced by `external_tools.py`, `tool_observations.py`, and `external_execution.py`, with package, action, and serializer import wiring updated without changing the accepted package export inventory or version-1 wire mapping.
+
+Every moved record now directly validates intrinsic fields in its own `__post_init__`; the six former private validators and replacement private machinery are absent. The exact 13 class-owned software-verification modules, complete one-to-one historical node migration, owner-specific new evidence inventory, maintained documentation, import/wheel artifact synchronization, and current P2 completion validator are durable. The sole targeted reviewer returned one internal-alias wording/ownership finding. One consolidated correction pass removed the unsupported public-alias wording while retaining the human-required internal alias assertion and unchanged package exports. No second review occurred.
+
+Deterministic structural validation, 493 provenance cases, 144 focused integration cases, diagnostic per-module branch coverage, Ruff, mypy, Sphinx warnings-as-errors, public shape comparison, strict serialization/schema/fixture agreement, clean wheel build/install, ownership/completion/skill/checkpoint/local-route gates, protected nonmutation, and diff checks pass. `P2-HC04` was superseded without acceptance; renewed final acceptance is pending at `P2-HC05`. P2 remains open and unaccepted. No R3/E3, H5, P3--P11, protected execution, publication, or release is active.

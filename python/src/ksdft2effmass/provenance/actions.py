@@ -24,13 +24,13 @@ import re
 from dataclasses import dataclass
 from enum import StrEnum
 
-from .records import ArtifactReference
-from .tools import (
+from .external_execution import (
     ExternalExecutionFailure,
     ExternalExecutionOutcome,
     ExternalExecutionRequest,
     ExternalExecutionResult,
 )
+from .records import ArtifactReference
 
 
 class ArtifactIdentityVerificationStatus(StrEnum):

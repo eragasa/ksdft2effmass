@@ -19,11 +19,17 @@ Stable ``SV-PROV`` identifiers declared by the maintained modules cover the
 surface under
 ``python/tests/software_verification/ksdft2effmass/provenance`` and the
 artifact/boundary modules under
-``python/tests/software_verification/ksdft2effmass/integration``.  The current
-actions correction assigns separate class-owned modules to the two statuses,
-the issue enum, the two results, and the two stateless actions.  No aggregate
-identifier range or test total is asserted here because those inventories are
-owned by the task evidence records.  The evidence checks:
+``python/tests/software_verification/ksdft2effmass/integration``.  For the
+external-tool decomposition specifically, the maintained inventory records 13
+class-owned software-verification modules, 85 test functions with 85 unique
+evidence owners, and 145 collected cases.  Of those collected nodes, 24 are
+one-to-one mappings of historical nodes and 121 are genuinely new.  Test
+functions, evidence owners, and collected parameter cases are different
+quantities; these counts do not describe the entire P2 verification tree.
+
+The actions correction separately assigns class-owned modules to the two
+statuses, the issue enum, the two results, and the two stateless actions.  The
+evidence checks:
 
 * artifact identity, specification, reference, location, manifest, provenance,
   and directed lineage construction and owner-local invariants, including real
@@ -41,8 +47,11 @@ owned by the task evidence records.  The evidence checks:
 * strict runtime/schema/fixture agreement, including duplicate/unknown-key, BOM,
   malformed Unicode/JSON, floating/non-finite number, Boolean/numeric-string u64,
   path, ordering, and overflow rejection;
-* production import direction and absence of harness, CPN, SNAKES, backend,
-  scheduler, subprocess-client, or mutable-client dependencies; and
+* production import direction: the declaration, observation, and execution
+  record modules do not depend on actions or serialization, while actions and
+  serialization import only the exact record/result families they consume;
+* absence of harness, CPN, SNAKES, backend, scheduler, subprocess-client, or
+  mutable-client dependencies; and
 * installed-wheel availability of the package and version-1 specification.
 
 The schema is
@@ -53,9 +62,9 @@ Canonical output is compact sorted-key UTF-8 JSON followed by one line feed.
 The schema owns exact wire members, required/null forms, primitive types, enum
 values, patterns, numeric bounds, unique arrays, and declared conditional
 shapes.  The strict parser additionally owns duplicate-key, BOM, malformed JSON,
-and floating lexical-form rejection.  Each public record or result owns its intrinsic constructor validation
-directly, without shared callable field validators; each stateless action owns
-validation of its direct ``execute`` inputs.  Python constructors own intrinsic
+and floating lexical-form rejection.  Each decomposed public record or result owns its intrinsic validation directly
+in its own ``__post_init__``, without shared or private validator helpers; each
+stateless action owns validation of its direct ``execute`` inputs.  Python constructors own intrinsic
 and record-local relational checks that the schema does not claim to complete,
 including NFC, deterministic lexical ordering, actual calendar dates, timestamp
 ordering, direct non-self manifest/provenance/lineage/retry relations,
@@ -66,6 +75,22 @@ schema acceptance alone as full runtime relational validity.
 
 Interpretation and limitations
 ------------------------------
+
+The supported public import remains exactly ``ksdft2effmass.provenance``.  The
+internal modules ``external_tools``, ``tool_observations``, and
+``external_execution`` are not promised direct-import paths.  The removed
+``tools.py`` had no supported module-path contract.  The internal
+``ExternalExecutionOutcome`` alias adds no stored wrapper and is not a
+package-level public export.  This decomposition does not change the accepted
+public object set, version-1 serialization, schema, or fixture meaning.
+
+A passing structural evidence validator establishes conformance to its checked
+module shape, ownership metadata, naming, and inventory relations.  It does not
+establish oracle independence, semantic completeness, runtime behavior,
+acyclicity beyond its explicit import checks, mathematical or scientific
+correctness, numerical verification, scientific validation, uncertainty
+quantification, or human acceptance.  Passing focused tests establishes their
+software-verification assertions only.
 
 A passing identity comparison establishes exact agreement of represented digest
 and byte-size values supplied after observation elsewhere.  It does not

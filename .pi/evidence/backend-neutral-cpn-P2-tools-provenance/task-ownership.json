@@ -5,55 +5,70 @@
   "owners": {
     "writers": [
       {
-        "role": "actions-source-writer",
+        "role": "tools-decomposition-source-writer",
         "agent": "ksdft2effmass-implementation",
         "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
         "owned_paths": [
-          "python/src/ksdft2effmass/provenance/actions.py"
+          "python/src/ksdft2effmass/provenance/tools.py",
+          "python/src/ksdft2effmass/provenance/external_tools.py",
+          "python/src/ksdft2effmass/provenance/tool_observations.py",
+          "python/src/ksdft2effmass/provenance/external_execution.py",
+          "python/src/ksdft2effmass/provenance/actions.py",
+          "python/src/ksdft2effmass/provenance/serialization.py",
+          "python/src/ksdft2effmass/provenance/__init__.py"
         ]
       },
       {
-        "role": "actions-test-evidence-writer",
+        "role": "tools-decomposition-test-evidence-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-ownership.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-node-migration.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-inventory.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-implementation.md"
+          "python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-inventory.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-implementation.md",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py"
         ]
       },
       {
-        "role": "actions-documentation-writer",
+        "role": "tools-decomposition-documentation-writer",
         "agent": "ksdft2effmass-documentation",
         "agent_record": ".pi/agents/ksdft2effmass-documentation.md",
         "owned_paths": [
           "docs/api/provenance.md",
           "docs/concepts/provenance-and-artifacts.md",
+          "docs/user-guide/external-tool-lifecycle.md",
+          "docs/architecture/repository-layout.md",
           "docs/verification/provenance-contract.rst"
         ]
       }
     ],
     "reviewers": [
       {
-        "role": "actions-correction-targeted-reviewer",
+        "role": "tools-decomposition-targeted-reviewer",
         "agent": "ksdft2effmass-integration-reviewer",
         "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
       }
     ]
   },
   "completion_validator": {
-    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_actions_correction.py",
+    "path": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
     "command": [
       "python",
-      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_actions_correction.py"
+      ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py"
     ],
     "required_before_review": true
   }

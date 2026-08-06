@@ -45,13 +45,33 @@ basis, gauge, energy-zero, unit, geometry, pseudopotential, or physical
 compatibility. A future comparison join must establish its separately declared
 representation and common-parent requirements.
 
+## Represented external-tool lifecycle layers
+
+The lifecycle records represent adjacent but different claims. A tool identity
+and specification are declarations, not observations. An installation
+observation stores metadata acquired elsewhere, not a capability-verification
+result. A verification observation stores the represented capability outcome
+and evidence-artifact identities, but grants no execution authorization. An
+execution request refers to a separate authorization and performs no work. A
+result or failure stores an already-observed boundary outcome; completion,
+failure classification, and request/outcome correlation are separate facts.
+Later adapter interpretation of sealed artifacts is outside this lifecycle
+record seam.
+
+Internally, `external_tools.py` owns declarations, `tool_observations.py` owns
+observations, and `external_execution.py` owns requests and outcomes. These are
+implementation ownership boundaries, not supported direct-import paths. The
+only supported public import path remains `ksdft2effmass.provenance`; there was
+no supported `ksdft2effmass.provenance.tools` module-path contract before
+`tools.py` was removed.
+
 ## DataObject/ActionObject boundary
 
-All records and results are frozen, slotted value objects. Each owning class
-validates its intrinsic represented invariants directly in construction or,
-for an action's direct scalar inputs, in `execute`; removed module-level helper
-callables are not a public validation layer. Cross-record constructor dispatch
-is also not part of the contract.
+All records and results are frozen, slotted value objects. Each decomposed
+record class validates its intrinsic represented invariants directly in its own
+`__post_init__`, without shared or private validator helpers. An action validates
+its direct scalar inputs in `execute`. Cross-record constructor dispatch is not
+part of the contract.
 
 `ArtifactIdentityVerifier` accepts a digest and size that a caller has already
 observed elsewhere and compares their represented values against a reference.
@@ -64,8 +84,11 @@ correlation-ID, then attempt-ID order. A matching failure is `CORRELATED`; a
 completed result with a mismatching join identity is `MISMATCH`, because
 completion and identity correlation are separate claims.
 
-Verification and correlation result statuses are derived properties of exact
-represented state, not stored constructor or wire fields.
+Declaration, observation, request, result, and failure fields are stored
+represented state. Verification and correlation result statuses are instead
+derived properties of exact represented state, not stored constructor or wire
+fields. `ExternalExecutionOutcome` is only an internal typing alias over result
+and failure; it adds no wrapper or stored state.
 `ProvenanceJsonSerializer` owns the strict version-1 wire boundary. These
 ActionObjects have no fields or retained policy: they are stateless and perform
 no I/O, execution, mutation, or hidden deployment or scientific policy. Public
@@ -78,6 +101,12 @@ timestamp ordering, direct non-self relations, and derived statuses. Cross-recor
 existence and graph-wide acyclicity require a separate repository or workflow
 boundary. Schema acceptance alone does not establish all runtime relational
 validity or Python invariants.
+
+The internal dependency direction is acyclic: the new record modules do not
+import `actions` or `serialization`; `actions` imports only the exact record
+families it consumes, and `serialization` imports the exact public record and
+result types it maps. This direction prevents validation or wire policy from
+becoming hidden ownership of the record layers.
 
 Durable values categorically exclude credentials, open files,
 process/scheduler handles, mutable clients, closures, live external-library

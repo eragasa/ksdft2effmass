@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. The durable P2 actions.py and owned test-evidence correction is complete; P2 is blocked at renewed final acceptance P2-HC04. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_actions_correction_complete_awaiting_P2-HC04",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. The durable P2 tools lifecycle-ownership decomposition is complete; P2 is blocked at renewed final acceptance P2-HC05. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_tools_decomposition_complete_awaiting_P2-HC05",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "blocked_at_P2-HC04_renewed_final_human_acceptance",
+      "status": "blocked_at_P2-HC05_renewed_final_human_acceptance",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -260,12 +260,12 @@
     }
   ],
   "pending_checkpoints": [
-    ".pi/checkpoints/P2-HC04-final-acceptance.json"
+    ".pi/checkpoints/P2-HC05-final-acceptance.json"
   ],
   "chain": [
     {
-      "phase": "P2-awaiting-P2-HC04-renewed-final-human-acceptance",
-      "message": "The bounded actions.py/test-evidence correction is durable at 4bd5a607dda238475322e32207897512a73e20a0. P2-HC03 was superseded without resolution and P2 remains open at P2-HC04. No R3/E3, H5, P3-P11, protected execution, publication, or release is active."
+      "phase": "P2-awaiting-P2-HC05-renewed-final-human-acceptance",
+      "message": "The bounded provenance tools lifecycle-ownership decomposition is complete and pending a durable correction commit. P2-HC04 was superseded without resolution and P2 remains open at P2-HC05. No R3/E3, H5, P3-P11, protected execution, publication, or release is active."
     }
   ]
 }

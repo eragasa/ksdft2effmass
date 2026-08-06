@@ -1,7 +1,12 @@
 # External-tool lifecycle
 
 The provenance package supplies a narrow common record seam around external
-tools. It does not discover, authorize, import, probe, or execute them.
+tools. Use only the supported public import `ksdft2effmass.provenance`. The
+internal modules `external_tools.py`, `tool_observations.py`, and
+`external_execution.py` define ownership layers but are not supported
+module-path imports. Removal of the former `tools.py` changed no supported
+module-path contract. The package does not discover, authorize, import, probe,
+or execute tools.
 
 ## Distinct lifecycle facts
 
@@ -43,7 +48,15 @@ Keep each fact separate and retain its provenance:
 A failure stage is `REQUEST_ACCEPTANCE`, `EXECUTION`, or `RESULT_CAPTURE`.
 Failure codes are `UNAVAILABLE`, `NOT_AUTHORIZED`, `REJECTED`, `INTERRUPTED`,
 `MALFORMED_RESULT`, and `INTERNAL_ERROR`. Failures and successful results are
-alternative immutable outcomes.
+alternative immutable outcomes. The internal `ExternalExecutionOutcome` typing
+alias expresses that alternative but
+adds no stored wrapper and is not exported from the supported package API.
+
+All lifecycle record fields above are stored represented state. Each record
+validates its intrinsic invariants directly in its own `__post_init__`; the
+record modules have no shared or private validator helpers. By contrast,
+identity-verification and correlation statuses are derived from their stored
+comparison state and are neither constructor fields nor wire members.
 
 ## Correlation
 
@@ -55,7 +68,14 @@ the issue tuple and is not stored or serialized. Correlation does not validate
 output contents, provenance truth, tool behavior, retry lineage, or
 authorization.
 
-## Pure external boundary
+## Dependency and pure external boundary
+
+The internal graph is acyclic. Declaration, observation, and execution record
+modules do not depend on `actions` or `serialization`. `actions.py` consumes the
+exact request/outcome and artifact-reference records needed for pure
+comparisons; `serialization.py` consumes the exact records and results admitted
+by the version-1 wire format. This internal arrangement does not change the
+public package API, schema, fixtures, or serialization meaning.
 
 In a CPN workflow, a guard may inspect immutable fields but must never invoke a
 tool or service. An external adapter outside guard evaluation consumes an

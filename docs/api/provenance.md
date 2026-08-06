@@ -1,9 +1,15 @@
 # Provenance API
 
-The supported import path is `ksdft2effmass.provenance`. The package contains frozen,
-slotted DataObjects and ResultObjects plus stateless ActionObjects. It performs no
-filesystem, network, process, tool-discovery, workflow-engine, or scientific
-calculation.
+The supported public import path is exactly `ksdft2effmass.provenance`. Import
+public objects from that package, not from its implementation modules. The
+behavior-preserving internal decomposition does not add a supported direct-import
+contract for `external_tools`, `tool_observations`, or `external_execution`.
+There was no supported `ksdft2effmass.provenance.tools` module-path contract;
+the former `tools.py` implementation module has been removed.
+
+The package contains frozen, slotted DataObjects and ResultObjects plus stateless
+ActionObjects. It performs no filesystem, network, process, tool-discovery,
+workflow-engine, or scientific calculation.
 
 ## Artifact, manifest, and lineage records
 
@@ -22,6 +28,25 @@ calculation.
 exactly `derived`, `representation`, or `retry`.
 
 ## External-tool records
+
+The represented lifecycle is split internally by ownership, without changing
+public imports or serialized meaning:
+
+- `external_tools.py` owns declarations: `CapabilityKind`,
+  `ExternalToolIdentity`, `ExternalToolSpecification`, and
+  `DeclaredCapability`;
+- `tool_observations.py` owns already-observed installation and capability facts:
+  `VerificationStatus`, `InstallationObservation`, and
+  `VerificationObservation`; and
+- `external_execution.py` owns immutable requests and outcomes:
+  `ExternalExecutionStatus`, `ExternalFailureStage`, `ExternalFailureCode`,
+  `ExternalExecutionRequest`, `ExternalExecutionResult`,
+  `ExternalExecutionFailure`, and the internal typing alias
+  `ExternalExecutionOutcome`.
+
+The alias adds no stored wrapper and is not a package-level public export.
+These filenames describe internal ownership only; they are not direct-import
+promises.
 
 | Public object | Fields and owned invariant |
 |---|---|
@@ -83,8 +108,10 @@ The schema owns wire structure: exact members, required/null forms, primitive
 types, enums, identifier/digest/path patterns, numeric bounds, unique arrays,
 and its declared conditional shapes. The strict parser additionally rejects
 syntax forms JSON Schema does not observe, such as duplicate keys, BOMs, and
-floating lexical forms. Each public record owns its intrinsic validation directly in its own constructor;
-there is no shared callable field-validator API. Python constructors own NFC,
+floating lexical forms. Each public record owns its intrinsic validation directly in its own
+`__post_init__`; the decomposed record modules use no shared or private validator
+helpers. ActionObjects validate their direct inputs in `execute`. Python
+constructors own NFC,
 lexical tuple ordering, real calendar dates and timestamp order, direct non-self
 manifest/provenance/lineage/retry relations, location-branch consistency, and
 status derivation. Cross-record existence, graph-wide cycle detection, and

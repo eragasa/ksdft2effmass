@@ -20,11 +20,26 @@ SOURCE = REPO_ROOT / "python/src/ksdft2effmass/provenance"
 pytestmark = pytest.mark.software_verification
 
 EXPECTED_INTERNAL_IMPORTS = {
-    "__init__.py": {"actions", "records", "serialization", "tools"},
-    "actions.py": {"records", "tools"},
+    "__init__.py": {
+        "actions",
+        "external_execution",
+        "external_tools",
+        "records",
+        "serialization",
+        "tool_observations",
+    },
+    "actions.py": {"external_execution", "records"},
+    "external_execution.py": set(),
+    "external_tools.py": set(),
     "records.py": set(),
-    "serialization.py": {"actions", "records", "tools"},
-    "tools.py": set(),
+    "serialization.py": {
+        "actions",
+        "external_execution",
+        "external_tools",
+        "records",
+        "tool_observations",
+    },
+    "tool_observations.py": set(),
 }
 FORBIDDEN_ROOTS = {"snakes", "subprocess"}
 FORBIDDEN_TEXT = (
@@ -69,13 +84,14 @@ def test_artifact__internal_import_graph__matches_approved_layering() -> None:
     """Evidence ID
     SV-PROV-070
     Requirement
-    Internal dependencies are records <- tools <- actions, serialization depends on all
-    records, and __init__ only aggregates public modules.
+    Declaration, observation, and execution records are dependency-minimal; actions
+    consumes exact execution records, serialization consumes exact record families, and
+    __init__ only aggregates public modules.
     Method
     Parse every exact source module and compare level-one imports with a fixed adjacency
     map.
     Oracle
-    The accepted P2 ownership architecture fixes EXPECTED_INTERNAL_IMPORTS.
+    The accepted P2 decomposition fixes EXPECTED_INTERNAL_IMPORTS.
     Acceptance
     Source filename set and every direct internal edge set match exactly.
     Interpretation

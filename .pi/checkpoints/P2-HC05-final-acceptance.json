@@ -1,0 +1,61 @@
+{
+  "checkpoint_id": "P2-HC05",
+  "task_id": "P2",
+  "episode_id": "backend-neutral-cpn-P2-tools-provenance",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-06T06:54:01Z",
+  "question": "Should P2 receive renewed final human acceptance after the durable P2-TOOLS-DECOMPOSITION-1 correction split the former internal provenance/tools.py implementation into cohesive declaration, observation, and execution modules, localized intrinsic validation, completed the exact 13 class-owned software-verification modules, preserved the accepted package API and version-1 serialization contract, and removed the unsupported tools module path?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept corrected P2 as PASS and close P2 only.",
+      "consequence": "Record human acceptance of P2 including the durable tools decomposition, then close P2 after deterministic closeout validation. P3 becomes prerequisite-eligible but is not activated. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    },
+    {
+      "id": "B",
+      "summary": "Request another explicitly bounded disposition.",
+      "consequence": "Keep P2 open. The authorized source, test-evidence, documentation, targeted review, and consolidated correction pass are consumed; further mutation requires new explicit scope and process authorization. No successor or execution becomes active."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer P2.",
+      "consequence": "Keep P2 open and blocked. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    }
+  ],
+  "recommendation": "Option A with the recorded limitations. The supported import remains exactly ksdft2effmass.provenance; tools.py had no supported module-path contract and was removed. external_tools.py owns four declaration types, tool_observations.py owns three observation types, and external_execution.py owns six records, three enums, and the internal outcome alias. The package retains 32 exports with unchanged signatures, enum order/values, and frozen/slotted record shapes. The six private validators were removed and intrinsic validation is directly owned. Thirteen class-owned software-verification modules contain 85 functions/evidence owners and 145 collected cases; 24 historical nodes/IDs are preserved one-to-one and 121 nodes are new. Structural validation, 493 provenance cases, 144 focused integration cases, diagnostic branch coverage, Ruff, mypy, Sphinx, serialization/schema/fixture agreement, wheel clean install, ownership/completion/checkpoint/skill/local-route gates, and protected hashes pass. The sole reviewer returned one wording/ownership finding; one consolidated pass removed the unsupported public-alias claim while retaining the explicit human-required internal alias assertion. Software verification does not establish external-tool availability, execution validity, numerical verification, scientific validation, UQ, physical correctness, provenance truth, publication readiness, release readiness, or human acceptance.",
+  "blocked_scope": "P2 closure and human acceptance; any further P2 mutation; H5 or P3-P11 activation; scientific or external-tool execution; publication; release.",
+  "safe_scope": "Read-only inspection of the durable three-module decomposition, exact 13 class-owned tests, ownership/node inventories, documentation, review disposition, deterministic validation, protected nonmutation evidence, task/chain/checkpoint state, commit, and remote identity. Deterministic checkpoint validation is permitted. No mutation, successor launch, or protected execution is permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/checkpoints/P2-HC04-final-acceptance.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-node-migration.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-inventory.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-test-evidence-implementation.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-review.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-completion.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/tools-decomposition-parent-verification.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
+    "python/src/ksdft2effmass/provenance/external_tools.py",
+    "python/src/ksdft2effmass/provenance/tool_observations.py",
+    "python/src/ksdft2effmass/provenance/external_execution.py",
+    "python/src/ksdft2effmass/provenance/actions.py",
+    "python/src/ksdft2effmass/provenance/serialization.py",
+    "python/src/ksdft2effmass/provenance/__init__.py",
+    "docs/api/provenance.md",
+    "docs/concepts/provenance-and-artifacts.md",
+    "docs/user-guide/external-tool-lifecycle.md",
+    "docs/architecture/repository-layout.md",
+    "docs/verification/provenance-contract.rst"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "P2_tools_decomposition_durable_blocked_pending_P2-HC05; no_successor_active"
+}

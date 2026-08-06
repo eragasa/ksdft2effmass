@@ -20,6 +20,38 @@ OWNERSHIP_PATH = EVIDENCE_ROOT / "test-evidence-ownership.json"
 MIGRATION_PATH = EVIDENCE_ROOT / "test-evidence-node-migration.json"
 INVENTORY_PATH = EVIDENCE_ROOT / "test-evidence-inventory.json"
 IMPLEMENTATION_PATH = EVIDENCE_ROOT / "test-evidence-implementation.md"
+TOOLS_OWNERSHIP_PATH = (
+    EVIDENCE_ROOT / "tools-decomposition-test-evidence-ownership.json"
+)
+TOOLS_MIGRATION_PATH = (
+    EVIDENCE_ROOT / "tools-decomposition-test-evidence-node-migration.json"
+)
+TOOLS_INVENTORY_PATH = (
+    EVIDENCE_ROOT / "tools-decomposition-test-evidence-inventory.json"
+)
+TOOLS_IMPLEMENTATION_PATH = (
+    EVIDENCE_ROOT / "tools-decomposition-test-evidence-implementation.md"
+)
+TOOLS_CLASSES = (
+    "CapabilityKind",
+    "VerificationStatus",
+    "ExternalExecutionStatus",
+    "ExternalFailureStage",
+    "ExternalFailureCode",
+    "ExternalToolIdentity",
+    "ExternalToolSpecification",
+    "DeclaredCapability",
+    "InstallationObservation",
+    "VerificationObservation",
+    "ExternalExecutionRequest",
+    "ExternalExecutionResult",
+    "ExternalExecutionFailure",
+)
+TOOLS_SOURCE_MODULES = (
+    "external_tools.py",
+    "tool_observations.py",
+    "external_execution.py",
+)
 REQUIRED_DOCS = (
     "docs/api/provenance.md",
     "docs/concepts/provenance-and-artifacts.md",
@@ -127,6 +159,128 @@ def main() -> int:
         evidence_inputs[label] = value
     if not IMPLEMENTATION_PATH.is_file():
         issues.append("missing P2 test-evidence implementation record")
+
+    tools_evidence_inputs: dict[str, object] = {}
+    for label, path in (
+        ("ownership", TOOLS_OWNERSHIP_PATH),
+        ("migration", TOOLS_MIGRATION_PATH),
+        ("inventory", TOOLS_INVENTORY_PATH),
+    ):
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            issues.append(f"missing or invalid tools-decomposition {label} record")
+            continue
+        if not isinstance(value, dict):
+            issues.append(f"tools-decomposition {label} record must be an object")
+            continue
+        tools_evidence_inputs[label] = value
+    if not TOOLS_IMPLEMENTATION_PATH.is_file():
+        issues.append("missing tools-decomposition implementation record")
+
+    expected_tools_paths = {
+        str((TESTS / f"test__{name}.py").relative_to(ROOT)) for name in TOOLS_CLASSES
+    }
+    tools_ownership = tools_evidence_inputs.get("ownership", {})
+    tools_modules = (
+        tools_ownership.get("modules", []) if isinstance(tools_ownership, dict) else []
+    )
+    if (
+        not isinstance(tools_modules, list)
+        or {entry.get("path") for entry in tools_modules if isinstance(entry, dict)}
+        != expected_tools_paths
+        or len(tools_modules) != 13
+        or any(
+            entry.get("mode") != "class_owned"
+            or entry.get("evidence_class") != "software_verification"
+            or entry.get("sut") not in TOOLS_CLASSES
+            for entry in tools_modules
+            if isinstance(entry, dict)
+        )
+    ):
+        issues.append(
+            "tools-decomposition ownership must cover exactly 13 class-owned software-verification modules"
+        )
+    for source_name in TOOLS_SOURCE_MODULES:
+        if not (SOURCE / source_name).is_file():
+            issues.append(f"missing tools-decomposition source module {source_name}")
+    if (SOURCE / "tools.py").exists():
+        issues.append("retired provenance/tools.py must be absent")
+
+    tools_migration = tools_evidence_inputs.get("migration", {})
+    tools_old = (
+        tools_migration.get("expected_old_node_ids", [])
+        if isinstance(tools_migration, dict)
+        else []
+    )
+    tools_new = (
+        tools_migration.get("expected_new_node_ids", [])
+        if isinstance(tools_migration, dict)
+        else []
+    )
+    tools_mappings = (
+        tools_migration.get("mappings", []) if isinstance(tools_migration, dict) else []
+    )
+    mapped_tools_old = (
+        [
+            entry.get("old_node_id")
+            for entry in tools_mappings
+            if isinstance(entry, dict)
+        ]
+        if isinstance(tools_mappings, list)
+        else []
+    )
+    mapped_tools_new = (
+        [
+            entry.get("new_node_id")
+            for entry in tools_mappings
+            if isinstance(entry, dict)
+        ]
+        if isinstance(tools_mappings, list)
+        else []
+    )
+    if (
+        not all(
+            isinstance(values, list)
+            for values in (tools_old, tools_new, tools_mappings)
+        )
+        or len(tools_old) != 24
+        or len(tools_old) != len(set(tools_old))
+        or len(tools_new) != len(set(tools_new))
+        or len(mapped_tools_old) != len(tools_mappings)
+        or len(mapped_tools_old) != len(set(mapped_tools_old))
+        or len(mapped_tools_new) != len(set(mapped_tools_new))
+        or set(mapped_tools_old) != set(tools_old)
+        or set(mapped_tools_new) != set(tools_new)
+    ):
+        issues.append(
+            "tools-decomposition migration must map exactly 24 historical nodes one-to-one"
+        )
+    tools_inventory = tools_evidence_inputs.get("inventory", {})
+    tools_complete = (
+        tools_inventory.get("complete_new_node_ids", [])
+        if isinstance(tools_inventory, dict)
+        else []
+    )
+    tools_additional = (
+        tools_inventory.get("new_node_ids_without_historical_predecessor", [])
+        if isinstance(tools_inventory, dict)
+        else []
+    )
+    tools_paths = (
+        tools_inventory.get("paths", []) if isinstance(tools_inventory, dict) else []
+    )
+    if (
+        not all(
+            isinstance(values, list)
+            for values in (tools_complete, tools_additional, tools_paths)
+        )
+        or set(tools_paths) != expected_tools_paths
+        or len(tools_complete) != len(set(tools_complete))
+        or set(tools_complete) != set(tools_new) | set(tools_additional)
+        or set(tools_new) & set(tools_additional)
+    ):
+        issues.append("tools-decomposition complete-node inventory is inconsistent")
 
     expected_test_paths = {
         str(path.relative_to(ROOT))
@@ -236,6 +390,15 @@ def main() -> int:
             else 0,
             "complete_migrated_nodes": len(complete_nodes)
             if isinstance(complete_nodes, list)
+            else 0,
+            "tools_decomposition_modules": len(tools_modules)
+            if isinstance(tools_modules, list)
+            else 0,
+            "tools_decomposition_historical_nodes": len(tools_mappings)
+            if isinstance(tools_mappings, list)
+            else 0,
+            "tools_decomposition_complete_nodes": len(tools_complete)
+            if isinstance(tools_complete, list)
             else 0,
         },
         "issues": issues,

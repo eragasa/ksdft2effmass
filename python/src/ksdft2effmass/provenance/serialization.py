@@ -17,6 +17,20 @@ from .actions import (
     CorrelationIssue,
     ExecutionCorrelationResult,
 )
+from .external_execution import (
+    ExternalExecutionFailure,
+    ExternalExecutionRequest,
+    ExternalExecutionResult,
+    ExternalExecutionStatus,
+    ExternalFailureCode,
+    ExternalFailureStage,
+)
+from .external_tools import (
+    CapabilityKind,
+    DeclaredCapability,
+    ExternalToolIdentity,
+    ExternalToolSpecification,
+)
 from .records import (
     ArtifactIdentity,
     ArtifactLocation,
@@ -29,17 +43,7 @@ from .records import (
     ProvenanceRecord,
     RunManifest,
 )
-from .tools import (
-    CapabilityKind,
-    DeclaredCapability,
-    ExternalExecutionFailure,
-    ExternalExecutionRequest,
-    ExternalExecutionResult,
-    ExternalExecutionStatus,
-    ExternalFailureCode,
-    ExternalFailureStage,
-    ExternalToolIdentity,
-    ExternalToolSpecification,
+from .tool_observations import (
     InstallationObservation,
     VerificationObservation,
     VerificationStatus,

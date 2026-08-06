@@ -24,9 +24,11 @@ pytestmark = pytest.mark.software_verification
 EXPECTED_WHEEL_MODULES = {
     "ksdft2effmass/provenance/__init__.py",
     "ksdft2effmass/provenance/actions.py",
+    "ksdft2effmass/provenance/external_execution.py",
+    "ksdft2effmass/provenance/external_tools.py",
     "ksdft2effmass/provenance/records.py",
     "ksdft2effmass/provenance/serialization.py",
-    "ksdft2effmass/provenance/tools.py",
+    "ksdft2effmass/provenance/tool_observations.py",
 }
 
 
@@ -79,6 +81,7 @@ def test_artifact__wheel_content__supports_clean_import_without_tests(
     with zipfile.ZipFile(wheel) as archive:
         names = set(archive.namelist())
     assert EXPECTED_WHEEL_MODULES <= names
+    assert "ksdft2effmass/provenance/tools.py" not in names
     assert not any("tests/" in name or name.startswith("tests") for name in names)
 
     code = (

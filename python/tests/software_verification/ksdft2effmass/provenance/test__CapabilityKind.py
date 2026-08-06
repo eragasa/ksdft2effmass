@@ -1,4 +1,4 @@
-r"""Software verification of ``ExternalFailureCode``.
+r"""Software verification of ``CapabilityKind``.
 
 Facet and represented meaning
 -----------------------------
@@ -6,7 +6,7 @@ This class-owned evidence verifies the exact closed wire vocabulary and Python `
 
 Intrinsic and cross-object scope
 --------------------------------
-The sole primary SUT is ``ExternalFailureCode``; collaborators only supply public constructor
+The sole primary SUT is ``CapabilityKind``; collaborators only supply public constructor
 inputs or expose declared Python value semantics. Oracles are the accepted
 field, enum, dataclass, tuple, and exception contracts. Values are synthetic,
 dimensionless metadata at ordinary lexical scales; no warnings are expected.
@@ -26,15 +26,15 @@ from typing import Any, cast
 
 import pytest
 
-from ksdft2effmass.provenance import ExternalFailureCode
+from ksdft2effmass.provenance import CapabilityKind
 
-SUT = ExternalFailureCode
+SUT = CapabilityKind
 pytestmark = pytest.mark.software_verification
 
 
 def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
     """Evidence ID
-    SV-PROV-074
+    SV-PROV-030
     Requirement
     The enum has the exact versioned names, values, declaration order, no aliases, and is a StrEnum subclass.
     Method
@@ -49,22 +49,18 @@ def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
     Synthetic metadata only; no external execution, numerical verification, scientific validation, UQ, portability, or cross-language claim.
     """
     expected = (
-        ("UNAVAILABLE", "unavailable"),
-        ("NOT_AUTHORIZED", "not_authorized"),
-        ("REJECTED", "rejected"),
-        ("INTERRUPTED", "interrupted"),
-        ("MALFORMED_RESULT", "malformed_result"),
-        ("INTERNAL_ERROR", "internal_error"),
+        ("EXECUTE", "execute"),
+        ("PARSE", "parse"),
+        ("RENDER", "render"),
+        ("TRANSFER", "transfer"),
     )
     assert issubclass(SUT, StrEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == (
-        "UNAVAILABLE",
-        "NOT_AUTHORIZED",
-        "REJECTED",
-        "INTERRUPTED",
-        "MALFORMED_RESULT",
-        "INTERNAL_ERROR",
+        "EXECUTE",
+        "PARSE",
+        "RENDER",
+        "TRANSFER",
     )
     assert len(SUT.__members__) == len(tuple(SUT))
 
@@ -72,19 +68,17 @@ def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
 @pytest.mark.parametrize(
     ("value", "name"),
     [
-        pytest.param("unavailable", "UNAVAILABLE", id="unavailable"),
-        pytest.param("not_authorized", "NOT_AUTHORIZED", id="not_authorized"),
-        pytest.param("rejected", "REJECTED", id="rejected"),
-        pytest.param("interrupted", "INTERRUPTED", id="interrupted"),
-        pytest.param("malformed_result", "MALFORMED_RESULT", id="malformed_result"),
-        pytest.param("internal_error", "INTERNAL_ERROR", id="internal_error"),
+        pytest.param("execute", "EXECUTE", id="execute"),
+        pytest.param("parse", "PARSE", id="parse"),
+        pytest.param("render", "RENDER", id="render"),
+        pytest.param("transfer", "TRANSFER", id="transfer"),
     ],
 )
 def test_protocol__value_and_name_lookup__return_member_identity(
     value: str, name: str
 ) -> None:
     """Evidence ID
-    SV-PROV-188
+    SV-PROV-176
     Requirement
     Every accepted value and name lookup resolves to the same canonical enum member.
     Method
@@ -114,7 +108,7 @@ def test_protocol__invalid_value_lookup__raises_value_error(
     invalid_value: object,
 ) -> None:
     """Evidence ID
-    SV-PROV-189
+    SV-PROV-177
     Requirement
     Values outside the closed vocabulary cannot construct a member.
     Method
@@ -134,7 +128,7 @@ def test_protocol__invalid_value_lookup__raises_value_error(
 
 def test_protocol__invalid_name_lookup__raises_key_error() -> None:
     """Evidence ID
-    SV-PROV-190
+    SV-PROV-178
     Requirement
     Names outside the closed vocabulary cannot resolve a member.
     Method

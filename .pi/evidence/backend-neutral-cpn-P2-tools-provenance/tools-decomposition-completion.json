@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "correction_id": "P2-TOOLS-DECOMPOSITION-1",
+  "status": "PASS_PENDING_RENEWED_P2_HUMAN_ACCEPTANCE",
+  "starting_revision": "fc2e8fc3ceb9336e9b6e94e8583271da5877488b",
+  "module_path_contract": {
+    "supported_public_import": "ksdft2effmass.provenance",
+    "provenance_tools_public": false,
+    "tools_py_removed": true
+  },
+  "source_ownership": {
+    "external_tools.py": ["CapabilityKind", "ExternalToolIdentity", "ExternalToolSpecification", "DeclaredCapability"],
+    "tool_observations.py": ["VerificationStatus", "InstallationObservation", "VerificationObservation"],
+    "external_execution.py": ["ExternalExecutionStatus", "ExternalFailureStage", "ExternalFailureCode", "ExternalExecutionRequest", "ExternalExecutionResult", "ExternalExecutionFailure", "ExternalExecutionOutcome"]
+  },
+  "removed_private_helpers": ["_require_text", "_require_identifier", "_require_version", "_require_sha256", "_require_identifier_tuple", "_require_root_relative_path"],
+  "test_evidence": {
+    "skill": ".pi/skills/develop-python-test-evidence/SKILL.md",
+    "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+    "modules": 13,
+    "test_functions": 85,
+    "unique_evidence_owners": 85,
+    "collected_cases": 145,
+    "historical_nodes": 24,
+    "genuinely_new_nodes": 121,
+    "historical_ids": "SV-PROV-024..045, SV-PROV-074, SV-PROV-078",
+    "new_ids": "SV-PROV-176..236"
+  },
+  "diagnostic_branch_coverage": {
+    "external_tools.py": {"percent": 89, "statements_uncovered": 7, "partial_or_uncovered_branches": 7},
+    "tool_observations.py": {"percent": 75, "statements_uncovered": 23, "partial_or_uncovered_branches": 23},
+    "external_execution.py": {"percent": 75, "statements_uncovered": 48, "partial_or_uncovered_branches": 48}
+  },
+  "validation": {
+    "generic_test_evidence_validator": "PASS; zero findings",
+    "owned_modules": "145 passed",
+    "complete_provenance_directory": "493 passed",
+    "focused_integration": "144 passed",
+    "import_graph": "acyclic",
+    "public_contract_shape": "32 exports; signatures, enum order/values, dataclass fields/frozen/slots unchanged",
+    "serialization_schema_fixtures": "PASS; 45 files byte-unchanged; aggregate d0c6e4d849ec51e6c01d4cdb9255b3612720b7d6c706d9b6f84d32249108d453",
+    "ruff": "PASS",
+    "mypy": "PASS; 40 files",
+    "sphinx_warnings_as_errors": "PASS; 45 sources",
+    "wheel": "PASS; seven provenance modules, no tools.py, clean install and 32 public imports",
+    "local_harness_route": "local; PASS",
+    "ownership_completion_skill_checkpoint": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "review": {
+    "result": "FAIL_WITH_ONE_MEDIUM_WORDING_AND_OWNERSHIP_FINDING",
+    "correction_pass": "one consolidated pass completed",
+    "disposition": "unsupported public-alias wording removed; explicit human-required internal alias assertion retained; no package export added",
+    "second_review": false
+  },
+  "protected_nonmutation": {
+    "schemas_and_fixtures": true,
+    "python_pyproject_sha256": "5d6318812c7db69b7b1d5d742bbd9be903419a2c5bd702ed90a240a73d661f6c",
+    "python_uv_lock_sha256": "186504b6dc24b054c15ef01ed3219c6829f83585a0d7c6a551d79ede37cb7368",
+    "package_lock_sha256": "a5e07678f60a86822ccb7f3f963a1317232068bfa9d0a44a3db9d11cfbc207a7",
+    "r1_r2": "unchanged",
+    "r3_e3": "not created",
+    "successors_and_execution": "inactive"
+  }
+}
