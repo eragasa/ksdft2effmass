@@ -241,6 +241,12 @@
       "decision": "B",
       "resolved_at": "2026-08-06T03:44:34Z",
       "result": "P2 remains open; one test-evidence-only migration is authorized for eight supplied test modules using develop-python-test-evidence. Production/schema/fixture/dependency/lock/scientific meaning and successors remain unchanged; no R3/E3."
+    },
+    {
+      "checkpoint": "P2-HC05-final-acceptance",
+      "decision": "B",
+      "resolved_at": "2026-08-06T16:51:37Z",
+      "result": "P2 remains open; one nomenclature-only correction is authorized to identify nested provenance audit items as P2-A00--P2-A11 and synchronize directly affected evidence/control paths. P2-A02 is not started; successors and protected execution remain inactive."
     }
   ],
   "activations": [
@@ -259,13 +265,11 @@
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     }
   ],
-  "pending_checkpoints": [
-    ".pi/checkpoints/P2-HC05-final-acceptance.json"
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-awaiting-P2-HC05-renewed-final-human-acceptance",
-      "message": "The bounded provenance tools lifecycle-ownership decomposition is complete and pending a durable correction commit. P2-HC04 was superseded without resolution and P2 remains open at P2-HC05. No R3/E3, H5, P3-P11, protected execution, publication, or release is active."
+      "phase": "P2-audit-item-nomenclature-correction-authorized-awaiting-resolution-boundary",
+      "message": "P2-HC05 is resolved as Option B. Rename nested audit items A00--A11 to P2-A00--P2-A11 and synchronize directly affected evidence/control paths only after the validated resolution commit is pushed. Do not start P2-A02 or activate any successor or protected execution."
     }
   ]
 }

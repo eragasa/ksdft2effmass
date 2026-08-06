@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "skill": {
+    "name": "resolve-human-checkpoint",
+    "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+    "sha256": "d72695a4483b09500da69048affbd1addb313a0830cc793b3aba5015f6eeee25"
+  },
+  "request_id": "P2-HC05-human-option-B-2026-08-06T16:51:37Z",
+  "parent_workflow_id": "backend-neutral-kohn-sham-qe",
+  "task_id": "P2",
+  "attempt_id": "P2-HC05-resolution-attempt-1",
+  "input_checkpoint": {
+    "checkpoint_id": "P2-HC05",
+    "expected_status": "pending",
+    "sha256": "63f973410030ab0eac98525d1c9ee3795ed1905286c32a187285fdabfe5a96e3"
+  },
+  "preserved_human_response": "make this change",
+  "normalized_decision": "B — keep P2 open and rename the nested provenance audit items from A00--A11 to P2-A00--P2-A11 so their P2 ownership is explicit",
+  "changed_paths": [
+    ".pi/checkpoints/P2-HC05-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC05-resolution.json"
+  ],
+  "validation": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python .pi/checkpoints/validate_checkpoints.py",
+        "result": "passed: 28 checkpoint records; zero unresolved checkpoints; zero duplicate resolved decisions"
+      },
+      {
+        "command": "python -m json.tool <changed JSON control records> and git diff --check -- <changed control records>",
+        "result": "passed"
+      },
+      {
+        "command": "protected-scope and successor-state inspection",
+        "result": "passed: no production, test, schema, fixture, dependency, lock, successor, or protected-execution path included in the resolution boundary"
+      }
+    ]
+  },
+  "resumption_status": "Bounded P2 audit-item nomenclature correction authorized but not resumed until this validated resolution boundary is committed and pushed to origin/dev",
+  "warnings": [
+    "P2 remains open and unaccepted.",
+    "Do not start P2-A02 or change production source, tests, public contracts, schemas, fixtures, dependencies, locks, scientific meaning, successors, or protected execution."
+  ],
+  "partial_failure": null
+}

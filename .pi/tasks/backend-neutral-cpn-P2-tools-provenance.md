@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: P2 provenance audit A01 cleared; A02 is next but not started; P2 remains open and blocked from acceptance at pending final-acceptance checkpoint `P2-HC05`
+Status: `P2-HC05` resolved as Option B; bounded audit-item nomenclature correction authorized but not resumed until its decision-boundary commit is pushed; P2 remains open and unaccepted
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
