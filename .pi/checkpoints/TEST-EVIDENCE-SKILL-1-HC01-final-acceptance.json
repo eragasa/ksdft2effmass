@@ -2,7 +2,7 @@
   "checkpoint_id": "TEST-EVIDENCE-SKILL-1-HC01",
   "task_id": "TEST-EVIDENCE-SKILL-1",
   "episode_id": "develop-python-test-evidence-skill-correction",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-06T03:30:29Z",
   "question": "Should the develop-python-test-evidence harness skill correction receive final human acceptance after canonical/local/live activation, separation from documentation ownership, controlled structural validation, read-only forward validation, one independent review and consolidated correction pass, and final deterministic verification?",
@@ -43,10 +43,16 @@
     ".pi/skills/develop-python-test-evidence/SKILL.md",
     ".pi/skills/skill-capability-inventory.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "TEST-EVIDENCE-SKILL-1_complete_blocked_pending_final_human_acceptance; P2_unchanged; no_successor_active"
+  "human_response": "A — Accept TEST-EVIDENCE-SKILL-1 as PASS and close this task only.\n\nDo not modify or accept P2 during this closeout. Do not activate P3, H5, scientific or external execution, publication, or release.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-06T03:42:54Z",
+  "authorized_scope": "Close TEST-EVIDENCE-SKILL-1 as human-accepted PASS only. Do not modify or accept P2, activate P3 or H5, conduct scientific or external execution, publish, or release.",
+  "record_paths": [
+    ".pi/checkpoints/TEST-EVIDENCE-SKILL-1-HC01-final-acceptance.json",
+    ".pi/tasks/develop-python-test-evidence-skill-correction.md",
+    ".pi/chains/develop-python-test-evidence-skill-correction.chain.json",
+    ".pi/evidence/develop-python-test-evidence-skill-correction/completion.json",
+    ".pi/evidence/develop-python-test-evidence-skill-correction/TEST-EVIDENCE-SKILL-1-HC01-resolution.json"
+  ],
+  "resumption_status": "TEST-EVIDENCE-SKILL-1_closed_human_accepted_PASS; P2_unchanged_and_unaccepted; no_successor_active"
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "TEST-EVIDENCE-SKILL-1",
-  "status": "PASS_PENDING_HUMAN_ACCEPTANCE",
+  "status": "HUMAN_ACCEPTED_PASS",
   "canonical_skill": {
     "name": "develop-python-test-evidence",
     "skill_path": "harness/pi/skills/develop-python-test-evidence/SKILL.md",
@@ -44,5 +44,10 @@
     "disposition": "all three High findings corrected by the sole writer and deterministically revalidated; no second review cycle"
   },
   "legacy_route_limitation": "retained legacy requires separate historical resource restoration; selected local passes",
+  "human_acceptance": {
+    "checkpoint_id": "TEST-EVIDENCE-SKILL-1-HC01",
+    "decision": "A",
+    "scope": "close TEST-EVIDENCE-SKILL-1 only"
+  },
   "successor_activation": "none"
 }

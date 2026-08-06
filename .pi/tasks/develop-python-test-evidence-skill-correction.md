@@ -1,6 +1,6 @@
 # TEST-EVIDENCE-SKILL-1 — develop-python-test-evidence harness correction
 
-Status: implementation and review correction complete; blocked at pending final human checkpoint `TEST-EVIDENCE-SKILL-1-HC01`
+Status: closed as human-accepted PASS at `TEST-EVIDENCE-SKILL-1-HC01`
 
 ## Authority and scope
 
@@ -24,4 +24,4 @@ The canonical/local/live skill correction, deterministic validator, controlled f
 
 The single independent reviewer returned three High findings. The sole implementation writer corrected all three in one consolidated pass; parent deterministic validation passes afterward. No second reviewer or repeated replay cycle was launched. Historical H4 evidence is unchanged. The selected `local` route passes; direct legacy use requires separate restoration of historical resource bytes.
 
-Final human acceptance is pending at `.pi/checkpoints/TEST-EVIDENCE-SKILL-1-HC01-final-acceptance.json`. No P2 test cleanup or successor is active.
+The human accepted Option A and closed this task only at `.pi/checkpoints/TEST-EVIDENCE-SKILL-1-HC01-final-acceptance.json`. P2 was not modified or accepted during closeout. No P3, H5, scientific or external execution, publication, release, or other successor was activated.

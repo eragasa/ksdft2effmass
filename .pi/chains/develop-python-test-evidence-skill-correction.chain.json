@@ -1,8 +1,8 @@
 {
   "name": "develop-python-test-evidence-skill-correction",
   "description": "Human-authorized bounded harness correction creating and activating the generic develop-python-test-evidence skill. P2 checkpoint disposition and P2 implementation surfaces remain unchanged.",
-  "status": "implementation_complete_awaiting_human_acceptance",
-  "active_task": "TEST-EVIDENCE-SKILL-1",
+  "status": "closed_human_accepted_pass",
+  "active_task": null,
   "production_execution_authorized": false,
   "task_sequence": [
     {
@@ -11,17 +11,15 @@
       "prerequisites": [
         "explicit_human_authorization"
       ],
-      "status": "blocked_at_TEST-EVIDENCE-SKILL-1-HC01_final_human_acceptance",
+      "status": "closed_human_accepted_pass",
       "ownership_manifest": ".pi/evidence/develop-python-test-evidence-skill-correction/task-ownership.json"
     }
   ],
-  "pending_checkpoints": [
-    ".pi/checkpoints/TEST-EVIDENCE-SKILL-1-HC01-final-acceptance.json"
-  ],
+  "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "awaiting-final-human-acceptance",
-      "message": "The generic/local/live skill correction, controlled validation, read-only forward analysis, one independent review, one consolidated correction pass, and parent verification are complete. No P2 mutation or successor is active."
+      "phase": "closed-human-accepted-pass",
+      "message": "TEST-EVIDENCE-SKILL-1 was accepted as PASS and closed only. P2 was unchanged and unaccepted during this closeout. No P3, H5, scientific or external execution, publication, release, or successor was activated."
     }
   ]
 }
