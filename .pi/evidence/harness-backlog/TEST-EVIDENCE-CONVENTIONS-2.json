@@ -6,6 +6,7 @@
   "activation_authorized": false,
   "implementation_authorized": false,
   "task_record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+  "observation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-test-evidence-friction-observations.md",
   "proposed_targets": [
     "harness/pi/skills/develop-python-test-evidence/",
     "harness/pi/validation/validate_python_test_evidence.py",
@@ -17,8 +18,38 @@
   "relationship_to_current_work": {
     "p2_a02_examples_retained": true,
     "p2_a03_audit_unchanged": true,
+    "p2_a04_audit_unchanged": true,
     "retroactive_invalidation": false,
     "implementation_requires_separate_human_activation": true
+  },
+  "workflow_friction_candidates": {
+    "essential_controls_to_preserve": [
+      "explicit_class_or_artifact_ownership",
+      "complete_one_to_one_historical_node_migration",
+      "production_source_nonmutation",
+      "semantic_partition_and_oracle_review",
+      "durable_queue_and_boundary_state"
+    ],
+    "accidental_or_automation_candidates": [
+      "validator_and_formatter_constraint_conflicts",
+      "manual_repetition_of_scoped_validation_commands",
+      "manual_synchronization_of_queue_task_chain_and_evidence_records",
+      "manual_reconciliation_of_static_parameter_and_collected_case_counts",
+      "missing_single_aggregate_consistency_command",
+      "low_information_declarative_enum_coverage_reporting",
+      "exact_migration_schema_requires_separate_rationale_sidecar",
+      "repeated_virtual_environment_warning_noise"
+    ],
+    "proposed_mechanisms": [
+      "generate_scoped_command_manifests_from_ownership_records",
+      "emit_static_and_collected_counts_in_one_structured_result",
+      "validate_queue_task_chain_and_evidence_record_synchronization",
+      "provide_one_scoped_aggregate_consistency_entry_point",
+      "classify_declarative_enum_coverage_as_not_applicable_when_no_executable_body_exists",
+      "support a validated migration_rationale_companion_record",
+      "test_validator_formatter_interoperability_with_long_artifact_openings",
+      "suppress_known_nonactionable_environment_warning_noise_at_the_runner_boundary"
+    ]
   },
   "rule_classes": {
     "deterministic_candidates": [

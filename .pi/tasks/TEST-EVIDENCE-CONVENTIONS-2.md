@@ -47,6 +47,49 @@ The human P2 module audit repeatedly found:
 10. missing field-by-partition coverage for repeated intrinsic validation; and
 11. structural-validator PASS reported as if it established semantic correctness.
 
+## Observed workflow friction
+
+The P2 file-by-file audit also exposed coordination costs that are distinct from
+test defects. The contemporaneous observation record is
+[`../evidence/backend-neutral-cpn-P2-tools-provenance/p2-test-evidence-friction-observations.md`](../evidence/backend-neutral-cpn-P2-tools-provenance/p2-test-evidence-friction-observations.md).
+
+Controls that protect an accepted boundary should remain explicit: primary
+ownership, complete historical-node migration, production-source nonmutation,
+semantic review, and durable queue state. Candidate accidental friction includes:
+
+1. exact structural-opening requirements conflicting with ordinary formatter or
+   lint line limits;
+2. repeated manual assembly of the same scoped structural, collection, pytest,
+   coverage, Ruff, mypy, regression, nonmutation, and Git checks;
+3. manual synchronization of queue, task, chain, ownership, migration, progress,
+   completion, and parent-verification records;
+4. separate static-parameter and pytest-collected counts that require manual
+   reconciliation;
+5. aggregate consistency rules implemented through several ad hoc commands
+   rather than one scoped entry point;
+6. low-information coverage output for declarative enum classes with no
+   executable method body;
+7. an intentionally exact migration schema that requires rationale to be stored
+   in a separate companion record; and
+8. repeated nonactionable virtual-environment warning noise in command output.
+
+These observations do not authorize weakening a completion gate. A future
+implementation should automate evidence production and reconciliation while
+retaining the underlying control and its claim boundary.
+
+## Candidate workflow automation
+
+If separately activated, evaluate:
+
+- generated scoped command manifests derived from explicit ownership records;
+- one result containing both structural counts and actual pytest collection;
+- deterministic synchronization checks for queue/task/chain/evidence state;
+- one scoped aggregate consistency command for a supplied maintained surface;
+- explicit `not_applicable` diagnostic coverage for declarations with no
+  executable body;
+- a validated migration-rationale companion format; and
+- validator/formatter interoperability fixtures, including long artifact names.
+
 ## Candidate deterministic rules
 
 ### Concrete public surfaces
@@ -156,15 +199,16 @@ as advisory and must not be converted into unsupported deterministic PASS claims
 ## Relationship to P2
 
 `P2-A02` supplies accepted examples of corrected enum and record evidence.
-`P2-A03` exposed the same recurring pre-convention patterns. The current
-file-by-file human P2 audit remains authoritative.
+`P2-A03` exposed the same recurring pre-convention patterns and aggregate-check
+friction. `P2-A04` supplies additional enum-ownership and declarative-coverage
+observations. The current file-by-file human P2 audit remains authoritative.
 
 This proposal:
 
 - does not retroactively invalidate cleared items;
 - does not change P2 criteria during the active audit;
 - does not modify any current P2 test or evidence decision;
-- does not activate P2-A03 work; and
+- does not activate, advance, or clear any P2 audit item; and
 - may be implemented only after separate human activation.
 
 ## Proposed future completion shape
