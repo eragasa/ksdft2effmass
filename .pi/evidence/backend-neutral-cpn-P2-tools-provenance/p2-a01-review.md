@@ -1,4 +1,4 @@
-# P2 provenance audit A01 targeted review
+# P2-A01 provenance audit targeted review
 
 Reviewer: `ksdft2effmass-integration-reviewer`
 

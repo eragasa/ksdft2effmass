@@ -268,8 +268,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-audit-item-nomenclature-correction-authorized-awaiting-resolution-boundary",
-      "message": "P2-HC05 is resolved as Option B. Rename nested audit items A00--A11 to P2-A00--P2-A11 and synchronize directly affected evidence/control paths only after the validated resolution commit is pushed. Do not start P2-A02 or activate any successor or protected execution."
+      "phase": "P2-provenance-audit-queue-P2-A02-next-not-started",
+      "message": "P2-HC05 was resolved as Option B and the nomenclature-only correction now identifies the nested queue as P2-A00--P2-A11. P2-A00 and P2-A01 are cleared; P2-A02 is next but not started. P2 remains open and unaccepted; no successor or protected execution is active."
     }
   ]
 }

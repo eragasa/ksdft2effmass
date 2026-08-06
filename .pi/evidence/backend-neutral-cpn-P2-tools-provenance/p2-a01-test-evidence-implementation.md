@@ -1,16 +1,16 @@
-# P2 A01 test-evidence implementation
+# P2-A01 test-evidence implementation
 
 ## Skill and invocation identity
 
-- Request: `P2-PROVENANCE-AUDIT-1-A01`
+- Request: `P2-PROVENANCE-AUDIT-1:P2-A01`
 - Task: `P2`
 - Parent workflow: `backend-neutral-kohn-sham-qe`
-- Attempt: `a01-test-correction-1`
+- Attempt: `p2-a01-test-correction-1`
 - Profile: `AUTHORIZED_TEST_EVIDENCE_WRITE`
 - Skill content: `.pi/skills/develop-python-test-evidence/SKILL.md` and the complete `references/test-evidence-conventions.md`
 - Authority input: `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`
 - Evidence class: software verification
-- Ownership: four `class_owned` modules recorded exactly in `audit-a01-test-evidence-ownership.json`
+- Ownership: four `class_owned` modules recorded exactly in `p2-a01-test-evidence-ownership.json`
 - Production input: `python/src/ksdft2effmass/provenance/external_tools.py`, inspected read-only
 - Stop policy: stop on invalid ownership, unauthorized mutation, incomplete historical mapping, a production defect, or a failed required final gate
 
@@ -46,7 +46,7 @@ defect.
 The literal direct invocation was:
 
 ```text
-python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/audit-a01-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/audit-a01-test-evidence-node-migration.json
+python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a01-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a01-test-evidence-node-migration.json
 ```
 
 Its exact final JSON output was:
@@ -80,8 +80,8 @@ IDs, the migration record was regenerated, and all final gates were then run.
 - Never-used new identifiers: `SV-PROV-237` and `SV-PROV-238`
 
 The exact old inventory, migration targets, current per-module inventory, counts,
-and new-owner rationales are in `audit-a01-test-evidence-inventory.json`. The
-closed mapping is in `audit-a01-test-evidence-node-migration.json`.
+and new-owner rationales are in `p2-a01-test-evidence-inventory.json`. The
+closed mapping is in `p2-a01-test-evidence-node-migration.json`.
 
 ## Final validation
 
@@ -95,7 +95,7 @@ closed mapping is in `audit-a01-test-evidence-node-migration.json`.
 
 ## Scope and residual boundary
 
-Only the four assigned class-owned tests and four assigned A01 evidence records
+Only the four assigned class-owned tests and four assigned P2-A01 evidence records
 were modified by this writer. Concurrent queue, task, validator, documentation,
 and unrelated worktree changes were not modified. Production source remained
 read-only. Passing synthetic software verification does not establish external

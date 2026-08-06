@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "request_id": "P2-PROVENANCE-AUDIT-1-A01",
+  "request_id": "P2-PROVENANCE-AUDIT-1:P2-A01",
   "task_id": "P2",
   "attempt_id": "a01-test-correction-1",
   "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
