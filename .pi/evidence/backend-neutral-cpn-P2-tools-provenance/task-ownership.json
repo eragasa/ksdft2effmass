@@ -5,28 +5,45 @@
   "owners": {
     "writers": [
       {
-        "role": "p2-test-evidence-migration-writer",
+        "role": "actions-source-writer",
+        "agent": "ksdft2effmass-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
+        "owned_paths": [
+          "python/src/ksdft2effmass/provenance/actions.py"
+        ]
+      },
+      {
+        "role": "actions-test-evidence-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentity.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactSpecification.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactReference.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceRecord.py",
-          "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
-          "python/tests/software_verification/ksdft2effmass/integration/test__provenance_v1_json_fixtures_python_runtime_contract.py",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-ownership.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-node-migration.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-inventory.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/test-evidence-implementation.md"
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
+          "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-inventory.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-implementation.md"
+        ]
+      },
+      {
+        "role": "actions-documentation-writer",
+        "agent": "ksdft2effmass-documentation",
+        "agent_record": ".pi/agents/ksdft2effmass-documentation.md",
+        "owned_paths": [
+          "docs/api/provenance.md",
+          "docs/concepts/provenance-and-artifacts.md",
+          "docs/verification/provenance-contract.rst"
         ]
       }
     ],
     "reviewers": [
       {
-        "role": "targeted-test-evidence-reviewer",
+        "role": "actions-correction-targeted-reviewer",
         "agent": "ksdft2effmass-integration-reviewer",
         "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
       }

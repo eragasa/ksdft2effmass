@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. The P2-HC02 Option-B test-evidence migration is complete and P2 is blocked at renewed final acceptance P2-HC03. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_test_evidence_migration_complete_awaiting_P2-HC03",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2 is open for one explicitly authorized bounded actions.py and owned test-evidence correction while P2-HC03 remains pending and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_actions_test_evidence_correction_active",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "blocked_at_P2-HC03_renewed_final_human_acceptance",
+      "status": "active_bounded_actions_test_evidence_correction",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -264,8 +264,8 @@
   ],
   "chain": [
     {
-      "phase": "P2-awaiting-P2-HC03-renewed-final-human-acceptance",
-      "message": "The P2-HC02 test-evidence-only migration, one targeted review, one consolidated correction pass, and parent verification are complete. Production/source/schema/fixture/dependency/lock/scientific meaning and R1/R2 remain unchanged; no R3/E3, H5, P3-P11, protected execution, publication, or release is active."
+      "phase": "P2-bounded-actions-test-evidence-correction",
+      "message": "Separate bounded source, test-evidence, and documentation writers may change only their declared paths. One targeted review and at most one consolidated correction pass are authorized. P2-HC03 remains pending and unaccepted until the correction is durable; no R3/E3, H5, P3-P11, protected execution, publication, or release is active."
     }
   ]
 }

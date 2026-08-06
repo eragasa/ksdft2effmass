@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: P2-HC02 Option-B test-evidence migration complete; open and blocked at renewed final human-acceptance checkpoint `P2-HC03`
+Status: open and active for one explicitly authorized bounded `provenance/actions.py` and owned test-evidence correction; `P2-HC03` remains pending and unaccepted
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -48,4 +48,8 @@ The eight supplied modules now satisfy the accepted structural convention with e
 
 One targeted reviewer returned material semantic findings. The sole writer completed one consolidated correction pass. All applicable findings were corrected and parent-confirmed; the proposed four-property split was inapplicable because the human instruction explicitly permits one cohesive delegation-map owner. No second reviewer cycle occurred.
 
-Focused tests, collection, branch diagnostics, Ruff, mypy, Sphinx, P2 ownership/completion, checkpoint validation, H3 resources, skill capabilities, selected local route, protected hash nonmutation, dependency/lock nonmutation, and diff checks pass. P2 remains open and blocked at `.pi/checkpoints/P2-HC03-final-acceptance.json`. No R3/E3, H5, P3--P11, scientific/external execution, publication, or release is active.
+Focused tests, collection, branch diagnostics, Ruff, mypy, Sphinx, P2 ownership/completion, checkpoint validation, H3 resources, skill capabilities, selected local route, protected hash nonmutation, dependency/lock nonmutation, and diff checks pass. P2 remained open at `.pi/checkpoints/P2-HC03-final-acceptance.json` until the current human instruction authorized one further bounded correction of `python/src/ksdft2effmass/provenance/actions.py`, seven class-owned action/result/enum test modules, three directly affected maintained documentation pages, and their current-boundary evidence/control records. Separate source, test-evidence, and documentation writers plus one targeted read-only reviewer are required. The parent owns integration, validation, checkpoint state, and durable commits.
+
+The correction removes `_require_identifier` and `_require_sha256`, moves intrinsic validation directly into owning `__post_init__`/`execute` methods, preserves public behavior and signatures, migrates the seven class-owned test surfaces under `develop-python-test-evidence`, and documents the public operation/claim boundaries under `document-python-research-software`. Production outside `actions.py`, exports, schemas, fixtures, serialization, dependencies, locks, external-tool lifecycle meaning, and scientific meaning remain protected. R1/R2 stay immutable; no replay is authorized.
+
+No R3/E3, H5, P3--P11, scientific/external execution, publication, or release is active. After the correction is durably committed and pushed, `P2-HC03` will be superseded without resolution and one renewed pending final-acceptance checkpoint will be created.
