@@ -1,17 +1,20 @@
 r"""Software verification of ``ProvenanceJsonSerializer``.
 
 Facet and represented meaning
+-----------------------------
 The evidence verifies canonical version-1 JSON serialization, representative exact
 deserialization, strict input rejection, public exception translation,
 deterministic round trips, and unsupported-record rejection.
 
 Intrinsic and cross-object scope
+--------------------------------
 ``ProvenanceJsonSerializer`` is the sole primary SUT. ``ProvenanceJsonError`` and
 supported public records are collaborators and expected outputs. Fixed version-1
 wire members, Python JSON semantics, public record constructors, and exact text
 literals provide the bounded software oracles.
 
 VVUQ and scientific exclusions
+------------------------------
 The evidence does not establish filesystem storage, artifact existence, complete
 schema-family agreement, Rust conformance, numerical verification, scientific
 validation, uncertainty quantification, physical correctness, or provenance truth.
@@ -430,6 +433,32 @@ def test_method__deserialize__rejects_missing_record_type_discriminator() -> Non
     """
     with pytest.raises(ProvenanceJsonError) as error:
         SUT().deserialize('{"schema_version":1}')
+    assert type(error.value) is ProvenanceJsonError
+
+
+def test_method__deserialize__rejects_missing_schema_version_discriminator() -> None:
+    """Evidence ID
+    SV-PROV-394
+    Requirement
+    deserialize requires the root schema_version discriminator independently of
+    the record_type discriminator.
+    Method
+    Decode ``{"record_type":"artifact_identity"}``, which contains record_type
+    but omits schema_version.
+    Oracle
+    Every supported version-1 root object requires both discriminators; this
+    literal isolates the missing-schema_version partition.
+    Acceptance
+    The exact raised type is ProvenanceJsonError.
+    Interpretation
+    Failure identifies asymmetric missing-discriminator enforcement; a pass
+    complements rather than duplicates the missing-record_type evidence.
+    Limitations
+    This case does not test record-specific required fields or future schema
+    migration behavior.
+    """
+    with pytest.raises(ProvenanceJsonError) as error:
+        SUT().deserialize('{"record_type":"artifact_identity"}')
     assert type(error.value) is ProvenanceJsonError
 
 

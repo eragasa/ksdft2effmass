@@ -52,3 +52,26 @@ The authoritative queue now has `active_item: null`, identifies P2-A06 as next,
 and marks P2-A05 `audited_and_cleared`. P2-A06 was not started. P2 remains open
 and unaccepted; no checkpoint was created or resolved, and H5, P3--P11,
 protected execution, publication, and release remain inactive.
+
+## Bounded post-audit human-review correction
+
+Starting from `e6d1606ad24ab4e3db0b36fddce37f673a4a8d1a`, the direct human
+review identified exactly two test-only findings. Both class-owned module
+headings now use their synchronized underline formatting. Serializer evidence
+`SV-PROV-394`, with no historical predecessor, isolates a root object that has
+`record_type` but omits `schema_version`; it complements the unchanged
+`SV-PROV-388` missing-`record_type` owner.
+
+All earlier P2-A05 IDs and the six-node historical migration remain unchanged.
+The migration supplement records `SV-PROV-394` as genuinely new evidence. The
+current supplied scope contains 23 test functions/evidence owners, no helpers,
+three static parameter cases, and 25 collected cases. The accepted structural
+validator reports PASS with zero findings. Focused tests, serializer regression,
+Ruff, mypy, evidence-ID uniqueness, and protected nonmutation checks are
+retained in the appended completion record.
+
+No production source, schema, fixture, integration test, dependency, lockfile,
+harness skill, validator, fixture, route, unrelated documentation, or inactive
+backlog file changed. No additional semantic review, replay, or broad audit was
+run. P2-A05 remains `audited_and_cleared`, `active_item` remains null, P2-A06
+remains next and unstarted, and P2 remains open and unaccepted.

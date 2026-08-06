@@ -97,5 +97,86 @@
   "next_item": "P2-A06",
   "next_item_started": false,
   "p2_status": "open_and_unaccepted",
-  "claim_boundary": "Software verification and complete diagnostic coverage do not establish complete schema-family agreement, Rust conformance, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness."
+  "claim_boundary": "Software verification and complete diagnostic coverage do not establish complete schema-family agreement, Rust conformance, provenance truth, numerical verification, scientific validation, UQ, P2 acceptance, publication readiness, or release readiness.",
+  "post_audit_human_review_correction": {
+    "authority": "direct human review of completed P2-A05 tests",
+    "scope": [
+      "underlined synchronized module headings in both class-owned modules",
+      "one new serializer-owned missing-schema_version discriminator test"
+    ],
+    "production_source_modified": false,
+    "new_evidence": {
+      "evidence_id": "SV-PROV-394",
+      "function": "test_method__deserialize__rejects_missing_schema_version_discriminator",
+      "historical_predecessor": null,
+      "migration_supplement": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-post-audit-test-evidence-migration.json"
+    },
+    "existing_evidence_ids_unchanged": true,
+    "current_counts": {
+      "class_owned_modules": 2,
+      "artifact_owned_modules": 0,
+      "test_functions": 23,
+      "evidence_owners": 23,
+      "helper_functions": 0,
+      "parameterized_functions": 1,
+      "static_parameter_cases": 3,
+      "collected_cases": 25
+    },
+    "structural_validator_exact_result": {
+      "claim_boundary": [
+        "oracle independence",
+        "mathematical correctness",
+        "property/surface correctness",
+        "test cohesion",
+        "tolerance adequacy",
+        "scientific validity",
+        "uncertainty quantification",
+        "human acceptance"
+      ],
+      "counts": {
+        "artifact_owned_modules": 0,
+        "class_owned_modules": 2,
+        "evidence_class_modules": {
+          "numerical_verification": 0,
+          "scientific_validation": 0,
+          "software_verification": 2,
+          "uncertainty_quantification": 0
+        },
+        "findings_by_code": {},
+        "helper_functions": 0,
+        "modules": 2,
+        "parameterized_functions": 1,
+        "static_collected_parameter_cases": 3,
+        "test_functions": 23,
+        "unique_evidence_owners": 23
+      },
+      "findings": [],
+      "paths": [
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py"
+      ],
+      "schema_version": 1,
+      "status": "PASS"
+    },
+    "deterministic_results": {
+      "pytest_collect_only": "25 tests collected",
+      "focused_two_module_pytest": "25 passed",
+      "focused_serializer_regression": "24 passed",
+      "ruff_format_and_lint": "PASS",
+      "mypy_with_unchanged_serialization_source": "PASS",
+      "unique_evidence_id_validation": "PASS: 490 documented test owners; SV-PROV-394 unique",
+      "production_schema_fixture_dependency_lock_nonmutation": "PASS",
+      "inactive_backlog_and_harness_nonmutation": "PASS; TEST-EVIDENCE-CONVENTIONS-2 remains proposed_inactive",
+      "git_diff_check": "PASS",
+      "unrelated_work_preservation": "PASS: exactly two test files and four required P2-A05 evidence records changed"
+    },
+    "state": {
+      "p2_a05": "audited_and_cleared",
+      "active_item": null,
+      "next_item": "P2-A06",
+      "p2_a06_started": false,
+      "p2": "open_and_unaccepted"
+    },
+    "semantic_review_disposition": "Implemented only the two direct human-review findings; no additional semantic review, replay, or broad audit was run."
+  }
 }

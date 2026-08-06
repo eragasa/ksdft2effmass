@@ -3,7 +3,7 @@
   "audit_item": "P2-A05",
   "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
   "request_id": "P2-PROVENANCE-AUDIT-1:P2-A05",
-  "attempt_id": "P2-A05-correction-1",
+  "attempt_id": "P2-A05-correction-1-post-audit-1",
   "modules": [
     {
       "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py",
@@ -22,15 +22,15 @@
     "modules": 2,
     "class_owned_modules": 2,
     "artifact_owned_modules": 0,
-    "test_functions": 22,
-    "evidence_owners": 22,
+    "test_functions": 23,
+    "evidence_owners": 23,
     "helper_functions": 0,
     "parameterized_functions": 1,
     "static_parameter_cases": 3,
-    "collected_cases": 24,
+    "collected_cases": 25,
     "historical_mapped_nodes": 6,
-    "new_evidence_owners": 16,
-    "new_collected_cases": 18
+    "new_evidence_owners": 17,
+    "new_collected_cases": 19
   },
   "historical_evidence_ids": [
     "SV-PROV-056",
@@ -56,7 +56,8 @@
     "SV-PROV-390",
     "SV-PROV-391",
     "SV-PROV-392",
-    "SV-PROV-393"
+    "SV-PROV-393",
+    "SV-PROV-394"
   ],
   "evidence_owners": [
     {
@@ -140,6 +141,11 @@
       "function": "test_method__deserialize__rejects_missing_record_type_discriminator"
     },
     {
+      "evidence_id": "SV-PROV-394",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+      "function": "test_method__deserialize__rejects_missing_schema_version_discriminator"
+    },
+    {
       "evidence_id": "SV-PROV-389",
       "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
       "function": "test_method__deserialize__rejects_record_type_wrong_semantic_type"
@@ -189,6 +195,7 @@
     "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_schema_version_wrong_semantic_type",
     "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_boolean_schema_version_lookalike",
     "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_missing_record_type_discriminator",
+    "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_missing_schema_version_discriminator",
     "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_record_type_wrong_semantic_type",
     "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_unsupported_record_type_value",
     "tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py::test_method__deserialize__rejects_non_object_root",
@@ -203,5 +210,12 @@
     "to": "test__ProvenanceJsonSerializer.py",
     "occurrences_after_migration": 1
   },
-  "claim_boundary": "Counts distinguish modules, functions, parameter cases, collected cases, evidence owners, and helpers. Software verification does not establish complete schema-family agreement, numerical verification, scientific validation, UQ, provenance truth, or human acceptance."
+  "claim_boundary": "Counts distinguish modules, functions, parameter cases, collected cases, evidence owners, and helpers. Software verification does not establish complete schema-family agreement, numerical verification, scientific validation, UQ, provenance truth, or human acceptance.",
+  "post_audit_migration": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a05-post-audit-test-evidence-migration.json",
+  "post_audit_correction": {
+    "finding_1": "underlined synchronized module headings",
+    "finding_2": "new missing-schema_version discriminator owner",
+    "new_evidence_id": "SV-PROV-394",
+    "historical_predecessor": null
+  }
 }

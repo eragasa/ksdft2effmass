@@ -1,14 +1,17 @@
 r"""Software verification of ``ProvenanceJsonError``.
 
 Facet and represented meaning
+-----------------------------
 The evidence verifies direct construction of the public strict-JSON exception and
 its software exception taxonomy and stored message payload.
 
 Intrinsic and cross-object scope
+--------------------------------
 ``ProvenanceJsonError`` is the sole SUT. Python exception construction semantics
 and the accepted public ``ValueError`` inheritance contract provide the oracle.
 
 VVUQ and scientific exclusions
+------------------------------
 Direct construction does not verify decoder translation, JSON syntax, schema
 agreement, numerical verification, scientific validation, uncertainty
 quantification, portability, cross-language conformance, or provenance truth.
