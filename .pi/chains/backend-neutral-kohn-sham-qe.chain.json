@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A02 are audited_and_cleared; P2-A03 is active only for the bounded ExternalExecutionResult correction; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_a03_external_execution_result_correction_active",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A02 are audited_and_cleared; P2-A03 remains open after the bounded ExternalExecutionResult correction, with ExternalExecutionFailure the next human-audit target; P2 remains open and unaccepted. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
+  "status": "p2_a03_open_external_execution_failure_next",
   "active_task": "P2",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "open_p2_a03_external_execution_result_correction_active",
+      "status": "open_p2_a03_external_execution_failure_next",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -274,8 +274,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-A03-ExternalExecutionResult-bounded-correction-active",
-      "message": "P2-A00 through P2-A02 are audited_and_cleared. P2-HC06 resolved as Option A. P2-A03 is active only for the human-audited ExternalExecutionResult correction and internal ExternalExecutionOutcome artifact-ownership move. P2-A03 and P2 remain open; ExternalExecutionFailure, successors, and protected execution are inactive."
+      "phase": "P2-A03-ExternalExecutionFailure-next-human-audit-target",
+      "message": "P2-A00 through P2-A02 are audited_and_cleared. P2-HC06 resolved as Option A. The bounded ExternalExecutionResult correction passed deterministic validation and ExternalExecutionOutcome moved to artifact ownership. P2-A03 and P2 remain open; ExternalExecutionFailure is the next human-audit target but is unmodified and not started. Successors and protected execution remain inactive."
     }
   ]
 }
