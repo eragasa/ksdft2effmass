@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "task_id": "TEST-EVIDENCE-SKILL-1",
+  "task_record": ".pi/tasks/develop-python-test-evidence-skill-correction.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "generic-local-live-skill-correction-writer",
+        "agent": "ksdft2effmass-harness-skill-resource-cutover-writer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-skill-resource-cutover-writer.md",
+        "owned_paths": [
+          "AGENTS.md",
+          "harness/pi",
+          "harness/local",
+          ".pi/skills",
+          ".pi/agents",
+          "docs/architecture/cpn-skill-capability-audit.md",
+          "docs/harness/ksdft2effmass.harness.04.md",
+          "docs/verification/cpn-contract.rst",
+          "docs/verification/testing-and-evidence.rst",
+          ".pi/evidence/develop-python-test-evidence-skill-correction"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "independent-skill-resource-reviewer",
+        "agent": "ksdft2effmass-harness-cutover-skill-resource-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-cutover-skill-resource-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/evidence/develop-python-test-evidence-skill-correction/validate_completion.py",
+    "command": [
+      "python",
+      ".pi/evidence/develop-python-test-evidence-skill-correction/validate_completion.py"
+    ],
+    "required_before_review": true
+  }
+}

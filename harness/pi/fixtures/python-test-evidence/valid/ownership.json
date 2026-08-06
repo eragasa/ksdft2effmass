@@ -1,0 +1,1 @@
+{"modules":[{"evidence_class":"software_verification","mode":"class_owned","path":"harness/pi/fixtures/python-test-evidence/valid/test__ExampleRecord.py","sut":"ExampleRecord"}],"schema_version":1}

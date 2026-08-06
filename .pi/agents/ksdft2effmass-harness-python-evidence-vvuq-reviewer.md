@@ -6,7 +6,7 @@ tools: read, bash
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: true
-skills: document-python-research-software
+skills: develop-python-test-evidence
 acceptanceRole: read-only
 ---
 

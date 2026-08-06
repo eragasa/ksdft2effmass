@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "TEST-EVIDENCE-SKILL-1-HC01",
+  "task_id": "TEST-EVIDENCE-SKILL-1",
+  "episode_id": "develop-python-test-evidence-skill-correction",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-06T03:30:29Z",
+  "question": "Should the develop-python-test-evidence harness skill correction receive final human acceptance after canonical/local/live activation, separation from documentation ownership, controlled structural validation, read-only forward validation, one independent review and consolidated correction pass, and final deterministic verification?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the harness skill correction as PASS and close this task only.",
+      "consequence": "Record human acceptance of the new generic/live skill and close TEST-EVIDENCE-SKILL-1 after deterministic closeout validation. This does not modify or accept P2, authorize P2 test cleanup, launch another task, or authorize scientific/external execution, publication, or release."
+    },
+    {
+      "id": "B",
+      "summary": "Request a specified correction.",
+      "consequence": "Keep this task open and require explicit new correction scope. P2 tests and all successors remain unchanged and inactive."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer the correction.",
+      "consequence": "Keep this task open and blocked without changing P2 checkpoint disposition or activating further work."
+    }
+  ],
+  "recommendation": "Option A with the recorded limitations. The exact skill identity, canonical/live bytes, generic/local manifests and dependency direction, separated documentation responsibility, supplied-path structural validator, 23 controlled cases, read-only forward findings, H3 resources, seven-skill capabilities, selected local route, Ruff, links, Sphinx, JSON, completion/ownership/checkpoint gates, dependency/lockfile and P2 nonmutation, and unrelated-work preservation pass. The reviewer returned three High findings; all were corrected by the sole writer and deterministically revalidated without a second review cycle. Structural tooling does not establish semantic surface/cohesion, oracle independence, mathematics, tolerance adequacy, scientific validation, UQ, or human acceptance. Direct legacy routing requires separate historical resource restoration; selected local passes.",
+  "blocked_scope": "Final acceptance and closure of TEST-EVIDENCE-SKILL-1; any P2 test cleanup; P2 checkpoint disposition; successor activation; scientific/external execution; publication; release.",
+  "safe_scope": "Read-only inspection of the skill correction, manifests, profiles, live routes, validators, controlled fixtures, forward findings, review, parent verification, commit and remote identity. Deterministic checkpoint validation is permitted. No P2 mutation or successor launch is permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/develop-python-test-evidence-skill-correction.md",
+    ".pi/chains/develop-python-test-evidence-skill-correction.chain.json",
+    ".pi/evidence/develop-python-test-evidence-skill-correction/completion.json",
+    ".pi/evidence/develop-python-test-evidence-skill-correction/review.md",
+    ".pi/evidence/develop-python-test-evidence-skill-correction/parent-verification.md",
+    "harness/pi/skills/develop-python-test-evidence/SKILL.md",
+    "harness/pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md",
+    "harness/pi/validation/validate_python_test_evidence.py",
+    "harness/pi/resource-manifest.json",
+    "harness/local/resource-manifest.json",
+    "harness/local/profiles/ksdft2effmass-v2.json",
+    "harness/local/validation-route.json",
+    ".pi/skills/develop-python-test-evidence/SKILL.md",
+    ".pi/skills/skill-capability-inventory.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "TEST-EVIDENCE-SKILL-1_complete_blocked_pending_final_human_acceptance; P2_unchanged; no_successor_active"
+}

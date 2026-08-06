@@ -9,8 +9,18 @@ The caller supplies the generic root, generic manifest and manifest byte identit
 The local manifest has layer `local`, declares `extends_manifest_id = pih.generic.resources`, and uses `extend_only` composition. It introduces only:
 
 - `ksdft2effmass.extension.evidence-documentation.v1`;
-- `ksdft2effmass.extension.ownership-compatibility.v1`; and
-- `ksdft2effmass.profile.v2`.
+- `ksdft2effmass.extension.ownership-compatibility.v1`;
+- `ksdft2effmass.profile.v2`;
+- `ksdft2effmass.validation.current-local-replay.v1`; and
+- `ksdft2effmass.profile.validation-route.v1`.
+
+The maintained route selects `local` and retains `legacy` as rollback. The
+current local replay runs the current H3 manifest/resource validator and the
+current seven-skill capability validator; it does not consume immutable H4
+checksum inventories. The route wrapper validates a closed structured result
+and fails closed on a missing script, malformed output, missing/duplicate check,
+nonzero exit, or non-PASS check. Historical H4 replay and catalogs remain
+unchanged and are used only by the retained historical/rollback mechanism.
 
 The H4 identity mapping is `document-research-python` to `document-python-research-software`, `pih.skill.document-research-python.v1` to `pih.skill.document-python-research-software.v1`, `pih.manifest.skill-descriptor.document-research-python.v1` to `pih.manifest.skill-descriptor.document-python-research-software.v1`, and `ksdft2effmass.profile.v1` to `ksdft2effmass.profile.v2`. The renamed skill retains behavior version `1`; no compatibility alias is maintained.
 

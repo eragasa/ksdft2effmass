@@ -7,11 +7,12 @@
     {
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "ed5fa8f982c3228df668aed0ee4735af114e71eec3b70171571944226df6c090",
+        "digest": "50bab3e45bc81de461a8ddd08cdd3a0492fb27df1dc2b7e94995b0c4e0f00eb7",
         "schema_version": 1
       },
       "dependency_ids": [
-        "pih.reference.test-evidence-documentation.v1"
+        "pih.reference.test-evidence-conventions.v1",
+        "pih.skill.develop-python-test-evidence.v1"
       ],
       "format_version": 1,
       "path": "extensions/evidence-documentation.md",
@@ -37,7 +38,7 @@
     {
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "b45555a1c9be22f0236efd9531120c9b91d5d8a2afc28f791fdc708332cee1eb",
+        "digest": "4bf43dce381cb13b77f3e88d706d63437fbb979ce7bba91de7682f31bed3adfd",
         "schema_version": 1
       },
       "dependency_ids": [
@@ -58,12 +59,28 @@
         "schema_version": 1
       },
       "dependency_ids": [
-        "ksdft2effmass.profile.v2"
+        "ksdft2effmass.profile.v2",
+        "ksdft2effmass.validation.current-local-replay.v1"
       ],
       "format_version": 1,
       "path": "validation-route.json",
       "resource_id": "ksdft2effmass.profile.validation-route.v1",
       "resource_kind": "profile",
+      "schema_version": 1
+    },
+    {
+      "content_identity": {
+        "algorithm": "sha256",
+        "digest": "a80074d049159b06255a6af178b5a8cf2815834e0eecd6fc26d7042a2a33bab5",
+        "schema_version": 1
+      },
+      "dependency_ids": [
+        "ksdft2effmass.profile.v2"
+      ],
+      "format_version": 1,
+      "path": "validation/replay_current_validators.py",
+      "resource_id": "ksdft2effmass.validation.current-local-replay.v1",
+      "resource_kind": "script",
       "schema_version": 1
     }
   ],

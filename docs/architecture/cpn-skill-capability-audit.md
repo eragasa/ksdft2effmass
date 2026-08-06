@@ -49,8 +49,8 @@ policy, create a new attempt identity, and retain previous failures and findings
 ## Actual repository inventory
 
 The maintained source of truth for the live skill inventory is
-`.pi/skills/skill-capability-inventory.json`, checked against the six canonical
-filesystem roots. Task, checkpoint, and chain records are authoritative for
+`.pi/skills/skill-capability-inventory.json`, checked against the seven canonical
+filesystem skills. Task, checkpoint, and chain records are authoritative for
 execution state, but are not skill-inventory inputs; retaining mutable snapshots
 of them in the capability inventory would make that inventory stale.
 
@@ -58,7 +58,8 @@ of them in the capability inventory would make that inventory stale.
 |---|---|---|---|
 | `design-data-action-objects` | `.pi/skills/design-data-action-objects/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project design and implementation agents |
 | `develop-operator-records` | `.pi/skills/develop-operator-records/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project operator agents and closed operator workflows |
-| `document-python-research-software` | `.pi/skills/document-python-research-software/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | implementation, test, documentation, and integration-review agents |
+| `develop-python-test-evidence` | `.pi/skills/develop-python-test-evidence/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | test writers and integration/evidence reviewers |
+| `document-python-research-software` | `.pi/skills/document-python-research-software/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | documentation and integration-review agents |
 | `graphify` | `.agents/skills/graphify/SKILL.md` | `ADVISORY_REVIEW_ONLY` | explicit Graphify use and optional `recommend-next-task` support |
 | `recommend-next-task` | `.pi/skills/recommend-next-task/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent planning transitions |
 | `resolve-human-checkpoint` | `.agents/skills/resolve-human-checkpoint/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent checkpoint routing and `recommend-next-task` handoff |
@@ -72,7 +73,7 @@ commands and scripts are tool capabilities, not skills.
 
 ### Why some skills remain `COMPOSABLE_AFTER_HARDENING`
 
-The architecture, operator, and documentation skills now define invocation
+The architecture, operator, test-evidence, and documentation skills now define invocation
 profiles, immutable inputs, result fields, mutation boundaries, structured
 failures, retry behavior, idempotency, deterministic-command authority, and stop
 conditions. They still need a future harness to enforce correlation and expected
@@ -157,12 +158,12 @@ deterministic tool result. They do not independently satisfy final acceptance.
 |---|---|---|
 | `ArchitectureContractReviewBlock` | `design-data-action-objects` + architecture agent | advisory findings |
 | `SourceDocumentationReviewBlock` | `document-python-research-software` + documentation/integration agent | advisory findings |
-| `TestDocumentationReviewBlock` | `develop-operator-records` + test/integration agent | advisory findings |
-| `VVUQClassificationReviewBlock` | operator skill + test/integration agent | advisory evidence classification |
+| `TestDocumentationReviewBlock` | `develop-python-test-evidence` + test/integration agent | advisory findings |
+| `VVUQClassificationReviewBlock` | `develop-python-test-evidence` + test/integration agent | advisory evidence classification |
 | `PublicApiInventoryReviewBlock` | operator skill + deterministic `__all__`/test inventory | mixed review/tool evidence |
 | `StaticDependencyDirectionReviewBlock` | focused dependency-direction pytest + architecture/integration review | deterministic topology result plus findings |
 | `SchemaFixtureReviewBlock` | focused schema/fixture pytest + operator review | deterministic software evidence plus findings |
-| `NumericalEvidenceReviewBlock` | marked numerical pytest + VVUQ review | bounded numerical verification plus findings |
+| `NumericalEvidenceReviewBlock` | marked numerical pytest + `develop-python-test-evidence` semantic review | bounded numerical verification plus findings |
 | `IntegrationReviewBlock` | project integration reviewer applying audited skills | advisory parent input |
 | `StalePathReviewBlock` | deterministic inventory/search + integration review; optional Graphify | software/control-plane evidence plus findings |
 | `CheckpointReviewBlock` | checkpoint skill + checkpoint validator | human decision record plus deterministic schema result |

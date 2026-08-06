@@ -34,8 +34,10 @@ PUBLIC_RECORDS = (
 )
 RESOURCE_KINDS = {"skill", "reference", "schema", "template", "profile",
                   "manifest", "script", "documentation"}
-CANONICAL_SKILL_ID = "document-python-research-software"
-CANONICAL_SKILL_RESOURCE_ID = "pih.skill.document-python-research-software.v1"
+CANONICAL_SKILLS = {
+    "develop-python-test-evidence": "pih.skill.develop-python-test-evidence.v1",
+    "document-python-research-software": "pih.skill.document-python-research-software.v1",
+}
 REQUIRED_RESOLUTION_CASES = {
     "dependency-cycle", "duplicate-resource-id", "duplicate-resource-path",
     "generic-to-local-dependency", "incompatible-format-version",
@@ -356,8 +358,8 @@ def manifest_gate() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
                         if family.exists() for p in family.rglob("*") if p.is_file()}
         if layer == "local":
             actual_owned = {p.relative_to(root).as_posix() for family in
-                            (root / "profiles", root / "extensions") if family.exists()
-                            for p in family.rglob("*") if p.is_file()}
+                            (root / "profiles", root / "extensions", root / "validation") if family.exists()
+                            for p in family.rglob("*") if p.is_file() and "__pycache__" not in p.parts}
             if (root / "validation-route.json").is_file():
                 actual_owned.add("validation-route.json")
         R.check(actual_owned == declared_paths, f"manifest.{layer}-declared-coverage",
@@ -422,6 +424,8 @@ def validation_route_gate(local: dict[str, Any]) -> None:
                         if str(item.get("path", "")).startswith("profiles/")]
     project_profile_id = (project_profiles[0].get("resource_id")
                           if len(project_profiles) == 1 else None)
+    current_replay_ids = [item.get("resource_id") for item in local.get("resources", [])
+                          if item.get("path") == "validation/replay_current_validators.py"]
     R.check(
         set(route) == {"rollback_route", "route", "schema_version"}
         and route.get("schema_version") == 1
@@ -434,41 +438,51 @@ def validation_route_gate(local: dict[str, Any]) -> None:
         len(entries) == 1
         and entry.get("resource_kind") == "profile"
         and entry.get("format_version") == 1
-        and entry.get("dependency_ids") == [project_profile_id],
+        and len(current_replay_ids) == 1
+        and entry.get("dependency_ids") == sorted([project_profile_id, current_replay_ids[0]]),
         "route.manifest-identity",
         "validation route resource identity or dependency is invalid",
     )
 
 
 def skill_gate(generic: dict[str, Any], profile: dict[str, Any]) -> None:
-    descriptor = load_json(PI / "skills/document-python-research-software/descriptor.json") or {}
     resources = {x["resource_id"]: x for x in generic.get("resources", [])}
-    R.check(descriptor.get("skill_id") == CANONICAL_SKILL_ID and
-            descriptor.get("entry_resource_id") == CANONICAL_SKILL_RESOURCE_ID and
-            descriptor.get("behavior_version") == 1,
-            "skill.canonical-identity",
-            "descriptor must use the corrected skill identity at unchanged behavior version 1")
+    supported = {tuple(x) for x in profile.get("supported_skill_behaviors", [])}
+    for skill_id, resource_id in CANONICAL_SKILLS.items():
+        descriptor = load_json(PI / f"skills/{skill_id}/descriptor.json") or {}
+        R.check(descriptor.get("skill_id") == skill_id and
+                descriptor.get("entry_resource_id") == resource_id and
+                descriptor.get("behavior_version") == 1,
+                "skill.canonical-identity", f"invalid canonical descriptor for {skill_id}")
+        entry = resources.get(resource_id)
+        required = descriptor.get("required_resource_ids", [])
+        R.check(entry is not None and entry.get("resource_kind") == "skill", "skill.entry", f"{skill_id}: entry is missing or not skill")
+        R.check(strictly_sorted(required) and resource_id in required,
+                "skill.required-order", f"{skill_id}: required closure must be sorted and contain entry")
+        closure: set[str] = set(); stack = [resource_id]
+        while stack:
+            rid = stack.pop()
+            if rid in closure or rid not in resources: continue
+            closure.add(rid); stack.extend(resources[rid].get("dependency_ids", []))
+        R.check(set(required) == closure, "skill.closure", f"{skill_id}: declared={sorted(required)}, actual={sorted(closure)}")
+        R.check((skill_id, descriptor.get("behavior_version")) in supported,
+                "skill.behavior", f"profile does not support {skill_id} behavior")
+        R.check(descriptor.get("authorization_policy_id") in set(profile.get("policy_reference_ids", [])) and
+                descriptor.get("retry_policy") == "explicit_authorization_only" and
+                descriptor.get("termination_policy") == "stop_after_result",
+                "skill.policy", f"{skill_id}: authorization/retry/termination policy is incompatible")
     R.check(not (PI / "skills/document-research-python").exists(),
             "skill.no-stale-alias", "old generic skill directory still exists")
-    entry = resources.get(descriptor.get("entry_resource_id"))
-    required = descriptor.get("required_resource_ids", [])
-    R.check(entry is not None and entry.get("resource_kind") == "skill", "skill.entry", "entry is missing or not skill")
-    R.check(strictly_sorted(required) and descriptor.get("entry_resource_id") in required,
-            "skill.required-order", "required closure must be sorted and contain entry")
-    closure: set[str] = set()
-    stack = [descriptor.get("entry_resource_id")]
-    while stack:
-        rid = stack.pop()
-        if rid in closure or rid not in resources: continue
-        closure.add(rid); stack.extend(resources[rid].get("dependency_ids", []))
-    R.check(set(required) == closure, "skill.closure", f"declared={sorted(required)}, actual={sorted(closure)}")
-    supported = {tuple(x) for x in profile.get("supported_skill_behaviors", [])}
-    R.check((descriptor.get("skill_id"), descriptor.get("behavior_version")) in supported,
-            "skill.behavior", "profile does not support descriptor behavior")
-    R.check(descriptor.get("authorization_policy_id") in set(profile.get("policy_reference_ids", [])) and
-            descriptor.get("retry_policy") == "explicit_authorization_only" and
-            descriptor.get("termination_policy") == "stop_after_result",
-            "skill.policy", "authorization/retry/termination policy is incompatible")
+    R.check(not (PI / "skills/document-python-research-software/references/test-evidence-documentation.md").exists(),
+            "skill.no-superseded-test-reference", "superseded test-evidence reference still exists")
+    conventions = (PI / "skills/develop-python-test-evidence/references/test-evidence-conventions.md").read_text(encoding="utf-8")
+    required_headings = ("Facet and represented meaning", "Intrinsic and cross-object scope", "VVUQ and scientific exclusions")
+    R.check(all(heading in conventions for heading in required_headings),
+            "skill.current-test-headings", "new test-evidence reference lacks maintained headings")
+    R.check("superseded and prohibited" in conventions and
+            "Evidence class and represented meaning" in conventions and
+            "Owned contract, oracle, and scope" in conventions,
+            "skill.superseded-heading-policy", "new reference does not expressly prohibit both superseded headings")
 
 
 def classify_manifest_case(case: dict[str, Any],
@@ -681,7 +695,13 @@ def evidence_oracle_gate(profile: dict[str, Any]) -> None:
 def leakage_gate(profile: dict[str, Any], local: dict[str, Any]) -> None:
     """Require the entire generic tree, including fixtures and this source, to be portable."""
     local_identity = str(profile.get("profile_id", "")).split(".", 1)[0]
-    local_markers = {str(value) for value in profile.get("pytest_markers", [])}
+    generic_evidence_classes = {
+        "software_verification", "numerical_verification",
+        "scientific_validation", "uncertainty_quantification",
+    }
+    # These spellings are now generic structured evidence-class values. Only
+    # additional local marker vocabulary is project leakage.
+    local_markers = {str(value) for value in profile.get("pytest_markers", [])} - generic_evidence_classes
     local_prefixes = {str(value[0]) for value in profile.get("evidence_namespace_rules", [])}
     local_roots = {str(value[0].get("path")) for value in profile.get("evidence_scope_rules", [])}
     local_ids = {str(item.get("resource_id")) for item in local.get("resources", [])}

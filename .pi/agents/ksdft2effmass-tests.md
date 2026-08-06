@@ -8,7 +8,7 @@ tools: read, bash, edit, write
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: false
-skills: design-data-action-objects, develop-operator-records, document-python-research-software
+skills: design-data-action-objects, develop-operator-records, develop-python-test-evidence
 skillPath: ../skills
 acceptanceRole: writer
 ---

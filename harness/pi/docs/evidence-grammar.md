@@ -9,7 +9,7 @@ The generic maintained-test-evidence grammar has exactly two primary ownership k
 
 A helper owns no evidence identifier or independent pass claim. Protected historical evidence remains inventoried and unchanged until a separately authorized migration. Neither helper nor protected-historical status is a third primary ownership kind.
 
-Cross-object behavior belongs to the action or workflow that owns the operation. Technical integration belongs to an artifact rather than an invented class. The full reusable headings, fields, naming, parameterization, exact-representation, and independent-oracle procedure is owned by `pih.reference.test-evidence-documentation.v1`; this page summarizes identity and consumption boundaries rather than duplicating that procedure.
+Cross-object behavior belongs to the action or workflow that owns the operation. Technical integration belongs to an artifact rather than an invented class. Newly migrated modules use `Facet and represented meaning`, `Intrinsic and cross-object scope`, and `VVUQ and scientific exclusions`; the former evidence-class/owned-contract headings are superseded. The full reusable headings, fields, naming, cohesion, helpers, parameterization, exact-representation, schema/runtime layering, workflow, invocation profiles, and independent-oracle procedure is owned by `pih.reference.test-evidence-conventions.v1`; this page summarizes identity and consumption boundaries rather than duplicating that procedure.
 
 ## Artifact relation metadata
 

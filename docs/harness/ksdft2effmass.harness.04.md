@@ -36,21 +36,24 @@ Only required files should be included. A skill should not accumulate redundant 
 
 A reusable skill must state when it applies in its trigger description. It must not depend on an agent already knowing project-specific filenames or task IDs.
 
-## Evidence-documentation skill source
+## Documentation and test-evidence skill sources
 
-The canonical live `document-python-research-software` skill and its directly
-referenced test-evidence grammar are the sole maintained source. The former
-`document-research-python` name is retained only in H3 historical identity and
-H4 rename traceability; it is not a live alias or competing grammar. The generic
-capability supports:
+The canonical `document-python-research-software` skill owns public source/API,
+serialization-contract, concept, and Sphinx documentation. The separate
+`develop-python-test-evidence` skill and its complete conventions reference own
+creation, restructuring, migration, and review of maintained Python test
+evidence. Canonical and live copies of the new skill/reference are byte-identical;
+the project extension only supplies local policy. The former
+`document-research-python` name remains historical rename traceability, not a
+live alias. The test-evidence capability supports:
 
 - software-verification classification;
 - numerical-verification classification;
 - scientific-validation requirements;
 - UQ boundaries;
 - test ownership;
-- module naming;
-- test-function naming;
+- maintained `Facet and represented meaning`, `Intrinsic and cross-object scope`, and `VVUQ and scientific exclusions` module headings;
+- semantic surface, cohesion, helper, and parameter-case naming;
 - evidence traceability;
 - independent-oracle requirements;
 - structured test documentation.
@@ -91,6 +94,12 @@ Resource validation should check:
 - successful use with an explicit project profile.
 
 Semantic review must still determine whether a skill's oracle and VVUQ guidance are correct.
+
+The maintained `local` validation route uses the current local replay resource,
+which validates the current generic/local manifests and seven live skills. It
+does not reinterpret or mutate immutable H4 checksum catalogs. The `legacy`
+rollback name remains retained; malformed current replay output, missing checks,
+or any nonzero/non-PASS check fails the selected local route closed.
 
 ## Navigation
 

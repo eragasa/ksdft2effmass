@@ -68,11 +68,14 @@ following headings exactly once and in this order:
 
 .. code-block:: text
 
-   Evidence class and represented meaning
-   Owned contract, oracle, and scope
+   Facet and represented meaning
+   Intrinsic and cross-object scope
    VVUQ and scientific exclusions
 
-The first heading names the evidence class and, where applicable, distinguishes
+``Evidence class and represented meaning`` and
+``Owned contract, oracle, and scope`` are superseded headings and are prohibited
+for newly migrated evidence. The first maintained heading names the evidence
+class and, where applicable, distinguishes
 the physical model, mathematical object, finite or numerical representation,
 and software surface.  The second names the primary system under test (SUT),
 the owned contract, the oracle source, and the included unit and scale regime.
@@ -154,7 +157,7 @@ assertions, fixtures, parameterization, and meaning, and update manifests,
 replay paths, inventories, checksums, documentation, and one-to-one pytest node
 maps together.  The exact grammar, approved ``workflow_cpn`` names, and review
 rules are maintained in
-``.pi/skills/document-python-research-software/references/test-evidence-documentation.md``.
+``.pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md``.
 
 Parameterization, representation, and independent oracles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "TEST-EVIDENCE-SKILL-1",
+  "status": "PASS_PENDING_HUMAN_ACCEPTANCE",
+  "canonical_skill": {
+    "name": "develop-python-test-evidence",
+    "skill_path": "harness/pi/skills/develop-python-test-evidence/SKILL.md",
+    "reference_path": "harness/pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md",
+    "live_path": ".pi/skills/develop-python-test-evidence/SKILL.md"
+  },
+  "retired_current_resources": [
+    "harness/pi/skills/document-python-research-software/references/test-evidence-documentation.md",
+    ".pi/skills/document-python-research-software/references/test-evidence-documentation.md"
+  ],
+  "validator": {
+    "path": "harness/pi/validation/validate_python_test_evidence.py",
+    "strict_scope": "explicitly supplied new or migrated test paths only",
+    "claim_boundary": "structural only; excludes semantic surface/cohesion, oracle independence, mathematics, tolerance adequacy, scientific validity, UQ, and human acceptance"
+  },
+  "forward_validation": {
+    "paths": 8,
+    "software_verification_modules": 7,
+    "numerical_verification_modules": 1,
+    "findings": 88,
+    "mutation": "none"
+  },
+  "validation": {
+    "controlled_cases": 23,
+    "h3_resource_gates": 58,
+    "h3_resource_defects": 0,
+    "live_skills": 7,
+    "selected_route": "local",
+    "selected_route_status": "PASS",
+    "canonical_live_bytes": "identical",
+    "ruff": "PASS",
+    "sphinx_sources": 45,
+    "markdown_link_files": 11,
+    "dependencies_and_locks": "unchanged",
+    "p2_protected_surfaces": "unchanged",
+    "unrelated_work": "preserved"
+  },
+  "review": {
+    "result": "FAIL",
+    "disposition": "all three High findings corrected by the sole writer and deterministically revalidated; no second review cycle"
+  },
+  "legacy_route_limitation": "retained legacy requires separate historical resource restoration; selected local passes",
+  "successor_activation": "none"
+}

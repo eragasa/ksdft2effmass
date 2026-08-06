@@ -9,7 +9,7 @@ Use this skill only for represented finite operators and their immediate metadat
 
 ## Load first
 
-Read `references/operator-record-architecture.md` before designing, implementing, testing, or reviewing this area. If split references for serialization, Hermiticity, or comparison exist, load every operator-record reference before acting. For maintained test-evidence documentation or review, also load the shared `../document-python-research-software/references/test-evidence-documentation.md`; that reference owns the repository-wide grammar while this skill owns operator-specific scientific and architectural constraints.
+Read `references/operator-record-architecture.md` before designing, implementing, testing, or reviewing this area. If split references for serialization, Hermiticity, or comparison exist, load every operator-record reference before acting. For maintained test-evidence documentation or review, also load the shared `../develop-python-test-evidence/references/test-evidence-conventions.md`; that reference owns the repository-wide grammar while this skill owns operator-specific scientific and architectural constraints.
 
 ## Target package
 

@@ -3,7 +3,7 @@
 Extension ID: `ksdft2effmass.extension.evidence-documentation.v1`
 
 This project-local extension applies the generic
-`pih.reference.test-evidence-documentation.v1` grammar without copying or
+`pih.reference.test-evidence-conventions.v1` grammar without copying or
 replacing it. The generic primary ownership kinds remain exactly
 `class_owned` and `artifact_owned`; this extension adds project configuration,
 not a third ownership kind.

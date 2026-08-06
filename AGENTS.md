@@ -355,7 +355,7 @@ class per file; or class-owned and artifact-owned classification.
 
 Those conventions apply when an accepted task explicitly declares tests to be
 maintained verification evidence. Their detailed grammar is owned by
-`.pi/skills/document-python-research-software/references/test-evidence-documentation.md`;
+`.pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md`;
 subsystem-specific placement and evidence rules belong in the applicable skill,
 task, specification, or `docs/verification/` page.
 
@@ -402,7 +402,7 @@ owners:
 
 - checkpoint resolution: `.agents/skills/resolve-human-checkpoint/SKILL.md`;
 - test-evidence grammar:
-  `.pi/skills/document-python-research-software/references/test-evidence-documentation.md`;
+  `.pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md`;
 - DataObject/ActionObject design:
   `.pi/skills/design-data-action-objects/SKILL.md`;
 - task-ownership schemas and validation: `.pi/task-ownership/README.md`;

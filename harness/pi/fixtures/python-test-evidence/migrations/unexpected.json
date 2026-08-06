@@ -1,0 +1,1 @@
+{"expected_new_node_ids":["new.py::test_a","new.py::test_b"],"expected_old_node_ids":["old.py::test_a","old.py::test_b"],"extra":true,"mappings":[{"new_node_id":"new.py::test_a","old_node_id":"old.py::test_a"},{"new_node_id":"new.py::test_b","old_node_id":"old.py::test_b"}],"schema_version":1}
