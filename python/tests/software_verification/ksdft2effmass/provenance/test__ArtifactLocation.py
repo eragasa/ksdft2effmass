@@ -149,28 +149,6 @@ def test_constructor__branch_exclusivity__rejects_mixed_fields(
         SUT("a", kind, root_id, path, descriptor)
 
 
-def test_field__location_kind_vocabulary__is_exact() -> None:
-    """Evidence ID
-    SV-PROV-011
-    Requirement
-    Location enum values are exactly the closed version-1 vocabulary.
-    Method
-    Enumerate the public enum values in declaration order.
-    Oracle
-    The version-1 closed vocabulary contains root_relative then external_descriptor.
-    Acceptance
-    Enum values match the expected tuple exactly.
-    Interpretation
-    Failure indicates public enum vocabulary or ordering drift.
-    Limitations
-    No schema or cross-language runtime is exercised here.
-    """
-    assert tuple(member.value for member in ArtifactLocationKind) == (
-        "root_relative",
-        "external_descriptor",
-    )
-
-
 def test_field__frozen_assignment__rejects_reassignment() -> None:
     """Evidence ID
     SV-PROV-109

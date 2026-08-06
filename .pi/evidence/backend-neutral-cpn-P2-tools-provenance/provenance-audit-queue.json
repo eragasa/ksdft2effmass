@@ -4,8 +4,8 @@
   "queue_id": "P2-PROVENANCE-AUDIT-1",
   "starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
   "execution_policy": "strictly_ordered_single_mutable_item",
-  "active_item": null,
-  "next_item": "P2-A04",
+  "active_item": "P2-A04",
+  "next_item": null,
   "items": [
     {
       "id": "P2-A00",
@@ -274,8 +274,46 @@
       "title": "records.py enum follow-up",
       "source_or_artifact_paths": ["python/src/ksdft2effmass/provenance/records.py"],
       "owned_test_paths": ["python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py", "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py", "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py"],
-      "audit_scope": "Enum follow-up only unless a directly related defect is discovered; ArtifactLocationKind and LineageKind currently lack dedicated modules.",
-      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092", "concrete_findings": [], "correction_revision": null, "exact_deterministic_commands": [], "generic_validator_result": null, "semantic_review_disposition": "Not started.", "residual_limitations": ["Record classes were previously audited; enum follow-up remains."], "final_status": "pending_read_only_audit"
+      "audit_scope": "Enum follow-up only unless a directly related defect is discovered; ArtifactLocationKind and LineageKind initially lacked dedicated modules.",
+      "audit_starting_revision": "a9c15031d65fbadacd28820a287d5a8c59421092",
+      "concrete_findings": [
+        "ArtifactLocationKind lacked a dedicated class-owned test module.",
+        "SV-PROV-011 was incorrectly owned by test__ArtifactLocation.py.",
+        "Existing evidence checked values and order but omitted exact names, StrEnum inheritance, alias absence, value and name lookup, and invalid lookup partitions."
+      ],
+      "partial_audits": [
+        {
+          "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+          "human_audit_status": "failed",
+          "correction_status": "bounded_correction_implemented",
+          "deterministic_validation": "passed",
+          "historical_ids_preserved": ["SV-PROV-011"],
+          "new_ids": ["SV-PROV-363", "SV-PROV-364", "SV-PROV-365", "SV-PROV-366", "SV-PROV-367"],
+          "ownership_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-test-evidence-ownership.json",
+          "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-test-evidence-node-migration.json",
+          "implementation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-partial-correction.md"
+        }
+      ],
+      "remaining_human_audit_targets": [
+        "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+        "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py"
+      ],
+      "correction_revision": null,
+      "exact_deterministic_commands": [
+        "python harness/pi/validation/validate_python_test_evidence.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py --ownership .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-test-evidence-ownership.json --migration-map .pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a04-artifact-location-kind-test-evidence-node-migration.json",
+        "cd python && uv run pytest --collect-only -q tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+        "cd python && COVERAGE_FILE=/tmp/.coverage.p2a04-kind uv run pytest -q --cov=ksdft2effmass.provenance.records --cov-branch --cov-report=term-missing --cov-report=json:/tmp/p2a04-kind-coverage.json tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+        "cd python && uv run ruff format --check tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py && uv run ruff check tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+        "cd python && uv run mypy src/ksdft2effmass/provenance/records.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_python_public_api.py",
+        "cd python && uv run pytest -q tests/software_verification/ksdft2effmass/integration/test__provenance_v1_python_json_contract.py::test_artifact__schema_enum_values__agree_with_python_enums",
+        "git diff --check"
+      ],
+      "generic_validator_result": {"status": "PASS", "findings": 0, "modules": 2, "class_owned_modules": 2, "artifact_owned_modules": 0, "test_functions": 19, "unique_evidence_owners": 19, "helper_functions": 0, "static_collected_parameter_cases": 38},
+      "semantic_review_disposition": "ArtifactLocationKind human-audit correction passed deterministic validation; no general independent review was launched.",
+      "residual_limitations": ["ManifestState and LineageKind remain unaudited within P2-A04; P2-A04 remains open."],
+      "final_status": "pending_read_only_audit"
     },
     {
       "id": "P2-A05",
