@@ -1,0 +1,61 @@
+{
+  "checkpoint_id": "P2-HC04",
+  "task_id": "P2",
+  "episode_id": "backend-neutral-cpn-P2-tools-provenance",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-06T05:36:41Z",
+  "question": "Should P2 receive renewed final human acceptance after the durable P2-ACTIONS-EVIDENCE-1 correction removed private actions.py validation helpers, localized intrinsic validation, completed public documentation, migrated seven class-owned action/result/enum evidence modules, resolved the sole targeted review through one consolidated correction pass, and preserved public APIs, schemas, fixtures, serialization, dependencies, locks, and successor state?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept corrected P2 as PASS and close P2 only.",
+      "consequence": "Record human acceptance of P2 including the durable actions.py and owned test-evidence correction, then close P2 after deterministic closeout validation. P3 becomes prerequisite-eligible but is not activated. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    },
+    {
+      "id": "B",
+      "summary": "Request another explicitly bounded disposition.",
+      "consequence": "Keep P2 open. The authorized source/test/documentation writers, targeted review, and consolidated correction pass are consumed; further mutation requires new explicit scope and process authorization. No successor or execution becomes active."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer P2.",
+      "consequence": "Keep P2 open and blocked. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    }
+  ],
+  "recommendation": "Option A with the recorded limitations. The durable correction commit is 4bd5a607dda238475322e32207897512a73e20a0. actions.py contains seven unchanged public classes and zero private module definitions; intrinsic validation is directly owned. Seven class-owned software-verification modules contain 42 functions, 42 evidence owners, two helpers, and 103 collected cases. Historical IDs SV-PROV-046 through SV-PROV-055 and SV-PROV-073 retain their primary meanings through a semantic 11-to-11 map. Structural validation, 103 owned cases, 372 focused action/provenance cases, 507 complete focused P2 cases, 100% diagnostic actions.py branch coverage, Ruff, mypy, Sphinx, ownership/completion/checkpoint/H3/capability/local-route gates, protected hashes, and diff checks pass. The sole reviewer returned findings; one consolidated correction pass resolved them and was deterministically revalidated. Software verification does not establish file observation, provenance truth, external-execution validity, numerical verification, scientific validation, UQ, physical correctness, release readiness, or human acceptance.",
+  "blocked_scope": "P2 closure and human acceptance; any further P2 mutation; H5 or P3-P11 activation; scientific or external-tool execution; publication; release.",
+  "safe_scope": "Read-only inspection of the durable actions correction, seven migrated tests, ownership/node inventories, documentation, review disposition, deterministic validation, protected nonmutation evidence, task/chain/checkpoint state, commits, and remote identity. Deterministic checkpoint validation is permitted. No mutation, successor launch, or protected execution is permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/checkpoints/P2-HC03-final-acceptance.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-correction-activation.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-node-migration.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-inventory.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-test-evidence-implementation.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-correction-review.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-correction-completion.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/actions-correction-parent-verification.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_actions_correction.py",
+    "python/src/ksdft2effmass/provenance/actions.py",
+    "docs/api/provenance.md",
+    "docs/concepts/provenance-and-artifacts.md",
+    "docs/verification/provenance-contract.rst",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
+    "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "P2_actions_correction_durable_blocked_pending_P2-HC04; no_successor_active"
+}

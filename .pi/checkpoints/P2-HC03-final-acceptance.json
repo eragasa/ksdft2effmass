@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC03",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "pending",
+  "status": "superseded",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-06T04:22:17Z",
   "question": "Should P2 receive renewed final human acceptance after the P2-HC02 Option-B test-evidence-only migration applied the accepted develop-python-test-evidence convention to seven class-owned records modules and one artifact-owned fixture/runtime module, preserved historical evidence identity, completed one targeted review and one consolidated correction pass, and passed current-boundary deterministic validation without changing production, schemas, fixtures, dependencies, locks, or scientific meaning?",
@@ -53,5 +53,5 @@
   "resolved_at": null,
   "authorized_scope": null,
   "record_paths": [],
-  "resumption_status": "P2_test_evidence_migration_complete_blocked_pending_P2-HC03; no_successor_active"
+  "resumption_status": "superseded_without_resolution_after_durable_P2-ACTIONS-EVIDENCE-1_correction_at_4bd5a607dda238475322e32207897512a73e20a0; renewed_final_acceptance_at_P2-HC04; no_successor_active"
 }

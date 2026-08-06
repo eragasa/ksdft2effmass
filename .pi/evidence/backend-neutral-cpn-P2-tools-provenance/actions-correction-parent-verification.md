@@ -1,8 +1,8 @@
 # P2-ACTIONS-EVIDENCE-1 parent verification
 
-Status: **PASS_READY_FOR_DURABLE_CORRECTION_COMMIT**
+Status: **PASS_DURABLE_PENDING_P2_HC04_HUMAN_ACCEPTANCE**
 
-Starting revision: `28ae9a68956428b2760c00c0271f925a29688493`. The ownership/activation boundary is `5a7b798c43a020fe0bba4792a30a01254c5bd150`.
+Starting revision: `28ae9a68956428b2760c00c0271f925a29688493`. The ownership/activation boundary is `5a7b798c43a020fe0bba4792a30a01254c5bd150`; the durable correction commit is `4bd5a607dda238475322e32207897512a73e20a0`.
 
 ## Source and public contract
 

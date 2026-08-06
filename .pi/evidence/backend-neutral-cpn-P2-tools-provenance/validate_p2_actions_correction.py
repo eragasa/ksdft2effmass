@@ -19,6 +19,7 @@ MIGRATION = EVIDENCE / "actions-test-evidence-node-migration.json"
 INVENTORY = EVIDENCE / "actions-test-evidence-inventory.json"
 IMPLEMENTATION = EVIDENCE / "actions-test-evidence-implementation.md"
 CHECKPOINT = ROOT / ".pi/checkpoints/P2-HC03-final-acceptance.json"
+RENEWED_CHECKPOINT = ROOT / ".pi/checkpoints/P2-HC04-final-acceptance.json"
 CHAIN = ROOT / ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
 EXPECTED_CLASSES = (
     "ArtifactIdentityVerificationStatus",
@@ -111,6 +112,9 @@ def main() -> int:
     migration = load_object(MIGRATION, issues)
     inventory = load_object(INVENTORY, issues)
     checkpoint = load_object(CHECKPOINT, issues)
+    renewed_checkpoint = (
+        load_object(RENEWED_CHECKPOINT, issues) if RENEWED_CHECKPOINT.exists() else {}
+    )
     chain = load_object(CHAIN, issues)
 
     starting_revision = activation.get("starting_revision")
@@ -252,11 +256,21 @@ def main() -> int:
     if not IMPLEMENTATION.is_file():
         issues.append("missing actions test-evidence implementation record")
 
-    if (
+    if activation.get("status") == "durable_complete_pending_P2-HC04_human_acceptance":
+        if checkpoint.get("status") != "superseded":
+            issues.append(
+                "P2-HC03 must be superseded without resolution after durability"
+            )
+        if (
+            renewed_checkpoint.get("status") != "pending"
+            or renewed_checkpoint.get("checkpoint_id") != "P2-HC04"
+        ):
+            issues.append("P2-HC04 must be the renewed pending checkpoint")
+    elif (
         checkpoint.get("status") != "pending"
         or checkpoint.get("checkpoint_id") != "P2-HC03"
     ):
-        issues.append("P2-HC03 must remain the pending checkpoint during correction")
+        issues.append("P2-HC03 must remain pending before the correction is durable")
     task_states = {
         item.get("id"): item.get("status")
         for item in chain.get("task_sequence", [])

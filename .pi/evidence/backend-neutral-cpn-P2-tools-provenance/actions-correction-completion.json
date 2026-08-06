@@ -2,9 +2,10 @@
   "schema_version": 1,
   "task_id": "P2",
   "correction_id": "P2-ACTIONS-EVIDENCE-1",
-  "status": "PASS_READY_FOR_DURABLE_CORRECTION_COMMIT",
+  "status": "PASS_DURABLE_PENDING_P2_HC04_HUMAN_ACCEPTANCE",
   "starting_revision": "28ae9a68956428b2760c00c0271f925a29688493",
   "preflight_commit": "5a7b798c43a020fe0bba4792a30a01254c5bd150",
+  "correction_commit": "4bd5a607dda238475322e32207897512a73e20a0",
   "source": {
     "path": "python/src/ksdft2effmass/provenance/actions.py",
     "starting_sha256": "66086f4cc37e5990a2cedcd27cbea2472c1b441c25a64edc1c9b88d208268652",
@@ -71,5 +72,5 @@
     "applicable_findings": "all corrected and deterministically revalidated",
     "second_review": "not performed"
   },
-  "checkpoint_transition": "P2-HC03 remains pending until this correction commit is durable; it will then be superseded without resolution by one renewed pending checkpoint"
+  "checkpoint_transition": "P2-HC03 was superseded without resolution after the durable correction; renewed final acceptance is pending at P2-HC04"
 }
