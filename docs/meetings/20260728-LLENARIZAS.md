@@ -5,10 +5,10 @@
 	- [x] kpoint convergence.
 	- [x] energy cutoff convergence.
 - [ ] Go through documents.
-- [ ] Wannier90.x
-	- [ ] https://wannier.org/  (this is the original wannier library)
-	- [ ] https://www.quantum-espresso.org/Doc/INPUT_pw2wannier90.html (dft2wannier
-	- [ ] https://www.youtube.com/watch?v=8sxAr0Rtp2k&list=PLcGOxeoscxDBYKFJAUQhkCYZx4ip8UrZz
+- [x] Wannier90.x
+	- [x] https://wannier.org/  (this is the original wannier library)
+	- [x] https://www.quantum-espresso.org/Doc/INPUT_pw2wannier90.html (dft2wannier
+	- [x] https://www.youtube.com/watch?v=8sxAr0Rtp2k&list=PLcGOxeoscxDBYKFJAUQhkCYZx4ip8UrZz
 - [ ] Familiarize yourself with the project
 	- [ ] Conference Abstract: https://github.com/eragasa/ksdft2effmass/blob/dev/docs/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md
 	- [ ] Computational Tasks: https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/ksdft2effmass.computational.00.md
