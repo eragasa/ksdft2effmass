@@ -26,9 +26,11 @@ SUT = RunManifest
 pytestmark = pytest.mark.software_verification
 
 
-def _manifest(**changes: object) -> RunManifest:
+def make_run_manifest(**changes: object) -> RunManifest:
     """Evidence ID
-    Supports SV-PROV-020 through SV-PROV-023 and SV-PROV-077; owns no identifier.
+    Owns no identifier; supports SV-PROV-020 through SV-PROV-023, SV-PROV-077,
+    SV-PROV-093 through SV-PROV-097, SV-PROV-110 through SV-PROV-112, and
+    SV-PROV-122 through SV-PROV-128.
     Requirement
     Construct explicit valid synthetic manifests without hidden raw runtime channels.
     Method
@@ -56,29 +58,25 @@ def _manifest(**changes: object) -> RunManifest:
     return SUT(**values)  # type: ignore[arg-type]
 
 
-def test_constructor__manifest_fields_and_ownership__maps_safe_immutable_state() -> (
-    None
-):
+def test_constructor__manifest_fields__maps_safe_state() -> None:
     """Evidence ID
     SV-PROV-020
     Requirement
     A manifest contains exactly safe identity, artifact, timestamp, dependency, and
-    state fields in frozen form.
+    state fields without unsafe raw runtime channels.
     Method
-    Construct a declared manifest, inspect the dataclass inventory, and attempt
-    mutation.
+    Construct a declared manifest and inspect the dataclass inventory and stored values.
     Oracle
     The corrected eight-field contract explicitly removes raw arguments and environment
     values.
     Acceptance
-    Fields match the exact inventory, tuples retain exact values, and reassignment
-    raises FrozenInstanceError.
+    Fields match the exact inventory and stored tuple/state values are exact.
     Interpretation
-    Failure indicates field leakage, mapping drift, or operational mutability.
+    Failure indicates field leakage or constructor mapping drift.
     Limitations
     Referenced artifacts and timestamps are not externally observed.
     """
-    value = _manifest()
+    value = make_run_manifest()
     assert tuple(field.name for field in fields(SUT)) == (
         "manifest_id",
         "specification_id",
@@ -91,85 +89,228 @@ def test_constructor__manifest_fields_and_ownership__maps_safe_immutable_state()
     )
     assert value.input_artifact_ids == ("input-a", "input-b")
     assert value.state is ManifestState.DECLARED
+
+
+def test_field__frozen_assignment__rejects_reassignment() -> None:
+    """Evidence ID
+    SV-PROV-110
+    Requirement
+    RunManifest is operationally immutable through ordinary field assignment.
+    Method
+    Construct a declared manifest and assign another valid ManifestState member.
+    Oracle
+    The public frozen DataObject contract requires FrozenInstanceError.
+    Acceptance
+    Reassignment raises FrozenInstanceError.
+    Interpretation
+    Failure indicates mutable durable manifest state or architecture drift.
+    Limitations
+    Hostile reflection, execution, validation, UQ, and cross-language claims are
+    excluded.
+    """
+    value = make_run_manifest()
     with pytest.raises(FrozenInstanceError):
         value.state = ManifestState.COMPLETE  # type: ignore[misc]
 
 
-def test_constructor__canonical_identifier_tuples__rejects_noncanonical_inputs() -> (
-    None
-):
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        pytest.param("input_artifact_ids", id="input_identifiers"),
+        pytest.param("output_artifact_ids", id="output_identifiers"),
+        pytest.param("dependency_manifest_ids", id="dependency_identifiers"),
+    ],
+)
+@pytest.mark.parametrize(
+    "invalid",
+    [
+        pytest.param(("b", "a"), id="unsorted_tuple"),
+        pytest.param(("a", "a"), id="duplicate_tuple"),
+    ],
+)
+def test_constructor__canonical_identifier_tuple_values__reject_noncanonical_order(
+    field_name: str, invalid: tuple[str, ...]
+) -> None:
     """Evidence ID
     SV-PROV-021
     Requirement
-    Artifact and dependency identifiers are built-in lexically sorted unique tuples.
+    Manifest identifier tuples are lexically sorted and duplicate-free.
     Method
-    Pass a list, unsorted tuple, and duplicate tuple to the public constructor.
+    Replace the named tuple with the named noncanonical tuple.
     Oracle
-    The canonical tuple contract fixes the invalid partitions independently of count.
+    Lexical ordering and set cardinality independently classify both cases.
     Acceptance
-    The list raises TypeError and noncanonical tuples raise ValueError.
+    Construction raises ValueError.
     Interpretation
-    Failure indicates mutable or nondeterministic manifest state.
+    Failure permits nondeterministic or duplicate manifest relationships.
     Limitations
-    Cross-record existence is outside intrinsic construction.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
-    for field_name in (
-        "input_artifact_ids",
-        "output_artifact_ids",
-        "dependency_manifest_ids",
-    ):
-        with pytest.raises(TypeError):
-            _manifest(**{field_name: ["a"]})
-        with pytest.raises(ValueError):
-            _manifest(**{field_name: ("b", "a")})
-        with pytest.raises(ValueError):
-            _manifest(**{field_name: ("a", "a")})
+    with pytest.raises(ValueError):
+        make_run_manifest(**{field_name: invalid})
 
 
-def test_constructor__state_timestamp_correlation__enforces_terminal_boundaries() -> (
-    None
-):
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        pytest.param("input_artifact_ids", id="input_identifiers"),
+        pytest.param("output_artifact_ids", id="output_identifiers"),
+        pytest.param("dependency_manifest_ids", id="dependency_identifiers"),
+    ],
+)
+def test_constructor__identifier_collection_semantic_types__reject_lists(
+    field_name: str,
+) -> None:
+    """Evidence ID
+    SV-PROV-122
+    Requirement
+    Manifest identifier collections require exact built-in tuples.
+    Method
+    Replace the named collection with a one-member list.
+    Oracle
+    The public exact collection-type contract classifies lists.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure permits mutable manifest collection state.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    with pytest.raises(TypeError):
+        make_run_manifest(**{field_name: ["a"]})
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        pytest.param(
+            {"state": ManifestState.DECLARED, "finished_at": "2026-08-05T12:01:00Z"},
+            id="declared_with_finish",
+        ),
+        pytest.param({"state": ManifestState.FAILED}, id="terminal_without_finish"),
+    ],
+)
+def test_constructor__lifecycle_finish_presence__enforces_state_boundary(
+    changes: dict[str, object],
+) -> None:
     """Evidence ID
     SV-PROV-022
     Requirement
-    Declared manifests omit finished_at; terminal manifests require a real nonpreceding
-    UTC-second finish.
+    Declared manifests omit finished_at and terminal manifests require it.
     Method
-    Construct one valid complete state and invalid declared, missing-terminal,
-    preceding, and malformed cases.
+    Construct the named invalid lifecycle/finish-presence combination.
     Oracle
-    The public lifecycle invariant and chronological ordering define the partition.
+    The public lifecycle table fixes presence independently of timestamp parsing.
     Acceptance
-    Valid completion succeeds and every invalid combination raises ValueError.
+    Construction raises ValueError.
     Interpretation
-    Failure indicates lifecycle or timestamp-correlation drift.
+    Failure weakens manifest lifecycle correlation.
     Limitations
-    Clock provenance and elapsed-time accuracy are excluded.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
-    assert (
-        _manifest(
-            state=ManifestState.COMPLETE,
-            finished_at="2026-08-05T12:01:00Z",
-            output_artifact_ids=("output-a",),
-        ).state
-        is ManifestState.COMPLETE
-    )
-    assert (
-        _manifest(
-            state=ManifestState.FAILED,
-            finished_at="2026-08-05T12:00:00Z",
-        ).state
-        is ManifestState.FAILED
-    )
-    for changes in (
-        {"state": ManifestState.DECLARED, "finished_at": "2026-08-05T12:01:00Z"},
-        {"state": ManifestState.FAILED},
-        {"state": ManifestState.COMPLETE, "finished_at": "2026-08-05T11:59:59Z"},
-        {"state": ManifestState.COMPLETE, "finished_at": "not-time"},
-        {"started_at": "not-time"},
-    ):
-        with pytest.raises(ValueError):
-            _manifest(**changes)
+    with pytest.raises(ValueError):
+        make_run_manifest(**changes)
+
+
+def test_constructor__timestamp_order__rejects_finish_before_start() -> None:
+    """Evidence ID
+    SV-PROV-123
+    Requirement
+    A terminal finished_at must not precede started_at.
+    Method
+    Construct a complete manifest with finish one second before start.
+    Oracle
+    Chronological ordering of the fixed UTC literals supplies the oracle.
+    Acceptance
+    Construction raises ValueError.
+    Interpretation
+    Failure admits negative represented attempt duration.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    with pytest.raises(ValueError):
+        make_run_manifest(
+            state=ManifestState.COMPLETE, finished_at="2026-08-05T11:59:59Z"
+        )
+
+
+def test_constructor__started_at_lexical_value__rejects_malformed_text() -> None:
+    """Evidence ID
+    SV-PROV-124
+    Requirement
+    started_at must match the public RFC-3339 UTC-second form.
+    Method
+    Construct with the literal not-time as started_at.
+    Oracle
+    The documented timestamp grammar excludes that literal.
+    Acceptance
+    Construction raises ValueError.
+    Interpretation
+    Failure admits malformed start timestamp text.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    with pytest.raises(ValueError):
+        make_run_manifest(started_at="not-time")
+
+
+def test_constructor__finished_at_lexical_value__rejects_malformed_text() -> None:
+    """Evidence ID
+    SV-PROV-125
+    Requirement
+    A terminal finished_at must match the RFC-3339 UTC-second form.
+    Method
+    Construct a complete manifest with not-time as its finish.
+    Oracle
+    The documented timestamp grammar excludes that literal.
+    Acceptance
+    Construction raises ValueError.
+    Interpretation
+    Failure admits malformed finish timestamp text.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    with pytest.raises(ValueError):
+        make_run_manifest(state=ManifestState.COMPLETE, finished_at="not-time")
+
+
+@pytest.mark.parametrize(
+    ("state", "finished_at"),
+    [
+        pytest.param(
+            ManifestState.COMPLETE, "2026-08-05T12:01:00Z", id="complete_terminal_state"
+        ),
+        pytest.param(
+            ManifestState.FAILED, "2026-08-05T12:00:00Z", id="failed_terminal_state"
+        ),
+    ],
+)
+def test_constructor__terminal_states__accept_valid_finish(
+    state: ManifestState, finished_at: str
+) -> None:
+    """Evidence ID
+    SV-PROV-126
+    Requirement
+    Complete and failed terminal states accept a valid nonpreceding finish.
+    Method
+    Construct the named terminal state with its fixed valid finish.
+    Oracle
+    The lifecycle table and chronological ordering classify each pair as valid.
+    Acceptance
+    Construction succeeds and stores the exact selected state.
+    Interpretation
+    Failure rejects an authorized terminal lifecycle representation.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    assert make_run_manifest(state=state, finished_at=finished_at).state is state
 
 
 def test_field__manifest_state_enum_values__match_lifecycle_vocabulary() -> None:
@@ -195,32 +336,66 @@ def test_field__manifest_state_enum_values__match_lifecycle_vocabulary() -> None
     )
 
 
-def test_constructor__calendar_timestamps__rejects_impossible_dates() -> None:
+@pytest.mark.parametrize(
+    "timestamp",
+    [
+        pytest.param("2026-02-29T12:00:00Z", id="non_leap_february_29"),
+        pytest.param("2024-02-30T12:00:00Z", id="february_30"),
+        pytest.param("2026-04-31T12:00:00Z", id="april_31"),
+    ],
+)
+def test_constructor__started_at_calendar_value__rejects_impossible_dates(
+    timestamp: str,
+) -> None:
     """Evidence ID
     SV-PROV-077
     Requirement
-    Timestamp strings denote real Gregorian calendar instants rather than only matching
-    numeric syntax.
+    started_at denotes a real Gregorian calendar instant, not only numeric syntax.
     Method
-    Attempt impossible February, day-zero, and April-31 start or finish timestamps.
+    Construct with the named impossible start timestamp.
     Oracle
-    Gregorian calendar month lengths independently classify all literals as impossible.
+    Gregorian month lengths independently classify every fixed literal as impossible.
     Acceptance
-    Every impossible start or finish raises ValueError.
+    Construction raises ValueError.
     Interpretation
-    Failure indicates regex-only timestamp admission or stale evidence.
+    Failure indicates regex-only started_at admission or stale evidence.
     Limitations
-    Leap seconds, offsets other than Z, and timezone databases are excluded.
+    Leap seconds, non-Z offsets, scientific validation, UQ, and cross-language
+    conformance are excluded.
     """
-    for timestamp in (
-        "2026-02-29T12:00:00Z",
-        "2024-02-30T12:00:00Z",
-        "2026-04-31T12:00:00Z",
-    ):
-        with pytest.raises(ValueError):
-            _manifest(started_at=timestamp)
-        with pytest.raises(ValueError):
-            _manifest(state=ManifestState.COMPLETE, finished_at=timestamp)
+    with pytest.raises(ValueError):
+        make_run_manifest(started_at=timestamp)
+
+
+@pytest.mark.parametrize(
+    "timestamp",
+    [
+        pytest.param("2026-02-29T12:00:00Z", id="non_leap_february_29"),
+        pytest.param("2024-02-30T12:00:00Z", id="february_30"),
+        pytest.param("2026-04-31T12:00:00Z", id="april_31"),
+    ],
+)
+def test_constructor__finished_at_calendar_value__rejects_impossible_dates(
+    timestamp: str,
+) -> None:
+    """Evidence ID
+    SV-PROV-139
+    Requirement
+    A terminal finished_at denotes a real Gregorian calendar instant.
+    Method
+    Construct a complete manifest with the named impossible finish timestamp.
+    Oracle
+    Gregorian month lengths independently classify every fixed literal as impossible.
+    Acceptance
+    Construction raises ValueError.
+    Interpretation
+    Failure indicates regex-only finished_at admission or stale evidence.
+    Limitations
+    Leap seconds, non-Z offsets, scientific validation, UQ, and cross-language
+    conformance are excluded.
+    """
+    with pytest.raises(ValueError):
+        make_run_manifest(state=ManifestState.COMPLETE, finished_at=timestamp)
 
 
 def test_constructor__declared_output_ids__preserves_preallocation() -> None:
@@ -243,65 +418,152 @@ def test_constructor__declared_output_ids__preserves_preallocation() -> None:
     Limitations
     The test does not assert that output bytes exist, were observed, or are accepted.
     """
-    value = _manifest(output_artifact_ids=("output-a", "output-b"))
+    value = make_run_manifest(output_artifact_ids=("output-a", "output-b"))
     assert value.state is ManifestState.DECLARED
     assert value.finished_at is None
     assert value.output_artifact_ids == ("output-a", "output-b")
 
 
-@pytest.mark.parametrize("field", ["manifest_id", "specification_id"])
-def test_field__manifest_scalar_identifiers__enforce_portable_contract(
-    field: str,
+@pytest.mark.parametrize(
+    "field",
+    [
+        pytest.param("manifest_id", id="manifest_identifier"),
+        pytest.param("specification_id", id="specification_identifier"),
+    ],
+)
+@pytest.mark.parametrize(
+    "invalid",
+    [
+        pytest.param("", id="empty_identifier"),
+        pytest.param("bad id", id="embedded_space"),
+        pytest.param("e\u0301", id="non_nfc_identifier"),
+        pytest.param("\ud800", id="unicode_surrogate"),
+        pytest.param("a" * 129, id="overlength_identifier"),
+    ],
+)
+def test_field__manifest_scalar_identifier_values__reject_nonportable_text(
+    field: str, invalid: str
 ) -> None:
     """Evidence ID
     SV-PROV-094
     Requirement
-    Manifest and specification identities are built-in, nonempty NFC bounded
-    identifiers.
+    Manifest scalar identifiers are nonempty NFC bounded identifiers.
     Method
-    Replace each scalar field with wrong-type and invalid Unicode or grammar values.
+    Replace the named scalar with the named malformed string.
     Oracle
-    The public identifier contract independently classifies the supplied partitions.
+    The identifier grammar and NFC definition classify each literal.
     Acceptance
-    Bytes raise TypeError and all invalid strings raise ValueError for both fields.
+    Construction raises ValueError.
     Interpretation
-    Failure admits a nonportable durable manifest identity.
+    Failure admits malformed durable manifest identity.
     Limitations
-    Cross-record existence and uniqueness are excluded.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
-    for invalid in (b"id", "", "bad id", "e\u0301", "\ud800", "a" * 129):
-        expected = TypeError if type(invalid) is bytes else ValueError
-        with pytest.raises(expected):
-            _manifest(**{field: invalid})
+    with pytest.raises(ValueError):
+        make_run_manifest(**{field: invalid})
+
+
+@pytest.mark.parametrize(
+    "field",
+    [
+        pytest.param("manifest_id", id="manifest_identifier"),
+        pytest.param("specification_id", id="specification_identifier"),
+    ],
+)
+def test_field__manifest_scalar_identifier_semantic_types__reject_bytes(
+    field: str,
+) -> None:
+    """Evidence ID
+    SV-PROV-127
+    Requirement
+    Manifest scalar identifiers require built-in strings.
+    Method
+    Replace the named scalar with bytes.
+    Oracle
+    The exact semantic-type contract classifies bytes.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended scalar identifier coercion.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    with pytest.raises(TypeError):
+        make_run_manifest(**{field: b"id"})
 
 
 @pytest.mark.parametrize(
     "field_name",
-    ["input_artifact_ids", "output_artifact_ids", "dependency_manifest_ids"],
+    [
+        pytest.param("input_artifact_ids", id="input_artifact_identifiers"),
+        pytest.param("output_artifact_ids", id="output_artifact_identifiers"),
+        pytest.param("dependency_manifest_ids", id="dependency_manifest_identifiers"),
+    ],
 )
-def test_field__identifier_tuple_members__enforce_portable_contract(
-    field_name: str,
+@pytest.mark.parametrize(
+    "invalid",
+    [
+        pytest.param("", id="empty_identifier"),
+        pytest.param("bad id", id="embedded_space"),
+        pytest.param("e\u0301", id="non_nfc_identifier"),
+        pytest.param("\ud800", id="unicode_surrogate"),
+        pytest.param("a" * 129, id="overlength_identifier"),
+    ],
+)
+def test_field__identifier_tuple_member_values__reject_nonportable_text(
+    field_name: str, invalid: str
 ) -> None:
     """Evidence ID
     SV-PROV-095
     Requirement
-    Every member of each manifest identifier tuple is a portable built-in identifier.
+    Every manifest tuple member is a nonempty NFC bounded identifier.
     Method
-    Put wrong-type, empty, spaced, decomposed, surrogate, and overlength members into
-    each otherwise valid tuple.
+    Put the named malformed string into the selected otherwise valid tuple.
     Oracle
-    The tuple-member identifier grammar classifies the same partitions for all fields.
+    The identifier grammar and NFC definition classify each literal.
     Acceptance
-    Wrong-type members raise TypeError and invalid strings raise ValueError.
+    Construction raises ValueError.
     Interpretation
-    Failure exposes incomplete validation in the named collection.
+    Failure admits malformed manifest relationship identity.
     Limitations
-    Referenced artifacts and manifests are not resolved.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
-    for invalid in (b"id", "", "bad id", "e\u0301", "\ud800", "a" * 129):
-        expected = TypeError if type(invalid) is bytes else ValueError
-        with pytest.raises(expected):
-            _manifest(**{field_name: (invalid,)})
+    with pytest.raises(ValueError):
+        make_run_manifest(**{field_name: (invalid,)})
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        pytest.param("input_artifact_ids", id="input_artifact_identifiers"),
+        pytest.param("output_artifact_ids", id="output_artifact_identifiers"),
+        pytest.param("dependency_manifest_ids", id="dependency_manifest_identifiers"),
+    ],
+)
+def test_field__identifier_tuple_member_semantic_types__reject_bytes(
+    field_name: str,
+) -> None:
+    """Evidence ID
+    SV-PROV-128
+    Requirement
+    Every manifest tuple member requires a built-in string.
+    Method
+    Put bytes into the selected otherwise valid tuple.
+    Oracle
+    The exact member semantic-type contract classifies bytes.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended tuple-member coercion.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    with pytest.raises(TypeError):
+        make_run_manifest(**{field_name: (b"id",)})
 
 
 def test_constructor__direct_self_dependency__rejects_record_local_cycle() -> None:
@@ -321,35 +583,68 @@ def test_constructor__direct_self_dependency__rejects_record_local_cycle() -> No
     Indirect and graph-wide cycles across multiple manifests are excluded.
     """
     with pytest.raises(ValueError):
-        _manifest(dependency_manifest_ids=("manifest-1",))
+        make_run_manifest(dependency_manifest_ids=("manifest-1",))
 
 
-def test_property__timestamp_types_and_exact_value_semantics__enforce_contract() -> (
-    None
-):
+def test_field__timestamp_semantic_types__reject_bytes() -> None:
     """Evidence ID
     SV-PROV-097
     Requirement
-    Timestamps are built-in strings and manifest equality is exact over represented
-    state.
+    started_at and present finished_at require built-in strings.
     Method
-    Pass bytes for each timestamp boundary, then compare equal and output-different
-    records.
+    Construct once with bytes at each timestamp boundary.
     Oracle
-    Public semantic types and frozen dataclass fields define the expected outcomes.
+    The public exact semantic-type contract classifies bytes for both fields.
     Acceptance
-    Bytes raise TypeError; equal records compare equal and changed outputs compare
-    unequal.
+    Each construction raises TypeError.
     Interpretation
-    Failure indicates timestamp coercion or incomplete value semantics.
+    Failure indicates unintended timestamp coercion or missing type enforcement.
     Limitations
-    Clock accuracy and execution observation are excluded.
+    Clock accuracy, execution observation, scientific validation, UQ, and
+    cross-language behavior are excluded.
     """
     with pytest.raises(TypeError):
-        _manifest(started_at=b"2026-08-05T12:00:00Z")
+        make_run_manifest(started_at=b"2026-08-05T12:00:00Z")
     with pytest.raises(TypeError):
-        _manifest(state=ManifestState.COMPLETE, finished_at=b"time")
+        make_run_manifest(state=ManifestState.COMPLETE, finished_at=b"time")
+
+
+def test_field__state_semantic_type__rejects_string_lookalike() -> None:
+    """Evidence ID
+    SV-PROV-111
+    Requirement
+    state requires a ManifestState member and rejects its wire-string lookalike.
+    Method
+    Construct through the public helper using the string ``declared``.
+    Oracle
+    The public enum semantic-type contract classifies the string as invalid.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended enum coercion or stale evidence.
+    Limitations
+    Execution state truth, validation, UQ, and cross-language behavior are excluded.
+    """
     with pytest.raises(TypeError):
-        _manifest(state="declared")
-    assert _manifest() == _manifest()
-    assert _manifest() != _manifest(output_artifact_ids=("output-a",))
+        make_run_manifest(state="declared")
+
+
+def test_method__eq__compares_complete_represented_state() -> None:
+    """Evidence ID
+    SV-PROV-112
+    Requirement
+    RunManifest equality is exact over all eight represented fields.
+    Method
+    Compare two equal declared manifests and one differing only in output identities.
+    Oracle
+    The public eight-field dataclass inventory fixes complete represented state.
+    Acceptance
+    Equal state compares equal and the one-field variant compares unequal.
+    Interpretation
+    Failure indicates incomplete or transformed manifest equality.
+    Limitations
+    Equality proves no execution, output existence, validation, UQ, or
+    cross-language conformance.
+    """
+    assert make_run_manifest() == make_run_manifest()
+    assert make_run_manifest() != make_run_manifest(output_artifact_ids=("output-a",))

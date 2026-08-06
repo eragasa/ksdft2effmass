@@ -31,20 +31,18 @@ SUT = ArtifactReference
 pytestmark = pytest.mark.software_verification
 
 
-def test_constructor__nested_fields_and_properties__maps_exact_reference() -> None:
+def test_constructor__nested_fields__maps_exact_reference() -> None:
     """Evidence ID
     SV-PROV-006
     Requirement
-    A reference owns exact identity/specification records and exposes matching flat
-    read-only properties.
+    A reference stores exact identity/specification records and producer identity.
     Method
-    Construct independent nested records and inspect stored and derived public fields.
+    Construct independent nested records and inspect the stored public fields.
     Oracle
     The P2 reference field map fixes all expected values without executing serializer
     code.
     Acceptance
-    Nested identities are retained and all four convenience properties equal their
-    source fields.
+    Nested records retain object identity and producer_manifest_id equals its input.
     Interpretation
     Failure indicates mapping, ownership, or property drift.
     Limitations
@@ -55,6 +53,32 @@ def test_constructor__nested_fields_and_properties__maps_exact_reference() -> No
     value = SUT(identity, specification, "manifest-1")
     assert value.identity is identity
     assert value.specification is specification
+    assert value.producer_manifest_id == "manifest-1"
+
+
+def test_property__nested_field_delegation__returns_exact_views() -> None:
+    """Evidence ID
+    SV-PROV-107
+    Requirement
+    The four actual public properties delegate exactly to the nested represented fields.
+    Method
+    Construct fixed nested public records and read artifact_id, logical_path,
+    sha256, and byte_size.
+    Oracle
+    The independently supplied nested field values fix every expected property result.
+    Acceptance
+    The four-property tuple equals the four source-field values exactly.
+    Interpretation
+    Failure indicates property delegation or public-property contract drift.
+    Limitations
+    Synthetic values do not prove content, storage, scientific validity, UQ, or
+    cross-language conformance.
+    """
+    value = SUT(
+        ArtifactIdentity("artifact-1", "b" * 64, 8),
+        ArtifactSpecification("out/a.json", "json", "result", "retain"),
+        "manifest-1",
+    )
     assert (value.artifact_id, value.logical_path, value.sha256, value.byte_size) == (
         "artifact-1",
         "out/a.json",
@@ -63,29 +87,26 @@ def test_constructor__nested_fields_and_properties__maps_exact_reference() -> No
     )
 
 
-def test_field__reference_location_separation__excludes_location_and_is_frozen() -> (
-    None
-):
+def test_field__reference_location_separation__excludes_location_fields() -> None:
     """Evidence ID
     SV-PROV-007
     Requirement
     Portable references contain no deployment root, location path, or external
     descriptor.
     Method
-    Inspect public dataclass fields and attempt producer identity reassignment.
+    Inspect the public dataclass field inventory.
     Oracle
     The human-approved ArtifactReference/ArtifactLocation separation fixes the exact
     field set.
     Acceptance
-    Fields are identity, specification, producer_manifest_id only and mutation is
-    rejected.
+    Fields are exactly identity, specification, and producer_manifest_id.
     Interpretation
-    Failure indicates a protected boundary regression.
+    Failure indicates a protected reference/location separation regression.
     Limitations
     Reflection checks the declared public dataclass surface, not hostile runtime
     injection.
     """
-    value = SUT(
+    SUT(
         ArtifactIdentity("artifact-1", "b" * 64, 8),
         ArtifactSpecification("out/a", "json", "result", "retain"),
         "manifest-1",
@@ -94,6 +115,30 @@ def test_field__reference_location_separation__excludes_location_and_is_frozen()
         "identity",
         "specification",
         "producer_manifest_id",
+    )
+
+
+def test_field__frozen_assignment__rejects_reassignment() -> None:
+    """Evidence ID
+    SV-PROV-108
+    Requirement
+    ArtifactReference is operationally immutable through ordinary field assignment.
+    Method
+    Construct a valid reference and assign another valid producer manifest identifier.
+    Oracle
+    The public frozen DataObject contract requires FrozenInstanceError.
+    Acceptance
+    Reassignment raises FrozenInstanceError.
+    Interpretation
+    Failure indicates mutable durable reference state or architecture drift.
+    Limitations
+    Hostile reflection, content observation, validation, UQ, and cross-language
+    claims are excluded.
+    """
+    value = SUT(
+        ArtifactIdentity("artifact-1", "b" * 64, 8),
+        ArtifactSpecification("out/a", "json", "result", "retain"),
+        "manifest-1",
     )
     with pytest.raises(FrozenInstanceError):
         value.producer_manifest_id = "other"  # type: ignore[misc]
@@ -125,41 +170,64 @@ def test_constructor__nested_types__rejects_lookalikes() -> None:
 
 
 @pytest.mark.parametrize(
-    ("producer_manifest_id", "exception"),
+    "producer_manifest_id",
     [
-        (b"manifest", TypeError),
-        ("", ValueError),
-        ("bad id", ValueError),
-        ("e\u0301", ValueError),
-        ("\ud800", ValueError),
-        ("a" * 129, ValueError),
+        pytest.param("", id="empty_identifier"),
+        pytest.param("bad id", id="embedded_space"),
+        pytest.param("e\u0301", id="non_nfc_identifier"),
+        pytest.param("\ud800", id="unicode_surrogate"),
+        pytest.param("a" * 129, id="overlength_identifier"),
     ],
 )
-def test_field__producer_manifest_identifier__rejects_nonportable_values(
-    producer_manifest_id: object, exception: type[Exception]
+def test_field__producer_manifest_identifier_values__reject_nonportable_text(
+    producer_manifest_id: str,
 ) -> None:
     """Evidence ID
     SV-PROV-086
     Requirement
-    producer_manifest_id is a built-in, nonempty, NFC bounded identifier.
+    producer_manifest_id is nonempty NFC text matching the bounded identifier grammar.
     Method
-    Supply wrong-type, empty, spaced, decomposed, surrogate, and overlength values.
+    Construct with the named malformed producer identifier.
     Oracle
-    The public identifier and semantic type contracts classify each representative.
+    The public identifier grammar and NFC definition classify every literal.
     Acceptance
-    Each construction raises its documented TypeError or ValueError class.
+    Construction raises ValueError.
     Interpretation
-    Failure permits a nonportable producer relationship identifier.
+    Failure admits a malformed producer relationship identifier.
     Limitations
-    Existence of the producer manifest is a cross-object concern and is not checked.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
     identity = ArtifactIdentity("artifact-1", "b" * 64, 8)
     specification = ArtifactSpecification("out/a", "json", "result", "retain")
-    with pytest.raises(exception):
-        SUT(identity, specification, producer_manifest_id)  # type: ignore[arg-type]
+    with pytest.raises(ValueError):
+        SUT(identity, specification, producer_manifest_id)
 
 
-def test_property__exact_value_semantics__includes_nested_and_producer_fields() -> None:
+def test_field__producer_manifest_identifier_semantic_type__rejects_bytes() -> None:
+    """Evidence ID
+    SV-PROV-116
+    Requirement
+    producer_manifest_id requires a built-in string without bytes coercion.
+    Method
+    Construct with bytes as the producer identifier.
+    Oracle
+    The exact public semantic-type boundary classifies bytes.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended producer-identifier coercion.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    identity = ArtifactIdentity("artifact-1", "b" * 64, 8)
+    specification = ArtifactSpecification("out/a", "json", "result", "retain")
+    with pytest.raises(TypeError):
+        SUT(identity, specification, b"manifest")  # type: ignore[arg-type]
+
+
+def test_method__eq__includes_nested_and_producer_fields() -> None:
     """Evidence ID
     SV-PROV-087
     Requirement

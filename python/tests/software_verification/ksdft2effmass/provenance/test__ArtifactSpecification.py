@@ -26,24 +26,23 @@ SUT = ArtifactSpecification
 pytestmark = pytest.mark.software_verification
 
 
-def test_constructor__field_mapping_and_immutability__preserves_portable_metadata() -> (
-    None
-):
+def test_constructor__field_mapping__preserves_portable_metadata() -> None:
     """Evidence ID
     SV-PROV-004
     Requirement
-    The specification stores exactly logical path, format, semantic role, and retention
-    policy and is frozen.
+    The specification stores exactly logical path, format, semantic role, and
+    retention policy.
     Method
-    Construct through the public import, inspect fields, and attempt reassignment.
+    Construct through the public import and inspect every represented field.
     Oracle
-    The accepted P2 field vocabulary and frozen DataObject rule are exact.
+    The accepted P2 four-field vocabulary fixes the expected tuple independently.
     Acceptance
-    The field tuple equals the inputs and reassignment raises FrozenInstanceError.
+    The complete field tuple equals the supplied inputs exactly.
     Interpretation
-    Failure indicates field drift or operational mutability.
+    Failure indicates constructor mapping, field-order, contract, or test-data drift.
     Limitations
-    Values are synthetic metadata; no storage or retention action occurs.
+    Values are synthetic; storage, retention action, validation, UQ, and
+    cross-language claims are excluded.
     """
     value = SUT("outputs/result.json", "json", "result", "retain")
     assert (
@@ -51,17 +50,51 @@ def test_constructor__field_mapping_and_immutability__preserves_portable_metadat
         value.format,
         value.semantic_role,
         value.retention_policy,
-    ) == (
-        "outputs/result.json",
-        "json",
-        "result",
-        "retain",
-    )
+    ) == ("outputs/result.json", "json", "result", "retain")
+
+
+def test_field__frozen_assignment__rejects_reassignment() -> None:
+    """Evidence ID
+    SV-PROV-106
+    Requirement
+    ArtifactSpecification is operationally immutable through ordinary assignment.
+    Method
+    Construct valid synthetic metadata and assign another valid format identifier.
+    Oracle
+    The public frozen DataObject contract requires FrozenInstanceError.
+    Acceptance
+    Assignment raises FrozenInstanceError.
+    Interpretation
+    Failure indicates operational mutability or frozen-record architecture drift.
+    Limitations
+    Hostile reflection, storage actions, validation, UQ, and cross-language claims
+    are excluded.
+    """
+    value = SUT("outputs/result.json", "json", "result", "retain")
     with pytest.raises(FrozenInstanceError):
         value.format = "text"  # type: ignore[misc]
 
 
-def test_constructor__root_relative_path__rejects_nonportable_forms() -> None:
+@pytest.mark.parametrize(
+    "path",
+    [
+        pytest.param("", id="empty_path"),
+        pytest.param("/a", id="absolute_posix_path"),
+        pytest.param("../a", id="parent_traversal"),
+        pytest.param("a/./b", id="dot_component"),
+        pytest.param("a//b", id="repeated_separator"),
+        pytest.param("a/", id="trailing_separator"),
+        pytest.param("a\\b", id="backslash_separator"),
+        pytest.param("C:/a", id="windows_drive_path"),
+        pytest.param("CON.txt", id="windows_device_root"),
+        pytest.param("dir/lpt1.log", id="windows_device_nested"),
+        pytest.param("e\u0301/a", id="non_nfc_path"),
+        pytest.param("a\u0085b", id="c1_control"),
+        pytest.param("a\u2028b", id="unicode_line_control"),
+        pytest.param("\ud800", id="unicode_surrogate"),
+    ],
+)
+def test_constructor__root_relative_path__rejects_nonportable_forms(path: str) -> None:
     """Evidence ID
     SV-PROV-005
     Requirement
@@ -78,25 +111,28 @@ def test_constructor__root_relative_path__rejects_nonportable_forms() -> None:
     Limitations
     No filesystem, symlink, case-folding filesystem, or URI behavior is exercised.
     """
+    with pytest.raises(ValueError):
+        SUT(path, "json", "result", "retain")
+
+
+def test_constructor__root_relative_path__accepts_nested_posix_path() -> None:
+    """Evidence ID
+    SV-PROV-138
+    Requirement
+    A nested root-relative POSIX lexical logical path is accepted exactly.
+    Method
+    Construct with the fixed valid path a/b and inspect the stored field.
+    Oracle
+    The public lexical-path grammar independently classifies a/b as valid.
+    Acceptance
+    Construction succeeds and logical_path equals a/b exactly.
+    Interpretation
+    Failure rejects a valid portable logical path or changes field mapping.
+    Limitations
+    No filesystem resolution, scientific validation, UQ, or cross-language
+    conformance is established.
+    """
     assert SUT("a/b", "json", "result", "retain").logical_path == "a/b"
-    for path in (
-        "",
-        "/a",
-        "../a",
-        "a/./b",
-        "a//b",
-        "a/",
-        "a\\b",
-        "C:/a",
-        "CON.txt",
-        "dir/lpt1.log",
-        "e\u0301/a",
-        "a\u0085b",
-        "a\u2028b",
-        "\ud800",
-    ):
-        with pytest.raises(ValueError):
-            SUT(path, "json", "result", "retain")
 
 
 def test_field__logical_path_semantic_type__rejects_non_string_values() -> None:
@@ -119,38 +155,89 @@ def test_field__logical_path_semantic_type__rejects_non_string_values() -> None:
         SUT(b"a/b", "json", "result", "retain")  # type: ignore[arg-type]
 
 
-@pytest.mark.parametrize("field", ["format", "semantic_role", "retention_policy"])
-def test_field__metadata_identifier__enforces_type_and_portability(field: str) -> None:
+@pytest.mark.parametrize(
+    "field",
+    [
+        pytest.param("format", id="format_identifier"),
+        pytest.param("semantic_role", id="semantic_role_identifier"),
+        pytest.param("retention_policy", id="retention_policy_identifier"),
+    ],
+)
+@pytest.mark.parametrize(
+    "invalid",
+    [
+        pytest.param("", id="empty_identifier"),
+        pytest.param("bad id", id="embedded_space"),
+        pytest.param("e\u0301", id="non_nfc_identifier"),
+        pytest.param("\ud800", id="unicode_surrogate"),
+        pytest.param("a" * 129, id="overlength_identifier"),
+    ],
+)
+def test_field__metadata_identifier_values__reject_nonportable_text(
+    field: str, invalid: str
+) -> None:
     """Evidence ID
     SV-PROV-084
     Requirement
-    Every metadata identifier is a built-in, nonempty, NFC bounded identifier.
+    Each metadata identifier is nonempty NFC text matching the bounded grammar.
     Method
-    Replace each field with bytes, empty, spaced, decomposed, surrogate, and overlength
-    values while holding the other public fields fixed.
+    Replace the named public field with the named malformed string.
     Oracle
-    The common public identifier grammar independently defines invalid partitions.
+    The published identifier grammar and NFC definition classify every literal.
     Acceptance
-    Bytes raise TypeError and every invalid string raises ValueError for every field.
+    Construction raises ValueError.
     Interpretation
-    Failure identifies incomplete owner-local validation for the named field.
+    Failure admits malformed durable specification metadata.
     Limitations
-    Identifier registries and semantic-role truth are not assessed.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
-    defaults: dict[str, object] = {
+    values: dict[str, object] = {
         "logical_path": "out/a",
         "format": "json",
         "semantic_role": "result",
         "retention_policy": "retain",
     }
-    for invalid in (b"json", "", "bad id", "e\u0301", "\ud800", "a" * 129):
-        values = defaults | {field: invalid}
-        expected = TypeError if type(invalid) is bytes else ValueError
-        with pytest.raises(expected):
-            SUT(**values)  # type: ignore[arg-type]
+    with pytest.raises(ValueError):
+        SUT(**(values | {field: invalid}))  # type: ignore[arg-type]
 
 
-def test_property__exact_value_semantics__compares_all_represented_fields() -> None:
+@pytest.mark.parametrize(
+    "field",
+    [
+        pytest.param("format", id="format_identifier"),
+        pytest.param("semantic_role", id="semantic_role_identifier"),
+        pytest.param("retention_policy", id="retention_policy_identifier"),
+    ],
+)
+def test_field__metadata_identifier_semantic_types__reject_bytes(field: str) -> None:
+    """Evidence ID
+    SV-PROV-115
+    Requirement
+    Each metadata identifier requires a built-in string without bytes coercion.
+    Method
+    Replace the named public field with bytes.
+    Oracle
+    The exact public semantic-type boundary classifies bytes.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended metadata coercion or missing type validation.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    values: dict[str, object] = {
+        "logical_path": "out/a",
+        "format": "json",
+        "semantic_role": "result",
+        "retention_policy": "retain",
+    }
+    with pytest.raises(TypeError):
+        SUT(**(values | {field: b"json"}))  # type: ignore[arg-type]
+
+
+def test_method__eq__compares_all_represented_fields() -> None:
     """Evidence ID
     SV-PROV-085
     Requirement

@@ -11,6 +11,15 @@ ROOT = Path(__file__).resolve().parents[3]
 SOURCE = ROOT / "python/src/ksdft2effmass/provenance"
 TESTS = ROOT / "python/tests/software_verification/ksdft2effmass/provenance"
 SCHEMA = ROOT / "specification/provenance/v1"
+ARTIFACT_TEST = (
+    ROOT / "python/tests/software_verification/ksdft2effmass/integration/"
+    "test__provenance_v1_json_fixtures_python_runtime_contract.py"
+)
+EVIDENCE_ROOT = ROOT / ".pi/evidence/backend-neutral-cpn-P2-tools-provenance"
+OWNERSHIP_PATH = EVIDENCE_ROOT / "test-evidence-ownership.json"
+MIGRATION_PATH = EVIDENCE_ROOT / "test-evidence-node-migration.json"
+INVENTORY_PATH = EVIDENCE_ROOT / "test-evidence-inventory.json"
+IMPLEMENTATION_PATH = EVIDENCE_ROOT / "test-evidence-implementation.md"
 REQUIRED_DOCS = (
     "docs/api/provenance.md",
     "docs/concepts/provenance-and-artifacts.md",
@@ -37,28 +46,35 @@ def main() -> int:
         issues.append("missing public provenance package")
         exports: tuple[str, ...] = ()
     else:
-        namespace: dict[str, object] = {}
         try:
             tree = ast.parse(init_path.read_text(encoding="utf-8"))
             assignment = next(
                 node
                 for node in tree.body
                 if isinstance(node, ast.Assign)
-                and any(isinstance(t, ast.Name) and t.id == "__all__" for t in node.targets)
+                and any(
+                    isinstance(t, ast.Name) and t.id == "__all__" for t in node.targets
+                )
             )
             value = ast.literal_eval(assignment.value)
             exports = tuple(value) if isinstance(value, (tuple, list)) else ()
         except (OSError, UnicodeError, SyntaxError, StopIteration, ValueError):
             exports = ()
             issues.append("public __all__ is not a literal tuple or list")
-        if not exports or len(exports) != len(set(exports)) or tuple(sorted(exports)) != exports:
+        if (
+            not exports
+            or len(exports) != len(set(exports))
+            or tuple(sorted(exports)) != exports
+        ):
             issues.append("public __all__ must be nonempty, unique, and sorted")
 
     for path in SOURCE.glob("*.py"):
         text = path.read_text(encoding="utf-8").lower()
         for banned in BANNED_TEXT:
             if banned in text:
-                issues.append(f"forbidden dependency text {banned!r} in {path.relative_to(ROOT)}")
+                issues.append(
+                    f"forbidden dependency text {banned!r} in {path.relative_to(ROOT)}"
+                )
 
     if exports and TESTS.is_dir():
         module_names = {path.name for path in TESTS.glob("test__*.py")}
@@ -75,9 +91,12 @@ def main() -> int:
                 issues.append(f"unparseable test module {path.relative_to(ROOT)}")
                 continue
             for node in ast.walk(tree):
-                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_"):
-                    if "__" not in node.name:
-                        issues.append(f"nonsemantic test name {path.name}:{node.name}")
+                if (
+                    isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+                    and node.name.startswith("test_")
+                    and "__" not in node.name
+                ):
+                    issues.append(f"nonsemantic test name {path.name}:{node.name}")
     elif not TESTS.is_dir():
         issues.append("missing class-owned provenance test directory")
 
@@ -91,15 +110,133 @@ def main() -> int:
         if not (ROOT / relative).is_file():
             issues.append(f"missing maintained document {relative}")
 
+    evidence_inputs: dict[str, object] = {}
+    for label, path in (
+        ("ownership", OWNERSHIP_PATH),
+        ("migration", MIGRATION_PATH),
+        ("inventory", INVENTORY_PATH),
+    ):
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            issues.append(f"missing or invalid P2 test-evidence {label} record")
+            continue
+        if not isinstance(value, dict):
+            issues.append(f"P2 test-evidence {label} record must be an object")
+            continue
+        evidence_inputs[label] = value
+    if not IMPLEMENTATION_PATH.is_file():
+        issues.append("missing P2 test-evidence implementation record")
+
+    expected_test_paths = {
+        str(path.relative_to(ROOT))
+        for path in TESTS.glob("test__*.py")
+        if path.stem.removeprefix("test__")
+        in {
+            "ArtifactIdentity",
+            "ArtifactSpecification",
+            "ArtifactReference",
+            "ArtifactLocation",
+            "RunManifest",
+            "ProvenanceRecord",
+            "LineageRelation",
+        }
+    }
+    expected_test_paths.add(str(ARTIFACT_TEST.relative_to(ROOT)))
+    ownership = evidence_inputs.get("ownership", {})
+    modules = ownership.get("modules", []) if isinstance(ownership, dict) else []
+    if (
+        not isinstance(modules, list)
+        or {entry.get("path") for entry in modules if isinstance(entry, dict)}
+        != expected_test_paths
+    ):
+        issues.append(
+            "P2 test-evidence ownership must cover exactly the eight authorized modules"
+        )
+    elif (
+        sum(entry.get("mode") == "class_owned" for entry in modules) != 7
+        or sum(entry.get("mode") == "artifact_owned" for entry in modules) != 1
+        or any(
+            entry.get("evidence_class") != "software_verification" for entry in modules
+        )
+    ):
+        issues.append("P2 test-evidence ownership classes are inconsistent")
+
+    migration = evidence_inputs.get("migration", {})
+    old_nodes = (
+        migration.get("expected_old_node_ids", [])
+        if isinstance(migration, dict)
+        else []
+    )
+    new_nodes = (
+        migration.get("expected_new_node_ids", [])
+        if isinstance(migration, dict)
+        else []
+    )
+    mappings = migration.get("mappings", []) if isinstance(migration, dict) else []
+    if not all(isinstance(values, list) for values in (old_nodes, new_nodes, mappings)):
+        issues.append("P2 node migration inventories must be lists")
+    else:
+        mapped_old = [
+            entry.get("old_node_id") for entry in mappings if isinstance(entry, dict)
+        ]
+        mapped_new = [
+            entry.get("new_node_id") for entry in mappings if isinstance(entry, dict)
+        ]
+        if (
+            len(mapped_old) != len(mappings)
+            or len(old_nodes) != len(set(old_nodes))
+            or len(new_nodes) != len(set(new_nodes))
+            or len(mapped_old) != len(set(mapped_old))
+            or len(mapped_new) != len(set(mapped_new))
+            or set(mapped_old) != set(old_nodes)
+            or set(mapped_new) != set(new_nodes)
+        ):
+            issues.append("P2 node migration must be complete and one-to-one")
+
+    inventory = evidence_inputs.get("inventory", {})
+    complete_nodes = (
+        inventory.get("complete_new_node_ids", [])
+        if isinstance(inventory, dict)
+        else []
+    )
+    additional_nodes = (
+        inventory.get("new_node_ids_without_historical_predecessor", [])
+        if isinstance(inventory, dict)
+        else []
+    )
+    inventory_paths = inventory.get("paths", []) if isinstance(inventory, dict) else []
+    if not all(
+        isinstance(values, list)
+        for values in (complete_nodes, additional_nodes, inventory_paths)
+    ):
+        issues.append("P2 test-evidence completeness inventories must be lists")
+    elif (
+        set(inventory_paths) != expected_test_paths
+        or len(complete_nodes) != len(set(complete_nodes))
+        or set(complete_nodes) != set(new_nodes) | set(additional_nodes)
+        or set(new_nodes) & set(additional_nodes)
+    ):
+        issues.append("P2 test-evidence complete-node inventory is inconsistent")
+
     result = {
         "schema_version": 1,
         "task_id": "P2",
         "status": "PASS" if not issues else "FAIL",
         "observed": {
             "public_exports": len(exports),
-            "class_owned_modules": len(tuple(TESTS.glob('test__*.py'))) if TESTS.is_dir() else 0,
+            "class_owned_modules": len(tuple(TESTS.glob("test__*.py")))
+            if TESTS.is_dir()
+            else 0,
             "schemas": len(schemas),
             "fixtures": len(fixtures),
+            "test_evidence_modules": len(modules) if isinstance(modules, list) else 0,
+            "mapped_historical_nodes": len(mappings)
+            if isinstance(mappings, list)
+            else 0,
+            "complete_migrated_nodes": len(complete_nodes)
+            if isinstance(complete_nodes, list)
+            else 0,
         },
         "issues": issues,
     }

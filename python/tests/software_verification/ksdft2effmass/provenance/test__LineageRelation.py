@@ -54,24 +54,44 @@ def test_constructor__directed_lineage_fields__maps_parent_to_child() -> None:
     ) == ("lineage-1", "parent", "child", LineageKind.REPRESENTATION, "prov-1")
 
 
-def test_constructor__kind_and_distinct_endpoints__enforces_exact_contract() -> None:
+def test_constructor__distinct_endpoints__rejects_self_edge() -> None:
     """Evidence ID
     SV-PROV-018
     Requirement
-    Endpoints differ and kind is an exact LineageKind rather than a string.
+    A lineage parent and child must differ.
     Method
-    Construct a self-edge and a string-kind edge.
+    Construct a derived relation with identical endpoint literals.
     Oracle
-    Public intrinsic invariants determine ValueError and TypeError respectively.
+    Exact equality of the public endpoint inputs supplies the oracle.
     Acceptance
-    Self-edge raises ValueError and string enum lookalike raises TypeError.
+    Construction raises ValueError.
     Interpretation
-    Failure indicates weakened lineage typing or direction invariants.
+    Failure permits a directed lineage self-edge.
     Limitations
-    Multi-edge cycles are not assessed.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
     with pytest.raises(ValueError):
         SUT("l", "same", "same", LineageKind.DERIVED, "p")
+
+
+def test_constructor__kind_semantic_type__rejects_string_lookalike() -> None:
+    """Evidence ID
+    SV-PROV-133
+    Requirement
+    kind requires a LineageKind member rather than its wire string.
+    Method
+    Construct with the string derived as kind.
+    Oracle
+    The public enum semantic-type contract classifies the string.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended lineage-kind coercion.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
     with pytest.raises(TypeError):
         SUT("l", "a", "b", "derived", "p")  # type: ignore[arg-type]
 
@@ -100,57 +120,129 @@ def test_field__lineage_enum_values__match_version_one_vocabulary() -> None:
 
 
 @pytest.mark.parametrize(
-    "field", ["lineage_id", "parent_id", "child_id", "provenance_id"]
+    "field",
+    [
+        pytest.param("lineage_id", id="lineage_identifier"),
+        pytest.param("parent_id", id="parent_identifier"),
+        pytest.param("child_id", id="child_identifier"),
+        pytest.param("provenance_id", id="provenance_identifier"),
+    ],
 )
-def test_field__lineage_identifiers__enforce_portable_contract(field: str) -> None:
+@pytest.mark.parametrize(
+    "invalid",
+    [
+        pytest.param("", id="empty_identifier"),
+        pytest.param("bad id", id="embedded_space"),
+        pytest.param("e\u0301", id="non_nfc_identifier"),
+        pytest.param("\ud800", id="unicode_surrogate"),
+        pytest.param("a" * 129, id="overlength_identifier"),
+    ],
+)
+def test_field__lineage_identifier_values__reject_nonportable_text(
+    field: str, invalid: str
+) -> None:
     """Evidence ID
     SV-PROV-101
     Requirement
-    Every lineage identifier is a built-in nonempty NFC bounded identifier.
+    Every lineage identifier is nonempty NFC text matching the bounded grammar.
     Method
-    Replace each field independently with wrong-type and invalid-text representatives.
+    Replace the named identifier with the named malformed string.
     Oracle
-    The public identifier grammar and semantic type boundary classify each case.
+    The identifier grammar and NFC definition classify each literal.
     Acceptance
-    Bytes raise TypeError and all invalid strings raise ValueError for every field.
+    Construction raises ValueError.
     Interpretation
-    Failure identifies incomplete owner-local validation of the named identity.
+    Failure admits malformed lineage identity metadata.
     Limitations
-    Existence and global uniqueness of identifiers are excluded.
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
     """
-    defaults: dict[str, object] = {
+    values: dict[str, object] = {
         "lineage_id": "lineage-1",
         "parent_id": "parent",
         "child_id": "child",
         "kind": LineageKind.DERIVED,
         "provenance_id": "prov-1",
     }
-    for invalid in (b"id", "", "bad id", "e\u0301", "\ud800", "a" * 129):
-        expected = TypeError if type(invalid) is bytes else ValueError
-        with pytest.raises(expected):
-            SUT(**(defaults | {field: invalid}))  # type: ignore[arg-type]
+    with pytest.raises(ValueError):
+        SUT(**(values | {field: invalid}))  # type: ignore[arg-type]
 
 
-def test_property__immutable_exact_value_semantics__includes_direction_and_kind() -> (
-    None
-):
+@pytest.mark.parametrize(
+    "field",
+    [
+        pytest.param("lineage_id", id="lineage_identifier"),
+        pytest.param("parent_id", id="parent_identifier"),
+        pytest.param("child_id", id="child_identifier"),
+        pytest.param("provenance_id", id="provenance_identifier"),
+    ],
+)
+def test_field__lineage_identifier_semantic_types__reject_bytes(field: str) -> None:
+    """Evidence ID
+    SV-PROV-134
+    Requirement
+    Every lineage identifier requires a built-in string.
+    Method
+    Replace the named identifier with bytes.
+    Oracle
+    The exact semantic-type contract classifies bytes.
+    Acceptance
+    Construction raises TypeError.
+    Interpretation
+    Failure indicates unintended lineage identifier coercion.
+    Limitations
+    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    cross-language conformance are excluded.
+    """
+    values: dict[str, object] = {
+        "lineage_id": "lineage-1",
+        "parent_id": "parent",
+        "child_id": "child",
+        "kind": LineageKind.DERIVED,
+        "provenance_id": "prov-1",
+    }
+    with pytest.raises(TypeError):
+        SUT(**(values | {field: b"id"}))  # type: ignore[arg-type]
+
+
+def test_method__eq__includes_direction_and_kind() -> None:
     """Evidence ID
     SV-PROV-102
     Requirement
-    Lineage relations are frozen exact values including direction and kind.
+    Lineage relation equality is exact including direction and kind.
     Method
-    Compare equal constructions, reverse endpoints in another value, and reassign kind.
+    Compare equal constructions and reverse endpoints in another value.
     Oracle
     The declared frozen dataclass fields define exact directional equality.
     Acceptance
-    Equal edges compare equal, reversed edges differ, and reassignment is rejected.
+    Equal edges compare equal and reversed edges compare unequal.
     Interpretation
-    Failure indicates lost direction, kind, or operational immutability.
+    Failure indicates lost direction, kind, or incomplete equality semantics.
     Limitations
     Graph equivalence and truth of the asserted relationship are excluded.
     """
     value = SUT("l", "parent", "child", LineageKind.DERIVED, "p")
     assert value == SUT("l", "parent", "child", LineageKind.DERIVED, "p")
     assert value != SUT("l", "child", "parent", LineageKind.DERIVED, "p")
+
+
+def test_field__frozen_assignment__rejects_reassignment() -> None:
+    """Evidence ID
+    SV-PROV-113
+    Requirement
+    LineageRelation is operationally immutable through ordinary field assignment.
+    Method
+    Construct a valid edge and assign another valid LineageKind member.
+    Oracle
+    The public frozen DataObject contract requires FrozenInstanceError.
+    Acceptance
+    Reassignment raises FrozenInstanceError.
+    Interpretation
+    Failure indicates mutable lineage state or frozen-record architecture drift.
+    Limitations
+    Hostile reflection, lineage truth, validation, UQ, and cross-language claims are
+    excluded.
+    """
+    value = SUT("l", "parent", "child", LineageKind.DERIVED, "p")
     with pytest.raises(FrozenInstanceError):
         value.kind = LineageKind.RETRY  # type: ignore[misc]

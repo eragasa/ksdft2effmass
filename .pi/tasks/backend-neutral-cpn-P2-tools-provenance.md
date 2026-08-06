@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: open and active for one P2-HC02 Option-B test-evidence-only migration; final acceptance will be renewed at `P2-HC03`
+Status: P2-HC02 Option-B test-evidence migration complete; open and blocked at renewed final human-acceptance checkpoint `P2-HC03`
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -41,3 +41,11 @@ The Option-B correction is complete. Current-boundary deterministic validation p
 P2-HC02 was resolved as Option B on 2026-08-06. The human authorized one test-evidence-only migration using the accepted `develop-python-test-evidence` skill with `AUTHORIZED_TEST_EVIDENCE_WRITE`: seven `records.py` class-owned modules and the directly related fixture/runtime artifact-owned module, plus their explicit ownership, complete one-to-one pytest node migration map, completeness inventory, directly affected test-evidence documentation, review/completion records, and renewed `P2-HC03` checkpoint.
 
 Production source, public behavior, schemas, fixtures, serialization, dependencies, lockfiles, scientific meaning, R1/R2, and P2 successors remain unchanged. Existing evidence IDs and assertions are preserved except for mechanical splitting needed to give each test one correctly named public surface. No R3/E3 is authorized. H5, P3--P11, scientific/external execution, publication, and release remain inactive.
+
+## P2-HC02 test-evidence migration completion
+
+The eight supplied modules now satisfy the accepted structural convention with explicit seven-class/one-artifact software-verification ownership, complete one-to-one historical node migration, semantic parameter IDs, visible documented helpers, cohesive public surfaces, truthful seven-field documentation, and separated schema/runtime/serialization evidence. All historical IDs remain unrenumbered; distinct split owners use `SV-PROV-104` through `SV-PROV-142`.
+
+One targeted reviewer returned material semantic findings. The sole writer completed one consolidated correction pass. All applicable findings were corrected and parent-confirmed; the proposed four-property split was inapplicable because the human instruction explicitly permits one cohesive delegation-map owner. No second reviewer cycle occurred.
+
+Focused tests, collection, branch diagnostics, Ruff, mypy, Sphinx, P2 ownership/completion, checkpoint validation, H3 resources, skill capabilities, selected local route, protected hash nonmutation, dependency/lock nonmutation, and diff checks pass. P2 remains open and blocked at `.pi/checkpoints/P2-HC03-final-acceptance.json`. No R3/E3, H5, P3--P11, scientific/external execution, publication, or release is active.
