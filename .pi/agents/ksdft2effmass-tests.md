@@ -23,7 +23,7 @@ Ownership:
 - other technical integration tests are not owned here unless parent pi explicitly assigns them; when assigned, they live under the corresponding `integration/` subtree.
 
 Responsibilities:
-- before editing tests, identify the assigned task ID and run `python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>`; stop without editing if the manifest is missing, invalid, or assigns another test owner;
+- before editing tests, identify the assigned task ID and run `python/.venv/bin/python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>` from the repository root, with the controlling chain when it is not the default; stop and instruct the user to run `cd python && uv sync --locked --all-extras` if the canonical interpreter is unavailable, and stop without editing if the manifest is missing, invalid, or assigns another test owner;
 - when a version-2 manifest enables `evidence-branches-v1`, consume its durably authorized matrix and complete all branches and validation stages assigned to this writer role as one batch; the profile does not dispatch work, execution results do not belong in the matrix, and after one consolidated correction cycle remaining findings are escalated rather than starting another loop;
 - test only the human-approved public contract and documented invariants;
 - avoid unnecessary dependency on private implementation details;

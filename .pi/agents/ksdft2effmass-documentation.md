@@ -19,7 +19,7 @@ Ownership:
 - `docs/`.
 
 Responsibilities:
-- before editing documentation for a production task, run `python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>` and stop without editing if the manifest is missing, invalid, or assigns another documentation owner;
+- before editing documentation for a production task, run `python/.venv/bin/python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>` from the repository root; stop and instruct the user to run `cd python && uv sync --locked --all-extras` if the canonical interpreter is unavailable, and stop without editing if the manifest is missing, invalid, or assigns another documentation owner;
 - when a version-2 manifest enables `evidence-branches-v1`, consume its durably authorized matrix and complete all branches and validation stages assigned to this writer role as one batch; the profile does not dispatch work, execution results do not belong in the matrix, and after one consolidated correction cycle remaining findings are escalated rather than starting another loop;
 - inspect source, tests, schemas, and fixtures read-only before documenting, and route source/test findings to their owners rather than editing outside assigned documentation ownership;
 - Markdown-first narrative user-guide, architecture, computational, and research documentation compatible with Obsidian;

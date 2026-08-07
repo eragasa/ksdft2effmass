@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Deterministic, non-mutating completion validator for active H2."""
 
 from __future__ import annotations

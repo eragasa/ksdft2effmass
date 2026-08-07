@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Audit executable ownership of migrated VVUQ evidence identifiers.
 
 The ``Evidence ID`` field of a migrated pytest test-function docstring is the

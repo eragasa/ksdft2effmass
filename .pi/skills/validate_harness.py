@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Run the explicitly configured repository-local harness validation route."""
 
 from __future__ import annotations

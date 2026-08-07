@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Validate checkpoint records and run control-plane dry runs.
 
 This script is repository control-plane tooling. It does not validate scientific

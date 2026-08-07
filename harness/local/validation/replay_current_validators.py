@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Replay the maintained current local resource validators without H4 catalogs."""
 
 from __future__ import annotations

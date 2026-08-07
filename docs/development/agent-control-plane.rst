@@ -245,9 +245,12 @@ concurrently, protected source and independent verification must be separated,
 or conflicting or high-risk path ownership exists. Ordinary bounded work may
 use one writer for source, tests, and documentation. When the control applies,
 the controlling record names the manifest and runs
-``python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>`` before
-covered work starts; invalid declarations block only that manifest-governed
-launch.
+``python/.venv/bin/python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>``
+from the repository root before covered work starts. If the canonical
+interpreter is missing, synchronize it with
+``cd python && uv sync --locked --all-extras`` rather than selecting an
+activated or system interpreter. Invalid declarations block only that
+manifest-governed launch.
 
 Version 1 retains the P1 public-object inventory, exact test-module rule,
 classified exceptions, non-class package/schema gate owner, and string command

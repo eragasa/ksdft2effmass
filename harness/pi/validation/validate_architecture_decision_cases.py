@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Validate controlled phase-six-only architecture-decision skill cases."""
 
 from __future__ import annotations

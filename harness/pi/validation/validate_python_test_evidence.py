@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Validate structural conventions on explicitly supplied Python test paths.
 
 This tool does not establish oracle independence, mathematical correctness,

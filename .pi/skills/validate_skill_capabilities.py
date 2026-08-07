@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Validate the repository-local skill capability inventory.
 
 This control-plane validator checks filesystem inventory, skill frontmatter

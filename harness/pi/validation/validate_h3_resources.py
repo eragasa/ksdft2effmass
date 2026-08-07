@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Dependency-free deterministic textual-resource completion validator.
 
 The validator uses only the standard library for its own implementation.  When

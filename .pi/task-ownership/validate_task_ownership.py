@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python/.venv/bin/python
 """Fail closed when a chain task lacks explicit implementation/test ownership."""
 
 from __future__ import annotations

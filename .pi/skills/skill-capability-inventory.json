@@ -653,42 +653,42 @@
   "deterministic_tool_blocks": [
     {
       "block": "PytestBlock",
-      "command": "cd python && python3 -m pytest tests",
+      "command": "python/.venv/bin/python -m pytest python/tests",
       "evidence_owner": "pytest",
       "classification": "software or declared numerical verification according to markers",
       "current_status": "established; not rerun by documentation/control-plane audit"
     },
     {
       "block": "RuffFormatBlock",
-      "command": "cd python && python3 -m ruff format --check .",
+      "command": "python/.venv/bin/python -m ruff format --check python",
       "evidence_owner": "Ruff",
       "classification": "software formatting verification",
       "current_status": "established"
     },
     {
       "block": "RuffLintBlock",
-      "command": "cd python && python3 -m ruff check .",
+      "command": "python/.venv/bin/python -m ruff check python",
       "evidence_owner": "Ruff",
       "classification": "software static verification",
       "current_status": "established"
     },
     {
       "block": "MypyBlock",
-      "command": "cd python && python3 -m mypy",
+      "command": "python/.venv/bin/python -m mypy --config-file python/pyproject.toml python/src python/tests",
       "evidence_owner": "mypy",
       "classification": "software static verification",
       "current_status": "established"
     },
     {
       "block": "SphinxWarningsAsErrorsBlock",
-      "command": "PYTHONPATH=python/src python3 -m sphinx -W -b html docs <temporary-output>",
+      "command": "PYTHONPATH=python/src python/.venv/bin/python -m sphinx -W -b html docs <temporary-output>",
       "evidence_owner": "Sphinx",
       "classification": "documentation software verification",
       "current_status": "applicable and executed by this audit"
     },
     {
       "block": "JsonSchemaValidationBlock",
-      "command": "cd python && python3 -m pytest tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonFixtures.py",
+      "command": "python/.venv/bin/python -m pytest python/tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py python/tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonFixtures.py",
       "evidence_owner": "pytest plus Draft 2020-12 jsonschema validator",
       "classification": "software serialization verification",
       "current_status": "existing executable owners"
@@ -709,35 +709,35 @@
     },
     {
       "block": "HarnessValidationRouteBlock",
-      "command": "python3 .pi/skills/validate_harness.py --repository-root <absolute-repository-root> --route-config <absolute-route-config>",
+      "command": "python/.venv/bin/python .pi/skills/validate_harness.py --repository-root <absolute-repository-root> --route-config <absolute-route-config>",
       "evidence_owner": ".pi/skills/validate_harness.py, harness/local/validation-route.json, and harness/local/validation/replay_current_validators.py",
       "classification": "repository-local harness validation routing",
       "current_status": "selected local route validates current H3 manifests/resources and eight live skills through a closed fail-closed replay; legacy rollback remains retained"
     },
     {
       "block": "EvidenceIdentifierAuditBlock",
-      "command": "python3 .pi/skills/audit_evidence_identifiers.py --self-test --strict",
+      "command": "python/.venv/bin/python .pi/skills/audit_evidence_identifiers.py --self-test --strict",
       "evidence_owner": ".pi/skills/audit_evidence_identifiers.py",
       "classification": "software evidence-inventory verification",
       "current_status": "Parser supports the new Evidence ID field and historical first-line declarations; self-test plus repository audit are required, and results remain structural ownership evidence only."
     },
     {
       "block": "CheckpointSchemaValidationBlock",
-      "command": "python3 .pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run",
+      "command": "python/.venv/bin/python .pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run",
       "evidence_owner": "Draft 2020-12 jsonschema validator plus checkpoint control script",
       "classification": "control-plane software verification",
       "current_status": "full-schema validation hardened and executed by this audit"
     },
     {
       "block": "StaticDependencyDirectionToolBlock",
-      "command": "cd python && python3 -m pytest tests/software_verification/ksdft2effmass/integration/test__OperatorComparisonDependencyDirection.py",
+      "command": "python/.venv/bin/python -m pytest python/tests/software_verification/ksdft2effmass/integration/test__OperatorComparisonDependencyDirection.py",
       "evidence_owner": "focused AST-based pytest",
       "classification": "software topology verification",
       "current_status": "existing executable owner; operator comparison scope only"
     },
     {
       "block": "SkillCapabilityInventoryValidationBlock",
-      "command": "python3 .pi/skills/validate_skill_capabilities.py",
+      "command": "python/.venv/bin/python .pi/skills/validate_skill_capabilities.py",
       "evidence_owner": ".pi/skills/validate_skill_capabilities.py",
       "classification": "control-plane software verification",
       "current_status": "added and executed by this audit"

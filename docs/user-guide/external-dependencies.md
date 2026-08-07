@@ -171,7 +171,7 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Direct dependencies:** Docutils, Jinja2, markdown-it-py, mdit-py-plugins, PyYAML, and Sphinx
 - **License:** MIT license in the installed distribution
 - **Project/documentation:** <https://github.com/executablebooks/MyST-Parser> and <https://myst-parser.readthedocs.io/>
-- **Import/executable names:** `myst_parser`; Sphinx invoked through `python -m sphinx`
+- **Import/executable names:** `myst_parser`; Sphinx invoked from the repository root through `python/.venv/bin/python -m sphinx`
 - **Capability result:** disposable mixed RST/Markdown navigation, fenced Python, dollar mathematics, relative links, Markdown toctree, cross-reference, Unicode, table, nested fence, and raw HTML built with warnings as errors
 - **Required configuration:** `extensions += ["myst_parser"]`, `myst_enable_extensions = ["dollarmath"]`, and bounded heading-anchor/navigation policy
 - **Maintained-source policy:** every RST source remains collected; Markdown collection is restricted to `docs/user-guide/*.md`, whose 14 pages are listed in one explicit toctree. Other Markdown trees remain repository/Obsidian sources. The three directory links were replaced with concrete source links, and obsolete duplicate user-guide download navigation was removed

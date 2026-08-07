@@ -22,7 +22,7 @@ Ownership:
 - directly affected source exports only when assigned by the parent.
 
 Responsibilities:
-- before editing production source, identify the assigned task ID and run `python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>`; stop without editing if the manifest is missing, invalid, or assigns another implementation owner;
+- before editing production source, identify the assigned task ID and run `python/.venv/bin/python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>` from the repository root; stop and instruct the user to run `cd python && uv sync --locked --all-extras` if the canonical interpreter is unavailable, and stop without editing if the manifest is missing, invalid, or assigns another implementation owner;
 - when a version-2 manifest enables `evidence-branches-v1`, consume its durably authorized matrix and complete all branches and validation stages assigned to this writer role as one batch; the profile does not dispatch work, execution results do not belong in the matrix, and after one consolidated correction cycle remaining findings are escalated rather than starting another loop;
 - implement the human-approved DataObject/ActionObject public contract;
 - preserve public API decisions;
