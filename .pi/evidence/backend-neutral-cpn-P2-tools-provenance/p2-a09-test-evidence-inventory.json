@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "audit_item": "P2-A09",
+  "starting_revision": "9ff22cf882cc64e9930cfd572a309d115da4d77e",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "attempt_id": "P2-A09-correction-1",
+  "module": {
+    "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py",
+    "mode": "artifact_owned",
+    "evidence_class": "software_verification",
+    "artifact": "version-1 provenance JSON fixture/runtime interoperability"
+  },
+  "named_inventories": {
+    "VALID_FIXTURE_CASES": {
+      "kind": "module-local literal tuple of direct pytest.param entries",
+      "cases": 17,
+      "consumers": [
+        "SV-PROV-140",
+        "SV-PROV-067",
+        "SV-PROV-135",
+        "SV-PROV-136"
+      ],
+      "case_payload": "fixture Path and exact public runtime class"
+    },
+    "INVALID_FIXTURE_CASES": {
+      "kind": "module-local literal tuple of direct pytest.param entries",
+      "cases": 27,
+      "consumers": [
+        "SV-PROV-141",
+        "SV-PROV-068"
+      ],
+      "case_payload": "fixture Path"
+    }
+  },
+  "counts": {
+    "modules": 1,
+    "artifact_owned_modules": 1,
+    "class_owned_modules": 0,
+    "test_functions": 12,
+    "unique_evidence_owners": 12,
+    "helper_functions": 4,
+    "parameterized_functions": 7,
+    "static_parameter_cases": 133,
+    "collected_cases": 138,
+    "historical_nodes": 135,
+    "historical_nodes_mapped_one_to_one": 135,
+    "new_collected_nodes": 3
+  },
+  "preserved_evidence_ids": [
+    "SV-PROV-067",
+    "SV-PROV-068",
+    "SV-PROV-069",
+    "SV-PROV-079",
+    "SV-PROV-103",
+    "SV-PROV-135",
+    "SV-PROV-136",
+    "SV-PROV-140",
+    "SV-PROV-141",
+    "SV-PROV-142"
+  ],
+  "new_evidence_ids": [
+    {
+      "evidence_id": "SV-PROV-396",
+      "owner": "exact valid declared/discovered family completeness",
+      "authoritative_predecessor": null
+    },
+    {
+      "evidence_id": "SV-PROV-397",
+      "owner": "exact invalid declared/discovered family completeness",
+      "authoritative_predecessor": null
+    }
+  ],
+  "new_nodes_without_predecessors": [
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__valid_fixture_inventory__matches_declared_parameter_family_exactly",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__invalid_fixture_inventory__matches_declared_parameter_family_exactly",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py::test_artifact__corrected_invalid_fixtures__reject_legacy_channels[legacy_retryable_field]"
+  ],
+  "runtime_class_mapping": {
+    "cases": 17,
+    "acceptance": "type(record) is expected_type",
+    "oracle": "public ksdft2effmass.provenance exports carried by VALID_FIXTURE_CASES",
+    "private_serializer_mapping_access": false
+  },
+  "completeness": {
+    "valid_declared_equals_discovered": true,
+    "invalid_declared_equals_discovered": true,
+    "declared_paths_unique": true,
+    "controlled_failures": [
+      "discovered valid path absent from declared valid inventory",
+      "discovered invalid path absent from declared invalid inventory",
+      "declared valid path absent from discovered family",
+      "duplicated declared valid fixture path"
+    ]
+  },
+  "legacy_retryable_field": {
+    "invalid_family_member": true,
+    "SV-PROV-079_parameter": true,
+    "SV-PROV-142_required_stem": true,
+    "fixture_modified": false
+  },
+  "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-test-evidence-node-migration.json",
+  "file_sha256": "4ecf2e46d822dba489f08fc7a6372eacf9243de5d25ee9ef095bd747e43f5a8a",
+  "claim_boundary": "Software verification only; excludes provenance truth, physical or scientific correctness, numerical verification, scientific validation, UQ, persistence, cross-language conformance, released-package compatibility, and future schema-version compatibility."
+}
