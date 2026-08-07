@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+  "status": "PENDING_HUMAN_ACCEPTANCE",
+  "starting_revision": "3927d41b93e6be480e9c29013984b9385808ad4c",
+  "canonical_skill": {
+    "name": "develop-architecture-decision",
+    "skill_path": "harness/pi/skills/develop-architecture-decision/SKILL.md",
+    "reference_path": "harness/pi/skills/develop-architecture-decision/references/architecture-decision-conventions.md",
+    "descriptor_path": "harness/pi/skills/develop-architecture-decision/descriptor.json",
+    "live_path": ".pi/skills/develop-architecture-decision/SKILL.md"
+  },
+  "controlled_cases": {
+    "applicable": 3,
+    "non_applicable": 5,
+    "status": "PASS"
+  },
+  "validation": {
+    "h3_resource_gates": 58,
+    "h3_resource_defects": 0,
+    "live_skills": 8,
+    "selected_route": "local",
+    "selected_route_status": "PASS",
+    "canonical_live_bytes": "identical",
+    "sphinx_sources": 45,
+    "targeted_ruff": "PASS",
+    "protected_surfaces": "unchanged"
+  },
+  "review": {
+    "result": "FAIL",
+    "finding": "one Medium eight-skill documentation synchronization defect",
+    "disposition": "corrected in the sole consolidated correction pass and deterministically revalidated; no second review"
+  },
+  "claim_boundary": "Controlled structural software evidence only; no skill invocation, arbitrary-case semantic guarantee, VVUQ, human acceptance, H6 initialization, successor activation, or protected execution.",
+  "checkpoint_id": "ARCHITECTURE-DECISION-SKILL-1-HC01"
+}

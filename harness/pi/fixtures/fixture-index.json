@@ -23,5 +23,6 @@
   "diagnostic_path_oracle": "diagnostic-path/oracle-index.json",
   "canonical_vectors": "canonical/canonical-json-vectors.json",
   "resource_resolution_oracle": "resource-resolution/oracle-index.json",
-  "semantic_invariant_oracle": "semantic-invariants/oracle-index.json"
+  "semantic_invariant_oracle": "semantic-invariants/oracle-index.json",
+  "architecture_decision_cases": "architecture-decision/cases.json"
 }

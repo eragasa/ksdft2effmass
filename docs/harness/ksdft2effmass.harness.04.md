@@ -60,6 +60,18 @@ live alias. The test-evidence capability supports:
 
 Project profiles supply marker names and evidence-ID prefixes.
 
+## Architecture-decision skill
+
+The canonical `develop-architecture-decision` skill is read-only human-decision
+support. For an applicable material architecture question it preserves exactly
+three distinct defensible conceptual architectures, compares common criteria,
+recommends one, and returns an A/B/C/D decision interface before stopping. It
+separates observed facts, inferences, human choices, implementation
+consequences, and deferred questions. Deterministic, underspecified, and
+unsuitable questions stop without a checkpoint. The skill neither selects nor
+implements an option and supplies no VVUQ, scientific, execution, or acceptance
+authority. Canonical and live skill/reference bytes are identical.
+
 ## Resource manifest
 
 The generic and local manifests identify each reusable resource by stable
@@ -96,7 +108,8 @@ Resource validation should check:
 Semantic review must still determine whether a skill's oracle and VVUQ guidance are correct.
 
 The maintained `local` validation route uses the current local replay resource,
-which validates the current generic/local manifests and seven live skills. It
+which validates the current generic/local manifests, eight live skills, and the
+controlled architecture-decision cases. It
 does not reinterpret or mutate immutable H4 checksum catalogs. The `legacy`
 rollback name remains retained; malformed current replay output, missing checks,
 or any nonzero/non-PASS check fails the selected local route closed.

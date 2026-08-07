@@ -48,8 +48,9 @@ CURRENT_LOCAL_REPLAY_PATH = Path(
     "harness/local/validation/replay_current_validators.py"
 )
 CURRENT_LOCAL_CHECK_IDS = {
+    "current-architecture-decision-cases",
+    "current-eight-skill-capabilities",
     "current-h3-resources",
-    "current-seven-skill-capabilities",
 }
 PAIR_CLASSIFICATIONS = {
     "accepted-checksum-catalogs": "intentional",

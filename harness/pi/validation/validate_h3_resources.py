@@ -35,6 +35,7 @@ PUBLIC_RECORDS = (
 RESOURCE_KINDS = {"skill", "reference", "schema", "template", "profile",
                   "manifest", "script", "documentation"}
 CANONICAL_SKILLS = {
+    "develop-architecture-decision": "pih.skill.develop-architecture-decision.v1",
     "develop-python-test-evidence": "pih.skill.develop-python-test-evidence.v1",
     "document-python-research-software": "pih.skill.document-python-research-software.v1",
 }

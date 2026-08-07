@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "ARCHITECTURE-DECISION-SKILL-1-HC01",
+  "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+  "episode_id": "develop-architecture-decision-skill",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-07T05:39:13Z",
+  "question": "Should the new develop-architecture-decision harness skill receive final human acceptance and activation after canonical/local/live integration, controlled behavior validation, one independent semantic review, one consolidated correction pass, and final parent verification?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept and activate develop-architecture-decision.",
+      "consequence": "Record the skill as human-accepted and active, then close ARCHITECTURE-DECISION-SKILL-1 only. Do not invoke the skill, initialize H6, analyze the H6 lifecycle architecture, or activate any successor."
+    },
+    {
+      "id": "B",
+      "summary": "Request one bounded skill correction.",
+      "consequence": "Keep the task open and blocked. Only the correction explicitly supplied by the human is eligible for a separately recorded bounded correction; no skill invocation, H6 initialization, or successor activation is authorized."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer the skill.",
+      "consequence": "Keep the task blocked without accepting or activating the skill and without invoking it, initializing H6, or activating any successor."
+    }
+  ],
+  "recommendation": "Option A. The canonical skill, single detailed reference, descriptor, generic/local manifests, project profile, byte-identical live route, eight controlled behavior cases, eight-skill capability inventory, selected local route, targeted Ruff checks, Sphinx warnings-as-errors build, task completion gate, and protected-path checks pass. The independent reviewer found one Medium documentation synchronization defect; the sole writer corrected it in the one allowed pass and deterministic verification passes afterward. These checks establish bounded software-contract evidence only, not arbitrary-case semantic correctness, VVUQ, human acceptance, or authority to invoke the skill or initialize H6.",
+  "blocked_scope": "Final acceptance and activation of develop-architecture-decision; closure of ARCHITECTURE-DECISION-SKILL-1; any invocation of the skill; H6 initialization or real H6 architecture analysis; successor activation; protected execution, publication, or release.",
+  "safe_scope": "Read-only inspection of the skill, conventions, descriptor, manifests, profile, fixtures, validators, capability inventory, selected route, review, correction, parent verification, pending-boundary commit, and remote identity. Checkpoint and task completion validation are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/develop-architecture-decision-skill.md",
+    ".pi/chains/develop-architecture-decision-skill.chain.json",
+    ".pi/evidence/develop-architecture-decision-skill/completion.json",
+    ".pi/evidence/develop-architecture-decision-skill/review.md",
+    ".pi/evidence/develop-architecture-decision-skill/parent-verification.md",
+    "harness/pi/skills/develop-architecture-decision/SKILL.md",
+    "harness/pi/skills/develop-architecture-decision/references/architecture-decision-conventions.md",
+    "harness/pi/skills/develop-architecture-decision/descriptor.json",
+    "harness/pi/validation/validate_architecture_decision_cases.py",
+    "harness/pi/resource-manifest.json",
+    "harness/local/profiles/ksdft2effmass-v2.json",
+    "harness/local/validation-route.json",
+    ".pi/skills/develop-architecture-decision/SKILL.md",
+    ".pi/skills/skill-capability-inventory.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "blocked_pending_final_human_acceptance; skill_not_invoked; H6_not_initialized; no_successor_active"
+}

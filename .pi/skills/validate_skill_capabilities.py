@@ -179,6 +179,7 @@ EXPECTED_SKILL_NAMES = {
     "resolve-human-checkpoint",
     "recommend-next-task",
     "design-data-action-objects",
+    "develop-architecture-decision",
     "develop-operator-records",
     "develop-python-test-evidence",
     "document-python-research-software",

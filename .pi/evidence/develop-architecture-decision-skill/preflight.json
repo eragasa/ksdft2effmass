@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+  "status": "PASS",
+  "command": [
+    "python",
+    ".pi/task-ownership/validate_task_ownership.py",
+    "--task",
+    "ARCHITECTURE-DECISION-SKILL-1",
+    "--chain",
+    ".pi/chains/develop-architecture-decision-skill.chain.json"
+  ],
+  "manifest": ".pi/evidence/develop-architecture-decision-skill/task-ownership.json",
+  "writer": "ksdft2effmass-harness-skill-resource-cutover-writer",
+  "reviewer": "ksdft2effmass-harness-cutover-skill-resource-reviewer",
+  "claim_boundary": "Ownership and path authorization only; not implementation correctness, semantic adequacy, VVUQ, or human acceptance."
+}

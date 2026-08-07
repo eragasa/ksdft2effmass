@@ -1,0 +1,25 @@
+{
+  "name": "develop-architecture-decision-skill",
+  "description": "Human-authorized bounded harness task creating and activating the read-only develop-architecture-decision skill.",
+  "status": "pending_human_acceptance",
+  "active_task": "ARCHITECTURE-DECISION-SKILL-1",
+  "production_execution_authorized": false,
+  "task_sequence": [
+    {
+      "id": "ARCHITECTURE-DECISION-SKILL-1",
+      "record": ".pi/tasks/develop-architecture-decision-skill.md",
+      "prerequisites": ["explicit_human_authorization"],
+      "status": "pending_human_acceptance",
+      "ownership_manifest": ".pi/evidence/develop-architecture-decision-skill/task-ownership.json"
+    }
+  ],
+  "pending_checkpoints": [
+    "ARCHITECTURE-DECISION-SKILL-1-HC01"
+  ],
+  "chain": [
+    {
+      "phase": "pending-final-human-acceptance",
+      "message": "Implementation, one independent review, one consolidated correction pass, and final verification are complete. Await ARCHITECTURE-DECISION-SKILL-1-HC01. Do not invoke the skill, initialize H6, or activate successor work."
+    }
+  ]
+}

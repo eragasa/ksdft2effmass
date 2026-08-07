@@ -15,9 +15,9 @@ The local manifest has layer `local`, declares `extends_manifest_id = pih.generi
 - `ksdft2effmass.profile.validation-route.v1`.
 
 The maintained route selects `local` and retains `legacy` as rollback. The
-current local replay runs the current H3 manifest/resource validator and the
-current seven-skill capability validator; it does not consume immutable H4
-checksum inventories. The route wrapper validates a closed structured result
+current local replay runs the current H3 manifest/resource validator, the
+current eight-skill capability validator, and the controlled architecture-
+decision cases; it does not consume immutable H4 checksum inventories. The route wrapper validates a closed structured result
 and fails closed on a missing script, malformed output, missing/duplicate check,
 nonzero exit, or non-PASS check. Historical H4 replay and catalogs remain
 unchanged and are used only by the retained historical/rollback mechanism.

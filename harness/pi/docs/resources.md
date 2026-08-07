@@ -19,6 +19,7 @@ The generic manifest is the authoritative inventory. In this page, “accepted-c
 
 - `pih.skill.document-python-research-software.v1` and its descriptor `pih.manifest.skill-descriptor.document-python-research-software.v1`;
 - `pih.skill.develop-python-test-evidence.v1`, its descriptor `pih.manifest.skill-descriptor.develop-python-test-evidence.v1`, and `pih.reference.test-evidence-conventions.v1`;
+- read-only `pih.skill.develop-architecture-decision.v1`, its descriptor `pih.manifest.skill-descriptor.develop-architecture-decision.v1`, and `pih.reference.architecture-decision-conventions.v1`;
 - record schemas under the `pih.schema.record-*.v1` identities;
 - reusable schema entry points `pih.schema.project-profile.v1`, `pih.schema.resource-manifest.v1`, and `pih.schema.skill-descriptor.v1`; and
 - `pih.schema.common-wire-definitions.v1` for shared wire definitions.

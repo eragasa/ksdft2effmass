@@ -165,6 +165,53 @@
       "stop_condition": "Stop after requested ownership review; do not implement, launch, or accept work."
     },
     {
+      "skill_name": "develop-architecture-decision",
+      "path": ".pi/skills/develop-architecture-decision/SKILL.md",
+      "content_sha256": "9949a50d4bdf3f072235b0946e797a7242b1712c2609b6332d671383a9f675bd",
+      "trigger_description": "A material architecture choice requires exactly three distinct defensible conceptual architectures and a human decision.",
+      "current_consumers": [
+        ".pi/tasks/develop-architecture-decision-skill.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/develop-architecture-decision/references/architecture-decision-conventions.md"
+      ],
+      "inputs": [
+        "correlated request/task/workflow/attempt identities",
+        "immutable repository and durable-state artifact identities",
+        "authority order, decision scope, and termination policy"
+      ],
+      "outputs": [
+        "three-option decision document and one recommendation",
+        "A/B/C/D checkpoint proposal or non-applicable stop classification",
+        "correlated read-only result with findings and residual questions"
+      ],
+      "side_effects": [
+        "none; read-only decision support"
+      ],
+      "external_tools_used": [
+        "repository read/search and deterministic read-only commands"
+      ],
+      "deterministic_scripts_used": [
+        "harness/pi/validation/validate_architecture_decision_cases.py"
+      ],
+      "authorization_requirements": "Human authority is required for architecture selection, checkpoint persistence, implementation, and acceptance.",
+      "failure_behavior": "Conflicting accepted identities or fewer than three defensible architectures returns conflict, deterministic, underspecified, or unsuitable and stops without checkpoint.",
+      "retry_behavior": "Requires immutable parent authorization or a pre-authorized retry policy, a new attempt identity, and retained prior results/findings.",
+      "idempotency": "Read-only analysis is observationally idempotent for identical artifact identities; a changed snapshot is a new input.",
+      "evidence_classification": "advisory architecture decision support; no implementation, VVUQ, scientific, execution, or acceptance evidence",
+      "current_validation_status": "Controlled harness-phase-six fixtures cover three applicable and five non-applicable cases; structural validation establishes procedure shape only.",
+      "primary_classification": "HUMAN_DECISION_SUPPORT",
+      "hardening_applied": [
+        "exact three-option applicability gate",
+        "fact/inference/choice/implementation/deferred separation",
+        "common comparison and single recommendation",
+        "actual A/B/C plus D checkpoint interface",
+        "CPN correlation, retry, idempotency, and stop boundaries"
+      ],
+      "stop_condition": "Stop after the decision document and checkpoint proposal, or after non-applicable classification; never select or implement."
+    },
+    {
       "skill_name": "develop-operator-records",
       "path": ".pi/skills/develop-operator-records/SKILL.md",
       "content_sha256": "ac8815bd9f331806ac2a2d7044963798ada43ddd0842e4df7583d60600fe4ea8",
@@ -665,7 +712,7 @@
       "command": "python3 .pi/skills/validate_harness.py --repository-root <absolute-repository-root> --route-config <absolute-route-config>",
       "evidence_owner": ".pi/skills/validate_harness.py, harness/local/validation-route.json, and harness/local/validation/replay_current_validators.py",
       "classification": "repository-local harness validation routing",
-      "current_status": "selected local route validates current H3 manifests/resources and seven live skills through a closed fail-closed replay; legacy rollback remains retained"
+      "current_status": "selected local route validates current H3 manifests/resources and eight live skills through a closed fail-closed replay; legacy rollback remains retained"
     },
     {
       "block": "EvidenceIdentifierAuditBlock",

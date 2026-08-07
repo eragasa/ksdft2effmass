@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+  "status": "active",
+  "starting_revision": "3927d41b93e6be480e9c29013984b9385808ad4c",
+  "authority": "Current human instruction titled Use the PI harness to create develop-architecture-decision",
+  "writer": "ksdft2effmass-harness-skill-resource-cutover-writer",
+  "reviewer": "ksdft2effmass-harness-cutover-skill-resource-reviewer",
+  "scope": "One bounded canonical/local/live harness skill capability, controlled fixtures, deterministic validation, one independent semantic review, at most one correction pass, and a final pending human-acceptance checkpoint.",
+  "excluded": [
+    ".pi/agents",
+    "H6 initialization or real analysis",
+    "dispatch or ownership-validator semantics",
+    "P2, P3, or H5 activation or mutation",
+    "production source or project tests",
+    "schemas, dependencies, or locks",
+    "scientific or external execution",
+    "publication or release"
+  ]
+}

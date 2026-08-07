@@ -38,7 +38,7 @@
     {
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "4bf43dce381cb13b77f3e88d706d63437fbb979ce7bba91de7682f31bed3adfd",
+        "digest": "0c6c86c319622beaca35574ea4e1d9f3f0e60fdc8e851d6c8490e4bdb3e18097",
         "schema_version": 1
       },
       "dependency_ids": [
@@ -71,7 +71,7 @@
     {
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "a80074d049159b06255a6af178b5a8cf2815834e0eecd6fc26d7042a2a33bab5",
+        "digest": "49b5a92c821460a2360b3a2edd963249a4d49dbdb9300eae95248788bd58e0d0",
         "schema_version": 1
       },
       "dependency_ids": [

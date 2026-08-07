@@ -17,9 +17,14 @@ CHECKS = (
         "RESOURCE VALIDATION PASS",
     ),
     (
-        "current-seven-skill-capabilities",
+        "current-eight-skill-capabilities",
         ".pi/skills/validate_skill_capabilities.py",
         "validation_errors=0",
+    ),
+    (
+        "current-architecture-decision-cases",
+        "harness/pi/validation/validate_architecture_decision_cases.py",
+        "\"status\":\"PASS\"",
     ),
 )
 

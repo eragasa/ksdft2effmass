@@ -49,7 +49,7 @@ policy, create a new attempt identity, and retain previous failures and findings
 ## Actual repository inventory
 
 The maintained source of truth for the live skill inventory is
-`.pi/skills/skill-capability-inventory.json`, checked against the seven canonical
+`.pi/skills/skill-capability-inventory.json`, checked against the eight canonical
 filesystem skills. Task, checkpoint, and chain records are authoritative for
 execution state, but are not skill-inventory inputs; retaining mutable snapshots
 of them in the capability inventory would make that inventory stale.
@@ -57,6 +57,7 @@ of them in the capability inventory would make that inventory stale.
 | Skill | Path | Primary CPN suitability | Main current consumers |
 |---|---|---|---|
 | `design-data-action-objects` | `.pi/skills/design-data-action-objects/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project design and implementation agents |
+| `develop-architecture-decision` | `.pi/skills/develop-architecture-decision/SKILL.md` | `HUMAN_DECISION_SUPPORT` | `.pi/tasks/develop-architecture-decision-skill.md` |
 | `develop-operator-records` | `.pi/skills/develop-operator-records/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project operator agents and closed operator workflows |
 | `develop-python-test-evidence` | `.pi/skills/develop-python-test-evidence/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | test writers and integration/evidence reviewers |
 | `document-python-research-software` | `.pi/skills/document-python-research-software/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | documentation and integration-review agents |
