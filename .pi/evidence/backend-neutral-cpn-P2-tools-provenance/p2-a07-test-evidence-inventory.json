@@ -61,6 +61,8 @@
     "tool_observations.py"
   ],
   "source_inventory_discrepancy_from_human_draft": null,
-  "file_sha256": "5be0f8c04be3508ff6553d5314b9fac5acefb519abba8d18de5f3a63cc8fd433",
-  "claim_boundary": "Exact AST-visible static imports only; excludes dynamic and transitive imports, dependency internals, runtime construction, scientific behavior, numerical verification, validation, UQ, provenance truth, portability, and cross-language conformance."
+  "file_sha256": "fe8a9100c7d80500b5ab81d259346cfbd20474bbc1b64801eb09b9c96c92291c",
+  "claim_boundary": "Exact AST-visible static imports only; excludes dynamic and transitive imports, dependency internals, runtime construction, scientific behavior, numerical verification, validation, UQ, provenance truth, portability, and cross-language conformance.",
+  "latest_attempt_id": "P2-A07-controlled-import-oracle-correction-2",
+  "post_audit_oracle": "Exact retained syntax and exact prohibited classification for the absolute-internal, module-less level-one, and higher-level controlled imports."
 }

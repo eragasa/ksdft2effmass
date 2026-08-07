@@ -161,18 +161,20 @@ def test_artifact__internal_import_graph__matches_exact_relative_layering(
     imports and the accepted internal adjacency, never absolute internal or ambiguous
     relative forms.
     Method
-    Extract every production import and controlled accepted, absolute-internal,
-    module-less-relative, and higher-level-relative syntax examples.
+    Extract every production import and each controlled accepted, absolute-internal,
+    module-less-relative, and higher-level-relative syntax example; then classify each
+    controlled prohibited form with the production predicates.
     Oracle
-    The accepted P2 decomposition fixes EXPECTED_INTERNAL_IMPORTS and permits only
-    ``from .module import name`` for internal edges.
+    The accepted P2 decomposition fixes EXPECTED_INTERNAL_IMPORTS, permits only
+    ``from .module import name`` for internal edges, and fixes each controlled AST form
+    and its prohibited category exactly.
     Acceptance
     Filenames and adjacency match exactly; production has no ambiguous relative or
-    absolute internal records; each dangerous synthetic form differs from the accepted
-    observation while the accepted example matches exactly.
+    absolute internal records; every controlled import equals its exact immutable
+    record, and each prohibited record appears in its exact prohibited classification.
     Interpretation
     Failure identifies source inventory drift, an unauthorized internal edge or form,
-    or an extractor that hides architecture-relevant syntax.
+    discarded import syntax, incorrect extraction, or incorrect classification.
     Limitations
     Dynamic imports, call architecture, runtime behavior, and package export identity
     are not assessed.
@@ -229,7 +231,14 @@ def test_artifact__internal_import_graph__matches_exact_relative_layering(
         "from .records import ArtifactIdentity\n", encoding="utf-8"
     )
     assert extract_static_import_dependencies(accepted_path) == frozenset(
-        {StaticImportDependency("from", "records", ("ArtifactIdentity",), 1)}
+        {
+            StaticImportDependency(
+                "from",
+                "records",
+                ("ArtifactIdentity",),
+                1,
+            )
+        }
     )
 
     absolute_path = tmp_path / "absolute_internal.py"
@@ -237,50 +246,78 @@ def test_artifact__internal_import_graph__matches_exact_relative_layering(
         "from ksdft2effmass.provenance.records import ArtifactIdentity\n",
         encoding="utf-8",
     )
+    absolute_dependencies = extract_static_import_dependencies(absolute_path)
+    assert absolute_dependencies == frozenset(
+        {
+            StaticImportDependency(
+                "from",
+                "ksdft2effmass.provenance.records",
+                ("ArtifactIdentity",),
+                0,
+            )
+        }
+    )
+    absolute_classification = {
+        dependency
+        for dependency in absolute_dependencies
+        if dependency.relative_level == 0
+        and dependency.module is not None
+        and (
+            dependency.module == "ksdft2effmass.provenance"
+            or dependency.module.startswith("ksdft2effmass.provenance.")
+        )
+    }
+    assert absolute_classification == set(absolute_dependencies)
+
     moduleless_path = tmp_path / "moduleless_relative.py"
     moduleless_path.write_text("from . import records\n", encoding="utf-8")
+    moduleless_dependencies = extract_static_import_dependencies(moduleless_path)
+    assert moduleless_dependencies == frozenset(
+        {
+            StaticImportDependency(
+                "from",
+                None,
+                ("records",),
+                1,
+            )
+        }
+    )
+    moduleless_classification = {
+        dependency
+        for dependency in moduleless_dependencies
+        if dependency.relative_level > 0
+        and not (
+            dependency.form == "from"
+            and dependency.relative_level == 1
+            and dependency.module is not None
+        )
+    }
+    assert moduleless_classification == set(moduleless_dependencies)
+
     higher_level_path = tmp_path / "higher_level_relative.py"
     higher_level_path.write_text("from ..provenance import records\n", encoding="utf-8")
-    dangerous_dependencies = {
-        path.name: extract_static_import_dependencies(path)
-        for path in (absolute_path, moduleless_path, higher_level_path)
-    }
-    dangerous_observations = {
-        name: (
-            {
-                dependency.module
-                for dependency in dependencies
-                if dependency.form == "from"
-                and dependency.relative_level == 1
-                and dependency.module is not None
-            },
-            {
-                dependency
-                for dependency in dependencies
-                if dependency.relative_level > 0
-                and not (
-                    dependency.form == "from"
-                    and dependency.relative_level == 1
-                    and dependency.module is not None
-                )
-            },
-            {
-                dependency
-                for dependency in dependencies
-                if dependency.relative_level == 0
-                and dependency.module is not None
-                and (
-                    dependency.module == "ksdft2effmass.provenance"
-                    or dependency.module.startswith("ksdft2effmass.provenance.")
-                )
-            },
-        )
-        for name, dependencies in dangerous_dependencies.items()
-    }
-    assert all(
-        observation != ({"records"}, set(), set())
-        for observation in dangerous_observations.values()
+    higher_level_dependencies = extract_static_import_dependencies(higher_level_path)
+    assert higher_level_dependencies == frozenset(
+        {
+            StaticImportDependency(
+                "from",
+                "provenance",
+                ("records",),
+                2,
+            )
+        }
     )
+    higher_level_classification = {
+        dependency
+        for dependency in higher_level_dependencies
+        if dependency.relative_level > 0
+        and not (
+            dependency.form == "from"
+            and dependency.relative_level == 1
+            and dependency.module is not None
+        )
+    }
+    assert higher_level_classification == set(higher_level_dependencies)
 
 
 def test_artifact__absolute_import_inventory__matches_exact_dependency_boundary(

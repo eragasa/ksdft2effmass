@@ -74,23 +74,24 @@
     "pluggy"
   ],
   "deterministic_results": {
-    "structural_validator": "PASS: zero findings; 1 artifact-owned module, 2 functions/owners, 1 helper",
+    "structural_validator": "PASS after post-audit correction: zero findings; 1 artifact-owned module, 2 functions/owners, 1 helper",
     "collection": "2 tests collected",
-    "focused_pytest": "2 passed",
-    "integration_family_pytest": "144 passed",
-    "ruff": "PASS",
-    "mypy": "Success: no issues found in 1 source file with MYPYPATH=src",
+    "focused_pytest": "2 passed after post-audit correction",
+    "integration_family_pytest": "144 passed after post-audit correction",
+    "ruff": "PASS after post-audit correction",
+    "mypy": "Success: no issues found in 1 source file after post-audit correction",
     "source_module_inventory": "PASS: exact 7 files",
     "internal_adjacency": "PASS: exact mapping",
     "absolute_import_inventory": "PASS: exact mapping",
-    "dangerous_form_visibility": "PASS: controlled absolute-internal, unusual-relative, and undeclared-absolute forms",
+    "dangerous_form_visibility": "PASS: exact extraction and exact prohibited classification for absolute-internal, module-less level-one, and higher-level relative forms",
     "evidence_uniqueness": "PASS: SV-PROV-070 and SV-PROV-071 each unique",
     "node_migration": "PASS: complete one-to-one 2 nodes",
     "p2_completion_validator": "PASS",
     "task_ownership": "PASS",
     "checkpoint_validator": "PASS with zero unresolved checkpoints",
     "git_diff_check": "PASS",
-    "nonmutation": "PASS: production provenance source, public exports, schemas, fixtures, dependencies, locks, other integration modules, historical evidence, harness resources, and protected inactive backlog unchanged"
+    "nonmutation": "PASS: production provenance source, public exports, schemas, fixtures, dependencies, locks, other integration modules, historical evidence, harness resources, and protected inactive backlog unchanged",
+    "silent_discard_mutation_confirmation": "PASS: discarding either module-less or higher-level relative syntax fails SV-PROV-070"
   },
   "review": {
     "run_id": "8bce7075-3fc7-4124-9dd0-b28a57730667",
@@ -101,9 +102,26 @@
     "other_integration_modules_inspected": false,
     "mutations": []
   },
-  "file_sha256": "5be0f8c04be3508ff6553d5314b9fac5acefb519abba8d18de5f3a63cc8fd433",
+  "file_sha256": "fe8a9100c7d80500b5ab81d259346cfbd20474bbc1b64801eb09b9c96c92291c",
   "next_item": "P2-A08",
   "next_item_started": false,
   "p2_status": "open_and_unaccepted",
-  "claim_boundary": "Exact AST-visible static imports only. Dynamic and transitive imports, dependency internals, runtime construction, semantically equivalent architectures without static imports, scientific behavior, numerical verification, validation, UQ, provenance truth, execution validity, portability, and cross-language conformance are excluded."
+  "claim_boundary": "Exact AST-visible static imports only. Dynamic and transitive imports, dependency internals, runtime construction, semantically equivalent architectures without static imports, scientific behavior, numerical verification, validation, UQ, provenance truth, execution validity, portability, and cross-language conformance are excluded.",
+  "post_audit_correction": {
+    "starting_revision": "e0cd54aba28e73b1075e437ec9216cf3880cb50d",
+    "attempt_id": "P2-A07-controlled-import-oracle-correction-2",
+    "human_finding": "The dangerous-observation inequality could pass when module-less or higher-level relative imports were silently discarded.",
+    "correction": "Assert each exact StaticImportDependency first, then assert exact membership in the absolute-internal or ambiguous-relative classification.",
+    "evidence_ids_preserved": [
+      "SV-PROV-070",
+      "SV-PROV-071"
+    ],
+    "new_evidence_ids": [],
+    "node_migration_changed": false,
+    "general_review_or_replay_performed": false,
+    "silent_discard_mutation_confirmation": {
+      "moduleless_level_one": "correctly failed",
+      "higher_level_relative": "correctly failed"
+    }
+  }
 }
