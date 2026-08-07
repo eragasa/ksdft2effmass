@@ -15,6 +15,12 @@ sphinx: excluded
 The proposed interface represents a command request and result without shell
 interpretation or ambient environment selection.
 
+## Capability decomposition
+
+| Decomposition | Responsibility |
+|---|---|
+| [harness.010.040.010](./ksdft2effmass.harness.010.040.010.md) | Skill, durable/inactive-agent, ActionObject, and tool capability ownership rationalization |
+
 ## Canonical interpreter
 
 Repository Python commands use:
