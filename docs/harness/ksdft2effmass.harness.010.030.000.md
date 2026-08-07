@@ -8,9 +8,10 @@ sphinx: excluded
 
 # Durable agent architecture
 
-> **Proposed architecture.** The five durable project roles and five durable
-> harness roles exist, but later simplification and migration steps remain
-> proposed and require separate authorization.
+> **Incremental architecture.** The five durable project roles and five durable
+> harness roles exist. The durable harness-role creation and the bounded
+> `ksdft2effmass-tests` simplification are current; all later migration steps
+> remain proposed and require separate authorization.
 
 The implemented durable sets provide stable capability identities. They are
 available for explicit assignment but do not activate themselves, grant path
@@ -28,9 +29,9 @@ The five existing durable project agents cover domain-facing work:
 - maintained documentation;
 - independent integration review.
 
-These agents would continue to load project specifications and domain skills.
-They would not acquire generic harness implementation authority merely because a
-task uses the harness.
+These agents continue to load project specifications and domain skills. They do
+not acquire generic harness implementation authority merely because a task uses
+the harness.
 
 ## Harness-agent set
 
@@ -58,13 +59,15 @@ A task request or ownership manifest supplies:
 This keeps durable role meaning stable while preserving narrow task authority.
 An agent file still would not activate work or provide acceptance.
 
-## Migration requirement
+## Migration status
 
 The first child, [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md),
-is complete. Project-role simplification, live-discovery changes,
-historical-agent retirement, and delegation and handoff validation remain
-proposed and unauthorized. Existing historical identities remain present and
-retained evidence remains historically accurate.
+is complete. The second child, [Simplify durable project roles](./ksdft2effmass.harness.010.030.020.md),
+completes only the concise stable capability definition for
+`ksdft2effmass-tests`; the other four durable project roles are unchanged.
+Live-discovery changes, historical-agent retirement, and delegation and handoff
+validation remain proposed and unauthorized. Existing historical identities
+remain present and retained evidence remains historically accurate.
 
 See [current agents and ownership](./ksdft2effmass.harness.001.050.000.md) and the
 [simplification overview](./ksdft2effmass.harness.010.000.000.md).

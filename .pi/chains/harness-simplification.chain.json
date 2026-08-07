@@ -1,0 +1,57 @@
+{
+  "name": "harness-simplification",
+  "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
+  "status": "project_role_simplification_completed",
+  "active_task": null,
+  "automatic_successor_activation": false,
+  "chain": [],
+  "task_sequence": [
+    {
+      "id": "harness-simplification.agents.durable-roles",
+      "record": "docs/harness/ksdft2effmass.harness.010.030.010.md",
+      "prerequisites": [],
+      "status": "completed"
+    },
+    {
+      "id": "harness-simplification.agents.project-role-simplification",
+      "record": ".pi/tasks/harness-simplification.agents.project-role-simplification.md",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-role-simplification.json",
+      "prerequisites": [
+        "harness-simplification.agents.durable-roles:completed"
+      ],
+      "status": "completed"
+    },
+    {
+      "id": "harness-simplification.agents.live-discovery",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.project-role-simplification:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
+      "id": "harness-simplification.agents.historical-retirement",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.live-discovery:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
+      "id": "harness-simplification.agents.delegation-validation",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.historical-retirement:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
+      "id": "harness-simplification.evidence-and-sqlite",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.delegation-validation:completed"
+      ],
+      "status": "inactive_unauthorized"
+    }
+  ]
+}
