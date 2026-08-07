@@ -116,7 +116,8 @@
         ".pi/agents/ksdft2effmass-documentation.md",
         ".pi/agents/ksdft2effmass-implementation.md",
         ".pi/agents/ksdft2effmass-tests.md",
-        ".pi/agents/ksdft2effmass-integration-reviewer.md"
+        ".pi/agents/ksdft2effmass-integration-reviewer.md",
+        ".pi/agents/ksdft2effmass-harness-implementation.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -170,7 +171,8 @@
       "content_sha256": "9949a50d4bdf3f072235b0946e797a7242b1712c2609b6332d671383a9f675bd",
       "trigger_description": "A material architecture choice requires exactly three distinct defensible conceptual architectures and a human decision.",
       "current_consumers": [
-        ".pi/tasks/develop-architecture-decision-skill.md"
+        ".pi/tasks/develop-architecture-decision-skill.md",
+        ".pi/agents/ksdft2effmass-harness-architecture.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -288,7 +290,9 @@
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/agents/ksdft2effmass-tests.md",
-        ".pi/agents/ksdft2effmass-integration-reviewer.md"
+        ".pi/agents/ksdft2effmass-integration-reviewer.md",
+        ".pi/agents/ksdft2effmass-harness-tests.md",
+        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -347,7 +351,10 @@
       "current_consumers": [
         ".pi/agents/ksdft2effmass-documentation.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md",
-        "harness/pi/skills/document-python-research-software/descriptor.json"
+        "harness/pi/skills/document-python-research-software/descriptor.json",
+        ".pi/agents/ksdft2effmass-harness-implementation.md",
+        ".pi/agents/ksdft2effmass-harness-documentation.md",
+        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
       ],
       "authoritative_references": [
         "AGENTS.md",

@@ -8,8 +8,9 @@ sphinx: excluded
 
 # Durable agent architecture
 
-> **Proposed architecture.** Current phase-specific agent definitions remain in
-> force until a separately authorized migration changes them.
+> **Incremental architecture.** The first bounded child creates durable harness
+> capability roles. Project-role simplification, discovery changes, and historical
+> retirement remain proposed and require separate authorization.
 
 The proposal replaces repeated phase-numbered role files with two small durable
 sets. Task scope, owned paths, evidence requirements, and completion commands
@@ -61,6 +62,10 @@ An agent file still would not activate work or provide acceptance.
 Existing agents should be mapped to durable roles before any retirement. During
 the transition, old and new role resolution would be compared on representative
 requests. Historical agent identities remain in retained evidence.
+
+The implemented first child is [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md).
+It creates only reusable future assignment targets; the remaining migration
+children stay proposed and unauthorized.
 
 See [current agents and ownership](./ksdft2effmass.harness.001.050.000.md) and the
 [simplification overview](./ksdft2effmass.harness.010.000.000.md).
