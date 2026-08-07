@@ -1,23 +1,31 @@
 # TEST-EVIDENCE-CONVENTIONS-2 — Prevent recurring mixed-surface and generated-prose defects in Python test evidence
 
-Status: `proposed_inactive`
+Status: `proposed_inactive` except for one bounded implemented capability
 
 ```text
-activation_authorized: false
-implementation_authorized: false
+bounded_implemented_capability: module-local named literal pytest.param inventory resolution
+remaining_backlog: proposed_inactive
+activation_authorized_for_remaining_backlog: false
+implementation_authorized_for_remaining_backlog: false
 ```
+
+The current human instruction titled **TEST-EVIDENCE-CONVENTIONS-2 — Bounded
+named-parameter-inventory validator correction** authorizes only that capability. It
+does not activate the other deterministic rules or workflow-automation proposals
+below, and it does not activate P2-A09.
 
 The concise proposal record is
 [`../evidence/harness-backlog/TEST-EVIDENCE-CONVENTIONS-2.json`](../evidence/harness-backlog/TEST-EVIDENCE-CONVENTIONS-2.json).
 
 ## Purpose and authority boundary
 
-This inactive backlog item records a possible future improvement to the reusable
-Python test-evidence capability. It does not authorize implementation, change
-current test-evidence rules, modify the active local route, or interrupt the
-file-by-file P2 audit.
+Except for the bounded named-inventory capability recorded above, this inactive
+backlog item records possible future improvements to the reusable Python test-evidence
+capability. The bounded slice changes only static module-local named-inventory
+resolution and its canonical/live convention text; it does not activate another rule,
+workflow automation, or the P2 audit.
 
-A separately recorded human activation is required before changing:
+A separately recorded human activation is still required before any further change to:
 
 - `harness/pi/skills/develop-python-test-evidence/`;
 - `harness/pi/validation/validate_python_test_evidence.py`;
@@ -203,13 +211,13 @@ as advisory and must not be converted into unsupported deterministic PASS claims
 friction. `P2-A04` supplies additional enum-ownership and declarative-coverage
 observations. The current file-by-file human P2 audit remains authoritative.
 
-This proposal:
+This proposal, apart from the bounded implemented named-inventory capability:
 
 - does not retroactively invalidate cleared items;
 - does not change P2 criteria during the active audit;
 - does not modify any current P2 test or evidence decision;
 - does not activate, advance, or clear any P2 audit item; and
-- may be implemented only after separate human activation.
+- may be implemented further only after separate human activation.
 
 ## Proposed future completion shape
 

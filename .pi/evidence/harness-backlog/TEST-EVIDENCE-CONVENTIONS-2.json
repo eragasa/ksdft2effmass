@@ -5,6 +5,18 @@
   "status": "proposed_inactive",
   "activation_authorized": false,
   "implementation_authorized": false,
+  "bounded_implemented_slice": {
+    "capability": "module-local named literal pytest.param inventory resolution",
+    "authority": "Current human instruction titled TEST-EVIDENCE-CONVENTIONS-2 — Bounded named-parameter-inventory validator correction",
+    "starting_revision": "dc1745bff011c1f46bac6d46ba02a354e9fe0630",
+    "status": "implemented_at_durable_boundary_commit_containing_this_record",
+    "review": {
+      "run_id": "4f860f51",
+      "disposition": "one material nested-module-scope binding finding corrected in the sole bounded correction pass",
+      "second_review_launched": false
+    },
+    "remaining_backlog_status": "proposed_inactive"
+  },
   "task_record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
   "observation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-test-evidence-friction-observations.md",
   "proposed_targets": [
@@ -16,6 +28,7 @@
   "prerequisite_for": [],
   "checkpoint_required_to_record_proposal": false,
   "relationship_to_current_work": {
+    "p2_a09_unblocked_but_not_activated": true,
     "p2_a02_examples_retained": true,
     "p2_a03_audit_unchanged": true,
     "p2_a04_audit_unchanged": true,

@@ -12,6 +12,7 @@ import argparse
 import ast
 import json
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -100,75 +101,372 @@ def sections(doc: str | None, labels: tuple[str, ...]) -> tuple[bool, str]:
     return True, ""
 
 
-def decorator_param_id_problems(
-    node: ast.FunctionDef | ast.AsyncFunctionDef,
-) -> list[str]:
-    problems: list[str] = []
+@dataclass(frozen=True)
+class ParameterCaseInventory:
+    """Statically resolved parameter cases and inventory-specific findings."""
+
+    elements: tuple[ast.expr, ...] | None
+    findings: tuple[tuple[str, str], ...]
+    named: bool
+
+
+def assigned_names(target: ast.expr) -> set[str]:
+    """Return simple names stored anywhere in one assignment target."""
+    if isinstance(target, ast.Name):
+        return {target.id}
+    if isinstance(target, (ast.List, ast.Tuple)):
+        return {name for element in target.elts for name in assigned_names(element)}
+    return set()
+
+
+def module_scope_statements(tree: ast.Module) -> tuple[ast.stmt, ...]:
+    """Return statements executed at module scope, including compound bodies."""
+    statements: list[ast.stmt] = []
+
+    def visit(node: ast.AST) -> None:
+        for child in ast.iter_child_nodes(node):
+            if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                statements.append(child)
+                continue
+            if isinstance(child, ast.stmt):
+                statements.append(child)
+            visit(child)
+
+    visit(tree)
+    return tuple(statements)
+
+
+def imported_module_names(tree: ast.Module) -> set[str]:
+    """Return names introduced by imports in module-executed statements."""
+    names: set[str] = set()
+    for statement in module_scope_statements(tree):
+        if isinstance(statement, ast.Import):
+            names.update(
+                alias.asname or alias.name.split(".", 1)[0] for alias in statement.names
+            )
+        elif isinstance(statement, ast.ImportFrom):
+            names.update(alias.asname or alias.name for alias in statement.names)
+    return names
+
+
+def module_assignments(tree: ast.Module, name: str) -> list[ast.Assign | ast.AnnAssign]:
+    """Return module-level ordinary assignments that store one requested name."""
+    assignments: list[ast.Assign | ast.AnnAssign] = []
+    for statement in tree.body:
+        if isinstance(statement, ast.Assign) and any(
+            name in assigned_names(target) for target in statement.targets
+        ):
+            assignments.append(statement)
+        elif isinstance(statement, ast.AnnAssign) and name in assigned_names(
+            statement.target
+        ):
+            assignments.append(statement)
+    return assignments
+
+
+def inventory_mutation_findings(
+    tree: ast.Module,
+    name: str,
+    assignment: ast.Assign | ast.AnnAssign,
+) -> list[tuple[str, str]]:
+    """Reject module-level reassignment and statically visible inventory mutation."""
+    findings: list[tuple[str, str]] = []
+    for statement in module_scope_statements(tree):
+        if statement is assignment:
+            continue
+        if isinstance(statement, ast.Assign) and any(
+            name in assigned_names(target) for target in statement.targets
+        ):
+            findings.append(
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} is reassigned",
+                )
+            )
+        elif isinstance(statement, ast.AnnAssign) and name in assigned_names(
+            statement.target
+        ):
+            findings.append(
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} is reassigned",
+                )
+            )
+        elif isinstance(statement, ast.AugAssign) and (
+            isinstance(statement.target, ast.Name) and statement.target.id == name
+        ):
+            findings.append(
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} uses augmented assignment",
+                )
+            )
+    mutating_methods = {"append", "clear", "extend", "insert", "reverse", "sort"}
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and isinstance(node.func.value, ast.Name)
+            and node.func.value.id == name
+            and node.func.attr in mutating_methods
+        ):
+            findings.append(
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} is mutated with "
+                    f"{node.func.attr}()",
+                )
+            )
+        if isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign)):
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            if any(
+                isinstance(target, ast.Subscript)
+                and isinstance(target.value, ast.Name)
+                and target.value.id == name
+                for target in targets
+            ):
+                findings.append(
+                    (
+                        "TE.PARAMETER_INVENTORY",
+                        f"named parameter inventory {name!r} is mutated by "
+                        "subscript assignment",
+                    )
+                )
+    return findings
+
+
+def resolve_parameter_case_inventory(
+    tree: ast.Module, decorator: ast.Call
+) -> ParameterCaseInventory:
+    """Resolve inline cases or one restricted module-local named literal inventory."""
+    values = decorator.args[1] if len(decorator.args) > 1 else None
+    if isinstance(values, (ast.List, ast.Tuple)):
+        return ParameterCaseInventory(tuple(values.elts), (), False)
+    if not isinstance(values, ast.Name):
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_ID",
+                    "parameterization requires a literal case list and explicit IDs",
+                ),
+            ),
+            False,
+        )
+    name = values.id
+    if name in imported_module_names(tree):
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} must not be imported",
+                ),
+            ),
+            True,
+        )
+    assignments = module_assignments(tree, name)
+    if not assignments:
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} is unresolved in this module",
+                ),
+            ),
+            True,
+        )
+    if len(assignments) != 1:
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} must have exactly one "
+                    "module-level assignment",
+                ),
+            ),
+            True,
+        )
+    assignment = assignments[0]
+    targets = (
+        assignment.targets
+        if isinstance(assignment, ast.Assign)
+        else [assignment.target]
+    )
+    if len(targets) != 1 or not isinstance(targets[0], ast.Name):
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} requires one "
+                    "simple-name assignment",
+                ),
+            ),
+            True,
+        )
+    if assignment.lineno >= decorator.lineno:
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} must be assigned before "
+                    "its consuming decorator",
+                ),
+            ),
+            True,
+        )
+    value = assignment.value
+    if not isinstance(value, (ast.List, ast.Tuple)):
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} must be assigned directly "
+                    "to a literal tuple or list",
+                ),
+            ),
+            True,
+        )
+    if any(isinstance(element, ast.Starred) for element in value.elts):
+        return ParameterCaseInventory(
+            None,
+            (
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    f"named parameter inventory {name!r} must not contain "
+                    "starred expansion",
+                ),
+            ),
+            True,
+        )
+    findings = inventory_mutation_findings(tree, name, assignment)
+    return ParameterCaseInventory(tuple(value.elts), tuple(findings), True)
+
+
+def semantic_parameter_id_problem(value: str) -> str | None:
+    """Return the existing semantic-ID finding text for one static string."""
+    unstable = (
+        not SEMANTIC_PARAM_RE.fullmatch(value)
+        or bool(re.fullmatch(r"(?:case[_-]?)?[0-9]+", value, re.IGNORECASE))
+        or "::" in value
+        or "/" in value
+        or "\\" in value
+        or bool(re.search(r"0x[0-9a-f]+", value, re.IGNORECASE))
+        or any(0xD800 <= ord(char) <= 0xDFFF or char.isspace() for char in value)
+    )
+    if unstable:
+        return f"pathological, ordinal, raw, or nonsemantic parameter ID {value!r}"
+    return None
+
+
+def decorator_parameter_findings(
+    node: ast.FunctionDef | ast.AsyncFunctionDef, tree: ast.Module
+) -> list[tuple[str, str]]:
+    """Validate inline and named parameter case IDs without executing test code."""
+    findings: list[tuple[str, str]] = []
     for dec in node.decorator_list:
         call = dec if isinstance(dec, ast.Call) else None
-        if call is None:
-            continue
-        func = call.func
-        is_parametrize = isinstance(func, ast.Attribute) and func.attr == "parametrize"
-        if not is_parametrize:
+        if call is None or not (
+            isinstance(call.func, ast.Attribute) and call.func.attr == "parametrize"
+        ):
             continue
         ids = next((kw.value for kw in call.keywords if kw.arg == "ids"), None)
-        values = call.args[1] if len(call.args) > 1 else None
+        resolution = resolve_parameter_case_inventory(tree, call)
+        findings.extend(resolution.findings)
+        if resolution.elements is None:
+            continue
         explicit: list[str] = []
-        if isinstance(ids, (ast.List, ast.Tuple)):
+        if isinstance(ids, (ast.List, ast.Tuple)) and not resolution.named:
             explicit = [
-                x.value
-                for x in ids.elts
-                if isinstance(x, ast.Constant) and isinstance(x.value, str)
+                item.value
+                for item in ids.elts
+                if isinstance(item, ast.Constant) and isinstance(item.value, str)
             ]
             if len(explicit) != len(ids.elts):
-                problems.append("parameter IDs must be literal strings")
-        elif ids is None and isinstance(values, (ast.List, ast.Tuple)):
-            for item in values.elts:
-                if (
+                findings.append(
+                    ("TE.PARAMETER_ID", "parameter IDs must be literal strings")
+                )
+        elif ids is None:
+            for item in resolution.elements:
+                valid_call = (
                     isinstance(item, ast.Call)
                     and isinstance(item.func, ast.Attribute)
                     and item.func.attr == "param"
-                ):
-                    value = next(
+                    and (
+                        not resolution.named
+                        or (
+                            isinstance(item.func.value, ast.Name)
+                            and item.func.value.id == "pytest"
+                        )
+                    )
+                )
+                if not valid_call:
+                    message = (
+                        "named parameter inventory elements must be direct "
+                        "pytest.param(...) calls"
+                        if resolution.named
+                        else "parameterization requires explicit ids=... or "
+                        "pytest.param(id=...)"
+                    )
+                    findings.append(
                         (
-                            kw.value.value
-                            for kw in item.keywords
-                            if kw.arg == "id"
-                            and isinstance(kw.value, ast.Constant)
-                            and isinstance(kw.value.value, str)
-                        ),
-                        None,
+                            "TE.PARAMETER_INVENTORY"
+                            if resolution.named
+                            else "TE.PARAMETER_ID",
+                            message,
+                        )
                     )
-                    if value is None:
-                        problems.append("every pytest.param case requires id=...")
-                    else:
-                        explicit.append(value)
+                    continue
+                assert isinstance(item, ast.Call)
+                id_keywords = [kw.value for kw in item.keywords if kw.arg == "id"]
+                if len(id_keywords) != 1:
+                    findings.append(
+                        (
+                            "TE.PARAMETER_ID",
+                            "every pytest.param case requires exactly one id=...",
+                        )
+                    )
+                elif not (
+                    isinstance(id_keywords[0], ast.Constant)
+                    and isinstance(id_keywords[0].value, str)
+                ):
+                    findings.append(
+                        (
+                            "TE.PARAMETER_ID",
+                            "every pytest.param id=... must be a static string literal",
+                        )
+                    )
                 else:
-                    problems.append(
-                        "parameterization requires explicit ids=... or pytest.param(id=...)"
-                    )
+                    explicit.append(id_keywords[0].value)
+        elif resolution.named:
+            findings.append(
+                (
+                    "TE.PARAMETER_INVENTORY",
+                    "named parameter inventories own their explicit pytest.param "
+                    "IDs and cannot use decorator ids=",
+                )
+            )
         else:
-            problems.append(
-                "parameterization requires a literal case list and explicit IDs"
+            findings.append(
+                (
+                    "TE.PARAMETER_ID",
+                    "parameterization requires a literal case list and explicit IDs",
+                )
+            )
+        if resolution.named and len(explicit) != len(set(explicit)):
+            findings.append(
+                ("TE.PARAMETER_ID", "named parameter inventory IDs must be unique")
             )
         for value in explicit:
-            unstable = (
-                not SEMANTIC_PARAM_RE.fullmatch(value)
-                or bool(re.fullmatch(r"(?:case[_-]?)?[0-9]+", value, re.IGNORECASE))
-                or "::" in value
-                or "/" in value
-                or "\\" in value
-                or bool(re.search(r"0x[0-9a-f]+", value, re.IGNORECASE))
-                or any(
-                    0xD800 <= ord(char) <= 0xDFFF or char.isspace() for char in value
-                )
-            )
-            if unstable:
-                problems.append(
-                    f"pathological, ordinal, raw, or nonsemantic parameter ID {value!r}"
-                )
-    return problems
+            problem = semantic_parameter_id_problem(value)
+            if problem is not None:
+                findings.append(("TE.PARAMETER_ID", problem))
+    return findings
 
 
 def validate_file(
@@ -184,14 +482,20 @@ def validate_file(
     first_line = (module_doc or "").splitlines()[0].strip() if module_doc else ""
     mode, sut = owner.get("mode"), owner.get("sut")
     evidence_class = owner.get("evidence_class")
-    opening_label = EVIDENCE_OPENINGS.get(evidence_class)
+    opening_label = (
+        EVIDENCE_OPENINGS.get(evidence_class)
+        if isinstance(evidence_class, str)
+        else None
+    )
     artifact = owner.get("artifact")
     if opening_label is None:
         out.append(
             finding(
                 "TE.EVIDENCE_CLASS",
                 path,
-                "evidence_class must be software_verification, numerical_verification, scientific_validation, or uncertainty_quantification",
+                "evidence_class must be software_verification, "
+                "numerical_verification, scientific_validation, or "
+                "uncertainty_quantification",
             )
         )
         expected_opening = None
@@ -210,7 +514,8 @@ def validate_file(
             finding(
                 "TE.MODULE_OPENING",
                 path,
-                f"raw module opening must exactly match structured ownership; expected {expected_opening!r}",
+                "raw module opening must exactly match structured ownership; "
+                f"expected {expected_opening!r}",
             )
         )
     ok, detail = sections(module_doc, HEADINGS)
@@ -336,8 +641,8 @@ def validate_file(
                     node.lineno,
                 )
             )
-        for param_detail in decorator_param_id_problems(node):
-            out.append(finding("TE.PARAMETER_ID", path, param_detail, node.lineno))
+        for code, param_detail in decorator_parameter_findings(node, tree):
+            out.append(finding(code, path, param_detail, node.lineno))
         ok, detail = sections(ast.get_docstring(node, clean=False), FIELDS)
         if not ok:
             out.append(finding("TE.FUNCTION_DOC", path, detail, node.lineno))
@@ -371,7 +676,8 @@ def validate_file(
                 finding(
                     "TE.HELPER_ID",
                     path,
-                    "helper must say it owns no identifier; referenced supported IDs are not owned",
+                    "helper must say it owns no identifier; referenced supported "
+                    "IDs are not owned",
                     node.lineno,
                 )
             )
@@ -380,6 +686,7 @@ def validate_file(
 
 def static_parameter_case_count(
     node: ast.FunctionDef | ast.AsyncFunctionDef,
+    tree: ast.Module,
 ) -> int | None:
     """Return the static collected case product, or None when not derivable."""
     counts: list[int] = []
@@ -390,9 +697,10 @@ def static_parameter_case_count(
             and dec.func.attr == "parametrize"
         ):
             continue
-        if len(dec.args) < 2 or not isinstance(dec.args[1], (ast.List, ast.Tuple)):
+        resolution = resolve_parameter_case_inventory(tree, dec)
+        if resolution.elements is None or resolution.findings:
             return None
-        counts.append(len(dec.args[1].elts))
+        counts.append(len(resolution.elements))
     if not counts:
         return 0
     result = 1
@@ -423,7 +731,8 @@ def load_ownership(
                 finding(
                     "TE.OWNERSHIP_INPUT",
                     path,
-                    "ownership must be a closed schema-version-1 object with modules list",
+                    "ownership must be a closed schema-version-1 object with "
+                    "modules list",
                 )
             ],
         )
@@ -661,7 +970,7 @@ def main() -> int:
     for path in args.paths:
         try:
             tree = ast.parse(path.read_text(encoding="utf-8"))
-        except (OSError, UnicodeError, SyntaxError):
+        except OSError, UnicodeError, SyntaxError:
             continue
         functions = [
             node
@@ -671,7 +980,7 @@ def main() -> int:
         tests += sum(node.name.startswith("test_") for node in functions)
         helpers += sum(not node.name.startswith("test_") for node in functions)
         for node in functions:
-            count = static_parameter_case_count(node)
+            count = static_parameter_case_count(node, tree)
             if count is None:
                 static_parameter_cases_known = False
             elif count:

@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "valid": [
+    {
+      "case_id": "inline_literal_tuple",
+      "assignment": "",
+      "decorator_values": "(pytest.param(1, id=\"case_a\"), pytest.param(2, id=\"case_b\"))",
+      "parameter_names": "case",
+      "consumer_count": 1,
+      "expected_static_cases": 2
+    },
+    {
+      "case_id": "inline_literal_list",
+      "assignment": "",
+      "decorator_values": "[pytest.param(1, id=\"case_a\"), pytest.param(2, id=\"case_b\")]",
+      "parameter_names": "case",
+      "consumer_count": 1,
+      "expected_static_cases": 2
+    },
+    {
+      "case_id": "named_literal_tuple",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"), pytest.param(2, id=\"case_b\"))",
+      "decorator_values": "CASE_INVENTORY",
+      "parameter_names": "case",
+      "consumer_count": 1,
+      "expected_static_cases": 2
+    },
+    {
+      "case_id": "named_literal_list",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\"), pytest.param(2, id=\"case_b\")]",
+      "decorator_values": "CASE_INVENTORY",
+      "parameter_names": "case",
+      "consumer_count": 1,
+      "expected_static_cases": 2
+    },
+    {
+      "case_id": "named_inventory_reused_by_two_tests",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"), pytest.param(2, id=\"case_b\"))",
+      "decorator_values": "CASE_INVENTORY",
+      "parameter_names": "case",
+      "consumer_count": 2,
+      "expected_static_cases": 4
+    },
+    {
+      "case_id": "multi_argument_cases",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, 2, id=\"left_right\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "parameter_names": "left,right",
+      "consumer_count": 1,
+      "expected_static_cases": 1
+    },
+    {
+      "case_id": "path_and_public_class_expressions",
+      "imports": "from pathlib import Path\nfrom example import ExampleRecord",
+      "assignment": "CASE_INVENTORY = (pytest.param(Path(\"fixture.json\"), ExampleRecord, id=\"path_and_public_class\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "parameter_names": "left,right",
+      "consumer_count": 1,
+      "expected_static_cases": 1
+    },
+    {
+      "case_id": "intended_a09_three_consumer_pattern",
+      "assignment": "VALID_FIXTURE_CASES = (pytest.param(\"artifact_identity.json\", id=\"artifact_identity\"), pytest.param(\"run_manifest.json\", id=\"run_manifest\"))",
+      "decorator_values": "VALID_FIXTURE_CASES",
+      "parameter_names": "case",
+      "consumer_count": 3,
+      "expected_static_cases": 6
+    }
+  ],
+  "invalid": [
+    {
+      "case_id": "unresolved_named_inventory",
+      "assignment": "",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "unresolved"
+    },
+    {
+      "case_id": "imported_named_inventory",
+      "imports": "from example_cases import CASE_INVENTORY",
+      "assignment": "",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "must not be imported"
+    },
+    {
+      "case_id": "function_generated_inventory",
+      "assignment": "CASE_INVENTORY = make_cases()",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "assigned directly to a literal tuple or list"
+    },
+    {
+      "case_id": "lambda_generated_inventory",
+      "assignment": "CASE_INVENTORY = (lambda: (pytest.param(1, id=\"case_a\"),))()",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "assigned directly to a literal tuple or list"
+    },
+    {
+      "case_id": "list_comprehension_inventory",
+      "assignment": "CASE_INVENTORY = [pytest.param(value, id=\"case_a\") for value in (1,)]",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "assigned directly to a literal tuple or list"
+    },
+    {
+      "case_id": "concatenated_inventory",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),) + (pytest.param(2, id=\"case_b\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "assigned directly to a literal tuple or list"
+    },
+    {
+      "case_id": "starred_expansion_inventory",
+      "assignment": "OTHER = (pytest.param(1, id=\"case_a\"),)\nCASE_INVENTORY = (*OTHER,)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "starred expansion"
+    },
+    {
+      "case_id": "missing_parameter_id",
+      "assignment": "CASE_INVENTORY = (pytest.param(1),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_ID",
+      "message_contains": "requires exactly one id"
+    },
+    {
+      "case_id": "dynamic_parameter_id",
+      "assignment": "CASE_ID = \"case_a\"\nCASE_INVENTORY = (pytest.param(1, id=CASE_ID),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_ID",
+      "message_contains": "static string literal"
+    },
+    {
+      "case_id": "duplicate_parameter_id",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"), pytest.param(2, id=\"case_a\"))",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_ID",
+      "message_contains": "must be unique"
+    },
+    {
+      "case_id": "invalid_semantic_parameter_id",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"bad id\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_ID",
+      "message_contains": "nonsemantic parameter ID"
+    },
+    {
+      "case_id": "module_level_reassignment",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)\nCASE_INVENTORY = (pytest.param(2, id=\"case_b\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "exactly one module-level assignment"
+    },
+    {
+      "case_id": "augmented_assignment",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY += [pytest.param(2, id=\"case_b\")]",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "augmented assignment"
+    },
+    {
+      "case_id": "list_append_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY.append(pytest.param(2, id=\"case_b\"))",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "append()"
+    },
+    {
+      "case_id": "list_extend_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY.extend([pytest.param(2, id=\"case_b\")])",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "extend()"
+    },
+    {
+      "case_id": "list_insert_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY.insert(0, pytest.param(2, id=\"case_b\"))",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "insert()"
+    },
+    {
+      "case_id": "list_clear_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY.clear()",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "clear()"
+    },
+    {
+      "case_id": "list_sort_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY.sort()",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "sort()"
+    },
+    {
+      "case_id": "list_reverse_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY.reverse()",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "reverse()"
+    },
+    {
+      "case_id": "subscript_mutation",
+      "assignment": "CASE_INVENTORY = [pytest.param(1, id=\"case_a\")]\nCASE_INVENTORY[0] = pytest.param(2, id=\"case_b\")",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "subscript assignment"
+    },
+    {
+      "case_id": "inventory_declared_after_decorator",
+      "assignment": "",
+      "assignment_after": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "assigned before"
+    },
+    {
+      "case_id": "non_pytest_param_element",
+      "assignment": "CASE_INVENTORY = (1,)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "direct pytest.param"
+    },
+    {
+      "case_id": "nested_if_reassignment",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)\nif condition:\n    CASE_INVENTORY = (pytest.param(2, id=\"case_b\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "is reassigned"
+    },
+    {
+      "case_id": "nested_try_reassignment",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)\ntry:\n    CASE_INVENTORY = (pytest.param(2, id=\"case_b\"),)\nexcept Exception:\n    pass",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "is reassigned"
+    },
+    {
+      "case_id": "nested_with_reassignment",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)\nwith context_manager:\n    CASE_INVENTORY = (pytest.param(2, id=\"case_b\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "is reassigned"
+    },
+    {
+      "case_id": "nested_for_reassignment",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)\nfor item in items:\n    CASE_INVENTORY = (pytest.param(item, id=\"case_b\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "is reassigned"
+    },
+    {
+      "case_id": "nested_module_scope_import",
+      "imports": "if condition:\n    from example_cases import CASE_INVENTORY",
+      "assignment": "CASE_INVENTORY = (pytest.param(1, id=\"case_a\"),)",
+      "decorator_values": "CASE_INVENTORY",
+      "expected_code": "TE.PARAMETER_INVENTORY",
+      "message_contains": "must not be imported"
+    },
+    {
+      "case_id": "inline_dynamic_ids_regression",
+      "assignment": "CASE_IDS = make_ids()",
+      "decorator_values": "(1, 2)",
+      "decorator_suffix": ", ids=CASE_IDS",
+      "expected_code": "TE.PARAMETER_ID",
+      "message_contains": "literal case list and explicit IDs"
+    }
+  ]
+}
