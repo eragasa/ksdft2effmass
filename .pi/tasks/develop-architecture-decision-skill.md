@@ -1,6 +1,6 @@
 # ARCHITECTURE-DECISION-SKILL-1 — develop-architecture-decision harness resource
 
-Status: pending final human acceptance at `ARCHITECTURE-DECISION-SKILL-1-HC01` from starting revision `3927d41b93e6be480e9c29013984b9385808ad4c`
+Status: closed as human-accepted PASS at `ARCHITECTURE-DECISION-SKILL-1-HC01` on 2026-08-07 from starting revision `3927d41b93e6be480e9c29013984b9385808ad4c`
 
 ## Authority and boundary
 
@@ -18,7 +18,7 @@ If three options are unavailable, it classifies the request as deterministic, un
 
 ## Implementation and review result
 
-The canonical/local/live skill resources, descriptor, one direct conventions reference, controlled fixtures, deterministic validators, profile/manifests, eight-skill inventory, selected local route, and maintained documentation are complete. Three applicable and five non-applicable controlled cases pass. The sole reviewer reported one Medium inventory/documentation synchronization finding; the sole writer corrected it in the one permitted consolidated pass, and final deterministic validation passes. The skill has not been invoked, H6 has not been initialized, and no successor has been activated.
+The canonical/local/live skill resources, descriptor, one direct conventions reference, controlled fixtures, deterministic validators, profile/manifests, eight-skill inventory, selected local route, and maintained documentation are complete. Three applicable and five non-applicable controlled cases pass. The sole reviewer reported one Medium inventory/documentation synchronization finding; the sole writer corrected it in the one permitted consolidated pass, and final deterministic validation passes. The human selected Option A and accepted and activated the skill. The skill has not been invoked, H6 has not been initialized, and no successor has been activated.
 
 ## Completion gates
 

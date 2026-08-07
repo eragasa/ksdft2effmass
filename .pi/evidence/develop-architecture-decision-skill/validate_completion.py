@@ -77,18 +77,28 @@ def main() -> int:
         item for item in chain.get("task_sequence", []) if item.get("id") == TASK
     ]
     if len(matches) != 1:
-        issues.append("chain must contain exactly one active task")
+        issues.append("chain must contain exactly one task")
     checkpoint = (
         ROOT
         / ".pi/checkpoints/ARCHITECTURE-DECISION-SKILL-1-HC01-final-acceptance.json"
     )
     if checkpoint.exists():
         record = json.loads(checkpoint.read_text(encoding="utf-8"))
+        expected_chain_status = {
+            "pending": "pending_human_acceptance",
+            "resolved": "closed_human_accepted_pass",
+        }.get(record.get("status"))
         if (
-            record.get("status") != "pending"
-            or chain.get("status") != "pending_human_acceptance"
+            expected_chain_status is None
+            or chain.get("status") != expected_chain_status
         ):
-            issues.append("final checkpoint and chain pending status disagree")
+            issues.append("final checkpoint and chain lifecycle status disagree")
+        if record.get("status") == "resolved" and (
+            record.get("normalized_decision") != "A"
+            or chain.get("active_task") is not None
+            or matches[0].get("status") != "closed_human_accepted_pass"
+        ):
+            issues.append("resolved Option A does not close only the skill task")
     elif chain.get("status") != "active":
         issues.append("pre-checkpoint chain must remain active")
 

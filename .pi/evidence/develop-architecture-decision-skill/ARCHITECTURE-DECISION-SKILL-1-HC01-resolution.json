@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "ARCHITECTURE-DECISION-SKILL-1-HC01",
+  "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+  "pending_boundary_commit": "59b76ee5f567fafc63157503b2affed10ff1195e",
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-07T05:47:46Z",
+  "authorized_scope": "Accept and activate develop-architecture-decision and close ARCHITECTURE-DECISION-SKILL-1 only.",
+  "record_paths": [
+    ".pi/checkpoints/ARCHITECTURE-DECISION-SKILL-1-HC01-final-acceptance.json",
+    ".pi/tasks/develop-architecture-decision-skill.md",
+    ".pi/chains/develop-architecture-decision-skill.chain.json",
+    ".pi/evidence/develop-architecture-decision-skill/completion.json",
+    ".pi/evidence/develop-architecture-decision-skill/ARCHITECTURE-DECISION-SKILL-1-HC01-resolution.json"
+  ],
+  "validation": {
+    "checkpoint_schema": "PASS: 33 records, 0 unresolved, 0 duplicate decisions",
+    "task_completion": "PASS",
+    "selected_route": "PASS: local",
+    "diff_check": "PASS"
+  },
+  "resumption_status": "task_closed; skill active but not invoked; H6 not initialized; no successor active",
+  "prohibited_scope": [
+    "skill invocation",
+    "H6 initialization or real H6 architecture analysis",
+    "successor activation",
+    "protected execution",
+    "publication or release"
+  ]
+}
