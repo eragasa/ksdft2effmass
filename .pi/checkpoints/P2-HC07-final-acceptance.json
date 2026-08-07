@@ -2,7 +2,7 @@
   "checkpoint_id": "P2-HC07",
   "task_id": "P2",
   "episode_id": "backend-neutral-cpn-P2-tools-provenance",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-07T03:04:06Z",
   "question": "Should P2 receive final human acceptance after all ordered provenance audit items P2-A00 through P2-A11 reached audited_and_cleared, including the final version-1 schema/fixture correction that replaced 80 vulnerable end assertions, added four isolated trailing-line-feed fixtures, corrected five retained invalid fixtures, synchronized the 31-fixture runtime family, and passed deterministic validation and targeted review?",
@@ -47,10 +47,17 @@
     "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py",
     "python/tests/software_verification/ksdft2effmass/integration/provenance/test__schema_fixture_family_v1.py"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
-  "record_paths": [],
-  "resumption_status": "P2 audit queue complete; P2 open and blocked pending final human acceptance at P2-HC07; no successor or protected action active"
+  "human_response": "Option A — Accept P2 as PASS and close P2 only. The complete human audit found no remaining material defect in P2-A00 through P2-A11. This acceptance establishes the project-owned provenance and external-tool software contract only; it does not establish provenance truth, persistence-system reliability, external execution validity, numerical verification, scientific validation, uncertainty quantification, publication readiness, or release readiness. P3 becomes prerequisite-eligible but is not activated.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-07T03:24:41Z",
+  "authorized_scope": "Record P2 as human-accepted PASS and close P2 only after proportionate deterministic closeout validation. Mark P3 prerequisite-eligible but inactive. Do not activate H5, P3-P11, scientific execution, external execution, protected execution, publication, release, or any successor.",
+  "record_paths": [
+    ".pi/checkpoints/P2-HC07-final-acceptance.json",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/P2-HC07-resolution.json"
+  ],
+  "resumption_status": "P2 closed as human-accepted PASS; P3 prerequisite-eligible but inactive; H5 and P3-P11 inactive; no scientific, external, protected, publication, release, or successor action activated"
 }

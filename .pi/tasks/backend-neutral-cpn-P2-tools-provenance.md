@@ -1,6 +1,6 @@
 # P2 — Provenance and external-tool capability records
 
-Status: `P2-A00`--`P2-A11` are `audited_and_cleared`; the ordered audit queue is complete; P2 remains open and unaccepted pending `P2-HC07`
+Status: closed as human-accepted PASS through resolved `P2-HC07`; `P2-A00`--`P2-A11` remain `audited_and_cleared`; the ordered audit queue is complete
 
 Activation authority: the current human instruction titled **P2 — Activate and implement provenance and external-tool capability records**. The durable activation, reconciled version-1 choices, starting revision, local-route preflight, and inactive successor scope are recorded in `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json`. The ownership declaration is `.pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json`.
 
@@ -84,4 +84,4 @@ The human-audited P2-A09 fixture/runtime correction preserves all prior IDs and 
 
 The human-audited P2-A11 correction replaces all 73 identifier, 5 SHA-256, and 2 version dollar-end patterns with true end-of-input assertions while leaving path and timestamp patterns unchanged. Four canonical trailing-line-feed fixtures expand the invalid family to 31. Five retained fixtures now isolate their named defect. New artifact-owned `SV-PROV-399`--`SV-PROV-401` verify exact schema inventory and end behavior, four schema/runtime rejections, and five corrected counterparts. A09 remains semantically unchanged, preserves its 138 historical collected nodes, and gains exactly eight new fixture-family/runtime nodes without predecessors. The targeted review passed without findings. P2-A11 is `audited_and_cleared`; the ordered queue is complete.
 
-Queue completion does not accept or close P2. Final human acceptance is pending at `.pi/checkpoints/P2-HC07-final-acceptance.json`. P3, H5, protected execution, publication, and release remain inactive. Software verification does not establish numerical verification, scientific validation, UQ, provenance truth, persistence-system reliability, execution validity, future-version compatibility, or cross-language conformance.
+The human PI resolved `P2-HC07` as Option A. P2 is closed as human-accepted PASS, and the complete audit queue remains cleared. This acceptance establishes the project-owned provenance and external-tool software contract only; it does not establish provenance truth, persistence-system reliability, external execution validity, numerical verification, scientific validation, uncertainty quantification, publication readiness, or release readiness. P3 is prerequisite-eligible but inactive. H5, P3--P11, scientific execution, external execution, protected execution, publication, and release remain inactive; no successor was activated.

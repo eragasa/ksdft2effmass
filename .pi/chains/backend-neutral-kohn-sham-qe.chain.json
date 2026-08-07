@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A11 are audited_and_cleared; the P2 audit queue is complete; P2 remains open and unaccepted pending P2-HC07. H5, P3-P11, scientific/external execution, publication, and release remain inactive.",
-  "status": "p2_audit_queue_complete_pending_p2_hc07",
-  "active_task": "P2",
+  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, P2, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A11 remain audited_and_cleared and the P2 audit queue is complete. P3 is prerequisite-eligible but inactive. H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive.",
+  "status": "p2_closed_human_accepted_pass_no_successor_active",
+  "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -67,7 +67,7 @@
         "H4:human_accepted",
         "explicit_activation:P2"
       ],
-      "status": "open_audit_queue_complete_pending_p2_hc07",
+      "status": "human_accepted_pass",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
@@ -77,7 +77,7 @@
         "P1:human_accepted",
         "P2:human_accepted"
       ],
-      "status": "blocked"
+      "status": "prerequisite_eligible_inactive"
     },
     {
       "id": "P4",
@@ -177,7 +177,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "P2 alone is explicitly active after P1 and H4 human-accepted PASS and validated task ownership. H5 and P3-P11 remain blocked and unauthorized. P2 permits immutable project records, strict schemas/serialization, software verification, documentation, bounded replay, consolidated review, final checkpoint, and pending-boundary commit/push only; it does not authorize scientific/external execution, publication, or release.",
+  "launch_policy": "P2 is closed as human-accepted PASS. P3 is prerequisite-eligible but inactive pending separate explicit activation. H5 and P3-P11 remain inactive and unauthorized. No scientific, external, or protected execution, publication, release, or successor activation is authorized by P2 acceptance.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -253,6 +253,12 @@
       "decision": "A",
       "resolved_at": "2026-08-06T18:38:46Z",
       "result": "P2-A02 remains audited_and_cleared; the explicitly bounded P2-A03 ExternalExecutionResult correction and ExternalExecutionOutcome artifact-ownership move are authorized. P2 remains open and unaccepted; ExternalExecutionFailure, successors, and protected execution remain inactive."
+    },
+    {
+      "checkpoint": "P2-HC07-final-acceptance",
+      "decision": "A",
+      "resolved_at": "2026-08-07T03:24:41Z",
+      "result": "P2 closed as human-accepted PASS. P3 became prerequisite-eligible but remains inactive; H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive."
     }
   ],
   "activations": [
@@ -274,8 +280,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-provenance-audit-queue-P2-A09-next-not-started",
-      "message": "P2-A00 through P2-A08 are audited_and_cleared. The human-audited P2-A08 wheel/package correction passed deterministic validation and one targeted review with one bounded finding corrected. P2-A09 is next but not started. P2 remains open and unaccepted; successors and protected execution remain inactive."
+      "phase": "P2-closed-human-accepted-PASS",
+      "message": "P2 is closed as human-accepted PASS; P2-A00 through P2-A11 remain audited_and_cleared and the audit queue is complete. P3 is prerequisite-eligible but inactive. H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive."
     }
   ]
 }

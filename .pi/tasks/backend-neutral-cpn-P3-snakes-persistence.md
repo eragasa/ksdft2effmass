@@ -1,6 +1,6 @@
 # P3 — SNAKES net construction and project-owned persistence
 
-Status: blocked by accepted P1 and P2
+Status: prerequisite-eligible through accepted P1 and P2; inactive pending separate explicit activation
 
 ## Objective
 
