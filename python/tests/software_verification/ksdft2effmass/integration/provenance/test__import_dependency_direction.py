@@ -335,8 +335,8 @@ def test_artifact__absolute_import_inventory__matches_exact_dependency_boundary(
     The accepted P2 architecture and current source decomposition fix
     EXPECTED_ABSOLUTE_IMPORTS independently of production constants and source prose.
     Acceptance
-    The per-file mapping equals the fixed mapping exactly, and every controlled
-    undeclared module produces an inventory unequal to the empty ``__init__.py`` oracle.
+    The per-file mapping equals the fixed mapping exactly, and the controlled source
+    produces exactly the fixed set of six undeclared full-module names.
     Interpretation
     Failure indicates dependency-boundary drift or extraction that truncates a module
     path; it does not establish that an imported dependency executes.
@@ -385,4 +385,3 @@ def test_artifact__absolute_import_inventory__matches_exact_dependency_boundary(
         "snakes",
         "subprocess",
     }
-    assert undeclared_modules != EXPECTED_ABSOLUTE_IMPORTS["__init__.py"]

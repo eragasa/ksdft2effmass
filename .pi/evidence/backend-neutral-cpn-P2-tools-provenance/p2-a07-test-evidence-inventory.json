@@ -61,7 +61,7 @@
     "tool_observations.py"
   ],
   "source_inventory_discrepancy_from_human_draft": null,
-  "file_sha256": "fe8a9100c7d80500b5ab81d259346cfbd20474bbc1b64801eb09b9c96c92291c",
+  "file_sha256": "3e82978afbd2f7701adc9dd67649eb52ed8efad3695a6ba06ca2083a7c104eac",
   "claim_boundary": "Exact AST-visible static imports only; excludes dynamic and transitive imports, dependency internals, runtime construction, scientific behavior, numerical verification, validation, UQ, provenance truth, portability, and cross-language conformance.",
   "latest_attempt_id": "P2-A07-controlled-import-oracle-correction-2",
   "post_audit_oracle": "Exact retained syntax and exact prohibited classification for the absolute-internal, module-less level-one, and higher-level controlled imports."
