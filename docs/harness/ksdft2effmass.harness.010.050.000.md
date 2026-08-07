@@ -8,12 +8,30 @@ sphinx: excluded
 
 # Incremental migration plan
 
-> **Proposed architecture.** No migration, SQLite implementation, agent
-> retirement, package extraction, or publication is authorized by this page.
+> **Proposed architecture.** Only the durable harness-role creation slice is
+> complete. SQLite implementation, agent retirement, package extraction, and
+> publication are not authorized by this page.
 
 The harness should evolve through bounded compatibility slices rather than a
 wholesale replacement. Each slice retains a rollback path, compares structured
 results, and changes one authority owner only after explicit acceptance.
+
+## Current stage disposition
+
+Completed:
+
+- `harness-simplification.agents.durable-roles`
+
+Proposed:
+
+- `harness-simplification.agents.project-role-simplification`
+- `harness-simplification.agents.live-discovery`
+- `harness-simplification.agents.historical-retirement`
+- `harness-simplification.agents.delegation-validation`
+
+The 24 historical phase-specific harness records remain present and are not
+retired or removed from discovery. SQLite state, the evidence redesign, and the
+maintained command interface remain proposals rather than implemented features.
 
 ## Proposed stages
 
@@ -28,8 +46,9 @@ results, and changes one authority owner only after explicit acceptance.
 4. **Execution records.** Represent focused and full commands with explicit
    `python/.venv/bin/python`, argument vectors, controlled environment, and
    structured results. Keep existing scripts as the execution backend.
-5. **Durable agents.** Map phase-specific agents to stable project and harness
-   roles. Compare request resolution before retiring duplicates.
+5. **Durable agents.** Durable harness capability roles now exist. Project-role
+   simplification, live-discovery changes, delegation validation, and any later
+   retirement remain separate proposed slices.
 6. **State-owner cutover.** Move one operational record family at a time to the
    accepted state interface, with exports and rollback verified at each step.
 7. **Extraction readiness.** Build a disposable generic package candidate without

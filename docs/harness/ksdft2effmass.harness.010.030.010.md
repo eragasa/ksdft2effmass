@@ -53,13 +53,13 @@ those records remain `historical-reference-only`.
 | Document | Task identity | Title | Status | Sphinx |
 |---|---|---|---|---|
 | [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) | `harness-simplification.agents.durable-roles` | Create durable harness roles | Current | Excluded |
-| [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md) | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Proposed | Excluded |
-| [harness.010.030.030](./ksdft2effmass.harness.010.030.030.md) | `harness-simplification.agents.live-discovery` | Remove historical roles from live discovery | Proposed | Excluded |
-| [harness.010.030.040](./ksdft2effmass.harness.010.030.040.md) | `harness-simplification.agents.historical-retirement` | Retire obsolete phase-agent files | Proposed | Excluded |
-| [harness.010.030.050](./ksdft2effmass.harness.010.030.050.md) | `harness-simplification.agents.delegation-validation` | Validate delegation and handoffs | Proposed | Excluded |
+| harness.010.030.020 | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Proposed | Excluded |
+| harness.010.030.030 | `harness-simplification.agents.live-discovery` | Remove historical roles from live discovery | Proposed | Excluded |
+| harness.010.030.040 | `harness-simplification.agents.historical-retirement` | Retire obsolete phase-agent files | Proposed | Excluded |
+| harness.010.030.050 | `harness-simplification.agents.delegation-validation` | Validate delegation and handoffs | Proposed | Excluded |
 
-Only the first row is implemented. The other links describe reserved future
-children and intentionally have no files yet.
+Only the first row is implemented. The plain coordinates reserve possible
+future children without linking to files that do not exist.
 
 ## Implementation scope and validation
 

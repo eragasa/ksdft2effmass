@@ -71,7 +71,7 @@
     {
       "content_identity": {
         "algorithm": "sha256",
-        "digest": "49b5a92c821460a2360b3a2edd963249a4d49dbdb9300eae95248788bd58e0d0",
+        "digest": "4e864c540f0e8eebf29ab9f8d76c68f41aee4f9350146459ee899ea12fbd1c17",
         "schema_version": 1
       },
       "dependency_ids": [

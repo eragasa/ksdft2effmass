@@ -8,18 +8,19 @@ sphinx: excluded
 
 # Durable agent architecture
 
-> **Incremental architecture.** The first bounded child creates durable harness
-> capability roles. Project-role simplification, discovery changes, and historical
-> retirement remain proposed and require separate authorization.
+> **Proposed architecture.** The five durable project roles and five durable
+> harness roles exist, but later simplification and migration steps remain
+> proposed and require separate authorization.
 
-The proposal replaces repeated phase-numbered role files with two small durable
-sets. Task scope, owned paths, evidence requirements, and completion commands
-would remain in task and ownership data rather than being copied into agent
-prompts.
+The implemented durable sets provide stable capability identities. They are
+available for explicit assignment but do not activate themselves, grant path
+ownership, or provide acceptance. Task scope, owned paths, evidence requirements,
+and completion commands remain external task and ownership data rather than
+being copied into durable agent records.
 
 ## Project-agent set
 
-Durable project agents would cover domain-facing work:
+The five existing durable project agents cover domain-facing work:
 
 - architecture and scientific-boundary review;
 - production implementation;
@@ -33,7 +34,7 @@ task uses the harness.
 
 ## Harness-agent set
 
-Durable harness agents would cover reusable control-plane work:
+The five durable harness roles cover reusable control-plane work:
 
 - generic harness implementation;
 - project-local harness composition;
@@ -44,7 +45,7 @@ Durable harness agents would cover reusable control-plane work:
 
 ## Request-time specialization
 
-A task request or ownership manifest would supply:
+A task request or ownership manifest supplies:
 
 - immutable task and attempt identities;
 - exact input artifacts;
@@ -59,13 +60,11 @@ An agent file still would not activate work or provide acceptance.
 
 ## Migration requirement
 
-Existing agents should be mapped to durable roles before any retirement. During
-the transition, old and new role resolution would be compared on representative
-requests. Historical agent identities remain in retained evidence.
-
-The implemented first child is [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md).
-It creates only reusable future assignment targets; the remaining migration
-children stay proposed and unauthorized.
+The first child, [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md),
+is complete. Project-role simplification, live-discovery changes,
+historical-agent retirement, and delegation and handoff validation remain
+proposed and unauthorized. Existing historical identities remain present and
+retained evidence remains historically accurate.
 
 See [current agents and ownership](./ksdft2effmass.harness.001.050.000.md) and the
 [simplification overview](./ksdft2effmass.harness.010.000.000.md).

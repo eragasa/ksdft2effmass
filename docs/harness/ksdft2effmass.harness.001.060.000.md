@@ -11,7 +11,13 @@ sphinx: included
 The generic Python layer, project-local composition, resource trees, local
 validation route, schemas, fixtures, skills, agent records, and deterministic
 validation scripts are implemented. The current route selects the local
-validation path and retains a legacy rollback value.
+validation path, retains a legacy rollback value, and passes after deterministic
+repair of the current-local replay resource identity.
+
+Five durable harness roles are implemented and available for explicit
+assignment. They do not activate themselves or grant ownership. The 24
+historical phase-specific harness records remain present, and no phase-specific
+role is currently active.
 
 ## Current strengths
 
@@ -38,14 +44,15 @@ one maintained execution interface.
 Additional duplication includes:
 
 - canonical, local, and live skill/resource identities;
-- task-phase agent definitions with overlapping durable responsibilities;
+- 24 historical task-phase agent definitions retained alongside durable roles;
 - repeated parsing and normalization of related operational records;
 - repeated command assembly and result interpretation;
 - retained legacy and current route machinery.
 
 The current `evidence.py` owns evidence-identifier auditing only. It does not own
 an evidence-record repository, event log, query interface, reconciliation index,
-or SQLite state.
+or SQLite state. Project-agent simplification and historical-agent retirement
+also remain future work.
 
 ## Execution environment
 

@@ -6,17 +6,16 @@
   "status": "H4_closed_human_accepted_PASS_local_authoritative",
   "active_task": null,
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
-  "architecture_index": "docs/harness/ksdft2effmass.harness.00.md",
+  "architecture_index": "docs/harness/ksdft2effmass.harness.000.000.000.md",
   "architecture_documents": [
-    "docs/harness/ksdft2effmass.harness.00.md",
-    "docs/harness/ksdft2effmass.harness.01.md",
-    "docs/harness/ksdft2effmass.harness.02.md",
-    "docs/harness/ksdft2effmass.harness.03.md",
-    "docs/harness/ksdft2effmass.harness.04.md",
-    "docs/harness/ksdft2effmass.harness.05.md",
-    "docs/harness/ksdft2effmass.harness.06.md",
-    "docs/harness/ksdft2effmass.harness.07.md",
-    "docs/harness/ksdft2effmass.harness.08.md"
+    "docs/harness/ksdft2effmass.harness.000.000.000.md",
+    "docs/harness/ksdft2effmass.harness.001.000.000.md",
+    "docs/harness/ksdft2effmass.harness.001.010.000.md",
+    "docs/harness/ksdft2effmass.harness.001.020.000.md",
+    "docs/harness/ksdft2effmass.harness.001.030.000.md",
+    "docs/harness/ksdft2effmass.harness.001.040.000.md",
+    "docs/harness/ksdft2effmass.harness.001.050.000.md",
+    "docs/harness/ksdft2effmass.harness.001.060.000.md"
   ],
   "authoritative_status_sources": {
     "tasks": ".pi/tasks/",
