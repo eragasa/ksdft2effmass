@@ -4,7 +4,7 @@
       "additionalProperties": false,
       "properties": {
         "artifact_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "byte_size": {
@@ -21,7 +21,7 @@
           "type": "integer"
         },
         "sha256": {
-          "pattern": "^[0-9a-f]{64}$",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -38,7 +38,7 @@
       "additionalProperties": false,
       "properties": {
         "artifact_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "expected_byte_size": {
@@ -47,7 +47,7 @@
           "type": "integer"
         },
         "expected_sha256": {
-          "pattern": "^[0-9a-f]{64}$",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
           "type": "string"
         },
         "observed_byte_size": {
@@ -56,7 +56,7 @@
           "type": "integer"
         },
         "observed_sha256": {
-          "pattern": "^[0-9a-f]{64}$",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -103,7 +103,7 @@
                 "type": "string"
               },
               "root_id": {
-                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
                 "type": "string"
               }
             }
@@ -120,7 +120,7 @@
           "then": {
             "properties": {
               "external_descriptor_id": {
-                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
                 "type": "string"
               },
               "path": {
@@ -135,11 +135,11 @@
       ],
       "properties": {
         "artifact_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "external_descriptor_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": [
             "string",
             "null"
@@ -170,7 +170,7 @@
           "type": "string"
         },
         "root_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": [
             "string",
             "null"
@@ -199,7 +199,7 @@
           "additionalProperties": false,
           "properties": {
             "artifact_id": {
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
               "type": "string"
             },
             "byte_size": {
@@ -208,7 +208,7 @@
               "type": "integer"
             },
             "sha256": {
-              "pattern": "^[0-9a-f]{64}$",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
               "type": "string"
             }
           },
@@ -220,7 +220,7 @@
           "type": "object"
         },
         "producer_manifest_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -235,7 +235,7 @@
           "additionalProperties": false,
           "properties": {
             "format": {
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
               "type": "string"
             },
             "logical_path": {
@@ -246,11 +246,11 @@
               "type": "string"
             },
             "retention_policy": {
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
               "type": "string"
             },
             "semantic_role": {
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
               "type": "string"
             }
           },
@@ -276,7 +276,7 @@
       "additionalProperties": false,
       "properties": {
         "format": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "logical_path": {
@@ -291,7 +291,7 @@
           "type": "string"
         },
         "retention_policy": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "schema_version": {
@@ -299,7 +299,7 @@
           "type": "integer"
         },
         "semantic_role": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -317,7 +317,7 @@
       "additionalProperties": false,
       "properties": {
         "capability_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "kind": {
@@ -329,7 +329,7 @@
           ]
         },
         "name": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -341,11 +341,11 @@
           "type": "integer"
         },
         "specification_version": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "tool_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -375,7 +375,7 @@
           "uniqueItems": true
         },
         "outcome_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -383,7 +383,7 @@
           "type": "string"
         },
         "request_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "schema_version": {
@@ -404,7 +404,7 @@
       "additionalProperties": false,
       "properties": {
         "attempt_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "code": {
@@ -418,7 +418,7 @@
           ]
         },
         "correlation_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "diagnostic_paths": {
@@ -433,11 +433,11 @@
           "uniqueItems": true
         },
         "failure_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -445,7 +445,7 @@
           "type": "string"
         },
         "request_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "schema_version": {
@@ -478,24 +478,24 @@
       "additionalProperties": false,
       "properties": {
         "attempt_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "authorization_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "capability_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "correlation_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "expected_output_roles": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
@@ -503,18 +503,18 @@
         },
         "input_artifact_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "installation_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -522,11 +522,11 @@
           "type": "string"
         },
         "request_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "retry_parent_request_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": [
             "string",
             "null"
@@ -537,7 +537,7 @@
           "type": "integer"
         },
         "tool_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -562,27 +562,27 @@
       "additionalProperties": false,
       "properties": {
         "attempt_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "correlation_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "manifest_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "output_artifact_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -590,11 +590,11 @@
           "type": "string"
         },
         "request_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "result_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "schema_version": {
@@ -623,7 +623,7 @@
       "additionalProperties": false,
       "properties": {
         "implementation_family": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -635,7 +635,7 @@
           "type": "integer"
         },
         "tool_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -651,7 +651,7 @@
       "additionalProperties": false,
       "properties": {
         "executable_or_package_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -659,7 +659,7 @@
           "type": "string"
         },
         "requested_version": {
-          "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$",
+          "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}(?![\\s\\S])",
           "type": "string"
         },
         "schema_version": {
@@ -667,11 +667,11 @@
           "type": "integer"
         },
         "specification_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "tool_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -689,30 +689,30 @@
       "additionalProperties": false,
       "properties": {
         "environment_record_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "executable_or_package_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "executable_sha256": {
-          "pattern": "^[0-9a-f]{64}$",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
           "type": [
             "string",
             "null"
           ]
         },
         "installation_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "observed_version": {
-          "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$",
+          "pattern": "^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}(?![\\s\\S])",
           "type": "string"
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -724,11 +724,11 @@
           "type": "integer"
         },
         "specification_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "tool_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },
@@ -750,7 +750,7 @@
       "additionalProperties": false,
       "properties": {
         "child_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "kind": {
@@ -761,15 +761,15 @@
           ]
         },
         "lineage_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "parent_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -797,26 +797,26 @@
       "properties": {
         "artifact_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "manifest_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "parent_provenance_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -871,7 +871,7 @@
       "properties": {
         "dependency_manifest_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
@@ -891,19 +891,19 @@
         },
         "input_artifact_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "manifest_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "output_artifact_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
@@ -918,7 +918,7 @@
           "type": "integer"
         },
         "specification_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "started_at": {
@@ -952,23 +952,23 @@
       "additionalProperties": false,
       "properties": {
         "capability_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "evidence_artifact_ids": {
           "items": {
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "installation_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "provenance_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         },
         "record_type": {
@@ -987,7 +987,7 @@
           ]
         },
         "verification_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}(?![\\s\\S])",
           "type": "string"
         }
       },

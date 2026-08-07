@@ -206,6 +206,22 @@ INVALID_FIXTURE_CASES = (
         id="raw_requested_version",
     ),
     pytest.param(ROOT / "fixtures/invalid/surrogate.json", id="unicode_surrogate"),
+    pytest.param(
+        ROOT / "fixtures/invalid/trailing-line-feed-identifier.json",
+        id="trailing_line_feed_identifier",
+    ),
+    pytest.param(
+        ROOT / "fixtures/invalid/trailing-line-feed-observed-version.json",
+        id="trailing_line_feed_observed_version",
+    ),
+    pytest.param(
+        ROOT / "fixtures/invalid/trailing-line-feed-requested-version.json",
+        id="trailing_line_feed_requested_version",
+    ),
+    pytest.param(
+        ROOT / "fixtures/invalid/trailing-line-feed-sha256.json",
+        id="trailing_line_feed_sha256",
+    ),
     pytest.param(ROOT / "fixtures/invalid/u64-overflow.json", id="u64_overflow"),
     pytest.param(ROOT / "fixtures/invalid/unknown-key.json", id="unknown_key"),
     pytest.param(
@@ -531,7 +547,7 @@ def test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime(
     Oracle
     Its checked-in invalid-family classification independently declares rejection.
     Acceptance
-    All 27 cases raise ProvenanceJsonError.
+    All 31 cases raise ProvenanceJsonError.
     Interpretation
     Failure may indicate runtime permissiveness, fixture misclassification, or contract
     drift.

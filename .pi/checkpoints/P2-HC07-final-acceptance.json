@@ -1,0 +1,56 @@
+{
+  "checkpoint_id": "P2-HC07",
+  "task_id": "P2",
+  "episode_id": "backend-neutral-cpn-P2-tools-provenance",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-07T03:04:06Z",
+  "question": "Should P2 receive final human acceptance after all ordered provenance audit items P2-A00 through P2-A11 reached audited_and_cleared, including the final version-1 schema/fixture correction that replaced 80 vulnerable end assertions, added four isolated trailing-line-feed fixtures, corrected five retained invalid fixtures, synchronized the 31-fixture runtime family, and passed deterministic validation and targeted review?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept corrected P2 as PASS and close P2 only.",
+      "consequence": "Record human acceptance and close P2 after deterministic closeout validation. P3 becomes prerequisite-eligible but is not activated. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    },
+    {
+      "id": "B",
+      "summary": "Request another explicitly bounded P2 disposition.",
+      "consequence": "Keep P2 open. The ordered audit queue is complete and the P2-A11 writer/reviewer cycle is consumed; further mutation requires new explicit scope and process authorization. No successor or execution becomes active."
+    },
+    {
+      "id": "C",
+      "summary": "Reject or defer final P2 acceptance.",
+      "consequence": "Keep P2 open and blocked. H5, P3-P11, scientific/external execution, publication, and release remain inactive."
+    }
+  ],
+  "recommendation": "Option A with the recorded limitations. All 12 ordered audit items are audited_and_cleared. P2-A11 corrected exactly 73 identifier, 5 SHA-256, and 2 version pattern locations; zero vulnerable variants remain; exact 17 definitions/references remain; 17 valid and 31 invalid fixtures pass their declared schema/runtime/canonical boundaries. New SV-PROV-399 through SV-PROV-401 provide 10 A11 cases; A09 retains all 138 historical nodes and adds exactly eight new fixture nodes. Focused A11, A09, complete provenance integration, and complete class-owned suites pass with structural validation, Ruff, mypy, ownership/completion/checkpoint/local-route gates, and protected nonmutation. The sole targeted review passed without findings. This software evidence does not establish provenance truth, numerical verification, scientific validation, UQ, persistence-system reliability, execution validity, future-schema compatibility, cross-language conformance, publication readiness, release readiness, or human acceptance.",
+  "blocked_scope": "P2 closure and human acceptance; H5 or P3-P11 activation; scientific or external-tool execution; protected execution; publication; release.",
+  "safe_scope": "Read-only inspection and deterministic replay of the durable P2-A00 through P2-A11 evidence, schema and fixture identities, test ownership and node inventories, review dispositions, validation results, task/chain/queue/checkpoint state, commit, and remote identity. Checkpoint resolution may record one unambiguous human option but does not activate a successor or protected execution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/checkpoints/P2-HC06-final-acceptance.json",
+    ".pi/checkpoints/P2-HC07-final-acceptance.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a11-test-evidence-ownership.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a11-test-evidence-node-migration.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a11-test-evidence-inventory.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a11-review.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a11-completion.json",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a11-parent-verification.md",
+    ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/validate_p2_completion.py",
+    "specification/provenance/v1/provenance-v1.schema.json",
+    "specification/provenance/v1/fixtures/valid/",
+    "specification/provenance/v1/fixtures/invalid/",
+    "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py",
+    "python/tests/software_verification/ksdft2effmass/integration/provenance/test__schema_fixture_family_v1.py"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": "P2 audit queue complete; P2 open and blocked pending final human acceptance at P2-HC07; no successor or protected action active"
+}
