@@ -48,6 +48,38 @@ EXPECTED_WHEEL_MODULES = {
 }
 
 
+def select_provenance_python_entries(
+    archive_paths: set[PurePosixPath] | frozenset[PurePosixPath],
+) -> set[str]:
+    """Evidence ID
+    Owns no identifier; supports SV-PROV-072.
+    Requirement
+    Wheel-content evidence observes every Python source entry recursively beneath the
+    provenance package rather than only its direct children.
+    Method
+    Apply ``PurePosixPath.is_relative_to`` and the ``.py`` suffix to controlled or real
+    wheel archive paths.
+    Oracle
+    POSIX path ancestry beneath ``ksdft2effmass/provenance`` and the exact ``.py``
+    suffix independently define the selected archive entries.
+    Acceptance
+    Return the POSIX strings of all and only Python entries recursively beneath the
+    provenance package.
+    Interpretation
+    Missing nested entries indicates an incomplete content oracle; extra entries
+    indicate selection outside the owned package subtree or source-file type.
+    Limitations
+    Selection alone does not establish the expected inventory, wheel validity,
+    importability, publication readiness, or behavior of selected modules.
+    """
+    provenance_package = PurePosixPath("ksdft2effmass/provenance")
+    return {
+        path.as_posix()
+        for path in archive_paths
+        if path.is_relative_to(provenance_package) and path.suffix == ".py"
+    }
+
+
 @pytest.fixture(scope="module")
 def built_provenance_wheel(tmp_path_factory: pytest.TempPathFactory) -> Path:
     """Evidence ID
@@ -112,32 +144,41 @@ def test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_t
     """Evidence ID
     SV-PROV-072
     Requirement
-    The wheel contains exactly the accepted direct provenance Python modules and no
-    archive entry whose path has an exact ``tests`` component.
+    The wheel contains exactly every accepted Python source entry recursively below
+    ``ksdft2effmass/provenance/`` and no archive entry whose path has an exact ``tests``
+    component.
     Method
-    Read the built wheel ZIP names, select direct ``.py`` children of the provenance
-    package, and inspect every archive name by POSIX path components.
+    Apply the same recursive provenance-subtree selector to controlled direct and nested
+    paths and to the built wheel ZIP names, then inspect every real archive name by
+    POSIX path components.
     Oracle
-    EXPECTED_WHEEL_MODULES and Python ZIP/wheel POSIX path semantics fix the independent
-    content inventory and test-tree exclusion.
+    EXPECTED_WHEEL_MODULES, the controlled four-entry observation, and Python ZIP/wheel
+    POSIX path semantics fix the independent content inventory and test-tree exclusion.
     Acceptance
-    Direct provenance Python entries equal EXPECTED_WHEEL_MODULES exactly, and no
-    archive path contains an exact ``tests`` component.
+    The selector observes the expected direct module, an unexpected direct module, a
+    nested ``__init__.py``, and a nested ordinary module; real-wheel provenance Python
+    entries equal EXPECTED_WHEEL_MODULES exactly; and no archive path contains an exact
+    ``tests`` component.
     Interpretation
-    Failure indicates unexpected, missing, or misplaced wheel content rather than build
-    setup or import execution behavior.
+    Failure indicates a nonrecursive selector or unexpected, missing, or misplaced wheel
+    content rather than build setup or import execution behavior.
     Limitations
     Non-Python package data semantics, installation, publication, other platforms, and
     scientific behavior are excluded.
     """
+    controlled_archive_paths = {
+        PurePosixPath("ksdft2effmass/provenance/actions.py"),
+        PurePosixPath("ksdft2effmass/provenance/legacy.py"),
+        PurePosixPath("ksdft2effmass/provenance/legacy/__init__.py"),
+        PurePosixPath("ksdft2effmass/provenance/legacy/adapter.py"),
+    }
+    assert select_provenance_python_entries(controlled_archive_paths) == {
+        path.as_posix() for path in controlled_archive_paths
+    }
+
     with zipfile.ZipFile(built_provenance_wheel) as archive:
         archive_paths = {PurePosixPath(name) for name in archive.namelist()}
-    provenance_package = PurePosixPath("ksdft2effmass/provenance")
-    observed_provenance_modules = {
-        path.as_posix()
-        for path in archive_paths
-        if path.parent == provenance_package and path.suffix == ".py"
-    }
+    observed_provenance_modules = select_provenance_python_entries(archive_paths)
     assert observed_provenance_modules == EXPECTED_WHEEL_MODULES
     assert all("tests" not in path.parts for path in archive_paths)
 

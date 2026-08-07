@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "P2",
   "audit_item": "P2-A08",
-  "starting_revision": "0196286d47c4a3b9cba7b95e0913de3e5715b833",
+  "starting_revision": "90eab67cb06ccceaeacc121b2cc3b40e70506a2d",
   "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
-  "attempt_id": "P2-A08-correction-1",
+  "attempt_id": "P2-A08-correction-2",
   "modules": [
     {
       "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py",
@@ -20,7 +20,7 @@
     "test_functions": 2,
     "collected_cases": 2,
     "unique_evidence_owners": 2,
-    "helper_or_fixture_functions": 1
+    "helper_or_fixture_functions": 2
   },
   "evidence_owners": [
     {
@@ -70,6 +70,17 @@
     ]
   },
   "observed_wheel_count": 1,
+  "selection_contract": {
+    "helper": "select_provenance_python_entries",
+    "scope": "every Python source entry recursively below ksdft2effmass/provenance/",
+    "controlled_observations": [
+      "ksdft2effmass/provenance/actions.py",
+      "ksdft2effmass/provenance/legacy.py",
+      "ksdft2effmass/provenance/legacy/__init__.py",
+      "ksdft2effmass/provenance/legacy/adapter.py"
+    ],
+    "former_direct_child_predicate_mutation": "expected failure"
+  },
   "observed_provenance_modules": [
     "ksdft2effmass/provenance/__init__.py",
     "ksdft2effmass/provenance/actions.py",
@@ -89,7 +100,7 @@
     "origin_inside_exact_wheel": true,
     "sentinel": "ArtifactIdentity"
   },
-  "file_sha256": "6aa8f161dfc91f578fba919783376cca2b3d03b11e8810e7e128af043e5c4f0d",
+  "file_sha256": "6c1c9dfb9fb563459ce1d5c4dc0ef644c6061708ea94df3ee066b429e2f89d9b",
   "claim_boundary": "Built-wheel software verification on the current controlled interpreter/platform only; excludes publication, release readiness, broad installation, external dependency availability, numerical verification, scientific validation, UQ, provenance truth, and external-tool execution.",
   "wheel_output_inventory": "All *.whl outputs: exactly one, then exact project filename prefix required."
 }

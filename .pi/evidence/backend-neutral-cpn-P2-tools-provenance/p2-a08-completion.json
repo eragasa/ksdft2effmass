@@ -3,10 +3,10 @@
   "task_id": "P2",
   "audit_item": "P2-A08",
   "status": "audited_and_cleared",
-  "starting_revision": "0196286d47c4a3b9cba7b95e0913de3e5715b833",
+  "starting_revision": "90eab67cb06ccceaeacc121b2cc3b40e70506a2d",
   "correction_revision": "durable boundary commit containing this record",
   "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
-  "attempt_id": "P2-A08-correction-1",
+  "attempt_id": "P2-A08-correction-2",
   "ownership": {
     "mode": "artifact_owned",
     "evidence_class": "software_verification",
@@ -18,7 +18,7 @@
     "test_functions": 2,
     "collected_cases": 2,
     "unique_evidence_owners": 2,
-    "helper_or_fixture_functions": 1,
+    "helper_or_fixture_functions": 2,
     "integration_family_collected_cases": 145
   },
   "evidence_ids": {
@@ -80,7 +80,16 @@
     ]
   },
   "wheel_content": {
-    "observed_direct_provenance_python_modules": [
+    "selection_helper": "select_provenance_python_entries",
+    "selection_scope": "every Python source entry recursively below ksdft2effmass/provenance/",
+    "controlled_observations": [
+      "ksdft2effmass/provenance/actions.py",
+      "ksdft2effmass/provenance/legacy.py",
+      "ksdft2effmass/provenance/legacy/__init__.py",
+      "ksdft2effmass/provenance/legacy/adapter.py"
+    ],
+    "former_direct_child_predicate_mutation": "expected failure with nested entries visible in the assertion difference",
+    "observed_provenance_python_entries": [
       "ksdft2effmass/provenance/__init__.py",
       "ksdft2effmass/provenance/actions.py",
       "ksdft2effmass/provenance/external_execution.py",
@@ -122,7 +131,8 @@
     "focused_pytest": "2 passed after sole correction pass",
     "integration_family_pytest": "145 passed after sole correction pass",
     "offline_build": "PASS: return code 0 and exactly one wheel among all *.whl outputs",
-    "exact_module_inventory": "PASS: exact seven-module equality",
+    "recursive_selection": "PASS: controlled direct and nested Python entries selected; former direct-child mutation failed",
+    "exact_module_inventory": "PASS: exact recursive seven-entry equality",
     "test_tree_exclusion": "PASS: no exact tests path component",
     "isolated_import": "PASS: python -I -S, exact wheel origin, ArtifactIdentity sentinel",
     "ruff": "PASS",
@@ -136,14 +146,14 @@
     "nonmutation": "PASS: production provenance source, package metadata, lockfiles, schemas, fixtures, other integration modules, harness resources, and protected inactive backlog unchanged"
   },
   "review": {
-    "run_id": "351add6c-8635-4576-a934-859e71869491",
-    "status": "one bounded finding corrected",
-    "finding": "Count all wheel outputs before validating sole project identity.",
-    "correction_passes": 1,
-    "second_review_launched": false,
+    "historical_run_id": "351add6c-8635-4576-a934-859e71869491",
+    "bounded_confirmation_run_id": "2de2607b",
+    "status": "PASS",
+    "finding": "The human-audited direct-child predicate omitted nested provenance Python entries; the recursive selector correction is confirmed.",
+    "general_review_launched": false,
     "mutations_by_reviewer": []
   },
-  "file_sha256": "6aa8f161dfc91f578fba919783376cca2b3d03b11e8810e7e128af043e5c4f0d",
+  "file_sha256": "6c1c9dfb9fb563459ce1d5c4dc0ef644c6061708ea94df3ee066b429e2f89d9b",
   "next_item": "P2-A09",
   "next_item_started": false,
   "p2_status": "open_and_unaccepted",
