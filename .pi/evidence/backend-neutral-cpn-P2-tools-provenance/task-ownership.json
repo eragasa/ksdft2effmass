@@ -5,25 +5,25 @@
   "owners": {
     "writers": [
       {
-        "role": "p2-a09-test-and-control-writer",
+        "role": "p2-a10-test-and-control-writer",
         "agent": "ksdft2effmass-tests",
         "agent_record": ".pi/agents/ksdft2effmass-tests.md",
         "owned_paths": [
-          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py",
+          "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_contract_v1.py",
           ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-test-evidence-ownership.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-test-evidence-node-migration.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-test-evidence-inventory.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-review.md",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-completion.json",
-          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a09-parent-verification.md",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-test-evidence-ownership.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-test-evidence-node-migration.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-test-evidence-inventory.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-review.md",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-completion.json",
+          ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-parent-verification.md",
           ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json"
         ]
       }
     ],
     "reviewers": [
       {
-        "role": "p2-a09-targeted-read-only-reviewer",
+        "role": "p2-a10-targeted-read-only-reviewer",
         "agent": "ksdft2effmass-integration-reviewer",
         "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
       }

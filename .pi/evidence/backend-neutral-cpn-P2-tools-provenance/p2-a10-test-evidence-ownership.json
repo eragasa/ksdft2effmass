@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_contract_v1.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "the provenance version-1 Python/JSON wire artifact"
+    }
+  ]
+}

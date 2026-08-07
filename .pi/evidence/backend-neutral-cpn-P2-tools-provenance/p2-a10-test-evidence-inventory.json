@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "audit_item": "P2-A10",
+  "starting_revision": "719a4b2ee96d457542c3f106676e8d2471908952",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "attempt_id": "P2-A10-correction-1",
+  "module": {
+    "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_contract_v1.py",
+    "mode": "artifact_owned",
+    "evidence_class": "software_verification",
+    "artifact": "the provenance version-1 Python/JSON wire artifact"
+  },
+  "counts": {
+    "modules": 1,
+    "artifact_owned_modules": 1,
+    "class_owned_modules": 0,
+    "test_functions": 4,
+    "unique_evidence_owners": 4,
+    "helper_functions": 3,
+    "parameterized_functions": 0,
+    "static_parameter_cases": 0,
+    "collected_cases": 4,
+    "historical_nodes": 3,
+    "mapped_historical_nodes": 3,
+    "new_nodes": 1
+  },
+  "preserved_evidence_ids": [
+    "SV-PROV-064",
+    "SV-PROV-065",
+    "SV-PROV-066"
+  ],
+  "new_evidence_ids": [
+    {
+      "evidence_id": "SV-PROV-398",
+      "owner": "public derived statuses remain absent from dataclass, schema, and serialized storage",
+      "authoritative_predecessor": null
+    }
+  ],
+  "schema_inventory": {
+    "declared_dialect": "https://json-schema.org/draft/2020-12/schema",
+    "definition_count": 17,
+    "definition_set_exact": true,
+    "top_level_reference_count": 17,
+    "top_level_references_unique": true,
+    "top_level_reference_set_exact": true,
+    "controlled_duplicate": "17-element replacement mutation fails the uniqueness guard"
+  },
+  "stored_vocabularies": {
+    "count": 8,
+    "keys": [
+      "ArtifactLocation.kind",
+      "DeclaredCapability.kind",
+      "ExecutionCorrelationResult.issues.items",
+      "ExternalExecutionFailure.stage",
+      "ExternalExecutionFailure.code",
+      "LineageRelation.kind",
+      "RunManifest.state",
+      "VerificationObservation.status"
+    ],
+    "exact_schema_python_mapping": true,
+    "completed_constant": "ExternalExecutionStatus.COMPLETED.value"
+  },
+  "derived_status_storage": {
+    "classes": [
+      "ArtifactIdentityVerificationResult",
+      "ExecutionCorrelationResult"
+    ],
+    "status_absent_from_dataclass_fields": true,
+    "status_absent_from_schema_properties": true,
+    "status_is_public_property": true,
+    "status_absent_from_public_serialization": true,
+    "private_serializer_mapping_access": false
+  },
+  "nfc": {
+    "normalized_path": "é/result.json",
+    "decomposed_path": "é/result.json",
+    "normalized_accepted": true,
+    "decomposed_rejected": true
+  },
+  "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a10-test-evidence-node-migration.json",
+  "file_sha256": "c890233a2750f78aee36252870ffc5530a9efe85a9c3215b1354c20a3310ea06",
+  "claim_boundary": "Software verification only; excludes provenance truth, numerical verification, scientific validation, UQ, persistence, external execution validity, released-package compatibility, implemented cross-language conformance, and P2 human acceptance."
+}
