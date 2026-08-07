@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "the provenance static import-dependency artifact"
+    }
+  ]
+}

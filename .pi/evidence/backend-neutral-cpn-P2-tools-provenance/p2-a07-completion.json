@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "audit_item": "P2-A07",
+  "status": "audited_and_cleared",
+  "starting_revision": "c95534d3ade91cd62702a9b0a0e5aae95973107a",
+  "correction_revision": "durable boundary commit containing this record",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "request_identity": "human P2-A07 bounded correction",
+  "attempt_id": "P2-A07-correction-1",
+  "ownership": {
+    "mode": "artifact_owned",
+    "evidence_class": "software_verification",
+    "artifact": "the provenance static import-dependency artifact",
+    "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py"
+  },
+  "counts": {
+    "modules": 1,
+    "test_functions": 2,
+    "collected_cases": 2,
+    "unique_evidence_owners": 2,
+    "helper_functions": 1
+  },
+  "evidence_ids": {
+    "preserved": [
+      "SV-PROV-070",
+      "SV-PROV-071"
+    ],
+    "new": []
+  },
+  "migration": {
+    "record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a07-test-evidence-node-migration.json",
+    "old_nodes": 2,
+    "new_nodes": 2,
+    "complete_one_to_one": true
+  },
+  "normalized_import_representation": {
+    "name": "StaticImportDependency",
+    "container": "frozenset",
+    "record_immutability": "frozen dataclass",
+    "fields": {
+      "form": "import or from",
+      "module": "complete AST module or None",
+      "imported_names": "ordered tuple of AST alias names",
+      "relative_level": "exact AST level"
+    },
+    "no_absolute_root_reduction": true,
+    "no_relative_form_discard": true
+  },
+  "truthful_source_inventory": [
+    "__init__.py",
+    "actions.py",
+    "external_execution.py",
+    "external_tools.py",
+    "records.py",
+    "serialization.py",
+    "tool_observations.py"
+  ],
+  "draft_absolute_inventory_discrepancies": [],
+  "oracles": {
+    "internal": "exact level-one relative adjacency supplied by the accepted P2 decomposition",
+    "absolute": "exact fixed per-file full-module mapping verified against origin/dev at the starting revision",
+    "lexical_source_scan": false
+  },
+  "synthetic_negative_controls": [
+    "absolute ksdft2effmass.provenance import",
+    "from . import records",
+    "relative level two",
+    "snakes",
+    "subprocess",
+    "ksdft2effmass.workflows.cpn",
+    "ksdft2effmass.backends",
+    "scheduler.client",
+    "pluggy"
+  ],
+  "deterministic_results": {
+    "structural_validator": "PASS: zero findings; 1 artifact-owned module, 2 functions/owners, 1 helper",
+    "collection": "2 tests collected",
+    "focused_pytest": "2 passed",
+    "integration_family_pytest": "144 passed",
+    "ruff": "PASS",
+    "mypy": "Success: no issues found in 1 source file with MYPYPATH=src",
+    "source_module_inventory": "PASS: exact 7 files",
+    "internal_adjacency": "PASS: exact mapping",
+    "absolute_import_inventory": "PASS: exact mapping",
+    "dangerous_form_visibility": "PASS: controlled absolute-internal, unusual-relative, and undeclared-absolute forms",
+    "evidence_uniqueness": "PASS: SV-PROV-070 and SV-PROV-071 each unique",
+    "node_migration": "PASS: complete one-to-one 2 nodes",
+    "p2_completion_validator": "PASS",
+    "task_ownership": "PASS",
+    "checkpoint_validator": "PASS with zero unresolved checkpoints",
+    "git_diff_check": "PASS",
+    "nonmutation": "PASS: production provenance source, public exports, schemas, fixtures, dependencies, locks, other integration modules, historical evidence, harness resources, and protected inactive backlog unchanged"
+  },
+  "review": {
+    "run_id": "8bce7075-3fc7-4124-9dd0-b28a57730667",
+    "status": "PASS",
+    "findings": [],
+    "scope": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py",
+    "correction_pass_required": false,
+    "other_integration_modules_inspected": false,
+    "mutations": []
+  },
+  "file_sha256": "5be0f8c04be3508ff6553d5314b9fac5acefb519abba8d18de5f3a63cc8fd433",
+  "next_item": "P2-A08",
+  "next_item_started": false,
+  "p2_status": "open_and_unaccepted",
+  "claim_boundary": "Exact AST-visible static imports only. Dynamic and transitive imports, dependency internals, runtime construction, semantically equivalent architectures without static imports, scientific behavior, numerical verification, validation, UQ, provenance truth, execution validity, portability, and cross-language conformance are excluded."
+}

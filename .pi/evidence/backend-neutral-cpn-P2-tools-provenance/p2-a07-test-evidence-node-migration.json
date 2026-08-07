@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__internal_import_graph__matches_approved_layering",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__backend_and_runtime_isolation__excludes_forbidden_dependencies"
+  ],
+  "expected_new_node_ids": [
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__internal_import_graph__matches_exact_relative_layering",
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__absolute_import_inventory__matches_exact_dependency_boundary"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__internal_import_graph__matches_approved_layering",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__internal_import_graph__matches_exact_relative_layering"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__backend_and_runtime_isolation__excludes_forbidden_dependencies",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py::test_artifact__absolute_import_inventory__matches_exact_dependency_boundary"
+    }
+  ]
+}
