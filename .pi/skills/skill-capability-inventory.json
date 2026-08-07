@@ -221,7 +221,6 @@
       "current_consumers": [
         ".pi/agents/ksdft2effmass-architecture.md",
         ".pi/agents/ksdft2effmass-documentation.md",
-        ".pi/agents/ksdft2effmass-implementation.md",
         ".pi/agents/ksdft2effmass-tests.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md"
       ],

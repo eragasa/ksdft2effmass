@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "project_role_simplification_completed",
+  "status": "project_implementation_completed",
   "active_task": null,
   "automatic_successor_activation": false,
   "chain": [],
@@ -22,10 +22,43 @@
       "status": "completed"
     },
     {
+      "id": "harness-simplification.agents.project-implementation",
+      "record": ".pi/tasks/harness-simplification.agents.project-implementation.md",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-implementation.json",
+      "prerequisites": [
+        "harness-simplification.agents.project-role-simplification:completed"
+      ],
+      "status": "completed"
+    },
+    {
+      "id": "harness-simplification.agents.project-documentation",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.project-implementation:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
+      "id": "harness-simplification.agents.project-integration-review",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.project-documentation:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
+      "id": "harness-simplification.agents.project-architecture",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.project-integration-review:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
       "id": "harness-simplification.agents.live-discovery",
       "record": null,
       "prerequisites": [
-        "harness-simplification.agents.project-role-simplification:completed"
+        "harness-simplification.agents.project-architecture:completed"
       ],
       "status": "inactive_unauthorized"
     },
