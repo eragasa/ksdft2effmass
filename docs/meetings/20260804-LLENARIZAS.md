@@ -6,7 +6,7 @@
 	- [ ] NSCF from SCF
 - [ ] write automation scheme for Wannier90
 # TODO LLENARIZAS:
-- [X] AUGUST 1, 2026: Submit enhanced abstract for conference.  https://www.imep-inc.org/icmsep-2026?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEyZUJyUWlMdWk2ZnJraFRzaHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6Q8IFLNKSMxYdy2PU95Y7KbOG3vlGChfs3ER6-ivi31PXDi0-ZKOAu9sl0mg_aem_ysxR0H3ThAT7kA8Gb2HJ3w
+
 - [ ] 
 - [ ] Start powerpoint slides (ksdft2effmass/slides/\*.ppt)
 	- [ ] kpoints converence on conventional unit cell
@@ -47,3 +47,4 @@
 	- [x] https://wannier.org/  (this is the original wannier library)
 	- [x] https://www.quantum-espresso.org/Doc/INPUT_pw2wannier90.html (dft2wannier
 	- [x] https://www.youtube.com/watch?v=8sxAr0Rtp2k&list=PLcGOxeoscxDBYKFJAUQhk
+- [X] AUGUST 1, 2026: Submit enhanced abstract for conference.  https://www.imep-inc.org/icmsep-2026?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEyZUJyUWlMdWk2ZnJraFRzaHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6Q8IFLNKSMxYdy2PU95Y7KbOG3vlGChfs3ER6-ivi31PXDi0-ZKOAu9sl0mg_aem_ysxR0H3ThAT7kA8Gb2HJ3w
