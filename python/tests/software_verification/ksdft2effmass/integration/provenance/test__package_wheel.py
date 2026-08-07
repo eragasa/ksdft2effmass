@@ -1,19 +1,35 @@
-"""Evidence class and represented meaning
-Software verification of the built wheel provenance package content and clean import.
-Owned contract, oracle, and scope
-The Python wheel artifact is the owner; expected provenance modules and isolated
-interpreter import are exact oracles.
+r"""Software verification of the provenance wheel/package artifact.
+
+Facet and represented meaning
+-----------------------------
+This artifact-owned software verification represents the built Python wheel. The fixed
+provenance runtime-module inventory is the content oracle, Python ZIP/wheel path
+semantics are the archive oracle, and isolated ``python -I -S`` execution is the import
+oracle.
+
+Intrinsic and cross-object scope
+--------------------------------
+The built wheel is the owned artifact. Public API inventory is owned separately by
+``test__public_api.py``; dependency direction is owned separately by
+``test__import_dependency_direction.py``. Controlled setup builds one local wheel for
+the independent content and import owners.
+
 VVUQ and scientific exclusions
-Evidence excludes publication, installation into the active environment, numerical
-verification, scientific validation, UQ, and platform exhaustiveness.
+------------------------------
+Passing applies only to the current interpreter, platform, and already provisioned
+local build tools. It does not establish publication, release readiness, installation
+across supported platforms, dependency availability outside the controlled
+environment, numerical verification, scientific validation, UQ, provenance truth, or
+external-tool execution.
 """
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import zipfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import pytest
 
@@ -32,72 +48,146 @@ EXPECTED_WHEEL_MODULES = {
 }
 
 
-def test_artifact__wheel_content__supports_clean_import_without_tests(
-    tmp_path: Path,
-) -> None:
+@pytest.fixture(scope="module")
+def built_provenance_wheel(tmp_path_factory: pytest.TempPathFactory) -> Path:
     """Evidence ID
-    SV-PROV-072
+    Owns no identifier; supports SV-PROV-072 and SV-PROV-395.
     Requirement
-    A standard wheel contains every provenance runtime module, excludes provenance
-    tests, and imports in an isolated interpreter from the wheel alone.
+    Both wheel evidence owners receive the same locally built artifact without index or
+    dependency access during the build subprocess.
     Method
-    Build locally with pip wheel --no-deps, inspect ZIP names, then run Python -I with
-    only the wheel inserted into sys.path; no network or publication occurs.
+    Invoke the current interpreter's pip once with no dependencies, no build isolation,
+    no index, inherited environment, and explicit index-disabling variables.
     Oracle
-    Fixed expected module paths, wheel ZIP semantics, and isolated Python import
-    behavior are independent checks.
+    A zero pip exit status and exactly one project wheel define successful setup.
     Acceptance
-    Build succeeds, expected paths are present, no test path is present, and clean
-    import prints the exact package file prefix and export sentinel.
+    The offline command finishes within 120 seconds and yields exactly one wheel whose
+    filename identifies this project in an isolated temporary directory.
     Interpretation
-    Failure may indicate packaging configuration, build tooling, wheel content, or
-    isolated import drift.
+    Failure indicates missing preinstalled build tooling, local build configuration, or
+    wheel production setup; it is not archive-content or isolated-import evidence.
     Limitations
-    This tests the current platform/interpreter only and does not publish, install
-    dependencies, or validate a released artifact.
+    The environment must already contain compatible pip, setuptools, and wheel; setup
+    does not establish publication, release readiness, or platform coverage.
     """
-    wheel_dir = tmp_path / "wheel"
-    wheel_dir.mkdir()
+    wheel_dir = tmp_path_factory.mktemp("provenance-wheel")
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "PIP_NO_INDEX": "1",
+            "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+        }
+    )
     build = subprocess.run(
         [
             sys.executable,
             "-m",
             "pip",
             "wheel",
-            str(PYTHON_ROOT),
             "--no-deps",
+            "--no-build-isolation",
+            "--no-index",
             "--wheel-dir",
             str(wheel_dir),
+            str(PYTHON_ROOT),
         ],
-        cwd=tmp_path,
+        cwd=wheel_dir,
+        env=environment,
         check=False,
         capture_output=True,
         text=True,
+        timeout=120,
     )
     assert build.returncode == 0, build.stderr
-    wheels = tuple(wheel_dir.glob("ksdft2effmass-*.whl"))
-    assert len(wheels) == 1
+    wheels = tuple(wheel_dir.glob("*.whl"))
+    assert len(wheels) == 1, wheels
     wheel = wheels[0]
-    with zipfile.ZipFile(wheel) as archive:
-        names = set(archive.namelist())
-    assert EXPECTED_WHEEL_MODULES <= names
-    assert "ksdft2effmass/provenance/tools.py" not in names
-    assert not any("tests/" in name or name.startswith("tests") for name in names)
+    assert wheel.name.startswith("ksdft2effmass-"), wheel
+    return wheel
 
-    code = (
-        "import sys; sys.path.insert(0, sys.argv[1]); "
-        "import ksdft2effmass.provenance as p; "
-        "print(p.__file__); print(p.ArtifactIdentity.__name__)"
+
+def test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_tests(
+    built_provenance_wheel: Path,
+) -> None:
+    """Evidence ID
+    SV-PROV-072
+    Requirement
+    The wheel contains exactly the accepted direct provenance Python modules and no
+    archive entry whose path has an exact ``tests`` component.
+    Method
+    Read the built wheel ZIP names, select direct ``.py`` children of the provenance
+    package, and inspect every archive name by POSIX path components.
+    Oracle
+    EXPECTED_WHEEL_MODULES and Python ZIP/wheel POSIX path semantics fix the independent
+    content inventory and test-tree exclusion.
+    Acceptance
+    Direct provenance Python entries equal EXPECTED_WHEEL_MODULES exactly, and no
+    archive path contains an exact ``tests`` component.
+    Interpretation
+    Failure indicates unexpected, missing, or misplaced wheel content rather than build
+    setup or import execution behavior.
+    Limitations
+    Non-Python package data semantics, installation, publication, other platforms, and
+    scientific behavior are excluded.
+    """
+    with zipfile.ZipFile(built_provenance_wheel) as archive:
+        archive_paths = {PurePosixPath(name) for name in archive.namelist()}
+    provenance_package = PurePosixPath("ksdft2effmass/provenance")
+    observed_provenance_modules = {
+        path.as_posix()
+        for path in archive_paths
+        if path.parent == provenance_package and path.suffix == ".py"
+    }
+    assert observed_provenance_modules == EXPECTED_WHEEL_MODULES
+    assert all("tests" not in path.parts for path in archive_paths)
+
+
+def test_artifact__wheel_import__succeeds_without_ambient_site_packages(
+    built_provenance_wheel: Path,
+) -> None:
+    """Evidence ID
+    SV-PROV-395
+    Requirement
+    The built wheel supplies the provenance package to an interpreter using only the
+    wheel plus the Python standard library, without ambient site-packages.
+    Method
+    Run the current interpreter with ``-I -S``, prepend the exact wheel to ``sys.path``,
+    import provenance, and print its file origin and one stable public sentinel.
+    Oracle
+    Isolated Python import semantics, the exact wheel path, the package ``__init__.py``
+    suffix, and ``ArtifactIdentity`` class name define the independent import oracle.
+    Acceptance
+    The subprocess exits zero within 30 seconds; its origin is lexically the exact wheel
+    plus ``ksdft2effmass/provenance/__init__.py``; its sentinel is ``ArtifactIdentity``.
+    Interpretation
+    Failure indicates isolated import, wheel origin, or sentinel drift rather than
+    archive inventory, general installation, or release failure.
+    Limitations
+    This covers one current interpreter and platform, excludes dependency availability
+    elsewhere, and does not duplicate the complete public API inventory.
+    """
+    wheel = built_provenance_wheel.resolve()
+    code = "\n".join(
+        (
+            "import sys",
+            "sys.path.insert(0, sys.argv[1])",
+            "import ksdft2effmass.provenance as provenance",
+            "print(provenance.__file__)",
+            "print(provenance.ArtifactIdentity.__name__)",
+        )
     )
     imported = subprocess.run(
-        [sys.executable, "-I", "-c", code, str(wheel)],
-        cwd=tmp_path,
+        [sys.executable, "-I", "-S", "-c", code, str(wheel)],
+        cwd=wheel.parent,
         check=False,
         capture_output=True,
         text=True,
+        timeout=30,
     )
     assert imported.returncode == 0, imported.stderr
     lines = imported.stdout.splitlines()
-    assert lines[0].startswith(str(wheel))
-    assert lines[0].endswith("/ksdft2effmass/provenance/__init__.py")
+    assert len(lines) == 2, lines
+    wheel_prefix = f"{wheel.as_posix()}/"
+    assert lines[0].startswith(wheel_prefix)
+    assert lines[0][len(wheel_prefix) :] == "ksdft2effmass/provenance/__init__.py"
     assert lines[1] == "ArtifactIdentity"

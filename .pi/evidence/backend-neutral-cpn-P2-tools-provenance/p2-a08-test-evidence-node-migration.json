@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_content__supports_clean_import_without_tests"
+  ],
+  "expected_new_node_ids": [
+    "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_tests"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_content__supports_clean_import_without_tests",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_tests"
+    }
+  ]
+}

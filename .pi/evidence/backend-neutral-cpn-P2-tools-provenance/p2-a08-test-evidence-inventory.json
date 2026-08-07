@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "task_id": "P2",
+  "audit_item": "P2-A08",
+  "starting_revision": "0196286d47c4a3b9cba7b95e0913de3e5715b833",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "attempt_id": "P2-A08-correction-1",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "the provenance wheel/package artifact"
+    }
+  ],
+  "counts": {
+    "modules": 1,
+    "artifact_owned_modules": 1,
+    "class_owned_modules": 0,
+    "test_functions": 2,
+    "collected_cases": 2,
+    "unique_evidence_owners": 2,
+    "helper_or_fixture_functions": 1
+  },
+  "evidence_owners": [
+    {
+      "evidence_id": "SV-PROV-072",
+      "node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_tests",
+      "historical_predecessor": "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_content__supports_clean_import_without_tests"
+    },
+    {
+      "evidence_id": "SV-PROV-395",
+      "node_id": "tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py::test_artifact__wheel_import__succeeds_without_ambient_site_packages",
+      "historical_predecessor": null,
+      "reason": "Genuinely new isolated-import requirement split from the historical combined owner."
+    }
+  ],
+  "identifier_selection": {
+    "authoritative_current_max": "SV-PROV-394",
+    "next_unused": "SV-PROV-395",
+    "new_id": "SV-PROV-395"
+  },
+  "migration_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-a08-test-evidence-node-migration.json",
+  "migration_summary": {
+    "historical_nodes": 1,
+    "mapped_current_nodes": 1,
+    "complete_one_to_one": true,
+    "new_nodes_without_predecessor": 1
+  },
+  "build_command": [
+    "<current-interpreter>",
+    "-m",
+    "pip",
+    "wheel",
+    "--no-deps",
+    "--no-build-isolation",
+    "--no-index",
+    "--wheel-dir",
+    "<isolated-wheel-directory>",
+    "<repository>/python"
+  ],
+  "build_environment": {
+    "inherit_existing_environment": true,
+    "PIP_NO_INDEX": "1",
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+    "required_preinstalled_tools": [
+      "pip",
+      "setuptools>=77",
+      "wheel"
+    ]
+  },
+  "observed_wheel_count": 1,
+  "observed_provenance_modules": [
+    "ksdft2effmass/provenance/__init__.py",
+    "ksdft2effmass/provenance/actions.py",
+    "ksdft2effmass/provenance/external_execution.py",
+    "ksdft2effmass/provenance/external_tools.py",
+    "ksdft2effmass/provenance/records.py",
+    "ksdft2effmass/provenance/serialization.py",
+    "ksdft2effmass/provenance/tool_observations.py"
+  ],
+  "test_path_component_present": false,
+  "isolated_import": {
+    "interpreter_flags": [
+      "-I",
+      "-S"
+    ],
+    "origin_suffix": "ksdft2effmass/provenance/__init__.py",
+    "origin_inside_exact_wheel": true,
+    "sentinel": "ArtifactIdentity"
+  },
+  "file_sha256": "6aa8f161dfc91f578fba919783376cca2b3d03b11e8810e7e128af043e5c4f0d",
+  "claim_boundary": "Built-wheel software verification on the current controlled interpreter/platform only; excludes publication, release readiness, broad installation, external dependency availability, numerical verification, scientific validation, UQ, provenance truth, and external-tool execution.",
+  "wheel_output_inventory": "All *.whl outputs: exactly one, then exact project filename prefix required."
+}
