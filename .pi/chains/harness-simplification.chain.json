@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "task_state_inspection_completed",
+  "status": "live_discovery_cleanup_completed",
   "active_task": null,
   "automatic_successor_activation": false,
   "chain": [],
@@ -96,15 +96,24 @@
       "prerequisites": [
         "harness-simplification.execution.task-state-inspection-tool:completed"
       ],
-      "status": "inactive_unauthorized"
+      "status": "deferred_inactive"
+    },
+    {
+      "id": "harness-simplification.agents.live-discovery-cleanup",
+      "record": ".pi/tasks/harness-simplification.agents.live-discovery-cleanup.md",
+      "prerequisites": [
+        "harness-simplification.execution.task-state-inspection-tool:completed"
+      ],
+      "status": "completed"
     },
     {
       "id": "harness-simplification.agents.live-discovery",
       "record": null,
       "prerequisites": [
-        "harness-simplification.execution.review-dispatch-idempotency:completed"
+        "harness-simplification.agents.live-discovery-cleanup:completed"
       ],
-      "status": "inactive_unauthorized"
+      "status": "completed",
+      "completed_by": "harness-simplification.agents.live-discovery-cleanup"
     },
     {
       "id": "harness-simplification.agents.historical-retirement",
@@ -112,7 +121,8 @@
       "prerequisites": [
         "harness-simplification.agents.live-discovery:completed"
       ],
-      "status": "inactive_unauthorized"
+      "status": "completed",
+      "completed_by": "harness-simplification.agents.live-discovery-cleanup"
     },
     {
       "id": "harness-simplification.agents.delegation-validation",

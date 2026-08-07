@@ -8,9 +8,10 @@ sphinx: excluded
 
 # Incremental migration plan
 
-> **Proposed architecture.** Only the durable harness-role creation slice is
-> complete. SQLite implementation, agent retirement, package extraction, and
-> publication are not authorized by this page.
+> **Incremental architecture.** Durable-role creation, project-role
+> simplification, and retirement of historical phase roles from selectable PI
+> discovery are complete. SQLite implementation, agent-file deletion, package
+> extraction, and publication remain inactive and unauthorized.
 
 The harness should evolve through bounded compatibility slices rather than a
 wholesale replacement. Each slice retains a rollback path, compares structured
@@ -21,17 +22,22 @@ results, and changes one authority owner only after explicit acceptance.
 Completed:
 
 - `harness-simplification.agents.durable-roles`
-
-Proposed:
-
 - `harness-simplification.agents.project-role-simplification`
+- `harness-simplification.agents.live-discovery-cleanup`
 - `harness-simplification.agents.live-discovery`
 - `harness-simplification.agents.historical-retirement`
-- `harness-simplification.agents.delegation-validation`
 
-The 24 historical phase-specific harness records remain present and are not
-retired or removed from discovery. SQLite state, the evidence redesign, and the
-maintained command interface remain proposals rather than implemented features.
+Inactive and unauthorized:
+
+- `harness-simplification.execution.review-dispatch-idempotency`
+  (`deferred_inactive`)
+- `harness-simplification.agents.delegation-validation`
+- `harness-simplification.evidence-and-sqlite`
+
+The 24 historical phase-specific harness records remain present byte-for-byte
+and are disabled only from selectable discovery by project-level
+`.pi/settings.json`. The 10 durable roles remain selectable. Historical file
+presence and runtime discoverability grant no task authority.
 
 ## Proposed stages
 

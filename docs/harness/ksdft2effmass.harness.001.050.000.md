@@ -11,12 +11,11 @@ sphinx: excluded
 This page accounts for the complete population under `.pi/agents/` after the
 bounded durable-harness-role migration from development revision
 `ad00272fba2219505bf52f82362a84bad27fede0`, which matched `origin/dev` at
-preflight. The inventory describes records; it does not
-activate, retire, rename, or grant ownership to an agent. Current authority still
-comes from the applicable human instruction, durable decisions, accepted
-contracts, task and chain state, and any required validated ownership manifest.
-An agent file's existence establishes availability to the harness, not authority
-to act.
+preflight. The inventory describes retained records; it does not activate,
+rename, or grant ownership to an agent. Current authority still comes from the applicable human
+instruction, durable decisions, accepted contracts, task and chain state, and
+any required validated ownership manifest. An agent file's existence establishes
+neither selectable runtime discovery nor authority to act.
 
 ## Classification method
 
@@ -27,6 +26,8 @@ documentation, and this harness hierarchy. In the table:
 
 - **Live** means a current, non-historical selection or assignment. No active
   task currently selects any phase-specific agent.
+- **Selectable** means exposed by PI's runtime discovery after project settings
+  are applied. Only the 10 durable records are selectable.
 - **Historical** means a reference retained by a closed task, a closed chain, a
   resolved checkpoint, a superseded plan, a checksum catalog, or retained
   execution/review evidence.
@@ -93,11 +94,11 @@ it does not imply assignment or activation.
 
 | Category | Count |
 |---|---:|
-| Total agent records | 34 |
-| Durable project roles | 5 |
-| Durable harness roles | 5 |
-| Phase-specific live roles | 0 |
-| Historical-reference-only roles | 24 |
+| Total retained agent records | 34 |
+| Selectable durable project roles | 5 |
+| Selectable durable harness roles | 5 |
+| Selectable phase-specific roles | 0 |
+| Disabled historical-reference-only roles | 24 |
 | Unresolved roles | 0 |
 
 ### Totals by domain
@@ -139,6 +140,23 @@ it does not imply assignment or activation.
 | phase-specific-live | 0 |
 | historical-reference-only | 24 |
 | unresolved | 0 |
+
+## Runtime discovery disposition
+
+PI project settings at [`.pi/settings.json`](../../.pi/settings.json) are the
+configuration authority for selectable project-agent discovery. The exact
+`subagents.agentOverrides` keys are the package-qualified runtime identities
+reported by PI, and each of the 24 historical identities has `disabled: true`.
+The 10 durable identities have no disabling override. PI's management `list`
+action verifies exactly 10 selectable project agents: five durable project roles
+and five durable harness roles, with no selectable phase-specific role.
+
+All 34 agent files remain in `.pi/agents/`. The 24 disabled files are preserved
+byte-for-byte for closed-task provenance, retained ownership references, old
+checksums and reviews, architectural history, and Git history reconstruction.
+Retirement therefore means retirement from selectable discovery, not deletion
+or historical rewriting. No active task assigns a phase-specific role, and
+neither file presence nor runtime discoverability infers task authorization.
 
 ## Durable target sets
 
@@ -250,10 +268,10 @@ writer/reviewer independence.
   to H2, H3, H4,
   H2-HC01,
   TEST-EVIDENCE-SKILL-1, or another closed bounded harness task.
-- No phase-specific agent remains selected by live configuration at the inspected
-  revision. The H2, H3, and H4 ownership manifests still name their agents, but
-  those manifests are retained evidence for phases whose authoritative chain is
-  closed with no active task. Closed task text and checksum/shadow/parity records
+- No phase-specific agent remains selectable under project PI configuration at
+  the inspected revision. The H2, H3, and H4 ownership manifests still name
+  their agents, but those manifests are retained evidence for phases whose
+  authoritative chain is closed with no active task. Closed task text and checksum/shadow/parity records
   are historical mentions, not live launch authority.
 - No lifecycle classification remains unresolved on the inspected state. This is
   not a retirement finding: a later activation or newly introduced selector

@@ -1,0 +1,78 @@
+{
+  "subagents": {
+    "agentOverrides": {
+      "ksdft2effmass.ksdft2effmass-harness-cutover-architecture-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-cutover-integration-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-cutover-skill-resource-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-generic-resource-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-h2-verification-evidence-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-h3-verification-evidence-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-local-doc-control-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-local-python-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-local-resource-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-local-test-parity-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-option-a-contract-resource-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-python-architecture-rust-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-python-documentation-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-python-evidence-vvuq-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-python-implementation-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-python-integration-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-python-test-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-resource-architecture-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-resource-documentation-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-resource-evidence-vvuq-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-resource-integration-reviewer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-resource-test-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-resource-validation-writer": {
+        "disabled": true
+      },
+      "ksdft2effmass.ksdft2effmass-harness-skill-resource-cutover-writer": {
+        "disabled": true
+      }
+    }
+  }
+}
