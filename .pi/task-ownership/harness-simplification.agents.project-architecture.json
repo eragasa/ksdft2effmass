@@ -5,11 +5,14 @@
   "owners": {
     "writers": [
       {
-        "role": "project-architecture-agent-capability-writer",
+        "role": "project-architecture-agent-control-plane-writer",
         "agent": "ksdft2effmass-harness-implementation",
         "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
         "owned_paths": [
           ".pi/agents/ksdft2effmass-architecture.md",
+          ".pi/tasks/harness-simplification.agents.project-architecture.md",
+          ".pi/task-ownership/harness-simplification.agents.project-architecture.json",
+          ".pi/chains/harness-simplification.chain.json",
           ".pi/skills/skill-capability-inventory.json"
         ]
       },

@@ -1,29 +1,31 @@
 # Simplify the durable project architecture role
 
-Status: completed under `.pi/chains/harness-simplification.chain.json`
+Status: completed incremental refinement under `.pi/chains/harness-simplification.chain.json`
 
 Task identity: `harness-simplification.agents.project-architecture`
 
-Authority: the current human instruction authorizes this bounded task without an additional checkpoint.
+Authority: the current human instruction authorizes this bounded incremental refinement without an additional checkpoint.
 
-## Objective
+## Completed historical slice
 
-Convert the durable project architecture-agent record from an OperatorRecord/CPN-specific checklist into a concise optional read-only architecture-decision capability while preserving scientific boundaries, public-contract analysis, alternatives, risks, and human authority.
+The original task completed a bounded conversion of the project architecture-agent record from an OperatorRecord/CPN-specific checklist into an optional read-only architecture-decision capability. That completed slice and its completed predecessors remain historical; this refinement does not erase or reopen them.
+
+## Current incremental refinement
+
+Refine `.pi/agents/ksdft2effmass-architecture.md` into a concise durable role. Preserve explicit task authorization, read-only analysis by default, narrow documentation or decision-record writes only under exact task ownership, independence from implementation and human acceptance, proportional inspection, applicable cross-surface boundaries, evidence and claim separation, fail-closed authority behavior, and a concise handoff.
+
+Use exactly three materially distinct alternatives only for a genuine human architecture choice, with a reasoned recommendation that does not make the decision. Remove fixed subsystem, tool, phase, path, command, and universal-checklist inventories; duplicated policy; universal ADR or three-option requirements; and mutable status snapshots. Keep `develop-architecture-decision` as the sole durable skill. Do not begin executable-tool migration.
 
 ## Authorized scope and ownership
 
-The only project-agent target is `.pi/agents/ksdft2effmass-architecture.md`. The controlling ownership manifest is `.pi/task-ownership/harness-simplification.agents.project-architecture.json`.
+The controlling ownership manifest is `.pi/task-ownership/harness-simplification.agents.project-architecture.json`.
 
-`ksdft2effmass-harness-implementation` owns the target record and may update `.pi/skills/skill-capability-inventory.json` only when required for deterministic capability registration. `ksdft2effmass-harness-documentation` separately owns the four named Sphinx-excluded harness inventory and simplification pages. `ksdft2effmass-harness-integration-reviewer` performs one final independent read-only cross-surface review. The parent PI agent owns task and chain state, ownership integration, dispatch, handoff verification, deterministic validation, commit, push, and reporting.
+`ksdft2effmass-harness-implementation` owns exactly the target agent record, this task record, the ownership manifest, the controlling chain, and the skill-capability inventory. The inventory is an allowed path only for a strictly necessary exact consumer correction; current registration is otherwise preserved.
 
-The architecture role must remain read-only, explicitly task-authorized, and optional. Use it only when assigned work contains a genuine architecture decision, boundary conflict, or material cross-surface design question. It is not required for formatting, deterministic corrections, routine contract implementation, ordinary tests, documentation synchronization, or task closeout.
-
-The role retains analysis of relevant physical models, mathematical objects and state spaces, public software objects, serialization and persistence boundaries, compatibility boundaries, dependency direction, and external-execution boundaries. It analyzes public API and backward-compatibility implications, and Python/Rust implications only when a cross-language contract or Rust component is assigned. It distinguishes accepted architecture, proposed alternatives, implementation detail, and scientific meaning; provides three materially distinct alternatives for a genuine decision; recommends without selecting or implementing; reports assumptions, risks, unresolved questions, affected surfaces, and fail-closed conflicts; and hands off concisely.
-
-Its sole durable skill is `develop-architecture-decision`. Subject-specific skills may be supplied by an authorized task when supported and required; a task-routing limitation is reported rather than solved by retaining historical universal specialization.
+`ksdft2effmass-harness-documentation` separately retains the four exact named harness documentation paths. `ksdft2effmass-harness-integration-reviewer` performs the required independent read-only review. Writer scopes are exact and non-overlapping.
 
 ## Boundaries and completion
 
-Do not modify another project-agent record, durable harness-agent record, historical record, skill, harness implementation, test, scientific source, schema, fixture, dependency, lockfile, checkpoint, or retained historical evidence. Do not change live discovery. Do not activate live-discovery, historical-retirement, delegation-validation, SQLite, or evidence-subsystem work. Do not reopen H0–H4.
+Do not modify documentation, another agent record, a skill, harness implementation, tests, scientific source, schema, fixture, dependency, lockfile, checkpoint, or retained evidence. Preserve unrelated work. Do not activate successors, reopen completed predecessors, or enable automatic successor activation.
 
-Completion requires valid exact ownership, two writer handoffs, focused deterministic validation, one final read-only integration review, at most one deterministic correction by the original owning writer, synchronized Sphinx-excluded documentation, and preservation of unrelated changes. On completion this task becomes completed, project-role simplification is complete, `active_task` returns to `null`, and every successor remains inactive; no automatic successor or checkpoint is created.
+Completion requires valid ownership for the explicit harness chain, valid JSON and agent front matter, applicable skill-capability validation, whitespace-clean owned diffs, and one independent read-only integration review. During execution only this existing task is active. After accepted completion it may return to completed while every successor remains inactive; no successor or checkpoint is automatically created.

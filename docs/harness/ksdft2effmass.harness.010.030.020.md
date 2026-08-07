@@ -22,31 +22,33 @@ task.
 | [`ksdft2effmass-implementation`](../../.pi/agents/ksdft2effmass-implementation.md) | Writer | Implement accepted public contracts on explicitly assigned production-source paths while preserving APIs, serialization, compatibility, architecture, dependency direction, and applicable data/action boundaries. |
 | [`ksdft2effmass-documentation`](../../.pi/agents/ksdft2effmass-documentation.md) | Writer | Maintain explicitly assigned project documentation consistently with accepted contracts, implemented behavior, authoritative conventions, supported public interfaces, and accurate claim status. |
 | [`ksdft2effmass-integration-reviewer`](../../.pi/agents/ksdft2effmass-integration-reviewer.md) | Read-only | Independently review materially affected assigned surfaces and connecting interfaces, report exact material findings, and fail closed on authority, contract, ownership, evidence, or human-decision conflicts. |
-| [`ksdft2effmass-architecture`](../../.pi/agents/ksdft2effmass-architecture.md) | Read-only | Provide optional architecture decision support for material project boundaries and cross-surface design, including alternatives, one recommendation, assumptions, risks, unresolved questions, and affected surfaces without selecting or implementing a decision. |
+| [`ksdft2effmass-architecture`](../../.pi/agents/ksdft2effmass-architecture.md) | Read-only by default | Provide proportionate project architecture analysis and human decision support for explicitly task-authorized work, remaining independent of implementation and human acceptance; write only narrow documentation or decision records under exact task ownership. |
 
 Each role still requires an active authorized task and explicit path ownership or
-review scope. None may activate work, expand its assignment, choose scientific
-meaning or a public contract, authorize protected execution, approve its own
-work, or claim human acceptance.
+review scope. Durable records own capability and stable boundaries; task and
+ownership records supply paths, deliverables, permissions, validation, and any
+supported subject skill. None may activate work, expand its assignment, choose
+scientific meaning or a public contract, authorize protected execution, approve
+its own work, or claim human acceptance.
 
-## Optional architecture specialist
+## Architecture responsibility
 
-The architecture role is not a mandatory participant in routine work. It is used
-only when an explicitly authorized assignment contains a genuine architecture
-decision, boundary conflict, or material cross-surface design question. It
-retains analysis of relevant physical models, mathematical objects and state
-spaces, public software objects, serialization and persistence, compatibility,
-dependency direction, and external-execution boundaries. Public API and
-backward-compatibility implications remain in scope; Python/Rust implications
-enter only for assigned cross-language or Rust work.
+The architecture role inspects only what is proportionate to the assigned
+question. Depending on that question, relevant boundaries can include public
+APIs, serialization, persistence, compatibility, dependency direction, external
+systems, mathematical objects, and scientific representations. It separates
+implemented behavior, proposed architecture, software verification, scientific
+validation, and uncertainty quantification, and reports assumptions, risks,
+questions, consequences, limitations, and any unresolved decision.
 
-For a genuine decision, the role distinguishes accepted architecture, proposed
-alternatives, implementation detail, and scientific meaning, then presents
-exactly three materially distinct defensible alternatives and one recommendation.
-It remains read-only and cannot accept, select, or implement that recommendation.
-Formatting, deterministic corrections, routine contract implementation,
-ordinary tests, documentation synchronization, and task closeout do not by
-themselves require this specialist.
+Read-only analysis is the default. Only an explicit task with exact ownership
+may permit narrow documentation or decision-record writes; that exception does
+not grant implementation, acceptance, or broader writing authority. When a
+genuine human architecture choice exists, the role uses
+`develop-architecture-decision` and presents exactly three materially distinct
+defensible alternatives plus a reasoned recommendation without making the
+decision. Deterministic, underspecified, unsuitable, and routine work does not
+trigger an ADR or exactly-three-alternative requirement.
 
 ## Skill routing
 
@@ -61,32 +63,38 @@ Skill selection never expands task authority, path ownership, or review scope.
 
 ## Scope and remaining proposals
 
-The five simplifications changed no agent identity, population total, access
-mode, historical attribution, live-discovery behavior, harness execution
-behavior, tests, retained evidence, scientific source, dependency, or
-protected-execution authority. Historical records continue to identify the
-work performed under their original assignments.
+The five simplifications changed no agent identity, population total, historical
+attribution, live-discovery behavior, harness execution behavior, tests,
+retained evidence, scientific source, dependency, or protected-execution
+authority. The architecture role remains read-only by default; its documented
+narrow-write exception applies only under exact task ownership. Historical
+records continue to identify work performed under their original assignments.
+No executable was migrated in this task.
 
-This bounded stage does not remove historical roles from live discovery, retire
-historical agent files, or validate delegation and handoff behavior. Live-
-discovery cleanup, historical retirement, and delegation and handoff validation
-remain separate proposed work requiring explicit authorization. No execution log
-or discovery-state change is asserted here.
+The chain lists
+`harness-simplification.agents.executable-tool-placement-contract` followed by
+`harness-simplification.agents.validator-migration-pilot` as ordered
+`inactive_unauthorized` proposal entries. Both have `record: null`: no task
+record or child page exists for either entry, and neither task is activated or
+begun. The pilot remains limited to one validator, not a broad script migration.
+Live discovery, historical retirement, delegation and handoff validation,
+SQLite or evidence-storage work, and later protected work remain inactive and
+proposed.
 
 ## Validation and rollback
 
-Focused documentation validation checks exact front matter, the
-[self](./ksdft2effmass.harness.010.030.020.md) and
-[parent](./ksdft2effmass.harness.010.030.000.md) links, relative links across the
-four maintained pages, the unchanged inventory population totals, the five
-project and five harness durable identities, absence of links to nonexistent
-planned children, and whitespace errors. These structural checks do not establish
-scientific validity or human acceptance.
+Focused documentation validation checks exact front matter,
+[harness.010.030.020](./ksdft2effmass.harness.010.030.020.md),
+[harness.010.030.000](./ksdft2effmass.harness.010.030.000.md), relative links
+across the four maintained pages, the unchanged inventory population totals,
+the five project and five harness durable identities, absence of links to
+nonexistent planned children, Sphinx exclusion, and whitespace errors. These
+structural checks do not establish scientific validity or human acceptance.
 
 Rollback of the final bounded slice restores the prior
 `ksdft2effmass-architecture` record and any required capability registration,
 then restores this page and the
-[current inventory](./ksdft2effmass.harness.001.050.000.md) descriptions. It
+[harness.001.050.000](./ksdft2effmass.harness.001.050.000.md) descriptions. It
 does not undo the completed test, implementation, documentation, or
 integration-review simplifications, rewrite historical agents or retained
 evidence, or authorize any proposed successor.

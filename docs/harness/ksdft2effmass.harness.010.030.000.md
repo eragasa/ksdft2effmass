@@ -10,8 +10,10 @@ sphinx: excluded
 
 > **Incremental architecture.** Five durable project roles and five durable
 > harness roles exist. The bounded simplification of all five project roles is
-> complete. Live discovery, historical retirement, and delegation and handoff
-> validation remain proposed and require separate authorization.
+> complete. The chain lists an executable-code and maintained-agent-tool
+> placement contract followed by one validator migration pilot as ordered
+> `inactive_unauthorized` proposal entries. Neither has a task record or child
+> page, and neither is activated or begun.
 
 The implemented durable sets provide stable capability identities. They are
 available for explicit assignment but do not activate themselves, grant path
@@ -29,10 +31,12 @@ The five existing durable project agents cover domain-facing work:
 - maintained documentation;
 - independent integration review.
 
-These agents retain only their stable broadly reusable skills. A task selects
-supported subject-specific skills when needed; neither task routing nor use of
-the harness expands an agent's authority or grants generic harness
-implementation authority.
+These agents retain stable capability rather than task-specific paths,
+deliverables, commands, or permissions. A task and its ownership assignment
+supply those details and may select supported subject-specific skills when
+needed. The architecture role's sole durable skill routing is
+`develop-architecture-decision`. Neither routing nor use of the harness expands
+an agent's authority or grants generic harness implementation authority.
 
 ## Harness-agent set
 
@@ -47,7 +51,8 @@ The five durable harness roles cover reusable control-plane work:
 
 ## Request-time specialization
 
-A task request or ownership manifest supplies:
+Durable records supply capability, access mode, stable responsibility, and
+authority boundaries. A task request or ownership manifest supplies:
 
 - immutable task and attempt identities;
 - exact input artifacts;
@@ -62,13 +67,23 @@ An agent file still would not activate work or provide acceptance.
 
 ## Migration status
 
-The first child, [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md),
-is complete. The second child, [Simplify durable project roles](./ksdft2effmass.harness.010.030.020.md),
-records the current concise capability definitions for all five project roles.
-Project-role simplification is complete. Live-discovery changes,
-historical-agent retirement, and delegation and handoff validation remain
-proposed and unauthorized. Existing historical identities remain present and
-retained evidence remains historically accurate.
+[harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) created the five
+durable harness roles. [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md)
+records the completed simplification of all five durable project roles,
+including the final architecture responsibility, proportional analysis, and
+conditional exactly-three-alternative rule. That work changed no executable
+harness behavior and performed no executable migration.
 
-See [current agents and ownership](./ksdft2effmass.harness.001.050.000.md) and the
-[simplification overview](./ksdft2effmass.harness.010.000.000.md).
+The chain contains the `inactive_unauthorized`
+`harness-simplification.agents.executable-tool-placement-contract` proposal
+entry followed by the `inactive_unauthorized`
+`harness-simplification.agents.validator-migration-pilot` proposal entry. Both
+have `record: null`: no task record or child page exists for either entry, and
+neither task is activated or begun. No script is migrated by this work.
+Live discovery, historical retirement, delegation and handoff validation,
+SQLite or evidence-storage work, and later protected work remain inactive and
+proposed. Existing historical identities remain present and retained evidence
+remains historically accurate.
+
+See [harness.001.050.000](./ksdft2effmass.harness.001.050.000.md) and
+[harness.010.000.000](./ksdft2effmass.harness.010.000.000.md).

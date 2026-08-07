@@ -15,9 +15,9 @@ roles and 24 historical-reference-only phase-specific harness roles. No durable
 harness-agent record existed, no phase-specific role had a live assignment, and
 no active task or unresolved checkpoint conflicted with this bounded action.
 
-This slice creates five available durable capability roles. Their records do not
-activate work, grant path ownership, replace historical identity, or provide
-acceptance.
+This completed slice created five available durable capability roles. Their
+records do not activate work, grant path ownership, replace historical identity,
+or provide acceptance.
 
 | Role | Access | Stable responsibility and authority boundary |
 |---|---|---|
@@ -54,18 +54,25 @@ those records remain `historical-reference-only`.
 |---|---|---|---|---|
 | [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) | `harness-simplification.agents.durable-roles` | Create durable harness roles | Current | Excluded |
 | [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md) | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Current | Excluded |
-| harness.010.030.030 | `harness-simplification.agents.live-discovery` | Remove historical roles from live discovery | Proposed | Excluded |
-| harness.010.030.040 | `harness-simplification.agents.historical-retirement` | Retire obsolete phase-agent files | Proposed | Excluded |
-| harness.010.030.050 | `harness-simplification.agents.delegation-validation` | Validate delegation and handoffs | Proposed | Excluded |
+| harness.010.030.030 | `harness-simplification.agents.executable-tool-placement-contract` | Establish executable-code and maintained-agent-tool placement contract | `inactive_unauthorized` | Excluded |
+| harness.010.030.040 | `harness-simplification.agents.validator-migration-pilot` | Pilot migration of one validator under the accepted placement contract | `inactive_unauthorized` | Excluded |
+| harness.010.030.050 | Not created | Remove historical roles from live discovery | Proposed | Excluded |
+| harness.010.030.060 | Not created | Retire obsolete phase-agent files | Proposed | Excluded |
+| harness.010.030.070 | Not created | Validate delegation and handoffs | Proposed | Excluded |
+| harness.010.030.080 | Not created | Evaluate SQLite or evidence-storage work | Proposed | Excluded |
 
 The first two rows are implemented. The project-role page records the completed
-simplification of all five durable project roles. The remaining plain
-coordinates reserve possible future children without linking to files that do
-not exist.
+simplification of all five durable project roles. The next two task identities
+exist only as ordered `inactive_unauthorized` proposal entries in the chain,
+with the placement contract preceding the single validator pilot. Both entries
+have `record: null`: neither has a task record or child page, and neither task is
+activated or begun. The remaining plain coordinates identify later proposals
+without linking to nonexistent files; broader discovery, retirement,
+delegation, storage, and protected work remain later proposals.
 
 ## Implementation scope and validation
 
-Implementation is limited to the five new agent records, this plan, its parent
+Implementation was limited to the five new agent records, this plan, its parent
 link, the complete agent inventory, and any minimum deterministic capability
 registration required by existing validators. Existing agents, assignments,
 control records, retained evidence, harness behavior, tests, dependencies,
@@ -91,7 +98,10 @@ required.
 
 ## Unauthorized later work
 
-Live-discovery changes, historical-agent retirement, delegation and handoff
-validation, harness behavior changes, SQLite or evidence subsystem
-implementation, dependency changes, protected execution, and release work
-remain unauthorized.
+The chain lists the executable-code and maintained-agent-tool placement contract
+followed by one validator migration pilot as `inactive_unauthorized` proposal
+entries. Neither entry has a task record or child page, and neither task is
+activated or begun. This page migrates no executable. Live-discovery changes,
+historical-agent retirement, delegation and handoff validation, wider
+harness behavior changes, SQLite or evidence-storage implementation, dependency
+changes, protected execution, and release work remain inactive and proposed.

@@ -38,31 +38,30 @@ documentation, and this harness hierarchy. In the table:
 
 The harness-incubation chain reports H0, H1, H3, H2, and H4 closed and
 human-accepted, with `active_task: null`; H5 is inactive. The completed bounded
-project-role slices used only durable harness writers and a durable reviewer
-under explicit ownership. The current architecture-agent
-slice assigns those same three durable harness capabilities under a new explicit
-ownership manifest; it does not reactivate a phase-specific agent. The other
-durable roles remain unassigned and available unless a future authorized task
-selects them. All repository checkpoint records are resolved or
-superseded. Those facts are why the phase-bound records below are historical
+project-role simplifications used only durable harness writers and a durable
+reviewer under explicit ownership. The final architecture-role refinement used
+the same three durable harness capabilities without reactivating a
+phase-specific agent. The other durable roles remain unassigned and available
+unless a future authorized task selects them. All repository checkpoint records
+are resolved or superseded. Those facts are why the phase-bound records below are historical
 references rather than live phase assignments.
 
 ## Complete agent inventory
 
 | Agent | Domain | Role | Access | Original phase | Current references | Lifecycle | Durable role |
 |---|---|---|---|---|---|---|---|
-| [ksdft2effmass-architecture](../../.pi/agents/ksdft2effmass-architecture.md) | project | architecture | read-only | Optional architecture decision support for material project boundaries and cross-surface design | Live: generalized optional durable record, available only for an explicitly authorized genuine architecture decision, boundary conflict, or material cross-surface design question. Historical: the same identity retains closed OperatorRecord, backend-neutral CPN, Rust/control-plane, and H0 references. | durable | ksdft2effmass-architecture |
+| [ksdft2effmass-architecture](../../.pi/agents/ksdft2effmass-architecture.md) | project | architecture | read-only | Optional project architecture analysis and human decision support | Live: generalized optional durable record, available only for explicitly task-authorized work. Analysis is read-only by default; only exact task ownership can permit narrow documentation or decision-record writes. Historical: the same identity retains closed OperatorRecord, backend-neutral CPN, Rust/control-plane, and H0 references. | durable | ksdft2effmass-architecture |
 | [ksdft2effmass-documentation](../../.pi/agents/ksdft2effmass-documentation.md) | project | documentation | writer | OperatorRecord documentation; later CPN, schemas, Sphinx, and evidence documentation | Live: concise generalized maintained-documentation record, available only through an authorized task and validated ownership assignment. Historical: the same identity retains OperatorRecord and CPN documentation work, closed operator-record chains, and H0/H4 evidence. | durable | ksdft2effmass-documentation |
 | [ksdft2effmass-harness-architecture](../../.pi/agents/ksdft2effmass-harness-architecture.md) | cross-domain | architecture | read-only | Durable harness architecture capability | Live: available for a future explicit genuine architecture assignment; not currently assigned. Historical: none. | durable | ksdft2effmass-harness-architecture |
 | [ksdft2effmass-harness-cutover-architecture-reviewer](../../.pi/agents/ksdft2effmass-harness-cutover-architecture-reviewer.md) | cross-domain | architecture | read-only | H4 generic/local dependency direction and rollback-safe routing | Live: none. Historical: closed H4 ownership, shadow/parity records, review closure, and checksums. | historical-reference-only | ksdft2effmass-harness-architecture |
 | [ksdft2effmass-harness-cutover-integration-reviewer](../../.pi/agents/ksdft2effmass-harness-cutover-integration-reviewer.md) | cross-domain | integration-review | read-only | H4 parity, packaging, cutover, rollback, and integration safety | Live: none. Historical: closed H4 ownership, correction/closeout, shadow/parity, review closure, and checksums. | historical-reference-only | ksdft2effmass-harness-integration-reviewer |
 | [ksdft2effmass-harness-cutover-skill-resource-reviewer](../../.pi/agents/ksdft2effmass-harness-cutover-skill-resource-reviewer.md) | cross-domain | integration-review | read-only | H4 canonical skill/resource identity and compatibility | Live: none. Historical: closed H4 ownership/review evidence and closed `ARCHITECTURE-DECISION-SKILL-1`. | historical-reference-only | ksdft2effmass-harness-integration-reviewer |
-| [ksdft2effmass-harness-documentation](../../.pi/agents/ksdft2effmass-harness-documentation.md) | cross-domain | documentation | writer | Durable harness documentation capability | Live: assigned the maintained inventory and project-role pages in the current architecture-agent slice. Historical: used under explicit ownership for the four earlier project-role slices. | durable | ksdft2effmass-harness-documentation |
+| [ksdft2effmass-harness-documentation](../../.pi/agents/ksdft2effmass-harness-documentation.md) | cross-domain | documentation | writer | Durable harness documentation capability | Live: available for explicit assignment. Historical: used under exact ownership for all five completed project-role simplifications, including the final architecture-role refinement. | durable | ksdft2effmass-harness-documentation |
 | [ksdft2effmass-harness-generic-resource-writer](../../.pi/agents/ksdft2effmass-harness-generic-resource-writer.md) | harness-generic | resource-writing | writer | H3 generic manifests, schemas, and skills | Live: none. Historical: accepted H1 ownership plan and closed H3 ownership/checksums. | historical-reference-only | ksdft2effmass-harness-implementation |
 | [ksdft2effmass-harness-h2-verification-evidence-writer](../../.pi/agents/ksdft2effmass-harness-h2-verification-evidence-writer.md) | harness-generic | evidence-writing | writer | H2 retained software-verification and handoff evidence | Live: none. Historical: accepted H1 ownership plan and closed H2 ownership/checksums. | historical-reference-only | ksdft2effmass-harness-tests |
 | [ksdft2effmass-harness-h3-verification-evidence-writer](../../.pi/agents/ksdft2effmass-harness-h3-verification-evidence-writer.md) | cross-domain | evidence-writing | writer | H3 generic/local resource verification and H3-to-H2 handoff evidence | Live: none. Historical: accepted H1 ownership plan and closed H3 ownership/checksums. | historical-reference-only | ksdft2effmass-harness-tests |
-| [ksdft2effmass-harness-implementation](../../.pi/agents/ksdft2effmass-harness-implementation.md) | cross-domain | implementation | writer | Durable generic and project-local harness implementation capability | Live: assigned the project architecture-agent record and any required capability registration in the current slice. Historical: used under explicit ownership for the four earlier project-role slices. | durable | ksdft2effmass-harness-implementation |
-| [ksdft2effmass-harness-integration-reviewer](../../.pi/agents/ksdft2effmass-harness-integration-reviewer.md) | cross-domain | integration-review | read-only | Durable final harness integration-review capability | Live: assigned the final read-only cross-surface review for the current architecture-agent slice. Historical: performed the independent reviews of the four earlier project-role slices. | durable | ksdft2effmass-harness-integration-reviewer |
+| [ksdft2effmass-harness-implementation](../../.pi/agents/ksdft2effmass-harness-implementation.md) | cross-domain | implementation | writer | Durable generic and project-local harness implementation capability | Live: available for explicit assignment. Historical: used under exact ownership for all five completed project-role simplifications, including the final architecture-role refinement. | durable | ksdft2effmass-harness-implementation |
+| [ksdft2effmass-harness-integration-reviewer](../../.pi/agents/ksdft2effmass-harness-integration-reviewer.md) | cross-domain | integration-review | read-only | Durable final harness integration-review capability | Live: available for explicit assignment. Historical: performed the independent reviews of all five completed project-role simplifications, including the final architecture-role refinement. | durable | ksdft2effmass-harness-integration-reviewer |
 | [ksdft2effmass-harness-local-doc-control-writer](../../.pi/agents/ksdft2effmass-harness-local-doc-control-writer.md) | cross-domain | control-writing | writer | H4 maintained documentation, live agent references, task/chain control, cutover, and rollback | Live: none. Historical: closed H4 ownership and shadow/parity/checksum evidence. | historical-reference-only | ksdft2effmass-harness-documentation |
 | [ksdft2effmass-harness-local-python-writer](../../.pi/agents/ksdft2effmass-harness-local-python-writer.md) | harness-local | implementation | writer | H4 project-local composition, adapters, shadow routing, and parity records | Live: none. Historical: accepted H1 ownership plan and closed H4 ownership/shadow/parity evidence. | historical-reference-only | ksdft2effmass-harness-implementation |
 | [ksdft2effmass-harness-local-resource-writer](../../.pi/agents/ksdft2effmass-harness-local-resource-writer.md) | harness-local | resource-writing | writer | H3 local profiles, extensions, and manifest | Live: none. Historical: accepted H1 plan, closed H3 ownership, and H4 migration/checksum evidence. | historical-reference-only | ksdft2effmass-harness-implementation |
@@ -158,13 +157,13 @@ been simplified. The test role independently checks accepted public contracts
 on assigned paths; the implementation and documentation roles perform their
 generalized work only on explicitly assigned paths; and the integration-review
 role independently reviews materially affected surfaces and connecting
-interfaces. The architecture role is now an optional read-only specialist used
-only for an explicitly authorized genuine architecture decision, boundary
-conflict, or material cross-surface design question. Each role retains its broad
-responsibilities and authority boundaries. Subject-specific skills are supplied
-by an authorized task only when routing supports and requires them; routing does
-not expand authority. No record bypasses task selection, path ownership,
-checkpoint, review, or human-authority controls.
+interfaces. The architecture role now provides proportional, explicitly
+task-authorized architecture analysis and human decision support. It is read-only by default;
+only exact task ownership can permit narrow documentation or decision-record
+writes. Its sole durable routing is `develop-architecture-decision`, while an
+authorized task may select supported subject-specific skills when needed.
+Routing does not expand authority. No record bypasses task selection, path
+ownership, checkpoint, review, or human-authority controls.
 
 The available durable harness set is:
 
@@ -177,11 +176,10 @@ ksdft2effmass-harness-architecture
 ```
 
 All five identities exist as reusable capability records. The implementation,
-documentation, and integration-review roles are assigned under explicit
-non-overlapping ownership for the current architecture-agent slice; the four
-earlier project-role slices used the same capability trio. The harness tests and
-architecture roles remain unassigned. These uses do not retroactively replace historical agents; discovery
-changes and retirement
+documentation, and integration-review roles were used under explicit,
+non-overlapping ownership for all five completed project-role simplifications.
+The harness tests and architecture roles remained unassigned. These uses do not
+retroactively replace historical agents; discovery changes and retirement
 require later separate authorization. Architecture roles in both sets are
 optional specialists for material architecture decisions, not mandatory routine
 participants.
@@ -241,13 +239,14 @@ writer/reviewer independence.
 - The five unprefixed records—`ksdft2effmass-implementation`,
   `ksdft2effmass-tests`, `ksdft2effmass-documentation`,
   `ksdft2effmass-integration-reviewer`, and `ksdft2effmass-architecture`—remain
-  the stable current project roles. All five have been simplified to durable
-  capability and boundary definitions; all remain subject to task-specific
-  authorization.
-- Five stable harness capability roles exist. The current architecture-agent
-  slice assigns three under explicit ownership without altering their durable
-  identities; the harness test and architecture roles remain unassigned. The
-  other 24 records whose names start with `ksdft2effmass-harness-` remain bound
+  the stable current project roles. All five simplifications are complete. Their
+  records retain durable capability and boundary definitions while task data
+  supplies paths, deliverables, permissions, and any supported subject skill.
+- Five stable harness capability roles exist. Three were assigned under exact
+  ownership for the completed project-role simplifications without altering
+  their durable identities; the harness test and architecture roles remained
+  unassigned. The other 24 records whose names start with
+  `ksdft2effmass-harness-` remain bound
   to H2, H3, H4,
   H2-HC01,
   TEST-EVIDENCE-SKILL-1, or another closed bounded harness task.
