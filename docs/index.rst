@@ -50,27 +50,24 @@ The Markdown-first provenance concept page is available as a
    :maxdepth: 2
    :caption: PI harness
 
-   harness/ksdft2effmass.harness.00
+   harness/ksdft2effmass.harness.001.000.000
 
 .. toctree::
    :hidden:
 
-   harness/ksdft2effmass.harness.01
-   harness/ksdft2effmass.harness.02
-   harness/ksdft2effmass.harness.03
-   harness/ksdft2effmass.harness.04
-   harness/ksdft2effmass.harness.05
-   harness/ksdft2effmass.harness.06
-   harness/ksdft2effmass.harness.07
-   harness/ksdft2effmass.harness.08
+   harness/ksdft2effmass.harness.001.010.000
+   harness/ksdft2effmass.harness.001.020.000
+   harness/ksdft2effmass.harness.001.030.000
+   harness/ksdft2effmass.harness.001.040.000
+   harness/ksdft2effmass.harness.001.060.000
 
 Markdown-first user guide
 -------------------------
 
 The maintained user guide is authored in Markdown for repository and Obsidian
-use and rendered directly through MyST. Its explicit toctree plus the bounded
-numbered harness pattern are the complete Markdown collection policy; Sphinx
-does not broadly collect other Markdown trees.
+use and rendered directly through MyST. Its explicit toctree plus the selected
+current harness pages in ``docs/conf.py`` are the complete Markdown collection
+policy; Sphinx does not broadly collect other Markdown trees.
 
 .. toctree::
    :maxdepth: 2
@@ -95,10 +92,10 @@ Uncollected Markdown records
 ----------------------------
 
 Architecture, computational, research, conference, paper, and meeting Markdown
-remain authoritative repository/Obsidian sources, but—apart from the exact
-numbered ``docs/harness/ksdft2effmass.harness.*.md`` set—they are intentionally not
-Sphinx source documents. Architecture overviews remain available as source
-files:
+remain authoritative repository/Obsidian sources. Harness proposals, migration
+plans, alternatives, history, and the repository root harness index are also
+excluded until deliberately promoted. Architecture overviews remain available
+as source files:
 
 * :download:`Colored Petri Net workflow architecture <architecture/colored-petri-net-workflows.md>`
 * :download:`Periodic KS/GKS and QE architecture <architecture/kohn-sham-dft-quantum-espresso.md>`

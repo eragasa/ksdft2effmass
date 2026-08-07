@@ -13,16 +13,21 @@ source_suffix = {
 }
 
 # Keep every maintained RST page and collect only the bounded Markdown user
-# guide, CPN pages, and numbered harness architecture set. Other architecture,
-# computational, research, paper, meeting, and conference Markdown remain
-# repository/Obsidian sources rather than implicit Sphinx input.
+# guide, CPN pages, and explicitly selected current harness pages. The complete
+# harness hierarchy remains available for repository/Obsidian navigation, while
+# proposals, migration plans, alternatives, and history stay outside Sphinx.
 include_patterns = [
     "*.rst",
     "**/*.rst",
     "user-guide/*.md",
     "concepts/cpn-contract.md",
     "api/workflows-cpn.md",
-    "harness/ksdft2effmass.harness.*.md",
+    "harness/ksdft2effmass.harness.001.000.000.md",
+    "harness/ksdft2effmass.harness.001.010.000.md",
+    "harness/ksdft2effmass.harness.001.020.000.md",
+    "harness/ksdft2effmass.harness.001.030.000.md",
+    "harness/ksdft2effmass.harness.001.040.000.md",
+    "harness/ksdft2effmass.harness.001.060.000.md",
 ]
 
 myst_enable_extensions = ["dollarmath"]
