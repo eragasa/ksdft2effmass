@@ -49,10 +49,9 @@
     ]
   },
   "completion_validator": {
-    "path": ".pi/tasks/validate_validator_migration_pilot.py",
+    "path": "python/.venv/bin/pytest",
     "command": [
-      "python/.venv/bin/python",
-      ".pi/tasks/validate_validator_migration_pilot.py"
+      "python/.venv/bin/pytest"
     ],
     "required_before_review": true
   }

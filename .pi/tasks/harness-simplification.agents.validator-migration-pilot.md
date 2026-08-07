@@ -12,8 +12,28 @@ Migrate the reusable semantics of `harness/pi/validation/validate_python_test_ev
 
 The current working tree contains pre-existing, completed test-evidence-conformance changes in the compatibility script and its tests. They are authoritative pilot inputs, are not owned by another active chain, and must be preserved while the assigned writers migrate and test the resulting behavior. All other pre-existing working-tree changes are unrelated and must remain untouched.
 
-The validated ownership manifest is `.pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json`. The implementation writer owns only generic production exports/module code and the compatibility wrapper. The test writer owns only the existing wrapper tests and new generic package tests. The documentation writer owns only the accepted executable-tool placement page. The parent root agent owns this task record, chain state, ownership record, completion validator, integration, commit, push, and final report. One independent integration reviewer is read-only. At most one bounded correction pass may address material deterministic review findings.
+The validated ownership manifest is `.pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json`. The implementation writer owns only generic production exports/module code and the compatibility wrapper. The test writer owns only the existing wrapper tests and new generic package tests. The documentation writer owns only the accepted executable-tool placement page. The parent root agent owns this task record, chain state, ownership record, integration, commit, push, and final report. The intended policy assigned one read-only integration review and permitted at most one bounded correction pass for material deterministic findings.
+
+Observed execution did not reliably enforce that policy. The interactive interface displayed four completed assignments with identical review text and reviewer identity. Local durable mission artifacts identify one completed pilot review run (`233ade96`), but the repository contains no committed run-identity ledger that can reconcile those artifacts with every displayed assignment. The exact execution count therefore cannot be established durably. Duplicate dispatch is an orchestration defect; duplicate results are not independent evidence and must not be merged or voted.
 
 ## Completion
 
-Completion requires focused package and wrapper tests, controlled old-command/new-API parity, formatting/lint/type/import/dependency-direction checks, relevant documentation checks, ownership and task checks, lockfile nonmutation, the maintained local route on the committed task boundary, one read-only integration review, and `git diff --check`. Completion marks only this pilot completed, returns `active_task` to `null`, preserves automatic successor activation as disabled, and leaves every successor inactive.
+The maintained completion runner named by the ownership manifest is pytest. The direct focused completion invocation is:
+
+```text
+python/.venv/bin/python -m pytest -q \
+  harness/pi/validation/test_validate_python_test_evidence.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py
+```
+
+The task record owns this command specification; it does not own a validation algorithm or subprocess driver. Ruff, mypy, public-import, route, documentation, dependency, lockfile, ownership, task-state, and diff checks are parent verification rather than task-local orchestration.
+
+Completion marks only this pilot completed, returns `active_task` to `null`, preserves automatic successor activation as disabled, and leaves every successor inactive.

@@ -100,6 +100,12 @@ These classes prevent maintained tooling from automating governance ceremony tha
 
 Delegation is optional, not a completion requirement. Use one agent directly when work is cohesive. Use multiple writers only for genuinely independent, non-overlapping surfaces, and use a reviewer only when independence materially improves confidence. Context isolation is a legitimate reason to delegate. Delegation never expands authority, and historical role availability never justifies spawning. Each delegated run returns a concise durable handoff. Routine work must not create permanent records solely to prove delegation occurred.
 
+### Shared subagent command discipline
+
+Subagents use native read, search, edit, and write operations directly and use Bash only for existing focused commands. They do not generate Bash scripts, Python heredocs, or temporary command programs; run unbounded diffs or flood full output; or inspect large files except in bounded sections. They keep one command session active, wait for it to complete before launching another command, avoid rerunning unchanged commands, and report a maintained-tool requirement instead of generating repeated command fragments.
+
+The current durable-agent loader has no repository-defined include mechanism for injecting one harness-only shared prompt fragment. Until that capability exists, the paragraph above is the authoritative shared wording and the same bounded rule is repeated only in the five durable harness agent records.
+
 ## Completed validator-migration pilot
 
 Under the completed task `harness-simplification.agents.validator-migration-pilot`, the implemented pilot completes the first bounded migration under this contract. Reusable behavior now belongs to the generic `ksdft2effmass.harness.pi.test_evidence` module and is exported from `ksdft2effmass.harness.pi` through these public types:
@@ -111,6 +117,8 @@ Under the completed task `harness-simplification.agents.validator-migration-pilo
 - `ValidatePythonTestEvidence`, a fieldless stateless ActionObject whose `execute(request)` method returns the validation result.
 
 The package boundary is pure with respect to external state: it parses and validates only the bytes and metadata supplied in the request. It performs no filesystem reads, root or current-working-directory discovery, Git inspection, subprocess execution, or mutation. The old `harness/pi/validation/validate_python_test_evidence.py` path remains a controlled thin compatibility wrapper. It parses explicit arguments, reads only those named paths, constructs the public request, invokes `ValidatePythonTestEvidence.execute`, renders deterministic JSON, and maps `PASS` to exit status 0 and `FAIL` to exit status 1. Focused software-verification tests cover the public objects and action, generic dependency direction, and controlled wrapper/API agreement.
+
+The pilot intended one final integration review, but observed execution did not reliably enforce that policy. The interface displayed four completed assignments with identical review text and reviewer identity. Local durable mission artifacts identify one pilot review run, while the committed repository lacks enough run identity to reconstruct the exact execution count. Duplicate dispatch is therefore an orchestration defect. Duplicate outputs are not independent review evidence and are neither merged nor voted.
 
 Validation is structural software verification of the supplied Python source and metadata representation. It covers the maintained static syntax, documentation, ownership, evidence-identifier, parameter-inventory, and optional migration-map conventions and reports deterministic findings and inventory counts. A passing result does not establish oracle independence, mathematical or property/surface correctness, test cohesion, tolerance adequacy, numerical or scientific validation, uncertainty quantification, or human acceptance.
 

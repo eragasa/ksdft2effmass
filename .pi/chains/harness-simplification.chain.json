@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "validator_migration_pilot_completed",
+  "status": "validator_pilot_stabilization_completed",
   "active_task": null,
   "automatic_successor_activation": false,
   "chain": [],
@@ -75,10 +75,26 @@
       "status": "completed"
     },
     {
+      "id": "harness-simplification.execution.validator-pilot-stabilization",
+      "record": ".pi/tasks/harness-simplification.execution.validator-pilot-stabilization.md",
+      "prerequisites": [
+        "harness-simplification.agents.validator-migration-pilot:completed"
+      ],
+      "status": "completed"
+    },
+    {
+      "id": "harness-simplification.execution.review-dispatch-idempotency",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.execution.validator-pilot-stabilization:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
       "id": "harness-simplification.agents.live-discovery",
       "record": null,
       "prerequisites": [
-        "harness-simplification.agents.validator-migration-pilot:completed"
+        "harness-simplification.execution.review-dispatch-idempotency:completed"
       ],
       "status": "inactive_unauthorized"
     },

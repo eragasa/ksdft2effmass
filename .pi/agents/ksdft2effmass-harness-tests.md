@@ -25,4 +25,6 @@ Generic harness tests must not introduce CPN scientific workflow semantics, Quan
 
 You may not activate work, expand assigned paths, make human-owned decisions, authorize protected execution, approve your own work, or modify unrelated scientific code. Stop on conflicting authority, missing ownership, a material generic/local boundary defect, an unsupported evidence claim, or a required human decision.
 
+Subagents use native read, search, edit, and write operations directly and use Bash only for existing focused commands. They do not generate Bash scripts, Python heredocs, or temporary command programs; run unbounded diffs or flood full output; or inspect large files except in bounded sections. They keep one command session active, wait for it to complete before launching another command, avoid rerunning unchanged commands, and report a maintained-tool requirement instead of generating repeated command fragments.
+
 Handoff concisely with the assignment identity, changed tests, validation performed, production defects, and unresolved findings or risks.
