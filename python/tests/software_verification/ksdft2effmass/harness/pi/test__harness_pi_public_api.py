@@ -5,8 +5,8 @@ Software verification of the generic PI harness package import surface; no physi
 mathematical, or numerical object is represented.
 
 Intrinsic and cross-object scope
-The primary owner is the package public API artifact. The accepted validator
-migration pilot's exact public-surface list is the independent oracle.
+The primary owner is the package public API artifact. The accepted maintained-tool
+contracts provide the exact public-surface list used as the independent oracle.
 
 VVUQ and scientific exclusions
 Passing establishes import completeness and closure only, not numerical verification,
@@ -28,15 +28,15 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
     """Evidence ID
     SV-HARNESS-039
     Requirement
-    The package exports every and only accepted validator-migration-pilot public name.
+    The package exports every and only the accepted maintained harness public names.
     Method
     Compare ``__all__`` and attribute availability with a literal transcription of
     the accepted surface.
     Oracle
-    The accepted validator migration pilot expands the H1 surface with the exact
-    test-evidence records, result, and action named below.
+    The accepted validator and task-state tool contracts expand the H1 surface with
+    the exact records, results, and actions named below.
     Acceptance
-    ``__all__`` equals the exact 46-name sequence and every listed attribute
+    ``__all__`` equals the exact 49-name sequence and every listed attribute
     resolves from the public package.
     Interpretation
     Failure indicates source/public-contract drift or an incomplete package import.
@@ -62,6 +62,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "PythonTestEvidenceSource",
         "PythonTestEvidenceRequest",
         "PythonTestEvidenceFinding",
+        "TaskStateInspectionRequest",
         "ValidationIssue",
         "ValidationResult",
         "ProjectProfileLoadResult",
@@ -69,6 +70,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "ChainEvaluationResult",
         "EvidenceAuditResult",
         "PythonTestEvidenceValidationResult",
+        "TaskStateInspectionResult",
         "JsonSerializationResult",
         "JsonDeserializationResult",
         "WireRecordKind",
@@ -84,6 +86,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "EvaluateChainState",
         "AuditEvidenceIdentifiers",
         "ValidatePythonTestEvidence",
+        "InspectTaskState",
         "ValidateChecksumManifest",
         "ValidateSkillResources",
         "Identifier",
@@ -104,7 +107,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
     Method
     Construct each exact public action and inspect its instance storage surface.
     Oracle
-    The accepted validator migration pilot requires twelve concrete actions with no
+    The accepted maintained harness surface requires thirteen concrete actions with no
     roots, profiles, caches, clients, or mutable state.
     Acceptance
     Every instance lacks ``__dict__`` and its class declares empty slots.
@@ -125,6 +128,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
         "EvaluateChainState",
         "AuditEvidenceIdentifiers",
         "ValidatePythonTestEvidence",
+        "InspectTaskState",
         "ValidateChecksumManifest",
         "ValidateSkillResources",
     )

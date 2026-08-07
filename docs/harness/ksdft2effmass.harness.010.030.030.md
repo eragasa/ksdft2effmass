@@ -8,7 +8,7 @@ sphinx: excluded
 
 # Executable harness-tool placement contract
 
-This accepted contract governs conversion of ad hoc harness scripts into maintained deterministic tools. The bounded Python test-evidence validator pilot described below is its first completed migration. The contract and pilot do not implement SQLite or authorize scientific or protected work.
+This accepted contract governs conversion of ad hoc harness scripts into maintained deterministic tools. The Python test-evidence validator and bounded task-state inspector described below are completed maintained tools. They do not implement SQLite or authorize scientific or protected work.
 
 ## Placement and dependency direction
 
@@ -105,6 +105,25 @@ Delegation is optional, not a completion requirement. Use one agent directly whe
 Subagents use native read, search, edit, and write operations directly and use Bash only for existing focused commands. They do not generate Bash scripts, Python heredocs, or temporary command programs; run unbounded diffs or flood full output; or inspect large files except in bounded sections. They keep one command session active, wait for it to complete before launching another command, avoid rerunning unchanged commands, and report a maintained-tool requirement instead of generating repeated command fragments.
 
 The current durable-agent loader has no repository-defined include mechanism for injecting one harness-only shared prompt fragment. Until that capability exists, the paragraph above is the authoritative shared wording and the same bounded rule is repeated only in the five durable harness agent records.
+
+## Bounded task-state inspection
+
+`TaskStateInspectionRequest`, `InspectTaskState`, and `TaskStateInspectionResult` provide one root-confined operation for reconstructing the declared durable repository state of an exact task. The request contains an explicit absolute repository root, one root-relative chain path, and one exact task identity. The action reads only that chain and exact task-record, ownership-manifest, completion-validator, artifact, run-record, and handoff-record paths declared by the selected chain entry or ownership manifest. It rejects absolute, traversal, escaping, missing, non-file, and symlinked references and performs no recursive directory search, Git command, subprocess, network access, temporary-log inspection, session inspection, or mutation.
+
+The project-local command wrapper is:
+
+```text
+python/.venv/bin/python -m ksdft2effmass.harness.pi.local.inspect_task_state \
+  --root . \
+  --chain .pi/chains/harness-simplification.chain.json \
+  --task-id harness-simplification.agents.validator-migration-pilot
+```
+
+The command emits deterministic JSON. Exit status `0` means inspection completed with no invalid durable references, `1` means declared repository state is invalid or unresolved, `2` means request construction failed, and `3` is reserved for an unexpected command-boundary failure. Undeclared runtime or session history is a limitation, not an invalid reference.
+
+This command replaces improvised recursive `find` or `rg` reconstruction. It does not infer artifacts from task prose and does not search `.pi`, Git history, worktrees, temporary logs, sessions, or unrelated evidence. `not_declared`, `declared_missing`, and `inspected` distinguish durable run and handoff declaration state. Interactive observations remain separate from repository facts.
+
+For the completed validator pilot, the inspector reports `completed`, one declared reviewer role, and `not_declared` for both durable run and handoff records. The intended policy was one final review; the human observed four duplicate completed reviewer assignments in the interface. That runtime observation is outside declared repository state, the exact launch count is not reconstructible by this tool, and the duplicate assignments are not independent review evidence.
 
 ## Completed validator-migration pilot
 

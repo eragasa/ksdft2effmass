@@ -1,8 +1,8 @@
 """Generic, explicit-input PI harness contract.
 
 The package exports immutable concrete records/results and fieldless action
-objects only.  It performs no repository, current-directory, Git, or ``.pi``
-discovery.
+objects only. It performs no implicit repository, current-directory, Git, or
+``.pi`` discovery; filesystem actions require an explicit root and exact paths.
 """
 
 from __future__ import annotations
@@ -37,6 +37,9 @@ from .resources import (
     ValidateResourceManifest,
     ValidateSkillResources,
 )
+from .task_state import InspectTaskState as InspectTaskState
+from .task_state import TaskStateInspectionRequest as TaskStateInspectionRequest
+from .task_state import TaskStateInspectionResult as TaskStateInspectionResult
 from .test_evidence import PythonTestEvidenceFinding as PythonTestEvidenceFinding
 from .test_evidence import PythonTestEvidenceRequest as PythonTestEvidenceRequest
 from .test_evidence import PythonTestEvidenceSource as PythonTestEvidenceSource
@@ -112,6 +115,7 @@ __all__ = (
     "PythonTestEvidenceSource",
     "PythonTestEvidenceRequest",
     "PythonTestEvidenceFinding",
+    "TaskStateInspectionRequest",
     "ValidationIssue",
     "ValidationResult",
     "ProjectProfileLoadResult",
@@ -119,6 +123,7 @@ __all__ = (
     "ChainEvaluationResult",
     "EvidenceAuditResult",
     "PythonTestEvidenceValidationResult",
+    "TaskStateInspectionResult",
     "JsonSerializationResult",
     "JsonDeserializationResult",
     "WireRecordKind",
@@ -134,6 +139,7 @@ __all__ = (
     "EvaluateChainState",
     "AuditEvidenceIdentifiers",
     "ValidatePythonTestEvidence",
+    "InspectTaskState",
     "ValidateChecksumManifest",
     "ValidateSkillResources",
     "Identifier",
