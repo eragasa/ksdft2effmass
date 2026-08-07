@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "invalid": [
+    {"case_id": "vague_protocol_facet", "expected_code": "TE.VAGUE_TEST_FACET"},
+    {"case_id": "mixed_enum_call_and_getitem", "expected_code": "TE.MIXED_ENUM_LOOKUP"},
+    {"case_id": "circular_enum_member_oracle", "expected_code": "TE.CIRCULAR_ENUM_ORACLE"},
+    {"case_id": "unknown_and_wrong_type_partition", "expected_code": "TE.MIXED_INVALID_PARTITION"},
+    {"case_id": "blanket_file_suppression", "expected_code": "TE.BLANKET_SUPPRESSION"},
+    {"case_id": "doubled_terminal_punctuation", "expected_code": "TE.PROSE_PUNCTUATION"},
+    {"case_id": "placeholder_prose", "expected_code": "TE.PLACEHOLDER_PROSE"},
+    {"case_id": "missing_equality_inventory", "expected_code": "TE.EQUALITY_FIELD_INVENTORY"},
+    {"case_id": "missing_synonymous_equality_inventory", "expected_code": "TE.EQUALITY_FIELD_INVENTORY"},
+    {"case_id": "missing_frozen_inventory", "expected_code": "TE.FROZEN_FIELD_INVENTORY"},
+    {"case_id": "missing_synonymous_frozen_inventory", "expected_code": "TE.FROZEN_FIELD_INVENTORY"}
+  ],
+  "valid_guards": [
+    {"case_id": "genuine_protocol_surface", "absent_code": "TE.VAGUE_TEST_FACET"},
+    {"case_id": "enum_value_lookup_only", "absent_code": "TE.MIXED_ENUM_LOOKUP"},
+    {"case_id": "literal_enum_oracle", "absent_code": "TE.CIRCULAR_ENUM_ORACLE"},
+    {"case_id": "separate_invalid_partition", "absent_code": "TE.MIXED_INVALID_PARTITION"},
+    {"case_id": "ordinary_formatting", "absent_code": "TE.BLANKET_SUPPRESSION"},
+    {"case_id": "ellipsis_is_not_doubled_punctuation", "absent_code": "TE.PROSE_PUNCTUATION"},
+    {"case_id": "specific_complete_prose", "absent_code": "TE.PLACEHOLDER_PROSE"},
+    {"case_id": "declared_equality_inventory", "absent_code": "TE.EQUALITY_FIELD_INVENTORY"},
+    {"case_id": "declared_frozen_inventory", "absent_code": "TE.FROZEN_FIELD_INVENTORY"},
+    {"case_id": "unrelated_every_field_validation_claim", "absent_code": "TE.EQUALITY_FIELD_INVENTORY"},
+    {"case_id": "unrelated_immutable_input_claim", "absent_code": "TE.FROZEN_FIELD_INVENTORY"}
+  ]
+}

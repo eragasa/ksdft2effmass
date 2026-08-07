@@ -37,6 +37,13 @@ from .resources import (
     ValidateResourceManifest,
     ValidateSkillResources,
 )
+from .test_evidence import PythonTestEvidenceFinding as PythonTestEvidenceFinding
+from .test_evidence import PythonTestEvidenceRequest as PythonTestEvidenceRequest
+from .test_evidence import PythonTestEvidenceSource as PythonTestEvidenceSource
+from .test_evidence import (
+    PythonTestEvidenceValidationResult as PythonTestEvidenceValidationResult,
+)
+from .test_evidence import ValidatePythonTestEvidence as ValidatePythonTestEvidence
 from .validation import (
     ChainEvaluationResult,
     DeserializeJsonRecord,
@@ -102,12 +109,16 @@ __all__ = (
     "ChainView",
     "ChecksumEntry",
     "ChecksumManifest",
+    "PythonTestEvidenceSource",
+    "PythonTestEvidenceRequest",
+    "PythonTestEvidenceFinding",
     "ValidationIssue",
     "ValidationResult",
     "ProjectProfileLoadResult",
     "ResourceResolutionResult",
     "ChainEvaluationResult",
     "EvidenceAuditResult",
+    "PythonTestEvidenceValidationResult",
     "JsonSerializationResult",
     "JsonDeserializationResult",
     "WireRecordKind",
@@ -122,6 +133,7 @@ __all__ = (
     "ValidateCheckpointSet",
     "EvaluateChainState",
     "AuditEvidenceIdentifiers",
+    "ValidatePythonTestEvidence",
     "ValidateChecksumManifest",
     "ValidateSkillResources",
     "Identifier",

@@ -1,10 +1,12 @@
-"""Evidence class and represented meaning
+r"""Software verification of harness pi public api.
+
+Facet and represented meaning
 Software verification of the generic PI harness package import surface; no physical,
 mathematical, or numerical object is represented.
 
-Owned contract, oracle, and scope
-The primary owner is the package public API artifact. The accepted H1 exact
-public-surface list is the independent oracle.
+Intrinsic and cross-object scope
+The primary owner is the package public API artifact. The accepted validator
+migration pilot's exact public-surface list is the independent oracle.
 
 VVUQ and scientific exclusions
 Passing establishes import completeness and closure only, not numerical verification,
@@ -12,6 +14,8 @@ scientific validation, UQ, physical correctness, or release readiness.
 """
 
 from __future__ import annotations
+
+from typing import Any
 
 import pytest
 
@@ -24,15 +28,15 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
     """Evidence ID
     SV-HARNESS-039
     Requirement
-    The package exports every and only accepted H1 public name.
+    The package exports every and only accepted validator-migration-pilot public name.
     Method
     Compare ``__all__`` and attribute availability with a literal transcription of
     the accepted surface.
     Oracle
-    H1 contract-surface.md lists the exact records, results, support types, actions,
-    and semantic primitives.
+    The accepted validator migration pilot expands the H1 surface with the exact
+    test-evidence records, result, and action named below.
     Acceptance
-    ``__all__`` equals the exact 41-name sequence and every listed attribute
+    ``__all__`` equals the exact 46-name sequence and every listed attribute
     resolves from the public package.
     Interpretation
     Failure indicates source/public-contract drift or an incomplete package import.
@@ -55,12 +59,16 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "ChainView",
         "ChecksumEntry",
         "ChecksumManifest",
+        "PythonTestEvidenceSource",
+        "PythonTestEvidenceRequest",
+        "PythonTestEvidenceFinding",
         "ValidationIssue",
         "ValidationResult",
         "ProjectProfileLoadResult",
         "ResourceResolutionResult",
         "ChainEvaluationResult",
         "EvidenceAuditResult",
+        "PythonTestEvidenceValidationResult",
         "JsonSerializationResult",
         "JsonDeserializationResult",
         "WireRecordKind",
@@ -75,6 +83,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "ValidateCheckpointSet",
         "EvaluateChainState",
         "AuditEvidenceIdentifiers",
+        "ValidatePythonTestEvidence",
         "ValidateChecksumManifest",
         "ValidateSkillResources",
         "Identifier",
@@ -95,8 +104,8 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
     Method
     Construct each exact public action and inspect its instance storage surface.
     Oracle
-    H1 requires eleven concrete actions with no roots, profiles, caches, clients, or
-    mutable state.
+    The accepted validator migration pilot requires twelve concrete actions with no
+    roots, profiles, caches, clients, or mutable state.
     Acceptance
     Every instance lacks ``__dict__`` and its class declares empty slots.
     Interpretation
@@ -115,10 +124,35 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
         "ValidateCheckpointSet",
         "EvaluateChainState",
         "AuditEvidenceIdentifiers",
+        "ValidatePythonTestEvidence",
         "ValidateChecksumManifest",
         "ValidateSkillResources",
     )
-    for name in names:
+
+    def assert_public_action_is_fieldless_and_stateless(name: Any) -> Any:
+        """Evidence ID
+        Owns no identifier; supports the enclosing stable evidence ID SV-HARNESS-040.
+        Requirement
+        Each action in the exact literal inventory satisfies the same fieldless and
+        stateless public-action requirement.
+        Method
+        Construct the named action and mechanically apply the enclosing test's two
+        storage assertions.
+        Oracle
+        The accepted inventory requires identical empty-slot instance structure for
+        every listed action.
+        Acceptance
+        The instance has no ``__dict__`` and its class declares empty slots.
+        Interpretation
+        Failure identifies one listed action that violates the shared structural
+        contract; this helper makes no independent evidence claim.
+        Limitations
+        The iteration mechanically applies one identical requirement, oracle, and
+        acceptance rule across the exact literal inventory; it hides no distinct
+        partition or action semantics.
+        """
         instance = getattr(api, name)()
         assert not hasattr(instance, "__dict__")
         assert type(instance).__slots__ == ()
+
+    _ = [assert_public_action_is_fieldless_and_stateless(name) for name in names]

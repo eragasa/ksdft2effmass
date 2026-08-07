@@ -8,7 +8,7 @@ sphinx: excluded
 
 # Executable harness-tool placement contract
 
-This accepted contract governs future conversion of ad hoc harness scripts into maintained deterministic tools. It does not migrate a validator, implement SQLite, or authorize scientific or protected work.
+This accepted contract governs conversion of ad hoc harness scripts into maintained deterministic tools. The bounded Python test-evidence validator pilot described below is its first completed migration. The contract and pilot do not implement SQLite or authorize scientific or protected work.
 
 ## Placement and dependency direction
 
@@ -54,13 +54,31 @@ Avoid reflective registries, service locators, plugin frameworks, hidden global 
 
 Existing scripts under `harness/pi/validation/` and `harness/local/validation/` may temporarily remain as compatibility wrappers. A wrapper may only parse command arguments, construct public request DataObjects, invoke one public ActionObject, render its ResultObject deterministically, and translate the result to an exit status. It must not retain validation algorithms, repository discovery, hidden policy, or duplicate domain logic.
 
-The preferred maintained invocation is:
+The migrated pilot retains this supported compatibility-command form:
 
 ```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi ...
+python/.venv/bin/python harness/pi/validation/validate_python_test_evidence.py \
+  --ownership OWNERSHIP.json [--migration-map MIGRATION.json] TEST_MODULE.py [...]
 ```
 
-No `just` installation, new CLI framework, or other dependency is required.
+The package does not implement a `-m` entry point. Maintained Python callers instead use the public package API:
+
+```python
+from ksdft2effmass.harness.pi import (
+    PythonTestEvidenceRequest,
+    PythonTestEvidenceSource,
+    ValidatePythonTestEvidence,
+)
+
+request = PythonTestEvidenceRequest(
+    sources=(PythonTestEvidenceSource("test__example.py", source_bytes),),
+    ownership_path="ownership.json",
+    ownership_payload=ownership_bytes,
+)
+result = ValidatePythonTestEvidence().execute(request)
+```
+
+Here `source_bytes` and `ownership_bytes` are caller-supplied `bytes`. No `just` installation, new CLI framework, or other dependency is required.
 
 ## Proportional execution classes
 
@@ -82,10 +100,20 @@ These classes prevent maintained tooling from automating governance ceremony tha
 
 Delegation is optional, not a completion requirement. Use one agent directly when work is cohesive. Use multiple writers only for genuinely independent, non-overlapping surfaces, and use a reviewer only when independence materially improves confidence. Context isolation is a legitimate reason to delegate. Delegation never expands authority, and historical role availability never justifies spawning. Each delegated run returns a concise durable handoff. Routine work must not create permanent records solely to prove delegation occurred.
 
-## Next validator-migration pilot
+## Completed validator-migration pilot
 
-The inactive successor `harness-simplification.agents.validator-migration-pilot` will inspect `harness/pi/validation/validate_python_test_evidence.py` as the source candidate and target `python/src/ksdft2effmass/harness/pi/`. The intended pilot provides a public immutable request DataObject, public stateless validation ActionObject, public immutable validation ResultObject, structured deterministic issues, class-owned and artifact-owned software-verification tests, a temporary thin old-script wrapper, and old-command/new-API agreement. It does not expand schemas, fixtures, scientific claims, or SQLite, and it must inspect cohesion before prescribing exact module decomposition.
+Under the completed task `harness-simplification.agents.validator-migration-pilot`, the implemented pilot completes the first bounded migration under this contract. Reusable behavior now belongs to the generic `ksdft2effmass.harness.pi.test_evidence` module and is exported from `ksdft2effmass.harness.pi` through these public types:
 
-SQLite is later proposed infrastructure only. Live discovery, historical-agent retirement, broader delegation validation, scientific work, protected execution, and release work also remain inactive.
+- `PythonTestEvidenceSource`, an immutable representation of one caller-supplied path, byte payload, and caller-observed read outcome;
+- `PythonTestEvidenceRequest`, an immutable closed request containing explicit sources, ownership JSON bytes, and optional migration-map JSON bytes;
+- `PythonTestEvidenceFinding`, an immutable structured `TE.*` diagnostic;
+- `PythonTestEvidenceValidationResult`, an immutable result containing status, findings, paths, compatibility counts, and explicit claim boundaries; and
+- `ValidatePythonTestEvidence`, a fieldless stateless ActionObject whose `execute(request)` method returns the validation result.
+
+The package boundary is pure with respect to external state: it parses and validates only the bytes and metadata supplied in the request. It performs no filesystem reads, root or current-working-directory discovery, Git inspection, subprocess execution, or mutation. The old `harness/pi/validation/validate_python_test_evidence.py` path remains a controlled thin compatibility wrapper. It parses explicit arguments, reads only those named paths, constructs the public request, invokes `ValidatePythonTestEvidence.execute`, renders deterministic JSON, and maps `PASS` to exit status 0 and `FAIL` to exit status 1. Focused software-verification tests cover the public objects and action, generic dependency direction, and controlled wrapper/API agreement.
+
+Validation is structural software verification of the supplied Python source and metadata representation. It covers the maintained static syntax, documentation, ownership, evidence-identifier, parameter-inventory, and optional migration-map conventions and reports deterministic findings and inventory counts. A passing result does not establish oracle independence, mathematical or property/surface correctness, test cohesion, tolerance adequacy, numerical or scientific validation, uncertainty quantification, or human acceptance.
+
+The compatibility wrapper is retained temporarily; this pilot does not promise its permanent public availability or retire historical command records. Broader validator migration, live discovery, historical-agent retirement, delegation validation, SQLite or other evidence storage, scientific work, protected execution, and release work remain deferred and unauthorized.
 
 See [harness.010.030.000](./ksdft2effmass.harness.010.030.000.md) and [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md).

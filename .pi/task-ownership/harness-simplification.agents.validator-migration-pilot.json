@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "task_id": "harness-simplification.agents.validator-migration-pilot",
+  "task_record": ".pi/tasks/harness-simplification.agents.validator-migration-pilot.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "validator-migration-implementation-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          "python/src/ksdft2effmass/harness/pi/__init__.py",
+          "python/src/ksdft2effmass/harness/pi/test_evidence.py",
+          "harness/pi/validation/validate_python_test_evidence.py"
+        ]
+      },
+      {
+        "role": "validator-migration-test-writer",
+        "agent": "ksdft2effmass-harness-tests",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-tests.md",
+        "owned_paths": [
+          "harness/pi/validation/test_validate_python_test_evidence.py",
+          "harness/pi/fixtures/python-test-evidence/recurrence-controls/cases.json",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py"
+        ]
+      },
+      {
+        "role": "validator-migration-documentation-writer",
+        "agent": "ksdft2effmass-harness-documentation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-documentation.md",
+        "owned_paths": [
+          "docs/harness/ksdft2effmass.harness.010.030.030.md"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "validator-migration-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/tasks/validate_validator_migration_pilot.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/tasks/validate_validator_migration_pilot.py"
+    ],
+    "required_before_review": true
+  }
+}
