@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "project_implementation_completed",
+  "status": "project_documentation_completed",
   "active_task": null,
   "automatic_successor_activation": false,
   "chain": [],
@@ -32,11 +32,12 @@
     },
     {
       "id": "harness-simplification.agents.project-documentation",
-      "record": null,
+      "record": ".pi/tasks/harness-simplification.agents.project-documentation.md",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-documentation.json",
       "prerequisites": [
         "harness-simplification.agents.project-implementation:completed"
       ],
-      "status": "inactive_unauthorized"
+      "status": "completed"
     },
     {
       "id": "harness-simplification.agents.project-integration-review",

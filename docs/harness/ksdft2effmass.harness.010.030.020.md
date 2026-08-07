@@ -1,6 +1,6 @@
 ---
 document_id: ksdft2effmass.harness.010.030.020
-task_id: harness-simplification.agents.project-implementation
+task_id: harness-simplification.agents.project-documentation
 parent: ksdft2effmass.harness.010.030.000
 status: current
 sphinx: excluded
@@ -11,45 +11,46 @@ sphinx: excluded
 ## Capability boundary
 
 Durable project roles describe reusable capability rather than the history or
-file layout of a particular task. The completed test-agent pilot removed
-subsystem names, exact test paths, migration state, and procedural mechanics
-from `ksdft2effmass-tests`. The current implementation-agent slice applies the
-same boundary to production-source work: the durable role no longer embeds the
-historical OperatorRecord package inventory, CPN source assignments, dependency
-sequence, or task-specific correction procedure.
+file layout of a particular task. The completed test-agent and
+implementation-agent slices removed subsystem names, exact paths, migration
+state, and procedural mechanics from their durable records. The current
+project-documentation slice applies the same boundary to maintained
+documentation: the durable role no longer embeds the historical OperatorRecord
+and CPN subjects, fixed topic and path ownership, or task-specific recipes.
 
-The concise [`ksdft2effmass-implementation`](../../.pi/agents/ksdft2effmass-implementation.md)
-role retains the stable responsibility to implement accepted public contracts
-on explicitly assigned production-source paths. It preserves approved APIs,
-serialization and compatibility behavior, architecture and dependency
-direction, applicable DataObject, ResultObject, ActionObject, and Workflow
-boundaries, operational immutability, directly affected source documentation,
-scientific-integrity and human-authority limits, fail-closed stop conditions,
-focused validation, and concise handoff reporting.
+The concise [`ksdft2effmass-documentation`](../../.pi/agents/ksdft2effmass-documentation.md)
+role retains the stable responsibility to maintain explicitly assigned project
+documentation paths. It inspects authoritative source, tests, schemas, fixtures,
+specifications, and existing documentation read-only; preserves public API and
+serialization accuracy, mathematical and scientific conventions, truthful claim
+classification, navigation and links, source-docstring separation, defect
+routing, human-authority boundaries, fail-closed stop conditions, and concise
+handoff reporting.
 
-The durable `design-data-action-objects` and
-`document-python-research-software` skills remain attached to the role. The
-subsystem-specific `develop-operator-records` specialization is no longer
-loaded universally. A future authorized task may supply a supported
-subsystem-specific skill when its subject requires one, but that selection does
-not expand task authority or path ownership.
+Its sole durable skill is `document-python-research-software`. The universal
+`design-data-action-objects` and `develop-operator-records` skills are removed
+from this role. A future authorized task may select a supported subject-specific
+skill when its documentation subject requires one, but task routing cannot
+expand authority or path ownership.
 
 ## Completed and current slices
 
 The completed test-agent pilot simplified
-[`ksdft2effmass-tests`](../../.pi/agents/ksdft2effmass-tests.md). This current
-slice simplifies only `ksdft2effmass-implementation`. The three remaining
-project roles are unchanged:
+[`ksdft2effmass-tests`](../../.pi/agents/ksdft2effmass-tests.md), and the
+completed implementation-agent slice simplified
+[`ksdft2effmass-implementation`](../../.pi/agents/ksdft2effmass-implementation.md).
+The current slice simplifies only `ksdft2effmass-documentation`. The remaining
+project roles are unchanged and inactive:
 
-- `ksdft2effmass-documentation`;
 - `ksdft2effmass-integration-reviewer`; and
 - `ksdft2effmass-architecture`.
 
-Neither slice changes agent population, role identity, access, lifecycle,
+These slices do not change agent population, role identity, access, lifecycle,
 historical attribution, discovery, routing, harness behavior, tests, retained
 evidence, scientific source, dependencies, or protected-execution authority.
-The later project-role, live-discovery, historical-retirement, and
-delegation-validation stages remain inactive and unauthorized.
+The later project-integration-review, project-architecture, live-discovery,
+historical-retirement, and delegation-validation stages remain inactive and
+unauthorized.
 
 ## Validation and rollback
 
@@ -62,8 +63,9 @@ children, and whitespace errors. These structural checks do not establish
 scientific validity or human acceptance.
 
 Rollback for the current slice restores the prior
-`ksdft2effmass-implementation` record and its capability registration, then
+`ksdft2effmass-documentation` record and its capability registration, then
 restores this page and the
 [current inventory](./ksdft2effmass.harness.001.050.000.md) descriptions. It
-does not undo the completed test-agent pilot, rewrite historical agents or
-retained evidence, or affect the three unchanged project roles.
+does not undo the completed test-agent or implementation-agent slices, rewrite
+historical agents or retained evidence, or affect the two unchanged project
+roles.
