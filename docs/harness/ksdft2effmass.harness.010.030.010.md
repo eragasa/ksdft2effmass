@@ -53,13 +53,15 @@ those records remain `historical-reference-only`.
 | Document | Task identity | Title | Status | Sphinx |
 |---|---|---|---|---|
 | [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) | `harness-simplification.agents.durable-roles` | Create durable harness roles | Current | Excluded |
-| harness.010.030.020 | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Proposed | Excluded |
+| [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md) | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Current | Excluded |
 | harness.010.030.030 | `harness-simplification.agents.live-discovery` | Remove historical roles from live discovery | Proposed | Excluded |
 | harness.010.030.040 | `harness-simplification.agents.historical-retirement` | Retire obsolete phase-agent files | Proposed | Excluded |
 | harness.010.030.050 | `harness-simplification.agents.delegation-validation` | Validate delegation and handoffs | Proposed | Excluded |
 
-Only the first row is implemented. The plain coordinates reserve possible
-future children without linking to files that do not exist.
+The first two rows are implemented. The project-role page records the current
+test, implementation, documentation, and integration-review simplifications;
+architecture simplification remains proposed. The remaining plain coordinates
+reserve possible future children without linking to files that do not exist.
 
 ## Implementation scope and validation
 
@@ -89,7 +91,7 @@ required.
 
 ## Unauthorized later work
 
-Project-role simplification, live-discovery changes, historical-agent retirement,
-delegation and handoff validation, harness behavior changes, SQLite or evidence
-subsystem implementation, dependency changes, protected execution, and release
-work remain unauthorized.
+Architecture-role simplification, live-discovery changes, historical-agent
+retirement, delegation and handoff validation, harness behavior changes, SQLite
+or evidence subsystem implementation, dependency changes, protected execution,
+and release work remain unauthorized.

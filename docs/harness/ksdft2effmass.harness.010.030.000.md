@@ -9,9 +9,10 @@ sphinx: excluded
 # Durable agent architecture
 
 > **Incremental architecture.** The five durable project roles and five durable
-> harness roles exist. The durable harness-role creation and the bounded
-> `ksdft2effmass-tests` simplification are current; all later migration steps
-> remain proposed and require separate authorization.
+> harness roles exist. The bounded test, implementation, documentation, and
+> integration-review simplifications are current. Architecture simplification,
+> live discovery, historical retirement, and delegation validation remain
+> proposed and require separate authorization.
 
 The implemented durable sets provide stable capability identities. They are
 available for explicit assignment but do not activate themselves, grant path
@@ -29,9 +30,10 @@ The five existing durable project agents cover domain-facing work:
 - maintained documentation;
 - independent integration review.
 
-These agents continue to load project specifications and domain skills. They do
-not acquire generic harness implementation authority merely because a task uses
-the harness.
+These agents retain only their stable broadly reusable skills. A task selects
+supported subject-specific skills when needed; neither task routing nor use of
+the harness expands an agent's authority or grants generic harness
+implementation authority.
 
 ## Harness-agent set
 
@@ -63,11 +65,12 @@ An agent file still would not activate work or provide acceptance.
 
 The first child, [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md),
 is complete. The second child, [Simplify durable project roles](./ksdft2effmass.harness.010.030.020.md),
-completes only the concise stable capability definition for
-`ksdft2effmass-tests`; the other four durable project roles are unchanged.
-Live-discovery changes, historical-agent retirement, and delegation and handoff
-validation remain proposed and unauthorized. Existing historical identities
-remain present and retained evidence remains historically accurate.
+records the current concise capability definitions for the test,
+implementation, documentation, and integration-review roles. The architecture
+role is unchanged. Architecture simplification, live-discovery changes,
+historical-agent retirement, and delegation and handoff validation remain
+proposed and unauthorized. Existing historical identities remain present and
+retained evidence remains historically accurate.
 
 See [current agents and ownership](./ksdft2effmass.harness.001.050.000.md) and the
 [simplification overview](./ksdft2effmass.harness.010.000.000.md).

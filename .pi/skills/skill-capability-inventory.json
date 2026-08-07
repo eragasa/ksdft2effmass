@@ -115,7 +115,6 @@
         ".pi/agents/ksdft2effmass-architecture.md",
         ".pi/agents/ksdft2effmass-implementation.md",
         ".pi/agents/ksdft2effmass-tests.md",
-        ".pi/agents/ksdft2effmass-integration-reviewer.md",
         ".pi/agents/ksdft2effmass-harness-implementation.md"
       ],
       "authoritative_references": [
@@ -219,8 +218,7 @@
       "trigger_description": "Finite represented operator records, immediate metadata, analyzers, serialization, comparison prerequisites, tests, and documentation.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-architecture.md",
-        ".pi/agents/ksdft2effmass-tests.md",
-        ".pi/agents/ksdft2effmass-integration-reviewer.md"
+        ".pi/agents/ksdft2effmass-tests.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
