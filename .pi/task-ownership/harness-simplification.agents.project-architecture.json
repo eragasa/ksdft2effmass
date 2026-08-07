@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "task_id": "harness-simplification.agents.project-architecture",
+  "task_record": ".pi/tasks/harness-simplification.agents.project-architecture.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "project-architecture-agent-capability-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/agents/ksdft2effmass-architecture.md",
+          ".pi/skills/skill-capability-inventory.json"
+        ]
+      },
+      {
+        "role": "project-architecture-simplification-documentation-writer",
+        "agent": "ksdft2effmass-harness-documentation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-documentation.md",
+        "owned_paths": [
+          "docs/harness/ksdft2effmass.harness.001.050.000.md",
+          "docs/harness/ksdft2effmass.harness.010.030.000.md",
+          "docs/harness/ksdft2effmass.harness.010.030.010.md",
+          "docs/harness/ksdft2effmass.harness.010.030.020.md"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "project-architecture-simplification-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/skills/validate_skill_capabilities.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/skills/validate_skill_capabilities.py"
+    ],
+    "required_before_review": true
+  }
+}

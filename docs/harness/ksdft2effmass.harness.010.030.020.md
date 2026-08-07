@@ -1,6 +1,6 @@
 ---
 document_id: ksdft2effmass.harness.010.030.020
-task_id: harness-simplification.agents.project-integration-review
+task_id: harness-simplification.agents.project-architecture
 parent: ksdft2effmass.harness.010.030.000
 status: current
 sphinx: excluded
@@ -8,71 +8,85 @@ sphinx: excluded
 
 # Simplify durable project roles
 
-## Capability boundary
+## Completed capability set
 
-Durable project roles describe reusable capability rather than the history or
-file layout of a particular task. The completed test-agent, implementation-agent,
-and documentation-agent slices removed subsystem names, exact paths, migration
-state, and procedural mechanics from their durable records. The current
-integration-review-agent slice applies the same boundary to independent review:
-the durable role no longer embeds historical OperatorRecord and CPN subjects,
-fixed paths or commands, correction-cycle procedure, or checkpoint
-specialization.
+The bounded project-role simplification stage is complete. All five durable
+project identities remain present, with unchanged access modes and lifecycle,
+but their current records describe reusable capability and authority boundaries
+rather than the history, file layout, commands, or procedure of a particular
+task.
 
-The concise [`ksdft2effmass-integration-reviewer`](../../.pi/agents/ksdft2effmass-integration-reviewer.md)
-role remains independent and read-only. Its proportional-review rule is to
-review only surfaces materially affected by the assigned change and the
-interfaces connecting them. Within that scope it checks applicable agreement
-among accepted contracts, production source, tests, maintained documentation,
-schemas and fixtures, exports and imports, dependency and packaging declarations,
-and task ownership and completion surfaces. It also verifies that evidence
-classes and scientific claims do not exceed demonstrated evidence or review
-authority.
+| Role | Access | Retained durable responsibility |
+|---|---|---|
+| [`ksdft2effmass-tests`](../../.pi/agents/ksdft2effmass-tests.md) | Writer | Independently check task-assigned accepted public contracts and documented invariants, use independent oracles when available, and classify software verification, numerical verification, scientific validation, and uncertainty quantification without overstating evidence. |
+| [`ksdft2effmass-implementation`](../../.pi/agents/ksdft2effmass-implementation.md) | Writer | Implement accepted public contracts on explicitly assigned production-source paths while preserving APIs, serialization, compatibility, architecture, dependency direction, and applicable data/action boundaries. |
+| [`ksdft2effmass-documentation`](../../.pi/agents/ksdft2effmass-documentation.md) | Writer | Maintain explicitly assigned project documentation consistently with accepted contracts, implemented behavior, authoritative conventions, supported public interfaces, and accurate claim status. |
+| [`ksdft2effmass-integration-reviewer`](../../.pi/agents/ksdft2effmass-integration-reviewer.md) | Read-only | Independently review materially affected assigned surfaces and connecting interfaces, report exact material findings, and fail closed on authority, contract, ownership, evidence, or human-decision conflicts. |
+| [`ksdft2effmass-architecture`](../../.pi/agents/ksdft2effmass-architecture.md) | Read-only | Provide optional architecture decision support for material project boundaries and cross-surface design, including alternatives, one recommendation, assumptions, risks, unresolved questions, and affected surfaces without selecting or implementing a decision. |
 
-The role reports material findings with severity and exact file and line evidence
-when practical, classifies them as deterministic defects, architectural
-conflicts, unsupported claims, or residual limitations, and never repairs or
-accepts reviewed work. It fails closed on missing or conflicting authority,
-incomplete material inputs, writer-independence conflicts, unresolved scientific
-or mathematical meaning, public-contract or compatibility conflicts, ownership
-conflicts, unsupported claims, and required human decisions.
+Each role still requires an active authorized task and explicit path ownership or
+review scope. None may activate work, expand its assignment, choose scientific
+meaning or a public contract, authorize protected execution, approve its own
+work, or claim human acceptance.
 
-It retains the broadly reusable `develop-python-test-evidence` and
-`document-python-research-software` skills. Universal
-`design-data-action-objects` and `develop-operator-records` specialization is
-removed. A future authorized task may select a supported subject-specific skill
-when required; a routing limitation must be reported rather than embedded as
-durable specialization, and task routing cannot expand authority or scope.
+## Optional architecture specialist
 
-## Completed and current slices
+The architecture role is not a mandatory participant in routine work. It is used
+only when an explicitly authorized assignment contains a genuine architecture
+decision, boundary conflict, or material cross-surface design question. It
+retains analysis of relevant physical models, mathematical objects and state
+spaces, public software objects, serialization and persistence, compatibility,
+dependency direction, and external-execution boundaries. Public API and
+backward-compatibility implications remain in scope; Python/Rust implications
+enter only for assigned cross-language or Rust work.
 
-The completed slices simplified
-[`ksdft2effmass-tests`](../../.pi/agents/ksdft2effmass-tests.md),
-[`ksdft2effmass-implementation`](../../.pi/agents/ksdft2effmass-implementation.md),
-and [`ksdft2effmass-documentation`](../../.pi/agents/ksdft2effmass-documentation.md).
-The current slice simplifies only `ksdft2effmass-integration-reviewer`.
-`ksdft2effmass-architecture` remains unchanged and inactive.
+For a genuine decision, the role distinguishes accepted architecture, proposed
+alternatives, implementation detail, and scientific meaning, then presents
+exactly three materially distinct defensible alternatives and one recommendation.
+It remains read-only and cannot accept, select, or implement that recommendation.
+Formatting, deterministic corrections, routine contract implementation,
+ordinary tests, documentation synchronization, and task closeout do not by
+themselves require this specialist.
 
-These slices do not change agent population, role identity, access, lifecycle,
-historical attribution, discovery, routing, harness behavior, tests, retained
-evidence, scientific source, dependencies, or protected-execution authority.
-Architecture simplification, live discovery, historical retirement, and
-delegation validation remain proposed and unauthorized.
+## Skill routing
+
+Durable records retain only broadly reusable capability and boundary rules.
+The architecture role now routes durably only to
+`develop-architecture-decision`; its former universal OperatorRecord and CPN
+specialization has been removed. Across the simplified project roles, a
+subject-specific skill may be supplied only by an authorized task when routing
+supports and requires it. An unsupported routing need is reported as a
+limitation rather than solved by embedding permanent subject specialization.
+Skill selection never expands task authority, path ownership, or review scope.
+
+## Scope and remaining proposals
+
+The five simplifications changed no agent identity, population total, access
+mode, historical attribution, live-discovery behavior, harness execution
+behavior, tests, retained evidence, scientific source, dependency, or
+protected-execution authority. Historical records continue to identify the
+work performed under their original assignments.
+
+This bounded stage does not remove historical roles from live discovery, retire
+historical agent files, or validate delegation and handoff behavior. Live-
+discovery cleanup, historical retirement, and delegation and handoff validation
+remain separate proposed work requiring explicit authorization. No execution log
+or discovery-state change is asserted here.
 
 ## Validation and rollback
 
-Focused validation checks the ownership manifest, agent and skill-capability
-agreement, exact front matter, the
+Focused documentation validation checks exact front matter, the
 [self](./ksdft2effmass.harness.010.030.020.md) and
-[parent](./ksdft2effmass.harness.010.030.000.md) links, relative links on the
-owned pages, unchanged inventory totals, absence of links to nonexistent planned
-children, and whitespace errors. These structural checks do not establish
+[parent](./ksdft2effmass.harness.010.030.000.md) links, relative links across the
+four maintained pages, the unchanged inventory population totals, the five
+project and five harness durable identities, absence of links to nonexistent
+planned children, and whitespace errors. These structural checks do not establish
 scientific validity or human acceptance.
 
-Rollback for the current slice restores the prior
-`ksdft2effmass-integration-reviewer` record and any required capability
-registration, then restores this page and the
+Rollback of the final bounded slice restores the prior
+`ksdft2effmass-architecture` record and any required capability registration,
+then restores this page and the
 [current inventory](./ksdft2effmass.harness.001.050.000.md) descriptions. It
-does not undo the completed test-agent, implementation-agent, or
-documentation-agent slices, rewrite historical agents or retained evidence, or
-affect the unchanged architecture role.
+does not undo the completed test, implementation, documentation, or
+integration-review simplifications, rewrite historical agents or retained
+evidence, or authorize any proposed successor.

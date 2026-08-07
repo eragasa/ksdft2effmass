@@ -8,11 +8,10 @@ sphinx: excluded
 
 # Durable agent architecture
 
-> **Incremental architecture.** The five durable project roles and five durable
-> harness roles exist. The bounded test, implementation, documentation, and
-> integration-review simplifications are current. Architecture simplification,
-> live discovery, historical retirement, and delegation validation remain
-> proposed and require separate authorization.
+> **Incremental architecture.** Five durable project roles and five durable
+> harness roles exist. The bounded simplification of all five project roles is
+> complete. Live discovery, historical retirement, and delegation and handoff
+> validation remain proposed and require separate authorization.
 
 The implemented durable sets provide stable capability identities. They are
 available for explicit assignment but do not activate themselves, grant path
@@ -65,9 +64,8 @@ An agent file still would not activate work or provide acceptance.
 
 The first child, [Create durable harness roles](./ksdft2effmass.harness.010.030.010.md),
 is complete. The second child, [Simplify durable project roles](./ksdft2effmass.harness.010.030.020.md),
-records the current concise capability definitions for the test,
-implementation, documentation, and integration-review roles. The architecture
-role is unchanged. Architecture simplification, live-discovery changes,
+records the current concise capability definitions for all five project roles.
+Project-role simplification is complete. Live-discovery changes,
 historical-agent retirement, and delegation and handoff validation remain
 proposed and unauthorized. Existing historical identities remain present and
 retained evidence remains historically accurate.

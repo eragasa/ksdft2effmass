@@ -58,10 +58,10 @@ those records remain `historical-reference-only`.
 | harness.010.030.040 | `harness-simplification.agents.historical-retirement` | Retire obsolete phase-agent files | Proposed | Excluded |
 | harness.010.030.050 | `harness-simplification.agents.delegation-validation` | Validate delegation and handoffs | Proposed | Excluded |
 
-The first two rows are implemented. The project-role page records the current
-test, implementation, documentation, and integration-review simplifications;
-architecture simplification remains proposed. The remaining plain coordinates
-reserve possible future children without linking to files that do not exist.
+The first two rows are implemented. The project-role page records the completed
+simplification of all five durable project roles. The remaining plain
+coordinates reserve possible future children without linking to files that do
+not exist.
 
 ## Implementation scope and validation
 
@@ -91,7 +91,7 @@ required.
 
 ## Unauthorized later work
 
-Architecture-role simplification, live-discovery changes, historical-agent
-retirement, delegation and handoff validation, harness behavior changes, SQLite
-or evidence subsystem implementation, dependency changes, protected execution,
-and release work remain unauthorized.
+Live-discovery changes, historical-agent retirement, delegation and handoff
+validation, harness behavior changes, SQLite or evidence subsystem
+implementation, dependency changes, protected execution, and release work
+remain unauthorized.
