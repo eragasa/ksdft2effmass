@@ -54,21 +54,21 @@ those records remain `historical-reference-only`.
 |---|---|---|---|---|
 | [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) | `harness-simplification.agents.durable-roles` | Create durable harness roles | Current | Excluded |
 | [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md) | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Current | Excluded |
-| harness.010.030.030 | `harness-simplification.agents.executable-tool-placement-contract` | Establish executable-code and maintained-agent-tool placement contract | `inactive_unauthorized` | Excluded |
+| [harness.010.030.030](./ksdft2effmass.harness.010.030.030.md) | `harness-simplification.agents.executable-tool-placement-contract` | Establish executable-code and maintained-agent-tool placement contract | Current | Excluded |
 | harness.010.030.040 | `harness-simplification.agents.validator-migration-pilot` | Pilot migration of one validator under the accepted placement contract | `inactive_unauthorized` | Excluded |
 | harness.010.030.050 | Not created | Remove historical roles from live discovery | Proposed | Excluded |
 | harness.010.030.060 | Not created | Retire obsolete phase-agent files | Proposed | Excluded |
 | harness.010.030.070 | Not created | Validate delegation and handoffs | Proposed | Excluded |
 | harness.010.030.080 | Not created | Evaluate SQLite or evidence-storage work | Proposed | Excluded |
 
-The first two rows are implemented. The project-role page records the completed
-simplification of all five durable project roles. The next two task identities
-exist only as ordered `inactive_unauthorized` proposal entries in the chain,
-with the placement contract preceding the single validator pilot. Both entries
-have `record: null`: neither has a task record or child page, and neither task is
-activated or begun. The remaining plain coordinates identify later proposals
-without linking to nonexistent files; broader discovery, retirement,
-delegation, storage, and protected work remain later proposals.
+The first three rows are current. The project-role page records the completed
+simplification of all five durable project roles, and the placement-contract page
+records the completed executable-tool architecture. The validator pilot remains
+the next ordered `inactive_unauthorized` chain entry with `record: null`; it has
+no task record or child page and is not activated or begun. The remaining plain
+coordinates identify later proposals without linking to nonexistent files;
+broader discovery, retirement, delegation, storage, and protected work remain
+later proposals.
 
 ## Implementation scope and validation
 
@@ -98,10 +98,10 @@ required.
 
 ## Unauthorized later work
 
-The chain lists the executable-code and maintained-agent-tool placement contract
-followed by one validator migration pilot as `inactive_unauthorized` proposal
-entries. Neither entry has a task record or child page, and neither task is
-activated or begun. This page migrates no executable. Live-discovery changes,
-historical-agent retirement, delegation and handoff validation, wider
-harness behavior changes, SQLite or evidence-storage implementation, dependency
-changes, protected execution, and release work remain inactive and proposed.
+The executable-code and maintained-agent-tool placement contract is completed.
+The following validator migration pilot remains `inactive_unauthorized`, has no
+task record or child page, and is not activated or begun. This page migrates no
+executable. Live-discovery changes, historical-agent retirement, delegation and
+handoff validation, wider harness behavior changes, SQLite or evidence-storage
+implementation, dependency changes, protected execution, and release work
+remain inactive and proposed.

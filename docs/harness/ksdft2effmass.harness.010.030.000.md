@@ -9,11 +9,9 @@ sphinx: excluded
 # Durable agent architecture
 
 > **Incremental architecture.** Five durable project roles and five durable
-> harness roles exist. The bounded simplification of all five project roles is
-> complete. The chain lists an executable-code and maintained-agent-tool
-> placement contract followed by one validator migration pilot as ordered
-> `inactive_unauthorized` proposal entries. Neither has a task record or child
-> page, and neither is activated or begun.
+> harness roles exist. Their bounded simplification and the executable harness-tool
+> placement contract are complete. One validator migration pilot remains the next
+> ordered `inactive_unauthorized` proposal and has not begun.
 
 The implemented durable sets provide stable capability identities. They are
 available for explicit assignment but do not activate themselves, grant path
@@ -74,13 +72,14 @@ including the final architecture responsibility, proportional analysis, and
 conditional exactly-three-alternative rule. That work changed no executable
 harness behavior and performed no executable migration.
 
-The chain contains the `inactive_unauthorized`
-`harness-simplification.agents.executable-tool-placement-contract` proposal
-entry followed by the `inactive_unauthorized`
-`harness-simplification.agents.validator-migration-pilot` proposal entry. Both
-have `record: null`: no task record or child page exists for either entry, and
-neither task is activated or begun. No script is migrated by this work.
-Live discovery, historical retirement, delegation and handoff validation,
+[harness.010.030.030](./ksdft2effmass.harness.010.030.030.md) records the
+completed executable harness-tool placement contract, maintained-tool object
+model, thin-wrapper boundary, and proportional execution and delegation rules.
+It changes no executable harness behavior and migrates no script.
+
+The chain retains `harness-simplification.agents.validator-migration-pilot` as
+the next `inactive_unauthorized` entry with `record: null`; it is not activated
+or begun. Live discovery, historical retirement, broader delegation validation,
 SQLite or evidence-storage work, and later protected work remain inactive and
 proposed. Existing historical identities remain present and retained evidence
 remains historically accurate.

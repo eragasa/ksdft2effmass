@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "project_architecture_incremental_refinement_completed",
+  "status": "executable_tool_placement_contract_completed",
   "active_task": null,
   "automatic_successor_activation": false,
   "chain": [],
@@ -59,11 +59,11 @@
     },
     {
       "id": "harness-simplification.agents.executable-tool-placement-contract",
-      "record": null,
+      "record": ".pi/tasks/harness-simplification.agents.executable-tool-placement-contract.md",
       "prerequisites": [
         "harness-simplification.agents.project-architecture:completed"
       ],
-      "status": "inactive_unauthorized"
+      "status": "completed"
     },
     {
       "id": "harness-simplification.agents.validator-migration-pilot",

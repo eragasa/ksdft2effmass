@@ -113,7 +113,6 @@
       "trigger_description": "New scientific object models, substantial refactors, object ownership questions, or Rust-portable Python design review.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
-        ".pi/agents/ksdft2effmass-tests.md",
         ".pi/agents/ksdft2effmass-harness-implementation.md"
       ],
       "authoritative_references": [
@@ -217,7 +216,7 @@
       "content_sha256": "ac8815bd9f331806ac2a2d7044963798ada43ddd0842e4df7583d60600fe4ea8",
       "trigger_description": "Finite represented operator records, immediate metadata, analyzers, serialization, comparison prerequisites, tests, and documentation.",
       "current_consumers": [
-        ".pi/agents/ksdft2effmass-tests.md"
+        "AGENTS.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
