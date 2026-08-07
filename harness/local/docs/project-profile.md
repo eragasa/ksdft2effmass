@@ -16,7 +16,7 @@ The local manifest has layer `local`, declares `extends_manifest_id = pih.generi
 
 The maintained route selects `local` and retains `legacy` as rollback. The
 current local replay runs the current H3 manifest/resource validator, the
-current eight-skill capability validator, and the controlled architecture-
+current skill-capability validator, and the controlled architecture-
 decision cases; it does not consume immutable H4 checksum inventories. The route wrapper validates a closed structured result
 and fails closed on a missing script, malformed output, missing/duplicate check,
 nonzero exit, or non-PASS check. Historical H4 replay and catalogs remain
@@ -35,7 +35,7 @@ Matching content hashes do not permit replacement. The profile, manifests, forma
 
 ## Markers, namespaces, and scopes
 
-The local marker vocabulary is `software_verification`, `numerical_verification`, `scientific_validation`, and `uncertainty_quantification`. The profile assigns audited evidence namespaces only to the software-verification and numerical-verification directory-tree scopes:
+The local marker vocabulary is `software_verification`, `numerical_verification`, `scientific_validation`, and `uncertainty_quantification`. The profile assigns audited evidence namespaces only to the software-verification and numerical-verification directory-tree scopes. Repository-wide maintained-test ownership and conformance are additionally closed by `.pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json` and `python/.venv/bin/python harness/local/validation/validate_repository_test_evidence.py`; the profile namespace rules do not waive an uninventoried or nonconforming current module:
 
 - `python/tests/software_verification` uses marker `software_verification` and the listed `SV-*` prefix/range/width rules;
 - `python/tests/numerical_verification` uses marker `numerical_verification` and the listed `NV-*` prefix/range/width rules.

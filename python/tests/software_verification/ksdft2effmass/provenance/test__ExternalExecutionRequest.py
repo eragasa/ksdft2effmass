@@ -60,6 +60,32 @@ PUBLIC_FIELDS = (
     "expected_output_roles",
     "provenance_id",
 )
+FROZEN_FIELDS = (
+    "request_id",
+    "correlation_id",
+    "attempt_id",
+    "retry_parent_request_id",
+    "tool_id",
+    "capability_id",
+    "installation_id",
+    "authorization_id",
+    "input_artifact_ids",
+    "expected_output_roles",
+    "provenance_id",
+)
+EQUALITY_FIELDS = (
+    "request_id",
+    "correlation_id",
+    "attempt_id",
+    "retry_parent_request_id",
+    "tool_id",
+    "capability_id",
+    "installation_id",
+    "authorization_id",
+    "input_artifact_ids",
+    "expected_output_roles",
+    "provenance_id",
+)
 
 
 def make_external_execution_request(**overrides: Any) -> ExternalExecutionRequest:

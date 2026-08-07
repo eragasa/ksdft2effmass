@@ -1,6 +1,9 @@
-"""Intrinsic-invariant evidence for ``OperatorRecordComparisonResult``.
+r"""Software verification of ``OperatorRecordComparisonResult``.
 
-System under test and evidence class
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the invariants facet. System under test and evidence
+class
 ------------------------------------
 This software-verification module provides ``SV-ORCR-005`` through
 ``SV-ORCR-011`` for the ResultObject's identifiers, energy unit, structural
@@ -30,6 +33,22 @@ norm algorithm, so numerical verification is not applicable. The ResultObject
 has no physical acceptance threshold; valid state does not establish physical
 equivalence. Scientific validation and uncertainty quantification have not been
 performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordComparisonResult``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from dataclasses import dataclass
@@ -42,16 +61,33 @@ from ksdft2effmass.operators import OperatorRecordComparisonResult
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordComparisonResult
+
 
 def comparison_result(**overrides: object) -> OperatorRecordComparisonResult:
-    """Construct the public ResultObject from valid defaults plus overrides.
-
-    The canonical defaults are identifiers ``reference`` and ``candidate``,
-    dimension ``2``, unit ``eV``, and metrics ``maximum=1``, ``spectral=3``,
-    ``Frobenius=4``. The helper performs no coercion or validation itself; each
-    override reaches the public constructor unchanged, where documented scalar
-    canonicalization and intrinsic validation occur. The state is synthetic and
-    has no physical interpretation.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
+    Requirement
+    Comparison-result cases require a valid baseline whose public fields can be
+    overridden one partition at a time.
+    Method
+    Construct or inspect only the named synthetic fixture operation (comparison result);
+    the helper owns no assertion result and introduces no hidden oracle.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The helper returns exactly the requested fixture value or applies only the
+    documented comparison; all pass/fail assertions remain in the owning test.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     values: dict[str, object] = {
@@ -75,61 +111,77 @@ def comparison_result(**overrides: object) -> OperatorRecordComparisonResult:
             "",
             ValueError,
             "reference identifier must not be empty",
-            id="SV-ORCR-005-reference-empty",
+            id="reference_empty",
         ),
         pytest.param(
             "reference_identifier",
             1,
             TypeError,
             "reference identifier must be a string",
-            id="SV-ORCR-005-reference-python-int",
+            id="reference_python_int",
         ),
         pytest.param(
             "reference_identifier",
             object(),
             TypeError,
             "reference identifier must be a string",
-            id="SV-ORCR-005-reference-object",
+            id="reference_object",
         ),
         pytest.param(
             "candidate_identifier",
             "",
             ValueError,
             "candidate identifier must not be empty",
-            id="SV-ORCR-005-candidate-empty",
+            id="candidate_empty",
         ),
         pytest.param(
             "candidate_identifier",
             1,
             TypeError,
             "candidate identifier must be a string",
-            id="SV-ORCR-005-candidate-python-int",
+            id="candidate_python_int",
         ),
         pytest.param(
             "candidate_identifier",
             object(),
             TypeError,
             "candidate identifier must be a string",
-            id="SV-ORCR-005-candidate-object",
+            id="candidate_object",
         ),
     ],
 )
-def test_enforce_identifier_invariants(
+def test_constructor__enforce_identifier_invariants__is_enforced(
     field_name: str,
     bad_value: object,
     expected_error: type[Exception],
     expected_message: str,
 ) -> None:
-    """SV-ORCR-005: enforce each identifier role independently.
-
+    r"""Evidence ID
+    SV-ORCR-005
     Requirement
-        Reference and candidate identifiers are independently nonempty strings.
-    Method and acceptance
-        Supply one invalid role per collected case and require the exact
-        ``TypeError``/``ValueError`` class and field-specific diagnostic.
-    Interpretation and limitations
-        Passing verifies identifier state only; no trimming or string-subclass
-        policy beyond the documented constructor behavior is asserted.
+    Reference and candidate identifiers are independently nonempty strings. method and
+    acceptance Supply one invalid role per collected case and require the exact
+    ``TypeError``/``ValueError`` class and field-specific diagnostic. interpretation and
+    limitations Passing verifies identifier state only; no trimming or string-subclass
+    policy beyond the documented constructor behavior is asserted.
+    Method
+    Exercise the named public surface with the synthetic inputs and semantic partition
+    encoded unchanged in the test body; warnings are not accepted unless explicitly
+    controlled.
+    Oracle
+    The accepted public contract, fixed literal expectations, public artifacts, and
+    Python language semantics determine the result independently of production private
+    helpers.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
+    Interpretation
+    A pass supports only this requirement; a failure may identify an implementation,
+    fixture, oracle, environment, or accepted-contract defect and requires diagnosis
+    rather than weakened expectations.
+    Limitations
+    This synthetic software evidence does not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
     with pytest.raises(expected_error, match=expected_message):
@@ -139,35 +191,44 @@ def test_enforce_identifier_invariants(
 @pytest.mark.parametrize(
     ("bad_value", "expected_error", "expected_message"),
     [
+        pytest.param("", ValueError, "energy unit must not be empty", id="empty"),
         pytest.param(
-            "", ValueError, "energy unit must not be empty", id="SV-ORCR-006-empty"
+            1, TypeError, "energy unit must be a string", id="sv_orcr_006_python_int"
         ),
         pytest.param(
-            1, TypeError, "energy unit must be a string", id="SV-ORCR-006-python-int"
-        ),
-        pytest.param(
-            object(),
-            TypeError,
-            "energy unit must be a string",
-            id="SV-ORCR-006-object",
+            object(), TypeError, "energy unit must be a string", id="sv_orcr_006_object"
         ),
     ],
 )
-def test_enforce_energy_unit_invariants(
+def test_constructor__enforce_energy_unit_invariants__is_enforced(
     bad_value: object,
     expected_error: type[Exception],
     expected_message: str,
 ) -> None:
-    """SV-ORCR-006: require a nonempty energy-unit string.
-
-    Requirement and method
-        Supply empty or wrong-semantic-type unit state through public
-        construction.
+    r"""Evidence ID
+    SV-ORCR-006
+    Requirement
+    OperatorRecordComparisonResult enforces this structural-result partition: enforce
+    energy unit invariants: is enforced.
+    Method
+    Construct valid baseline instances, change only the named enforce energy unit
+    invariants: is enforced partition, and observe constructor, field, equality, hash,
+    or public-API behavior as applicable.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
     Acceptance
-        The exact documented exception class and unit-specific message match.
-    Interpretation and limitations
-        Passing verifies stored unit metadata; no conversion or dimensional
-        consistency with an external object is performed.
+    The named partition raises exactly expected_error with the asserted public message,
+    code, or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     with pytest.raises(expected_error, match=expected_message):
@@ -177,70 +238,83 @@ def test_enforce_energy_unit_invariants(
 @pytest.mark.parametrize(
     ("bad_value", "expected_error", "expected_message"),
     [
-        pytest.param(
-            0, ValueError, "matrix_dimension must be positive", id="SV-ORCR-007-zero"
-        ),
+        pytest.param(0, ValueError, "matrix_dimension must be positive", id="zero"),
         pytest.param(
             -1,
             ValueError,
             "matrix_dimension must be positive",
-            id="SV-ORCR-007-negative-python-int",
+            id="negative_python_int",
         ),
         pytest.param(
             np.int64(-1),
             ValueError,
             "matrix_dimension must be positive",
-            id="SV-ORCR-007-negative-numpy-int",
+            id="negative_numpy_int",
         ),
         pytest.param(
             True,
             TypeError,
             "matrix_dimension must be a positive integer",
-            id="SV-ORCR-007-python-bool",
+            id="sv_orcr_007_python_bool",
         ),
         pytest.param(
             np.bool_(True),
             TypeError,
             "matrix_dimension must be a positive integer",
-            id="SV-ORCR-007-numpy-bool",
+            id="sv_orcr_007_numpy_bool",
         ),
         pytest.param(
             2.0,
             TypeError,
             "matrix_dimension must be a positive integer",
-            id="SV-ORCR-007-python-float",
+            id="sv_orcr_007_python_float",
         ),
         pytest.param(
             "2",
             TypeError,
             "matrix_dimension must be a positive integer",
-            id="SV-ORCR-007-numeric-string",
+            id="sv_orcr_007_numeric_string",
         ),
         pytest.param(
             object(),
             TypeError,
             "matrix_dimension must be a positive integer",
-            id="SV-ORCR-007-object",
+            id="sv_orcr_007_object",
         ),
     ],
 )
-def test_enforce_matrix_dimension_invariants(
+def test_constructor__enforce_matrix_dimension_invariants__is_enforced(
     bad_value: object,
     expected_error: type[Exception],
     expected_message: str,
 ) -> None:
-    """SV-ORCR-007: enforce integer type and positive dimension.
-
+    r"""Evidence ID
+    SV-ORCR-007
     Requirement
-        Python and NumPy integer scalars are admitted, then required to be
-        positive; Boolean, floating, string, and arbitrary-object inputs are not
-        integer semantics.
-    Method and acceptance
-        Collect each invalid category independently and require exact exception
-        taxonomy with a dimension-specific diagnostic.
-    Interpretation and limitations
-        Positive NumPy canonicalization is covered by ``SV-ORCR-002``. No upper
-        dimension policy or allocation feasibility is tested here.
+    Python and NumPy integer scalars are admitted, then required to be positive;
+    Boolean, floating, string, and arbitrary-object inputs are not integer semantics.
+    method and acceptance Collect each invalid category independently and require exact
+    exception taxonomy with a dimension-specific diagnostic. interpretation and
+    limitations Positive NumPy canonicalization is covered by ``the owning evidence``.
+    No upper dimension policy or allocation feasibility is tested here.
+    Method
+    Exercise the named public surface with the synthetic inputs and semantic partition
+    encoded unchanged in the test body; warnings are not accepted unless explicitly
+    controlled.
+    Oracle
+    The accepted public contract, fixed literal expectations, public artifacts, and
+    Python language semantics determine the result independently of production private
+    helpers.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
+    Interpretation
+    A pass supports only this requirement; a failure may identify an implementation,
+    fixture, oracle, environment, or accepted-contract defect and requires diagnosis
+    rather than weakened expectations.
+    Limitations
+    This synthetic software evidence does not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
     with pytest.raises(expected_error, match=expected_message):
@@ -249,7 +323,7 @@ def test_enforce_matrix_dimension_invariants(
 
 @dataclass(frozen=True, slots=True)
 class ResidualInvariantCase:
-    """One invalid residual-scalar admission case.
+    r"""One invalid residual-scalar admission case.
 
     ``field_name`` selects the public metric without renaming it; ``field_label``
     is the readable pytest-ID component; ``bad_value`` reaches the constructor
@@ -285,40 +359,404 @@ _INVALID_METRIC_VALUES = (
     ("numpy-complex", np.complex128(1.0 + 0.0j), TypeError, "must be a real number"),
     ("object", object(), TypeError, "must be a real number"),
 )
-RESIDUAL_INVARIANT_CASES = tuple(
-    ResidualInvariantCase(
-        field_name,
-        field_label,
-        bad_value,
-        value_label,
-        expected_error,
-        f"{field_name} {message_suffix}",
-    )
-    for field_name, field_label in _METRIC_FIELDS
-    for value_label, bad_value, expected_error, message_suffix in _INVALID_METRIC_VALUES
+RESIDUAL_INVARIANT_CASES = (
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            -1.0,
+            "negative",
+            ValueError,
+            "maximum_absolute_residual must be non-negative",
+        ),
+        id="maximum_negative",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            np.nan,
+            "nan",
+            ValueError,
+            "maximum_absolute_residual must be finite",
+        ),
+        id="maximum_nan",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            np.inf,
+            "positive_infinity",
+            ValueError,
+            "maximum_absolute_residual must be finite",
+        ),
+        id="maximum_positive_infinity",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            -np.inf,
+            "negative_infinity",
+            ValueError,
+            "maximum_absolute_residual must be finite",
+        ),
+        id="maximum_negative_infinity",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            True,
+            "python_bool",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_python_bool",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            np.bool_(True),
+            "numpy_bool",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_numpy_bool",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            "1.0",
+            "numeric_string",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_numeric_string",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            b"1.0",
+            "bytes",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_bytes",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            1.0 + 0.0j,
+            "python_complex",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_python_complex",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            np.complex128(1.0 + 0.0j),
+            "numpy_complex",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_numpy_complex",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "maximum_absolute_residual",
+            "maximum",
+            object(),
+            "object",
+            TypeError,
+            "maximum_absolute_residual must be a real number",
+        ),
+        id="maximum_object",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            -1.0,
+            "negative",
+            ValueError,
+            "frobenius_residual must be non-negative",
+        ),
+        id="frobenius_negative",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            np.nan,
+            "nan",
+            ValueError,
+            "frobenius_residual must be finite",
+        ),
+        id="frobenius_nan",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            np.inf,
+            "positive_infinity",
+            ValueError,
+            "frobenius_residual must be finite",
+        ),
+        id="frobenius_positive_infinity",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            -np.inf,
+            "negative_infinity",
+            ValueError,
+            "frobenius_residual must be finite",
+        ),
+        id="frobenius_negative_infinity",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            True,
+            "python_bool",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_python_bool",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            np.bool_(True),
+            "numpy_bool",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_numpy_bool",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            "1.0",
+            "numeric_string",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_numeric_string",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            b"1.0",
+            "bytes",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_bytes",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            1.0 + 0.0j,
+            "python_complex",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_python_complex",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            np.complex128(1.0 + 0.0j),
+            "numpy_complex",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_numpy_complex",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "frobenius_residual",
+            "frobenius",
+            object(),
+            "object",
+            TypeError,
+            "frobenius_residual must be a real number",
+        ),
+        id="frobenius_object",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            -1.0,
+            "negative",
+            ValueError,
+            "spectral_residual must be non-negative",
+        ),
+        id="spectral_negative",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            np.nan,
+            "nan",
+            ValueError,
+            "spectral_residual must be finite",
+        ),
+        id="spectral_nan",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            np.inf,
+            "positive_infinity",
+            ValueError,
+            "spectral_residual must be finite",
+        ),
+        id="spectral_positive_infinity",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            -np.inf,
+            "negative_infinity",
+            ValueError,
+            "spectral_residual must be finite",
+        ),
+        id="spectral_negative_infinity",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            True,
+            "python_bool",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_python_bool",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            np.bool_(True),
+            "numpy_bool",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_numpy_bool",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            "1.0",
+            "numeric_string",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_numeric_string",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            b"1.0",
+            "bytes",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_bytes",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            1.0 + 0.0j,
+            "python_complex",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_python_complex",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            np.complex128(1.0 + 0.0j),
+            "numpy_complex",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_numpy_complex",
+    ),
+    pytest.param(
+        ResidualInvariantCase(
+            "spectral_residual",
+            "spectral",
+            object(),
+            "object",
+            TypeError,
+            "spectral_residual must be a real number",
+        ),
+        id="spectral_object",
+    ),
 )
 
 
 @pytest.mark.parametrize(
     "case",
     RESIDUAL_INVARIANT_CASES,
-    ids=[
-        f"SV-ORCR-008-{case.field_label}-{case.value_label}"
-        for case in RESIDUAL_INVARIANT_CASES
-    ],
 )
-def test_enforce_residual_scalar_invariants(case: ResidualInvariantCase) -> None:
-    """SV-ORCR-008: enforce each residual scalar's admission contract.
-
+def test_constructor__enforce_residual_scalar_invariants__is_enforced(
+    case: ResidualInvariantCase,
+) -> None:
+    r"""Evidence ID
+    SV-ORCR-008
     Requirement
-        Metrics reject wrong semantic types with ``TypeError`` and admitted real
-        values that are negative or nonfinite with ``ValueError``.
-    Method and acceptance
-        Independently collect every field/category pair and require exact public
-        exception taxonomy plus the full affected field name.
-    Interpretation and limitations
-        Passing verifies scalar state admission, not numerical agreement or a
-        physical residual threshold.
+    OperatorRecordComparisonResult enforces this structural-result partition: enforce
+    residual scalar invariants: is enforced.
+    Method
+    Construct valid baseline instances, change only the named enforce residual scalar
+    invariants: is enforced partition, and observe constructor, field, equality, hash,
+    or public-API behavior as applicable.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The named partition raises exactly case.expected_error with the asserted public
+    message, code, or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     with pytest.raises(case.expected_error, match=case.expected_message):
@@ -333,34 +771,47 @@ def test_enforce_residual_scalar_invariants(case: ResidualInvariantCase) -> None
             3.0,
             5.0,
             "maximum_absolute_residual must not exceed spectral_residual",
-            id="SV-ORCR-009-maximum-exceeds-spectral",
+            id="maximum_exceeds_spectral",
         ),
         pytest.param(
             1.0,
             3.0,
             2.0,
             "spectral_residual must not exceed frobenius_residual",
-            id="SV-ORCR-009-spectral-exceeds-frobenius",
+            id="sv_orcr_009_spectral_exceeds_frobenius",
         ),
     ],
 )
-def test_enforce_mathematical_metric_ordering(
+def test_constructor__enforce_mathematical_metric_ordering__is_enforced(
     maximum: float,
     spectral: float,
     frobenius: float,
     expected_message: str,
 ) -> None:
-    r"""SV-ORCR-009: enforce the intrinsic stored norm ordering.
-
+    r"""Evidence ID
+    SV-ORCR-009
     Requirement
-        Direct state must satisfy
-        :math:`\varepsilon_{\max}\leq\varepsilon_2\leq\varepsilon_{\mathrm F}`.
-    Method and acceptance
-        Violate each inequality independently and require its field-specific
-        ``ValueError``.
-    Interpretation and limitations
-        This is structural software verification, not analyzer accuracy or
-        physical acceptance evidence.
+    OperatorRecordComparisonResult enforces this structural-result partition: enforce
+    mathematical metric ordering: is enforced.
+    Method
+    Construct valid baseline instances, change only the named enforce mathematical
+    metric ordering: is enforced partition, and observe constructor, field, equality,
+    hash, or public-API behavior as applicable.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The named partition raises exactly ValueError with the asserted public message,
+    code, or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     with pytest.raises(ValueError, match=expected_message):
@@ -378,31 +829,46 @@ def test_enforce_mathematical_metric_ordering(
             1.4142135623730952e100,
             1.4142135623730948e100,
             1.4142135623730952e100,
-            id="SV-ORCR-010-known-binary64-regression-a",
+            id="sv_orcr_010_known_binary64_regression_a",
         ),
         pytest.param(
             2.23606797749979e100,
-            2.2360679774997896e100,
+            2.2360679774997897e100,
             2.23606797749979e100,
-            id="SV-ORCR-010-known-binary64-regression-b",
+            id="sv_orcr_010_known_binary64_regression_b",
         ),
     ],
 )
-def test_reject_uncanonicalized_roundoff_order_violations(
+def test_constructor__reject_uncanonicalized_roundoff_order__is_enforced(
     maximum: float, spectral: float, frobenius: float
 ) -> None:
-    """SV-ORCR-010: reject raw roundoff-inconsistent metric state.
-
+    r"""Evidence ID
+    SV-ORCR-010
     Requirement
-        The ResultObject strictly rejects supplied ``maximum > spectral`` even
-        when the inversion resembles binary64 roundoff.
-    Method and acceptance
-        Supply two known raw regression triples and require the exact ordering
-        ``ValueError``.
-    Interpretation and limitations
-        The analyzer owns raw computation, allowance evaluation, permitted
-        upward canonicalization, and subsequent construction. This test does not
-        execute or numerically verify that analyzer policy.
+    The ResultObject strictly rejects supplied ``maximum > spectral`` even when the
+    inversion resembles binary64 roundoff. method and acceptance Supply two known raw
+    regression triples and require the exact ordering ``ValueError``. interpretation and
+    limitations The analyzer owns raw computation, allowance evaluation, permitted
+    upward canonicalization, and subsequent construction. This test does not execute or
+    numerically verify that analyzer policy.
+    Method
+    Exercise the named public surface with the synthetic inputs and semantic partition
+    encoded unchanged in the test body; warnings are not accepted unless explicitly
+    controlled.
+    Oracle
+    The accepted public contract, fixed literal expectations, public artifacts, and
+    Python language semantics determine the result independently of production private
+    helpers.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
+    Interpretation
+    A pass supports only this requirement; a failure may identify an implementation,
+    fixture, oracle, environment, or accepted-contract defect and requires diagnosis
+    rather than weakened expectations.
+    Limitations
+    This synthetic software evidence does not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
     with pytest.raises(
@@ -419,34 +885,77 @@ def test_reject_uncanonicalized_roundoff_order_violations(
 @pytest.mark.parametrize(
     ("field_name", "field_label", "value", "value_label"),
     [
-        pytest.param(field_name, field_label, value, value_label)
-        for field_name, field_label in _METRIC_FIELDS
-        for value, value_label in (
-            (10**10000, "huge-positive"),
-            (-(10**10000), "huge-negative"),
-        )
-    ],
-    ids=[
-        f"SV-ORCR-011-{field_label}-{value_label}"
-        for _, field_label in _METRIC_FIELDS
-        for value_label in ("huge-positive", "huge-negative")
+        pytest.param(
+            "maximum_absolute_residual",
+            "maximum",
+            10**10000,
+            "huge_positive",
+            id="maximum_huge_positive",
+        ),
+        pytest.param(
+            "maximum_absolute_residual",
+            "maximum",
+            -(10**10000),
+            "huge_negative",
+            id="maximum_huge_negative",
+        ),
+        pytest.param(
+            "frobenius_residual",
+            "frobenius",
+            10**10000,
+            "huge_positive",
+            id="frobenius_huge_positive",
+        ),
+        pytest.param(
+            "frobenius_residual",
+            "frobenius",
+            -(10**10000),
+            "huge_negative",
+            id="frobenius_huge_negative",
+        ),
+        pytest.param(
+            "spectral_residual",
+            "spectral",
+            10**10000,
+            "huge_positive",
+            id="spectral_huge_positive",
+        ),
+        pytest.param(
+            "spectral_residual",
+            "spectral",
+            -(10**10000),
+            "huge_negative",
+            id="spectral_huge_negative",
+        ),
     ],
 )
-def test_translate_huge_integer_metric_conversion(
+def test_constructor__input_boundary__translate_huge_integer_metric_conversion(
     field_name: str, field_label: str, value: int, value_label: str
 ) -> None:
-    """SV-ORCR-011: translate huge-integer conversion overflow consistently.
-
+    r"""Evidence ID
+    SV-ORCR-011
     Requirement
-        Accepted Python-integer scalar conversion that overflows binary64 maps to
-        the field-specific finite-real ``ValueError`` taxonomy.
-    Method and acceptance
-        Supply huge positive and negative integers to every metric field and
-        require ``<field> must be finite``.
-    Interpretation and limitations
-        Passing verifies exception translation only; ``field_label`` and
-        ``value_label`` provide stable readable collection IDs and do not affect
-        construction.
+    OperatorRecordComparisonResult enforces this structural-result partition: input
+    boundary: translate huge integer metric conversion.
+    Method
+    Construct valid baseline instances, change only the named input boundary: translate
+    huge integer metric conversion partition, and observe constructor, field, equality,
+    hash, or public-API behavior as applicable.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The named partition raises exactly ValueError with the asserted public message,
+    code, or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     with pytest.raises(ValueError, match=f"{field_name} must be finite"):

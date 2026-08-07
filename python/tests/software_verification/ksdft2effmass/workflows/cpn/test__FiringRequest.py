@@ -1,13 +1,15 @@
-"""Software verification of the ``FiringRequest`` public request contract.
+r"""Software verification of ``FiringRequest``.
 
-Evidence class and represented meaning
---------------------------------------
+Facet and represented meaning
+--------------------------------
+Software verification of the ``FiringRequest`` public request contract.
+
 Software-verification evidence covers the public ``FiringRequest`` DataObject, a finite
 software representation of a requested CPN transition firing. The synthetic cases
 represent workflow-control state, not a physical model or mathematical operator.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The sole primary SUT is ``FiringRequest``. The owned contract comprises public
 constructor typing, nonempty transition identity, and exact output-token identity tuple
 invariants. The oracle is the documented request contract and Python exception taxonomy;
@@ -70,88 +72,206 @@ def test_constructor__output_token_ids__rejects_duplicates() -> None:
         )
 
 
-def test_constructor__transition_state__requires_typed_binding_and_identity() -> None:
-    """Verify transition identity and binding constructor boundaries.
-
-    Evidence ID
+def test_constructor__transition_state__preserves_valid_state() -> None:
+    """Evidence ID
+    -----------
     SV-CPN-068
 
     Requirement
-    Public ``FiringRequest`` construction must require an exact nonempty string
-    transition identity and a ``TransitionBinding`` instance, while retaining a valid
-    binding by identity.
+    -----------
+    ``FiringRequest`` preserves the documented exact valid-state behavior for its
+    ``transition_state`` contract.
 
     Method
-    Construct valid synthetic state, then supply an integer transition identity, a
-    string in place of the binding, and an empty transition identity through the public
-    constructor. No warnings are expected.
+    ------
+    Construct the public SUT with the retained valid synthetic inputs and inspect
+    exact public state.
 
     Oracle
-    The documented field contract independently admits a nonempty exact string and typed
-    binding, assigns wrong semantic types to ``TypeError``, and assigns an empty
-    required identity to ``ValueError``.
+    ------
+    The fixed inputs and documented canonical public representation provide the
+    independent exact oracle.
 
     Acceptance
-    Valid construction retains the exact collaborator object; each wrong-typed input
-    raises ``TypeError`` and the empty transition identity raises ``ValueError``.
+    ----------
+    Every retained exact identity, equality, ordering, type, and represented-state
+    assertion holds.
 
     Interpretation
-    A pass confirms request-owned type and identity enforcement. A failure may indicate
-    constructor, collaborator, Python-type, exception-taxonomy, or public-contract
-    drift.
+    --------------
+    Pass supports this valid-state mapping; failure may identify implementation,
+    fixture, oracle, environment, or contract drift.
 
     Limitations
-    This case does not require the binding's transition identity to match the request,
-    inspect token assignments, execute a firing, or establish numerical verification,
-    physical correctness, scientific validation, UQ, or portability."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     binding = TransitionBinding("t", ())
     assert SUT("t", binding, ()).binding is binding
+
+
+def test_constructor__transition_state__rejects_wrong_types() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-123
+
+    Requirement
+    -----------
+    ``FiringRequest`` rejects wrong semantic types for its ``transition_state``
+    contract.
+
+    Method
+    ------
+    Exercise every retained synthetic wrong-type input through the public SUT
+    without private mutation.
+
+    Oracle
+    ------
+    The documented exact-type taxonomy independently requires ``TypeError`` for
+    every retained call.
+
+    Acceptance
+    ----------
+    Every retained wrong-type call raises exactly ``TypeError``.
+
+    Interpretation
+    --------------
+    Pass supports this type partition; failure may identify implementation, fixture,
+    oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    binding = TransitionBinding("t", ())
     with pytest.raises(TypeError):
         SUT(1, binding, ())  # type: ignore[arg-type]
     with pytest.raises(TypeError):
         SUT("t", "binding", ())  # type: ignore[arg-type]
+
+
+def test_constructor__transition_state__rejects_invalid_values() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-095
+
+    Requirement
+    -----------
+    ``FiringRequest`` rejects malformed values of accepted semantic
+    types for its
+    ``transition_state`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    binding = TransitionBinding("t", ())
     with pytest.raises(ValueError):
         SUT("", binding, ())
 
 
-def test_field__output_token_ids__requires_nonempty_exact_string_tuple() -> None:
-    """Verify the exact output-token identity tuple contract.
-
-    Evidence ID
+def test_field__output_token_ids__rejects_wrong_types() -> None:
+    """Evidence ID
+    -----------
     SV-CPN-069
 
     Requirement
-    The public ``output_token_ids`` field must be an immutable tuple whose every member
-    is an exact nonempty string.
+    -----------
+    ``FiringRequest`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``output_token_ids`` contract.
 
     Method
-    With valid synthetic transition state, pass a list, a tuple containing an integer,
-    and a tuple containing an empty string to the public constructor as
-    controlled-invalid inputs. No warnings are expected.
+    ------
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
-    The documented exact field representation independently excludes mutable lists and
-    nonstring members as semantic type errors, and the nonempty identity invariant
-    excludes the empty string.
+    ------
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
-    The list and integer-member cases raise ``TypeError``; the empty-string member case
-    raises ``ValueError``.
+    ----------
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
-    A pass confirms immutable exact-string output identity storage boundaries. A failure
-    may reflect constructor, collaborator, language-type, exception-taxonomy, or
-    public-contract drift.
+    --------------
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
-    The case excludes duplicate identities covered separately, Unicode normalization,
-    identity registries, marking collisions, firing execution, numerical verification,
-    physical correctness, scientific validation, UQ, persistence, and cross-language
-    behavior."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     binding = TransitionBinding("t", ())
     with pytest.raises(TypeError):
         SUT("t", binding, ["id"])  # type: ignore[arg-type]
     with pytest.raises(TypeError):
         SUT("t", binding, (1,))  # type: ignore[arg-type]
+
+
+def test_field__output_token_ids__rejects_invalid_values() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-096
+
+    Requirement
+    -----------
+    ``FiringRequest`` rejects malformed values of accepted semantic
+    types for its
+    ``output_token_ids`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    binding = TransitionBinding("t", ())
     with pytest.raises(ValueError):
         SUT("t", binding, ("",))

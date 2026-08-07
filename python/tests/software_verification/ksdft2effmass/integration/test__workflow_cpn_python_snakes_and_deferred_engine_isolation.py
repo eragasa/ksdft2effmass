@@ -1,10 +1,12 @@
-"""Evidence class and represented meaning
+r"""Software verification of workflow cpn python snakes and deferred engine isolation.
+
+Facet and represented meaning
 --------------------------------------
 Software verification of Workflow CPN Python isolation from SNAKES and deferred
 engine/persistence scope, a static software boundary rather than engine behavior.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The Workflow CPN Python SNAKES and deferred-engine isolation boundary is the primary
 artifact owner. Absence of named deferred paths and direct SNAKES import roots is the
 exact static oracle.
@@ -57,12 +59,17 @@ def test_artifact__snakes_isolation__excludes_deferred_engine_scope() -> None:
     source = REPO_ROOT / "python/src/ksdft2effmass/workflows/cpn"
     assert not (source / "engines").exists()
     assert not (source / "persistence.py").exists()
-    for path in source.glob("*.py"):
-        tree = ast.parse(path.read_text())
-        roots: set[str] = set()
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):
-                roots.update(alias.name.split(".")[0] for alias in node.names)
-            elif isinstance(node, ast.ImportFrom) and node.module:
-                roots.add(node.module.split(".")[0])
-        assert "snakes" not in roots, path
+    trees = tuple(ast.parse(path.read_text()) for path in source.glob("*.py"))
+    imported_roots = {
+        alias.name.split(".")[0]
+        for tree in trees
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Import)
+        for alias in node.names
+    } | {
+        node.module.split(".")[0]
+        for tree in trees
+        for node in ast.walk(tree)
+        if isinstance(node, ast.ImportFrom) and node.module
+    }
+    assert "snakes" not in imported_roots

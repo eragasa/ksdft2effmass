@@ -167,11 +167,11 @@ Our main contributions are:
 
 ## 2. Mathematical setting
 
-Let $s\in\{b,d\}$, where \(b\) denotes the pristine bulk-Si reference and \(d\) the doped system. For each wavevector \(\mathbf k\in\mathcal K_L\), let \(\mathcal H_s^{\mathrm{num}}(\mathbf k)\cong \mathbb C^{D_s(\mathbf k)}\) be the ambient numerical Bloch-fiber space, and let
+Let $s\in\{b,d\}$, where $b$ denotes the pristine bulk-Si reference and $d$ the doped system. For each wavevector $\mathbf k\in\mathcal K_L$, let \(\mathcal H_s^{\mathrm{num}}(\mathbf k)\cong \mathbb C^{D_s(\mathbf k)}\) be the ambient numerical Bloch-fiber space, and let
 
-\[
+$
 \hat P_s(\mathbf k):\mathcal H_s^{\mathrm{num}}(\mathbf k)\to \mathcal H_s^{\mathrm{num}}(\mathbf k)
-\]
+$
 
 be the orthogonal projector onto the retained subspace. Define
 

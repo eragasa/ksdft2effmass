@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``CpnMarking``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public ``CpnMarking``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``CpnMarking`` is the sole primary SUT. Tests exercise its documented public contract
 with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -35,7 +37,7 @@ pytestmark = pytest.mark.software_verification
 SUT = CpnMarking
 
 
-def test_constructor__contract__marking_preserves_multiplicity_and_order(
+def test_constructor__fields__marking_preserves_multiplicity_and_order(
     token_factory: Callable[..., CpnToken], executable_net: CpnNetDefinition
 ) -> None:
     """Evidence ID
@@ -100,163 +102,241 @@ def test_constructor__contract__marking_preserves_multiplicity_and_order(
     )
 
 
-def test_constructor__contract__marking_version_identity_and_revision_taxonomy() -> (
-    None
-):
+def test_constructor__marking_version__rejects_wrong_types() -> None:
     """Evidence ID
     -----------
     SV-CPN-061
 
     Requirement
     -----------
-    enforce fixed version, model identity, and nonnegative revision.
+    ``CpnMarking`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``marking_version`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: enforce fixed version, model identity, and
-    nonnegative revision. Public construction is the method; documented exact scalar
-    types and lower bounds are the oracle. Acceptance distinguishes ``TypeError`` from
-    ``ValueError``. Failure admits malformed revision state. The upper bound is covered
-    separately.
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
     ------
-    The documented public rule that the SUT must enforce fixed version, model identity,
-    and nonnegative revision is the contract oracle; fixed synthetic values, Python
-    exact type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(TypeError):
         SUT(True, "m", 0, ())
-    with pytest.raises(ValueError):
-        SUT(2, "m", 0, ())
     with pytest.raises(TypeError):
         SUT(1, 1, 0, ())  # type: ignore[arg-type]
-    with pytest.raises(ValueError):
-        SUT(1, "", 0, ())
     with pytest.raises(TypeError):
         SUT(1, "m", 0.0, ())  # type: ignore[arg-type]
     with pytest.raises(TypeError):
         SUT(1, "m", True, ())
+
+
+def test_constructor__marking_version__rejects_invalid_values() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-091
+
+    Requirement
+    -----------
+    ``CpnMarking`` rejects malformed values of accepted semantic
+    types for its
+    ``marking_version`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    with pytest.raises(ValueError):
+        SUT(2, "m", 0, ())
+    with pytest.raises(ValueError):
+        SUT(1, "", 0, ())
     with pytest.raises(ValueError):
         SUT(1, "m", -1, ())
 
 
-def test_constructor__contract__revision_uses_nonnegative_signed_i64_range() -> None:
+def test_constructor__fields__revision_uses_nonnegative_signed_i64_range() -> None:
     """Evidence ID
     -----------
     SV-CPN-083
 
     Requirement
     -----------
-    marking revision uses the nonnegative signed-i64 interval.
+    ``CpnMarking`` preserves the exact accepted state for its
+    ``fields`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: admit the full representable
-    marking-revision interval. Requirement: marking revisions are exact built-in
-    integers from zero through ``2**63 - 1`` and reject ``2**63``; schema version
-    remains the fixed v1 tag. Method: construct empty synthetic markings at both
-    endpoints and immediately above the maximum. Oracle: the approved nonnegative
-    signed-i64 bounds. Acceptance preserves each endpoint and raises ``ValueError`` for
-    overflow. Failure prevents expression-compatible revision routing or admits an
-    unrepresentable successor. No persistence or scientific state is tested.
+    Construct the public SUT and inspect retained exact public outcomes.
 
     Oracle
     ------
-    The documented public rule that the SUT must marking revision uses the nonnegative
-    signed-i64 interval is the contract oracle; fixed synthetic values, Python exact
-    type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact state oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact state assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this accepted-state partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     maximum = 2**63 - 1
     assert SUT(1, "m", 0, ()).revision == 0
     assert SUT(1, "m", maximum, ()).revision == maximum
+
+
+def test_constructor__fields__rejects_invalid_state() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-139
+
+    Requirement
+    -----------
+    ``CpnMarking`` rejects the documented invalid state for its
+    ``fields`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    maximum = 2**63 - 1
     with pytest.raises(ValueError, match="signed i64"):
         SUT(1, "m", maximum + 1, ())
 
 
-def test_constructor__contract__places_require_immutable_owner_types() -> None:
+def test_constructor__fields__places_require_immutable_owner_types() -> None:
     """Evidence ID
     -----------
     SV-CPN-062
 
     Requirement
     -----------
-    accept only an immutable tuple of PlaceMarking owners.
+    ``CpnMarking`` preserves the exact accepted state for its
+    ``fields`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: accept only an immutable tuple of
-    PlaceMarking owners. Empty complete synthetic state is the valid fixture; declared
-    tuple/item types are the oracle. Acceptance admits the tuple and rejects mutable or
-    foreign items with ``TypeError``. Failure permits an unstable marking container.
+    Construct the public SUT and inspect retained exact public outcomes.
 
     Oracle
     ------
-    The documented public rule that the SUT must accept only an immutable tuple of
-    PlaceMarking owners is the contract oracle; fixed synthetic values, Python exact
-    type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact state oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact state assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this accepted-state partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     assert SUT(1, "m", 0, ()).places == ()
+
+
+def test_constructor__fields__rejects_invalid_52() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-140
+
+    Requirement
+    -----------
+    ``CpnMarking`` rejects the documented invalid state for its
+    ``fields`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(TypeError):
         SUT(1, "m", 0, [])  # type: ignore[arg-type]
     with pytest.raises(TypeError):

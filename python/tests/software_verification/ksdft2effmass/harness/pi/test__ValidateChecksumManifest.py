@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ValidateChecksumManifest``.
+
+Facet and represented meaning
 Software verification of the public ``ValidateChecksumManifest`` surface; no physical
 model, mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``ValidateChecksumManifest``.  Accepted H1 field/wire contracts
 and read-only H3 fixtures are independent exact oracles.
 
@@ -13,6 +15,8 @@ conformance are excluded.
 """
 
 from __future__ import annotations
+
+from pathlib import Path
 
 import pytest
 
@@ -47,7 +51,9 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
-def test_method__execute_valid_and_invalid__returns_exact_partition(tmp_path) -> None:
+def test_method__execute_valid_and_invalid__returns_exact_partition(
+    tmp_path: Path,
+) -> None:
     """Evidence ID
     SV-HARNESS-058
     Requirement

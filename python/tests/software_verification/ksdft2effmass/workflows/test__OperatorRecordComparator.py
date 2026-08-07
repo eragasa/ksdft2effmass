@@ -1,6 +1,9 @@
-r"""Software-verification evidence for ``OperatorRecordComparator`` Workflow.
+r"""Software verification of ``OperatorRecordComparator``.
 
-System under test and evidence class
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the OperatorRecordComparator facet. System under test
+and evidence class
 ------------------------------------
 The system under test is the genuine concrete production Workflow
 ``OperatorRecordComparator``. This cohesive module provides software-verification
@@ -45,6 +48,22 @@ Passing this module does not establish independent norm accuracy, basis or gauge
 alignment, common physical-system identity, scientific residual acceptability,
 reduced-Hamiltonian validity, or quantified uncertainty. Scientific validation
 and uncertainty quantification have not been performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordComparator``; collaborators only construct
+inputs or expose public outcomes. Accepted public contracts, literal expected
+values, Python language semantics, and assigned schema or fixture artifacts provide
+the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 import warnings
@@ -73,6 +92,8 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordComparator
+
 # Fixed linearly independent row lattice vectors provide a nonsingular synthetic
 # geometry without introducing geometry transformation or comparison policy.
 VALID_CELL: tuple[tuple[float, float, float], ...] = (
@@ -88,33 +109,29 @@ def make_record(
     identifier: str,
     energy_unit: str = "eV",
 ) -> OperatorRecord:
-    """Construct one synthetic finite operator record without test-side coercion.
-
-    Parameters
-    ----------
-    matrix
-        Exact caller-prepared ``numpy.ndarray`` with ``complex128`` dtype. The
-        helper does not coerce lists, array subclasses, dtype, rank, or shape.
-    identifier
-        Identity-specific label used deliberately in record, state-space, basis,
-        geometry, and provenance metadata that compatibility ignores.
-    energy_unit
-        Deterministic matrix-energy metadata, ``eV`` by default. Override is used
-        only to create the focused incompatibility case.
-
-    Returns
-    -------
-    OperatorRecord
-        Synthetic record whose state-space dimension and ordered basis labels are
-        derived directly from ``matrix.shape[0]``. Records made with equal matrix
-        dimensions and default arguments are representation-compatible despite
-        their identity-specific metadata.
-
-    Notes
-    -----
-    ``VALID_CELL`` supplies fixed nonsingular synthetic geometry. The record is
-    not DFT, Wannier, impurity, or experimental data and establishes no physical
-    or scientific validity.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
+    Requirement
+    Differencer and comparator cases require independently valid synthetic records with
+    controlled identifiers, matrices, and energy units.
+    Method
+    Construct or inspect only the named synthetic fixture operation (make record); the
+    helper owns no assertion result and introduces no hidden oracle.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
+    Acceptance
+    The helper returns exactly the requested fixture value or applies only the
+    documented comparison; all pass/fail assertions remain in the owning test.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     dimension = matrix.shape[0]
@@ -137,17 +154,32 @@ def make_record(
     )
 
 
-def test_construct_default_workflow_dependencies() -> None:
-    """SV-ORC-001: construct the two documented default dependencies.
-
-    Requirement and method
-        Construct the Workflow without arguments and inspect its public fields.
+def test_workflow__construct_default_workflow_dependencies__composes_exactly() -> None:
+    r"""Evidence ID
+    SV-ORC-001
+    Requirement
+    OperatorRecordComparator has this explicit differencer-then-analyzer Workflow
+    property: construct default workflow dependencies: composes exactly.
+    Method
+    Construct the declared public dependencies and records for construct default
+    workflow dependencies: composes exactly, execute the Workflow, and compare it with
+    explicit differencer-then-analyzer composition.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
     Acceptance
-        ``differencer`` and ``residual_analyzer`` are instances of their exact
-        documented concrete public dependency types.
-    Interpretation and limitations
-        Passing verifies default dependency construction only and does not retest
-        either dependency's internal behavior.
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     comparator = OperatorRecordComparator()
@@ -156,17 +188,32 @@ def test_construct_default_workflow_dependencies() -> None:
     assert isinstance(comparator.residual_analyzer, OperatorRecordResidualAnalyzer)
 
 
-def test_retain_explicitly_injected_dependencies() -> None:
-    """SV-ORC-002: retain explicitly injected dependency identities.
-
-    Requirement and method
-        Inject concrete public differencer and residual-analyzer instances.
+def test_workflow__retain_explicitly_injected_dependencies__composes_exactly() -> None:
+    r"""Evidence ID
+    SV-ORC-002
+    Requirement
+    OperatorRecordComparator has this explicit differencer-then-analyzer Workflow
+    property: retain explicitly injected dependencies: composes exactly.
+    Method
+    Construct the declared public dependencies and records for retain explicitly
+    injected dependencies: composes exactly, execute the Workflow, and compare it with
+    explicit differencer-then-analyzer composition.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
     Acceptance
-        Workflow fields are identical to the supplied objects, demonstrating no
-        hidden replacement.
-    Interpretation and limitations
-        Passing verifies explicit composition, not abstract substitution or
-        lower-layer algorithms.
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     differencer = OperatorRecordDifferencer()
@@ -178,20 +225,31 @@ def test_retain_explicitly_injected_dependencies() -> None:
     assert comparator.residual_analyzer is residual_analyzer
 
 
-def test_reproduce_explicit_public_composition() -> None:
-    """SV-ORC-003: reproduce differencer-then-analyzer composition exactly.
-
+def test_workflow__reproduce_explicit_public_composition__composes_exactly() -> None:
+    r"""Evidence ID
+    SV-ORC-003
     Requirement
-        Workflow execution is equivalent to explicit execution of its approved
-        lower-layer public ActionObjects in sequence.
+    Workflow execution is equivalent to explicit execution of its approved lower-layer
+    public ActionObjects in sequence.
     Method
-        Compute a difference, analyze it explicitly, then execute the Workflow
-        with the same dependency instances and records.
+    Compute a difference, analyze it explicitly, then execute the Workflow with the same
+    dependency instances and records.
+    Oracle
+    The accepted public contract, fixed literal expectations, public artifacts, and
+    Python language semantics determine the result independently of production private
+    helpers.
     Acceptance
-        Results compare exactly equal and preserve reference/candidate roles.
-    Interpretation and limitations
-        This is a composition oracle, not an independent numerical oracle. Norm
-        accuracy remains owned by ``NV-ORA-001`` through ``NV-ORA-017``.
+    Results compare exactly equal and preserve reference/candidate roles. interpretation
+    and limitations This is a composition oracle, not an independent numerical oracle.
+    Norm accuracy remains owned by ``the owning evidence`` through ``the owning
+    evidence``.
+    Interpretation
+    A pass supports only this requirement; a failure may identify an implementation,
+    fixture, oracle, environment, or accepted-contract defect and requires diagnosis
+    rather than weakened expectations.
+    Limitations
+    This synthetic software evidence does not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
     reference = make_record(
@@ -220,27 +278,42 @@ def test_reproduce_explicit_public_composition() -> None:
         pytest.param(
             "differencer",
             "differencer must be an OperatorRecordDifferencer",
-            id="SV-ORC-004-invalid-differencer",
+            id="invalid_differencer",
         ),
         pytest.param(
             "residual_analyzer",
             "residual_analyzer must be an OperatorRecordResidualAnalyzer",
-            id="SV-ORC-004-invalid-residual-analyzer",
+            id="invalid_residual_analyzer",
         ),
     ],
 )
-def test_reject_invalid_workflow_dependencies(
+def test_workflow__reject_invalid_workflow_dependencies__composes_exactly(
     field_name: str, expected_message: str
 ) -> None:
-    """SV-ORC-004: reject each invalid concrete dependency independently.
-
-    Requirement and method
-        Supply a plain object to one public dependency field per collected case.
+    r"""Evidence ID
+    SV-ORC-004
+    Requirement
+    OperatorRecordComparator has this explicit differencer-then-analyzer Workflow
+    property: reject invalid workflow dependencies: composes exactly.
+    Method
+    Construct the declared public dependencies and records for reject invalid workflow
+    dependencies: composes exactly, execute the Workflow, and compare it with explicit
+    differencer-then-analyzer composition.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
     Acceptance
-        The exact field-specific ``TypeError`` diagnostic is raised.
-    Interpretation and limitations
-        Passing verifies concrete dependency validation only; mocks, private
-        fields, and abstract interfaces are outside this Workflow contract.
+    The named partition raises exactly TypeError with the asserted public message, code,
+    or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     kwargs = {field_name: cast(Any, object())}
@@ -250,20 +323,32 @@ def test_reject_invalid_workflow_dependencies(
     assert str(exc_info.value) == expected_message
 
 
-def test_propagate_structured_incompatibility() -> None:
-    """SV-ORC-005: propagate exact energy-unit incompatibility evidence.
-
+def test_workflow__propagate_structured_incompatibility__composes_exactly() -> None:
+    r"""Evidence ID
+    SV-ORC-005
     Requirement
-        The Workflow neither replaces nor reinterprets the differencer's public
-        compatibility result.
+    OperatorRecordComparator has this explicit differencer-then-analyzer Workflow
+    property: propagate structured incompatibility: composes exactly.
     Method
-        Execute records differing only in energy unit.
+    Construct the declared public dependencies and records for propagate structured
+    incompatibility: composes exactly, execute the Workflow, and compare it with
+    explicit differencer-then-analyzer composition.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
     Acceptance
-        The propagated error retains both identifiers, false compatibility, and
-        exactly ``ENERGY_UNIT_MISMATCH``.
-    Interpretation and limitations
-        Passing verifies one representative propagation path. Complete rule
-        coverage belongs to ``OperatorRecordCompatibilityAnalyzer`` tests.
+    The named partition raises exactly IncompatibleOperatorRecordsError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     reference = make_record(
@@ -289,21 +374,32 @@ def test_propagate_structured_incompatibility() -> None:
     )
 
 
-def test_propagate_represented_difference_numerical_failure() -> None:
-    """SV-ORC-006: propagate structured nonfinite-difference failure.
-
+def test_workflow__propagate_represented_difference__composes_exactly() -> None:
+    r"""Evidence ID
+    SV-ORC-006
     Requirement
-        Subtraction overflow propagates unchanged as
-        ``OperatorRecordDifferenceNumericalError`` with ``NONFINITE_DIFFERENCE``.
+    OperatorRecordComparator has this explicit differencer-then-analyzer Workflow
+    property: propagate represented difference: composes exactly.
     Method
-        Execute ``candidate - reference`` for ``+1e308 - (-1e308)`` while
-        promoting raw ``RuntimeWarning`` to an error at the Workflow boundary.
+    Construct the declared public dependencies and records for propagate represented
+    difference: composes exactly, execute the Workflow, and compare it with explicit
+    differencer-then-analyzer composition.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
     Acceptance
-        Only the exact public exception and enum code are observed; no warning
-        escapes.
-    Interpretation and limitations
-        Passing verifies Workflow propagation. Subtraction behavior is owned and
-        independently tested by ``OperatorRecordDifferencer``.
+    The named partition raises exactly OperatorRecordDifferenceNumericalError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     reference = make_record(
@@ -324,22 +420,34 @@ def test_propagate_represented_difference_numerical_failure() -> None:
     )
 
 
-def test_propagate_residual_analysis_numerical_failure(
+def test_workflow__propagate_residual_analysis_numerical__composes_exactly(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """SV-ORC-007: propagate structured residual backend failure unchanged.
-
+    r"""Evidence ID
+    SV-ORC-007
     Requirement
-        A lower-layer residual failure reaches the caller with
-        ``LINEAR_ALGEBRA_FAILURE``.
+    OperatorRecordComparator has this explicit differencer-then-analyzer Workflow
+    property: propagate residual analysis numerical: composes exactly.
     Method
-        Replace ``numpy.linalg.svd`` because deterministic ``LinAlgError`` cannot
-        be induced reliably from the small valid public matrix.
+    Construct the declared public dependencies and records for propagate residual
+    analysis numerical: composes exactly, execute the Workflow, and compare it with
+    explicit differencer-then-analyzer composition.
+    Oracle
+    Explicit public composition of a separately constructed OperatorRecordDifferencer
+    and OperatorRecordResidualAnalyzer fixes the expected Workflow result and propagated
+    errors.
     Acceptance
-        The propagated public comparison numerical error carries the exact enum.
-    Interpretation and limitations
-        This verifies Workflow propagation only and does not verify SVD accuracy
-        or duplicate the residual analyzer's complete fault-translation suite.
+    The named partition raises exactly OperatorRecordComparisonNumericalError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     reference = make_record(
@@ -350,7 +458,7 @@ def test_propagate_residual_analysis_numerical_failure(
     )
 
     def fail_svd(*_args: object, **_kwargs: object) -> npt.NDArray[np.float64]:
-        """Make controlled ``numpy.linalg.svd`` raise synthetic ``LinAlgError``.
+        r"""Make controlled ``numpy.linalg.svd`` raise synthetic ``LinAlgError``.
 
         The controlled dependency cannot be failed reliably by the small valid
         input. This injection verifies propagation of the structured public

@@ -29,6 +29,14 @@ from ksdft2effmass.provenance import (
 SUT = ArtifactIdentityVerificationResult
 pytestmark = pytest.mark.software_verification
 
+EQUALITY_FIELDS = (
+    "artifact_id",
+    "expected_sha256",
+    "observed_sha256",
+    "expected_size_bytes",
+    "observed_size_bytes",
+)
+
 
 def test_constructor__verification_fields__maps_exact_values() -> None:
     """Evidence ID

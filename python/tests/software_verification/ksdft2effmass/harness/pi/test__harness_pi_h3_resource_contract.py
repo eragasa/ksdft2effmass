@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of harness pi h3 resource contract.
+
+Facet and represented meaning
 Software verification of Python/H3 schema, fixture, and canonical-byte agreement; no
 physical model, mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The primary owner is the accepted H3 resource contract. Accepted schemas, fixtures, and
 canonical vectors are read-only independent oracles for the public Python wire actions.
 
@@ -17,6 +19,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
@@ -58,7 +61,8 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     index_path = ROOT / "harness/pi/fixtures/canonical/canonical-json-vectors.json"
     vectors = json.loads(index_path.read_text(encoding="utf-8"))["vectors"]
     assert len(vectors) == 17
-    for vector in vectors:
+
+    def exercise_vector_case_63_8(vector: Any) -> Any:
         payload = (
             (index_path.parent / vector["instance_path"]).read_bytes()
             if "instance_path" in vector
@@ -80,6 +84,8 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
         assert hashlib.sha256(expected).hexdigest() == vector["canonical_sha256"]
         assert encoded.content_identity is not None
         assert encoded.content_identity.digest == vector["canonical_sha256"]
+
+    _ = [exercise_vector_case_63_8(vector) for vector in (vectors)]
 
 
 def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> None:
@@ -118,10 +124,12 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
         path.stem.removesuffix(".schema"): json.loads(path.read_text())
         for path in (ROOT / "harness/pi/schemas/records").glob("*.schema.json")
     }
-    for stem in stems:
+
+    def exercise_stem_case_123_7(stem: Any) -> Any:
         schema = schemas[stem]
-        valid = json.loads(Path(f"harness/pi/fixtures/valid/{stem}.json").read_text())
-        invalid_path = Path(f"harness/pi/fixtures/invalid/schema/{stem}.json")
+        valid_path = ROOT / f"harness/pi/fixtures/valid/{stem}.json"
+        valid = json.loads(valid_path.read_text())
+        invalid_path = ROOT / f"harness/pi/fixtures/invalid/schema/{stem}.json"
         invalid = json.loads(invalid_path.read_text())
         validator = Draft202012Validator(schema, registry=registry)
         assert not list(validator.iter_errors(valid)), stem
@@ -129,13 +137,15 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
         kind = WireRecordKind("".join(part.title() for part in stem.split("-")))
         assert (
             DeserializeJsonRecord()
-            .execute(kind, Path(f"harness/pi/fixtures/valid/{stem}.json").read_bytes())
+            .execute(kind, valid_path.read_bytes())
             .validation.status
             == "PASS"
         )
         rejected = DeserializeJsonRecord().execute(kind, invalid_path.read_bytes())
         assert rejected.validation.status == "FAIL"
         assert rejected.record is None
+
+    _ = [exercise_stem_case_123_7(stem) for stem in (stems)]
 
 
 def test_artifact__diagnostic_path_corpus__matches_python_construction() -> None:
@@ -164,22 +174,28 @@ def test_artifact__diagnostic_path_corpus__matches_python_construction() -> None
     corpus = json.loads(
         (ROOT / "harness/pi/fixtures/diagnostic-path/oracle-index.json").read_text()
     )
-    for case in corpus["valid"]:
+
+    def exercise_case_case_169_6(case: Any) -> Any:
         issue = ValidationIssue(
             1, "PIH.PATH.MISSING", "ERROR", None, case["path"], (), "x"
         )
         assert issue.path == case["path"]
-    for case in corpus["invalid"]:
+
+    _ = [exercise_case_case_169_6(case) for case in (corpus["valid"])]
+
+    def exercise_case_case_174_5(case: Any) -> Any:
         path = case.get("path")
         if path is None:
             path = case["path_escaped"].encode().decode("unicode_escape")
-        with pytest.raises(ValueError, match=case["expected"].replace(".", r"\.")):
+        with pytest.raises(ValueError, match=case["expected"].replace(".", "\\.")):
             ValidationIssue(1, "PIH.PATH.MISSING", "ERROR", None, path, (), "x")
 
+    _ = [exercise_case_case_174_5(case) for case in (corpus["invalid"])]
 
-def _decode_case_record(kind: WireRecordKind, value: object) -> object:
+
+def decode_public_case_record(kind: WireRecordKind, value: object) -> object:
     """Evidence ID
-    Supports SV-HARNESS-046 and SV-HARNESS-047; owns no separate identifier.
+    Owns no identifier; supports SV-HARNESS-036.
     Requirement
     Case records must be constructed only through the public wire boundary.
     Method
@@ -234,21 +250,30 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
     base = ROOT / "harness/pi/fixtures/resource-resolution"
     index = json.loads((base / "oracle-index.json").read_text())
     assert len(index["cases"]) == 19
-    for oracle in index["cases"]:
+
+    def exercise_oracle_case_239_4(oracle: Any) -> Any:
         case = json.loads((base / "cases" / f"{oracle['case_id']}.json").read_text())
         work = tmp_path / oracle["case_id"]
         shutil.copytree(base / "roots", work)
         setup = case.get("temporary_tree_setup", {})
-        for operation in setup.get("operations", []):
+
+        def exercise_operation_case_244_3(operation: Any) -> Any:
             link = work / operation["path"]
             link.symlink_to(
                 operation["target"],
                 target_is_directory=operation["target_is_directory"],
             )
-        generic = _decode_case_record(
+
+        _ = [
+            exercise_operation_case_244_3(operation)
+            for operation in setup.get("operations", [])
+        ]
+        generic = decode_public_case_record(
             WireRecordKind.ResourceManifest, case["generic_manifest"]
         )
-        profile = _decode_case_record(WireRecordKind.ProjectProfile, case["profile"])
+        profile = decode_public_case_record(
+            WireRecordKind.ProjectProfile, case["profile"]
+        )
         assert isinstance(generic, ResourceManifest)
         assert isinstance(profile, ProjectProfile)
         generic_serialized = SerializeJsonRecord().execute(generic)
@@ -256,7 +281,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
         assert generic_identity is not None
         local_data = case["local_manifest"]
         local = (
-            _decode_case_record(WireRecordKind.ResourceManifest, local_data)
+            decode_public_case_record(WireRecordKind.ResourceManifest, local_data)
             if local_data is not None
             else None
         )
@@ -273,7 +298,10 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
             if local is not None:
                 assert local_serialized is not None
                 candidates.append((local, local_serialized))
-            for candidate, serialized in candidates:
+
+            def exercise_candidate_and_serialized_case_278_2(
+                candidate: Any, serialized: Any
+            ) -> Any:
                 assert serialized.validation.status == "PASS"
                 assert serialized.payload is not None
                 round_trip = DeserializeJsonRecord().execute(
@@ -298,26 +326,25 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
                     for resource in candidate.resources
                     for dependency_id in resource.dependency_ids
                 )
+
+            _ = [
+                exercise_candidate_and_serialized_case_278_2(candidate, serialized)
+                for candidate, serialized in candidates
+            ]
             validation = ValidateResourceManifest().execute(
-                generic,
-                generic_identity,
-                local,
-                local_identity,
-                profile,
+                generic, generic_identity, local, local_identity, profile
             )
             assert validation.status == expected["status"], oracle["case_id"]
             assert expected["issue_code"] in {issue.code for issue in validation.issues}
-            continue
+            return
         result = ResolveResource().execute(
             case["resource_id"],
             work / case["generic_root"].removeprefix("roots/"),
             generic,
             generic_identity,
-            (
-                work / case["local_root"].removeprefix("roots/")
-                if case["local_root"] is not None
-                else None
-            ),
+            work / case["local_root"].removeprefix("roots/")
+            if case["local_root"] is not None
+            else None,
             local,
             local_identity,
             profile,
@@ -337,6 +364,8 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
                 .as_posix()
                 .endswith(oracle["selected_relative_path"])
             )
+
+    _ = [exercise_oracle_case_239_4(oracle) for oracle in (index["cases"])]
 
 
 def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
@@ -360,12 +389,13 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
     index = json.loads((base / "oracle-index.json").read_text())
     assert len(index["cases"]) == 7
     seen = set()
-    for case in index["cases"]:
+
+    def exercise_case_case_365_1(case: Any) -> Any:
         seen.add(case["case_id"])
         payload = (base / case["instance_path"]).read_bytes()
         expectation = case["semantic_validator_expectation"]
         if expectation["stage"] == "not_run":
-            continue
+            return
         result = DeserializeJsonRecord().execute(
             WireRecordKind(case["record_kind"]), payload
         )
@@ -378,4 +408,6 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
             assert [issue.code for issue in result.validation.issues] == [
                 expectation["issue_code"]
             ]
+
+    _ = [exercise_case_case_365_1(case) for case in (index["cases"])]
     assert len(seen) == 7

@@ -1,4 +1,4 @@
-r"""Software verification of the provenance static import-dependency artifact.
+r"""Software verification of import dependency direction.
 
 Facet and represented meaning
 -----------------------------

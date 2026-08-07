@@ -1,6 +1,9 @@
-r"""Software verification of ``EnergyReference`` construction.
+r"""Software verification of ``EnergyReference``.
 
-Facet and represented DataObject
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the construction facet. Facet and represented
+DataObject
 --------------------------------
 This module owns public construction, exact stored-field mapping, exact
 zero-convention and unit-label preservation, numerical-offset exclusion, and
@@ -26,6 +29,21 @@ verification is not applicable. Synthetic labels are not supplied by DFT,
 Wannier, experiment, or an impurity calculation. No physical interpretation,
 scientific validation, uncertainty quantification, or Rust conformance is
 performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``EnergyReference``; collaborators only construct inputs or
+expose public outcomes. Accepted public contracts, literal expected values, Python
+language semantics, and assigned schema or fixture artifacts provide the oracles. No
+runtime warning is accepted unless a test explicitly states otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from dataclasses import fields
@@ -37,59 +55,58 @@ from ksdft2effmass.operators import EnergyReference
 
 pytestmark = pytest.mark.software_verification
 
+SUT = EnergyReference
+
 
 class SyntheticString(str):
-    """Provide a synthetic ``str`` subclass for preservation evidence.
+    r"""Provide a synthetic ``str`` subclass for preservation evidence.
 
     Evidence ID
-        Supporting fixture type for ``SV-ER-002`` and ``SV-ER-003``; it owns no
-        separate executable evidence identifier.
+    Supporting fixture type for ``SV-ER-002`` and ``SV-ER-003``; it owns no
+    separate executable evidence identifier.
     Requirement
-        The public constructor accepts Python ``str`` instances and performs no
-        canonicalization of accepted textual metadata.
+    The public constructor accepts Python ``str`` instances and performs no
+    canonicalization of accepted textual metadata.
     Method
-        Create researcher-authored metadata whose string subtype remains
-        observable after construction.
+    Create researcher-authored metadata whose string subtype remains
+    observable after construction.
     Oracle
-        The approved exact-pass-through contract requires the supplied string
-        object and its content to remain unchanged.
+    The approved exact-pass-through contract requires the supplied string
+    object and its content to remain unchanged.
     Acceptance
-        Owning tests observe the same object and exact textual value.
+    Owning tests observe the same object and exact textual value.
     Interpretation
-        This type supports detection of otherwise invisible string coercion.
+    This type supports detection of otherwise invisible string coercion.
     Limitations
-        Instances contain synthetic metadata and are passed through unchanged;
-        the type performs no normalization or conversion. No DFT, Wannier,
-        experimental, or impurity calculation supplies the values, and
-        construction establishes no physical or scientific validity, scientific
-        validation, uncertainty quantification, or Rust conformance.
+    Instances contain synthetic metadata and are passed through unchanged;
+    the type performs no normalization or conversion. No DFT, Wannier,
+    experimental, or impurity calculation supplies the values, and
+    construction establishes no physical or scientific validity, scientific
+    validation, uncertainty quantification, or Rust conformance.
     """
 
 
-def test_public_construction_and_exact_stored_field_mapping() -> None:
-    """SV-ER-001: verify public construction and exact field roles.
-
-    Evidence ID
-        ``SV-ER-001``.
+def test_constructor__public_fields_are_mapped_exactly__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ER-001
     Requirement
-        Public construction stores exactly ``zero`` and ``unit`` with the
-        supplied textual values in their distinct roles.
+    Public construction stores exactly ``zero`` and ``unit`` with the supplied textual
+    values in their distinct roles.
     Method
-        Construct through the supported public import and inspect public
-        dataclass fields and values.
+    Construct through the supported public import and inspect public dataclass fields
+    and values.
     Oracle
-        The approved two-field DataObject contract defines the field names,
-        ordering, meanings, and exact supplied values.
+    The approved two-field DataObject contract defines the field names, ordering,
+    meanings, and exact supplied values.
     Acceptance
-        The public stored fields are exactly ``("zero", "unit")`` and both
-        values equal their corresponding inputs without preprocessing.
+    The public stored fields are exactly ``("zero", "unit")`` and both values equal
+    their corresponding inputs without preprocessing.
     Interpretation
-        Passing establishes exact constructor-to-field mapping for synthetic
-        metadata.
+    Passing establishes exact constructor-to-field mapping for synthetic metadata.
     Limitations
-        It does not interpret the zero convention or unit, establish record
-        compatibility, test nested JSON, perform scientific validation or UQ,
-        or establish Rust conformance.
+    It does not interpret the zero convention or unit, establish record compatibility,
+    test nested JSON, perform scientific validation or UQ, or establish Rust
+    conformance.
     """
 
     reference = EnergyReference("valence-band maximum", "eV")
@@ -102,40 +119,35 @@ def test_public_construction_and_exact_stored_field_mapping() -> None:
 @pytest.mark.parametrize(
     "zero",
     [
-        pytest.param("explicit zero", id="SV-ER-002-spaces"),
-        pytest.param("valence-band maximum", id="SV-ER-002-hyphenation"),
-        pytest.param("Valence-Band Maximum", id="SV-ER-002-case"),
-        pytest.param("vacuum level (synthetic)", id="SV-ER-002-punctuation"),
-        pytest.param("   ", id="SV-ER-002-whitespace-only"),
-        pytest.param(
-            SyntheticString("synthetic zero"),
-            id="SV-ER-002-string-subclass",
-        ),
+        pytest.param("explicit zero", id="sv_er_002_spaces"),
+        pytest.param("valence-band maximum", id="sv_er_002_hyphenation"),
+        pytest.param("Valence-Band Maximum", id="case"),
+        pytest.param("vacuum level (synthetic)", id="sv_er_002_punctuation"),
+        pytest.param("   ", id="sv_er_002_whitespace_only"),
+        pytest.param(SyntheticString("synthetic zero"), id="sv_er_002_string_subclass"),
     ],
 )
-def test_zero_convention_strings_are_preserved_exactly(zero: str) -> None:
-    """SV-ER-002: preserve representative zero labels exactly.
-
-    Evidence ID
-        ``SV-ER-002``; stable parameter IDs identify the represented character
-        distinction.
+def test_field__represented__zero_convention_strings_are_preserved_exactly(
+    zero: str,
+) -> None:
+    r"""Evidence ID
+    SV-ER-002
     Requirement
-        Nonempty zero-convention strings retain case, spaces, punctuation, and
-        hyphenation without normalization or interpretation.
+    Nonempty zero-convention strings retain case, spaces, punctuation, and hyphenation
+    without normalization or interpretation.
     Method
-        Construct independently with each synthetic label and a fixed valid
-        unit, passing the string directly to the public constructor.
+    Construct independently with each synthetic label and a fixed valid unit, passing
+    the string directly to the public constructor.
     Oracle
-        Exact Python string equality with the independently supplied input is
-        the approved preservation oracle.
+    Exact Python string equality with the independently supplied input is the approved
+    preservation oracle.
     Acceptance
-        ``reference.zero == zero`` for every case.
+    ``reference.zero == zero`` for every case.
     Interpretation
-        Passing establishes literal metadata preservation for these examples.
+    Passing establishes literal metadata preservation for these examples.
     Limitations
-        It does not decide whether any label is physically meaningful, compare
-        references, perform scientific validation or UQ, or establish Rust
-        conformance.
+    It does not decide whether any label is physically meaningful, compare references,
+    perform scientific validation or UQ, or establish Rust conformance.
     """
 
     reference = EnergyReference(zero, "eV")
@@ -147,35 +159,34 @@ def test_zero_convention_strings_are_preserved_exactly(zero: str) -> None:
 @pytest.mark.parametrize(
     "unit",
     [
-        pytest.param("eV", id="SV-ER-003-eV"),
-        pytest.param("EV", id="SV-ER-003-EV"),
-        pytest.param("hartree", id="SV-ER-003-hartree"),
-        pytest.param("Ha", id="SV-ER-003-Ha"),
-        pytest.param("   ", id="SV-ER-003-whitespace-only"),
-        pytest.param(SyntheticString("Ry"), id="SV-ER-003-string-subclass"),
+        pytest.param("eV", id="sv_er_003_ev"),
+        pytest.param("EV", id="sv_er_003_ev"),
+        pytest.param("hartree", id="sv_er_003_hartree"),
+        pytest.param("Ha", id="sv_er_003_ha"),
+        pytest.param("   ", id="sv_er_003_whitespace_only"),
+        pytest.param(SyntheticString("Ry"), id="sv_er_003_string_subclass"),
     ],
 )
-def test_energy_unit_strings_are_preserved_exactly(unit: str) -> None:
-    """SV-ER-003: preserve representative energy-unit labels exactly.
-
-    Evidence ID
-        ``SV-ER-003``; stable parameter IDs retain case-sensitive spellings.
+def test_field__energy_unit_strings_are_preserved_exactly__is_exact(
+    unit: str,
+) -> None:
+    r"""Evidence ID
+    SV-ER-003
     Requirement
-        Nonempty unit strings are stored literally without registry lookup,
-        alias resolution, normalization, dimensional analysis, or conversion.
+    Nonempty unit strings are stored literally without registry lookup, alias
+    resolution, normalization, dimensional analysis, or conversion.
     Method
-        Construct independently with each synthetic label and compare it with
-        the directly supplied input.
+    Construct independently with each synthetic label and compare it with the directly
+    supplied input.
     Oracle
-        Exact Python string equality is the approved preservation oracle.
+    Exact Python string equality is the approved preservation oracle.
     Acceptance
-        ``reference.unit == unit`` for every case.
+    ``reference.unit == unit`` for every case.
     Interpretation
-        Passing establishes literal storage, including case distinctions.
+    Passing establishes literal storage, including case distinctions.
     Limitations
-        It does not recognize units, assert equivalence between labels, verify a
-        conversion factor, perform scientific validation or UQ, or establish
-        Rust conformance.
+    It does not recognize units, assert equivalence between labels, verify a conversion
+    factor, perform scientific validation or UQ, or establish Rust conformance.
     """
 
     reference = EnergyReference("explicit zero", unit)
@@ -184,76 +195,109 @@ def test_energy_unit_strings_are_preserved_exactly(unit: str) -> None:
     assert reference.unit is unit
 
 
-def test_numerical_offset_constructor_and_stored_state_are_excluded() -> None:
-    """SV-ER-004: exclude numerical-offset constructor and field state.
-
-    Evidence ID
-        ``SV-ER-004``.
+@pytest.mark.parametrize(
+    "keyword",
+    [
+        pytest.param("value", id="value_keyword"),
+        pytest.param("offset", id="offset_keyword"),
+        pytest.param("energy_offset", id="energy_offset_keyword"),
+        pytest.param("reference_energy", id="reference_energy_keyword"),
+    ],
+)
+def test_constructor__numerical_offset_keywords__are_rejected(keyword: str) -> None:
+    r"""Evidence ID
+    SV-ER-004
     Requirement
-        ``EnergyReference`` accepts exactly two constructor roles and stores no
-        numerical ``value``, ``offset``, ``energy_offset``, or
-        ``reference_energy`` field.
+    ``EnergyReference`` rejects each unapproved numerical-offset keyword role.
     Method
-        Deliberately call the public constructor with one additional positional
-        value and each specified offset keyword, using ``Any`` only at these
-        invalid boundaries; inspect a valid instance for forbidden attributes.
+    Call the public constructor through ``Any`` with one named finite offset.
     Oracle
-        The approved metadata-only contract contains no numerical offset.
+    The accepted constructor owns exactly ``zero`` and ``unit``.
     Acceptance
-        Every unsupported constructor call raises ``TypeError`` and a valid
-        instance exposes none of the forbidden stored attributes.
+    Every named case raises exactly ``TypeError``.
     Interpretation
-        Passing establishes exclusion from this public DataObject only.
+    A pass confirms closed keyword roles; failure indicates API or contract drift.
     Limitations
-        It does not duplicate malformed serializer-payload evidence, interpret
-        energy alignment, perform scientific validation or UQ, or establish
-        Rust conformance.
+    Positional arity, stored fields, validation, UQ, and Rust are excluded.
     """
-
-    constructor = cast(Any, EnergyReference)
     with pytest.raises(TypeError):
-        constructor("explicit zero", "eV", 0.0)
-    for keyword in ("value", "offset", "energy_offset", "reference_energy"):
-        with pytest.raises(TypeError):
-            constructor("explicit zero", "eV", **{keyword: 0.0})
-
-    reference = EnergyReference("explicit zero", "eV")
-    for attribute in ("value", "offset", "energy_offset", "reference_energy"):
-        assert not hasattr(reference, attribute)
+        cast(Any, EnergyReference)("explicit zero", "eV", **{keyword: 0.0})
 
 
-def test_energy_reference_has_no_standalone_serialization_api() -> None:
-    """SV-ER-005: verify standalone serialization exclusion.
-
-    Evidence ID
-        ``SV-ER-005``.
+def test_constructor__numerical_offset_positional_argument__is_rejected() -> None:
+    r"""Evidence ID
+    SV-ER-013
     Requirement
-        Neither instance nor class owns standalone serialization, JSON, or
-        dictionary conversion APIs.
+    ``EnergyReference`` rejects an unapproved third positional offset.
     Method
-        Inspect a valid instance and the public class for all six excluded
-        method names.
+    Call the public constructor through ``Any`` with an additional finite float.
     Oracle
-        ``OperatorRecordJsonSerializer`` exclusively owns the nested record JSON
-        representation; no independent ``EnergyReference`` wire format exists.
+    The accepted constructor has exactly two positional roles.
     Acceptance
-        Every excluded method is absent from both instance and class.
+    Exactly ``TypeError`` is raised.
     Interpretation
-        Passing establishes the current nested-only serialization boundary.
+    A pass confirms positional arity; failure indicates public API drift.
     Limitations
-        It does not test private serializer mechanics, record round trips,
-        pickling, scientific validation, UQ, or Rust conformance.
+    Keyword rejection, represented state, validation, UQ, and Rust are excluded.
+    """
+    with pytest.raises(TypeError):
+        cast(Any, EnergyReference)("explicit zero", "eV", 0.0)
+
+
+def test_field__numerical_offset_attributes__are_absent() -> None:
+    r"""Evidence ID
+    SV-ER-014
+    Requirement
+    A valid energy reference stores no numerical offset field under approved names.
+    Method
+    Inspect the public instance for the four explicitly excluded names.
+    Oracle
+    Accepted represented state contains only ``zero`` and ``unit``.
+    Acceptance
+    All four names are absent exactly.
+    Interpretation
+    A pass confirms represented-state exclusion; failure indicates API drift.
+    Limitations
+    Private state, scientific alignment, validation, UQ, and Rust are excluded.
+    """
+    reference = EnergyReference("explicit zero", "eV")
+    assert all(
+        not hasattr(reference, name)
+        for name in ("value", "offset", "energy_offset", "reference_energy")
+    )
+
+
+def test_public_api__serialization__is_absent() -> None:
+    r"""Evidence ID
+    SV-ER-005
+    Requirement
+    Neither instance nor class owns standalone serialization, JSON, or dictionary
+    conversion APIs.
+    Method
+    Inspect a valid instance and the public class for all six excluded method names.
+    Oracle
+    ``OperatorRecordJsonSerializer`` exclusively owns the nested record JSON
+    representation; no independent ``EnergyReference`` wire format exists.
+    Acceptance
+    Every excluded method is absent from both instance and class.
+    Interpretation
+    Passing establishes the current nested-only serialization boundary.
+    Limitations
+    It does not test private serializer mechanics, record round trips, pickling,
+    scientific validation, UQ, or Rust conformance.
     """
 
     reference = EnergyReference("explicit zero", "eV")
 
-    for method_name in (
-        "serialize",
-        "deserialize",
-        "to_json",
-        "from_json",
-        "to_dict",
-        "from_dict",
-    ):
-        assert not hasattr(reference, method_name)
-        assert not hasattr(EnergyReference, method_name)
+    assert all(
+        (not hasattr(reference, method_name))
+        and (not hasattr(EnergyReference, method_name))
+        for method_name in (
+            "serialize",
+            "deserialize",
+            "to_json",
+            "from_json",
+            "to_dict",
+            "from_dict",
+        )
+    )

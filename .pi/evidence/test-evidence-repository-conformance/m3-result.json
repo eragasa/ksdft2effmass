@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+  "milestone": "M3",
+  "attempt_id": "M3-attempt-1",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "status": "PARTIAL_REPOSITORY_MILESTONE_PASS",
+  "scope_counts": {
+    "modules": 59,
+    "class_owned_modules": 56,
+    "artifact_owned_modules": 3,
+    "software_verification_modules": 55,
+    "numerical_verification_modules": 4,
+    "support_modules": 1,
+    "test_functions": 346,
+    "unique_evidence_owners": 346,
+    "module_helpers": 56,
+    "support_helpers": 5,
+    "static_parameter_cases": 772,
+    "baseline_collected_nodes": 920,
+    "migrated_mapped_nodes": 920,
+    "new_split_nodes": 39,
+    "new_evidence_owners": 36,
+    "final_collected_nodes": 959
+  },
+  "repository_counts": {
+    "inventoried_modules": 182,
+    "conforming_after_m3": 135,
+    "remaining_not_yet_conforming": 47,
+    "expected_collected_nodes": 2568,
+    "actual_collected_nodes": 2568
+  },
+  "validation": {
+    "ownership_preflight": "PASS",
+    "focused_collection": "PASS: 959",
+    "focused_structural_and_migration_validation": "PASS: 59 modules, 0 findings, complete 920-node map",
+    "focused_pytest": "PASS: 959",
+    "focused_ruff_format": "PASS: 60 files",
+    "focused_ruff_check": "PASS: 60 files",
+    "focused_mypy": "PASS: 60 source files with --follow-untyped-imports",
+    "focused_strict_evidence_id_diagnostic": "PASS: 346 owners, 346 unique, 0 findings",
+    "generic_evidence_id_action": "FAIL DIAGNOSTIC: 59 false ID_INVALID findings caused by clean=False multiline indentation parser defect",
+    "repository_collection": "PASS: 2568",
+    "repository_gate_diagnostic": "EXPECTED FAIL: 47 TE.REPOSITORY_STATUS findings",
+    "operator_regression": "PASS: 959",
+    "full_pytest_diagnostic": "FAIL: 2539 passed, 27 failed, 2 environment errors; failures are outside M3 and include stale manifest identity, unrelated dirty/missing H4 resources, and missing pip",
+    "no_staged_files": true
+  },
+  "residual_risks": [
+    "The repository completion gate remains open for 47 serially later inventoried modules.",
+    "AuditEvidenceIdentifiers cannot parse indented multiline Evidence ID fields because it uses ast.get_docstring(clean=False); M3 records a separate diagnostic and did not mutate production or harness source.",
+    "Updating the authorized local profile invalidates retained harness manifest identities that M3 was not authorized to rewrite; broad harness tests therefore remain diagnostic failures.",
+    "The active virtual environment lacks pip, so two unrelated offline wheel tests error.",
+    "Passing M3 evidence does not establish physical correctness, scientific validation, UQ, Rust agreement, release readiness, or human acceptance."
+  ]
+}

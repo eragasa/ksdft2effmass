@@ -1,6 +1,9 @@
-"""Value-semantics evidence for ``OperatorRecordComparisonResult``.
+r"""Software verification of ``OperatorRecordComparisonResult``.
 
-System under test and evidence class
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the value semantics facet. System under test and
+evidence class
 ------------------------------------
 This software-verification module provides ``SV-ORCR-012`` and ``SV-ORCR-013``
 for operationally immutable slotted state and exact structural equality.
@@ -26,6 +29,22 @@ public contract, so this module deliberately adds no hash assertion and does not
 freeze incidental dataclass behavior into the API. Numerical verification is
 not applicable to direct ResultObject value semantics. Scientific validation and
 uncertainty quantification have not been performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordComparisonResult``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from dataclasses import FrozenInstanceError
@@ -35,6 +54,18 @@ import pytest
 from ksdft2effmass.operators import OperatorRecordComparisonResult
 
 pytestmark = pytest.mark.software_verification
+
+SUT = OperatorRecordComparisonResult
+
+EQUALITY_FIELDS = (
+    "reference_identifier",
+    "candidate_identifier",
+    "matrix_dimension",
+    "energy_unit",
+    "maximum_absolute_residual",
+    "frobenius_residual",
+    "spectral_residual",
+)
 
 
 def comparison_result(
@@ -47,12 +78,29 @@ def comparison_result(
     frobenius_residual: float = 4.0,
     spectral_residual: float = 3.0,
 ) -> OperatorRecordComparisonResult:
-    """Construct valid synthetic comparison state without test-side coercion.
-
-    Every argument maps directly to the same-named public field. Defaults satisfy
-    ``0 <= maximum <= spectral <= Frobenius`` and use deterministic synthetic
-    ``eV`` metadata. The helper performs no canonicalization and establishes no
-    physical meaning or scientific validity.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
+    Requirement
+    Comparison-result cases require a valid baseline whose public fields can be
+    overridden one partition at a time.
+    Method
+    Construct or inspect only the named synthetic fixture operation (comparison result);
+    the helper owns no assertion result and introduces no hidden oracle.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The helper returns exactly the requested fixture value or applies only the
+    documented comparison; all pass/fail assertions remain in the owning test.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     return OperatorRecordComparisonResult(
@@ -72,32 +120,41 @@ def comparison_result(
         pytest.param(
             "reference_identifier",
             "changed-reference",
-            id="SV-ORCR-012-identifying-field",
+            id="sv_orcr_012_identifying_field",
         ),
+        pytest.param("maximum_absolute_residual", 0.5, id="sv_orcr_012_metric_field"),
         pytest.param(
-            "maximum_absolute_residual",
-            0.5,
-            id="SV-ORCR-012-metric-field",
-        ),
-        pytest.param(
-            "undeclared_attribute",
-            "dynamic-state",
-            id="SV-ORCR-012-dynamic-attribute",
+            "undeclared_attribute", "dynamic-state", id="sv_orcr_012_dynamic_attribute"
         ),
     ],
 )
-def test_enforce_immutable_slotted_state(field_name: str, new_value: object) -> None:
-    """SV-ORCR-012: prevent field reassignment and dynamic state.
-
+def test_constructor__enforce_immutable_slotted_state__is_enforced(
+    field_name: str, new_value: object
+) -> None:
+    r"""Evidence ID
+    SV-ORCR-012
     Requirement
-        Public identifying and metric fields are immutable, and slotted state
-        excludes undeclared dynamic attributes.
-    Method and acceptance
-        Use normal public ``setattr`` syntax and require
-        ``FrozenInstanceError`` for each independently collected assignment.
-    Interpretation and limitations
-        Passing verifies ordinary public mutation resistance without inspecting
-        private dataclass machinery or asserting hash behavior.
+    Frozen slotted state rejects representative identity-field and metric-field
+    assignment as well as creation of an undeclared attribute.
+    Method
+    Construct valid baseline instances, change only the named enforce immutable slotted
+    state: is enforced partition, and observe constructor, field, equality, hash, or
+    public-API behavior as applicable.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The named partition raises exactly FrozenInstanceError with the asserted public
+    message, code, or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     result = comparison_result()
@@ -109,54 +166,55 @@ def test_enforce_immutable_slotted_state(field_name: str, new_value: object) -> 
 @pytest.mark.parametrize(
     ("field_name", "changed_value"),
     [
+        pytest.param("reference_identifier", "other-reference", id="reference_unequal"),
+        pytest.param("candidate_identifier", "other-candidate", id="candidate_unequal"),
+        pytest.param("matrix_dimension", 3, id="dimension_unequal"),
+        pytest.param("energy_unit", "Ry", id="unit_unequal"),
         pytest.param(
-            "reference_identifier",
-            "other-reference",
-            id="SV-ORCR-013-reference-unequal",
+            "maximum_absolute_residual", 2.0, id="maximum_unequal_valid_order"
         ),
-        pytest.param(
-            "candidate_identifier",
-            "other-candidate",
-            id="SV-ORCR-013-candidate-unequal",
-        ),
-        pytest.param("matrix_dimension", 3, id="SV-ORCR-013-dimension-unequal"),
-        pytest.param("energy_unit", "Ry", id="SV-ORCR-013-unit-unequal"),
-        pytest.param(
-            "maximum_absolute_residual",
-            2.0,
-            id="SV-ORCR-013-maximum-unequal-valid-order",
-        ),
-        pytest.param(
-            "spectral_residual",
-            3.5,
-            id="SV-ORCR-013-spectral-unequal-valid-order",
-        ),
-        pytest.param(
-            "frobenius_residual",
-            5.0,
-            id="SV-ORCR-013-frobenius-unequal-valid-order",
-        ),
+        pytest.param("spectral_residual", 3.5, id="valid_order"),
+        pytest.param("frobenius_residual", 5.0, id="valid_order"),
     ],
 )
-def test_provide_exact_structural_equality(
+def test_method__eq__provide_exact_structural_equality(
     field_name: str, changed_value: object
 ) -> None:
-    """SV-ORCR-013: compare every public field by exact stored value.
-
+    r"""Evidence ID
+    SV-ORCR-013
     Requirement
-        Independently constructed equal state compares equal; a valid change to
-        any one public field compares unequal; unrelated objects compare unequal
-        through normal equality syntax.
-    Method and acceptance
-        Compare two independent default objects, then one valid single-field
-        variant selected by the collected case. Metric variants preserve
-        ``maximum <= spectral <= Frobenius``.
-    Interpretation and limitations
-        Equality is exact structural equality, not approximate residual
-        comparison or physical operator equivalence. Hash behavior remains
-        intentionally unspecified.
+    OperatorRecordComparisonResult equality is exact over every declared public field
+    and distinguishes each field independently.
+    Method
+    Construct valid baseline instances, change only the named eq: provide exact
+    structural equality partition, and observe constructor, field, equality, hash, or
+    public-API behavior as applicable.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The equal baseline compares equal, every independently varied inventoried field
+    compares unequal, and comparison with an unrelated object is false.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
+    assert EQUALITY_FIELDS == (
+        "reference_identifier",
+        "candidate_identifier",
+        "matrix_dimension",
+        "energy_unit",
+        "maximum_absolute_residual",
+        "frobenius_residual",
+        "spectral_residual",
+    )
     first = comparison_result()
     second = comparison_result()
     changed = comparison_result(**{field_name: changed_value})  # type: ignore[arg-type]

@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of harness pi path confinement contract.
+
+Facet and represented meaning
 Software verification of lexical path roles, issue ordering, and explicit-root
 confinement; no physical, mathematical, or numerical object is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The primary owner is the H1 path-confinement artifact contract. Literal lexical examples
 and disposable filesystem topology provide independent oracles.
 

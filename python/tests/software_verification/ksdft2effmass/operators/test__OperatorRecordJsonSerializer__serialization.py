@@ -1,6 +1,9 @@
-"""OperatorRecordJsonSerializer encoding software verification.
+r"""Software verification of ``OperatorRecordJsonSerializer``.
 
-Object: serializer ``serialize`` behavior. Evidence class: software verification.
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the serialization facet. Object: serializer
+``serialize`` behavior. Evidence class: software verification.
 Requirement: deterministic sorted compact JSON with nine exact top-level fields,
 all eight record fields, and row-major ``[real, imaginary]`` complex entries.
 Strategy: serialize an independently constructed synthetic record and compare with
@@ -8,6 +11,22 @@ an independently assembled JSON object/text oracle. Acceptance is exact text and
 value equality. Passing is wire-encoding conformance, not scientific validation,
 uncertainty quantification, or Rust conformance; failure requires contract/source/
 evidence investigation.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordJsonSerializer``; collaborators only construct
+inputs or expose public outcomes. Accepted public contracts, literal expected
+values, Python language semantics, and assigned schema or fixture artifacts provide
+the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 import json
@@ -20,17 +39,35 @@ from ksdft2effmass.operators import OperatorRecordJsonSerializer
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordJsonSerializer
 
-def test_serialization_is_sorted_compact_and_deterministic() -> None:
-    """Evidence ID: SV-ORJS-004.
 
-    Requirement: equal records emit identical sorted compact JSON text. Method:
-    serialize twice and compare with independent ``json.dumps`` canonicalization.
-    Oracle: Python's standard JSON parser/dumper configured by the public contract.
-    Acceptance is exact string equality and absence of formatting whitespace.
-    Interpretation: failure indicates nondeterminism or formatting drift.
-    Limitations: parser correctness, scientific validation, UQ, and Rust conformance
-    are not established.
+def test_method__serialize__serialization_is_sorted_compact_and_deterministic() -> None:
+    r"""Evidence ID
+    SV-ORJS-004
+    Requirement
+    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    serialize: serialization is sorted compact and deterministic.
+    Method
+    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+    (serialize: serialization is sorted compact and deterministic); warnings and
+    coercive fallback behavior are not accepted.
+    Oracle
+    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+    DataObject constructor invariants determine the expected text, value, or exception
+    independently of serializer private methods.
+    Acceptance
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
     serializer = OperatorRecordJsonSerializer()
     text = serializer.serialize(make_record(provenance={"z": "last", "a": "first"}))
@@ -41,15 +78,34 @@ def test_serialization_is_sorted_compact_and_deterministic() -> None:
     assert "\n" not in text and ": " not in text and ", " not in text
 
 
-def test_serialization_emits_exact_nested_fields_and_values() -> None:
-    """Evidence ID: SV-ORJS-005.
-
-    Requirement: version one encodes every record field under fixed exact names.
-    Method: decode emitted text with the independent standard JSON parser and
-    compare every object to literal expected values. Oracle: approved field table.
-    Acceptance is exact key sets and metadata values. Interpretation: failure is a
-    schema mapping regression. Limitations: schema-validator behavior, scientific
-    validation, UQ, and Rust conformance are not tested.
+def test_method__serialize__serialization_emits_exact_nested_fields_and_values() -> (
+    None
+):
+    r"""Evidence ID
+    SV-ORJS-005
+    Requirement
+    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    serialize: serialization emits exact nested fields and values.
+    Method
+    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+    (serialize: serialization emits exact nested fields and values); warnings and
+    coercive fallback behavior are not accepted.
+    Oracle
+    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+    DataObject constructor invariants determine the expected text, value, or exception
+    independently of serializer private methods.
+    Acceptance
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
     payload = json.loads(OperatorRecordJsonSerializer().serialize(make_record()))
     assert set(payload) == {
@@ -88,15 +144,32 @@ def test_serialization_emits_exact_nested_fields_and_values() -> None:
     assert payload["provenance"] == {"source": "unit test"}
 
 
-def test_complex_matrix_encoding_is_row_major_pairs() -> None:
-    """Evidence ID: SV-ORJS-006.
-
-    Requirement: an N-by-N complex128 matrix maps by row to real/imaginary pairs.
-    Method: serialize a 2-by-2 synthetic non-Hermitian matrix with distinct entries.
-    Oracle: manually decomposed binary64 components in source row order. Acceptance
-    is exact nested-list equality. Interpretation: failure indicates ordering or
-    component-sign corruption. Limitations: no physical matrix meaning, scientific
-    validation, UQ, or Rust conformance is established.
+def test_field__complex_matrix_encoding_is_row_major_pairs__is_exact() -> None:
+    r"""Evidence ID
+    SV-ORJS-006
+    Requirement
+    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    complex matrix encoding is row major pairs: is exact.
+    Method
+    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+    (complex matrix encoding is row major pairs: is exact); warnings and coercive
+    fallback behavior are not accepted.
+    Oracle
+    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+    DataObject constructor invariants determine the expected text, value, or exception
+    independently of serializer private methods.
+    Acceptance
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
     matrix = np.array([[1 + 2j, -3 + 4j], [5 - 6j, -7 - 8j]], dtype=np.complex128)
     payload = json.loads(OperatorRecordJsonSerializer().serialize(make_record(matrix)))

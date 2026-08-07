@@ -1,5 +1,8 @@
-r"""Software verification for the residual-analysis numerical-error enum.
+r"""Software verification of ``OperatorRecordComparisonNumericalErrorCode``.
 
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the OperatorRecordComparisonNumericalErrorCode facet.
 System under test
 -----------------
 ``OperatorRecordComparisonNumericalErrorCode`` is the closed public numerical-
@@ -50,6 +53,22 @@ residual-norm accuracy, roundoff-allowance correctness, backend-independent SVD
 reliability, scientific acceptability, scientific validation, uncertainty
 quantification, Rust implementation, or Rust conformance. ``StrEnum`` behavior
 does not approve a serialized exception format.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordComparisonNumericalErrorCode``; collaborators
+only construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 import re
@@ -60,6 +79,8 @@ import pytest
 from ksdft2effmass.operators import OperatorRecordComparisonNumericalErrorCode
 
 pytestmark = pytest.mark.software_verification
+
+SUT = OperatorRecordComparisonNumericalErrorCode
 
 
 # This immutable literal is independent of production enum iteration so an
@@ -80,27 +101,27 @@ EXPECTED_MEMBERS = (
 )
 
 
-def test_exact_closed_member_sequence_and_stable_values() -> None:
-    """SV-ORCNEC-001: verify exact names, values, count, and order.
-
-    Evidence ID
-        ``SV-ORCNEC-001``.
+def test_field__exact_closed_member_sequence_and_stable_values__is_exact() -> None:
+    r"""Evidence ID
+    SV-ORCNEC-001
     Requirement
-        Public iteration contains exactly the three approved residual-error
-        members with their stable values in declaration order.
+    Public iteration contains exactly the three approved residual-error members with
+    their stable values in declaration order.
     Method
-        Compare public enum iteration with the independently written literal
-        ``EXPECTED_MEMBERS`` tuple.
+    Compare public enum iteration with the independently written literal
+    ``EXPECTED_MEMBERS`` tuple.
     Oracle
-        The approved closed enum contract is the literal ordered name/value
-        sequence, not a sequence generated from production members.
+    The approved closed enum contract is the literal ordered name/value sequence, not a
+    sequence generated from production members.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes exact count, names, values, order, and absence of
-        unapproved additional iterable members.
+    Passing establishes exact count, names, values, order, and absence of unapproved
+    additional iterable members.
     Limitations
-        This does not inspect source location or establish production emission,
-        numerical algorithms, scientific validation, uncertainty quantification,
-        or Rust conformance.
+    This does not inspect source location or establish production emission, numerical
+    algorithms, scientific validation, uncertainty quantification, or Rust conformance.
     """
 
     assert (
@@ -112,27 +133,27 @@ def test_exact_closed_member_sequence_and_stable_values() -> None:
     )
 
 
-def test_public_member_registry_contains_no_aliases() -> None:
-    """SV-ORCNEC-002: verify exact declared names and alias absence.
-
-    Evidence ID
-        ``SV-ORCNEC-002``.
+def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
+    r"""Evidence ID
+    SV-ORCNEC-002
     Requirement
-        The public Enum registry has exactly the three approved declaration-order
-        keys, each mapped to its corresponding public member, with no aliases.
+    The public Enum registry has exactly the three approved declaration-order keys, each
+    mapped to its corresponding public member, with no aliases.
     Method
-        Inspect documented ``Enum.__members__`` keys, values, and count and
-        compare its count with public iteration.
+    Inspect documented ``Enum.__members__`` keys, values, and count and compare its
+    count with public iteration.
     Oracle
-        The approved no-alias contract permits only the three literal public
-        names in ``EXPECTED_MEMBERS`` order.
+    The approved no-alias contract permits only the three literal public names in
+    ``EXPECTED_MEMBERS`` order.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing distinguishes three declared names, three iterable members, and
-        zero hidden aliases.
+    Passing distinguishes three declared names, three iterable members, and zero hidden
+    aliases.
     Limitations
-        No private Enum attributes, production analyzer behavior, numerical
-        verification, scientific validation, uncertainty quantification, or Rust
-        conformance are tested.
+    No private Enum attributes, production analyzer behavior, numerical verification,
+    scientific validation, uncertainty quantification, or Rust conformance are tested.
     """
 
     expected_names = (
@@ -157,36 +178,41 @@ def test_public_member_registry_contains_no_aliases() -> None:
     "code",
     [
         pytest.param(
-            code,
-            id=f"SV-ORCNEC-003-{code.value.replace('_', '-')}",
-        )
-        for code in tuple(OperatorRecordComparisonNumericalErrorCode)
+            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+            id="nonfinite_metric",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+            id="linear_algebra_failure",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+            id="metric_order_violation",
+        ),
     ],
 )
-def test_python_314_strenum_and_machine_readable_value_behavior(
+def test_field__represented_state__strenum_machine_value(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    """SV-ORCNEC-003: verify ``StrEnum`` and machine-string behavior.
-
-    Evidence ID
-        ``SV-ORCNEC-003``; parameter IDs derive from stable code values without
-        assigning additional evidence identifiers.
+    r"""Evidence ID
+    SV-ORCNEC-003
     Requirement
-        The enum subclasses Python 3.14 ``StrEnum`` and each member behaves as
-        its ASCII lowercase snake-case machine-readable value.
+    The enum subclasses Python 3.14 ``StrEnum`` and each member behaves as its ASCII
+    lowercase snake-case machine-readable value.
     Method
-        Inspect public inheritance, string identity/equality, ``str()``, explicit
-        lexical full match, and ASCII encoding for every public member.
+    Inspect public inheritance, string identity/equality, ``str()``, explicit lexical
+    full match, and ASCII encoding for every public member.
     Oracle
-        Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical
-        convention.
+    Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical convention.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes deterministic Python string behavior and lexical
-        form for all current members.
+    Passing establishes deterministic Python string behavior and lexical form for all
+    current members.
     Limitations
-        No JSON, ``repr()``, hash, pickle, wire format, metric computation,
-        scientific validation, uncertainty quantification, or Rust conformance
-        is tested.
+    No JSON, ``repr()``, hash, pickle, wire format, metric computation, scientific
+    validation, uncertainty quantification, or Rust conformance is tested.
     """
 
     assert issubclass(OperatorRecordComparisonNumericalErrorCode, StrEnum)
@@ -201,33 +227,41 @@ def test_python_314_strenum_and_machine_readable_value_behavior(
     "code",
     [
         pytest.param(
-            code,
-            id=f"SV-ORCNEC-004-{code.value.replace('_', '-')}",
-        )
-        for code in tuple(OperatorRecordComparisonNumericalErrorCode)
+            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+            id="nonfinite_metric",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+            id="linear_algebra_failure",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+            id="metric_order_violation",
+        ),
     ],
 )
-def test_value_based_lookup_round_trips(
+def test_method__call__value_based_lookup_round_trips(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    """SV-ORCNEC-004: verify lookup by every stable public value.
-
-    Evidence ID
-        ``SV-ORCNEC-004``; parameter IDs identify each stable value.
+    r"""Evidence ID
+    SV-ORCNEC-004
     Requirement
-        ``EnumClass(value)`` returns the canonical enum singleton for every
-        approved machine-readable value.
+    ``EnumClass(value)`` returns the canonical enum singleton for every approved
+    machine-readable value.
     Method
-        Construct the enum from each member's public value and compare by
-        identity with that member.
+    Construct the enum from each member's public value and compare by identity with that
+    member.
     Oracle
-        Standard Enum value lookup and the approved stable values.
+    Standard Enum value lookup and the approved stable values.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes deterministic value-based construction round trips.
+    Passing establishes deterministic value-based construction round trips.
     Limitations
-        Uppercase, padded, byte, integer, and unrelated-enum coercions are not
-        approved as successful behavior. No analyzer execution, scientific
-        validation, uncertainty quantification, or Rust conformance is tested.
+    Uppercase, padded, byte, integer, and unrelated-enum coercions are not approved as
+    successful behavior. No analyzer execution, scientific validation, uncertainty
+    quantification, or Rust conformance is tested.
     """
 
     assert OperatorRecordComparisonNumericalErrorCode(code.value) is code
@@ -237,33 +271,41 @@ def test_value_based_lookup_round_trips(
     "code",
     [
         pytest.param(
-            code,
-            id=f"SV-ORCNEC-005-{code.value.replace('_', '-')}",
-        )
-        for code in tuple(OperatorRecordComparisonNumericalErrorCode)
+            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+            id="nonfinite_metric",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+            id="linear_algebra_failure",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+            id="metric_order_violation",
+        ),
     ],
 )
-def test_name_based_lookup_round_trips(
+def test_method__getitem__name_based_lookup_round_trips(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    """SV-ORCNEC-005: verify lookup by every public member name.
-
-    Evidence ID
-        ``SV-ORCNEC-005``; parameter IDs identify the corresponding stable code.
+    r"""Evidence ID
+    SV-ORCNEC-005
     Requirement
-        ``EnumClass[name]`` returns the canonical enum singleton for every
-        approved public member name.
+    ``EnumClass[name]`` returns the canonical enum singleton for every approved public
+    member name.
     Method
-        Subscribe by each member's public ``name`` and compare by identity.
+    Subscribe by each member's public ``name`` and compare by identity.
     Oracle
-        Standard Enum name lookup and the approved public names.
+    Standard Enum name lookup and the approved public names.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes deterministic name-based lookup distinct from value-
-        based construction.
+    Passing establishes deterministic name-based lookup distinct from value- based
+    construction.
     Limitations
-        Member names are not machine-readable values. No metric calculation,
-        production emission, scientific validation, uncertainty quantification,
-        or Rust conformance is tested.
+    Member names are not machine-readable values. No metric calculation, production
+    emission, scientific validation, uncertainty quantification, or Rust conformance is
+    tested.
     """
 
     assert OperatorRecordComparisonNumericalErrorCode[code.name] is code
@@ -272,30 +314,33 @@ def test_name_based_lookup_round_trips(
 @pytest.mark.parametrize(
     "lookup_kind",
     [
-        pytest.param("invalid-value", id="SV-ORCNEC-006-invalid-value"),
-        pytest.param("invalid-name", id="SV-ORCNEC-006-invalid-name"),
+        pytest.param("invalid-value", id="invalid_value"),
+        pytest.param("invalid-name", id="invalid_name"),
     ],
 )
-def test_invalid_lookup_exception_taxonomy(lookup_kind: str) -> None:
-    """SV-ORCNEC-006: verify exact standard Enum lookup exceptions.
-
-    Evidence ID
-        ``SV-ORCNEC-006``; parameter IDs distinguish value and name lookup.
+def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
+    lookup_kind: str,
+) -> None:
+    r"""Evidence ID
+    SV-ORCNEC-006
     Requirement
-        An unknown value raises ``ValueError`` and an unknown name raises
-        ``KeyError`` through their respective public lookup forms.
+    An unknown value raises ``ValueError`` and an unknown name raises ``KeyError``
+    through their respective public lookup forms.
     Method
-        Exercise one representative invalid ``EnumClass(value)`` construction
-        and one invalid ``EnumClass[name]`` subscription.
+    Exercise one representative invalid ``EnumClass(value)`` construction and one
+    invalid ``EnumClass[name]`` subscription.
     Oracle
-        Standard Enum taxonomy specifies ``ValueError`` for invalid values and
-        ``KeyError`` for invalid names.
+    Standard Enum taxonomy specifies ``ValueError`` for invalid values and ``KeyError``
+    for invalid names.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes predictable exact lookup-failure categories.
+    Passing establishes predictable exact lookup-failure categories.
     Limitations
-        Standard-library exception messages are not frozen. No broad exception
-        tuple, residual algorithm, differencer, Workflow, scientific validation,
-        uncertainty quantification, or Rust conformance is tested.
+    Standard-library exception messages are not frozen. No broad exception tuple,
+    residual algorithm, differencer, Workflow, scientific validation, uncertainty
+    quantification, or Rust conformance is tested.
     """
 
     if lookup_kind == "invalid-value":

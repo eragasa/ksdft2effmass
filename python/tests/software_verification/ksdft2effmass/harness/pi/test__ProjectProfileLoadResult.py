@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ProjectProfileLoadResult``.
+
+Facet and represented meaning
 Software verification of the public ``ProjectProfileLoadResult`` surface; no physical
 model, mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``ProjectProfileLoadResult``.  Accepted H1 field/wire contracts
 and read-only H3 fixtures are independent exact oracles.
 

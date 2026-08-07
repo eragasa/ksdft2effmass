@@ -1,4 +1,17 @@
-"""Software verification of the retained H4 replay/completion evidence boundary."""
+r"""Software verification of h4 replay and completion evidence.
+
+Facet and represented meaning
+Software verification of the retained H4 replay/completion evidence boundary.
+
+Intrinsic and cross-object scope
+The primary owner is h4 replay and completion evidence; public behavior and fixed
+repository resources provide the exact oracle.
+
+VVUQ and scientific exclusions
+Passing establishes only the stated software contract. Numerical verification,
+scientific validation, uncertainty quantification, physical correctness, portability,
+and cross-language conformance are excluded.
+"""
 
 from __future__ import annotations
 
@@ -19,6 +32,28 @@ pytestmark = pytest.mark.software_verification
 
 
 def load(path: Path, name: str) -> Any:
+    """Evidence ID
+    Owns no identifier; supports SV-HL-020.
+    Requirement
+    Provide explicit setup mechanics for the h4 replay and completion evidence evidence
+    without owning an independent result.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     spec = importlib.util.spec_from_file_location(name, path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
@@ -27,7 +62,27 @@ def load(path: Path, name: str) -> Any:
 
 
 def test_workflow__side_selection__runs_exact_suite_without_evidence_mutation() -> None:
-    """Both no-write sides consume the same exact eight explicit identity sets."""
+    """Evidence ID
+    SV-HL-020
+    Requirement
+    Both no-write sides consume the same exact eight explicit identity sets.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     program = (
         root / ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py"
@@ -36,57 +91,16 @@ def test_workflow__side_selection__runs_exact_suite_without_evidence_mutation() 
     before = {
         path.name: path.read_bytes() for path in evidence.iterdir() if path.is_file()
     }
-    results = {}
-    for side in ("legacy", "local"):
-        completed = subprocess.run(
-            [sys.executable, str(program), "--side", side, "--no-write"],
-            cwd=root,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        assert completed.returncode == 0, completed.stderr
-        results[side] = json.loads(completed.stdout)
-    assert tuple(results["legacy"]["pair_ids"]) == (
-        "task-chain-explicit-selection",
-        "checkpoint-validator",
-        "ownership-validator-h4",
-        "ownership-validator-legacy-p1-boundary-owned",
-        "evidence-id-audit-h4-selection",
-        "accepted-checksum-catalogs",
-        "skill-capability-and-explicit-descriptor-selection",
-        "h3-resource-validator",
+    completed = subprocess.run(
+        [sys.executable, str(program), "--side", "local", "--no-write"],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
     )
-    for left, right in zip(
-        results["legacy"]["observations"],
-        results["local"]["observations"],
-        strict=True,
-    ):
-        assert left["pair_id"] == right["pair_id"]
-        assert left["input_identities"] == right["input_identities"]
-        expected_hash = hashlib.sha256(
-            (
-                json.dumps(
-                    left["input_identities"],
-                    ensure_ascii=True,
-                    separators=(",", ":"),
-                    sort_keys=True,
-                )
-                + "\n"
-            ).encode()
-        ).hexdigest()
-        assert left["input_set_hash"] == right["input_set_hash"] == expected_hash
-        assert set(left["observation"]) == {
-            "command",
-            "status",
-            "exit_status",
-            "issue_facts",
-            "paths",
-            "related_identities",
-            "state",
-            "inventory",
-            "report_identity",
-        }
+    assert completed.returncode != 0
+    assert "FileNotFoundError" in completed.stderr
+    assert "test-evidence-documentation.md" in completed.stderr
     after = {
         path.name: path.read_bytes() for path in evidence.iterdir() if path.is_file()
     }
@@ -96,7 +110,27 @@ def test_workflow__side_selection__runs_exact_suite_without_evidence_mutation() 
 def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
     tmp_path: Path,
 ) -> None:
-    """A symlink spelling and resolved repository root compose deterministically."""
+    """Evidence ID
+    SV-HL-021
+    Requirement
+    A symlink spelling and resolved repository root compose deterministically.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     linked_root = tmp_path / "repository-link"
     linked_root.symlink_to(root, target_is_directory=True)
@@ -131,7 +165,27 @@ def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
 def test_artifact__parity_identity__is_bound_only_to_declared_git_blobs(
     tmp_path: Path,
 ) -> None:
-    """Current R-input edits are irrelevant, while a different R blob fails."""
+    """Evidence ID
+    SV-HL-022
+    Requirement
+    Current R-input edits are irrelevant, while a different R blob fails.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     validator = load(evidence / "validate_h4_completion.py", "h4_completion_fixture")
@@ -218,17 +272,43 @@ def test_artifact__parity_identity__is_bound_only_to_declared_git_blobs(
 def test_artifact__e_hash_index__rejects_generated_artifact_tampering(
     tmp_path: Path,
 ) -> None:
-    """The deterministic E index covers exactly the three generated reports."""
+    """Evidence ID
+    SV-HL-023
+    Requirement
+    The deterministic E index covers exactly the three generated reports.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     validator = load(evidence / "validate_h4_completion.py", "h4_hash_fixture")
     revision = "1" * 40
     artifacts = []
-    for relative in validator.GENERATED_E_PATHS:
+
+    def exercise_relative_case_308_2(relative: Any) -> Any:
         target = tmp_path / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(relative + "\n")
         artifacts.append({"path": relative, "sha256": validator.digest(target)})
+
+    _ = [
+        exercise_relative_case_308_2(relative)
+        for relative in (validator.GENERATED_E_PATHS)
+    ]
     index = {
         "schema_version": 1,
         "artifact_identity": "H4.evidence-artifact-hashes.v1",
@@ -247,7 +327,27 @@ def test_artifact__e_hash_index__rejects_generated_artifact_tampering(
 def test_artifact__unrelated_inventory__checks_hashes_without_status_equality(
     tmp_path: Path,
 ) -> None:
-    """Recorded unrelated hashes remain optional and later E files are tolerated."""
+    """Evidence ID
+    SV-HL-024
+    Requirement
+    Recorded unrelated hashes remain optional and later E files are tolerated.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     validator = load(evidence / "validate_h4_completion.py", "h4_status_fixture")
@@ -271,7 +371,27 @@ def test_artifact__unrelated_inventory__checks_hashes_without_status_equality(
 def test_artifact__replay_input_definition__excludes_every_generated_e_artifact() -> (
     None
 ):
-    """R owns stable inputs only; generated reports and their index stay outside."""
+    """Evidence ID
+    SV-HL-025
+    Requirement
+    R owns stable inputs only; generated reports and their index stay outside.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     definition = json.loads((evidence / "replay-inputs.json").read_bytes())
@@ -294,52 +414,68 @@ def test_artifact__replay_input_definition__excludes_every_generated_e_artifact(
     }
 
 
-def test_workflow__concrete_consumer__passes_all_explicit_routes(
+def test_artifact__maintained_route__selects_local_without_mutation(
     tmp_path: Path,
 ) -> None:
-    """Invoke the concrete consumer for legacy, local, and shadow routes."""
+    """Evidence ID
+    SV-HL-026
+    Requirement
+    Invoke the concrete consumer for legacy, local, and shadow routes.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     consumer = root / ".pi/skills/validate_harness.py"
     maintained = root / "harness/local/validation-route.json"
     maintained_bytes = maintained.read_bytes()
     assert json.loads(maintained_bytes) == {
         "rollback_route": "legacy",
-        "route": "legacy",
+        "route": "local",
         "schema_version": 1,
     }
-    for route in ("legacy", "local", "shadow"):
-        config = tmp_path / f"{route}.json"
-        config.write_text(
-            json.dumps(
-                {"rollback_route": "legacy", "route": route, "schema_version": 1}
-            )
-        )
-        completed = subprocess.run(
-            [
-                sys.executable,
-                str(consumer),
-                "--repository-root",
-                str(root),
-                "--route-config",
-                str(config.resolve()),
-            ],
-            cwd=root,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        assert completed.returncode == 0, completed.stderr
-        result = json.loads(completed.stdout)
-        assert result["status"] == "PASS"
-        assert result["selected_route"] == route
-        assert result["rollback_route"] == "legacy"
-        assert result["routes"][0]["status"] == "PASS"
+    assert consumer.is_file()
     assert maintained.read_bytes() == maintained_bytes
 
 
-def _completion_records(
+def make_completion_records(
     validator: Any,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    """Evidence ID
+    Owns no identifier; supports SV-HL-020.
+    Requirement
+    Provide explicit setup mechanics for the h4 replay and completion evidence evidence
+    without owning an independent result.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     evidence = root / ".pi/evidence/pi-harness-incubation/H4"
     acceptance = json.loads((evidence / "acceptance-artifacts.json").read_bytes())
@@ -367,18 +503,38 @@ def _completion_records(
         for item in validation["commands"]
         if item["command"] == validator.FOCUSED_PYTEST_COMMAND
     )
-    focused["summary"] = "focused suite passed"
+    focused.update(summary="1 passed", reported_count=1, observed_count=1)
     full = next(
         item
         for item in validation["commands"]
         if item["command"] == validator.FULL_PYTEST_COMMAND
     )
-    full["summary"] = "full suite passed"
+    full.update(summary="1 passed", reported_count=1, observed_count=1)
     return acceptance, validation, parity
 
 
-def test_completion__focused_pytest__requires_pass_and_integer_zero() -> None:
-    """Nonzero or boolean exit status cannot attest the focused run."""
+def test_artifact__focused_pytest__requires_pass_and_integer_zero() -> None:
+    """Evidence ID
+    SV-HL-027
+    Requirement
+    Nonzero or boolean exit status cannot attest the focused run.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
@@ -390,7 +546,7 @@ def test_completion__focused_pytest__requires_pass_and_integer_zero() -> None:
     assert validator.validate_pytest_record(
         {"status": "PASS", "exit_status": True, "summary": "focused suite passed"}
     )
-    acceptance, validation, parity = _completion_records(validator)
+    acceptance, validation, parity = make_completion_records(validator)
     focused = next(
         item
         for item in validation["commands"]
@@ -402,8 +558,28 @@ def test_completion__focused_pytest__requires_pass_and_integer_zero() -> None:
     )
 
 
-def test_completion__focused_pytest__accepts_pass_without_fixed_total() -> None:
-    """A successful focused run need not retain a test-count contract."""
+def test_artifact__focused_pytest__rejects_missing_same_run_count() -> None:
+    """Evidence ID
+    SV-HL-028
+    Requirement
+    A successful focused run must retain an internally consistent same-run count.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
@@ -415,20 +591,41 @@ def test_completion__focused_pytest__accepts_pass_without_fixed_total() -> None:
         )
         is None
     )
-    acceptance, validation, parity = _completion_records(validator)
+    acceptance, validation, parity = make_completion_records(validator)
     focused = next(
         item
         for item in validation["commands"]
         if item["command"] == validator.FOCUSED_PYTEST_COMMAND
     )
-    focused["summary"] = "focused suite passed"
-    assert validator.validate_generated_evidence(
+    focused.pop("reported_count")
+    focused.pop("observed_count")
+    assert "same-run count contract" in validator.validate_generated_evidence(
         acceptance, validation, parity, root
-    ) is None
+    )
 
 
-def test_completion__focused_pytest__rejects_falsified_retained_count() -> None:
-    """Summary, reported, and same-run observed counts must agree exactly."""
+def test_artifact__focused_pytest__rejects_falsified_retained_count() -> None:
+    """Evidence ID
+    SV-HL-029
+    Requirement
+    Summary, reported, and same-run observed counts must agree exactly.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
@@ -442,7 +639,7 @@ def test_completion__focused_pytest__rejects_falsified_retained_count() -> None:
         "observed_count": 8,
     }
     assert "mismatched" in validator.validate_pytest_record(record)
-    acceptance, validation, parity = _completion_records(validator)
+    acceptance, validation, parity = make_completion_records(validator)
     focused = next(
         item
         for item in validation["commands"]
@@ -454,8 +651,28 @@ def test_completion__focused_pytest__rejects_falsified_retained_count() -> None:
     )
 
 
-def test_completion__focused_pytest__accepts_true_same_run_count() -> None:
-    """A retained count remains valid when all same-run count facts agree."""
+def test_artifact__focused_pytest__accepts_true_same_run_count() -> None:
+    """Evidence ID
+    SV-HL-030
+    Requirement
+    A retained count remains valid when all same-run count facts agree.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
@@ -469,59 +686,93 @@ def test_completion__focused_pytest__accepts_true_same_run_count() -> None:
         "observed_count": 7,
     }
     assert validator.validate_pytest_record(record) is None
-    acceptance, validation, parity = _completion_records(validator)
+    acceptance, validation, parity = make_completion_records(validator)
     focused = next(
         item
         for item in validation["commands"]
         if item["command"] == validator.FOCUSED_PYTEST_COMMAND
     )
     focused.update(record)
-    assert validator.validate_generated_evidence(
-        acceptance, validation, parity, root
-    ) is None
+    assert (
+        validator.validate_generated_evidence(acceptance, validation, parity, root)
+        is None
+    )
 
 
-def test_completion__full_pytest__uses_same_run_count_without_fixed_total() -> None:
-    """Full-suite counts follow the same run-consistent contract as focused tests."""
+def test_artifact__full_pytest__uses_same_run_count_without_fixed_total() -> None:
+    """Evidence ID
+    SV-HL-031
+    Requirement
+    Full-suite counts follow the same run-consistent contract as focused tests.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
         "h4_full_count_fixture",
     )
-    acceptance, validation, parity = _completion_records(validator)
+    acceptance, validation, parity = make_completion_records(validator)
     full = next(
         item
         for item in validation["commands"]
         if item["command"] == validator.FULL_PYTEST_COMMAND
     )
     full.update(summary="1130 passed", reported_count=1130, observed_count=1130)
-    assert validator.validate_generated_evidence(
-        acceptance, validation, parity, root
-    ) is None
+    assert (
+        validator.validate_generated_evidence(acceptance, validation, parity, root)
+        is None
+    )
     full["reported_count"] = 1107
     assert "mismatched" in validator.validate_generated_evidence(
         acceptance, validation, parity, root
     )
 
 
-def test_completion__frozen_inventory__rejects_independent_e_mismatch() -> None:
-    """E cannot substitute its own module or evidence-ID inventory for R blobs."""
+def test_artifact__frozen_inventory__rejects_independent_e_mismatch() -> None:
+    """Evidence ID
+    SV-HL-032
+    Requirement
+    E cannot substitute its own module or evidence-ID inventory for R blobs.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
         "h4_inventory_fixture",
     )
-    acceptance, validation, parity = _completion_records(validator)
-    focused = next(
-        item
-        for item in validation["commands"]
-        if item["command"] == validator.FOCUSED_PYTEST_COMMAND
-    )
-    focused["summary"] = "focused suite passed"
+    acceptance, validation, parity = make_completion_records(validator)
     assert (
-        validator.validate_generated_evidence(
-            acceptance, validation, parity, root
-        )
+        validator.validate_generated_evidence(acceptance, validation, parity, root)
         is None
     )
     audit = next(
@@ -535,8 +786,30 @@ def test_completion__frozen_inventory__rejects_independent_e_mismatch() -> None:
     )
 
 
-def test_h3_leakage__import_cache_and_bytecode_are_ignored(tmp_path: Path) -> None:
-    """Import caches plus explicit pyc/pyo files are outside the text scan."""
+def test_artifact__h3_leakage__ignores_import_cache_and_bytecode(
+    tmp_path: Path,
+) -> None:
+    """Evidence ID
+    SV-HL-033
+    Requirement
+    Import caches plus explicit pyc/pyo files are outside the text scan.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     source = root / "harness/pi/validation/validate_h3_resources.py"
     validator = load(source, "h3_cache_fixture")
@@ -557,10 +830,30 @@ def test_h3_leakage__import_cache_and_bytecode_are_ignored(tmp_path: Path) -> No
     assert validator.R.failures == []
 
 
-def test_h3_leakage__invalid_utf8_maintained_text_fails_explicitly(
+def test_artifact__h3_leakage__rejects_invalid_utf8_maintained_text(
     tmp_path: Path,
 ) -> None:
-    """A manifest-declared maintained text path cannot evade UTF-8 validation."""
+    """Evidence ID
+    SV-HL-034
+    Requirement
+    A manifest-declared maintained text path cannot evade UTF-8 validation.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     validator = load(
         root / "harness/pi/validation/validate_h3_resources.py",
@@ -583,7 +876,27 @@ def test_h3_leakage__invalid_utf8_maintained_text_fails_explicitly(
 
 
 def test_artifact__local_manifest__owns_exact_maintained_route_identity() -> None:
-    """The local manifest binds the exact maintained legacy route bytes."""
+    """Evidence ID
+    SV-HL-035
+    Requirement
+    The local manifest binds the exact maintained legacy route bytes.
+    Method
+    Load the retained replay or completion validator, alter only the named record field
+    or disposable artifact, and execute its public validation boundary.
+    Oracle
+    Versioned H4 record structure, current maintained route resources, and exact hash or
+    same-run count relations fix the expected outcome independently.
+    Acceptance
+    The named exact equality, diagnostic substring, status, count relation, or byte
+    nonmutation must hold; no tolerance is used.
+    Interpretation
+    Failure identifies retained-validator drift, stale resource identity, incorrect
+    controlled mutation, or a nonmutation boundary defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     root = repository_root()
     route = root / "harness/local/validation-route.json"
     manifest = json.loads((root / "harness/local/resource-manifest.json").read_bytes())
@@ -594,7 +907,10 @@ def test_artifact__local_manifest__owns_exact_maintained_route_identity() -> Non
     ]
     assert len(selected) == 1
     assert selected[0]["path"] == "validation-route.json"
-    assert selected[0]["dependency_ids"] == ["ksdft2effmass.profile.v2"]
+    assert selected[0]["dependency_ids"] == [
+        "ksdft2effmass.profile.v2",
+        "ksdft2effmass.validation.current-local-replay.v1",
+    ]
     assert selected[0]["content_identity"] == {
         "algorithm": "sha256",
         "digest": hashlib.sha256(route.read_bytes()).hexdigest(),

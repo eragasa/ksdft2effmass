@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software-verification helper support for public CPN object evidence.
+
+Facet and represented meaning
 --------------------------------------
 This module provides synthetic helper and fixture support for P1 CPN
 software-verification evidence. It represents exact software-routing setup rather than a
 physical model, mathematical result, or independent evidence owner.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The helpers support only the complete evidence-ID lists in their function docstrings and
 own no independent evidence IDs. They construct public CPN inputs
 without fabricating a class SUT, oracle, acceptance result, or separate pass claim.
@@ -50,14 +52,20 @@ TokenFactory = Callable[..., CpnToken]
 @pytest.fixture
 def token_factory() -> TokenFactory:
     """Evidence ID
+
     -----------
-    This helper supports exactly SV-CPN-001, SV-CPN-002, SV-CPN-003, SV-CPN-010,
-    SV-CPN-011, SV-CPN-012, SV-CPN-013, SV-CPN-014, SV-CPN-015, SV-CPN-016, SV-CPN-017,
-    SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021, SV-CPN-022, SV-CPN-024, SV-CPN-025,
-    SV-CPN-026, SV-CPN-034, SV-CPN-036, SV-CPN-039, SV-CPN-044, SV-CPN-051, SV-CPN-063,
-    SV-CPN-064, SV-CPN-065, SV-CPN-066, SV-CPN-067, SV-CPN-070, SV-CPN-071, SV-CPN-072,
-    SV-CPN-073, SV-CPN-082, SV-CPN-084, SV-CPN-085, SV-CPN-086 and owns no independent
-    evidence ID.
+
+    Owns no identifier; supports SV-CPN-001, SV-CPN-002, SV-CPN-003, SV-CPN-010,
+    SV-CPN-011, SV-CPN-012, SV-CPN-013, SV-CPN-014, SV-CPN-015, SV-CPN-016,
+    SV-CPN-017, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021, SV-CPN-022,
+    SV-CPN-024, SV-CPN-025, SV-CPN-026, SV-CPN-034, SV-CPN-036, SV-CPN-039,
+    SV-CPN-044, SV-CPN-051, SV-CPN-063, SV-CPN-064, SV-CPN-065, SV-CPN-066,
+    SV-CPN-067, SV-CPN-070, SV-CPN-071, SV-CPN-072, SV-CPN-073, SV-CPN-082,
+    SV-CPN-084, SV-CPN-085, SV-CPN-086, SV-CPN-089, SV-CPN-100, SV-CPN-101,
+    SV-CPN-102, SV-CPN-103, SV-CPN-104, SV-CPN-113, SV-CPN-114, SV-CPN-115,
+    SV-CPN-116, SV-CPN-117, SV-CPN-127, SV-CPN-128, SV-CPN-129, SV-CPN-136,
+    SV-CPN-137, SV-CPN-142, SV-CPN-149, SV-CPN-151, SV-CPN-152, SV-CPN-168,
+    SV-CPN-169.
 
     Requirement
     -----------
@@ -94,14 +102,20 @@ def token_factory() -> TokenFactory:
 
     def create(token_id: str, color_id: str = "work", **overrides: object) -> CpnToken:
         """Evidence ID
+
         -----------
-        This helper supports exactly SV-CPN-001, SV-CPN-002, SV-CPN-003, SV-CPN-010,
-        SV-CPN-011, SV-CPN-012, SV-CPN-013, SV-CPN-014, SV-CPN-015, SV-CPN-016,
-        SV-CPN-017, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021, SV-CPN-022,
-        SV-CPN-024, SV-CPN-025, SV-CPN-026, SV-CPN-034, SV-CPN-036, SV-CPN-039,
-        SV-CPN-044, SV-CPN-051, SV-CPN-063, SV-CPN-064, SV-CPN-065, SV-CPN-066,
-        SV-CPN-067, SV-CPN-070, SV-CPN-071, SV-CPN-072, SV-CPN-073, SV-CPN-082,
-        SV-CPN-084, SV-CPN-085, SV-CPN-086 and owns no independent evidence ID.
+
+        Owns no identifier; supports SV-CPN-001, SV-CPN-002, SV-CPN-003,
+        SV-CPN-010, SV-CPN-011, SV-CPN-012, SV-CPN-013, SV-CPN-014, SV-CPN-015,
+        SV-CPN-016, SV-CPN-017, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021,
+        SV-CPN-022, SV-CPN-024, SV-CPN-025, SV-CPN-026, SV-CPN-034, SV-CPN-036,
+        SV-CPN-039, SV-CPN-044, SV-CPN-051, SV-CPN-063, SV-CPN-064, SV-CPN-065,
+        SV-CPN-066, SV-CPN-067, SV-CPN-070, SV-CPN-071, SV-CPN-072, SV-CPN-073,
+        SV-CPN-082, SV-CPN-084, SV-CPN-085, SV-CPN-086, SV-CPN-089, SV-CPN-100,
+        SV-CPN-101, SV-CPN-102, SV-CPN-103, SV-CPN-104, SV-CPN-113, SV-CPN-114,
+        SV-CPN-115, SV-CPN-116, SV-CPN-117, SV-CPN-127, SV-CPN-128, SV-CPN-129,
+        SV-CPN-136, SV-CPN-137, SV-CPN-142, SV-CPN-149, SV-CPN-151, SV-CPN-152,
+        SV-CPN-168, SV-CPN-169.
 
         Requirement
         -----------
@@ -158,14 +172,18 @@ def token_factory() -> TokenFactory:
     return create
 
 
-def _field(variable: str, field: TokenField) -> ValueExpression:
+def make_token_field_expression(variable: str, field: TokenField) -> ValueExpression:
     """Evidence ID
+
     -----------
-    This helper supports exactly SV-CPN-011, SV-CPN-085, SV-CPN-010, SV-CPN-012,
-    SV-CPN-036, SV-CPN-013, SV-CPN-014, SV-CPN-044, SV-CPN-039, SV-CPN-070, SV-CPN-071,
-    SV-CPN-084, SV-CPN-072, SV-CPN-073, SV-CPN-015, SV-CPN-016, SV-CPN-024, SV-CPN-025,
-    SV-CPN-026, SV-CPN-017, SV-CPN-086, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021,
-    SV-CPN-022, SV-CPN-034 and owns no independent evidence ID.
+
+    Owns no identifier; supports SV-CPN-010, SV-CPN-011, SV-CPN-012, SV-CPN-013,
+    SV-CPN-014, SV-CPN-015, SV-CPN-016, SV-CPN-017, SV-CPN-018, SV-CPN-019,
+    SV-CPN-020, SV-CPN-021, SV-CPN-022, SV-CPN-024, SV-CPN-025, SV-CPN-026,
+    SV-CPN-034, SV-CPN-036, SV-CPN-039, SV-CPN-044, SV-CPN-070, SV-CPN-071,
+    SV-CPN-072, SV-CPN-073, SV-CPN-084, SV-CPN-085, SV-CPN-086, SV-CPN-089,
+    SV-CPN-100, SV-CPN-101, SV-CPN-102, SV-CPN-103, SV-CPN-127, SV-CPN-128,
+    SV-CPN-142, SV-CPN-149, SV-CPN-168, SV-CPN-169.
 
     Requirement
     -----------
@@ -207,12 +225,16 @@ def _field(variable: str, field: TokenField) -> ValueExpression:
 @pytest.fixture
 def executable_net(token_factory: TokenFactory) -> CpnNetDefinition:
     """Evidence ID
+
     -----------
-    This helper supports exactly SV-CPN-011, SV-CPN-085, SV-CPN-010, SV-CPN-012,
-    SV-CPN-036, SV-CPN-013, SV-CPN-014, SV-CPN-044, SV-CPN-039, SV-CPN-070, SV-CPN-071,
-    SV-CPN-084, SV-CPN-072, SV-CPN-073, SV-CPN-015, SV-CPN-016, SV-CPN-024, SV-CPN-025,
-    SV-CPN-026, SV-CPN-017, SV-CPN-086, SV-CPN-018, SV-CPN-019, SV-CPN-020, SV-CPN-021,
-    SV-CPN-022, SV-CPN-034 and owns no independent evidence ID.
+
+    Owns no identifier; supports SV-CPN-010, SV-CPN-011, SV-CPN-012, SV-CPN-013,
+    SV-CPN-014, SV-CPN-015, SV-CPN-016, SV-CPN-017, SV-CPN-018, SV-CPN-019,
+    SV-CPN-020, SV-CPN-021, SV-CPN-022, SV-CPN-024, SV-CPN-025, SV-CPN-026,
+    SV-CPN-034, SV-CPN-036, SV-CPN-039, SV-CPN-044, SV-CPN-070, SV-CPN-071,
+    SV-CPN-072, SV-CPN-073, SV-CPN-084, SV-CPN-085, SV-CPN-086, SV-CPN-089,
+    SV-CPN-100, SV-CPN-101, SV-CPN-102, SV-CPN-103, SV-CPN-127, SV-CPN-128,
+    SV-CPN-142, SV-CPN-149, SV-CPN-168, SV-CPN-169.
 
     Requirement
     -----------
@@ -260,18 +282,23 @@ def executable_net(token_factory: TokenFactory) -> CpnNetDefinition:
     )
     assignments = (
         TokenFieldAssignment(
-            TokenField.WORKFLOW_ID, _field("work", TokenField.WORKFLOW_ID)
+            TokenField.WORKFLOW_ID,
+            make_token_field_expression("work", TokenField.WORKFLOW_ID),
         ),
-        TokenFieldAssignment(TokenField.RUN_ID, _field("work", TokenField.RUN_ID)),
         TokenFieldAssignment(
-            TokenField.ATTEMPT_ID, _field("authorization", TokenField.ATTEMPT_ID)
+            TokenField.RUN_ID, make_token_field_expression("work", TokenField.RUN_ID)
+        ),
+        TokenFieldAssignment(
+            TokenField.ATTEMPT_ID,
+            make_token_field_expression("authorization", TokenField.ATTEMPT_ID),
         ),
         TokenFieldAssignment(
             TokenField.ITERATION_INDEX,
-            _field("authorization", TokenField.ITERATION_INDEX),
+            make_token_field_expression("authorization", TokenField.ITERATION_INDEX),
         ),
         TokenFieldAssignment(
-            TokenField.PROVENANCE_IDS, _field("work", TokenField.PROVENANCE_IDS)
+            TokenField.PROVENANCE_IDS,
+            make_token_field_expression("work", TokenField.PROVENANCE_IDS),
         ),
         TokenFieldAssignment(
             TokenField.PARENT_TOKEN_IDS,
@@ -281,7 +308,7 @@ def executable_net(token_factory: TokenFactory) -> CpnNetDefinition:
         ),
         TokenFieldAssignment(
             TokenField.AUTHORIZATION_ID,
-            _field("authorization", TokenField.AUTHORIZATION_ID),
+            make_token_field_expression("authorization", TokenField.AUTHORIZATION_ID),
         ),
     )
     return CpnNetDefinition(
@@ -305,8 +332,10 @@ def executable_net(token_factory: TokenFactory) -> CpnNetDefinition:
                 "synchronize work and authorization",
                 GuardExpression(
                     GuardOperator.EQUAL,
-                    left=_field("work", TokenField.RUN_ID),
-                    right=_field("authorization", TokenField.RUN_ID),
+                    left=make_token_field_expression("work", TokenField.RUN_ID),
+                    right=make_token_field_expression(
+                        "authorization", TokenField.RUN_ID
+                    ),
                 ),
             ),
         ),

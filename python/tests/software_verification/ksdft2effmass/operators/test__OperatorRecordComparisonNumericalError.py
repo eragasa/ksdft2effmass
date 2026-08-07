@@ -1,5 +1,8 @@
-r"""Software verification for the residual-analysis numerical exception.
+r"""Software verification of ``OperatorRecordComparisonNumericalError``.
 
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the OperatorRecordComparisonNumericalError facet.
 System under test
 -----------------
 ``OperatorRecordComparisonNumericalError`` is a structured residual-analysis
@@ -48,6 +51,22 @@ mismatch, or evidence defect requiring investigation; it does not by itself
 establish a numerical or physical-model error. No scientific-validation or
 uncertainty-quantification claim is made. Rust mapping remains conceptual; no
 Rust implementation or conformance is established.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordComparisonNumericalError``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from enum import Enum
@@ -62,57 +81,56 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordComparisonNumericalError
+
 
 class UnrelatedErrorCode(Enum):
-    """Test-local non-owner enum supporting ``SV-ORCNE-005``.
+    r"""Test-local non-owner enum supporting ``SV-ORCNE-005``.
 
     Evidence ID
-        Supporting fixture for ``SV-ORCNE-005``; it owns no separate evidence
-        identifier.
+    Supporting fixture for ``SV-ORCNE-005``; it owns no separate evidence
+    identifier.
     Requirement
-        An unrelated enum member is not an
-        ``OperatorRecordComparisonNumericalErrorCode``, even when its value
-        resembles an approved code value.
+    An unrelated enum member is not an
+    ``OperatorRecordComparisonNumericalErrorCode``, even when its value
+    resembles an approved code value.
     Method
-        Define one synthetic member and supply it only at the deliberate invalid
-        constructor boundary.
+    Define one synthetic member and supply it only at the deliberate invalid
+    constructor boundary.
     Oracle
-        The approved constructor requires nominal membership in the owner enum.
+    The approved constructor requires nominal membership in the owner enum.
     Acceptance
-        The owning test rejects this member with exactly ``TypeError``.
+    The owning test rejects this member with exactly ``TypeError``.
     Interpretation
-        Rejection establishes enum ownership rather than value-based coercion.
+    Rejection establishes enum ownership rather than value-based coercion.
     Limitations
-        This fixture does not inspect owner-enum membership, aliases, lookups,
-        Analyzer or Workflow behavior, numerical verification, scientific
-        validation, uncertainty quantification, or Rust conformance.
+    This fixture does not inspect owner-enum membership, aliases, lookups,
+    Analyzer or Workflow behavior, numerical verification, scientific
+    validation, uncertainty quantification, or Rust conformance.
     """
 
     NONFINITE_METRIC = "nonfinite_metric"
 
 
-def test_public_construction_and_exception_taxonomy() -> None:
-    """SV-ORCNE-001: verify public construction and exception taxonomy.
-
-    Evidence ID
-        ``SV-ORCNE-001``.
+def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ORCNE-001
     Requirement
-        An approved structured code directly constructs a ``ValueError`` and
-        ``Exception`` instance.
+    An approved structured code directly constructs a ``ValueError`` and ``Exception``
+    instance.
     Method
-        Construct through public imports without invoking the residual Analyzer.
+    Construct through public imports without invoking the residual Analyzer.
     Oracle
-        The approved exception contract specifies ``ValueError`` inheritance and
-        a one-code constructor.
+    The approved exception contract specifies ``ValueError`` inheritance and a one-code
+    constructor.
     Acceptance
-        Construction succeeds and both documented hierarchy checks are true.
+    Construction succeeds and both documented hierarchy checks are true.
     Interpretation
-        Passing establishes direct public construction and exception hierarchy.
+    Passing establishes direct public construction and exception hierarchy.
     Limitations
-        ``Exception.args``, source location, traceback layout, hashability,
-        pickling, private state, production emission, numerical verification,
-        scientific validation, uncertainty quantification, and Rust conformance
-        are unspecified or untested.
+    ``Exception.args``, source location, traceback layout, hashability, pickling,
+    private state, production emission, numerical verification, scientific validation,
+    uncertainty quantification, and Rust conformance are unspecified or untested.
     """
 
     error = OperatorRecordComparisonNumericalError(
@@ -126,37 +144,42 @@ def test_public_construction_and_exception_taxonomy() -> None:
 @pytest.mark.parametrize(
     "code",
     [
-        pytest.param(code, id=f"SV-ORCNE-002-{code.value.replace('_', '-')}")
-        for code in tuple(OperatorRecordComparisonNumericalErrorCode)
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+            id="nonfinite_metric",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+            id="linear_algebra_failure",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+            id="metric_order_violation",
+        ),
     ],
 )
-def test_complete_structured_code_acceptance_and_identity_retention(
+def test_field__accepted_codes_retain_identity__is_exact(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    """SV-ORCNE-002: accept every code and retain exact enum identity.
-
-    Evidence ID
-        ``SV-ORCNE-002``; parameter IDs derive from stable public values without
-        creating additional evidence identifiers.
+    r"""Evidence ID
+    SV-ORCNE-002
     Requirement
-        Every approved category is accepted and retained without reconstruction
-        or string conversion.
+    Every approved category is accepted and retained without reconstruction or string
+    conversion.
     Method
-        Parameterize over the complete public enum, construct directly, and
-        compare the public field with the supplied member by identity.
+    Parameterize over the complete public enum, construct directly, and compare the
+    public field with the supplied member by identity.
     Oracle
-        The approved constructor accepts every owner-enum member and retains the
-        exact supplied object through ``error.code``.
+    The approved constructor accepts every owner-enum member and retains the exact
+    supplied object through ``error.code``.
     Acceptance
-        ``error.code is code`` for all three public members.
+    ``error.code is code`` for all three public members.
     Interpretation
-        Passing establishes complete current admission and exact identity
-        retention.
+    Passing establishes complete current admission and exact identity retention.
     Limitations
-        Member count, aliases, ``StrEnum`` behavior, and lookups belong to
-        ``SV-ORCNEC`` evidence. Analyzer emission, numerical verification,
-        scientific validation, uncertainty quantification, and Rust conformance
-        are not tested.
+    Member count, aliases, ``StrEnum`` behavior, and lookups belong to ``SV-ORCNEC``
+    evidence. Analyzer emission, numerical verification, scientific validation,
+    uncertainty quantification, and Rust conformance are not tested.
     """
 
     error = OperatorRecordComparisonNumericalError(code)
@@ -164,28 +187,25 @@ def test_complete_structured_code_acceptance_and_identity_retention(
     assert error.code is code
 
 
-def test_positional_and_keyword_construction_retain_the_same_code() -> None:
-    """SV-ORCNE-003: verify positional and keyword constructor forms.
-
-    Evidence ID
-        ``SV-ORCNE-003``.
+def test_constructor__positional_and_keyword_construction_retain__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ORCNE-003
     Requirement
-        Positional and ``code=`` keyword construction both retain the canonical
-        public enum member.
+    Positional and ``code=`` keyword construction both retain the canonical public enum
+    member.
     Method
-        Construct distinct exceptions using both supported forms and inspect
-        each authoritative field by identity.
+    Construct distinct exceptions using both supported forms and inspect each
+    authoritative field by identity.
     Oracle
-        The approved signature names one parameter ``code`` and supports normal
-        Python positional or matching-keyword binding.
+    The approved signature names one parameter ``code`` and supports normal Python
+    positional or matching-keyword binding.
     Acceptance
-        Both fields are the canonical ``NONFINITE_METRIC`` singleton.
+    Both fields are the canonical ``NONFINITE_METRIC`` singleton.
     Interpretation
-        Passing establishes constructor-form equivalence for structured state.
+    Passing establishes constructor-form equivalence for structured state.
     Limitations
-        Exception-object equality, Analyzer emission, numerical verification,
-        scientific validation, uncertainty quantification, and Rust conformance
-        are not tested.
+    Exception-object equality, Analyzer emission, numerical verification, scientific
+    validation, uncertainty quantification, and Rust conformance are not tested.
     """
 
     positional = OperatorRecordComparisonNumericalError(
@@ -204,38 +224,44 @@ def test_positional_and_keyword_construction_retain_the_same_code() -> None:
 @pytest.mark.parametrize(
     "code",
     [
-        pytest.param(code, id=f"SV-ORCNE-004-{code.value.replace('_', '-')}")
-        for code in tuple(OperatorRecordComparisonNumericalErrorCode)
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+            id="nonfinite_metric",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+            id="linear_algebra_failure",
+        ),
+        pytest.param(
+            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+            id="metric_order_violation",
+        ),
     ],
 )
-def test_human_readable_structured_code_summary(
+def test_protocol__str__human_readable_structured_code_summary(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    """SV-ORCNE-004: verify documented semantic diagnostic content.
-
-    Evidence ID
-        ``SV-ORCNE-004``; parameter IDs cover every public code.
+    r"""Evidence ID
+    SV-ORCNE-004
     Requirement
-        The secondary message identifies an operator-record residual numerical
-        failure and includes the authoritative code's stable value.
+    The secondary message identifies an operator-record residual numerical failure and
+    includes the authoritative code's stable value.
     Method
-        Construct directly, case-fold the documented semantic phrase, and check
-        the literal public code value without asserting full message equality.
+    Construct directly, case-fold the documented semantic phrase, and check the literal
+    public code value without asserting full message equality.
     Oracle
-        The approved architecture and Sphinx contracts promise semantic
-        residual-failure wording and the code value, not exact incidental
-        formatting.
+    The approved architecture and Sphinx contracts promise semantic residual-failure
+    wording and the code value, not exact incidental formatting.
     Acceptance
-        The semantic phrase and ``code.value`` occur, while identity remains on
-        ``error.code``.
+    The semantic phrase and ``code.value`` occur, while identity remains on
+    ``error.code``.
     Interpretation
-        Passing establishes a useful human diagnostic without making it a
-        machine-parsing interface.
+    Passing establishes a useful human diagnostic without making it a machine-parsing
+    interface.
     Limitations
-        Exact punctuation, capitalization, quoting, separators,
-        ``Exception.args``, Analyzer emission, numerical verification,
-        scientific validation, uncertainty quantification, and Rust conformance
-        are not compatibility guarantees or tested evidence.
+    Exact punctuation, capitalization, quoting, separators, ``Exception.args``, Analyzer
+    emission, numerical verification, scientific validation, uncertainty quantification,
+    and Rust conformance are not compatibility guarantees or tested evidence.
     """
 
     error = OperatorRecordComparisonNumericalError(code)
@@ -249,53 +275,47 @@ def test_human_readable_structured_code_summary(
 @pytest.mark.parametrize(
     "invalid_code",
     [
-        pytest.param(None, id="SV-ORCNE-005-none"),
-        pytest.param(True, id="SV-ORCNE-005-boolean-true"),
-        pytest.param(False, id="SV-ORCNE-005-boolean-false"),
-        pytest.param(1, id="SV-ORCNE-005-integer"),
+        pytest.param(None, id="none"),
+        pytest.param(True, id="sv_orcne_005_boolean_true"),
+        pytest.param(False, id="sv_orcne_005_boolean_false"),
+        pytest.param(1, id="sv_orcne_005_integer"),
+        pytest.param("nonfinite_metric", id="sv_orcne_005_raw_nonfinite_metric"),
         pytest.param(
-            "nonfinite_metric",
-            id="SV-ORCNE-005-raw-nonfinite-metric",
+            "linear_algebra_failure", id="sv_orcne_005_raw_linear_algebra_failure"
         ),
         pytest.param(
-            "linear_algebra_failure",
-            id="SV-ORCNE-005-raw-linear-algebra-failure",
+            "metric_order_violation", id="sv_orcne_005_raw_metric_order_violation"
         ),
         pytest.param(
-            "metric_order_violation",
-            id="SV-ORCNE-005-raw-metric-order-violation",
+            UnrelatedErrorCode.NONFINITE_METRIC, id="sv_orcne_005_unrelated_enum"
         ),
-        pytest.param(
-            UnrelatedErrorCode.NONFINITE_METRIC,
-            id="SV-ORCNE-005-unrelated-enum",
-        ),
-        pytest.param(object(), id="SV-ORCNE-005-arbitrary-object"),
+        pytest.param(object(), id="sv_orcne_005_arbitrary_object"),
     ],
 )
-def test_invalid_code_types_are_rejected(invalid_code: object) -> None:
-    """SV-ORCNE-005: reject every specified non-owner code type.
-
-    Evidence ID
-        ``SV-ORCNE-005``; stable parameter IDs identify each invalid family.
+def test_constructor__invalid_code_types_are_rejected__is_enforced(
+    invalid_code: object,
+) -> None:
+    r"""Evidence ID
+    SV-ORCNE-005
     Requirement
-        ``None``, Booleans, integer, all three raw code strings, an unrelated
-        enum member, and an arbitrary object are rejected without coercion.
+    ``None``, Booleans, integer, all three raw code strings, an unrelated enum member,
+    and an arbitrary object are rejected without coercion.
     Method
-        Supply each independently collected value using ``Any`` and ``cast``
-        only at this deliberate invalid constructor boundary.
+    Supply each independently collected value using ``Any`` and ``cast`` only at this
+    deliberate invalid constructor boundary.
     Oracle
-        The approved constructor requires nominal
-        ``OperatorRecordComparisonNumericalErrorCode`` membership and documents
-        ``TypeError`` with the owner-type fragment.
+    The approved constructor requires nominal
+    ``OperatorRecordComparisonNumericalErrorCode`` membership and documents
+    ``TypeError`` with the owner-type fragment.
     Acceptance
-        Every invalid value raises exactly ``TypeError`` naming the owner enum.
+    Every invalid value raises exactly ``TypeError`` naming the owner enum.
     Interpretation
-        Passing establishes wrong-type taxonomy and excludes raw-string and
-        enum-like coercion.
+    Passing establishes wrong-type taxonomy and excludes raw-string and enum-like
+    coercion.
     Limitations
-        Valid-code admission belongs to ``SV-ORCNE-002``. No Analyzer, Workflow,
-        numerical verification, scientific validation, uncertainty
-        quantification, or Rust conformance is tested.
+    Valid-code admission belongs to ``the owning evidence``. No Analyzer, Workflow,
+    numerical verification, scientific validation, uncertainty quantification, or Rust
+    conformance is tested.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -307,33 +327,32 @@ def test_invalid_code_types_are_rejected(invalid_code: object) -> None:
 @pytest.mark.parametrize(
     "reason_form",
     [
-        pytest.param("attribute", id="SV-ORCNE-006-reason-keyword"),
+        pytest.param("attribute", id="sv_orcne_006_reason_keyword"),
     ],
 )
-def test_removed_reason_alias_remains_absent(reason_form: str) -> None:
-    """SV-ORCNE-006: protect exclusion of the former ``reason`` alias.
-
-    Evidence ID
-        ``SV-ORCNE-006``; the parameter ID records the rejected keyword form.
+def test_constructor__input_boundary__removed_reason_alias_remains_absent(
+    reason_form: str,
+) -> None:
+    r"""Evidence ID
+    SV-ORCNE-006
     Requirement
-        ``code`` is the sole public structured category field; valid instances
-        expose no ``reason`` and ``reason=`` construction is unsupported.
+    ``code`` is the sole public structured category field; valid instances expose no
+    ``reason`` and ``reason=`` construction is unsupported.
     Method
-        Inspect a valid exception, then invoke an ``Any``-typed constructor at
-        the deliberate invalid-signature boundary with ``reason=``.
+    Inspect a valid exception, then invoke an ``Any``-typed constructor at the
+    deliberate invalid-signature boundary with ``reason=``.
     Oracle
-        The approved correction removed the alias and retains only the one-
-        parameter ``code`` signature.
+    The approved correction removed the alias and retains only the one- parameter
+    ``code`` signature.
     Acceptance
-        The attribute is absent and keyword construction raises exactly
-        ``TypeError``.
+    The attribute is absent and keyword construction raises exactly ``TypeError``.
     Interpretation
-        Passing protects the prior correction from accidental compatibility-
-        alias restoration.
+    Passing protects the prior correction from accidental compatibility- alias
+    restoration.
     Limitations
-        Incidental signature-generated diagnostic wording is not frozen.
-        Analyzer emission, numerical verification, scientific validation,
-        uncertainty quantification, and Rust conformance are not tested.
+    Incidental signature-generated diagnostic wording is not frozen. Analyzer emission,
+    numerical verification, scientific validation, uncertainty quantification, and Rust
+    conformance are not tested.
     """
 
     code = OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC
@@ -349,34 +368,33 @@ def test_removed_reason_alias_remains_absent(reason_form: str) -> None:
 @pytest.mark.parametrize(
     "detail_form",
     [
-        pytest.param("positional", id="SV-ORCNE-007-positional-detail"),
-        pytest.param("keyword", id="SV-ORCNE-007-keyword-detail"),
+        pytest.param("positional", id="sv_orcne_007_positional_detail"),
+        pytest.param("keyword", id="sv_orcne_007_keyword_detail"),
     ],
 )
-def test_additional_free_form_detail_is_excluded(detail_form: str) -> None:
-    """SV-ORCNE-007: reject arbitrary detail and expose no detail state.
-
-    Evidence ID
-        ``SV-ORCNE-007``; parameter IDs distinguish positional and keyword
-        attempts.
+def test_constructor__input_boundary__additional_free_form_detail_is_excluded(
+    detail_form: str,
+) -> None:
+    r"""Evidence ID
+    SV-ORCNE-007
     Requirement
-        The closed enum code is sufficient structured state; no positional or
-        keyword free-form detail is accepted or exposed.
+    The closed enum code is sufficient structured state; no positional or keyword
+    free-form detail is accepted or exposed.
     Method
-        Call an ``Any``-typed constructor only at each deliberate invalid-
-        signature boundary, then inspect a valid exception for ``detail``.
+    Call an ``Any``-typed constructor only at each deliberate invalid- signature
+    boundary, then inspect a valid exception for ``detail``.
     Oracle
-        The approved one-code constructor defines no arbitrary detail parameter
-        or attribute.
+    The approved one-code constructor defines no arbitrary detail parameter or
+    attribute.
     Acceptance
-        Both invalid forms raise exactly ``TypeError`` and a valid instance has
-        no ``detail`` attribute.
+    Both invalid forms raise exactly ``TypeError`` and a valid instance has no
+    ``detail`` attribute.
     Interpretation
-        Passing prevents arbitrary prose from competing with the structured code.
+    Passing prevents arbitrary prose from competing with the structured code.
     Limitations
-        Signature-generated diagnostic wording is not frozen. Analyzer emission,
-        numerical verification, scientific validation, uncertainty
-        quantification, and Rust conformance are not tested.
+    Signature-generated diagnostic wording is not frozen. Analyzer emission, numerical
+    verification, scientific validation, uncertainty quantification, and Rust
+    conformance are not tested.
     """
 
     code = OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC
@@ -393,42 +411,42 @@ def test_additional_free_form_detail_is_excluded(detail_form: str) -> None:
     assert not hasattr(error, "detail")
 
 
-def test_exception_has_no_independent_serialization_api() -> None:
-    """SV-ORCNE-008: verify exclusion of exception serialization methods.
-
-    Evidence ID
-        ``SV-ORCNE-008``.
+def test_method__serialize__exception_has_no_serialization_api() -> None:
+    r"""Evidence ID
+    SV-ORCNE-008
     Requirement
-        Neither instance nor class exposes the six unapproved JSON, dictionary,
-        serializer, or deserializer method names.
+    Neither instance nor class exposes the six unapproved JSON, dictionary, serializer,
+    or deserializer method names.
     Method
-        Inspect a valid instance and the public class for each excluded name.
+    Inspect a valid instance and the public class for each excluded name.
     Oracle
-        ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
-        numerical-exception wire format or schema is approved.
+    ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
+    numerical-exception wire format or schema is approved.
     Acceptance
-        Every excluded method is absent from both instance and class.
+    Every excluded method is absent from both instance and class.
     Interpretation
-        Passing establishes absence of object-owned serialization while
-        preserving ``error.code`` as in-memory structured state.
+    Passing establishes absence of object-owned serialization while preserving
+    ``error.code`` as in-memory structured state.
     Limitations
-        ``StrEnum`` values do not independently create an exception schema.
-        Pickling and future schemas are unspecified; Rust mapping remains
-        conceptual, and no Analyzer emission, numerical verification, scientific
-        validation, uncertainty quantification, or Rust conformance is tested.
+    ``StrEnum`` values do not independently create an exception schema. Pickling and
+    future schemas are unspecified; Rust mapping remains conceptual, and no Analyzer
+    emission, numerical verification, scientific validation, uncertainty quantification,
+    or Rust conformance is tested.
     """
 
     error = OperatorRecordComparisonNumericalError(
         OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC
     )
 
-    for method_name in (
-        "to_json",
-        "to_dict",
-        "serialize",
-        "from_json",
-        "from_dict",
-        "deserialize",
-    ):
-        assert not hasattr(error, method_name)
-        assert not hasattr(OperatorRecordComparisonNumericalError, method_name)
+    assert all(
+        (not hasattr(error, method_name))
+        and (not hasattr(OperatorRecordComparisonNumericalError, method_name))
+        for method_name in (
+            "to_json",
+            "to_dict",
+            "serialize",
+            "from_json",
+            "from_dict",
+            "deserialize",
+        )
+    )

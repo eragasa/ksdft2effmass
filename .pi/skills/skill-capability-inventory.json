@@ -278,11 +278,15 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "90cfd7265e6f9fc1d0ad0f87504528026789ccb7d3a32b8ca7ca625a8d6da30f",
+      "content_sha256": "e8952a2a13d027e05ad24cf99e0d62a7c1e40efb4de6f9e6e00723c3c9655711",
       "trigger_description": "Creation, restructuring, migration, and review of maintained Python test evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/agents/ksdft2effmass-tests.md",
+        ".pi/agents/ksdft2effmass-harness-python-test-writer.md",
+        ".pi/agents/ksdft2effmass-harness-resource-test-writer.md",
+        ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
+        ".pi/agents/ksdft2effmass-harness-python-evidence-vvuq-reviewer.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md",
         ".pi/agents/ksdft2effmass-harness-tests.md",
         ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
@@ -294,13 +298,13 @@
       ],
       "inputs": [
         "REVIEW_ONLY or AUTHORIZED_TEST_EVIDENCE_WRITE profile",
-        "explicit test paths",
+        "explicit test paths or an authorized complete repository inventory",
         "structured class_owned or artifact_owned input",
         "authoritative contract and optional one-to-one migration map"
       ],
       "outputs": [
         "structured findings or bounded test changes",
-        "deterministic supplied-path validator result",
+        "deterministic supplied-path or repository-wide validator result",
         "evidence classification and residual risks"
       ],
       "side_effects": [
@@ -312,14 +316,15 @@
         "repository read/search"
       ],
       "deterministic_scripts_used": [
-        "harness/pi/validation/validate_python_test_evidence.py"
+        "harness/pi/validation/validate_python_test_evidence.py",
+        "harness/local/validation/validate_repository_test_evidence.py"
       ],
       "authorization_requirements": "Explicit test ownership and paths; no source, schema, dependency, scientific-meaning, or acceptance authority.",
       "failure_behavior": "Missing authority, invalid ownership, incomplete mapping, or failed required structural validation stops affected work.",
       "retry_behavior": "New attempt identity and verified current inputs are required.",
       "idempotency": "Read-only validation is observationally idempotent for identical inputs; writes require current identity verification.",
       "evidence_classification": "structural test-evidence validation and agent semantic review; no scientific acceptance",
-      "current_validation_status": "Post-review corrected: total fail-closed ownership/migration parsing and controlled exact fixtures cover both ownership kinds, malformed records, headings, helpers, IDs, parameter counts, duplicate evidence, and complete one-to-one maps.",
+      "current_validation_status": "Repository conformance activated: the generic validator has controlled deterministic recurrence rules and false-positive guards; the local gate closes exact inventory, identities, status, collection, and structural validation. The captured 182-module/2383-node baseline intentionally fails until migration completes.",
       "primary_classification": "COMPOSABLE_AFTER_HARDENING",
       "hardening_applied": [
         "explicit ownership and evidence classes",
@@ -329,7 +334,9 @@
         "semantic parameter-ID checks",
         "separate ownership/class/case/evidence counts",
         "claim-boundary exclusions",
-        "migration map validation"
+        "migration map validation",
+        "repository inventory and fail-closed local completion gate",
+        "controlled mixed-surface, circular-oracle, prose, suppression, and completeness rules"
       ],
       "remaining_hardening": [
         "semantic oracle and tolerance review remains agent/human work"
@@ -399,16 +406,14 @@
     {
       "skill_name": "graphify",
       "path": ".agents/skills/graphify/SKILL.md",
-      "content_sha256": "5fbaa466c94e27f41f6eb66922561bb0138fcf627519c0310bcba1293008f372",
-      "trigger_description": "Explicit Graphify requests or explicitly requested broad repository topology, dependency, or impact analysis allowed by the repository overlay.",
+      "content_sha256": "7552b384216ac3630df04d97535b0dec5b9d23e9b943853b3a5a6f5d6623e793",
+      "trigger_description": "Only a current explicit human request to run or use Graphify.",
       "current_consumers": [
-        "AGENTS.md",
-        ".pi/skills/recommend-next-task/SKILL.md"
+        "AGENTS.md"
       ],
       "authoritative_references": [
         ".agents/skills/graphify/references/ksdft2effmass-policy.md",
-        "AGENTS.md",
-        ".pi/tasks/graphify-integration.md"
+        "AGENTS.md"
       ],
       "inputs": [
         "explicit requested operation",
@@ -433,27 +438,78 @@
         "Graphify AST extraction and graph commands; semantic extraction is not deterministic"
       ],
       "authorization_requirements": "External semantic processing, clone/fetch/push, hooks, servers/watchers, installation, API keys, or transmission require separate explicit human approval and are prohibited by default.",
-      "failure_behavior": "Report blocked or failed operation; never auto-install or switch to an external backend.",
+      "failure_behavior": "Report blocked or failed operation; never auto-install, upgrade, discover a fallback executable, or switch to a semantic backend.",
       "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy; new attempt identity preserves prior derived outputs and warnings.",
-      "idempotency": "Existing-graph query is read-only; build/update idempotency depends on explicit input manifest and Graphify safeguards.",
+      "idempotency": "Existing-graph commands use a sanitized environment, disable Graphify query logging, and are read-only; build/update idempotency depends on explicit input manifest and Graphify safeguards.",
       "evidence_classification": "derived advisory repository intelligence only",
-      "current_validation_status": "Project overlay and narrowed trigger audited; no bounded query command/result is claimed by this audit; any generated graph remains nonauthoritative.",
+      "current_validation_status": "Explicit-only local CLI policy audited; no repository graph was used as correction evidence. During independent review, a help probe was interpreted by Graphify 0.9.2 as a query and appended one external query-log entry before the sanitized command guard was added; repository files were unchanged and any prior ignored graph remains nonauthoritative.",
       "primary_classification": "ADVISORY_REVIEW_ONLY",
       "hardening_applied": [
-        "narrowed project trigger",
-        "explicit no-install/no-external-processing override",
-        "clarified Obsidian opt-in",
+        "explicit-human-request-only trigger",
+        "fixed validated $HOME-relative local executable",
+        "sanitized command environment removes backend keys and fixes the output directory",
+        "query logging disabled for read-only operations",
+        "repository-root-only structural update",
+        "no automatic install, fallback, rebuild, or semantic backend",
         "added CPN invocation/retry boundary"
       ],
       "stop_condition": "Stop with advisory output or blocked status; never approve architecture, science, a task, or execution."
     },
     {
+      "skill_name": "inspect-task-state",
+      "path": ".pi/skills/inspect-task-state/SKILL.md",
+      "content_sha256": "2544ec3890d733d76671fd949c7c6a9c503f26c18bb5131b983bd6b288d0d054",
+      "trigger_description": "One exact task selected by a known chain path and task identity requires bounded inspection of its declared durable repository state.",
+      "current_consumers": [
+        "AGENTS.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/tasks/harness-simplification.execution.task-state-inspection-tool.md",
+        "docs/harness/ksdft2effmass.harness.010.030.030.md"
+      ],
+      "inputs": [
+        "absolute repository root",
+        "root-relative chain path",
+        "exact selected task identity"
+      ],
+      "outputs": [
+        "deterministic task-state JSON",
+        "declared paths and role assignments",
+        "structured invalid-reference findings and explicit limitations"
+      ],
+      "side_effects": [
+        "none; bounded read-only filesystem inspection"
+      ],
+      "external_tools_used": [
+        "project Python environment and ksdft2effmass task-state command"
+      ],
+      "deterministic_scripts_used": [
+        "python -m ksdft2effmass.harness.pi.local.inspect_task_state"
+      ],
+      "authorization_requirements": "The caller must already have authority to inspect the repository and must supply the controlling chain path and exact task identity; the skill cannot discover, activate, or authorize work.",
+      "failure_behavior": "Invalid declared state returns structured findings; invalid inputs or unexpected command failures are reported and stop without fallback discovery.",
+      "retry_behavior": "Retry only with corrected explicit inputs or a changed declared repository state; retain prior findings when they remain relevant.",
+      "idempotency": "Read-only inspection is observationally idempotent for the same explicit inputs and unchanged filesystem state.",
+      "evidence_classification": "bounded control-plane software inspection; no execution, review-independence, acceptance, numerical, scientific-validation, or UQ evidence",
+      "current_validation_status": "The existing command and public ActionObject have focused software-verification coverage; the live skill adds procedure discovery without changing command behavior.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "exact explicit inputs",
+        "deterministic command and exit mapping",
+        "read-only and no-discovery boundary",
+        "structured findings and limitations",
+        "exact stop without activation or inference"
+      ],
+      "stop_condition": "Stop after reporting the exact command result, declared paths, findings, and limitations required by the caller."
+    },
+    {
       "skill_name": "recommend-next-task",
       "path": ".pi/skills/recommend-next-task/SKILL.md",
-      "content_sha256": "bd7e91f72a252fe63b0f1f0a175cb87eca0e360984f17b859a1f176c4835e26d",
+      "content_sha256": "b0aecfe5e1d5cd0fbf657a8fef381a7fa0de1b7f8c3b211b1905ddbc876f9876",
       "trigger_description": "Human asks what task is next or how to continue after repository-state reconstruction.",
       "current_consumers": [
-        ".agents/skills/graphify/SKILL.md"
+        "AGENTS.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -479,7 +535,7 @@
       ],
       "external_tools_used": [
         "repository read/search",
-        "optional policy-bounded Graphify query"
+        "existing Graphify artifacts may be read; no Graphify command without an explicit human request"
       ],
       "deterministic_scripts_used": [
         "checkpoint validation where relevant"
@@ -624,7 +680,7 @@
     {
       "block": "StalePathReviewBlock",
       "kind": "mixed",
-      "evidence_owner": "deterministic path inventory plus integration review; Graphify optional advisory only",
+      "evidence_owner": "deterministic path inventory plus integration review; Graphify advisory only when explicitly human-requested",
       "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
       "authority": "software/control-plane evidence"
     },
@@ -712,7 +768,7 @@
       "command": "python/.venv/bin/python .pi/skills/validate_harness.py --repository-root <absolute-repository-root> --route-config <absolute-route-config>",
       "evidence_owner": ".pi/skills/validate_harness.py, harness/local/validation-route.json, and harness/local/validation/replay_current_validators.py",
       "classification": "repository-local harness validation routing",
-      "current_status": "selected local route validates current H3 manifests/resources and eight live skills through a closed fail-closed replay; legacy rollback remains retained"
+      "current_status": "selected local route validates current H3 manifests/resources and the complete live skill inventory through a closed fail-closed replay; legacy rollback remains retained"
     },
     {
       "block": "EvidenceIdentifierAuditBlock",

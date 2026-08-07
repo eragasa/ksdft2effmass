@@ -1,4 +1,4 @@
-r"""Software verification of the provenance version-1 schema/fixture family.
+r"""Software verification of schema fixture family v1.
 
 Facet and represented meaning
 -----------------------------
@@ -364,7 +364,7 @@ def test_artifact__trailing_line_feed_fixtures__fail_schema_and_runtime(
         ),
         pytest.param("missing-attempt-id.json", True, id="missing_attempt_id"),
         pytest.param(
-            "impossible-calendar-date.json", False, id="impossible_calendar_date"
+            "impossible-calendar-date.json", True, id="impossible_calendar_date"
         ),
         pytest.param("surrogate.json", True, id="surrogate"),
     ),

@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``CpnDefinitionValidator``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public
 ``CpnDefinitionValidator`` software surface and its finite, exact CPN routing
 representation. It does not represent a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``CpnDefinitionValidator`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -31,7 +33,7 @@ pytestmark = pytest.mark.software_verification
 SUT = CpnDefinitionValidator
 
 
-def test_method__contract__complete_net_mapping_validates(
+def test_method__execute__complete_net_mapping_validates(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID

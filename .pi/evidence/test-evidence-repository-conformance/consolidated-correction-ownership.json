@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point_regressions.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    }
+  ]
+}

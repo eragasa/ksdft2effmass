@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "request_id": "TEST-EVIDENCE-CONVENTIONS-2-M2-human-request",
+  "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+  "parent_workflow_id": "test-evidence-repository-conformance",
+  "attempt_id": "M2-attempt-1",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
+  "baseline_inventory_sha256": "e578454994ad3f4a59ffcc629de34b4c949b1b46b2166b39fb95831fb7277511",
+  "output_inventory_sha256": "ca4b4ecfd0e45b78909833e8a492ab75cc9c0729f01dfc9502fad18a47938b11",
+  "skill_sha256": "e8952a2a13d027e05ad24cf99e0d62a7c1e40efb4de6f9e6e00723c3c9655711",
+  "conventions_sha256": "07d502a8a130e6b95f73182be001b79adf4b97945e41840d5d461529e7df46ad",
+  "authoritative_contracts": [
+    ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+    ".pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md",
+    "python/src/ksdft2effmass/workflows/cpn/__init__.py",
+    "specification/workflow-cpn/v1"
+  ],
+  "permitted_mutation_paths": [
+    "python/tests/software_verification/ksdft2effmass/workflows/cpn/",
+    "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_*.py",
+    ".pi/evidence/test-evidence-repository-conformance/"
+  ],
+  "supporting_paths": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/conftest.py",
+      "baseline_content_sha256": "725ccbece221aeec94581fcfa5295d22d185de1e82b6da239d1889132e6e0ec2",
+      "output_content_sha256": "6ccac15181731443314215482647846e859a5dbd3f9bbe60774e00f3fcd79894"
+    }
+  ],
+  "migration_map": ".pi/evidence/test-evidence-repository-conformance/m2-node-migration-map.json",
+  "new_node_record": ".pi/evidence/test-evidence-repository-conformance/m2-new-split-nodes.json",
+  "expected_result_shape": [
+    "status",
+    "scope_counts",
+    "repository_counts",
+    "validation",
+    "residual_risks"
+  ],
+  "stop_policy": "Stop on failed ownership preflight, incomplete node mapping, unauthorized mutation, public-contract ambiguity, or failed focused structural/collection/pytest/Ruff/mypy gates. Repository gate remains diagnostic until later serial milestones migrate the complete inventory.",
+  "owned_modules": [
+    {
+      "artifact": "workflow cpn python import dependency direction",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
+      "baseline_content_sha256": "088c17a5a34b590da695bbd354fc9e2e6a23d8a8984f76c503b29c6f4652541d",
+      "output_content_sha256": "34c1b16053a71a4f9f40263faaece030002e0d0fe206739e0db0a711790fa573"
+    },
+    {
+      "artifact": "workflow cpn python public api",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
+      "baseline_content_sha256": "e1770d41eb5a68d2ffbbf38d344754a9124e2ceee68e5fe787dded6ea3952f4d",
+      "output_content_sha256": "95a1e21ffd5232c2f6ef3d58fc780a1a9351df22dc1fb786a4ece7e46c49708e"
+    },
+    {
+      "artifact": "workflow cpn python snakes and deferred engine isolation",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
+      "baseline_content_sha256": "212d711be84adcb092aa5ec701e6d45dc9c9a456ffe34fc6289e1c9bf3756602",
+      "output_content_sha256": "99705aa4ca34a9312556cb9613f0e387088a818615ce8284fd213f4b2c39d1a2"
+    },
+    {
+      "artifact": "workflow cpn v1 json fixtures python runtime contract",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
+      "baseline_content_sha256": "7ce40a5cdf0153c342e91bb01dcf36f1cba2895cf8f16174083c88dbe77d9415",
+      "output_content_sha256": "4de57d288da71665b44ac34547f671a7390fa553a5799686df7d862c8c86e7e3"
+    },
+    {
+      "artifact": "workflow cpn v1 python json contract",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
+      "baseline_content_sha256": "d01b9e3f8f46fd7f77e7e06b6c0b8f52f31c38a2d7ea147e67b594689e2f7df3",
+      "output_content_sha256": "7e06e2c424ab412237664c2006d6249b2367264bbd773b39a763fc2603180ef3"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py",
+      "sut": "ArcDefinition",
+      "baseline_content_sha256": "52781d4f6db2a244398135a6424c03c855bdaf10a07e2fc9a0cd8512847ec993",
+      "output_content_sha256": "c11a648d691c3619d020d53f0cc900fd95c49b959902b3b392181f6ad83d6768"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py",
+      "sut": "ColorDefinition",
+      "baseline_content_sha256": "f9de171a252cd2b17f0f2a60936ceb01920ad917a599b76d376fe09019bf82f9",
+      "output_content_sha256": "856908f3d05f962f43cad1b882701429aea21ee769157d68187adbe63aadebb0"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
+      "sut": "ContractValue",
+      "baseline_content_sha256": "ec9b85e0ce6628000c1af192bd8b86687bc4c9155cd0c81d7746ccb9249f3603",
+      "output_content_sha256": "a4a73e48551d4e0e4128a629961e968f36d93865c4471941a24c250deb912e33"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py",
+      "sut": "CpnContractError",
+      "baseline_content_sha256": "15ff7a29fba1c8cacb0529614bfa5a5792db1c7e0ac9af831805a6672b435342",
+      "output_content_sha256": "e802c841edeaf4bf2cdb4a2a247ed179ea430afd2883d9364c00da5c2ed9cdc8"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py",
+      "sut": "CpnDefinitionValidator",
+      "baseline_content_sha256": "80b6995c7156792d40a577f6b9ea7154ca10991780735810e0cfb4e144ba7b2d",
+      "output_content_sha256": "e6583b8ae35711625732c93ee803fa06f90dae23369a71c002cf6403862d9150"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py",
+      "sut": "CpnErrorDetail",
+      "baseline_content_sha256": "75a8728546d0bb0d4fdd52301e0664460d0681de696950278fbaf4fa2d60a074",
+      "output_content_sha256": "1730ef8f80c8bb2547e282367c1f58f8a55bde91c58066e489ad3b1ff5125838"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
+      "sut": "CpnExpressionEvaluator",
+      "baseline_content_sha256": "bdfdc9f464a5c0c91c8432a6565a3d6a35bcd1d6ae3d3886e92d40930d7ef99f",
+      "output_content_sha256": "98e15ad2d58e6ca8a296ad468f844d21cac9c1e40bfad4c89e6d42c60c1c24bc"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
+      "sut": "CpnMarking",
+      "baseline_content_sha256": "536c83233e90eef9f50e18a9f1ef3fa2bbe6aabc45b6005d06e1d131cf30d31e",
+      "output_content_sha256": "87403a7cdd7224c18a06e7004c38696ffaecdbc985c586cd06b4408d50a3c54e"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
+      "sut": "CpnMarkingValidator",
+      "baseline_content_sha256": "e07290b0a23df134d732d74da2d63919f92cc29d0b5239659cee24d4df5dc776",
+      "output_content_sha256": "f4b894797aff4cc406e4c66e6c79ca809d48582ac6b50b7270c453c1a1e891f3"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py",
+      "sut": "CpnNetDefinition",
+      "baseline_content_sha256": "9252c082b476d3a208ed2b7ecf171fb27f43380c6974a8686faea426bfe0f302",
+      "output_content_sha256": "3500d3a1694f3e431268f3f6555de4b834b8fcca00139f64a91222c63e4c8058"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
+      "sut": "CpnToken",
+      "baseline_content_sha256": "5384ec2c916f5f60cf160d02f6c807a15406af91a8b56b2b670e770202546b75",
+      "output_content_sha256": "8f59003eec5603621e6787f8754f98fa8f347e996a75cd75fed55644fc80c3d8"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py",
+      "sut": "CpnValidationIssue",
+      "baseline_content_sha256": "e8a057c98d385cee1303398fb2230251c7559e4a0ed7362d61b2e4e77866f3ff",
+      "output_content_sha256": "08e78f7ed91525381a24942db1a8b2e64baf2f4ded8c406ef12bc0f636113e87"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py",
+      "sut": "CpnValidationResult",
+      "baseline_content_sha256": "b14b5c52b2c2bc1a8df1e37f7ddc3d4a7c125b94bb78f393358b617757f9a57c",
+      "output_content_sha256": "87bddc8d9c52ca7c2767d1a38a718f89a59b9dc9fea68205d39fcbf6aed502e2"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
+      "sut": "FiringRequest",
+      "baseline_content_sha256": "bb34e7daf254d9672f33e4ffe833ec4ccec515041a7f460b4d6abef79e467815",
+      "output_content_sha256": "76b6ff9d02d713aef7b20b88e9840953948d4aa9ff0bccdf023798bf61ecf0bb"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
+      "sut": "FiringResult",
+      "baseline_content_sha256": "2bfd2566d45c548846afe3da02f02ffca3a75320cf6eef8f891392d0a90a69a5",
+      "output_content_sha256": "bf5e5aaea8cc6f9508a78dd5c8afa5822cc006394bfca50d6dd5aeace9bc895a"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py",
+      "sut": "GuardEvaluationResult",
+      "baseline_content_sha256": "3e186976dbf9830acf56687d29df838701234ef3515594117afeefa0a3c4580e",
+      "output_content_sha256": "f29070c5a5aad086ab4efef8e9bf49b6c4bfb425e1f538ec462046a2861950d7"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
+      "sut": "GuardExpression",
+      "baseline_content_sha256": "7658b8886d81952d3b2d460b58f7d993f9e474179bceefbbebb73e01ba02ad3a",
+      "output_content_sha256": "47b5791fa74819c99bd6674277df0df47113dcb058f772de2ec24da412ed2f3e"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py",
+      "sut": "InputInscription",
+      "baseline_content_sha256": "13083f4573da3bc9c6b8cd97a7924de645fab443af3923aaa03fa3ffd9d0ba71",
+      "output_content_sha256": "c0e467340d64125aeaebc887046ba648f6cb691c1ab3c7a8e769a10717024adf"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py",
+      "sut": "OutputInscription",
+      "baseline_content_sha256": "e455cd2778185f0f29b05b19e1896e89b63b42954b6a46fbbf3e950d9ecec672",
+      "output_content_sha256": "868c27b93cdba2868d449f75f9ef281ebfe65ddc4a493ab8076e1c8f026947e5"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py",
+      "sut": "PlaceDefinition",
+      "baseline_content_sha256": "ea39d2f3654ae6d39b5557febf1713d5997b0379fb91abb16003eaeedbf24fe7",
+      "output_content_sha256": "8685bfa308a7c9c8d6e6f3fbc84401b1bc282b6e336b7dcdb4d3cd301d5a16ea"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py",
+      "sut": "PlaceMarking",
+      "baseline_content_sha256": "ed8465f3ccf27a9fda701e25edf32e2730445689a681a1a81294555c92e75478",
+      "output_content_sha256": "e0f8ac3f9eeba739a0e982c87607433682ed76fff9c4bff0a944cd9e81be1849"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py",
+      "sut": "TokenBinding",
+      "baseline_content_sha256": "1a343e5bf739d958f0721538eb0e6ec8db605ae21faff5542b3f90a595f78c3f",
+      "output_content_sha256": "e6963ce5c49d4dc352d8fd59d054f860b6c73677139a296519f617bccce80247"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py",
+      "sut": "TokenFieldAssignment",
+      "baseline_content_sha256": "192d02455d3446d03343c4a846d4b4c57a558b318a4f545c91d5df3b291583b4",
+      "output_content_sha256": "bef29527bba50dc69e34e02cbda272366d2fd0caf8faf84b9b531e10cc9df248"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
+      "sut": "TokenOutcome",
+      "baseline_content_sha256": "68ba2e1c389729da6d10435e6ed6f1366ff3a8ac7347d5588e890138b4adcc5d",
+      "output_content_sha256": "d330a374f03d81c25e31764fc0e1b9e8b950415916cc2740f8e6635889e44825"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py",
+      "sut": "TokenPattern",
+      "baseline_content_sha256": "28ed9b9de9a5bac0f21e26c29e5e43959fb6afe5a51ba5f6d588820482531279",
+      "output_content_sha256": "7c47a260d6bf7a8561cb47cb7a0f9cf851b7021be1eacecfa6620e3f502461f4"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py",
+      "sut": "TokenTemplate",
+      "baseline_content_sha256": "66f7cfcd48cd4dbb957c7c3f663f383b18205617d39b4cf228d75215db6c64b4",
+      "output_content_sha256": "57a869cec55da4a08b121c49282874fb0aa8affc23e13c75fe314b859c152b36"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py",
+      "sut": "TransitionBinding",
+      "baseline_content_sha256": "609745fd0e1f94884c80c68812e2402df8df7790d67107666cc0a55003ac1f0c",
+      "output_content_sha256": "8095bfc3ba7484c9b5995b789b5adce4641107969dd7048233487cfcdb112a6e"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py",
+      "sut": "TransitionDefinition",
+      "baseline_content_sha256": "c9502456dd52554dd564864ec975da19cf515fbc7514552b39fd10b9b7e99a2b",
+      "output_content_sha256": "208439473a564c91d86b8d1de27a9b53761c94605bcbfb676576337811508f63"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py",
+      "sut": "TransitionEnablementResult",
+      "baseline_content_sha256": "78cd436fb9f7cfcc5fb3ffce6b2201d4114a408653bc2d57f6deed6de427cb35",
+      "output_content_sha256": "a1dea33727453f67fb77e227e1cee9cfe69fd26d15a3c7a3df0efc82a13856c1"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
+      "sut": "TransitionEnabler",
+      "baseline_content_sha256": "77b8c345e94c61024a4a2450fca04daea52b6c1e9d7d35ffdae3da1ce6f8c452",
+      "output_content_sha256": "87f9217819646724cd3820c4539e3e7c3c01706fa36f1211e274f061a5ea90e6"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
+      "sut": "TransitionFirer",
+      "baseline_content_sha256": "3bd86d0be093604324519e09a50b5d3f0c478ea8e293ffd92c1a4257ff5d9096",
+      "output_content_sha256": "248239e715b040e1204ca2f5734d19b84d9f8d3e562d0dc6a3d1429889d99017"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py",
+      "sut": "ValueExpression",
+      "baseline_content_sha256": "43e665106288cae10829eabff8fbb2daa5d757794d9c66629a7be8a7b2cfc717",
+      "output_content_sha256": "bb2cc35da9e5f602c8aa8dbfb0506aa985e932ba987b4b1b365d0c196ede910a"
+    }
+  ]
+}

@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``TransitionFirer``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public ``TransitionFirer``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``TransitionFirer`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -24,6 +26,7 @@ from dataclasses import replace
 import pytest
 
 from ksdft2effmass.workflows.cpn import (
+    ArcDefinition,
     ArcDirection,
     CpnErrorCode,
     CpnFiringError,
@@ -55,12 +58,10 @@ pytestmark = pytest.mark.software_verification
 SUT = TransitionFirer
 
 
-def _replace_ready(net: CpnNetDefinition, token: CpnToken) -> CpnNetDefinition:
+def replace_ready_place(net: CpnNetDefinition, token: CpnToken) -> CpnNetDefinition:
     """Evidence ID
     -----------
-    This helper supports exactly SV-CPN-021, SV-CPN-022 and owns no independent evidence
-    ID.
-
+    Owns no identifier; supports SV-CPN-021, SV-CPN-022.
     Requirement
     -----------
     Provide explicit synthetic setup or assertion mechanics without creating an
@@ -108,11 +109,126 @@ def _replace_ready(net: CpnNetDefinition, token: CpnToken) -> CpnNetDefinition:
     return replace(net, initial_marking=marking)
 
 
-def _iteration_net(net: CpnNetDefinition) -> CpnNetDefinition:
+def transform_iteration_arc(
+    arc: ArcDefinition, retry_parent_assignment: TokenFieldAssignment
+) -> ArcDefinition:
     """Evidence ID
     -----------
-    This helper supports exactly SV-CPN-020 and owns no independent evidence ID.
+    Owns no identifier; supports SV-CPN-020.
+    Requirement
+    -----------
+    Provide explicit synthetic arc setup without an independent pass claim.
 
+    Method
+    ------
+    Transform the declared authorization input and output arcs for retry routing.
+
+    Oracle
+    ------
+    The supported test owns the routing oracle; this helper owns none.
+
+    Acceptance
+    ----------
+    Return the exact transformed public arc and leave unrelated arcs unchanged.
+
+    Interpretation
+    --------------
+    Failure invalidates setup for the supported evidence rather than adding evidence.
+
+    Limitations
+    -----------
+    Synthetic setup excludes engine execution, scientific validation, UQ, and physics.
+    """
+    if arc.direction is ArcDirection.INPUT and arc.place_id == "authorization":
+        assert arc.input_inscription is not None
+        return replace(
+            arc,
+            input_inscription=InputInscription(
+                InputArcMode.CONSUME, arc.input_inscription.patterns
+            ),
+        )
+    if arc.direction is ArcDirection.OUTPUT:
+        assert arc.output_inscription is not None
+        template = arc.output_inscription.templates[0]
+        return replace(
+            arc,
+            place_id="ready",
+            output_inscription=replace(
+                arc.output_inscription,
+                templates=(
+                    replace(
+                        template,
+                        color_id="work",
+                        assignments=template.assignments + (retry_parent_assignment,),
+                    ),
+                ),
+            ),
+        )
+    return arc
+
+
+def transform_retry_arc(
+    arc: ArcDefinition, retry_parent_assignment: TokenFieldAssignment
+) -> ArcDefinition:
+    """Evidence ID
+    -----------
+    Owns no identifier; supports SV-CPN-020.
+    Requirement
+    -----------
+    Provide explicit synthetic retry-arc setup without an independent pass claim.
+
+    Method
+    ------
+    Change the ready input to read mode and append the retry-parent output assignment.
+
+    Oracle
+    ------
+    The supported test owns the routing oracle; this helper owns none.
+
+    Acceptance
+    ----------
+    Return the exact transformed public arc and leave unrelated arcs unchanged.
+
+    Interpretation
+    --------------
+    Failure invalidates setup for the supported evidence rather than adding evidence.
+
+    Limitations
+    -----------
+    Synthetic setup excludes engine execution, scientific validation, UQ, and physics.
+    """
+    if (
+        arc.direction is ArcDirection.INPUT
+        and arc.place_id == "ready"
+        and arc.input_inscription is not None
+    ):
+        return replace(
+            arc,
+            input_inscription=InputInscription(
+                InputArcMode.READ, arc.input_inscription.patterns
+            ),
+        )
+    if arc.direction is ArcDirection.OUTPUT and arc.output_inscription is not None:
+        template = arc.output_inscription.templates[0]
+        return replace(
+            arc,
+            output_inscription=replace(
+                arc.output_inscription,
+                templates=(
+                    replace(
+                        template,
+                        assignments=template.assignments + (retry_parent_assignment,),
+                    ),
+                ),
+            ),
+        )
+    return arc
+
+
+def make_iteration_net(net: CpnNetDefinition) -> CpnNetDefinition:
+    """Evidence ID
+    -----------
+    Owns no identifier; supports SV-CPN-020.
     Requirement
     -----------
     Provide explicit synthetic setup or assertion mechanics without creating an
@@ -173,41 +289,9 @@ def _iteration_net(net: CpnNetDefinition) -> CpnNetDefinition:
             field=TokenField.ATTEMPT_ID,
         ),
     )
-    arcs = []
-    for arc in net.arcs:
-        if arc.direction is ArcDirection.INPUT and arc.place_id == "authorization":
-            assert arc.input_inscription is not None
-            arcs.append(
-                replace(
-                    arc,
-                    input_inscription=InputInscription(
-                        InputArcMode.CONSUME,
-                        arc.input_inscription.patterns,
-                    ),
-                )
-            )
-        elif arc.direction is ArcDirection.OUTPUT:
-            assert arc.output_inscription is not None
-            template = arc.output_inscription.templates[0]
-            arcs.append(
-                replace(
-                    arc,
-                    place_id="ready",
-                    output_inscription=replace(
-                        arc.output_inscription,
-                        templates=(
-                            replace(
-                                template,
-                                color_id="work",
-                                assignments=template.assignments
-                                + (retry_parent_assignment,),
-                            ),
-                        ),
-                    ),
-                )
-            )
-        else:
-            arcs.append(arc)
+    arcs = tuple(
+        transform_iteration_arc(arc, retry_parent_assignment) for arc in net.arcs
+    )
     transition = replace(
         net.transitions[0],
         guard=GuardExpression(
@@ -237,12 +321,12 @@ def _iteration_net(net: CpnNetDefinition) -> CpnNetDefinition:
     return replace(
         net,
         transitions=(transition,),
-        arcs=tuple(arcs),
+        arcs=arcs,
         initial_marking=marking,
     )
 
 
-def test_method__contract__firing_consumes_reads_produces_and_revises(
+def test_method__execute__firing_consumes_reads_produces_and_revises(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -316,7 +400,7 @@ def test_method__contract__firing_consumes_reads_produces_and_revises(
     assert all_ids == {"authorization-1", "done-1"}
 
 
-def test_method__contract__maximum_revision_returns_structured_overflow(
+def test_method__execute__maximum_revision_returns_structured_overflow(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -382,7 +466,7 @@ def test_method__contract__maximum_revision_returns_structured_overflow(
     assert error.value.detail.transition_id == "execute"
 
 
-def test_method__contract__output_count_and_collision_are_structured(
+def test_method__execute__output_count_and_collision_are_structured(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -453,7 +537,7 @@ def test_method__contract__output_count_and_collision_are_structured(
     assert collision_error.value.detail.code is CpnErrorCode.OUTPUT_ID_COLLISION
 
 
-def test_method__contract__binding_is_explicit_and_current(
+def test_method__execute__binding_is_explicit_and_current(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -512,7 +596,7 @@ def test_method__contract__binding_is_explicit_and_current(
     assert error.value.detail.code is CpnErrorCode.TRANSITION_NOT_ENABLED
 
 
-def test_method__contract__terminal_failure_is_read_for_retry_and_retained(
+def test_method__execute__terminal_failure_is_read_for_retry_and_retained(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -599,43 +683,9 @@ def test_method__contract__terminal_failure_is_read_for_retry_and_retained(
             field=TokenField.ATTEMPT_ID,
         ),
     )
-    arcs = []
-    for arc in executable_net.arcs:
-        if (
-            arc.direction is ArcDirection.INPUT
-            and arc.place_id == "ready"
-            and arc.input_inscription is not None
-        ):
-            arcs.append(
-                replace(
-                    arc,
-                    input_inscription=InputInscription(
-                        InputArcMode.READ,
-                        arc.input_inscription.patterns,
-                    ),
-                )
-            )
-        elif (
-            arc.direction is ArcDirection.OUTPUT and arc.output_inscription is not None
-        ):
-            template = arc.output_inscription.templates[0]
-            arcs.append(
-                replace(
-                    arc,
-                    output_inscription=replace(
-                        arc.output_inscription,
-                        templates=(
-                            replace(
-                                template,
-                                assignments=template.assignments
-                                + (retry_parent_assignment,),
-                            ),
-                        ),
-                    ),
-                )
-            )
-        else:
-            arcs.append(arc)
+    arcs = tuple(
+        transform_retry_arc(arc, retry_parent_assignment) for arc in executable_net.arcs
+    )
     initial_marking = CpnMarking(
         1,
         executable_net.model_id,
@@ -652,7 +702,7 @@ def test_method__contract__terminal_failure_is_read_for_retry_and_retained(
             for place in executable_net.initial_marking.places
         ),
     )
-    net = replace(executable_net, arcs=tuple(arcs), initial_marking=initial_marking)
+    net = replace(executable_net, arcs=arcs, initial_marking=initial_marking)
     binding = (
         TransitionEnabler().execute(net, net.initial_marking, "execute").bindings[0]
     )
@@ -669,12 +719,12 @@ def test_method__contract__terminal_failure_is_read_for_retry_and_retained(
     assert produced.retry_parent_attempt_id == "attempt-1"
     assert produced.iteration_index == 1
 
-    iteration_net = _iteration_net(executable_net)
+    iteration_net = make_iteration_net(executable_net)
 
     def execute_two_cycles() -> CpnMarking:
         """Evidence ID
         -----------
-        This helper supports exactly SV-CPN-020 and owns no independent evidence ID.
+        Owns no identifier; supports SV-CPN-020.
 
         Requirement
         -----------
@@ -759,7 +809,7 @@ def test_method__contract__terminal_failure_is_read_for_retry_and_retained(
     assert final.iteration_index == 7
 
 
-def test_method__contract__terminal_consume_is_rejected(
+def test_method__execute__terminal_consume_is_rejected(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -818,7 +868,7 @@ def test_method__contract__terminal_consume_is_rejected(
             OutcomeTerminality.TERMINAL,
         ),
     )
-    net = _replace_ready(executable_net, terminal)
+    net = replace_ready_place(executable_net, terminal)
     normal_binding = (
         TransitionEnabler()
         .execute(executable_net, executable_net.initial_marking, "execute")
@@ -833,7 +883,7 @@ def test_method__contract__terminal_consume_is_rejected(
     assert error.value.detail.code is CpnErrorCode.TERMINAL_TOKEN_CONSUMPTION
 
 
-def test_method__contract__recoverable_blocked_token_can_be_consumed(
+def test_method__execute__recoverable_blocked_token_can_be_consumed(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -894,7 +944,7 @@ def test_method__contract__recoverable_blocked_token_can_be_consumed(
             OutcomeTerminality.RECOVERABLE,
         ),
     )
-    net = _replace_ready(executable_net, blocked)
+    net = replace_ready_place(executable_net, blocked)
     binding = (
         TransitionEnabler().execute(net, net.initial_marking, "execute").bindings[0]
     )
@@ -905,7 +955,7 @@ def test_method__contract__recoverable_blocked_token_can_be_consumed(
     assert result.marking.revision == 1
 
 
-def test_method__contract__firer_rejects_wrong_public_argument_types(
+def test_method__execute__firer_rejects_wrong_public_argument_types(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID

@@ -1,6 +1,8 @@
-r"""Invariant evidence for ``OperatorRecordCompatibilityResult``.
+r"""Software verification of ``OperatorRecordCompatibilityResult``.
 
-System under test
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the invariants facet. System under test
 -----------------
 The system under test is direct construction of compatibility-audit ResultObject
 state at its public validation boundary.
@@ -54,6 +56,22 @@ UQ status
 ---------
 Uncertainty quantification has not been performed; no uncertainty is represented
 or propagated by these structural invariants.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordCompatibilityResult``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from typing import Any
@@ -68,12 +86,14 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordCompatibilityResult
+
 # This test-side tuple references enum order already verified by SV-OCMC-001.
 CANONICAL_RULES = tuple(OperatorRecordCompatibilityMismatchCode)
 
 
 class IssueTuple(tuple):
-    """Synthetic tuple subclass for the exact built-in-type boundary.
+    r"""Synthetic tuple subclass for the exact built-in-type boundary.
 
     The fixture contains otherwise ordinary synthetic values but must be rejected
     before element validation because the public ``issues`` boundary requires
@@ -86,24 +106,29 @@ def make_issue(
         OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
     ),
 ) -> OperatorRecordCompatibilityIssue:
-    """Construct deterministic synthetic compatibility-audit evidence.
-
-    Parameters
-    ----------
-    code
-        Public enum member passed unchanged into the Issue's sole authoritative
-        ``code`` field. Omission selects ``OPERATOR_KIND_MISMATCH``.
-
-    Returns
-    -------
-    OperatorRecordCompatibilityIssue
-        A directly constructed synthetic Issue without helper-side coercion or
-        canonicalization.
-
-    Notes
-    -----
-    Construction performs no analyzer execution and establishes neither mismatch
-    reachability nor scientific validity.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
+    Requirement
+    Compatibility-result cases require a public issue with the requested mismatch code
+    and canonical record identifiers.
+    Method
+    Construct or inspect only the named synthetic fixture operation (make issue); the
+    helper owns no assertion result and introduces no hidden oracle.
+    Oracle
+    Literal constructor values, the declared public-field inventory where completeness
+    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
+    result independently.
+    Acceptance
+    The helper returns exactly the requested fixture value or applies only the
+    documented comparison; all pass/fail assertions remain in the owning test.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     return OperatorRecordCompatibilityIssue(code)
@@ -112,39 +137,39 @@ def make_issue(
 @pytest.mark.parametrize(
     ("field_name", "invalid_value", "expected_exception"),
     [
-        pytest.param("reference_identifier", "", ValueError, id="reference-empty"),
-        pytest.param("reference_identifier", 1, TypeError, id="reference-integer"),
-        pytest.param("reference_identifier", None, TypeError, id="reference-none"),
-        pytest.param("reference_identifier", True, TypeError, id="reference-boolean"),
-        pytest.param("candidate_identifier", "", ValueError, id="candidate-empty"),
-        pytest.param("candidate_identifier", 1, TypeError, id="candidate-integer"),
-        pytest.param("candidate_identifier", None, TypeError, id="candidate-none"),
-        pytest.param("candidate_identifier", True, TypeError, id="candidate-boolean"),
+        pytest.param("reference_identifier", "", ValueError, id="reference_empty"),
+        pytest.param("reference_identifier", 1, TypeError, id="reference_integer"),
+        pytest.param("reference_identifier", None, TypeError, id="reference_none"),
+        pytest.param("reference_identifier", True, TypeError, id="reference_boolean"),
+        pytest.param("candidate_identifier", "", ValueError, id="candidate_empty"),
+        pytest.param("candidate_identifier", 1, TypeError, id="candidate_integer"),
+        pytest.param("candidate_identifier", None, TypeError, id="candidate_none"),
+        pytest.param("candidate_identifier", True, TypeError, id="candidate_boolean"),
     ],
 )
-def test_enforce_identifier_invariants(
+def test_constructor__enforce_identifier_invariants__is_enforced(
     field_name: str,
     invalid_value: Any,
     expected_exception: type[Exception],
 ) -> None:
-    """SV-ORCAR-006: enforce each identifier's type and value invariants.
-
+    r"""Evidence ID
+    SV-ORCAR-006
     Requirement
-        Each identifier is an independently validated nonempty string; wrong
-        semantic types raise ``TypeError`` and empty strings raise ``ValueError``.
+    Each identifier is an independently validated nonempty string; wrong semantic types
+    raise ``TypeError`` and empty strings raise ``ValueError``.
     Method
-        Change exactly one named identifier per parameterized construction.
+    Change exactly one named identifier per parameterized construction.
     Oracle
-        The approved source contract documents field-specific identifier
-        diagnostics and the repository type/value exception taxonomy.
+    The approved source contract documents field-specific identifier diagnostics and the
+    repository type/value exception taxonomy.
     Acceptance
-        The exact exception category is raised and its diagnostic names the
-        independently invalid reference or candidate identifier.
+    The exact exception category is raised and its diagnostic names the independently
+    invalid reference or candidate identifier.
     Interpretation
-        Passing establishes identifier validation without cross-field masking.
+    Passing establishes identifier validation without cross-field masking.
     Limitations
-        Identifier content has provenance meaning only and is not scientifically
-        validated here.
+    Identifier content has provenance meaning only and is not scientifically validated
+    here.
     """
 
     kwargs: dict[str, Any] = {
@@ -170,32 +195,34 @@ def test_enforce_identifier_invariants(
     [
         pytest.param([make_issue()], id="list"),
         pytest.param((issue for issue in (make_issue(),)), id="generator"),
-        pytest.param(IssueTuple((make_issue(),)), id="tuple-subclass"),
-        pytest.param({"not-an-issue"}, id="set-sentinel"),
-        pytest.param(frozenset({"not-an-issue"}), id="frozenset-sentinel"),
+        pytest.param(IssueTuple((make_issue(),)), id="tuple_subclass"),
+        pytest.param({"not-an-issue"}, id="set_sentinel"),
+        pytest.param(frozenset({"not-an-issue"}), id="frozenset_sentinel"),
         pytest.param("not-an-issue-tuple", id="string"),
         pytest.param(b"not-an-issue-tuple", id="bytes"),
-        pytest.param(object(), id="arbitrary-object"),
+        pytest.param(object(), id="arbitrary_object"),
     ],
 )
-def test_require_exact_builtin_tuple_for_issues(invalid_issues: Any) -> None:
-    """SV-ORCAR-007: reject every representative non-exact tuple container.
-
+def test_method__require__require_exact_builtin_tuple_for_issues(
+    invalid_issues: Any,
+) -> None:
+    r"""Evidence ID
+    SV-ORCAR-007
     Requirement
-        ``issues`` requires ``type(issues) is tuple`` before element validation.
+    ``issues`` requires ``type(issues) is tuple`` before element validation.
     Method
-        Supply mutable, iterable, set-like, scalar, subclass, and arbitrary
-        containers; set fixtures contain only an unrelated hashable sentinel.
+    Supply mutable, iterable, set-like, scalar, subclass, and arbitrary containers; set
+    fixtures contain only an unrelated hashable sentinel.
     Oracle
-        The approved public boundary rejects rather than canonicalizes every
-        non-exact built-in tuple.
+    The approved public boundary rejects rather than canonicalizes every non-exact
+    built-in tuple.
     Acceptance
-        Each case raises ``TypeError`` with the exact-tuple diagnostic.
+    Each case raises ``TypeError`` with the exact-tuple diagnostic.
     Interpretation
-        Passing establishes container-type precedence over element checks.
+    Passing establishes container-type precedence over element checks.
     Limitations
-        No Issue or Result is used as a set member or dictionary key, so this
-        evidence creates no implicit hashability contract.
+    No Issue or Result is used as a set member or dictionary key, so this evidence
+    creates no implicit hashability contract.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -209,31 +236,32 @@ def test_require_exact_builtin_tuple_for_issues(invalid_issues: Any) -> None:
     [
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
-            id="raw-enum-member",
+            id="raw_enum_member",
         ),
-        pytest.param("energy_unit_mismatch", id="raw-machine-string"),
+        pytest.param("energy_unit_mismatch", id="raw_machine_string"),
         pytest.param(None, id="none"),
-        pytest.param(True, id="python-boolean"),
-        pytest.param(object(), id="arbitrary-object"),
+        pytest.param(True, id="python_boolean"),
+        pytest.param(object(), id="arbitrary_object"),
     ],
 )
-def test_require_public_compatibility_issue_elements(invalid_issue: Any) -> None:
-    """SV-ORCAR-008: reject non-Issue elements inside an exact tuple.
-
+def test_method__require__require_public_compatibility_issue_elements(
+    invalid_issue: Any,
+) -> None:
+    r"""Evidence ID
+    SV-ORCAR-008
     Requirement
-        Every exact-tuple element is an ``OperatorRecordCompatibilityIssue``;
-        codes and raw values are not coerced.
+    Every exact-tuple element is an ``OperatorRecordCompatibilityIssue``; codes and raw
+    values are not coerced.
     Method
-        Place one representative invalid element in an exact built-in tuple.
+    Place one representative invalid element in an exact built-in tuple.
     Oracle
-        The approved element validation raises ``TypeError`` naming the public
-        Issue type.
+    The approved element validation raises ``TypeError`` naming the public Issue type.
     Acceptance
-        Every case raises ``TypeError`` with an Issue-specific diagnostic.
+    Every case raises ``TypeError`` with an Issue-specific diagnostic.
     Interpretation
-        Passing establishes the public element boundary after tuple admission.
+    Passing establishes the public element boundary after tuple admission.
     Limitations
-        This does not exercise analyzer construction of valid Issues.
+    This does not exercise analyzer construction of valid Issues.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -244,23 +272,23 @@ def test_require_public_compatibility_issue_elements(invalid_issue: Any) -> None
     assert "OperatorRecordCompatibilityIssue" in diagnostic
 
 
-def test_reject_duplicated_mismatch_codes_from_distinct_issues() -> None:
-    """SV-ORCAR-009: reject duplicated codes independent of Issue identity.
-
+def test_field__reject_duplicated_mismatch_codes_from_distinct__is_exact() -> None:
+    r"""Evidence ID
+    SV-ORCAR-009
     Requirement
-        No two stored Issues may carry the same mismatch code.
+    No two stored Issues may carry the same mismatch code.
     Method
-        Construct two distinct Issue objects containing the same enum member.
+    Construct two distinct Issue objects containing the same enum member.
     Oracle
-        The approved ResultObject invariant defines duplication by code, not
-        repeated object identity.
+    The approved ResultObject invariant defines duplication by code, not repeated object
+    identity.
     Acceptance
-        Distinct objects share code identity and their tuple raises the documented
-        duplicate-code ``ValueError``.
+    Distinct objects share code identity and their tuple raises the documented
+    duplicate-code ``ValueError``.
     Interpretation
-        Passing establishes authoritative code-level uniqueness.
+    Passing establishes authoritative code-level uniqueness.
     Limitations
-        The case does not imply that the mismatch is analyzer-reachable.
+    The case does not imply that the mismatch is analyzer-reachable.
     """
 
     code = OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
@@ -275,23 +303,23 @@ def test_reject_duplicated_mismatch_codes_from_distinct_issues() -> None:
     assert "must not be duplicated" in str(exc_info.value)
 
 
-def test_reject_noncanonical_issue_ordering() -> None:
-    """SV-ORCAR-010: reject distinct valid Issues in reversed rule order.
-
+def test_field__reject_noncanonical_issue_ordering__is_exact() -> None:
+    r"""Evidence ID
+    SV-ORCAR-010
     Requirement
-        Issue codes must preserve their relative canonical enum order.
+    Issue codes must preserve their relative canonical enum order.
     Method
-        Place ``OPERATOR_KIND_MISMATCH`` before the earlier
-        ``STATE_SPACE_KIND_MISMATCH`` and construct through the public boundary.
+    Place ``OPERATOR_KIND_MISMATCH`` before the earlier ``STATE_SPACE_KIND_MISMATCH``
+    and construct through the public boundary.
     Oracle
-        ``CANONICAL_RULES`` supplies the already-verified public order; the
-        ResultObject's rejection policy is under test.
+    ``CANONICAL_RULES`` supplies the already-verified public order; the ResultObject's
+    rejection policy is under test.
     Acceptance
-        Construction raises the documented canonical-order ``ValueError``.
+    Construction raises the documented canonical-order ``ValueError``.
     Interpretation
-        Passing complements positive canonical admission under ``SV-ORCAR-002``.
+    Passing complements positive canonical admission under ``the owning evidence``.
     Limitations
-        No private ordering helper is called and no analyzer rule executes.
+    No private ordering helper is called and no analyzer rule executes.
     """
 
     assert CANONICAL_RULES.index(

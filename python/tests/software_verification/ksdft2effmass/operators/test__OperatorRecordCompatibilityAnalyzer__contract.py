@@ -1,6 +1,8 @@
-r"""Public-contract evidence for ``OperatorRecordCompatibilityAnalyzer``.
+r"""Software verification of ``OperatorRecordCompatibilityAnalyzer``.
 
-System under test
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the contract facet. System under test
 -----------------
 The Analyzer is an ActionObject that audits whether two independently valid
 ``OperatorRecord`` matrices already share the exact finite representation
@@ -44,6 +46,22 @@ flow, structured results, and type boundaries. It is not numerical verification
 because no numerical approximation is assessed. Scientific validation and
 uncertainty quantification have not been performed; synthetic records provide no
 physical reference evidence, uncertainty model, or propagation procedure.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordCompatibilityAnalyzer``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from collections.abc import Mapping
@@ -66,6 +84,8 @@ from ksdft2effmass.operators import (
 )
 
 pytestmark = pytest.mark.software_verification
+
+SUT = OperatorRecordCompatibilityAnalyzer
 
 type Cell = tuple[
     tuple[float, float, float],
@@ -99,41 +119,33 @@ def make_record(
     energy_unit: str = "eV",
     provenance: Mapping[str, str] | None = None,
 ) -> OperatorRecord:
-    """Construct one independently valid synthetic ``OperatorRecord``.
-
-    Evidence ID
-        Supporting fixture for ``SV-ORCA-002``, ``SV-ORCA-003``, and
-        ``SV-ORCA-016`` through ``SV-ORCA-019``; it owns no separate evidence ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Fixtures must satisfy every intrinsic record, state-space, basis, cell,
-        finite-matrix, and dimension invariant before compatibility analysis.
+    Fixtures must satisfy every intrinsic record, state-space, basis, cell,
+    finite-matrix, and dimension invariant before compatibility analysis.
     Method
-        Build explicit metadata and a finite ``np.complex128`` matrix. Matrix
-        dimension, state-space dimension, and basis-ordering length are coupled
-        through ``dimension = len(basis_ordering)``.
+    Build explicit metadata and a finite ``np.complex128`` matrix. Matrix dimension,
+    state-space dimension, and basis-ordering length are coupled through ``dimension =
+    len(basis_ordering)``.
     Oracle
-        The public ``OperatorRecord`` construction contract defines those
-        intrinsic invariants. Compatibility-critical parameters are matrix
-        dimension, state-space kind, operator kind, basis ordering and kind,
-        cell, boundary and coordinate conventions, length unit, energy unit,
-        and energy-zero convention.
+    The public ``OperatorRecord`` construction contract defines those intrinsic
+    invariants. Compatibility-critical parameters are matrix dimension, state-space
+    kind, operator kind, basis ordering and kind, cell, boundary and coordinate
+    conventions, length unit, energy unit, and energy-zero convention.
     Acceptance
-        Public construction succeeds and returns an intrinsically valid record
-        without test-side invariant bypass or broad coercion.
+    Public construction succeeds and returns an intrinsically valid record without
+    test-side invariant bypass or broad coercion.
     Interpretation
-        A returned object is an independently valid synthetic record suitable
-        for testing the Analyzer's public boundary.
+    A returned object is an independently valid synthetic record suitable for testing
+    the Analyzer's public boundary.
     Limitations
-        Identifiers, geometry-system text, and provenance are identity,
-        descriptive, or provenance fields deliberately ignored by compatibility.
-        Matrices are finite synthetic matrices; no record comes from DFT,
-        Wannierization, experiment, or impurity extraction. Construction proves
-        neither physical equivalence nor scientific validity. It performs no
-        scientific validation or uncertainty quantification.
-
-    Notes
-    -----
-    No broad test-side coercion is performed. An explicitly supplied empty
+    Identifiers, geometry-system text, and provenance are identity, descriptive, or
+    provenance fields deliberately ignored by compatibility. Matrices are finite
+    synthetic matrices; no record comes from DFT, Wannierization, experiment, or
+    impurity extraction. Construction proves neither physical equivalence nor scientific
+    validity. It performs no scientific validation or uncertainty quantification. Notes
+    ----- No broad test-side coercion is performed. An explicitly supplied empty
     provenance mapping is preserved; only ``None`` selects the synthetic default.
     """
 
@@ -165,53 +177,47 @@ def make_record(
 def issue_codes(
     result: OperatorRecordCompatibilityResult,
 ) -> tuple[OperatorRecordCompatibilityMismatchCode, ...]:
-    """Extract the public ordered issue-code tuple without reordering it.
-
-    Evidence ID
-        Supporting projection for ``SV-ORCA-017``; it owns no separate evidence
-        ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Assertions must preserve Analyzer-owned deterministic issue ordering.
+    Assertions must preserve Analyzer-owned deterministic issue ordering.
     Method
-        Read each public Issue ``code`` in the ResultObject tuple's existing
-        order; no set, dictionary, sort, or private method is used.
+    Read each public Issue ``code`` in the ResultObject tuple's existing order; no set,
+    dictionary, sort, or private method is used.
     Oracle
-        The public ResultObject exposes ``issues`` as its canonical audit tuple.
+    The public ResultObject exposes ``issues`` as its canonical audit tuple.
     Acceptance
-        The output contains exactly the public codes in their existing order.
+    The output contains exactly the public codes in their existing order.
     Interpretation
-        The returned tuple is a direct projection of public audit state.
+    The returned tuple is a direct projection of public audit state.
     Limitations
-        This helper performs no compatibility analysis and does not establish
-        the enum's canonical order independently, scientific validation, or
-        uncertainty quantification.
+    This helper performs no compatibility analysis and does not establish the enum's
+    canonical order independently, scientific validation, or uncertainty quantification.
     """
 
     return tuple(issue.code for issue in result.issues)
 
 
 def make_ignored_metadata_candidate(variation: str) -> OperatorRecord:
-    """Construct one valid candidate varying only named ignored metadata.
-
-    Evidence ID
-        Supporting fixture for ``SV-ORCA-003``; it owns no separate evidence ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Every ignored identity, descriptive, and provenance field must be
-        independently reachable while compatibility-critical fields stay equal.
+    Every ignored identity, descriptive, and provenance field must be independently
+    reachable while compatibility-critical fields stay equal.
     Method
-        Select one explicit public-constructor variation by readable case name.
+    Select one explicit public-constructor variation by readable case name.
     Oracle
-        The approved Analyzer contract identifies exactly five ignored fields.
+    The approved Analyzer contract identifies exactly five ignored fields.
     Acceptance
-        Construction returns a valid candidate with the requested isolated or
-        explicitly combined ignored-field variation.
+    Construction returns a valid candidate with the requested isolated or explicitly
+    combined ignored-field variation.
     Interpretation
-        Each returned candidate isolates one ignored-field boundary, except the
-        explicitly named combined case.
+    Each returned candidate isolates one ignored-field boundary, except the explicitly
+    named combined case.
     Limitations
-        Compatibility of these synthetic records establishes subtractability
-        only, not common physical-system identity, scientific validation, or
-        uncertainty quantification.
+    Compatibility of these synthetic records establishes subtractability only, not
+    common physical-system identity, scientific validation, or uncertainty
+    quantification.
     """
 
     match variation:
@@ -237,22 +243,22 @@ def make_ignored_metadata_candidate(variation: str) -> OperatorRecord:
             raise ValueError(f"unknown ignored-metadata variation: {variation}")
 
 
-def test_default_public_analyzer_construction() -> None:
-    """SV-ORCA-001: construct the default Analyzer through the public import.
-
+def test_constructor__default_public_analyzer_construction__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ORCA-001
     Requirement
-        The public ActionObject is default-constructible.
+    The public ActionObject is default-constructible.
     Method
-        Invoke its public constructor without arguments.
+    Invoke its public constructor without arguments.
     Oracle
-        The approved public API exposes a stateless default Analyzer.
+    The approved public API exposes a stateless default Analyzer.
     Acceptance
-        Construction returns ``OperatorRecordCompatibilityAnalyzer``.
+    Construction returns ``OperatorRecordCompatibilityAnalyzer``.
     Interpretation
-        Passing establishes public construction, not rule correctness.
+    Passing establishes public construction, not rule correctness.
     Limitations
-        No record pair is analyzed; no scientific validation or uncertainty
-        quantification is performed.
+    No record pair is analyzed; no scientific validation or uncertainty quantification
+    is performed.
     """
 
     analyzer = OperatorRecordCompatibilityAnalyzer()
@@ -260,25 +266,25 @@ def test_default_public_analyzer_construction() -> None:
     assert isinstance(analyzer, OperatorRecordCompatibilityAnalyzer)
 
 
-def test_execute_constructs_complete_compatible_audit_result() -> None:
-    """SV-ORCA-002: execute a complete audit on compatible valid records.
-
+def test_method__execute__execute_constructs_complete_compatible_audit_result() -> None:
+    r"""Evidence ID
+    SV-ORCA-002
     Requirement
-        ``execute()`` returns the public compatible audit with input roles and
-        the complete canonical applied-rule sequence.
+    ``execute()`` returns the public compatible audit with input roles and the complete
+    canonical applied-rule sequence.
     Method
-        Analyze two independently constructed records with equal critical
-        metadata and distinct role identifiers.
+    Analyze two independently constructed records with equal critical metadata and
+    distinct role identifiers.
     Oracle
-        The public ResultObject contract and enum iteration define exact output.
+    The public ResultObject contract and enum iteration define exact output.
     Acceptance
-        Type, compatibility, empty issues, identifiers, and rules all match.
+    Type, compatibility, empty issues, identifiers, and rules all match.
     Interpretation
-        Passing establishes Analyzer-owned ResultObject construction without
-        duplicating direct-constructor invariants owned by SV-ORCAR evidence.
+    Passing establishes Analyzer-owned ResultObject construction without duplicating
+    direct-constructor invariants owned by SV-ORCAR evidence.
     Limitations
-        Synthetic compatibility is not physical equivalence, scientific
-        validation, or uncertainty quantification.
+    Synthetic compatibility is not physical equivalence, scientific validation, or
+    uncertainty quantification.
     """
 
     reference = make_record(identifier="reference-role")
@@ -297,40 +303,38 @@ def test_execute_constructs_complete_compatible_audit_result() -> None:
 @pytest.mark.parametrize(
     "variation",
     [
+        pytest.param("operator-record-identifier", id="identifier"),
+        pytest.param("state-space-identifier", id="identifier"),
+        pytest.param("basis-identifier", id="identifier"),
+        pytest.param("geometry-system", id="system"),
+        pytest.param("provenance", id="provenance_empty_mapping"),
         pytest.param(
-            "operator-record-identifier", id="SV-ORCA-003-operator-record-identifier"
-        ),
-        pytest.param("state-space-identifier", id="SV-ORCA-003-state-space-identifier"),
-        pytest.param("basis-identifier", id="SV-ORCA-003-basis-identifier"),
-        pytest.param("geometry-system", id="SV-ORCA-003-geometry-system"),
-        pytest.param("provenance", id="SV-ORCA-003-provenance-empty-mapping"),
-        pytest.param(
-            "combined-ignored-metadata", id="SV-ORCA-003-combined-ignored-metadata"
+            "combined-ignored-metadata", id="sv_orca_003_combined_ignored_metadata"
         ),
     ],
 )
-def test_ignored_identity_descriptive_and_provenance_metadata(
+def test_field__ignored_identity_descriptive_and_provenance_metadata__is_exact(
     variation: str,
 ) -> None:
-    """SV-ORCA-003: ignore only non-representation metadata during audit.
-
+    r"""Evidence ID
+    SV-ORCA-003
     Requirement
-        Record, state-space, and basis identifiers, geometry-system text, and
-        provenance do not prevent direct subtraction when critical fields match.
+    Record, state-space, and basis identifiers, geometry-system text, and provenance do
+    not prevent direct subtraction when critical fields match.
     Method
-        Independently vary each ignored field, plus one combined case, while
-        constructing both records through valid public constructors.
+    Independently vary each ignored field, plus one combined case, while constructing
+    both records through valid public constructors.
     Oracle
-        The approved exact-compatibility field inventory excludes these fields.
+    The approved exact-compatibility field inventory excludes these fields.
     Acceptance
-        Every case is compatible and has no issues.
+    Every case is compatible and has no issues.
     Interpretation
-        Passing distinguishes representation compatibility from identity and
-        provenance equality.
+    Passing distinguishes representation compatibility from identity and provenance
+    equality.
     Limitations
-        Ignoring a field does not prove a common physical system, equivalent DFT
-        or Wannier provenance, scientific acceptability of subtraction, or
-        scientific validation; no uncertainty quantification is performed.
+    Ignoring a field does not prove a common physical system, equivalent DFT or Wannier
+    provenance, scientific acceptability of subtraction, or scientific validation; no
+    uncertainty quantification is performed.
     """
 
     reference = make_record()
@@ -342,23 +346,23 @@ def test_ignored_identity_descriptive_and_provenance_metadata(
     assert result.issues == ()
 
 
-def test_require_returns_value_equivalent_compatible_audit() -> None:
-    """SV-ORCA-016: require compatibility with value-equivalent behavior.
-
+def test_method__require__require_returns_value_equivalent_compatible_audit() -> None:
+    r"""Evidence ID
+    SV-ORCA-016
     Requirement
-        ``require()`` returns a compatible audit equal to ``execute()`` output.
+    ``require()`` returns a compatible audit equal to ``execute()`` output.
     Method
-        Invoke both public methods on the same independently valid pair.
+    Invoke both public methods on the same independently valid pair.
     Oracle
-        The documented ``require()`` success contract is the complete audit.
+    The documented ``require()`` success contract is the complete audit.
     Acceptance
-        Results compare equal and the required result is compatible.
+    Results compare equal and the required result is compatible.
     Interpretation
-        Passing establishes value-equivalent public behavior without imposing an
-        undocumented object-identity requirement.
+    Passing establishes value-equivalent public behavior without imposing an
+    undocumented object-identity requirement.
     Limitations
-        No incompatible branch, physical equivalence, scientific validation, or
-        uncertainty quantification is established.
+    No incompatible branch, physical equivalence, scientific validation, or uncertainty
+    quantification is established.
     """
 
     analyzer = OperatorRecordCompatibilityAnalyzer()
@@ -372,23 +376,25 @@ def test_require_returns_value_equivalent_compatible_audit() -> None:
     assert require_result.is_compatible is True
 
 
-def test_require_raises_error_retaining_complete_incompatible_audit() -> None:
-    """SV-ORCA-017: propagate structured incompatibility with role fidelity.
-
+def test_method__require__require_raises_error_retaining_complete_incompatible() -> (
+    None
+):
+    r"""Evidence ID
+    SV-ORCA-017
     Requirement
-        ``require()`` raises the public structured error retaining the same
-        complete audit that ``execute()`` returns for the incompatible pair.
+    ``require()`` raises the public structured error retaining the same complete audit
+    that ``execute()`` returns for the incompatible pair.
     Method
-        Differ only in energy unit, execute first, then require the same pair.
+    Differ only in energy unit, execute first, then require the same pair.
     Oracle
-        Exact energy-unit mismatch and structured-error retention are public.
+    Exact energy-unit mismatch and structured-error retention are public.
     Acceptance
-        Error type, retained value, exact code, and role identifiers all match.
+    Error type, retained value, exact code, and role identifiers all match.
     Interpretation
-        Passing establishes Analyzer-to-error structured propagation.
+    Passing establishes Analyzer-to-error structured propagation.
     Limitations
-        It does not retest the exception constructor's complete invariant set or
-        perform scientific validation or uncertainty quantification.
+    It does not retest the exception constructor's complete invariant set or perform
+    scientific validation or uncertainty quantification.
     """
 
     analyzer = OperatorRecordCompatibilityAnalyzer()
@@ -412,38 +418,33 @@ def test_require_raises_error_retaining_complete_incompatible_audit() -> None:
     ("invalid_role", "expected_message"),
     [
         pytest.param(
-            "reference",
-            "reference must be an OperatorRecord",
-            id="SV-ORCA-018-invalid-reference",
+            "reference", "reference must be an OperatorRecord", id="invalid_reference"
         ),
         pytest.param(
-            "candidate",
-            "candidate must be an OperatorRecord",
-            id="SV-ORCA-018-invalid-candidate",
+            "candidate", "candidate must be an OperatorRecord", id="invalid_candidate"
         ),
     ],
 )
-def test_execute_rejects_each_invalid_public_input(
+def test_method__execute__execute_rejects_each_invalid_public_input(
     invalid_role: str, expected_message: str
 ) -> None:
-    """SV-ORCA-018: enforce both ``execute()`` input-type boundaries.
-
+    r"""Evidence ID
+    SV-ORCA-018
     Requirement
-        Reference and candidate must each be ``OperatorRecord`` instances.
+    Reference and candidate must each be ``OperatorRecord`` instances.
     Method
-        Create valid records inside each case and use ``Any``/``cast`` only to
-        cross the deliberate invalid public boundary for the selected role.
+    Create valid records inside each case and use ``Any``/``cast`` only to cross the
+    deliberate invalid public boundary for the selected role.
     Oracle
-        The public method documentation specifies ``TypeError`` and the stable
-        role-specific diagnostic.
+    The public method documentation specifies ``TypeError`` and the stable role-specific
+    diagnostic.
     Acceptance
-        Exact ``TypeError`` text identifies the invalid input role.
+    Exact ``TypeError`` text identifies the invalid input role.
     Interpretation
-        Passing establishes independent public boundary diagnostics.
+    Passing establishes independent public boundary diagnostics.
     Limitations
-        It does not exercise malformed records, which public constructors reject
-        before Analyzer execution, or perform scientific validation or
-        uncertainty quantification.
+    It does not exercise malformed records, which public constructors reject before
+    Analyzer execution, or perform scientific validation or uncertainty quantification.
     """
 
     analyzer = OperatorRecordCompatibilityAnalyzer()
@@ -463,37 +464,33 @@ def test_execute_rejects_each_invalid_public_input(
     ("invalid_role", "expected_message"),
     [
         pytest.param(
-            "reference",
-            "reference must be an OperatorRecord",
-            id="SV-ORCA-019-invalid-reference",
+            "reference", "reference must be an OperatorRecord", id="invalid_reference"
         ),
         pytest.param(
-            "candidate",
-            "candidate must be an OperatorRecord",
-            id="SV-ORCA-019-invalid-candidate",
+            "candidate", "candidate must be an OperatorRecord", id="invalid_candidate"
         ),
     ],
 )
-def test_require_rejects_each_invalid_public_input(
+def test_method__require__require_rejects_each_invalid_public_input(
     invalid_role: str, expected_message: str
 ) -> None:
-    """SV-ORCA-019: enforce both ``require()`` input-type boundaries.
-
+    r"""Evidence ID
+    SV-ORCA-019
     Requirement
-        ``require()`` independently documents and enforces both record inputs.
+    ``require()`` independently documents and enforces both record inputs.
     Method
-        Create valid records inside each case and cross only the selected public
-        type boundary with deliberate ``Any``/``cast`` usage.
+    Create valid records inside each case and cross only the selected public type
+    boundary with deliberate ``Any``/``cast`` usage.
     Oracle
-        The public ``require()`` documentation specifies the same role-specific
-        ``TypeError`` diagnostics, regardless of current delegation internals.
+    The public ``require()`` documentation specifies the same role-specific
+    ``TypeError`` diagnostics, regardless of current delegation internals.
     Acceptance
-        Exact ``TypeError`` text identifies the invalid role for each case.
+    Exact ``TypeError`` text identifies the invalid role for each case.
     Interpretation
-        Passing establishes ``require()`` as an independently tested public API.
+    Passing establishes ``require()`` as an independently tested public API.
     Limitations
-        The test makes no assertion about internal delegation to ``execute()``
-        and performs no scientific validation or uncertainty quantification.
+    The test makes no assertion about internal delegation to ``execute()`` and performs
+    no scientific validation or uncertainty quantification.
     """
 
     analyzer = OperatorRecordCompatibilityAnalyzer()

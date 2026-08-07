@@ -1,6 +1,9 @@
-r"""Software-verification evidence for ``IncompatibleOperatorRecordsError``.
+r"""Software verification of ``IncompatibleOperatorRecordsError``.
 
-System under test
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the IncompatibleOperatorRecordsError facet. System
+under test
 -----------------
 ``IncompatibleOperatorRecordsError`` is the structured public failure emitted
 when a compatibility audit contains one or more mismatches under the current
@@ -39,6 +42,22 @@ or Rust conformance. Synthetic Issues and Results carry no DFT, Wannier,
 impurity, experimental, or physical-system provenance. Failure may indicate an
 exception-contract regression, documentation mismatch, or evidence defect that
 requires investigation; it does not itself establish scientific invalidity.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``IncompatibleOperatorRecordsError``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from typing import Any, cast
@@ -54,6 +73,8 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = IncompatibleOperatorRecordsError
+
 
 def make_incompatible_result(
     codes: tuple[OperatorRecordCompatibilityMismatchCode, ...] = (
@@ -63,34 +84,30 @@ def make_incompatible_result(
     reference_identifier: str = "reference",
     candidate_identifier: str = "candidate",
 ) -> OperatorRecordCompatibilityResult:
-    """Construct a deterministic incompatible synthetic audit result.
-
-    Evidence ID
-        Supporting fixture for ``SV-IORE-001`` through ``SV-IORE-003`` and
-        ``SV-IORE-006``; it owns no separate evidence identifier.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Valid exception fixtures contain a nonempty exact built-in Issue tuple in
-        the caller-supplied canonical mismatch-code order.
+    Valid exception fixtures contain a nonempty exact built-in Issue tuple in the
+    caller-supplied canonical mismatch-code order.
     Method
-        Construct every Issue through its public constructor, then pass the
-        resulting tuple and role identifiers to the public Result constructor.
-        No sorting, deduplication, string conversion, set, dictionary, private
-        validation, ``Any``, or ``cast`` is used.
+    Construct every Issue through its public constructor, then pass the resulting tuple
+    and role identifiers to the public Result constructor. No sorting, deduplication,
+    string conversion, set, dictionary, private validation, ``Any``, or ``cast`` is
+    used.
     Oracle
-        Public Issue and Result contracts require enum-backed Issues and an exact
-        canonically ordered tuple.
+    Public Issue and Result contracts require enum-backed Issues and an exact
+    canonically ordered tuple.
     Acceptance
-        Construction returns an incompatible Result whose Issue tuple preserves
-        the supplied enum sequence exactly.
+    Construction returns an incompatible Result whose Issue tuple preserves the supplied
+    enum sequence exactly.
     Interpretation
-        A returned object is deterministic in-memory software evidence suitable
-        for direct exception construction.
+    A returned object is deterministic in-memory software evidence suitable for direct
+    exception construction.
     Limitations
-        The helper does not execute the Analyzer or prove physical
-        incompatibility. Its synthetic state has no DFT, Wannier, impurity,
-        experimental, or physical-system provenance and establishes no numerical
-        verification, scientific validation, uncertainty quantification, or Rust
-        conformance.
+    The helper does not execute the Analyzer or prove physical incompatibility. Its
+    synthetic state has no DFT, Wannier, impurity, experimental, or physical-system
+    provenance and establishes no numerical verification, scientific validation,
+    uncertainty quantification, or Rust conformance.
     """
 
     issues = tuple(OperatorRecordCompatibilityIssue(code) for code in codes)
@@ -101,30 +118,28 @@ def make_incompatible_result(
     )
 
 
-def test_public_construction_and_exception_taxonomy() -> None:
-    """SV-IORE-001: construct the public structured ``ValueError`` subtype.
-
-    Evidence ID
-        ``SV-IORE-001``.
+def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
+    r"""Evidence ID
+    SV-IORE-001
     Requirement
-        An incompatible public Result constructs the public exception, whose
-        accepted hierarchy is ``IncompatibleOperatorRecordsError -> ValueError``.
+    An incompatible public Result constructs the public exception, whose accepted
+    hierarchy is ``IncompatibleOperatorRecordsError -> ValueError``.
     Method
-        Construct one synthetic incompatible Result and pass it directly to the
-        exception imported from ``ksdft2effmass.operators``.
+    Construct one synthetic incompatible Result and pass it directly to the exception
+    imported from ``ksdft2effmass.operators``.
     Oracle
-        The accepted public source declares ``ValueError`` inheritance and the
-        constructor accepts an incompatible compatibility Result.
+    The accepted public source declares ``ValueError`` inheritance and the constructor
+    accepts an incompatible compatibility Result.
     Acceptance
-        Construction succeeds and the object is an instance of the public class,
-        ``ValueError``, and ``Exception``.
+    Construction succeeds and the object is an instance of the public class,
+    ``ValueError``, and ``Exception``.
     Interpretation
-        Passing establishes public construction and documented exception
-        taxonomy independently of Analyzer execution.
+    Passing establishes public construction and documented exception taxonomy
+    independently of Analyzer execution.
     Limitations
-        ``Exception.args`` formatting, internal module location, mutability,
-        pickling, traceback state, numerical accuracy, scientific validation,
-        uncertainty quantification, and Rust conformance are not tested.
+    ``Exception.args`` formatting, internal module location, mutability, pickling,
+    traceback state, numerical accuracy, scientific validation, uncertainty
+    quantification, and Rust conformance are not tested.
     """
 
     result = make_incompatible_result()
@@ -136,30 +151,30 @@ def test_public_construction_and_exception_taxonomy() -> None:
     assert isinstance(error, Exception)
 
 
-def test_exact_incompatible_audit_result_identity_is_retained() -> None:
-    """SV-IORE-002: retain the exact supplied audit object and ordered state.
-
-    Evidence ID
-        ``SV-IORE-002``.
+def test_field__represented_state__exact_incompatible_audit_result_identity_is() -> (
+    None
+):
+    r"""Evidence ID
+    SV-IORE-002
     Requirement
-        Callers can inspect the same audit object that caused failure without
-        reconstruction or loss of input roles or Issue ordering.
+    Callers can inspect the same audit object that caused failure without reconstruction
+    or loss of input roles or Issue ordering.
     Method
-        Supply one direct incompatible Result and inspect only the public
-        ``compatibility_result`` attribute and its public state.
+    Supply one direct incompatible Result and inspect only the public
+    ``compatibility_result`` attribute and its public state.
     Oracle
-        The exception contract requires identity retention of the authoritative
-        ``OperatorRecordCompatibilityResult``.
+    The exception contract requires identity retention of the authoritative
+    ``OperatorRecordCompatibilityResult``.
     Acceptance
-        The retained object is identical to the input and exposes the exact
-        identifiers, Issue tuple, and incompatible state.
+    The retained object is identical to the input and exposes the exact identifiers,
+    Issue tuple, and incompatible state.
     Interpretation
-        Passing establishes exact in-memory audit retention, role fidelity,
-        Issue-tuple fidelity, and incompatible state.
+    Passing establishes exact in-memory audit retention, role fidelity, Issue-tuple
+    fidelity, and incompatible state.
     Limitations
-        Result constructor invariants remain owned by ``SV-ORCAR-001`` through
-        ``SV-ORCAR-013``. No Analyzer, numerical verification, scientific
-        validation, uncertainty quantification, or Rust conformance is tested.
+    Result constructor invariants remain owned by ``the owning evidence`` through ``the
+    owning evidence``. No Analyzer, numerical verification, scientific validation,
+    uncertainty quantification, or Rust conformance is tested.
     """
 
     result = make_incompatible_result(
@@ -183,45 +198,42 @@ def test_exact_incompatible_audit_result_identity_is_retained() -> None:
     "codes",
     [
         pytest.param(
-            (OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,),
-            id="SV-IORE-003-single-energy-unit",
+            (OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,), id="unit"
         ),
         pytest.param(
             (
                 OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH,
                 OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
             ),
-            id="SV-IORE-003-multiple-canonical-codes",
+            id="sv_iore_003_multiple_canonical_codes",
         ),
     ],
 )
-def test_human_readable_message_summarizes_structured_codes(
+def test_protocol__str__human_readable_message_summarizes_structured_codes(
     codes: tuple[OperatorRecordCompatibilityMismatchCode, ...],
 ) -> None:
-    """SV-IORE-003: summarize retained codes in their canonical Issue order.
-
-    Evidence ID
-        ``SV-IORE-003``.
+    r"""Evidence ID
+    SV-IORE-003
     Requirement
-        The human-readable message states incompatibility and includes every
-        retained machine code in the same order as the authoritative Issue tuple.
+    The human-readable message states incompatibility and includes every retained
+    machine code in the same order as the authoritative Issue tuple.
     Method
-        Construct single- and multi-Issue Results, then inspect stable semantic
-        message content without freezing punctuation or separators.
+    Construct single- and multi-Issue Results, then inspect stable semantic message
+    content without freezing punctuation or separators.
     Oracle
-        Source documentation promises a readable mismatch-code summary while
-        designating ``compatibility_result`` as authoritative machine state.
+    Source documentation promises a readable mismatch-code summary while designating
+    ``compatibility_result`` as authoritative machine state.
     Acceptance
-        The base incompatibility statement and every retained code occur, with
-        multi-Issue codes in retained canonical order.
+    The base incompatibility statement and every retained code occur, with multi-Issue
+    codes in retained canonical order.
     Interpretation
-        Passing establishes semantic diagnostic coverage and ordering, not a
-        wire format or independently parseable protocol.
+    Passing establishes semantic diagnostic coverage and ordering, not a wire format or
+    independently parseable protocol.
     Limitations
-        Exact punctuation, capitalization beyond the documented base phrase,
-        canonical description wording, Analyzer propagation, numerical accuracy,
-        scientific validation, uncertainty quantification, and Rust conformance
-        are outside this evidence.
+    Exact punctuation, capitalization beyond the documented base phrase, canonical
+    description wording, Analyzer propagation, numerical accuracy, scientific
+    validation, uncertainty quantification, and Rust conformance are outside this
+    evidence.
     """
 
     result = make_incompatible_result(codes)
@@ -238,44 +250,41 @@ def test_human_readable_message_summarizes_structured_codes(
 @pytest.mark.parametrize(
     "invalid_result",
     [
-        pytest.param(None, id="SV-IORE-004-none"),
-        pytest.param("energy_unit_mismatch", id="SV-IORE-004-string"),
-        pytest.param(True, id="SV-IORE-004-boolean"),
-        pytest.param(object(), id="SV-IORE-004-arbitrary-object"),
+        pytest.param(None, id="none"),
+        pytest.param("energy_unit_mismatch", id="sv_iore_004_string"),
+        pytest.param(True, id="sv_iore_004_boolean"),
+        pytest.param(object(), id="sv_iore_004_arbitrary_object"),
         pytest.param(
             OperatorRecordCompatibilityIssue(
                 OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
             ),
-            id="SV-IORE-004-issue-object",
+            id="sv_iore_004_issue_object",
         ),
     ],
 )
-def test_invalid_compatibility_result_types_are_rejected(
+def test_constructor__invalid_compatibility_result_types_are__is_enforced(
     invalid_result: object,
 ) -> None:
-    """SV-IORE-004: reject representative wrong semantic input types.
-
-    Evidence ID
-        ``SV-IORE-004``.
+    r"""Evidence ID
+    SV-IORE-004
     Requirement
-        Values that are not ``OperatorRecordCompatibilityResult`` instances
-        raise ``TypeError`` at the public constructor boundary.
+    Values that are not ``OperatorRecordCompatibilityResult`` instances raise
+    ``TypeError`` at the public constructor boundary.
     Method
-        Parameterize ``None``, string, Boolean, arbitrary object, and Issue, using
-        ``Any`` and ``cast`` only at this deliberate invalid-type call.
+    Parameterize ``None``, string, Boolean, arbitrary object, and Issue, using ``Any``
+    and ``cast`` only at this deliberate invalid-type call.
     Oracle
-        The public exception contract specifies ``TypeError`` and identifies the
-        ``compatibility_result`` field in its diagnostic.
+    The public exception contract specifies ``TypeError`` and identifies the
+    ``compatibility_result`` field in its diagnostic.
     Acceptance
-        Every parameter raises only ``TypeError`` and the diagnostic names
-        ``compatibility_result``.
+    Every parameter raises only ``TypeError`` and the diagnostic names
+    ``compatibility_result``.
     Interpretation
-        Passing establishes exact wrong-type taxonomy and field-specific
-        diagnostic scope.
+    Passing establishes exact wrong-type taxonomy and field-specific diagnostic scope.
     Limitations
-        A correctly typed compatible Result belongs to ``SV-IORE-005``. This
-        evidence performs no Analyzer execution, numerical verification,
-        scientific validation, uncertainty quantification, or Rust conformance.
+    A correctly typed compatible Result belongs to ``the owning evidence``. This
+    evidence performs no Analyzer execution, numerical verification, scientific
+    validation, uncertainty quantification, or Rust conformance.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -284,29 +293,27 @@ def test_invalid_compatibility_result_types_are_rejected(
     assert "compatibility_result" in str(exc_info.value)
 
 
-def test_compatible_audit_result_is_rejected_as_invalid_exception_state() -> None:
-    """SV-IORE-005: reject a compatible Result with ``ValueError``.
-
-    Evidence ID
-        ``SV-IORE-005``.
+def test_constructor__compatible_audit_result_is_rejected_as__is_enforced() -> None:
+    r"""Evidence ID
+    SV-IORE-005
     Requirement
-        The correct Result type violates the exception-state invariant when it
-        has no Issues, so rejection is ``ValueError`` rather than ``TypeError``.
+    The correct Result type violates the exception-state invariant when it has no
+    Issues, so rejection is ``ValueError`` rather than ``TypeError``.
     Method
-        Construct an ordinary valid compatible Result with an empty exact tuple
-        and pass it directly to the exception constructor.
+    Construct an ordinary valid compatible Result with an empty exact tuple and pass it
+    directly to the exception constructor.
     Oracle
-        The public contract distinguishes wrong semantic type from a correctly
-        typed but compatible result and requires an incompatible audit.
+    The public contract distinguishes wrong semantic type from a correctly typed but
+    compatible result and requires an incompatible audit.
     Acceptance
-        Construction raises only ``ValueError`` with the documented incompatible-
-        result diagnostic.
+    Construction raises only ``ValueError`` with the documented incompatible- result
+    diagnostic.
     Interpretation
-        Passing establishes the documented TypeError/ValueError taxonomy split.
+    Passing establishes the documented TypeError/ValueError taxonomy split.
     Limitations
-        No object mutation, invariant bypass, Analyzer execution, physical
-        incompatibility determination, numerical verification, scientific
-        validation, uncertainty quantification, or Rust conformance occurs.
+    No object mutation, invariant bypass, Analyzer execution, physical incompatibility
+    determination, numerical verification, scientific validation, uncertainty
+    quantification, or Rust conformance occurs.
     """
 
     compatible = OperatorRecordCompatibilityResult("reference", "candidate", ())
@@ -317,40 +324,40 @@ def test_compatible_audit_result_is_rejected_as_invalid_exception_state() -> Non
     assert "compatibility_result must be incompatible" in str(exc_info.value)
 
 
-def test_exception_has_no_independent_serialization_api() -> None:
-    """SV-IORE-006: exclude unsupported exception serialization methods.
-
-    Evidence ID
-        ``SV-IORE-006``.
+def test_method__serialize__exception_has_no_serialization_api() -> None:
+    r"""Evidence ID
+    SV-IORE-006
     Requirement
-        The exception retains an in-memory audit but exposes no independent JSON,
-        dictionary, serializer, or deserializer API.
+    The exception retains an in-memory audit but exposes no independent JSON,
+    dictionary, serializer, or deserializer API.
     Method
-        Inspect the public instance/class boundary for the six explicitly
-        unapproved method names.
+    Inspect the public instance/class boundary for the six explicitly unapproved method
+    names.
     Oracle
-        Schema version 1 serializes ``OperatorRecord`` only; no exception,
-        comparison-result, or compatibility-result wire format is approved.
+    Schema version 1 serializes ``OperatorRecord`` only; no exception,
+    comparison-result, or compatibility-result wire format is approved.
     Acceptance
-        All six unapproved API names are absent from both instance and class.
+    All six unapproved API names are absent from both instance and class.
     Interpretation
-        Passing establishes absence of object-owned serialization APIs without
-        adding or implying a wire contract.
+    Passing establishes absence of object-owned serialization APIs without adding or
+    implying a wire contract.
     Limitations
-        Pickling, hashability, memory layout, Rust representation, Analyzer
-        propagation, numerical verification, scientific validation, and
-        uncertainty quantification are outside this evidence.
+    Pickling, hashability, memory layout, Rust representation, Analyzer propagation,
+    numerical verification, scientific validation, and uncertainty quantification are
+    outside this evidence.
     """
 
     error = IncompatibleOperatorRecordsError(make_incompatible_result())
 
-    for method_name in (
-        "to_json",
-        "to_dict",
-        "serialize",
-        "from_json",
-        "from_dict",
-        "deserialize",
-    ):
-        assert not hasattr(error, method_name)
-        assert not hasattr(IncompatibleOperatorRecordsError, method_name)
+    assert all(
+        (not hasattr(error, method_name))
+        and (not hasattr(IncompatibleOperatorRecordsError, method_name))
+        for method_name in (
+            "to_json",
+            "to_dict",
+            "serialize",
+            "from_json",
+            "from_dict",
+            "deserialize",
+        )
+    )

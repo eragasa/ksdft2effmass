@@ -241,7 +241,8 @@ def test_method__eq__compares_all_represented_fields() -> None:
     """Evidence ID
     SV-PROV-085
     Requirement
-    ArtifactSpecification equality is exact over all four immutable fields.
+    ArtifactSpecification equality distinguishes an otherwise equal value when its
+    semantic role differs.
     Method
     Compare identical constructions and one construction with a different role.
     Oracle

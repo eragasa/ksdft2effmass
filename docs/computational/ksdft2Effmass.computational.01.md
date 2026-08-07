@@ -38,20 +38,13 @@ gate with two noncircular gates.
 
 ### `G01a`: computational foundation
 
-The `G01a` accepted marking exists only when the frozen specifications, accepted operator-record
-foundation, run manifests and artifact identities, common metrics needed by
-early calculations, backend-neutral Kohn–Sham contracts, QE mechanical
-rendering/parsing, semantic mapping, and synthetic command-execution
-infrastructure have each completed their own implementation, tests,
-documentation, independent review, parent verification, and human acceptance.
-The bounded control-plane Tasks A–F in
+The `G01a` accepted marking exists only when the frozen specifications, accepted operator-record foundation, run manifests and artifact identities, common metrics needed by early calculations, backend-neutral Kohn–Sham contracts, QE mechanical rendering/parsing, semantic mapping, and synthetic command-execution infrastructure have each completed their own implementation, tests, documentation, independent review, parent verification, and human acceptance. The bounded control-plane Tasks A–F in
 `.pi/tasks/backend-neutral-kohn-sham-qe-architecture.md` provide the prospective
 implementation sequence. Synthetic fixtures do not authorize a real QE run.
 
 ### `G01b`: composed synthetic scientific workflows
 
-The `G01b` accepted marking exists only after the accepted operator-record foundation and required
-metrics support composed synthetic workflows that:
+The `G01b` accepted marking exists only after the accepted operator-record foundation and required metrics support composed synthetic workflows that:
 
 1. construct related finite-dimensional Hamiltonians;
 2. perform an explicitly approved basis/state-space alignment;

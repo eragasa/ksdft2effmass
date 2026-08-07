@@ -1,10 +1,12 @@
-"""Evidence class and represented meaning
+r"""Software verification of workflow cpn v1 json fixtures python runtime contract.
+
+Facet and represented meaning
 --------------------------------------
 Software verification of the version-1 CPN JSON fixture family <-> Python runtime
 contract, using synthetic routing representations rather than scientific data.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The version-1 CPN JSON fixture family <-> Python runtime contract is the primary
 artifact owner. Declared fixture classifications, version-1 schemas, and public Python
 error/result surfaces are the exact oracles.
@@ -64,11 +66,11 @@ REGISTRY = Registry().with_resource(CONTRACT["$id"], Resource.from_contents(CONT
 pytestmark = pytest.mark.software_verification
 
 
-def _strict_load(path: Path) -> object:
+def strict_load_json(path: Path) -> object:
     """Evidence ID
-    Supports exactly SV-CPN-029, SV-CPN-030, and SV-CPN-031; owns no independent
-    Evidence ID.
-
+    -----------
+    Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031, SV-CPN-170,
+    SV-CPN-171, SV-CPN-172, SV-CPN-173.
     Requirement
     Load fixture JSON while rejecting nonstandard nonfinite constants.
 
@@ -90,7 +92,9 @@ def _strict_load(path: Path) -> object:
 
     def reject_constant(value: str) -> object:
         """Evidence ID
-        Supports exactly SV-CPN-030; owns no independent Evidence ID.
+        -----------
+        Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031, SV-CPN-170,
+        SV-CPN-171, SV-CPN-172, and SV-CPN-173.
 
         Requirement
         Translate any decoder-supplied nonstandard JSON constant into deterministic
@@ -115,11 +119,11 @@ def _strict_load(path: Path) -> object:
     return json.loads(path.read_text(), parse_constant=reject_constant)
 
 
-def _validate(schema_name: str, fixture: Path) -> None:
+def validate_fixture_document(schema_name: str, fixture: Path) -> None:
     """Evidence ID
-    Supports exactly SV-CPN-029, SV-CPN-030, and SV-CPN-031; owns no independent
-    Evidence ID.
-
+    -----------
+    Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031, SV-CPN-171,
+    SV-CPN-172, SV-CPN-173.
     Requirement
     Validate one fixture through one named local version-1 schema entry point.
 
@@ -141,98 +145,258 @@ def _validate(schema_name: str, fixture: Path) -> None:
     It does not independently classify fixtures or test network behavior."""
     schema = json.loads((ROOT / schema_name).read_text())
     jsonschema.Draft202012Validator(schema, registry=REGISTRY).validate(
-        _strict_load(fixture)
+        strict_load_json(fixture)
     )
 
 
-def test_artifact__valid_json_fixtures__conform_to_declared_schemas() -> None:
+VALID_FIXTURE_CASES = (
+    pytest.param("minimal-net.json", "cpn-net.schema.json", id="minimal_net"),
+    pytest.param(
+        "multiset-marking.json", "cpn-marking.schema.json", id="multiset_marking"
+    ),
+    pytest.param(
+        "synchronized-firing.json", "cpn-firing.schema.json", id="synchronized_firing"
+    ),
+    pytest.param(
+        "retry-recovery-iteration.json",
+        "cpn-marking.schema.json",
+        id="retry_recovery_iteration",
+    ),
+    pytest.param(
+        "scoped-outcomes.json", "cpn-marking.schema.json", id="scoped_outcomes"
+    ),
+)
+
+
+@pytest.mark.parametrize(("fixture_name", "schema_name"), VALID_FIXTURE_CASES)
+def test_artifact__valid_json_fixtures__conform_to_declared_schemas(
+    fixture_name: str, schema_name: str
+) -> None:
     """Evidence ID
+    -----------
     SV-CPN-029
 
     Requirement
-    Every declared valid version-1 fixture conforms to its declared narrow schema entry
-    point.
+    -----------
+    Each declared valid fixture conforms to its declared narrow schema entry point.
 
     Method
-    Validate the five explicit valid fixture filenames using the local schema mapping
-    and strict loader; no warnings or network access are expected.
+    ------
+    Validate one explicit fixture/schema pair through the local registry and strict
+    loader.
 
     Oracle
-    The versioned fixture inventory and its explicit schema mapping provide the accepted
-    classifications.
+    ------
+    The versioned fixture inventory explicitly fixes the accepted schema classification.
 
     Acceptance
-    Every mapped fixture validates without exception.
+    ----------
+    Validation completes without exception, warning, or network resolution.
 
     Interpretation
-    Pass supports declared fixture/schema agreement; failure may indicate fixture,
-    mapping, schema, registry, parser, or library drift.
+    --------------
+    Failure may identify fixture, mapping, schema, registry, parser, or library drift.
 
     Limitations
-    Schema success does not execute relational behavior. Scientific validation, UQ,
-    physical correctness, and cross-language conformance are excluded."""
-    mapping = {
-        "minimal-net.json": "cpn-net.schema.json",
-        "multiset-marking.json": "cpn-marking.schema.json",
-        "synchronized-firing.json": "cpn-firing.schema.json",
-        "retry-recovery-iteration.json": "cpn-marking.schema.json",
-        "scoped-outcomes.json": "cpn-marking.schema.json",
-    }
-    for fixture_name, schema_name in mapping.items():
-        _validate(schema_name, ROOT / "valid" / fixture_name)
+    -----------
+    Schema success does not establish runtime semantics, science, UQ, or Rust agreement.
+    """
+    validate_fixture_document(schema_name, ROOT / "valid" / fixture_name)
 
 
-def test_artifact__structural_invalid_json_fixtures__are_rejected() -> None:
+def fixture_validation_succeeds(schema_name: str, path: Path) -> bool:
     """Evidence ID
+    -----------
+    Owns no identifier; supports no collected evidence owner.
+    Requirement
+    -----------
+    Expose repeated fixture-validation mechanics without an independent claim.
+
+    Method
+    ------
+    Validate one named repository fixture against its supplied public schema.
+
+    Oracle
+    ------
+    The supported artifact tests own fixture classification; this helper owns none.
+
+    Acceptance
+    ----------
+    Return ``True`` after validation and propagate every validation failure.
+
+    Interpretation
+    --------------
+    Helper failure invalidates the supported artifact evidence execution.
+
+    Limitations
+    -----------
+    This does not establish runtime semantics, scientific validation, or UQ.
+    """
+    validate_fixture_document(schema_name, path)
+    return True
+
+
+def fixture_is_rejected(schema_name: str, path: Path) -> bool:
+    """Evidence ID
+    -----------
+    Owns no identifier; supports no collected evidence owner.
+    Requirement
+    -----------
+    Expose deterministic structural-rejection mechanics without an independent claim.
+
+    Method
+    ------
+    Validate one supplied fixture and translate only JSON-Schema rejection to ``True``.
+
+    Oracle
+    ------
+    The supported artifact test owns the schema oracle; this helper owns none.
+
+    Acceptance
+    ----------
+    Return ``True`` exactly when ``jsonschema.ValidationError`` is raised.
+
+    Interpretation
+    --------------
+    Helper failure invalidates the supported artifact evidence setup.
+
+    Limitations
+    -----------
+    This does not validate schema meaning, runtime semantics, science, or UQ.
+    """
+    try:
+        validate_fixture_document(schema_name, path)
+    except jsonschema.ValidationError:
+        return True
+    return False
+
+
+STRUCTURAL_INVALID_CASES = (
+    pytest.param(
+        "invalid-outcome-terminality.json",
+        "cpn-marking.schema.json",
+        id="invalid_outcome_terminality",
+    ),
+    pytest.param(
+        "lambda-like-expression.json",
+        "cpn-contract.schema.json",
+        id="lambda_like_expression",
+    ),
+    pytest.param(
+        "unsupported-version.json", "cpn-net.schema.json", id="unsupported_version"
+    ),
+)
+
+
+@pytest.mark.parametrize(("fixture_name", "schema_name"), STRUCTURAL_INVALID_CASES)
+def test_artifact__structural_invalid_json_fixtures__are_rejected(
+    fixture_name: str, schema_name: str
+) -> None:
+    """Evidence ID
+    -----------
     SV-CPN-030
 
     Requirement
-    Declared structurally invalid version-1 fixtures are rejected by schema validation
-    or strict JSON parsing.
+    -----------
+    Each declared structurally invalid fixture is rejected by its public schema layer.
 
     Method
-    Validate four explicit invalid fixtures and strictly parse the designated nonfinite
-    fixture; no warnings are expected.
+    ------
+    Validate one explicit invalid fixture/schema pair through the local registry.
 
     Oracle
-    Draft 2020-12 constraints and standard strict JSON exclusion of NaN independently
-    define rejection for the declared cases.
+    ------
+    The versioned invalid-fixture classification fixes schema rejection.
 
     Acceptance
-    Each schema case raises ``ValidationError`` and only the designated NaN parse case
-    raises ``ValueError``.
+    ----------
+    Validation raises exactly ``jsonschema.ValidationError``.
 
     Interpretation
-    Pass supports structural-invalid classifications; failure may indicate fixture,
-    schema, parser, library, or evidence drift.
+    --------------
+    Failure may identify fixture, schema, registry, parser, library, or evidence drift.
 
     Limitations
-    Relational invalidity belongs to SV-CPN-031. Exhaustive invalid inputs, scientific
-    validation, UQ, and cross-language conformance are excluded."""
-    cases = {
-        "invalid-outcome-terminality.json": "cpn-marking.schema.json",
-        "boolean-as-integer.json": "cpn-marking.schema.json",
-        "lambda-like-expression.json": "cpn-contract.schema.json",
-        "unsupported-version.json": "cpn-net.schema.json",
-    }
-    for fixture_name, schema_name in cases.items():
-        try:
-            _validate(schema_name, ROOT / "invalid" / fixture_name)
-        except jsonschema.ValidationError:
-            continue
-        raise AssertionError(f"{fixture_name} unexpectedly passed schema validation")
-    try:
-        _strict_load(ROOT / "invalid" / "nonfinite-real.json")
-    except ValueError:
-        pass
-    else:
-        raise AssertionError("nonfinite-real.json unexpectedly parsed as strict JSON")
+    -----------
+    Relational invalidity, runtime semantics, science, UQ, and Rust are excluded.
+    """
+    with pytest.raises(jsonschema.ValidationError):
+        validate_fixture_document(schema_name, ROOT / "invalid" / fixture_name)
 
 
-def _token(data: dict[str, Any]) -> CpnToken:
+def test_artifact__boolean_integer_fixture__rejects_wrong_semantic_type() -> None:
     """Evidence ID
-    Supports exactly SV-CPN-031; owns no independent Evidence ID.
+    -----------
+    SV-CPN-173
 
+    Requirement
+    -----------
+    The marking schema rejects Boolean in an integer control field.
+
+    Method
+    ------
+    Validate the explicit ``boolean-as-integer`` fixture through the marking schema.
+
+    Oracle
+    ------
+    JSON Boolean and integer are distinct semantic wire types under the public contract.
+
+    Acceptance
+    ----------
+    Validation raises exactly ``jsonschema.ValidationError``.
+
+    Interpretation
+    --------------
+    Failure permits wrong-semantic-type coercion or indicates fixture/schema drift.
+
+    Limitations
+    -----------
+    Other wrong types, runtime construction, science, UQ, and Rust are excluded.
+    """
+    with pytest.raises(jsonschema.ValidationError):
+        validate_fixture_document(
+            "cpn-marking.schema.json", ROOT / "invalid" / "boolean-as-integer.json"
+        )
+
+
+def test_artifact__strict_json_fixture__rejects_nonfinite_real() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-170
+
+    Requirement
+    -----------
+    The designated nonfinite REAL fixture is rejected during strict JSON parsing.
+
+    Method
+    ------
+    Load ``nonfinite-real.json`` with the controlled strict loader.
+
+    Oracle
+    ------
+    Standard strict JSON excludes the fixture's nonfinite numeric token.
+
+    Acceptance
+    ----------
+    Parsing raises exactly ``ValueError``.
+
+    Interpretation
+    --------------
+    Failure admits a nonstandard JSON value or indicates fixture/parser drift.
+
+    Limitations
+    -----------
+    Schema in-memory NaN behavior, runtime construction, science, UQ, and Rust are
+    excluded.
+    """
+    with pytest.raises(ValueError):
+        strict_load_json(ROOT / "invalid" / "nonfinite-real.json")
+
+
+def make_wire_token(data: dict[str, Any]) -> CpnToken:
+    """Evidence ID
+    -----------
+    Owns no identifier; supports SV-CPN-031, SV-CPN-171, SV-CPN-172.
     Requirement
     Construct one public routing token from the bounded relational fixture shape.
 
@@ -272,10 +436,10 @@ def _token(data: dict[str, Any]) -> CpnToken:
     )
 
 
-def _marking(data: dict[str, Any]) -> CpnMarking:
+def make_wire_marking(data: dict[str, Any]) -> CpnMarking:
     """Evidence ID
-    Supports exactly SV-CPN-031; owns no independent Evidence ID.
-
+    -----------
+    Owns no identifier; supports SV-CPN-031, SV-CPN-171, SV-CPN-172.
     Requirement
     Construct one complete public marking from the bounded fixture shape.
 
@@ -302,17 +466,17 @@ def _marking(data: dict[str, Any]) -> CpnMarking:
         tuple(
             PlaceMarking(
                 place["place_id"],
-                tuple(_token(token) for token in place["tokens"]),
+                tuple(make_wire_token(token) for token in place["tokens"]),
             )
             for place in places
         ),
     )
 
 
-def _guard(data: dict[str, Any]) -> GuardExpression:
+def make_wire_guard(data: dict[str, Any]) -> GuardExpression:
     """Evidence ID
-    Supports exactly SV-CPN-031; owns no independent Evidence ID.
-
+    -----------
+    Owns no identifier; supports SV-CPN-031, SV-CPN-171.
     Requirement
     Construct only the closed guard shapes used by relational net fixtures.
 
@@ -353,10 +517,10 @@ def _guard(data: dict[str, Any]) -> GuardExpression:
     return GuardExpression(operator, left=left, right=right)
 
 
-def _net(data: dict[str, Any]) -> CpnNetDefinition:
+def make_wire_net(data: dict[str, Any]) -> CpnNetDefinition:
     """Evidence ID
-    Supports exactly SV-CPN-031; owns no independent Evidence ID.
-
+    -----------
+    Owns no identifier; supports SV-CPN-031, SV-CPN-171.
     Requirement
     Construct the bounded no-arc public net shapes used by relational fixtures.
 
@@ -406,19 +570,19 @@ def _net(data: dict[str, Any]) -> CpnNetDefinition:
             TransitionDefinition(
                 transition["transition_id"],
                 transition["description"],
-                _guard(transition["guard"]),
+                make_wire_guard(transition["guard"]),
             )
             for transition in transitions
         ),
         (),
-        _marking(initial),
+        make_wire_marking(initial),
     )
 
 
-def _collision_net() -> CpnNetDefinition:
+def make_collision_net() -> CpnNetDefinition:
     """Evidence ID
-    Supports exactly SV-CPN-031; owns no independent Evidence ID.
-
+    -----------
+    Owns no identifier; supports SV-CPN-172.
     Requirement
     Build the minimal valid public net required to exercise an existing-output-ID
     collision.
@@ -445,7 +609,8 @@ def _collision_net() -> CpnNetDefinition:
         value: None | bool | int | float | str | tuple[str, ...],
     ) -> ValueExpression:
         """Evidence ID
-        Supports exactly SV-CPN-031; owns no independent Evidence ID.
+        -----------
+        Owns no identifier; supports SV-CPN-172.
 
         Requirement
         Construct one explicitly tagged literal expression used by the controlled
@@ -495,9 +660,9 @@ def _collision_net() -> CpnNetDefinition:
             literal(ContractValueKind.STRING_SEQUENCE, ()),
         ),
     )
-    token_data = _strict_load(ROOT / "valid" / "multiset-marking.json")
+    token_data = strict_load_json(ROOT / "valid" / "multiset-marking.json")
     assert isinstance(token_data, dict)
-    token = _marking(token_data).places[0].tokens[0]
+    token = make_wire_marking(token_data).places[0].tokens[0]
     marking = CpnMarking(1, "minimal-model", 0, (PlaceMarking("ready", (token,)),))
     return CpnNetDefinition(
         1,
@@ -520,87 +685,152 @@ def _collision_net() -> CpnNetDefinition:
     )
 
 
-def test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles() -> (
-    None
-):
+DEFINITION_RELATIONAL_CASES = (
+    pytest.param("unknown-color.json", CpnIssueCode.UNKNOWN_COLOR, id="unknown_color"),
+    pytest.param(
+        "unbound-guard-variable.json",
+        CpnIssueCode.UNBOUND_VARIABLE,
+        id="unbound_guard_variable",
+    ),
+)
+
+
+@pytest.mark.parametrize(("fixture_name", "expected_code"), DEFINITION_RELATIONAL_CASES)
+def test_artifact__definition_relational_fixtures__reach_public_issue_code(
+    fixture_name: str, expected_code: CpnIssueCode
+) -> None:
     """Evidence ID
+    -----------
     SV-CPN-031
 
     Requirement
-    Schema-valid relational-invalid fixtures reach public Python owners and produce
-    their declared issue/error codes.
+    -----------
+    Each schema-valid definition-relational fixture reaches its declared public issue.
 
     Method
-    Validate and parse explicit fixtures, construct public CPN objects, then execute
-    public definition/marking validators or firer; no warnings are expected.
+    ------
+    Validate, strictly load, construct, and execute ``CpnDefinitionValidator``.
 
     Oracle
-    The fixture contract fixes the exact ``CpnIssueCode`` and ``OUTPUT_ID_COLLISION``
-    outcomes independently of the exercised ActionObjects.
+    ------
+    The fixture classification fixes the exact expected ``CpnIssueCode``.
 
     Acceptance
-    Each fixture is schema-valid and each public owner emits the exact asserted issue or
-    error code.
+    ----------
+    Schema succeeds and the runtime issue set contains the exact expected code.
 
     Interpretation
-    Pass supports fixture/runtime relational agreement; failure may indicate fixture
-    parser, schema, runtime owner, oracle, or evidence drift.
+    --------------
+    Failure may identify fixture, schema, parser, constructor, validator, or oracle
+    drift.
 
     Limitations
-    The local parser is not a production serializer or persistence layer. Scientific
-    validation, UQ, and cross-language conformance are excluded."""
-    cases = {
-        "unknown-color.json": "cpn-net.schema.json",
-        "duplicate-token-id.json": "cpn-marking.schema.json",
-        "wrong-place-set.json": "cpn-marking.schema.json",
-        "unbound-guard-variable.json": "cpn-net.schema.json",
-        "output-id-collision.json": "cpn-firing.schema.json",
-    }
-    for fixture_name, schema_name in cases.items():
-        _validate(schema_name, ROOT / "invalid" / fixture_name)
+    -----------
+    The local parser is not persistence; science, UQ, engine execution, and Rust are
+    excluded.
+    """
+    path = ROOT / "invalid" / fixture_name
+    validate_fixture_document("cpn-net.schema.json", path)
+    data = strict_load_json(path)
+    assert isinstance(data, dict)
+    result = CpnDefinitionValidator().execute(
+        make_wire_net(cast("dict[str, Any]", data))
+    )
+    assert expected_code in {issue.code for issue in result.issues}
 
-    unknown_data = _strict_load(ROOT / "invalid" / "unknown-color.json")
-    unbound_data = _strict_load(ROOT / "invalid" / "unbound-guard-variable.json")
-    minimal_data = _strict_load(ROOT / "valid" / "minimal-net.json")
-    duplicate_data = _strict_load(ROOT / "invalid" / "duplicate-token-id.json")
-    wrong_places_data = _strict_load(ROOT / "invalid" / "wrong-place-set.json")
-    assert all(
-        isinstance(item, dict)
-        for item in (
-            unknown_data,
-            unbound_data,
-            minimal_data,
-            duplicate_data,
-            wrong_places_data,
-        )
-    )
-    unknown_result = CpnDefinitionValidator().execute(
-        _net(cast("dict[str, Any]", unknown_data))
-    )
-    assert CpnIssueCode.UNKNOWN_COLOR in {issue.code for issue in unknown_result.issues}
-    unbound_result = CpnDefinitionValidator().execute(
-        _net(cast("dict[str, Any]", unbound_data))
-    )
-    assert CpnIssueCode.UNBOUND_VARIABLE in {
-        issue.code for issue in unbound_result.issues
-    }
-    minimal_net = _net(cast("dict[str, Any]", minimal_data))
-    duplicate_result = CpnMarkingValidator().execute(
-        minimal_net,
-        _marking(cast("dict[str, Any]", duplicate_data)),
-    )
-    assert CpnIssueCode.DUPLICATE_TOKEN_ID in {
-        issue.code for issue in duplicate_result.issues
-    }
-    place_result = CpnMarkingValidator().execute(
-        minimal_net,
-        _marking(cast("dict[str, Any]", wrong_places_data)),
-    )
-    assert CpnIssueCode.PLACE_SET_MISMATCH in {
-        issue.code for issue in place_result.issues
-    }
 
-    request_data = _strict_load(ROOT / "invalid" / "output-id-collision.json")
+MARKING_RELATIONAL_CASES = (
+    pytest.param(
+        "duplicate-token-id.json",
+        CpnIssueCode.DUPLICATE_TOKEN_ID,
+        id="duplicate_token_id",
+    ),
+    pytest.param(
+        "wrong-place-set.json", CpnIssueCode.PLACE_SET_MISMATCH, id="wrong_place_set"
+    ),
+)
+
+
+@pytest.mark.parametrize(("fixture_name", "expected_code"), MARKING_RELATIONAL_CASES)
+def test_artifact__marking_relational_fixtures__reach_public_issue_code(
+    fixture_name: str, expected_code: CpnIssueCode
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-171
+
+    Requirement
+    -----------
+    Each schema-valid marking-relational fixture reaches its declared public issue.
+
+    Method
+    ------
+    Validate, strictly load, construct, and execute ``CpnMarkingValidator``.
+
+    Oracle
+    ------
+    The fixture classification fixes the exact expected ``CpnIssueCode``.
+
+    Acceptance
+    ----------
+    Schema succeeds and the runtime issue set contains the exact expected code.
+
+    Interpretation
+    --------------
+    Failure may identify fixture, schema, parser, constructor, validator, or oracle
+    drift.
+
+    Limitations
+    -----------
+    The local parser is not persistence; science, UQ, engine execution, and Rust are
+    excluded.
+    """
+    path = ROOT / "invalid" / fixture_name
+    validate_fixture_document("cpn-marking.schema.json", path)
+    data = strict_load_json(path)
+    minimal = strict_load_json(ROOT / "valid" / "minimal-net.json")
+    assert isinstance(data, dict)
+    assert isinstance(minimal, dict)
+    net = make_wire_net(cast("dict[str, Any]", minimal))
+    result = CpnMarkingValidator().execute(
+        net, make_wire_marking(cast("dict[str, Any]", data))
+    )
+    assert expected_code in {issue.code for issue in result.issues}
+
+
+def test_artifact__output_collision_fixture__reaches_public_error_code() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-172
+
+    Requirement
+    -----------
+    The schema-valid output-collision fixture reaches ``OUTPUT_ID_COLLISION``.
+
+    Method
+    ------
+    Validate, load, construct the public request, and execute ``TransitionFirer``.
+
+    Oracle
+    ------
+    The fixture classification fixes the exact public collision error code.
+
+    Acceptance
+    ----------
+    Schema succeeds and firing raises ``CpnFiringError`` with the exact code.
+
+    Interpretation
+    --------------
+    Failure may identify fixture, schema, parser, constructor, firer, or oracle drift.
+
+    Limitations
+    -----------
+    The local parser is not persistence; science, UQ, external engines, and Rust are
+    excluded.
+    """
+    path = ROOT / "invalid" / "output-id-collision.json"
+    validate_fixture_document("cpn-firing.schema.json", path)
+    request_data = strict_load_json(path)
     assert isinstance(request_data, dict)
     binding_data = request_data["binding"]
     assert isinstance(binding_data, dict)
@@ -612,11 +842,9 @@ def test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracle
         ),
     )
     request = FiringRequest(
-        request_data["transition_id"],
-        binding,
-        tuple(request_data["output_token_ids"]),
+        request_data["transition_id"], binding, tuple(request_data["output_token_ids"])
     )
-    collision_net = _collision_net()
+    net = make_collision_net()
     with pytest.raises(CpnFiringError) as collision:
-        TransitionFirer().execute(collision_net, collision_net.initial_marking, request)
+        TransitionFirer().execute(net, net.initial_marking, request)
     assert collision.value.detail.code is CpnErrorCode.OUTPUT_ID_COLLISION

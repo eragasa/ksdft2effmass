@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+  "milestone": "M2",
+  "attempt_id": "M2-attempt-1",
+  "profile": "AUTHORIZED_TEST_EVIDENCE_WRITE",
+  "status": "PARTIAL_REPOSITORY_MILESTONE_PASS",
+  "scope_counts": {
+    "modules": 37,
+    "class_owned_modules": 32,
+    "artifact_owned_modules": 5,
+    "supporting_conftest_modules": 1,
+    "test_functions": 173,
+    "unique_evidence_owners": 173,
+    "module_helpers": 26,
+    "supporting_conftest_helpers": 4,
+    "static_parameter_cases": 70,
+    "baseline_collected_nodes": 91,
+    "migrated_mapped_nodes": 91,
+    "new_split_nodes": 132,
+    "new_evidence_owners": 85,
+    "final_collected_nodes": 223
+  },
+  "repository_counts": {
+    "inventoried_modules": 182,
+    "conforming_after_m2": 76,
+    "remaining_not_yet_conforming": 106,
+    "expected_collected_nodes": 2529,
+    "actual_collected_nodes": 2529
+  },
+  "validation": {
+    "ownership_preflight": "PASS",
+    "focused_collection": "PASS: 223",
+    "focused_structural_and_migration_validation": "PASS: 37 modules, 0 findings",
+    "focused_evidence_id_audit": "PASS: no CPN warning/error; 173 unique scoped owners",
+    "focused_ruff_format": "PASS: 38 files",
+    "focused_ruff_check": "PASS",
+    "focused_mypy": "PASS: 38 source files with --follow-untyped-imports",
+    "focused_pytest": "PASS: 223",
+    "repository_collection": "PASS: 2529",
+    "repository_gate_diagnostic": "EXPECTED FAIL: 106 TE.REPOSITORY_STATUS findings",
+    "diff_check": "PASS",
+    "no_staged_files": true
+  },
+  "residual_risks": [
+    "The repository completion gate remains intentionally open for 106 inventoried modules assigned to later serial migration milestones.",
+    "The repository-wide strict evidence-ID audit still reports 46 unowned test functions outside M2; it reports no CPN warning or error.",
+    "Passing M2 software verification does not establish physical correctness, numerical verification, scientific validation, UQ, external-engine correctness, Rust agreement, release readiness, or human acceptance."
+  ]
+}

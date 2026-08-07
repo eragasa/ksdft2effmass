@@ -1,4 +1,4 @@
-r"""Software verification of the ``ksdft2effmass.provenance`` public API artifact.
+r"""Software verification of public api.
 
 Facet and represented meaning
 -----------------------------

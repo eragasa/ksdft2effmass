@@ -1,6 +1,9 @@
-"""OperatorRecordJsonSerializer round-trip software verification.
+r"""Software verification of ``OperatorRecordJsonSerializer``.
 
-Object: exact record-to-text-to-record behavior. Evidence class: software
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the round trip facet. Object: exact
+record-to-text-to-record behavior. Evidence class: software
 verification. Requirement: deterministic version-1 round trips preserve all eight
 fields, general non-Hermitian state, empty provenance, complex/extreme finite
 values, and defensive immutable ownership. Strategy: construct synthetic public
@@ -9,6 +12,22 @@ independently supplied source records and approved exact equality. Acceptance is
 exact, never approximate. Passing is not scientific validation, uncertainty
 quantification, or Rust conformance; failure indicates lossy mapping or ownership
 drift.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordJsonSerializer``; collaborators only construct
+inputs or expose public outcomes. Accepted public contracts, literal expected
+values, Python language semantics, and assigned schema or fixture artifacts provide
+the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from collections.abc import Mapping
@@ -21,16 +40,21 @@ from ksdft2effmass.operators import OperatorRecordJsonSerializer
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordJsonSerializer
+
 
 @pytest.mark.parametrize(
     ("matrix", "provenance"),
     [
-        (np.array([[0.0 + 0.0j]], dtype=np.complex128), {}),
-        (
+        pytest.param(
+            np.array([[0.0 + 0j]], dtype=np.complex128), {}, id="empty_provenance_zero"
+        ),
+        pytest.param(
             np.array([[1 + 2j, 3 - 4j], [-5 + 6j, 7 + 8j]], dtype=np.complex128),
             {"source": "non-Hermitian"},
+            id="complex_nonhermitian",
         ),
-        (
+        pytest.param(
             np.array(
                 [
                     [np.finfo(np.float64).max + 1j * np.finfo(np.float64).tiny, 0j],
@@ -39,23 +63,38 @@ pytestmark = pytest.mark.software_verification
                 dtype=np.complex128,
             ),
             {},
+            id="extreme_finite",
         ),
     ],
-    ids=["empty-provenance-zero", "complex-nonhermitian", "extreme-finite"],
 )
-def test_exact_deterministic_round_trips(
+def test_method__serialize__exact_deterministic_round_trips(
     matrix: np.ndarray, provenance: dict[str, str]
 ) -> None:
-    """Evidence ID: SV-ORJS-017.
-
-    Requirement: empty provenance, non-Hermitian complex, and extreme finite state
-    round-trip exactly. Method: serialize, deserialize, reserialize, and compare
-    source/restored records and text. Oracle: exact source DataObject equality and
-    IEEE binary64 values, with no tolerance. Acceptance requires equality and
-    byte-for-byte text stability. Interpretation: failure indicates loss or
-    nondeterminism. Limitations: synthetic matrices have explicit 1x1 or 2x2 shape,
-    complex128 dtype, eV metadata, no numerical tolerance/warnings, and no physical
-    meaning; scientific validation, UQ, and Rust conformance are not performed.
+    r"""Evidence ID
+    SV-ORJS-017
+    Requirement
+    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    serialize: exact deterministic round trips.
+    Method
+    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+    (serialize: exact deterministic round trips); warnings and coercive fallback
+    behavior are not accepted.
+    Oracle
+    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+    DataObject constructor invariants determine the expected text, value, or exception
+    independently of serializer private methods.
+    Acceptance
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
     dimension = matrix.shape[0]
     ordering = tuple(f"b{i}" for i in range(dimension))
@@ -74,16 +113,31 @@ def test_exact_deterministic_round_trips(
     assert serializer.serialize(restored) == text
 
 
-def test_deserialized_state_is_defensively_owned_and_immutable() -> None:
-    """Evidence ID: SV-ORJS-018.
-
-    Requirement: restored matrix/provenance are fresh operationally immutable
-    DataObject state. Method: deserialize and exercise ordinary public mutation
-    boundaries. Oracle: OperatorRecord ownership contract applied by construction.
-    Acceptance requires no shared matrix memory, read-only matrix, immutable
-    provenance mapping, and rejected item/setflags mutation. Interpretation: failure
-    permits post-decode state mutation. Limitations: adversarial memory access,
-    scientific validation, UQ, and Rust conformance are not assessed.
+def test_method__deserialize__deserialized_state_is_defensively_owned_and() -> None:
+    r"""Evidence ID
+    SV-ORJS-018
+    Requirement
+    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    deserialize: deserialized state is defensively owned and.
+    Method
+    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+    (deserialize: deserialized state is defensively owned and); warnings and coercive
+    fallback behavior are not accepted.
+    Oracle
+    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+    DataObject constructor invariants determine the expected text, value, or exception
+    independently of serializer private methods.
+    Acceptance
+    The named partition raises exactly ValueError or TypeError with the asserted public
+    message, code, or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only this named public-contract partition; failure identifies
+    implementation drift, an incorrect controlled input, an oracle defect, or
+    accepted-contract inconsistency.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
     source = make_record(provenance={"source": "round trip"})
     restored = OperatorRecordJsonSerializer().deserialize(

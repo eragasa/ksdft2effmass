@@ -1,6 +1,8 @@
-r"""Rule-reachability evidence for ``OperatorRecordCompatibilityAnalyzer``.
+r"""Software verification of ``OperatorRecordCompatibilityAnalyzer``.
 
-System under test
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the rules facet. System under test
 -----------------
 The Analyzer is an ActionObject that performs a complete exact audit of the
 representation metadata required before direct subtraction of two independently
@@ -40,6 +42,22 @@ performed; the synthetic records supply neither independent physical evidence
 nor an uncertainty model and propagation procedure. Failure may indicate an
 Analyzer regression, contract/documentation mismatch, or evidence defect that
 requires investigation, not scientific invalidity by itself.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordCompatibilityAnalyzer``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from collections.abc import Mapping
@@ -60,6 +78,8 @@ from ksdft2effmass.operators import (
 )
 
 pytestmark = pytest.mark.software_verification
+
+SUT = OperatorRecordCompatibilityAnalyzer
 
 type Cell = tuple[
     tuple[float, float, float],
@@ -93,39 +113,32 @@ def make_record(
     energy_unit: str = "eV",
     provenance: Mapping[str, str] | None = None,
 ) -> OperatorRecord:
-    """Construct one independently valid synthetic ``OperatorRecord``.
-
-    Evidence ID
-        Supporting fixture for ``SV-ORCA-004`` through ``SV-ORCA-015``; it owns
-        no separate evidence ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Every analyzed fixture must satisfy intrinsic state-space, basis,
-        matrix-dimension, finite-value, and geometry invariants before analysis.
+    Every analyzed fixture must satisfy intrinsic state-space, basis, matrix-dimension,
+    finite-value, and geometry invariants before analysis.
     Method
-        Build explicit public metadata and a finite ``np.complex128`` matrix.
-        ``dimension = len(basis_ordering)`` couples state-space dimension to the
-        valid ordering; supplied matrices explicitly match that dimension.
+    Build explicit public metadata and a finite ``np.complex128`` matrix. ``dimension =
+    len(basis_ordering)`` couples state-space dimension to the valid ordering; supplied
+    matrices explicitly match that dimension.
     Oracle
-        Public record construction defines intrinsic validity. Analyzer-critical
-        fields are dimension, state-space and operator kinds, ordered labels and
-        basis kind, cell and geometry conventions/units, and energy zero/unit.
+    Public record construction defines intrinsic validity. Analyzer-critical fields are
+    dimension, state-space and operator kinds, ordered labels and basis kind, cell and
+    geometry conventions/units, and energy zero/unit.
     Acceptance
-        Public construction returns an intrinsically valid record without broad
-        coercion, mutation, or invariant bypass.
+    Public construction returns an intrinsically valid record without broad coercion,
+    mutation, or invariant bypass.
     Interpretation
-        A returned record can reach Analyzer findings without frozen-object
-        mutation or invariant bypass.
+    A returned record can reach Analyzer findings without frozen-object mutation or
+    invariant bypass.
     Limitations
-        Record/state-space/basis identifiers, geometry-system text, and
-        provenance are deliberately ignored fields. All matrices and metadata
-        are synthetic: they come from no DFT, Wannierization, experiment, or
-        impurity extraction and establish no physical equivalence, scientific
-        validation, or uncertainty quantification.
-
-    Notes
-    -----
-    The helper performs no broad test-side coercion. Explicitly supplied empty
-    provenance is preserved; only ``None`` selects the synthetic default.
+    Record/state-space/basis identifiers, geometry-system text, and provenance are
+    deliberately ignored fields. All matrices and metadata are synthetic: they come from
+    no DFT, Wannierization, experiment, or impurity extraction and establish no physical
+    equivalence, scientific validation, or uncertainty quantification. Notes ----- The
+    helper performs no broad test-side coercion. Explicitly supplied empty provenance is
+    preserved; only ``None`` selects the synthetic default.
     """
 
     if matrix is None:
@@ -156,25 +169,22 @@ def make_record(
 def issue_codes(
     result: OperatorRecordCompatibilityResult,
 ) -> tuple[OperatorRecordCompatibilityMismatchCode, ...]:
-    """Project public Issues to codes while preserving Analyzer order.
-
-    Evidence ID
-        Supporting projection for ``SV-ORCA-004`` through ``SV-ORCA-015``; it
-        owns no separate evidence ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Ordered assertions must observe the ResultObject's existing issue order.
+    Ordered assertions must observe the ResultObject's existing issue order.
     Method
-        Read public Issue codes sequentially without a set, dictionary, sort, or
-        private Analyzer method.
+    Read public Issue codes sequentially without a set, dictionary, sort, or private
+    Analyzer method.
     Oracle
-        ``result.issues`` is the public deterministic audit tuple.
+    ``result.issues`` is the public deterministic audit tuple.
     Acceptance
-        Output codes exactly preserve the public Issue tuple's existing order.
+    Output codes exactly preserve the public Issue tuple's existing order.
     Interpretation
-        The tuple exposes exactly the order returned by ``execute()``.
+    The tuple exposes exactly the order returned by ``execute()``.
     Limitations
-        This projection neither executes rules nor independently defines their
-        canonical order, scientific validation, or uncertainty quantification.
+    This projection neither executes rules nor independently defines their canonical
+    order, scientific validation, or uncertainty quantification.
     """
 
     return tuple(issue.code for issue in result.issues)
@@ -183,31 +193,27 @@ def issue_codes(
 def make_rule_candidate(
     code: OperatorRecordCompatibilityMismatchCode,
 ) -> OperatorRecord:
-    """Construct a valid candidate reaching one documented rule case.
-
-    Evidence ID
-        Supporting fixture for ``SV-ORCA-004`` through ``SV-ORCA-014``; it owns
-        no separate evidence ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-        Every public mismatch code must be reachable from independently valid
-        records, with coupled findings retained where validity requires them.
+    Every public mismatch code must be reachable from independently valid records, with
+    coupled findings retained where validity requires them.
     Method
-        Select an explicit public-constructor variation for the requested code;
-        no mutation, invariant bypass, broad coercion, set, or dictionary drives
-        rule execution or ordering.
+    Select an explicit public-constructor variation for the requested code; no mutation,
+    invariant bypass, broad coercion, set, or dictionary drives rule execution or
+    ordering.
     Oracle
-        The approved Analyzer rule inventory specifies each isolated variation
-        and the dimension/ordered-label coupling.
+    The approved Analyzer rule inventory specifies each isolated variation and the
+    dimension/ordered-label coupling.
     Acceptance
-        Construction succeeds with only the documented isolated variation or
-        unavoidable coupled dimension/ordering variation.
+    Construction succeeds with only the documented isolated variation or unavoidable
+    coupled dimension/ordering variation.
     Interpretation
-        The returned record differs only in the targeted critical field, except
-        that a dimension change also requires a valid different label count.
+    The returned record differs only in the targeted critical field, except that a
+    dimension change also requires a valid different label count.
     Limitations
-        Reachability demonstrates software behavior, not physical compatibility,
-        scientific acceptability of subtraction, scientific validation, or
-        uncertainty quantification.
+    Reachability demonstrates software behavior, not physical compatibility, scientific
+    acceptability of subtraction, scientific validation, or uncertainty quantification.
     """
 
     code_type = OperatorRecordCompatibilityMismatchCode
@@ -259,85 +265,85 @@ def make_rule_candidate(
                 OperatorRecordCompatibilityMismatchCode.MATRIX_DIMENSION_MISMATCH,
                 OperatorRecordCompatibilityMismatchCode.ORDERED_BASIS_LABELS_MISMATCH,
             ),
-            id="SV-ORCA-004-matrix-dimension-and-ordered-labels",
+            id="matrix_dimension_and_ordered_labels",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH,),
-            id="SV-ORCA-005-state-space-kind",
+            id="kind",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH,),
-            id="SV-ORCA-006-operator-kind",
+            id="kind",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.ORDERED_BASIS_LABELS_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.ORDERED_BASIS_LABELS_MISMATCH,),
-            id="SV-ORCA-007-ordered-basis-labels",
+            id="sv_orca_007_ordered_basis_labels",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH,),
-            id="SV-ORCA-008-basis-kind",
+            id="kind",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.LATTICE_VECTORS_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.LATTICE_VECTORS_MISMATCH,),
-            id="SV-ORCA-009-lattice-vectors",
+            id="sv_orca_009_lattice_vectors",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.BOUNDARY_CONDITIONS_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.BOUNDARY_CONDITIONS_MISMATCH,),
-            id="SV-ORCA-010-boundary-conditions",
+            id="boundary_conditions",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.COORDINATE_CONVENTION_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.COORDINATE_CONVENTION_MISMATCH,),
-            id="SV-ORCA-011-coordinate-convention",
+            id="coordinate_convention",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.GEOMETRY_LENGTH_UNIT_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.GEOMETRY_LENGTH_UNIT_MISMATCH,),
-            id="SV-ORCA-012-geometry-length-unit",
+            id="length_unit",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,),
-            id="SV-ORCA-013-energy-unit",
+            id="unit",
         ),
         pytest.param(
             OperatorRecordCompatibilityMismatchCode.ENERGY_ZERO_CONVENTION_MISMATCH,
             (OperatorRecordCompatibilityMismatchCode.ENERGY_ZERO_CONVENTION_MISMATCH,),
-            id="SV-ORCA-014-energy-zero-convention",
+            id="zero_convention",
         ),
     ],
 )
-def test_every_public_mismatch_rule_is_reachable_from_valid_records(
+def test_method__execute__every_public_mismatch_rule_is_reachable_from_valid(
     code: OperatorRecordCompatibilityMismatchCode,
     expected_codes: tuple[OperatorRecordCompatibilityMismatchCode, ...],
 ) -> None:
-    """SV-ORCA-004--014: reach every rule through valid public records.
-
+    r"""Evidence ID
+    SV-ORCA-004
     Requirement
-        Each public code is observable. Dimension mismatch must produce the
-        coupled ordered-label finding because valid records require matrix
-        dimension = state-space dimension = basis-ordering length; remaining
-        cases change only one critical field and produce one code.
+    Each public code is observable. Dimension mismatch must produce the coupled
+    ordered-label finding because valid records require matrix dimension = state-space
+    dimension = basis-ordering length; remaining cases change only one critical field
+    and produce one code.
     Method
-        Construct reference and candidate independently through public objects,
-        execute the Analyzer, and compare the exact ordered code tuple.
+    Construct reference and candidate independently through public objects, execute the
+    Analyzer, and compare the exact ordered code tuple.
     Oracle
-        The parameter table is the approved rule-to-finding contract, including
-        the explicitly non-isolatable dimension finding.
+    The parameter table is the approved rule-to-finding contract, including the
+    explicitly non-isolatable dimension finding.
     Acceptance
-        Every parameter returns exactly its documented ordered tuple.
+    Every parameter returns exactly its documented ordered tuple.
     Interpretation
-        Passing establishes rule reachability without malformed-state fixtures.
+    Passing establishes rule reachability without malformed-state fixtures.
     Limitations
-        Exact synthetic metadata mismatches are software evidence only; they do
-        not assess physical equivalence, alignment, scientific validation, or
-        uncertainty quantification.
+    Exact synthetic metadata mismatches are software evidence only; they do not assess
+    physical equivalence, alignment, scientific validation, or uncertainty
+    quantification.
     """
 
     reference = make_record()
@@ -348,28 +354,28 @@ def test_every_public_mismatch_rule_is_reachable_from_valid_records(
     assert issue_codes(result) == expected_codes
 
 
-def test_complete_mismatch_sequence_uses_canonical_deterministic_order() -> None:
-    """SV-ORCA-015: emit the complete canonical deterministic rule sequence.
-
+def test_method__execute__orders_all_mismatches() -> None:
+    r"""Evidence ID
+    SV-ORCA-015
     Requirement
-        A complete multi-finding audit follows public enum order, and every
-        public enum member is reachable through valid records.
+    A complete multi-finding audit follows public enum order, and every public enum
+    member is reachable through valid records.
     Method
-        Compare valid dimension-two and dimension-three records differing in all
-        critical fields; assert tuple order first, then set membership coverage.
+    Compare valid dimension-two and dimension-three records differing in all critical
+    fields; assert tuple order first, then set membership coverage.
     Oracle
-        The public enum itself owns canonical ordering, so no second hard-coded
-        competing sequence is created.
+    The public enum itself owns canonical ordering, so no second hard-coded competing
+    sequence is created.
     Acceptance
-        Ordered issue codes equal the enum tuple and observed membership equals
-        the set of all public enum members.
+    Ordered issue codes equal the enum tuple and observed membership equals the set of
+    all public enum members.
     Interpretation
-        Passing establishes deterministic public audit order and complete code
-        reachability; set equality is coverage only and does not drive ordering.
+    Passing establishes deterministic public audit order and complete code reachability;
+    set equality is coverage only and does not drive ordering.
     Limitations
-        The candidate remains intrinsically valid but synthetic. This does not
-        establish physical equivalence, alignment, scientific validation, or
-        uncertainty quantification.
+    The candidate remains intrinsically valid but synthetic. This does not establish
+    physical equivalence, alignment, scientific validation, or uncertainty
+    quantification.
     """
 
     reference = make_record()

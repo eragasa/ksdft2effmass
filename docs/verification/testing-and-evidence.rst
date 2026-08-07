@@ -3,9 +3,11 @@ VVUQ testing and evidence documentation
 
 The maintained test suite is an executable research-software evidence surface.
 Tests must identify what they establish, how their oracle is obtained, and what
-a pass does not establish.  This standard applies progressively when an object
-or subsystem is migrated; it does not require a repository-wide mechanical
-rewrite of stable tests.
+a pass does not establish.  Every current maintained test module is included in
+the repository-wide conformance inventory and follows this standard.  The
+fail-closed repository gate rejects an unregistered module, a stale content
+identity, a nonconforming status, collection-count drift, or a structural
+convention failure.
 
 Evidence classes
 ----------------
@@ -57,8 +59,9 @@ Identifiers must be unique across the maintained test suite.
 Unified executable-documentation grammar
 ----------------------------------------
 
-The unified grammar applies when an evidence module is migrated.  It does not
-silently rewrite or authorize changes to protected historical evidence.
+The unified grammar applies to every current maintained evidence module.
+Historical reports and superseded node identities remain immutable; current
+module conformance does not rewrite those retained records.
 
 Exact module headings
 ~~~~~~~~~~~~~~~~~~~~~
@@ -323,16 +326,12 @@ or Wannier accuracy, physical structure validity, scientific validation,
 uncertainty quantification, or Rust conformance. Detailed traceability is in
 :doc:`operator-record-geometry`.
 
-``NV-G-001`` through ``NV-G-009`` are protected historical evidence and were
-compared read-only with the unified convention, not migrated.  Their seven test
-and helper fields, unique identifiers, numerical-verification marker,
-meaningful signed-scale parameter IDs, analytical oracle independence, exact
-representation rules, threshold boundaries, warning policy, interpretations,
-and exclusions conform.  Their historical module headings and test names do
-not use the new exact grammar.  Those structural differences are inventory
-findings, not authorization to rename or redocument the accepted module.  The
-comparison is not new validation, a tolerance-adequacy determination, or final
-acceptance.
+``NV-G-001`` through ``NV-G-009`` retain their stable evidence identities while
+the current Geometry module follows the unified module, test, helper, and
+parameter grammar.  Its analytical oracles, exact representation rules,
+threshold boundaries, warning policy, interpretations, and exclusions remain
+unchanged by the documentation migration.  Conformance is not new validation,
+a general tolerance-adequacy determination, or a scientific-acceptance result.
 
 EnergyReference software evidence
 ---------------------------------
@@ -948,7 +947,7 @@ test names.  Complete one-to-one old/new pytest node mappings provide rename
 traceability; for example, current nodes include
 ``test__CpnToken.py::test_field__iteration_index__rejects_boolean`` and
 ``test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory``.
-Protected historical modules remain unchanged.
+Retained historical reports and old node identities remain unchanged.
 
 This documentation and filename migration records structural ownership and
 traceability only.  Path changes are not new evidence, semantic validation,
@@ -962,8 +961,11 @@ Traceability and review
 Evidence identifiers connect public requirements, executable tests, Sphinx
 summaries, and task records.  Detailed assertions remain in test modules;
 Sphinx records the common standard and summarizes maintained numerical evidence.
-Documentation and tests must remain synchronized as migration proceeds one
-approved object or subsystem at a time.
+The current repository inventory contains 183 maintained modules and 2,568
+collected nodes.  The local repository gate reconciles that closed inventory,
+content identities, ownership, evidence classes, collection count, and generic
+structural validation on every run.  Future test changes must update the
+inventory and keep documentation synchronized within their authorized scope.
 
 Structural review checks exact heading and field occurrence/order, nonempty
 field bodies, marker/prefix/hierarchy/owner agreement, identifier uniqueness,

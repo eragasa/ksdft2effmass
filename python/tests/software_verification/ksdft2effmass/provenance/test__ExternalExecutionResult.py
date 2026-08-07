@@ -56,6 +56,16 @@ PUBLIC_FIELDS = (
     "manifest_id",
     "provenance_id",
 )
+FROZEN_FIELDS = (
+    "result_id",
+    "request_id",
+    "correlation_id",
+    "attempt_id",
+    "status",
+    "output_artifact_ids",
+    "manifest_id",
+    "provenance_id",
+)
 
 
 def make_external_execution_result(**overrides: Any) -> ExternalExecutionResult:
@@ -786,7 +796,7 @@ def test_method__eq__identical_state__compares_equal() -> None:
     """Evidence ID
     SV-PROV-331
     Requirement
-    Two independently constructed records with identical complete valid state
+    Two independently constructed records with identical valid constructor arguments
     compare equal.
     Method
     Construct two baseline records and apply the public equality operation.
@@ -840,7 +850,8 @@ def test_method__eq__valid_field_states__affect_equality(
     """Evidence ID
     SV-PROV-228
     Requirement
-    Every result field having two valid version-1 states independently affects equality.
+    Each of the seven result fields admitting two valid version-1 states independently
+    affects equality.
     Method
     Compare baseline state with one valid override for each variable field,
     including a distinct valid output tuple.

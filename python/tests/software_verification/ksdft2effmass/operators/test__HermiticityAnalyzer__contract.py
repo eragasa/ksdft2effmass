@@ -1,6 +1,8 @@
-"""Software-verification evidence for ``HermiticityAnalyzer`` operations.
+r"""Software verification of ``HermiticityAnalyzer``.
 
-Evidence IDs
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the contract facet. Evidence IDs
 ------------
 ``SV-HA-011`` through ``SV-HA-019``.
 
@@ -38,6 +40,21 @@ Limitations
 Nonzero residual accuracy is excluded and belongs to ``NV-HA``. Synthetic data
 make no DFT, Wannier, impurity, or scientific-validity claim. Scientific
 validation, uncertainty quantification, and Rust conformance are not established.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``HermiticityAnalyzer``; collaborators only construct inputs or
+expose public outcomes. Accepted public contracts, literal expected values, Python
+language semantics, and assigned schema or fixture artifacts provide the oracles. No
+runtime warning is accepted unless a test explicitly states otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 import warnings
@@ -63,6 +80,8 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = HermiticityAnalyzer
+
 VALID_CELL = ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0))
 
 
@@ -71,34 +90,25 @@ def make_record(
     *,
     energy_unit: str = "eV",
 ) -> OperatorRecord:
-    """Construct a deterministic finite synthetic record for SV-HA-011--019.
-
-    Evidence ID
-    -----------
-    Supporting helper for SV-HA-011 through SV-HA-019; it owns no independent
-    evidence ID.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
     Requirement
-    -----------
-    The test factory accepts an explicitly prepared ``np.complex128`` matrix and
-    matching unit metadata without broad coercion.
+    ----------- The test factory accepts an explicitly prepared ``np.complex128`` matrix
+    and matching unit metadata without broad coercion.
     Method
-    ------
-    Derive dimension from the already valid square shape and construct matching
+    ------ Derive dimension from the already valid square shape and construct matching
     finite state-space and ordered-basis metadata.
     Oracle
-    ------
-    The supplied matrix and unit are passed unchanged to public constructors;
+    ------ The supplied matrix and unit are passed unchanged to public constructors;
     deterministic identity geometry and provenance complete the fixture.
     Acceptance
-    ----------
-    Public ``OperatorRecord`` construction validates the fixture.
+    ---------- Public ``OperatorRecord`` construction validates the fixture.
     Interpretation
-    --------------
-    The helper supplies auditable public inputs to Analyzer contract evidence.
+    -------------- The helper supplies auditable public inputs to Analyzer contract
+    evidence.
     Limitations
-    -----------
-    It performs no ``np.asarray`` coercion and makes no DFT, Wannier, impurity,
-    scientific-validation, UQ, or Rust-conformance claim.
+    ----------- It performs no ``np.asarray`` coercion and makes no DFT, Wannier,
+    impurity, scientific-validation, UQ, or Rust-conformance claim.
     """
 
     dimension = matrix.shape[0]
@@ -124,36 +134,29 @@ def make_record(
 @pytest.mark.parametrize(
     "invalid_record",
     [
-        pytest.param(None, id="SV-HA-011-none"),
-        pytest.param(True, id="SV-HA-011-boolean"),
-        pytest.param(object(), id="SV-HA-011-arbitrary-object"),
+        pytest.param(None, id="none"),
+        pytest.param(True, id="sv_ha_011_boolean"),
+        pytest.param(object(), id="sv_ha_011_arbitrary_object"),
     ],
 )
-def test_execute_rejects_non_operator_record_inputs(invalid_record: Any) -> None:
-    """SV-HA-011: verify the ``execute()`` OperatorRecord boundary.
-
-    Evidence ID
-    -----------
-    ``SV-HA-011``.
+def test_method__execute__execute_rejects_non_operator_record_inputs(
+    invalid_record: Any,
+) -> None:
+    r"""Evidence ID
+    SV-HA-011
     Requirement
-    -----------
-    ``execute()`` accepts only a public ``OperatorRecord``.
+    ----------- ``execute()`` accepts only a public ``OperatorRecord``.
     Method
-    ------
-    Pass representative invalid semantic inputs without conversion.
+    ------ Pass representative invalid semantic inputs without conversion.
     Oracle
-    ------
-    The approved method signature and stable ``OperatorRecord`` diagnostic apply.
+    ------ The approved method signature and stable ``OperatorRecord`` diagnostic apply.
     Acceptance
-    ----------
-    Exact exception category is ``TypeError`` and diagnostic names the type.
+    ---------- Exact exception category is ``TypeError`` and diagnostic names the type.
     Interpretation
-    --------------
-    Passing establishes the independent ``execute()`` input boundary.
+    -------------- Passing establishes the independent ``execute()`` input boundary.
     Limitations
-    -----------
-    ``Any``/``cast`` is confined to invalid input. Numerical accuracy, scientific
-    validation, UQ, and Rust conformance are excluded.
+    ----------- ``Any``/``cast`` is confined to invalid input. Numerical accuracy,
+    scientific validation, UQ, and Rust conformance are excluded.
     """
 
     analyzer = HermiticityAnalyzer(tolerance=0.0, energy_unit="eV")
@@ -162,31 +165,26 @@ def test_execute_rejects_non_operator_record_inputs(invalid_record: Any) -> None
         analyzer.execute(cast(Any, invalid_record))
 
 
-def test_execute_constructs_public_result_for_exact_hermitian_matrix() -> None:
-    """SV-HA-012: verify public ResultObject construction by ``execute()``.
-
-    Evidence ID
-    -----------
-    ``SV-HA-012``.
+def test_method__execute__execute_constructs_public_result_for_exact_hermitian() -> (
+    None
+):
+    r"""Evidence ID
+    SV-HA-012
     Requirement
-    -----------
-    Execution returns residual, Analyzer tolerance, and common energy unit.
+    ----------- Execution returns residual, Analyzer tolerance, and common energy unit.
     Method
-    ------
-    Analyze an exactly diagonal Hermitian binary64 matrix.
+    ------ Analyze an exactly diagonal Hermitian binary64 matrix.
     Oracle
-    ------
-    Each off-diagonal and diagonal conjugate difference is exactly zero.
+    ------ Each off-diagonal and diagonal conjugate difference is exactly zero.
     Acceptance
-    ----------
-    Result type, exact zero, tolerance, unit roles, and true predicate all match.
+    ---------- Result type, exact zero, tolerance, unit roles, and true predicate all
+    match.
     Interpretation
-    --------------
-    Passing establishes execution-path Result construction, not nonzero accuracy.
+    -------------- Passing establishes execution-path Result construction, not nonzero
+    accuracy.
     Limitations
-    -----------
-    Nonzero numerical oracles, scientific validation, UQ, and Rust conformance
-    are excluded.
+    ----------- Nonzero numerical oracles, scientific validation, UQ, and Rust
+    conformance are excluded.
     """
 
     matrix = np.array(
@@ -206,30 +204,22 @@ def test_execute_constructs_public_result_for_exact_hermitian_matrix() -> None:
     assert result.is_hermitian
 
 
-def test_execute_propagates_exact_energy_unit_mismatch_roles() -> None:
-    """SV-HA-013: verify exact unit-mismatch propagation and role retention.
-
-    Evidence ID
-    -----------
-    ``SV-HA-013``.
+def test_method__execute__execute_propagates_exact_energy_unit_mismatch_roles() -> None:
+    r"""Evidence ID
+    SV-HA-013
     Requirement
-    -----------
-    Analyzer ``eV`` and record ``hartree`` are an exact software mismatch.
+    ----------- Analyzer ``eV`` and record ``hartree`` are an exact software mismatch.
     Method
-    ------
-    Execute an exact-zero matrix carrying a distinct record unit.
+    ------ Execute an exact-zero matrix carrying a distinct record unit.
     Oracle
-    ------
-    Approved exact string equality requires no conversion or normalization.
+    ------ Approved exact string equality requires no conversion or normalization.
     Acceptance
-    ----------
-    ``HermiticityUnitMismatchError`` retains both exact ordered role strings.
+    ---------- ``HermiticityUnitMismatchError`` retains both exact ordered role strings.
     Interpretation
-    --------------
-    Passing establishes public mismatch detection and structured propagation.
+    -------------- Passing establishes public mismatch detection and structured
+    propagation.
     Limitations
-    -----------
-    Direct exception invariants, unit conversion, physical equivalence,
+    ----------- Direct exception invariants, unit conversion, physical equivalence,
     scientific validation, UQ, and Rust conformance are not duplicated.
     """
 
@@ -244,33 +234,26 @@ def test_execute_propagates_exact_energy_unit_mismatch_roles() -> None:
     assert exc_info.value.record_energy_unit == "hartree"
 
 
-def test_unit_validation_precedes_overflow_prone_residual_arithmetic() -> None:
-    """SV-HA-014: verify exact unit validation occurs before arithmetic.
-
-    Evidence ID
-    -----------
-    ``SV-HA-014``.
+def test_constructor__unit_validation_precedes_overflow_prone__is_enforced() -> None:
+    r"""Evidence ID
+    SV-HA-014
     Requirement
-    -----------
-    A mismatched unit must fail before forming overflow-prone ``H-H^dagger``.
+    ----------- A mismatched unit must fail before forming overflow-prone
+    ``H-H^dagger``.
     Method
-    ------
-    Execute a finite extreme matrix with mismatched units while RuntimeWarning is
+    ------ Execute a finite extreme matrix with mismatched units while RuntimeWarning is
     promoted to an exception.
     Oracle
-    ------
-    The approved operation ordering makes unit mismatch the first public failure.
+    ------ The approved operation ordering makes unit mismatch the first public failure.
     Acceptance
-    ----------
-    Only ``HermiticityUnitMismatchError`` is observed; neither a warning nor
+    ---------- Only ``HermiticityUnitMismatchError`` is observed; neither a warning nor
     ``HermiticityNumericalError`` occurs first.
     Interpretation
-    --------------
-    Passing establishes protected error ordering at the public method boundary.
+    -------------- Passing establishes protected error ordering at the public method
+    boundary.
     Limitations
-    -----------
-    It does not verify overflow residual accuracy, scientific validation, UQ, or
-    Rust conformance.
+    ----------- It does not verify overflow residual accuracy, scientific validation,
+    UQ, or Rust conformance.
     """
 
     matrix = np.array(
@@ -286,31 +269,24 @@ def test_unit_validation_precedes_overflow_prone_residual_arithmetic() -> None:
             analyzer.execute(record)
 
 
-def test_require_returns_value_equivalent_successful_result() -> None:
-    """SV-HA-015: verify successful ``require()`` behavior.
-
-    Evidence ID
-    -----------
-    ``SV-HA-015``.
+def test_method__require__require_returns_value_equivalent_successful_result() -> None:
+    r"""Evidence ID
+    SV-HA-015
     Requirement
-    -----------
-    ``require()`` returns the accepted execution result by exact value semantics.
+    ----------- ``require()`` returns the accepted execution result by exact value
+    semantics.
     Method
-    ------
-    Compare public ``execute()`` and ``require()`` on one exact Hermitian record.
+    ------ Compare public ``execute()`` and ``require()`` on one exact Hermitian record.
     Oracle
-    ------
-    The approved method contract promises value equivalence and success state.
+    ------ The approved method contract promises value equivalence and success state.
     Acceptance
-    ----------
-    Results compare exactly equal and the required result is Hermitian.
+    ---------- Results compare exactly equal and the required result is Hermitian.
     Interpretation
-    --------------
-    Passing establishes enforcement success without requiring object identity.
+    -------------- Passing establishes enforcement success without requiring object
+    identity.
     Limitations
-    -----------
-    Scientific suitability, scientific validation, UQ, and Rust conformance are
-    not established.
+    ----------- Scientific suitability, scientific validation, UQ, and Rust conformance
+    are not established.
     """
 
     matrix = np.array(
@@ -327,33 +303,25 @@ def test_require_returns_value_equivalent_successful_result() -> None:
     assert require_result.is_hermitian
 
 
-def test_require_retains_the_structured_failed_execution_result() -> None:
-    """SV-HA-016: verify structured failed-result propagation by ``require()``.
-
-    Evidence ID
-    -----------
-    ``SV-HA-016``.
+def test_method__require__retains_failed_result() -> None:
+    r"""Evidence ID
+    SV-HA-016
     Requirement
-    -----------
-    A finite residual above tolerance raises an error retaining the Result.
+    ----------- A finite residual above tolerance raises an error retaining the Result.
     Method
-    ------
-    Obtain expected state from ``execute()`` then call ``require()`` on the same
+    ------ Obtain expected state from ``execute()`` then call ``require()`` on the same
     finite real nonsymmetric record.
     Oracle
-    ------
-    Public execution supplies authoritative structured state; the independently
+    ------ Public execution supplies authoritative structured state; the independently
     obvious off-diagonal difference is exactly one.
     Acceptance
-    ----------
-    Error Result equals execution Result, is failed, and retains exact roles.
+    ---------- Error Result equals execution Result, is failed, and retains exact roles.
     Interpretation
-    --------------
-    Passing establishes Analyzer production of structured requirement failure.
+    -------------- Passing establishes Analyzer production of structured requirement
+    failure.
     Limitations
-    -----------
-    Direct exception-constructor invariants and broad nonzero numerical accuracy
-    are not duplicated; scientific validation, UQ, and Rust are excluded.
+    ----------- Direct exception-constructor invariants and broad nonzero numerical
+    accuracy are not duplicated; scientific validation, UQ, and Rust are excluded.
     """
 
     matrix = np.array(
@@ -377,37 +345,29 @@ def test_require_retains_the_structured_failed_execution_result() -> None:
 @pytest.mark.parametrize(
     "invalid_record",
     [
-        pytest.param(None, id="SV-HA-017-none"),
-        pytest.param(False, id="SV-HA-017-boolean"),
-        pytest.param(object(), id="SV-HA-017-arbitrary-object"),
+        pytest.param(None, id="none"),
+        pytest.param(False, id="sv_ha_017_boolean"),
+        pytest.param(object(), id="sv_ha_017_arbitrary_object"),
     ],
 )
-def test_require_independently_rejects_non_operator_record_inputs(
+def test_method__require__rejects_wrong_input_type(
     invalid_record: Any,
 ) -> None:
-    """SV-HA-017: verify the independent ``require()`` input boundary.
-
-    Evidence ID
-    -----------
-    ``SV-HA-017``.
+    r"""Evidence ID
+    SV-HA-017
     Requirement
-    -----------
-    ``require()`` accepts only a public ``OperatorRecord``.
+    ----------- ``require()`` accepts only a public ``OperatorRecord``.
     Method
-    ------
-    Call ``require()`` itself with representative invalid semantic inputs.
+    ------ Call ``require()`` itself with representative invalid semantic inputs.
     Oracle
-    ------
-    Its public signature and stable ``OperatorRecord`` diagnostic are approved.
+    ------ Its public signature and stable ``OperatorRecord`` diagnostic are approved.
     Acceptance
-    ----------
-    Exact ``TypeError`` category names ``OperatorRecord``.
+    ---------- Exact ``TypeError`` category names ``OperatorRecord``.
     Interpretation
-    --------------
-    Passing shows ``execute()`` evidence is not assumed to cover another method.
+    -------------- Passing shows ``execute()`` evidence is not assumed to cover another
+    method.
     Limitations
-    -----------
-    ``Any``/``cast`` is confined to invalid inputs. Numerical accuracy,
+    ----------- ``Any``/``cast`` is confined to invalid inputs. Numerical accuracy,
     scientific validation, UQ, and Rust conformance are excluded.
     """
 
@@ -417,31 +377,24 @@ def test_require_independently_rejects_non_operator_record_inputs(
         analyzer.require(cast(Any, invalid_record))
 
 
-def test_distinct_analyzers_own_distinct_tolerance_policies() -> None:
-    """SV-HA-018: verify Analyzer-owned tolerance policy.
-
-    Evidence ID
-    -----------
-    ``SV-HA-018``.
+def test_method__execute__distinct_analyzers_own_distinct_tolerance_policies() -> None:
+    r"""Evidence ID
+    SV-HA-018
     Requirement
-    -----------
-    Tolerance belongs to the ActionObject rather than ``OperatorRecord``.
+    ----------- Tolerance belongs to the ActionObject rather than ``OperatorRecord``.
     Method
-    ------
-    Analyze one exact-unit record with strict and loose tolerances bracketing its
+    ------ Analyze one exact-unit record with strict and loose tolerances bracketing its
     exactly represented residual.
     Oracle
-    ------
-    For the matrix, the nonzero off-diagonal residual is exactly ``1e-8``.
+    ------ For the matrix, the nonzero off-diagonal residual is exactly ``1e-8``.
     Acceptance
-    ----------
-    Strict policy rejects and loose policy accepts while units remain identical.
+    ---------- Strict policy rejects and loose policy accepts while units remain
+    identical.
     Interpretation
-    --------------
-    Passing establishes policy ownership, not which policy is scientifically apt.
+    -------------- Passing establishes policy ownership, not which policy is
+    scientifically apt.
     Limitations
-    -----------
-    No scientific tolerance selection, scientific validation, UQ, or Rust
+    ----------- No scientific tolerance selection, scientific validation, UQ, or Rust
     conformance is established.
     """
 
@@ -457,34 +410,26 @@ def test_distinct_analyzers_own_distinct_tolerance_policies() -> None:
     assert loose.execute(record).is_hermitian is True
 
 
-def test_nonfinite_residual_is_a_warning_free_structured_failure() -> None:
-    """SV-HA-019: verify structured nonfinite-residual failure.
-
-    Evidence ID
-    -----------
-    ``SV-HA-019``.
+def test_constructor__nonfinite_residual_is_a_warning_free__is_enforced() -> None:
+    r"""Evidence ID
+    SV-HA-019
     Requirement
-    -----------
-    Finite entries whose conjugate subtraction overflows produce the closed
+    ----------- Finite entries whose conjugate subtraction overflows produce the closed
     ``NONFINITE_RESIDUAL`` category without leaking ``RuntimeWarning``.
     Method
-    ------
-    Execute an overflow-triggering same-unit record with warnings treated as
+    ------ Execute an overflow-triggering same-unit record with warnings treated as
     errors and inspect the public exception enum by identity.
     Oracle
-    ------
-    ``1e308 - (-1e308)`` exceeds binary64 range; approved translation owns this
+    ------ ``1e308 - (-1e308)`` exceeds binary64 range; approved translation owns this
     public structured failure.
     Acceptance
-    ----------
-    ``HermiticityNumericalError`` is raised and ``error.reason is`` the exact
+    ---------- ``HermiticityNumericalError`` is raised and ``error.reason is`` the exact
     ``NONFINITE_RESIDUAL`` member, with no warning escaping first.
     Interpretation
-    --------------
-    Passing establishes Analyzer warning containment and structured translation.
+    -------------- Passing establishes Analyzer warning containment and structured
+    translation.
     Limitations
-    -----------
-    Direct exception invariants are not duplicated. This is software failure
+    ----------- Direct exception invariants are not duplicated. This is software failure
     evidence, not scientific validation, UQ, or Rust conformance.
     """
 

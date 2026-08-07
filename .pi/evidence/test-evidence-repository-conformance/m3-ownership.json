@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__Geometry__linear_independence.py",
+      "sut": "Geometry"
+    },
+    {
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__analytical_residuals.py",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "artifact": "OperatorComparisonDependencyDirection",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__operator_comparison_dependency_direction.py"
+    },
+    {
+      "artifact": "OperatorRecordJsonFixtures",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__operator_record_json_fixtures.py"
+    },
+    {
+      "artifact": "OperatorRecordJsonSchema",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__operator_record_json_schema.py"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__construction.py",
+      "sut": "Basis"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__invariants.py",
+      "sut": "Basis"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__value_semantics.py",
+      "sut": "Basis"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__construction.py",
+      "sut": "EnergyReference"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__invariants.py",
+      "sut": "EnergyReference"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__value_semantics.py",
+      "sut": "EnergyReference"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__construction.py",
+      "sut": "Geometry"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__invariants.py",
+      "sut": "Geometry"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__value_semantics.py",
+      "sut": "Geometry"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__configuration.py",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__contract.py",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalError.py",
+      "sut": "HermiticityNumericalError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalErrorCode.py",
+      "sut": "HermiticityNumericalErrorCode"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityRequirementError.py",
+      "sut": "HermiticityRequirementError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__construction.py",
+      "sut": "HermiticityResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__invariants.py",
+      "sut": "HermiticityResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__value_semantics.py",
+      "sut": "HermiticityResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityUnitMismatchError.py",
+      "sut": "HermiticityUnitMismatchError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__IncompatibleOperatorRecordsError.py",
+      "sut": "IncompatibleOperatorRecordsError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py",
+      "sut": "OperatorRecordComparisonNumericalError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalErrorCode.py",
+      "sut": "OperatorRecordComparisonNumericalErrorCode"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__construction.py",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__invariants.py",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__value_semantics.py",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__contract.py",
+      "sut": "OperatorRecordCompatibilityAnalyzer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__rules.py",
+      "sut": "OperatorRecordCompatibilityAnalyzer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityIssue.py",
+      "sut": "OperatorRecordCompatibilityIssue"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityMismatchCode.py",
+      "sut": "OperatorRecordCompatibilityMismatchCode"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__construction.py",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__invariants.py",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__value_semantics.py",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalError.py",
+      "sut": "OperatorRecordDifferenceNumericalError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalErrorCode.py",
+      "sut": "OperatorRecordDifferenceNumericalErrorCode"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__construction.py",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__invariants.py",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__value_semantics.py",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
+      "sut": "OperatorRecordDifferencer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__contract.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_structure.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_values.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__round_trip.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__serialization.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__contract.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__construction.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__matrix_invariants.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__metadata_invariants.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__ownership.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__value_semantics.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py",
+      "sut": "StateSpace"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__invariants.py",
+      "sut": "StateSpace"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",
+      "sut": "StateSpace"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__OperatorRecordComparator.py",
+      "sut": "OperatorRecordComparator"
+    }
+  ]
+}

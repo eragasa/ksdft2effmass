@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``CpnMarkingValidator``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public
 ``CpnMarkingValidator`` software surface and its finite, exact CPN routing
 representation. It does not represent a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``CpnMarkingValidator`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -37,7 +39,7 @@ pytestmark = pytest.mark.software_verification
 SUT = CpnMarkingValidator
 
 
-def test_method__contract__accepts_complete_multiset_marking(
+def test_method__execute__accepts_complete_multiset_marking(
     token_factory: Callable[..., CpnToken], executable_net: CpnNetDefinition
 ) -> None:
     """Evidence ID
@@ -97,7 +99,7 @@ def test_method__contract__accepts_complete_multiset_marking(
     assert CpnMarkingValidator().execute(executable_net, marking).is_valid
 
 
-def test_method__contract__wrong_complete_place_set_has_stable_code(
+def test_method__execute__wrong_complete_place_set_has_stable_code(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -151,7 +153,7 @@ def test_method__contract__wrong_complete_place_set_has_stable_code(
     assert CpnIssueCode.PLACE_SET_MISMATCH in {issue.code for issue in result.issues}
 
 
-def test_method__contract__unknown_color_reference_is_structured(
+def test_method__execute__unknown_color_reference_is_structured(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID

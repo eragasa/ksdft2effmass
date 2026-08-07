@@ -124,35 +124,48 @@ def test_method__getitem__resolves_each_member_name(
     assert cast(Any, SUT)[name] is expected
 
 
-@pytest.mark.parametrize(
-    "invalid_value",
-    [
-        pytest.param("unknown", id="unknown_value"),
-        pytest.param(1, id="integer_wrong_type"),
-    ],
-)
-def test_method__call__rejects_values_outside_vocabulary(
-    invalid_value: object,
-) -> None:
+def test_method__call__rejects_unknown_wire_value() -> None:
     """Evidence ID
     SV-PROV-177
     Requirement
-    Calling the enum class with a value outside its vocabulary fails.
+    Calling the enum class with an unknown string wire value fails.
     Method
-    Call the public constructor with unknown-text and integer partitions.
+    Call the public constructor with the fixed absent string ``unknown``.
     Oracle
-    Neither value occurs in the accepted four-value vocabulary.
+    The accepted values are exactly execute, parse, render, and transfer.
     Acceptance
-    Each call raises ``ValueError`` and returns no member.
+    The call raises ``ValueError`` and returns no member.
     Interpretation
-    A pass confirms closed value lookup; a failure indicates an unexpectedly
-    accepted value.
+    A pass confirms the closed string vocabulary; a failure indicates an unexpectedly
+    accepted value or stale vocabulary evidence.
     Limitations
-    This does not characterize every Python type or establish external behavior,
-    validation, UQ, portability, or cross-language agreement.
+    This does not characterize wrong semantic types, external behavior, validation,
+    UQ, portability, or cross-language agreement.
     """
     with pytest.raises(ValueError):
-        SUT(cast(Any, invalid_value))
+        SUT("unknown")
+
+
+def test_method__call__rejects_wrong_semantic_type() -> None:
+    """Evidence ID
+    SV-PROV-402
+    Requirement
+    Calling the enum class with an integer rather than a string wire value fails.
+    Method
+    Call the public constructor with integer ``1`` through a static-only cast.
+    Oracle
+    The accepted wire vocabulary contains strings only; integer 1 is not a wire value.
+    Acceptance
+    The call raises ``ValueError`` and returns no member.
+    Interpretation
+    A pass confirms rejection of this wrong-type partition; a failure indicates
+    unintended acceptance or changed Python enum semantics.
+    Limitations
+    Integer 1 represents the wrong-semantic-type partition; other Python types,
+    validation, UQ, portability, and cross-language agreement are excluded.
+    """
+    with pytest.raises(ValueError):
+        SUT(cast(Any, 1))
 
 
 def test_method__getitem__rejects_unknown_member_name() -> None:

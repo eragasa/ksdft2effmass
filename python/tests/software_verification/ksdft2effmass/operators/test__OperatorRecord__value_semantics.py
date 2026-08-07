@@ -1,6 +1,8 @@
-"""Software verification of ``OperatorRecord`` exact value semantics.
+r"""Software verification of ``OperatorRecord``.
 
-Represented contract
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the value semantics facet. Represented contract
 --------------------
 This facet owns exact structural equality across all eight stored fields, exact
 matrix entry/position semantics, provenance mapping-content equality, unrelated-
@@ -22,6 +24,21 @@ This module provides software-verification evidence ``SV-OR-038`` through
 numerical algorithm, so numerical verification is not applicable. Scientific
 validation, uncertainty quantification, and Rust conformance have not been
 performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecord``; collaborators only construct inputs or
+expose public outcomes. Accepted public contracts, literal expected values, Python
+language semantics, and assigned schema or fixture artifacts provide the oracles. No
+runtime warning is accepted unless a test explicitly states otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from collections.abc import Hashable
@@ -40,29 +57,39 @@ from ksdft2effmass.operators import OperatorRecord
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecord
 
-def test_exact_structural_equality_uses_every_stored_field() -> None:
-    """SV-OR-038: vary every stored field independently in equality.
+EQUALITY_FIELDS = (
+    "identifier",
+    "operator_kind",
+    "matrix",
+    "state_space",
+    "basis",
+    "geometry",
+    "energy_reference",
+    "provenance",
+)
 
-    Evidence ID
-        ``SV-OR-038``.
+
+def test_method__eq__exact_structural_equality_uses_every_stored_field() -> None:
+    r"""Evidence ID
+    SV-OR-038
     Requirement
-        Equal independently constructed records match all eight stored fields;
-        changing any one field makes them unequal.
+    Equal independently constructed records match all eight stored fields; changing any
+    one field makes them unequal.
     Method
-        Construct one baseline, one identical value, and eight valid single-field
-        variants through public constructors.
+    Construct one baseline, one identical value, and eight valid single-field variants
+    through public constructors.
     Oracle
-        The approved exact DataObject contract includes fields even when
-        compatibility rules deliberately ignore them.
+    The approved exact DataObject contract includes fields even when compatibility rules
+    deliberately ignore them.
     Acceptance
-        Baseline equals the identical record and differs from every variant.
+    Baseline equals the identical record and differs from every variant.
     Interpretation
-        Passing establishes complete structural equality ownership.
+    Passing establishes complete structural equality ownership.
     Limitations
-        It does not execute compatibility, determine physical equivalence, use
-        approximate comparison, establish scientific validation, UQ, or Rust
-        conformance.
+    It does not execute compatibility, determine physical equivalence, use approximate
+    comparison, establish scientific validation, UQ, or Rust conformance.
     """
 
     baseline = make_record()
@@ -85,29 +112,26 @@ def test_exact_structural_equality_uses_every_stored_field() -> None:
     assert all(baseline != variant for variant in variants)
 
 
-def test_matrix_equality_is_exact_complex_and_position_sensitive() -> None:
-    """SV-OR-039: reject tolerance and entry-permutation equality.
-
-    Evidence ID
-        ``SV-OR-039``.
+def test_method__eq__matrix_equality_is_exact_complex_and_position_sensitive() -> None:
+    r"""Evidence ID
+    SV-OR-039
     Requirement
-        Matrix equality uses exact entry values and positions, including complex
-        components; any nonzero representable perturbation is observable.
+    Matrix equality uses exact entry values and positions, including complex components;
+    any nonzero representable perturbation is observable.
     Method
-        Compare zero baseline with a smallest-positive-binary64 perturbation,
-        complex perturbation, and position-swapped pair without approximation.
+    Compare zero baseline with a smallest-positive-binary64 perturbation, complex
+    perturbation, and position-swapped pair without approximation.
     Oracle
-        Exact literal/IEEE values and positions independently define inequality.
+    Exact literal/IEEE values and positions independently define inequality.
     Acceptance
-        Every matrix variant compares unequal; independently identical matrices
-        compare equal.
+    Every matrix variant compares unequal; independently identical matrices compare
+    equal.
     Interpretation
-        Passing establishes ``np.array_equal``-style exact semantics rather than
-        tolerance-based equality.
+    Passing establishes ``np.array_equal``-style exact semantics rather than
+    tolerance-based equality.
     Limitations
-        It uses no approximate comparison, calculates no error norm, and does not
-        determine physical equivalence, scientific validation, UQ, or Rust
-        conformance.
+    It uses no approximate comparison, calculates no error norm, and does not determine
+    physical equivalence, scientific validation, UQ, or Rust conformance.
     """
 
     tiny = np.nextafter(0.0, 1.0)
@@ -125,25 +149,23 @@ def test_matrix_equality_is_exact_complex_and_position_sensitive() -> None:
     assert positioned != repositioned
 
 
-def test_provenance_equality_uses_mapping_content_not_insertion_order() -> None:
-    """SV-OR-040: verify exact mapping-content equality semantics.
-
-    Evidence ID
-        ``SV-OR-040``.
+def test_method__eq__uses_provenance_content() -> None:
+    r"""Evidence ID
+    SV-OR-040
     Requirement
-        Equal key/value content compares equal independent of insertion order;
-        changed, removed, added, or renamed content compares unequal.
+    Equal key/value content compares equal independent of insertion order; changed,
+    removed, added, or renamed content compares unequal.
     Method
-        Construct valid records with explicitly authored provenance mappings.
+    Construct valid records with explicitly authored provenance mappings.
     Oracle
-        Python mapping-content equality is the approved provenance semantics.
+    Python mapping-content equality is the approved provenance semantics.
     Acceptance
-        Reordered content is equal; every content variation is unequal.
+    Reordered content is equal; every content variation is unequal.
     Interpretation
-        Passing establishes mapping rather than sequence semantics.
+    Passing establishes mapping rather than sequence semantics.
     Limitations
-        It does not validate provenance truth, serialization order, scientific
-        validation, UQ, or Rust conformance.
+    It does not validate provenance truth, serialization order, scientific validation,
+    UQ, or Rust conformance.
     """
 
     baseline = make_record(provenance={"source": "synthetic", "code": "test"})
@@ -162,26 +184,24 @@ def test_provenance_equality_uses_mapping_content_not_insertion_order() -> None:
     assert baseline != changed_key
 
 
-def test_equality_protocol_returns_notimplemented_for_unrelated_objects() -> None:
-    """SV-OR-041: verify ordinary unrelated-object equality protocol.
-
-    Evidence ID
-        ``SV-OR-041``.
+def test_method__eq__equality_protocol_returns_notimplemented_for_unrelated() -> None:
+    r"""Evidence ID
+    SV-OR-041
     Requirement
-        Direct ``__eq__`` returns ``NotImplemented`` for unrelated objects and
-        ordinary comparison yields inequality.
+    Direct ``__eq__`` returns ``NotImplemented`` for unrelated objects and ordinary
+    comparison yields inequality.
     Method
-        Compare one valid record with a fresh arbitrary object.
+    Compare one valid record with a fresh arbitrary object.
     Oracle
-        The approved Python data-model protocol defines reflected handling.
+    The approved Python data-model protocol defines reflected handling.
     Acceptance
-        Direct result is exactly ``NotImplemented`` and ordinary equality is
-        false while inequality is true.
+    Direct result is exactly ``NotImplemented`` and ordinary equality is false while
+    inequality is true.
     Interpretation
-        Passing establishes cooperative equality behavior without duck typing.
+    Passing establishes cooperative equality behavior without duck typing.
     Limitations
-        It does not compare subclasses or establish scientific validation, UQ,
-        or Rust conformance.
+    It does not compare subclasses or establish scientific validation, UQ, or Rust
+    conformance.
     """
 
     record = make_record()
@@ -192,26 +212,24 @@ def test_equality_protocol_returns_notimplemented_for_unrelated_objects() -> Non
     assert record != unrelated
 
 
-def test_operator_record_is_publicly_unhashable() -> None:
-    """SV-OR-042: preserve the explicit unhashability contract.
-
-    Evidence ID
-        ``SV-OR-042``.
+def test_method__hash__operator_record_is_publicly_unhashable() -> None:
+    r"""Evidence ID
+    SV-OR-042
     Requirement
-        Array-valued exact state has no approved content hash.
+    Array-valued exact state has no approved content hash.
     Method
-        Inspect the public class protocol, abstract Hashable behavior, and
-        ordinary ``hash()`` failure.
+    Inspect the public class protocol, abstract Hashable behavior, and ordinary
+    ``hash()`` failure.
     Oracle
-        ``OperatorRecord.__hash__ is None`` is the approved public contract.
+    ``OperatorRecord.__hash__ is None`` is the approved public contract.
     Acceptance
-        Class hash is ``None``, instance is not ``Hashable``, and ``hash`` raises
-        exactly ``TypeError``.
+    Class hash is ``None``, instance is not ``Hashable``, and ``hash`` raises exactly
+    ``TypeError``.
     Interpretation
-        Passing prevents accidental matrix/provenance hash introduction.
+    Passing prevents accidental matrix/provenance hash introduction.
     Limitations
-        It does not propose a Rust hash, test identity hashing, establish
-        scientific validation, UQ, or Rust conformance.
+    It does not propose a Rust hash, test identity hashing, establish scientific
+    validation, UQ, or Rust conformance.
     """
 
     record = make_record()

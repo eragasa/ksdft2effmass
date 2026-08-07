@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "new_split_nodes": [
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[dependency_manifest_ids]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[finished_at]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[input_artifact_ids]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[manifest_id]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[output_artifact_ids]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[specification_id]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_field__frozen_assignment__rejects_every_public_field[started_at]",
+      "evidence_id": "SV-PROV-110",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[dependency_manifest_ids]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[finished_at]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[input_artifact_ids]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[manifest_id]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[specification_id]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[started_at]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    },
+    {
+      "node_id": "tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py::test_method__eq__distinguishes_every_public_field[state]",
+      "evidence_id": "SV-PROV-112",
+      "rationale": "Adds the previously unexercised public field partition required by the complete frozen/equality contract."
+    }
+  ],
+  "new_evidence_ids": [
+    {
+      "evidence_id": "SV-PROV-402",
+      "owner": "python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py::test_method__call__rejects_wrong_semantic_type",
+      "rationale": "The integer wrong-semantic-type partition was split from the unknown string-value owner; the historical SV-PROV-177 remains with its original unknown-value requirement."
+    },
+    {
+      "evidence_id": "SV-PACKAGE-001",
+      "owner": "python/tests/test__import.py::test_public_api__package_import__resolves_module",
+      "rationale": "The pre-existing undocumented package-root node gained its first stable maintained-evidence identity."
+    }
+  ]
+}

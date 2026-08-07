@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "artifact": "h4 hc02 route fail closed",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py"
+    },
+    {
+      "artifact": "h4 replay and completion evidence",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py"
+    },
+    {
+      "artifact": "local context dependency and nonmutation",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py"
+    },
+    {
+      "artifact": "local public api and models",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py"
+    },
+    {
+      "artifact": "local repository validation",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_repository_validation.py"
+    },
+    {
+      "artifact": "local routing and shadow",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_routing_and_shadow.py"
+    },
+    {
+      "artifact": "local strict adapters",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_strict_adapters.py"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AgentDescriptorView.py",
+      "sut": "AgentDescriptorView"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ArtifactIdentity.py",
+      "sut": "ArtifactIdentity"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py",
+      "sut": "AuditEvidenceIdentifiers"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainEvaluationResult.py",
+      "sut": "ChainEvaluationResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainView.py",
+      "sut": "ChainView"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointRecord.py",
+      "sut": "CheckpointRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumEntry.py",
+      "sut": "ChecksumEntry"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumManifest.py",
+      "sut": "ChecksumManifest"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__DeserializeJsonRecord.py",
+      "sut": "DeserializeJsonRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvaluateChainState.py",
+      "sut": "EvaluateChainState"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceAuditResult.py",
+      "sut": "EvidenceAuditResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceIdentifierOccurrence.py",
+      "sut": "EvidenceIdentifierOccurrence"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HarnessInternalError.py",
+      "sut": "HarnessInternalError"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonDeserializationResult.py",
+      "sut": "JsonDeserializationResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonSerializationResult.py",
+      "sut": "JsonSerializationResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__LoadProjectProfile.py",
+      "sut": "LoadProjectProfile"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipManifestView.py",
+      "sut": "OwnershipManifestView"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipScope.py",
+      "sut": "OwnershipScope"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfile.py",
+      "sut": "ProjectProfile"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfileLoadResult.py",
+      "sut": "ProjectProfileLoadResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResolveResource.py",
+      "sut": "ResolveResource"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifest.py",
+      "sut": "ResourceManifest"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceReference.py",
+      "sut": "ResourceReference"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceResolutionResult.py",
+      "sut": "ResourceResolutionResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__SerializeJsonRecord.py",
+      "sut": "SerializeJsonRecord"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__SkillDescriptor.py",
+      "sut": "SkillDescriptor"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskReference.py",
+      "sut": "TaskReference"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateCheckpointSet.py",
+      "sut": "ValidateCheckpointSet"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateChecksumManifest.py",
+      "sut": "ValidateChecksumManifest"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateOwnershipManifest.py",
+      "sut": "ValidateOwnershipManifest"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateResourceManifest.py",
+      "sut": "ValidateResourceManifest"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidateSkillResources.py",
+      "sut": "ValidateSkillResources"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py",
+      "sut": "ValidationIssue"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationResult.py",
+      "sut": "ValidationResult"
+    },
+    {
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__WireRecordKind.py",
+      "sut": "WireRecordKind"
+    },
+    {
+      "artifact": "harness pi generic local dependency direction",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py"
+    },
+    {
+      "artifact": "harness pi h3 resource contract",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py"
+    },
+    {
+      "artifact": "harness pi path confinement contract",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py"
+    },
+    {
+      "artifact": "harness pi public api",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py"
+    },
+    {
+      "artifact": "external execution outcome type alias",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py"
+    }
+  ]
+}

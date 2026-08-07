@@ -62,15 +62,15 @@
       }
     },
     {
-      "case_id": "protected-unowned-warning",
+      "case_id": "formerly_protected_owner_is_conforming",
       "module_path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
-      "function": "test_differencer_requires_operator_record_inputs",
+      "function": "test_method__execute__differencer_retains_explicit_compatibility_analyzer",
       "marker": "software_verification",
-      "evidence_id": null,
+      "evidence_id": "SV-ORD-001",
       "expected": {
-        "status": "WARN",
-        "issue_code": "PIH.EVIDENCE.PROTECTED_GAP",
-        "classification": "software_verification-only; no numerical/scientific claim"
+        "status": "PASS",
+        "issue_code": null,
+        "classification": "software_verification"
       }
     }
   ]

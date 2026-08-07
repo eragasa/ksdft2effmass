@@ -25,6 +25,27 @@ from ksdft2effmass.provenance import ManifestState, RunManifest
 SUT = RunManifest
 pytestmark = pytest.mark.software_verification
 
+FROZEN_FIELDS = (
+    "manifest_id",
+    "specification_id",
+    "input_artifact_ids",
+    "started_at",
+    "finished_at",
+    "output_artifact_ids",
+    "dependency_manifest_ids",
+    "state",
+)
+EQUALITY_FIELDS = (
+    "manifest_id",
+    "specification_id",
+    "input_artifact_ids",
+    "started_at",
+    "finished_at",
+    "output_artifact_ids",
+    "dependency_manifest_ids",
+    "state",
+)
+
 
 def make_run_manifest(**changes: object) -> RunManifest:
     """Evidence ID
@@ -91,26 +112,45 @@ def test_constructor__manifest_fields__maps_safe_state() -> None:
     assert value.state is ManifestState.DECLARED
 
 
-def test_field__frozen_assignment__rejects_reassignment() -> None:
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        pytest.param("manifest_id", id="manifest_id"),
+        pytest.param("specification_id", id="specification_id"),
+        pytest.param("input_artifact_ids", id="input_artifact_ids"),
+        pytest.param("started_at", id="started_at"),
+        pytest.param("finished_at", id="finished_at"),
+        pytest.param("output_artifact_ids", id="output_artifact_ids"),
+        pytest.param("dependency_manifest_ids", id="dependency_manifest_ids"),
+        pytest.param("state", id="state"),
+    ],
+)
+def test_field__frozen_assignment__rejects_every_public_field(
+    field_name: str,
+) -> None:
     """Evidence ID
     SV-PROV-110
     Requirement
-    RunManifest is operationally immutable through ordinary field assignment.
+    Every public RunManifest field is frozen against ordinary reassignment.
     Method
-    Construct a declared manifest and assign another valid ManifestState member.
+    Construct a valid manifest and attempt reassignment of each field named in the
+    complete FROZEN_FIELDS inventory; no warning is expected or suppressed.
     Oracle
-    The public frozen DataObject contract requires FrozenInstanceError.
+    The public frozen DataObject contract requires FrozenInstanceError for each of the
+    eight published fields.
     Acceptance
-    Reassignment raises FrozenInstanceError.
+    Every named field reassignment raises exactly FrozenInstanceError.
     Interpretation
-    Failure indicates mutable durable manifest state or architecture drift.
+    Failure identifies a mutable public field, an incomplete inventory, or architecture
+    drift.
     Limitations
-    Hostile reflection, execution, validation, UQ, and cross-language claims are
-    excluded.
+    Hostile reflection, referenced execution, scientific validation, UQ, and
+    cross-language claims are excluded.
     """
+    assert field_name in FROZEN_FIELDS
     value = make_run_manifest()
     with pytest.raises(FrozenInstanceError):
-        value.state = ManifestState.COMPLETE  # type: ignore[misc]
+        setattr(value, field_name, getattr(value, field_name))
 
 
 @pytest.mark.parametrize(
@@ -629,22 +669,49 @@ def test_field__state_semantic_type__rejects_string_lookalike() -> None:
         make_run_manifest(state="declared")
 
 
-def test_method__eq__compares_complete_represented_state() -> None:
+@pytest.mark.parametrize(
+    ("field_name", "changed_value"),
+    [
+        pytest.param("manifest_id", "manifest-2", id="manifest_id"),
+        pytest.param("specification_id", "spec-2", id="specification_id"),
+        pytest.param("input_artifact_ids", ("input-c",), id="input_artifact_ids"),
+        pytest.param("started_at", "2026-08-05T11:00:00Z", id="started_at"),
+        pytest.param("finished_at", "2026-08-05T13:00:01Z", id="finished_at"),
+        pytest.param("output_artifact_ids", ("output-a",), id="output_artifact_ids"),
+        pytest.param(
+            "dependency_manifest_ids", ("manifest-2",), id="dependency_manifest_ids"
+        ),
+        pytest.param("state", ManifestState.FAILED, id="state"),
+    ],
+)
+def test_method__eq__distinguishes_every_public_field(
+    field_name: str, changed_value: object
+) -> None:
     """Evidence ID
     SV-PROV-112
     Requirement
-    RunManifest equality is exact over all eight represented fields.
+    RunManifest equality is exact over all eight fields in complete represented state.
     Method
-    Compare two equal declared manifests and one differing only in output identities.
+    Compare two independently constructed equal terminal manifests, then vary exactly
+    one field named by EQUALITY_FIELDS while keeping every constructor state valid.
     Oracle
-    The public eight-field dataclass inventory fixes complete represented state.
+    The literal eight-field inventory and exact Python dataclass value contract define
+    equality independently of object identity.
     Acceptance
-    Equal state compares equal and the one-field variant compares unequal.
+    Equal state compares equal and each of the eight one-field variants compares
+    unequal.
     Interpretation
-    Failure indicates incomplete or transformed manifest equality.
+    Failure indicates incomplete equality, invalid test construction, or contract drift.
     Limitations
-    Equality proves no execution, output existence, validation, UQ, or
+    Equality proves no execution, output existence, scientific validation, UQ, or
     cross-language conformance.
     """
-    assert make_run_manifest() == make_run_manifest()
-    assert make_run_manifest() != make_run_manifest(output_artifact_ids=("output-a",))
+    baseline_changes: dict[str, object] = {
+        "state": ManifestState.COMPLETE,
+        "finished_at": "2026-08-05T13:00:00Z",
+    }
+    assert field_name in EQUALITY_FIELDS
+    baseline = make_run_manifest(**baseline_changes)
+    changed = {**baseline_changes, field_name: changed_value}
+    assert baseline == make_run_manifest(**baseline_changes)
+    assert baseline != make_run_manifest(**changed)

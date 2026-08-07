@@ -1,11 +1,19 @@
-# ruff: noqa: E501
-"""Evidence class and represented meaning
-Software verification of explicit routing, rollback, shadow comparison ordering, and fail-closed replay aggregation.
-Owned contract, oracle, and scope
-The artifact owner is the local shadow-routing boundary; exact route truth tables and difference classifications come from accepted H4 behavior.
+r"""Software verification of local routing and shadow.
+
+Facet and represented meaning
+Software verification of explicit routing, rollback, shadow comparison ordering, and
+fail-closed replay aggregation.
+
+Intrinsic and cross-object scope
+The artifact owner is the local shadow-routing boundary; exact route truth tables and
+difference classifications come from accepted H4 behavior.
+
 VVUQ and scientific exclusions
-Passing establishes deterministic software routing only, not numerical verification, scientific validation, UQ, physical correctness, or cross-language conformance.
+Passing establishes deterministic software routing only, not numerical verification,
+scientific validation, UQ, physical correctness, or cross-language conformance.
 """
+
+from typing import Any
 
 import pytest
 
@@ -31,12 +39,52 @@ def observation(
     exit_status: int = 0,
     inventory: tuple[str, ...] = (),
 ) -> ShadowObservation:
-    """Construct a normalized observation for the named SV-HL evidence."""
+    """Evidence ID
+    Owns no identifier; supports SV-HL-009.
+    Requirement
+    Provide explicit setup mechanics for the local routing and shadow evidence without
+    owning an independent result.
+    Method
+    Construct the named public input partition and invoke the declared owner without
+    ambient discovery.
+    Oracle
+    The fixed public contract and literal record partition determine the exact expected
+    result independently.
+    Acceptance
+    The named exact value, ordering, issue, or exception partition must hold without
+    tolerance.
+    Interpretation
+    Failure identifies public-contract drift, stale controlled input, or an
+    implementation defect.
+    Limitations
+    This is deterministic software verification only; numerical verification, scientific
+    validation, UQ, physical correctness, portability, and cross-language claims are
+    excluded.
+    """
     return ShadowObservation(name, status, (), (), inventory, exit_status, None)
 
 
 def test_method__route_selection__implements_truth_table_and_legacy_rollback() -> None:
-    "Evidence ID\nSV-HL-009\nRequirement\n        Legacy, shadow, and local routes have an explicit truth table and every rollback selects retained legacy authority.\nMethod\n        Execute SelectValidationRoute for all enum members and RollBackValidationRoute from local and shadow configurations.\nOracle\n        The H4 routing contract fixes legacy=(1,0,legacy), shadow=(1,1,legacy), local=(0,1,local).\nAcceptance\n        Returned booleans and authority exactly match the table and rollback always returns legacy/legacy.\nInterpretation\n        Failure indicates unsafe authority selection or rollback regression.\nLimitations\n        No command is executed and operational deployment, science, numerical results, UQ, and portability are excluded."
+    """Evidence ID
+    SV-HL-009
+    Requirement
+    Legacy, shadow, and local routes have an explicit truth table and every rollback
+    selects retained legacy authority.
+    Method
+    Execute SelectValidationRoute for all enum members and RollBackValidationRoute from
+    local and shadow configurations.
+    Oracle
+    The H4 routing contract fixes legacy=(1,0,legacy), shadow=(1,1,legacy),
+    local=(0,1,local).
+    Acceptance
+    Returned booleans and authority exactly match the table and rollback always returns
+    legacy/legacy.
+    Interpretation
+    Failure indicates unsafe authority selection or rollback regression.
+    Limitations
+    No command is executed and operational deployment, science, numerical results, UQ,
+    and portability are excluded.
+    """
     action = SelectValidationRoute()
     actual = {
         route: action.execute(RouteConfiguration(route)) for route in ValidationRoute
@@ -56,15 +104,39 @@ def test_method__route_selection__implements_truth_table_and_legacy_rollback() -
         actual[ValidationRoute.LOCAL].run_local,
         actual[ValidationRoute.LOCAL].authoritative_route,
     ) == (False, True, ValidationRoute.LOCAL)
-    for route in (ValidationRoute.SHADOW, ValidationRoute.LOCAL):
+
+    def exercise_route_case_90_1(route: Any) -> Any:
         rolled = RollBackValidationRoute().execute(RouteConfiguration(route))
         assert rolled.route is rolled.rollback_route is ValidationRoute.LEGACY
 
+    _ = [
+        exercise_route_case_90_1(route)
+        for route in ((ValidationRoute.SHADOW, ValidationRoute.LOCAL))
+    ]
 
-def test_method__shadow_classification__orders_differences_and_requires_cited_rules() -> (
-    None
-):
-    "Evidence ID\nSV-HL-010\nRequirement\n        Every normalized difference is lexically ordered and classified equivalent, cited intentional/deferred, or uncited defect.\nMethod\n        Compare equal observations, one approved inventory difference, one uncited difference, and simultaneous status/exit differences.\nOracle\n        CompareShadowPair and ShadowPairResult publicly require sorted difference keys and explicit authority for nondefect exceptions.\nAcceptance\n        Equal is equivalent; cited inventory is intentional; uncited inventory is defect; simultaneous keys return the sorted tuple (exit_status, status) without raising.\nInterpretation\n        Failure identifies classification/order defects or stale accepted-rule transcription.\nLimitations\n        Rule authority authenticity is represented by a fixed citation string; commands, science, numerical verification, UQ, and portability are excluded."
+
+def test_method__shadow_classification__orders_differences_and_citations() -> None:
+    """Evidence ID
+    SV-HL-010
+    Requirement
+    Every normalized difference is lexically ordered and classified equivalent, cited
+    intentional/deferred, or uncited defect.
+    Method
+    Compare equal observations, one approved inventory difference, one uncited
+    difference, and simultaneous status/exit differences.
+    Oracle
+    CompareShadowPair and ShadowPairResult publicly require sorted difference keys and
+    explicit authority for nondefect exceptions.
+    Acceptance
+    Equal is equivalent; cited inventory is intentional; uncited inventory is defect;
+    simultaneous keys return the sorted tuple (exit_status, status) without raising.
+    Interpretation
+    Failure identifies classification/order defects or stale accepted-rule
+    transcription.
+    Limitations
+    Rule authority authenticity is represented by a fixed citation string; commands,
+    science, numerical verification, UQ, and portability are excluded.
+    """
     compare = CompareShadowPair()
     base = observation("legacy")
     assert (
@@ -91,7 +163,25 @@ def test_method__shadow_classification__orders_differences_and_requires_cited_ru
 
 
 def test_method__shadow_rules__reject_uncited_or_mixed_exceptions() -> None:
-    "Evidence ID\nSV-HL-011\nRequirement\n        Exception rules cannot silently waive defects and mixed classifications cannot become authoritative.\nMethod\n        Supply an empty citation, an illegal equivalent rule, and mixed intentional/deferred rules for two differences.\nOracle\n        The public rule contract permits only cited intentional/deferred triples and requires one classification for every observed difference.\nAcceptance\n        Invalid rules raise ValueError and mixed rules produce defect.\nInterpretation\n        Failure indicates silent waiver or permissive authoritative routing.\nLimitations\n        Citation governance beyond nonempty representation, science, numerical verification, UQ, and portability are excluded."
+    """Evidence ID
+    SV-HL-011
+    Requirement
+    Exception rules cannot silently waive defects and mixed classifications cannot
+    become authoritative.
+    Method
+    Supply an empty citation, an illegal equivalent rule, and mixed intentional/deferred
+    rules for two differences.
+    Oracle
+    The public rule contract permits only cited intentional/deferred triples and
+    requires one classification for every observed difference.
+    Acceptance
+    Invalid rules raise ValueError and mixed rules produce defect.
+    Interpretation
+    Failure indicates silent waiver or permissive authoritative routing.
+    Limitations
+    Citation governance beyond nonempty representation, science, numerical verification,
+    UQ, and portability are excluded.
+    """
     compare = CompareShadowPair()
     base = observation("legacy")
     with pytest.raises(ValueError):
@@ -127,7 +217,26 @@ def test_method__shadow_rules__reject_uncited_or_mixed_exceptions() -> None:
 
 
 def test_workflow__shadow_replay__fails_closed_for_defect_and_deferred() -> None:
-    "Evidence ID\nSV-HL-012\nRequirement\n        Replay sorts pairs and prevents defect or deferred observations from passing authoritative assessment.\nMethod\n        Aggregate one equivalent, one defect, and one cited deferred pair against the explicit current-tree root and context.\nOracle\n        H4 excludes defect/deferred authoritative routing and fixes PIHL.SHADOW classification diagnostics.\nAcceptance\n        Pair IDs sort lexically, validation is FAIL, and issue codes are exactly PIHL.SHADOW.DEFECT and PIHL.SHADOW.DEFERRED.\nInterpretation\n        Failure indicates unsafe aggregation, order drift, or context-fixture error.\nLimitations\n        External commands are represented rather than launched; scientific, numerical, UQ, and portability conclusions are excluded."
+    """Evidence ID
+    SV-HL-012
+    Requirement
+    Replay sorts pairs and prevents defect or deferred observations from passing
+    authoritative assessment.
+    Method
+    Aggregate one equivalent, one defect, and one cited deferred pair against the
+    explicit current-tree root and context.
+    Oracle
+    H4 excludes defect/deferred authoritative routing and fixes PIHL.SHADOW
+    classification diagnostics.
+    Acceptance
+    Pair IDs sort lexically, validation is FAIL, and issue codes are exactly
+    PIHL.SHADOW.DEFECT and PIHL.SHADOW.DEFERRED.
+    Interpretation
+    Failure indicates unsafe aggregation, order drift, or context-fixture error.
+    Limitations
+    External commands are represented rather than launched; scientific, numerical, UQ,
+    and portability conclusions are excluded.
+    """
     compare = CompareShadowPair()
     base = observation("legacy")
     defect = compare.execute("b", base, observation("local", inventory=("x",)))

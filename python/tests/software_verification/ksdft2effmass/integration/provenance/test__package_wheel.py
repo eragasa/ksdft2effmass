@@ -1,4 +1,4 @@
-r"""Software verification of the provenance wheel/package artifact.
+r"""Software verification of package wheel.
 
 Facet and represented meaning
 -----------------------------

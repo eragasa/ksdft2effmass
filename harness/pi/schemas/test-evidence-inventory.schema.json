@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/test-evidence-inventory.schema.json",
+  "title": "Maintained Python test-evidence repository inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "baseline_revision",
+    "test_root",
+    "baseline_module_count",
+    "baseline_collected_node_count",
+    "expected_module_count",
+    "expected_collected_node_count",
+    "modules"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "baseline_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "test_root": {"type": "string", "minLength": 1},
+    "baseline_module_count": {"type": "integer", "minimum": 0},
+    "baseline_collected_node_count": {"type": "integer", "minimum": 0},
+    "expected_module_count": {"type": "integer", "minimum": 0},
+    "expected_collected_node_count": {"type": "integer", "minimum": 0},
+    "modules": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/classOwned"},
+          {"$ref": "#/$defs/artifactOwned"}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "common": {
+      "type": "object",
+      "required": ["path", "mode", "evidence_class", "content_sha256", "conformance_status"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^python/tests/.+\\.py$"},
+        "mode": {"enum": ["class_owned", "artifact_owned"]},
+        "evidence_class": {
+          "enum": ["software_verification", "numerical_verification", "scientific_validation", "uncertainty_quantification"]
+        },
+        "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "conformance_status": {"enum": ["conforming", "not_yet_conforming"]}
+      }
+    },
+    "classOwned": {
+      "allOf": [
+        {"$ref": "#/$defs/common"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "mode", "evidence_class", "content_sha256", "conformance_status", "sut"],
+          "properties": {
+            "path": {"type": "string", "pattern": "^python/tests/.+\\.py$"},
+            "mode": {"const": "class_owned"},
+            "evidence_class": {"enum": ["software_verification", "numerical_verification", "scientific_validation", "uncertainty_quantification"]},
+            "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "conformance_status": {"enum": ["conforming", "not_yet_conforming"]},
+            "sut": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "artifactOwned": {
+      "allOf": [
+        {"$ref": "#/$defs/common"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "mode", "evidence_class", "content_sha256", "conformance_status", "artifact"],
+          "properties": {
+            "path": {"type": "string", "pattern": "^python/tests/.+\\.py$"},
+            "mode": {"const": "artifact_owned"},
+            "evidence_class": {"enum": ["software_verification", "numerical_verification", "scientific_validation", "uncertainty_quantification"]},
+            "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "conformance_status": {"enum": ["conforming", "not_yet_conforming"]},
+            "artifact": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    }
+  }
+}

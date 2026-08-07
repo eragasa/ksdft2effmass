@@ -64,13 +64,13 @@ Tests use `test_<surface>__<facet>__<behavior>`, in lowercase snake case, withou
 - `artifact`: schemas, fixtures, wire formats, commands, dependencies, or interoperability boundaries;
 - `workflow`: a genuine public workflow/action composition.
 
-The facet names the actual member or cohesive contract: examples include `test_method__eq__compares_complete_represented_state`, `test_method__hash__is_disabled_for_mutable_values`, `test_method__repr__shows_public_identity`, `test_property__residual__returns_declared_units`, and `test_constructor__identifier_type__rejects_bytes`. Do not label `==` as `property` or `protocol`, collapse unrelated surfaces under `behavior`, or name tests after implementation details. Renaming requires a complete one-to-one old/new pytest node-ID map.
+The facet names the actual member or cohesive contract: examples include `test_method__eq__compares_complete_represented_state`, `test_method__hash__is_disabled_for_mutable_values`, `test_method__repr__shows_public_identity`, `test_property__residual__returns_declared_units`, and `test_constructor__identifier_type__rejects_bytes`. Do not label `==` as `property` or `protocol`, collapse unrelated surfaces under `behavior`, or name tests after implementation details. The `protocol` surface remains valid only for genuine Python protocol operations; a vague facet such as `protocol__behavior`, `contract`, `general`, or `misc` is not a substitute for naming the operation. Renaming requires a complete one-to-one old/new pytest node-ID map.
 
 ## 6. Cohesion and splitting
 
 One collected test has one requirement, one method shape, one oracle form, one acceptance rule, and one failure interpretation. Combine cases only when these remain identical across a declared partition.
 
-Cohesive: parameterize several invalid identifier strings that all must raise the same public exception for the same grammar. Split: wrong semantic types (`TypeError`) from malformed values (`ValueError`); equality from immutability; constructor mapping from an actual property; schema shape from runtime semantic relations; exact-zero cases from nonzero tolerance cases. A loop over unrelated fields, exceptions, or acceptance rules hides meaningful cases and must become named pytest parameters or separate tests.
+Cohesive: parameterize several invalid identifier strings that all must raise the same public exception for the same grammar. Split: wrong semantic types (`TypeError`) from malformed values (`ValueError`); an unknown value of the accepted semantic type from a wrong-semantic-type value even when both incidentally raise the same exception; `EnumType(value)` construction from `EnumType[name]` lookup; equality from immutability; constructor mapping from an actual property; schema shape from runtime semantic relations; exact-zero cases from nonzero tolerance cases. A loop over unrelated fields, exceptions, or acceptance rules hides meaningful cases and must become named pytest parameters or separate tests.
 
 ## 7. Exact function documentation
 
@@ -124,7 +124,7 @@ Approximate comparison requires an authorized mathematical/numerical contract. D
 
 ## 12. Independent oracles and controlled faults
 
-An oracle is available without executing or algebraically disguising the behavior under test. Acceptable sources include a public invariant, fixed schema, exact language semantics, hand-derived analytical result, higher-precision calculation, independently implemented method, or approved external reference. Production private methods/helpers, production constants as sole expectations, a renamed call to the same routine, and reviewer agreement are not independent. A production constant may select an input only when its value is independently anchored.
+An oracle is available without executing or algebraically disguising the behavior under test. Acceptable sources include a public invariant, fixed schema, exact language semantics, hand-derived analytical result, higher-precision calculation, independently implemented method, or approved external reference. Production private methods/helpers, production constants as sole expectations, a renamed call to the same routine, reviewer agreement, and `SUT.__members__[name]` as the sole expected value for `SUT[name]` are not independent. A production constant may select an input only when its value is independently anchored; enum vocabulary inspection may still use `__members__` for exact names, order, count, and aliases.
 
 Controlled fault injection may verify a documented public translation boundary when valid inputs cannot reliably trigger it. Name the controlled dependency and expected public error. This verifies the owner’s translation, not the dependency’s correctness. Do not mutate private invalid state or directly test a private method as a substitute for public evidence.
 
@@ -134,11 +134,19 @@ Schema validation establishes declared wire shape only. Runtime constructors/des
 
 Version schemas and fixtures, identify exact accepted/rejected layers, resolve references locally where promised, and never change expected fixtures merely to make a test pass.
 
-## 14. Coverage and count reporting
+## 14. Deterministic recurrence controls
+
+Maintained evidence prohibits file-level blanket `# ruff: noqa: E501`; ordinarily format the module or use one targeted, justified suppression on the unavoidable line. Reject doubled terminal punctuation and explicit placeholder tokens in maintained evidence prose. These mechanical checks do not establish that prose is relevant, specific, complete, or scientifically accurate.
+
+When a Requirement claims complete represented-state equality, declare one module-local literal `EQUALITY_FIELDS` tuple/list of unique nonempty public field names and exercise each field independently. When a Requirement claims that all public fields are frozen, declare the analogous `FROZEN_FIELDS` inventory and exercise each field. The inventory is a reviewable completeness claim, not proof that reflection discovered the right public model or that the cases actually establish immutability; semantic review must verify both.
+
+Deterministic tooling may conservatively reject mixed enum call/name lookup, mixed unknown-value/wrong-type semantic parameter IDs, circular enum member oracles, blanket suppression, minimum prose defects, and missing completeness inventories. Every such rule requires a controlled false-positive guard. A structural PASS still cannot establish semantic cohesion, oracle independence, field completeness beyond the declared inventory, mathematics, tolerance adequacy, validation, UQ, provenance truth, or human acceptance.
+
+## 15. Coverage and count reporting
 
 Report at least: supplied module paths; test-function count; explicit static collected parameter-case count (honest `null`/unknown when static collection cannot be determined); unique evidence-owner count; helper count; class-owned versus artifact-owned counts; evidence-class counts; and findings by code/severity. Never equate line coverage, collection count, assertion count, parameter count, or evidence-ID count. State the command, environment, scope, deselection, and failures. Coverage can reveal unexercised code but cannot establish requirement completeness, oracle independence, validation, or UQ.
 
-## 15. Fifteen-step workflow
+## 16. Sixteen-step workflow
 
 1. Confirm task authority, ownership, protected boundaries, and explicit paths.
 2. Load this entire reference plus authoritative public/mathematical contracts and local profile.
@@ -154,11 +162,12 @@ Report at least: supplied module paths; test-function count; explicit static col
 12. For migrations, create and validate the complete one-to-one old/new node map before renaming; preserve historical evidence.
 13. Run the cheapest supplied-path structural validation, then focused pytest and applicable schema/fixture, formatting, typing, coverage, link, and documentation gates.
 14. Perform semantic review separately for surface correctness (including method-owned `eq`, `hash`, and `repr`), cohesion, oracle independence, tolerance adequacy, layering, claims, and synchronization.
-15. Report exact changes/results/counts/residuals, verify unauthorized paths are unchanged, stop, and leave reviewer/human acceptance separate.
+15. When a local profile supplies a repository-wide maintained-test inventory and completion gate, update the inventory identities/statuses and require exact discovery, ownership, collection, and structural closure; no current module may remain unclassified or grandfathered as legacy debt.
+16. Report exact changes/results/counts/residuals, verify unauthorized paths are unchanged, stop, and leave reviewer/human acceptance separate.
 
 ## Invocation profiles and authority
 
-Every invocation selects exactly one:
+Every invocation selects exactly one. A local repository-wide conformance activation overrides the ordinary diagnostic treatment of legacy paths: every currently maintained module in the supplied inventory is in scope, and the local fail-closed completion gate must pass before completion.
 
 - **`REVIEW_ONLY`**: inspect immutable supplied artifacts and run deterministic read-only commands. It writes no project files and returns structural findings separately from semantic findings.
 - **`AUTHORIZED_TEST_EVIDENCE_WRITE`**: create or modify only explicitly assigned tests, test-owned fixtures, parameter cases, test documentation, and migration maps. It requires validated test-writer ownership. It cannot change production source, public contracts, mathematical/scientific meaning, public schemas owned elsewhere, dependencies/locks, external systems, or historical evidence without separate authority.

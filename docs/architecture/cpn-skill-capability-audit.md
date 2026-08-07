@@ -61,7 +61,7 @@ of them in the capability inventory would make that inventory stale.
 | `develop-operator-records` | `.pi/skills/develop-operator-records/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project operator agents and closed operator workflows |
 | `develop-python-test-evidence` | `.pi/skills/develop-python-test-evidence/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | test writers and integration/evidence reviewers |
 | `document-python-research-software` | `.pi/skills/document-python-research-software/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | documentation and integration-review agents |
-| `graphify` | `.agents/skills/graphify/SKILL.md` | `ADVISORY_REVIEW_ONLY` | explicit Graphify use and optional `recommend-next-task` support |
+| `graphify` | `.agents/skills/graphify/SKILL.md` | `ADVISORY_REVIEW_ONLY` | explicit human-requested local Graphify use only |
 | `recommend-next-task` | `.pi/skills/recommend-next-task/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent planning transitions |
 | `resolve-human-checkpoint` | `.agents/skills/resolve-human-checkpoint/SKILL.md` | `HUMAN_DECISION_SUPPORT` | parent checkpoint routing and `recommend-next-task` handoff |
 
@@ -114,13 +114,16 @@ checkpoint skills now state:
 
 ### Graphify
 
-The project Graphify trigger was narrowed to explicit use or explicitly requested
-broad topology/impact analysis. A repository override now prohibits automatic
-installation, external semantic processing, key use, hooks, transmission, and
-other nonlocal operations. Default output wording now states that Obsidian output
-requires `--obsidian`. Read-only consumers use a non-writing existing-graph query
-profile that prohibits vocabulary/result/lesson/generated-state writes; if the
-installed command cannot honor that profile, the query is blocked.
+The project Graphify trigger now requires an explicit human request for
+Graphify; broad topology, dependency, impact, navigation, and next-task questions
+are not automatic triggers. The skill invokes only the validated local Graphify
+0.9.2 executable at `$HOME/.local/bin/graphify` and blocks when that exact
+location is unavailable or mismatched. It does not auto-install, upgrade,
+discover fallbacks, rebuild after edits, select semantic backends, or dispatch
+semantic extraction. Commands receive a sanitized environment that removes
+known backend keys, confines output to `graphify-out/`, and disables Graphify's
+query log. Read-only operations prohibit vocabulary, result, lesson, and other
+generated-state writes.
 
 ### Checkpoint handling
 
@@ -166,7 +169,7 @@ deterministic tool result. They do not independently satisfy final acceptance.
 | `SchemaFixtureReviewBlock` | focused schema/fixture pytest + operator review | deterministic software evidence plus findings |
 | `NumericalEvidenceReviewBlock` | marked numerical pytest + `develop-python-test-evidence` semantic review | bounded numerical verification plus findings |
 | `IntegrationReviewBlock` | project integration reviewer applying audited skills | advisory parent input |
-| `StalePathReviewBlock` | deterministic inventory/search + integration review; optional Graphify | software/control-plane evidence plus findings |
+| `StalePathReviewBlock` | deterministic inventory/search + integration review; Graphify only when explicitly human-requested | software/control-plane evidence plus findings |
 | `CheckpointReviewBlock` | checkpoint skill + checkpoint validator | human decision record plus deterministic schema result |
 | `TaskSelectionReviewBlock` | `recommend-next-task` | advisory recommendation; human selection required |
 | `DocumentationSynchronizationReviewBlock` | documentation skill + documentation/integration reviewer | advisory synchronization findings; deterministic Sphinx/link evidence remains separate |

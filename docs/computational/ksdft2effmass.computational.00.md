@@ -10,39 +10,17 @@ The scientific and computational workflow is a stateful Colored Petri Net (CPN).
 
 ## Numbering Convention
 
-A computational task identifier has the form
-
-$$
-\texttt{ksdft2Effmass.computational.SS.WW.TT},
-$$
-
-where:
-
+A computational task identifier has the form `ksdft2Effmass.computational.SS.WW.TT` where:
 - `SS` identifies the computational stage;
 - `WW` identifies a work package within that stage;
 - `TT` identifies an executable leaf task.
 
-For example,
+#### Example
+`ksdft2Effmass.computational.03.02.01` denotes Stage `03`, Work Package `02`, Task `01`.
 
-```text
-ksdft2Effmass.computational.03.02.01
-```
+The corresponding note is `ksdft2Effmass.computational.03.02.01.md.`
 
-denotes Stage `03`, Work Package `02`, Task `01`.
-
-The corresponding note is
-
-```text
-ksdft2Effmass.computational.03.02.01.md
-```
-
-Stage notes use
-
-```text
-ksdft2Effmass.computational.SS.md
-```
-
-and contain the authoritative task registry for that stage. Every registered leaf task has a corresponding note constructed from [[ksdft2Effmass.computational.task-template]]. The leaf note is expanded with calculation-specific commands, parameters, and validation results when the task becomes active.
+Stage notes use `ksdft2Effmass.computational.SS.md` and contain the authoritative task registry for that stage. Every registered leaf task has a corresponding note constructed from [[ksdft2Effmass.computational.task-template]]. The leaf note is expanded with calculation-specific commands, parameters, and validation results when the task becomes active.
 
 ## Leaf-Task Inventory
 
@@ -56,32 +34,32 @@ materialized leaf-task notes. Each task identifier in the stage registries links
 
 ## Task States
 
-| State | Meaning |
-|---|---|
-| `Blocked` | At least one prerequisite has not passed |
-| `Ready` | All prerequisites have passed and work may begin |
-| `Active` | Computation or implementation is in progress |
-| `Review` | Outputs exist and are undergoing validation |
-| `Passed` | Acceptance criteria have been satisfied |
-| `Failed` | Acceptance criteria were not satisfied |
-| `Deferred` | Removed from the active computational path |
+| State      | Meaning                                          |
+| ---------- | ------------------------------------------------ |
+| `Blocked`  | At least one prerequisite has not passed         |
+| `Ready`    | All prerequisites have passed and work may begin |
+| `Active`   | Computation or implementation is in progress     |
+| `Review`   | Outputs exist and are undergoing validation      |
+| `Passed`   | Acceptance criteria have been satisfied          |
+| `Failed`   | Acceptance criteria were not satisfied           |
+| `Deferred` | Removed from the active computational path       |
 
 A task is complete only when its acceptance criteria pass and its outputs have been recorded with sufficient provenance to reproduce them. In the prospective CPN, accepted, rejected, failed, and blocked are explicit typed outcome states with declared attempt/branch/gate/workflow scope; a durable marking may contain multiple attempts and branch states simultaneously. Failed attempts remain terminal history while an authorized retry creates a new attempt, and blocked branches are recoverable unless explicitly finalized.
 
 ## Computational Stages
 
-| Stage | Computational objective | Completion gate | Status |
-|---|---|---|---|
-| [[ksdft2Effmass.computational.01]] | Shared specification, data structures, metrics, and regression tests | `G01a`, `G01b` | Historical G01 prospectively split; P1 closed as human-accepted `PASS` |
-| [[ksdft2Effmass.computational.02]] | Converged bulk-silicon first-principles reference | `G02` | Blocked by `G01a` |
-| [[ksdft2Effmass.computational.03]] | Validated bulk-silicon Wannier operator | `G03` | Blocked by `G02` |
-| [[ksdft2Effmass.computational.04]] | Direct and Wannier-mediated tight-binding models | `G04` | Partly blocked by `G02`; partly by `G03` |
-| [[ksdft2Effmass.computational.05]] | Common-space alignment and gauge diagnostics | `G05` | Synthetic branch contributes to `G01b` after operator-record and metric prerequisites |
-| [[ksdft2Effmass.computational.06]] | Converged phosphorus impurity operator | `G06` | Blocked by `G03` and `G05` |
-| [[ksdft2Effmass.computational.07]] | Converged boron impurity operator | `G07` | Blocked by `G03` and `G05` |
-| [[ksdft2Effmass.computational.08]] | Nested reduced impurity operators and minimal models | `G08-P`, `G08-B` | Dopant-specific branches depend on `G06` or `G07` |
-| [[ksdft2Effmass.computational.09]] | Continuum operators and crossover radii | `G09-P`, `G09-B` | Solver branch may begin after `G01a`; physical results require the corresponding `G08` gate |
-| [[ksdft2Effmass.computational.10]] | Cross-path, gauge, and composition consistency tests | `G10` | Depends on the paths being compared |
+| Stage                              | Computational objective                                              | Completion gate  | Status                                                                                      |
+| ---------------------------------- | -------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------- |
+| [[ksdft2Effmass.computational.01]] | Shared specification, data structures, metrics, and regression tests | `G01a`, `G01b`   | Historical G01 prospectively split; P1 closed as human-accepted `PASS`                      |
+| [[ksdft2Effmass.computational.02]] | Converged bulk-silicon first-principles reference                    | `G02`            | Blocked by `G01a`                                                                           |
+| [[ksdft2Effmass.computational.03]] | Validated bulk-silicon Wannier operator                              | `G03`            | Blocked by `G02`                                                                            |
+| [[ksdft2Effmass.computational.04]] | Direct and Wannier-mediated tight-binding models                     | `G04`            | Partly blocked by `G02`; partly by `G03`                                                    |
+| [[ksdft2Effmass.computational.05]] | Common-space alignment and gauge diagnostics                         | `G05`            | Synthetic branch contributes to `G01b` after operator-record and metric prerequisites       |
+| [[ksdft2Effmass.computational.06]] | Converged phosphorus impurity operator                               | `G06`            | Blocked by `G03` and `G05`                                                                  |
+| [[ksdft2Effmass.computational.07]] | Converged boron impurity operator                                    | `G07`            | Blocked by `G03` and `G05`                                                                  |
+| [[ksdft2Effmass.computational.08]] | Nested reduced impurity operators and minimal models                 | `G08-P`, `G08-B` | Dopant-specific branches depend on `G06` or `G07`                                           |
+| [[ksdft2Effmass.computational.09]] | Continuum operators and crossover radii                              | `G09-P`, `G09-B` | Solver branch may begin after `G01a`; physical results require the corresponding `G08` gate |
+| [[ksdft2Effmass.computational.10]] | Cross-path, gauge, and composition consistency tests                 | `G10`            | Depends on the paths being compared                                                         |
 
 ## Prospective CPN implementation task registry
 

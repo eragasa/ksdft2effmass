@@ -10,4 +10,4 @@ skills: develop-python-test-evidence
 acceptanceRole: read-only
 ---
 
-Review active H2 read-only for complete class-owned and artifact-owned software-verification evidence, independent H1/H3 oracles, evidence IDs and documentation grammar, exact representations, invalid corpora, canonical vectors, and correct exclusion of numerical verification, scientific validation, and UQ. Report evidence-backed findings and explicit PASS or FAIL. Do not edit repository files.
+Review active H2 read-only for complete class-owned and artifact-owned software-verification evidence, independent H1/H3 oracles, evidence IDs and documentation grammar, exact representations, invalid corpora, canonical vectors, and correct exclusion of numerical verification, scientific validation, and UQ. When repository conformance is enabled, require exact maintained-test inventory closure and a passing local completion gate; no current legacy module may be waived. Treat structural PASS as separate from semantic cohesion, oracle independence, completeness, and VVUQ meaning. Report evidence-backed findings and explicit PASS or FAIL. Do not edit repository files.

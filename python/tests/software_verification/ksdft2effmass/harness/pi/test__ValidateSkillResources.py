@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ValidateSkillResources``.
+
+Facet and represented meaning
 Software verification of the public ``ValidateSkillResources`` surface; no physical
 model, mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``ValidateSkillResources``.  Accepted H1 field/wire contracts
 and read-only H3 fixtures are independent exact oracles.
 
@@ -13,6 +15,8 @@ conformance are excluded.
 """
 
 from __future__ import annotations
+
+from typing import Any
 
 import pytest
 
@@ -84,7 +88,7 @@ def test_method__execute_valid_and_invalid__returns_exact_partition() -> None:
         ).read_text()
     )
 
-    def decode(kind, value):
+    def decode(kind: WireRecordKind, value: Any) -> object:
         result = DeserializeJsonRecord().execute(
             kind, (json.dumps(value) + "\n").encode()
         )
@@ -124,6 +128,7 @@ def test_method__execute_valid_and_invalid__returns_exact_partition() -> None:
         ("duplicate-resource-path", "PIH.RESOURCE.DUPLICATE_PATH"),
         ("self-dependency", "PIH.RESOURCE.DEPENDENCY_CYCLE"),
     ],
+    ids=["duplicate_resource_id", "duplicate_resource_path", "self_dependency"],
 )
 def test_method__execute_invalid_manifest__short_circuits_before_skill_interpretation(
     case_id: str, expected_code: str

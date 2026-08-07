@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``FiringResult``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public ``FiringResult``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``FiringResult`` is the sole primary SUT. Tests exercise its documented public contract
 with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -35,7 +37,7 @@ pytestmark = pytest.mark.software_verification
 SUT = FiringResult
 
 
-def test_constructor__contract__audit_fields_are_intrinsically_coherent(
+def test_constructor__fields__audit_fields_are_intrinsically_coherent(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -115,25 +117,33 @@ def test_constructor__contract__audit_fields_are_intrinsically_coherent(
             (),
             (produced, produced),
         )
-    for invalid_ids in (("",), ("duplicate", "duplicate")):
-        with pytest.raises(ValueError):
-            FiringResult(
-                "execute",
-                matching,
-                0,
-                CpnMarking(1, executable_net.model_id, 1, places),
-                invalid_ids,
-                (),
-                (),
-            )
+    with pytest.raises(ValueError):
+        FiringResult(
+            "execute",
+            matching,
+            0,
+            CpnMarking(1, executable_net.model_id, 1, places),
+            ("",),
+            (),
+            (),
+        )
+    with pytest.raises(ValueError):
+        FiringResult(
+            "execute",
+            matching,
+            0,
+            CpnMarking(1, executable_net.model_id, 1, places),
+            ("duplicate", "duplicate"),
+            (),
+            (),
+        )
 
 
-def _valid_result(executable_net: CpnNetDefinition) -> FiringResult:
+def make_valid_firing_result(executable_net: CpnNetDefinition) -> FiringResult:
     """Evidence ID
     -----------
-    This helper supports exactly SV-CPN-070, SV-CPN-072, SV-CPN-073 and owns no
-    independent evidence ID.
-
+    Owns no identifier; supports SV-CPN-070, SV-CPN-072, SV-CPN-073, SV-CPN-089,
+    SV-CPN-103.
     Requirement
     -----------
     Provide explicit synthetic setup or assertion mechanics without creating an
@@ -178,7 +188,7 @@ def _valid_result(executable_net: CpnNetDefinition) -> FiringResult:
     )
 
 
-def test_constructor__contract__result_requires_transition_and_binding_types(
+def test_constructor__result_requires__preserves_valid_state(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -187,55 +197,131 @@ def test_constructor__contract__result_requires_transition_and_binding_types(
 
     Requirement
     -----------
-    require nonempty transition identity and typed binding.
+    ``FiringResult`` preserves the documented exact valid-state behavior for its
+    ``result_requires`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: require nonempty transition identity and
-    typed binding. A valid synthetic result supplies the positive oracle. Acceptance
-    rejects empty transition with ``ValueError`` and foreign binding with ``TypeError``.
-    Failure permits an audit result without a usable firing identity.
+    Construct the public SUT with the retained valid synthetic inputs and inspect
+    exact public state.
 
     Oracle
     ------
-    The documented public rule that the SUT must require nonempty transition identity
-    and typed binding is the contract oracle; fixed synthetic values, Python exact
-    type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The fixed inputs and documented canonical public representation provide the
+    independent exact oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact identity, equality, ordering, type, and represented-state
+    assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports this valid-state mapping; failure may identify implementation,
+    fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
-    assert _valid_result(executable_net).transition_id == "execute"
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    CpnMarking(1, executable_net.model_id, 1, executable_net.initial_marking.places)
+    TransitionBinding("execute", ())
+    assert make_valid_firing_result(executable_net).transition_id == "execute"
+
+
+def test_constructor__result_requires__rejects_wrong_types(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-128
+
+    Requirement
+    -----------
+    ``FiringResult`` rejects wrong semantic types for its ``result_requires`` contract.
+
+    Method
+    ------
+    Exercise every retained synthetic wrong-type input through the public SUT
+    without private mutation.
+
+    Oracle
+    ------
+    The documented exact-type taxonomy independently requires ``TypeError`` for
+    every retained call.
+
+    Acceptance
+    ----------
+    Every retained wrong-type call raises exactly ``TypeError``.
+
+    Interpretation
+    --------------
+    Pass supports this type partition; failure may identify implementation, fixture,
+    oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     marking = CpnMarking(
         1, executable_net.model_id, 1, executable_net.initial_marking.places
     )
     binding = TransitionBinding("execute", ())
     with pytest.raises(TypeError):
         SUT(1, binding, 0, marking, (), (), ())  # type: ignore[arg-type]
-    with pytest.raises(ValueError, match="transition_id must not be empty"):
-        SUT("", binding, 0, marking, (), (), ())
     with pytest.raises(TypeError):
         SUT("execute", "bad", 0, marking, (), (), ())  # type: ignore[arg-type]
 
 
-def test_constructor__contract__previous_revision_requires_nonnegative_exact_integer(
+def test_constructor__result_requires__rejects_invalid_values(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-101
+
+    Requirement
+    -----------
+    ``FiringResult`` rejects malformed values of accepted semantic
+    types for its
+    ``result_requires`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    marking = CpnMarking(
+        1, executable_net.model_id, 1, executable_net.initial_marking.places
+    )
+    binding = TransitionBinding("execute", ())
+    with pytest.raises(ValueError, match="transition_id must not be empty"):
+        SUT("", binding, 0, marking, (), (), ())
+
+
+def test_constructor__previous_revision__rejects_wrong_types(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -244,42 +330,35 @@ def test_constructor__contract__previous_revision_requires_nonnegative_exact_int
 
     Requirement
     -----------
-    enforce the resolved previous-revision lower boundary.
+    ``FiringResult`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``previous_revision`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: enforce the resolved previous-revision
-    lower boundary. Exact built-in integer and nonnegative rules are the oracle.
-    Acceptance rejects Boolean with ``TypeError`` and negative one with ``ValueError``.
-    Upper-bound result coherence and operational revision overflow are covered
-    separately.
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
     ------
-    The documented public rule that the SUT must enforce the resolved previous-revision
-    lower boundary is the contract oracle; fixed synthetic values, Python exact
-    type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     marking = CpnMarking(
         1, executable_net.model_id, 0, executable_net.initial_marking.places
     )
@@ -288,13 +367,57 @@ def test_constructor__contract__previous_revision_requires_nonnegative_exact_int
         SUT("execute", binding, True, marking, (), (), ())
     with pytest.raises(TypeError):
         SUT("execute", binding, 0.0, marking, (), (), ())  # type: ignore[arg-type]
-    with pytest.raises(ValueError):
-        SUT("execute", binding, -1, marking, (), (), ())
     with pytest.raises(TypeError, match="marking"):
         SUT("execute", binding, 0, "marking", (), (), ())  # type: ignore[arg-type]
 
 
-def test_constructor__contract__result_revision_boundary_is_coherent(
+def test_constructor__previous_revision__rejects_invalid_values(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-102
+
+    Requirement
+    -----------
+    ``FiringResult`` rejects malformed values of accepted semantic
+    types for its
+    ``previous_revision`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    marking = CpnMarking(
+        1, executable_net.model_id, 0, executable_net.initial_marking.places
+    )
+    binding = TransitionBinding("execute", ())
+    with pytest.raises(ValueError):
+        SUT("execute", binding, -1, marking, (), (), ())
+
+
+def test_constructor__fields__result_revision_boundary_is_coherent(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -303,46 +426,32 @@ def test_constructor__contract__result_revision_boundary_is_coherent(
 
     Requirement
     -----------
-    firing prior and successor revisions preserve the maximum valid signed-i64 control.
+    ``FiringResult`` preserves the exact accepted state for its
+    ``fields`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: preserve the largest constructible
-    firing-result revisions. Requirement: result revision controls use nonnegative
-    signed-i64 values while retaining the exact successor relation. Method: construct a
-    result with prior ``2**63 - 2`` and successor ``2**63 - 1``, then submit prior
-    ``2**63``. Oracle: fixed-width bounds plus the independent ``successor = prior + 1``
-    invariant. Acceptance preserves both maximum-scale controls and rejects the
-    out-of-range prior with ``ValueError``. Prior ``2**63 - 1`` is valid marking input
-    but intentionally has no FiringResult successor; TransitionFirer owns its structured
-    overflow. No scientific result or automatic iteration is inferred.
+    Construct the public SUT and inspect retained exact public outcomes.
 
     Oracle
     ------
-    The documented public rule that the SUT must firing prior and successor revisions
-    preserve the maximum valid signed-i64 control is the contract oracle; fixed
-    synthetic values, Python exact type/value semantics, and the public error taxonomy
-    provide independently inspectable expected outcomes where used.
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact state oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact state assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this accepted-state partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     maximum = 2**63 - 1
     binding = TransitionBinding("execute", ())
     marking = CpnMarking(
@@ -351,12 +460,66 @@ def test_constructor__contract__result_revision_boundary_is_coherent(
     result = SUT("execute", binding, maximum - 1, marking, (), (), ())
     assert result.previous_revision == maximum - 1
     assert result.marking.revision == maximum
+
+
+def test_constructor__fields__rejects_invalid_state(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-149
+
+    Requirement
+    -----------
+    ``FiringResult`` rejects the documented invalid state for its
+    ``fields`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    maximum = 2**63 - 1
+    binding = TransitionBinding("execute", ())
+    marking = CpnMarking(
+        1, executable_net.model_id, maximum, executable_net.initial_marking.places
+    )
+    SUT("execute", binding, maximum - 1, marking, (), (), ())
     with pytest.raises(ValueError, match="signed i64"):
         SUT("execute", binding, maximum + 1, marking, (), (), ())
 
 
-def test_constructor__contract__audit_id_sequences_require_unique_nonempty_strings(
+@pytest.mark.parametrize(
+    ("consumed", "read"),
+    (
+        pytest.param(["x"], (), id="consumed_list_wrong_type"),
+        pytest.param((), ["x"], id="read_list_wrong_type"),
+        pytest.param((1,), (), id="consumed_item_wrong_type"),
+        pytest.param((), (1,), id="read_item_wrong_type"),
+    ),
+)
+def test_constructor__audit_id_sequence_types__rejects_wrong_types(
     executable_net: CpnNetDefinition,
+    consumed: Any,
+    read: Any,
 ) -> None:
     """Evidence ID
     -----------
@@ -399,43 +562,76 @@ def test_constructor__contract__audit_id_sequences_require_unique_nonempty_strin
     The case excludes unexercised inputs and dependencies, physical conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
-    base = _valid_result(executable_net)
-    invalid_pairs: tuple[tuple[Any, Any], ...] = (
-        (["x"], ()),
-        ((), ["x"]),
-        ((1,), ()),
-        ((), (1,)),
-    )
-    for consumed, read in invalid_pairs:
-        with pytest.raises(TypeError):
-            SUT(
-                base.transition_id,
-                base.binding,
-                base.previous_revision,
-                base.marking,
-                consumed,
-                read,
-                (),
-            )
-    for consumed, read in (
-        (("",), ()),
-        ((), ("",)),
-        (("x", "x"), ()),
-        ((), ("x", "x")),
-    ):
-        with pytest.raises(ValueError):
-            SUT(
-                base.transition_id,
-                base.binding,
-                base.previous_revision,
-                base.marking,
-                consumed,
-                read,
-                (),
-            )
+    base = make_valid_firing_result(executable_net)
+    with pytest.raises(TypeError):
+        SUT(
+            base.transition_id,
+            base.binding,
+            base.previous_revision,
+            base.marking,
+            consumed,
+            read,
+            (),
+        )
 
 
-def test_constructor__contract__produced_tokens_require_typed_unique_tuple(
+@pytest.mark.parametrize(
+    ("consumed", "read"),
+    (
+        pytest.param(("",), (), id="consumed_empty_identifier"),
+        pytest.param((), ("",), id="read_empty_identifier"),
+        pytest.param(("x", "x"), (), id="consumed_duplicate_identifier"),
+        pytest.param((), ("x", "x"), id="read_duplicate_identifier"),
+    ),
+)
+def test_constructor__audit_id_sequence_values__rejects_empty_or_duplicate_ids(
+    executable_net: CpnNetDefinition,
+    consumed: tuple[str, ...],
+    read: tuple[str, ...],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-089
+
+    Requirement
+    -----------
+    Consumed and read audit identifiers must be nonempty and unique per sequence.
+
+    Method
+    ------
+    Construct the public result with one named invalid value partition and no warnings.
+
+    Oracle
+    ------
+    The public nonempty-unique identifier invariant fixes each rejected tuple.
+
+    Acceptance
+    ----------
+    Construction raises exactly ``ValueError`` for every explicit parameter case.
+
+    Interpretation
+    --------------
+    Pass supports value validation; failure permits ambiguous firing audit identities.
+
+    Limitations
+    -----------
+    Synthetic identifiers exclude engine execution, scientific validation, UQ, physical
+    correctness, persistence, portability, and cross-language conformance.
+    """
+    base = make_valid_firing_result(executable_net)
+    with pytest.raises(ValueError):
+        SUT(
+            base.transition_id,
+            base.binding,
+            base.previous_revision,
+            base.marking,
+            consumed,
+            read,
+            (),
+        )
+
+
+def test_constructor__produced_tokens__rejects_wrong_types(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -444,46 +640,81 @@ def test_constructor__contract__produced_tokens_require_typed_unique_tuple(
 
     Requirement
     -----------
-    constrain produced tokens to unique typed immutable objects.
+    ``FiringResult`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``produced_tokens`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: constrain produced tokens to unique typed
-    immutable objects. A token collaborator is used only as fixture; exact tuple/item
-    type and token-ID uniqueness are the oracles. Acceptance raises ``TypeError`` or
-    ``ValueError``. Failure permits contradictory successor audit state.
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
     ------
-    The documented public rule that the SUT must constrain produced tokens to unique
-    typed immutable objects is the contract oracle; fixed synthetic values, Python exact
-    type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
-    base = _valid_result(executable_net)
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    base = make_valid_firing_result(executable_net)
     with pytest.raises(TypeError):
         SUT(base.transition_id, base.binding, 0, base.marking, (), (), ["bad"])  # type: ignore[arg-type]
     with pytest.raises(TypeError):
         SUT(base.transition_id, base.binding, 0, base.marking, (), (), ("bad",))  # type: ignore[arg-type]
+
+
+def test_constructor__produced_tokens__rejects_invalid_values(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-103
+
+    Requirement
+    -----------
+    ``FiringResult`` rejects malformed values of accepted semantic
+    types for its
+    ``produced_tokens`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    base = make_valid_firing_result(executable_net)
     token = executable_net.initial_marking.places[-1].tokens[0]
     with pytest.raises(ValueError):
         SUT(base.transition_id, base.binding, 0, base.marking, (), (), (token, token))

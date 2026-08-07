@@ -1,6 +1,8 @@
-r"""Software verification of ``EnergyReference`` intrinsic invariants.
+r"""Software verification of ``EnergyReference``.
 
-Facet and represented DataObject
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the invariants facet. Facet and represented DataObject
 --------------------------------
 This module owns independent semantic-type and empty-value rejection for the
 ``EnergyReference.zero`` energy-origin-convention identifier and
@@ -24,6 +26,21 @@ verification is not applicable. The synthetic strings are not supplied by DFT,
 Wannier, experiment, or an impurity calculation. No physical-unit validity,
 scientific validation, uncertainty quantification, or Rust conformance is
 established.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``EnergyReference``; collaborators only construct inputs or
+expose public outcomes. Accepted public contracts, literal expected values, Python
+language semantics, and assigned schema or fixture artifacts provide the oracles. No
+runtime warning is accepted unless a test explicitly states otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from typing import Any, cast
@@ -34,41 +51,43 @@ from ksdft2effmass.operators import EnergyReference
 
 pytestmark = pytest.mark.software_verification
 
+SUT = EnergyReference
+
 
 @pytest.mark.parametrize(
     "invalid_zero",
     [
-        pytest.param(None, id="SV-ER-006-none"),
-        pytest.param(True, id="SV-ER-006-boolean-true"),
-        pytest.param(False, id="SV-ER-006-boolean-false"),
-        pytest.param(1, id="SV-ER-006-integer"),
-        pytest.param(1.0, id="SV-ER-006-float"),
-        pytest.param(b"zero", id="SV-ER-006-bytes"),
-        pytest.param(object(), id="SV-ER-006-arbitrary-object"),
+        pytest.param(None, id="none"),
+        pytest.param(True, id="sv_er_006_boolean_true"),
+        pytest.param(False, id="sv_er_006_boolean_false"),
+        pytest.param(1, id="sv_er_006_integer"),
+        pytest.param(1.0, id="sv_er_006_float"),
+        pytest.param(b"zero", id="bytes"),
+        pytest.param(object(), id="sv_er_006_arbitrary_object"),
     ],
 )
-def test_invalid_zero_semantic_types_are_rejected(invalid_zero: object) -> None:
-    """SV-ER-006: require zero-convention string semantics independently.
-
-    Evidence ID
-        ``SV-ER-006``; stable parameter IDs identify each wrong semantic family.
+def test_constructor__invalid_zero_wrong_types_are_rejected__is_enforced(
+    invalid_zero: object,
+) -> None:
+    r"""Evidence ID
+    SV-ER-006
     Requirement
-        ``zero`` must be a Python string; ``None``, Booleans, numbers, bytes,
-        and arbitrary objects are not coerced into convention identifiers.
+    ``zero`` must be a Python string; ``None``, Booleans, numbers, bytes, and arbitrary
+    objects are not coerced into convention identifiers.
     Method
-        Keep ``unit`` valid and use ``Any``/``cast`` only at the deliberate
-        invalid ``zero`` constructor boundary.
+    Keep ``unit`` valid and use ``Any``/``cast`` only at the deliberate invalid ``zero``
+    constructor boundary.
     Oracle
-        The approved field-specific contract requires an energy-reference zero
-        string and the repository wrong-type taxonomy.
+    The approved field-specific contract requires an energy-reference zero string and
+    the repository wrong-type taxonomy.
     Acceptance
-        Every case raises ``TypeError`` and the diagnostic identifies ``zero``
-        and the string requirement without freezing the complete message.
+    Every case raises ``TypeError`` and the diagnostic identifies ``zero`` and the
+    string requirement without freezing the complete message.
     Interpretation
-        Passing establishes zero-field typing independently of unit typing.
+    Passing establishes zero-field typing independently of unit typing.
     Limitations
-        It does not interpret labels, execute compatibility or serialization,
-        perform scientific validation or UQ, or establish Rust conformance.
+    It does not interpret labels, execute compatibility or serialization, perform
+    scientific validation or UQ, or establish Rust conformance.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -79,27 +98,24 @@ def test_invalid_zero_semantic_types_are_rejected(invalid_zero: object) -> None:
     assert "string" in message
 
 
-def test_empty_zero_is_rejected_without_normalization() -> None:
-    """SV-ER-007: reject the empty zero-convention string.
-
-    Evidence ID
-        ``SV-ER-007``.
+def test_constructor__empty_zero_is_rejected_without__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ER-007
     Requirement
-        A correctly typed zero-convention label must be nonempty; construction
-        performs no trimming or replacement.
+    A correctly typed zero-convention label must be nonempty; construction performs no
+    trimming or replacement.
     Method
-        Construct with ``zero=""`` and a valid unit.
+    Construct with ``zero=""`` and a valid unit.
     Oracle
-        The approved intrinsic nonempty invariant defines field-specific
-        ``ValueError``.
+    The approved intrinsic nonempty invariant defines field-specific ``ValueError``.
     Acceptance
-        Construction raises ``ValueError`` and identifies the empty zero field.
+    Construction raises ``ValueError`` and identifies the empty zero field.
     Interpretation
-        Passing establishes the correct-type/value taxonomy boundary.
+    Passing establishes the correct-type/value taxonomy boundary.
     Limitations
-        Every nonempty string, including whitespace-only metadata, remains
-        governed by exact preservation; no physical interpretation, scientific
-        validation, UQ, or Rust conformance is established.
+    Every nonempty string, including whitespace-only metadata, remains governed by exact
+    preservation; no physical interpretation, scientific validation, UQ, or Rust
+    conformance is established.
     """
 
     with pytest.raises(ValueError) as exc_info:
@@ -113,39 +129,37 @@ def test_empty_zero_is_rejected_without_normalization() -> None:
 @pytest.mark.parametrize(
     "invalid_unit",
     [
-        pytest.param(None, id="SV-ER-008-none"),
-        pytest.param(True, id="SV-ER-008-boolean-true"),
-        pytest.param(False, id="SV-ER-008-boolean-false"),
-        pytest.param(1, id="SV-ER-008-integer"),
-        pytest.param(1.0, id="SV-ER-008-float"),
-        pytest.param(b"eV", id="SV-ER-008-bytes"),
-        pytest.param(object(), id="SV-ER-008-arbitrary-object"),
+        pytest.param(None, id="none"),
+        pytest.param(True, id="sv_er_008_boolean_true"),
+        pytest.param(False, id="sv_er_008_boolean_false"),
+        pytest.param(1, id="sv_er_008_integer"),
+        pytest.param(1.0, id="sv_er_008_float"),
+        pytest.param(b"eV", id="bytes"),
+        pytest.param(object(), id="sv_er_008_arbitrary_object"),
     ],
 )
-def test_invalid_unit_semantic_types_are_rejected(invalid_unit: object) -> None:
-    """SV-ER-008: require energy-unit string semantics independently.
-
-    Evidence ID
-        ``SV-ER-008``; stable parameter IDs independently identify the same
-        semantic families used at the separate zero boundary.
+def test_constructor__invalid_unit_wrong_types_are_rejected__is_enforced(
+    invalid_unit: object,
+) -> None:
+    r"""Evidence ID
+    SV-ER-008
     Requirement
-        ``unit`` must be a Python string; ``None``, Booleans, numbers, bytes,
-        and arbitrary objects are not coerced into unit labels.
+    ``unit`` must be a Python string; ``None``, Booleans, numbers, bytes, and arbitrary
+    objects are not coerced into unit labels.
     Method
-        Keep ``zero`` valid and use ``Any``/``cast`` only at the deliberate
-        invalid ``unit`` constructor boundary.
+    Keep ``zero`` valid and use ``Any``/``cast`` only at the deliberate invalid ``unit``
+    constructor boundary.
     Oracle
-        The approved field-specific contract requires an energy-reference unit
-        string and the repository wrong-type taxonomy.
+    The approved field-specific contract requires an energy-reference unit string and
+    the repository wrong-type taxonomy.
     Acceptance
-        Every case raises ``TypeError`` and the diagnostic identifies ``unit``
-        and the string requirement without freezing the complete message.
+    Every case raises ``TypeError`` and the diagnostic identifies ``unit`` and the
+    string requirement without freezing the complete message.
     Interpretation
-        Passing establishes unit typing independently of zero typing.
+    Passing establishes unit typing independently of zero typing.
     Limitations
-        It does not introduce a registry or conversion, execute compatibility or
-        serialization, perform scientific validation or UQ, or establish Rust
-        conformance.
+    It does not introduce a registry or conversion, execute compatibility or
+    serialization, perform scientific validation or UQ, or establish Rust conformance.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -156,26 +170,23 @@ def test_invalid_unit_semantic_types_are_rejected(invalid_unit: object) -> None:
     assert "string" in message
 
 
-def test_empty_unit_is_rejected_without_unit_lookup() -> None:
-    """SV-ER-009: reject the empty energy-unit string.
-
-    Evidence ID
-        ``SV-ER-009``.
+def test_constructor__empty_unit_is_rejected_without_unit_lookup__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ER-009
     Requirement
-        A correctly typed unit label must be nonempty while remaining an open
-        textual vocabulary.
+    A correctly typed unit label must be nonempty while remaining an open textual
+    vocabulary.
     Method
-        Construct with a valid zero convention and ``unit=""``.
+    Construct with a valid zero convention and ``unit=""``.
     Oracle
-        The approved intrinsic nonempty invariant defines field-specific
-        ``ValueError``.
+    The approved intrinsic nonempty invariant defines field-specific ``ValueError``.
     Acceptance
-        Construction raises ``ValueError`` and identifies the empty unit field.
+    Construction raises ``ValueError`` and identifies the empty unit field.
     Interpretation
-        Passing establishes the correct-type/value taxonomy boundary.
+    Passing establishes the correct-type/value taxonomy boundary.
     Limitations
-        It validates no label vocabulary, dimensions, or conversions and
-        establishes no scientific validation, UQ, or Rust conformance.
+    It validates no label vocabulary, dimensions, or conversions and establishes no
+    scientific validation, UQ, or Rust conformance.
     """
 
     with pytest.raises(ValueError) as exc_info:

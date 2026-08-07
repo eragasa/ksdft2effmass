@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ValidationIssue``.
+
+Facet and represented meaning
 Software verification of the public ``ValidationIssue`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``ValidationIssue``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
@@ -15,6 +17,7 @@ conformance are excluded.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -56,10 +59,16 @@ def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
     result = DeserializeJsonRecord().execute(WireRecordKind.ValidationIssue, payload)
     assert result.validation.status == "PASS"
     assert type(result.record) is SUT
-    for value in (
-        vars(result.record).values() if hasattr(result.record, "__dict__") else ()
-    ):
+
+    def exercise_value_case_61_3(value: Any) -> Any:
         assert type(value) is not list
+
+    _ = [
+        exercise_value_case_61_3(value)
+        for value in (
+            vars(result.record).values() if hasattr(result.record, "__dict__") else ()
+        )
+    ]
     with pytest.raises((AttributeError, TypeError)):
         setattr(result.record, next(iter(result.record.__dataclass_fields__)), None)
 
@@ -88,14 +97,20 @@ def test_constructor__diagnostic_path_corpus__accepts_and_rejects_exactly() -> N
         (ROOT / "harness/pi/fixtures/diagnostic-path/oracle-index.json").read_text()
     )
     assert len(corpus["valid"]) == 4
-    for case in corpus["valid"]:
+
+    def exercise_case_case_93_2(case: Any) -> Any:
         issue = SUT(1, "PIH.PATH.MISSING", "ERROR", None, case["path"], (), "x")
         assert issue.path == case["path"]
         assert type(issue.path) is str or issue.path is None
+
+    _ = [exercise_case_case_93_2(case) for case in (corpus["valid"])]
     assert len(corpus["invalid"]) == 19
-    for case in corpus["invalid"]:
+
+    def exercise_case_case_98_1(case: Any) -> Any:
         value = case.get("path")
         if value is None:
             value = case["path_escaped"].encode().decode("unicode_escape")
-        with pytest.raises(ValueError, match=case["expected"].replace(".", r"\.")):
+        with pytest.raises(ValueError, match=case["expected"].replace(".", "\\.")):
             SUT(1, "PIH.PATH.MISSING", "ERROR", None, value, (), "x")
+
+    _ = [exercise_case_case_98_1(case) for case in (corpus["invalid"])]

@@ -1,48 +1,72 @@
 {
-  "schema_version": 1,
-  "proposal_id": "TEST-EVIDENCE-CONVENTIONS-2",
-  "title": "Prevent recurring mixed-surface and generated-prose defects in Python test evidence",
-  "status": "proposed_inactive",
-  "activation_authorized": false,
-  "implementation_authorized": false,
+  "activation": {
+    "authority": "Current human instructions that all current tests conform and to fix the recurring conformance failure",
+    "chain": ".pi/chains/test-evidence-repository-conformance.chain.json",
+    "ownership_manifest": ".pi/evidence/test-evidence-repository-conformance/task-ownership.json",
+    "protocol_resolution": "protocol remains valid only for genuine Python protocol operations",
+    "scope": "repository-wide maintained Python test evidence and fail-closed local gate"
+  },
+  "activation_authorized": true,
+  "active_task_or_chain": false,
   "bounded_implemented_slice": {
+    "authority": "Current human instruction titled TEST-EVIDENCE-CONVENTIONS-2 \u2014 Bounded named-parameter-inventory validator correction",
     "capability": "module-local named literal pytest.param inventory resolution",
-    "authority": "Current human instruction titled TEST-EVIDENCE-CONVENTIONS-2 — Bounded named-parameter-inventory validator correction",
-    "starting_revision": "dc1745bff011c1f46bac6d46ba02a354e9fe0630",
-    "status": "implemented_at_durable_boundary_commit_containing_this_record",
+    "remaining_backlog_status": "activated_for_repository_conformance",
     "review": {
-      "run_id": "4f860f51",
       "disposition": "one material nested-module-scope binding finding corrected in the sole bounded correction pass",
+      "run_id": "4f860f51",
       "second_review_launched": false
     },
-    "remaining_backlog_status": "proposed_inactive"
+    "starting_revision": "dc1745bff011c1f46bac6d46ba02a354e9fe0630",
+    "status": "implemented_at_durable_boundary_commit_containing_this_record"
   },
-  "task_record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+  "checkpoint_required_to_record_proposal": false,
+  "completion_evidence_created": true,
+  "current_route_change_authorized": true,
+  "implementation_authorized": true,
   "observation_record": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/p2-test-evidence-friction-observations.md",
+  "prerequisite_for": [],
+  "proposal_id": "TEST-EVIDENCE-CONVENTIONS-2",
   "proposed_targets": [
     "harness/pi/skills/develop-python-test-evidence/",
     "harness/pi/validation/validate_python_test_evidence.py",
     "harness/pi/fixtures/python-test-evidence/"
   ],
-  "current_route_change_authorized": false,
-  "prerequisite_for": [],
-  "checkpoint_required_to_record_proposal": false,
   "relationship_to_current_work": {
-    "p2_a09_unblocked_but_not_activated": true,
+    "implementation_requires_separate_human_activation": true,
     "p2_a02_examples_retained": true,
     "p2_a03_audit_unchanged": true,
     "p2_a04_audit_unchanged": true,
-    "retroactive_invalidation": false,
-    "implementation_requires_separate_human_activation": true
+    "p2_a09_unblocked_but_not_activated": true,
+    "retroactive_invalidation": false
   },
-  "workflow_friction_candidates": {
-    "essential_controls_to_preserve": [
-      "explicit_class_or_artifact_ownership",
-      "complete_one_to_one_historical_node_migration",
-      "production_source_nonmutation",
-      "semantic_partition_and_oracle_review",
-      "durable_queue_and_boundary_state"
+  "reviewer_assignments_created": true,
+  "rule_classes": {
+    "advisory_or_human_only": [
+      "semantic_partition_cohesion",
+      "genuine_oracle_independence",
+      "invariant_identification_completeness",
+      "test_proportionality",
+      "scientific_lifecycle_accuracy",
+      "numerical_tolerance_adequacy"
     ],
+    "deterministic_candidates": [
+      "reject_known_vague_test_surfaces",
+      "detect_mixed_enum_call_and_getitem",
+      "detect_mixed_unknown_value_and_wrong_type_partitions",
+      "flag_circular_successful_enum_lookup_oracle",
+      "reject_blanket_e501_suppression",
+      "detect_minimum_prose_defects",
+      "require_structured_equality_field_inventory_when_completeness_is_claimed",
+      "require_frozen_field_inventory_when_all_fields_are_claimed",
+      "retain_structural_pass_claim_boundary"
+    ]
+  },
+  "schema_version": 1,
+  "status": "completed_human_authorized_pass",
+  "task_record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+  "title": "Prevent recurring mixed-surface and generated-prose defects in Python test evidence",
+  "workflow_friction_candidates": {
     "accidental_or_automation_candidates": [
       "validator_and_formatter_constraint_conflicts",
       "manual_repetition_of_scoped_validation_commands",
@@ -52,6 +76,13 @@
       "low_information_declarative_enum_coverage_reporting",
       "exact_migration_schema_requires_separate_rationale_sidecar",
       "repeated_virtual_environment_warning_noise"
+    ],
+    "essential_controls_to_preserve": [
+      "explicit_class_or_artifact_ownership",
+      "complete_one_to_one_historical_node_migration",
+      "production_source_nonmutation",
+      "semantic_partition_and_oracle_review",
+      "durable_queue_and_boundary_state"
     ],
     "proposed_mechanisms": [
       "generate_scoped_command_manifests_from_ownership_records",
@@ -64,29 +95,5 @@
       "suppress_known_nonactionable_environment_warning_noise_at_the_runner_boundary"
     ]
   },
-  "rule_classes": {
-    "deterministic_candidates": [
-      "reject_known_vague_test_surfaces",
-      "detect_mixed_enum_call_and_getitem",
-      "detect_mixed_unknown_value_and_wrong_type_partitions",
-      "flag_circular_successful_enum_lookup_oracle",
-      "reject_blanket_e501_suppression",
-      "detect_minimum_prose_defects",
-      "require_structured_equality_field_inventory_when_completeness_is_claimed",
-      "require_frozen_field_inventory_when_all_fields_are_claimed",
-      "retain_structural_pass_claim_boundary"
-    ],
-    "advisory_or_human_only": [
-      "semantic_partition_cohesion",
-      "genuine_oracle_independence",
-      "invariant_identification_completeness",
-      "test_proportionality",
-      "scientific_lifecycle_accuracy",
-      "numerical_tolerance_adequacy"
-    ]
-  },
-  "active_task_or_chain": false,
-  "writer_assignments_created": false,
-  "reviewer_assignments_created": false,
-  "completion_evidence_created": false
+  "writer_assignments_created": true
 }

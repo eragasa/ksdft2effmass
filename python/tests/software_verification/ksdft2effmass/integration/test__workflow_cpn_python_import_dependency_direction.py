@@ -1,10 +1,12 @@
-"""Evidence class and represented meaning
+r"""Software verification of workflow cpn python import dependency direction.
+
+Facet and represented meaning
 --------------------------------------
 Software verification of the Workflow CPN Python import-dependency direction, a static
 source boundary rather than runtime or scientific behavior.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The Workflow CPN Python import-dependency direction is the primary artifact owner. The
 approved named predecessor-layer map is the exact static oracle for inspected relative
 imports.
@@ -71,11 +73,17 @@ def test_artifact__import_dependency_direction__follows_approved_layers() -> Non
             "validation",
         },
     }
-    for module, predecessors in allowed.items():
-        tree = ast.parse((source / f"{module}.py").read_text())
-        imports = {
-            n.module
-            for n in ast.walk(tree)
-            if isinstance(n, ast.ImportFrom) and n.level == 1 and n.module
+    imports_by_module = {
+        module: {
+            node.module
+            for node in ast.walk(ast.parse((source / f"{module}.py").read_text()))
+            if isinstance(node, ast.ImportFrom) and node.level == 1 and node.module
         }
-        assert imports <= predecessors, (module, imports - predecessors)
+        for module in allowed
+    }
+    violations = {
+        module: imports - allowed[module]
+        for module, imports in imports_by_module.items()
+        if not imports <= allowed[module]
+    }
+    assert violations == {}

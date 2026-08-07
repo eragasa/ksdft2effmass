@@ -14,8 +14,9 @@ begin implementation.
 The skill must work in a completely new session. Do not rely on chat history,
 remembered recommendations, unstored agent summaries, or assumptions about what
 happened in another session. The repository control plane is the authoritative
-state. Graphify may be used as an optional acceleration layer for broad topology
-and dependency questions, but it is derived evidence only and is never required.
+state. Do not invoke Graphify during next-task reconstruction unless the human
+explicitly asks for a separate Graphify operation. Existing Graphify output is
+derived evidence only and is never required.
 
 ## Trigger phrases
 
@@ -51,11 +52,9 @@ Inspect actual repository evidence. Use this order:
 7. find the most recent explicit human-final-acceptance record;
 8. verify that the accepted task's expected artifacts exist;
 9. inspect current source, tests, specifications, and documentation;
-10. optionally use the shared project Graphify skill at
-   `.agents/skills/graphify/SKILL.md` for broad topology and dependency
-   questions, only through its non-writing read-only query profile and within
-   approved artifact and external-processing policy;
-11. verify graph-derived conclusions against authoritative files;
+10. do not invoke Graphify unless the human explicitly requested it; an existing
+    graph may be read as an optional derived artifact when directly relevant;
+11. verify any graph-derived conclusions against authoritative files;
 12. identify unresolved findings or blocked decisions;
 13. reconstruct the scientific dependency frontier;
 14. generate candidate next tasks;
@@ -200,31 +199,26 @@ to assess feasibility:
 Do not turn every integration into a Workflow. Do not design implementation
 details beyond task feasibility.
 
-## Optional Graphify use
+## Graphify boundary
 
-Use Graphify only as an optional repository-intelligence layer after inspecting
-accepted human decisions, task records, and authoritative files. The required
-ordering is:
+Do not invoke Graphify as part of next-task reconstruction unless the human
+explicitly requested Graphify. In particular, broad topology or dependency
+analysis is not an automatic trigger. The required ordering is:
 
 ```text
 unresolved checkpoints
 -> accepted human decisions
 -> active task records
 -> source/specifications/tests/documentation
--> optional Graphify query
--> verification against authoritative files
 -> exactly one recommended next task
 -> human task-selection decision
 -> stop
 ```
 
-The skill must still work when Graphify is unavailable, `graphify-out/` is
-missing, the graph is stale, or the session is new. In the validated project
-environment, both Codex and pi discover repository-local skills under
-`.agents/skills`; pi additionally discovers pi-specific skills under
-`.pi/skills`; and a project skill may shadow a same-named global pi skill. Use
-`.agents/skills/graphify/SKILL.md` as optional supporting evidence when
-available, and do not require Graphify for task selection.
+The skill must work without Graphify. If an existing `graphify-out/` artifact is
+directly relevant, it may be read as optional derived evidence, but no Graphify
+command may be run and no graph state may be written. Verify every material
+graph-derived conclusion against authoritative files.
 
 Never treat the following as evidence of scientific validity: a passing software
 test suite alone, a connected dependency graph, type correctness, successful

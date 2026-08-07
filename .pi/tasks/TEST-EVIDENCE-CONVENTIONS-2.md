@@ -1,46 +1,55 @@
 # TEST-EVIDENCE-CONVENTIONS-2 — Prevent recurring mixed-surface and generated-prose defects in Python test evidence
 
-Status: `proposed_inactive` except for one bounded implemented capability
+Status: `closed` as human-authorized PASS after final deterministic stabilization
 
 ```text
 bounded_implemented_capability: module-local named literal pytest.param inventory resolution
-remaining_backlog: proposed_inactive
-activation_authorized_for_remaining_backlog: false
-implementation_authorized_for_remaining_backlog: false
+remaining_backlog: activated_by_current_human_instruction
+activation_authorized_for_remaining_backlog: true
+implementation_authorized_for_remaining_backlog: true
+controlling_chain: .pi/chains/test-evidence-repository-conformance.chain.json
+ownership_manifest: .pi/evidence/test-evidence-repository-conformance/task-ownership.json
 ```
 
-The current human instruction titled **TEST-EVIDENCE-CONVENTIONS-2 — Bounded
-named-parameter-inventory validator correction** authorizes only that capability. It
-does not activate the other deterministic rules or workflow-automation proposals
-below, and it does not activate P2-A09.
+The current human instructions that all current tests must conform and to “fix this”
+activate the remaining deterministic controls, the repository-wide inventory and
+fail-closed gate, test-writer routing, and controlled migration of maintained Python
+tests. The accepted generic convention remains authoritative where this older backlog
+wording conflicts with it: `protocol` remains valid for genuine Python protocol
+operations and is rejected only when semantically misused as a vague surface.
+Production source, dependencies, scientific meaning, protected execution, release,
+and publication remain unauthorized.
 
 The concise proposal record is
 [`../evidence/harness-backlog/TEST-EVIDENCE-CONVENTIONS-2.json`](../evidence/harness-backlog/TEST-EVIDENCE-CONVENTIONS-2.json).
 
+The required ownership preflight for this non-default chain is:
+
+```text
+python .pi/task-ownership/validate_task_ownership.py \
+  --chain .pi/chains/test-evidence-repository-conformance.chain.json \
+  --task TEST-EVIDENCE-CONVENTIONS-2
+```
+
+The shorter ``--task``-only command selects the repository default chain and is not the
+preflight for this task.
+
 ## Purpose and authority boundary
 
-Except for the bounded named-inventory capability recorded above, this inactive
-backlog item records possible future improvements to the reusable Python test-evidence
-capability. The bounded slice changes only static module-local named-inventory
-resolution and its canonical/live convention text; it does not activate another rule,
-workflow automation, or the P2 audit.
-
-A separately recorded human activation is still required before any further change to:
-
-- `harness/pi/skills/develop-python-test-evidence/`;
-- `harness/pi/validation/validate_python_test_evidence.py`;
-- `harness/pi/fixtures/python-test-evidence/`; or
-- the corresponding live local route.
-
-This proposal is not a prerequisite for P2, P3, or any scientific workflow. It
-has no writers, reviewers, activation record, completion evidence, or checkpoint.
+The current human instruction activates the remaining reusable controls plus one
+project-local repository inventory and completion gate. The controlling chain and
+validated ownership manifest above supply writer/reviewer separation and mutation
+scope. Implementation is staged: control surfaces and the fail-closed baseline gate
+precede controlled raw-test migration. The task remains unrelated to production or
+scientific execution and does not activate or accept P2, P3, or another scientific
+workflow.
 
 ## Recurring defects
 
 The human P2 module audit repeatedly found:
 
-1. vague surfaces such as `test_protocol__...`, `test_behavior__...`, and
-   `test_contract__...`;
+1. vague surfaces such as `test_protocol__behavior__...`, `test_behavior__...`,
+   and `test_contract__...`; genuine Python protocol operations remain valid;
 2. one owner combining `EnumType(value)` (`__call__`) with `EnumType[name]`
    (`__getitem__`);
 3. unknown valid-type values and wrong-semantic-type values combined because
@@ -98,25 +107,17 @@ If separately activated, evaluate:
 - a validated migration-rationale companion format; and
 - validator/formatter interoperability fixtures, including long artifact names.
 
-## Candidate deterministic rules
+## Activated deterministic rules
 
 ### Concrete public surfaces
 
-Reject known vague first surface segments:
-
-```text
-protocol
-behavior
-contract
-general
-misc
-```
-
-Accept explicit surfaces such as `constructor`, `field`, `property`,
-`method__call`, `method__getitem`, `method__eq`, `method__hash`,
-`method__repr`, `method__execute`, `method__serialize`, and
-`method__deserialize`. This must not become a universal closed list: explicit
-public method surfaces remain extensible.
+Reject known vague facet segments `behavior`, `contract`, `general`, and `misc`.
+Preserve `protocol` as the accepted surface for genuine Python protocol operations,
+but reject a vague spelling such as `test_protocol__behavior__...`. Accept explicit
+surfaces such as `constructor`, `field`, `property`, `method__call`,
+`method__getitem`, `method__eq`, `method__hash`, `method__repr`,
+`method__execute`, and `method__deserialize`. This is not a universal closed list:
+explicit public method and protocol facets remain extensible.
 
 ### Mixed enum lookup ownership
 
@@ -211,18 +212,15 @@ as advisory and must not be converted into unsupported deterministic PASS claims
 friction. `P2-A04` supplies additional enum-ownership and declarative-coverage
 observations. The current file-by-file human P2 audit remains authoritative.
 
-This proposal, apart from the bounded implemented named-inventory capability:
+This activated task does not retroactively rewrite historical reports, change an
+already recorded P2 audit decision, or itself activate/accept P2. Current maintained
+test modules are nevertheless required to migrate under this task; historical node
+identity and evidence identifiers remain preserved through explicit one-to-one maps.
 
-- does not retroactively invalidate cleared items;
-- does not change P2 criteria during the active audit;
-- does not modify any current P2 test or evidence decision;
-- does not activate, advance, or clear any P2 audit item; and
-- may be implemented further only after separate human activation.
+## Completion shape
 
-## Proposed future completion shape
-
-If activated later, implementation should update the generic skill, validator,
-and focused fixture family together; add deterministic tests for every new
-finding; distinguish errors from advisories; preserve the structural claim
-boundary; and obtain separate authorization before synchronizing any live local
-route. Those are planning notes, not present authority.
+Completion requires synchronized generic/live skill resources, controlled validator
+fixtures with false-positive guards, an exact repository inventory, a fail-closed local
+completion gate, migration of every current maintained module, focused software gates,
+one consolidated independent review, and correction of any accepted bounded finding.
+Structural PASS remains separate from semantic review and human acceptance.

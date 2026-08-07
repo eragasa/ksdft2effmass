@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``TransitionEnabler``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public ``TransitionEnabler``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``TransitionEnabler`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -38,7 +40,7 @@ pytestmark = pytest.mark.software_verification
 SUT = TransitionEnabler
 
 
-def test_method__contract__enablement_synchronizes_multiple_inputs(
+def test_method__execute__enablement_synchronizes_multiple_inputs(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -99,7 +101,7 @@ def test_method__contract__enablement_synchronizes_multiple_inputs(
     )
 
 
-def test_method__contract__enablement_returns_deterministic_multiset_choices(
+def test_method__execute__enablement_returns_deterministic_multiset_choices(
     token_factory: Callable[..., CpnToken], executable_net: CpnNetDefinition
 ) -> None:
     """Evidence ID
@@ -166,7 +168,7 @@ def test_method__contract__enablement_returns_deterministic_multiset_choices(
     ]
 
 
-def test_method__contract__unknown_transition_retains_structured_detail(
+def test_method__execute__unknown_transition_retains_structured_detail(
     executable_net: cpn.CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -223,7 +225,7 @@ def test_method__contract__unknown_transition_retains_structured_detail(
     assert error.value.detail.transition_id == "missing"
 
 
-def test_method__contract__invalid_marking_translates_to_structured_error(
+def test_method__execute__invalid_marking_translates_to_structured_error(
     executable_net: cpn.CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -281,7 +283,7 @@ def test_method__contract__invalid_marking_translates_to_structured_error(
     assert error.value.detail.code is cpn.CpnErrorCode.INVALID_MARKING
 
 
-def test_method__contract__invalid_definition_translates_to_structured_error(
+def test_method__execute__invalid_definition_translates_to_structured_error(
     executable_net: cpn.CpnNetDefinition,
 ) -> None:
     """Evidence ID

@@ -1,4 +1,4 @@
-r"""Software verification of version-1 provenance JSON fixture/runtime interoperability.
+r"""Software verification of json fixtures runtime agreement v1.
 
 Facet and represented meaning
 -----------------------------
@@ -148,7 +148,7 @@ VALID_FIXTURE_CASES = (
 INVALID_FIXTURE_CASES = (
     pytest.param(ROOT / "fixtures/invalid/bom.json", id="bom"),
     pytest.param(
-        ROOT / "fixtures/invalid/boolean-byte-size.json", id="boolean_byte_size"
+        ROOT / "fixtures/invalid/boolean-byte-size.json", id="bool_scalar_for_byte_size"
     ),
     pytest.param(ROOT / "fixtures/invalid/c1-control-path.json", id="c1_control_path"),
     pytest.param(
@@ -157,7 +157,8 @@ INVALID_FIXTURE_CASES = (
     ),
     pytest.param(ROOT / "fixtures/invalid/duplicate-key.json", id="duplicate_key"),
     pytest.param(
-        ROOT / "fixtures/invalid/floating-byte-size.json", id="floating_byte_size"
+        ROOT / "fixtures/invalid/floating-byte-size.json",
+        id="fractional_scalar_for_byte_size",
     ),
     pytest.param(
         ROOT / "fixtures/invalid/impossible-calendar-date.json",
@@ -195,7 +196,7 @@ INVALID_FIXTURE_CASES = (
     pytest.param(ROOT / "fixtures/invalid/nonfinite.json", id="nonfinite_number"),
     pytest.param(
         ROOT / "fixtures/invalid/numeric-string-byte-size.json",
-        id="numeric_string_byte_size",
+        id="numeric_text_for_byte_size",
     ),
     pytest.param(
         ROOT / "fixtures/invalid/raw-observed-version.json",
@@ -223,7 +224,7 @@ INVALID_FIXTURE_CASES = (
         id="trailing_line_feed_sha256",
     ),
     pytest.param(ROOT / "fixtures/invalid/u64-overflow.json", id="u64_overflow"),
-    pytest.param(ROOT / "fixtures/invalid/unknown-key.json", id="unknown_key"),
+    pytest.param(ROOT / "fixtures/invalid/unknown-key.json", id="extra_object_member"),
     pytest.param(
         ROOT / "fixtures/invalid/unsorted-identifiers.json",
         id="unsorted_identifiers",

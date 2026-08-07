@@ -1,4 +1,4 @@
-r"""Software verification of the provenance version-1 Python/JSON wire artifact.
+r"""Software verification of json contract v1.
 
 Facet and represented meaning
 -----------------------------

@@ -1,4 +1,4 @@
-r"""Software verification of ksdft2effmass.provenance.external_execution.ExternalExecutionOutcome.
+r"""Software verification of external execution outcome type alias.
 
 Facet and represented meaning
 -----------------------------

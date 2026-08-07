@@ -13,8 +13,8 @@ The principal distinction is among:
 Wannier construction supplies a localized representation of the projected family and is developed separately in [[ksdft2Effmass.03]]. Identification and comparison of state spaces obtained from different calculations are developed in [[ksdft2Effmass.04]].
 
 ## First-Principles Systems
-Let $\mathcal{D}=\{\mathrm{P},\mathrm{B}\}$ denote the set of dopant species considered in this work, where $\mathrm{P}$ and $\mathrm{B}$ represent phosphorus and boron, respectively. For each dopant $d\in\mathcal{D}$, define the corresponding set of system labels by $\mathcal{S}_d=\{b,d\}$. The index $s\in\mathcal{S}_d$
-labels either pristine bulk silicon, denoted by $s=b$, or silicon containing the substitutional dopant $d$, denoted by $s=d$.
+
+Let $\mathcal{D}=\{\mathrm{P},\mathrm{B}\}$ denote the set of dopant species considered in this work, where $\mathrm{P}$ and $\mathrm{B}$ represent phosphorus and boron, respectively. For each dopant $d\in\mathcal{D}$, define the corresponding set of system labels by $\mathcal{S}_d=\{b,d\}$. The index $s\in\mathcal{S}_d$ labels either pristine bulk silicon, denoted by $s=b$, or silicon containing the substitutional dopant $d$, denoted by $s=d$.
 
 Each system $s$ is associated with a self-consistent one-particle Hamiltonian
 $$

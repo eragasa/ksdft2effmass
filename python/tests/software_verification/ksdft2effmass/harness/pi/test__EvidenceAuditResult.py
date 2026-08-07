@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``EvidenceAuditResult``.
+
+Facet and represented meaning
 Software verification of the public ``EvidenceAuditResult`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``EvidenceAuditResult``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 

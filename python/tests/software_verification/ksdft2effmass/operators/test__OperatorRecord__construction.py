@@ -1,6 +1,9 @@
-r"""Software verification of ``OperatorRecord`` public construction.
+r"""Software verification of ``OperatorRecord``.
 
-Represented DataObject and owned contract
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the construction facet. Represented DataObject and
+owned contract
 ----------------------------------------
 ``OperatorRecord`` stores a finite represented matrix
 :math:`\mathbf H\in\mathbb C^{N\times N}` and exactly seven interpreting
@@ -26,6 +29,21 @@ This module provides software-verification evidence ``SV-OR-001`` through
 Wannier, experimental, or impurity calculation. Numerical verification is not
 applicable. Scientific validation, uncertainty quantification, and Rust
 conformance have not been performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecord``; collaborators only construct inputs or
+expose public outcomes. Accepted public contracts, literal expected values, Python
+language semantics, and assigned schema or fixture artifacts provide the oracles. No
+runtime warning is accepted unless a test explicitly states otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from dataclasses import fields
@@ -46,28 +64,28 @@ from ksdft2effmass.operators import OperatorRecord
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecord
 
-def test_public_construction_and_exact_stored_field_mapping() -> None:
-    """SV-OR-001: verify public construction and all eight field roles.
 
-    Evidence ID
-        ``SV-OR-001``.
+def test_constructor__public_fields_are_mapped_exactly__is_enforced() -> None:
+    r"""Evidence ID
+    SV-OR-001
     Requirement
-        The public DataObject stores exactly identifier, operator kind, canonical
-        matrix, StateSpace, Basis, Geometry, EnergyReference, and provenance.
+    The public DataObject stores exactly identifier, operator kind, canonical matrix,
+    StateSpace, Basis, Geometry, EnergyReference, and provenance.
     Method
-        Construct through the public import with distinct typed dependencies and
-        inspect standard dataclass fields plus public values and shape.
+    Construct through the public import with distinct typed dependencies and inspect
+    standard dataclass fields plus public values and shape.
     Oracle
-        The approved eight-field representation contract fixes names and roles.
+    The approved eight-field representation contract fixes names and roles.
     Acceptance
-        Field names are exact; nested objects retain identity; provenance content
-        and canonical matrix values match; shape is ``(2, 2)``.
+    Field names are exact; nested objects retain identity; provenance content and
+    canonical matrix values match; shape is ``(2, 2)``.
     Interpretation
-        Passing establishes constructor-to-stored-state mapping.
+    Passing establishes constructor-to-stored-state mapping.
     Limitations
-        It does not inspect private storage, execute ActionObjects, establish
-        physical meaning, scientific validation, UQ, or Rust conformance.
+    It does not inspect private storage, execute ActionObjects, establish physical
+    meaning, scientific validation, UQ, or Rust conformance.
     """
 
     state_space = make_state_space()
@@ -113,57 +131,54 @@ def test_public_construction_and_exact_stored_field_mapping() -> None:
         pytest.param(
             ((1, 2.5), (3 + 4j, np.int32(5))),
             [[1 + 0j, 2.5 + 0j], [3 + 4j, 5 + 0j]],
-            id="SV-OR-002-nested-tuple-python-and-numpy-integer",
+            id="tuple_python_and_numpy_integer",
         ),
         pytest.param(
             [[np.float32(1.5), np.complex64(2 + 3j)], [4, 5.5]],
             [[1.5 + 0j, 2 + 3j], [4 + 0j, 5.5 + 0j]],
-            id="SV-OR-002-nested-list-numpy-float-and-complex",
+            id="list_numpy_float_and_complex",
         ),
         pytest.param(
             np.array([[1, 2], [3, 4]], dtype=np.int64),
             [[1 + 0j, 2 + 0j], [3 + 0j, 4 + 0j]],
-            id="SV-OR-002-exact-numpy-integer-array",
+            id="exact_numpy_integer_array",
         ),
         pytest.param(
             np.array([[1.25, 2.5], [3.75, 4.0]], dtype=np.float64),
             [[1.25 + 0j, 2.5 + 0j], [3.75 + 0j, 4 + 0j]],
-            id="SV-OR-002-exact-numpy-floating-array",
+            id="exact_numpy_floating_array",
         ),
         pytest.param(
             np.array([[1 + 2j, 3 - 4j], [5j, 6]], dtype=np.complex128),
             [[1 + 2j, 3 - 4j], [5j, 6 + 0j]],
-            id="SV-OR-002-exact-numpy-complex-array",
+            id="exact_numpy_complex_array",
         ),
     ],
 )
-def test_approved_matrix_inputs_canonicalize_without_helper_coercion(
+def test_constructor__approved_matrix_inputs_canonicalize_without__is_enforced(
     matrix: MatrixInput,
     expected: list[list[complex]],
 ) -> None:
-    """SV-OR-002: canonicalize approved containers and scalar families.
-
-    Evidence ID
-        ``SV-OR-002``; stable IDs identify container and scalar families.
+    r"""Evidence ID
+    SV-OR-002
     Requirement
-        Nested exact tuple/list and exact NumPy-array inputs admit approved
-        Python and NumPy integer, floating, and complex scalars; incidental
-        array-like objects, ndarray subclasses, and ndarray row containers are
-        outside that boundary.
+    Nested exact tuple/list and exact NumPy-array inputs admit approved Python and NumPy
+    integer, floating, and complex scalars; incidental array-like objects, ndarray
+    subclasses, and ndarray row containers are outside that boundary.
     Method
-        Pass each admitted matrix directly without ``np.asarray`` or dtype
-        preprocessing, then probe representative unsupported containers through
-        deliberate invalid boundaries.
+    Pass each admitted matrix directly without ``np.asarray`` or dtype preprocessing,
+    then probe representative unsupported containers through deliberate invalid
+    boundaries.
     Oracle
-        Independently literal complex values define the canonical expected state.
+    Independently literal complex values define the canonical expected state.
     Acceptance
-        Admitted values match exactly with exact ndarray/complex128 storage;
-        every unsupported container raises field-semantic ``TypeError``.
+    Admitted values match exactly with exact ndarray/complex128 storage; every
+    unsupported container raises field-semantic ``TypeError``.
     Interpretation
-        Passing establishes approved runtime admission and canonical storage.
+    Passing establishes approved runtime admission and canonical storage.
     Limitations
-        It does not approve arbitrary array-like containers, Booleans, strings,
-        physical matrices, scientific validation, UQ, or Rust conformance.
+    It does not approve arbitrary array-like containers, Booleans, strings, physical
+    matrices, scientific validation, UQ, or Rust conformance.
     """
 
     record = make_record(matrix)
@@ -172,36 +187,64 @@ def test_approved_matrix_inputs_canonicalize_without_helper_coercion(
     assert type(record.matrix) is np.ndarray
     assert record.matrix.dtype == np.dtype(np.complex128)
 
-    unsupported_inputs = (
-        memoryview(np.array([[1.0, 0.0], [0.0, 1.0]])),
-        np.ma.array([[1.0, 0.0], [0.0, 1.0]]),
-        [np.array([1.0, 0.0]), np.array([0.0, 1.0])],
-    )
-    for unsupported in unsupported_inputs:
-        with pytest.raises(TypeError):
-            make_record(cast(Any, unsupported))
 
-
-def test_canonical_matrix_representation_properties() -> None:
-    """SV-OR-003: verify public canonical matrix representation.
-
-    Evidence ID
-        ``SV-OR-003``.
+@pytest.mark.parametrize(
+    "unsupported",
+    [
+        pytest.param(
+            memoryview(np.array([[1.0, 0.0], [0.0, 1.0]])),
+            id="memoryview_container",
+        ),
+        pytest.param(
+            np.ma.array([[1.0, 0.0], [0.0, 1.0]]),
+            id="masked_array_container",
+        ),
+        pytest.param(
+            [np.array([1.0, 0.0]), np.array([0.0, 1.0])],
+            id="ndarray_row_containers",
+        ),
+    ],
+)
+def test_constructor__unsupported_matrix_containers__raise_type_error(
+    unsupported: object,
+) -> None:
+    r"""Evidence ID
+    SV-OR-043
     Requirement
-        Stored matrix state is exact complex128, rank two, square, C-contiguous,
-        and non-writeable.
+    Matrix containers outside exact nested sequences and exact ndarrays are rejected.
     Method
-        Construct from a valid nested tuple and inspect only public NumPy
-        representation properties.
+    Pass memoryview, masked-array, and ndarray-row containers without coercion.
     Oracle
-        The approved canonical representation contract fixes these properties.
+    The accepted public matrix-container boundary excludes all three categories.
     Acceptance
-        Every property holds exactly for the stored 2x2 matrix.
+    Every case raises exactly ``TypeError``.
     Interpretation
-        Passing establishes representation state, not its private backing.
+    A pass confirms container taxonomy; failure indicates admission-contract drift.
     Limitations
-        It does not inspect ``.base``, calculate a norm, establish scientific
-        validation, UQ, or Rust conformance.
+    Scalar invariants, numerical matrix meaning, validation, UQ, and Rust are excluded.
+    """
+    with pytest.raises(TypeError):
+        make_record(cast(Any, unsupported))
+
+
+def test_field__canonical_matrix_representation__has_required_properties() -> None:
+    r"""Evidence ID
+    SV-OR-003
+    Requirement
+    Stored matrix state is exact complex128, rank two, square, C-contiguous, and
+    non-writeable.
+    Method
+    Construct from a valid nested tuple and inspect only public NumPy representation
+    properties.
+    Oracle
+    The approved canonical representation contract fixes these properties.
+    Acceptance
+    Every property holds exactly for the stored 2x2 matrix.
+    Interpretation
+    Passing establishes representation state, not its private backing.
+    Limitations
+    It does not inspect ``.base``, calculate a norm, establish scientific validation,
+    UQ, or Rust conformance.
     """
 
     record = make_record(((1, 2), (3, 4)))
@@ -214,27 +257,25 @@ def test_canonical_matrix_representation_properties() -> None:
     assert not record.matrix.flags.writeable
 
 
-def test_general_nonhermitian_finite_matrix_is_admitted() -> None:
-    """SV-OR-004: admit a deliberately non-Hermitian finite matrix.
-
-    Evidence ID
-        ``SV-OR-004``.
+def test_constructor__general_nonhermitian_finite_matrix_is__is_enforced() -> None:
+    r"""Evidence ID
+    SV-OR-004
     Requirement
-        OperatorRecord stores general finite represented operators and imposes
-        no Hermiticity policy.
+    OperatorRecord stores general finite represented operators and imposes no
+    Hermiticity policy.
     Method
-        Construct the literal matrix ``[[0, 1], [2, 0]]`` and inspect its exact
-        stored entries without calculating a Hermiticity residual.
+    Construct the literal matrix ``[[0, 1], [2, 0]]`` and inspect its exact stored
+    entries without calculating a Hermiticity residual.
     Oracle
-        Unequal real off-diagonal entries independently make the matrix
-        non-Hermitian while all representation invariants remain valid.
+    Unequal real off-diagonal entries independently make the matrix non-Hermitian while
+    all representation invariants remain valid.
     Acceptance
-        Construction succeeds and entries are preserved exactly.
+    Construction succeeds and entries are preserved exactly.
     Interpretation
-        Passing confirms Hermiticity remains an Analyzer responsibility.
+    Passing confirms Hermiticity remains an Analyzer responsibility.
     Limitations
-        It does not assess physical admissibility, run HermiticityAnalyzer,
-        perform scientific validation, UQ, or Rust conformance.
+    It does not assess physical admissibility, run HermiticityAnalyzer, perform
+    scientific validation, UQ, or Rust conformance.
     """
 
     record = make_record([[0, 1], [2, 0]])
@@ -245,33 +286,31 @@ def test_general_nonhermitian_finite_matrix_is_admitted() -> None:
 @pytest.mark.parametrize(
     ("identifier", "operator_kind"),
     [
-        pytest.param("Record A", "Finite Operator", id="SV-OR-005-case-spaces"),
-        pytest.param("record-A", "finite/operator", id="SV-OR-005-punctuation"),
-        pytest.param("Record--A", "finite-test-kind", id="SV-OR-005-hyphenation"),
+        pytest.param("Record A", "Finite Operator", id="case_spaces"),
+        pytest.param("record-A", "finite/operator", id="sv_or_005_punctuation"),
+        pytest.param("Record--A", "finite-test-kind", id="sv_or_005_hyphenation"),
     ],
 )
-def test_identifier_and_operator_kind_are_preserved_exactly(
+def test_field__represented_state__identifier_and_operator_kind_are_preserved(
     identifier: str,
     operator_kind: str,
 ) -> None:
-    """SV-OR-005: preserve descriptive record strings exactly.
-
-    Evidence ID
-        ``SV-OR-005``; parameter IDs identify textual distinctions.
+    r"""Evidence ID
+    SV-OR-005
     Requirement
-        Identifier and operator kind retain case, spaces, punctuation, and
-        hyphenation without normalization or vocabulary lookup.
+    Identifier and operator kind retain case, spaces, punctuation, and hyphenation
+    without normalization or vocabulary lookup.
     Method
-        Pass synthetic strings unchanged and compare exact stored content.
+    Pass synthetic strings unchanged and compare exact stored content.
     Oracle
-        Exact Python string equality is the approved preservation oracle.
+    Exact Python string equality is the approved preservation oracle.
     Acceptance
-        Both stored strings equal their supplied inputs exactly.
+    Both stored strings equal their supplied inputs exactly.
     Interpretation
-        Passing establishes literal descriptive metadata preservation.
+    Passing establishes literal descriptive metadata preservation.
     Limitations
-        It does not validate vocabulary or physical meaning, scientific
-        validation, UQ, or Rust conformance.
+    It does not validate vocabulary or physical meaning, scientific validation, UQ, or
+    Rust conformance.
     """
 
     record = make_record(identifier=identifier, operator_kind=operator_kind)
@@ -280,25 +319,23 @@ def test_identifier_and_operator_kind_are_preserved_exactly(
     assert record.operator_kind == operator_kind
 
 
-def test_shape_is_the_exact_canonical_matrix_shape() -> None:
-    """SV-OR-006: verify the trivial derived shape contract.
-
-    Evidence ID
-        ``SV-OR-006``.
+def test_field__shape_is_the_exact_canonical_matrix_shape__is_exact() -> None:
+    r"""Evidence ID
+    SV-OR-006
     Requirement
-        Public ``shape`` equals canonical matrix shape and is a two-integer tuple.
+    Public ``shape`` equals canonical matrix shape and is a two-integer tuple.
     Method
-        Construct a valid 2x2 record and compare public values exactly.
+    Construct a valid 2x2 record and compare public values exactly.
     Oracle
-        The approved property is defined directly by represented matrix shape.
+    The approved property is defined directly by represented matrix shape.
     Acceptance
-        ``record.shape == record.matrix.shape == (2, 2)`` and both elements are
-        exact built-in integers.
+    ``record.shape == record.matrix.shape == (2, 2)`` and both elements are exact
+    built-in integers.
     Interpretation
-        Passing establishes the documented trivial derived property.
+    Passing establishes the documented trivial derived property.
     Limitations
-        It introduces no dimension property, numerical algorithm, scientific
-        validation, UQ, or Rust conformance.
+    It introduces no dimension property, numerical algorithm, scientific validation, UQ,
+    or Rust conformance.
     """
 
     record = make_record()
@@ -308,42 +345,41 @@ def test_shape_is_the_exact_canonical_matrix_shape() -> None:
     assert all(type(dimension) is int for dimension in record.shape)
 
 
-def test_dataobject_action_and_serialization_apis_are_excluded() -> None:
-    """SV-OR-007: verify prohibited ActionObject behavior remains absent.
-
-    Evidence ID
-        ``SV-OR-007``.
+def test_public_api__unowned_actions__are_absent() -> None:
+    r"""Evidence ID
+    SV-OR-007
     Requirement
-        OperatorRecord exposes none of the maintained removed Hermiticity,
-        serialization, comparison, or differencing API names.
+    OperatorRecord exposes none of the maintained removed Hermiticity, serialization,
+    comparison, or differencing API names.
     Method
-        Inspect a valid instance and public class for the exact approved/removed
-        names without invoking private implementation details.
+    Inspect a valid instance and public class for the exact approved/removed names
+    without invoking private implementation details.
     Oracle
-        DataObject/ActionObject ownership assigns these operations elsewhere.
+    DataObject/ActionObject ownership assigns these operations elsewhere.
     Acceptance
-        Every listed name is absent from both instance and class.
+    Every listed name is absent from both instance and class.
     Interpretation
-        Passing establishes the narrow represented-state boundary.
+    Passing establishes the narrow represented-state boundary.
     Limitations
-        It does not test serializer fixtures or ActionObject behavior, scientific
-        validation, UQ, or Rust conformance.
+    It does not test serializer fixtures or ActionObject behavior, scientific
+    validation, UQ, or Rust conformance.
     """
 
     record = make_record()
 
-    for name in (
-        "hermiticity_residual",
-        "is_hermitian",
-        "require_hermitian",
-        "to_dict",
-        "from_dict",
-        "serialize",
-        "deserialize",
-        "to_json",
-        "from_json",
-        "compare",
-        "difference",
-    ):
-        assert not hasattr(record, name)
-        assert not hasattr(OperatorRecord, name)
+    assert all(
+        (not hasattr(record, name)) and (not hasattr(OperatorRecord, name))
+        for name in (
+            "hermiticity_residual",
+            "is_hermitian",
+            "require_hermitian",
+            "to_dict",
+            "from_dict",
+            "serialize",
+            "deserialize",
+            "to_json",
+            "from_json",
+            "compare",
+            "difference",
+        )
+    )

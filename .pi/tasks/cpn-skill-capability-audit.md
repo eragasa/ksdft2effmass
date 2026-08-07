@@ -2,7 +2,7 @@
 
 ## Status
 
-Closed and human-accepted on 2026-08-03 at 07:45:55 UTC. Six focused correction re-review lanes and final validator/integration spot-checks passed after deterministic corrections. P0 remains unlaunched. No production implementation, scientific test/fixture change, dependency change, external scientific execution, or successor-task launch is authorized by this acceptance.
+Closed and human-accepted on 2026-08-03 at 07:45:55 UTC. Six focused correction re-review lanes and final validator/integration spot-checks passed after deterministic corrections. On 2026-08-07, the human directive “resolve the skill collision” superseded only the accepted automatic Graphify-consumer overlap: Graphify now requires an explicit human request and `recommend-next-task` no longer invokes it. The audit remains closed; P0 remains unlaunched. No production implementation, scientific test/fixture change, dependency change, external scientific execution, or successor-task launch is authorized by either boundary.
 
 ## Human final acceptance
 
@@ -68,7 +68,7 @@ Each has exactly one primary classification in `.pi/skills/skill-capability-inve
 - `SKILL-006`: the integration reviewer automatically routed material findings to a historical checkpoint. Correction: use current deterministic/standing/human decision classes.
 - `SKILL-007`: repeated evidence-ID audits had no deterministic owner. Correction: add an AST/docstring ownership audit. It expands the existing parametrized range to find 315 owned IDs, 22 unowned test functions, and zero duplicate/prefix/marker errors. Strict mode rejects the current 22-test gap; tests are not changed by this task.
 - `SKILL-008`: successful result tokens lacked request/task/parent/attempt correlation and retries lacked explicit authorization. Correction: add correlated identities to success/failure contracts and require immutable parent authorization or a request's pre-authorized retry policy.
-- `SKILL-009`: a nominally read-only Graphify consumer could inherit vocabulary, saved-result, and reflection writes. Correction: define a non-writing existing-graph query profile and require `choose-next-task` to use it or stop blocked.
+- `SKILL-009`: a nominally read-only Graphify consumer could inherit vocabulary, saved-result, and reflection writes. Historical correction: define a non-writing existing-graph query profile and require `choose-next-task` to use it or stop blocked. The 2026-08-07 trigger-collision directive supersedes that consumer relationship: `recommend-next-task` does not invoke Graphify, and explicitly requested read-only Graphify commands disable Graphify 0.9.2 query logging.
 - `SKILL-010`: an operator reference retained one obsolete technical-integration path and bare checkpoint affirmation excluded `blocked` records. Correction: use the maintained software-verification integration subtree and the shared unresolved-state definition.
 - `SKILL-011`: the inventory validator under-enforced tool names, nested token/block fields, consumers/references, duplicates, and gap-analysis fields. Correction: enforce exact block sets, required nested fields, concrete paths/references, hashes, and composability residuals.
 - `SKILL-012`: the documentation synchronization review and human-acceptance token were referenced but uncatalogued. Correction: add their owners and immutable responsibility fields.

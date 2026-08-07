@@ -55,6 +55,26 @@ PUBLIC_FIELDS = (
     "diagnostic_paths",
     "provenance_id",
 )
+FROZEN_FIELDS = (
+    "failure_id",
+    "request_id",
+    "correlation_id",
+    "attempt_id",
+    "stage",
+    "code",
+    "diagnostic_paths",
+    "provenance_id",
+)
+EQUALITY_FIELDS = (
+    "failure_id",
+    "request_id",
+    "correlation_id",
+    "attempt_id",
+    "stage",
+    "code",
+    "diagnostic_paths",
+    "provenance_id",
+)
 
 
 def make_external_execution_failure(**overrides: Any) -> ExternalExecutionFailure:

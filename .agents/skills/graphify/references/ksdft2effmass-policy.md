@@ -1,19 +1,22 @@
 # ksdft2effmass Graphify policy overlay
 
-This repository-local policy overlay applies when the Graphify skill in
-`.agents/skills/graphify/` is used in `ksdft2effmass`. The upstream Graphify
-skill provenance and version (`0.9.2`) are preserved; this file is a versioned
-project policy overlay that must not be silently overwritten by a future
-Graphify update.
+This repository-local policy applies when the Graphify skill in
+`.agents/skills/graphify/` is used in `ksdft2effmass`. The validated local
+Graphify version is `0.9.2`. This policy must not be silently overwritten by a
+future Graphify update.
 
-## Discovery and precedence
+## Invocation and local executable
 
-In the validated project environment, both Codex and pi discover
-repository-local skills under `.agents/skills/`. pi additionally discovers
-pi-specific skills under `.pi/skills/`. A project skill may shadow a same-named
-global pi skill. The repository-local Graphify skill intentionally takes
-precedence over the global pi Graphify fallback because it is versioned with the
-repository and subject to repository policy.
+Graphify is manually invoked only when the current human message explicitly
+requests Graphify. Ordinary topology, dependency, impact, navigation, and
+next-task questions do not trigger it.
+
+Use only the existing executable at `$HOME/.local/bin/graphify`, validated as
+Graphify 0.9.2. `$HOME` avoids embedding a developer username but does not permit
+executable discovery or fallback. Do not use a same-named global skill as a
+fallback, install or upgrade the package, or emulate the CLI with inline Python.
+If this exact location is unavailable or has a different version, report the
+mismatch and stop.
 
 ## Authority limits
 
@@ -30,11 +33,21 @@ files before it is used or reported as project state.
 
 - Graph generation or regeneration must remain read-only with respect to
   production source, specifications, fixtures, tests, and documentation.
-- Generated outputs belong under the ignored `graphify-out/` directory.
-- Do not install, enable, or modify hooks.
-- Do not configure, store, request, or rely on API keys.
-- Do not use Gemini, Google, OpenAI, Anthropic, or another external semantic
-  backend without explicit human approval.
+- Generated outputs belong under this repository's ignored `graphify-out/`
+  directory; do not pass another corpus root to `update`.
+- Launch every Graphify command with known semantic-backend keys removed,
+  `GRAPHIFY_OUT=graphify-out`, `GRAPHIFY_QUERY_LOG_DISABLE=1`, and
+  `GRAPHIFY_NO_TIPS=1`. This prevents inherited output redirection, keeps backend
+  credentials out of the process, and disables Graphify 0.9.2's external query
+  log.
+- Do not rebuild or update a graph automatically after edits, commits, or session
+  startup.
+- Do not install, enable, or modify hooks, watchers, servers, or always-on
+  integrations.
+- Do not configure, store, request, detect, or rely on API keys; remove known
+  backend-key variables from the Graphify process environment.
+- Do not use Gemini, Google, OpenAI, Anthropic, another external semantic
+  backend, or semantic-extraction subagents without explicit human approval.
 - Do not transmit unpublished repository content externally without explicit
   human approval.
 - Do not modify global pi, Codex, or Graphify configuration or global skills.

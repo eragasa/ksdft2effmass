@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+  "task_record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "test-evidence-conformance-writer",
+        "agent": "ksdft2effmass-tests",
+        "agent_record": ".pi/agents/ksdft2effmass-tests.md",
+        "owned_paths": [
+          ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+          ".pi/chains/test-evidence-repository-conformance.chain.json",
+          ".pi/evidence/test-evidence-repository-conformance",
+          ".pi/evidence/harness-backlog/TEST-EVIDENCE-CONVENTIONS-2.json",
+          ".pi/skills/develop-python-test-evidence",
+          ".pi/skills/skill-capability-inventory.json",
+          ".pi/agents/ksdft2effmass-tests.md",
+          ".pi/agents/ksdft2effmass-harness-python-test-writer.md",
+          ".pi/agents/ksdft2effmass-harness-resource-test-writer.md",
+          ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
+          ".pi/agents/ksdft2effmass-harness-python-evidence-vvuq-reviewer.md",
+          "harness/pi/skills/develop-python-test-evidence",
+          "harness/pi/validation",
+          "harness/pi/fixtures/python-test-evidence",
+          "harness/pi/schemas/test-evidence-inventory.schema.json",
+          "harness/pi/resource-manifest.json",
+          "harness/local/extensions/evidence-documentation.md",
+          "harness/local/profiles/ksdft2effmass-v2.json",
+          "harness/local/validation/validate_repository_test_evidence.py",
+          "harness/local/resource-manifest.json",
+          "harness/local/docs/project-profile.md",
+          "python/tests/"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "consolidated-independent-review",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": "harness/local/validation/validate_repository_test_evidence.py",
+    "command": ["python", "harness/local/validation/validate_repository_test_evidence.py"],
+    "required_before_review": true
+  }
+}

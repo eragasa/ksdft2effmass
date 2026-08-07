@@ -1,6 +1,8 @@
-"""Software-verification evidence for the residual-analyzer public contract.
+r"""Software verification of ``OperatorRecordResidualAnalyzer``.
 
-System under test
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the contract facet. System under test
 -----------------
 ``OperatorRecordResidualAnalyzer`` is the ActionObject that accepts an
 ``OperatorRecordDifferenceResult`` and returns an
@@ -33,6 +35,22 @@ A passing module means the tested public software contract and error boundary
 behave as documented. A failure indicates a software-contract, ownership, or
 error-translation regression; it is not evidence about physical model validity.
 Scientific validation and uncertainty quantification have not been performed.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordResidualAnalyzer``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 import warnings
@@ -53,26 +71,33 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordResidualAnalyzer
+
 
 def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceResult:
-    """Construct synthetic software-verification represented-difference data.
-
-    Parameters
-    ----------
-    matrix
-        Exact ``numpy.ndarray`` with ``complex128`` dtype prepared by the caller.
-        This helper performs no dtype, subclass, shape, or storage coercion.
-
-    Returns
-    -------
-    OperatorRecordDifferenceResult
-        A synthetic result with canonical identifiers ``"reference"`` and
-        ``"candidate"`` and deterministic ``"eV"`` metadata.
-
-    Notes
-    -----
-    The ``eV`` unit is metadata only. The object does not represent a
-    scientifically validated physical operator difference.
+    r"""Evidence ID
+    Owns no identifier; supports evidence in this module.
+    Requirement
+    Residual analysis accepts a compatible represented difference with the supplied
+    complex128 matrix and explicit eV unit.
+    Method
+    Construct or inspect only the named synthetic fixture operation (difference); the
+    helper owns no assertion result and introduces no hidden oracle.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    The helper returns exactly the requested fixture value or applies only the
+    documented comparison; all pass/fail assertions remain in the owning test.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     return OperatorRecordDifferenceResult(
@@ -82,38 +107,63 @@ def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceRe
     )
 
 
-def test_residual_analyzer_rejects_non_difference_input() -> None:
-    """SV-ORA-001: reject an input outside the public difference-result type.
-
+def test_method__execute__residual_analyzer_rejects_non_difference_input() -> None:
+    r"""Evidence ID
+    SV-ORA-001
     Requirement
-        ``execute()`` accepts only ``OperatorRecordDifferenceResult``.
-    Method and oracle
-        Supply a plain object and require the documented public ``TypeError``.
-    Acceptance and interpretation
-        The exact public type name appears in the error. Passing establishes the
-        ActionObject input boundary, not any numerical behavior.
+    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    execute: residual analyzer rejects non difference input.
+    Method
+    Construct the declared complex128 represented difference for execute: residual
+    analyzer rejects non difference input, invoke execute() with RuntimeWarning promoted
+    to error where numerical operations occur, and inspect public outputs.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    The named partition raises exactly TypeError with the asserted public message, code,
+    or attached result; no alternate exception is accepted.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
     Limitations
-        Other valid difference-result invariants are owned by that ResultObject.
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     with pytest.raises(TypeError, match="OperatorRecordDifferenceResult"):
         OperatorRecordResidualAnalyzer().execute(cast(Any, object()))
 
 
-def test_residual_analyzer_creates_result_and_propagates_metadata() -> None:
-    """SV-ORA-002: preserve public result type and difference metadata.
-
+def test_method__execute__creates_result_with_metadata() -> None:
+    r"""Evidence ID
+    SV-ORA-002
     Requirement
-        Successful analysis returns ``OperatorRecordComparisonResult`` with the
-        source identifiers, matrix dimension, and energy unit unchanged.
-    Method and oracle
-        Analyze a synthetic finite diagonal ``2 x 2`` ``complex128`` matrix and
-        compare public metadata fields exactly with the prepared input.
-    Acceptance and interpretation
-        Exact type and field equality demonstrate construction and propagation;
-        metric accuracy is intentionally not used as an oracle here.
+    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    execute: creates result with metadata.
+    Method
+    Construct the declared complex128 represented difference for execute: creates result
+    with metadata, invoke execute() with RuntimeWarning promoted to error where
+    numerical operations occur, and inspect public outputs.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    All literal values, arrays, field names, ordering relations, object identities,
+    absences, and deterministic text asserted by the case match exactly; no approximate
+    fallback is used.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
     Limitations
-        The synthetic matrix has no asserted physical meaning.
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     matrix: npt.NDArray[np.complex128] = np.array(
@@ -130,27 +180,38 @@ def test_residual_analyzer_creates_result_and_propagates_metadata() -> None:
     assert result.energy_unit == "eV"
 
 
-def test_residual_analyzer_translates_svd_backend_failure(
+def test_method__execute__residual_analyzer_translates_svd_backend_failure(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """SV-ORA-003: translate an SVD exception to linear-algebra failure.
-
+    r"""Evidence ID
+    SV-ORA-003
     Requirement
-        An SVD backend exception maps to ``LINEAR_ALGEBRA_FAILURE``.
+    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    execute: residual analyzer translates svd backend failure.
     Method
-        Replace ``numpy.linalg.svd`` with a deterministic callable raising
-        ``numpy.linalg.LinAlgError``; valid public input cannot reliably induce
-        this dependency failure.
-    Oracle and acceptance
-        ``execute()`` raises ``OperatorRecordComparisonNumericalError`` whose
-        code is exactly ``LINEAR_ALGEBRA_FAILURE``.
-    Interpretation and limitations
-        Passing verifies public error translation only. It does not test NumPy's
-        SVD implementation, availability, or numerical accuracy.
+    Construct the declared complex128 represented difference for execute: residual
+    analyzer translates svd backend failure, invoke execute() with RuntimeWarning
+    promoted to error where numerical operations occur, and inspect public outputs.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    The named partition raises exactly OperatorRecordComparisonNumericalError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     def fail_svd(*_args: object, **_kwargs: object) -> npt.NDArray[np.float64]:
-        """Inject a deterministic ``numpy.linalg.LinAlgError`` from SVD."""
+        r"""Inject a deterministic ``numpy.linalg.LinAlgError`` from SVD."""
 
         raise np.linalg.LinAlgError("synthetic SVD failure")
 
@@ -166,25 +227,38 @@ def test_residual_analyzer_translates_svd_backend_failure(
     )
 
 
-def test_residual_analyzer_translates_nonfinite_svd_result(
+def test_method__execute__residual_analyzer_translates_nonfinite_svd_result(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """SV-ORA-004: translate nonfinite SVD output to linear-algebra failure.
-
+    r"""Evidence ID
+    SV-ORA-004
     Requirement
-        A completed SVD that returns a nonfinite singular value maps to
-        ``LINEAR_ALGEBRA_FAILURE``.
+    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    execute: residual analyzer translates nonfinite svd result.
     Method
-        Replace ``numpy.linalg.svd`` with a deterministic ``nan`` result because
-        valid finite public input cannot reliably force this backend behavior.
-    Oracle and acceptance
-        The public structured exception carries exactly the required enum code.
-    Interpretation and limitations
-        Passing verifies dependency-output translation, not SVD correctness.
+    Construct the declared complex128 represented difference for execute: residual
+    analyzer translates nonfinite svd result, invoke execute() with RuntimeWarning
+    promoted to error where numerical operations occur, and inspect public outputs.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    The named partition raises exactly OperatorRecordComparisonNumericalError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     def nonfinite_svd(*_args: object, **_kwargs: object) -> npt.NDArray[np.float64]:
-        """Inject a completed SVD call with a nonfinite singular value."""
+        r"""Inject a completed SVD call with a nonfinite singular value."""
 
         return np.array([np.nan], dtype=np.float64)
 
@@ -200,27 +274,38 @@ def test_residual_analyzer_translates_nonfinite_svd_result(
     )
 
 
-def test_residual_analyzer_reports_structured_metric_order_violation(
+def test_method__execute__residual_analyzer_reports_structured_metric_order(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """SV-ORA-005: report a material public metric-order violation.
-
+    r"""Evidence ID
+    SV-ORA-005
     Requirement
-        A norm-order defect beyond analyzer-owned roundoff allowance maps to
-        ``METRIC_ORDER_VIOLATION``.
+    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    execute: residual analyzer reports structured metric order.
     Method
-        Replace ``numpy.linalg.svd`` with zero for a nonzero ``1 x 1`` matrix,
-        creating a deterministic material violation that valid backend behavior
-        cannot reliably produce.
-    Oracle and acceptance
-        The public structured exception carries exactly the required enum code.
-    Interpretation and limitations
-        Passing verifies public translation and does not validate the private
-        allowance calculation or NumPy's SVD implementation.
+    Construct the declared complex128 represented difference for execute: residual
+    analyzer reports structured metric order, invoke execute() with RuntimeWarning
+    promoted to error where numerical operations occur, and inspect public outputs.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    The named partition raises exactly OperatorRecordComparisonNumericalError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     def zero_svd(*_args: object, **_kwargs: object) -> npt.NDArray[np.float64]:
-        """Inject an impossible zero spectral norm for a nonzero matrix."""
+        r"""Inject an impossible zero spectral norm for a nonzero matrix."""
 
         return np.array([0.0], dtype=np.float64)
 
@@ -236,22 +321,32 @@ def test_residual_analyzer_reports_structured_metric_order_violation(
     )
 
 
-def test_residual_analyzer_reports_nonrepresentable_finite_input_norm() -> None:
-    """SV-ORA-006: contain warning and report nonrepresentable finite metric.
-
+def test_field__represented_state__residual_analyzer_reports_nonrepresentable() -> None:
+    r"""Evidence ID
+    SV-ORA-006
     Requirement
-        Finite entries whose true Frobenius norm exceeds binary64 range produce
-        ``NONFINITE_METRIC`` without leaking a raw NumPy ``RuntimeWarning``.
+    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    represented state: residual analyzer reports nonrepresentable.
     Method
-        Analyze a diagonal ``2 x 2`` ``complex128`` matrix with both diagonal
-        entries equal to the largest finite binary64 value while promoting every
-        ``RuntimeWarning`` to an exception at the public boundary.
-    Oracle and acceptance
-        Only ``OperatorRecordComparisonNumericalError`` is observed and its code
-        is exactly ``NONFINITE_METRIC``.
-    Interpretation and limitations
-        Passing verifies structured failure containment, not representability in
-        other floating-point formats or physical validity of the synthetic data.
+    Construct the declared complex128 represented difference for represented state:
+    residual analyzer reports nonrepresentable, invoke execute() with RuntimeWarning
+    promoted to error where numerical operations occur, and inspect public outputs.
+    Oracle
+    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+    semantics, and the public structured-error taxonomy determine the expected result
+    independently of analyzer private helpers.
+    Acceptance
+    The named partition raises exactly OperatorRecordComparisonNumericalError with the
+    asserted public message, code, or attached result; no alternate exception is
+    accepted.
+    Interpretation
+    A pass supports only the stated represented residual or error-boundary case; failure
+    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
+    drift.
+    Limitations
+    The synthetic software cases do not establish numerical verification, physical
+    correctness, scientific validation, UQ, portability, exhaustive inputs, or
+    cross-language agreement.
     """
 
     largest = np.finfo(np.float64).max

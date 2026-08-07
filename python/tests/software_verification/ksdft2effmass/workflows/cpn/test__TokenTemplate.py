@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``TokenTemplate``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public ``TokenTemplate``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``TokenTemplate`` is the sole primary SUT. Tests exercise its documented public contract
 with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -34,11 +36,12 @@ from ksdft2effmass.workflows.cpn import (
 SUT = TokenTemplate
 
 
-def _assign(field: TokenField, value: ContractValue) -> TokenFieldAssignment:
+def make_token_field_assignment(
+    field: TokenField, value: ContractValue
+) -> TokenFieldAssignment:
     """Evidence ID
     -----------
-    This helper supports exactly SV-CPN-055 and owns no independent evidence ID.
-
+    Owns no identifier; supports SV-CPN-055, SV-CPN-144.
     Requirement
     -----------
     Provide explicit synthetic setup or assertion mechanics without creating an
@@ -75,65 +78,119 @@ def _assign(field: TokenField, value: ContractValue) -> TokenFieldAssignment:
     )
 
 
-def test_constructor__contract__template_requires_unique_complete_assignments() -> None:
+def test_constructor__fields__template_requires_unique_complete_assignments() -> None:
     """Evidence ID
     -----------
     SV-CPN-055
 
     Requirement
     -----------
-    enforce complete unique output routing assignments.
+    ``TokenTemplate`` preserves the exact accepted state for its
+    ``fields`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: enforce complete unique output routing
-    assignments. Six required public fields form the independent oracle. Acceptance
-    constructs that template and rejects a missing field and duplicate field with
-    ``ValueError``. Failure permits produced tokens lacking contract routing state.
+    Construct the public SUT and inspect retained exact public outcomes.
 
     Oracle
     ------
-    The documented public rule that the SUT must enforce complete unique output routing
-    assignments is the contract oracle; fixed synthetic values, Python exact type/value
-    semantics, and the public error taxonomy provide independently inspectable expected
-    outcomes where used.
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact state oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact state assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports only this accepted-state partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     assignments = (
-        _assign(TokenField.WORKFLOW_ID, ContractValue(ContractValueKind.STRING, "w")),
-        _assign(TokenField.RUN_ID, ContractValue(ContractValueKind.STRING, "r")),
-        _assign(TokenField.ATTEMPT_ID, ContractValue(ContractValueKind.STRING, "a")),
-        _assign(
+        make_token_field_assignment(
+            TokenField.WORKFLOW_ID, ContractValue(ContractValueKind.STRING, "w")
+        ),
+        make_token_field_assignment(
+            TokenField.RUN_ID, ContractValue(ContractValueKind.STRING, "r")
+        ),
+        make_token_field_assignment(
+            TokenField.ATTEMPT_ID, ContractValue(ContractValueKind.STRING, "a")
+        ),
+        make_token_field_assignment(
             TokenField.ITERATION_INDEX, ContractValue(ContractValueKind.INTEGER, 0)
         ),
-        _assign(
+        make_token_field_assignment(
             TokenField.PROVENANCE_IDS,
             ContractValue(ContractValueKind.STRING_SEQUENCE, ()),
         ),
-        _assign(
+        make_token_field_assignment(
             TokenField.PARENT_TOKEN_IDS,
             ContractValue(ContractValueKind.STRING_SEQUENCE, ()),
         ),
     )
     assert SUT("c", assignments).assignments == assignments
+
+
+def test_constructor__fields__rejects_invalid_state() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-144
+
+    Requirement
+    -----------
+    ``TokenTemplate`` rejects the documented invalid state for its
+    ``fields`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    assignments = (
+        make_token_field_assignment(
+            TokenField.WORKFLOW_ID, ContractValue(ContractValueKind.STRING, "w")
+        ),
+        make_token_field_assignment(
+            TokenField.RUN_ID, ContractValue(ContractValueKind.STRING, "r")
+        ),
+        make_token_field_assignment(
+            TokenField.ATTEMPT_ID, ContractValue(ContractValueKind.STRING, "a")
+        ),
+        make_token_field_assignment(
+            TokenField.ITERATION_INDEX, ContractValue(ContractValueKind.INTEGER, 0)
+        ),
+        make_token_field_assignment(
+            TokenField.PROVENANCE_IDS,
+            ContractValue(ContractValueKind.STRING_SEQUENCE, ()),
+        ),
+        make_token_field_assignment(
+            TokenField.PARENT_TOKEN_IDS,
+            ContractValue(ContractValueKind.STRING_SEQUENCE, ()),
+        ),
+    )
     with pytest.raises(ValueError, match="missing required"):
         SUT("c", assignments[:-1])
     with pytest.raises(ValueError, match="unique"):

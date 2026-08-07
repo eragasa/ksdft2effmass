@@ -1,10 +1,12 @@
-"""Evidence class and represented meaning
+r"""Software verification of workflow cpn python public api.
+
+Facet and represented meaning
 --------------------------------------
 Software verification of the Workflow CPN Python public import/API surface, a runtime
 software artifact rather than a physical or numerical model.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The Workflow CPN Python public import/API surface is the primary artifact owner. Its
 approved Python export contract is the exact runtime oracle within version 1 scope.
 
@@ -21,6 +23,58 @@ import ksdft2effmass.workflows.cpn as cpn
 
 pytestmark = pytest.mark.software_verification
 
+EXPECTED_EXPORTS = (
+    "ArcDefinition",
+    "ArcDirection",
+    "ColorDefinition",
+    "ContractValue",
+    "ContractValueKind",
+    "CpnBindingError",
+    "CpnContractError",
+    "CpnDefinitionError",
+    "CpnDefinitionValidator",
+    "CpnErrorCode",
+    "CpnErrorDetail",
+    "CpnExpressionEvaluator",
+    "CpnFiringError",
+    "CpnGuardEvaluationError",
+    "CpnIssueCode",
+    "CpnMarking",
+    "CpnMarkingError",
+    "CpnMarkingValidator",
+    "CpnNetDefinition",
+    "CpnToken",
+    "CpnValidationIssue",
+    "CpnValidationResult",
+    "FiringRequest",
+    "FiringResult",
+    "GuardEvaluationResult",
+    "GuardExpression",
+    "GuardOperator",
+    "InputArcMode",
+    "InputInscription",
+    "OutcomeScope",
+    "OutcomeStatus",
+    "OutcomeTerminality",
+    "OutputInscription",
+    "PlaceDefinition",
+    "PlaceMarking",
+    "TokenBinding",
+    "TokenField",
+    "TokenFieldAssignment",
+    "TokenOutcome",
+    "TokenPattern",
+    "TokenTemplate",
+    "TransitionBinding",
+    "TransitionDefinition",
+    "TransitionEnablementResult",
+    "TransitionEnabler",
+    "TransitionFirer",
+    "TransitionNotEnabledError",
+    "ValueExpression",
+    "ValueExpressionKind",
+)
+
 
 def test_artifact__public_api__exposes_approved_export_inventory() -> None:
     """Evidence ID
@@ -35,7 +89,7 @@ def test_artifact__public_api__exposes_approved_export_inventory() -> None:
     no warnings are expected.
 
     Oracle
-    The accepted package contract fixes cardinality 49, sorted uniqueness, and
+    The accepted fixed literal inventory independently fixes all 49 names, order, and
     name-to-object identity.
 
     Acceptance
@@ -47,9 +101,9 @@ def test_artifact__public_api__exposes_approved_export_inventory() -> None:
     evidence-contract drift.
 
     Limitations
-    An independent fixed 49-name inventory is not asserted. Import topology, runtime
-    behavior, scientific validation, UQ, and cross-language claims are excluded."""
-    assert len(cpn.__all__) == 49
-    assert cpn.__all__ == sorted(set(cpn.__all__))
-    for name in cpn.__all__:
-        assert getattr(cpn, name).__name__ == name
+    Import topology, member runtime behavior, scientific validation, UQ, and
+    cross-language claims are excluded."""
+    assert tuple(cpn.__all__) == EXPECTED_EXPORTS
+    assert tuple(getattr(cpn, name).__name__ for name in EXPECTED_EXPORTS) == (
+        EXPECTED_EXPORTS
+    )

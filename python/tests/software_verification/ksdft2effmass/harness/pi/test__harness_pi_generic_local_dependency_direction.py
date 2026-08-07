@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of harness pi generic local dependency direction.
+
+Facet and represented meaning
 Software verification of the generic-to-local dependency prohibition; no physical model,
 mathematics, or numerical representation is involved.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The primary owner is the generic/local dependency-direction artifact. Accepted H1
 direction rules and H3 generic/local manifests are independent oracles.
 
@@ -16,6 +18,7 @@ from __future__ import annotations
 import ast
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -49,15 +52,24 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
         "ksdft2effmass.operators",
         "ksdft2effmass.workflows",
     )
-    for path in Path("python/src/ksdft2effmass/harness/pi").glob("*.py"):
+
+    def exercise_path_case_54_2(path: Any) -> Any:
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         targets: list[str] = []
-        for node in ast.walk(tree):
+
+        def exercise_node_case_57_1(node: Any) -> Any:
             if isinstance(node, ast.Import):
                 targets.extend(alias.name for alias in node.names)
             elif isinstance(node, ast.ImportFrom) and node.module:
                 targets.append(node.module)
+
+        _ = [exercise_node_case_57_1(node) for node in ast.walk(tree)]
         assert not any(target.startswith(prohibited) for target in targets), path
+
+    _ = [
+        exercise_path_case_54_2(path)
+        for path in (Path("python/src/ksdft2effmass/harness/pi").glob("*.py"))
+    ]
 
 
 def test_artifact__generic_resources__contain_no_project_local_identifiers() -> None:

@@ -176,6 +176,7 @@ REQUIRED_TOOL_FIELDS = {
 }
 EXPECTED_SKILL_NAMES = {
     "graphify",
+    "inspect-task-state",
     "resolve-human-checkpoint",
     "recommend-next-task",
     "design-data-action-objects",

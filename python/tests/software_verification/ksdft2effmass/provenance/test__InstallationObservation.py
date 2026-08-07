@@ -47,6 +47,26 @@ PUBLIC_FIELDS = (
     "environment_record_id",
     "provenance_id",
 )
+FROZEN_FIELDS = (
+    "installation_id",
+    "specification_id",
+    "tool_id",
+    "observed_version",
+    "executable_or_package_id",
+    "executable_sha256",
+    "environment_record_id",
+    "provenance_id",
+)
+EQUALITY_FIELDS = (
+    "installation_id",
+    "specification_id",
+    "tool_id",
+    "observed_version",
+    "executable_or_package_id",
+    "executable_sha256",
+    "environment_record_id",
+    "provenance_id",
+)
 
 
 def make_installation_observation(**overrides: Any) -> InstallationObservation:

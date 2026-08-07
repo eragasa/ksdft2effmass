@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ContractValue``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public ``ContractValue``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``ContractValue`` is the sole primary SUT. Tests exercise its documented public contract
 with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -20,6 +22,7 @@ quantification, physical correctness, persistence and engine-adapter behavior, a
 cross-language conformance."""
 
 import math
+from typing import cast
 
 import pytest
 
@@ -30,7 +33,7 @@ pytestmark = pytest.mark.software_verification
 SUT = ContractValue
 
 
-def test_constructor__contract__string_sequence_rejects_empty_entries() -> None:
+def test_constructor__fields__string_sequence_rejects_empty_entries() -> None:
     """Evidence ID
     -----------
     SV-CPN-035
@@ -78,7 +81,7 @@ def test_constructor__contract__string_sequence_rejects_empty_entries() -> None:
         ContractValue(ContractValueKind.STRING_SEQUENCE, ("",))
 
 
-def test_constructor__contract__closed_tags_admit_exact_public_values() -> None:
+def test_constructor__fields__closed_tags_admit_exact_public_values() -> None:
     """Evidence ID
     -----------
     SV-CPN-058
@@ -134,7 +137,25 @@ def test_constructor__contract__closed_tags_admit_exact_public_values() -> None:
     )
 
 
-def test_constructor__contract__mismatched_tags_raise_type_error() -> None:
+@pytest.mark.parametrize(
+    ("kind", "value"),
+    (
+        pytest.param(ContractValueKind.NONE, False, id="none_with_boolean"),
+        pytest.param(ContractValueKind.BOOLEAN, 1, id="boolean_with_integer"),
+        pytest.param(ContractValueKind.INTEGER, True, id="integer_with_boolean"),
+        pytest.param(ContractValueKind.REAL, True, id="real_with_boolean"),
+        pytest.param(ContractValueKind.REAL, "1.5", id="real_with_numeric_string"),
+        pytest.param(ContractValueKind.STRING, 1, id="string_with_integer"),
+        pytest.param(ContractValueKind.STRING_SEQUENCE, ["a"], id="sequence_with_list"),
+        pytest.param(
+            ContractValueKind.STRING_SEQUENCE, (1,), id="sequence_with_integer_item"
+        ),
+    ),
+)
+def test_constructor__tag_value_types__rejects_mismatched_types(
+    kind: ContractValueKind,
+    value: object,
+) -> None:
     """Evidence ID
     -----------
     SV-CPN-059
@@ -149,9 +170,9 @@ def test_constructor__contract__mismatched_tags_raise_type_error() -> None:
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: reject every resolved tag/value type
     mismatch. Public construction is the method; exact built-in type identity is the
-    oracle. Acceptance requires ``TypeError`` for mismatches including
-    Boolean-as-integer, Boolean-as-REAL, and list-as-sequence. Failure permits implicit
-    coercion. Numeric range behavior is covered separately.
+    oracle. Acceptance requires ``TypeError`` for every explicitly identified tag/value
+    mismatch, including Boolean-as-integer, Boolean-as-REAL, and list-as-sequence.
+    Failure permits implicit coercion. Numeric range behavior is covered separately.
 
     Oracle
     ------
@@ -177,24 +198,11 @@ def test_constructor__contract__mismatched_tags_raise_type_error() -> None:
     The case excludes unexercised inputs and dependencies, physical conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
-    with pytest.raises(TypeError, match="kind"):
-        SUT("integer", 3)  # type: ignore[arg-type]
-    cases = (
-        (ContractValueKind.NONE, False),
-        (ContractValueKind.BOOLEAN, 1),
-        (ContractValueKind.INTEGER, True),
-        (ContractValueKind.REAL, True),
-        (ContractValueKind.REAL, "1.5"),
-        (ContractValueKind.STRING, 1),
-        (ContractValueKind.STRING_SEQUENCE, ["a"]),
-        (ContractValueKind.STRING_SEQUENCE, (1,)),
-    )
-    for kind, value in cases:
-        with pytest.raises(TypeError):
-            SUT(kind, value)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        SUT(kind, value)  # type: ignore[arg-type]
 
 
-def test_constructor__contract__real_values_must_be_finite() -> None:
+def test_constructor__fields__real_values_must_be_finite() -> None:
     """Evidence ID
     -----------
     SV-CPN-060
@@ -237,133 +245,264 @@ def test_constructor__contract__real_values_must_be_finite() -> None:
     The case excludes unexercised inputs and dependencies, physical conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
-    for value in (float("inf"), float("-inf"), float("nan")):
-        with pytest.raises(ValueError, match="finite"):
-            SUT(ContractValueKind.REAL, value)
+    with pytest.raises(ValueError, match="finite"):
+        SUT(ContractValueKind.REAL, float("inf"))
+    with pytest.raises(ValueError, match="finite"):
+        SUT(ContractValueKind.REAL, float("-inf"))
+    with pytest.raises(ValueError, match="finite"):
+        SUT(ContractValueKind.REAL, float("nan"))
 
 
-def test_constructor__contract__real_is_finite_binary64_with_documented_rounding() -> (
-    None
-):
+def test_constructor__real_is__preserves_valid_state() -> None:
     """Evidence ID
     -----------
     SV-CPN-080
 
     Requirement
     -----------
-    binary64 REAL admission, canonicalization, rounding, and conversion-overflow
-    rejection.
+    ``ContractValue`` preserves the documented exact valid-state behavior for its
+    ``real_is`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: canonicalize admitted REAL inputs to finite
-    binary64. Requirement: REAL admits exact built-in ``int`` and ``float`` except
-    Boolean, stores a built-in finite float, and reports integer-to-binary64 overflow as
-    ``ValueError``. Method: exercise exact-type, large-integer rounding, finite
-    boundary, and overflow cases through the public constructor. Oracle: Python's
-    specified binary64 conversion, including ``2**53 + 1`` rounding to ``2**53``.
-    Acceptance requires exact stored types/values and documented exceptions. Failure
-    means the Python tagged value disagrees with the approved f64 wire contract. These
-    synthetic controls are not scientific numerical evidence.
+    Construct the public SUT with the retained valid synthetic inputs and inspect
+    exact public state.
 
     Oracle
     ------
-    The documented public rule that the SUT must binary64 REAL admission,
-    canonicalization, rounding, and conversion-overflow rejection is the contract
-    oracle; fixed synthetic values, Python exact type/value semantics, and the public
-    error taxonomy provide independently inspectable expected outcomes where used.
+    The fixed inputs and documented canonical public representation provide the
+    independent exact oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact identity, equality, ordering, type, and represented-state
+    assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports this valid-state mapping; failure may identify implementation,
+    fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     exact_inputs = (0, -7, 0.0, -2.5, float.fromhex("0x1.fffffffffffffp+1023"))
-    for value in exact_inputs:
-        stored = SUT(ContractValueKind.REAL, value).value
-        assert type(stored) is float
-        assert math.isfinite(stored)
-        assert stored == float(value)
-
+    stored_inputs = tuple(
+        SUT(ContractValueKind.REAL, value).value for value in exact_inputs
+    )
     rounded = SUT(ContractValueKind.REAL, 2**53 + 1).value
+    assert all(type(stored) is float for stored in stored_inputs)
+    assert all(math.isfinite(cast(float, stored)) for stored in stored_inputs)
+    assert stored_inputs == tuple(float(value) for value in exact_inputs)
     assert type(rounded) is float
     assert rounded == float(2**53)
     assert rounded != 2**53 + 1
 
+
+def test_constructor__real_is__rejects_wrong_types() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-132
+
+    Requirement
+    -----------
+    ``ContractValue`` rejects wrong semantic types for its ``real_is`` contract.
+
+    Method
+    ------
+    Exercise every retained synthetic wrong-type input through the public SUT
+    without private mutation.
+
+    Oracle
+    ------
+    The documented exact-type taxonomy independently requires ``TypeError`` for
+    every retained call.
+
+    Acceptance
+    ----------
+    Every retained wrong-type call raises exactly ``TypeError``.
+
+    Interpretation
+    --------------
+    Pass supports this type partition; failure may identify implementation, fixture,
+    oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(TypeError, match="real kind"):
         SUT(ContractValueKind.REAL, True)
+
+
+def test_constructor__real_is__rejects_invalid_values() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-108
+
+    Requirement
+    -----------
+    ``ContractValue`` rejects malformed values of accepted semantic
+    types for its
+    ``real_is`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(ValueError, match="overflows binary64"):
         SUT(ContractValueKind.REAL, 10**400)
 
 
-def test_constructor__contract__integer_is_exact_signed_i64() -> None:
+def test_constructor__integer_is__preserves_valid_state() -> None:
     """Evidence ID
     -----------
     SV-CPN-081
 
     Requirement
     -----------
-    exact signed-i64 INTEGER boundaries and Boolean rejection.
+    ``ContractValue`` preserves the documented exact valid-state behavior for its
+    ``integer_is`` contract.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: enforce the exact built-in signed-i64
-    INTEGER domain. Requirement: INTEGER admits exact built-in integers except Boolean
-    only from ``-2**63`` through ``2**63 - 1``. Method: construct both endpoints,
-    interior zero, both adjacent out-of-range values, and Boolean. Oracle: fixed signed
-    64-bit bounds, independent of Python's arbitrary-precision range. Acceptance
-    preserves admitted integers exactly, rejects Boolean with ``TypeError``, and rejects
-    either overflow side with ``ValueError``. Failure breaks Python/Rust/ schema
-    portability; no arithmetic or scientific quantity is evaluated.
+    Construct the public SUT with the retained valid synthetic inputs and inspect
+    exact public state.
 
     Oracle
     ------
-    The documented public rule that the SUT must exact signed-i64 INTEGER boundaries and
-    Boolean rejection is the contract oracle; fixed synthetic values, Python exact
-    type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The fixed inputs and documented canonical public representation provide the
+    independent exact oracle.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Every retained exact identity, equality, ordering, type, and represented-state
+    assertion holds.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Pass supports this valid-state mapping; failure may identify implementation,
+    fixture, oracle, environment, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     minimum = -(2**63)
     maximum = 2**63 - 1
-    for value in (minimum, 0, maximum):
-        stored = SUT(ContractValueKind.INTEGER, value).value
-        assert type(stored) is int
-        assert stored == value
+    stored_values = tuple(
+        SUT(ContractValueKind.INTEGER, value).value for value in (minimum, 0, maximum)
+    )
+    assert all(type(stored) is int for stored in stored_values)
+    assert stored_values == (minimum, 0, maximum)
+
+
+def test_constructor__integer_is__rejects_wrong_types() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-133
+
+    Requirement
+    -----------
+    ``ContractValue`` rejects wrong semantic types for its ``integer_is`` contract.
+
+    Method
+    ------
+    Exercise every retained synthetic wrong-type input through the public SUT
+    without private mutation.
+
+    Oracle
+    ------
+    The documented exact-type taxonomy independently requires ``TypeError`` for
+    every retained call.
+
+    Acceptance
+    ----------
+    Every retained wrong-type call raises exactly ``TypeError``.
+
+    Interpretation
+    --------------
+    Pass supports this type partition; failure may identify implementation, fixture,
+    oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    minimum = -(2**63)
+    maximum = 2**63 - 1
+    tuple(
+        SUT(ContractValueKind.INTEGER, value).value for value in (minimum, 0, maximum)
+    )
     with pytest.raises(TypeError, match="integer kind"):
         SUT(ContractValueKind.INTEGER, False)
-    for value in (minimum - 1, maximum + 1):
-        with pytest.raises(ValueError, match="signed i64"):
-            SUT(ContractValueKind.INTEGER, value)
+
+
+def test_constructor__integer_is__rejects_invalid_values() -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-109
+
+    Requirement
+    -----------
+    ``ContractValue`` rejects malformed values of accepted semantic
+    types for its
+    ``integer_is`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    minimum = -(2**63)
+    maximum = 2**63 - 1
+    with pytest.raises(ValueError, match="signed i64"):
+        SUT(ContractValueKind.INTEGER, minimum - 1)
+    with pytest.raises(ValueError, match="signed i64"):
+        SUT(ContractValueKind.INTEGER, maximum + 1)

@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py::test_constructor__contract__direction_selects_exactly_one_inscription",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py::test_constructor__contract__color_ids_are_nonempty_and_payload_ids_canonical",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__string_sequence_rejects_empty_entries",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__closed_tags_admit_exact_public_values",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__mismatched_tags_raise_type_error",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__real_values_must_be_finite",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__real_is_finite_binary64_with_documented_rounding",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__integer_is_exact_signed_i64",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py::test_constructor__contract__error_retains_authoritative_detail",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py::test_method__contract__complete_net_mapping_validates",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py::test_constructor__contract__detail_validates_and_canonicalizes_context",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__exact_literals_evaluate_without_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__comparison_rejects_mixed_tags",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__maximum_controls_read_copy_and_compare_as_integer",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__bound_token_fields_and_id_sequences",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__marking_preserves_multiplicity_and_order",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__marking_version_identity_and_revision_taxonomy",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__revision_uses_nonnegative_signed_i64_range",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__places_require_immutable_owner_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__accepts_complete_multiset_marking",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__wrong_complete_place_set_has_stable_code",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__unknown_color_reference_is_structured",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py::test_constructor__contract__net_requires_v1_and_canonicalizes_collections",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__routing_state__canonicalizes_and_freezes_token",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__payload_reference__requires_all_fields_or_none",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__rejects_boolean",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__required_identities__requires_exact_nonempty_strings",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__optional_identities__rejects_wrong_or_empty_values",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__requires_nonnegative_exact_integer",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__payload_schema_version__requires_nonnegative_exact_integer",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__expression_visible_controls__enforces_nonnegative_i64_range",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__identity_tuples_and_outcome__enforces_strict_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py::test_constructor__contract__issue_owns_typed_canonical_context",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py::test_constructor__contract__validity_is_exactly_issue_emptiness",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__output_token_ids__rejects_duplicates",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__transition_state__requires_typed_binding_and_identity",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_field__output_token_ids__requires_nonempty_exact_string_tuple",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__audit_fields_are_intrinsically_coherent",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__result_requires_transition_and_binding_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__previous_revision_requires_nonnegative_exact_integer",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__result_revision_boundary_is_coherent",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__audit_id_sequences_require_unique_nonempty_strings",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__produced_tokens_require_typed_unique_tuple",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py::test_constructor__contract__guard_result_requires_exact_boolean",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__guard_arity_is_enforced",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__every_guard_shape_is_publicly_constructible",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__guard_fields_reject_wrong_semantic_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py::test_constructor__contract__input_inscription_requires_typed_nonempty_patterns",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py::test_constructor__contract__output_inscription_rejects_empty_or_wrong_templates",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py::test_constructor__contract__place_requires_colors_and_canonicalizes_them",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py::test_constructor__contract__place_marking_canonicalizes_token_order",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py::test_constructor__contract__binding_requires_nonempty_exact_strings",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py::test_constructor__contract__assignment_requires_enum_and_expression",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[attempt]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[branch]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[gate]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[workflow]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__only_blocked_may_be_recoverable",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__outcome_fields_have_exact_public_types_and_identity",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py::test_constructor__contract__pattern_requires_canonical_nonempty_colors",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py::test_constructor__contract__template_requires_unique_complete_assignments",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py::test_constructor__contract__transition_binding_is_unique_and_canonical",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py::test_constructor__contract__transition_requires_identity_description_and_guard",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__contract__bindings_match_transition_and_are_unique",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__contract__enablement_container_requires_public_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__enablement_synchronizes_multiple_inputs",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__enablement_returns_deterministic_multiset_choices",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__unknown_transition_retains_structured_detail",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__invalid_marking_translates_to_structured_error",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__invalid_definition_translates_to_structured_error",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__firing_consumes_reads_produces_and_revises",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__maximum_revision_returns_structured_overflow",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__output_count_and_collision_are_structured",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__binding_is_explicit_and_current",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__terminal_failure_is_read_for_retry_and_retained",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__terminal_consume_is_rejected",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__recoverable_blocked_token_can_be_consumed",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__firer_rejects_wrong_public_argument_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__expression_union_rejects_lambda_like_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__every_expression_union_branch_is_constructible",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__expression_fields_enforce_exact_semantic_types",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py::test_artifact__import_dependency_direction__follows_approved_layers",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py::test_artifact__snakes_isolation__excludes_deferred_engine_scope",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_json_fixtures__conform_to_declared_schemas",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__structural_invalid_json_fixtures__are_rejected",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__json_schemas__satisfy_draft_2020_12_metaschema",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__schema_entry_points__resolve_locally_and_match_public_enums",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__numeric_wire_contract__matches_python_runtime",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__control_field_bounds__match_python_runtime"
+  ],
+  "expected_new_node_ids": [
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py::test_constructor__fields__direction_selects_exactly_one_inscription",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py::test_constructor__color_ids__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__fields__string_sequence_rejects_empty_entries",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__fields__closed_tags_admit_exact_public_values",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__tag_value_types__rejects_mismatched_types[none_with_boolean]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__fields__real_values_must_be_finite",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__real_is__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__integer_is__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py::test_constructor__fields__error_retains_authoritative_detail",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py::test_method__execute__complete_net_mapping_validates",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py::test_constructor__detail_validates__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_guard__exact_literals_evaluate_without_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_guard__comparison_rejects_mixed_tags",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_value__routes_maximum_controls_as_integer",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_value__returns_bound_token_field",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__fields__marking_preserves_multiplicity_and_order",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__marking_version__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__fields__revision_uses_nonnegative_signed_i64_range",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__fields__places_require_immutable_owner_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__execute__accepts_complete_multiset_marking",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__execute__wrong_complete_place_set_has_stable_code",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__execute__unknown_color_reference_is_structured",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py::test_constructor__net_requires__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__routing_state__canonicalizes_and_freezes_token",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__payload_reference__requires_all_fields_or_none",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__rejects_boolean",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__required_identities__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__optional_identities__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__payload_schema_version__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__expression_visible_controls__enforces_nonnegative_i64_range",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__identity_tuples_and_outcome__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py::test_constructor__issue_owns__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py::test_constructor__fields__validity_is_exactly_issue_emptiness",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__output_token_ids__rejects_duplicates",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__transition_state__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_field__output_token_ids__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__fields__audit_fields_are_intrinsically_coherent",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__result_requires__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__previous_revision__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__fields__result_revision_boundary_is_coherent",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__audit_id_sequence_types__rejects_wrong_types[consumed_list_wrong_type]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__produced_tokens__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py::test_constructor__fields__guard_result_requires_exact_boolean",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__fields__guard_arity_is_enforced",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__fields__every_guard_shape_is_publicly_constructible",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__fields__guard_fields_reject_wrong_semantic_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py::test_constructor__input_inscription__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py::test_constructor__output_inscription__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py::test_constructor__place_requires__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py::test_constructor__place_marking__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py::test_constructor__binding_requires__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py::test_constructor__fields__assignment_requires_enum_and_expression",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[attempt_accepted]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[branch_accepted]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[gate_accepted]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[workflow_accepted]",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__only_blocked_may_be_recoverable",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__outcome_fields__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py::test_constructor__pattern_requires__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py::test_constructor__fields__template_requires_unique_complete_assignments",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py::test_constructor__transition_binding__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py::test_constructor__transition_requires__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__fields__bindings_match_transition_and_are_unique",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__enablement_container__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__enablement_synchronizes_multiple_inputs",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__enablement_returns_deterministic_multiset_choices",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__unknown_transition_retains_structured_detail",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__invalid_marking_translates_to_structured_error",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__invalid_definition_translates_to_structured_error",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__firing_consumes_reads_produces_and_revises",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__maximum_revision_returns_structured_overflow",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__output_count_and_collision_are_structured",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__binding_is_explicit_and_current",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__terminal_failure_is_read_for_retry_and_retained",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__terminal_consume_is_rejected",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__recoverable_blocked_token_can_be_consumed",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__firer_rejects_wrong_public_argument_types",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__expression_union__preserves_valid_state",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__fields__every_expression_union_branch_is_constructible",
+    "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__expression_fields__rejects_wrong_types",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py::test_artifact__import_dependency_direction__follows_approved_layers",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py::test_artifact__snakes_isolation__excludes_deferred_engine_scope",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_json_fixtures__conform_to_declared_schemas[minimal_net]",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__structural_invalid_json_fixtures__are_rejected[invalid_outcome_terminality]",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__definition_relational_fixtures__reach_public_issue_code[unknown_color]",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__json_schemas__satisfy_draft_2020_12_metaschema",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__schema_entry_points__resolve_valid_fixtures_locally[net_entry_point]",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__integer_wire_runtime_agreement__accepts_signed_i64[minimum_i64]",
+    "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__control_field_bounds__accepts_inclusive_signed_i64[minimum_control]"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py::test_constructor__contract__direction_selects_exactly_one_inscription",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py::test_constructor__fields__direction_selects_exactly_one_inscription"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py::test_constructor__contract__color_ids_are_nonempty_and_payload_ids_canonical",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py::test_constructor__color_ids__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__string_sequence_rejects_empty_entries",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__fields__string_sequence_rejects_empty_entries"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__closed_tags_admit_exact_public_values",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__fields__closed_tags_admit_exact_public_values"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__mismatched_tags_raise_type_error",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__tag_value_types__rejects_mismatched_types[none_with_boolean]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__real_values_must_be_finite",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__fields__real_values_must_be_finite"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__real_is_finite_binary64_with_documented_rounding",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__real_is__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__contract__integer_is_exact_signed_i64",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py::test_constructor__integer_is__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py::test_constructor__contract__error_retains_authoritative_detail",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py::test_constructor__fields__error_retains_authoritative_detail"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py::test_method__contract__complete_net_mapping_validates",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py::test_method__execute__complete_net_mapping_validates"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py::test_constructor__contract__detail_validates_and_canonicalizes_context",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py::test_constructor__detail_validates__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__exact_literals_evaluate_without_state",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_guard__exact_literals_evaluate_without_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__comparison_rejects_mixed_tags",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_guard__comparison_rejects_mixed_tags"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__maximum_controls_read_copy_and_compare_as_integer",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_value__routes_maximum_controls_as_integer"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__contract__bound_token_fields_and_id_sequences",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py::test_method__evaluate_value__returns_bound_token_field"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__marking_preserves_multiplicity_and_order",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__fields__marking_preserves_multiplicity_and_order"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__marking_version_identity_and_revision_taxonomy",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__marking_version__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__revision_uses_nonnegative_signed_i64_range",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__fields__revision_uses_nonnegative_signed_i64_range"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__contract__places_require_immutable_owner_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py::test_constructor__fields__places_require_immutable_owner_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__accepts_complete_multiset_marking",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__execute__accepts_complete_multiset_marking"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__wrong_complete_place_set_has_stable_code",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__execute__wrong_complete_place_set_has_stable_code"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__contract__unknown_color_reference_is_structured",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py::test_method__execute__unknown_color_reference_is_structured"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py::test_constructor__contract__net_requires_v1_and_canonicalizes_collections",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py::test_constructor__net_requires__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__routing_state__canonicalizes_and_freezes_token",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__routing_state__canonicalizes_and_freezes_token"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__payload_reference__requires_all_fields_or_none",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__payload_reference__requires_all_fields_or_none"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__rejects_boolean",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__rejects_boolean"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__required_identities__requires_exact_nonempty_strings",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__required_identities__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__optional_identities__rejects_wrong_or_empty_values",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__optional_identities__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__requires_nonnegative_exact_integer",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__iteration_index__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__payload_schema_version__requires_nonnegative_exact_integer",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__payload_schema_version__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__expression_visible_controls__enforces_nonnegative_i64_range",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_field__expression_visible_controls__enforces_nonnegative_i64_range"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__identity_tuples_and_outcome__enforces_strict_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py::test_constructor__identity_tuples_and_outcome__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py::test_constructor__contract__issue_owns_typed_canonical_context",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py::test_constructor__issue_owns__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py::test_constructor__contract__validity_is_exactly_issue_emptiness",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py::test_constructor__fields__validity_is_exactly_issue_emptiness"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__output_token_ids__rejects_duplicates",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__output_token_ids__rejects_duplicates"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__transition_state__requires_typed_binding_and_identity",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_constructor__transition_state__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_field__output_token_ids__requires_nonempty_exact_string_tuple",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py::test_field__output_token_ids__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__audit_fields_are_intrinsically_coherent",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__fields__audit_fields_are_intrinsically_coherent"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__result_requires_transition_and_binding_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__result_requires__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__previous_revision_requires_nonnegative_exact_integer",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__previous_revision__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__result_revision_boundary_is_coherent",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__fields__result_revision_boundary_is_coherent"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__audit_id_sequences_require_unique_nonempty_strings",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__audit_id_sequence_types__rejects_wrong_types[consumed_list_wrong_type]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__contract__produced_tokens_require_typed_unique_tuple",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py::test_constructor__produced_tokens__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py::test_constructor__contract__guard_result_requires_exact_boolean",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py::test_constructor__fields__guard_result_requires_exact_boolean"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__guard_arity_is_enforced",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__fields__guard_arity_is_enforced"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__every_guard_shape_is_publicly_constructible",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__fields__every_guard_shape_is_publicly_constructible"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__contract__guard_fields_reject_wrong_semantic_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py::test_constructor__fields__guard_fields_reject_wrong_semantic_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py::test_constructor__contract__input_inscription_requires_typed_nonempty_patterns",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py::test_constructor__input_inscription__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py::test_constructor__contract__output_inscription_rejects_empty_or_wrong_templates",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py::test_constructor__output_inscription__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py::test_constructor__contract__place_requires_colors_and_canonicalizes_them",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py::test_constructor__place_requires__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py::test_constructor__contract__place_marking_canonicalizes_token_order",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py::test_constructor__place_marking__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py::test_constructor__contract__binding_requires_nonempty_exact_strings",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py::test_constructor__binding_requires__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py::test_constructor__contract__assignment_requires_enum_and_expression",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py::test_constructor__fields__assignment_requires_enum_and_expression"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[attempt]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[attempt_accepted]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[branch]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[branch_accepted]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[gate]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[gate_accepted]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__scoped_terminal_outcomes_are_reachable[workflow]",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__scoped_terminal_outcomes_are_reachable[workflow_accepted]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__only_blocked_may_be_recoverable",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__fields__only_blocked_may_be_recoverable"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__contract__outcome_fields_have_exact_public_types_and_identity",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py::test_constructor__outcome_fields__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py::test_constructor__contract__pattern_requires_canonical_nonempty_colors",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py::test_constructor__pattern_requires__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py::test_constructor__contract__template_requires_unique_complete_assignments",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py::test_constructor__fields__template_requires_unique_complete_assignments"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py::test_constructor__contract__transition_binding_is_unique_and_canonical",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py::test_constructor__transition_binding__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py::test_constructor__contract__transition_requires_identity_description_and_guard",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py::test_constructor__transition_requires__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__contract__bindings_match_transition_and_are_unique",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__fields__bindings_match_transition_and_are_unique"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__contract__enablement_container_requires_public_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py::test_constructor__enablement_container__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__enablement_synchronizes_multiple_inputs",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__enablement_synchronizes_multiple_inputs"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__enablement_returns_deterministic_multiset_choices",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__enablement_returns_deterministic_multiset_choices"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__unknown_transition_retains_structured_detail",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__unknown_transition_retains_structured_detail"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__invalid_marking_translates_to_structured_error",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__invalid_marking_translates_to_structured_error"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__contract__invalid_definition_translates_to_structured_error",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py::test_method__execute__invalid_definition_translates_to_structured_error"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__firing_consumes_reads_produces_and_revises",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__firing_consumes_reads_produces_and_revises"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__maximum_revision_returns_structured_overflow",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__maximum_revision_returns_structured_overflow"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__output_count_and_collision_are_structured",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__output_count_and_collision_are_structured"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__binding_is_explicit_and_current",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__binding_is_explicit_and_current"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__terminal_failure_is_read_for_retry_and_retained",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__terminal_failure_is_read_for_retry_and_retained"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__terminal_consume_is_rejected",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__terminal_consume_is_rejected"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__recoverable_blocked_token_can_be_consumed",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__recoverable_blocked_token_can_be_consumed"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__contract__firer_rejects_wrong_public_argument_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py::test_method__execute__firer_rejects_wrong_public_argument_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__expression_union_rejects_lambda_like_state",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__expression_union__preserves_valid_state"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__every_expression_union_branch_is_constructible",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__fields__every_expression_union_branch_is_constructible"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__contract__expression_fields_enforce_exact_semantic_types",
+      "new_node_id": "tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py::test_constructor__expression_fields__rejects_wrong_types"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py::test_artifact__import_dependency_direction__follows_approved_layers",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py::test_artifact__import_dependency_direction__follows_approved_layers"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py::test_artifact__snakes_isolation__excludes_deferred_engine_scope",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py::test_artifact__snakes_isolation__excludes_deferred_engine_scope"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_json_fixtures__conform_to_declared_schemas",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__valid_json_fixtures__conform_to_declared_schemas[minimal_net]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__structural_invalid_json_fixtures__are_rejected",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__structural_invalid_json_fixtures__are_rejected[invalid_outcome_terminality]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__relational_invalid_json_fixtures__reach_public_runtime_oracles",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py::test_artifact__definition_relational_fixtures__reach_public_issue_code[unknown_color]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__json_schemas__satisfy_draft_2020_12_metaschema",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__json_schemas__satisfy_draft_2020_12_metaschema"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__schema_entry_points__resolve_locally_and_match_public_enums",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__schema_entry_points__resolve_valid_fixtures_locally[net_entry_point]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__numeric_wire_contract__matches_python_runtime",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__integer_wire_runtime_agreement__accepts_signed_i64[minimum_i64]"
+    },
+    {
+      "old_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__control_field_bounds__match_python_runtime",
+      "new_node_id": "tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py::test_artifact__control_field_bounds__accepts_inclusive_signed_i64[minimum_control]"
+    }
+  ]
+}

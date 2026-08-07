@@ -517,6 +517,7 @@ their owning records:
 | DataObject/ActionObject design | `.pi/skills/design-data-action-objects/SKILL.md` |
 | Operator records | `.pi/skills/develop-operator-records/SKILL.md` |
 | Next-task recommendation | `.pi/skills/recommend-next-task/SKILL.md` |
+| Bounded inspection of one exact selected task | `.pi/skills/inspect-task-state/SKILL.md` |
 | Explicitly requested Graphify use | `.agents/skills/graphify/SKILL.md` |
 
 Task- and subsystem-specific rules belong in the applicable task, skill,

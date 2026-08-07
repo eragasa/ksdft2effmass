@@ -148,18 +148,22 @@ need documentation only when it improves understanding.
 Graphify role
 -------------
 
-Graphify is optional repository intelligence. It can help agents understand
-package topology, locate related objects and tests, inspect dependency or impact
-questions, and support next-task candidate discovery. Its outputs are derived
-and may be stale or incomplete. Graphify cannot approve architecture, establish
-scientific validity, launch implementation work, or supersede human decisions,
-task records, specifications, source, tests, fixtures, or human-reviewed
-documentation.
+Graphify is optional, manually invoked repository intelligence. Agents run it
+only when the human explicitly requests Graphify; ordinary topology, dependency,
+impact, navigation, and next-task questions do not trigger it. The project uses
+the validated local executable at ``$HOME/.local/bin/graphify`` directly and
+does not auto-install, upgrade, discover fallbacks, rebuild after edits, or
+select semantic backends. Graphify commands receive a sanitized environment that
+removes known backend keys, confines output to ``graphify-out/``, and disables
+the external query log. Its outputs are derived and may be stale or incomplete.
+Graphify cannot approve architecture, establish scientific validity, launch
+implementation work, or supersede human decisions, task records, specifications,
+source, tests, fixtures, or human-reviewed documentation.
 
-Remote semantic processing, API-key configuration, hooks, global skill changes,
-and committing generated graph artifacts require explicit human approval.
-Generated ``graphify-out/`` artifacts are locally persistent and ignored unless a
-curated report receives separate human review.
+Remote semantic processing, API-key configuration, hooks, watchers, servers,
+global skill changes, and committing generated graph artifacts require explicit
+human approval. Generated ``graphify-out/`` artifacts are locally persistent and
+ignored unless a curated report receives separate human review.
 
 New-session state reconstruction
 --------------------------------
@@ -177,9 +181,10 @@ The ``recommend-next-task`` skill is designed to work without chat history. It i
 invoked only when no task or checkpoint remains active and the human asks for a
 planning transition. It reconstructs state from ``AGENTS.md``, checkpoint and
 task records, chains, skills, agents, source, tests, specifications,
-documentation, integration-review evidence, and version-control status. Graphify
-may accelerate broad topology questions, but any graph-derived conclusion must
-be verified against authoritative files before it affects a recommendation.
+documentation, integration-review evidence, and version-control status. It does
+not invoke Graphify unless the human explicitly requests a separate Graphify
+operation. Any conclusion taken from an existing graph artifact must be verified
+against authoritative files before it affects a recommendation.
 
 H4 local harness routing
 ------------------------

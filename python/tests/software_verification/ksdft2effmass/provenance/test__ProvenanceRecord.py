@@ -348,7 +348,8 @@ def test_method__eq__includes_all_provenance_links() -> None:
     """Evidence ID
     SV-PROV-100
     Requirement
-    ProvenanceRecord equality is exact over all four represented fields.
+    ProvenanceRecord equality distinguishes otherwise equal records when the artifact
+    relation tuple differs.
     Method
     Compare equal public values and one value with a different artifact tuple.
     Oracle

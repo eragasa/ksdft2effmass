@@ -49,7 +49,7 @@ CURRENT_LOCAL_REPLAY_PATH = Path(
 )
 CURRENT_LOCAL_CHECK_IDS = {
     "current-architecture-decision-cases",
-    "current-eight-skill-capabilities",
+    "current-skill-capabilities",
     "current-h3-resources",
 }
 PAIR_CLASSIFICATIONS = {

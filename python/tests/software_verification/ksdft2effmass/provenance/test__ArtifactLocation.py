@@ -408,7 +408,8 @@ def test_method__eq__includes_tag_and_branch_payload() -> None:
     """Evidence ID
     SV-PROV-092
     Requirement
-    ArtifactLocation equality is exact over the discriminator and all branch fields.
+    ArtifactLocation equality distinguishes otherwise equal values using different
+    branch discriminators and payloads.
     Method
     Compare two equal root-relative values and a distinct external value.
     Oracle

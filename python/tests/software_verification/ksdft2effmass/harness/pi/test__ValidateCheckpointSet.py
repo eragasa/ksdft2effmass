@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ValidateCheckpointSet``.
+
+Facet and represented meaning
 Software verification of the public ``ValidateCheckpointSet`` surface; no physical
 model, mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``ValidateCheckpointSet``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
@@ -75,7 +77,7 @@ def test_method__execute_valid_and_invalid__returns_exact_partition() -> None:
 
     root = Path(__file__).resolve().parents[6]
 
-    def load(kind, name):
+    def load(kind: WireRecordKind, name: str) -> object:
         result = DeserializeJsonRecord().execute(
             kind, (root / f"harness/pi/fixtures/valid/{name}.json").read_bytes()
         )

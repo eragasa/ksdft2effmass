@@ -1,11 +1,13 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``CpnExpressionEvaluator``.
+
+Facet and represented meaning
 --------------------------------------
 This module provides software-verification evidence for the public
 ``CpnExpressionEvaluator`` software surface and its finite, exact CPN routing
 representation. It does not represent a physical observable or numerical approximation.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 ``CpnExpressionEvaluator`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
 error-taxonomy rules provide the independent oracles. Collaborators only construct
@@ -46,9 +48,7 @@ SUT = CpnExpressionEvaluator
 def literal(kind: ContractValueKind, value: object) -> ValueExpression:
     """Evidence ID
     -----------
-    This helper supports exactly SV-CPN-008, SV-CPN-009 and owns no independent evidence
-    ID.
-
+    Owns no identifier; supports SV-CPN-008, SV-CPN-009.
     Requirement
     -----------
     Provide explicit synthetic setup or assertion mechanics without creating an
@@ -87,7 +87,7 @@ def literal(kind: ContractValueKind, value: object) -> ValueExpression:
     )
 
 
-def test_method__contract__exact_literals_evaluate_without_state() -> None:
+def test_method__evaluate_guard__exact_literals_evaluate_without_state() -> None:
     """Evidence ID
     -----------
     SV-CPN-008
@@ -145,7 +145,7 @@ def test_method__contract__exact_literals_evaluate_without_state() -> None:
     assert CpnExpressionEvaluator().evaluate_guard(guard, binding, marking).value
 
 
-def test_method__contract__comparison_rejects_mixed_tags() -> None:
+def test_method__evaluate_guard__comparison_rejects_mixed_tags() -> None:
     """Evidence ID
     -----------
     SV-CPN-009
@@ -205,55 +205,44 @@ def test_method__contract__comparison_rejects_mixed_tags() -> None:
         )
 
 
-def test_method__contract__maximum_controls_read_copy_and_compare_as_integer(
+def make_maximum_control_context(
     executable_net: CpnNetDefinition,
-) -> None:
+) -> tuple[
+    CpnExpressionEvaluator,
+    TransitionBinding,
+    CpnMarking,
+    tuple[tuple[ValueExpression, ValueExpression], ...],
+    ContractValue,
+]:
     """Evidence ID
     -----------
-    SV-CPN-085
-
+    Owns no identifier; supports SV-CPN-085, SV-CPN-168.
     Requirement
     -----------
-    maximum expression-visible controls read and copy through INTEGER.
+    Provide maximum-control expression setup without an independent evidence claim.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: route maximum control values through
-    INTEGER expressions. Requirement: expression evaluation can read, copy, and compare
-    every valid expression-visible control at ``2**63 - 1`` without an unsigned value
-    kind or arithmetic advancement. Method: replace both independently valid input
-    tokens' iteration and payload-version controls, evaluate field reads and equality,
-    and inspect the copied public tagged values. Oracle: exact signed-i64 endpoint and
-    identity-copy semantics. Acceptance returns INTEGER-tagged maxima and ``True``.
-    Failure means valid routing state is not expression-visible. Repeating the value is
-    deliberate nonarithmetic routing, not scientific iteration evidence.
+    Replace both synthetic tokens' expression-visible controls and construct field
+    reads.
 
     Oracle
     ------
-    The documented public rule that the SUT must maximum expression-visible controls
-    read and copy through INTEGER is the contract oracle; fixed synthetic values, Python
-    exact type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The supported tests own exact value and comparison oracles; this helper owns none.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    Return the evaluator, binding, marking, expression pairs, and exact expected value.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Failure invalidates supported evaluator evidence setup.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Synthetic setup establishes no engine behavior, numerical verification, science,
+    or UQ.
+    """
     maximum = 2**63 - 1
     places = tuple(
         replace(
@@ -276,59 +265,67 @@ def test_method__contract__maximum_controls_read_copy_and_compare_as_integer(
         "execute",
         (TokenBinding("left", "work-1"), TokenBinding("right", "authorization-1")),
     )
-    evaluator = SUT()
-
-    def field(variable: str, token_field: TokenField) -> ValueExpression:
-        """Evidence ID
-        -----------
-        This helper supports exactly SV-CPN-085 and owns no independent evidence ID.
-
-        Requirement
-        -----------
-        Provide explicit synthetic setup or assertion mechanics without creating an
-        independent pass claim.
-
-        Method
-        ------
-        Construct or transform the public CPN test inputs required by the listed
-        evidence owners. Prior helper description: Construct one public field read over
-        synthetic maximum controls.
-
-        Oracle
-        ------
-        The helper has no independent oracle; each supported test owns and documents the
-        applicable contract oracle.
-
-        Acceptance
-        ----------
-        Return the exact public object or deterministic setup consumed by every listed
-        evidence owner, without swallowing exceptions or asserting a separate result.
-
-        Interpretation
-        --------------
-        A helper failure blocks or invalidates its listed evidence owners but is not an
-        independent evidence failure.
-
-        Limitations
-        -----------
-        The helper is synthetic, supports only the complete identifier list above, owns
-        no independent evidence ID, and establishes no numerical verification,
-        scientific validation, uncertainty quantification, physical meaning, or
-        cross-language conformance."""
-        return ValueExpression(
-            ValueExpressionKind.TOKEN_FIELD,
-            variable=variable,
-            field=token_field,
+    fields = (TokenField.ITERATION_INDEX, TokenField.PAYLOAD_SCHEMA_VERSION)
+    pairs = tuple(
+        (
+            ValueExpression(
+                ValueExpressionKind.TOKEN_FIELD, variable="left", field=item
+            ),
+            ValueExpression(
+                ValueExpressionKind.TOKEN_FIELD, variable="right", field=item
+            ),
         )
+        for item in fields
+    )
+    return (
+        SUT(),
+        binding,
+        marking,
+        pairs,
+        ContractValue(ContractValueKind.INTEGER, maximum),
+    )
 
-    for token_field in (TokenField.ITERATION_INDEX, TokenField.PAYLOAD_SCHEMA_VERSION):
-        left = field("left", token_field)
-        right = field("right", token_field)
-        expected = ContractValue(ContractValueKind.INTEGER, maximum)
-        assert evaluator.evaluate_value(left, binding, marking) == expected
-        assert evaluator.evaluate_value(right, binding, marking) == expected
-        comparison = GuardExpression(GuardOperator.EQUAL, left=left, right=right)
-        assert evaluator.evaluate_guard(comparison, binding, marking).value is True
+
+def test_method__evaluate_value__routes_maximum_controls_as_integer(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-085
+
+    Requirement
+    -----------
+    ``evaluate_value`` reads both maximum expression-visible controls as INTEGER values.
+
+    Method
+    ------
+    Evaluate explicit left/right field reads at ``2**63 - 1`` without warnings.
+
+    Oracle
+    ------
+    The signed-i64 maximum and identity-copy semantics fix the exact tagged value.
+
+    Acceptance
+    ----------
+    Every field read equals ``ContractValue(INTEGER, 2**63 - 1)`` exactly.
+
+    Interpretation
+    --------------
+    Failure means valid maximum routing state is not expression-visible as documented.
+
+    Limitations
+    -----------
+    Synthetic routing excludes arithmetic, engine execution, numerical verification,
+    scientific validation, UQ, persistence, and cross-language conformance.
+    """
+    evaluator, binding, marking, pairs, expected = make_maximum_control_context(
+        executable_net
+    )
+    assert all(
+        evaluator.evaluate_value(left, binding, marking) == expected
+        and evaluator.evaluate_value(right, binding, marking) == expected
+        for left, right in pairs
+    )
     assert {kind.value for kind in ContractValueKind} == {
         "none",
         "boolean",
@@ -339,7 +336,53 @@ def test_method__contract__maximum_controls_read_copy_and_compare_as_integer(
     }
 
 
-def test_method__contract__bound_token_fields_and_id_sequences(
+def test_method__evaluate_guard__compares_maximum_controls_exactly(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-168
+
+    Requirement
+    -----------
+    ``evaluate_guard`` compares equal maximum expression-visible controls exactly.
+
+    Method
+    ------
+    Evaluate explicit equality guards for both maximum control-field pairs.
+
+    Oracle
+    ------
+    Each left/right pair is fixed to the same exact signed-i64 maximum.
+
+    Acceptance
+    ----------
+    Every public guard result value is exactly ``True``.
+
+    Interpretation
+    --------------
+    Failure identifies guard comparison or controlled setup drift.
+
+    Limitations
+    -----------
+    Synthetic equality excludes arithmetic, engine execution, numerical verification,
+    scientific validation, UQ, persistence, and cross-language conformance.
+    """
+    evaluator, binding, marking, pairs, _expected = make_maximum_control_context(
+        executable_net
+    )
+    assert all(
+        evaluator.evaluate_guard(
+            GuardExpression(GuardOperator.EQUAL, left=left, right=right),
+            binding,
+            marking,
+        ).value
+        is True
+        for left, right in pairs
+    )
+
+
+def test_method__evaluate_value__returns_bound_token_field(
     executable_net: CpnNetDefinition,
 ) -> None:
     """Evidence ID
@@ -348,48 +391,119 @@ def test_method__contract__bound_token_fields_and_id_sequences(
 
     Requirement
     -----------
-    positive token-field and repeated bound-token-ID evaluation.
+    ``evaluate_value`` returns the exact field of a bound token.
 
     Method
     ------
-    Exercise the primary SUT through the public construction or operation boundary using
-    the synthetic valid and controlled-invalid inputs retained in the executable body.
-    The prior scenario documentation states: positive token-field and repeated
-    bound-token-ID evaluation. Prior requirement detail: The version-1 P1 contract
-    requires positive token-field and repeated bound-token-ID evaluation. Prior method
-    detail: Call ``evaluate_value`` for ``RUN_ID`` and ``BOUND_TOKEN_IDS`` using two
-    variables bound to ``work-1``, then request an unbound variable. Prior independent
-    oracle detail: The synthetic marking fixes run ID ``run-1``; variable order fixes
-    the repeated ID tuple ``('work-1', 'work-1')``. Prior acceptance criterion detail:
-    Exact tagged values match those oracles and the absent variable raises ``KeyError``.
-    Prior failure interpretation detail: Failure breaks field routing, ordered duplicate
-    reads, or documented lookup errors. Prior limitations detail: This does not validate
-    a scientific payload or persistence format.
+    Evaluate a public RUN_ID field expression for the synthetic ``left`` binding.
 
     Oracle
     ------
-    The documented public rule that the SUT must positive token-field and repeated
-    bound-token-ID evaluation is the contract oracle; fixed synthetic values, Python
-    exact type/value semantics, and the public error taxonomy provide independently
-    inspectable expected outcomes where used.
+    The fixture fixes the bound token run identifier to the literal ``run-1``.
 
     Acceptance
     ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
-    exception type, message, or code assertion must hold. No approximate tolerance or
-    warning is accepted unless the preserved executable case explicitly states one.
+    The result equals ``ContractValue(STRING, "run-1")`` exactly.
 
     Interpretation
     --------------
-    Pass supports only this named software contract. Failure may indicate a production
-    implementation defect, invalid synthetic fixture, oracle transcription error,
-    environment issue, or inconsistency in the documented public contract.
+    Failure identifies token lookup, field routing, fixture, or contract drift.
 
     Limitations
     -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
-    numerical verification, scientific validation, uncertainty quantification,
-    persistence and engine-adapter behavior, and cross-language conformance."""
+    Other fields, missing bindings, engine execution, science, and UQ are excluded.
+    """
+    marking = executable_net.initial_marking
+    binding = TransitionBinding(
+        "execute", (TokenBinding("left", "work-1"), TokenBinding("right", "work-1"))
+    )
+    expression = ValueExpression(
+        ValueExpressionKind.TOKEN_FIELD, variable="left", field=TokenField.RUN_ID
+    )
+    assert SUT().evaluate_value(expression, binding, marking) == ContractValue(
+        ContractValueKind.STRING, "run-1"
+    )
+
+
+def test_method__evaluate_value__preserves_bound_token_id_sequence(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-169
+
+    Requirement
+    -----------
+    ``evaluate_value`` preserves ordered repeated bound-token identifiers.
+
+    Method
+    ------
+    Evaluate a BOUND_TOKEN_IDS expression over two variables bound to one token.
+
+    Oracle
+    ------
+    Variable order fixes the exact repeated tuple ``("work-1", "work-1")``.
+
+    Acceptance
+    ----------
+    The result equals the exact STRING_SEQUENCE tagged tuple.
+
+    Interpretation
+    --------------
+    Failure identifies ordered duplicate routing or fixture drift.
+
+    Limitations
+    -----------
+    Other sequence shapes, missing bindings, engine execution, science, and UQ are
+    excluded.
+    """
+    marking = executable_net.initial_marking
+    binding = TransitionBinding(
+        "execute", (TokenBinding("left", "work-1"), TokenBinding("right", "work-1"))
+    )
+    expression = ValueExpression(
+        ValueExpressionKind.BOUND_TOKEN_IDS, variables=("left", "right")
+    )
+    assert SUT().evaluate_value(expression, binding, marking) == ContractValue(
+        ContractValueKind.STRING_SEQUENCE, ("work-1", "work-1")
+    )
+
+
+def test_method__evaluate_value__rejects_invalid_state(
+    executable_net: CpnNetDefinition,
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-142
+
+    Requirement
+    -----------
+    ``CpnExpressionEvaluator`` rejects the documented invalid state for its
+    ``evaluate_value`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     net = executable_net
     marking = net.initial_marking
     binding = TransitionBinding(
@@ -399,22 +513,15 @@ def test_method__contract__bound_token_fields_and_id_sequences(
             TokenBinding("right", "work-1"),
         ),
     )
-    field_expression = ValueExpression(
+    ValueExpression(
         ValueExpressionKind.TOKEN_FIELD,
         variable="left",
         field=TokenField.RUN_ID,
     )
     evaluator = CpnExpressionEvaluator()
-    assert evaluator.evaluate_value(
-        field_expression, binding, marking
-    ) == ContractValue(ContractValueKind.STRING, "run-1")
-    ids_expression = ValueExpression(
+    ValueExpression(
         ValueExpressionKind.BOUND_TOKEN_IDS,
         variables=("left", "right"),
-    )
-    assert evaluator.evaluate_value(ids_expression, binding, marking) == ContractValue(
-        ContractValueKind.STRING_SEQUENCE,
-        ("work-1", "work-1"),
     )
     missing_expression = ValueExpression(
         ValueExpressionKind.TOKEN_FIELD,

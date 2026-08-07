@@ -31,6 +31,23 @@ from ksdft2effmass.provenance import VerificationObservation, VerificationStatus
 SUT = VerificationObservation
 pytestmark = pytest.mark.software_verification
 
+FROZEN_FIELDS = (
+    "verification_id",
+    "installation_id",
+    "capability_id",
+    "status",
+    "evidence_artifact_ids",
+    "provenance_id",
+)
+EQUALITY_FIELDS = (
+    "verification_id",
+    "installation_id",
+    "capability_id",
+    "status",
+    "evidence_artifact_ids",
+    "provenance_id",
+)
+
 IDENTIFIER_FIELDS = (
     "verification_id",
     "installation_id",

@@ -2,7 +2,35 @@
 
 ## Status
 
-Implementation complete for Graphify integration and the E01 control-plane closeout correction. E01-F01, E01-F02, and E01-F03 were accepted on 2026-07-30. E01 is closed as accepted. Scientific validation is not applicable to this control-plane/developer-tooling task.
+Implementation complete for Graphify integration and the E01 control-plane closeout correction. E01-F01, E01-F02, and E01-F03 were accepted on 2026-07-30. A bounded post-closeout trigger-collision correction was directed on 2026-08-07; it changes routing policy but does not reopen E01 or launch another task. E01 remains closed as accepted. Scientific validation is not applicable to this control-plane/developer-tooling task.
+
+## Post-closeout trigger-collision correction
+
+Human response preserved verbatim: “resolve the skill collision”.
+
+Normalized decision: remove the overlapping automatic trigger between Graphify
+and `recommend-next-task`. `recommend-next-task` exclusively owns ordinary
+next-task questions. Graphify runs only when the current human message explicitly
+requests Graphify; ordinary topology, dependency, impact, and navigation
+questions remain normal repository-analysis requests and do not implicitly run
+Graphify. This supersedes only the earlier E01 provisions that allowed Graphify
+to be invoked automatically as optional next-task or broad-topology support.
+Graphify remains available as an explicit, local, advisory tool under the
+previous no-hook, no-external-processing, no-authority, and ignored-output
+boundaries.
+
+The correction contracts the active entry runbook to the supported local CLI
+profile. The copied upstream reference files remain retained compatibility
+snapshots but are not active procedures and are not linked from the entry skill;
+the repository policy and entry skill govern. The retained `.graphify_version`
+identifies the compatible CLI/reference version, not verbatim provenance for the
+project-specific entry skill. Read-only commands must disable Graphify 0.9.2
+query logging; structural updates are restricted to this repository's ignored
+`graphify-out/` path. During independent review, a `query --help` probe was
+interpreted by Graphify 0.9.2 as a query and appended one entry to the external
+user query log; it did not change repository files and is retained as disclosed
+partial-effect evidence rather than silently deleted. No scientific, production,
+external-execution, release, or successor-task scope is authorized.
 
 ## Decision record: Option B approved
 

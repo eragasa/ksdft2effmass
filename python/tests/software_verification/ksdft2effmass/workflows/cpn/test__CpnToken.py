@@ -1,13 +1,15 @@
-"""Software verification of ``CpnToken`` public token-state contract.
+r"""Software verification of ``CpnToken``.
 
-Evidence class and represented meaning
---------------------------------------
+Facet and represented meaning
+--------------------------------
+Software verification of ``CpnToken`` public token-state contract.
+
 Software-verification evidence covers the public ``CpnToken`` DataObject: a finite
 software representation of workflow-control token state. No physical model or
 mathematical operator is represented by these synthetic cases.
 
-Owned contract, oracle, and scope
----------------------------------
+Intrinsic and cross-object scope
+--------------------------------
 The sole primary SUT is ``CpnToken``. The owned contract comprises public constructor
 invariants, canonical stored identities, and operational immutability; its oracle is the
 documented exact token contract and Python exception taxonomy. Inputs use synthetic
@@ -39,38 +41,38 @@ SUT = CpnToken
 def test_constructor__routing_state__canonicalizes_and_freezes_token(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify canonical identity tuples and immutable token storage.
-
-    Evidence ID
+    """Evidence ID
+    -----------
     SV-CPN-001
 
     Requirement
-    Public ``CpnToken`` construction must sort provenance and parent-token identities
-    into canonical tuples, and constructed state must reject field assignment.
+    -----------
+    ``CpnToken`` preserves the exact accepted state for its
+    ``routing_state`` contract.
 
     Method
-    Construct a token through ``token_factory`` with deliberately unsorted synthetic
-    identity tuples, inspect both public fields, and attempt to assign a different
-    ``run_id``. No warnings are expected.
+    ------
+    Construct the public SUT and inspect retained exact public outcomes.
 
     Oracle
-    Exact Unicode lexical order independently fixes the two expected tuples as
-    ``('provenance-a', 'provenance-b')`` and ``('parent-a', 'parent-b')``;
-    frozen-dataclass assignment semantics require ``FrozenInstanceError``.
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact state oracle.
 
     Acceptance
-    Both fields equal the exact expected tuples and assignment raises
-    ``FrozenInstanceError``.
+    ----------
+    Every retained exact state assertion holds.
 
     Interpretation
-    A pass confirms token-owned canonicalization and operational immutability. A failure
-    may reflect constructor, fixture, language-semantics, or contract drift rather than
-    establishing a scientific defect.
+    --------------
+    Pass supports only this accepted-state partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
 
     Limitations
-    Synthetic identities do not validate referenced provenance or lineage, persistence,
-    numerical mathematics, physical correctness, scientific validation, uncertainty
-    quantification, or cross-language behavior."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     token = token_factory(
         "token-1",
         parent_run_id="parent-run",
@@ -84,6 +86,54 @@ def test_constructor__routing_state__canonicalizes_and_freezes_token(
     )
     assert token.provenance_ids == ("provenance-a", "provenance-b")
     assert token.parent_token_ids == ("parent-a", "parent-b")
+
+
+def test_constructor__routing_state__rejects_invalid_state(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-151
+
+    Requirement
+    -----------
+    ``CpnToken`` rejects the documented invalid state for its
+    ``routing_state`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    token = token_factory(
+        "token-1",
+        parent_run_id="parent-run",
+        retry_parent_attempt_id="attempt-0",
+        iteration_index=2,
+        payload_type_id="payload.type",
+        payload_id="payload-1",
+        payload_schema_version=1,
+        provenance_ids=("provenance-b", "provenance-a"),
+        parent_token_ids=("parent-b", "parent-a"),
+    )
     with pytest.raises(FrozenInstanceError):
         token.run_id = "changed"  # type: ignore[misc]
 
@@ -161,192 +211,465 @@ def test_field__iteration_index__rejects_boolean(
         token_factory("token-1", iteration_index=True)
 
 
-def test_constructor__required_identities__requires_exact_nonempty_strings(
+def test_constructor__required_identities__rejects_wrong_types(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify every required routing identity at the constructor boundary.
-
-    Evidence ID
+    """Evidence ID
+    -----------
     SV-CPN-063
 
     Requirement
-    ``token_id``, ``color_id``, ``workflow_id``, ``run_id``, and ``attempt_id`` must
-    each be exact nonempty strings.
+    -----------
+    ``CpnToken`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``required_identities`` contract.
 
     Method
-    Use ``token_factory`` to pass an integer and an empty string for the primary token
-    identity and for each named required routing field. These are controlled-invalid
-    public inputs; no warnings are expected.
+    ------
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
-    The documented identity contract independently classifies nonstrings as semantic
-    type errors and empty strings as invariant violations.
+    ------
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
-    Every integer case raises ``TypeError`` and every empty-string case raises
-    ``ValueError``.
+    ----------
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
-    A pass confirms uniform enforcement across all required identities. A failure may
-    indicate constructor, fixture, parameter-loop, taxonomy, or contract drift and could
-    admit unusable routing state.
+    --------------
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
-    Synthetic strings do not test identifier registries, Unicode normalization,
-    persistence, numerical verification, physical correctness, scientific validation,
-    uncertainty quantification, or cross-language behavior."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(TypeError):
         token_factory(1)
-    with pytest.raises(ValueError):
-        token_factory("")
-    for field in ("color_id", "workflow_id", "run_id", "attempt_id"):
-        with pytest.raises(TypeError):
-            token_factory("token", **{field: 1})
-        with pytest.raises(ValueError):
-            token_factory("token", **{field: ""})
+    with pytest.raises(TypeError):
+        token_factory("token", color_id=1)
+    with pytest.raises(TypeError):
+        token_factory("token", workflow_id=1)
+    with pytest.raises(TypeError):
+        token_factory("token", run_id=1)
+    with pytest.raises(TypeError):
+        token_factory("token", attempt_id=1)
 
 
-def test_constructor__optional_identities__rejects_wrong_or_empty_values(
+def test_constructor__required_identities__rejects_invalid_values(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify optional routing and payload identities when present.
+    """Evidence ID
+    -----------
+    SV-CPN-113
 
-    Evidence ID
+    Requirement
+    -----------
+    ``CpnToken`` rejects malformed values of accepted semantic
+    types for its
+    ``required_identities`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    with pytest.raises(ValueError):
+        token_factory("")
+    with pytest.raises(ValueError):
+        token_factory("token", color_id="")
+    with pytest.raises(ValueError):
+        token_factory("token", workflow_id="")
+    with pytest.raises(ValueError):
+        token_factory("token", run_id="")
+    with pytest.raises(ValueError):
+        token_factory("token", attempt_id="")
+
+
+def test_constructor__optional_identities__rejects_wrong_types(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
     SV-CPN-064
 
     Requirement
-    Optional routing identities and present payload type/identity fields must be
-    nonempty strings rather than wrong-typed or empty values.
+    -----------
+    ``CpnToken`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``optional_identities`` contract.
 
     Method
-    Through ``token_factory``, override each optional routing identity with an integer
-    and an empty string, then do the same for payload type and identity while supplying
-    an otherwise complete payload reference. No warnings are expected.
+    ------
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
-    The public optional-identity union permits only ``None`` or a nonempty exact string;
-    its error taxonomy assigns wrong types to ``TypeError`` and empty values to
-    ``ValueError``.
+    ------
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
-    Each integer override raises ``TypeError`` and each empty-string override raises
-    ``ValueError`` for every exercised field.
+    ----------
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
-    A pass confirms optional references cannot become ambiguous represented identities.
-    A failure may reflect constructor, fixture, loop coverage, taxonomy, or
-    public-contract drift.
+    --------------
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
-    This does not inspect referenced records or payload schemas and provides no
-    persistence, numerical-verification, physical-correctness, scientific-validation,
-    uncertainty-quantification, or cross-language claim."""
-    fields = (
-        "parent_run_id",
-        "retry_parent_attempt_id",
-        "correlation_id",
-        "authorization_id",
-    )
-    for field in fields:
-        with pytest.raises(TypeError):
-            token_factory("token", **{field: 1})
-        with pytest.raises(ValueError):
-            token_factory("token", **{field: ""})
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    with pytest.raises(TypeError):
+        token_factory("token", parent_run_id=1)
+    with pytest.raises(TypeError):
+        token_factory("token", retry_parent_attempt_id=1)
+    with pytest.raises(TypeError):
+        token_factory("token", correlation_id=1)
+    with pytest.raises(TypeError):
+        token_factory("token", authorization_id=1)
     complete_payload = {
         "payload_type_id": "type",
         "payload_id": "payload",
         "payload_schema_version": 1,
     }
-    for field in ("payload_type_id", "payload_id"):
-        with pytest.raises(TypeError):
-            token_factory("token", **(complete_payload | {field: 1}))
-        with pytest.raises(ValueError):
-            token_factory("token", **(complete_payload | {field: ""}))
+    with pytest.raises(TypeError):
+        token_factory("token", **(complete_payload | {"payload_type_id": 1}))
+    with pytest.raises(TypeError):
+        token_factory("token", **(complete_payload | {"payload_id": 1}))
 
 
-def test_field__iteration_index__requires_nonnegative_exact_integer(
+def test_constructor__optional_identities__rejects_invalid_values(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify the iteration-index exact type and lower boundary.
+    """Evidence ID
+    -----------
+    SV-CPN-114
 
-    Evidence ID
+    Requirement
+    -----------
+    ``CpnToken`` rejects malformed values of accepted semantic
+    types for its
+    ``optional_identities`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    with pytest.raises(ValueError):
+        token_factory("token", parent_run_id="")
+    with pytest.raises(ValueError):
+        token_factory("token", retry_parent_attempt_id="")
+    with pytest.raises(ValueError):
+        token_factory("token", correlation_id="")
+    with pytest.raises(ValueError):
+        token_factory("token", authorization_id="")
+    complete_payload = {
+        "payload_type_id": "type",
+        "payload_id": "payload",
+        "payload_schema_version": 1,
+    }
+    with pytest.raises(ValueError):
+        token_factory("token", **(complete_payload | {"payload_type_id": ""}))
+    with pytest.raises(ValueError):
+        token_factory("token", **(complete_payload | {"payload_id": ""}))
+
+
+def test_field__iteration_index__preserves_valid_state(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
     SV-CPN-065
 
     Requirement
-    ``iteration_index`` must accept zero as a nonnegative exact integer, reject a
-    floating-point value as the wrong semantic type, and reject negative one as outside
-    its invariant domain.
+    -----------
+    ``CpnToken`` preserves the documented exact valid-state behavior for its
+    ``iteration_index`` contract.
 
     Method
-    Construct public tokens through ``token_factory`` at zero, with ``1.0``, and with
-    ``-1``. The inputs are exact boundary and controlled-invalid cases; no warnings are
-    expected.
+    ------
+    Construct the public SUT with the retained valid synthetic inputs and inspect
+    exact public state.
 
     Oracle
-    The approved integer-domain contract independently includes zero, excludes floats,
-    and places negative integers below the inclusive lower bound.
+    ------
+    The fixed inputs and documented canonical public representation provide the
+    independent exact oracle.
 
     Acceptance
-    Zero is stored exactly as ``0``; ``1.0`` raises ``TypeError``; and ``-1`` raises
-    ``ValueError``.
+    ----------
+    Every retained exact identity, equality, ordering, type, and represented-state
+    assertion holds.
 
     Interpretation
-    A pass confirms the represented lower boundary and exception taxonomy. A failure may
-    arise from constructor, fixture, Python-type, or contract drift.
+    --------------
+    Pass supports this valid-state mapping; failure may identify implementation,
+    fixture, oracle, environment, or contract drift.
 
     Limitations
-    Upper-bound behavior is owned by separate evidence; these dimensionless control
-    values provide no numerical algorithm verification, physical correctness, scientific
-    validation, UQ, or cross-language conformance."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     assert token_factory("token", iteration_index=0).iteration_index == 0
+
+
+def test_field__iteration_index__rejects_wrong_types(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-136
+
+    Requirement
+    -----------
+    ``CpnToken`` rejects wrong semantic types for its ``iteration_index`` contract.
+
+    Method
+    ------
+    Exercise every retained synthetic wrong-type input through the public SUT
+    without private mutation.
+
+    Oracle
+    ------
+    The documented exact-type taxonomy independently requires ``TypeError`` for
+    every retained call.
+
+    Acceptance
+    ----------
+    Every retained wrong-type call raises exactly ``TypeError``.
+
+    Interpretation
+    --------------
+    Pass supports this type partition; failure may identify implementation, fixture,
+    oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(TypeError):
         token_factory("token", iteration_index=1.0)
+
+
+def test_field__iteration_index__rejects_invalid_values(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-115
+
+    Requirement
+    -----------
+    ``CpnToken`` rejects malformed values of accepted semantic
+    types for its
+    ``iteration_index`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     with pytest.raises(ValueError):
         token_factory("token", iteration_index=-1)
 
 
-def test_field__payload_schema_version__requires_nonnegative_exact_integer(
+def test_field__payload_schema_version__preserves_valid_state(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify payload-schema-version type and lower boundary.
-
-    Evidence ID
+    """Evidence ID
+    -----------
     SV-CPN-066
 
     Requirement
-    In a complete payload reference, ``payload_schema_version`` must accept zero as a
-    nonnegative exact integer, reject Boolean, and reject negative one.
+    -----------
+    ``CpnToken`` preserves the documented exact valid-state behavior for its
+    ``payload_schema_version`` contract.
 
     Method
-    Supply synthetic payload type and identity fields through ``token_factory`` and
-    construct at schema version zero, ``True``, and ``-1``. Completeness isolates the
-    scalar boundary; no warnings are expected.
+    ------
+    Construct the public SUT with the retained valid synthetic inputs and inspect
+    exact public state.
 
     Oracle
-    The approved schema-version contract independently includes zero, excludes Boolean
-    from exact integers, and excludes values below the inclusive nonnegative lower
-    bound.
+    ------
+    The fixed inputs and documented canonical public representation provide the
+    independent exact oracle.
 
     Acceptance
-    Zero is stored exactly as ``0``; ``True`` raises ``TypeError``; and ``-1`` raises
-    ``ValueError``.
+    ----------
+    Every retained exact identity, equality, ordering, type, and represented-state
+    assertion holds.
 
     Interpretation
-    A pass confirms the represented lower boundary without conflating it with payload
-    completeness. A failure may reflect constructor, fixture, type-taxonomy, or contract
-    drift.
+    --------------
+    Pass supports this valid-state mapping; failure may identify implementation,
+    fixture, oracle, environment, or contract drift.
 
     Limitations
-    The upper signed-i64 boundary and payload schema content are covered elsewhere; this
-    establishes no numerical verification, physical correctness, scientific validation,
-    UQ, persistence, or cross-language behavior."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     base = {"payload_type_id": "type", "payload_id": "payload"}
     assert (
         token_factory("token", **base, payload_schema_version=0).payload_schema_version
         == 0
     )
+
+
+def test_field__payload_schema_version__rejects_wrong_types(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-137
+
+    Requirement
+    -----------
+    ``CpnToken`` rejects wrong semantic types for its ``payload_schema_version``
+    contract.
+
+    Method
+    ------
+    Exercise every retained synthetic wrong-type input through the public SUT
+    without private mutation.
+
+    Oracle
+    ------
+    The documented exact-type taxonomy independently requires ``TypeError`` for
+    every retained call.
+
+    Acceptance
+    ----------
+    Every retained wrong-type call raises exactly ``TypeError``.
+
+    Interpretation
+    --------------
+    Pass supports this type partition; failure may identify implementation, fixture,
+    oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    base = {"payload_type_id": "type", "payload_id": "payload"}
     with pytest.raises(TypeError):
         token_factory("token", **base, payload_schema_version=True)
+
+
+def test_field__payload_schema_version__rejects_invalid_values(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-116
+
+    Requirement
+    -----------
+    ``CpnToken`` rejects malformed values of accepted semantic
+    types for its
+    ``payload_schema_version`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    base = {"payload_type_id": "type", "payload_id": "payload"}
     with pytest.raises(ValueError):
         token_factory("token", **base, payload_schema_version=-1)
 
@@ -354,102 +677,212 @@ def test_field__payload_schema_version__requires_nonnegative_exact_integer(
 def test_field__expression_visible_controls__enforces_nonnegative_i64_range(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify signed-i64 boundaries for expression-visible token controls.
-
-    Evidence ID
+    """Evidence ID
+    -----------
     SV-CPN-082
 
     Requirement
-    ``iteration_index`` and ``payload_schema_version`` must accept the inclusive
-    nonnegative signed-i64 endpoints zero and ``2**63 - 1`` and reject ``2**63``.
+    -----------
+    ``CpnToken`` preserves the exact accepted state for its
+    ``expression_visible_controls`` contract.
 
     Method
-    Construct public tokens through ``token_factory`` at both endpoints for each
-    control, using a complete synthetic payload reference where required, then inject
-    one-above-maximum values. No warnings are expected.
+    ------
+    Construct the public SUT and inspect retained exact public outcomes.
 
     Oracle
-    The approved, dimensionless signed-i64 interval is independently ``[0, 2**63 - 1]``;
-    exact integer comparison fixes both endpoints, while ``2**63`` lies outside the
-    inclusive range.
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact state oracle.
 
     Acceptance
-    Both endpoints are stored exactly for both fields, and each ``2**63`` case raises
-    ``ValueError`` with text matching ``signed i64``; accepted nonzero maxima must not
-    be replaced by zero.
+    ----------
+    Every retained exact state assertion holds.
 
     Interpretation
-    A pass confirms portable expression-visible storage boundaries. A failure may
-    indicate constructor, fixture, boundary-oracle, message, or contract drift and could
-    admit a value unavailable to INTEGER expressions.
+    --------------
+    Pass supports only this accepted-state partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
 
     Limitations
-    These exact range checks do not exercise expression evaluation, payload persistence,
-    numerical algorithms, physical correctness, scientific validation, uncertainty
-    quantification, or cross-language execution."""
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
     maximum = 2**63 - 1
-    for value in (0, maximum):
-        assert (
-            token_factory("iteration", iteration_index=value).iteration_index == value
-        )
-        payload = token_factory(
-            "payload",
-            payload_type_id="type",
-            payload_id="payload-id",
-            payload_schema_version=value,
-        )
-        assert payload.payload_schema_version == value
-    for field in ("iteration_index", "payload_schema_version"):
-        overrides: dict[str, object] = {field: 2**63}
-        if field == "payload_schema_version":
-            overrides.update(payload_type_id="type", payload_id="payload-id")
-        with pytest.raises(ValueError, match="signed i64"):
-            token_factory("overflow", **overrides)
+    payload_min = token_factory(
+        "payload-min",
+        payload_type_id="type",
+        payload_id="payload-id",
+        payload_schema_version=0,
+    )
+    payload_max = token_factory(
+        "payload-max",
+        payload_type_id="type",
+        payload_id="payload-id",
+        payload_schema_version=maximum,
+    )
+    assert token_factory("iteration-min", iteration_index=0).iteration_index == 0
+    assert (
+        token_factory("iteration-max", iteration_index=maximum).iteration_index
+        == maximum
+    )
+    assert payload_min.payload_schema_version == 0
+    assert payload_max.payload_schema_version == maximum
 
 
-def test_constructor__identity_tuples_and_outcome__enforces_strict_types(
+def test_field__expression_visible_controls__rejects_invalid_state(
     token_factory: Callable[..., CpnToken],
 ) -> None:
-    """Verify strict lineage tuples and outcome ownership.
+    """Evidence ID
+    -----------
+    SV-CPN-152
 
-    Evidence ID
+    Requirement
+    -----------
+    ``CpnToken`` rejects the documented invalid state for its
+    ``expression_visible_controls`` contract.
+
+    Method
+    ------
+    Exercise the retained synthetic invalid inputs through the public SUT.
+
+    Oracle
+    ------
+    The documented public invariant and fixed synthetic inputs provide the independent
+    exact error-taxonomy oracle.
+
+    Acceptance
+    ----------
+    Every retained invalid call raises the documented exact public exception.
+
+    Interpretation
+    --------------
+    Pass supports only this rejection partition; failure may identify
+    implementation, fixture, oracle, environment, or contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    maximum = 2**63 - 1
+    token_factory(
+        "payload-min",
+        payload_type_id="type",
+        payload_id="payload-id",
+        payload_schema_version=0,
+    )
+    token_factory(
+        "payload-max",
+        payload_type_id="type",
+        payload_id="payload-id",
+        payload_schema_version=maximum,
+    )
+    with pytest.raises(ValueError, match="signed i64"):
+        token_factory("iteration-overflow", iteration_index=2**63)
+    with pytest.raises(ValueError, match="signed i64"):
+        token_factory(
+            "payload-overflow",
+            payload_type_id="type",
+            payload_id="payload-id",
+            payload_schema_version=2**63,
+        )
+
+
+def test_constructor__identity_tuples_and_outcome__rejects_wrong_types(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
     SV-CPN-067
 
     Requirement
-    Provenance and parent-token collections must be tuples of unique nonempty strings,
-    and ``outcome`` must be a ``TokenOutcome`` value rather than a Boolean.
+    -----------
+    ``CpnToken`` rejects wrong semantic types at the public
+    constructor boundary for its
+    ``identity_tuples_and_outcome`` contract.
 
     Method
-    For both identity-tuple fields, pass a list, an integer member, an empty member, and
-    a duplicate member through ``token_factory``; separately pass ``outcome=True``.
-    These are controlled-invalid inputs and emit no warnings.
+    ------
+    Exercise each preserved synthetic wrong-type input through the public SUT with
+    no warning acceptance or private-state mutation.
 
     Oracle
-    The documented public field types require immutable tuples and the declared outcome
-    owner type, while tuple identity invariants independently require nonempty unique
-    strings.
+    ------
+    The documented public exact-type taxonomy and Python exception taxonomy
+    independently require ``TypeError`` for these inputs.
 
     Acceptance
-    Lists, integer members, and Boolean outcome raise ``TypeError``; empty and duplicate
-    tuple members raise ``ValueError`` for both tuple fields.
+    ----------
+    Every preserved partition assertion raises exactly ``TypeError``; retained
+    exact setup and state assertions also hold.
 
     Interpretation
-    A pass confirms strict represented lineage and outcome boundaries. A failure may
-    arise from constructor, fixture, loop coverage, collaborator type, error taxonomy,
-    or contract drift.
+    --------------
+    Pass supports only this named type partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
 
     Limitations
-    The test does not validate provenance records, parent tokens, or ``TokenOutcome``
-    internals and provides no persistence, numerical-verification, physical-correctness,
-    scientific-validation, UQ, or cross-language evidence."""
-    for field in ("provenance_ids", "parent_token_ids"):
-        with pytest.raises(TypeError):
-            token_factory("token", **{field: ["p"]})
-        with pytest.raises(TypeError):
-            token_factory("token", **{field: (1,)})
-        with pytest.raises(ValueError):
-            token_factory("token", **{field: ("",)})
-        with pytest.raises(ValueError):
-            token_factory("token", **{field: ("p", "p")})
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    with pytest.raises(TypeError):
+        token_factory("token", provenance_ids=["p"])
+    with pytest.raises(TypeError):
+        token_factory("token", provenance_ids=(1,))
+    with pytest.raises(TypeError):
+        token_factory("token", parent_token_ids=["p"])
+    with pytest.raises(TypeError):
+        token_factory("token", parent_token_ids=(1,))
     with pytest.raises(TypeError):
         token_factory("token", outcome=True)
+
+
+def test_constructor__identity_tuples_and_outcome__rejects_invalid_values(
+    token_factory: Callable[..., CpnToken],
+) -> None:
+    """Evidence ID
+    -----------
+    SV-CPN-117
+
+    Requirement
+    -----------
+    ``CpnToken`` rejects malformed values of accepted semantic
+    types for its
+    ``identity_tuples_and_outcome`` contract.
+
+    Method
+    ------
+    Exercise each preserved synthetic invalid-value input through the public SUT with
+    no warning acceptance or private-state mutation.
+
+    Oracle
+    ------
+    The documented public value invariant and Python exception taxonomy
+    independently require ``ValueError`` for these inputs.
+
+    Acceptance
+    ----------
+    Every preserved partition assertion raises exactly ``ValueError``; retained
+    exact setup and state assertions also hold.
+
+    Interpretation
+    --------------
+    Pass supports only this named value partition; failure may identify implementation,
+    fixture, oracle-transcription, environment, or public-contract drift.
+
+    Limitations
+    -----------
+    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    numerical verification, scientific validation, UQ, physics, and portability.
+    """
+    with pytest.raises(ValueError):
+        token_factory("token", provenance_ids=("",))
+    with pytest.raises(ValueError):
+        token_factory("token", provenance_ids=("p", "p"))
+    with pytest.raises(ValueError):
+        token_factory("token", parent_token_ids=("",))
+    with pytest.raises(ValueError):
+        token_factory("token", parent_token_ids=("p", "p"))

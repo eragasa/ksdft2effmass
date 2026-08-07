@@ -1,5 +1,8 @@
-r"""Software verification for the represented-difference numerical exception.
+r"""Software verification of ``OperatorRecordDifferenceNumericalError``.
 
+Facet and represented meaning
+-----------------------------
+This class-owned module owns the OperatorRecordDifferenceNumericalError facet.
 System under test
 -----------------
 ``OperatorRecordDifferenceNumericalError`` is the structured public exception
@@ -42,6 +45,22 @@ acceptability of a represented difference, physical compatibility or equivalence
 residual-metric correctness, scientific validation, or uncertainty
 quantification. Future Rust mapping is conceptual through the enum category; no
 Rust implementation, conformance, or serialized exception format is established.
+
+Intrinsic and cross-object scope
+--------------------------------
+The primary owner is ``OperatorRecordDifferenceNumericalError``; collaborators only
+construct inputs or expose public outcomes. Accepted public contracts, literal
+expected values, Python language semantics, and assigned schema or fixture artifacts
+provide the oracles. No runtime warning is accepted unless a test explicitly states
+otherwise.
+
+VVUQ and scientific exclusions
+------------------------------
+Passing establishes only the documented software contract and exact or explicitly
+bounded acceptance rules. Failure may identify implementation, fixture, oracle,
+environment, or contract defects. It does not establish numerical verification,
+physical correctness, scientific validation, UQ, portability, or cross-language
+agreement.
 """
 
 from enum import Enum
@@ -56,54 +75,57 @@ from ksdft2effmass.operators import (
 
 pytestmark = pytest.mark.software_verification
 
+SUT = OperatorRecordDifferenceNumericalError
+
 
 class UnrelatedErrorCode(Enum):
-    """Test-local non-owner enum supporting ``SV-ORDNE-004``.
+    r"""Test-local non-owner enum supporting ``SV-ORDNE-004``.
 
     Evidence ID
-        Supporting fixture for ``SV-ORDNE-004``; it owns no separate evidence
-        identifier.
+    Supporting fixture for ``SV-ORDNE-004``; it owns no separate evidence
+    identifier.
     Requirement
-        A member of another enum is not a difference numerical-error code, even
-        when its value resembles the approved machine-readable string.
+    A member of another enum is not a difference numerical-error code, even
+    when its value resembles the approved machine-readable string.
     Method
-        Define one local enum member with value ``"nonfinite_difference"`` and
-        supply that member at the deliberate invalid constructor boundary.
+    Define one local enum member with value ``"nonfinite_difference"`` and
+    supply that member at the deliberate invalid constructor boundary.
     Oracle
-        The public constructor requires nominal membership in
-        ``OperatorRecordDifferenceNumericalErrorCode``.
+    The public constructor requires nominal membership in
+    ``OperatorRecordDifferenceNumericalErrorCode``.
     Interpretation
-        Rejection demonstrates exact enum ownership rather than value-based or
-        string-based coercion.
+    Rejection demonstrates exact enum ownership rather than value-based or
+    string-based coercion.
     Limitations
-        This fixture does not test the production enum's membership, aliases,
-        lookup behavior, differencer execution, numerical verification,
-        scientific validation, uncertainty quantification, or Rust conformance.
+    This fixture does not test the production enum's membership, aliases,
+    lookup behavior, differencer execution, numerical verification,
+    scientific validation, uncertainty quantification, or Rust conformance.
     """
 
     NONFINITE_DIFFERENCE = "nonfinite_difference"
 
 
-def test_public_construction_and_exception_taxonomy() -> None:
-    """SV-ORDNE-001: verify public construction and ``ValueError`` taxonomy.
-
-    Evidence ID
-        ``SV-ORDNE-001``.
+def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
+    r"""Evidence ID
+    SV-ORDNE-001
     Requirement
-        The supported public constructor accepts the approved structured code
-        and produces a ``ValueError`` and ``Exception`` instance.
+    The supported public constructor accepts the approved structured code and produces a
+    ``ValueError`` and ``Exception`` instance.
     Method
-        Construct the exception directly through public imports without invoking
-        ``OperatorRecordDifferencer`` and inspect only documented inheritance.
+    Construct the exception directly through public imports without invoking
+    ``OperatorRecordDifferencer`` and inspect only documented inheritance.
     Oracle
-        The accepted exception contract declares ``ValueError`` inheritance and
-        a one-code public constructor.
+    The accepted exception contract declares ``ValueError`` inheritance and a one-code
+    public constructor.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes direct public construction and documented hierarchy.
+    Passing establishes direct public construction and documented hierarchy.
     Limitations
-        Internal module location, traceback layout, ``Exception.args``,
-        differencer emission, numerical verification, scientific validation,
-        uncertainty quantification, and Rust conformance are not tested.
+    Internal module location, traceback layout, ``Exception.args``, differencer
+    emission, numerical verification, scientific validation, uncertainty quantification,
+    and Rust conformance are not tested.
     """
 
     error = OperatorRecordDifferenceNumericalError(
@@ -118,38 +140,37 @@ def test_public_construction_and_exception_taxonomy() -> None:
     "code",
     [
         pytest.param(
-            code,
-            id=f"SV-ORDNE-002-{code.value.replace('_', '-')}",
-        )
-        for code in tuple(OperatorRecordDifferenceNumericalErrorCode)
+            OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE,
+            id="nonfinite_difference",
+        ),
     ],
 )
-def test_complete_structured_code_acceptance_and_identity_retention(
+def test_field__accepted_codes_retain_identity__is_exact(
     code: OperatorRecordDifferenceNumericalErrorCode,
 ) -> None:
-    """SV-ORDNE-002: accept every public code and retain exact identity.
-
-    Evidence ID
-        ``SV-ORDNE-002``; parameter IDs derive from stable public code values
-        without creating additional evidence identifiers.
+    r"""Evidence ID
+    SV-ORDNE-002
     Requirement
-        Every current public difference-error code is admitted without
-        reconstruction, string conversion, or identity loss.
+    Every current public difference-error code is admitted without reconstruction,
+    string conversion, or identity loss.
     Method
-        Parameterize over the complete public enum, construct the exception, and
-        compare its public ``code`` attribute with the input by identity.
+    Parameterize over the complete public enum, construct the exception, and compare its
+    public ``code`` attribute with the input by identity.
     Oracle
-        The approved constructor accepts exactly
-        ``OperatorRecordDifferenceNumericalErrorCode`` members and retains the
-        supplied member.
+    The approved constructor accepts exactly
+    ``OperatorRecordDifferenceNumericalErrorCode`` members and retains the supplied
+    member.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes complete current enum admission and exact structured-
-        code identity retention.
+    Passing establishes complete current enum admission and exact structured- code
+    identity retention.
     Limitations
-        Member count, aliases, ``StrEnum`` behavior, lookup taxonomy, exception
-        equality/hashability, differencer execution, numerical verification,
-        scientific validation, uncertainty quantification, and Rust conformance
-        belong elsewhere or remain unperformed.
+    Member count, aliases, ``StrEnum`` behavior, lookup taxonomy, exception
+    equality/hashability, differencer execution, numerical verification, scientific
+    validation, uncertainty quantification, and Rust conformance belong elsewhere or
+    remain unperformed.
     """
 
     error = OperatorRecordDifferenceNumericalError(code)
@@ -157,29 +178,30 @@ def test_complete_structured_code_acceptance_and_identity_retention(
     assert error.code is code
 
 
-def test_human_readable_message_summarizes_authoritative_code() -> None:
-    """SV-ORDNE-003: verify stable semantic diagnostic content.
-
-    Evidence ID
-        ``SV-ORDNE-003``.
+def test_protocol__str__human_readable_message_summarizes_authoritative_code() -> None:
+    r"""Evidence ID
+    SV-ORDNE-003
     Requirement
-        The human-readable message identifies an operator-record difference
-        numerical failure and contains the retained code's stable value, while
-        ``error.code`` remains authoritative machine-readable state.
+    The human-readable message identifies an operator-record difference numerical
+    failure and contains the retained code's stable value, while ``error.code`` remains
+    authoritative machine-readable state.
     Method
-        Construct the exception, inspect semantic substrings in ``str(error)``,
-        and verify direct code identity.
+    Construct the exception, inspect semantic substrings in ``str(error)``, and verify
+    direct code identity.
     Oracle
-        Accepted source documentation promises a human-readable difference-
-        failure message containing the enum value, but does not freeze incidental
-        punctuation, capitalization, or separators.
+    Accepted source documentation promises a human-readable difference- failure message
+    containing the enum value, but does not freeze incidental punctuation,
+    capitalization, or separators.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes useful human diagnostics without promoting the
-        message to a machine-parsing API.
+    Passing establishes useful human diagnostics without promoting the message to a
+    machine-parsing API.
     Limitations
-        Exact full message formatting, ``Exception.args``, differencer emission,
-        subtraction accuracy, scientific validation, uncertainty quantification,
-        and Rust conformance are not tested.
+    Exact full message formatting, ``Exception.args``, differencer emission, subtraction
+    accuracy, scientific validation, uncertainty quantification, and Rust conformance
+    are not tested.
     """
 
     code = OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE
@@ -194,39 +216,41 @@ def test_human_readable_message_summarizes_authoritative_code() -> None:
 @pytest.mark.parametrize(
     "invalid_code",
     [
-        pytest.param("nonfinite_difference", id="SV-ORDNE-004-raw-string"),
-        pytest.param(None, id="SV-ORDNE-004-none"),
-        pytest.param(True, id="SV-ORDNE-004-boolean-true"),
-        pytest.param(False, id="SV-ORDNE-004-boolean-false"),
+        pytest.param("nonfinite_difference", id="sv_ordne_004_raw_string"),
+        pytest.param(None, id="none"),
+        pytest.param(True, id="sv_ordne_004_boolean_true"),
+        pytest.param(False, id="sv_ordne_004_boolean_false"),
         pytest.param(
-            UnrelatedErrorCode.NONFINITE_DIFFERENCE,
-            id="SV-ORDNE-004-unrelated-enum",
+            UnrelatedErrorCode.NONFINITE_DIFFERENCE, id="sv_ordne_004_unrelated_enum"
         ),
-        pytest.param(object(), id="SV-ORDNE-004-arbitrary-object"),
+        pytest.param(object(), id="sv_ordne_004_arbitrary_object"),
     ],
 )
-def test_invalid_code_types_are_rejected(invalid_code: object) -> None:
-    """SV-ORDNE-004: reject non-owner code values with ``TypeError``.
-
-    Evidence ID
-        ``SV-ORDNE-004``; readable parameter IDs distinguish each invalid family.
+def test_constructor__invalid_code_types_are_rejected__is_enforced(
+    invalid_code: object,
+) -> None:
+    r"""Evidence ID
+    SV-ORDNE-004
     Requirement
-        Raw strings, ``None``, Booleans, unrelated enum members, and arbitrary
-        objects are rejected rather than coerced to the owner enum.
+    Raw strings, ``None``, Booleans, unrelated enum members, and arbitrary objects are
+    rejected rather than coerced to the owner enum.
     Method
-        Pass each representative invalid value directly to the public constructor,
-        using ``Any`` and ``cast`` only at this deliberate invalid-type boundary.
+    Pass each representative invalid value directly to the public constructor, using
+    ``Any`` and ``cast`` only at this deliberate invalid-type boundary.
     Oracle
-        The accepted constructor requires nominal
-        ``OperatorRecordDifferenceNumericalErrorCode`` ownership and documents
-        ``TypeError`` with the precise owner-type fragment.
+    The accepted constructor requires nominal
+    ``OperatorRecordDifferenceNumericalErrorCode`` ownership and documents ``TypeError``
+    with the precise owner-type fragment.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes wrong-type taxonomy and prevents string/value-based
-        coercion or admission of another enum's member.
+    Passing establishes wrong-type taxonomy and prevents string/value-based coercion or
+    admission of another enum's member.
     Limitations
-        Valid-code acceptance belongs to ``SV-ORDNE-002``. No broad exception
-        tuple, differencer execution, numerical verification, scientific
-        validation, uncertainty quantification, or Rust conformance is tested.
+    Valid-code acceptance belongs to ``the owning evidence``. No broad exception tuple,
+    differencer execution, numerical verification, scientific validation, uncertainty
+    quantification, or Rust conformance is tested.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -238,34 +262,36 @@ def test_invalid_code_types_are_rejected(invalid_code: object) -> None:
 @pytest.mark.parametrize(
     "reason_form",
     [
-        pytest.param("positional", id="SV-ORDNE-005-positional-reason"),
-        pytest.param("keyword", id="SV-ORDNE-005-keyword-reason"),
+        pytest.param("positional", id="sv_ordne_005_positional_reason"),
+        pytest.param("keyword", id="sv_ordne_005_keyword_reason"),
     ],
 )
-def test_free_form_reason_and_extra_argument_are_excluded(reason_form: str) -> None:
-    """SV-ORDNE-005: reject free-form reasons and expose no ``reason`` state.
-
-    Evidence ID
-        ``SV-ORDNE-005``; parameter IDs distinguish positional and keyword
-        attempts without assigning new evidence identifiers.
+def test_constructor__input_boundary__free_form_reason_and_extra_argument_are(
+    reason_form: str,
+) -> None:
+    r"""Evidence ID
+    SV-ORDNE-005
     Requirement
-        The constructor accepts only one structured code; positional and keyword
-        free-form reasons raise ``TypeError``, and successful instances expose no
-        public ``reason`` attribute.
+    The constructor accepts only one structured code; positional and keyword free-form
+    reasons raise ``TypeError``, and successful instances expose no public ``reason``
+    attribute.
     Method
-        Invoke the constructor through a deliberate ``Any``-typed invalid-
-        signature boundary for each reason form, then inspect an ordinary valid
-        instance for absence of ``reason``.
+    Invoke the constructor through a deliberate ``Any``-typed invalid- signature
+    boundary for each reason form, then inspect an ordinary valid instance for absence
+    of ``reason``.
     Oracle
-        The approved signature has exactly one ``code`` parameter and defines no
-        free-form reason attribute.
+    The approved signature has exactly one ``code`` parameter and defines no free-form
+    reason attribute.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing protects the closed enum-backed taxonomy from contradictory or
-        arbitrary structured diagnostic state.
+    Passing protects the closed enum-backed taxonomy from contradictory or arbitrary
+    structured diagnostic state.
     Limitations
-        Signature-generated ``TypeError`` wording is not frozen. Message text,
-        differencer execution, numerical verification, scientific validation,
-        uncertainty quantification, and Rust conformance are not tested.
+    Signature-generated ``TypeError`` wording is not frozen. Message text, differencer
+    execution, numerical verification, scientific validation, uncertainty
+    quantification, and Rust conformance are not tested.
     """
 
     code = OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE
@@ -282,40 +308,43 @@ def test_free_form_reason_and_extra_argument_are_excluded(reason_form: str) -> N
     assert not hasattr(error, "reason")
 
 
-def test_exception_has_no_independent_serialization_api() -> None:
-    """SV-ORDNE-006: verify exclusion of exception serialization methods.
-
-    Evidence ID
-        ``SV-ORDNE-006``.
+def test_method__serialize__exception_has_no_serialization_api() -> None:
+    r"""Evidence ID
+    SV-ORDNE-006
     Requirement
-        The in-memory structured exception exposes none of the six unapproved
-        JSON, dictionary, serializer, or deserializer method names.
+    The in-memory structured exception exposes none of the six unapproved JSON,
+    dictionary, serializer, or deserializer method names.
     Method
-        Inspect both the valid instance and public class for each excluded name.
+    Inspect both the valid instance and public class for each excluded name.
     Oracle
-        Schema version 1 serializes ``OperatorRecord`` only; no numerical-
-        exception schema or independent exception serializer is approved.
+    Schema version 1 serializes ``OperatorRecord`` only; no numerical- exception schema
+    or independent exception serializer is approved.
+    Acceptance
+    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+    identity, and explicit tolerance or ULP criterion passes unchanged.
     Interpretation
-        Passing establishes absence of object-owned serialization APIs while
-        preserving ``error.code`` as in-memory machine-readable state.
+    Passing establishes absence of object-owned serialization APIs while preserving
+    ``error.code`` as in-memory machine-readable state.
     Limitations
-        Pickling, traceback serialization, future schema design, differencer
-        execution, numerical verification, scientific validation, uncertainty
-        quantification, and Rust conformance are outside this evidence. Future
-        Rust mapping remains conceptual through the enum category only.
+    Pickling, traceback serialization, future schema design, differencer execution,
+    numerical verification, scientific validation, uncertainty quantification, and Rust
+    conformance are outside this evidence. Future Rust mapping remains conceptual
+    through the enum category only.
     """
 
     error = OperatorRecordDifferenceNumericalError(
         OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE
     )
 
-    for method_name in (
-        "to_json",
-        "to_dict",
-        "serialize",
-        "from_json",
-        "from_dict",
-        "deserialize",
-    ):
-        assert not hasattr(error, method_name)
-        assert not hasattr(OperatorRecordDifferenceNumericalError, method_name)
+    assert all(
+        (not hasattr(error, method_name))
+        and (not hasattr(OperatorRecordDifferenceNumericalError, method_name))
+        for method_name in (
+            "to_json",
+            "to_dict",
+            "serialize",
+            "from_json",
+            "from_dict",
+            "deserialize",
+        )
+    )

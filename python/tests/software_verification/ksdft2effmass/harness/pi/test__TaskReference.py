@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``TaskReference``.
+
+Facet and represented meaning
 Software verification of the public ``TaskReference`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``TaskReference``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
@@ -15,6 +17,7 @@ conformance are excluded.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -56,9 +59,15 @@ def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
     result = DeserializeJsonRecord().execute(WireRecordKind.TaskReference, payload)
     assert result.validation.status == "PASS"
     assert type(result.record) is SUT
-    for value in (
-        vars(result.record).values() if hasattr(result.record, "__dict__") else ()
-    ):
+
+    def exercise_value_case_61_1(value: Any) -> Any:
         assert type(value) is not list
+
+    _ = [
+        exercise_value_case_61_1(value)
+        for value in (
+            vars(result.record).values() if hasattr(result.record, "__dict__") else ()
+        )
+    ]
     with pytest.raises((AttributeError, TypeError)):
         setattr(result.record, next(iter(result.record.__dataclass_fields__)), None)

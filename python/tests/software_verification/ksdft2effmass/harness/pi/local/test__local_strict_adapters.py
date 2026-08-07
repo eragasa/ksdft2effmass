@@ -1,10 +1,15 @@
-# ruff: noqa: E501
-"""Evidence class and represented meaning
+r"""Software verification of local strict adapters.
+
+Facet and represented meaning
 Software verification of strict project-record to generic-record adapters.
-Owned contract, oracle, and scope
-The artifact owner is the selected live-record adapter boundary; exact explicit bytes, version compatibility, sorting, and fail-closed diagnostics are checked.
+
+Intrinsic and cross-object scope
+The artifact owner is the selected live-record adapter boundary; exact explicit bytes,
+version compatibility, sorting, and fail-closed diagnostics are checked.
+
 VVUQ and scientific exclusions
-Passing establishes adapter software behavior only and excludes numerical verification, scientific validation, UQ, physical meaning, and cross-language conformance.
+Passing establishes adapter software behavior only and excludes numerical verification,
+scientific validation, UQ, physical meaning, and cross-language conformance.
 """
 
 import json
@@ -30,10 +35,29 @@ from .conftest import local_context, repository_root
 pytestmark = pytest.mark.software_verification
 
 
-def test_artifact__task_chain_checkpoint_agent_adapters__normalize_explicit_inputs() -> (
-    None
-):
-    "Evidence ID\nSV-HL-003\nRequirement\n        Task, chain, checkpoint, and agent adapters consume only caller-selected bytes and return generic records in deterministic identity order.\nMethod\n        Supply the current H4 chain/activation, all explicitly referenced task bytes, one resolved checkpoint, and two reversed agent documents.\nOracle\n        Selected record identities and lexical ordering are fixed by the supplied authoritative documents and accepted adapter contract.\nAcceptance\n        All adaptations pass; tasks and agents are sorted, H4 is active, and the checkpoint is represented as resolved/resumed.\nInterpretation\n        Failure indicates local adapter drift, provisional input incompatibility, or fixture selection error.\nLimitations\n        No repository discovery, command authorization, numerical result, science, UQ, or cross-language claim is exercised."
+def test_artifact__record_adapters__normalize_explicit_inputs() -> None:
+    """Evidence ID
+    SV-HL-003
+    Requirement
+    Task, chain, checkpoint, and agent adapters consume only caller-selected bytes and
+    return generic records in deterministic identity order.
+    Method
+    Supply the current H4 chain/activation, all explicitly referenced task bytes, one
+    resolved checkpoint, and two reversed agent documents.
+    Oracle
+    Selected record identities and lexical ordering are fixed by the supplied
+    authoritative documents and accepted adapter contract.
+    Acceptance
+    All adaptations pass; tasks and agents are sorted, completed H4 remains explicitly
+    activated without an active task, and the checkpoint is represented as
+    resolved/resumed.
+    Interpretation
+    Failure indicates local adapter drift, provisional input incompatibility, or fixture
+    selection error.
+    Limitations
+    No repository discovery, command authorization, numerical result, science, UQ, or
+    cross-language claim is exercised.
+    """
     root = repository_root()
     chain_bytes = (root / ".pi/chains/pi-harness-incubation.chain.json").read_bytes()
     activation_bytes = (
@@ -50,7 +74,8 @@ def test_artifact__task_chain_checkpoint_agent_adapters__normalize_explicit_inpu
     assert [x.task_id for x in task_values] == ["H0", "H1", "H2", "H3", "H4", "H5"]
     chain = AdaptChainRecord().execute(chain_bytes, task_values, activation_bytes)
     assert chain.validation.status == "PASS"
-    assert cast(Any, chain.value).active_task_id == "H4"
+    assert cast(Any, chain.value).active_task_id is None
+    assert cast(Any, chain.value).explicitly_activated_task_ids == ("H4",)
     checkpoint_path = ".pi/checkpoints/H2-HC02-final-acceptance.json"
     checkpoints = AdaptCheckpointRecords().execute(
         ((checkpoint_path, (root / checkpoint_path).read_bytes()),)
@@ -71,10 +96,30 @@ def test_artifact__task_chain_checkpoint_agent_adapters__normalize_explicit_inpu
     )
 
 
-def test_artifact__ownership_checksum_skill_adapters__retain_legacy_boundary_and_exact_inventory() -> (
-    None
-):
-    "Evidence ID\nSV-HL-004\nRequirement\n        Ownership, evidence-ownership, checksum, and skill adapters preserve accepted compatibility while rejecting noncanonical selections.\nMethod\n        Adapt retained P1 task/evidence ownership manifests, a fixed checksum catalog, and the single explicitly extracted document-python-research-software descriptor.\nOracle\n        H4 requires P1 task ownership to normalize independently and retained ``boundary_owned`` evidence to map to artifact-owned nondirectional agreement with preserved IDs.\nAcceptance\n        P1 task adaptation passes; the boundary relation has exact owner/sides/direction and IDs; checksum paths sort; the explicit skill selection contains only document-python-research-software.\nInterpretation\n        Failure identifies a compatibility defect, resource cutover defect, or stale fixture assumption.\nLimitations\n        Checksum file contents are not validated here; capability semantics, science, UQ, and portability are excluded."
+def test_artifact__compatibility_adapters__retain_exact_inventory() -> None:
+    """Evidence ID
+    SV-HL-004
+    Requirement
+    Ownership, evidence-ownership, checksum, and skill adapters preserve accepted
+    compatibility while rejecting noncanonical selections.
+    Method
+    Adapt retained P1 task/evidence ownership manifests, a fixed checksum catalog, and
+    the single explicitly extracted document-python-research-software descriptor.
+    Oracle
+    H4 requires P1 task ownership to normalize independently and retained
+    ``boundary_owned`` evidence to map to artifact-owned nondirectional agreement with
+    preserved IDs.
+    Acceptance
+    P1 task adaptation passes; the boundary relation has exact owner/sides/direction and
+    IDs; checksum paths sort; the explicit skill selection contains only
+    document-python-research-software.
+    Interpretation
+    Failure identifies a compatibility defect, resource cutover defect, or stale fixture
+    assumption.
+    Limitations
+    Checksum file contents are not validated here; capability semantics, science, UQ,
+    and portability are excluded.
+    """
     root = repository_root()
     p1_root = root / ".pi/evidence/backend-neutral-cpn-P1-contract"
     ownership = AdaptOwnershipManifest().execute(
@@ -131,10 +176,27 @@ def test_artifact__ownership_checksum_skill_adapters__retain_legacy_boundary_and
     )
 
 
-def test_artifact__adapter_faults_and_evidence_selection__fail_closed_without_ambient_roots() -> (
-    None
-):
-    "Evidence ID\nSV-HL-005\nRequirement\n        Strict adapters reject duplicate JSON keys, missing selected task bytes, malformed catalogs, and evidence outside explicit profile scopes.\nMethod\n        Inject one controlled malformed input for each adapter family and pass the current explicit ProjectProfile to evidence selection.\nOracle\n        The local PIHL diagnostic registry and profile scope rules require deterministic failure without fallback discovery.\nAcceptance\n        Every malformed adaptation returns FAIL with no value; in-scope bytes are returned unchanged and outside-scope bytes produce PIHL.EVIDENCE.OUTSIDE_SCOPE.\nInterpretation\n        Failure indicates an unsafe permissive adapter or an obsolete profile oracle.\nLimitations\n        This samples fault classes rather than every malformed JSON token and makes no numerical, scientific, UQ, or portability claim."
+def test_artifact__adapter_faults__fail_closed_without_ambient_roots() -> None:
+    """Evidence ID
+    SV-HL-005
+    Requirement
+    Strict adapters reject duplicate JSON keys, missing selected task bytes, malformed
+    catalogs, and evidence outside explicit profile scopes.
+    Method
+    Inject one controlled malformed input for each adapter family and pass the current
+    explicit ProjectProfile to evidence selection.
+    Oracle
+    The local PIHL diagnostic registry and profile scope rules require deterministic
+    failure without fallback discovery.
+    Acceptance
+    Every malformed adaptation returns FAIL with no value; in-scope bytes are returned
+    unchanged and outside-scope bytes produce PIHL.EVIDENCE.OUTSIDE_SCOPE.
+    Interpretation
+    Failure indicates an unsafe permissive adapter or an obsolete profile oracle.
+    Limitations
+    This samples fault classes rather than every malformed JSON token and makes no
+    numerical, scientific, UQ, or portability claim.
+    """
     context = local_context()
     assert isinstance(context.profile, ProjectProfile)
     duplicate = AdaptOwnershipManifest().execute(b'{"task_id":"x","task_id":"y"}')

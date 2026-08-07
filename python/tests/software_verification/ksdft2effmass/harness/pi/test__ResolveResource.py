@@ -1,8 +1,10 @@
-"""Evidence class and represented meaning
+r"""Software verification of ``ResolveResource``.
+
+Facet and represented meaning
 Software verification of the public ``ResolveResource`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
-Owned contract, oracle, and scope
+Intrinsic and cross-object scope
 The sole primary SUT is ``ResolveResource``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
@@ -13,6 +15,9 @@ conformance are excluded.
 """
 
 from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -47,7 +52,9 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
-def test_method__execute_valid_and_invalid__returns_exact_partition(tmp_path) -> None:
+def test_method__execute_valid_and_invalid__returns_exact_partition(
+    tmp_path: Path,
+) -> None:
     """Evidence ID
     SV-HARNESS-052
     Requirement
@@ -66,7 +73,6 @@ def test_method__execute_valid_and_invalid__returns_exact_partition(tmp_path) ->
 
     import json
     import shutil
-    from pathlib import Path
 
     from ksdft2effmass.harness.pi import (
         DeserializeJsonRecord,
@@ -84,7 +90,7 @@ def test_method__execute_valid_and_invalid__returns_exact_partition(tmp_path) ->
         ).read_text()
     )
 
-    def decode(kind, value):
+    def decode(kind: WireRecordKind, value: Any) -> object:
         result = DeserializeJsonRecord().execute(
             kind, (json.dumps(value) + "\n").encode()
         )
@@ -132,9 +138,10 @@ def test_method__execute_valid_and_invalid__returns_exact_partition(tmp_path) ->
         ("duplicate-resource-path", "PIH.RESOURCE.DUPLICATE_PATH"),
         ("self-dependency", "PIH.RESOURCE.DEPENDENCY_CYCLE"),
     ],
+    ids=["duplicate_resource_id", "duplicate_resource_path", "self_dependency"],
 )
 def test_method__execute_invalid_manifest__short_circuits_without_selection(
-    tmp_path, case_id: str, expected_code: str
+    tmp_path: Path, case_id: str, expected_code: str
 ) -> None:
     """Evidence ID
     SV-HARNESS-063
@@ -158,7 +165,6 @@ def test_method__execute_invalid_manifest__short_circuits_without_selection(
     scientific-validation, UQ, or Rust-conformance claim is made.
     """
     import json
-    from pathlib import Path
 
     from ksdft2effmass.harness.pi import (
         DeserializeJsonRecord,

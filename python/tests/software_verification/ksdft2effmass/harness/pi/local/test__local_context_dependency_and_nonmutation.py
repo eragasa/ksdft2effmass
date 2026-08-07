@@ -6,7 +6,7 @@ direction, and generic public-surface nonmutation.
 
 Intrinsic and cross-object scope
 The artifact owner is the local/generic package integration boundary; current explicit
-v2 resources and the accepted 46-name generic public surface are exact oracles.
+v2 resources and the accepted 49-name generic public surface are exact oracles.
 
 VVUQ and scientific exclusions
 Passing establishes import and composition properties only, not numerical verification,
@@ -30,7 +30,7 @@ from .conftest import local_context, repository_root
 
 pytestmark = pytest.mark.software_verification
 
-GENERIC_46 = (
+GENERIC_49 = (
     "ArtifactIdentity",
     "ResourceReference",
     "ResourceManifest",
@@ -48,6 +48,7 @@ GENERIC_46 = (
     "PythonTestEvidenceSource",
     "PythonTestEvidenceRequest",
     "PythonTestEvidenceFinding",
+    "TaskStateInspectionRequest",
     "ValidationIssue",
     "ValidationResult",
     "ProjectProfileLoadResult",
@@ -55,6 +56,7 @@ GENERIC_46 = (
     "ChainEvaluationResult",
     "EvidenceAuditResult",
     "PythonTestEvidenceValidationResult",
+    "TaskStateInspectionResult",
     "JsonSerializationResult",
     "JsonDeserializationResult",
     "WireRecordKind",
@@ -70,6 +72,7 @@ GENERIC_46 = (
     "EvaluateChainState",
     "AuditEvidenceIdentifiers",
     "ValidatePythonTestEvidence",
+    "InspectTaskState",
     "ValidateChecksumManifest",
     "ValidateSkillResources",
     "Identifier",
@@ -128,15 +131,15 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
     SV-HL-007
     Requirement
     Generic code never imports local code, local code depends only upward on generic
-    code, and H4 does not mutate the accepted generic 46-name surface.
+    code, and local composition does not mutate the accepted generic 49-name surface.
     Method
     Parse every generic and local source module AST and compare generic ``__all__`` to a
-    fixed accepted validator-migration-pilot inventory before and after importing local.
+    fixed completed harness-tool inventory before and after importing local.
     Oracle
-    The accepted validator migration pilot fixes 46 exports and the H4 architecture
-    fixes ``local -> generic`` direction.
+    The accepted validator migration pilot and completed task-state inspection tool fix
+    49 exports; the H4 architecture fixes ``local -> generic`` direction.
     Acceptance
-    Generic exports equal the 46-name oracle; no generic import names local; local
+    Generic exports equal the 49-name oracle; no generic import names local; local
     relative imports never traverse outside ``pi``.
     Interpretation
     Failure indicates generic mutation, reverse dependency, or an incorrect fixed
@@ -146,8 +149,8 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
     UQ, and portability are excluded.
     """
     root = repository_root() / "python/src/ksdft2effmass/harness/pi"
-    assert tuple(generic.__all__) == GENERIC_46
-    assert len(generic.__all__) == 46
+    assert tuple(generic.__all__) == GENERIC_49
+    assert len(generic.__all__) == 49
 
     def assert_generic_module_does_not_import_local(path: Any) -> Any:
         """Evidence ID
@@ -220,7 +223,7 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
         assert_local_relative_imports_stay_within_pi(path)
         for path in selected_local_modules
     ]
-    assert tuple(generic.__all__) == GENERIC_46
+    assert tuple(generic.__all__) == GENERIC_49
 
 
 def test_public_api__package_local_imports__avoid_execution_side_effects() -> None:

@@ -39,6 +39,18 @@ adapter or validator must apply it explicitly and must preserve historical
 paths, evidence identifiers, assertions, fixtures, parameterization, and
 represented meaning during any separately authorized migration.
 
-The 22 profile-listed unowned functions are exact protected migration debt.
-They remain warnings in the current audit; the profile neither assigns them
-identifiers nor waives, repairs, or authorizes edits to them.
+The 22 profile-listed unowned functions are exact protected migration debt for
+their historical contract only. Under the separately activated repository-wide
+conformance task they remain explicit migration inputs, not waivers.
+
+## Repository-wide completion policy
+
+The maintained inventory at
+`.pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json`
+explicitly classifies every current Python test module, retains baseline and current
+collection counts, and records content identities. The local completion command is
+`python/.venv/bin/python harness/local/validation/validate_repository_test_evidence.py`. It fails
+closed on missing/stale/duplicate modules, identity drift, a nonconforming status,
+collection drift, or any generic structural finding. Its PASS establishes only those
+structural and inventory conditions; independent review still owns semantic cohesion,
+oracle independence, completeness, scientific meaning, and human acceptance.
