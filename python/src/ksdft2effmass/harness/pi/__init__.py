@@ -10,7 +10,13 @@ from __future__ import annotations
 from typing import TypeAlias
 
 from .chains import ChainView, EvaluateChainState, TaskReference
-from .checkpoints import CheckpointRecord, ValidateCheckpointSet
+from .checkpoints import (
+    CheckpointDecisionResolutionRequest,
+    CheckpointDecisionResolutionResult,
+    CheckpointRecord,
+    ResolveCheckpointDecision,
+    ValidateCheckpointSet,
+)
 from .checksums import ChecksumEntry, ChecksumManifest, ValidateChecksumManifest
 from .evidence import AuditEvidenceIdentifiers, EvidenceIdentifierOccurrence
 from .identity import (
@@ -112,6 +118,7 @@ __all__ = (
     "EvidenceIdentifierOccurrence",
     "OwnershipManifestView",
     "CheckpointRecord",
+    "CheckpointDecisionResolutionRequest",
     "TaskReference",
     "ChainView",
     "ChecksumEntry",
@@ -129,6 +136,7 @@ __all__ = (
     "PythonTestEvidenceValidationResult",
     "TaskStateInspectionResult",
     "ResourceManifestRefreshResult",
+    "CheckpointDecisionResolutionResult",
     "JsonSerializationResult",
     "JsonDeserializationResult",
     "WireRecordKind",
@@ -140,6 +148,7 @@ __all__ = (
     "RefreshResourceManifest",
     "ResolveResource",
     "ValidateResourceManifest",
+    "ResolveCheckpointDecision",
     "ValidateOwnershipManifest",
     "ValidateCheckpointSet",
     "EvaluateChainState",

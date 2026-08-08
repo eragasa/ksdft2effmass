@@ -36,7 +36,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
     The accepted validator and task-state tool contracts expand the H1 surface with
     the exact records, results, and actions named below.
     Acceptance
-    ``__all__`` equals the exact 52-name sequence and every listed attribute
+    ``__all__`` equals the exact 55-name sequence and every listed attribute
     resolves from the public package.
     Interpretation
     Failure indicates source/public-contract drift or an incomplete package import.
@@ -56,6 +56,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "EvidenceIdentifierOccurrence",
         "OwnershipManifestView",
         "CheckpointRecord",
+        "CheckpointDecisionResolutionRequest",
         "TaskReference",
         "ChainView",
         "ChecksumEntry",
@@ -73,6 +74,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "PythonTestEvidenceValidationResult",
         "TaskStateInspectionResult",
         "ResourceManifestRefreshResult",
+        "CheckpointDecisionResolutionResult",
         "JsonSerializationResult",
         "JsonDeserializationResult",
         "WireRecordKind",
@@ -84,6 +86,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "RefreshResourceManifest",
         "ResolveResource",
         "ValidateResourceManifest",
+        "ResolveCheckpointDecision",
         "ValidateOwnershipManifest",
         "ValidateCheckpointSet",
         "EvaluateChainState",
@@ -110,7 +113,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
     Method
     Construct each exact public action and inspect its instance storage surface.
     Oracle
-    The accepted maintained harness surface requires fourteen concrete actions with no
+    The accepted maintained harness surface requires fifteen concrete actions with no
     roots, profiles, caches, clients, or mutable state.
     Acceptance
     Every instance lacks ``__dict__`` and its class declares empty slots.
@@ -127,6 +130,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
         "RefreshResourceManifest",
         "ResolveResource",
         "ValidateResourceManifest",
+        "ResolveCheckpointDecision",
         "ValidateOwnershipManifest",
         "ValidateCheckpointSet",
         "EvaluateChainState",

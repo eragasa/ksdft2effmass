@@ -78,11 +78,10 @@ result, or reviewer agreement does not. The skill must not decide scientific
 meaning for the human or resolve a different checkpoint.
 
 ## Deterministic-action boundary
-This skill interprets intent; it does not transform checkpoint records. Future
-pure transformation belongs to the proposed `ResolveCheckpointDecision`
-ActionObject. Until that ActionObject exists, checkpoint writers and the
-maintained validator remain authoritative. Do not prescribe or implement the
-future ActionObject here.
+This skill interprets intent; it does not transform checkpoint records.
+Deterministic generic record transformation belongs to
+`ResolveCheckpointDecision`. Checkpoint validation remains with the maintained
+validator, while project-local writing remains outside this skill.
 
 Current task-state inspection belongs to `InspectTaskState` via
 [inspect-task-state](../../../.pi/skills/inspect-task-state/SKILL.md). Next-task

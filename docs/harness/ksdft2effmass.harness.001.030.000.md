@@ -22,7 +22,7 @@ exists.
 | `profiles.py` | Strict project-profile record and explicit profile loading. |
 | `resources.py` | Resource records, resolution, manifest validation, and skill-resource validation. |
 | `ownership.py` | Agent and ownership records plus non-overlap and binding validation. |
-| `checkpoints.py` | Checkpoint records and structural checkpoint-set validation. |
+| `checkpoints.py` | Checkpoint records, pure explicit decision transformation, and structural checkpoint-set validation. |
 | `chains.py` | Task/chain records and deterministic chain-state evaluation. |
 | `checksums.py` | Checksum records and explicit-root byte validation. |
 | `evidence.py` | Evidence-identifier occurrence records and caller-supplied source auditing. |
@@ -55,6 +55,28 @@ types, duplicate-key and unknown-field rejection, canonical output, and no
 implicit conversion of Boolean or numeric strings. Resource, ownership-scope,
 and diagnostic paths share strict lexical safety while retaining distinct
 meanings.
+
+`CheckpointRecord` remains the generic serialized checkpoint decision view.
+`CheckpointDecisionResolutionRequest` and
+`CheckpointDecisionResolutionResult` are runtime DataObjects and are not members
+of `HarnessWireRecord`; no cross-process wire requirement exists for them.
+Project-local checkpoint JSON also contains fields outside the generic view, so
+no generic CLI rewrites local checkpoint files. A future authorized local adapter
+must patch those records without discarding local fields.
+
+## Checkpoint decision boundary
+
+| Responsibility | Owner |
+|---|---|
+| Human-intent interpretation, ambiguity detection, and verbatim response selection | `resolve-human-checkpoint` |
+| Pure immutable transformation of one generic checkpoint decision view | `ResolveCheckpointDecision` |
+| Project-local JSON patching, validation, persistence, Git operations, and task resumption | Separately authorized root/local workflow |
+
+`ResolveCheckpointDecision` receives all decision-bearing values explicitly. It
+uses no repository, filesystem, clock, serializer, task/chain mutation, Git, or
+successor behavior. A successful repeat with identical values is an unchanged
+idempotent result; conflicts are deterministic checkpoint findings. Neither the
+ActionObject nor its tests establish human acceptance or task resumption.
 
 ## Deliberate exclusions
 

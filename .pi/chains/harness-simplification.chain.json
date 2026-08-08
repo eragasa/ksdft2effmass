@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "resource_manifest_refresh_completed",
+  "status": "resolve_checkpoint_decision_completed",
   "active_task": null,
   "automatic_successor_activation": false,
   "chain": [],
@@ -95,6 +95,14 @@
       "record": ".pi/tasks/harness-simplification.resources.manifest-refresh.md",
       "prerequisites": [
         "harness-simplification.execution.task-state-inspection-tool:completed"
+      ],
+      "status": "completed"
+    },
+    {
+      "id": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "record": ".pi/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.md",
+      "prerequisites": [
+        "harness-simplification.resources.manifest-refresh:completed"
       ],
       "status": "completed"
     },
