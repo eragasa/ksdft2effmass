@@ -1,5 +1,5 @@
 ---
-document_id: ksdft2effmass.harness.001.010.000
+document_id: ksdft2effmass.harness.001.001.000
 task_id: harness-current.boundaries
 parent: ksdft2effmass.harness.001.000.000
 status: current
@@ -68,4 +68,9 @@ Callers provide roots, manifest/profile bytes, content identities, records, and
 observations. There is no ambient global fallback. Local extensions may narrow a
 project policy but may not weaken generic integrity or safety invariants.
 
-See [the current architecture overview](./ksdft2effmass.harness.001.000.000.md).
+## Navigation
+
+- **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
+- **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Previous:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Next:** [Resources, profiles, and skills](ksdft2effmass.harness.001.002.000.md)

@@ -8,7 +8,7 @@
   "task_sequence": [
     {
       "id": "harness-simplification.agents.durable-roles",
-      "record": "docs/harness/ksdft2effmass.harness.010.030.010.md",
+      "record": "docs/harness/ksdft2effmass.harness.002.001.004.md",
       "prerequisites": [],
       "status": "completed"
     },

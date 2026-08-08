@@ -1,5 +1,5 @@
 ---
-document_id: ksdft2effmass.harness.001.040.000
+document_id: ksdft2effmass.harness.001.004.000
 task_id: harness-current.evidence
 parent: ksdft2effmass.harness.001.000.000
 status: current
@@ -67,4 +67,9 @@ artifact-owned rather than a third generic boundary kind. Maintained tests use
 the current module headings, semantic test names, stable evidence identifiers,
 explicit parameter IDs, and independently reviewable oracles.
 
-See [resources, profiles, and skills](./ksdft2effmass.harness.001.020.000.md).
+## Navigation
+
+- **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
+- **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Previous:** [Python implementation](ksdft2effmass.harness.001.003.000.md)
+- **Next:** <a href="ksdft2effmass.harness.001.005.000.md">Agent and ownership inventory</a>

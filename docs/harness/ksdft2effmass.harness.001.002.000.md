@@ -1,5 +1,5 @@
 ---
-document_id: ksdft2effmass.harness.001.020.000
+document_id: ksdft2effmass.harness.001.002.000
 task_id: harness-current.resources
 parent: ksdft2effmass.harness.001.000.000
 status: current
@@ -56,5 +56,9 @@ retains a legacy rollback value. The current replay entry point invokes declared
 validators and fails if a required observation is missing, malformed, nonzero,
 or does not report the required pass condition.
 
-See [generic and local boundaries](./ksdft2effmass.harness.001.010.000.md) and
-[validation and evidence](./ksdft2effmass.harness.001.040.000.md).
+## Navigation
+
+- **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
+- **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Previous:** [Generic and project-local boundaries](ksdft2effmass.harness.001.001.000.md)
+- **Next:** [Python implementation](ksdft2effmass.harness.001.003.000.md)

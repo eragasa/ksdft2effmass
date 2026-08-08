@@ -55,11 +55,11 @@ The Markdown-first provenance concept page is available as a
 .. toctree::
    :hidden:
 
-   harness/ksdft2effmass.harness.001.010.000
-   harness/ksdft2effmass.harness.001.020.000
-   harness/ksdft2effmass.harness.001.030.000
-   harness/ksdft2effmass.harness.001.040.000
-   harness/ksdft2effmass.harness.001.060.000
+   harness/ksdft2effmass.harness.001.001.000
+   harness/ksdft2effmass.harness.001.002.000
+   harness/ksdft2effmass.harness.001.003.000
+   harness/ksdft2effmass.harness.001.004.000
+   harness/ksdft2effmass.harness.001.006.000
 
 Markdown-first user guide
 -------------------------

@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.030.000
+document_id: ksdft2effmass.harness.002.001.003
 task_id: harness-simplification.agents
-parent: ksdft2effmass.harness.010.000.000
+parent: ksdft2effmass.harness.002.001.000
 status: proposed
 sphinx: excluded
 ---
@@ -65,14 +65,14 @@ An agent file still would not activate work or provide acceptance.
 
 ## Migration status
 
-[harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) created the five
-durable harness roles. [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md)
+[harness.002.001.004](./ksdft2effmass.harness.002.001.004.md) created the five
+durable harness roles. [harness.002.001.005](./ksdft2effmass.harness.002.001.005.md)
 records the completed simplification of all five durable project roles,
 including the final architecture responsibility, proportional analysis, and
 conditional exactly-three-alternative rule. That work changed no executable
 harness behavior and performed no executable migration.
 
-[harness.010.030.030](./ksdft2effmass.harness.010.030.030.md) records the
+[harness.002.001.006](./ksdft2effmass.harness.002.001.006.md) records the
 completed executable harness-tool placement contract, maintained-tool object
 model, thin-wrapper boundary, and proportional execution and delegation rules.
 It changes no executable harness behavior and migrates no script.
@@ -84,5 +84,9 @@ SQLite or evidence-storage work, and later protected work remain inactive and
 proposed. Existing historical identities remain present and retained evidence
 remains historically accurate.
 
-See [harness.001.050.000](./ksdft2effmass.harness.001.050.000.md) and
-[harness.010.000.000](./ksdft2effmass.harness.010.000.000.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Extractable evidence subsystem](ksdft2effmass.harness.002.001.002.md)
+- **Next:** [Create durable harness roles](ksdft2effmass.harness.002.001.004.md)

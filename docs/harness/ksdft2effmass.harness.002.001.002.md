@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.020.000
+document_id: ksdft2effmass.harness.002.001.002
 task_id: harness-simplification.evidence
-parent: ksdft2effmass.harness.010.000.000
+parent: ksdft2effmass.harness.002.001.000
 status: proposed
 sphinx: excluded
 ---
@@ -55,5 +55,9 @@ serialization, reconciliation logic, and tests. It would exclude local profiles,
 `.pi` data, scientific modules, route configuration, and repository-specific
 agent policy.
 
-See the [unified state proposal](./ksdft2effmass.harness.010.010.000.md) and
-[incremental migration plan](./ksdft2effmass.harness.010.050.000.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Unified state model](ksdft2effmass.harness.002.001.001.md)
+- **Next:** [Durable agent architecture](ksdft2effmass.harness.002.001.003.md)

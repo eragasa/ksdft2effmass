@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.030.020
+document_id: ksdft2effmass.harness.002.001.005
 task_id: harness-simplification.agents.project-architecture
-parent: ksdft2effmass.harness.010.030.000
+parent: ksdft2effmass.harness.002.001.000
 status: current
 sphinx: excluded
 ---
@@ -84,8 +84,8 @@ proposed.
 ## Validation and rollback
 
 Focused documentation validation checks exact front matter,
-[harness.010.030.020](./ksdft2effmass.harness.010.030.020.md),
-[harness.010.030.000](./ksdft2effmass.harness.010.030.000.md), relative links
+[harness.002.001.005](./ksdft2effmass.harness.002.001.005.md),
+[harness.002.001.003](./ksdft2effmass.harness.002.001.003.md), relative links
 across the four maintained pages, the unchanged inventory population totals,
 the five project and five harness durable identities, absence of links to
 nonexistent planned children, Sphinx exclusion, and whitespace errors. These
@@ -94,7 +94,14 @@ structural checks do not establish scientific validity or human acceptance.
 Rollback of the final bounded slice restores the prior
 `ksdft2effmass-architecture` record and any required capability registration,
 then restores this page and the
-[harness.001.050.000](./ksdft2effmass.harness.001.050.000.md) descriptions. It
+[harness.001.005.000](./ksdft2effmass.harness.001.005.000.md) descriptions. It
 does not undo the completed test, implementation, documentation, or
 integration-review simplifications, rewrite historical agents or retained
 evidence, or authorize any proposed successor.
+
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Create durable harness roles](ksdft2effmass.harness.002.001.004.md)
+- **Next:** [Executable harness-tool placement contract](ksdft2effmass.harness.002.001.006.md)

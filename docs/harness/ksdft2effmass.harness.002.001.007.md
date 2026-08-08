@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.040.000
+document_id: ksdft2effmass.harness.002.001.007
 task_id: harness-simplification.execution
-parent: ksdft2effmass.harness.010.000.000
+parent: ksdft2effmass.harness.002.001.000
 status: proposed
 sphinx: excluded
 ---
@@ -19,7 +19,7 @@ interpretation or ambient environment selection.
 
 | Decomposition | Responsibility |
 |---|---|
-| [harness.010.040.010](./ksdft2effmass.harness.010.040.010.md) | Skill, durable/inactive-agent, ActionObject, and tool capability ownership rationalization |
+| [harness.002.001.008](./ksdft2effmass.harness.002.001.008.md) | Skill, durable/inactive-agent, ActionObject, and tool capability ownership rationalization |
 
 ## Canonical interpreter
 
@@ -69,5 +69,9 @@ Git mutation, dependency installation, release, or scientific calculation.
 Callers must establish authority before dispatch. Sensitive environment values
 must never enter durable request or result records.
 
-See the [unified state model](./ksdft2effmass.harness.010.010.000.md) and
-[incremental migration plan](./ksdft2effmass.harness.010.050.000.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Executable harness-tool placement contract](ksdft2effmass.harness.002.001.006.md)
+- **Next:** [Harness capability ownership rationalization](ksdft2effmass.harness.002.001.008.md)

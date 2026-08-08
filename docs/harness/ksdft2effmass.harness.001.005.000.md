@@ -1,5 +1,5 @@
 ---
-document_id: ksdft2effmass.harness.001.050.000
+document_id: ksdft2effmass.harness.001.005.000
 task_id: harness-current.agents
 parent: ksdft2effmass.harness.001.000.000
 status: current
@@ -334,3 +334,10 @@ create the file, define or accept a schema, modify a resource manifest or
 profile, or change harness routing. A future schema decision must also define
 how current task/chain selection and retained historical references are resolved
 without treating file existence as authorization.
+
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Previous:** [Validation and evidence](ksdft2effmass.harness.001.004.000.md)
+- **Next:** [Current status and limitations](ksdft2effmass.harness.001.006.000.md)

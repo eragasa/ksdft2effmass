@@ -10,12 +10,12 @@
   "architecture_documents": [
     "docs/harness/ksdft2effmass.harness.000.000.000.md",
     "docs/harness/ksdft2effmass.harness.001.000.000.md",
-    "docs/harness/ksdft2effmass.harness.001.010.000.md",
-    "docs/harness/ksdft2effmass.harness.001.020.000.md",
-    "docs/harness/ksdft2effmass.harness.001.030.000.md",
-    "docs/harness/ksdft2effmass.harness.001.040.000.md",
-    "docs/harness/ksdft2effmass.harness.001.050.000.md",
-    "docs/harness/ksdft2effmass.harness.001.060.000.md"
+    "docs/harness/ksdft2effmass.harness.001.001.000.md",
+    "docs/harness/ksdft2effmass.harness.001.002.000.md",
+    "docs/harness/ksdft2effmass.harness.001.003.000.md",
+    "docs/harness/ksdft2effmass.harness.001.004.000.md",
+    "docs/harness/ksdft2effmass.harness.001.005.000.md",
+    "docs/harness/ksdft2effmass.harness.001.006.000.md"
   ],
   "authoritative_status_sources": {
     "tasks": ".pi/tasks/",

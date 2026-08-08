@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.030.030
+document_id: ksdft2effmass.harness.002.001.006
 task_id: harness-simplification.agents.executable-tool-placement-contract
-parent: ksdft2effmass.harness.010.030.000
+parent: ksdft2effmass.harness.002.001.000
 status: current
 sphinx: excluded
 ---
@@ -143,4 +143,9 @@ Validation is structural software verification of the supplied Python source and
 
 The compatibility wrapper is retained temporarily; this pilot does not promise its permanent public availability or retire historical command records. Broader validator migration, live discovery, historical-agent retirement, delegation validation, SQLite or other evidence storage, scientific work, protected execution, and release work remain deferred and unauthorized.
 
-See [harness.010.030.000](./ksdft2effmass.harness.010.030.000.md) and [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Simplify durable project roles](ksdft2effmass.harness.002.001.005.md)
+- **Next:** [Maintained execution interface](ksdft2effmass.harness.002.001.007.md)

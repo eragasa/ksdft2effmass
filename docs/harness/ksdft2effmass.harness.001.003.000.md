@@ -1,5 +1,5 @@
 ---
-document_id: ksdft2effmass.harness.001.030.000
+document_id: ksdft2effmass.harness.001.003.000
 task_id: harness-current.python
 parent: ksdft2effmass.harness.001.000.000
 status: current
@@ -85,5 +85,9 @@ scheduler, plugin registry, scientific workflow engine, network fetch, or
 implicit package-resource discovery. These exclusions are current facts, not
 missing scientific capabilities.
 
-See [the architecture overview](./ksdft2effmass.harness.001.000.000.md) and
-[current limitations](./ksdft2effmass.harness.001.060.000.md).
+## Navigation
+
+- **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
+- **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Previous:** [Resources, profiles, and skills](ksdft2effmass.harness.001.002.000.md)
+- **Next:** [Validation and evidence](ksdft2effmass.harness.001.004.000.md)

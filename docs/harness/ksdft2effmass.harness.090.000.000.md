@@ -51,6 +51,11 @@ unchanged requirement into new evidence.
 | `ksdft2effmass.harness.00.md` | [harness.000.000.000](./ksdft2effmass.harness.000.000.000.md) | Root index replaced and expanded. |
 | `ksdft2effmass.harness.01.md` through `ksdft2effmass.harness.06.md` | [harness.001.000.000](./ksdft2effmass.harness.001.000.000.md) and current child pages | Current architecture consolidated by topic. |
 | `ksdft2effmass.harness.07.md` | [harness.090.000.000](./ksdft2effmass.harness.090.000.000.md) | Historical shadow/cutover material retained here. |
-| `ksdft2effmass.harness.08.md` | [harness.010.050.000](./ksdft2effmass.harness.010.050.000.md) | Extraction material retained as a proposed migration stage. |
+| `ksdft2effmass.harness.08.md` | [harness.002.001.009](./ksdft2effmass.harness.002.001.009.md) | Extraction material retained as a proposed migration stage. |
 
-Return to the [repository harness index](./ksdft2effmass.harness.000.000.000.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Previous:** [Initial human-review interface round](ksdft2effmass.harness.003.001.000.md)
+- **Next:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)

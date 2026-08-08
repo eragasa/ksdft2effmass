@@ -23,11 +23,11 @@ include_patterns = [
     "concepts/cpn-contract.md",
     "api/workflows-cpn.md",
     "harness/ksdft2effmass.harness.001.000.000.md",
-    "harness/ksdft2effmass.harness.001.010.000.md",
-    "harness/ksdft2effmass.harness.001.020.000.md",
-    "harness/ksdft2effmass.harness.001.030.000.md",
-    "harness/ksdft2effmass.harness.001.040.000.md",
-    "harness/ksdft2effmass.harness.001.060.000.md",
+    "harness/ksdft2effmass.harness.001.001.000.md",
+    "harness/ksdft2effmass.harness.001.002.000.md",
+    "harness/ksdft2effmass.harness.001.003.000.md",
+    "harness/ksdft2effmass.harness.001.004.000.md",
+    "harness/ksdft2effmass.harness.001.006.000.md",
 ]
 
 myst_enable_extensions = ["dollarmath"]

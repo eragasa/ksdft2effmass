@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.010.000
+document_id: ksdft2effmass.harness.002.001.001
 task_id: harness-simplification.state
-parent: ksdft2effmass.harness.010.000.000
+parent: ksdft2effmass.harness.002.001.000
 status: proposed
 sphinx: excluded
 ---
@@ -51,4 +51,9 @@ a candidate database. During migration, read-only comparison would establish
 agreement before any current-state owner changes. The proposal does not authorize
 deleting or rewriting historical records.
 
-See the [simplification overview](./ksdft2effmass.harness.010.000.000.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Next:** [Extractable evidence subsystem](ksdft2effmass.harness.002.001.002.md)

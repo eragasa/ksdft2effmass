@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.050.000
+document_id: ksdft2effmass.harness.002.001.009
 task_id: harness-simplification.migration
-parent: ksdft2effmass.harness.010.000.000
+parent: ksdft2effmass.harness.002.001.000
 status: proposed
 sphinx: excluded
 ---
@@ -83,5 +83,9 @@ Each stage requires its own authorization, ownership, focused validation,
 reconciliation, read-only review, and human acceptance where applicable. No
 stage automatically activates the next.
 
-See the [simplification overview](./ksdft2effmass.harness.010.000.000.md) and
-[historical documentation](./ksdft2effmass.harness.090.000.000.md).
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Harness capability ownership rationalization](ksdft2effmass.harness.002.001.008.md)
+- **Next:** [Human review interface](ksdft2effmass.harness.003.000.000.md)

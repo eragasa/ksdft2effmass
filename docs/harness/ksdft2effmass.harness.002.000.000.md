@@ -1,15 +1,15 @@
 ---
-document_id: ksdft2effmass.harness.010.000.000
+document_id: ksdft2effmass.harness.002.000.000
 task_id: harness-simplification
 parent: ksdft2effmass.harness.000.000.000
 status: proposed
 sphinx: excluded
 ---
 
-# Harness simplification proposal
+# Harness simplification plan
 
-> **Proposed architecture.** Nothing in this topic is implemented or accepted by
-> this documentation task.
+> **Program boundary.** This plan contains completed bounded work and proposed or
+> deferred work. It is not accepted as a whole and activates no item.
 
 The proposal reduces duplicated parsing, state synchronization, command
 assembly, evidence indexing, and phase-specific agent configuration while
@@ -20,11 +20,12 @@ authority.
 
 | Document | Proposed responsibility |
 |---|---|
-| [harness.010.010.000](./ksdft2effmass.harness.010.010.000.md) | SQLite-backed operational state and event model |
-| [harness.010.020.000](./ksdft2effmass.harness.010.020.000.md) | Extractable `harness.pi.evidence` subsystem |
-| [harness.010.030.000](./ksdft2effmass.harness.010.030.000.md) | Durable project-agent and harness-agent sets |
-| [harness.010.040.000](./ksdft2effmass.harness.010.040.000.md) | Maintained execution and validation interface |
-| [harness.010.050.000](./ksdft2effmass.harness.010.050.000.md) | Incremental migration and extraction-readiness plan |
+| [harness.002.001.000](ksdft2effmass.harness.002.001.000.md) | Complete first-round navigation and current status distinctions |
+| [harness.002.001.001](ksdft2effmass.harness.002.001.001.md) | SQLite-backed operational state and event model |
+| [harness.002.001.002](ksdft2effmass.harness.002.001.002.md) | Extractable `harness.pi.evidence` subsystem |
+| [harness.002.001.003](ksdft2effmass.harness.002.001.003.md) | Durable project-agent and harness-agent sets |
+| [harness.002.001.007](ksdft2effmass.harness.002.001.007.md) | Maintained execution and validation interface |
+| [harness.002.001.009](ksdft2effmass.harness.002.001.009.md) | Incremental migration and extraction-readiness plan |
 
 ## Design goals
 
@@ -42,5 +43,13 @@ The proposal does not move scientific meaning into the harness, make evidence
 authoritative over human decisions, permit ambient repository discovery, add a
 workflow engine, or authorize external execution. Historical files remain
 retained evidence until an accepted migration defines archival treatment.
+
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Previous:** [Current status and limitations](ksdft2effmass.harness.001.006.000.md)
+- **Next:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Child:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
 
 Return to the [repository harness index](./ksdft2effmass.harness.000.000.000.md).

@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.040.010
+document_id: ksdft2effmass.harness.002.001.008
 task_id: harness-simplification.capability-rationalization
-parent: ksdft2effmass.harness.010.040.000
+parent: ksdft2effmass.harness.002.001.000
 status: proposed
 sphinx: excluded
 ---
@@ -427,3 +427,10 @@ The bounded harness-simplification chain entry records Slice 9 completion with
 `active_task: null`; it does not activate another slice. Slice 7 retirement of
 `inspect-task-state` remains deferred, and telemetry and other successors remain
 inactive pending separate human authorization.
+
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Maintained execution interface](ksdft2effmass.harness.002.001.007.md)
+- **Next:** [Incremental migration plan](ksdft2effmass.harness.002.001.009.md)

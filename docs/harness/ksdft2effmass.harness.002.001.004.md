@@ -1,7 +1,7 @@
 ---
-document_id: ksdft2effmass.harness.010.030.010
+document_id: ksdft2effmass.harness.002.001.004
 task_id: harness-simplification.agents.durable-roles
-parent: ksdft2effmass.harness.010.030.000
+parent: ksdft2effmass.harness.002.001.000
 status: current
 sphinx: excluded
 ---
@@ -52,21 +52,21 @@ those records remain `historical-reference-only`.
 
 | Document | Task identity | Title | Status | Sphinx |
 |---|---|---|---|---|
-| [harness.010.030.010](./ksdft2effmass.harness.010.030.010.md) | `harness-simplification.agents.durable-roles` | Create durable harness roles | Current | Excluded |
-| [harness.010.030.020](./ksdft2effmass.harness.010.030.020.md) | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Current | Excluded |
-| [harness.010.030.030](./ksdft2effmass.harness.010.030.030.md) | `harness-simplification.agents.executable-tool-placement-contract` | Establish executable-code and maintained-agent-tool placement contract | Current | Excluded |
-| harness.010.030.040 | `harness-simplification.agents.validator-migration-pilot` | Pilot migration of one validator under the accepted placement contract | `inactive_unauthorized` | Excluded |
-| harness.010.030.050 | Not created | Remove historical roles from live discovery | Proposed | Excluded |
-| harness.010.030.060 | Not created | Retire obsolete phase-agent files | Proposed | Excluded |
-| harness.010.030.070 | Not created | Validate delegation and handoffs | Proposed | Excluded |
-| harness.010.030.080 | Not created | Evaluate SQLite or evidence-storage work | Proposed | Excluded |
+| [harness.002.001.004](./ksdft2effmass.harness.002.001.004.md) | `harness-simplification.agents.durable-roles` | Create durable harness roles | Current | Excluded |
+| [harness.002.001.005](./ksdft2effmass.harness.002.001.005.md) | `harness-simplification.agents.project-role-simplification` | Simplify durable project roles | Current | Excluded |
+| [harness.002.001.006](./ksdft2effmass.harness.002.001.006.md) | `harness-simplification.agents.executable-tool-placement-contract` | Establish executable-code and maintained-agent-tool placement contract | Current | Excluded |
+| No document assigned | `harness-simplification.agents.validator-migration-pilot` | Pilot migration of one validator under the accepted placement contract | `inactive_unauthorized` | Excluded |
+| No document assigned | Not created | Remove historical roles from live discovery | Proposed | Excluded |
+| No document assigned | Not created | Retire obsolete phase-agent files | Proposed | Excluded |
+| No document assigned | Not created | Validate delegation and handoffs | Proposed | Excluded |
+| No document assigned | Not created | Evaluate SQLite or evidence-storage work | Proposed | Excluded |
 
 The first three rows are current. The project-role page records the completed
 simplification of all five durable project roles, and the placement-contract page
 records the completed executable-tool architecture. The validator pilot remains
 the next ordered `inactive_unauthorized` chain entry with `record: null`; it has
-no task record or child page and is not activated or begun. The remaining plain
-coordinates identify later proposals without linking to nonexistent files;
+no task record or child page and is not activated or begun. The remaining
+unassigned rows identify later proposals without linking to nonexistent files;
 broader discovery, retirement, delegation, storage, and protected work remain
 later proposals.
 
@@ -105,3 +105,10 @@ executable. Live-discovery changes, historical-agent retirement, delegation and
 handoff validation, wider harness behavior changes, SQLite or evidence-storage
 implementation, dependency changes, protected execution, and release work
 remain inactive and proposed.
+
+## Navigation
+
+- **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
+- **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
+- **Previous:** [Durable agent architecture](ksdft2effmass.harness.002.001.003.md)
+- **Next:** [Simplify durable project roles](ksdft2effmass.harness.002.001.005.md)

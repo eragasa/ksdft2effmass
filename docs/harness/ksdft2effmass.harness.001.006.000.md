@@ -1,5 +1,5 @@
 ---
-document_id: ksdft2effmass.harness.001.060.000
+document_id: ksdft2effmass.harness.001.006.000
 task_id: harness-current.status
 parent: ksdft2effmass.harness.001.000.000
 status: current
@@ -71,4 +71,9 @@ submit external jobs, publish packages, establish release readiness, or provide
 scientific validation or UQ. A future operational-state redesign would require a
 separate accepted architecture and implementation task.
 
-See [the current architecture](./ksdft2effmass.harness.001.000.000.md).
+## Navigation
+
+- **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
+- **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
+- **Previous:** <a href="ksdft2effmass.harness.001.005.000.md">Agent and ownership inventory</a>
+- **Next:** <a href="ksdft2effmass.harness.002.000.000.md">Harness simplification plan</a>
