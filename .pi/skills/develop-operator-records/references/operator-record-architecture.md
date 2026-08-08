@@ -1,221 +1,207 @@
-# Operator-Record Architecture
+# Represented Finite-Operator Architecture
 
-## Resolved paths and authority
+## Domain boundary
 
-The authoritative Python source root is `python/src/`, established by `python/pyproject.toml` package discovery and `docs/conf.py`. The operator package is `python/src/ksdft2effmass/operators/`; the Python test root is `python/tests/`.
+This reference applies to finite matrix representations of mathematical
+operators and the metadata required to interpret them. It does not define a
+general linear-algebra framework, perform basis or gauge alignment, validate a
+physical model, or authorize a future reduction workflow.
 
-The focused operator-record VVUQ migration is complete. Maintained
-software-verification object tests live under:
+The applicable specification and supported public imports remain authoritative
+for exact fields and object names. This reference owns reusable domain
+relationships rather than a source-tree, test-file, or command inventory.
 
-```text
-python/tests/software_verification/ksdft2effmass/<package>/test__<ObjectName>__<facet>.py
-```
+## Represented meaning
 
-Maintained numerical-verification cases use the corresponding
-`numerical_verification/` hierarchy. Operator-record object tests use the
-`operators/` subtree, the concrete comparison Workflow uses `workflows/`, and
-technical integration evidence uses `integration/`. Transitional unsuffixed
-paths under `python/tests/ksdft2effmass/operators/` remain historical evidence,
-not active owners.
+For an abstract operator $\hat O$ acting on an identified finite-dimensional
+space and an ordered basis $\{|b_i\rangle\}_{i=0}^{N-1}$, its matrix coordinates
+are
 
-The operator-record validation-correction task closed with human final acceptance
-on 2026-08-03. No operator-record corrective task or successor task is active.
-Human approval is required before any future implementation. The human PI is final authority for scientific meaning, mathematical conventions, public API decisions, serialization compatibility, architectural boundaries, backward compatibility, project scope, unresolved validation failures, and final acceptance. Record corrective decisions in `.pi/tasks/operator-record-validation-correction.md`; preserve historical refactor evidence.
+$$
+O_{ij}=\langle b_i|\hat O|b_j\rangle,
+\qquad O\in\mathbb C^{N\times N}.
+$$
 
-The operator package structure is:
+The numbers $O_{ij}$ are not a complete operator record when interpretation also
+depends on:
 
-```text
-python/src/ksdft2effmass/operators/
-├── __init__.py
-├── records.py
-├── compatibility.py
-├── difference.py
-├── residuals.py
-├── comparison.py
-├── hermiticity.py
-└── serialization.py
-```
+- state-space identity and dimension;
+- basis identity, convention, and ordering;
+- units and normalization;
+- geometry, boundary, and coordinate conventions;
+- energy-zero reference for energy-valued operators;
+- spin representation;
+- gauge, phase, or other alignment conventions; and
+- serialization version and field vocabulary.
 
-The dependency direction for comparison-related modules is `records.py` ->
-`compatibility.py` -> `difference.py` -> `residuals.py` -> `comparison.py`.
-Earlier layers must not import later layers. `comparison.py` owns only the
-concrete `OperatorRecordComparator` Workflow composition.
+Store every comparison-critical convention explicitly or declare it outside the
+supported representation. Provenance can identify an input calculation but does
+not prove that the represented metadata or physical model is correct.
 
-## Object responsibilities
+## Operator-specific object ownership
 
-| Object | Category | Responsibility |
-| --- | --- | --- |
-| `StateSpace` | DataObject | Finite state-space metadata and state-space validation |
-| `Basis` | DataObject | Ordered basis metadata |
-| `Geometry` | DataObject | Cell and boundary metadata and geometry validation |
-| `EnergyReference` | DataObject | Exact textual energy-zero-convention and energy-unit metadata |
-| `OperatorRecord` | DataObject | Matrix and comparison-critical metadata only |
-| `HermiticityResult` | ResultObject | Immutable Hermiticity result |
-| `HermiticityAnalyzer` | ActionObject | Hermiticity analysis and enforcement; owns tolerance |
-| `OperatorRecordJsonSerializer` | ActionObject | Versioned JSON text serialization; owns schema-version and complex-matrix mechanics |
-| `OperatorRecordCompatibilityIssue` | ResultObject component | Authoritative compatibility mismatch code with canonical derived description |
-| `OperatorRecordCompatibilityResult` | ResultObject | Tuple-only compatibility issues, derived rule sequence, and derived compatibility status |
-| `OperatorRecordCompatibilityAnalyzer` | ActionObject | Exact compatibility analysis for already-represented records |
-| `OperatorRecordDifferenceResult` | ResultObject | Immutable represented difference `candidate - reference` after compatibility succeeds |
-| `OperatorRecordDifferencer` | ActionObject | Compatibility enforcement, sign convention, subtraction, nonfinite-difference detection, and difference-result construction |
-| `OperatorRecordComparisonResult` | ResultObject | Immutable structural residual metrics for a represented difference |
-| `OperatorRecordResidualAnalyzer` | ActionObject | Scale-safe residual norms, residual numerical errors, and metric-order roundoff policy |
-| `OperatorRecordComparator` | Workflow ActionObject | Concrete composition of differencer followed by residual analyzer |
+Use `design-data-action-objects` for the general architecture. Its
+operator-domain application is:
 
-## Required software-verification test modules
+| Responsibility | Owner |
+|---|---|
+| Matrix and intrinsic representation metadata | Operator-record DataObject |
+| Intrinsic state-space, basis, geometry, or energy-reference invariants | DataObject that owns those fields |
+| Hermiticity evaluation and tolerance | Hermiticity analyzer ActionObject |
+| Representation compatibility | Compatibility ActionObject |
+| Signed represented difference | Difference ActionObject |
+| Residual norms and numerical policy | Residual-analysis ActionObject |
+| Wire-format conversion | Serializer ActionObject |
+| Structured operation outcome | Immutable ResultObject |
+| Reusable comparison composition | Workflow, only when genuinely multi-step |
 
-Create one principal module per public object, except approved VVUQ-migrated objects may be split by facet:
+An operator record must not acquire analyzer tolerances, unit conversion,
+comparison policy, residual computation, serialization methods, or scientific
+acceptance state. ResultObjects record outcomes without performing their
+operations and need no nominal DataObject inheritance.
 
-- `test__StateSpace__construction.py`, `test__StateSpace__invariants.py`, and `test__StateSpace__value_semantics.py` under the target software-verification hierarchy
-- `test__Basis__construction.py`, `test__Basis__invariants.py`, and `test__Basis__value_semantics.py` under the target software-verification hierarchy
-- `test__Geometry__construction.py`, `test__Geometry__invariants.py`, and `test__Geometry__value_semantics.py` under the target software-verification hierarchy, plus `test__Geometry__linear_independence.py` under the target numerical-verification hierarchy
-- `test__EnergyReference__construction.py`, `test__EnergyReference__invariants.py`, and `test__EnergyReference__value_semantics.py` under the target software-verification hierarchy
-- `test__OperatorRecord__construction.py`, `test__OperatorRecord__matrix_invariants.py`, `test__OperatorRecord__metadata_invariants.py`, `test__OperatorRecord__ownership.py`, and `test__OperatorRecord__value_semantics.py` under the target software-verification hierarchy
-- `test__HermiticityResult__construction.py`, `test__HermiticityResult__invariants.py`, and `test__HermiticityResult__value_semantics.py` under the target software-verification hierarchy
-- `test__HermiticityAnalyzer__configuration.py` and `test__HermiticityAnalyzer__contract.py` under the target software-verification hierarchy, plus `test__HermiticityAnalyzer__analytical_residuals.py` under the target numerical-verification hierarchy
-- `test__OperatorRecordJsonSerializer__contract.py`, `test__OperatorRecordJsonSerializer__serialization.py`, `test__OperatorRecordJsonSerializer__deserialization_structure.py`, `test__OperatorRecordJsonSerializer__deserialization_values.py`, and `test__OperatorRecordJsonSerializer__round_trip.py` under the target software-verification hierarchy, plus `test__OperatorRecordJsonSchema.py` and `test__OperatorRecordJsonFixtures.py` under its `integration/` subtree
+## Compatibility before arithmetic
 
-Each module primarily tests the public contract of the object named in the filename. `OperatorRecordDifferenceResult` is migrated to `test__OperatorRecordDifferenceResult__construction.py`, `test__OperatorRecordDifferenceResult__invariants.py`, and `test__OperatorRecordDifferenceResult__value_semantics.py` under `python/tests/software_verification/ksdft2effmass/operators/`. `OperatorRecordCompatibilityAnalyzer` is migrated to cohesive `test__OperatorRecordCompatibilityAnalyzer__contract.py` and `test__OperatorRecordCompatibilityAnalyzer__rules.py` facets under the same target hierarchy. Package dependency-direction evidence belongs to the narrowly scoped integration module `python/tests/software_verification/ksdft2effmass/integration/test__OperatorComparisonDependencyDirection.py`, not to an Analyzer object test. Place cross-object behavior with the ActionObject that owns the operation: Hermiticity configuration and execution/enforcement software evidence in the two target `test__HermiticityAnalyzer__configuration.py` and `test__HermiticityAnalyzer__contract.py` facets, and independent residual oracles in the target numerical `test__HermiticityAnalyzer__analytical_residuals.py` facet; runtime JSON behavior in the five target serializer facets, with public schema and golden-fixture interoperability in their two narrow integration owners; matrix construction, intrinsic invariants, ownership, operational immutability, and exact value semantics in the five target `test__OperatorRecord__<facet>.py` modules.
+Subtraction and residuals are meaningful only after the applicable represented
+conventions agree or have been explicitly aligned. A compatibility operation
+should check, as applicable:
 
-Do not create broad dumping-ground modules such as `test_records.py`, `test_operators.py`, `test_utils.py`, or `test_misc.py`. Technical integrations such as public package imports, JSON interoperability, filesystem boundaries, command-line behavior, Sphinx autodoc imports, and future Python/Rust schema compatibility belong under `python/tests/software_verification/ksdft2effmass/integration/test__<IntegrationName>.py` unless they are object-owned behavior. Do not add `__init__.py` files to test directories unless required by established pytest import mode.
+- state-space identity and represented dimension;
+- matrix dimensions;
+- exact basis ordering and basis convention;
+- units and normalization;
+- geometry and coordinate convention;
+- energy reference;
+- spin convention; and
+- gauge or phase alignment.
 
-Do not create an `OperatorRecordWorkflow` for `construct -> Hermiticity analysis -> serialize -> deserialize`; those operations remain owned by `OperatorRecord`, `HermiticityAnalyzer`, and `OperatorRecordJsonSerializer`.
+Equal shape, dtype, eigenvalues, or provenance does not replace these checks.
+Compatibility of stored representations is a software precondition; it is not
+physical equivalence or scientific validation.
 
-## Required decisions
+A difference ActionObject must define its operand order. For example,
 
-- `OperatorRecord` contains represented data only.
-- Hermiticity tolerance belongs to `HermiticityAnalyzer`.
-- Hermiticity results are returned as `HermiticityResult`.
-- Serialization belongs to `OperatorRecordJsonSerializer`.
-- Schema-version and complex-matrix mechanics belong to the JSON serializer.
-- Geometry validation belongs to `Geometry`.
-- State-space validation belongs to `StateSpace`.
-- Static constructor declarations may expose already admitted input families while stored field annotations retain canonical built-in types. Such `TYPE_CHECKING`-only declarations preserve generated dataclass runtime behavior. This includes admitted numeric scalar families and the approved ordered-sequence input for `Basis.ordering`; Boolean rejection and bare-string rejection remain documented runtime semantic refinements where broad static protocols cannot express them precisely.
-- Exact equality belongs to the DataObject.
-- Approximate or physically aligned comparison is a separate future ActionObject.
-- The public API is exported from `ksdft2effmass.operators`.
-- Sphinx documentation and tests are required parts of completion.
+$$
+\Delta O = O_{\mathrm{candidate}}-O_{\mathrm{reference}}
+$$
 
-## Mathematical Hermiticity criterion
+has the opposite sign from the reversed convention. A represented difference is
+not automatically an impurity operator, perturbation, error operator, or
+physical observable.
 
-Use the absolute entrywise maximum residual
+## Basis, gauge, and coordinates
+
+Under a unitary basis transformation $U$,
+
+$$
+O' = U^\dagger O U.
+$$
+
+This changes matrix coordinates without necessarily changing the underlying
+operator. Consequently:
+
+- entrywise differences are coordinate dependent;
+- basis labels alone do not establish alignment;
+- an alignment map must state its direction and convention;
+- invariant comparisons must identify the invariant being used; and
+- equal spectra do not establish gauge equivalence or provide an alignment.
+
+Do not interpret a residual physically until coordinate compatibility,
+alignment, or a justified invariant comparison has been established. Full gauge-
+equivariant reduction and approximate physical alignment remain outside this
+skill.
+
+## Hermiticity
+
+For a represented matrix, one possible Hermiticity residual is the absolute
+entrywise maximum
 
 $$
 \varepsilon_{\mathrm H}
 =
-\max_{i,j}
-\left|
-H_{ij}-H_{ji}^{*}
-\right|,
+\max_{i,j}|O_{ij}-O_{ji}^{*}|.
 $$
 
-with acceptance under analyzer tolerance $\tau$ when
+The owning analyzer contract must state the chosen residual, its units, any scale
+or normalization, and an inclusive or exclusive tolerance rule. Keep distinct:
+
+1. exact stored matrix values;
+2. the computed residual;
+3. normalization or scale;
+4. tolerance policy;
+5. the immutable structured result; and
+6. scientific interpretation.
+
+A residual below a software tolerance establishes only the analyzer's documented
+criterion under its recorded representation. It does not prove that the source
+calculation, modeled operator, basis, units, or physical interpretation is
+correct. Hermiticity status may be invariant under an exact unitary basis change
+even when a nonzero entrywise residual magnitude is basis dependent.
+
+## Residuals and numerical robustness
+
+Each residual or norm must define its mathematical quantity. Common examples are
 
 $$
-\varepsilon_{\mathrm H}\leq\tau.
+\varepsilon_{\max}=\max_{i,j}|\Delta O_{ij}|,
+\qquad
+\varepsilon_{\mathrm F}=\|\Delta O\|_{\mathrm F},
+\qquad
+\varepsilon_2=\|\Delta O\|_2.
 $$
 
-This is analyzer policy, not `OperatorRecord` state.
+State whether each result is absolute or normalized and identify its units.
+Normalization must define the reference scale and explicitly handle a zero scale;
+it must not hide an undefined ratio behind zero, infinity, or NaN.
 
-## Validation invariants
+Numerical implementations must:
 
-- Matrix is two-dimensional, square, finite, and `complex128` after canonicalization.
-- Matrix dimension matches `StateSpace.dimension` and `len(Basis.ordering)`.
-- Stored matrix is copied from the caller and made non-writeable.
-- Provenance is copied and exposed read-only; provenance values are explicit strings.
-- `Geometry.cell` is three finite, linearly independent three-component row lattice vectors.
-- `EnergyReference` stores `zero` and `unit`; no numerical offset field is stored.
-- DataObject equality is exact structural equality. Do not use tolerances for `__eq__`.
+- reject or report nonfinite represented inputs and intermediates;
+- use scale-safe norm or residual computation where direct arithmetic can
+  overflow or underflow materially;
+- distinguish roundoff handling from scientific tolerance;
+- make any canonicalization bound explicit and owned by the analyzer; and
+- return or raise structured numerical failures instead of silently emitting
+  `inf` or `nan`.
 
-## Replaced API
+Do not combine parent-model error, discretization or numerical error, and
+model-reduction error unless an owning scientific contract defines their
+relationship.
 
-Former data-object methods are not allowed:
+## Serialization
 
-```python
-record.hermiticity_residual()
-record.is_hermitian()
-record.require_hermitian()
-record.to_dict()
-OperatorRecord.from_dict(...)
-```
+An operator serializer owns the versioned wire representation. Its contract must
+keep field and enum vocabularies explicit, preserve all represented metadata
+required for interpretation, and make unsupported versions or ambiguous values
+fail explicitly. Schema validation and runtime construction must agree while
+remaining distinct layers: a schema can check wire shape, whereas runtime logic
+may own cross-field dimensions, finiteness, canonicalization, and error taxonomy.
 
-Use ActionObjects instead:
+A successful round trip should preserve the exact represented state promised by
+the wire contract. It does not establish basis alignment, gauge equivalence,
+physical validity, provenance truth, numerical verification, or scientific
+validation. Cross-language compatibility is required only when an accepted shared
+wire contract or authorized implementation task requires it.
 
-```python
-analyzer = HermiticityAnalyzer(tolerance=..., energy_unit="eV")
-result = analyzer.execute(record)
-analyzer.require(record)
+## Evidence boundary
 
-serializer = OperatorRecordJsonSerializer()
-text = serializer.serialize(record)
-restored = serializer.deserialize(text)
-```
+- Construction, intrinsic invariants, compatibility codes, serialization shape,
+  round trips, and public imports are software-verification subjects.
+- Independently derived analytical residuals or norms may provide numerical
+  verification of stated mathematics.
+- Comparison against a physical system or trusted independent scientific
+  reference is scientific validation for a declared use.
+- Sensitivity analysis or propagation of declared uncertainty sources is UQ.
 
-## Versioned serializer design
+One class does not imply another. Detailed test ownership, naming, documentation,
+parameterization, and evidence identifiers belong to
+`develop-python-test-evidence`. Public source/API and Sphinx documentation
+procedure belongs to `document-python-research-software`.
 
-- `schema_version` is an explicit fixed field.
-- Complex entries are encoded deterministically as `[real, imaginary]` pairs.
-- Missing or unsupported schema versions are serializer errors.
-- Round trips preserve exact DataObject equality for represented data.
-- Wire-format field names are fixed for Rust compatibility.
+## Stop boundary
 
-## Public imports
-
-`ksdft2effmass.operators` must export `StateSpace`, `Basis`, `Geometry`, `EnergyReference`, `OperatorRecord`, `HermiticityResult`, `HermiticityAnalyzer`, and `OperatorRecordJsonSerializer`.
-
-## Corrective serialization and validation contract
-
-The approved JSON ActionObject is `OperatorRecordJsonSerializer`, not
-`OperatorRecordJsonCodec`. Its public methods are `serialize(record) -> str` and
-`deserialize(text) -> OperatorRecord`; it operates on actual JSON text with
-deterministic key ordering and compact separators. Do not add aliases for
-`OperatorRecordJsonCodec`, `encode()`, or `decode()` unless actual released users
-or persisted artifacts are discovered; such evidence requires human direction.
-
-Schema-version-1 semantics must be public in
-`specification/operator-record/v1/operator-record.schema.json` with valid and
-invalid golden fixtures. Runtime validation must reject unknown fields, duplicate
-JSON object keys, nonstandard constants, numeric strings, booleans-as-numbers,
-malformed complex pairs, ragged/nonsquare matrices, dimension mismatches,
-duplicate basis labels, nonorthogonal bases, singular cells, and forbidden
-historical `energy_reference.value` fields.
-
-No class may call another class's private method. Private serializer methods are
-allowed only for owned mechanical steps that implement documented schema rules
-and are exercised through `serialize()` and `deserialize()` tests. Source
-docstrings are part of implementation; Sphinx documentation is part of
-completion. Integration review occurs only after combined-tree validation.
-
-## Compatible-record comparison decomposition
-
-Current comparison is limited to already-compatible finite ``OperatorRecord``
-representations. It performs no basis alignment, gauge alignment, energy-zero
-alignment, unit conversion, geometry transformation, approximate metadata
-matching, physical-equivalence determination, impurity-operator interpretation,
-or scientific validation.
-
-The approved public decomposition is ``compatibility -> represented difference
--> residual analysis -> comparison Workflow``. For compatible records,
-``OperatorRecordDifferencer`` forms the represented operator difference
-``Delta H = H_candidate - H_reference`` in the common representation. This
-public immutable ResultObject is independently executable and validatable, but
-is not a complete serializable ``OperatorRecord`` and is not automatically an
-impurity operator. ``OperatorRecordResidualAnalyzer`` accepts only that
-represented difference, computes maximum absolute entry, Frobenius norm, and
-spectral norm in the common energy unit, and owns dimensionless machine-epsilon
-roundoff policy scaled by matrix dimension and common metric scale; it
-canonicalizes within-allowance values upward before ResultObject construction
-and rejects larger order defects with enum-backed structured numerical errors.
-``OperatorRecordComparisonResult`` remains a structural ResultObject and must
-not own machine-epsilon policy, roundoff canonicalization, or maximum-dimension
-policy. ``OperatorRecordComparator`` is a concrete Workflow ActionObject whose
-execution is equivalent to differencer execution followed by residual-analyzer
-execution.
-
-Implementations must use scale-safe algorithms and raise enum-backed structured
-numerical errors with ownership separated between nonfinite represented
-difference and residual metric/linear-algebra failures.
-
-Every public mismatch code must be reachable by comparing independently valid
-records. Because version-1 records require an orthonormal basis, no
-orthonormality-convention mismatch code is public.
+Stop when a comparison-critical convention is missing, contradictory, or not
+aligned; when scientific meaning or acceptance remains a human choice; or when a
+proposed change would introduce a new public API or broader gauge/reduction
+framework. Report the exact missing contract rather than selecting a convention
+for implementation convenience.

@@ -113,7 +113,8 @@
       "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit DataObject, ResultObject, ActionObject, serializer, Workflow, or free-function owner.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
-        ".pi/agents/ksdft2effmass-harness-implementation.md"
+        ".pi/agents/ksdft2effmass-harness-implementation.md",
+        ".pi/skills/develop-operator-records/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -143,7 +144,7 @@
       "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected or newly authorized contract inputs.",
       "idempotency": "The skill is advisory and performs no operational transition or mutation.",
       "evidence_classification": "architecture ownership guidance, not software or scientific acceptance evidence",
-      "current_validation_status": "Simplified to durable reusable ownership guidance; historical correction and invocation ceremony removed while two durable consumers retain the unchanged skill identity.",
+      "current_validation_status": "Simplified to durable reusable ownership guidance; historical correction and invocation ceremony removed while durable implementation consumers and the operator-domain skill retain the unchanged skill identity.",
       "primary_classification": "DIRECTLY_COMPOSABLE",
       "hardening_applied": [
         "explicit ownership routing",
@@ -162,7 +163,8 @@
       "current_consumers": [
         ".pi/tasks/develop-architecture-decision-skill.md",
         ".pi/agents/ksdft2effmass-architecture.md",
-        ".pi/agents/ksdft2effmass-harness-architecture.md"
+        ".pi/agents/ksdft2effmass-harness-architecture.md",
+        ".pi/skills/develop-operator-records/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -206,67 +208,51 @@
     {
       "skill_name": "develop-operator-records",
       "path": ".pi/skills/develop-operator-records/SKILL.md",
-      "content_sha256": "ac8815bd9f331806ac2a2d7044963798ada43ddd0842e4df7583d60600fe4ea8",
-      "trigger_description": "Finite represented operator records, immediate metadata, analyzers, serialization, comparison prerequisites, tests, and documentation.",
+      "content_sha256": "78d4f8ee04855a2d17a2e22d319bfcd8184639e13896cb11cafe7c891ba81b1c",
+      "trigger_description": "Represented finite operators and their immediate metadata, Hermiticity, compatibility, differences, residuals, serialization, or comparison prerequisites.",
       "current_consumers": [
         "AGENTS.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
+        ".pi/skills/design-data-action-objects/references/data-action-architecture.md",
         ".pi/skills/develop-operator-records/references/operator-record-architecture.md",
-        ".pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md",
-        "docs/verification/testing-and-evidence.rst"
+        "specification/operator-record/v1/README.md"
       ],
       "inputs": [
-        "selected REVIEW_ONLY or AUTHORIZED_OPERATOR_WORK profile",
-        "approved task/contract",
-        "artifact inventory",
-        "evidence class",
-        "mutation paths"
+        "represented-operator question",
+        "applicable accepted operator and serialization contracts",
+        "state-space, basis, units, geometry, energy-reference, spin, gauge, and coordinate conventions"
       ],
       "outputs": [
-        "structured review or mutation result",
-        "artifact identities",
-        "commands/results",
-        "evidence IDs/classes",
-        "residual risks"
+        "operator-specific ownership decomposition",
+        "compatibility and numerical requirements",
+        "evidence-class boundary and unresolved scientific contracts"
       ],
       "side_effects": [
-        "none for review",
-        "bounded operator source/test/specification/fixture/docs writes only when authorized"
+        "domain architecture guidance only; mutation requires separate task and agent authority"
       ],
       "external_tools_used": [
-        "pytest",
-        "Ruff",
-        "mypy",
-        "Sphinx",
-        "jsonschema through focused tests"
+        "none required; bounded source, specification, and documentation inspection may verify current contracts"
       ],
       "deterministic_scripts_used": [
-        "operator dependency-direction pytest",
-        "schema/fixture pytest",
-        ".pi/skills/audit_evidence_identifiers.py"
+        "none; detailed test and documentation validation belongs to their owning skills and tools"
       ],
-      "authorization_requirements": "Approved operator task for mutation; human authority for scientific/public contracts and acceptance.",
-      "failure_behavior": "Missing authorization, conflicting authority, partial write, unavailable artifacts, or failed required command returns structured failure.",
-      "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy and a new attempt identity; mutation replay also requires parent verification of current files.",
-      "idempotency": "Review is observationally idempotent; mutation is not assumed idempotent without verified current inputs.",
-      "evidence_classification": "operator software/numerical evidence orchestration plus agent review; never scientific acceptance",
-      "current_validation_status": "Invocation profiles hardened and operator evidence routed to the develop-python-test-evidence grammar; deterministic evidence audit supports fielded and historical owner declarations, but strict evidence-ID gate still depends on the current repository inventory and establishes no scientific validation or UQ.",
-      "primary_classification": "COMPOSABLE_AFTER_HARDENING",
+      "authorization_requirements": "Accepted operator contracts must determine represented meaning; this skill does not authorize public API changes, implementation, or scientific acceptance.",
+      "failure_behavior": "Stop when a comparison-critical convention, alignment, public contract, or scientific meaning is missing or conflicting.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected or newly authorized operator-contract inputs.",
+      "idempotency": "The skill is advisory and performs no operational transition or mutation.",
+      "evidence_classification": "operator-domain architecture and scientific-contract guidance, not software or scientific acceptance evidence",
+      "current_validation_status": "Simplified to reusable represented-operator meaning, ownership, compatibility, numerical robustness, serialization, gauge, and evidence boundaries; historical workflow ceremony and fixed inventories removed.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
       "hardening_applied": [
-        "profile selection",
-        "input/result schema requirements",
-        "deterministic authority",
-        "failure/retry/idempotency",
-        "no-successor stop",
-        "routed repository-wide test-evidence grammar to develop-python-test-evidence shared reference"
+        "explicit represented-operator model",
+        "delegation to general architecture, test, documentation, and decision skills",
+        "compatibility and gauge boundaries",
+        "numerical and scientific-claim stop conditions"
       ],
-      "remaining_hardening": [
-        "resolve 22 strict evidence-owner gaps in a separately authorized test task",
-        "enforce expected result schema in a future harness"
-      ],
-      "stop_condition": "Stop after requested profile result; never launch successor or claim human acceptance."
+      "remaining_hardening": [],
+      "stop_condition": "Stop at missing or conflicting represented meaning; do not invent alignment, physical equivalence, validation, acceptance, or a new public API."
     },
     {
       "skill_name": "develop-python-test-evidence",
@@ -347,7 +333,8 @@
         "harness/pi/skills/document-python-research-software/descriptor.json",
         ".pi/agents/ksdft2effmass-harness-implementation.md",
         ".pi/agents/ksdft2effmass-harness-documentation.md",
-        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md",
+        ".pi/skills/develop-operator-records/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",

@@ -1,113 +1,102 @@
 ---
 name: develop-operator-records
-description: Implements and reviews finite represented operator records. Use for OperatorRecord, state-space, basis, geometry, energy-reference metadata, Hermiticity analysis, operator-record serialization, and operator comparison prerequisites.
+description: Guides represented finite operators, their immediate metadata, Hermiticity, compatibility, differences, residuals, serialization, and comparison prerequisites.
 ---
 
-# Develop Operator Records
+# Develop Represented Finite Operators
 
-Use this skill only for represented finite operators and their immediate metadata, Hermiticity analysis, serialization, public imports, tests, and Sphinx documentation.
+## Purpose and scope
 
-## Load first
+Use this skill only for represented finite operators and their immediate
+scientific and software contracts. It covers state-space and basis identity and
+ordering, geometry, units and energy reference, matrix representation,
+Hermiticity, compatibility, represented differences, residuals, serialization,
+and comparison prerequisites. It is not a general linear-algebra skill.
 
-Read `references/operator-record-architecture.md` before designing, implementing, testing, or reviewing this area. If split references for serialization, Hermiticity, or comparison exist, load every operator-record reference before acting. For maintained test-evidence documentation or review, also load the shared `../develop-python-test-evidence/references/test-evidence-conventions.md`; that reference owns the repository-wide grammar while this skill owns operator-specific scientific and architectural constraints.
+## Required guidance
 
-## Target package
+Read `references/operator-record-architecture.md` before operator work. Apply
+`design-data-action-objects` for general object ownership. Route maintained test
+creation or restructuring to `develop-python-test-evidence`, public source/API or
+Sphinx documentation to `document-python-research-software`, and a material open
+architecture choice to `develop-architecture-decision`.
 
-The authoritative Python source root is `python/src/`, established by `python/pyproject.toml` package discovery and `docs/conf.py`. The operator package is:
+## Represented-operator model
 
-```text
-python/src/ksdft2effmass/operators/
-├── __init__.py
-├── records.py
-├── compatibility.py
-├── difference.py
-├── residuals.py
-├── comparison.py
-├── hermiticity.py
-└── serialization.py
-```
+For an abstract operator $\hat O$ and ordered basis
+$\{|b_i\rangle\}_{i=0}^{N-1}$, the represented matrix is
 
-The comparison-related dependency direction is `records.py` -> `compatibility.py` -> `difference.py` -> `residuals.py` -> `comparison.py`. Earlier layers must not import later layers. `comparison.py` is only the concrete `OperatorRecordComparator` Workflow composition.
+$$
+O_{ij}=\langle b_i|\hat O|b_j\rangle.
+$$
 
-The actual Python test root is `python/tests/`. The focused operator-record VVUQ migration is complete. Maintained software-verification object tests use:
+A complete represented operator identifies the finite-dimensional state space,
+basis and ordering, matrix, units, geometry, energy reference, and applicable
+spin, gauge, or coordinate conventions. Equal matrix shape does not establish
+compatible meaning.
 
-```text
-python/tests/software_verification/ksdft2effmass/<package>/test__<ObjectName>__<facet>.py
-```
+Under a unitary basis change $U$,
 
-Maintained numerical-verification cases use the corresponding `numerical_verification/` hierarchy. Operator-record object tests use `operators/`; tests for the genuine production comparison Workflow use `workflows/`; and technical integrations use `integration/`. Transitional paths under `python/tests/ksdft2effmass/operators/` survive only in historical records and must not be described as active maintained owners.
+$$
+O' = U^\dagger O U.
+$$
 
-Use one principal test module per public operator object unless a migrated object is deliberately split into facet modules under the VVUQ hierarchy. `OperatorRecordDifferenceResult` and `OperatorRecordComparisonResult` are currently migrated to `python/tests/software_verification/ksdft2effmass/operators/test__<ObjectName>__construction.py`, `__invariants.py`, and `__value_semantics.py`. Do not use suffixes `__unit.py`, `__verification.py`, or `__validation.py`; input-invariant tests use `invariants`, not scientific validation. The genuine production Workflow `OperatorRecordComparator` currently uses `python/tests/software_verification/ksdft2effmass/workflows/test__OperatorRecordComparator.py`. Do not create broad dumping-ground test modules. Do not create an `OperatorRecordWorkflow` for construct-analysis-serializer; route such checks as object tests or technical integration tests according to ownership.
+The coordinates change without necessarily changing the underlying operator.
+A coordinate-dependent matrix difference is not automatically physical, and
+spectral agreement alone does not establish gauge equivalence.
 
-Apply the research-grade evidence-documentation standard progressively to each migrated operator test surface. Migrated modules document the evidence class, public requirement or mathematics, strategy, oracle, acceptance, exclusions, pass/fail meaning, and scientific-validation/UQ status. Every migrated test has a unique stable evidence identifier and non-tautological requirement/method/oracle/acceptance/interpretation/limitations documentation as applicable. Numerical evidence documents analytical expected values independently of the production algorithm, units, scale regime, tolerance or ULP criterion, zero-exclusion, canonicalization, warnings, and meaningful parameter IDs. Controlled backend replacement is permitted only for documented public error translation and must not be represented as validation of the dependency. Reviews check identifier uniqueness, ownership, oracle independence, failure interpretation, and synchronization with `docs/verification/testing-and-evidence.rst`.
+## Operator-specific ownership
 
-## Human checkpoints
+- Operator-record DataObjects own intrinsic metadata and representation
+  invariants only.
+- Hermiticity tolerance and evaluation belong to a Hermiticity analyzer
+  ActionObject; the structured outcome is an immutable ResultObject.
+- Compatibility of independently valid operator records belongs to a named
+  compatibility ActionObject.
+- Signed differences and residual metrics belong to named analysis
+  ActionObjects, not to the operator record.
+- Serialization and deserialization belong to a serializer ActionObject.
+- A comparison composition is a Workflow only when it is a genuine reusable
+  multi-step operation with explicit inputs, outputs, and dependencies.
+- ResultObjects are semantic DataObjects and require no nominal base class.
 
-Do not implement before recorded human architecture approval. Escalate only genuine human decisions: material uncertainty with more than one defensible resolution about scientific semantics, architecture, public API, serialized data, compatibility, validation behavior, ownership, or scope. Record durable checkpoints under `.pi/checkpoints/` when escalation is required. Deterministic corrections already implied by approved policy are recorded as agent-resolved corrective findings, revalidated, and continued without a human checkpoint.
+## Compatibility and numerical rules
 
-## Completion gates
+Before subtraction, residual analysis, or comparison, check every convention
+that affects represented meaning, including state-space identity, dimension,
+basis ordering, units, geometry, energy reference, spin convention, and gauge or
+coordinate alignment. Require alignment or an invariant comparison when exact
+coordinate compatibility is absent.
 
-- public API exported from `ksdft2effmass.operators`;
-- software-verification tests cover construction, invariants, immutability, exact equality, Hermiticity analyzer policies, serializer schema behavior, JSON round trips, and public imports;
-- public source documentation meets the repository-wide source-documentation standard, including private methods, private attributes, meaningful local-variable comments, validation rules, units, invariants, mathematical notation mapping, and software/scientific-validation boundaries;
-- Sphinx conceptual and API documentation are updated and synchronized with source docstrings;
-- formatter, linter, static type checker, unit tests, Sphinx `-W` build, public-import smoke test, JSON round-trip test, architecture review, and obsolete-helper scan pass.
+Keep exact matrix values, Hermiticity residual, scale or normalization,
+tolerance, structured result, and scientific interpretation distinct. Numerical
+norms and residuals must define their mathematical quantity, units, and
+normalization; handle zero scale explicitly; reject or report nonfinite
+intermediates; use scale-safe computation where overflow is possible; and expose
+structured numerical failure instead of silently returning `inf` or `nan`.
 
-Do not turn this into a general linear-algebra skill. Basis alignment and approximate physical comparison are future ActionObjects, not `OperatorRecord` methods.
+Operator serialization must preserve exact represented metadata, keep schema and
+runtime behavior consistent, use explicit field and enum vocabularies, and fail
+on unsupported or ambiguous representations. A round trip does not establish
+physical validity.
 
-## Accepted corrective contract
+## Evidence and scientific-claim boundary
 
-The operator-record validation-correction task closed with human final acceptance
-on 2026-08-03. No operator-record corrective task or successor task is active.
-Serializer evidence is owned by the five maintained
-`test__OperatorRecordJsonSerializer__<facet>.py` modules plus the focused schema
-and fixture integration modules. Require public versioned schemas, valid and invalid golden fixtures,
-deterministic `serialize()` JSON text, strict `deserialize()` behavior, no
-cross-object private-method calls, source documentation during implementation,
-Sphinx documentation before completion, and read-only integration review after
-combined-tree validation.
+- Construction and invariant tests are software verification.
+- Independently derived analytical norm or residual checks may be numerical
+  verification.
+- Comparison with a physical system or trusted scientific reference is
+  scientific validation.
+- Uncertainty propagation or sensitivity analysis is UQ.
 
-## CPN-compatible invocation profiles
+No evidence class implies another. A software Hermiticity tolerance check does
+not prove physical correctness.
 
-This skill constrains an external agent/harness invocation; loading it is not a
-CPN guard or transition. Every request must select exactly one profile:
+## Stop conditions
 
-- `REVIEW_ONLY`: inspect immutable artifact references and return findings; no
-  project-file mutation;
-- `AUTHORIZED_OPERATOR_WORK`: modify only explicitly assigned operator source,
-  test, specification, fixture, or documentation paths under an approved task.
-
-Required inputs are the task and parent-workflow/attempt identities, selected
-profile, exact artifact/path inventory, approved public contract and
-architecture references, expected output schema, permitted mutation paths,
-evidence class, and stop/timeout policy. Production or test mutation requires an
-already approved task; scientific meaning, public API/schema choices, and final
-acceptance remain human-owned.
-
-The result must report:
-
-```text
-skill identity and content hash
-request, task, parent-workflow, and attempt identities
-input and produced artifact identities
-profile and owned task class
-PASS | FAIL | BLOCKED | PARTIAL
-structured findings or changes
-deterministic commands and exact results
-evidence identifiers and evidence class where applicable
-mutation summary
-warnings, failures, and residual risks
-human decisions required
-```
-
-Deterministic command output, not the skill's prose, owns pytest, Ruff, mypy,
-Sphinx, JSON-Schema, checksum, import, and dependency-direction pass/fail.
-Software verification, numerical verification, scientific validation, and UQ
-must remain distinct. Missing authorization, conflicting authority, partial
-writes, or unavailable required artifacts produce structured failure and stop
-the affected profile. A retry requires an immutable parent authorization
-identity or a request's pre-authorized retry policy, uses a new attempt identity,
-and retains prior findings/results. `REVIEW_ONLY` is observationally idempotent for identical
-artifact identities; mutation-profile replay requires parent verification of
-current file identities before any further write. Stop when the requested
-profile result is produced; never launch a successor or claim human acceptance.
+Stop when basis, gauge, geometry, units, energy reference, spin convention,
+scientific acceptance, or another comparison-critical meaning is missing or
+conflicting. Report the unresolved contract without inventing alignment,
+conversion, physical equivalence, validation, or acceptance. Do not expand this
+skill into a gauge-equivariant reduction framework or introduce new public APIs
+without separate authority.

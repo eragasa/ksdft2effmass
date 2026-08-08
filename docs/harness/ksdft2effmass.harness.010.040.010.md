@@ -8,9 +8,10 @@ sphinx: excluded
 
 # Harness capability ownership rationalization
 
-> **Rationalization status.** Slice 1 simplified
-> `design-data-action-objects`; all later slices remain proposals. This page
-> does not activate another skill, agent, ActionObject, tool, route, or task.
+> **Rationalization status.** Slices 1 and 2 simplified
+> `design-data-action-objects` and `develop-operator-records`; all later slices
+> remain proposals. This page does not activate another skill, agent,
+> ActionObject, tool, route, or task.
 
 Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 (`origin/dev` after fetch, with a clean worktree).
@@ -39,7 +40,7 @@ entry; optional Graphify operation references remain on demand.
 |---|---|---:|---|---|---|
 | `design-data-action-objects` | New scientific object models, public object-boundary changes, and substantial ownership refactors | 195 lines | Extractable core with project policy inputs | Historical OperatorRecord policy and invocation/reporting ceremony were removed in Slice 1 | **Keep:** Slice 1 completed; identity and durable ownership guidance retained |
 | `develop-architecture-decision` | A genuine material architecture choice with exactly three defensible conceptual alternatives | 126 lines | Extractable decision method with local authority inputs | No material overlap: durable architecture agents supply independence; the skill supplies decision method | **Keep** |
-| `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 334 lines | Project/domain-specific | Embeds closed-task state, fixed package/test inventories, completion commands, checkpoint mechanics, and test/documentation rules owned elsewhere | **Update:** retain domain judgment; remove task state and delegate generic evidence/docs rules |
+| `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 309 lines | Project/domain-specific | Fixed inventories, migration/checkpoint history, command gates, test/docs grammar, and invocation ceremony were removed in Slice 2 | **Keep:** operator meaning retained; general architecture, tests, docs, and open decisions route to their owning skills |
 | `develop-python-test-evidence` | Semantic design, writing, migration, and review of maintained Python evidence | 204 lines | Extractable core with a local profile | The reference mixes semantic judgment with structural grammar already implemented by `ValidatePythonTestEvidence` and its CLI | **Update:** preserve evidence classification, ownership, oracle, acceptance, and review judgment; make the ActionObject authoritative for mechanical checks |
 | `document-python-research-software` | Public Python docstrings, API/concept pages, Sphinx integration, and serialization documentation | 21 lines | Extractable core with local build inputs | Correctly refers test semantics to the test-evidence skill | **Keep** |
 | `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `InspectTaskState` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
@@ -54,10 +55,10 @@ request/result/retry field inventories in the design, operator, architecture,
 next-task, and checkpoint skills should not become five separately evolving
 protocol owners. Preserve only subject-specific inputs, outputs, failures, and
 stop rules; let the accepted shared invocation contract own common envelopes.
-Closed task IDs, fixed path/test inventories, completed checkpoint state, and
-successor logic occur materially only in the operator-record skill and must be
-removed from its live procedure. Graphify's fixed executable/version policy is
-current project safety configuration rather than closed-task history.
+Slice 2 removed the operator skill's closed task IDs, fixed path/test inventories,
+completed checkpoint state, successor logic, and repeated invocation envelopes.
+Graphify's fixed executable/version policy is current project safety
+configuration rather than closed-task history.
 
 No rename or merge between the retained judgment skills is recommended.
 `inspect-task-state` is the only current skill recommended for eventual retirement,
@@ -170,7 +171,7 @@ secondary consumers do not share ownership.
 |---|---|---|---|
 | DataObject/ResultObject/ActionObject boundary judgment | `SKILL_EXISTING` | `design-data-action-objects` | Implementation and architecture agents |
 | Three-option material architecture decision support | `SKILL_EXISTING` | `develop-architecture-decision` | Durable architecture agents |
-| Represented finite-operator scientific/software judgment | `SKILL_UPDATE` | `develop-operator-records` | Project implementation/tests/docs/reviewer |
+| Represented finite-operator scientific/software judgment | `SKILL_EXISTING` | `develop-operator-records` | Project implementation/tests/docs/reviewer |
 | Evidence class, owner, oracle, acceptance, and semantic review | `SKILL_UPDATE` | `develop-python-test-evidence` | Test writers and integration reviewers |
 | Public Python and Sphinx documentation procedure | `SKILL_EXISTING` | `document-python-research-software` | Documentation and implementation agents |
 | Exact declared task-state inspection | `ACTION_EXISTING` | `InspectTaskState` and CLI | Root agent and task workflows |
@@ -211,8 +212,8 @@ Counts from the 38 rows are:
 
 | Classification | Count |
 |---|---:|
-| `SKILL_EXISTING` | 5 |
-| `SKILL_UPDATE` | 3 |
+| `SKILL_EXISTING` | 6 |
+| `SKILL_UPDATE` | 2 |
 | `SKILL_CANDIDATE` | 1 |
 | `ACTION_EXISTING` | 20 |
 | `ACTION_CANDIDATE` | 1 |
@@ -340,11 +341,15 @@ Nothing below is activated by this proposal.
    removed; reusable ownership, serialization, Workflow, free-function,
    portability, and scientific-claim boundaries remain. The skill identity and
    both durable consumers are unchanged, and no Python runtime changed.
-2. **Next proposed — update `develop-operator-records`.** Remove closed-task state, fixed test
-   modules, commands, and generic docs/test rules; retain represented-operator
-   semantics and authoritative specification references.
-3. **Update `develop-python-test-evidence`.** Make semantic judgment explicit and
-   refer all mechanically enforced structure to `ValidatePythonTestEvidence`.
+2. **Completed — update `develop-operator-records`.** Fixed package/test
+   inventories, migration and checkpoint history, command gates, invocation
+   envelopes, and duplicated test/documentation procedure were removed.
+   Represented meaning, operator-specific ownership, compatibility, Hermiticity,
+   numerical robustness, gauge/coordinate, serialization, and evidence
+   boundaries remain. Production behavior and public APIs are unchanged.
+3. **Next proposed — update `develop-python-test-evidence`.** Make semantic
+   judgment explicit and refer all mechanically enforced structure to
+   `ValidatePythonTestEvidence`.
 4. **Update `recommend-next-task`.** Replace fixed repository-wide inventories
    and repeated boundaries with bounded authority reconstruction and existing
    inspection interfaces.
@@ -380,6 +385,6 @@ Nothing below is activated by this proposal.
   remain outside this proposal.
 
 No harness-simplification chain entry is required for this bounded skill edit.
-Recording Slice 1 completion here does not activate Slice 2. The next proposed
-slice, `develop-operator-records`, remains inactive pending separate human
+Recording Slice 2 completion here does not activate Slice 3. The next proposed
+slice, `develop-python-test-evidence`, remains inactive pending separate human
 authorization.
