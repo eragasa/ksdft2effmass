@@ -16,6 +16,12 @@ Its default unit is one coherent source module, one class-owned test module, or 
 artifact-owned integration module. The purpose is to stabilize a compact review
 contract before deciding whether normalized SQLite storage is appropriate.
 
+## Decomposition
+
+| Item | Proposal | Status |
+|---|---|---|
+| [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | Human Review Packet and Decision Workflow | `proposed_inactive` |
+
 ## Proposed review unit
 
 One review unit contains:
@@ -110,4 +116,5 @@ human response unless separate authority permits another action.
 - **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
 - **Parent:** [Human review interface](ksdft2effmass.harness.003.000.000.md)
 - **Previous:** [Human review interface](ksdft2effmass.harness.003.000.000.md)
-- **Next:** [Historical documentation index](ksdft2effmass.harness.090.000.000.md)
+- **Next:** [Human Review Packet and Decision Workflow](ksdft2effmass.harness.003.001.001.md)
+- **Child:** [Human Review Packet and Decision Workflow](ksdft2effmass.harness.003.001.001.md)

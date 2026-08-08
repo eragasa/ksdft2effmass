@@ -57,5 +57,5 @@ unchanged requirement into new evidence.
 
 - **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
 - **Parent:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
-- **Previous:** [Initial human-review interface round](ksdft2effmass.harness.003.001.000.md)
+- **Previous:** [Human Review Packet and Decision Workflow](ksdft2effmass.harness.003.001.001.md)
 - **Next:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
