@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2648,
-  "expected_module_count": 193,
+  "expected_collected_node_count": 2682,
+  "expected_module_count": 197,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -100,6 +100,14 @@
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_strict_adapters.py"
+    },
+    {
+      "artifact": "refresh resource manifest command api agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "fcf85a1334c63149d67d165c0d26878b6a7ab6202dd9321fc146c75c128587ed",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__refresh_resource_manifest_command_api_agreement.py"
     },
     {
       "conformance_status": "conforming",
@@ -303,6 +311,14 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "027123b785913c98f75fa9b04c0e51aa6029c31b2600fd1f327ceccf14a867fe",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RefreshResourceManifest.py",
+      "sut": "RefreshResourceManifest"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "93d3b70aa05c2ec11d61c396a0af7efd570055ef3d74b6fc9d4abef7a295af05",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -316,6 +332,22 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifest.py",
       "sut": "ResourceManifest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c8946d3a827b21bbbf424f0c07e83c98998540e9163f186224841539a6016a00",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifestRefreshRequest.py",
+      "sut": "ResourceManifestRefreshRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "de5a73db5c73d262d4ca58a6a8afe7cd06a3c6846ac6fb2deafa13d9992f3435",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifestRefreshResult.py",
+      "sut": "ResourceManifestRefreshResult"
     },
     {
       "conformance_status": "conforming",
@@ -472,7 +504,7 @@
     {
       "artifact": "harness pi public api",
       "conformance_status": "conforming",
-      "content_sha256": "e92850ba5d9ebfe3d54f3cdbe4c092736d0aef96f2e5bede694d5aed2c6d42d5",
+      "content_sha256": "d67e01010efa3a417ec013965f9c1547b0f0045541949f7db5e2478037e3dff9",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py"

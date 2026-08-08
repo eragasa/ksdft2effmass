@@ -15,7 +15,7 @@ Matching hashes establish byte equality only. They do not establish equal kind, 
 
 ## Accepted-contract generic identities
 
-The generic manifest is the authoritative inventory. In this page, “accepted-contract” identifies the accepted contract task governing the resource-task surface; it does not claim final resource-task human acceptance, which remains a separate gate. Its maintained families are:
+JSON is the wire representation of `ResourceManifest`; `SerializeJsonRecord` and `DeserializeJsonRecord` own its canonical encoding and strict caller-selected decoding. The generic manifest is the authoritative inventory. In this page, “accepted-contract” identifies the accepted contract task governing the resource-task surface; it does not claim final resource-task human acceptance, which remains a separate gate. Its maintained families are:
 
 - `pih.skill.document-python-research-software.v1` and its descriptor `pih.manifest.skill-descriptor.document-python-research-software.v1`;
 - `pih.skill.develop-python-test-evidence.v1`, its descriptor `pih.manifest.skill-descriptor.develop-python-test-evidence.v1`, and `pih.reference.test-evidence-conventions.v1`;
@@ -50,6 +50,23 @@ Three serialized lexical path meanings remain distinct:
 - `DiagnosticPath` is a neutral lexical location for `ValidationIssue.path`. It may spell a regular file, directory, or ownership-scope prefix and asserts neither existence, file kind, nor containment semantics. `null` means no location applies.
 
 All three reject absolute paths, empty or `.`/`..` segments, repeated or trailing separators, non-NFC input, controls, backslashes, and Windows drive/device/UNC syntax. They compare by exact case-sensitive spelling. Runtime roots and resolved `pathlib.Path` values are never serialized identities.
+
+## Validation, resolution, and identity refresh
+
+Intrinsic field invariants and canonical resource ordering belong to `ArtifactIdentity`, `ResourceReference`, and `ResourceManifest`. Cross-resource duplicate, dependency, overlay, and profile compatibility checks belong to `ValidateResourceManifest`. Exact selection with identity agreement belongs to `ResolveResource`.
+
+`RefreshResourceManifest` owns a different deterministic operation: given one existing manifest, one explicit absolute root, and explicit manifest resource IDs, it reuses the maintained exact-case, nonsymlink, root-confined regular-file observation and computes SHA-256 from observed bytes. It returns a new immutable, canonically ordered manifest proposal and the sorted IDs whose identities changed. Every nonidentity resource field and every manifest field is preserved. Unknown IDs and filesystem failures are structured findings with no partial manifest.
+
+Refresh does not scan a root, discover or add resources, remove resources, infer a repository, validate an unrelated generic/local profile relationship, mutate the input manifest, write JSON, or invoke Git. Filesystem persistence remains outside the generic ActionObject. Callers may serialize a successful proposal with `SerializeJsonRecord`; the thin read-only command is:
+
+```text
+python/.venv/bin/python -m ksdft2effmass.harness.pi.local.refresh_resource_manifest \
+  --root /absolute/path/to/resource/root \
+  --manifest /absolute/path/to/resource-manifest.json \
+  --resource-id pih.skill.example.v1
+```
+
+The command emits deterministic JSON and exits `0` for a proposal, `1` for structured validation failure, `2` for invalid explicit command inputs, and `3` for an unexpected command-boundary failure. It has no write mode. Matching or refreshed hashes establish exact byte identity only; they do not establish semantic correctness, provenance truth, scientific validity, uncertainty quantification, or human acceptance.
 
 ## Fixtures and canonical vectors
 

@@ -1,4 +1,4 @@
-"""Resource records, manifest validation, and explicit-root resolution."""
+"""Resource records, validation, explicit-root identity refresh, and resolution."""
 
 from __future__ import annotations
 
@@ -117,6 +117,96 @@ class ResourceManifest:
             )
         )
         object.__setattr__(self, "resources", canonical)
+
+
+@dataclass(frozen=True, slots=True)
+class ResourceManifestRefreshRequest:
+    """Select manifest-declared resources for explicit-root identity refresh.
+
+    Parameters
+    ----------
+    root
+        Absolute caller-selected filesystem root. The action validates its
+        existence and confinement properties without consulting the current
+        working directory.
+    manifest
+        Existing immutable manifest whose selected identities will be observed.
+    resource_ids
+        Nonempty selection of resource identifiers. Values are canonicalized to
+        sorted unique tuple storage.
+
+    Raises
+    ------
+    TypeError
+        If a field has the wrong semantic type.
+    ValueError
+        If the root is relative, the selection is empty, or an identifier is
+        malformed.
+    """
+
+    root: Path
+    manifest: ResourceManifest
+    resource_ids: tuple[Identifier, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.root, Path):
+            raise TypeError("root must be pathlib.Path")
+        if not self.root.is_absolute():
+            raise ValueError("root must be absolute")
+        if type(self.manifest) is not ResourceManifest:
+            raise TypeError("manifest must be ResourceManifest")
+        _require_tuple(self.resource_ids, "resource_ids")
+        if not self.resource_ids:
+            raise ValueError("resource_ids must be nonempty")
+        for resource_id in self.resource_ids:
+            _require_identifier(resource_id, "resource_ids item")
+        object.__setattr__(self, "resource_ids", tuple(sorted(set(self.resource_ids))))
+
+
+@dataclass(frozen=True, slots=True)
+class ResourceManifestRefreshResult:
+    """Immutable outcome of explicit resource-identity observation.
+
+    Attributes
+    ----------
+    manifest
+        Newly constructed canonical manifest, or ``None`` when validation fails.
+    changed_resource_ids
+        Sorted unique identifiers whose observed SHA-256 differs from the input
+        manifest.
+    validation
+        Deterministically ordered structural and filesystem findings.
+
+    Notes
+    -----
+    This result records byte-identity maintenance only. It does not establish
+    semantic correctness, scientific validity, provenance truth, or acceptance.
+    """
+
+    manifest: ResourceManifest | None
+    changed_resource_ids: tuple[Identifier, ...]
+    validation: ValidationResult
+
+    def __post_init__(self) -> None:
+        if self.manifest is not None and type(self.manifest) is not ResourceManifest:
+            raise TypeError("manifest must be ResourceManifest or None")
+        _require_tuple(self.changed_resource_ids, "changed_resource_ids")
+        for resource_id in self.changed_resource_ids:
+            _require_identifier(resource_id, "changed_resource_ids item")
+        _require_sorted_unique(self.changed_resource_ids, "changed_resource_ids")
+        if type(self.validation) is not ValidationResult:
+            raise TypeError("validation must be ValidationResult")
+        failed = self.validation.status == "FAIL"
+        if failed == (self.manifest is not None):
+            raise ValueError("manifest presence must agree with validation status")
+        if self.manifest is not None:
+            manifest_ids = {
+                resource.resource_id for resource in self.manifest.resources
+            }
+            if not set(self.changed_resource_ids) <= manifest_ids:
+                raise ValueError("changed_resource_ids must occur in manifest")
+        elif self.changed_resource_ids:
+            raise ValueError("failed result must not report changed resources")
 
 
 @dataclass(frozen=True, slots=True)
@@ -459,6 +549,124 @@ def _confined_file(root: Path, path: str) -> tuple[Path | None, ValidationIssue 
             "PIH.PATH.NOT_FILE", "Resource is not a regular file.", path=path
         )
     return current, None
+
+
+class RefreshResourceManifest:
+    """Refresh selected content identities beneath one explicit root.
+
+    The stateless action resolves only paths already declared by the supplied
+    manifest, reuses the same exact-case, nonsymlink, root-confined regular-file
+    observation as :class:`ResolveResource`, and computes SHA-256 from observed
+    bytes. It returns a new manifest without discovering resources or writing a
+    file.
+    """
+
+    __slots__ = ()
+
+    def execute(
+        self, request: ResourceManifestRefreshRequest
+    ) -> ResourceManifestRefreshResult:
+        """Return a canonical manifest proposal for the explicit selection.
+
+        Parameters
+        ----------
+        request
+            Existing manifest, explicit absolute root, and selected resource IDs.
+
+        Returns
+        -------
+        ResourceManifestRefreshResult
+            Proposed immutable manifest, changed identities, and deterministic
+            findings. A failed result contains no partial manifest.
+
+        Raises
+        ------
+        TypeError
+            If ``request`` is not exactly ``ResourceManifestRefreshRequest``.
+        HarnessInternalError
+            If bytes cannot be read after successful path observation.
+        """
+        if type(request) is not ResourceManifestRefreshRequest:
+            raise TypeError("request must be ResourceManifestRefreshRequest")
+
+        by_id: dict[str, list[ResourceReference]] = {}
+        for resource in request.manifest.resources:
+            by_id.setdefault(resource.resource_id, []).append(resource)
+
+        selected: dict[str, tuple[ResourceReference, Path]] = {}
+        issues: list[ValidationIssue] = []
+        for resource_id in request.resource_ids:
+            matches = by_id.get(resource_id, [])
+            if not matches:
+                issues.append(
+                    _issue(
+                        "PIH.RESOURCE.NOT_FOUND",
+                        "Resource ID was not found.",
+                        resource_id,
+                    )
+                )
+                continue
+            if len(matches) != 1:
+                issues.append(
+                    _issue(
+                        "PIH.RESOURCE.AMBIGUOUS_SELECTION",
+                        "Resource ID is ambiguous.",
+                        resource_id,
+                    )
+                )
+                continue
+            reference = matches[0]
+            path, problem = _confined_file(request.root, reference.path)
+            if problem is not None:
+                issues.append(problem)
+                continue
+            if path is None:
+                raise AssertionError("successful confinement must return a path")
+            selected[resource_id] = (reference, path)
+
+        validation = _result(tuple(issues))
+        if validation.status == "FAIL":
+            return ResourceManifestRefreshResult(None, (), validation)
+
+        identities: dict[str, ArtifactIdentity] = {}
+        changed_ids: list[str] = []
+        for resource_id in request.resource_ids:
+            reference, path = selected[resource_id]
+            try:
+                digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            except OSError as exc:
+                raise HarnessInternalError("RefreshResourceManifest", str(exc)) from exc
+            identity = ArtifactIdentity(1, "sha256", digest)
+            identities[resource_id] = identity
+            if identity != reference.content_identity:
+                changed_ids.append(resource_id)
+
+        refreshed_resources = tuple(
+            ResourceReference(
+                resource.schema_version,
+                resource.resource_id,
+                resource.resource_kind,
+                resource.format_version,
+                resource.path,
+                identities[resource.resource_id],
+                resource.dependency_ids,
+            )
+            if resource.resource_id in identities
+            and identities[resource.resource_id] != resource.content_identity
+            else resource
+            for resource in request.manifest.resources
+        )
+        refreshed_manifest = ResourceManifest(
+            request.manifest.schema_version,
+            request.manifest.manifest_id,
+            request.manifest.manifest_version,
+            request.manifest.layer,
+            request.manifest.extends_manifest_id,
+            refreshed_resources,
+        )
+        return ResourceManifestRefreshResult(
+            refreshed_manifest, tuple(changed_ids), validation
+        )
 
 
 class ResolveResource:

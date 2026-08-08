@@ -12,7 +12,10 @@ sphinx: excluded
 > `design-data-action-objects`, `develop-operator-records`,
 > `develop-python-test-evidence`, and `recommend-next-task`; all later slices
 > remain proposals. This page does not activate another skill, agent,
-> ActionObject, tool, route, or task.
+> ActionObject, tool, route, or task. The separately authorized
+> `harness-simplification.resources.manifest-refresh` vertical slice added the
+> deterministic `RefreshResourceManifest` ActionObject without changing the
+> completed Slice 4 baseline or activating Slice 5 or `develop-harness-resources`.
 
 Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 (`origin/dev` after fetch, with a clean worktree).
@@ -20,7 +23,7 @@ Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 ## Scope and current state
 
 The inspected repository has nine repository-local skills, 34 retained project
-agent records, 28 publicly exported maintained harness ActionObjects, and nine
+agent records, 29 publicly exported maintained harness ActionObjects, and ten
 maintained or retained harness command wrappers/validators relevant to this
 audit. Project PI configuration exposes the 10 durable agents and disables the
 24 phase-specific records. The harness-simplification chain has
@@ -129,13 +132,13 @@ skill candidate, no cutover skill, no phase agent revival, and no copied prompt.
 ## Maintained ActionObject inventory
 
 The public export surfaces were inspected directly. The generic package exports
-13 Actions and the project-local package exports 15 Actions.
+14 Actions and the project-local package exports 15 Actions.
 
 | Source | Existing ActionObjects | Primary deterministic ownership |
 |---|---|---|
 | `validation.py` | `SerializeJsonRecord`, `DeserializeJsonRecord` | Canonical closed wire serialization and strict kind-selected decoding |
 | `profiles.py` | `LoadProjectProfile` | Profile byte decoding, identity, schema, and contract compatibility |
-| `resources.py` | `ValidateResourceManifest`, `ResolveResource`, `ValidateSkillResources` | Manifest closure/overlay/leakage, confined resolution/hash, skill-resource closure |
+| `resources.py` | `ValidateResourceManifest`, `RefreshResourceManifest`, `ResolveResource`, `ValidateSkillResources` | Manifest closure/overlay/leakage, explicit-path identity refresh, confined resolution/hash, skill-resource closure |
 | `ownership.py` | `ValidateOwnershipManifest` | Task/agent/scope/completion-command ownership relations |
 | `checkpoints.py` | `ValidateCheckpointSet` | Checkpoint lifecycle and relation validation without resolution |
 | `chains.py` | `EvaluateChainState` | Active, blocked, and structurally ready chain facts |
@@ -154,6 +157,7 @@ The public export surfaces were inspected directly. The generic package exports
 | Tool | Disposition |
 |---|---|
 | `python/.../local/inspect_task_state.py` | Keep as the thin `InspectTaskState` CLI |
+| `python/.../local/refresh_resource_manifest.py` | Keep as the thin read-only `RefreshResourceManifest` proposal CLI |
 | `harness/pi/validation/validate_python_test_evidence.py` | Keep as the thin `ValidatePythonTestEvidence` CLI |
 | `harness/local/validation/validate_repository_test_evidence.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
 | `.pi/skills/validate_skill_capabilities.py` | Keep as the current fixed repository capability-inventory validator |
@@ -184,6 +188,7 @@ secondary consumers do not share ownership.
 | Project-profile loading and compatibility | `ACTION_EXISTING` | `LoadProjectProfile` | Local context |
 | Generic/local resource design and evolution judgment | `SKILL_CANDIDATE` | proposed `develop-harness-resources` | Harness implementation/docs/tests/reviewer |
 | Manifest closure, overlay, and generic-to-local leakage | `ACTION_EXISTING` | `ValidateResourceManifest` | Context and repository validation |
+| Explicit-path resource identity refresh | `ACTION_EXISTING` | `RefreshResourceManifest` and read-only CLI | Resource authors and future `develop-harness-resources` |
 | Root-confined resource selection and hashing | `ACTION_EXISTING` | `ResolveResource` | Resource consumers |
 | Skill descriptor/resource closure | `ACTION_EXISTING` | `ValidateSkillResources` | Capability/resource routing |
 | Ownership relation validation | `ACTION_EXISTING` | `ValidateOwnershipManifest` | Task preflight and local validation |
@@ -209,14 +214,14 @@ secondary consumers do not share ownership.
 | Legacy standalone evidence-ID AST policy | `DUPLICATE_RETIRE` | `AuditEvidenceIdentifiers` | Legacy CLI callers pending migration |
 | General `assess-harness-cutover` procedure | `DUPLICATE_RETIRE` | route/parity Actions, architecture skill, and durable integration reviewer | A cutover task may compose them |
 
-Counts from the 38 rows are:
+Counts from the 39 rows are:
 
 | Classification | Count |
 |---|---:|
 | `SKILL_EXISTING` | 8 |
 | `SKILL_UPDATE` | 0 |
 | `SKILL_CANDIDATE` | 1 |
-| `ACTION_EXISTING` | 20 |
+| `ACTION_EXISTING` | 21 |
 | `ACTION_CANDIDATE` | 1 |
 | `DURABLE_AGENT` | 1 |
 | `TASK_STATE` | 1 |
@@ -245,8 +250,9 @@ Counts from the 38 rows are:
   Python docs, and `develop-python-test-evidence` for maintained pytest evidence.
   It owns textual-resource design judgment, which none of those skills owns.
 - **Deterministic components outside the skill:** `ValidateResourceManifest`,
-  `ResolveResource`, `ValidateSkillResources`, canonical wire serialization,
-  checksum validation, and local repository composition.
+  `RefreshResourceManifest`, `ResolveResource`, `ValidateSkillResources`,
+  canonical wire serialization, checksum validation, and local repository
+  composition.
 - **Expected references/scripts:** a concise, de-historicized resource-contract
   reference derived from `harness/pi/docs/resources.md`; public schemas and
   manifests remain authority. Existing Actions, not a copied H3 validator, are
@@ -298,6 +304,7 @@ cutover task should compose those owners instead.
 | Repeated operation | Existing owner or proposal | Decision |
 |---|---|---|
 | Resource-manifest validation | `ValidateResourceManifest` | No duplicate tool |
+| Explicit selected resource-identity refresh | `RefreshResourceManifest` | Maintained Action and read-only CLI added by the bounded refresh slice |
 | Generic/local leakage detection | `ValidateResourceManifest` | No duplicate tool |
 | Parity comparison | `CompareShadowPair`, `ReplayShadowSuite` | No duplicate tool |
 | Route inspection/selection | `SelectValidationRoute`, `RollBackValidationRoute`; selected wrapper in `validate_harness.py` | No duplicate tool |
@@ -335,7 +342,9 @@ After accepted destination changes, retire only live routing or duplicate tools:
 ## Recommended implementation sequence
 
 Each slice is separately reviewable and affects one permitted owner class.
-Nothing below is activated by this proposal.
+Nothing below is activated by this proposal. The completed manifest-refresh
+vertical slice supplies deterministic maintenance for the future resource skill;
+it does not create or activate that skill and does not alter this sequence.
 
 1. **Completed — update `design-data-action-objects`.** Historical
    OperatorRecord correction policy and invocation/reporting ceremony were

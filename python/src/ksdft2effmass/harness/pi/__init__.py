@@ -30,8 +30,11 @@ from .ownership import (
 )
 from .profiles import LoadProjectProfile, ProjectProfile
 from .resources import (
+    RefreshResourceManifest,
     ResolveResource,
     ResourceManifest,
+    ResourceManifestRefreshRequest,
+    ResourceManifestRefreshResult,
     ResourceReference,
     SkillDescriptor,
     ValidateResourceManifest,
@@ -101,6 +104,7 @@ __all__ = (
     "ArtifactIdentity",
     "ResourceReference",
     "ResourceManifest",
+    "ResourceManifestRefreshRequest",
     "ProjectProfile",
     "SkillDescriptor",
     "OwnershipScope",
@@ -124,6 +128,7 @@ __all__ = (
     "EvidenceAuditResult",
     "PythonTestEvidenceValidationResult",
     "TaskStateInspectionResult",
+    "ResourceManifestRefreshResult",
     "JsonSerializationResult",
     "JsonDeserializationResult",
     "WireRecordKind",
@@ -132,6 +137,7 @@ __all__ = (
     "SerializeJsonRecord",
     "DeserializeJsonRecord",
     "LoadProjectProfile",
+    "RefreshResourceManifest",
     "ResolveResource",
     "ValidateResourceManifest",
     "ValidateOwnershipManifest",
