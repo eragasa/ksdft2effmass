@@ -1,0 +1,24 @@
+{
+  "name": "human-review-interface",
+  "description": "Incrementally introduce deterministic human-review preparation while preserving direct human disposition and acceptance authority.",
+  "status": "pilot_packet_ready",
+  "active_task": null,
+  "automatic_successor_activation": false,
+  "chain": [],
+  "task_sequence": [
+    {
+      "id": "human-review-interface.review-packet-pilot",
+      "record": ".pi/tasks/human-review-interface.review-packet-pilot.md",
+      "prerequisites": [],
+      "status": "completed"
+    },
+    {
+      "id": "human-review-interface.human-decision-recording",
+      "record": null,
+      "prerequisites": [
+        "human-review-interface.review-packet-pilot:completed"
+      ],
+      "status": "proposed_inactive"
+    }
+  ]
+}

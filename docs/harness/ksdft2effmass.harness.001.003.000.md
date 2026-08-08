@@ -26,12 +26,29 @@ exists.
 | `chains.py` | Task/chain records and deterministic chain-state evaluation. |
 | `checksums.py` | Checksum records and explicit-root byte validation. |
 | `evidence.py` | Evidence-identifier occurrence records and caller-supplied source auditing. |
+| `human_review.py` | Immutable explicit-input review targets, observations, candidate findings, packet results, and deterministic packet preparation. |
 
 The package boundary exports public names from
 `ksdft2effmass.harness.pi`; callers do not depend on private module imports.
 Records are immutable, actions are fieldless, and expected invalid external
 input is represented as structured findings when the public action contract
 specifies that behavior.
+
+## Human-review packet boundary
+
+The package exports `HumanReviewTarget`, `HumanReviewObservation`,
+`HumanReviewFinding`, `HumanReviewPacket`, and `PrepareHumanReviewPacket`.
+The records own intrinsic lexical and immutable-state invariants; the fieldless
+ActionObject owns target membership, identifier relationships, canonical ordering,
+and packet-status derivation. A failed observation produces
+`blocked_by_invalid_observation`; other intrinsically valid observation statuses
+produce `ready_for_human_review`. Neither status is a human disposition or
+acceptance.
+
+The module consumes only explicit records and text. It performs no repository or
+filesystem discovery, Git execution, clock access, network or subprocess activity,
+database persistence, decision recording, correction, or successor activation. It
+is not a member of the wire-record union and defines no serialization contract.
 
 ## Project-local modules
 

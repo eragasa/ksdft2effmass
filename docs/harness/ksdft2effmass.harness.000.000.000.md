@@ -42,8 +42,8 @@ implement an interface or activate work. Historical pages preserve prior context
 | [harness.002.001.007](ksdft2effmass.harness.002.001.007.md) | `harness-simplification.execution` | Maintained execution interface | Proposed | Excluded |
 | [harness.002.001.008](ksdft2effmass.harness.002.001.008.md) | `harness-simplification.capability-rationalization` | Harness capability ownership rationalization | Mixed; Slice 7 deferred | Excluded |
 | [harness.002.001.009](ksdft2effmass.harness.002.001.009.md) | `harness-simplification.migration` | Incremental migration plan | Proposed | Excluded |
-| [harness.003.000.000](ksdft2effmass.harness.003.000.000.md) | — | Human review interface | Proposed and inactive | Excluded |
-| [harness.003.001.000](ksdft2effmass.harness.003.001.000.md) | — | Initial human-review interface round | Proposed and inactive | Excluded |
+| [harness.003.000.000](ksdft2effmass.harness.003.000.000.md) | — | Human review interface | Pilot packet ready; broader program inactive | Excluded |
+| [harness.003.001.000](ksdft2effmass.harness.003.001.000.md) | `human-review-interface.review-packet-pilot` | Initial human-review interface round | Pilot packet ready | Excluded |
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | — | Human Review Packet and Decision Workflow | `proposed_inactive` | Excluded |
 | [harness.090.000.000](ksdft2effmass.harness.090.000.000.md) | `harness-history` | Historical documentation index | Historical | Excluded |
 
@@ -53,8 +53,9 @@ implement an interface or activate work. Historical pages preserve prior context
   implemented harness architecture.
 - [harness.002](ksdft2effmass.harness.002.000.000.md) documents simplification,
   including completed bounded work and explicitly inactive proposals.
-- [harness.003](ksdft2effmass.harness.003.000.000.md) proposes a human-review
-  interface without accepting or implementing it.
+- [harness.003](ksdft2effmass.harness.003.000.000.md) implements bounded
+  human-review packet preparation while decision recording, persistence, and the
+  broader workflow remain inactive proposals.
 - [harness.090](ksdft2effmass.harness.090.000.000.md) indexes historical material.
 
 Maintained documentation explains architecture and contributor practice. Mutable

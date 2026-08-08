@@ -1,20 +1,23 @@
 ---
 document_id: ksdft2effmass.harness.003.001.000
-task_id: null
+task_id: human-review-interface.review-packet-pilot
 parent: ksdft2effmass.harness.003.000.000
-status: proposed
+status: pilot_packet_ready
 sphinx: excluded
 ---
 
 # Initial human-review interface round
 
-> **Proposed and inactive.** This filesystem-first pilot is not implemented and
-> authorizes no review execution, correction, checkpoint decision, or successor.
+> **Pilot packet ready for direct human review.** The bounded runtime packet API is
+> implemented. No human disposition, correction, checkpoint decision, persistence,
+> review workflow, or successor is authorized.
 
-The proposed pilot formalizes the existing one-module-at-a-time human audit process.
-Its default unit is one coherent source module, one class-owned test module, or one
-artifact-owned integration module. The purpose is to stabilize a compact review
-contract before deciding whether normalized SQLite storage is appropriate.
+The first slice formalizes the preparation boundary for the existing
+one-module-at-a-time human audit process. Its immutable explicit-input API prepares
+observations without replacing human judgment. The pilot packet reviews
+`AuditEvidenceIdentifiers` and its maintained CLI/API software-verification surface.
+It is retained at
+[`.pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md`](../../.pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md).
 
 ## Decomposition
 
@@ -22,7 +25,26 @@ contract before deciding whether normalized SQLite storage is appropriate.
 |---|---|---|
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | Human Review Packet and Decision Workflow | `proposed_inactive` |
 
-## Proposed review unit
+## Implemented runtime boundary
+
+`ksdft2effmass.harness.pi` now exports five public interfaces:
+
+- `HumanReviewTarget` identifies one exact revision, represented subject, explicit
+  path set, evidence class, and contract references;
+- `HumanReviewObservation` records one deterministic check observation;
+- `HumanReviewFinding` records one candidate issue for human judgment;
+- `HumanReviewPacket` is the immutable ResultObject containing canonical
+  observations, candidate findings, limitations, and packet status; and
+- `PrepareHumanReviewPacket` is a fieldless ActionObject that validates cross-record
+  relationships and returns deterministic ordering from explicit inputs.
+
+Construction and preparation perform no filesystem, Git, clock, network, subprocess,
+or database action. The API has no human-decision or recommendation field and no
+serialization, CLI, retry, replay, agent, checkpoint, correction, acceptance, or
+successor behavior. `ready_for_human_review` means only that the packet is structurally
+prepared for the human.
+
+## Review unit
 
 One review unit contains:
 
@@ -38,16 +60,18 @@ One review unit contains:
 - the human disposition; and
 - any separately authorized correction.
 
-## Proposed workflow
+## First-slice workflow
 
-1. Select one coherent source module, class-owned test module, or artifact-owned
-   integration module.
-2. Capture the exact revision and explicit paths.
-3. Run only applicable deterministic inspection Actions.
-4. Produce one compact review packet.
-5. Present source, tests, observations, and limitations to the human.
-6. Record the human’s critique and disposition verbatim.
-7. Stop unless correction or continuation is separately authorized.
+1. The root selects the explicitly authorized source/test surface.
+2. Deterministic checks produce explicit observations.
+3. `PrepareHumanReviewPacket` validates and orders supplied records.
+4. The derived Markdown packet presents the contract, observations, test inventory,
+   candidate findings, and limitations.
+5. The slice stops for direct human review without recording or interpreting a
+   disposition.
+
+Decision recording, correction authorization, and continuation remain proposed
+future work.
 
 ## Rejected behavior
 
@@ -65,25 +89,16 @@ The pilot explicitly rejects:
 - scientific-validation or uncertainty-quantification claims when those evidence
   classes do not apply.
 
-## Candidate deterministic interfaces
+## Interface boundary
 
-Future design may consider these names, but this proposal implements none of them:
+The implemented interfaces are `HumanReviewTarget`, `HumanReviewObservation`,
+`HumanReviewFinding`, `HumanReviewPacket`, and `PrepareHumanReviewPacket`. The first
+three are immutable DataObjects, the packet is an immutable ResultObject and
+semantically a DataObject, and preparation is a stateless ActionObject. They use no
+nominal role base classes.
 
-```text
-HumanReviewTarget
-HumanReviewObservation
-HumanReviewFinding
-HumanReviewPacket
-HumanReviewDecision
-PrepareHumanReviewPacket
-RecordHumanReviewDecision
-```
-
-Targets, observations, and findings would be immutable DataObjects. Packets and
-decisions would be immutable ResultObjects where their represented meaning warrants
-that role. Preparation and recording operations would be stateless ActionObjects
-with explicit inputs and effects. No nominal base class should be introduced solely
-to label these roles.
+`HumanReviewDecision`, `RecordHumanReviewDecision`, and every decision-persistence or
+interaction interface remain unimplemented and inactive.
 
 ## Candidate telemetry
 
@@ -104,12 +119,24 @@ A future authorized pilot could measure:
 These are proposed measurements, not implemented metrics. They do not independently
 establish review quality, scientific validity, or human acceptance.
 
+## First-slice limitations
+
+- Packet inputs are supplied by the caller; the API neither obtains nor verifies Git
+  or filesystem state.
+- The API does not summarize source or validation output automatically.
+- The Markdown packet is derived pilot evidence, not an accepted serialization or
+  persistence contract.
+- The pilot covers one software-verification subject only.
+- Review resumption, sensitive comments, item sizing, and correction records remain
+  unresolved.
+- Filesystem, SQLite, and hybrid persistence alternatives remain open.
+
 ## Authority and stop boundary
 
-Deterministic observations remain distinct from LLM critique and human decisions.
-Only the human may dispose of findings or authorize correction and continuation.
-Duplicate reviews are not independent evidence. The pilot stops after recording the
-human response unless separate authority permits another action.
+Deterministic observations remain distinct from human decisions. Only the human may
+dispose of findings or authorize correction and continuation. The prepared packet is
+not PASS, acceptance, checkpoint resolution, or scientific validation. This slice
+stops with no human disposition recorded.
 
 ## Navigation
 

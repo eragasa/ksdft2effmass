@@ -8,10 +8,11 @@ sphinx: excluded
 
 # Human Review Packet and Decision Workflow
 
-> **Proposed and inactive.** This page authorizes no public Python contract,
-> storage format, CLI, task, checkpoint, runtime workflow, telemetry collection,
-> review execution, correction, or successor activation. Every named interface
-> below is proposed and unimplemented.
+> **Long-term proposal remains inactive.** The bounded packet-preparation API
+> documented by the [initial round](ksdft2effmass.harness.003.001.000.md) is now
+> implemented. This page still authorizes no expanded packet contract, storage
+> format, CLI, decision record, checkpoint, runtime workflow, telemetry collection,
+> correction, or successor activation.
 
 ## Purpose
 
@@ -46,8 +47,10 @@ activation.
 
 ## Proposed DataObjects
 
-These are candidate immutable public contracts, not implemented interfaces.
-Field names and types remain subject to a later accepted architecture decision.
+The request, item, decision, progress, and summary shapes below remain candidate
+immutable public contracts. The candidate expanded packet shape is not the current
+implemented packet contract. Field names and types remain subject to a later accepted
+architecture decision.
 
 ### `HumanReviewRequest`
 
@@ -88,6 +91,10 @@ needed to review one represented surface and would not embed an unbounded reposi
 diff or complete command log. Omitted or truncated material would be explicit.
 
 ### `HumanReviewPacket`
+
+The following is a proposed future expansion, not the implemented first-slice
+`HumanReviewPacket`. Adopting it would require a separately accepted public-contract
+change.
 
 ```python
 @dataclass(frozen=True, slots=True)

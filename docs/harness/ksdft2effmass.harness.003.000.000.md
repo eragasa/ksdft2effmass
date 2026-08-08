@@ -2,14 +2,15 @@
 document_id: ksdft2effmass.harness.003.000.000
 task_id: null
 parent: ksdft2effmass.harness.000.000.000
-status: proposed
+status: pilot_packet_ready
 sphinx: excluded
 ---
 
 # Human review interface
 
-> **Proposed and inactive.** This program is unaccepted and unimplemented. It
-> creates no task, interface, schema, storage, workflow, or successor activation.
+> **Pilot packet ready; broader program inactive.** The first explicit-input packet
+> API and one derived pilot packet are implemented. No decision record, persistence,
+> runtime review workflow, correction, acceptance, or successor is active.
 
 ## Problem
 
@@ -50,11 +51,11 @@ Retain immutable human-readable filesystem summaries while normalizing observati
 and relations in SQLite. This separates durable review packets from queryable state
 and is the recommended long-term direction.
 
-The hybrid recommendation is decision support only. The architecture remains
-unaccepted and unimplemented. The
-[initial round](ksdft2effmass.harness.003.001.000.md) therefore proposes a
-filesystem-first pilot so the review contract can stabilize before any SQLite schema
-is selected.
+The hybrid recommendation is decision support only and remains unaccepted. The
+[initial round](ksdft2effmass.harness.003.001.000.md) implements only a pure
+explicit-input packet API and one derived Markdown pilot. It selects no persistent
+filesystem or SQLite contract; those alternatives remain open while the review
+boundary is evaluated.
 
 ## Claim boundary
 
