@@ -210,6 +210,56 @@
       "stop_condition": "Stop after the decision document and checkpoint proposal, or after non-applicable classification; never select or implement."
     },
     {
+      "skill_name": "develop-harness-resources",
+      "path": ".pi/skills/develop-harness-resources/SKILL.md",
+      "content_sha256": "43800804fd66bdff4bf0390a99ee654348be59912f7eb78fb4b1051542f3b74f",
+      "trigger_description": "Creating, changing, versioning, reviewing, or relocating generic or project-local harness textual resources and their manifests, profiles, descriptors, schemas, fixtures, policy references, or documentation.",
+      "current_consumers": [
+        "docs/harness/ksdft2effmass.harness.010.040.010.md",
+        "harness/pi/docs/resources.md"
+      ],
+      "authoritative_references": [
+        "harness/pi/skills/develop-harness-resources/references/harness-resource-conventions.md",
+        "harness/pi/docs/resources.md",
+        "harness/pi/resource-manifest.json",
+        "harness/local/resource-manifest.json"
+      ],
+      "inputs": [
+        "represented textual-resource capability and accepted contract",
+        "explicit generic or project-local ownership classification",
+        "resource, version, path, dependency, manifest, profile, schema, fixture, and documentation inputs"
+      ],
+      "outputs": [
+        "one explicit resource ownership and identity design",
+        "synchronized manifest, descriptor, schema, fixture, and documentation requirements",
+        "deterministic action routing, structural limitations, and stop findings"
+      ],
+      "side_effects": [
+        "resource changes only under separate task and path authority"
+      ],
+      "external_tools_used": [
+        "existing explicit-root harness resource ActionObjects and maintained commands"
+      ],
+      "deterministic_scripts_used": [
+        "RefreshResourceManifest proposal CLI and existing resource/profile/descriptor validators"
+      ],
+      "authorization_requirements": "The controlling task supplies path and mutation authority; behavior/version decisions and project or scientific meaning require applicable accepted authority.",
+      "failure_behavior": "Stop on ambiguous ownership, generic replacement, reversed dependency direction, schema/runtime conflict, unauthorized versioning, missing profile/manifest, unsupported deterministic operation, or scientific meaning in generic resources.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected resource inputs or newly authorized ownership/version decisions.",
+      "idempotency": "Resource judgment performs no operational transition; deterministic validation and refresh behavior belongs to existing ActionObjects.",
+      "evidence_classification": "textual-resource design and structural contract guidance; no implementation, numerical, scientific, execution, or acceptance evidence",
+      "current_validation_status": "Created from the accepted resource-skill candidate with concise generic/local ownership, identity, closure, fixture, descriptor, manifest, deterministic routing, and claim boundaries; historical H3/H4 ceremony excluded.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "explicit generic versus project-local ownership",
+        "stable identity and version distinctions",
+        "extension-only dependency direction",
+        "existing deterministic ActionObject routing",
+        "structural and scientific claim boundaries"
+      ],
+      "stop_condition": "Stop after the bounded resource design, deterministic checks, limitations, and unresolved authority report; never activate unrelated work."
+    },
+    {
       "skill_name": "develop-operator-records",
       "path": ".pi/skills/develop-operator-records/SKILL.md",
       "content_sha256": "78d4f8ee04855a2d17a2e22d319bfcd8184639e13896cb11cafe7c891ba81b1c",

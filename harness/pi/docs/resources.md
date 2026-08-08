@@ -4,7 +4,7 @@
 
 `harness/pi/` is the generic textual-resource root. A caller supplies this root explicitly together with `harness/pi/resource-manifest.json`; neither the current directory, Git, caller-supplied runtime-state records, environment variables, parent-directory search, nor package fallback selects it. An optional project-local root and manifest are separate explicit inputs.
 
-The generic manifest has stable identity `pih.generic.resources`, manifest version `2`, and layer `generic`. Each resource entry is identified by its opaque, stable `resource_id`, not by its path. An entry also records its `resource_kind`, `format_version`, manifest-root-relative `ResourcePath`, exact SHA-256 `content_identity`, and complete, sorted `dependency_ids`. The manifest therefore distinguishes:
+The generic manifest has stable identity `pih.generic.resources`, manifest version `3`, and layer `generic`. Each resource entry is identified by its opaque, stable `resource_id`, not by its path. An entry also records its `resource_kind`, `format_version`, manifest-root-relative `ResourcePath`, exact SHA-256 `content_identity`, and complete, sorted `dependency_ids`. The manifest therefore distinguishes:
 
 - stable logical identity (`resource_id` or `manifest_id`);
 - contract revision (`format_version` or `manifest_version`);
@@ -18,6 +18,7 @@ Matching hashes establish byte equality only. They do not establish equal kind, 
 JSON is the wire representation of `ResourceManifest`; `SerializeJsonRecord` and `DeserializeJsonRecord` own its canonical encoding and strict caller-selected decoding. The generic manifest is the authoritative inventory. In this page, “accepted-contract” identifies the accepted contract task governing the resource-task surface; it does not claim final resource-task human acceptance, which remains a separate gate. Its maintained families are:
 
 - `pih.skill.document-python-research-software.v1` and its descriptor `pih.manifest.skill-descriptor.document-python-research-software.v1`;
+- `pih.skill.develop-harness-resources.v1`, its descriptor `pih.manifest.skill-descriptor.develop-harness-resources.v1`, and `pih.reference.harness-resource-conventions.v1`;
 - `pih.skill.develop-python-test-evidence.v1`, its descriptor `pih.manifest.skill-descriptor.develop-python-test-evidence.v1`, and `pih.reference.test-evidence-conventions.v1`;
 - read-only `pih.skill.develop-architecture-decision.v1`, its descriptor `pih.manifest.skill-descriptor.develop-architecture-decision.v1`, and `pih.reference.architecture-decision-conventions.v1`;
 - record schemas under the `pih.schema.record-*.v1` identities;
@@ -32,12 +33,7 @@ The documentation in `harness/pi/docs/` explains the accepted resources but is n
 
 Version 1 uses `extend_only`. A local manifest names the generic base in `extends_manifest_id`; it may introduce new local IDs and paths and may depend on generic resources. It may not reuse or replace any generic resource ID or serialized path, even when bytes match. Generic resources may never depend on project-local resources or contain project identifiers, evidence prefixes, repository-specific paths, or scientific policy.
 
-The dependency direction is normative:
-
-```text
-project-local resources -> generic resources
-generic resources -/-> project-local resources
-```
+The dependency direction is normative: project-local resources may depend on generic resources, while generic resources must remain independent of project-local resources.
 
 “Generic before local” is validation and dependency order, not overwrite precedence. There is no shadow winner, ambient fallback, network fetch, or implicit installation.
 
@@ -50,6 +46,12 @@ Three serialized lexical path meanings remain distinct:
 - `DiagnosticPath` is a neutral lexical location for `ValidationIssue.path`. It may spell a regular file, directory, or ownership-scope prefix and asserts neither existence, file kind, nor containment semantics. `null` means no location applies.
 
 All three reject absolute paths, empty or `.`/`..` segments, repeated or trailing separators, non-NFC input, controls, backslashes, and Windows drive/device/UNC syntax. They compare by exact case-sensitive spelling. Runtime roots and resolved `pathlib.Path` values are never serialized identities.
+
+## Resource-design skill and deterministic owners
+
+`develop-harness-resources` owns judgment about generic versus project-local ownership, stable identities and versions, dependency closure, extension-only overlays, schema/fixture agreement, skill descriptor closure, manifest synchronization, and structural claim limits. Its canonical entry, descriptor, and convention reference are generic resources; the live skill and reference remain byte-identical to their canonical counterparts.
+
+The skill does not reproduce mechanics. `ValidateResourceManifest` owns manifest and overlay structure, `RefreshResourceManifest` owns explicit selected byte-identity proposals, `ResolveResource` owns root-confined selection and hash agreement, `ValidateSkillResources` owns descriptor closure, the JSON actions own canonical wire representation, `ValidateChecksumManifest` owns checksum agreement, `LoadProjectProfile` owns explicit profile loading, and the project-local context ActionObject owns local composition. Historical resource agents remain historical and disabled.
 
 ## Validation, resolution, and identity refresh
 

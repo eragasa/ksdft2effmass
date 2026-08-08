@@ -12,8 +12,8 @@ sphinx: excluded
 > `design-data-action-objects`, `develop-operator-records`,
 > `develop-python-test-evidence`, `recommend-next-task`, and
 > `resolve-human-checkpoint`; Slice 6 implemented `ResolveCheckpointDecision`;
-> all later slices remain proposals. This page does not activate another skill,
-> agent,
+> Slice 7 is deferred; and Slice 8 created `develop-harness-resources`. Later
+> slices remain proposals. This page does not activate another skill, agent,
 > ActionObject, tool, route, or task. The separately authorized
 > `harness-simplification.resources.manifest-refresh` vertical slice added the
 > deterministic `RefreshResourceManifest` ActionObject without changing the
@@ -24,7 +24,7 @@ Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 
 ## Scope and current state
 
-The inspected repository has nine repository-local skills, 34 retained project
+The inspected repository has ten repository-local skills, 34 retained project
 agent records, 30 publicly exported maintained harness ActionObjects, and ten
 maintained or retained harness command wrappers/validators relevant to this
 audit. Project PI configuration exposes the 10 durable agents and disables the
@@ -46,6 +46,7 @@ entry; optional Graphify operation references remain on demand.
 |---|---|---:|---|---|---|
 | `design-data-action-objects` | New scientific object models, public object-boundary changes, and substantial ownership refactors | 195 lines | Extractable core with project policy inputs | Historical OperatorRecord policy and invocation/reporting ceremony were removed in Slice 1 | **Keep:** Slice 1 completed; identity and durable ownership guidance retained |
 | `develop-architecture-decision` | A genuine material architecture choice with exactly three defensible conceptual alternatives | 126 lines | Extractable decision method with local authority inputs | No material overlap: durable architecture agents supply independence; the skill supplies decision method | **Keep** |
+| `develop-harness-resources` | Design and evolution of generic or project-local textual resources | 241 lines across entry and reference | Canonical extractable skill with project profile inputs | Stable resource-agent judgment was extracted without H3/H4 paths, counts, hashes, phase gates, or agent procedure | **Keep:** generic/local ownership, identity, closure, fixtures, descriptor, manifest, deterministic routing, and claim boundaries retained |
 | `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 309 lines | Project/domain-specific | Fixed inventories, migration/checkpoint history, command gates, test/docs grammar, and invocation ceremony were removed in Slice 2 | **Keep:** operator meaning retained; general architecture, tests, docs, and open decisions route to their owning skills |
 | `develop-python-test-evidence` | Semantic design, writing, restructuring, and review of maintained Python evidence | 260 lines; byte footprint reduced by about half | Extractable core with a local profile | Invocation profiles, repository-conformance campaign state, universal migration ceremony, reporting envelopes, and validator implementation detail were removed in Slice 3 | **Keep:** evidence rigor retained; `ValidatePythonTestEvidence` and its CLI own structural enforcement |
 | `document-python-research-software` | Public Python docstrings, API/concept pages, Sphinx integration, and serialization documentation | 21 lines | Extractable core with local build inputs | Correctly refers test semantics to the test-evidence skill | **Keep** |
@@ -112,7 +113,7 @@ skill; it does not mean delete or rewrite the file.
 |---|---|---|
 | `ksdft2effmass-harness-cutover-architecture-reviewer` | Generic/local boundary judgment uses `design-data-action-objects`; independence uses durable harness architecture/review roles; routing facts use existing route Actions | H4 identity, rollback checklist, PASS/FAIL ceremony |
 | `ksdft2effmass-harness-cutover-integration-reviewer` | Cross-surface review uses durable harness integration reviewer; parity and routes use `CompareShadowPair`, `ReplayShadowSuite`, `SelectValidationRoute`, and `RollBackValidationRoute` | H4 commands, starting revision, fixed rollback and successor mechanics |
-| `ksdft2effmass-harness-cutover-skill-resource-reviewer` | Resource-design judgment is the proposed `develop-harness-resources`; closure is `ValidateResourceManifest` and `ValidateSkillResources` | H4 skill-name correction and stale-path inventory |
+| `ksdft2effmass-harness-cutover-skill-resource-reviewer` | Resource-design judgment uses `develop-harness-resources`; closure is `ValidateResourceManifest` and `ValidateSkillResources` | H4 skill-name correction and stale-path inventory |
 | `ksdft2effmass-harness-generic-resource-writer` | Generic/local resource judgment is the proposed resource skill; writer authority remains durable harness implementation | H3 paths, accepted-H1 wording, path fences |
 | `ksdft2effmass-harness-h2-verification-evidence-writer` | Evidence classification uses `develop-python-test-evidence`; artifact ownership is task state | H2 evidence paths, checksum/acceptance inventory, handoff phase |
 | `ksdft2effmass-harness-h3-verification-evidence-writer` | Evidence classification uses `develop-python-test-evidence`; documentation facts use the durable documentation role when assigned | H3 activation, handoff, review aggregation, fixed paths |
@@ -195,9 +196,9 @@ secondary consumers do not share ownership.
 | Deterministic checkpoint resolution transformation | `ACTION_EXISTING` | `ResolveCheckpointDecision` | Interpreted decision consumers and authorized local workflows |
 | Canonical harness wire JSON | `ACTION_EXISTING` | `SerializeJsonRecord` / `DeserializeJsonRecord` | Profiles, resources, adapters |
 | Project-profile loading and compatibility | `ACTION_EXISTING` | `LoadProjectProfile` | Local context |
-| Generic/local resource design and evolution judgment | `SKILL_CANDIDATE` | proposed `develop-harness-resources` | Harness implementation/docs/tests/reviewer |
+| Generic/local resource design and evolution judgment | `SKILL_EXISTING` | `develop-harness-resources` | Harness implementation/docs/tests/reviewer |
 | Manifest closure, overlay, and generic-to-local leakage | `ACTION_EXISTING` | `ValidateResourceManifest` | Context and repository validation |
-| Explicit-path resource identity refresh | `ACTION_EXISTING` | `RefreshResourceManifest` and read-only CLI | Resource authors and future `develop-harness-resources` |
+| Explicit-path resource identity refresh | `ACTION_EXISTING` | `RefreshResourceManifest` and read-only CLI | Resource authors using `develop-harness-resources` |
 | Root-confined resource selection and hashing | `ACTION_EXISTING` | `ResolveResource` | Resource consumers |
 | Skill descriptor/resource closure | `ACTION_EXISTING` | `ValidateSkillResources` | Capability/resource routing |
 | Ownership relation validation | `ACTION_EXISTING` | `ValidateOwnershipManifest` | Task preflight and local validation |
@@ -227,9 +228,9 @@ Counts from the 39 rows are:
 
 | Classification | Count |
 |---|---:|
-| `SKILL_EXISTING` | 8 |
+| `SKILL_EXISTING` | 9 |
 | `SKILL_UPDATE` | 0 |
-| `SKILL_CANDIDATE` | 1 |
+| `SKILL_CANDIDATE` | 0 |
 | `ACTION_EXISTING` | 22 |
 | `ACTION_CANDIDATE` | 0 |
 | `DURABLE_AGENT` | 1 |
@@ -245,7 +246,7 @@ the completed per-skill updates above.
 
 ## Candidate skill evaluation
 
-### `develop-harness-resources` — accept as a proposal
+### `develop-harness-resources` — completed in Slice 8
 
 - **Trigger conditions:** a task must design or change a generic/local resource
   identity, manifest/profile relationship, skill descriptor closure, resource
@@ -277,11 +278,11 @@ the completed per-skill updates above.
   descriptor and its complete resource closure; add a new canonical fixture
   family tied to a versioned resource contract.
 - **Recurrence evidence:** six H3 resource-specific agents, three H4 resource or
-  cutover roles, current generic/local manifests and profiles, three maintained
+  cutover roles, current generic/local manifests and profiles, four maintained
   resource Actions, and retained skill-descriptor resources show repeated
   resource-boundary work across more than one closed task.
 
-This candidate must not package H3 paths, H1 decisions, H4 cutover steps,
+The skill must not package H3 paths, H1 decisions, H4 cutover steps,
 accepted hashes, or phase completion gates.
 
 ### `assess-harness-cutover` — reject
@@ -392,13 +393,14 @@ it does not create or activate that skill and does not alter this sequence.
    membership, deterministic conflicts, and idempotent repetition. Runtime
    request/result records remain outside `HarnessWireRecord`; no local rewrite
    CLI, filesystem, clock, Git, resumption, or successor behavior was added.
-7. **Next proposed — retire one existing skill:** move `inspect-task-state` invocation guidance to
-   maintained command documentation, update its bounded consumers, and remove
-   only that skill from live capability routing.
-8. **Create one new skill:** implement the accepted
-   `develop-harness-resources` proposal with one concise reference and existing
-   Actions as deterministic owners.
-9. **Retire one duplicate tool:** migrate the standalone evidence-ID script to
+7. **Deferred — retire one existing skill:** `inspect-task-state` remains in
+   live routing with its maintained command guidance unchanged.
+8. **Completed — create one new skill:** `develop-harness-resources` now owns
+   generic/local resource judgment, identity and versioning, dependency closure,
+   schema/fixture and descriptor agreement, manifest synchronization, and claim
+   boundaries. Existing Actions remain deterministic owners; canonical and live
+   skill/reference bytes are identical.
+9. **Next proposed — retire one duplicate tool:** migrate the standalone evidence-ID script to
    `AuditEvidenceIdentifiers` and remove only that duplicate executable policy.
 10. **Reconcile one bounded historical routing group:** verify the resource-phase
     agent group remains disabled after the new resource skill is accepted; update
@@ -418,7 +420,7 @@ it does not create or activate that skill and does not alter this sequence.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 
-No harness-simplification chain entry is required for this bounded skill edit.
-Recording Slice 6 completion here does not activate Slice 7. Retirement of
-`inspect-task-state` skill routing remains proposed and inactive, and
-`develop-harness-resources` remains inactive pending separate human authorization.
+The bounded harness-simplification chain entry records Slice 8 completion with
+`active_task: null`; it does not activate another slice. Slice 7 retirement
+of `inspect-task-state` remains deferred, and duplicate evidence-ID policy
+retirement remains proposed and inactive pending separate human authorization.

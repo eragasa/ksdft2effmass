@@ -181,6 +181,7 @@ EXPECTED_SKILL_NAMES = {
     "recommend-next-task",
     "design-data-action-objects",
     "develop-architecture-decision",
+    "develop-harness-resources",
     "develop-operator-records",
     "develop-python-test-evidence",
     "document-python-research-software",
