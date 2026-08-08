@@ -8,10 +8,11 @@ sphinx: excluded
 
 # Harness capability ownership rationalization
 
-> **Rationalization status.** Slices 1 through 4 simplified
+> **Rationalization status.** Slices 1 through 5 simplified
 > `design-data-action-objects`, `develop-operator-records`,
-> `develop-python-test-evidence`, and `recommend-next-task`; all later slices
-> remain proposals. This page does not activate another skill, agent,
+> `develop-python-test-evidence`, `recommend-next-task`, and
+> `resolve-human-checkpoint`; all later slices remain proposals. This page does
+> not activate another skill, agent,
 > ActionObject, tool, route, or task. The separately authorized
 > `harness-simplification.resources.manifest-refresh` vertical slice added the
 > deterministic `RefreshResourceManifest` ActionObject without changing the
@@ -50,7 +51,14 @@ entry; optional Graphify operation references remain on demand.
 | `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `InspectTaskState` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
 | `recommend-next-task` | State-gated, read-only selection of one human-selectable next task | 117 lines | Project-specific planning policy | Broad repository discovery, fixed reporting schemas, orchestration ceremony, and duplicated control-plane procedure were removed in Slice 4 | **Keep:** use maintained task-state inspection; read-only and human-selection boundaries are unchanged |
 | `graphify` | Explicitly requested local Graphify use under project safety policy | 167 mandatory lines | Project-specific external-tool policy | Exact external-tool safety policy is intentional; operation-specific references are loaded only when needed | **Keep** |
-| `resolve-human-checkpoint` | Match an unambiguous human answer to one unresolved checkpoint and preserve human authority | 132 lines | Project-local policy; transition core may be extractable | Mixes ambiguity/authority judgment with deterministic record mutation, validation, commit/push, and resumption sequencing | **Update:** retain intent matching and authority judgment; move record transformation to a proposed ActionObject |
+| `resolve-human-checkpoint` | Interpret one current human answer to a durable unresolved checkpoint | 99 lines | Project-local interpretation policy | Git, resumption, CPN, replay, incremental-acceptance, validation-command, and mutation ceremony were removed in Slice 5 | **Keep:** intent matching, ambiguity detection, verbatim response preservation, normalized decision, and authorized-scope boundaries retained; transformation routes to proposed `ResolveCheckpointDecision` |
+
+Capability classification and implementation disposition are different axes. A
+`SKILL_EXISTING` capability row means the reusable interpretation capability has
+an existing owner; an inventory disposition of **Update** or **Keep** records
+whether that owner's current implementation still requires rationalization.
+Completing Slice 5 changes the disposition to **Keep** without relabeling the
+capability.
 
 Across the skills, authorization requirements may remain invocation
 preconditions, but writer/reviewer authority, independence, mutation paths, and
@@ -230,6 +238,10 @@ Counts from the 39 rows are:
 | `DUPLICATE_RETIRE` | 4 |
 | `UNRESOLVED` | 0 |
 
+These are capability-classification counts, not counts of pending skill
+implementation dispositions; `SKILL_UPDATE: 0` therefore remains compatible with
+the completed per-skill updates above.
+
 ## Candidate skill evaluation
 
 ### `develop-harness-resources` — accept as a proposal
@@ -312,16 +324,14 @@ cutover task should compose those owners instead.
 | Evidence-ID inspection | `AuditEvidenceIdentifiers` | Retire duplicate legacy AST script after caller migration |
 | Maintained validation-command inspection | `InspectTaskState` reports declared completion command | No duplicate tool |
 | Capability-inventory inspection | `validate_skill_capabilities.py` validates the fixed repository inventory | Keep tool; do not create an Action until a second input contract needs a reusable public result |
-| Checkpoint resolution record mutation | No Action; current skill prose specifies mutation | Propose `ResolveCheckpointDecision` |
+| Checkpoint resolution record transformation | Proposed `ResolveCheckpointDecision` | Keep human interpretation in the skill and design the pure transformation in Slice 6 |
 
-`ResolveCheckpointDecision` should accept one immutable checkpoint record/identity,
-expected unresolved status, normalized decision supplied by the human-matching
-skill, preserved human response, authorized scope, resolved timestamp, and exact
-record paths. It should return the transformed record and structured validation
-without writing Git state, pushing, resuming work, selecting a successor, or
-interpreting the human message. `ValidateCheckpointSet` remains the validator;
-the new Action would own only the deterministic transition. Public-contract and
-persistence review is required before implementation.
+The proposed `ResolveCheckpointDecision` owns future deterministic checkpoint
+record transformation only. `ValidateCheckpointSet` remains the validation
+owner. Git persistence, task resumption, successor activation, and other external
+effects remain outside both the interpretation skill and the proposed pure
+ActionObject. Its public contract requires a separately authorized Slice 6; this
+slice does not prescribe or implement it.
 
 ## Duplicate and historical retirement
 
@@ -368,10 +378,14 @@ it does not create or activate that skill and does not alter this sequence.
    Exact known task state now routes through maintained `InspectTaskState` usage;
    broad repository discovery, fixed reporting schemas, and duplicated
    orchestration and control-plane procedure were removed.
-5. **Next proposed — update `resolve-human-checkpoint`.** Retain human-response
-   matching and fail-closed authority judgment; specify the future Action
-   boundary without embedding mutation mechanics.
-6. **Implement one Action:** design, review, and implement
+5. **Completed — update `resolve-human-checkpoint`.** Retained human-intent
+   matching, ambiguity detection, the restricted affirmative rule, verbatim
+   response preservation, normalized decisions, authorized-scope limits, and the
+   human-authority boundary. Git, commit/push, resumption, CPN, retry/replay,
+   invocation-envelope, incremental-acceptance, validation-command, and mutation
+   ceremony were removed. Deterministic transformation is assigned to the
+   proposed `ResolveCheckpointDecision`.
+6. **Next proposed — implement one Action:** design, review, and implement
    `ResolveCheckpointDecision` with no Git/push/resumption side effects.
 7. **Retire one existing skill:** move `inspect-task-state` invocation guidance to
    maintained command documentation, update its bounded consumers, and remove
@@ -400,6 +414,6 @@ it does not create or activate that skill and does not alter this sequence.
   remain outside this proposal.
 
 No harness-simplification chain entry is required for this bounded skill edit.
-Recording Slice 4 completion here does not activate Slice 5. The next proposed
-slice, `resolve-human-checkpoint`, remains inactive pending separate human
-authorization.
+Recording Slice 5 completion here does not activate Slice 6. The proposed
+`ResolveCheckpointDecision` remains unimplemented and inactive pending separate
+human authorization.

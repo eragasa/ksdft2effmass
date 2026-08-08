@@ -532,8 +532,8 @@
     {
       "skill_name": "resolve-human-checkpoint",
       "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
-      "content_sha256": "d72695a4483b09500da69048affbd1addb313a0830cc793b3aba5015f6eeee25",
-      "trigger_description": "Exactly when an unresolved checkpoint exists and the current human message unambiguously answers it.",
+      "content_sha256": "2ea9ca53a77d45ef565a1bd3b01990592c3f80c6e6b83fc6cc9e469d2939d098",
+      "trigger_description": "Interpret a current human answer only when it appears to answer a durably represented unresolved checkpoint.",
       "current_consumers": [
         "AGENTS.md",
         ".pi/skills/recommend-next-task/SKILL.md"
@@ -541,53 +541,43 @@
       "authoritative_references": [
         "AGENTS.md",
         ".pi/checkpoints/checkpoint.schema.json",
-        ".pi/checkpoints/README.md",
-        "docs/development/agent-control-plane.rst"
+        "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+        ".pi/skills/recommend-next-task/SKILL.md"
       ],
       "inputs": [
-        "checkpoint identity and expected status/hash",
-        "human response",
-        "linked task/episode identities",
-        "permitted record paths",
-        "pending checkpoint commit identity",
-        "active task branch and expected remote"
+        "current human message",
+        "unresolved checkpoint questions, options, recommendations, and blocked scopes",
+        "checkpoint and related declared task identities"
       ],
       "outputs": [
-        "resolved or unchanged checkpoint record",
-        "normalized decision",
-        "changed-path inventory",
-        "validation status",
-        "resolution commit identity and push status",
-        "resumption status"
+        "interpretation status and checkpoint identity",
+        "verbatim human response, normalized decision, and resulting authorized scope",
+        "one clarification question or exact durable-state conflict when applicable"
       ],
       "side_effects": [
-        "authorized control-plane record writes",
-        "validated decision-boundary commit and task-branch push",
-        "separately authorized task resumption after successful push"
+        "none; interpretation is read-only"
       ],
       "external_tools_used": [
-        "filesystem JSON editing",
-        "checkpoint validator",
-        "Git commit and task-branch push"
+        "none required; bounded durable checkpoint inspection supplies inputs"
       ],
       "deterministic_scripts_used": [
-        ".pi/checkpoints/validate_checkpoints.py"
+        "ValidateCheckpointSet remains the maintained checkpoint validation owner"
       ],
-      "authorization_requirements": "Only the preserved human response supplies decision authority. Standing human policy requires validated checkpoint and accepted-increment commits and pushes on the active task branch; resumption must remain within normalized scope and follows a successful resolution push.",
-      "failure_behavior": "Ambiguity, changed identity/status, conflicting prior resolution, missing pending-boundary push, validation failure, or resolution commit/push failure returns structured failure and stops without resumption.",
-      "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy; a new attempt preserves history, identical resolution is a no-op, and conflicting replay is rejected.",
-      "idempotency": "Compare-and-record semantics prevent duplicate resolution or duplicate resumption.",
-      "evidence_classification": "human decision recording and control-plane evidence",
-      "current_validation_status": "Trigger, replay, partial-failure, durable decision-boundary commit/push, and post-push resumption contract hardened; full Draft 2020-12 checkpoint validator passes.",
+      "authorization_requirements": "Only the preserved human response supplies decision authority; the skill may interpret but cannot invent a decision, broaden scope, mutate records, or activate work.",
+      "failure_behavior": "Return ambiguous with one focused question, no_matching_checkpoint, or conflict without mutating durable state.",
+      "retry_behavior": "No skill-specific retry protocol; reinterpret only after clarification or corrected durable checkpoint state.",
+      "idempotency": "The read-only interpretation performs no checkpoint or operational transition.",
+      "evidence_classification": "human-intent interpretation support; no record transformation, persistence, task resumption, or acceptance by execution",
+      "current_validation_status": "Simplified to human-intent matching, ambiguity detection, verbatim response preservation, normalized decision, and authorized-scope boundaries; Git, resumption, CPN, replay, and mutation ceremony removed.",
       "primary_classification": "HUMAN_DECISION_SUPPORT",
       "hardening_applied": [
-        "narrowed frontmatter trigger",
-        "added expected-state, replay, and partial-failure rules",
-        "required pushed pending and resolution decision boundaries",
-        "required post-push resumption",
-        "covered accepted incremental changes"
+        "two-part durable-checkpoint trigger",
+        "exactly one checkpoint and normalized decision rule",
+        "restricted affirmative interpretation",
+        "verbatim response and scope boundaries",
+        "pure future ResolveCheckpointDecision routing"
       ],
-      "stop_condition": "Stop after recording, validation, commit/push, and resumption status or one ambiguity question; never invent the decision and never resume after a failed push."
+      "stop_condition": "Stop after one concise interpretation result or clarification question; never transform records, persist state, resume work, or activate a successor."
     }
   ],
   "cpn_review_blocks": [
@@ -664,9 +654,9 @@
     {
       "block": "CheckpointReviewBlock",
       "kind": "human_decision_support",
-      "evidence_owner": "resolve-human-checkpoint plus validate_checkpoints.py",
-      "result": "human decision record and DeterministicToolResultToken",
-      "authority": "human response only"
+      "evidence_owner": "resolve-human-checkpoint interpretation plus maintained CheckpointRecord/ValidateCheckpointSet inputs",
+      "result": "concise interpretation result; deterministic record transformation remains proposed",
+      "authority": "preserved human response only"
     },
     {
       "block": "TaskSelectionReviewBlock",
