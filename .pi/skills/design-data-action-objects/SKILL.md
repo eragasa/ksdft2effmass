@@ -1,114 +1,77 @@
 ---
 name: design-data-action-objects
-description: Applies the repository DataObject/ActionObject architecture. Use for new scientific object models, substantial refactors, object ownership questions, and Python designs that must remain portable to Rust.
+description: Assigns reusable software behavior and invariants among DataObjects, ResultObjects, ActionObjects, serializers, Workflows, and narrowly justified free functions.
 ---
 
-# Design DataObject/ActionObject Models
+# Design DataObject and ActionObject Boundaries
 
-Use this skill before changing public scientific object boundaries or adding nontrivial behavior to a data model.
+## Purpose
+
+Use this skill when adding a nontrivial object model, changing public object
+boundaries, or deciding which object should own reusable behavior. It supplies
+architecture guidance only; it does not choose scientific meaning or authorize
+implementation.
 
 ## Load first
 
-Read `references/data-action-architecture.md` for the authoritative rules and checklist.
+Read `references/data-action-architecture.md` for the detailed rules and
+checklist.
 
-## Quick routing
+## Ownership rules
 
-- Intrinsic data invariant: method or constructor validation on the owning DataObject.
-- Numerical or analysis policy: ActionObject.
-- Serialization or wire-format rule: serializer ActionObject.
-- Operation output: explicit immutable ResultObject.
-- Domain-independent mathematics: free function only when no domain owner exists.
-- Workflow: concrete ActionObject only for a reusable scientifically or computationally meaningful sequence with explicit DataObject/ResultObject inputs, outputs, and dependencies.
+- A **DataObject** represents immutable or operationally immutable state. It owns
+  intrinsic invariants of its fields and only contract-authorized
+  canonicalization.
+- A **ResultObject** is a DataObject that represents an operation outcome,
+  structured findings, or derived state. It records a result but does not
+  perform the operation.
+- An **ActionObject** owns a reusable operation, policy, analysis,
+  transformation, comparison, validation, serialization, or external boundary.
+  It normally exposes `execute(...)` and avoids hidden mutable state.
+- A **serializer ActionObject** owns serialization, deserialization, and
+  wire-format mechanics. Wire-format validity remains distinct from scientific
+  validity.
+- A **Workflow** is warranted only for a genuine reusable multi-step composition
+  with explicit inputs, outputs, dependencies, and execution meaning.
+- A small cohesive **free function** is acceptable only when no domain object
+  owns the behavior and a class would add no meaningful contract.
 
-Do not create a production Workflow merely to own a technical integration test.
+Prefer concrete public records and composition. Do not introduce nominal
+DataObject or ActionObject base classes without a demonstrated polymorphic
+requirement.
 
-## Examples
+## Decision table
 
-Positive:
+| Question | Owner |
+|---|---|
+| Is one field intrinsically valid? | DataObject |
+| Are two independently valid objects compatible? | ActionObject |
+| Does an operation apply tolerance, units policy, or algorithm selection? | ActionObject |
+| Is this an operation outcome or structured finding? | ResultObject |
+| Is this a wire-format conversion? | Serializer ActionObject |
+| Is this a reusable multi-step computation? | Workflow, only when genuinely warranted |
+| Is the behavior cohesive but ownerless and class-free? | Narrow free function |
 
-```python
-@dataclass(frozen=True, slots=True)
-class SpectrumWindow:
-    emin: float
-    emax: float
+## Essential prohibitions
 
+- Do not put external execution, persistence, numerical policy, scientific
+  acceptance, or unrelated cross-object validation on a DataObject.
+- Do not add `to_json`, `from_json`, `to_dict`, or equivalent persistence methods
+  to DataObjects unless an accepted public contract explicitly assigns them.
+- Do not hide tolerances, unit policy, scientific acceptance, or algorithm
+  choice in module-level validators or generic helper modules.
+- Do not create a Workflow merely to own an integration test or a one-time
+  sequence.
+- Do not require speculative Rust or other language mappings. Consider them only
+  for an accepted cross-language contract, shared serialized representation,
+  authorized implementation task, or concrete portability requirement.
+- Distinguish the modeled subject, mathematical object, numerical
+  representation, and software implementation. Structural software conformance
+  does not establish numerical verification, scientific validation, uncertainty
+  quantification, physical correctness, or human acceptance.
 
-@dataclass(frozen=True, slots=True)
-class WindowProjector:
-    tolerance: float
+## Stop boundary
 
-    def execute(self, bands: BandSet, window: SpectrumWindow) -> ProjectionResult: ...
-```
-
-Negative:
-
-```python
-class OperatorRecord:
-    def to_dict(self): ...  # serialization belongs to a serializer ActionObject
-    def require_hermitian(self): ...  # tolerance policy belongs to an analyzer
-```
-
-Avoid new abstract base classes until several real implementations require the same interface.
-
-## Corrective operator-record policy
-
-DataObjects and ResultObjects are operationally immutable: public arrays and
-nested metadata must not be mutable through ordinary public APIs such as
-``setflags(write=True)``.  Intrinsic validation belongs to the owning object,
-relational compatibility belongs to a named ActionObject, and policy validation
-with units belongs to the ActionObject that owns the policy.  Public enum and
-error states must be reachable from independently valid public objects; tests
-must not manufacture invalid states with ``object.__setattr__`` or monkey
-patching. Public Python, runtime acceptance, tests, applicable schemas, and
-Sphinx documentation must agree on stored types and structured errors. A Rust
-mapping must also agree only when the contract is explicitly language-independent,
-uses a shared wire format, is approved for Rust implementation, or the active
-task requires cross-language conformance.  Module-level field validators and generic helper modules remain
-prohibited; limited owner-local duplication is preferred.  Numerical norms and
-residual computations must be scale-safe and must surface structured numerical
-errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file
-evidence, commands, findings, and a PASS or FAIL conclusion.
-
-## CPN-compatible review invocation contract
-
-This skill supplies a bounded architecture-review capability; it is not a CPN
-guard or transition and it cannot accept architecture. The agent/harness invokes
-it outside guard evaluation.
-
-Required immutable inputs:
-
-- task and parent-workflow/attempt identifiers;
-- artifact references or exact repository paths to review;
-- the requested ownership-review scope;
-- authoritative architecture/reference paths;
-- permitted mutation scope, which defaults to `none`;
-- expected result shape and termination policy.
-
-Allowed side effects are read-only inspection and deterministic read-only
-commands unless a separately authorized writer assignment explicitly names
-owned files. It must not launch downstream tasks, alter scientific meaning, or
-treat reviewer agreement as acceptance.
-
-The result must report:
-
-```text
-skill identity and content hash
-request, task, parent-workflow, and attempt identities
-input artifact identities
-files and references inspected
-owned task class
-PASS | FAIL | BLOCKED
-structured findings with severity and file/line evidence
-deterministic commands and exact results
-mutation summary
-warnings and residual risks
-human decisions required
-```
-
-A missing authoritative reference, contradictory authority, or protected public
-contract choice returns `BLOCKED`; it is not silently resolved. A retry requires
-an immutable parent authorization identity or a request's pre-authorized retry
-policy, uses a new attempt identity, and retains prior findings. Repeating the same read-only
-request against the same artifact identities is observationally idempotent.
-Stop after the requested review result; do not implement, accept, or launch the
-reviewed work.
+Return the proposed ownership decomposition, its contract-relevant reasons, and
+any unresolved public or scientific decision. Stop without implementation when
+accepted authority does not determine a required boundary.

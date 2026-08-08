@@ -1,96 +1,118 @@
-# DataObject/ActionObject Architecture
+# DataObject and ActionObject Architecture
+
+## Architectural distinctions
+
+Keep the modeled subject, mathematical object or operation, finite or numerical
+representation, and software implementation distinct. A convenient software
+shape must not silently choose scientific meaning or turn structural conformance
+into numerical or scientific correctness.
 
 ## DataObjects
 
-DataObjects represent scientific state, metadata, configuration, or results. They normally use `@dataclass(frozen=True, slots=True)`.
+A DataObject represents state, metadata, configuration, or another durable value.
+It should normally be an immutable concrete public record. Operational
+immutability also requires that nested arrays, mappings, and other values cannot
+be mutated through ordinary public APIs.
 
-A DataObject may contain explicitly declared fields, intrinsic constructor validation, canonicalization of its own data, exact value equality, and trivial derived properties.
+A DataObject owns explicit fields, intrinsic invariants among its own fields,
+contract-authorized copying or canonicalization, exact value semantics where
+specified, and trivial properties derived only from its state. Canonicalization
+must not erase a meaningful distinction merely to simplify implementation.
 
-A DataObject must not own serialization workflows, numerical analysis policies, basis alignment, unit conversion, file I/O, orchestration, or operations that produce conceptually new objects.
+A DataObject does not own external execution, persistence, file I/O,
+serialization, numerical or tolerance policy, scientific acceptance, algorithm
+selection, orchestration, or compatibility between independently valid objects.
+Use concrete records and composition by default; add a nominal base class,
+protocol, or abstraction only for demonstrated polymorphism.
+
+## ResultObjects
+
+A ResultObject is semantically a DataObject representing an operation outcome.
+It may contain derived state, structured findings, diagnostics, status, or
+multiple related values and does not need nominal DataObject inheritance. It
+records an outcome but does not perform the operation, apply policy to new
+inputs, mutate source objects, or establish scientific acceptance.
+
+Return an explicit immutable ResultObject when an operation produces more than
+one obvious value or needs structured errors, findings, warnings, or provenance.
 
 ## ActionObjects
 
-ActionObjects perform explicit transformations, analyses, validation procedures, or external representations. An ActionObject owns its numerical or algorithmic policy, accepts DataObjects as inputs, returns a DataObject or explicit ResultObject, avoids hidden mutation and global state, and exposes a clear domain verb such as `execute()`, `serialize()`, or `deserialize()`.
+An ActionObject owns a reusable transformation, analysis, comparison, validation
+procedure, numerical policy, algorithm, serialization operation, persistence
+operation, or explicitly authorized external boundary. It should:
 
-A Workflow is a specialized concrete ActionObject that encapsulates a reusable, scientifically or computationally meaningful sequence of actions. Workflow inputs and outputs must be explicit DataObjects or ResultObjects; dependencies must be explicit; Workflows must not rely on hidden global state. Do not introduce a generic Workflow base class unless multiple existing workflows require a real shared interface. Do not treat every integration test as a Workflow. Do not create production Workflow objects solely to provide an owner for tests.
+- receive explicit inputs and dependencies;
+- expose `execute(...)` unless an accepted contract requires another interface;
+- keep tolerances, unit policy, acceptance criteria, and algorithm choice with
+  the operation that uses them;
+- avoid hidden mutable state and ambient global selection;
+- leave input objects unchanged; and
+- return a DataObject, ResultObject, or one obvious value.
 
-The standard form is:
+Do not create a generic ActionObject base class solely to label classes.
 
-```text
-DataObject --ActionObject--> DataObject or ResultObject
-```
+## Serialization and persistence
 
-Do not create abstract `DataObject` or `ActionObject` base classes. Prefer concrete types and composition. Introduce protocols only after multiple real implementations share a required interface.
+Serialization and deserialization belong to a named serializer ActionObject.
+DataObjects should not accumulate `to_json`, `from_json`, `to_dict`,
+`from_dict`, database, or file methods unless an accepted public contract places
+that behavior on the record.
 
-## Ownership rules
+A serializer owns wire-field names, version handling, canonical representation,
+and wire-format errors. Schema success or a round trip establishes represented
+wire behavior only, not physical alignment, numerical verification, scientific
+validity, provenance truth, or human acceptance.
 
-- data invariant -> owning DataObject;
-- numerical operation -> corresponding ActionObject;
-- serialization rule -> serializer ActionObject;
-- operation output -> explicit ResultObject;
-- genuinely domain-independent mathematics -> free function only when it has no natural owner.
+## Cross-object behavior and free functions
 
-Do not create `utils.py`, `helpers.py`, `common.py`, or `misc.py` dumping grounds. Every nontrivial operation needs an explicit and documented domain owner.
+| Behavior | Primary owner |
+|---|---|
+| Intrinsic validity of one object's fields | That DataObject |
+| Compatibility of independently valid objects | Named ActionObject |
+| Transformation, comparison, or analysis | Named ActionObject |
+| Tolerance, units policy, or algorithm selection | ActionObject performing the operation |
+| Operation outcome or structured findings | ResultObject |
+| Wire-format conversion | Serializer ActionObject |
 
-## Cross-language compatibility
+Avoid module-level validation helpers when an invariant has a clear owner. A
+private method or module-local function may mechanically implement public rules,
+but must not hide scientific convention, policy, or a cross-object contract.
 
-Python/Rust agreement is required only for explicitly language-independent
-specifications, shared wire formats, components approved for Rust implementation,
-or contracts whose active task requires cross-language conformance. In those
-cases, use structs for DataObjects and ResultObjects; structs with `impl` blocks
-for ActionObjects; constructors returning `Result` for validated construction;
-composition rather than inheritance; explicit ownership and immutable borrowing;
-deterministic, versioned serialization; fixed serialized field names; and
-explicit error cases.
+A small cohesive free function is justified only when the behavior has no domain
+owner, mutable policy, or external boundary and a class would add no meaningful
+contract. Do not create generic dumping-ground modules.
 
-Python and Rust need not share source code. Python-only internal objects need
-conventional Python typing and tests, not speculative Rust design.
+## Workflow objects
+
+A Workflow is a concrete ActionObject for a genuine reusable composition with
+explicit inputs, outputs, dependencies, ordering, failure meaning, and execution
+semantics. Do not introduce one merely to own an integration test, group a
+one-time sequence, or represent orchestration already owned by a task. Add no
+generic Workflow base class without demonstrated shared behavior.
+
+## Portability
+
+Consider Rust or another language mapping only for an accepted cross-language
+contract, shared serialized representation, authorized implementation task, or
+concrete portability requirement. Where required, preserve explicit fields,
+immutable semantics, deterministic versioned serialization, explicit errors,
+and composition-friendly operation boundaries. Python-only internals do not
+require speculative foreign-language designs.
 
 ## Review checklist
 
-- Are all represented fields explicit and immutable where practical?
-- Does each validation rule belong to the object that owns the invariant?
-- Are tolerances, alignments, reductions, and analyses outside DataObjects?
-- Does serialization live in a named serializer ActionObject?
-- Are operation outputs explicit ResultObjects instead of side effects?
-- Are free functions restricted to ownerless domain-independent mathematics?
-- When cross-language conformance applies, is the design expressible as Rust structs, `impl` blocks, and `Result` errors?
-- When persistence applies, are wire-format fields fixed, deterministic, and versioned?
-- If a Workflow is proposed, is it a genuine reusable domain/computational ActionObject with explicit DataObject/ResultObject inputs, outputs, and dependencies?
-- Are technical integrations routed to integration tests instead of artificial production Workflow objects?
-- Are there no dynamic attributes, monkey patches, global workflow state, or dumping-ground modules?
-
-## Public validation surfaces and private implementation
-
-Every scientific invariant, convention, transformation, approximation, and
-wire-format decision must be public, documented, and validated through an
-independently executable surface such as constructors, ActionObject methods,
-public schema files, and golden fixtures. Tests should exercise public behavior,
-not private method names.
-
-Private methods may only mechanically implement already public rules owned by
-their class. They must be fully observable through public inputs and outputs, may
-not be called by other classes, and must not contain hidden scientific semantics.
-Module-private functions may be used within a module for shared mechanical
-invariants when they have a clear module owner, introduce no hidden scientific
-semantics, and are documented when nontrivial. Do not create generic helper
-modules such as `utils.py`, `helpers.py`, `common.py`, or `misc.py`.
-
-## Corrective operator-record policy
-
-DataObjects and ResultObjects are operationally immutable: public arrays and
-nested metadata must not be mutable through ordinary public APIs such as
-``setflags(write=True)``.  Intrinsic validation belongs to the owning object,
-relational compatibility belongs to a named ActionObject, and policy validation
-with units belongs to the ActionObject that owns the policy.  Public enum and
-error states must be reachable from independently valid public objects; tests
-must not manufacture invalid states with ``object.__setattr__`` or monkey
-patching. Public Python, runtime acceptance, tests, applicable schemas, and
-Sphinx documentation must agree on stored types and structured errors. A Rust
-mapping must also agree only when the contract is explicitly language-independent,
-uses a shared wire format, is approved for Rust implementation, or the active
-task requires cross-language conformance.  Module-level field validators and generic helper modules remain
-prohibited; limited owner-local duplication is preferred.  Numerical norms and
-residual computations must be scale-safe and must surface structured numerical
-errors rather than silent ``inf`` or ``nan`` results.  Reviews must report file
-evidence, commands, findings, and a PASS or FAIL conclusion.
+- Are fields explicit and operationally immutable?
+- Does each intrinsic invariant belong to its DataObject?
+- Is contract-authorized canonicalization distinguished from policy?
+- Are compatibility, tolerances, units, algorithms, and acceptance on the owning
+  ActionObject?
+- Are nontrivial outcomes explicit immutable ResultObjects?
+- Does serialization live in a serializer ActionObject?
+- Is a free function genuinely ownerless and cohesive?
+- Is a Workflow reusable behavior rather than test or task ceremony?
+- Are dependencies explicit and hidden mutable or global state absent?
+- Is abstraction supported by demonstrated polymorphism?
+- Is portability required by an actual contract or task?
+- Are subject, mathematics, representation, implementation, and evidence claims
+  kept distinct?

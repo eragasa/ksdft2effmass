@@ -109,8 +109,8 @@
     {
       "skill_name": "design-data-action-objects",
       "path": ".pi/skills/design-data-action-objects/SKILL.md",
-      "content_sha256": "ee5c3f48b0e86d443cbf62124a181b8c70e25f2a6abd30bd2a50b5739a490bd7",
-      "trigger_description": "New scientific object models, substantial refactors, object ownership questions, or Rust-portable Python design review.",
+      "content_sha256": "4cfb8c5bff6063b8ea34ad260e2f94d4b0f3693fb4dffc275f7f6127e5402d82",
+      "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit DataObject, ResultObject, ActionObject, serializer, Workflow, or free-function owner.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
         ".pi/agents/ksdft2effmass-harness-implementation.md"
@@ -120,46 +120,39 @@
         ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
       ],
       "inputs": [
-        "task/workflow/attempt identities",
-        "artifact paths",
-        "ownership-review scope",
-        "authoritative contract",
-        "mutation scope"
+        "object-boundary question",
+        "applicable accepted public and scientific contracts",
+        "affected data, result, operation, serialization, and workflow surfaces"
       ],
       "outputs": [
-        "structured PASS/FAIL/BLOCKED review findings",
-        "commands",
-        "mutation summary",
-        "human decisions"
+        "one explicit ownership decomposition",
+        "contract-relevant reasons and prohibitions",
+        "unresolved public or scientific decisions"
       ],
       "side_effects": [
-        "read-only by default",
-        "writes only under a separately authorized writer assignment"
+        "architecture guidance only; implementation requires separate task authority"
       ],
       "external_tools_used": [
-        "agent read/search and deterministic read-only commands"
+        "none required; bounded repository inspection may supply contract context"
       ],
       "deterministic_scripts_used": [
-        "task-specific static checks; no universal deterministic architecture oracle"
+        "none; no deterministic tool can choose architecture ownership"
       ],
-      "authorization_requirements": "Human authority for scientific meaning, public contracts, architecture, and final acceptance.",
-      "failure_behavior": "Missing/conflicting authority returns BLOCKED; protected choices are not inferred.",
-      "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy and a new attempt identity with retained findings.",
-      "idempotency": "Read-only review is observationally idempotent for identical artifact identities.",
-      "evidence_classification": "agent architecture review findings",
-      "current_validation_status": "Bounded CPN review contract added and consumed by established project agents; no deterministic acceptance authority.",
-      "primary_classification": "COMPOSABLE_AFTER_HARDENING",
+      "authorization_requirements": "Accepted authority must determine scientific meaning and public contracts; this skill does not authorize implementation or acceptance.",
+      "failure_behavior": "Stop when accepted authority does not determine a required public or scientific boundary.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected or newly authorized contract inputs.",
+      "idempotency": "The skill is advisory and performs no operational transition or mutation.",
+      "evidence_classification": "architecture ownership guidance, not software or scientific acceptance evidence",
+      "current_validation_status": "Simplified to durable reusable ownership guidance; historical correction and invocation ceremony removed while two durable consumers retain the unchanged skill identity.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
       "hardening_applied": [
-        "required inputs",
-        "structured result",
-        "mutation boundary",
-        "failure/retry/idempotency",
-        "exact stop"
+        "explicit ownership routing",
+        "scientific and software boundary distinctions",
+        "essential prohibitions",
+        "exact stop boundary"
       ],
-      "remaining_hardening": [
-        "enforce expected result and correlation schema in a future harness"
-      ],
-      "stop_condition": "Stop after requested ownership review; do not implement, launch, or accept work."
+      "remaining_hardening": [],
+      "stop_condition": "Stop after the ownership decomposition and unresolved-decision report; do not implement or infer acceptance."
     },
     {
       "skill_name": "develop-architecture-decision",

@@ -8,9 +8,9 @@ sphinx: excluded
 
 # Harness capability ownership rationalization
 
-> **Proposal only.** This inventory assigns a proposed primary owner to current
-> reusable capability. It changes no skill, agent, ActionObject, tool, route, or
-> task authority and does not activate an implementation slice.
+> **Rationalization status.** Slice 1 simplified
+> `design-data-action-objects`; all later slices remain proposals. This page
+> does not activate another skill, agent, ActionObject, tool, route, or task.
 
 Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 (`origin/dev` after fetch, with a clean worktree).
@@ -37,7 +37,7 @@ entry; optional Graphify operation references remain on demand.
 
 | Skill | Trigger and reusable capability | Context | Portability | Overlap or misplaced content | Disposition |
 |---|---|---:|---|---|---|
-| `design-data-action-objects` | New scientific object models, public object-boundary changes, and substantial ownership refactors | 210 lines | Extractable core with project policy inputs | Repeats OperatorRecord correction history, review-result protocol, and command reporting already owned elsewhere | **Update:** keep object-ownership judgment; remove domain history and generic invocation ceremony |
+| `design-data-action-objects` | New scientific object models, public object-boundary changes, and substantial ownership refactors | 195 lines | Extractable core with project policy inputs | Historical OperatorRecord policy and invocation/reporting ceremony were removed in Slice 1 | **Keep:** Slice 1 completed; identity and durable ownership guidance retained |
 | `develop-architecture-decision` | A genuine material architecture choice with exactly three defensible conceptual alternatives | 126 lines | Extractable decision method with local authority inputs | No material overlap: durable architecture agents supply independence; the skill supplies decision method | **Keep** |
 | `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 334 lines | Project/domain-specific | Embeds closed-task state, fixed package/test inventories, completion commands, checkpoint mechanics, and test/documentation rules owned elsewhere | **Update:** retain domain judgment; remove task state and delegate generic evidence/docs rules |
 | `develop-python-test-evidence` | Semantic design, writing, migration, and review of maintained Python evidence | 204 lines | Extractable core with a local profile | The reference mixes semantic judgment with structural grammar already implemented by `ValidatePythonTestEvidence` and its CLI | **Update:** preserve evidence classification, ownership, oracle, acceptance, and review judgment; make the ActionObject authoritative for mechanical checks |
@@ -168,7 +168,7 @@ secondary consumers do not share ownership.
 
 | Capability | Classification | Primary owner | Secondary consumers |
 |---|---|---|---|
-| DataObject/ResultObject/ActionObject boundary judgment | `SKILL_UPDATE` | `design-data-action-objects` | Implementation and architecture agents |
+| DataObject/ResultObject/ActionObject boundary judgment | `SKILL_EXISTING` | `design-data-action-objects` | Implementation and architecture agents |
 | Three-option material architecture decision support | `SKILL_EXISTING` | `develop-architecture-decision` | Durable architecture agents |
 | Represented finite-operator scientific/software judgment | `SKILL_UPDATE` | `develop-operator-records` | Project implementation/tests/docs/reviewer |
 | Evidence class, owner, oracle, acceptance, and semantic review | `SKILL_UPDATE` | `develop-python-test-evidence` | Test writers and integration reviewers |
@@ -211,8 +211,8 @@ Counts from the 38 rows are:
 
 | Classification | Count |
 |---|---:|
-| `SKILL_EXISTING` | 4 |
-| `SKILL_UPDATE` | 4 |
+| `SKILL_EXISTING` | 5 |
+| `SKILL_UPDATE` | 3 |
 | `SKILL_CANDIDATE` | 1 |
 | `ACTION_EXISTING` | 20 |
 | `ACTION_CANDIDATE` | 1 |
@@ -335,10 +335,12 @@ After accepted destination changes, retire only live routing or duplicate tools:
 Each slice is separately reviewable and affects one permitted owner class.
 Nothing below is activated by this proposal.
 
-1. **Update `design-data-action-objects`.** Remove OperatorRecord correction
-   history and duplicated invocation/reporting ceremony; retain reusable object
-   ownership and cross-language conditions.
-2. **Update `develop-operator-records`.** Remove closed-task state, fixed test
+1. **Completed — update `design-data-action-objects`.** Historical
+   OperatorRecord correction policy and invocation/reporting ceremony were
+   removed; reusable ownership, serialization, Workflow, free-function,
+   portability, and scientific-claim boundaries remain. The skill identity and
+   both durable consumers are unchanged, and no Python runtime changed.
+2. **Next proposed — update `develop-operator-records`.** Remove closed-task state, fixed test
    modules, commands, and generic docs/test rules; retain represented-operator
    semantics and authoritative specification references.
 3. **Update `develop-python-test-evidence`.** Make semantic judgment explicit and
@@ -377,7 +379,7 @@ Nothing below is activated by this proposal.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 
-No harness-simplification chain entry is required: the current human instruction
-authorizes only this documentation proposal, the chain has no active proposal
-slot for it, and creating an inactive entry would add task state without a
-consumer. Human review of this page does not activate Slice 1.
+No harness-simplification chain entry is required for this bounded skill edit.
+Recording Slice 1 completion here does not activate Slice 2. The next proposed
+slice, `develop-operator-records`, remains inactive pending separate human
+authorization.
