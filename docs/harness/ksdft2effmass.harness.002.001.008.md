@@ -12,9 +12,10 @@ sphinx: excluded
 > `design-data-action-objects`, `develop-operator-records`,
 > `develop-python-test-evidence`, `recommend-next-task`, and
 > `resolve-human-checkpoint`; Slice 6 implemented `ResolveCheckpointDecision`;
-> Slice 7 is deferred; Slice 8 created `develop-harness-resources`; and Slice 9
-> corrected evidence auditing and retired its duplicate AST script. Later slices
-> remain proposals. This page does not activate another skill, agent,
+> Slice 7 is deferred; Slice 8 created `develop-harness-resources`; Slice 9
+> corrected evidence auditing and retired its duplicate AST script; and Slice 10
+> reconciled the historical resource-phase routing group. Later slices remain
+> proposals. This page does not activate another skill, agent,
 > ActionObject, tool, route, or task. The separately authorized
 > `harness-simplification.resources.manifest-refresh` vertical slice added the
 > deterministic `RefreshResourceManifest` ActionObject without changing the
@@ -93,7 +94,7 @@ independence, and handoff responsibility—not domain procedure or task paths.
 | `ksdft2effmass-documentation` | Project maintained-documentation writer boundary | `document-python-research-software` |
 | `ksdft2effmass-integration-reviewer` | Independent project cross-surface review boundary | Subject skills selected by task |
 | `ksdft2effmass-architecture` | Optional independent project architecture analysis | `develop-architecture-decision` |
-| `ksdft2effmass-harness-implementation` | Generic/project-local harness implementation writer boundary | Data/Action design; proposed resource skill when applicable |
+| `ksdft2effmass-harness-implementation` | Generic/project-local harness implementation writer boundary | Data/Action design; `develop-harness-resources` when applicable |
 | `ksdft2effmass-harness-tests` | Independent harness software-verification writer boundary | `develop-python-test-evidence` |
 | `ksdft2effmass-harness-documentation` | Harness documentation writer boundary and numbered-page convention | Documentation skill when public Python is affected |
 | `ksdft2effmass-harness-integration-reviewer` | Independent harness cross-surface review boundary | Subject skills and deterministic results selected by task |
@@ -115,12 +116,12 @@ skill; it does not mean delete or rewrite the file.
 | `ksdft2effmass-harness-cutover-architecture-reviewer` | Generic/local boundary judgment uses `design-data-action-objects`; independence uses durable harness architecture/review roles; routing facts use existing route Actions | H4 identity, rollback checklist, PASS/FAIL ceremony |
 | `ksdft2effmass-harness-cutover-integration-reviewer` | Cross-surface review uses durable harness integration reviewer; parity and routes use `CompareShadowPair`, `ReplayShadowSuite`, `SelectValidationRoute`, and `RollBackValidationRoute` | H4 commands, starting revision, fixed rollback and successor mechanics |
 | `ksdft2effmass-harness-cutover-skill-resource-reviewer` | Resource-design judgment uses `develop-harness-resources`; closure is `ValidateResourceManifest` and `ValidateSkillResources` | H4 skill-name correction and stale-path inventory |
-| `ksdft2effmass-harness-generic-resource-writer` | Generic/local resource judgment is the proposed resource skill; writer authority remains durable harness implementation | H3 paths, accepted-H1 wording, path fences |
+| `ksdft2effmass-harness-generic-resource-writer` | Generic/local resource judgment is `develop-harness-resources`; writer authority remains durable harness implementation | H3 paths, accepted-H1 wording, path fences |
 | `ksdft2effmass-harness-h2-verification-evidence-writer` | Evidence classification uses `develop-python-test-evidence`; artifact ownership is task state | H2 evidence paths, checksum/acceptance inventory, handoff phase |
 | `ksdft2effmass-harness-h3-verification-evidence-writer` | Evidence classification uses `develop-python-test-evidence`; documentation facts use the durable documentation role when assigned | H3 activation, handoff, review aggregation, fixed paths |
 | `ksdft2effmass-harness-local-doc-control-writer` | Documentation procedure uses `document-python-research-software`; role boundary uses durable harness documentation | H4 control synchronization, fixed paths, successor prohibitions |
 | `ksdft2effmass-harness-local-python-writer` | Object ownership uses `design-data-action-objects`; implemented local behavior remains with maintained local Actions | H4 path assignment, cutover state, generic-contract stop wording |
-| `ksdft2effmass-harness-local-resource-writer` | Local overlay/profile judgment is the proposed resource skill; manifest validity is `ValidateResourceManifest` | H3 paths, phase sequencing, fixed prohibitions |
+| `ksdft2effmass-harness-local-resource-writer` | Local overlay/profile judgment is `develop-harness-resources`; manifest validity is `ValidateResourceManifest` | H3 paths, phase sequencing, fixed prohibitions |
 | `ksdft2effmass-harness-local-test-parity-writer` | Test semantics use `develop-python-test-evidence`; parity uses `CompareShadowPair` and `ReplayShadowSuite`; role boundary uses durable harness tests | H4 evidence paths, completion script ownership, cutover acceptance state |
 | `ksdft2effmass-harness-option-a-contract-resource-writer` | Relational validity is already `ValidateResourceManifest`; intrinsic object rules remain DataObject contracts | H2-HC01 option, one-time correction paths, historical accepted values |
 | `ksdft2effmass-harness-python-architecture-rust-reviewer` | Object ownership uses `design-data-action-objects`; architecture independence uses durable harness architecture | H2 36-interface inventory, intended-port phase checklist |
@@ -129,16 +130,30 @@ skill; it does not mean delete or rewrite the file.
 | `ksdft2effmass-harness-python-implementation-writer` | Implementation role uses durable harness implementation; object/source-doc procedure uses existing skills | H2 interface count, fixed manifest paths, phase fences |
 | `ksdft2effmass-harness-python-integration-reviewer` | Cross-surface independence uses durable harness integration reviewer; checks use existing resource/ownership/checksum Actions | H2 packaging and command inventory |
 | `ksdft2effmass-harness-python-test-writer` | Test procedure uses `develop-python-test-evidence`; writer authority uses durable harness tests | H2 ownership manifest, inventory state, completion gate |
-| `ksdft2effmass-harness-resource-architecture-reviewer` | Resource judgment is the proposed resource skill; architecture independence uses durable harness architecture | H3/H1 identity and intended-Rust phase wording |
-| `ksdft2effmass-harness-resource-documentation-writer` | Resource explanation uses maintained resource docs and durable harness documentation; public Python docs use the existing docs skill | H3 directories and handoff narration |
-| `ksdft2effmass-harness-resource-evidence-vvuq-reviewer` | Evidence/oracle judgment uses `develop-python-test-evidence`; independent review uses durable harness integration reviewer | H3 fixture inventory and phase PASS/FAIL ceremony |
-| `ksdft2effmass-harness-resource-integration-reviewer` | Manifest/leakage checks use existing Actions; independence uses durable harness integration reviewer | H3 control state and H2-inactive handoff checklist |
-| `ksdft2effmass-harness-resource-test-writer` | Test/fixture evidence judgment uses `develop-python-test-evidence`; resource meaning uses the proposed resource skill | H3 fixture paths and accepted-H1 case inventory |
-| `ksdft2effmass-harness-resource-validation-writer` | Deterministic behavior already belongs to maintained resource, resolution, skill, checksum, and local-composition Actions | H3 validator path, dependency-free completion-script assignment |
-| `ksdft2effmass-harness-skill-resource-cutover-writer` | Resource judgment is the proposed resource skill; capability inventory is the maintained validator/tool | TEST-EVIDENCE-SKILL-1/H4 migration, fixed consumers, activation mechanics |
+| `ksdft2effmass-harness-resource-architecture-reviewer` | Resource judgment is `develop-harness-resources`; architecture advice uses durable harness architecture | H3/H1 identity and intended-Rust phase wording |
+| `ksdft2effmass-harness-resource-documentation-writer` | Resource documentation uses durable harness documentation with `develop-harness-resources` for resource judgment | H3 directories and handoff narration |
+| `ksdft2effmass-harness-resource-evidence-vvuq-reviewer` | Evidence semantics use `develop-python-test-evidence`; independent review uses durable harness integration reviewer | H3 fixture inventory and phase PASS/FAIL ceremony |
+| `ksdft2effmass-harness-resource-integration-reviewer` | Resource/checksum/local-composition Actions own mechanics; durable harness integration review owns independence | H3 control state and H2-inactive handoff checklist |
+| `ksdft2effmass-harness-resource-test-writer` | Test semantics use `develop-python-test-evidence`; resource judgment uses `develop-harness-resources`; durable harness tests own implementation | H3 fixture paths and accepted-H1 case inventory |
+| `ksdft2effmass-harness-resource-validation-writer` | `ValidateResourceManifest`, `ResolveResource`, `RefreshResourceManifest`, `ValidateSkillResources`, `ValidateChecksumManifest`, and maintained local Actions own deterministic behavior | H3 validator path, dependency-free completion-script assignment |
+| `ksdft2effmass-harness-skill-resource-cutover-writer` | Resource judgment is `develop-harness-resources`; capability inventory is the maintained validator/tool | TEST-EVIDENCE-SKILL-1/H4 migration, fixed consumers, activation mechanics |
 
-The extraction result is intentionally small: one cohesive resource-authoring
-skill candidate, no cutover skill, no phase agent revival, and no copied prompt.
+The extraction result is intentionally small: one cohesive maintained
+resource-authoring skill, no cutover skill, no phase agent revival, and no copied
+prompt.
+
+### Slice 10 resource-phase routing reconciliation
+
+The six resource-phase agent records remain disabled, byte-unchanged, and
+`historical-reference-only`, with no live assignment or capability consumer.
+Reusable generic/local resource judgment belongs to `develop-harness-resources`.
+Durable harness agents own assigned implementation, tests, documentation,
+architecture advice, and independent integration review. Deterministic mechanics
+remain with `ValidateResourceManifest`, `ResolveResource`,
+`RefreshResourceManifest`, `ValidateSkillResources`, `ValidateChecksumManifest`,
+and maintained project-local composition Actions. No phase agent was revived and
+no historical record was deleted. This completes the resource-agent
+rationalization sequence.
 
 ## Maintained ActionObject inventory
 
@@ -357,7 +372,7 @@ After accepted destination changes, retire only live routing or duplicate tools:
 
 Each slice is separately reviewable and affects one permitted owner class.
 Nothing below is activated by this proposal. The completed manifest-refresh
-vertical slice supplies deterministic maintenance for the future resource skill;
+vertical slice supplies deterministic maintenance used by the maintained resource skill;
 it does not create or activate that skill and does not alter this sequence.
 
 1. **Completed — update `design-data-action-objects`.** Historical
@@ -405,9 +420,10 @@ it does not create or activate that skill and does not alter this sequence.
    `AuditEvidenceIdentifiers`, added its thin explicit-inventory CLI, migrated live
    callers, confirmed all 201 maintained modules pass, and removed the standalone
    duplicate AST policy.
-10. **Next proposed — reconcile one bounded historical routing group:** verify the resource-phase
-    agent group remains disabled after the new resource skill is accepted; update
-    only current routing/inventory references, never historical files.
+10. **Completed — reconcile one bounded historical routing group:** the six
+    resource-phase agents remain disabled and unchanged; reusable judgment routes
+    to maintained skills and durable agents, deterministic mechanics route to
+    maintained Actions, and no historical agent was revived or deleted.
 
 ## Explicit deferred items
 
@@ -423,7 +439,7 @@ it does not create or activate that skill and does not alter this sequence.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 
-The bounded harness-simplification chain entry records Slice 9 completion with
+The bounded harness-simplification chain entry records Slice 10 completion with
 `active_task: null`; it does not activate another slice. Slice 7 retirement of
 `inspect-task-state` remains deferred, and telemetry and other successors remain
 inactive pending separate human authorization.

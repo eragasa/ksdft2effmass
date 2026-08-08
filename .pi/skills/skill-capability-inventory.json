@@ -318,7 +318,6 @@
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/agents/ksdft2effmass-tests.md",
         ".pi/agents/ksdft2effmass-harness-python-test-writer.md",
-        ".pi/agents/ksdft2effmass-harness-resource-test-writer.md",
         ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
         ".pi/agents/ksdft2effmass-harness-python-evidence-vvuq-reviewer.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md",
