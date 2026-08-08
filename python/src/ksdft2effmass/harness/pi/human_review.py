@@ -1,11 +1,12 @@
-"""Pure explicit-input records and packet preparation for bounded human review.
+"""Pure explicit-input records, packet preparation, and human decision recording.
 
 The module represents deterministic harness observations about an explicitly
-identified review target. It performs no repository discovery, filesystem or Git
-access, subprocess execution, clock access, networking, database persistence,
-human-decision recording, acceptance, correction, or successor activation.
-Software observations remain distinct from human judgment and from numerical or
-scientific evidence.
+identified review target and records an already-made human decision from explicit
+inputs. It performs no natural-language interpretation, repository discovery,
+filesystem or Git access, subprocess execution, clock access, networking, database
+persistence, checkpoint mutation, or successor activation. Software observations and
+runtime decision representation remain distinct from human authority and from
+numerical or scientific evidence.
 """
 
 from __future__ import annotations
@@ -30,6 +31,12 @@ _EVIDENCE_CLASSES = {
 _OBSERVATION_STATUSES = {"passed", "failed", "indeterminate", "not_run"}
 _FINDING_SEVERITIES = {"blocker", "high", "medium", "low", "advisory"}
 _PACKET_STATUSES = {"ready_for_human_review", "blocked_by_invalid_observation"}
+_DECISION_DISPOSITIONS = {
+    "accepted",
+    "bounded_correction",
+    "deferred",
+    "rejected",
+}
 _GIT_REVISION = re.compile(r"[0-9a-f]{40}\Z", re.ASCII)
 
 
@@ -264,6 +271,133 @@ class HumanReviewPacket:
         object.__setattr__(self, "findings", tuple(item for item in self.findings))
         object.__setattr__(
             self, "limitations", tuple(item for item in self.limitations)
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class HumanReviewDecision:
+    """Represent one explicit decision already made by a human.
+
+    Parameters
+    ----------
+    review_id
+        Exact identifier of the packet being dispositioned.
+    reviewed_revision
+        Exact lowercase 40-character revision copied from the packet target.
+    human_response
+        Nonempty built-in string preserved exactly without interpretation.
+    disposition
+        Caller-supplied normalized member of ``accepted``,
+        ``bounded_correction``, ``deferred``, or ``rejected``.
+    authorized_scope
+        Ordered immutable tuple of unique nonempty exact scope statements.
+        ``bounded_correction`` requires at least one item; every other disposition
+        prohibits scope.
+
+    Notes
+    -----
+    This immutable ResultObject is semantically a DataObject. It records a decision
+    supplied by the caller but does not infer intent, authenticate an actor, establish
+    human authority, persist state, or activate work.
+    """
+
+    review_id: str
+    reviewed_revision: str
+    human_response: str
+    disposition: str
+    authorized_scope: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        _require_identifier(self.review_id, "review_id")
+        _require_builtin_str(self.reviewed_revision, "reviewed_revision")
+        if _GIT_REVISION.fullmatch(self.reviewed_revision) is None:
+            raise ValueError(
+                "reviewed_revision must contain 40 lowercase hexadecimal characters"
+            )
+        _require_builtin_str(self.human_response, "human_response")
+        if not self.human_response:
+            raise ValueError("human_response must be nonempty")
+        _require_builtin_str(self.disposition, "disposition")
+        if self.disposition not in _DECISION_DISPOSITIONS:
+            raise ValueError("unsupported disposition")
+        _require_tuple(self.authorized_scope, "authorized_scope")
+        authorized_scope = tuple(item for item in self.authorized_scope)
+        for item in authorized_scope:
+            _require_builtin_str(item, "authorized_scope item")
+            if not item:
+                raise ValueError("authorized_scope items must be nonempty")
+        if len(set(authorized_scope)) != len(authorized_scope):
+            raise ValueError("authorized_scope must contain unique items")
+        if self.disposition == "bounded_correction" and not authorized_scope:
+            raise ValueError("bounded_correction requires authorized_scope")
+        if self.disposition != "bounded_correction" and authorized_scope:
+            raise ValueError("authorized_scope requires bounded_correction")
+        object.__setattr__(self, "authorized_scope", authorized_scope)
+
+
+class RecordHumanReviewDecision:
+    """Record an explicit normalized human decision without interpreting text.
+
+    The action is fieldless and stateless. Packet-to-decision compatibility is its
+    only cross-object policy.
+    """
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        packet: HumanReviewPacket,
+        human_response: str,
+        disposition: str,
+        authorized_scope: tuple[str, ...],
+    ) -> HumanReviewDecision:
+        """Construct one immutable decision from explicit caller-supplied values.
+
+        Parameters
+        ----------
+        packet
+            Exact prepared packet whose target identity is copied.
+        human_response
+            Exact nonempty built-in string to preserve without interpretation.
+        disposition
+            Explicit normalized disposition; no text-to-disposition inference occurs.
+        authorized_scope
+            Explicit ordered scope. It is required only for
+            ``bounded_correction`` and prohibited for other dispositions.
+
+        Returns
+        -------
+        HumanReviewDecision
+            Immutable exact decision representation.
+
+        Raises
+        ------
+        TypeError
+            If the packet or decision fields have wrong semantic types.
+        ValueError
+            If intrinsic decision invariants fail, or ``accepted`` is supplied for a
+            packet blocked by an invalid observation.
+
+        Notes
+        -----
+        A ready packet may be accepted while advisory findings or limitations remain.
+        This operation performs no natural-language interpretation, persistence,
+        filesystem, Git, checkpoint, subprocess, clock, network, database, or
+        successor action and does not establish caller authority.
+        """
+        if type(packet) is not HumanReviewPacket:
+            raise TypeError("packet must be HumanReviewPacket")
+        if (
+            disposition == "accepted"
+            and packet.status == "blocked_by_invalid_observation"
+        ):
+            raise ValueError("accepted disposition requires a ready packet")
+        return HumanReviewDecision(
+            packet.target.review_id,
+            packet.target.revision,
+            human_response,
+            disposition,
+            authorized_scope,
         )
 
 

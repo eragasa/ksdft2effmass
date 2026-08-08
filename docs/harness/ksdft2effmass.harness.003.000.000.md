@@ -2,15 +2,16 @@
 document_id: ksdft2effmass.harness.003.000.000
 task_id: null
 parent: ksdft2effmass.harness.000.000.000
-status: pilot_packet_ready
+status: decision_recording_awaiting_human_review
 sphinx: excluded
 ---
 
 # Human review interface
 
-> **Pilot packet ready; broader program inactive.** The first explicit-input packet
-> API and one derived pilot packet are implemented. No decision record, persistence,
-> runtime review workflow, correction, acceptance, or successor is active.
+> **Corrected pilot accepted; decision recording awaits review.** The explicit-input
+> packet pilot is human-accepted as software-verification PASS. Pure runtime decision
+> representation is implemented and awaiting direct human review. Persistence,
+> automatic acceptance, checkpoints, and successor activation remain inactive.
 
 ## Problem
 
@@ -28,6 +29,45 @@ accept, reject, defer, remand, waive a finding, or authorize follow-on work. Pas
 deterministic checks does not imply human acceptance, and duplicate reviewer runs
 are not independent evidence. The interface must not resolve a decision, activate a
 successor, or authorize protected work automatically.
+
+## End-to-end flow
+
+```mermaid
+flowchart TD
+    Select["1. Select exact review target"] --> Observe["2. Supply deterministic observations and candidate findings"]
+    Observe --> Prepare["3. Prepare review packet"]
+    Prepare --> Packet["HumanReviewPacket"]
+    Packet --> Review["4. Human directly reviews packet"]
+    Review --> Normalize["5. Caller supplies exact response and normalized disposition"]
+    Normalize --> Record["6. Record runtime decision"]
+    Record --> Decision["HumanReviewDecision"]
+
+    Decision -->|accepted| Close["Close only the accepted review"]
+    Decision -->|bounded_correction| Correct["Perform separately authorized bounded correction"]
+    Correct --> Prepare
+    Decision -->|deferred| Stop["Stop without activation"]
+    Decision -->|rejected| Stop
+
+    Decision -. proposed but inactive .-> Persist["Future persistence evaluation"]
+```
+
+The human judgment is step 4 and occurs outside the software ActionObjects. Packet
+preparation organizes supplied material; decision recording stores an exact decision
+already made by the human. Neither ActionObject performs the review itself.
+
+## Decomposition
+
+| Part | DataObjects or ResultObjects | ActionObject | Current status | Detail |
+|---|---|---|---|---|
+| Review subject and supplied material | `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding` | None; callers supply these records | Implemented | [Initial round](ksdft2effmass.harness.003.001.000.md) |
+| Packet preparation | `HumanReviewPacket` | `PrepareHumanReviewPacket` | Corrected pilot human-accepted | [Initial round](ksdft2effmass.harness.003.001.000.md) |
+| Human judgment | Human response outside the API | None; the person performs the review | Human authority only | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
+| Decision representation | `HumanReviewDecision` | `RecordHumanReviewDecision` | Implemented, awaiting direct human review | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
+| Persistence and querying | Not defined | Not defined | Proposed and inactive | Architecture alternatives below |
+
+The detailed decision-recording page contains separate DataObject and ActionObject
+tables. There is no generic `HumanReviewObserver`, `HumanReviewFinder`, or software
+`HumanReviewer` in the implemented boundary.
 
 ## Architecture alternatives
 
@@ -52,10 +92,11 @@ and relations in SQLite. This separates durable review packets from queryable st
 and is the recommended long-term direction.
 
 The hybrid recommendation is decision support only and remains unaccepted. The
-[initial round](ksdft2effmass.harness.003.001.000.md) implements only a pure
-explicit-input packet API and one derived Markdown pilot. It selects no persistent
-filesystem or SQLite contract; those alternatives remain open while the review
-boundary is evaluated.
+[initial round](ksdft2effmass.harness.003.001.000.md) implements a pure explicit-input
+packet API, one accepted corrected Markdown pilot, and pure
+[human decision recording](ksdft2effmass.harness.003.001.002.md). It selects no
+persistent filesystem or SQLite contract; those alternatives remain open while the
+review boundary is evaluated.
 
 ## Claim boundary
 
@@ -71,3 +112,4 @@ Those conclusions require their own applicable evidence and authority.
 - **Previous:** [Incremental migration plan](ksdft2effmass.harness.002.001.009.md)
 - **Next:** [Initial human-review interface round](ksdft2effmass.harness.003.001.000.md)
 - **Child:** [Initial human-review interface round](ksdft2effmass.harness.003.001.000.md)
+- **Current slice:** [Human decision recording](ksdft2effmass.harness.003.001.002.md)

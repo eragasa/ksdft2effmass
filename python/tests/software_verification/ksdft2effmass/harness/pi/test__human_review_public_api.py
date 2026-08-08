@@ -6,7 +6,7 @@ production-module dependency boundary for the bounded review-packet API.
 
 Intrinsic and cross-object scope
 The primary owner is the human-review package/public-surface agreement. Individual
-class behavior remains owned by the five class-owned modules.
+class behavior remains owned by the seven class-owned modules.
 
 VVUQ and scientific exclusions
 Passing establishes only structural software agreement. It does not establish human
@@ -20,11 +20,13 @@ import pytest
 
 import ksdft2effmass.harness.pi as public_package
 from ksdft2effmass.harness.pi import (
+    HumanReviewDecision,
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
     HumanReviewTarget,
     PrepareHumanReviewPacket,
+    RecordHumanReviewDecision,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -33,7 +35,9 @@ PUBLIC_NAMES = (
     "HumanReviewObservation",
     "HumanReviewFinding",
     "HumanReviewPacket",
+    "HumanReviewDecision",
     "PrepareHumanReviewPacket",
+    "RecordHumanReviewDecision",
 )
 
 
@@ -41,12 +45,12 @@ def test_public_api__package__exports_exact_defining_module_identities() -> None
     """Evidence ID
     ``SV-HARNESS-151``.
     Requirement
-    The five authorized interfaces are package exports defined by human_review.
+    The seven authorized interfaces are package exports defined by human_review.
     Method
     Resolve each name through the supported package and compare exact object identity
     and defining module.
     Oracle
-    The accepted five-name public API and Python object identity are exact.
+    The accepted seven-name public API and Python object identity are exact.
     Acceptance
     Package values are the imported objects, appear in __all__, and share the exact
     defining module ksdft2effmass.harness.pi.human_review.
@@ -60,7 +64,9 @@ def test_public_api__package__exports_exact_defining_module_identities() -> None
         HumanReviewObservation,
         HumanReviewFinding,
         HumanReviewPacket,
+        HumanReviewDecision,
         PrepareHumanReviewPacket,
+        RecordHumanReviewDecision,
     )
     assert tuple(getattr(public_package, name) for name in PUBLIC_NAMES) == expected
     assert all(name in public_package.__all__ for name in PUBLIC_NAMES)

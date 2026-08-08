@@ -20,11 +20,13 @@ from .checkpoints import (
 from .checksums import ChecksumEntry, ChecksumManifest, ValidateChecksumManifest
 from .evidence import AuditEvidenceIdentifiers, EvidenceIdentifierOccurrence
 from .human_review import (
+    HumanReviewDecision,
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
     HumanReviewTarget,
     PrepareHumanReviewPacket,
+    RecordHumanReviewDecision,
 )
 from .identity import (
     ArtifactIdentity,
@@ -127,6 +129,7 @@ __all__ = (
     "HumanReviewObservation",
     "HumanReviewFinding",
     "HumanReviewPacket",
+    "HumanReviewDecision",
     "OwnershipManifestView",
     "CheckpointRecord",
     "CheckpointDecisionResolutionRequest",
@@ -165,6 +168,7 @@ __all__ = (
     "EvaluateChainState",
     "AuditEvidenceIdentifiers",
     "PrepareHumanReviewPacket",
+    "RecordHumanReviewDecision",
     "ValidatePythonTestEvidence",
     "InspectTaskState",
     "ValidateChecksumManifest",

@@ -186,7 +186,9 @@ Disposition: `human_accepted_pass` for the corrected review-packet pilot only.
 - Claim scope: software verification only.
 
 The original reviewed revision, correction revision, deterministic observations,
-correction observations, and limitations remain part of this packet.
+correction observations, and limitations remain part of this packet. The maintained
+human-facing decision artifact is
+[`audit-evidence-identifiers-pilot-decision.md`](audit-evidence-identifiers-pilot-decision.md).
 
 ## Human authority boundary
 

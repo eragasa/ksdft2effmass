@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2824,
-  "expected_module_count": 207,
+  "expected_collected_node_count": 2862,
+  "expected_module_count": 209,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -239,6 +239,14 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "2e1a044b3b7bd85a483736c38e77d5b516c7e238795af2a3f3848e821676c551",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py",
+      "sut": "HumanReviewDecision"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "d21523d85b035bc761d7454105446af56a16b4176f787d2ab9a82eb3e237f920",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -372,6 +380,14 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py",
       "sut": "PythonTestEvidenceValidationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9ed319164104b601e75529700c3e754433911e6930dc4dcc8e97144908f4f8a4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py",
+      "sut": "RecordHumanReviewDecision"
     },
     {
       "conformance_status": "conforming",
@@ -576,7 +592,7 @@
     {
       "artifact": "harness pi public api",
       "conformance_status": "conforming",
-      "content_sha256": "02fc2299641412ff7108d7b58f7103c7df64f4cabd0aa9a35e608df9416941ef",
+      "content_sha256": "8fdc748123df981f9da0c41107dcaaca7440eea67ee7ff11de71d2ca5e2da3a1",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py"
@@ -584,7 +600,7 @@
     {
       "artifact": "human review public api and dependency boundary",
       "conformance_status": "conforming",
-      "content_sha256": "6841f1e9b28816c8483de492fb20a14f44a4ae71358528eccb769592e0ee16fc",
+      "content_sha256": "20551f9c2c8291dfd970c768249d1a8c339274b0e385a6fca30d8d089b475778",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__human_review_public_api.py"

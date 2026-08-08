@@ -2,15 +2,16 @@
 document_id: ksdft2effmass.harness.003.001.000
 task_id: human-review-interface.review-packet-pilot
 parent: ksdft2effmass.harness.003.000.000
-status: pilot_packet_ready
+status: decision_recording_awaiting_human_review
 sphinx: excluded
 ---
 
 # Initial human-review interface round
 
-> **Pilot packet ready for direct human review.** The bounded runtime packet API is
-> implemented. No human disposition, correction, checkpoint decision, persistence,
-> review workflow, or successor is authorized.
+> **Corrected pilot human-accepted; decision recording awaits review.** The packet
+> pilot is closed as software-verification PASS. The next pure runtime slice records
+> explicit human decisions without persistence, checkpoint mutation, or successor
+> activation.
 
 The first slice formalizes the preparation boundary for the existing
 one-module-at-a-time human audit process. Its immutable explicit-input API prepares
@@ -24,10 +25,11 @@ It is retained at
 | Item | Proposal | Status |
 |---|---|---|
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | Human Review Packet and Decision Workflow | `proposed_inactive` |
+| [harness.003.001.002](ksdft2effmass.harness.003.001.002.md) | Human decision recording | `implemented_awaiting_human_review` |
 
 ## Implemented runtime boundary
 
-`ksdft2effmass.harness.pi` now exports five public interfaces:
+The packet-preparation slice exports five public interfaces:
 
 - `HumanReviewTarget` identifies one exact revision, represented subject, explicit
   path set, evidence class, and contract references;
@@ -70,8 +72,10 @@ One review unit contains:
 5. The slice stops for direct human review without recording or interpreting a
    disposition.
 
-Decision recording, correction authorization, and continuation remain proposed
-future work.
+The corrected pilot was subsequently human-accepted as software-verification PASS.
+The separately authorized [human decision recording](ksdft2effmass.harness.003.001.002.md)
+slice now represents an explicit decision without interpreting it. Persistence and
+continuation remain proposed and inactive.
 
 ## Rejected behavior
 
@@ -97,8 +101,9 @@ three are immutable DataObjects, the packet is an immutable ResultObject and
 semantically a DataObject, and preparation is a stateless ActionObject. They use no
 nominal role base classes.
 
-`HumanReviewDecision`, `RecordHumanReviewDecision`, and every decision-persistence or
-interaction interface remain unimplemented and inactive.
+`HumanReviewDecision` and `RecordHumanReviewDecision` are now implemented as a
+separate bounded runtime slice. Every decision-persistence and interaction interface
+remains unimplemented and inactive.
 
 ## Candidate telemetry
 
@@ -127,21 +132,24 @@ establish review quality, scientific validity, or human acceptance.
 - The Markdown packet is derived pilot evidence, not an accepted serialization or
   persistence contract.
 - The pilot covers one software-verification subject only.
-- Review resumption, sensitive comments, item sizing, and correction records remain
-  unresolved.
+- Review resumption, sensitive comments, item sizing, and durable correction records
+  remain unresolved.
 - Filesystem, SQLite, and hybrid persistence alternatives remain open.
 
 ## Authority and stop boundary
 
 Deterministic observations remain distinct from human decisions. Only the human may
-dispose of findings or authorize correction and continuation. The prepared packet is
-not PASS, acceptance, checkpoint resolution, or scientific validation. This slice
-stops with no human disposition recorded.
+dispose of findings or authorize correction and continuation. The corrected pilot is
+human-accepted as software-verification PASS; this does not make packet status itself
+an acceptance value. Decision recording remains awaiting direct human review and is
+not checkpoint resolution, persistence, successor activation, or scientific
+validation.
 
 ## Navigation
 
 - **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
 - **Parent:** [Human review interface](ksdft2effmass.harness.003.000.000.md)
 - **Previous:** [Human review interface](ksdft2effmass.harness.003.000.000.md)
-- **Next:** [Human Review Packet and Decision Workflow](ksdft2effmass.harness.003.001.001.md)
+- **Next:** [Human decision recording](ksdft2effmass.harness.003.001.002.md)
 - **Child:** [Human Review Packet and Decision Workflow](ksdft2effmass.harness.003.001.001.md)
+- **Child:** [Human decision recording](ksdft2effmass.harness.003.001.002.md)

@@ -36,7 +36,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
     The accepted validator and task-state tool contracts expand the H1 surface with
     the exact records, results, and actions named below.
     Acceptance
-    ``__all__`` equals the exact 60-name sequence and every listed attribute
+    ``__all__`` equals the exact 62-name sequence and every listed attribute
     resolves from the public package.
     Interpretation
     Failure indicates source/public-contract drift or an incomplete package import.
@@ -58,6 +58,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "HumanReviewObservation",
         "HumanReviewFinding",
         "HumanReviewPacket",
+        "HumanReviewDecision",
         "OwnershipManifestView",
         "CheckpointRecord",
         "CheckpointDecisionResolutionRequest",
@@ -96,6 +97,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "EvaluateChainState",
         "AuditEvidenceIdentifiers",
         "PrepareHumanReviewPacket",
+        "RecordHumanReviewDecision",
         "ValidatePythonTestEvidence",
         "InspectTaskState",
         "ValidateChecksumManifest",
@@ -118,7 +120,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
     Method
     Construct each exact public action and inspect its instance storage surface.
     Oracle
-    The accepted maintained harness surface requires sixteen concrete actions with no
+    The accepted maintained harness surface requires seventeen concrete actions with no
     roots, profiles, caches, clients, or mutable state.
     Acceptance
     Every instance lacks ``__dict__`` and its class declares empty slots.
@@ -141,6 +143,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
         "EvaluateChainState",
         "AuditEvidenceIdentifiers",
         "PrepareHumanReviewPacket",
+        "RecordHumanReviewDecision",
         "ValidatePythonTestEvidence",
         "InspectTaskState",
         "ValidateChecksumManifest",
