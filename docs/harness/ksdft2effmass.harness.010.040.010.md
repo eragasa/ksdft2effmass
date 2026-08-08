@@ -8,10 +8,11 @@ sphinx: excluded
 
 # Harness capability ownership rationalization
 
-> **Rationalization status.** Slices 1 through 3 simplified
-> `design-data-action-objects`, `develop-operator-records`, and
-> `develop-python-test-evidence`; all later slices remain proposals. This page
-> does not activate another skill, agent, ActionObject, tool, route, or task.
+> **Rationalization status.** Slices 1 through 4 simplified
+> `design-data-action-objects`, `develop-operator-records`,
+> `develop-python-test-evidence`, and `recommend-next-task`; all later slices
+> remain proposals. This page does not activate another skill, agent,
+> ActionObject, tool, route, or task.
 
 Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 (`origin/dev` after fetch, with a clean worktree).
@@ -44,7 +45,7 @@ entry; optional Graphify operation references remain on demand.
 | `develop-python-test-evidence` | Semantic design, writing, restructuring, and review of maintained Python evidence | 260 lines; byte footprint reduced by about half | Extractable core with a local profile | Invocation profiles, repository-conformance campaign state, universal migration ceremony, reporting envelopes, and validator implementation detail were removed in Slice 3 | **Keep:** evidence rigor retained; `ValidatePythonTestEvidence` and its CLI own structural enforcement |
 | `document-python-research-software` | Public Python docstrings, API/concept pages, Sphinx integration, and serialization documentation | 21 lines | Extractable core with local build inputs | Correctly refers test semantics to the test-evidence skill | **Keep** |
 | `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `InspectTaskState` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
-| `recommend-next-task` | Read-only reconstruction and one human-selectable next-task recommendation | 337 lines | Project-specific planning policy | Excessive fixed directory inventory, repeated Graphify and authority warnings, and broad reconstruction prose increase context cost | **Update:** retain recommendation judgment and stop boundary; use bounded maintained inspections where applicable |
+| `recommend-next-task` | State-gated, read-only selection of one human-selectable next task | 117 lines | Project-specific planning policy | Broad repository discovery, fixed reporting schemas, orchestration ceremony, and duplicated control-plane procedure were removed in Slice 4 | **Keep:** use maintained task-state inspection; read-only and human-selection boundaries are unchanged |
 | `graphify` | Explicitly requested local Graphify use under project safety policy | 167 mandatory lines | Project-specific external-tool policy | Exact external-tool safety policy is intentional; operation-specific references are loaded only when needed | **Keep** |
 | `resolve-human-checkpoint` | Match an unambiguous human answer to one unresolved checkpoint and preserve human authority | 132 lines | Project-local policy; transition core may be extractable | Mixes ambiguity/authority judgment with deterministic record mutation, validation, commit/push, and resumption sequencing | **Update:** retain intent matching and authority judgment; move record transformation to a proposed ActionObject |
 
@@ -175,7 +176,7 @@ secondary consumers do not share ownership.
 | Evidence class, owner, oracle, acceptance, and semantic review | `SKILL_EXISTING` | `develop-python-test-evidence` | Test writers and integration reviewers |
 | Public Python and Sphinx documentation procedure | `SKILL_EXISTING` | `document-python-research-software` | Documentation and implementation agents |
 | Exact declared task-state inspection | `ACTION_EXISTING` | `InspectTaskState` and CLI | Root agent and task workflows |
-| Single next-task recommendation judgment | `SKILL_UPDATE` | `recommend-next-task` | Root agent only |
+| Single next-task recommendation judgment | `SKILL_EXISTING` | `recommend-next-task` | Root agent only |
 | Explicit local Graphify safety procedure | `SKILL_EXISTING` | `graphify` | Root agent after explicit request |
 | Human checkpoint intent matching and ambiguity judgment | `SKILL_EXISTING` | `resolve-human-checkpoint` | Root agent |
 | Deterministic checkpoint resolution transformation | `ACTION_CANDIDATE` | proposed `ResolveCheckpointDecision` | Checkpoint skill and future CLI |
@@ -212,8 +213,8 @@ Counts from the 38 rows are:
 
 | Classification | Count |
 |---|---:|
-| `SKILL_EXISTING` | 7 |
-| `SKILL_UPDATE` | 1 |
+| `SKILL_EXISTING` | 8 |
+| `SKILL_UPDATE` | 0 |
 | `SKILL_CANDIDATE` | 1 |
 | `ACTION_EXISTING` | 20 |
 | `ACTION_CANDIDATE` | 1 |
@@ -353,12 +354,14 @@ Nothing below is activated by this proposal.
    boundaries remain. Invocation and migration ceremony, fixed conformance
    counts, and duplicated validator logic were removed. Canonical and live skill
    resources remain byte-identical; test behavior and evidence IDs are unchanged.
-4. **Next proposed — update `recommend-next-task`.** Replace fixed
-   repository-wide inventories and repeated boundaries with bounded authority
-   reconstruction and existing inspection interfaces.
-5. **Update `resolve-human-checkpoint`.** Retain human-response matching and
-   fail-closed authority judgment; specify the future Action boundary without
-   embedding mutation mechanics.
+4. **Completed — update `recommend-next-task`.** Retained state-gated,
+   read-only selection of exactly one proposed task and the human-selection stop.
+   Exact known task state now routes through maintained `InspectTaskState` usage;
+   broad repository discovery, fixed reporting schemas, and duplicated
+   orchestration and control-plane procedure were removed.
+5. **Next proposed — update `resolve-human-checkpoint`.** Retain human-response
+   matching and fail-closed authority judgment; specify the future Action
+   boundary without embedding mutation mechanics.
 6. **Implement one Action:** design, review, and implement
    `ResolveCheckpointDecision` with no Git/push/resumption side effects.
 7. **Retire one existing skill:** move `inspect-task-state` invocation guidance to
@@ -388,6 +391,6 @@ Nothing below is activated by this proposal.
   remain outside this proposal.
 
 No harness-simplification chain entry is required for this bounded skill edit.
-Recording Slice 3 completion here does not activate Slice 4. The next proposed
-slice, `recommend-next-task`, remains inactive pending separate human
+Recording Slice 4 completion here does not activate Slice 5. The next proposed
+slice, `resolve-human-checkpoint`, remains inactive pending separate human
 authorization.
