@@ -6,15 +6,17 @@
 |---|---|
 | Review ID | `human-review.audit-evidence-identifiers.pilot` |
 | Reviewed revision | `201f038a006cd48829d570b0de59bde83a53a881` |
+| Correction revision | `ecd260042257efb868ad4262cc3a1b9a0159c16b` |
 | Represented subject | `AuditEvidenceIdentifiers` |
 | Evidence class | `software_verification` |
 | Packet status | `ready_for_human_review` |
-| Pilot workflow status | `ready_for_renewed_human_review` |
+| Pilot workflow status | `human_accepted_pass` |
 
 This packet is derived review material prepared through the explicit-input
 `PrepareHumanReviewPacket` API. Repeated construction from identical inputs returned
-equal packets with the same canonical observation order. The packet is not labeled
-PASS or accepted.
+equal packets with the same canonical observation order. Its public runtime status
+remains `ready_for_human_review`; final acceptance is a separate human decision now
+recorded below.
 
 ## Exact review paths
 
@@ -171,10 +173,25 @@ acceptance gates.
   validation, uncertainty quantification, provenance truth, or human acceptance.
 - The reviewed Git revision does not represent uncommitted external state.
 
+## Final human acceptance
+
+Human response (preserved exactly):
+
+> Accept the corrected AuditEvidenceIdentifiers review-packet pilot as software-verification PASS and close the pilot only. HRI-PILOT-F01 and HRI-PILOT-F02 are resolved. This acceptance does not authorize SQLite, automatic review acceptance, successor activation, scientific execution, or protected work.
+
+Disposition: `human_accepted_pass` for the corrected review-packet pilot only.
+
+- HRI-PILOT-F01: resolved.
+- HRI-PILOT-F02: resolved.
+- Claim scope: software verification only.
+
+The original reviewed revision, correction revision, deterministic observations,
+correction observations, and limitations remain part of this packet.
+
 ## Human authority boundary
 
-The human recorded bounded correction dispositions for HRI-PILOT-F01 and
-HRI-PILOT-F02 only. The human retains authority over renewed review and final
-acceptance. This packet remains `ready_for_human_review`; the surrounding pilot
-workflow is `ready_for_renewed_human_review`. No checkpoint, successor, or protected
-work was activated.
+The human accepted and closed only the corrected review-packet pilot. The packet's
+public runtime status remains `ready_for_human_review` because packet preparation and
+human decision recording are separate contracts. The acceptance does not authorize
+SQLite, automatic review acceptance, successor activation, scientific execution, or
+protected work. No checkpoint or replay was created.

@@ -1,12 +1,12 @@
 {
   "name": "human-review-interface",
   "description": "Incrementally introduce deterministic human-review preparation while preserving direct human disposition and acceptance authority.",
-  "status": "ready_for_renewed_human_review",
+  "status": "pilot_human_accepted_pass",
   "active_task": null,
   "automatic_successor_activation": false,
   "findings": {
-    "HRI-PILOT-F01": "corrected",
-    "HRI-PILOT-F02": "corrected"
+    "HRI-PILOT-F01": "resolved",
+    "HRI-PILOT-F02": "resolved"
   },
   "chain": [],
   "task_sequence": [
@@ -14,7 +14,7 @@
       "id": "human-review-interface.review-packet-pilot",
       "record": ".pi/tasks/human-review-interface.review-packet-pilot.md",
       "prerequisites": [],
-      "status": "completed"
+      "status": "human_accepted_pass"
     },
     {
       "id": "human-review-interface.audit-evidence-identifiers-correction",
