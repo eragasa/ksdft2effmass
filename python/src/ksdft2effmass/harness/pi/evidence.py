@@ -66,21 +66,97 @@ def _markers(tree: ast.Module) -> tuple[str, ...]:
     return tuple(found)
 
 
-def _declaration(doc: str) -> str:
+_EVIDENCE_ID = re.compile(r"\b([A-Za-z0-9][A-Za-z0-9._:/-]*-\d+)\b")
+_EVIDENCE_RANGE = re.compile(
+    r"(?P<start>[A-Za-z0-9][A-Za-z0-9._:/-]*-\d+)(?:``)?\s+through\s+"
+    r"(?:``)?(?P<end>[A-Za-z0-9][A-Za-z0-9._:/-]*-\d+)"
+)
+
+
+@dataclass(frozen=True, slots=True)
+class _EvidenceDeclaration:
+    ids: tuple[str, ...]
+    issue_code: str | None = None
+    issue_message: str | None = None
+    missing: bool = False
+
+
+def _declaration(doc: str) -> _EvidenceDeclaration:
+    """Parse one normalized fielded or historical owner declaration."""
     matches = list(re.finditer(r"(?m)^Evidence ID\s*$", doc))
     if len(matches) > 1:
-        return ""
-    if not matches:
-        return doc.splitlines()[0] if doc else ""
-    start = matches[0].end()
-    end = re.search(r"(?m)^Requirement\s*$", doc[start:])
-    return (
-        doc[start : start + end.start()].strip()
-        if end
-        else doc.splitlines()[0]
-        if doc
-        else ""
-    )
+        return _EvidenceDeclaration(
+            (),
+            "PIH.EVIDENCE.ID_INVALID",
+            "Test function has multiple Evidence ID fields.",
+        )
+    if matches:
+        start = matches[0].end()
+        end = re.search(r"(?m)^Requirement\s*$", doc[start:])
+        stop = start + end.start() if end else len(doc)
+        declaration = doc[start:stop].strip()
+        if not declaration:
+            return _EvidenceDeclaration(
+                (),
+                "PIH.EVIDENCE.ID_INVALID",
+                "Evidence ID field is empty.",
+            )
+    else:
+        declaration = doc.splitlines()[0].strip() if doc else ""
+        if not declaration:
+            return _EvidenceDeclaration((), missing=True)
+
+    ranges = list(_EVIDENCE_RANGE.finditer(declaration))
+    if len(ranges) > 1:
+        return _EvidenceDeclaration(
+            (),
+            "PIH.EVIDENCE.RANGE_CONFLICT",
+            "Owner declares multiple evidence ranges.",
+        )
+    if ranges:
+        match = ranges[0]
+        start_id = match.group("start")
+        end_id = match.group("end")
+        start_prefix, start_number = start_id.rsplit("-", 1)
+        end_prefix, end_number = end_id.rsplit("-", 1)
+        remainder = declaration[: match.start()] + declaration[match.end() :]
+        if _EVIDENCE_ID.search(remainder):
+            return _EvidenceDeclaration(
+                (),
+                "PIH.EVIDENCE.RANGE_CONFLICT",
+                "Evidence range includes an independent identifier.",
+            )
+        if (
+            start_prefix != end_prefix
+            or len(start_number) != len(end_number)
+            or int(start_number) > int(end_number)
+        ):
+            return _EvidenceDeclaration(
+                (),
+                "PIH.EVIDENCE.RANGE_CONFLICT",
+                "Evidence range is invalid.",
+            )
+        return _EvidenceDeclaration(
+            tuple(
+                f"{start_prefix}-{number:0{len(start_number)}d}"
+                for number in range(int(start_number), int(end_number) + 1)
+            )
+        )
+
+    identifiers = tuple(sorted(set(_EVIDENCE_ID.findall(declaration))))
+    if len(identifiers) > 1:
+        return _EvidenceDeclaration(
+            (),
+            "PIH.EVIDENCE.RANGE_CONFLICT",
+            "Owner declares multiple IDs without one range.",
+        )
+    if not identifiers:
+        return _EvidenceDeclaration(
+            (),
+            "PIH.EVIDENCE.ID_INVALID",
+            "Test function has no valid evidence owner.",
+        )
+    return _EvidenceDeclaration(identifiers)
 
 
 class AuditEvidenceIdentifiers:
@@ -151,42 +227,18 @@ class AuditEvidenceIdentifiers:
                     node, (ast.FunctionDef, ast.AsyncFunctionDef)
                 ) or not node.name.startswith("test_"):
                     continue
-                declaration = _declaration(ast.get_docstring(node, clean=False) or "")
-                found = re.findall(
-                    r"\b([A-Za-z0-9][A-Za-z0-9._:/-]*-\d+)\b", declaration
-                )
-                range_match = re.search(
-                    r"([A-Za-z0-9][A-Za-z0-9._:/-]*-\d+)\s*(?:``)?\s+through\s+(?:``)?\s*([A-Za-z0-9][A-Za-z0-9._:/-]*-\d+)",
-                    declaration,
-                )
-                ids = []
-                if range_match:
-                    a, b = range_match.groups()
-                    ap, an = a.rsplit("-", 1)
-                    bp, bn = b.rsplit("-", 1)
-                    if ap == bp and int(an) <= int(bn):
-                        ids = [
-                            f"{ap}-{n:0{len(an)}d}" for n in range(int(an), int(bn) + 1)
-                        ]
-                    else:
-                        issues.append(
-                            _issue(
-                                "PIH.EVIDENCE.RANGE_CONFLICT",
-                                "Evidence range is invalid.",
-                                path=path,
-                            )
-                        )
-                else:
-                    ids = sorted(set(found))
-                if len(ids) > 1 and not range_match:
+                declaration = _declaration(ast.get_docstring(node, clean=True) or "")
+                if declaration.issue_code is not None:
                     issues.append(
                         _issue(
-                            "PIH.EVIDENCE.RANGE_CONFLICT",
-                            "Owner declares multiple IDs without one range.",
+                            declaration.issue_code,
+                            declaration.issue_message
+                            or "Evidence declaration is invalid.",
                             path=path,
                         )
                     )
-                if not ids:
+                    continue
+                if declaration.missing:
                     code = (
                         "PIH.EVIDENCE.PROTECTED_GAP"
                         if (path, node.name) in protected
@@ -200,7 +252,7 @@ class AuditEvidenceIdentifiers:
                         )
                     )
                     continue
-                for eid in ids:
+                for eid in declaration.ids:
                     try:
                         prefix, number = eid.rsplit("-", 1)
                         _require_identifier(eid, "evidence_id")

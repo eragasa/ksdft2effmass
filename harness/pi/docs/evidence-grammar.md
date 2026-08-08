@@ -38,6 +38,25 @@ Scientific validation and uncertainty quantification are separate claim classes.
 
 Project profiles supply marker vocabulary, evidence namespaces and ranges, scope-to-marker rules, and protected migration debt. Generic resources contain no project prefixes or repository-specific paths. Classification data control which identifiers are structurally valid; they do not prove that the documented oracle is independent or that the asserted scientific interpretation is sound.
 
+## Deterministic owners and maintained audit command
+
+| Capability | Owner |
+|---|---|
+| Evidence-ID and executable-marker audit | `AuditEvidenceIdentifiers` |
+| Complete test-module structural convention | `ValidatePythonTestEvidence` |
+| Semantic test design and review | `develop-python-test-evidence` |
+
+`AuditEvidenceIdentifiers` accepts only supplied module bytes and an explicit project profile. The project-local wrapper reads one explicit maintained inventory and only its listed modules beneath an explicit absolute root:
+
+```text
+python/.venv/bin/python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers \
+  --root <absolute-repository-root> \
+  --profile harness/local/profiles/ksdft2effmass-v2.json \
+  --inventory .pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json
+```
+
+The production ActionObject is the sole evidence-ID parser and policy owner. The former standalone AST script is retired; historical evidence may continue to name the command that produced it.
+
 ## Validation claim boundary
 
 Resource-task validation may establish only the behavior it directly checks: resource and schema structure, manifest closure and acyclicity, exact content hashes, supported versions, extension-only overlay rules, project-leakage rejection, explicit-root resolution, fixture/oracle consistency, canonical JSON vectors, and evidence-classification structure.

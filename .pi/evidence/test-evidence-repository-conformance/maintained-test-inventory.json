@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2719,
-  "expected_module_count": 200,
+  "expected_collected_node_count": 2741,
+  "expected_module_count": 201,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -36,6 +36,14 @@
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
       "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "artifact": "audit evidence identifiers command API agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "83f46ba3533be6f7840c7ff411942b11ceb290c51a3f0e712935a78ac32fa8ec",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py"
     },
     {
       "artifact": "h4 hc02 route fail closed",
@@ -127,7 +135,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "e2c8c7d6af1adddbc2e336495d9bd5f3e054f3ca14699bfc56665972a012274e",
+      "content_sha256": "0c9762d08e256f88729ffabf2b26a1b79d893d2c9f0d0401de31b93babe7e11b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py",

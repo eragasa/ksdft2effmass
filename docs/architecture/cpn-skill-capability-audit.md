@@ -189,7 +189,7 @@ agent's interpretation.
 | `JsonSchemaValidationBlock` | focused schema/fixture pytest using Draft 2020-12 validation |
 | `ChecksumValidationBlock` | SHA-256 command with expected digest and artifact identity |
 | `GitDiffCheckBlock` | `git diff --check` |
-| `EvidenceIdentifierAuditBlock` | `.pi/skills/audit_evidence_identifiers.py --self-test --strict` |
+| `EvidenceIdentifierAuditBlock` | production `AuditEvidenceIdentifiers` through `python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers` |
 | `CheckpointSchemaValidationBlock` | `.pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run` |
 | `StaticDependencyDirectionToolBlock` | focused operator comparison dependency-direction pytest |
 | `SkillCapabilityInventoryValidationBlock` | `.pi/skills/validate_skill_capabilities.py` |
@@ -200,30 +200,31 @@ executable evidence. A general AI skill must not replace them.
 
 ## Evidence-identifier deterministic finding
 
-Repeated historical evidence-ID audits had no reusable deterministic owner.
-`.pi/skills/audit_evidence_identifiers.py` now distinguishes a test function's
-first-line owner declaration from cross-references elsewhere in prose. It checks
-executable-owner uniqueness, expands one normalized inclusive range used by a
-parametrized test, rejects ambiguous multiple declarations, and checks evidence-
-class prefix/hierarchy agreement, syntax, and executable AST module markers. A
-built-in deterministic self-test exercises the range and marker parsers.
-
-The non-strict audit currently reports:
+`AuditEvidenceIdentifiers` is the sole deterministic owner of evidence-ID grammar,
+namespace/scope policy, executable markers, owner uniqueness, ranges, and protected
+gaps. The thin project-local command reads one explicit profile and maintained
+inventory, reads only the inventoried modules beneath an explicit absolute root, and
+projects the ActionObject result as deterministic JSON:
 
 ```text
-evidence_modules=59
-test_functions=332
-owned_evidence_identifiers=315
-unowned_test_functions=22
-audit_errors=0
+python/.venv/bin/python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers \
+  --root <absolute-repository-root> \
+  --profile harness/local/profiles/ksdft2effmass-v2.json \
+  --inventory .pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json
 ```
 
-The 22 unowned tests are limited to the maintained
-`OperatorRecordDifferenceResult` facets and `OperatorRecordDifferencer` module.
-Strict mode correctly fails on this current gap. This task does not edit tests;
-resolving the gap requires a separately authorized bounded test-documentation
-task. The finding is software-evidence inventory drift, not evidence that the
-assertions fail and not scientific validation.
+The maintained inventory audit currently passes with 201 modules, 1,102 executable
+owner occurrences, 1,102 unique evidence IDs, and no issues. The retired standalone
+AST script is retained only in historical evidence that records its actual prior use.
+
+| Capability | Owner |
+|---|---|
+| Evidence-ID and executable-marker audit | `AuditEvidenceIdentifiers` |
+| Complete test-module structural convention | `ValidatePythonTestEvidence` |
+| Semantic test design and review | `develop-python-test-evidence` |
+
+These structural owners do not establish semantic correctness, numerical correctness,
+scientific validation, uncertainty quantification, or human acceptance.
 
 ## Capability tokens
 

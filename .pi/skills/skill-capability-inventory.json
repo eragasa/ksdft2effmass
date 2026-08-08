@@ -789,10 +789,10 @@
     },
     {
       "block": "EvidenceIdentifierAuditBlock",
-      "command": "python/.venv/bin/python .pi/skills/audit_evidence_identifiers.py --self-test --strict",
-      "evidence_owner": ".pi/skills/audit_evidence_identifiers.py",
-      "classification": "software evidence-inventory verification",
-      "current_status": "Parser supports the new Evidence ID field and historical first-line declarations; self-test plus repository audit are required, and results remain structural ownership evidence only."
+      "command": "python/.venv/bin/python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers --root <absolute-repository-root> --profile harness/local/profiles/ksdft2effmass-v2.json --inventory .pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json",
+      "evidence_owner": "AuditEvidenceIdentifiers",
+      "classification": "software evidence-identifier and executable-marker verification",
+      "current_status": "The production ActionObject is the sole parser and deterministic policy owner; the project-local CLI reads only explicit profile, inventory, and inventoried module inputs and projects structural results without repository discovery."
     },
     {
       "block": "CheckpointSchemaValidationBlock",

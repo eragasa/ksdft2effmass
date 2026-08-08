@@ -12,8 +12,9 @@ sphinx: excluded
 > `design-data-action-objects`, `develop-operator-records`,
 > `develop-python-test-evidence`, `recommend-next-task`, and
 > `resolve-human-checkpoint`; Slice 6 implemented `ResolveCheckpointDecision`;
-> Slice 7 is deferred; and Slice 8 created `develop-harness-resources`. Later
-> slices remain proposals. This page does not activate another skill, agent,
+> Slice 7 is deferred; Slice 8 created `develop-harness-resources`; and Slice 9
+> corrected evidence auditing and retired its duplicate AST script. Later slices
+> remain proposals. This page does not activate another skill, agent,
 > ActionObject, tool, route, or task. The separately authorized
 > `harness-simplification.resources.manifest-refresh` vertical slice added the
 > deterministic `RefreshResourceManifest` ActionObject without changing the
@@ -168,6 +169,7 @@ The public export surfaces were inspected directly. The generic package exports
 |---|---|
 | `python/.../local/inspect_task_state.py` | Keep as the thin `InspectTaskState` CLI |
 | `python/.../local/refresh_resource_manifest.py` | Keep as the thin read-only `RefreshResourceManifest` proposal CLI |
+| `python/.../local/audit_evidence_identifiers.py` | Keep as the thin explicit-root and explicit-inventory `AuditEvidenceIdentifiers` CLI |
 | `harness/pi/validation/validate_python_test_evidence.py` | Keep as the thin `ValidatePythonTestEvidence` CLI |
 | `harness/local/validation/validate_repository_test_evidence.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
 | `.pi/skills/validate_skill_capabilities.py` | Keep as the current fixed repository capability-inventory validator |
@@ -175,7 +177,7 @@ The public export surfaces were inspected directly. The generic package exports
 | `harness/local/validation/replay_current_validators.py` | Keep as the current local-route wrapper while that route remains configured |
 | `harness/pi/validation/validate_h3_resources.py` | Retain as a legacy broad resource completion validator; do not copy it into a skill |
 | `harness/pi/validation/validate_architecture_decision_cases.py` | Keep as deterministic cases for the architecture-decision skill contract |
-| `.pi/skills/audit_evidence_identifiers.py` | Retire in a bounded tool slice after callers use `AuditEvidenceIdentifiers` or a thin wrapper over it; do not retain duplicate AST policy |
+| `.pi/skills/audit_evidence_identifiers.py` | Retired in Slice 9 after controlled and maintained-inventory replacement gates passed; historical command records remain unchanged |
 
 ## Capability-to-owner matrix
 
@@ -205,7 +207,7 @@ secondary consumers do not share ownership.
 | Checkpoint lifecycle validation | `ACTION_EXISTING` | `ValidateCheckpointSet` | Chain evaluation and checkpoint skill |
 | Chain active/blocked/ready evaluation | `ACTION_EXISTING` | `EvaluateChainState` | Local validation and planning |
 | Checksum verification | `ACTION_EXISTING` | `ValidateChecksumManifest` | Local validation |
-| Evidence-ID inspection | `ACTION_EXISTING` | `AuditEvidenceIdentifiers` | Test-evidence workflows |
+| Evidence-ID and executable-marker inspection | `ACTION_EXISTING` | `AuditEvidenceIdentifiers` and thin local CLI | Test-evidence workflows |
 | Structural Python test-evidence inspection | `ACTION_EXISTING` | `ValidatePythonTestEvidence` | Test-evidence skill and local gate |
 | Explicit local profile/manifest composition | `ACTION_EXISTING` | `LoadLocalHarnessContext` | Local validation |
 | Selected historical/live record normalization | `ACTION_EXISTING` | local `Adapt*` Actions and `SelectEvidenceModules` | Local validation only |
@@ -221,10 +223,9 @@ secondary consumers do not share ownership.
 | Closed H2/H3/H4 command inventories and ceremony | `HISTORICAL_ONLY` | retained phase records/evidence | Historical reconstruction only |
 | Phase-specific agent capability routing | `DUPLICATE_RETIRE` | durable agents plus accepted skill/Action destinations | Disabled historical agent files only |
 | `inspect-task-state` procedural skill routing | `DUPLICATE_RETIRE` | `InspectTaskState` plus maintained CLI documentation | Current skill until bounded retirement |
-| Legacy standalone evidence-ID AST policy | `DUPLICATE_RETIRE` | `AuditEvidenceIdentifiers` | Legacy CLI callers pending migration |
 | General `assess-harness-cutover` procedure | `DUPLICATE_RETIRE` | route/parity Actions, architecture skill, and durable integration reviewer | A cutover task may compose them |
 
-Counts from the 39 rows are:
+Counts from the 38 current rows are:
 
 | Classification | Count |
 |---|---:|
@@ -237,7 +238,7 @@ Counts from the 39 rows are:
 | `TASK_STATE` | 1 |
 | `DOCUMENTATION` | 1 |
 | `HISTORICAL_ONLY` | 1 |
-| `DUPLICATE_RETIRE` | 4 |
+| `DUPLICATE_RETIRE` | 3 |
 | `UNRESOLVED` | 0 |
 
 These are capability-classification counts, not counts of pending skill
@@ -323,7 +324,7 @@ cutover task should compose those owners instead.
 | Parity comparison | `CompareShadowPair`, `ReplayShadowSuite` | No duplicate tool |
 | Route inspection/selection | `SelectValidationRoute`, `RollBackValidationRoute`; selected wrapper in `validate_harness.py` | No duplicate tool |
 | Checksum verification | `ValidateChecksumManifest` | No duplicate tool |
-| Evidence-ID inspection | `AuditEvidenceIdentifiers` | Retire duplicate legacy AST script after caller migration |
+| Evidence-ID inspection | `AuditEvidenceIdentifiers` plus thin explicit-inventory CLI | Duplicate legacy AST script retired after conformance gates passed |
 | Maintained validation-command inspection | `InspectTaskState` reports declared completion command | No duplicate tool |
 | Capability-inventory inspection | `validate_skill_capabilities.py` validates the fixed repository inventory | Keep tool; do not create an Action until a second input contract needs a reusable public result |
 | Checkpoint resolution record transformation | `ResolveCheckpointDecision` | Pure explicit immutable transformation implemented in Slice 6 |
@@ -348,8 +349,8 @@ After accepted destination changes, retire only live routing or duplicate tools:
 
 1. remove `inspect-task-state` from skill routing after maintained CLI docs cover
    its trigger, inputs, result interpretation, and stop boundary;
-2. migrate callers from `.pi/skills/audit_evidence_identifiers.py` to the public
-   evidence Action or a thin wrapper, then retire the duplicate AST policy; and
+2. **Completed in Slice 9:** current callers use the public evidence Action through
+   its thin local wrapper, and the duplicate AST policy was retired; and
 3. keep all historical agent files and old evidence unchanged.
 
 ## Recommended implementation sequence
@@ -400,9 +401,11 @@ it does not create or activate that skill and does not alter this sequence.
    schema/fixture and descriptor agreement, manifest synchronization, and claim
    boundaries. Existing Actions remain deterministic owners; canonical and live
    skill/reference bytes are identical.
-9. **Next proposed — retire one duplicate tool:** migrate the standalone evidence-ID script to
-   `AuditEvidenceIdentifiers` and remove only that duplicate executable policy.
-10. **Reconcile one bounded historical routing group:** verify the resource-phase
+9. **Completed — retire one duplicate tool:** corrected normalized field parsing in
+   `AuditEvidenceIdentifiers`, added its thin explicit-inventory CLI, migrated live
+   callers, confirmed all 201 maintained modules pass, and removed the standalone
+   duplicate AST policy.
+10. **Next proposed — reconcile one bounded historical routing group:** verify the resource-phase
     agent group remains disabled after the new resource skill is accepted; update
     only current routing/inventory references, never historical files.
 
@@ -420,7 +423,7 @@ it does not create or activate that skill and does not alter this sequence.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 
-The bounded harness-simplification chain entry records Slice 8 completion with
-`active_task: null`; it does not activate another slice. Slice 7 retirement
-of `inspect-task-state` remains deferred, and duplicate evidence-ID policy
-retirement remains proposed and inactive pending separate human authorization.
+The bounded harness-simplification chain entry records Slice 9 completion with
+`active_task: null`; it does not activate another slice. Slice 7 retirement of
+`inspect-task-state` remains deferred, and telemetry and other successors remain
+inactive pending separate human authorization.
