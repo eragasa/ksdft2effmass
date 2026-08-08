@@ -1,20 +1,84 @@
 ---
 name: develop-python-test-evidence
-description: Designs, writes, modifies, and reviews maintained Python software-verification, numerical-verification, and separately authorized validation or UQ tests. Use when creating class-owned or artifact-owned pytest evidence, test fixtures, parameterized cases, independent oracles, acceptance rules, test documentation, or test-evidence audits.
+description: Designs, writes, modifies, restructures, names, documents, and reviews maintained Python test evidence, fixtures, parameterization, numerical verification, and separately authorized validation or UQ tests.
 ---
 
 # Develop Python Test Evidence
 
-Use this skill for maintained pytest evidence, including new tests, controlled migrations, fixtures, parameter cases, documentation, deterministic structural audits, and semantic review.
+## Purpose
+
+Use this skill for maintained Python tests and test-owned fixtures: creating or
+modifying tests, restructuring modules, naming evidence, designing semantic
+parameterization, documenting cases, establishing independent oracles, and
+reviewing evidence claims. Task and path authority remain external to this skill.
 
 ## Load first
 
-Read `references/test-evidence-conventions.md` completely before acting. Do not rely on this concise entry point as a substitute: the reference owns classification, ownership, placement, module and function documentation, surface naming, cohesion, helpers, parameterization, evidence identifiers, oracles, acceptance, schema/runtime layering, migration, reporting, workflow, and invocation rules.
+Read `references/test-evidence-conventions.md` completely. Use
+`design-data-action-objects` for general object architecture,
+`develop-operator-records` for represented-operator contracts,
+`document-python-research-software` for public source/API/Sphinx documentation,
+and `develop-architecture-decision` for a material open architecture choice.
 
-## Required invocation
+## Evidence classification
 
-Select exactly one reference-defined profile: `REVIEW_ONLY`, `AUTHORIZED_TEST_EVIDENCE_WRITE`, or `AUTHORIZED_TEST_EVIDENCE_DOC_WRITE`. Supply immutable request/task/attempt identities, explicit paths, structured `class_owned` or `artifact_owned` ownership, authoritative contracts, the expected result shape, and a stop policy. Writer profiles also require explicit writer authority and permitted mutation paths.
+| Evidence class | Establishes |
+|---|---|
+| Software verification | Public software-contract behavior |
+| Numerical verification | Numerical implementation against an independent mathematical oracle |
+| Scientific validation | Adequacy against trusted physical, experimental, or scientific reference evidence |
+| Uncertainty quantification | Characterization or propagation of uncertainty |
 
-Run structural validation strictly on explicitly supplied new or migrated paths. Inventory other paths as diagnostic legacy debt only unless an authorized local repository-conformance profile supplies a complete maintained-test inventory and fail-closed gate. Under that profile, every current inventoried module is in scope, no legacy exception is accepted, and the repository gate must pass before completion. Structural results cannot decide whether a surface is semantically correct, a test is cohesive, an oracle is independent, mathematics is correct, a tolerance is adequate, or scientific validation/UQ/human acceptance is established.
+Verification classes do not imply physical adequacy. Scientific validation and
+UQ require separately authorized protocols. A test must claim only the evidence
+class it actually executes.
 
-Return input and output identities, profile, ownership, paths, evidence classification, findings or changes, commands and exact results, mutation summary, collection/evidence counts, residual risks, and human decisions required. For repository-conformance work, also return inventory identity, discovered/inventoried module equality, exact collected-node count, per-module conformance status, and the local completion-gate result. Stop on missing authority, conflicting contracts, invalid ownership, incomplete mapping, unauthorized mutation, or failed required gates. A retry uses a new attempt identity and verified current inputs. Do not dispatch successors or claim acceptance.
+## Ownership and naming
+
+Choose exactly one primary module owner:
+
+- `class_owned` for one public class as the sole system under test; or
+- `artifact_owned` for a schema or fixture family, package/public surface,
+  dependency direction, wire contract, command, or cross-object agreement.
+
+Do not use `boundary_owned` as a generic primary kind. Prefer one class per
+class-owned module and cohesive, concise artifact-owned integration modules.
+Name evidence-owning tests
+`test_<surface>__<facet>__<behavior>` after public behavior, using the surface
+vocabulary accepted by the maintained validator. Identify special methods as
+methods, for example `test_method__eq__...` and `test_method__getitem__...`.
+
+## Oracle and documentation summary
+
+Use public contracts, schemas, exact language semantics, independently derived
+mathematics, or trusted reference data as oracles. Do not use private behavior or
+a reproduction of the production algorithm as the primary oracle. Use exact
+acceptance for exact contracts and justified tolerances for numerical contracts.
+
+Each evidence-owning test documents its Evidence ID, Requirement, Method,
+Oracle, Acceptance, Interpretation, and Limitations. Helpers remain ID-free,
+semantically named, and non-tautological. Parameterized cases use explicit
+semantic IDs.
+
+## Deterministic-validator boundary
+
+`ValidatePythonTestEvidence` and its thin CLI own structural enforcement. Invoke
+it on explicit module paths and an explicit ownership file:
+
+```text
+python/.venv/bin/python harness/pi/validation/validate_python_test_evidence.py \
+  --ownership <ownership.json> <test-module> [<test-module> ...]
+```
+
+Supply `--migration-map <map.json>` only for an authorized rename or migration
+with predecessors. Structural PASS does not establish semantic correctness,
+cohesion, oracle independence, mathematical correctness, tolerance adequacy,
+scientific validity, UQ adequacy, or human acceptance.
+
+## Essential stop conditions
+
+Stop when the public or mathematical contract, evidence class, primary owner,
+independent oracle, acceptance rule, or separately required validation/UQ
+protocol is missing or conflicting. Do not invent scientific meaning, weaken an
+exact contract, renumber evidence IDs, or mutate production behavior merely to
+make a test pass.

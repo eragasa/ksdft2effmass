@@ -8,10 +8,10 @@ sphinx: excluded
 
 # Harness capability ownership rationalization
 
-> **Rationalization status.** Slices 1 and 2 simplified
-> `design-data-action-objects` and `develop-operator-records`; all later slices
-> remain proposals. This page does not activate another skill, agent,
-> ActionObject, tool, route, or task.
+> **Rationalization status.** Slices 1 through 3 simplified
+> `design-data-action-objects`, `develop-operator-records`, and
+> `develop-python-test-evidence`; all later slices remain proposals. This page
+> does not activate another skill, agent, ActionObject, tool, route, or task.
 
 Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
 (`origin/dev` after fetch, with a clean worktree).
@@ -41,7 +41,7 @@ entry; optional Graphify operation references remain on demand.
 | `design-data-action-objects` | New scientific object models, public object-boundary changes, and substantial ownership refactors | 195 lines | Extractable core with project policy inputs | Historical OperatorRecord policy and invocation/reporting ceremony were removed in Slice 1 | **Keep:** Slice 1 completed; identity and durable ownership guidance retained |
 | `develop-architecture-decision` | A genuine material architecture choice with exactly three defensible conceptual alternatives | 126 lines | Extractable decision method with local authority inputs | No material overlap: durable architecture agents supply independence; the skill supplies decision method | **Keep** |
 | `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 309 lines | Project/domain-specific | Fixed inventories, migration/checkpoint history, command gates, test/docs grammar, and invocation ceremony were removed in Slice 2 | **Keep:** operator meaning retained; general architecture, tests, docs, and open decisions route to their owning skills |
-| `develop-python-test-evidence` | Semantic design, writing, migration, and review of maintained Python evidence | 204 lines | Extractable core with a local profile | The reference mixes semantic judgment with structural grammar already implemented by `ValidatePythonTestEvidence` and its CLI | **Update:** preserve evidence classification, ownership, oracle, acceptance, and review judgment; make the ActionObject authoritative for mechanical checks |
+| `develop-python-test-evidence` | Semantic design, writing, restructuring, and review of maintained Python evidence | 260 lines; byte footprint reduced by about half | Extractable core with a local profile | Invocation profiles, repository-conformance campaign state, universal migration ceremony, reporting envelopes, and validator implementation detail were removed in Slice 3 | **Keep:** evidence rigor retained; `ValidatePythonTestEvidence` and its CLI own structural enforcement |
 | `document-python-research-software` | Public Python docstrings, API/concept pages, Sphinx integration, and serialization documentation | 21 lines | Extractable core with local build inputs | Correctly refers test semantics to the test-evidence skill | **Keep** |
 | `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `InspectTaskState` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
 | `recommend-next-task` | Read-only reconstruction and one human-selectable next-task recommendation | 337 lines | Project-specific planning policy | Excessive fixed directory inventory, repeated Graphify and authority warnings, and broad reconstruction prose increase context cost | **Update:** retain recommendation judgment and stop boundary; use bounded maintained inspections where applicable |
@@ -172,7 +172,7 @@ secondary consumers do not share ownership.
 | DataObject/ResultObject/ActionObject boundary judgment | `SKILL_EXISTING` | `design-data-action-objects` | Implementation and architecture agents |
 | Three-option material architecture decision support | `SKILL_EXISTING` | `develop-architecture-decision` | Durable architecture agents |
 | Represented finite-operator scientific/software judgment | `SKILL_EXISTING` | `develop-operator-records` | Project implementation/tests/docs/reviewer |
-| Evidence class, owner, oracle, acceptance, and semantic review | `SKILL_UPDATE` | `develop-python-test-evidence` | Test writers and integration reviewers |
+| Evidence class, owner, oracle, acceptance, and semantic review | `SKILL_EXISTING` | `develop-python-test-evidence` | Test writers and integration reviewers |
 | Public Python and Sphinx documentation procedure | `SKILL_EXISTING` | `document-python-research-software` | Documentation and implementation agents |
 | Exact declared task-state inspection | `ACTION_EXISTING` | `InspectTaskState` and CLI | Root agent and task workflows |
 | Single next-task recommendation judgment | `SKILL_UPDATE` | `recommend-next-task` | Root agent only |
@@ -212,8 +212,8 @@ Counts from the 38 rows are:
 
 | Classification | Count |
 |---|---:|
-| `SKILL_EXISTING` | 6 |
-| `SKILL_UPDATE` | 2 |
+| `SKILL_EXISTING` | 7 |
+| `SKILL_UPDATE` | 1 |
 | `SKILL_CANDIDATE` | 1 |
 | `ACTION_EXISTING` | 20 |
 | `ACTION_CANDIDATE` | 1 |
@@ -347,12 +347,15 @@ Nothing below is activated by this proposal.
    Represented meaning, operator-specific ownership, compatibility, Hermiticity,
    numerical robustness, gauge/coordinate, serialization, and evidence
    boundaries remain. Production behavior and public APIs are unchanged.
-3. **Next proposed — update `develop-python-test-evidence`.** Make semantic
-   judgment explicit and refer all mechanically enforced structure to
-   `ValidatePythonTestEvidence`.
-4. **Update `recommend-next-task`.** Replace fixed repository-wide inventories
-   and repeated boundaries with bounded authority reconstruction and existing
-   inspection interfaces.
+3. **Completed — update `develop-python-test-evidence`.** Evidence taxonomy,
+   class/artifact ownership, semantic naming and parameterization, research-grade
+   test documentation, oracle quality, cohesion/layering, and validation/UQ
+   boundaries remain. Invocation and migration ceremony, fixed conformance
+   counts, and duplicated validator logic were removed. Canonical and live skill
+   resources remain byte-identical; test behavior and evidence IDs are unchanged.
+4. **Next proposed — update `recommend-next-task`.** Replace fixed
+   repository-wide inventories and repeated boundaries with bounded authority
+   reconstruction and existing inspection interfaces.
 5. **Update `resolve-human-checkpoint`.** Retain human-response matching and
    fail-closed authority judgment; specify the future Action boundary without
    embedding mutation mechanics.
@@ -385,6 +388,6 @@ Nothing below is activated by this proposal.
   remain outside this proposal.
 
 No harness-simplification chain entry is required for this bounded skill edit.
-Recording Slice 2 completion here does not activate Slice 3. The next proposed
-slice, `develop-python-test-evidence`, remains inactive pending separate human
+Recording Slice 3 completion here does not activate Slice 4. The next proposed
+slice, `recommend-next-task`, remains inactive pending separate human
 authorization.

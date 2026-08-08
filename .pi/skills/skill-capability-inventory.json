@@ -114,7 +114,8 @@
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
         ".pi/agents/ksdft2effmass-harness-implementation.md",
-        ".pi/skills/develop-operator-records/SKILL.md"
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -164,7 +165,8 @@
         ".pi/tasks/develop-architecture-decision-skill.md",
         ".pi/agents/ksdft2effmass-architecture.md",
         ".pi/agents/ksdft2effmass-harness-architecture.md",
-        ".pi/skills/develop-operator-records/SKILL.md"
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -211,7 +213,8 @@
       "content_sha256": "78d4f8ee04855a2d17a2e22d319bfcd8184639e13896cb11cafe7c891ba81b1c",
       "trigger_description": "Represented finite operators and their immediate metadata, Hermiticity, compatibility, differences, residuals, serialization, or comparison prerequisites.",
       "current_consumers": [
-        "AGENTS.md"
+        "AGENTS.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
@@ -257,8 +260,8 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "e8952a2a13d027e05ad24cf99e0d62a7c1e40efb4de6f9e6e00723c3c9655711",
-      "trigger_description": "Creation, restructuring, migration, and review of maintained Python test evidence.",
+      "content_sha256": "d9b71d90affb695772d384fb5d82ebcac61fd8885526e70f43e99a549a626233",
+      "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/agents/ksdft2effmass-tests.md",
@@ -276,51 +279,39 @@
         "docs/verification/testing-and-evidence.rst"
       ],
       "inputs": [
-        "REVIEW_ONLY or AUTHORIZED_TEST_EVIDENCE_WRITE profile",
-        "explicit test paths or an authorized complete repository inventory",
-        "structured class_owned or artifact_owned input",
-        "authoritative contract and optional one-to-one migration map"
+        "applicable public, mathematical, validation, or uncertainty contract",
+        "explicit class_owned or artifact_owned subject and evidence class",
+        "independent oracle, acceptance rule, and affected test paths"
       ],
       "outputs": [
-        "structured findings or bounded test changes",
-        "deterministic supplied-path or repository-wide validator result",
-        "evidence classification and residual risks"
+        "cohesive test-evidence design, change, or semantic review",
+        "evidence documentation and claim boundary",
+        "maintained structural-validator result where applicable"
       ],
       "side_effects": [
-        "none for review",
-        "only explicitly authorized test-evidence paths for writer"
+        "test-evidence changes only under separate task and path authority"
       ],
       "external_tools_used": [
-        "pytest",
-        "repository read/search"
+        "none required by the skill; focused test execution is task-selected"
       ],
       "deterministic_scripts_used": [
-        "harness/pi/validation/validate_python_test_evidence.py",
-        "harness/local/validation/validate_repository_test_evidence.py"
+        "harness/pi/validation/validate_python_test_evidence.py"
       ],
-      "authorization_requirements": "Explicit test ownership and paths; no source, schema, dependency, scientific-meaning, or acceptance authority.",
-      "failure_behavior": "Missing authority, invalid ownership, incomplete mapping, or failed required structural validation stops affected work.",
-      "retry_behavior": "New attempt identity and verified current inputs are required.",
-      "idempotency": "Read-only validation is observationally idempotent for identical inputs; writes require current identity verification.",
-      "evidence_classification": "structural test-evidence validation and agent semantic review; no scientific acceptance",
-      "current_validation_status": "Repository conformance activated: the generic validator has controlled deterministic recurrence rules and false-positive guards; the local gate closes exact inventory, identities, status, collection, and structural validation. The captured 182-module/2383-node baseline intentionally fails until migration completes.",
-      "primary_classification": "COMPOSABLE_AFTER_HARDENING",
+      "authorization_requirements": "Scientific validation and UQ require separate protocols; mutation authority and paths come from the controlling task, not this skill.",
+      "failure_behavior": "Stop when evidence class, primary owner, contract, oracle, acceptance rule, or required validation/UQ protocol is missing or conflicting.",
+      "retry_behavior": "No skill-specific retry protocol; reassess only with corrected evidence inputs or authority.",
+      "idempotency": "Semantic guidance and review perform no operational transition; structural validation is owned by the maintained ActionObject.",
+      "evidence_classification": "test-evidence semantic guidance and review; structural PASS and agent judgment do not establish scientific acceptance",
+      "current_validation_status": "Simplified while retaining evidence taxonomy, class/artifact ownership, semantic naming and parameterization, research-grade documentation, oracle quality, layering, and the maintained validator boundary; repository-conformance campaign ceremony removed.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
       "hardening_applied": [
-        "explicit ownership and evidence classes",
-        "exact evidence-class/SUT/artifact opening checks",
-        "strict supplied-path boundary",
-        "maintained and superseded heading checks",
-        "semantic parameter-ID checks",
-        "separate ownership/class/case/evidence counts",
-        "claim-boundary exclusions",
-        "migration map validation",
-        "repository inventory and fail-closed local completion gate",
-        "controlled mixed-surface, circular-oracle, prose, suppression, and completeness rules"
+        "exact evidence taxonomy and claim boundaries",
+        "class_owned and artifact_owned semantics",
+        "cohesion, oracle, acceptance, documentation, helper, and parameterization guidance",
+        "explicit maintained-validator ownership"
       ],
-      "remaining_hardening": [
-        "semantic oracle and tolerance review remains agent/human work"
-      ],
-      "stop_condition": "Stop after requested test-evidence result; do not launch successor work or claim acceptance."
+      "remaining_hardening": [],
+      "stop_condition": "Stop at missing evidence meaning or authority; do not weaken expectations, renumber evidence, alter production, or infer acceptance."
     },
     {
       "skill_name": "document-python-research-software",
@@ -334,7 +325,8 @@
         ".pi/agents/ksdft2effmass-harness-implementation.md",
         ".pi/agents/ksdft2effmass-harness-documentation.md",
         ".pi/agents/ksdft2effmass-harness-integration-reviewer.md",
-        ".pi/skills/develop-operator-records/SKILL.md"
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
