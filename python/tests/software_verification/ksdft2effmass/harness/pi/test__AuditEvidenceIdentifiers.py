@@ -122,6 +122,35 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
+def test_method__execute__rejects_empty_module_inventory() -> None:
+    """Evidence ID
+    ``SV-HARNESS-153``.
+    Requirement
+    An evidence audit requires at least one caller-supplied module.
+    Method
+    Invoke the public action with an empty module tuple and a valid copied profile.
+    Oracle
+    The accepted explicit-input contract defines an empty audit request as invalid
+    input with the stable message ``modules must be nonempty``.
+    Acceptance
+    The exact ValueError and message are raised before any result is returned, and
+    the supplied profile remains equal to its pre-execution copy.
+    Interpretation
+    Failure identifies the empty-inventory fail-open condition or input mutation.
+    Limitations
+    Nonempty valid and invalid inventories are covered by separate evidence owners.
+    """
+    profile = load_profile()
+    snapshot = replace(profile)
+
+    with pytest.raises(ValueError) as caught:
+        SUT().execute((), profile)
+
+    assert caught.type is ValueError
+    assert str(caught.value) == "modules must be nonempty"
+    assert profile == snapshot
+
+
 def test_method__execute__normalizes_indented_field_and_preserves_line() -> None:
     """Evidence ID
     ``SV-HARNESS-113``.

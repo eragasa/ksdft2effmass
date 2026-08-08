@@ -38,6 +38,8 @@ def _load_modules(root: Path, inventory_path: Path) -> tuple[tuple[str, bytes], 
     if type(inventory) is not dict or type(inventory.get("modules")) is not list:
         raise ValueError("inventory must contain a modules array")
     entries = inventory["modules"]
+    if not entries:
+        raise ValueError("modules must be nonempty")
     if inventory.get("expected_module_count") != len(entries):
         raise ValueError("inventory module count does not match its modules array")
     modules: list[tuple[str, bytes]] = []

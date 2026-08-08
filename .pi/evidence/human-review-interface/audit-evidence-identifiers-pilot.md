@@ -9,6 +9,7 @@
 | Represented subject | `AuditEvidenceIdentifiers` |
 | Evidence class | `software_verification` |
 | Packet status | `ready_for_human_review` |
+| Pilot workflow status | `ready_for_renewed_human_review` |
 
 This packet is derived review material prepared through the explicit-input
 `PrepareHumanReviewPacket` API. Repeated construction from identical inputs returned
@@ -22,9 +23,10 @@ PASS or accepted.
 3. `python/src/ksdft2effmass/harness/pi/local/audit_evidence_identifiers.py`
 4. `python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py`
 
-All four paths are byte-unchanged between the reviewed revision and packet
+All four paths were byte-unchanged between the reviewed revision and initial packet
 preparation. No evidence implementation or existing evidence test was modified by
-this slice.
+that initial slice. The later bounded correction changes only the authorized behavior
+and evidence within these paths.
 
 ## Applicable contract references
 
@@ -75,6 +77,7 @@ Branch or behavior coverage was not measured and is not claimed.
 `test__AuditEvidenceIdentifiers.py` covers:
 
 - fieldless stateless construction;
+- rejection of an empty caller-supplied module inventory;
 - normalized fielded declaration parsing and source-line retention;
 - retained historical first-line ownership;
 - inclusive range expansion and occurrence ordering;
@@ -88,15 +91,70 @@ Branch or behavior coverage was not measured and is not claimed.
 `test__audit_evidence_identifiers_command_api_agreement.py` covers:
 
 - successful exact-inventory projection and nonmutation;
+- rejection and nonmutation of an explicit empty inventory before audit;
 - failed-audit exit mapping;
 - root confinement and content-identity rejection; and
 - absolute-root requirements without request-file mutation.
 
 ## Candidate findings
 
-No candidate finding was deterministically observed by the focused checks. This
-statement is not a human judgment that the implementation is correct or complete.
-The human may identify findings while reviewing the four paths.
+Deterministic preparation initially reported no candidate finding. This statement was
+not a human judgment that the implementation was correct or complete. Direct human
+review subsequently identified HRI-PILOT-F01, and the required maintained audit during
+correction preflight exposed HRI-PILOT-F02.
+
+## Human review
+
+### HRI-PILOT-F01
+
+Severity: high
+
+Finding: an empty public module tuple and zero-module CLI inventory can pass without
+auditing evidence.
+
+Disposition: bounded correction authorized.
+
+Direct human review identified the empty-inventory fail-open condition after
+deterministic preparation had reported no candidate finding. The bounded correction
+was authorized and is now implemented. Correction validation does not constitute
+final human acceptance.
+
+## Correction preflight
+
+### HRI-PILOT-F02
+
+Severity: high
+
+Finding: the maintained SV-HARNESS allocation stopped at 122 although existing pilot
+evidence occupies 123 through 152.
+
+Disposition: bounded profile synchronization through 154 authorized.
+
+The required maintained repository audit exposed this allocation mismatch. The
+profile boundary and its selected resource identity were synchronized through 154 as
+explicitly authorized. Both HRI-PILOT-F01 and HRI-PILOT-F02 are bounded corrections;
+neither constitutes final human acceptance. The packet awaits renewed direct human
+review.
+
+## Correction checks actually run
+
+| Check | Observed result |
+|---|---|
+| Affected ActionObject and CLI/API modules | 26 software-verification cases passed in the focused correction run and again in the focused regression run. |
+| Maintained structural test-evidence validation | PASS for 2 modules, 14 unique evidence owners, and 15 static collected parameter cases. |
+| Ruff format and lint | PASS for the 4 affected Python files. |
+| Focused mypy | PASS for the 4 affected Python files. |
+| Explicit resource refresh | PASS; only `ksdft2effmass.profile.v2` was proposed with digest `446e6fe3e5990474549cadf48d4a1b0f367f905fbb13323b829b9ae759f2cd5a`. |
+| Profile and generic/local composition | PASS; `SV-HARNESS` loaded as `(1, 154, 3)` and the manifest identity matched the profile bytes. |
+| Focused resource and skill-resource tests | 17 cases passed. |
+| Maintained repository test-evidence validation | PASS with 207 modules, 2,824 collected nodes, and 1,134 unique evidence owners. |
+| Maintained nonempty repository evidence audit | PASS with 207 inventoried modules, 1,134 occurrences, 1,134 unique IDs, zero issues, and both new IDs present. |
+| Final empty/valid behavior selection | 4 cases passed: empty action and CLI requests were rejected, while valid nonempty action and CLI behavior remained passing. |
+| Final bounded state checks | PASS for authorized paths, unchanged existing evidence IDs, profile-rule isolation, chain/task parsing, dependency and lockfile identity, `human_review.py` identity, documentation links, and `git diff --check`. |
+
+The corrected affected test modules contain 26 focused collected cases rather than the
+initial packet's 24. These counts are descriptive observations, not hard-coded
+acceptance gates.
 
 ## Unresolved limitations
 
@@ -107,14 +165,16 @@ The human may identify findings while reviewing the four paths.
 - The CLI tests invoke `main` directly and do not verify installation or interpreter
   entry-point behavior.
 - Branch coverage was not measured.
-- The full repository evidence inventory was not audited as part of this packet.
+- The full repository evidence inventory was not audited during initial packet
+  preparation; one maintained nonempty audit was performed for this correction.
 - Software verification does not establish numerical verification, scientific
   validation, uncertainty quantification, provenance truth, or human acceptance.
 - The reviewed Git revision does not represent uncommitted external state.
 
 ## Human authority boundary
 
-No human disposition has yet been recorded. The harness prepared observations only.
-The human owns review findings, disposition, correction authorization, and any later
-final acceptance. This packet activates no correction, checkpoint, successor, or
-protected work.
+The human recorded bounded correction dispositions for HRI-PILOT-F01 and
+HRI-PILOT-F02 only. The human retains authority over renewed review and final
+acceptance. This packet remains `ready_for_human_review`; the surrounding pilot
+workflow is `ready_for_renewed_human_review`. No checkpoint, successor, or protected
+work was activated.

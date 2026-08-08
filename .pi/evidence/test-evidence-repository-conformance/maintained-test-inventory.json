@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2822,
+  "expected_collected_node_count": 2824,
   "expected_module_count": 207,
   "modules": [
     {
@@ -40,7 +40,7 @@
     {
       "artifact": "audit evidence identifiers command API agreement",
       "conformance_status": "conforming",
-      "content_sha256": "83f46ba3533be6f7840c7ff411942b11ceb290c51a3f0e712935a78ac32fa8ec",
+      "content_sha256": "28ca01886dba55a671f1c1bd9ac662b3bd61c7c42a76a3d9a5814a958f422d82",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py"
@@ -135,7 +135,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "0c9762d08e256f88729ffabf2b26a1b79d893d2c9f0d0401de31b93babe7e11b",
+      "content_sha256": "bbb097bd27e33070443d1ab3589857052e255341333cb7579178dd932355c63b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py",

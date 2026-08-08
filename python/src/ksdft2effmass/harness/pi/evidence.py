@@ -170,6 +170,8 @@ class AuditEvidenceIdentifiers:
         from .profiles import ProjectProfile
 
         _require_tuple(modules, "modules")
+        if not modules:
+            raise ValueError("modules must be nonempty")
         if type(profile) is not ProjectProfile:
             raise TypeError("profile has wrong type")
         rules = {

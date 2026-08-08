@@ -191,6 +191,69 @@ def test_artifact__command_api__agrees_on_success_and_exact_inventory(
     assert file_snapshot(root) == before
 
 
+def test_artifact__command_request__rejects_empty_inventory(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Evidence ID
+    ``SV-HARNESS-154``.
+    Requirement
+    The command rejects an explicit zero-module inventory before performing an audit.
+    Method
+    Supply ``expected_module_count`` zero with an empty modules array, prevent any
+    ActionObject execution, snapshot the inputs, and invoke the maintained command.
+    Oracle
+    The accepted command contract requires canonical ERROR JSON, exit 2, and the
+    stable message ``modules must be nonempty`` for an empty inventory.
+    Acceptance
+    The exact canonical payload and exit status are returned, the audit is not
+    invoked, and every controlled input byte remains unchanged.
+    Interpretation
+    Failure identifies empty-inventory fail-open, audit invocation, or input mutation.
+    Limitations
+    Nonempty inventory identity and audit-result projection are covered separately.
+    """
+    root = tmp_path / "root"
+    root.mkdir()
+    profile_path, inventory_path, _ = prepare_inputs(root, valid_source())
+    inventory_path.write_text(
+        json.dumps({"expected_module_count": 0, "modules": []}), encoding="utf-8"
+    )
+    before_profile = profile_path.read_bytes()
+    before_inventory = inventory_path.read_bytes()
+
+    def fail_if_audit_runs(*args: object, **kwargs: object) -> None:
+        raise AssertionError("audit must not run for an empty inventory")
+
+    monkeypatch.setattr(AuditEvidenceIdentifiers, "execute", fail_if_audit_runs)
+    exit_status = main(
+        (
+            "--root",
+            str(root.resolve()),
+            "--profile",
+            "profile.json",
+            "--inventory",
+            "inventory.json",
+        )
+    )
+    rendered = capsys.readouterr().out
+
+    assert exit_status == 2
+    assert rendered == (
+        '{"error":"modules must be nonempty","schema_version":1,"status":"ERROR"}\n'
+    )
+    assert json.loads(rendered) == {
+        "error": "modules must be nonempty",
+        "schema_version": 1,
+        "status": "ERROR",
+    }
+    assert "counts" not in json.loads(rendered)
+    assert "occurrences" not in json.loads(rendered)
+    assert profile_path.read_bytes() == before_profile
+    assert inventory_path.read_bytes() == before_inventory
+
+
 def test_artifact__command_api__maps_failed_audit_to_exit_one(
     tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
