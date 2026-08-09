@@ -16,9 +16,10 @@ sphinx: excluded
 
 ```mermaid
 flowchart TD
+    Authority["Current human instruction and controlling task scope"] --> Caller["Review coordinator constructs explicit target"]
+    Caller --> Target["HumanReviewTarget"]
     Checks["External deterministic checks"] -->|explicit values| Observation["HumanReviewObservation"]
     Analysis["Human or separately authorized analysis"] -->|explicit candidate issue| Finding["HumanReviewFinding"]
-    Caller["Caller-selected subject"] --> Target["HumanReviewTarget"]
 
     Target --> Prepare["PrepareHumanReviewPacket"]
     Observation --> Prepare
@@ -53,6 +54,15 @@ flowchart TD
 |---|---|---|---|
 | `PrepareHumanReviewPacket` | Target, observations, findings, and limitations | `HumanReviewPacket` | Does not run checks, discover findings, or make a human decision |
 | `RecordHumanReviewDecision` | Packet, exact human response, normalized disposition, and authorized scope | `HumanReviewDecision` | Does not interpret text, authenticate authority, persist state, or activate work |
+
+### Target provenance
+
+`HumanReviewTarget` is constructed explicitly by the review coordinator from the
+current human instruction and controlling task scope. Its review identifier, exact
+revision, represented subject, paths, evidence class, and contract references are all
+caller-supplied. No ActionObject discovers a repository, chooses files, reads Git, or
+infers what deserves review. Selecting the target remains an authority and scope
+operation outside the runtime API.
 
 `HumanReviewObservation` and `HumanReviewFinding` are explicit input records. This
 slice does not introduce a generic `HumanReviewObserver` or `HumanReviewFinder`:

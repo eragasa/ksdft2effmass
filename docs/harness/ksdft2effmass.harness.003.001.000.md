@@ -64,7 +64,9 @@ One review unit contains:
 
 ## First-slice workflow
 
-1. The root selects the explicitly authorized source/test surface.
+1. The review coordinator constructs `HumanReviewTarget` from the current
+   human-authorized source/test scope and exact revision; the API performs no target
+   discovery.
 2. Deterministic checks produce explicit observations.
 3. `PrepareHumanReviewPacket` validates and orders supplied records.
 4. The derived Markdown packet presents the contract, observations, test inventory,

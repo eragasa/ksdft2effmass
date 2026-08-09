@@ -34,7 +34,9 @@ successor, or authorize protected work automatically.
 
 ```mermaid
 flowchart TD
-    Select["1. Select exact review target"] --> Observe["2. Supply deterministic observations and candidate findings"]
+    Authority["Current human instruction and controlling task scope"] --> Construct["1. Caller constructs explicit HumanReviewTarget"]
+    Construct --> Target["HumanReviewTarget"]
+    Target --> Observe["2. Supply deterministic observations and candidate findings"]
     Observe --> Prepare["3. Prepare review packet"]
     Prepare --> Packet["HumanReviewPacket"]
     Packet --> Review["4. Human directly reviews packet"]
@@ -55,15 +57,24 @@ The human judgment is step 4 and occurs outside the software ActionObjects. Pack
 preparation organizes supplied material; decision recording stores an exact decision
 already made by the human. Neither ActionObject performs the review itself.
 
+### Where the target comes from
+
+The review coordinator constructs `HumanReviewTarget` explicitly from the current
+human-authorized scope and controlling task: a review identifier, exact revision,
+represented subject, explicit paths, evidence class, and contract references. The
+runtime API validates that supplied record but does not select files, discover a Git
+revision, infer scope, or decide what should be reviewed. There is therefore no target
+finder ActionObject in this boundary.
+
 ## Decomposition
 
-| Part | DataObjects or ResultObjects | ActionObject | Current status | Detail |
-|---|---|---|---|---|
-| Review subject and supplied material | `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding` | None; callers supply these records | Implemented | [Initial round](ksdft2effmass.harness.003.001.000.md) |
-| Packet preparation | `HumanReviewPacket` | `PrepareHumanReviewPacket` | Corrected pilot human-accepted | [Initial round](ksdft2effmass.harness.003.001.000.md) |
-| Human judgment | Human response outside the API | None; the person performs the review | Human authority only | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
-| Decision representation | `HumanReviewDecision` | `RecordHumanReviewDecision` | Implemented, awaiting direct human review | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
-| Persistence and querying | Not defined | Not defined | Proposed and inactive | Architecture alternatives below |
+| Part                                 | DataObjects or ResultObjects                                        | ActionObject                         | Current status                            | Detail                                                           |
+| ------------------------------------ | ------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------- | ---------------------------------------------------------------- |
+| Review subject and supplied material | `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding` | None; callers supply these records   | Implemented                               | [Initial round](ksdft2effmass.harness.003.001.000.md)            |
+| Packet preparation                   | `HumanReviewPacket`                                                 | `PrepareHumanReviewPacket`           | Corrected pilot human-accepted            | [Initial round](ksdft2effmass.harness.003.001.000.md)            |
+| Human judgment                       | Human response outside the API                                      | None; the person performs the review | Human authority only                      | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
+| Decision representation              | `HumanReviewDecision`                                               | `RecordHumanReviewDecision`          | Implemented, awaiting direct human review | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
+| Persistence and querying             | Not defined                                                         | Not defined                          | Proposed and inactive                     | Architecture alternatives below                                  |
 
 The detailed decision-recording page contains separate DataObject and ActionObject
 tables. There is no generic `HumanReviewObserver`, `HumanReviewFinder`, or software
