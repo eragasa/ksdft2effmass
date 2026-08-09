@@ -55,6 +55,139 @@ flowchart TD
 | `PrepareHumanReviewPacket` | Target, observations, findings, and limitations | `HumanReviewPacket` | Does not run checks, discover findings, or make a human decision |
 | `RecordHumanReviewDecision` | Packet, exact human response, normalized disposition, and authorized scope | `HumanReviewDecision` | Does not interpret text, authenticate authority, persist state, or activate work |
 
+## Class diagrams
+
+Each diagram is local to the described class and looks only backward at its nominal
+inheritance and stored or input decomposition. Downstream consumers, future
+persistence, and workflow successors are intentionally omitted. These are concrete
+classes with no nominal DataObject, ResultObject, or ActionObject base class.
+
+### `HumanReviewTarget`
+
+The target stores caller-supplied review identity and scope values. It contains no
+other public review object.
+
+```mermaid
+classDiagram
+    class HumanReviewTarget {
+        +str review_id
+        +str revision
+        +str represented_subject
+        +Tuple~str~ paths
+        +str evidence_class
+        +Tuple~str~ contract_references
+    }
+```
+
+### `HumanReviewObservation`
+
+An observation stores one caller-supplied deterministic check result. It contains no
+target, packet, finding, or decision object.
+
+```mermaid
+classDiagram
+    class HumanReviewObservation {
+        +str observation_id
+        +str check_name
+        +str status
+        +str summary
+        +optional str path
+        +optional str detail
+    }
+```
+
+### `HumanReviewFinding`
+
+A finding stores one candidate issue and exact identifiers of supporting observations.
+It does not contain `HumanReviewObservation` objects.
+
+```mermaid
+classDiagram
+    class HumanReviewFinding {
+        +str finding_id
+        +str severity
+        +str statement
+        +optional str path
+        +Tuple~str~ supporting_observation_ids
+        +str unresolved_limitation
+    }
+```
+
+### `HumanReviewPacket`
+
+A packet owns one target and immutable tuples of observations and findings. The
+composition arrows show only objects stored directly by the packet.
+
+```mermaid
+classDiagram
+    class HumanReviewPacket {
+        +HumanReviewTarget target
+        +Tuple~HumanReviewObservation~ observations
+        +Tuple~HumanReviewFinding~ findings
+        +Tuple~str~ limitations
+        +str status
+    }
+    class HumanReviewTarget
+    class HumanReviewObservation
+    class HumanReviewFinding
+
+    HumanReviewPacket *-- "1" HumanReviewTarget : target
+    HumanReviewPacket *-- "0..*" HumanReviewObservation : observations
+    HumanReviewPacket *-- "0..*" HumanReviewFinding : findings
+```
+
+### `PrepareHumanReviewPacket`
+
+The preparation ActionObject depends on explicit target, observation, and finding
+inputs. Its return type is shown on the operation rather than as a downstream class
+relationship.
+
+```mermaid
+classDiagram
+    class PrepareHumanReviewPacket {
+        +execute(target, observations, findings, limitations) HumanReviewPacket
+    }
+    class HumanReviewTarget
+    class HumanReviewObservation
+    class HumanReviewFinding
+
+    PrepareHumanReviewPacket ..> HumanReviewTarget : input
+    PrepareHumanReviewPacket ..> HumanReviewObservation : input
+    PrepareHumanReviewPacket ..> HumanReviewFinding : input
+```
+
+### `HumanReviewDecision`
+
+A decision owns copied scalar identity, exact response, disposition, and scope values.
+It does not contain the packet and has no persistence object.
+
+```mermaid
+classDiagram
+    class HumanReviewDecision {
+        +str review_id
+        +str reviewed_revision
+        +str human_response
+        +str disposition
+        +Tuple~str~ authorized_scope
+    }
+```
+
+### `RecordHumanReviewDecision`
+
+The recording ActionObject depends on one explicit packet plus scalar decision inputs.
+Its return type is shown on the operation; no persistence or successor class is part
+of its decomposition.
+
+```mermaid
+classDiagram
+    class RecordHumanReviewDecision {
+        +execute(packet, human_response, disposition, authorized_scope) HumanReviewDecision
+    }
+    class HumanReviewPacket
+
+    RecordHumanReviewDecision ..> HumanReviewPacket : input
+```
+
 ### Target provenance
 
 The root agent constructs `HumanReviewTarget` using the exact revision and file paths
