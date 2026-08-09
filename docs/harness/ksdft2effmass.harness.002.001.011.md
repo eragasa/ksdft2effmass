@@ -2,14 +2,14 @@
 document_id: ksdft2effmass.harness.002.001.011
 task_id: harness.simplification.docs-json.task-model-contract
 parent: ksdft2effmass.harness.002.001.000
-status: proposed-awaiting-renewed-human-review
+status: frozen-contract-awaiting-human-acceptance
 sphinx: excluded
 ---
 
 # Human review: HarnessTask model-contract stage
 
-> **Proposed Stage 1; inactive.** This page reviews only the contract-freeze
-> stage. It does not activate implementation, replace Markdown source authority,
+> **Stage 1 is active and its corrected frozen contract awaits human acceptance.**
+> This page does not activate implementation, replace Markdown source authority,
 > create a migration packet, migrate a file, define selection state, or authorize
 > Stage 2.
 
@@ -68,6 +68,30 @@ accounting, verification obligations, overview diagram, and focused diagram for
 every proposed class are maintained in
 [harness.002.001.010](ksdft2effmass.harness.002.001.010.md).
 
+## Prepared review package
+
+- [Immutable six-source inventory](../../.pi/evidence/docs-json/task-model-contract/source-inventory.json)
+- [Complete 118-span mapping set](../../.pi/evidence/docs-json/task-model-contract/source-mappings.json)
+- [Frozen 19-interface contract](../../.pi/evidence/docs-json/task-model-contract/harness-task-contract.md)
+- [Deterministic validation and bounded limitation](../../.pi/evidence/docs-json/task-model-contract/validation.md)
+
+The inventory binds six Git blobs and 20,074 bytes at revision
+`dd50c74513f6c51e2a1c823a60b3111738082b3c`. The mapping set covers every byte
+with contiguous, ordered, nonoverlapping half-open spans. It proposes these
+Stage-2 documentation destinations without creating them:
+
+| Source | Proposed maintained `docs/` target |
+|---|---|
+| `.pi/tasks/harness.simplification.docs-json.md` | `docs/harness/ksdft2effmass.harness.002.001.012.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.md` | `docs/harness/ksdft2effmass.harness.002.001.013.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.triage.md` | `docs/harness/ksdft2effmass.harness.002.001.014.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.md` | `docs/harness/ksdft2effmass.harness.002.001.015.md` |
+| `.pi/tasks/harness.simplification.docs-json.authority-catalog.md` | `docs/harness/ksdft2effmass.harness.002.001.016.md` |
+| `.pi/tasks/harness.simplification.docs-json.documentation-correction.md` | `docs/harness/ksdft2effmass.harness.002.001.017.md` |
+
+These targets remain proposed until this contract is accepted. Stage 2 still
+requires one immutable packet and one explicit human disposition per file.
+
 ## Source authority
 
 Markdown remains source authority throughout Stage 1. Inventories, mappings,
@@ -98,10 +122,22 @@ state are prohibited.
 
 ## Review and completion
 
-One independent review is completed. Every material finding receives an explicit
-disposition, every correction receives deterministic verification, and no
-material finding remains unresolved. The review result itself is retained
-truthfully and is not rewritten after correction.
+The retained [independent review](../../.pi/evidence/docs-json/task-model-contract/integration-review.md)
+failed with seven material findings. The one permitted
+[correction pass](../../.pi/evidence/docs-json/task-model-contract/review-correction.md)
+corrected and deterministically verified all seven: project-local ownership,
+three documentation-byte dispositions, packet identity, disposition compatibility,
+resource/wire integration, graph lifecycle policy, and six-record compatibility.
+The original failed result remains unchanged, no material contract finding
+remains unresolved, and no repeated review was performed.
+
+The existing version-1 projection validator reports
+`TASK_RENDER_EXPECTED_DRIFT` and `TASK_RENDER_LIVE_DRIFT` because Stage-1
+activation changed the chain-owned active Task while the completed pilot's
+non-authoritative generated page and expected fixture retain the earlier null
+value. Stage 1 excludes generated-page and fixture synchronization. Option A asks
+the human to accept this bounded limitation for later separately authorized
+synchronization; the stale page is not authority.
 
 Stage 1 completes only after the human explicitly accepts the frozen field and
 rendering contract. Stage 2 remains blocked until that acceptance is durable.
@@ -116,9 +152,10 @@ or automatic successor activation.
 
 ## Human review question
 
-Should `harness.simplification.docs-json.task-model-contract` be activated with
-this exact contract-only scope and return for another explicit human decision
-before implementation or migration?
+After independent review and disposition of its findings, should the frozen
+19-interface contract, complete six-file mappings, and proposed documentation
+destinations be accepted for later Stage-2 implementation? Acceptance will not
+activate Stage 2 or accept any individual migration packet.
 
 ## Navigation
 

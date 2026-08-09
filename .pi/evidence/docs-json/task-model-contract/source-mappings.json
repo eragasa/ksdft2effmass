@@ -1,0 +1,1552 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.task-model-contract",
+  "authority_status": "proposed_mapping_for_human_review",
+  "revision": "dd50c74513f6c51e2a1c823a60b3111738082b3c",
+  "dispositions": [
+    "CANONICAL_TASK_INFORMATION",
+    "DOCUMENTATION_OWNED_CONTENT",
+    "HISTORICAL_EVIDENCE",
+    "PROPOSED_REMOVAL"
+  ],
+  "source_count": 6,
+  "mapping_count": 118,
+  "sources": [
+    {
+      "path": ".pi/tasks/harness.simplification.docs-json.md",
+      "source_sha256": "1aa1601ab692acee446ae35c188edeacee545ad488e5e6a65b31037bedc5fd96",
+      "byte_count": 3734,
+      "proposed_documentation_path": "docs/harness/ksdft2effmass.harness.002.001.012.md",
+      "mappings": [
+        {
+          "mapping_id": "HTM-01-001",
+          "start_byte": 0,
+          "end_byte": 54,
+          "span_sha256": "15f9a93c600cdd41f6489b0d197dc0d2a65b5af6f37c69a48266c75cea3afc66",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.title"
+          ],
+          "transformation": "remove the Markdown heading marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-002",
+          "start_byte": 54,
+          "end_byte": 244,
+          "span_sha256": "77e827225642b67b239221949de15b45bbfdb272ad3f0b26e999028af7a531ad",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.status",
+            "HarnessTask.status_detail"
+          ],
+          "transformation": "parse the leading lifecycle identifier and preserve the remaining status detail verbatim",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-003",
+          "start_byte": 244,
+          "end_byte": 295,
+          "span_sha256": "392735adaa94d515baba3514394157b21821b75fe1207b105a96cee8bd1f5a98",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-004",
+          "start_byte": 295,
+          "end_byte": 371,
+          "span_sha256": "f5088446b439967e18c04013cd4d9126ea67375b295ba0ce047f6b0461870edf",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_prerequisite_ids"
+          ],
+          "transformation": "remove the label, Markdown code delimiters, and terminal :completed relation marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-005",
+          "start_byte": 371,
+          "end_byte": 385,
+          "span_sha256": "aca8612ddf7eab01cd87a4d1999390c5fa94184a75dff7cfc2e615dabc77a4b4",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#objective"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-006",
+          "start_byte": 385,
+          "end_byte": 684,
+          "span_sha256": "946456eb03ecb6c4b4d848b433f8f8cd25d17b85809a7c9d077cd871917d08ff",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-007",
+          "start_byte": 684,
+          "end_byte": 702,
+          "span_sha256": "2cde72a0cf2db5954e11b6626e14850fdf3b2425e17b4636ec6a4ed44bb7d36a",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#decomposition"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-008",
+          "start_byte": 702,
+          "end_byte": 932,
+          "span_sha256": "776ce0fe7d5b1e9ff482b0b5f4fabd38265f093881eed9c425e661bd7750adaf",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md",
+            "HarnessTaskGraphValidator relationship evidence"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-01-009",
+          "start_byte": 932,
+          "end_byte": 972,
+          "span_sha256": "ba859c9ddfc054dd0628aae048fd0f89cc58062023d24ce27b38298b342d9fc3",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md",
+            "HarnessTaskGraphValidator relationship evidence"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-01-010",
+          "start_byte": 972,
+          "end_byte": 1096,
+          "span_sha256": "aeffd76bd97ab50b77684a287bff4b684dc44e1e66470aa0e85655116a04bf91",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md",
+            "HarnessTaskGraphValidator relationship evidence"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-01-011",
+          "start_byte": 1096,
+          "end_byte": 1213,
+          "span_sha256": "2cea156f6d32fb89b9e4ff880804131da7197fddbbf8ee993fc2ce2ec8549c81",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md",
+            "HarnessTaskGraphValidator relationship evidence"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-01-012",
+          "start_byte": 1213,
+          "end_byte": 1236,
+          "span_sha256": "94e996b3032cd308682fb08e475c3f9a6664ee3e6e8d5335b68371d750fc623e",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#bootstrap-boundary"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-013",
+          "start_byte": 1236,
+          "end_byte": 1591,
+          "span_sha256": "3370a43332641d0180eb3d092017f80055239555e2514c6ff6d9414198da3043",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-014",
+          "start_byte": 1591,
+          "end_byte": 1611,
+          "span_sha256": "c65e8c9d12609ec771f1194a96012eb74e9001fefeeadff5f56571fb75b14653",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#correction-rule"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-015",
+          "start_byte": 1611,
+          "end_byte": 1940,
+          "span_sha256": "e82a6cfd0185d59eee2087b42bf3a587d28ce0bc7f81eab2f8898df11b5ae6c0",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-016",
+          "start_byte": 1940,
+          "end_byte": 2114,
+          "span_sha256": "10693e98b5cbe3ddda80da08c6c72c650c3f7bb8ae2cd44b1ca33207668148a6",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-017",
+          "start_byte": 2114,
+          "end_byte": 2147,
+          "span_sha256": "37efe7147d096d867f97a5de9f440d242cc07b24eb534b9225b80b8d0dfda3dd",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#extractable-harness-boundary"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-018",
+          "start_byte": 2147,
+          "end_byte": 2548,
+          "span_sha256": "0fa086755a5e691b044e40ba34fcb16ca7ec404783fed7ffc1782b6ffe16fc29",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-019",
+          "start_byte": 2548,
+          "end_byte": 2563,
+          "span_sha256": "e07ac21d53325b51fa798f4b84b99f1fdcb045cf314dcae7e9cf75608902a7fd",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#completion"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-020",
+          "start_byte": 2563,
+          "end_byte": 2888,
+          "span_sha256": "02872c3979bd43356b5340d7c17860cacbd77b5033faa2eb2fef9f53770a6ab4",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.completion_criteria"
+          ],
+          "transformation": "preserve each criterion as ordered canonical text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-01-021",
+          "start_byte": 2888,
+          "end_byte": 2924,
+          "span_sha256": "12ed1d5f78f602b0050896744fbec89db5d254de4e24a65fa5aad53776c5c7d0",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md#consolidated-integration-review"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-01-022",
+          "start_byte": 2924,
+          "end_byte": 3096,
+          "span_sha256": "ea3eddb59b839569c579bf0f253caa73b97b907571056877ce1e8082e0dabff7",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-01-023",
+          "start_byte": 3096,
+          "end_byte": 3734,
+          "span_sha256": "8464931d942131439cda26c8285e91d367a953b19f9c4f185a2fd9d356f95399",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.012.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        }
+      ],
+      "coverage": {
+        "first_byte": 0,
+        "last_byte_exclusive": 3734,
+        "gap_count": 0,
+        "overlap_count": 0
+      }
+    },
+    {
+      "path": ".pi/tasks/harness.simplification.docs-json.publication.md",
+      "source_sha256": "3066a1cd48479f948cdde307c325af72d790b64ae5ac3b674ba7abd983a4cb20",
+      "byte_count": 923,
+      "proposed_documentation_path": "docs/harness/ksdft2effmass.harness.002.001.013.md",
+      "mappings": [
+        {
+          "mapping_id": "HTM-02-001",
+          "start_byte": 0,
+          "end_byte": 39,
+          "span_sha256": "fdbf18845c791f165ad547a14f2af84554bf9a14d71e826f2a5d32c93d11a8a9",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.title"
+          ],
+          "transformation": "remove the Markdown heading marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-02-002",
+          "start_byte": 39,
+          "end_byte": 100,
+          "span_sha256": "f96801d8d277a10223685d7c2f56269269ad09780175aec091b9decef4bb6fd9",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.status",
+            "HarnessTask.status_detail"
+          ],
+          "transformation": "parse the leading lifecycle identifier and preserve the remaining status detail verbatim",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-02-003",
+          "start_byte": 100,
+          "end_byte": 163,
+          "span_sha256": "42efe37ccaedfb7f34c47773bc9a71590e4ed4ac04f06939549b5d51d8cca8f8",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-02-004",
+          "start_byte": 163,
+          "end_byte": 212,
+          "span_sha256": "4ca3ef92854e32b7e4440bd00df0e7bbcea88d251d2284ae518be55454e416bc",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.parent_task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-02-005",
+          "start_byte": 212,
+          "end_byte": 226,
+          "span_sha256": "aca8612ddf7eab01cd87a4d1999390c5fa94184a75dff7cfc2e615dabc77a4b4",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.013.md#objective"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-02-006",
+          "start_byte": 226,
+          "end_byte": 346,
+          "span_sha256": "83f054de973088716b951f6683d5a7ec9a44bf7fa07da893a157949aa206eb9f",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-02-007",
+          "start_byte": 346,
+          "end_byte": 364,
+          "span_sha256": "2cde72a0cf2db5954e11b6626e14850fdf3b2425e17b4636ec6a4ed44bb7d36a",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.013.md#decomposition"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-02-008",
+          "start_byte": 364,
+          "end_byte": 488,
+          "span_sha256": "aeffd76bd97ab50b77684a287bff4b684dc44e1e66470aa0e85655116a04bf91",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.013.md",
+            "HarnessTaskGraphValidator relationship evidence"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-02-009",
+          "start_byte": 488,
+          "end_byte": 662,
+          "span_sha256": "cdef6e9f3004776a68bcc726ecc732a8157c9bc422591573fd2ad9368a13c197",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.013.md",
+            "HarnessTaskGraphValidator relationship evidence"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-02-010",
+          "start_byte": 662,
+          "end_byte": 677,
+          "span_sha256": "e07ac21d53325b51fa798f4b84b99f1fdcb045cf314dcae7e9cf75608902a7fd",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.013.md#completion"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-02-011",
+          "start_byte": 677,
+          "end_byte": 923,
+          "span_sha256": "226221279dac01cbe5f5e43d7e3b1aa0cc5e9ea362defe6e89df4d0ec7b33b91",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.completion_criteria"
+          ],
+          "transformation": "preserve each criterion as ordered canonical text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        }
+      ],
+      "coverage": {
+        "first_byte": 0,
+        "last_byte_exclusive": 923,
+        "gap_count": 0,
+        "overlap_count": 0
+      }
+    },
+    {
+      "path": ".pi/tasks/harness.simplification.docs-json.publication.triage.md",
+      "source_sha256": "e847693467fbea4a543589e15560f545c6d56ccc1d3a27430e9eeb4a77ff8d2e",
+      "byte_count": 2674,
+      "proposed_documentation_path": "docs/harness/ksdft2effmass.harness.002.001.014.md",
+      "mappings": [
+        {
+          "mapping_id": "HTM-03-001",
+          "start_byte": 0,
+          "end_byte": 36,
+          "span_sha256": "c39ad5a34e70e28cb4b687dc4e8ea752a95930ac94950cafea4dc4212f09338f",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.title"
+          ],
+          "transformation": "remove the Markdown heading marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-002",
+          "start_byte": 36,
+          "end_byte": 129,
+          "span_sha256": "b7f3ccde0065d93848b9baf3122c268a978a696303a807e7c55ce27a2c55e951",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.status",
+            "HarnessTask.status_detail"
+          ],
+          "transformation": "parse the leading lifecycle identifier and preserve the remaining status detail verbatim",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-003",
+          "start_byte": 129,
+          "end_byte": 199,
+          "span_sha256": "6062b0c9787cff6bdcf7618fa4ba10e3c102b161c9b562ee346292df225adf89",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-004",
+          "start_byte": 199,
+          "end_byte": 260,
+          "span_sha256": "14c5641bb20a24510248e23ec7befb175c53901cf3dbd6a19c2367bd1af81416",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.parent_task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-005",
+          "start_byte": 260,
+          "end_byte": 274,
+          "span_sha256": "aca8612ddf7eab01cd87a4d1999390c5fa94184a75dff7cfc2e615dabc77a4b4",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.014.md#objective"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-03-006",
+          "start_byte": 274,
+          "end_byte": 514,
+          "span_sha256": "c72539fdc60038197ff739c5055287d6f24bbd6eae8d32be9e35abb0c3e633d7",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-007",
+          "start_byte": 514,
+          "end_byte": 808,
+          "span_sha256": "d6231f7b3d669851c54b3b0ed3912b273670f93d6641c97f357db4d0e53efb12",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-008",
+          "start_byte": 808,
+          "end_byte": 824,
+          "span_sha256": "641db2789b1a29ace7b8f49f62bdf079fc6d9389417cf1871d784c4559496e41",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.014.md#triage-rule"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-03-009",
+          "start_byte": 824,
+          "end_byte": 1175,
+          "span_sha256": "82cdbbe51a79ae730a5f1657b849644d1cd80f7aea9eae4c33fbe221ac5ac6b0",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-010",
+          "start_byte": 1175,
+          "end_byte": 1459,
+          "span_sha256": "445ef8dd872811c3c332ff99b70014d15d668a9ac5567209f4324cb2246fda94",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-011",
+          "start_byte": 1459,
+          "end_byte": 1485,
+          "span_sha256": "586f2811bf8cba261762f71444f23a054aedd5eb07e93af0a52db1085d6f4f63",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.014.md#output-and-completion"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-03-012",
+          "start_byte": 1485,
+          "end_byte": 1817,
+          "span_sha256": "f882881985663a64c92ff65b78ab3a4b1b20fde5e21e37b935b2bb4f0e0d8af6",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.completion_criteria"
+          ],
+          "transformation": "preserve each criterion as ordered canonical text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-013",
+          "start_byte": 1817,
+          "end_byte": 2519,
+          "span_sha256": "3ded25fe5567044c1611c1aca663d006282361da604b600c1e25684d37b1d470",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.014.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact historical-result prose and extract explicit evidence paths",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-03-014",
+          "start_byte": 2519,
+          "end_byte": 2674,
+          "span_sha256": "6b13395234661c9696d8ebeab61e4f011ecff2390f764fa598a73661f1736016",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "HarnessTask.exclusions",
+            "docs/harness/ksdft2effmass.harness.002.001.014.md"
+          ],
+          "transformation": "preserve the exact prose for documentation and extract each explicit exclusion into the canonical tuple",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        }
+      ],
+      "coverage": {
+        "first_byte": 0,
+        "last_byte_exclusive": 2674,
+        "gap_count": 0,
+        "overlap_count": 0
+      }
+    },
+    {
+      "path": ".pi/tasks/harness.simplification.docs-json.publication.hierarchy.md",
+      "source_sha256": "4c999a1830c3d97bc8c12864703fc2a0515780ac59e3cb340a050646f0cdcf9e",
+      "byte_count": 2822,
+      "proposed_documentation_path": "docs/harness/ksdft2effmass.harness.002.001.015.md",
+      "mappings": [
+        {
+          "mapping_id": "HTM-04-001",
+          "start_byte": 0,
+          "end_byte": 49,
+          "span_sha256": "e2a5a29797cd7eeca7b3e3cfc64d7effd426c2fb9af74790869746dcda9b26f5",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.title"
+          ],
+          "transformation": "remove the Markdown heading marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-002",
+          "start_byte": 49,
+          "end_byte": 149,
+          "span_sha256": "ded05d6e11b7630273d374e7ca230c411acaa1c8364cf8e0645a0fdc727364b3",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.status",
+            "HarnessTask.status_detail"
+          ],
+          "transformation": "parse the leading lifecycle identifier and preserve the remaining status detail verbatim",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-003",
+          "start_byte": 149,
+          "end_byte": 222,
+          "span_sha256": "fd0ee0222122eb3b3b3c3ccd3f15615bdfaf80bc53442df2f98cd127cf7ab1fb",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-004",
+          "start_byte": 222,
+          "end_byte": 283,
+          "span_sha256": "14c5641bb20a24510248e23ec7befb175c53901cf3dbd6a19c2367bd1af81416",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.parent_task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-005",
+          "start_byte": 283,
+          "end_byte": 297,
+          "span_sha256": "aca8612ddf7eab01cd87a4d1999390c5fa94184a75dff7cfc2e615dabc77a4b4",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md#objective"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-04-006",
+          "start_byte": 297,
+          "end_byte": 611,
+          "span_sha256": "94a839cfc86ff11dfbf91af3b1acba4bf14345fc2725251bccca5153382eb584",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-007",
+          "start_byte": 611,
+          "end_byte": 622,
+          "span_sha256": "7c5f659ce14849cb5057067baceb42b4c99b077710324b47608b825f49bd0e42",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md#method"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-04-008",
+          "start_byte": 622,
+          "end_byte": 1080,
+          "span_sha256": "a95e596de3c115071368a04dab5bcd09e761e283db7736cd85e59f7a4b62d309",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-04-009",
+          "start_byte": 1080,
+          "end_byte": 1222,
+          "span_sha256": "7017ae4693044afae677d2604d298d85a99fa58c0f0b57560871b207b7b6e112",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-010",
+          "start_byte": 1222,
+          "end_byte": 1237,
+          "span_sha256": "e07ac21d53325b51fa798f4b84b99f1fdcb045cf314dcae7e9cf75608902a7fd",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md#completion"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-04-011",
+          "start_byte": 1237,
+          "end_byte": 1450,
+          "span_sha256": "5d5833fb673f3e17d86011a7fe90a6453a1224b441b72328c95eb384c3b3de86",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.completion_criteria"
+          ],
+          "transformation": "preserve each criterion as ordered canonical text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-012",
+          "start_byte": 1450,
+          "end_byte": 1847,
+          "span_sha256": "cf7434c815c2e55b8f79ac07bd1fd2c0d2d8c1d1d7c438936f3e3c82d64f881f",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "HarnessTask.exclusions",
+            "docs/harness/ksdft2effmass.harness.002.001.015.md"
+          ],
+          "transformation": "preserve the exact prose for documentation and extract each explicit exclusion into the canonical tuple",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-04-013",
+          "start_byte": 1847,
+          "end_byte": 1870,
+          "span_sha256": "1ea57b8839aaf8063d4acfc57dbe75e3477691b6e1d3b448e6f67a09e8c9a896",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md#result-and-handoff"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-04-014",
+          "start_byte": 1870,
+          "end_byte": 2303,
+          "span_sha256": "0db65a1e1ca4061fb21ec46c8f7fb0771d4b64653da21df3adb006a6eb4c71cb",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-04-015",
+          "start_byte": 2303,
+          "end_byte": 2822,
+          "span_sha256": "17729f2d319507c06341629be929345b946f5b63004c8f0814fa384e5b33e82c",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.015.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        }
+      ],
+      "coverage": {
+        "first_byte": 0,
+        "last_byte_exclusive": 2822,
+        "gap_count": 0,
+        "overlap_count": 0
+      }
+    },
+    {
+      "path": ".pi/tasks/harness.simplification.docs-json.authority-catalog.md",
+      "source_sha256": "524aed11214690359af60538f7a34737c378efaf22704e2b9a47a18bd385499a",
+      "byte_count": 6327,
+      "proposed_documentation_path": "docs/harness/ksdft2effmass.harness.002.001.016.md",
+      "mappings": [
+        {
+          "mapping_id": "HTM-05-001",
+          "start_byte": 0,
+          "end_byte": 63,
+          "span_sha256": "92cfb32d0645cb67f95e228a9043c2eb78f905b8cc49be4fce9f993f256145b7",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.title"
+          ],
+          "transformation": "remove the Markdown heading marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-002",
+          "start_byte": 63,
+          "end_byte": 175,
+          "span_sha256": "66587474ac2b179c40993dcbcdd382619005797d38b450a6ae0d0f07093c2622",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.status",
+            "HarnessTask.status_detail"
+          ],
+          "transformation": "parse the leading lifecycle identifier and preserve the remaining status detail verbatim",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-003",
+          "start_byte": 175,
+          "end_byte": 244,
+          "span_sha256": "269ff3c4f1cde9d745d986bd2a2cb169e698af40b12973235107282c3f0b0e4c",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-004",
+          "start_byte": 244,
+          "end_byte": 293,
+          "span_sha256": "4ca3ef92854e32b7e4440bd00df0e7bbcea88d251d2284ae518be55454e416bc",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.parent_task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-005",
+          "start_byte": 293,
+          "end_byte": 307,
+          "span_sha256": "aca8612ddf7eab01cd87a4d1999390c5fa94184a75dff7cfc2e615dabc77a4b4",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#objective"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-006",
+          "start_byte": 307,
+          "end_byte": 629,
+          "span_sha256": "777c6dc8cf2d0f0e42de764f558ace59ed34673a011d24b53c29f8c5e1805c81",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-007",
+          "start_byte": 629,
+          "end_byte": 738,
+          "span_sha256": "9f43c8b374a01cb1ad92b5cf08946bcc8ae98132b2ace4d8004845723f2c9ad7",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-008",
+          "start_byte": 738,
+          "end_byte": 762,
+          "span_sha256": "9420d03b9594ee5687ba301166e90d3fd82df417fc08e2631639371f6824ba26",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#bounded-catalog-set"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-009",
+          "start_byte": 762,
+          "end_byte": 776,
+          "span_sha256": "a8fe9c59fe09c16a1fe103fefba4b0ebf0151f775196c5ff26a5c6abb7579730",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-010",
+          "start_byte": 776,
+          "end_byte": 915,
+          "span_sha256": "48f612d55a24101eea97b722e8c5ccf1a428cc2091e6862e8961baa1f3f9b7f2",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-05-011",
+          "start_byte": 915,
+          "end_byte": 1230,
+          "span_sha256": "c3974e61b35210f414bf065f935a827a617a4fffd68952c7acf23a0822668212",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-012",
+          "start_byte": 1230,
+          "end_byte": 1420,
+          "span_sha256": "e3b4c1887873fd47d2f948e50a5a114738d3ffdf747cea872006d7623e1e0ed2",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-013",
+          "start_byte": 1420,
+          "end_byte": 1449,
+          "span_sha256": "17e120e6246ba4818ce4e52f699bd6bc890c98cbc544105e6ac5316ec9380a27",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#inventory-and-extraction"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-014",
+          "start_byte": 1449,
+          "end_byte": 1823,
+          "span_sha256": "4a139b003ceec8b2fa8f844ce41efc9d5e1ea2d2e2091478337ef23cd646cff6",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-015",
+          "start_byte": 1823,
+          "end_byte": 2007,
+          "span_sha256": "f1744077cc8ef3f19f3e865fd05fe9a52d3a443b665d93f0fa8d775c5101a0a9",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-016",
+          "start_byte": 2007,
+          "end_byte": 2412,
+          "span_sha256": "353bb78883804cb5b5cf7bebdda05a7b7775cdfb551010fcda452b61dfd853a1",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-017",
+          "start_byte": 2412,
+          "end_byte": 2444,
+          "span_sha256": "de957c53e0c74ef4c3e3e4fa2d58d04f40339b676bd4cd71826a860ccf4525e3",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#mapping-and-correction-rule"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-018",
+          "start_byte": 2444,
+          "end_byte": 2524,
+          "span_sha256": "5a2f340d6df954310dc2726ab5de9ae2b8e5829154a924f55051d2b86e141e1f",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-019",
+          "start_byte": 2524,
+          "end_byte": 2647,
+          "span_sha256": "ea142259815581eef4f72eed68bf8303f0256ce8c154dbc2ad4658e97abd7cce",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-05-020",
+          "start_byte": 2647,
+          "end_byte": 2804,
+          "span_sha256": "ba9c0a0aa934ae9726198dffc5da36377b9d8b375b2ab3d20d35aa1bd4c69fb6",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-021",
+          "start_byte": 2804,
+          "end_byte": 2846,
+          "span_sha256": "d00adcc4815e2c367886fa934e3052b9854b33c02ef6737646355538be4e1a4e",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-022",
+          "start_byte": 2846,
+          "end_byte": 3197,
+          "span_sha256": "792bc3d6c31a026a132a71a8cd77c95a1691b94ec1d41ae01e5dafbdfa2a6d5a",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-05-023",
+          "start_byte": 3197,
+          "end_byte": 3382,
+          "span_sha256": "1b50c84c2c4f0e3c6c48019dc9f0c267340cc41f2b2142a42006a2d5a83ae23e",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-024",
+          "start_byte": 3382,
+          "end_byte": 3406,
+          "span_sha256": "35a4c6142b4f0ad115f0a62f9c34b854b03e2eaef07aff87b3b7e1e369574906",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#residual-derivation"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-025",
+          "start_byte": 3406,
+          "end_byte": 3604,
+          "span_sha256": "3fa60394c42ef18c4e1cec060a1dae310f276274aa37deec6da37b5f7f6364bd",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-026",
+          "start_byte": 3604,
+          "end_byte": 3759,
+          "span_sha256": "fa515134a88aabd1f9652a335b32acd4b67ef79f68c598be0ede9c4be55f876a",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-05-027",
+          "start_byte": 3759,
+          "end_byte": 3782,
+          "span_sha256": "b0d177819aee44abcf9ac33500f3464445588aa42a51453d6e301c9b33321f77",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#five-step-workflow"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-028",
+          "start_byte": 3782,
+          "end_byte": 4258,
+          "span_sha256": "624d598ca5f61eba95486855e34af2f74895c17b0a51a636c7bf754224db86b0",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-05-029",
+          "start_byte": 4258,
+          "end_byte": 4419,
+          "span_sha256": "ad3ab0d68ee56d134c3bcdc3dac335f3e411a2294e56e1b246180b495fdd0890",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-030",
+          "start_byte": 4419,
+          "end_byte": 4434,
+          "span_sha256": "e07ac21d53325b51fa798f4b84b99f1fdcb045cf314dcae7e9cf75608902a7fd",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#completion"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-031",
+          "start_byte": 4434,
+          "end_byte": 4672,
+          "span_sha256": "c2827bb7cb16bf5dc5ecb72f756b6f43f994554e62fdf2b42e3b48593dbba11a",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.completion_criteria"
+          ],
+          "transformation": "preserve each criterion as ordered canonical text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-032",
+          "start_byte": 4672,
+          "end_byte": 4922,
+          "span_sha256": "b8284172a4a11ccc01799f0c978614feb33b5323fe5cdafa56568cec5958876a",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.completion_criteria"
+          ],
+          "transformation": "preserve each criterion as ordered canonical text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-05-033",
+          "start_byte": 4922,
+          "end_byte": 4945,
+          "span_sha256": "1ea57b8839aaf8063d4acfc57dbe75e3477691b6e1d3b448e6f67a09e8c9a896",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md#result-and-handoff"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-05-034",
+          "start_byte": 4945,
+          "end_byte": 5358,
+          "span_sha256": "d33e6f7f473c6500310492d34d6b9eaa2834c8388d91f780ac54ca45ea8bd591",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-05-035",
+          "start_byte": 5358,
+          "end_byte": 5702,
+          "span_sha256": "3df1ac456b8ae2ce8ce9073e6dca01667130ecad950bed7a8e9e9de509148ac6",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-05-036",
+          "start_byte": 5702,
+          "end_byte": 6327,
+          "span_sha256": "96cdc549964342dc48eeb4849a9bce1c2a1a7673a4e8c2b94550dfff983ff5bc",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.016.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        }
+      ],
+      "coverage": {
+        "first_byte": 0,
+        "last_byte_exclusive": 6327,
+        "gap_count": 0,
+        "overlap_count": 0
+      }
+    },
+    {
+      "path": ".pi/tasks/harness.simplification.docs-json.documentation-correction.md",
+      "source_sha256": "3b7da7bc3efe0ae69ad6e6cb69513ef6a44ae0d5649c690a22a1b778191b700b",
+      "byte_count": 3594,
+      "proposed_documentation_path": "docs/harness/ksdft2effmass.harness.002.001.017.md",
+      "mappings": [
+        {
+          "mapping_id": "HTM-06-001",
+          "start_byte": 0,
+          "end_byte": 49,
+          "span_sha256": "650353d2379b6f44ce9fc54b7ad8bf40585e186c791e4e24e8ed2230d1f49838",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.title"
+          ],
+          "transformation": "remove the Markdown heading marker",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-002",
+          "start_byte": 49,
+          "end_byte": 138,
+          "span_sha256": "0c59532ac30c100540ae1e21a9c5cf6e3049864414cbe5be01d7d48c7665c3c8",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.status",
+            "HarnessTask.status_detail"
+          ],
+          "transformation": "parse the leading lifecycle identifier and preserve the remaining status detail verbatim",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-003",
+          "start_byte": 138,
+          "end_byte": 214,
+          "span_sha256": "51a47505b46b94ee2c74273cc8b91afee03025eee409092af4e8ddbcf98bfa15",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-004",
+          "start_byte": 214,
+          "end_byte": 263,
+          "span_sha256": "4ca3ef92854e32b7e4440bd00df0e7bbcea88d251d2284ae518be55454e416bc",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.parent_task_id"
+          ],
+          "transformation": "remove the label and Markdown code delimiters",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-005",
+          "start_byte": 263,
+          "end_byte": 277,
+          "span_sha256": "aca8612ddf7eab01cd87a4d1999390c5fa94184a75dff7cfc2e615dabc77a4b4",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md#objective"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-06-006",
+          "start_byte": 277,
+          "end_byte": 535,
+          "span_sha256": "234c037325a457ebb3d4a1abfc82fef15952f1eb69a3f8fd2b11ee4bc13206db",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.objective"
+          ],
+          "transformation": "remove the section heading already owned by documentation and preserve body text",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-007",
+          "start_byte": 535,
+          "end_byte": 555,
+          "span_sha256": "c65e8c9d12609ec771f1194a96012eb74e9001fefeeadff5f56571fb75b14653",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md#correction-rule"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-06-008",
+          "start_byte": 555,
+          "end_byte": 609,
+          "span_sha256": "41965962b9f8a505c8eca736287ff46d7d688b9a9a672afb3df6c6017d26f610",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-009",
+          "start_byte": 609,
+          "end_byte": 969,
+          "span_sha256": "e138dc162ade721c696246aefe6a2ed184c5812adfc969fb5b2dd84ccda4e157",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-06-010",
+          "start_byte": 969,
+          "end_byte": 1170,
+          "span_sha256": "081072c80eaa66f4b4c8dba0527aedc483a1ef28479cd83eb1ed1c20714b1f03",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-011",
+          "start_byte": 1170,
+          "end_byte": 1455,
+          "span_sha256": "2261cc213b1052d79c6cc26e3fda2af6a4567d82373bac5fe462d9934c0d69d8",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-012",
+          "start_byte": 1455,
+          "end_byte": 1481,
+          "span_sha256": "95e8ce6d7741d67b08c3e509b1b070c2b0cebb3fe4e89061901942e1ce8ff0f2",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md#method-and-completion"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-06-013",
+          "start_byte": 1481,
+          "end_byte": 1814,
+          "span_sha256": "a0d3413b1e514e600679778e56e802b17728c7a022b1e3671a0ba3b1ab9c1b77",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md",
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve exact opaque or list bytes in HarnessTaskDocumentationContent and extract ordered scope statements",
+          "rationale": "Opaque Markdown presentation remains byte-owned by documentation; operational meaning is also extracted into ordered Task scope."
+        },
+        {
+          "mapping_id": "HTM-06-014",
+          "start_byte": 1814,
+          "end_byte": 2006,
+          "span_sha256": "6458bffd9697f77bb3bf526b4561b85d9e912366c6784b9405290b13a2da872f",
+          "disposition": "CANONICAL_TASK_INFORMATION",
+          "target_references": [
+            "HarnessTask.authorized_scope"
+          ],
+          "transformation": "preserve semantic text; canonical renderer owns presentation",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-015",
+          "start_byte": 2006,
+          "end_byte": 2175,
+          "span_sha256": "98bd707251c868578554528049afeed71a901a6eff2473a57ef00b41e2d26382",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "HarnessTask.exclusions",
+            "docs/harness/ksdft2effmass.harness.002.001.017.md"
+          ],
+          "transformation": "preserve exact prose for documentation and extract exclusions",
+          "rationale": "Operational Task information belongs to the canonical Task record."
+        },
+        {
+          "mapping_id": "HTM-06-016",
+          "start_byte": 2175,
+          "end_byte": 2216,
+          "span_sha256": "42ecd81d34b003db3568bfa74fda7c264ad989eb3cc520cbae0d8f94b44bbcf0",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md#result-and-schema-projection-handoff"
+          ],
+          "transformation": "preserve exact heading bytes in HarnessTaskDocumentationContent",
+          "rationale": "Section presentation belongs to the maintained documentation projection."
+        },
+        {
+          "mapping_id": "HTM-06-017",
+          "start_byte": 2216,
+          "end_byte": 2652,
+          "span_sha256": "763b7d7ab5a72a2bfc4859a2e243245dc33b9c0f98570f19961761ffa9f86d1e",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-06-018",
+          "start_byte": 2652,
+          "end_byte": 2986,
+          "span_sha256": "bd4f66f7e189507b71301718c45d218f968e31832259921862e41aa66f6e0a74",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        },
+        {
+          "mapping_id": "HTM-06-019",
+          "start_byte": 2986,
+          "end_byte": 3594,
+          "span_sha256": "b7bc8d487fecbd80752c0a5436c3558077523f6166f1c2f87ba0bfb240f19538",
+          "disposition": "DOCUMENTATION_OWNED_CONTENT",
+          "target_references": [
+            "docs/harness/ksdft2effmass.harness.002.001.017.md",
+            "HarnessTask.authority_reference_paths"
+          ],
+          "transformation": "preserve exact bytes in HarnessTaskDocumentationContent; extract only explicitly referenced identifiers or paths into the stated canonical target",
+          "rationale": "Narrative, opaque blocks, and historical results remain documentation-owned while explicit references may populate canonical metadata."
+        }
+      ],
+      "coverage": {
+        "first_byte": 0,
+        "last_byte_exclusive": 3594,
+        "gap_count": 0,
+        "overlap_count": 0
+      }
+    }
+  ],
+  "coverage_claim": "For each listed source, mappings are ordered, contiguous, nonoverlapping half-open byte spans from zero through byte_count. No source byte is silently omitted.",
+  "migration_effect": "None. Markdown remains source authority; documentation and intake paths are proposed Stage-2 targets only."
+}

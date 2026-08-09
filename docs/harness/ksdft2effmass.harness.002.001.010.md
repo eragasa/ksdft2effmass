@@ -2,7 +2,7 @@
 document_id: ksdft2effmass.harness.002.001.010
 task_id: harness.simplification.docs-json.task-document-migration
 parent: ksdft2effmass.harness.002.001.000
-status: revised-proposal-awaiting-human-review
+status: frozen-contract-awaiting-human-acceptance
 sphinx: excluded
 ---
 
@@ -107,13 +107,13 @@ replacing them.
 
 | Proposed class | Stereotype | Ownership |
 |---|---|---|
-| `HarnessTask` | DataObject | Canonical Task information; exact fields pending complete six-file mapping and human review |
+| `HarnessTask` | DataObject | Canonical Task information in the frozen 16-field proposal derived from complete six-file mappings |
 | `HarnessTaskSerializer` | ActionObject | Canonical versioned JSON from one accepted `HarnessTask` |
 | `HarnessTaskDeserializer` | ActionObject | Strict canonical JSON to `HarnessTask` |
 | `HarnessTaskGraphValidator` | ActionObject | Parent, prerequisite, identity, and cross-Task compatibility |
 | `HarnessTaskDocumentSource` | DataObject | Exact source path, revision or Git identity, bytes, byte count, and `ArtifactIdentity` |
 | `HarnessTaskSourceDisposition` | enumeration | Canonical Task field, documentation-owned content, historical evidence, or proposed removal |
-| `HarnessTaskSourceMapping` | DataObject | Exact byte span, source identity, disposition, target reference, and rationale |
+| `HarnessTaskSourceMapping` | DataObject | Exact byte span and identity, source identity, disposition, nonempty target-reference tuple, transformation, and rationale |
 | `HarnessTaskDocumentationContent` | DataObject | Explicit documentation-owned narrative and opaque bytes plus accepted mappings |
 | `HarnessTaskProjectionProfile` | DataObject | Explicit rendering configuration, ordering, and exact template identity or bytes |
 | `HarnessTaskDocumentation` | DataObject | Complete rendered Markdown bytes and `ArtifactIdentity` |
@@ -127,16 +127,47 @@ replacing them.
 | `HarnessTaskMigrationFileDisposition` | ResultObject | Exact migration packet, existing `HumanReviewDecision`, and migration-specific disposition |
 | `HarnessTaskMigrationFileDispositionRecorder` | ActionObject | Validates packet/decision identity and records one explicit file disposition without persistence or activation |
 
-The supporting fields above are proposed ownership categories. Stage 1 must freeze
-exact names, types, ordering, invariants, and wire representation after all six
-mappings. Detailed `HarnessTask` fields remain intentionally pending and are not
-invented by these diagrams.
+The complete six-file mappings now derive exact names, types, ordering,
+invariants, wire behavior, public imports, resource locations, and verification
+obligations for all 19 interfaces. The frozen proposal is
+[`harness-task-contract.md`](../../.pi/evidence/docs-json/task-model-contract/harness-task-contract.md).
+The immutable source inventory is
+[`source-inventory.json`](../../.pi/evidence/docs-json/task-model-contract/source-inventory.json),
+and the 118 complete byte-span mappings are
+[`source-mappings.json`](../../.pi/evidence/docs-json/task-model-contract/source-mappings.json).
+These records do not replace Markdown source authority or create Stage-2 files.
 
-`HarnessTaskMigrationReviewPacketRequest` is runtime-only unless Stage 1 later
-establishes a justified wire or persistence requirement. Its existence does not
-expand the serialized-record set. Its constructor owns only intrinsic type,
-immutability, tuple, nonempty, and lexical invariants. Cross-object identity and
-compatibility belong to `HarnessTaskMigrationReviewPacketPreparer`.
+The exact `HarnessTask` field order is:
+
+| Order | Field | Type |
+|---:|---|---|
+| 1 | `schema_version` | built-in `int`, exactly 2 |
+| 2 | `task_id` | `Identifier` |
+| 3 | `title` | built-in `str` |
+| 4 | `status` | `Identifier` |
+| 5 | `status_detail` | built-in `str` or `None` |
+| 6 | `parent_task_id` | `Identifier` or `None` |
+| 7 | `task_prerequisite_ids` | tuple of `Identifier` |
+| 8 | `external_prerequisite_ids` | tuple of `Identifier` |
+| 9 | `explicit_activation_required` | built-in `bool` |
+| 10 | `objective` | built-in `str` |
+| 11 | `authority_reference_paths` | tuple of `ResourcePath` |
+| 12 | `authorized_scope` | tuple of built-in `str` |
+| 13 | `completion_criteria` | tuple of built-in `str` |
+| 14 | `exclusions` | tuple of built-in `str` |
+| 15 | `intake_path` | `ResourcePath` |
+| 16 | `documentation_path` | `ResourcePath` |
+
+`status_detail` preserves detail previously embedded after the lifecycle token.
+`documentation_path` binds the required maintained review document. Child lists,
+selection state, active-Task facts, successor state, timestamps, event logs, and
+computed completion remain outside `HarnessTask`.
+
+`HarnessTaskMigrationReviewPacketRequest` is runtime-only; the mappings establish
+no wire or persistence need for it. Its existence does not expand the
+serialized-record set. Its constructor owns only intrinsic type, immutability,
+tuple, nonempty, and lexical invariants. Cross-object identity and compatibility
+belong to `HarnessTaskMigrationReviewPacketPreparer`.
 
 ## Overview class diagram
 
@@ -144,7 +175,22 @@ compatibility belong to `HarnessTaskMigrationReviewPacketPreparer`.
 classDiagram
     class HarnessTask {
         <<DataObject>>
-        field categories pending six-file mapping
+        +schema_version
+        +task_id
+        +title
+        +status
+        +status_detail
+        +parent_task_id
+        +task_prerequisite_ids
+        +external_prerequisite_ids
+        +explicit_activation_required
+        +objective
+        +authority_reference_paths
+        +authorized_scope
+        +completion_criteria
+        +exclusions
+        +intake_path
+        +documentation_path
     }
     class HarnessTaskSerializer {
         <<ActionObject>>
@@ -265,10 +311,22 @@ classDiagram
 classDiagram
     class HarnessTask {
         <<DataObject>>
-        +identity and lifecycle categories pending mapping
-        +relationship categories pending mapping
-        +authority and scope categories pending mapping
-        +review and result categories pending mapping
+        +int schema_version
+        +Identifier task_id
+        +str title
+        +Identifier status
+        +str_or_none status_detail
+        +Identifier_or_none parent_task_id
+        +tuple task_prerequisite_ids
+        +tuple external_prerequisite_ids
+        +bool explicit_activation_required
+        +str objective
+        +tuple authority_reference_paths
+        +tuple authorized_scope
+        +tuple completion_criteria
+        +tuple exclusions
+        +ResourcePath intake_path
+        +ResourcePath documentation_path
     }
 ```
 
@@ -359,7 +417,8 @@ classDiagram
         +source identity
         +start and end byte offsets
         +HarnessTaskSourceDisposition disposition
-        +target reference
+        +tuple target_references
+        +transformation
         +rationale
     }
     class HarnessTaskSourceDisposition {
@@ -591,9 +650,7 @@ migration, checkpoint mutation, Task activation, or successor activation.
 classDiagram
     class HarnessTaskMigrationReviewPacket {
         <<ResultObject>>
-        +packet identity
-        +validated exact request values
-        +immutable construction
+        +HarnessTaskMigrationReviewPacketRequest request
     }
     class HarnessTaskMigrationReviewPacketRequest {
         <<immutable DataObject>>
@@ -671,17 +728,20 @@ classDiagram
 
 ## Public-interface accounting
 
-The proposal contains exactly 19 new interfaces: 10 DataObject or ResultObject
-interfaces, seven ActionObjects, and two enumerations. The two newly explicit
+The proposal contains exactly 19 new project-local interfaces: 10 DataObject or
+ResultObject interfaces, seven ActionObjects, and two enumerations. They are
+proposed for `ksdft2effmass.harness.pi.local`; Task vocabulary and schemas do not
+move into the generic harness surface. The two newly explicit
 interfaces are the runtime-only immutable
 `HarnessTaskMigrationReviewPacketRequest` and the stateless
 `HarnessTaskMigrationReviewPacketPreparer`. Reused classes in the earlier table
 do not count as newly proposed interfaces.
 
-The request does not automatically become a serialized record. Stage 1 may add a
-wire or persistence contract only if its completed mappings establish a concrete
-need and the renewed human review accepts it. No implementation or serialized
-record is added by this proposal correction.
+The request does not become a serialized record. Only project-local
+`HarnessTask` schema version 2 has a proposed wire, owned by
+`harness/local/schemas/task-record-v2.schema.json`; the version-1 pilot schema
+remains supported and no generic `HarnessWireRecord` member is added. No
+implementation or serialized record is added by this contract stage.
 
 `HarnessTaskMigrationReviewPacket` remains the immutable ResultObject produced
 by the preparer. `HumanReviewDecisionRecorder` remains the sole owner of the
@@ -754,8 +814,14 @@ one independent review is completed
 → no material finding remains unresolved
 ```
 
-A failed review remains failed. A correction disposition does not rewrite it as
-passing, and no repeated-review loop is authorized.
+The retained Stage-1 [independent review](../../.pi/evidence/docs-json/task-model-contract/integration-review.md)
+failed with seven material findings. The single bounded
+[correction disposition](../../.pi/evidence/docs-json/task-model-contract/review-correction.md)
+corrected all seven and deterministically verified the resulting contract. The
+initial failed review remains failed; no second review rewrote it, and no material
+contract finding remains unresolved. The bounded version-1 generated-projection
+drift and its pending disposition are reported in the
+[validation record](../../.pi/evidence/docs-json/task-model-contract/validation.md).
 
 ## Selection-state boundary
 
@@ -776,10 +842,10 @@ successor activation.
 
 ## Renewed human review question
 
-Should Stage 1, `harness.simplification.docs-json.task-model-contract`, be
-activated to complete the six-file mappings and return the frozen model and
-rendering contract for explicit human acceptance, while Stage 2 remains inactive
-and blocked?
+Should the frozen 19-interface contract, complete 118-span mapping set, six
+proposed documentation destinations, and verified correction dispositions be
+accepted as the Stage-2 implementation contract? Acceptance completes Stage 1
+but does not activate Stage 2 or accept any file migration.
 
 ## Navigation
 
