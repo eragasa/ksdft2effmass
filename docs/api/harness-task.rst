@@ -184,6 +184,80 @@ table:
 Neither packet preparation nor recording authenticates authority, interprets natural
 language, mutates a file, activates Stage 2B, or selects another Task.
 
+Operational migration-review commands
+-------------------------------------
+
+The project-local ``mediate-harness-task-migration`` skill owns authorization
+routing, complete-document presentation, and the mandatory human stop.  Two thin
+commands own only explicit filesystem observation, translation into the immutable
+objects above, atomic immutable output creation, and canonical structured standard output.
+The accepted ActionObjects remain authoritative for validation, serialization,
+rendering, comparison, packet preparation, generic decision recording, and
+migration-disposition compatibility.
+
+Preparation uses only root-relative explicit paths beneath one resolved absolute
+repository root::
+
+   python/.venv/bin/python -m \
+     ksdft2effmass.harness.pi.local.prepare_harness_task_migration_review \
+     --repository-root /absolute/repository \
+     --source-markdown synthetic/source.md \
+     --source-revision 0123456789abcdef0123456789abcdef01234567 \
+     --git-object 89abcdef0123456789abcdef0123456789abcdef \
+     --candidate-task-json synthetic/candidate.json \
+     --source-mapping-record synthetic/mapping.json \
+     --projection-profile synthetic/profile.json \
+     --output-review-document synthetic/review.md
+
+Use ``--git-object-absent`` instead of ``--git-object`` only when absence is the
+explicit source fact.  The version-1 mapping record is one closed JSON object with
+``source_path``, ``source_revision``, ``git_object``, ``source_sha256``,
+``byte_count``, ``documentation_path``, and ``mappings``.  Each mapping supplies the
+existing ``HarnessTaskSourceMapping`` fields, representing identities as
+``span_sha256`` and using the complete record's source identity.  The projection
+profile uses the maintained version-1 base64 template representation documented
+above.  Inputs must be regular nonsymlink files; traversal, ambient discovery, CWD
+fallback, Git discovery, and source selection are rejected. Output destinations must
+not already exist and are never silently replaced. Parent-component race hardening is
+outside the trusted-local command threat model.
+
+After one explicit human response, disposition reconstructs all original material
+and binds the exact generated document::
+
+   python/.venv/bin/python -m \
+     ksdft2effmass.harness.pi.local.record_harness_task_migration_disposition \
+     --repository-root /absolute/repository \
+     --source-markdown synthetic/source.md \
+     --source-revision 0123456789abcdef0123456789abcdef01234567 \
+     --git-object 89abcdef0123456789abcdef0123456789abcdef \
+     --candidate-task-json synthetic/candidate.json \
+     --source-mapping-record synthetic/mapping.json \
+     --projection-profile synthetic/profile.json \
+     --review-document synthetic/review.md \
+     --expected-review-sha256 <digest> \
+     --expected-review-byte-count <count> \
+     --expected-packet-binding-sha256 <digest> \
+     --human-response-file synthetic/verbatim-response.txt \
+     --generic-disposition deferred \
+     --migration-disposition DEFER_FILE \
+     --output-disposition-record synthetic/disposition.json
+
+The normalized generic value is supplied explicitly; the command never interprets
+natural language.  Only ``bounded_correction`` accepts one or more
+``--authorized-correction-scope`` values.  The exact compatibility table above
+remains authoritative.  Success is exit status 0, deterministic invalidity or
+incompatibility is 1, command/path/input invalidity is 2, and the last-resort
+internal boundary is 3.
+
+The review Markdown is the complete deterministic review surface but remains
+non-authoritative.  Its SHA-256 and byte count are reported.  The canonical
+version-1 disposition JSON is a project-local operational record, not a generic wire
+kind or mutable workflow status.  No packet envelope is needed because the
+recording command losslessly reconstructs the packet from the same explicit inputs.
+Neither command changes the source or candidate, applies migration, prepares a next
+file, activates a Task, or mutates chain/checkpoint state.  Stage 2B remains inactive;
+Stage 2A acceptance remains a separate human decision.
+
 API reference
 -------------
 

@@ -529,6 +529,57 @@
       "stop_condition": "Stop after reporting the exact command result, declared paths, findings, and limitations required by the caller."
     },
     {
+      "skill_name": "mediate-harness-task-migration",
+      "path": ".pi/skills/mediate-harness-task-migration/SKILL.md",
+      "content_sha256": "d2d808cd5018632127e8f83028e2f78089e07b8744dc89efdc1cdf627e295f61",
+      "trigger_description": "An authorized serial workflow must prepare or present one HarnessTask migration review, record one explicit file disposition, or continue after that response.",
+      "current_consumers": [
+        ".pi/agents/ksdft2effmass-harness-implementation.md",
+        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        "docs/api/harness-task.rst",
+        "harness/local/skills/mediate-harness-task-migration/descriptor.json"
+      ],
+      "inputs": [
+        "explicitly active exact migration Task",
+        "one source, destination, candidate JSON, mapping record, projection profile, revision, and Git object",
+        "verbatim human response and explicit normalized dispositions when recording"
+      ],
+      "outputs": [
+        "one complete deterministic review document and canonical preparation result",
+        "one exact canonical immutable disposition record"
+      ],
+      "side_effects": [
+        "writes only the explicitly selected review document or disposition record"
+      ],
+      "external_tools_used": [
+        "project Python environment and maintained project-local commands"
+      ],
+      "deterministic_scripts_used": [
+        "python -m ksdft2effmass.harness.pi.local.prepare_harness_task_migration_review",
+        "python -m ksdft2effmass.harness.pi.local.record_harness_task_migration_disposition"
+      ],
+      "authorization_requirements": "Stage 2B or another exact migration Task must already be explicitly active; only an explicit human response supplies a file disposition.",
+      "failure_behavior": "Name the missing or stale explicit artifact and stop without fallback discovery, migration, activation, or next-file preparation.",
+      "retry_behavior": "Retry only with corrected explicit inputs or explicit renewed authority; retain prior review identities.",
+      "idempotency": "Preparation is byte-deterministic for identical files; disposition records are canonical for identical exact inputs.",
+      "evidence_classification": "synthetic and operational software verification only; no migration acceptance, scientific evidence, or activation",
+      "current_validation_status": "Project-local canonical/live bytes, descriptor closure, routing, and focused synthetic command behavior are maintained.",
+      "primary_classification": "HUMAN_DECISION_SUPPORT",
+      "hardening_applied": [
+        "explicit root-confined inputs",
+        "authoritative ActionObject invocation",
+        "exact packet and review-document binding",
+        "mandatory human stop and no successor preparation"
+      ],
+      "remaining_hardening": [
+        "trusted-local parent-component TOCTOU remains outside the command threat model"
+      ],
+      "stop_condition": "Stop after presenting one complete document or recording one explicit disposition; never prepare the next file automatically."
+    },
+    {
       "skill_name": "recommend-next-task",
       "path": ".pi/skills/recommend-next-task/SKILL.md",
       "content_sha256": "b41f0d2bbcde65515775d995e06ea41bb60fd4578a9d8949139576a796937eb4",

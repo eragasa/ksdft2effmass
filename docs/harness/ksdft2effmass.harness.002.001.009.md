@@ -41,12 +41,15 @@ Current docs/JSON progression:
 
 - Stage 1 `harness.simplification.docs-json.task-model-contract` is human-accepted
   and complete in [harness.002.001.011](ksdft2effmass.harness.002.001.011.md)
-- Stage 2A `harness.simplification.docs-json.task-implementation-hardening` is
-  inactive pending activation review in
-  [harness.002.001.012](ksdft2effmass.harness.002.001.012.md)
-- Stage 2B `harness.simplification.docs-json.task-document-migration` is inactive
-  and blocked on human-accepted Stage 2A in
-  [harness.002.001.013](ksdft2effmass.harness.002.001.013.md)
+- Stage 2A `harness.simplification.docs-json.task-implementation-hardening` has
+  completed its corrected implementation and remains pending explicit human
+  acceptance in [harness.002.001.012](ksdft2effmass.harness.002.001.012.md)
+- The administratively separate, pre-Stage-2B operational-interface slice adds
+  the project-local `mediate-harness-task-migration` route and two maintained
+  explicit-input commands. It accepts neither Stage 2A nor a file migration.
+- Stage 2B `harness.simplification.docs-json.task-document-migration` remains
+  inactive and blocked on human-accepted Stage 2A plus its own explicit activation
+  in [harness.002.001.013](ksdft2effmass.harness.002.001.013.md)
 
 Inactive and unauthorized:
 
@@ -101,7 +104,9 @@ policy remain in the project.
 
 Each stage requires its own authorization, ownership, focused validation,
 reconciliation, read-only review, and human acceptance where applicable. No
-stage automatically activates the next.
+stage automatically activates the next. The maintained migration-review commands
+write only explicitly selected review or disposition outputs; they do not activate
+Stage 2B, apply a migration, or prepare a successor file.
 
 ## Navigation
 

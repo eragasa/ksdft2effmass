@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2969,
-  "expected_module_count": 243,
+  "expected_collected_node_count": 2982,
+  "expected_module_count": 244,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -340,6 +340,14 @@
       "artifact": "HarnessTask version-2 cross-surface contract",
       "conformance_status": "conforming",
       "content_sha256": "6a5b7dbe13ff050a3137ee009a74d0a1e36349772dbb925e90b845fbff0f509e"
+    },
+    {
+      "artifact": "harness-task-migration-commands-v1",
+      "conformance_status": "conforming",
+      "content_sha256": "1e253567ba080c1428ddafdfebd55597a3256cdea6aa64df9d56e9ccf1cf9f8e",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_migration_commands.py"
     },
     {
       "artifact": "identifier audit command API agreement",

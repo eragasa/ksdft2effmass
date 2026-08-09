@@ -237,6 +237,12 @@
       "record": ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json"
     },
     {
+      "id": "harness-simplification.docs-json.migration-review-interface",
+      "record": ".pi/tasks/harness-simplification.docs-json.migration-review-interface.md",
+      "prerequisites": [],
+      "status": "completed"
+    },
+    {
       "id": "harness.simplification.docs-json.task-document-migration",
       "record": ".pi/tasks/harness.simplification.docs-json.task-document-migration.json"
     },
