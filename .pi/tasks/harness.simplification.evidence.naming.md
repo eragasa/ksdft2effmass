@@ -1,6 +1,6 @@
 # Normalize the evidence package and naming
 
-Status: proposed_inactive; must complete before `harness-simplification.evidence-and-sqlite`
+Status: active; authorized by the human PI on 2026-08-09; must complete before `harness-simplification.evidence-and-sqlite`
 
 Task identity: `harness.simplification.evidence.naming`
 
@@ -45,4 +45,4 @@ Completion requires accepted exact object inventory and names, the generic/proje
 
 ## Exclusions and stop boundary
 
-This record does not activate the migration, define SQLite, change evidence meaning or acceptance claims, create pytest integration in the generic package, add dependencies, perform protected execution, or activate successors. It remains proposed and inactive until separately authorized.
+This record does not define SQLite, change evidence meaning or acceptance claims, create pytest integration in the generic package, add dependencies, perform protected execution, or activate successors. Human authorization activates only this bounded migration.
