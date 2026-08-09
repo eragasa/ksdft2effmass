@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.evidence.naming.final-acceptance",
   "task_id": "harness.simplification.evidence.naming",
   "episode_id": "harness.simplification.evidence.naming",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T10:07:51Z",
   "question": "Should the completed evidence subpackage and naming migration receive final human acceptance and close without activating a successor?",
@@ -38,10 +38,10 @@
     "python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py",
     "harness/pi/schemas/evidence/module-inventory.schema.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "A and continue",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-09T10:10:13Z",
+  "authorized_scope": "Record final acceptance of the evidence subpackage, eight hard object renames, evidence-first resources, maintained inventory move, and 85-node test migration. Close this Task only; do not automatically activate a successor.",
   "record_paths": [
     ".pi/checkpoints/harness.simplification.evidence.naming.final-acceptance.json",
     ".pi/tasks/harness.simplification.evidence.naming.md",
@@ -51,5 +51,5 @@
     ".pi/evidence/evidence-naming/ownership.json",
     ".pi/evidence/python-conformance/module-inventory.json"
   ],
-  "resumption_status": "awaiting_human_acceptance; no_successor_active"
+  "resumption_status": "task_closed_human_accepted; no_successor_active"
 }

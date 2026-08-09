@@ -1,6 +1,6 @@
 # Normalize the evidence package and naming
 
-Status: implementation_complete_awaiting_human_acceptance; authorized by the human PI on 2026-08-09; must complete before `harness-simplification.evidence-and-sqlite`
+Status: completed; human-accepted on 2026-08-09; must complete before `harness-simplification.evidence-and-sqlite`
 
 Task identity: `harness.simplification.evidence.naming`
 
@@ -58,6 +58,10 @@ Completion requires accepted exact object inventory and names, the generic/proje
 The consolidated independent review reported no material findings. Ruff, mypy, Sphinx warnings-as-errors, 2,869 non-wheel tests, 63 harness validator tests, 422 focused harness tests, structural migration validation, repository evidence conformance, evidence-identifier audit, resource hashes, skill-capability validation, and diff checks pass.
 
 The two wheel tests cannot start because `python/.venv` lacks `pip`. The H3 validator retains exactly its two pre-existing unrelated generic/local leakage and naming-version-boundary findings. Passing software checks establish no scientific validation or UQ.
+
+## Human acceptance
+
+The human PI selected option `A` on 2026-08-09. The accepted scope closes this Task with the evidence subpackage, eight hard object renames, evidence-first resource hierarchy, maintained inventory move, and 85-node migration. No successor was activated.
 
 ## Exclusions and stop boundary
 
