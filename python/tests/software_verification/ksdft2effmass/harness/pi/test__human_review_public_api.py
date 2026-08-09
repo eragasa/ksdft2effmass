@@ -24,8 +24,8 @@ from ksdft2effmass.harness.pi import (
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
+    HumanReviewPreparer,
     HumanReviewTarget,
-    PrepareHumanReviewPacket,
     RecordHumanReviewDecision,
 )
 
@@ -36,7 +36,7 @@ PUBLIC_NAMES = (
     "HumanReviewFinding",
     "HumanReviewPacket",
     "HumanReviewDecision",
-    "PrepareHumanReviewPacket",
+    "HumanReviewPreparer",
     "RecordHumanReviewDecision",
 )
 
@@ -65,7 +65,7 @@ def test_public_api__package__exports_exact_defining_module_identities() -> None
         HumanReviewFinding,
         HumanReviewPacket,
         HumanReviewDecision,
-        PrepareHumanReviewPacket,
+        HumanReviewPreparer,
         RecordHumanReviewDecision,
     )
     assert tuple(getattr(public_package, name) for name in PUBLIC_NAMES) == expected

@@ -169,7 +169,7 @@ def test_constructor__fields__rejects_malformed_semantic_partitions(
     Interpretation
     Failure identifies intrinsic-validation or exception-taxonomy drift.
     Limitations
-    Target path membership is checked by PrepareHumanReviewPacket instead.
+    Target path membership is checked by HumanReviewPreparer instead.
     """
     with pytest.raises(exception):
         replace(make_observation(), **{field: value})  # type: ignore[arg-type]

@@ -215,7 +215,7 @@ def test_constructor__result_fields__rejects_invalid_partitions(
     Interpretation
     Failure identifies intrinsic result validation drift.
     Limitations
-    Cross-object relationship failures belong to PrepareHumanReviewPacket.
+    Cross-object relationship failures belong to HumanReviewPreparer.
     """
     with pytest.raises(exception):
         replace(make_packet(), **{field: value})  # type: ignore[arg-type]

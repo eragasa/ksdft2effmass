@@ -24,8 +24,8 @@ from .human_review import (
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
+    HumanReviewPreparer,
     HumanReviewTarget,
-    PrepareHumanReviewPacket,
     RecordHumanReviewDecision,
 )
 from .identity import (
@@ -167,7 +167,7 @@ __all__ = (
     "ValidateCheckpointSet",
     "EvaluateChainState",
     "AuditEvidenceIdentifiers",
-    "PrepareHumanReviewPacket",
+    "HumanReviewPreparer",
     "RecordHumanReviewDecision",
     "ValidatePythonTestEvidence",
     "InspectTaskState",

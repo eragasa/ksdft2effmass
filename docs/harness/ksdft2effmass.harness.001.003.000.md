@@ -37,7 +37,7 @@ specifies that behavior.
 ## Human-review packet boundary
 
 The package exports `HumanReviewTarget`, `HumanReviewObservation`,
-`HumanReviewFinding`, `HumanReviewPacket`, and `PrepareHumanReviewPacket`.
+`HumanReviewFinding`, `HumanReviewPacket`, and `HumanReviewPreparer`.
 The records own intrinsic lexical and immutable-state invariants; the fieldless
 ActionObject owns target membership, identifier relationships, canonical ordering,
 and packet-status derivation. A failed observation produces

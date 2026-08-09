@@ -239,7 +239,7 @@ class HumanReviewPacket:
     This ResultObject is semantically a DataObject. It stores no human decision,
     recommendation, acceptance, correction authorization, persistence handle, or
     workflow state. Cross-object compatibility is owned by
-    :class:`PrepareHumanReviewPacket`.
+    :class:`HumanReviewPreparer`.
     """
 
     target: HumanReviewTarget
@@ -401,7 +401,7 @@ class RecordHumanReviewDecision:
         )
 
 
-class PrepareHumanReviewPacket:
+class HumanReviewPreparer:
     """Prepare a canonical review packet from explicit immutable inputs.
 
     The action is fieldless and stateless. It performs cross-object relationship

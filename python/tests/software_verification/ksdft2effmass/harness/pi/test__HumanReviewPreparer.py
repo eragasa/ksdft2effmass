@@ -1,10 +1,10 @@
-r"""Software verification of ``PrepareHumanReviewPacket``.
+r"""Software verification of ``HumanReviewPreparer``.
 
 Facet and represented meaning
 Software verification of deterministic explicit-input human-review packet preparation.
 
 Intrinsic and cross-object scope
-The sole primary SUT is ``PrepareHumanReviewPacket``. It owns target membership,
+The sole primary SUT is ``HumanReviewPreparer``. It owns target membership,
 identifier relationships, canonical ordering, and packet-status derivation.
 
 VVUQ and scientific exclusions
@@ -21,12 +21,12 @@ import pytest
 from ksdft2effmass.harness.pi import (
     HumanReviewFinding,
     HumanReviewObservation,
+    HumanReviewPreparer,
     HumanReviewTarget,
-    PrepareHumanReviewPacket,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = PrepareHumanReviewPacket
+SUT = HumanReviewPreparer
 PATH_A = "python/src/example.py"
 PATH_B = "python/tests/test_example.py"
 
@@ -117,7 +117,7 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     """Evidence ID
     ``SV-HARNESS-143``.
     Requirement
-    PrepareHumanReviewPacket is a concrete fieldless stateless ActionObject.
+    HumanReviewPreparer is a concrete fieldless stateless ActionObject.
     Method
     Construct two instances and inspect their storage boundary.
     Oracle

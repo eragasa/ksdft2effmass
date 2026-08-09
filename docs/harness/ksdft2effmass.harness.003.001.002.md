@@ -21,7 +21,7 @@ flowchart TD
     Checks["External deterministic checks"] -->|explicit values| Observation["HumanReviewObservation"]
     Analysis["Human or separately authorized analysis"] -->|explicit candidate issue| Finding["HumanReviewFinding"]
 
-    Target --> Prepare["PrepareHumanReviewPacket"]
+    Target --> Prepare["HumanReviewPreparer"]
     Observation --> Prepare
     Finding --> Prepare
     Limitations["Explicit limitations"] --> Prepare
@@ -45,14 +45,14 @@ flowchart TD
 | `HumanReviewTarget` | DataObject identifying the exact review subject and revision | Supplied explicitly by the caller |
 | `HumanReviewObservation` | DataObject containing one deterministic observation | Supplied by an external deterministic check |
 | `HumanReviewFinding` | DataObject containing one candidate issue for human judgment | Supplied by a human or separately authorized analysis |
-| `HumanReviewPacket` | ResultObject, semantically a DataObject, containing prepared review material | Returned by `PrepareHumanReviewPacket.execute` |
+| `HumanReviewPacket` | ResultObject, semantically a DataObject, containing prepared review material | Returned by `HumanReviewPreparer.execute` |
 | `HumanReviewDecision` | ResultObject, semantically a DataObject, containing an already-made human decision | Returned by `RecordHumanReviewDecision.execute` |
 
 ### ActionObjects
 
 | Object | Explicit inputs | Result | What it does not do |
 |---|---|---|---|
-| `PrepareHumanReviewPacket` | Target, observations, findings, and limitations | `HumanReviewPacket` | Does not run checks, discover findings, or make a human decision |
+| `HumanReviewPreparer` | Target, observations, findings, and limitations | `HumanReviewPacket` | Does not run checks, discover findings, or make a human decision |
 | `RecordHumanReviewDecision` | Packet, exact human response, normalized disposition, and authorized scope | `HumanReviewDecision` | Does not interpret text, authenticate authority, persist state, or activate work |
 
 ## Class diagrams
@@ -136,7 +136,7 @@ classDiagram
     HumanReviewPacket *-- "0..*" HumanReviewFinding : findings
 ```
 
-### `PrepareHumanReviewPacket`
+### `HumanReviewPreparer`
 
 The preparation ActionObject depends on explicit target, observation, and finding
 inputs. Its return type is shown on the operation rather than as a downstream class
@@ -144,16 +144,16 @@ relationship.
 
 ```mermaid
 classDiagram
-    class PrepareHumanReviewPacket {
+    class HumanReviewPreparer {
         +execute(target, observations, findings, limitations) HumanReviewPacket
     }
     class HumanReviewTarget
     class HumanReviewObservation
     class HumanReviewFinding
 
-    PrepareHumanReviewPacket ..> HumanReviewTarget : input
-    PrepareHumanReviewPacket ..> HumanReviewObservation : input
-    PrepareHumanReviewPacket ..> HumanReviewFinding : input
+    HumanReviewPreparer ..> HumanReviewTarget : input
+    HumanReviewPreparer ..> HumanReviewObservation : input
+    HumanReviewPreparer ..> HumanReviewFinding : input
 ```
 
 ### `HumanReviewDecision`
