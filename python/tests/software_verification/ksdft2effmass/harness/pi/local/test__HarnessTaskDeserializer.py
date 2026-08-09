@@ -17,9 +17,12 @@ migration, activation, scientific validity, or human acceptance.
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import HarnessTaskDeserializer
+from ksdft2effmass.harness.pi.local import (
+    HarnessTaskDeserializer,
+    HarnessTaskSerializer,
+)
 
-from .task_model_examples import make_request
+from .task_model_examples import make_task
 
 pytestmark = pytest.mark.software_verification
 SUT = HarnessTaskDeserializer
@@ -64,7 +67,7 @@ def test_method__strict_wire__rejects_bom_utf8_and_key_closure() -> None:
 
     Limitations: Software verification does not authorize migration or human acceptance.
     """
-    payload = make_request().canonical_task_json
+    payload = HarnessTaskSerializer().execute(make_task())
     with pytest.raises(ValueError, match="BOM"):
         SUT().execute(b"\xef\xbb\xbf" + payload)
     with pytest.raises(ValueError, match="UTF-8"):

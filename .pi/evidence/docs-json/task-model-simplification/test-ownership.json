@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTask.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTask"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDeserializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDeserializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskGraphValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskGraphValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v2.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "HarnessTask version-2 cross-surface contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "local public api and models"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__TaskRecordAdapter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "TaskRecordAdapter"
+    }
+  ]
+}

@@ -41,11 +41,11 @@ implement an interface or activate work. Historical pages preserve prior context
 | [harness.002.001.006](ksdft2effmass.harness.002.001.006.md) | `harness-simplification.agents.executable-tool-placement-contract` | Executable harness-tool placement contract | Completed | Excluded |
 | [harness.002.001.007](ksdft2effmass.harness.002.001.007.md) | `harness-simplification.execution` | Maintained execution interface | Proposed | Excluded |
 | [harness.002.001.008](ksdft2effmass.harness.002.001.008.md) | `harness-simplification.capability-rationalization` | Harness capability ownership rationalization | Mixed; Slice 7 deferred | Excluded |
-| [harness.002.001.009](ksdft2effmass.harness.002.001.009.md) | `harness-simplification.migration` | Incremental migration plan | Proposed; operational review interface implemented | Excluded |
-| [harness.002.001.010](ksdft2effmass.harness.002.001.010.md) | `harness.simplification.docs-json.task-model-contract` | Human review: per-file Task-document migration | Accepted contract | Excluded |
-| [harness.002.001.011](ksdft2effmass.harness.002.001.011.md) | `harness.simplification.docs-json.task-model-contract` | HarnessTask model contract | Completed and human-accepted | Excluded |
-| [harness.002.001.012](ksdft2effmass.harness.002.001.012.md) | `harness.simplification.docs-json.task-implementation-hardening` | HarnessTask implementation and hardening | Pending human acceptance | Excluded |
-| [harness.002.001.013](ksdft2effmass.harness.002.001.013.md) | `harness.simplification.docs-json.task-document-migration` | Serial Task-document migration | Inactive and blocked | Excluded |
+| [harness.002.001.009](ksdft2effmass.harness.002.001.009.md) | `harness-simplification.migration` | Incremental migration plan | Historical proposal; migration subsystem deferred | Excluded |
+| [harness.002.001.010](ksdft2effmass.harness.002.001.010.md) | `harness.simplification.docs-json.task-model-contract` | Human review: per-file Task-document migration | Historical accepted contract; subsystem deferred | Excluded |
+| [harness.002.001.011](ksdft2effmass.harness.002.001.011.md) | `harness.simplification.docs-json.task-model-contract` | HarnessTask model contract | Core Task model retained | Excluded |
+| [harness.002.001.012](ksdft2effmass.harness.002.001.012.md) | `harness.simplification.docs-json.task-implementation-hardening` | HarnessTask implementation and hardening | Superseded without architecture acceptance | Excluded |
+| [harness.002.001.013](ksdft2effmass.harness.002.001.013.md) | `harness.simplification.docs-json.task-document-migration` | Serial Task-document migration | Deferred inactive | Excluded |
 | [harness.003.000.000](ksdft2effmass.harness.003.000.000.md) | — | Human review interface | Pilot packet ready; broader program inactive | Excluded |
 | [harness.003.001.000](ksdft2effmass.harness.003.001.000.md) | `human-review-interface.review-packet-pilot` | Initial human-review interface round | Pilot packet ready | Excluded |
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | — | Human Review Packet and Decision Workflow | `proposed_inactive` | Excluded |

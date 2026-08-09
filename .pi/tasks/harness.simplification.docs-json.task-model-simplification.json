@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.task-model-simplification",
+  "title": "Simplify the durable HarnessTask architecture",
+  "status": "completed",
+  "parent_task_id": "harness.simplification.docs-json",
+  "task_prerequisite_ids": [
+    "harness.simplification.docs-json.task-model-contract"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Retain the minimum durable HarnessTask model and compatibility boundaries while removing the unaccepted Stage-2A migration framework.",
+  "authority_reference_paths": [
+    ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json",
+    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md",
+    "AGENTS.md"
+  ],
+  "authorized_scope": [
+    "Retain HarnessTask, HarnessTaskSerializer, HarnessTaskDeserializer, HarnessTaskGraphValidator, version-2 schema and focused fixtures, mixed Markdown/version-1/version-2 TaskRecordAdapter behavior, and TaskStateInspector compatibility.",
+    "Remove the unaccepted migration-framework public interfaces, commands, project-local skill and descriptor routing, projection profile, packet fixtures, disposition machinery, source-span comparison tests, and documentation that presents them as current architecture.",
+    "Resolve Stage 2A as deferred without architecture acceptance, supersede its implementation Task, keep Stage 2B deferred inactive, preserve historical evidence, and keep all six authoritative Markdown Task files byte-identical."
+  ],
+  "completion_criteria": [
+    "Only the four retained Task-model classes are publicly defined and exported; retained focused tests and validation pass.",
+    "The migration commands, skill routes, projection profile, packet fixtures, and unaccepted interface tests are absent.",
+    "The six Markdown Task identities are unchanged, Stage 2B is inactive, automatic successor activation is false, dependencies and lockfile are unchanged, and the simplification is committed and pushed to dev."
+  ],
+  "exclusions": [
+    "Do not migrate a real Task, generate Markdown from JSON, activate Stage 2B or another successor, add dependencies, change the lockfile, or perform protected scientific, release, or publication execution."
+  ],
+  "intake_path": ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md"
+}

@@ -2,15 +2,15 @@
 document_id: ksdft2effmass.harness.002.001.013
 task_id: harness.simplification.docs-json.task-document-migration
 parent: ksdft2effmass.harness.002.001.000
-status: blocked-on-human-accepted-stage-2a
+status: deferred-inactive
 sphinx: excluded
 ---
 
 # Human review: serial six-file Task migration
 
-> **Stage 2B is inactive and blocked.** It cannot activate until Stage 2A is
-> explicitly human-accepted and Stage 2B receives a separate activation decision.
-> This page accepts no file migration.
+> **Stage 2B is deferred and inactive.** Stage 2A was not architecture-accepted,
+> the migration framework was removed, and no file migration is authorized. This
+> page is retained as historical planning evidence.
 
 ## Purpose
 

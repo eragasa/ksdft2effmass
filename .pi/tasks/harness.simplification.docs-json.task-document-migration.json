@@ -2,14 +2,14 @@
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-document-migration",
   "title": "Migrate six Task documents serially after implementation acceptance",
-  "status": "blocked_on_task_implementation_hardening",
+  "status": "deferred_inactive",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-implementation-hardening"
   ],
   "external_prerequisite_ids": [],
   "explicit_activation_required": true,
-  "objective": "After Stage 2A implementation is explicitly human-accepted and this Task is separately activated, prepare and disposition exactly one human-readable migration packet at a time for the six selected Markdown Tasks without changing the accepted HarnessTask contract.",
+  "objective": "Deferred six-file Task migration. All six Markdown Tasks remain authoritative; no migration framework or file migration is active.",
   "authority_reference_paths": [
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
@@ -18,6 +18,7 @@
     ".pi/evidence/task-control/task-document-human-mediation-decision.md",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
     ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
     "docs/harness/ksdft2effmass.harness.002.001.013.md"
   ],
   "authorized_scope": [

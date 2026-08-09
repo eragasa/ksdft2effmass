@@ -10,11 +10,9 @@ The local manifest has layer `local`, declares `extends_manifest_id = pih.generi
 
 - `ksdft2effmass.extension.evidence-documentation.v1`;
 - `ksdft2effmass.extension.ownership-compatibility.v1`;
-- `ksdft2effmass.manifest.skill-descriptor.mediate-harness-task-migration.v1`;
 - `ksdft2effmass.profile.task-control-reference.v1`;
 - `ksdft2effmass.profile.v2`;
 - `ksdft2effmass.schema.task-record.v1`;
-- `ksdft2effmass.skill.mediate-harness-task-migration.v1`;
 - `ksdft2effmass.validation.local-harness-resources.v1`; and
 - `ksdft2effmass.validation.task-schema-projection.v1`.
 
@@ -22,7 +20,7 @@ The Task pilot keeps lifecycle, one canonical parent, separate Task and external
 
 The maintained local harness-resource command accepts explicit repository, generic-resource, local-resource, profile, and manifest paths. It invokes `LocalHarnessContextLoader` and `ResourceResolver`, emits a deterministic structured result, propagates nested validation failures, distinguishes invalid input from unexpected command-boundary failure, and performs no Git mutation or current-directory discovery. Focused tests separately own schema, fixture, canonical-vector, skill-documentation, and generic/local dependency-direction evidence. Historical phase replay and catalogs remain unchanged and are not current routes.
 
-The project-local `mediate-harness-task-migration` behavior version 1 routes one explicitly authorized serial file review through the maintained preparation and disposition commands. Its canonical and live bytes are identical. The skill requires an already active exact migration Task, complete explicit inputs, presentation of the complete deterministic review document, and a stop for explicit human disposition. It neither accepts Stage 2A nor activates Stage 2B.
+Task-document migration has no project-local skill, descriptor, packet command, or projection-profile resource. A future authorized migration uses candidate JSON, retained narrative Markdown, an ordinary Git diff, and an explicit human decision.
 
 The H4 identity mapping is `document-research-python` to `document-python-research-software`, `pih.skill.document-research-python.v1` to `pih.skill.document-python-research-software.v1`, `pih.manifest.skill-descriptor.document-research-python.v1` to `pih.manifest.skill-descriptor.document-python-research-software.v1`, and `ksdft2effmass.profile.v1` to `ksdft2effmass.profile.v2`. The renamed skill retains behavior version `1`; no compatibility alias is maintained.
 

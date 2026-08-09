@@ -2,16 +2,17 @@
 document_id: ksdft2effmass.harness.002.001.012
 task_id: harness.simplification.docs-json.task-implementation-hardening
 parent: ksdft2effmass.harness.002.001.000
-status: active-implementation-hardening
+status: superseded-without-architecture-acceptance
 sphinx: excluded
 ---
 
 # Human review: HarnessTask implementation and hardening
 
-> **Stage 2A is active and not yet implementation-accepted.** The activation
-> checkpoint authorized implementation and hardening only. This page does not
-> accept the resulting implementation, prepare a real migration packet, migrate
-> a source file, activate Stage 2B, or modify the accepted Stage-1 contract.
+> **Superseded:** Stage 2A was deferred without accepting its 21-interface
+> architecture. The core `HarnessTask` model, serializer, deserializer, graph
+> validator, adapters, and inspector compatibility remain; the migration framework
+> was removed. The material below is retained as historical evidence of the
+> overextended design.
 
 ## Purpose
 

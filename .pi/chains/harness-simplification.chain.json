@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "task_implementation_hardening_human_review_boundary_acceptance_pending",
+  "status": "task_model_simplification_completed_stage_2b_deferred_inactive",
   "active_task": null,
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
@@ -10,6 +10,7 @@
     "harness.simplification.docs-json.schema-projection",
     "harness.simplification.docs-json.task-implementation-hardening",
     "harness.simplification.docs-json.task-model-contract",
+    "harness.simplification.docs-json.task-model-simplification",
     "harness.simplification.resources.h3-validator-retirement"
   ],
   "chain": [],
@@ -241,6 +242,13 @@
       "record": ".pi/tasks/harness-simplification.docs-json.migration-review-interface.md",
       "prerequisites": [],
       "status": "completed"
+    },
+    {
+      "id": "harness.simplification.docs-json.task-model-simplification",
+      "record": ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
+      "prerequisites": [
+        "harness.simplification.docs-json.task-model-contract:completed"
+      ]
     },
     {
       "id": "harness.simplification.docs-json.task-document-migration",

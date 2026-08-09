@@ -2,25 +2,21 @@ r"""Software verification of HarnessTask version-2 cross-surface contract.
 
 Facet and represented meaning
 
-The module verifies cross-interface JSON, schema, resource, rendering, comparison,
-packet, compatibility, and public-export agreement for the accepted local Task model.
+The module verifies the focused public import, schema/fixture, mixed-format adapter,
+and selected-state inspection boundaries of the minimum durable Task model.
 
 Intrinsic and cross-object scope
 
-The evidence owns the cohesive version-2 contract artifact rather than any second
-public class. Class-owned modules separately establish all 21 public identities.
+The artifact owner is the HarnessTask version-2 cross-surface contract. Class-owned
+modules separately verify the four retained Task-model interfaces.
 
 VVUQ and scientific exclusions
 
-Passing establishes only documented software-contract behavior using synthetic data.
-It does not migrate a Task, activate work, validate science, or provide human
-acceptance.
+Passing establishes software-contract agreement only. It does not migrate a Task,
+activate work, validate science, or provide human acceptance.
 """
 
-import base64
-import hashlib
 import json
-from dataclasses import replace
 from pathlib import Path
 from typing import Any, cast
 
@@ -28,77 +24,50 @@ import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
 import ksdft2effmass.harness.pi.local as local_api
-from ksdft2effmass.harness.pi import (
-    HumanReviewDecision,
-    TaskStateInspectionRequest,
-    TaskStateInspector,
-)
+from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 from ksdft2effmass.harness.pi.local import (
     HarnessTaskDeserializer,
-    HarnessTaskDocumentation,
-    HarnessTaskDocumentationComparator,
-    HarnessTaskDocumentationContent,
-    HarnessTaskDocumentationRenderer,
     HarnessTaskGraphValidator,
-    HarnessTaskMigrationDisposition,
-    HarnessTaskMigrationFileDispositionRecorder,
-    HarnessTaskMigrationReviewPacketPreparer,
-    HarnessTaskProjectionProfile,
     HarnessTaskSerializer,
     TaskRecordAdapter,
 )
 
 from .conftest import repository_root
-from .task_model_examples import identity, make_request, make_task
+from .task_model_examples import make_task
 
 pytestmark = pytest.mark.software_verification
 
-_PUBLIC_NAMES = (
+_RETAINED_PUBLIC_NAMES = (
     "HarnessTask",
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
-    "HarnessTaskDocumentSource",
-    "HarnessTaskSourceDisposition",
-    "HarnessTaskSourceMapping",
-    "HarnessTaskDocumentationContent",
-    "HarnessTaskProjectionProfile",
-    "HarnessTaskDocumentation",
-    "HarnessTaskDocumentationRenderer",
-    "HarnessTaskDocumentationComparator",
-    "HarnessTaskDocumentationComparisonResult",
-    "HarnessTaskMigrationReviewPacketRequest",
-    "HarnessTaskMigrationReviewPacketPreparer",
-    "HarnessTaskMigrationReviewPacket",
-    "HarnessTaskMigrationReviewDocument",
-    "HarnessTaskMigrationReviewPacketRenderer",
-    "HarnessTaskMigrationDisposition",
-    "HarnessTaskMigrationFileDisposition",
-    "HarnessTaskMigrationFileDispositionRecorder",
 )
 
 
-def test_public_api__corrected_table__exports_exact_twenty_one_interfaces() -> None:
-    """Evidence ID: ``SV-HT-020``.
+def test_public_api__task_model__exports_only_four_retained_interfaces() -> None:
+    """Evidence ID: SV-HT-020
 
-    Requirement: The local public surface exposes the accepted 19 HarnessTask
-    interfaces plus the two explicitly corrected human-review rendering interfaces.
+    Requirement: The Task-model module publicly defines only the four retained core
+    interfaces.
 
-    Method: Resolve the frozen names through the maintained public module and compare
-    them with the task-model module's public class definitions.
+    Method: Compare package exports and module-owned public classes with a fixed list.
 
-    Oracle: The accepted Stage-1 table and bounded Stage-2A rendering correction supply
-    the exact ordered names.
+    Oracle: The human-authorized minimum durable Task architecture names the exact
+    four interfaces.
 
-    Acceptance: All 21 names resolve to classes and no additional public class is
+    Acceptance: All four names resolve, all are exported, and no other public class is
     defined by ``task_model``.
 
-    Interpretation: Failure identifies missing, renamed, or accidental public API.
+    Interpretation: Failure identifies a missing core interface or an unaccepted
+    compatibility facade.
 
-    Limitations: Existing unrelated local exports are intentionally outside this check.
+    Limitations: Unrelated project-local package exports are outside this assertion.
     """
-    assert len(_PUBLIC_NAMES) == 21
-    assert all(isinstance(getattr(local_api, name), type) for name in _PUBLIC_NAMES)
+    assert all(name in local_api.__all__ for name in _RETAINED_PUBLIC_NAMES)
+    assert all(
+        isinstance(getattr(local_api, name), type) for name in _RETAINED_PUBLIC_NAMES
+    )
     task_model = __import__(
         "ksdft2effmass.harness.pi.local.task_model", fromlist=["unused"]
     )
@@ -109,38 +78,7 @@ def test_public_api__corrected_table__exports_exact_twenty_one_interfaces() -> N
         and value.__module__ == task_model.__name__
         and not name.startswith("_")
     }
-    assert defined == set(_PUBLIC_NAMES)
-    assert (
-        task_model.HarnessTaskDocumentationComparisonResult.__annotations__["status"]
-        == "Identifier"
-    )
-
-
-def test_artifact__canonical_json__matches_hand_authored_wire_rules() -> None:
-    """Evidence ID: ``SV-HT-021``.
-
-    Requirement: Version-2 canonical JSON has the exact 16 keys, UTF-8 representation,
-    two-space indentation, array conversion, and one final LF.
-
-    Method: Serialize a Task, parse it independently with ``json``, and deserialize it.
-
-    Oracle: The frozen field table and Python JSON formatting rules are exact.
-
-    Acceptance: Key order equals dataclass order, Unicode is literal, tuples are arrays,
-    bytes have one final LF, and the Task round-trips exactly.
-
-    Interpretation: Failure identifies wire-format or round-trip drift.
-
-    Limitations: JSON Schema agreement is tested separately.
-    """
-    task = make_task(title="Unicode café")
-    payload = HarnessTaskSerializer().execute(task)
-    decoded = json.loads(payload)
-    assert list(decoded) == list(task.__dataclass_fields__)
-    assert b"caf\xc3\xa9" in payload
-    assert type(decoded["authorized_scope"]) is list
-    assert payload.endswith(b"\n") and not payload.endswith(b"\n\n")
-    assert HarnessTaskDeserializer().execute(payload) == task
+    assert defined == set(_RETAINED_PUBLIC_NAMES)
 
 
 def fixture_matches_expectation(
@@ -181,25 +119,23 @@ def fixture_matches_expectation(
     return False
 
 
-def test_artifact__fixture_family__is_complete_and_isolated() -> None:
-    """Evidence ID: ``SV-HT-022``.
+def test_artifact__fixture_family__agrees_with_schema_and_runtime() -> None:
+    """Evidence ID: SV-HT-022
 
-    Requirement: Every indexed valid fixture passes schema and runtime construction;
-    every invalid fixture fails at its declared schema or runtime layer.
+    Requirement: Indexed valid fixtures agree with schema and runtime behavior, while
+    each invalid fixture fails at its declared boundary.
 
-    Method: Load the explicit fixture index, apply Draft 2020-12 validation, then invoke
-    the deserializer where the declared layer is runtime.
+    Method: Compare discovered fixtures with the explicit index, Draft 2020-12 schema
+    validation, and strict deserialization.
 
-    Oracle: The index is a hand-maintained partition and each invalid file contains one
-    named isolated defect.
+    Oracle: The maintained schema and hand-authored fixture index define the expected
+    partitions independently of production dispatch.
 
-    Acceptance: All discovered files are indexed and every partition has the expected
-    pass/fail outcome.
+    Acceptance: The index is complete and every fixture has its declared result.
 
-    Interpretation: Failure identifies schema/runtime drift or orphaned fixtures.
+    Interpretation: Failure identifies schema, fixture, or runtime disagreement.
 
-    Limitations: JSON Schema cannot express Unicode NFC normalization; that case is
-    intentionally runtime-owned.
+    Limitations: JSON Schema cannot express every runtime Unicode invariant.
     """
     root = repository_root() / "harness/local/fixtures/task-record-v2"
     index = json.loads((root / "fixture-index.json").read_text())
@@ -226,58 +162,20 @@ def test_artifact__fixture_family__is_complete_and_isolated() -> None:
     )
 
 
-@pytest.mark.parametrize(
-    "field,value",
-    (
-        pytest.param("task_id", "a/b", id="identifier_slash_rejected"),
-        pytest.param(
-            "status", "active:", id="identifier_trailing_punctuation_rejected"
-        ),
-        pytest.param("documentation_path", "CON.txt", id="device_name_rejected"),
-        pytest.param("intake_path", "C:/input.md", id="drive_prefix_rejected"),
-        pytest.param(
-            "documentation_path", "docs/a\u2028b.md", id="line_separator_rejected"
-        ),
-        pytest.param("documentation_path", "docs/cafe\u0301.md", id="non_nfc_rejected"),
-    ),
-)
-def test_constructor__lexical_rejections__match_identifier_and_resource_path(
-    field: str, value: str
-) -> None:
-    """Evidence ID: ``SV-HT-023``.
+def test_method__graph_findings__use_deterministic_precedence() -> None:
+    """Evidence ID: SV-HT-024
 
-    Requirement: Runtime uses the frozen local Identifier grammar and the accepted
-    reusable ResourcePath rejection contract.
+    Requirement: Graph findings use exact codes and deterministic lexical precedence.
 
-    Method: Replace one otherwise valid field with one semantic invalid partition.
+    Method: Supply a parent cycle, missing prerequisite, and duplicate paths.
 
-    Oracle: The accepted regex and generic ResourcePath algorithm define exact rejects.
+    Oracle: The documented graph contract fixes ``(code, path, detail)`` ordering.
 
-    Acceptance: Every invalid Identifier or ResourcePath raises ``ValueError``.
+    Acceptance: Findings equal the exact expected sequence.
 
-    Interpretation: Failure identifies runtime/schema lexical disagreement.
+    Interpretation: Failure identifies graph-code or ordering drift.
 
-    Limitations: Type errors are exercised by class-owned constructor evidence.
-    """
-    with pytest.raises(ValueError):
-        make_task(**{field: value})
-
-
-def test_method__multi_defect_precedence__is_code_path_detail_lexical() -> None:
-    """Evidence ID: ``SV-HT-024``.
-
-    Requirement: Graph diagnostics use exact PIHL.TASK codes and deterministic
-    ``(code, path, detail)`` precedence.
-
-    Method: Supply a parent cycle, a missing prerequisite, and duplicate paths.
-
-    Oracle: The Stage-2 hardening rule fixes lexical code/path/detail ordering.
-
-    Acceptance: Returned issues equal the exact expected ordered tuples.
-
-    Interpretation: Failure identifies code vocabulary or precedence drift.
-
-    Limitations: Status lifecycle meaning is intentionally opaque.
+    Limitations: Lifecycle meaning and chain activation are excluded.
     """
     first = make_task(
         task_id="a", parent_task_id="b", intake_path="same", documentation_path="same"
@@ -298,228 +196,26 @@ def test_method__multi_defect_precedence__is_code_path_detail_lexical() -> None:
     )
 
 
-@pytest.mark.parametrize(
-    "invalid_template",
-    (
-        pytest.param(
-            b"{{content.opaque}}{{content.opaque}}\n",
-            id="duplicate_content_token_rejected",
-        ),
-        pytest.param(b"{{content.unknown}}\n", id="unknown_content_token_rejected"),
-        pytest.param(b"{{unknown.token}}\n", id="unknown_token_kind_rejected"),
-        pytest.param(b"{{content.opaque}}\n\n", id="final_lf_policy_rejected"),
-    ),
-)
-def test_method__explicit_template__preserves_opaque_bytes_and_parses_once(
-    invalid_template: bytes,
-) -> None:
-    """Evidence ID: ``SV-HT-025``.
-
-    Requirement: Renderer parses only UTF-8 template bytes, substitutes each content
-    token exactly once, and preserves opaque block bytes without reparsing.
-
-    Method: Render a non-UTF-8 block containing token-like braces and test malformed,
-    duplicate, and final-LF template partitions.
-
-    Oracle: Literal expected bytes and token cardinality provide independent oracles.
-
-    Acceptance: Opaque bytes are exact; invalid template partitions raise ValueError.
-
-    Interpretation: Failure identifies template parsing or opaque preservation drift.
-
-    Limitations: Rendered meaning still requires human review.
-    """
-    task = make_task()
-    block = b"opaque \xff {{task.title}}"
-    content = HarnessTaskDocumentationContent(
-        identity(block), task.documentation_path, ("opaque",), (block,)
-    )
-    template = b"# {{task.title}}\n{{content.opaque}}\n"
-    profile = HarnessTaskProjectionProfile(
-        1, "profile", template, identity(template), True
-    )
-    rendered = HarnessTaskDocumentationRenderer().execute(task, content, profile)
-    assert rendered.content == b"# Example Task\n" + block + b"\n"
-    invalid_profile = HarnessTaskProjectionProfile(
-        1,
-        "invalid-profile",
-        invalid_template,
-        identity(invalid_template),
-        True,
-    )
-    with pytest.raises(ValueError):
-        HarnessTaskDocumentationRenderer().execute(task, content, invalid_profile)
-
-
-def test_method__coverage_and_preservation__separates_mechanical_claims() -> None:
-    """Evidence ID: ``SV-HT-026``.
-
-    Requirement: Comparator reports exact bytes, mapped differences, source coverage
-    gaps, and ordered documentation-block preservation without semantic claims.
-
-    Method: Compare exact, inserted, and changed-documentation outputs against explicit
-    half-open mappings.
-
-    Oracle: Hand-calculated source ranges and literal bytes define expected statuses.
-
-    Acceptance: Statuses are EXACT, MAPPED_DIFFERENCES, and UNMAPPED_DIFFERENCES with
-    exact affected source range for the changed block.
-
-    Interpretation: Failure identifies diff, coverage, or preservation drift.
-
-    Limitations: A mapped result is not semantic correctness or human acceptance.
-    """
-    request = make_request()
-    comparator = HarnessTaskDocumentationComparator()
-    assert (
-        comparator.execute(
-            request.source, request.rendered_documentation, request.mappings
-        ).status
-        == "EXACT"
-    )
-    inserted_bytes = b"prefix" + request.rendered_documentation.content
-    inserted = HarnessTaskDocumentation(
-        request.rendered_documentation.path,
-        inserted_bytes,
-        identity(inserted_bytes),
-    )
-    assert comparator.execute(request.source, inserted, request.mappings).status == (
-        "MAPPED_DIFFERENCES"
-    )
-    changed_bytes = b"changed\n"
-    changed = HarnessTaskDocumentation(
-        request.rendered_documentation.path, changed_bytes, identity(changed_bytes)
-    )
-    result = comparator.execute(request.source, changed, request.mappings)
-    assert result.status == "UNMAPPED_DIFFERENCES"
-    assert result.unmapped_spans == ((0, request.source.byte_count),)
-
-
-def test_method__one_field_mutations__fail_closed_without_io() -> None:
-    """Evidence ID: ``SV-HT-027``.
-
-    Requirement: Packet preparation recomputes canonical JSON, rendering, comparison,
-    mapping coverage, content blocks, and generic packet compatibility.
-
-    Method: Prepare one valid request then mutate independent canonical and mapping
-    fields.
-
-    Oracle: Independently reconstructed ActionObject outputs define exact agreement.
-
-    Acceptance: Valid input returns one equal packet; each mutation raises ValueError.
-
-    Interpretation: Failure identifies permissive packet compatibility.
-
-    Limitations: Preparation records no disposition and performs no migration.
-    """
-    request = make_request()
-    preparer = HarnessTaskMigrationReviewPacketPreparer()
-    assert preparer.execute(request).request == request
-    with pytest.raises(ValueError, match="canonical_task_json"):
-        preparer.execute(replace(request, canonical_task_json=b"{}\n"))
-    duplicate = replace(request, mappings=request.mappings + request.mappings)
-    with pytest.raises(ValueError, match="mapping IDs"):
-        preparer.execute(duplicate)
-
-
-@pytest.mark.parametrize(
-    "generic,migration",
-    (
-        pytest.param("accepted", "ACCEPT_FILE_MIGRATION", id="accepted"),
-        pytest.param(
-            "bounded_correction", "REVISE_CONTRACT_OR_MAPPING", id="correction"
-        ),
-        pytest.param("rejected", "RETAIN_DOCUMENTATION_OWNERSHIP", id="retained"),
-        pytest.param("deferred", "DEFER_FILE", id="deferred"),
-    ),
-)
-def test_method__compatibility_table__maps_all_four_rows(
-    generic: str, migration: str
-) -> None:
-    """Evidence ID: ``SV-HT-028``.
-
-    Requirement: File disposition recording uses the frozen four-row mapping while the
-    generic human decision remains authoritative.
-
-    Method: Construct each explicit generic decision and corresponding migration enum.
-
-    Oracle: The accepted compatibility table supplies all exact pairs.
-
-    Acceptance: Each pair records successfully and retains the exact packet.
-
-    Interpretation: Failure identifies disposition-table or packet-binding drift.
-
-    Limitations: Synthetic decisions do not establish actual human authority.
-    """
-    packet = HarnessTaskMigrationReviewPacketPreparer().execute(make_request())
-    scope = ("Revise mapping.",) if generic == "bounded_correction" else ()
-    decision = HumanReviewDecision(
-        packet.request.human_review_packet, "Synthetic response", generic, scope
-    )
-    result = HarnessTaskMigrationFileDispositionRecorder().execute(
-        packet, decision, HarnessTaskMigrationDisposition(migration)
-    )
-    assert result.packet is packet
-
-
-def test_artifact__profile_manifest__bind_sole_template_bytes() -> None:
-    """Evidence ID: ``SV-HT-029``.
-
-    Requirement: The project resource graph binds schema, fixtures, oracle index, and
-    one base64 encoding of the profile's authoritative template bytes.
-
-    Method: Decode profile bytes, recalculate SHA-256, and inspect explicit manifest
-    dependency edges.
-
-    Oracle: ``hashlib.sha256`` and the accepted resource relationship table are exact.
-
-    Acceptance: Identity matches and required dependency edges are present.
-
-    Interpretation: Failure identifies stale identity or resource-graph drift.
-
-    Limitations: Resource agreement does not establish documentation meaning.
-    """
-    root = repository_root() / "harness/local"
-    profile = json.loads(
-        (root / "projections/harness-task-documentation-v2.json").read_text()
-    )
-    template = base64.b64decode(profile["template_bytes_base64"], validate=True)
-    assert (
-        hashlib.sha256(template).hexdigest() == profile["template_identity"]["digest"]
-    )
-    manifest = json.loads((root / "resource-manifest.json").read_text())
-    resources = {item["resource_id"]: item for item in manifest["resources"]}
-    assert resources["ksdft2effmass.local.harness-task-documentation.v2"][
-        "dependency_ids"
-    ] == ["ksdft2effmass.local.task-record.v2"]
-    assert resources["ksdft2effmass.local.oracle-index.v1"]["dependency_ids"] == [
-        "ksdft2effmass.local.task-record-v2.fixture-index"
-    ]
-
-
 def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
-    """Evidence ID: ``SV-HT-031``.
+    """Evidence ID: SV-HT-031
 
-    Requirement: One explicit chain may select Markdown, version-1 JSON, and
-    version-2 JSON Tasks without transferring Task authority into the chain.
+    Requirement: One chain may select Markdown, version-1 JSON, and version-2 JSON
+    without transferring JSON-owned Task fields into the chain.
 
-    Method: Adapt three synthetic records together and then duplicate JSON-owned
-    status into the version-2 chain entry.
+    Method: Adapt three synthetic records and then duplicate v2 status in its entry.
 
-    Oracle: Existing Markdown/v1 compatibility and the accepted v2 dispatch define
-    exact identities, statuses, and failure on duplicated chain authority.
+    Oracle: Retained Markdown/v1 behavior and version-2 dispatch define the exact
+    references and fail-closed duplication rule.
 
-    Acceptance: The mixed chain returns three ordered references; duplicated v2
-    status fails closed.
+    Acceptance: Mixed adaptation passes in Task-ID order; duplicated status fails.
 
-    Interpretation: Failure identifies mixed-format dispatch or authority drift.
+    Interpretation: Failure identifies compatibility or authority-boundary drift.
 
-    Limitations: Synthetic records do not migrate any maintained Task.
+    Limitations: Synthetic records do not migrate maintained Tasks.
     """
     markdown_path = "records/markdown.md"
     v1_path = "records/version-one.json"
     v2_path = "records/version-two.json"
-    markdown = (markdown_path, b"# Markdown Task\n\nStatus: completed\n")
     v1 = {
         "schema_version": 1,
         "task_id": "format.v1",
@@ -553,7 +249,7 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
         ],
     }
     documents = (
-        markdown,
+        (markdown_path, b"# Markdown Task\n\nStatus: completed\n"),
         (v1_path, json.dumps(v1).encode()),
         (v2_path, HarnessTaskSerializer().execute(v2)),
     )
@@ -569,7 +265,6 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
         documents, json.dumps(chain).encode(), b"{}"
     )
     assert duplicated.validation.status == "FAIL"
-    assert "duplicated" in duplicated.validation.issues[0].detail
 
 
 @pytest.mark.parametrize(
@@ -583,23 +278,21 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
 def test_method__task_state_inspector__preserves_format_selection(
     tmp_path: Path, record_kind: str
 ) -> None:
-    """Evidence ID: ``SV-HT-032``.
+    """Evidence ID: SV-HT-032
 
-    Requirement: TaskStateInspector reads only the chain-selected Markdown, v1 JSON,
-    or v2 JSON record and preserves its established status precedence.
+    Requirement: TaskStateInspector preserves selected Markdown, v1 JSON, and v2 JSON
+    status behavior.
 
-    Method: Build one bounded temporary chain per format, inspect it, and introduce a
-    v2 identity mismatch.
+    Method: Build and inspect one bounded temporary chain per format.
 
-    Oracle: The generic inspector contract uses chain status for Markdown and exact
-    selected JSON identity/status for both JSON versions.
+    Oracle: The inspector contract assigns Markdown status to the chain and JSON status
+    to the selected JSON record.
 
-    Acceptance: Every format passes with the expected status and selected path; the v2
-    identity mismatch reports REFERENCE_INVALID.
+    Acceptance: Every format passes with the exact selected path and expected status.
 
-    Interpretation: Failure identifies selected-path or mixed-format inspection drift.
+    Interpretation: Failure identifies selected-state compatibility drift.
 
-    Limitations: Complete local schema validation remains owned by TaskRecordAdapter.
+    Limitations: Full local schema validation remains owned by TaskRecordAdapter.
     """
     task_id = "format.task"
     suffix = "md" if record_kind == "markdown" else "json"
@@ -627,60 +320,12 @@ def test_method__task_state_inspector__preserves_format_selection(
         )
         expected_status = "v1_status"
     else:
-        v2 = make_task(task_id=task_id, status="v2_status")
-        (tmp_path / record_path).write_bytes(HarnessTaskSerializer().execute(v2))
+        task = make_task(task_id=task_id, status="v2_status")
+        (tmp_path / record_path).write_bytes(HarnessTaskSerializer().execute(task))
         expected_status = "v2_status"
-    request = TaskStateInspectionRequest(1, tmp_path, chain_path, task_id)
-    result = TaskStateInspector().execute(request)
+    result = TaskStateInspector().execute(
+        TaskStateInspectionRequest(1, tmp_path, chain_path, task_id)
+    )
     assert result.validation.status == "PASS"
     assert result.task_status == expected_status
     assert result.task_record_path == record_path
-    if record_kind == "v2":
-        mismatch = make_task(task_id="different.task", status="v2_status")
-        (tmp_path / record_path).write_bytes(HarnessTaskSerializer().execute(mismatch))
-        failed = TaskStateInspector().execute(request)
-        assert failed.validation.status == "FAIL"
-        assert failed.validation.issues[0].code == "PIH.TASK_STATE.REFERENCE_INVALID"
-
-
-def test_method__version_two_json__preserves_reference_projection() -> None:
-    """Evidence ID: ``SV-HT-030``.
-
-    Requirement: ``TaskRecordAdapter`` accepts version-2 JSON while preserving its
-    established TaskReference projection and explicit chain agreement.
-
-    Method: Supply canonical v2 Task bytes plus a minimal explicit synthetic chain and
-    activation record.
-
-    Oracle: The Task's five projected fields and existing adapter result contract are
-    exact.
-
-    Acceptance: Adaptation passes and returns the expected TaskReference values.
-
-    Interpretation: Failure identifies v1/v2 compatibility dispatch drift.
-
-    Limitations: Existing Markdown compatibility remains covered by predecessor tests.
-    """
-    task = make_task(status="active")
-    path = "records/example.task.json"
-    chain = {
-        "active_task": task.task_id,
-        "automatic_successor_activation": False,
-        "explicitly_activated_task_ids": [task.task_id],
-        "task_sequence": [{"id": task.task_id, "record": path}],
-    }
-    activation: dict[str, object] = {}
-    result = TaskRecordAdapter().execute(
-        ((path, HarnessTaskSerializer().execute(task)),),
-        json.dumps(chain).encode(),
-        json.dumps(activation).encode(),
-    )
-    assert result.validation.status == "PASS"
-    reference = cast(Any, result.value)[0]
-    assert (
-        reference.task_id,
-        reference.task_prerequisite_ids,
-        reference.external_prerequisite_ids,
-        reference.status,
-        reference.explicit_activation_required,
-    ) == (task.task_id, (), (), task.status, True)

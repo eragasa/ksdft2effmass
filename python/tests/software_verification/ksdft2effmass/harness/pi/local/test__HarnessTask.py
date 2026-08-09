@@ -19,7 +19,7 @@ import pytest
 
 from ksdft2effmass.harness.pi.local import HarnessTask
 
-from .task_model_examples import make_request, make_task
+from .task_model_examples import make_task
 
 pytestmark = pytest.mark.software_verification
 SUT = HarnessTask
@@ -41,7 +41,7 @@ def test_constructor__public_stereotype__has_exact_runtime_identity() -> None:
 
     Limitations: Detailed algorithms are asserted by focused artifact-owned evidence.
     """
-    value = make_request().candidate_task
+    value = make_task()
     assert type(value) is SUT
     assert value == value
 

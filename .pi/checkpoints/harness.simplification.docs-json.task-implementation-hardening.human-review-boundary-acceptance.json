@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance",
   "task_id": "harness.simplification.docs-json.task-implementation-hardening",
   "episode_id": "harness.simplification.docs-json.task-implementation-hardening",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T19:34:56Z",
   "question": "Should the corrected 21-interface Stage-2A HarnessTask implementation and its complete deterministic human-review boundary be accepted exactly as presented, completing Stage 2A while all six Markdown Tasks remain unchanged and Stage 2B remains inactive pending separate activation?",
@@ -40,18 +40,20 @@
     "docs/harness/ksdft2effmass.harness.002.001.012.md",
     ".pi/chains/harness-simplification.chain.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "Defer Stage 2A. The implemented docs-to-JSON migration subsystem is substantially more complex than the six-file migration requires. Preserve the useful JSON Task model, but remove the unaccepted migration-framework interfaces, commands, skill, and packet ceremony. Stage 2B remains inactive.",
+  "normalized_decision": "C",
+  "resolved_at": "2026-08-09T20:36:35Z",
+  "authorized_scope": "Defer Stage-2A implementation acceptance without accepting the 21-interface architecture; retain and harden only the minimum durable HarnessTask model, version-2 schema and fixtures, mixed-format TaskRecordAdapter, and TaskStateInspector compatibility; remove the unaccepted migration-framework interfaces, commands, skill routing, projection profile, packet and disposition machinery, tests, and current-architecture documentation; preserve historical evidence and all six Markdown Task identities; keep Stage 2B inactive; create only one bounded simplification Task; commit and push the validated correction; do not migrate a Task or activate a successor.",
   "record_paths": [
     ".pi/chains/harness-simplification.chain.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json",
+    ".pi/evidence/docs-json/task-implementation-hardening/human-review-boundary-validation.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
     ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
-    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
-    ".pi/evidence/docs-json/task-implementation-hardening/human-review-boundary-validation.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
     "docs/harness/ksdft2effmass.harness.002.001.012.md"
   ],
-  "resumption_status": "blocked_pending_stage_2a_human_review_boundary_acceptance"
+  "resumption_status": "option_C_resolved; stage_2a_deferred_and_superseded; bounded_task_model_simplification_completed; stage_2b_deferred_inactive"
 }

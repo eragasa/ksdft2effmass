@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2983,
-  "expected_module_count": 244,
+  "expected_collected_node_count": 2877,
+  "expected_module_count": 226,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -91,7 +91,7 @@
       "evidence_class": "software_verification",
       "sut": "HarnessTask",
       "conformance_status": "conforming",
-      "content_sha256": "66704ca2c952a8b7d023d556fd2dc16958a71bf790d98122791f94a1f077b814"
+      "content_sha256": "878a5ec3952e3965f2758dfbdf2b0c291b9f047b473b4b01c6aa1c6bfa37f11e"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDeserializer.py",
@@ -99,55 +99,7 @@
       "evidence_class": "software_verification",
       "sut": "HarnessTaskDeserializer",
       "conformance_status": "conforming",
-      "content_sha256": "408fc54539be027cc3879e3c7cd464911054bad6827c534dd5cc674b5ac310fe"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentSource.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskDocumentSource",
-      "conformance_status": "conforming",
-      "content_sha256": "c161dd2b8165f32c91ed9555480b5ecc51e0cd5d898037d79840e18cdd41e052"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentation.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskDocumentation",
-      "conformance_status": "conforming",
-      "content_sha256": "b77efa3f96e5a0a248c19722b1a698dcac89d513018326d3fbd0110022a09ec7"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationComparator.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskDocumentationComparator",
-      "conformance_status": "conforming",
-      "content_sha256": "1a789e03536010e365cf22122b87b493eb47b487b3ad4887541a919fee02c22a"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationComparisonResult.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskDocumentationComparisonResult",
-      "conformance_status": "conforming",
-      "content_sha256": "b93e3d529d2e851e1340f2bcde8b7cb7f4dbdb242d88a8e94381557ad8d432d5"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationContent.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskDocumentationContent",
-      "conformance_status": "conforming",
-      "content_sha256": "b777481e9040f0ad316dd07af7260725e775729ca201f328a3d6d82418866eda"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationRenderer.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskDocumentationRenderer",
-      "conformance_status": "conforming",
-      "content_sha256": "7d2379c82e986ae9d5df03559cf7f63403412eb61a5c559c06f6827b53e36b8b"
+      "content_sha256": "bb1a9be572ae6e664a3f631bfbb7cb93574d241608ad56d36e2ced9be70cb6dd"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskGraphValidator.py",
@@ -158,100 +110,12 @@
       "content_sha256": "ff9fe525fdbcc064c7b3af5221d8a1442b7d4c2a90bc641ba8a5df935261bfab"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationDisposition.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationDisposition",
-      "conformance_status": "conforming",
-      "content_sha256": "5b3a11ebfcc915f949950ff1abd9ddb30d52a4c340611f9ff03c1c5e1de7c394"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationFileDisposition.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationFileDisposition",
-      "conformance_status": "conforming",
-      "content_sha256": "1d770157393a8dbd4b5e18c965a7d9680a720e9570df22c7b783d36f6a249537"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationFileDispositionRecorder.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationFileDispositionRecorder",
-      "conformance_status": "conforming",
-      "content_sha256": "b5c9a962ce165f59b6d68645f1fd31eb53885643b6f3c29d2dffeb8c4f6b1bd1"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewDocument.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationReviewDocument",
-      "conformance_status": "conforming",
-      "content_sha256": "412b94da28b1a09be992530b857daa115bd307d3c13908729cf5743a9d7e4250"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacket.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationReviewPacket",
-      "conformance_status": "conforming",
-      "content_sha256": "5d6464449c75d3ec797a37174fb73a551a033639df3437546cd1248d31a05fc2"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketPreparer.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationReviewPacketPreparer",
-      "conformance_status": "conforming",
-      "content_sha256": "5b5a8094d986a75c446981defe597959388d85ce2db8d446b4e5e6afda1111d6"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketRenderer.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationReviewPacketRenderer",
-      "conformance_status": "conforming",
-      "content_sha256": "bd61fbda5cb2396453fa26c76482819b90d7c9cc64e231c5fa5f47d0d9060332"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketRequest.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskMigrationReviewPacketRequest",
-      "conformance_status": "conforming",
-      "content_sha256": "69c4e311ea749277cbdcf285daf38e31342e3de8b2ad7796cde446623934fcc2"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskProjectionProfile.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskProjectionProfile",
-      "conformance_status": "conforming",
-      "content_sha256": "31b6334a6b149a0dd43dd812d7a337dfb87850376f8a2ccac66528d5ca071f37"
-    },
-    {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSerializer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "sut": "HarnessTaskSerializer",
       "conformance_status": "conforming",
       "content_sha256": "b36c96f8d45977a7db4293be0befbb3f51f23c00e2579ca1b94a22ed3c13f3ab"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSourceDisposition.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskSourceDisposition",
-      "conformance_status": "conforming",
-      "content_sha256": "4ea9bb0cb741407c4e57b8bc50753441dd7747af419a63255b52ac0353d2bb8a"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSourceMapping.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "sut": "HarnessTaskSourceMapping",
-      "conformance_status": "conforming",
-      "content_sha256": "0392a33483619cd69847d2b1478379c29001de01804e3d7c47266113ff40d880"
     },
     {
       "conformance_status": "conforming",
@@ -339,15 +203,7 @@
       "evidence_class": "software_verification",
       "artifact": "HarnessTask version-2 cross-surface contract",
       "conformance_status": "conforming",
-      "content_sha256": "6a5b7dbe13ff050a3137ee009a74d0a1e36349772dbb925e90b845fbff0f509e"
-    },
-    {
-      "artifact": "harness-task-migration-commands-v1",
-      "conformance_status": "conforming",
-      "content_sha256": "1a9816c2738e62274926f479ab02755b412475db084478f48f17aaebad87c8ca",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_migration_commands.py"
+      "content_sha256": "b18d80f96afcc12dd91b1fe9733dc95f96951a2b8a375c4077acfae41c95c666"
     },
     {
       "artifact": "identifier audit command API agreement",
@@ -376,7 +232,7 @@
     {
       "artifact": "local public api and models",
       "conformance_status": "conforming",
-      "content_sha256": "2eba3d6f6417d5859b41c1c2e79e4d3bb0d420510261f6db59168b0eab61b241",
+      "content_sha256": "4329dd3d63d07ad2fa1749a5257252d28d898409fda5f1301335d540c2baa58f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py"
