@@ -1,10 +1,12 @@
 # Normalize public ActionObject grammar
 
-Status: proposed_inactive
+Status: active
 
 Task identity: `harness.simplification.api.action-object-grammar`
 
-Prerequisite: `harness-simplification.agents.delegation-validation:completed`
+Authority: current human instruction authorized removal of the unrelated delegation-validation prerequisite and activation of this bounded Task.
+
+Prerequisite: `harness-simplification.evidence.audit-action-conformance:completed`
 
 ## Objective
 
@@ -39,4 +41,4 @@ Completion requires the accepted convention in every owning surface, complete af
 
 ## Exclusions and stop boundary
 
-This record does not activate the migration, authorize unrelated API redesign, add dependencies, introduce SQLite, perform protected execution, or activate successors. It remains proposed and inactive until separately authorized.
+This Task does not authorize unrelated API redesign, add dependencies, introduce SQLite, perform protected execution, or activate successors.
