@@ -63,11 +63,11 @@ semantic IDs.
 
 ## Deterministic-validator boundary
 
-`ValidatePythonTestEvidence` and its thin CLI own structural enforcement. Invoke
+`PythonConformanceValidator` and its thin CLI own structural enforcement. Invoke
 it on explicit module paths and an explicit ownership file:
 
 ```text
-python/.venv/bin/python harness/pi/validation/validate_python_test_evidence.py \
+python/.venv/bin/python harness/pi/validation/validate_python_conformance.py \
   --ownership <ownership.json> <test-module> [<test-module> ...]
 ```
 

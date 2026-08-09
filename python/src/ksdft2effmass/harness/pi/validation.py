@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from .chains import ChainView, TaskReference
     from .checkpoints import CheckpointRecord
     from .checksums import ChecksumEntry, ChecksumManifest
-    from .evidence import EvidenceIdentifierOccurrence
+    from .evidence import IdentifierOccurrence
     from .ownership import AgentDescriptorView, OwnershipManifestView, OwnershipScope
     from .profiles import ProjectProfile
     from .resources import ResourceManifest, ResourceReference, SkillDescriptor
@@ -164,7 +164,7 @@ if TYPE_CHECKING:
         | ChainView
         | ChecksumEntry
         | ChecksumManifest
-        | EvidenceIdentifierOccurrence
+        | IdentifierOccurrence
         | ValidationIssue
         | ValidationResult
     )
@@ -234,30 +234,6 @@ class ChainEvaluationResult:
 
 
 @dataclass(frozen=True, slots=True)
-class EvidenceAuditResult:
-    occurrences: tuple[EvidenceIdentifierOccurrence, ...]
-    validation: ValidationResult
-
-    def __post_init__(self) -> None:
-        from .evidence import EvidenceIdentifierOccurrence
-
-        _require_tuple(self.occurrences, "occurrences")
-        if any(type(x) is not EvidenceIdentifierOccurrence for x in self.occurrences):
-            raise TypeError("occurrences have wrong type")
-        if (
-            tuple(
-                sorted(self.occurrences, key=lambda x: (x.evidence_id, x.path, x.line))
-            )
-            != self.occurrences
-        ):
-            raise ValueError("occurrences are not sorted")
-        if type(self.validation) is not ValidationResult:
-            raise TypeError("validation has wrong type")
-        if self.validation.status == "FAIL" and self.occurrences:
-            raise ValueError("failed result must have empty occurrences")
-
-
-@dataclass(frozen=True, slots=True)
 class JsonSerializationResult:
     payload: bytes | None
     content_identity: ArtifactIdentity | None
@@ -309,7 +285,7 @@ class WireRecordKind(str, Enum):  # noqa: UP042 - accepted API specifies Enum
     ChainView = "ChainView"
     ChecksumEntry = "ChecksumEntry"
     ChecksumManifest = "ChecksumManifest"
-    EvidenceIdentifierOccurrence = "EvidenceIdentifierOccurrence"
+    IdentifierOccurrence = "IdentifierOccurrence"
     ValidationIssue = "ValidationIssue"
     ValidationResult = "ValidationResult"
 
@@ -339,7 +315,7 @@ def _wire_object(record: HarnessWireRecord) -> dict[str, object]:
     from .chains import ChainView, TaskReference
     from .checkpoints import CheckpointRecord
     from .checksums import ChecksumEntry, ChecksumManifest
-    from .evidence import EvidenceIdentifierOccurrence
+    from .evidence import IdentifierOccurrence
     from .ownership import AgentDescriptorView, OwnershipManifestView, OwnershipScope
     from .profiles import ProjectProfile
     from .resources import ResourceManifest, ResourceReference, SkillDescriptor
@@ -496,7 +472,7 @@ def _wire_object(record: HarnessWireRecord) -> dict[str, object]:
             "schema_version": record.schema_version,
             "entries": [_wire_object(value) for value in record.entries],
         }
-    if type(record) is EvidenceIdentifierOccurrence:
+    if type(record) is IdentifierOccurrence:
         return {
             "schema_version": record.schema_version,
             "evidence_id": record.evidence_id,
@@ -592,7 +568,7 @@ def _construct(kind: WireRecordKind, obj: dict[str, Any]) -> Any:
     from .chains import ChainView, TaskReference
     from .checkpoints import CheckpointRecord
     from .checksums import ChecksumEntry, ChecksumManifest
-    from .evidence import EvidenceIdentifierOccurrence
+    from .evidence import IdentifierOccurrence
     from .ownership import AgentDescriptorView, OwnershipManifestView, OwnershipScope
     from .profiles import ProjectProfile
     from .resources import ResourceManifest, ResourceReference, SkillDescriptor
@@ -873,9 +849,9 @@ def _construct(kind: WireRecordKind, obj: dict[str, Any]) -> Any:
             for value in _array(obj["entries"], "entries")
         )
         return ChecksumManifest(obj["schema_version"], entries)
-    if kind is WireRecordKind.EvidenceIdentifierOccurrence:
+    if kind is WireRecordKind.IdentifierOccurrence:
         _require_fields(obj, ("schema_version", "evidence_id", "path", "line"))
-        return EvidenceIdentifierOccurrence(
+        return IdentifierOccurrence(
             obj["schema_version"], obj["evidence_id"], obj["path"], obj["line"]
         )
     if kind is WireRecordKind.ValidationIssue:

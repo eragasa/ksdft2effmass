@@ -1,0 +1,1779 @@
+{
+  "baseline_collected_node_count": 2383,
+  "baseline_module_count": 182,
+  "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
+  "expected_collected_node_count": 2871,
+  "expected_module_count": 221,
+  "modules": [
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b3088681131bb394eb2affe0c54256bb5fbe28043beea1e1d225987ce85c118b",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__Geometry__linear_independence.py",
+      "sut": "Geometry"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e2440488ad0c43788833dfd3d9fd8b1bae2de7783b804a743619bf7294d5b6d0",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__analytical_residuals.py",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "cdf677eba6c23e0d46cf73a9545398a7adb39476460f27f3513060ccd859ce7c",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7ad5c1758816918ad14311a565abd37b8e95b68a8ffba080d013186fdb1c4bd2",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__AgentRecordAdapter.py",
+      "sut": "AgentRecordAdapter",
+      "content_sha256": "beebbbb14b00056d375f775948bf06f8b1fb63847820aa85e43e4e8f923be280"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__ChainRecordAdapter.py",
+      "sut": "ChainRecordAdapter",
+      "content_sha256": "f6c64c9f19db6029e79cae46e6cffa6275786471d5930789e05918f40a4d6c98"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__CheckpointRecordAdapter.py",
+      "sut": "CheckpointRecordAdapter",
+      "content_sha256": "75428d8a6124751823d442c253aa20a27d3ac88cb7bb5f8b65a15b3ed2c1aded"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__ChecksumCatalogAdapter.py",
+      "sut": "ChecksumCatalogAdapter",
+      "content_sha256": "f55ba21692eecac115cc171670a0d0b30a0119deb80d17c0d34773114d4c5669"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__EvidenceModuleSelector.py",
+      "sut": "EvidenceModuleSelector",
+      "content_sha256": "1c9f80e2c6d14baa57e0d69702a8beafecee332d4a62b81c3f44dbd8926d6b59"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__EvidenceOwnershipManifestAdapter.py",
+      "sut": "EvidenceOwnershipManifestAdapter",
+      "content_sha256": "d7bd418722b1270473942aa47c393e136896167161e4135468372c35021c93dc"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__LegacyRouteConfigurationPreparer.py",
+      "sut": "LegacyRouteConfigurationPreparer",
+      "content_sha256": "7b3d7447eae6b7636e4242b1d8b6021cb9a876f61971b53527ba75e2baa7e4e9"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__LocalHarnessContextLoader.py",
+      "sut": "LocalHarnessContextLoader",
+      "content_sha256": "30191eee81270730dd0afc2882b52acde824a26bc8aa410b841ef2ea253dbe2c"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__LocalRepositoryValidator.py",
+      "sut": "LocalRepositoryValidator",
+      "content_sha256": "595250c66c69b612d98369f04fa5db24e72994cb13baad6d1e2579ca13b42960"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__OwnershipManifestAdapter.py",
+      "sut": "OwnershipManifestAdapter",
+      "content_sha256": "c37d42a4c2ba67c4eecf7edd97861533cbcf7d65dac2c8475fdfb00c29661cd2"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__ShadowPairComparator.py",
+      "sut": "ShadowPairComparator",
+      "content_sha256": "60b2311229c242c0a32ffad566242e7907ab574b667628e30a49346f14ed05a3"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__ShadowSuiteReplayer.py",
+      "sut": "ShadowSuiteReplayer",
+      "content_sha256": "9cdec128f046cc85717ec5c6ec3bda1e4f613adf13559ea2bd8e977343709a3c"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__SkillInventoryAdapter.py",
+      "sut": "SkillInventoryAdapter",
+      "content_sha256": "e46ea4aec07728f0ab4ab73f12e82fdca2dc8cf5064cffec19f9a23e40dd2f27"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__TaskRecordAdapter.py",
+      "sut": "TaskRecordAdapter",
+      "content_sha256": "cf5b5d303ec03a99ac667b0cf999e39385d585211ef9c6be72341a97e5dd113e"
+    },
+    {
+      "conformance_status": "conforming",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__ValidationRouteSelector.py",
+      "sut": "ValidationRouteSelector",
+      "content_sha256": "43fc124ab419b789574f3d0ce4a795e3ed5421b222f8da3e7f8bd87f6761b8cc"
+    },
+    {
+      "artifact": "h4 hc02 route fail closed",
+      "conformance_status": "conforming",
+      "content_sha256": "e0188139919dcf1d9667878bc502a1e97e5fae8ec1e62370bf31fea4b9f0aeba",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py"
+    },
+    {
+      "artifact": "h4 replay and completion evidence",
+      "conformance_status": "conforming",
+      "content_sha256": "076df9103009d881807446846d8fb303ee2761212526d82850e5146dbfd62563",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py"
+    },
+    {
+      "artifact": "identifier audit command API agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "292acb534bee0db6dcd1094c85a8834f575ddaa919308db711f139def569effa",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py"
+    },
+    {
+      "artifact": "inspect task state command api agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "d57c5dc9960439be5efb1fc5dc574f31956e6f690dd9f84f4e41336ac16bb307",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__inspect_task_state_command_api_agreement.py"
+    },
+    {
+      "artifact": "local context dependency and nonmutation",
+      "conformance_status": "conforming",
+      "content_sha256": "8b511f362a5c1667ac185c1e5ddda6437f9a8e5f6d84d08c882159bba128f48b",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py"
+    },
+    {
+      "artifact": "local public api and models",
+      "conformance_status": "conforming",
+      "content_sha256": "3155ab02ef42f00cfee66679f7e01badab23562adb5d7b58f3f1ee44a2b0e24a",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py"
+    },
+    {
+      "artifact": "refresh resource manifest command api agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "3a7d4e3e87afb02865bbb94abcf5617d59f7431be9beb07d998259fd5aa7c803",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__refresh_resource_manifest_command_api_agreement.py"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6dab9d38897b7a41211a4f6b0182e105b7e5149f3949b5311e79b25d39b89e65",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AgentDescriptorView.py",
+      "sut": "AgentDescriptorView"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "bd578a5c3cc4d46ea175aa1cbb2b43fdaaa18ca74434ca8fe4761f15928106fb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ArtifactIdentity.py",
+      "sut": "ArtifactIdentity"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "789612408ae6e9b9fc48f1eaee2c5ce367590ccd8b507aa3052ff2faa0874f28",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainEvaluationResult.py",
+      "sut": "ChainEvaluationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c35554527b9d8a1ad65ef24aae797be28d54462a44f5039d6acf6c0896eb2fa7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainStateEvaluator.py",
+      "sut": "ChainStateEvaluator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "76af674a06f03f9fd50f356abc59d89da5d7ff669cb7a3b89433ad1cb3ab5486",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChainView.py",
+      "sut": "ChainView"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8db5bf9dd60b8f97abbc0894a4b9d7e2fe84cd8610d0266e7401ca32f19447eb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointDecisionResolutionRequest.py",
+      "sut": "CheckpointDecisionResolutionRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "18bd81534f7d23a359aa90ebe9903b10148919e6b59a1671485641d87e2edd3d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointDecisionResolutionResult.py",
+      "sut": "CheckpointDecisionResolutionResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "78206e4170be177517e0f7e548544f38f1dce07cbf97f81c6ed48f2d0912e6ac",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointDecisionResolver.py",
+      "sut": "CheckpointDecisionResolver"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "06df63906e3a51904868150d590b11a56feba5cae70884654c6a76cfb824a871",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointRecord.py",
+      "sut": "CheckpointRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "88d32ed9e2bb472318cbc7e9b3d6a6af83320ddca872929b15f8b2d2adfc4faf",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__CheckpointSetValidator.py",
+      "sut": "CheckpointSetValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7787a567cd086fe0cc0711e6ca5dad3e936013826b5151a007ed2a883970673a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumEntry.py",
+      "sut": "ChecksumEntry"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "999b24b2b1997ab80f0bee7906048ae9bebbfbbd7100dcb7a0e1ed4d36247686",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumManifest.py",
+      "sut": "ChecksumManifest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "767b4fc6c36acc350d1db2d9004d277476811b80dcd9956399558d964a78071e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ChecksumManifestValidator.py",
+      "sut": "ChecksumManifestValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3b3e29528a21ece1a952807720edc93f7130565672e300e2c37230693719bafa",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HarnessInternalError.py",
+      "sut": "HarnessInternalError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b368f7762bf55e231854600558da1748b9cd0ba49500853f276226aaa58627d9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py",
+      "sut": "HumanReviewDecision"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "97d3f7524ec45a0239d1c361805e1d65c8a51a9a40a6deb70e7f1f184c88d4a2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py",
+      "sut": "HumanReviewDecisionRecorder"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "bc251f36dd8028846fe16f97878bca16ab71955fbb0a4ade203798fd8805975e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewFinding.py",
+      "sut": "HumanReviewFinding"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f5810cb3ca475e47fdaf78eace182ee11b71dfa5421a384b337a156e6b7a6704",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewObservation.py",
+      "sut": "HumanReviewObservation"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f81f0aaf69ae3d6045c1b96f9ed7df6fe42f385eee6682034893646807b8db37",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py",
+      "sut": "HumanReviewPacket"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5c4a7df6e8528fd3218255876ded236edd2fa0cdad19e27392cc409831bdf547",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py",
+      "sut": "HumanReviewPreparer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1cd5d1ec5d0e42924d480b793c56bb6b41ac03e54d815968808a4866feb68d1d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewTarget.py",
+      "sut": "HumanReviewTarget"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f9ea3dd3124aa06b4436ba12576d1248015c8cdd8f4c7651e1d059f52cda005c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditResult.py",
+      "sut": "IdentifierAuditResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3b71698276b73f446641b9f45979d18d5dde5d192aaa280357209fbb08f55b43",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py",
+      "sut": "IdentifierAuditor"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "75770801c9488b843e7f08e8a9bac44d7b57918ac41b9cc309061b4cfdce8a43",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierOccurrence.py",
+      "sut": "IdentifierOccurrence"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7e2882369aabbed3f598d31f9deb3a3f1d36e4713c7af7899a2475901ca48c5f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonDeserializationResult.py",
+      "sut": "JsonDeserializationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "69ffc66e1e4e2d8460254185f485011349f14b57a6730b59285105e17db8fc37",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonRecordDeserializer.py",
+      "sut": "JsonRecordDeserializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7d8af375ed2a5450b329d8ebd9a9b5cb155aa87853bc38fac37c5b0eecf403d0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonRecordSerializer.py",
+      "sut": "JsonRecordSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ceb2824fc45af523ddb5f34435ea34ee41217d4cbc387632c7e3ba3d3aa3bcd5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__JsonSerializationResult.py",
+      "sut": "JsonSerializationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5369eeacfe9066cc2d38c0f14f6d3a513b1c73b7bdd4b4808cbeb6433317994c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipManifestValidator.py",
+      "sut": "OwnershipManifestValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0a6f6d417e7ed5a991bc1d04f1054735901fabfd8bb0e481d27d4e9becfafd57",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipManifestView.py",
+      "sut": "OwnershipManifestView"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6bbb5b7bba893f396b0f18968681e55174955b4a1009f3b675b5d7301460b39f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__OwnershipScope.py",
+      "sut": "OwnershipScope"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6b1ece933e8e2aef5b84aad084c1ebac0cba1cd33de50da3a537d470a46c7445",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfile.py",
+      "sut": "ProjectProfile"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "83822925f88685a573f721348b14e0543cc639729a4678d5fddca16e7ee7b3df",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfileLoadResult.py",
+      "sut": "ProjectProfileLoadResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c53d3a7879e1aa562da6a9a42efa2c0fdbc5071b5d49e3987793c851f7f6ed33",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ProjectProfileLoader.py",
+      "sut": "ProjectProfileLoader"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "49f308dd2e2749c720a6be291b3b611ed6f6c52fb61912e40de746f96a1f9822",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py",
+      "sut": "PythonConformanceFinding"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a582296d773db95f3dc7cee43c8763eec580d5cf534c38d0a4c10e1a4f416b90",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py",
+      "sut": "PythonConformanceRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4d64d7701a9dad21f4719512b5b1e230db71741042b86a4dc7bd052a97414874",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py",
+      "sut": "PythonConformanceResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "56abc5cb9453a3f5859348957ca2f898fe1a0e59e6d56792a83be39e8082ffb7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",
+      "sut": "PythonConformanceValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "df7314f5be9d9b4463ba2396bdc1d3479f7a25a331f11f7f17f3132a95e03361",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py",
+      "sut": "PythonModuleSource"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "30dd028e67b23d567efe627c75798784c01687edc07a2afb6579c84c3c651214",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifest.py",
+      "sut": "ResourceManifest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7e2ff76187fa4650db165101eb63c3a2f4bdb4fcec47eb3395e4b4429b0837bb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifestRefreshRequest.py",
+      "sut": "ResourceManifestRefreshRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ce7b9781cbef66425672f928a9219256899a6d96e36dc585f778a1486077aaab",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifestRefreshResult.py",
+      "sut": "ResourceManifestRefreshResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3dc9a394d2cada858b4f41d35994ecb3829d38f14f570e939fcd83a48d946ae8",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifestRefresher.py",
+      "sut": "ResourceManifestRefresher"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fd94fe079e4e975bfd9008454094ed0a1a0f75d74737dad80f4cc57e40006d8f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceManifestValidator.py",
+      "sut": "ResourceManifestValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "65f87266057cdb514d815b108a26a5b6bec680c73adb8ea2fe5094762fe22a1f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceReference.py",
+      "sut": "ResourceReference"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a18da92d3e300532cb9dd645d47d837f4c5088791b8b65df8df97636eed998b7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceResolutionResult.py",
+      "sut": "ResourceResolutionResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "506311de5ce2488942238158baf430f20ef9e0c9c109bbe128bfd9383eee816f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ResourceResolver.py",
+      "sut": "ResourceResolver"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a15370d5e30a92b94f41d277ba13419f47130181afb6f5660beb19795ffcec9f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__SkillDescriptor.py",
+      "sut": "SkillDescriptor"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "125432cb8e721241653072476b1f1e32d67037996b85907429fbcdac5dbbc39f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__SkillResourceValidator.py",
+      "sut": "SkillResourceValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a7d6e460a607c8c7cc585b2808beb36f158373cb1b975a1219cdba9699e00129",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskReference.py",
+      "sut": "TaskReference"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f5e7f15f7ef255b66fb03c4ec35d5750dd6cb6ccc8e9f1898aa4985ad6ec2e19",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskStateInspectionRequest.py",
+      "sut": "TaskStateInspectionRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c862979ab01dec4978f4b83aa73d36a42a3c9b53c1ffce2839c9ce2b96f7ad2c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskStateInspectionResult.py",
+      "sut": "TaskStateInspectionResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "af058b4592f38c567ac57236e26c347a350fa49273cc83681ee8f703275d756d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskStateInspector.py",
+      "sut": "TaskStateInspector"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "020fc5bfa005a703dcbeac54b5b33d532344bf1ac04094016b52720f0a76e0a6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationIssue.py",
+      "sut": "ValidationIssue"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "81509582c5fde473076c9ab89a37e6b54d9c7b2f97c02bf2e1d2a1f1f64d3c41",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidationResult.py",
+      "sut": "ValidationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fcaf54e2ffa77076a62648fe25bb29cac5a700e66783072d4e8c9b7fa64fe7d3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__WireRecordKind.py",
+      "sut": "WireRecordKind"
+    },
+    {
+      "artifact": "harness pi generic local dependency direction",
+      "conformance_status": "conforming",
+      "content_sha256": "7c38fb33e891aa26b39be0a87ed78e4c03830ecb71269864d90699a1336533fb",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py"
+    },
+    {
+      "artifact": "harness pi h3 resource contract",
+      "conformance_status": "conforming",
+      "content_sha256": "1162eee3d05b2d810657db6f3041f8c37a67d1c9423af20f4b16346f7cfdd546",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py"
+    },
+    {
+      "artifact": "harness pi path confinement contract",
+      "conformance_status": "conforming",
+      "content_sha256": "4a01d6ccb27a5660f82aae8103200a887245c6a48f344ecc753deb651123d6ba",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_path_confinement_contract.py"
+    },
+    {
+      "artifact": "harness pi public api",
+      "conformance_status": "conforming",
+      "content_sha256": "e03278c3de0f2312c2aa7007a47c68f24a42102dfe562e6127251f1822c28b6b",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py"
+    },
+    {
+      "artifact": "human review public api and dependency boundary",
+      "conformance_status": "conforming",
+      "content_sha256": "2fa6f119cd19cd6a6eb7bf4c0c81a3402bfeb62399784e28f2d974f1a2a96afa",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__human_review_public_api.py"
+    },
+    {
+      "artifact": "Python conformance wrapper/API agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "7e79415b1785e9dfb6760d33d50728ed1709cc5427258a5e09ed1c5d500b9b4a",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py"
+    },
+    {
+      "artifact": "import dependency direction",
+      "conformance_status": "conforming",
+      "content_sha256": "74e0153196ecc6d23443ef5d0d758b859ba824bfda8aeb15639bddb580b96974",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py"
+    },
+    {
+      "artifact": "json contract v1",
+      "conformance_status": "conforming",
+      "content_sha256": "8bd3ec0addf60b1ad65a664af25c6c062904bc6de7e0632695af6f3af2d8a253",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_contract_v1.py"
+    },
+    {
+      "artifact": "json fixtures runtime agreement v1",
+      "conformance_status": "conforming",
+      "content_sha256": "a25d02d23099f08ea664f9d7cbbf587a39532355f7000e382951babbbc6ef2bb",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__json_fixtures_runtime_agreement_v1.py"
+    },
+    {
+      "artifact": "package wheel",
+      "conformance_status": "conforming",
+      "content_sha256": "9bd4a7120f208449ff5588bf244cbe352e2275e890a412db70422e8561831dca",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__package_wheel.py"
+    },
+    {
+      "artifact": "public api",
+      "conformance_status": "conforming",
+      "content_sha256": "95a8b6c4364975735cba6495e420cd9d48d19f03ac8a75b3ff7512443db04484",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__public_api.py"
+    },
+    {
+      "artifact": "schema fixture family v1",
+      "conformance_status": "conforming",
+      "content_sha256": "e2719e911d93c002280f1d6900ba454860339f4872b313a9493d45024976f4f5",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__schema_fixture_family_v1.py"
+    },
+    {
+      "artifact": "OperatorComparisonDependencyDirection",
+      "conformance_status": "conforming",
+      "content_sha256": "6236a66a2cb6ac94fffffb408942c8dee7026cfc4201f570e0b74328a8b00995",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__operator_comparison_dependency_direction.py"
+    },
+    {
+      "artifact": "OperatorRecordJsonFixtures",
+      "conformance_status": "conforming",
+      "content_sha256": "955f28d451663fd0a6ddace8ae0ae389fac1c51e4926b0ae2f4d31cc4e9b6a85",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__operator_record_json_fixtures.py"
+    },
+    {
+      "artifact": "OperatorRecordJsonSchema",
+      "conformance_status": "conforming",
+      "content_sha256": "6ae7ef3beb2c2913919f1c63820edd8e23efc5b4dc88c0cf922ca442e82cfde1",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__operator_record_json_schema.py"
+    },
+    {
+      "artifact": "workflow cpn python import dependency direction",
+      "conformance_status": "conforming",
+      "content_sha256": "7cd0d21d03899ec743f6cb95b15b971f08b3a49f23701813365640593b84304d",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py"
+    },
+    {
+      "artifact": "workflow cpn python public api",
+      "conformance_status": "conforming",
+      "content_sha256": "31dd7e246094e8e899409d8e27fd93fb886bfbbe865654434a953a1a9594e018",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py"
+    },
+    {
+      "artifact": "workflow cpn python snakes and deferred engine isolation",
+      "conformance_status": "conforming",
+      "content_sha256": "25ffabb96aff2ae618afc60e4b3ef4edc10c4bd55aff4d3fd868191cf1964f75",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py"
+    },
+    {
+      "artifact": "workflow cpn v1 json fixtures python runtime contract",
+      "conformance_status": "conforming",
+      "content_sha256": "1ec3c4a3f9e6c886f1d785c9c5f4f3b8229ec50d57bb0f1697c3987e2261ae02",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py"
+    },
+    {
+      "artifact": "workflow cpn v1 python json contract",
+      "conformance_status": "conforming",
+      "content_sha256": "4a859f4925afb0a08a1efdf7760e037957ce42ba71bf2c1cbc8ceca3c745fbad",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "05d2a978b70ee6238bb9fc01f4600a8e01a54457ee6f0c636ff8f266b63620fc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__construction.py",
+      "sut": "Basis"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "547523e4e4da2de8ec59a7fd7ab7b4c9f8fff62b60cf24c24ff79ebd99c921cd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__invariants.py",
+      "sut": "Basis"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c304602112636d8482c331e35c6981bf1d4e7b8038b3ce5fadafa41679abfaef",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__value_semantics.py",
+      "sut": "Basis"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2d85958156d68b3159553bf4fbd497a5d74d9b5993c005f4dde7fad6f3410ace",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__construction.py",
+      "sut": "EnergyReference"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a5f4c8ed5b8955b5118b9c513dbe57aa4aeaf2a5b87357d61b9d2adf7bb9ad9e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__invariants.py",
+      "sut": "EnergyReference"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "985197f9aa3bf2eb5ca1e519fb6c5cc6a524e0415d035363c03372b0a7476aee",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__value_semantics.py",
+      "sut": "EnergyReference"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fb9f83cb57b1972a2c75c9568d98fbe2c8fd5007386ac21b8e3d45e723d63609",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__construction.py",
+      "sut": "Geometry"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6e406e6d63662c4e4edd6234824bf7383f531cf7b7a73cdccf63900cdca5765c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__invariants.py",
+      "sut": "Geometry"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5a42a6e12d7665a298f36488375416316b04d6845aeb0d7ba7222de6963d41b7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__value_semantics.py",
+      "sut": "Geometry"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "45777ee5ff5355d2b8abff31aeaf6f6aee5bf68bbab8fa22aea3b5f51599d5d4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__configuration.py",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d28c2391e2f1a9d9d26c963e76bb6f672835e754625906653ff50e007e2a33f9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__contract.py",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "925de2596246bdb96ff65759ec58d3bb7857a1628aca4d7afe0bbca79a040f2a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalError.py",
+      "sut": "HermiticityNumericalError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c45d5073af128540d156641eee3e66bb81e44eb05cdbc8fb34ffd4d67f0fd49c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalErrorCode.py",
+      "sut": "HermiticityNumericalErrorCode"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5921f69f684d2c316ac2fcd3618b68aca9b09960e9f6e5668bdf880175e4ddbb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityRequirementError.py",
+      "sut": "HermiticityRequirementError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "076ac3a02fff00b905933fc54eb3d5cb7eb2dc7dea96885948f9c8ac7b212d1c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__construction.py",
+      "sut": "HermiticityResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "03d0bf9c5f6c246f7cb739a29b818849ee4555e4ce9b80acaeec68d50e0744d8",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__invariants.py",
+      "sut": "HermiticityResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "adadac3293ac9080f34566f59a9b3565a1601a402988519c89bf194bde66217c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__value_semantics.py",
+      "sut": "HermiticityResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2edbb97467a43bab0e5c921e00f09c4b27f0e7acc81a62efd1089a73555a6ba0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityUnitMismatchError.py",
+      "sut": "HermiticityUnitMismatchError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1f1f311981ef3509c4601cc3dd8a35536bc7fea0c96f40eabb2662672489cc34",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__IncompatibleOperatorRecordsError.py",
+      "sut": "IncompatibleOperatorRecordsError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6c8bd48ebd30f99d26b534dd64d854e7da418e4664cd129a2dd426273c45a6c9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py",
+      "sut": "OperatorRecordComparisonNumericalError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "51d9e234626d127a8bf20a9bfbc971009556b76a0c4d8725f64362ba0459c347",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalErrorCode.py",
+      "sut": "OperatorRecordComparisonNumericalErrorCode"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "47e8ecfbec4e84679cf466543207770f1d1a1e2eb0ccef8d59379aade252a5f4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__construction.py",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "730b06680294f41be1053aa85eefe5464097f8abe8e34dc9ca73e01d67d4722f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__invariants.py",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "73d7dbcdc8d02cb5fa63ded5cdb05fe98e4916a643c4930f0930c166a521bc34",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__value_semantics.py",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ff25ba4af3ecb1ed34e9c0b81201672243c389c51cd1674f4953098005e31ac0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__contract.py",
+      "sut": "OperatorRecordCompatibilityAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ff969e0cc69682e4bcbd899181818a312094def615fbc761b7a4822082206dc0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__rules.py",
+      "sut": "OperatorRecordCompatibilityAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8bd93be0c949602f12080fb4de141bac02d689cab800493a1c18c323e08268a8",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityIssue.py",
+      "sut": "OperatorRecordCompatibilityIssue"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3bdd7222ea7a367c6d22d3fe8f05debed2f8f6b07745c277fe0819bdc9078fd1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityMismatchCode.py",
+      "sut": "OperatorRecordCompatibilityMismatchCode"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "940afae19276d38acb429d08943a97b8c1180388bc05af235ee9991621bca424",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__construction.py",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "10016b2dc8a5727fc42b2a5b00087e0285c834dd619ada160955d01790909ce9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__invariants.py",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "89888153e6cab786fa195ca53342a8baff401bb16faf337322d13b5c4e06ebc9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__value_semantics.py",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "079f3cc6524f14e4441cf5ff0591c7dd0894b1408b1a25619d57fccc4787ea4d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalError.py",
+      "sut": "OperatorRecordDifferenceNumericalError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8792d853298e50ed297e85776ccc89c6ac0601036e4fb6ac97ffaefbddecf856",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalErrorCode.py",
+      "sut": "OperatorRecordDifferenceNumericalErrorCode"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8b128d61fe69392a6d68d9e90b2e1a0d0630d69ecd31133c1d7e21a30bfb19c7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__construction.py",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d43c0e70882c7699db55476fe075763ec49063e0940a65d75e3ae309bdbb5674",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__invariants.py",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6b305400ed8c786d6cd55e380389249372ca273f74d391b2e911205ea0acfaf3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__value_semantics.py",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "72b2245d5793ea473d134c3700f05c970d6d103e9bcc7e15ab1110e4c9527bd6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
+      "sut": "OperatorRecordDifferencer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3d4565cecb3ef0bc00ca96a9052e3bf76af151fa02e3a38a239c9bfee5bbf187",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__contract.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "767e3214949361e4b2e8cd7063afc1dcc8c1a2bf8e049e992f8c8af9862e75e2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_structure.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d11623ae9ad44769c47d7c40550dc491c444c1682367c66eef0eed827606e11d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_values.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "22d8128a067eb18a2cf02a4dd24b51134c2ca26cf32d1ea265ee69a30bfb5add",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__round_trip.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7afd8a3a91b4a79b1546f63b04142a8ed8c4cbf610d156912ff0ddf393b430d3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__serialization.py",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b5f2fe5227a29599d33073ce470b86de7280f3dfa2c684f93163a23c5011a105",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__contract.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "afea035180f0dc9d8d8f56ef707ad09a6759f612e4f01a5edd8f268e0204e7ec",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point_regressions.py",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b4cf06a2b20c7a6e640fb7cbba294634f61caf216d7627f3d3805aecf8a7a0b3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__construction.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e021c7b2acc43f8853d2cb10acb28fb697218816377f7f632551553ec880a7a6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__matrix_invariants.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "acdf95a0ab768536863b5f61450d9a42a986d49f476dfb6275763fc6a7e6a661",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__metadata_invariants.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ad55f974e3976d1782ef5da3c073c9070bec6eec9bf674fe460d3bd3d81d518e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__ownership.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fb66c2e04baac5e90c5314940951b77cfc293f8d7635fff62fa947295ef2ba74",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__value_semantics.py",
+      "sut": "OperatorRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "59e6231fd735ba1eadef648c64d05b8dc7514d745e30032c423fd337dad183df",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py",
+      "sut": "StateSpace"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fec304918ea5de1c4ca0bfec67879cce3c62702f4e22cebac551f0c289109bee",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__invariants.py",
+      "sut": "StateSpace"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fcf9ad16f3f015318ae10a30b9935c93813b4c0f03df0e6804da09b3abbf44ba",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",
+      "sut": "StateSpace"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "504dd7a1b20b1fc0034537f4b647b2d65633093221d11890e167abdc141f433a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentity.py",
+      "sut": "ArtifactIdentity"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3add02e8337e5f556d69f6c96b9b572df0b5f54f1aaa4c1f290dd51d6eb6c3f9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationResult.py",
+      "sut": "ArtifactIdentityVerificationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0cf58a1c2f850d7a989af1f657d6b3f998ad0fc21ce7f511e6b4f66eed41901a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerificationStatus.py",
+      "sut": "ArtifactIdentityVerificationStatus"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9f615c1667d7412b44d414db493d21f485e26b3e7ea501a7c3a539ed6506e184",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactIdentityVerifier.py",
+      "sut": "ArtifactIdentityVerifier"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1e3c45764156d2dbcafdb71139470e23f1d2de12ade7354fb1daa7e4f03152d4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocation.py",
+      "sut": "ArtifactLocation"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dc235f48aa180e4da21237574442dd2bb2fc445b7cce4fd2ba40a207a38a8891",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactLocationKind.py",
+      "sut": "ArtifactLocationKind"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f043b67377cc3c222d694083440c87d6ce0417a85ae21e97cf972378233fce1a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactReference.py",
+      "sut": "ArtifactReference"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "171fa175ecaf179e60b9d1188ad619bd46f971822735f1e017f7b51d09c2ea37",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ArtifactSpecification.py",
+      "sut": "ArtifactSpecification"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7f8012b9bc3017c338b63544e3a6d3d8716ad958082c96e99260680ab349112c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__CapabilityKind.py",
+      "sut": "CapabilityKind"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "27e3bb1454c1c5fe5a48cab6769d41ab64fdd6fc1861296492753820d0cdf9d6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationIssue.py",
+      "sut": "CorrelationIssue"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "abfbfd595e158ed7db1b0c2698e360c80128a5e46b7657ef74b0287a6e3b1f80",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__CorrelationStatus.py",
+      "sut": "CorrelationStatus"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a7c5dad468a8803eeba775b7fbd76903f3c7763c5ba17ec02df6ff392cab8b90",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__DeclaredCapability.py",
+      "sut": "DeclaredCapability"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "aa2a2547693d07772e136821253e29b054a7d44e2a21ee459d5881c87afeb8db",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionCorrelationResult.py",
+      "sut": "ExecutionCorrelationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "046206490d8f30e5035fc6754609fdc5bec96dde3579111e11044e6e6396a012",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExecutionOutcomeCorrelator.py",
+      "sut": "ExecutionOutcomeCorrelator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a7ea9c49efa71856ddc9aa8e95b8416659e2cfee182274ee15b8a551a3cfea30",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionFailure.py",
+      "sut": "ExternalExecutionFailure"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dfadb9809c8b3d886108ecc04dc99ce4dce969ad95f22cd19fca1364a59cc009",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionRequest.py",
+      "sut": "ExternalExecutionRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5c81bee96a56a623928c82b1ae894c0222ad56e8e423feed12554ccfbab9ada4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionResult.py",
+      "sut": "ExternalExecutionResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "be622579b1be9857276ac944856810cdcdc2d26fc7284b9257fd54fd8aadb4e3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalExecutionStatus.py",
+      "sut": "ExternalExecutionStatus"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "94552defcf64e17e19966d1bf7d1333a1fce8e9ae3bf54d9bdf6bf350ae49238",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureCode.py",
+      "sut": "ExternalFailureCode"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5bac95236e601061c8a7bca813da04db8bf7fdda03791cb92b4a0ee974facdb3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalFailureStage.py",
+      "sut": "ExternalFailureStage"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5631e245999293b61118b20338e1806ec68bb6e1961f7fa394522a4ad8af5126",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolIdentity.py",
+      "sut": "ExternalToolIdentity"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "41f0da396d6a2d391d22f5a563cca12aabb28894829254b2a482863926fddc01",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ExternalToolSpecification.py",
+      "sut": "ExternalToolSpecification"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "33e771628e1cec26c038731eb04ce2cb8d0b6cf7d73c8cfcd8af7d0016795ba9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__InstallationObservation.py",
+      "sut": "InstallationObservation"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5dbcc5053959b19fa2280d23816de0ff8fe6b643a9f271bf123a3ae1eed5379d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageKind.py",
+      "sut": "LineageKind"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a129d40540e62f3931450f0310e887fb6d0dc1f51b6bf8dc118ca8c2b5e61b35",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__LineageRelation.py",
+      "sut": "LineageRelation"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "facc499f47859c901abc8292aac0634004bca5aad8c54d473a7186ae4b9bdc7f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ManifestState.py",
+      "sut": "ManifestState"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1cc166dc785a493e0b68fb197ef9c170b1a281c8f23634e1af501a92bd996ea1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonError.py",
+      "sut": "ProvenanceJsonError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7a08d9ed5d8424192d10c65ce3993efd1c3b9c0fd3548191fd6cb1878525284f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceJsonSerializer.py",
+      "sut": "ProvenanceJsonSerializer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "82bbd11365e7b67b04ee4efd9ea7c70e8a6c16628ce86f8ff68215334deb1c63",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__ProvenanceRecord.py",
+      "sut": "ProvenanceRecord"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8b20efbc020d85d280b39cd12b7fed227ce0a555efba074ba6b678c1817cea90",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__RunManifest.py",
+      "sut": "RunManifest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ff0ab8d1aa26a3363cc2d894319328779546054a83b2961e2293cf18242702c0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationObservation.py",
+      "sut": "VerificationObservation"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8091f61a02beb4cae05fee0e23c8b3949d36c62a58c295f97c8da27855e5ef71",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__VerificationStatus.py",
+      "sut": "VerificationStatus"
+    },
+    {
+      "artifact": "external execution outcome type alias",
+      "conformance_status": "conforming",
+      "content_sha256": "d476ed8a25c064ee1bbbc9078e57254dcf0c5ebae3a47a52771b8fc9e198e461",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6ef66440f182ad2b45cbe3a8786886024e1bb18671703a82058db8cad2d0150d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py",
+      "sut": "ArcDefinition"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "39107f99f94042498a3373e098c988968df94b62da0b9e345fa53f625a46a45a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py",
+      "sut": "ColorDefinition"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "76c79acdb78dfa546320cf836277e466d6e38131fc2047d09aa8275b76a18f72",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
+      "sut": "ContractValue"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "94298effebef893b62797e0a5d85af8bffeab86c63fb59293dbcf5c183d59c98",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py",
+      "sut": "CpnContractError"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "08c7604014621df25042211efe663c0fc5cce5756654899215856a7a12e194a0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py",
+      "sut": "CpnDefinitionValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "671cdb1dbafe9117f1653f0109939b8f94e36cbb151dc3c45711c67bb5c10edb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py",
+      "sut": "CpnErrorDetail"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "52f2e7b03c4955dd404916135a38e15aa1ee9435149dae61ea0144963d108749",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
+      "sut": "CpnExpressionEvaluator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5ea152c1f31b23d259fbc4aacdec833c1e9def1284351414eb4335a904e9e0d4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
+      "sut": "CpnMarking"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "600ef680b3c7c34036abfabda94b834c49d99cdb3b845df3c346fdf7e7499264",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
+      "sut": "CpnMarkingValidator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b437fe74a7a45baf199ebf1a8af527e502d01798b996fb0ab1155b8a6cdf6743",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py",
+      "sut": "CpnNetDefinition"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4f8df7aaaba1ff263361a68c320559a12c8b9522c15d6811b794762aa62c5049",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
+      "sut": "CpnToken"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "bb44f101e42adde04bf7466c3053ccad8b4e236ed7153d1993b369737da9cdb0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py",
+      "sut": "CpnValidationIssue"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "933645ced975f4bd7e92ac79fbd83024a08af7766c21247b03f86bddcc376232",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py",
+      "sut": "CpnValidationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "058c7ba78da0740689d593cdb6a913938afe464d79c09277b006a0e17635997c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
+      "sut": "FiringRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dcfde180f6f1afa657cb1396a8cd9e37ed8c4047d61c044c22a76335f2393856",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
+      "sut": "FiringResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4b0e2bcf23c47bbc32c79e44301c2d8e777c199306cfbe9d4af2e10262d593a0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py",
+      "sut": "GuardEvaluationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d74574b19007475307b2bf955f106964433b5931089d969e41a14d014341c236",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
+      "sut": "GuardExpression"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7b636fde4ead5f7afe2bd0b373e0bf9d257cd968982ad4bbfcbe0041cc77ed6f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py",
+      "sut": "InputInscription"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "18e9982a63b21b520dc759e03d169b9584a5b3d0a071088e757e6bd6a622459b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py",
+      "sut": "OutputInscription"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4d254371c6c2d683f416a59cc091520697b70b38c7f8d94ccfb82cac7ed753c4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py",
+      "sut": "PlaceDefinition"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1f59843ad8702812418bc21bf43a268aa634cae591bd3fca2d1638d41b0ad8b5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py",
+      "sut": "PlaceMarking"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1f4ce8944c9d6831c7824844f8576543b8e0387cc36d6abf850b60bbfe2478ac",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py",
+      "sut": "TokenBinding"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b3fa528ae4fea86a9ac49704ef14b9719df43ed93b9c4581523a159f803bd21f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py",
+      "sut": "TokenFieldAssignment"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9bb2e7c382e0f58135c43ed58cf4cc49c8c60ea7e88886743c0a9d5d5d1baa95",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
+      "sut": "TokenOutcome"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "da40422110d4eb23943d539010a8114ba49d0906cbff8d726a769b52f300f91a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py",
+      "sut": "TokenPattern"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6a80fc1dfbc615bc5c13c89c3a137091ecb6337c263b023ae0c34bdd87c0e9f2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py",
+      "sut": "TokenTemplate"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "03863a7b727c832aea155370ea34ec2a9af3d4f909e38f34b86c35edeca2bf72",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py",
+      "sut": "TransitionBinding"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "def230611e57973a7425e2a554102d4855a4625fd97946256d7d0f0bdc15c45d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py",
+      "sut": "TransitionDefinition"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a5afea83798890da4616f6c5a98fc39eb27f9b895ddfcc10c7c22cd3e1959d70",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py",
+      "sut": "TransitionEnablementResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "12d5d2c689fdb462dc56c5441807357bb0164d2407ce2ff20d728d5d68654c81",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
+      "sut": "TransitionEnabler"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6de9106198e2837a0bf85daba8753959ed2c6db6e425b8911ba598406aa7c893",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
+      "sut": "TransitionFirer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "22bf8cc263a0ba05b3efdb58fd7cb4bdecb8b92a7954e46c4e91f65c38bebfbc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py",
+      "sut": "ValueExpression"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d4160cca2dc280bd9a1b73f791d5e66428181bad349feab65c00a4ccb53f9a3b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__OperatorRecordComparator.py",
+      "sut": "OperatorRecordComparator"
+    },
+    {
+      "artifact": "import",
+      "conformance_status": "conforming",
+      "content_sha256": "06e8c1f2dde40a8ffa89b5db453459948ef683351b454c338197dde95989fe8b",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/test__import.py"
+    }
+  ],
+  "schema_version": 1,
+  "test_root": "python/tests"
+}

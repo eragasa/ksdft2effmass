@@ -312,7 +312,7 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "d95f15b4b90ac28eb63167a3e315a652df251fcdc17de0734f09875d3bd62ee9",
+      "content_sha256": "eb5a35754ec6e704ab1111d2e1139bb453131b547ad40a688a1e9cd0bb42c999",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
@@ -347,7 +347,7 @@
         "none required by the skill; focused test execution is task-selected"
       ],
       "deterministic_scripts_used": [
-        "harness/pi/validation/validate_python_test_evidence.py"
+        "harness/pi/validation/validate_python_conformance.py"
       ],
       "authorization_requirements": "Scientific validation and UQ require separate protocols; mutation authority and paths come from the controlling task, not this skill.",
       "failure_behavior": "Stop when evidence class, primary owner, contract, oracle, acceptance rule, or required validation/UQ protocol is missing or conflicting.",
@@ -788,8 +788,8 @@
     },
     {
       "block": "EvidenceIdentifierAuditBlock",
-      "command": "python/.venv/bin/python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers --root <absolute-repository-root> --profile harness/local/profiles/ksdft2effmass-v2.json --inventory .pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json",
-      "evidence_owner": "AuditEvidenceIdentifiers",
+      "command": "python/.venv/bin/python -m ksdft2effmass.harness.pi.local.identifier_audit --root <absolute-repository-root> --profile harness/local/profiles/ksdft2effmass-v2.json --inventory .pi/evidence/python-conformance/module-inventory.json",
+      "evidence_owner": "IdentifierAuditor",
       "classification": "software evidence-identifier and executable-marker verification",
       "current_status": "The production ActionObject is the sole parser and deterministic policy owner; the project-local CLI reads only explicit profile, inventory, and inventoried module inputs and projects structural results without repository discovery."
     },

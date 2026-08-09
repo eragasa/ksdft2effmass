@@ -26,7 +26,7 @@ DRAFT = "https://json-schema.org/draft/2020-12/schema"
 PUBLIC_RECORDS = (
     "agent-descriptor-view", "artifact-identity", "chain-view",
     "checkpoint-record", "checksum-entry", "checksum-manifest",
-    "evidence-identifier-occurrence", "ownership-manifest-view",
+    "identifier-occurrence", "ownership-manifest-view",
     "ownership-scope", "project-profile", "resource-manifest",
     "resource-reference", "skill-descriptor", "task-reference",
     "validation-issue", "validation-result",
@@ -150,19 +150,45 @@ def schema_and_fixture_gate() -> tuple[dict[str, Any], dict[str, Any]]:
                 isinstance(s.get("$id"), str) for s in schemas.values()),
             "schema.draft-and-identity", "every schema must declare Draft 2020-12 and an absolute $id")
     R.check(len(ids) == len(set(ids)), "schema.identity-unique", "schema $id values are not unique")
-    record_names = tuple(path.name.removesuffix(".schema.json") for path in
-                         sorted((PI / "schemas/records").glob("*.schema.json"))
-                         if path.name != "common.schema.json")
+    record_names = tuple(sorted(
+        [
+            path.name.removesuffix(".schema.json")
+            for path in (PI / "schemas/records").glob("*.schema.json")
+            if path.name != "common.schema.json"
+        ]
+        + ["identifier-occurrence"]
+    ))
     R.check(record_names == PUBLIC_RECORDS, "schema.public-record-set",
             f"expected exactly 16 records {PUBLIC_RECORDS}, got {record_names}")
     expected_record_ids = {
-        f"https://schemas.pi-harness.org/v1/records/{name}.schema.json"
+        (
+            "https://schemas.pi-harness.org/v1/evidence/identifier-occurrence.schema.json"
+            if name == "identifier-occurrence"
+            else f"https://schemas.pi-harness.org/v1/records/{name}.schema.json"
+        )
         for name in PUBLIC_RECORDS
     }
     actual_record_ids = {
-        schemas[PI / f"schemas/records/{name}.schema.json"].get("$id")
+        schemas[
+            PI
+            / (
+                "schemas/evidence/identifier-occurrence.schema.json"
+                if name == "identifier-occurrence"
+                else f"schemas/records/{name}.schema.json"
+            )
+        ].get("$id")
         for name in PUBLIC_RECORDS
-        if isinstance(schemas.get(PI / f"schemas/records/{name}.schema.json"), dict)
+        if isinstance(
+            schemas.get(
+                PI
+                / (
+                    "schemas/evidence/identifier-occurrence.schema.json"
+                    if name == "identifier-occurrence"
+                    else f"schemas/records/{name}.schema.json"
+                )
+            ),
+            dict,
+        )
     }
     R.check(actual_record_ids == expected_record_ids, "schema.public-record-identities",
             f"missing={sorted(expected_record_ids-actual_record_ids)}, extra={sorted(actual_record_ids-expected_record_ids)}")
@@ -191,7 +217,11 @@ def schema_and_fixture_gate() -> tuple[dict[str, Any], dict[str, Any]]:
             R.fail("schema.meta-validation", f"{rel(path)}: {exc}")
     validators: dict[str, Any] = {}
     for name in PUBLIC_RECORDS:
-        path = PI / f"schemas/records/{name}.schema.json"
+        path = PI / (
+            "schemas/evidence/identifier-occurrence.schema.json"
+            if name == "identifier-occurrence"
+            else f"schemas/records/{name}.schema.json"
+        )
         schema = schemas.get(path)
         if isinstance(schema, dict):
             validators[name] = Draft202012Validator(
@@ -206,8 +236,22 @@ def schema_and_fixture_gate() -> tuple[dict[str, Any], dict[str, Any]]:
                 "resource manifest schema must represent exact duplicate entries for relational validation")
     for name in PUBLIC_RECORDS:
         validator = validators.get(name)
-        valid = load_json(PI / f"fixtures/valid/{name}.json")
-        invalid = load_json(PI / f"fixtures/invalid/schema/{name}.json")
+        valid = load_json(
+            PI
+            / (
+                "fixtures/evidence/valid/identifier-occurrence.json"
+                if name == "identifier-occurrence"
+                else f"fixtures/valid/{name}.json"
+            )
+        )
+        invalid = load_json(
+            PI
+            / (
+                "fixtures/evidence/invalid/schema/identifier-occurrence.json"
+                if name == "identifier-occurrence"
+                else f"fixtures/invalid/schema/{name}.json"
+            )
+        )
         if validator is None or valid is None or invalid is None:
             continue
         errors = list(validator.iter_errors(valid))

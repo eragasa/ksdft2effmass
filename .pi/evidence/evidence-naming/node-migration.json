@@ -1,0 +1,519 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_api__agrees_on_success_and_exact_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_api__maps_failed_audit_to_exit_one",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__rejects_empty_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[inventory_identity_mismatch]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[profile_outside_root]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__requires_absolute_root_without_mutation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__accepts_historical_first_line_owner",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__expands_inclusive_range_in_deterministic_order",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__normalizes_indented_field_and_preserves_line",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_empty_module_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[cross_prefix_range]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[descending_range]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[empty_field]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[independent_ids]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[malformed_identifier]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[multiple_fields]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__reports_duplicate_and_protected_gap_deterministically",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__uses_only_supplied_modules_from_any_cwd",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[incorrect_marker]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_python]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_utf8]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[missing_marker]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[multiple_markers]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[namespace_violation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[scope_violation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceAuditResult.py::test_constructor__failed_primary_values__are_rejected",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceIdentifierOccurrence.py::test_constructor__h3_valid_fixture__preserves_exact_public_value",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_fields__preserves_exact_value",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[boolean_line_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_code_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_message_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_path_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_severity_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[foreign_code_namespace]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[unsupported_severity]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[zero_line]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[empty_sources]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_payload_without_path]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_without_outcome]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_payload_and_error]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_without_outcome]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__explicit_inputs__preserves_payloads_and_migration",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[foreign_source_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[integer_ownership_path_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[list_sources_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[string_ownership_payload_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_error_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_file_flag_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_path_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[string_payload_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__preserves_exact_state[nonregular_path]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__preserves_exact_state[regular_payload]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__preserves_exact_state[regular_read_error]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__rejects_contradictory_values[nonregular_with_payload]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__rejects_contradictory_values[payload_and_error]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__rejects_contradictory_values[regular_without_outcome]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[findings_with_pass_status]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[negative_count]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[status_without_findings]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[unsorted_finding_counts]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[unsupported_schema_version]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_count_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_schema_version_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[float_static_count_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[foreign_finding_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[list_findings_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__validation_inventory__preserves_exact_value",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_docstring_format__requires_inline_labels_and_blank_lines",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_explicit_bytes__is_repeatable_without_filesystem_reads",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_invalid_source__retains_multiple_finding_order",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_migration_shape]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_ownership_shape]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_request_type__rejects_foreign_object",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_valid_source__returns_exact_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[controlled_valid_source]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[incomplete_migration_mapping]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[representative_invalid_source]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_json__is_deterministic_for_identical_command",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_public_api__exports__uses_direct_names_and_exact_defining_module"
+  ],
+  "expected_new_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_api__agrees_on_success_and_exact_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_api__maps_failed_audit_to_exit_one",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__rejects_empty_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[inventory_identity_mismatch]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[profile_outside_root]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__requires_absolute_root_without_mutation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__accepts_historical_first_line_owner",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__expands_inclusive_range_in_deterministic_order",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__normalizes_indented_field_and_preserves_line",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_empty_module_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[cross_prefix_range]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[descending_range]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[empty_field]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[independent_ids]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[malformed_identifier]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[multiple_fields]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__reports_duplicate_and_protected_gap_deterministically",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__uses_only_supplied_modules_from_any_cwd",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[incorrect_marker]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_python]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_utf8]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[missing_marker]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[multiple_markers]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[namespace_violation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[scope_violation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditResult.py::test_constructor__failed_primary_values__are_rejected",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierOccurrence.py::test_constructor__h3_valid_fixture__preserves_exact_public_value",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_fields__preserves_exact_value",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[boolean_line_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_code_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_message_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_path_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_severity_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[foreign_code_namespace]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[unsupported_severity]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[zero_line]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[empty_sources]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_payload_without_path]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_without_outcome]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_payload_and_error]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_without_outcome]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__explicit_inputs__preserves_payloads_and_migration",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[foreign_source_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[integer_ownership_path_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[list_sources_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[string_ownership_payload_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_error_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_file_flag_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_path_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[string_payload_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__preserves_exact_state[nonregular_path]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__preserves_exact_state[regular_payload]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__preserves_exact_state[regular_read_error]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__rejects_contradictory_values[nonregular_with_payload]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__rejects_contradictory_values[payload_and_error]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__rejects_contradictory_values[regular_without_outcome]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[findings_with_pass_status]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[negative_count]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[status_without_findings]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[unsorted_finding_counts]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[unsupported_schema_version]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_count_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_schema_version_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[float_static_count_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[foreign_finding_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[list_findings_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__validation_inventory__preserves_exact_value",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_docstring_format__requires_inline_labels_and_blank_lines",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_explicit_bytes__is_repeatable_without_filesystem_reads",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_invalid_source__retains_multiple_finding_order",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_migration_shape]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_ownership_shape]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_request_type__rejects_foreign_object",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_valid_source__returns_exact_inventory",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[controlled_valid_source]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[incomplete_migration_mapping]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[representative_invalid_source]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_json__is_deterministic_for_identical_command",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_public_api__exports__uses_direct_names_and_exact_defining_module"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_api__agrees_on_success_and_exact_inventory",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_api__agrees_on_success_and_exact_inventory"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_api__maps_failed_audit_to_exit_one",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_api__maps_failed_audit_to_exit_one"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__rejects_empty_inventory",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__rejects_empty_inventory"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[inventory_identity_mismatch]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[inventory_identity_mismatch]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[profile_outside_root]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__rejects_invalid_confined_inputs[profile_outside_root]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__audit_evidence_identifiers_command_api_agreement.py::test_artifact__command_request__requires_absolute_root_without_mutation",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py::test_artifact__command_request__requires_absolute_root_without_mutation"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_constructor__action_object__is_stateless_and_fieldless",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_constructor__action_object__is_stateless_and_fieldless"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__accepts_historical_first_line_owner",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__accepts_historical_first_line_owner"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__expands_inclusive_range_in_deterministic_order",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__expands_inclusive_range_in_deterministic_order"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__normalizes_indented_field_and_preserves_line",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__normalizes_indented_field_and_preserves_line"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_empty_module_inventory",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_empty_module_inventory"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[cross_prefix_range]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[cross_prefix_range]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[descending_range]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[descending_range]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[empty_field]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[empty_field]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[independent_ids]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[independent_ids]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[malformed_identifier]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[malformed_identifier]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__rejects_invalid_owner_declarations[multiple_fields]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__rejects_invalid_owner_declarations[multiple_fields]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__reports_duplicate_and_protected_gap_deterministically",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__reports_duplicate_and_protected_gap_deterministically"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute__uses_only_supplied_modules_from_any_cwd",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute__uses_only_supplied_modules_from_any_cwd"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[incorrect_marker]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[incorrect_marker]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_python]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_python]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_utf8]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[invalid_utf8]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[missing_marker]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[missing_marker]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[multiple_markers]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[multiple_markers]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[namespace_violation]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[namespace_violation]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__AuditEvidenceIdentifiers.py::test_method__execute_valid_and_invalid__returns_exact_partition[scope_violation]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditor.py::test_method__execute_valid_and_invalid__returns_exact_partition[scope_violation]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceAuditResult.py::test_constructor__failed_primary_values__are_rejected",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierAuditResult.py::test_constructor__failed_primary_values__are_rejected"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__EvidenceIdentifierOccurrence.py::test_constructor__h3_valid_fixture__preserves_exact_public_value",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__IdentifierOccurrence.py::test_constructor__h3_valid_fixture__preserves_exact_public_value"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_fields__preserves_exact_value",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_fields__preserves_exact_value"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[boolean_line_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[boolean_line_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_code_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_code_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_message_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_message_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_path_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_path_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_severity_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_types__rejects_wrong_semantic_types[integer_severity_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[foreign_code_namespace]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[foreign_code_namespace]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[unsupported_severity]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[unsupported_severity]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[zero_line]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_constructor__diagnostic_values__rejects_invalid_invariants[zero_line]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py::test_field__immutable_state__rejects_reassignment",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py::test_field__immutable_state__rejects_reassignment"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[empty_sources]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[empty_sources]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_payload_without_path]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_payload_without_path]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_without_outcome]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[migration_without_outcome]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_payload_and_error]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_payload_and_error]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_without_outcome]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__closed_input_state__rejects_conflicting_values[ownership_without_outcome]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__explicit_inputs__preserves_payloads_and_migration",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__explicit_inputs__preserves_payloads_and_migration"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[foreign_source_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[foreign_source_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[integer_ownership_path_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[integer_ownership_path_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[list_sources_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[list_sources_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[string_ownership_payload_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_constructor__required_types__rejects_wrong_semantic_types[string_ownership_payload_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py::test_field__immutable_state__rejects_reassignment",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py::test_field__immutable_state__rejects_reassignment"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_error_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_error_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_file_flag_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_file_flag_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_path_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[integer_path_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__field_types__rejects_wrong_semantic_types[string_payload_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__field_types__rejects_wrong_semantic_types[string_payload_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__preserves_exact_state[nonregular_path]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__preserves_exact_state[nonregular_path]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__preserves_exact_state[regular_payload]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__preserves_exact_state[regular_payload]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__preserves_exact_state[regular_read_error]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__preserves_exact_state[regular_read_error]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__rejects_contradictory_values[nonregular_with_payload]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__rejects_contradictory_values[nonregular_with_payload]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__rejects_contradictory_values[payload_and_error]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__rejects_contradictory_values[payload_and_error]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_constructor__read_outcome__rejects_contradictory_values[regular_without_outcome]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_constructor__read_outcome__rejects_contradictory_values[regular_without_outcome]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py::test_field__immutable_state__rejects_reassignment",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py::test_field__immutable_state__rejects_reassignment"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[findings_with_pass_status]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[findings_with_pass_status]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[negative_count]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[negative_count]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[status_without_findings]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[status_without_findings]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[unsorted_finding_counts]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[unsorted_finding_counts]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_invariants__rejects_invalid_values[unsupported_schema_version]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_invariants__rejects_invalid_values[unsupported_schema_version]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_count_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_count_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_schema_version_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[boolean_schema_version_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[float_static_count_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[float_static_count_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[foreign_finding_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[foreign_finding_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__result_types__rejects_wrong_semantic_types[list_findings_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__result_types__rejects_wrong_semantic_types[list_findings_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_constructor__validation_inventory__preserves_exact_value",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_constructor__validation_inventory__preserves_exact_value"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py::test_field__immutable_state__rejects_reassignment",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py::test_field__immutable_state__rejects_reassignment"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_constructor__action_object__is_stateless_and_fieldless",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_constructor__action_object__is_stateless_and_fieldless"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_docstring_format__requires_inline_labels_and_blank_lines",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_docstring_format__requires_inline_labels_and_blank_lines"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_explicit_bytes__is_repeatable_without_filesystem_reads",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_explicit_bytes__is_repeatable_without_filesystem_reads"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_invalid_source__retains_multiple_finding_order",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_invalid_source__retains_multiple_finding_order"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_migration_shape]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_migration_shape]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_ownership_shape]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_metadata_contract__reports_controlled_invalidity[invalid_ownership_shape]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_request_type__rejects_foreign_object",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_request_type__rejects_foreign_object"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py::test_method__execute_valid_source__returns_exact_inventory",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py::test_method__execute_valid_source__returns_exact_inventory"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[controlled_valid_source]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[controlled_valid_source]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[incomplete_migration_mapping]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[incomplete_migration_mapping]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[representative_invalid_source]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_api_projection__has_exact_parity[representative_invalid_source]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_artifact__wrapper_json__is_deterministic_for_identical_command",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_artifact__wrapper_json__is_deterministic_for_identical_command"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py::test_public_api__exports__uses_direct_names_and_exact_defining_module",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py::test_public_api__exports__uses_direct_names_and_exact_defining_module"
+    }
+  ]
+}

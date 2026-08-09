@@ -16,7 +16,7 @@ sphinx: excluded
 The first slice formalizes the preparation boundary for the existing
 one-module-at-a-time human audit process. Its immutable explicit-input API prepares
 observations without replacing human judgment. The pilot packet reviews
-`AuditEvidenceIdentifiers` and its maintained CLI/API software-verification surface.
+`IdentifierAuditor` and its maintained CLI/API software-verification surface.
 It is retained at
 [`.pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md`](../../.pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md).
 

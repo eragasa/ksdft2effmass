@@ -189,7 +189,7 @@ agent's interpretation.
 | `JsonSchemaValidationBlock` | focused schema/fixture pytest using Draft 2020-12 validation |
 | `ChecksumValidationBlock` | SHA-256 command with expected digest and artifact identity |
 | `GitDiffCheckBlock` | `git diff --check` |
-| `EvidenceIdentifierAuditBlock` | production `AuditEvidenceIdentifiers` through `python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers` |
+| `EvidenceIdentifierAuditBlock` | production `IdentifierAuditor` through `python -m ksdft2effmass.harness.pi.local.identifier_audit` |
 | `CheckpointSchemaValidationBlock` | `.pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run` |
 | `StaticDependencyDirectionToolBlock` | focused operator comparison dependency-direction pytest |
 | `SkillCapabilityInventoryValidationBlock` | `.pi/skills/validate_skill_capabilities.py` |
@@ -200,17 +200,17 @@ executable evidence. A general AI skill must not replace them.
 
 ## Evidence-identifier deterministic finding
 
-`AuditEvidenceIdentifiers` is the sole deterministic owner of evidence-ID grammar,
+`IdentifierAuditor` is the sole deterministic owner of evidence-ID grammar,
 namespace/scope policy, executable markers, owner uniqueness, ranges, and protected
 gaps. The thin project-local command reads one explicit profile and maintained
 inventory, reads only the inventoried modules beneath an explicit absolute root, and
 projects the ActionObject result as deterministic JSON:
 
 ```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers \
+python/.venv/bin/python -m ksdft2effmass.harness.pi.local.identifier_audit \
   --root <absolute-repository-root> \
   --profile harness/local/profiles/ksdft2effmass-v2.json \
-  --inventory .pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json
+  --inventory .pi/evidence/python-conformance/module-inventory.json
 ```
 
 The maintained inventory audit currently passes with 201 modules, 1,102 executable
@@ -219,8 +219,8 @@ AST script is retained only in historical evidence that records its actual prior
 
 | Capability | Owner |
 |---|---|
-| Evidence-ID and executable-marker audit | `AuditEvidenceIdentifiers` |
-| Complete test-module structural convention | `ValidatePythonTestEvidence` |
+| Evidence-ID and executable-marker audit | `IdentifierAuditor` |
+| Complete test-module structural convention | `PythonConformanceValidator` |
 | Semantic test design and review | `develop-python-test-evidence` |
 
 These structural owners do not establish semantic correctness, numerical correctness,

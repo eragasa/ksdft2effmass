@@ -49,7 +49,7 @@ Additional duplication includes:
 - repeated command assembly and result interpretation;
 - retained legacy and current route machinery.
 
-The current `evidence.py` owns evidence-identifier auditing only. It does not own
+The current `evidence/identifiers.py` owns evidence-identifier auditing only. It does not own
 an evidence-record repository, event log, query interface, reconciliation index,
 or SQLite state. Project-agent simplification and historical-agent retirement
 also remain future work.

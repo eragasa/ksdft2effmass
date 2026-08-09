@@ -7,7 +7,6 @@ from pathlib import Path
 
 from .. import (
     AgentDescriptorView,
-    AuditEvidenceIdentifiers,
     ChainStateEvaluator,
     ChainView,
     CheckpointRecord,
@@ -21,6 +20,7 @@ from .. import (
     SkillResourceValidator,
     ValidationResult,
 )
+from ..evidence import IdentifierAuditor
 from .models import LocalHarnessContext
 
 
@@ -156,7 +156,7 @@ class LocalRepositoryValidator:
             values.append(
                 (
                     "evidence",
-                    AuditEvidenceIdentifiers()
+                    IdentifierAuditor()
                     .execute(adapted_records.evidence_modules, profile)
                     .validation,
                 )

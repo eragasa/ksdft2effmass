@@ -1,14 +1,16 @@
 """Generic, explicit-input PI harness contract.
 
-The package exports immutable concrete records/results and fieldless action
-objects only. It performs no implicit repository, current-directory, Git, or
-``.pi`` discovery; filesystem actions require an explicit root and exact paths.
+The root package exports generic non-evidence records/results and fieldless
+actions plus the public :mod:`evidence` domain subpackage. It performs no
+implicit repository, current-directory, Git, or ``.pi`` discovery; filesystem
+actions require an explicit root and exact paths.
 """
 
 from __future__ import annotations
 
 from typing import TypeAlias
 
+from . import evidence as evidence
 from .chains import ChainStateEvaluator, ChainView, TaskReference
 from .checkpoints import (
     CheckpointDecisionResolutionRequest,
@@ -18,7 +20,7 @@ from .checkpoints import (
     CheckpointSetValidator,
 )
 from .checksums import ChecksumEntry, ChecksumManifest, ChecksumManifestValidator
-from .evidence import AuditEvidenceIdentifiers, EvidenceIdentifierOccurrence
+from .evidence import IdentifierOccurrence as _IdentifierOccurrence
 from .human_review import (
     HumanReviewDecision,
     HumanReviewDecisionRecorder,
@@ -58,16 +60,8 @@ from .resources import (
 from .task_state import TaskStateInspectionRequest as TaskStateInspectionRequest
 from .task_state import TaskStateInspectionResult as TaskStateInspectionResult
 from .task_state import TaskStateInspector as TaskStateInspector
-from .test_evidence import PythonTestEvidenceFinding as PythonTestEvidenceFinding
-from .test_evidence import PythonTestEvidenceRequest as PythonTestEvidenceRequest
-from .test_evidence import PythonTestEvidenceSource as PythonTestEvidenceSource
-from .test_evidence import (
-    PythonTestEvidenceValidationResult as PythonTestEvidenceValidationResult,
-)
-from .test_evidence import ValidatePythonTestEvidence as ValidatePythonTestEvidence
 from .validation import (
     ChainEvaluationResult,
-    EvidenceAuditResult,
     JsonDeserializationResult,
     JsonRecordDeserializer,
     JsonRecordSerializer,
@@ -93,7 +87,7 @@ HarnessWireRecord: TypeAlias = (  # noqa: UP040 - public typing union on 3.11+
     | ChainView
     | ChecksumEntry
     | ChecksumManifest
-    | EvidenceIdentifierOccurrence
+    | _IdentifierOccurrence
     | ValidationIssue
     | ValidationResult
 )
@@ -102,7 +96,6 @@ HarnessWireRecord: TypeAlias = (  # noqa: UP040 - public typing union on 3.11+
 # exists. These are aliases, not registries or runtime extension points.
 from . import chains as _chains_module  # noqa: E402
 from . import checkpoints as _checkpoints_module  # noqa: E402
-from . import evidence as _evidence_module  # noqa: E402
 from . import ownership as _ownership_module  # noqa: E402
 from . import resources as _resources_module  # noqa: E402
 from . import validation as _validation_module  # noqa: E402
@@ -113,7 +106,6 @@ _ownership_module.ChainView = ChainView  # type: ignore[misc]
 _ownership_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 _checkpoints_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 _chains_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
-_evidence_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 
 __all__ = (
     "ArtifactIdentity",
@@ -124,7 +116,7 @@ __all__ = (
     "SkillDescriptor",
     "OwnershipScope",
     "AgentDescriptorView",
-    "EvidenceIdentifierOccurrence",
+    "evidence",
     "HumanReviewTarget",
     "HumanReviewObservation",
     "HumanReviewFinding",
@@ -137,17 +129,12 @@ __all__ = (
     "ChainView",
     "ChecksumEntry",
     "ChecksumManifest",
-    "PythonTestEvidenceSource",
-    "PythonTestEvidenceRequest",
-    "PythonTestEvidenceFinding",
     "TaskStateInspectionRequest",
     "ValidationIssue",
     "ValidationResult",
     "ProjectProfileLoadResult",
     "ResourceResolutionResult",
     "ChainEvaluationResult",
-    "EvidenceAuditResult",
-    "PythonTestEvidenceValidationResult",
     "TaskStateInspectionResult",
     "ResourceManifestRefreshResult",
     "CheckpointDecisionResolutionResult",
@@ -166,10 +153,8 @@ __all__ = (
     "OwnershipManifestValidator",
     "CheckpointSetValidator",
     "ChainStateEvaluator",
-    "AuditEvidenceIdentifiers",
     "HumanReviewPreparer",
     "HumanReviewDecisionRecorder",
-    "ValidatePythonTestEvidence",
     "TaskStateInspector",
     "ChecksumManifestValidator",
     "SkillResourceValidator",

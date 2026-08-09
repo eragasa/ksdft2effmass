@@ -160,7 +160,7 @@ Scientific validation and UQ require separately authorized protocols.
 
 ## Deterministic structural validation
 
-`ValidatePythonTestEvidence` and its thin CLI own mechanical checks over explicit module bytes and
+`PythonConformanceValidator` and its thin CLI own mechanical checks over explicit module bytes and
 ownership metadata, including implemented checks for ownership declarations, headings, naming,
 evidence fields and identifiers, helper names, semantic parameter IDs, prohibited structural
 patterns, optional migration-map shape, and static collection accounting. This reference defines

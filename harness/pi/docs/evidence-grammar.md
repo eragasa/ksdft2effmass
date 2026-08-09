@@ -42,17 +42,17 @@ Project profiles supply marker vocabulary, evidence namespaces and ranges, scope
 
 | Capability | Owner |
 |---|---|
-| Evidence-ID and executable-marker audit | `AuditEvidenceIdentifiers` |
-| Complete test-module structural convention | `ValidatePythonTestEvidence` |
+| Evidence-ID and executable-marker audit | `IdentifierAuditor` |
+| Complete test-module structural convention | `PythonConformanceValidator` |
 | Semantic test design and review | `develop-python-test-evidence` |
 
-`AuditEvidenceIdentifiers` accepts only supplied module bytes and an explicit project profile. The project-local wrapper reads one explicit maintained inventory and only its listed modules beneath an explicit absolute root:
+`IdentifierAuditor` accepts only supplied module bytes and an explicit project profile. The project-local wrapper reads one explicit maintained inventory and only its listed modules beneath an explicit absolute root:
 
 ```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.audit_evidence_identifiers \
+python/.venv/bin/python -m ksdft2effmass.harness.pi.local.identifier_audit \
   --root <absolute-repository-root> \
   --profile harness/local/profiles/ksdft2effmass-v2.json \
-  --inventory .pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json
+  --inventory .pi/evidence/python-conformance/module-inventory.json
 ```
 
 The production ActionObject is the sole evidence-ID parser and policy owner. The former standalone AST script is retired; historical evidence may continue to name the command that produced it.

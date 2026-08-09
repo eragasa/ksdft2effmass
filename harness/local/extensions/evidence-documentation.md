@@ -46,10 +46,10 @@ conformance task they remain explicit migration inputs, not waivers.
 ## Repository-wide completion policy
 
 The maintained inventory at
-`.pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json`
+`.pi/evidence/python-conformance/module-inventory.json`
 explicitly classifies every current Python test module, retains baseline and current
 collection counts, and records content identities. The local completion command is
-`python/.venv/bin/python harness/local/validation/validate_repository_test_evidence.py`. It fails
+`python/.venv/bin/python harness/local/validation/validate_evidence_repository_conformance.py`. It fails
 closed on missing/stale/duplicate modules, identity drift, a nonconforming status,
 collection drift, or any generic structural finding. Its PASS establishes only those
 structural and inventory conditions; independent review still owns semantic cohesion,

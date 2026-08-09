@@ -1,6 +1,6 @@
 # Normalize the evidence package and naming
 
-Status: active; authorized by the human PI on 2026-08-09; must complete before `harness-simplification.evidence-and-sqlite`
+Status: implementation_complete_awaiting_human_acceptance; authorized by the human PI on 2026-08-09; must complete before `harness-simplification.evidence-and-sqlite`
 
 Task identity: `harness.simplification.evidence.naming`
 
@@ -42,6 +42,22 @@ This naming and packaging concern is independent of `harness.simplification.docs
 ## Completion gates
 
 Completion requires accepted exact object inventory and names, the generic/project-local dependency boundary, the contract-required maintained-evidence node map, synchronized source and maintained evidence, focused API and wrapper agreement tests, broader affected checks, one consolidated review, and final human acceptance when required.
+
+## Implemented result
+
+- replaced the two flat production modules with the public `ksdft2effmass.harness.pi.evidence` subpackage;
+- assigned identifier records, result, and `IdentifierAuditor` to `evidence.identifiers`;
+- assigned explicit Python-source/request/finding/result records and `PythonConformanceValidator` to `evidence.python_conformance`;
+- removed all old public aliases and root-package re-exports;
+- moved schemas, fixtures, the maintained module inventory, wrappers, resources, and tests to evidence-first names;
+- retained the exact eight-object inventory and 85 one-to-one pytest-node mappings under `.pi/evidence/evidence-naming/`; and
+- kept repository discovery and pytest collection in the project-local completion gate.
+
+## Validation and limitations
+
+The consolidated independent review reported no material findings. Ruff, mypy, Sphinx warnings-as-errors, 2,869 non-wheel tests, 63 harness validator tests, 422 focused harness tests, structural migration validation, repository evidence conformance, evidence-identifier audit, resource hashes, skill-capability validation, and diff checks pass.
+
+The two wheel tests cannot start because `python/.venv` lacks `pip`. The H3 validator retains exactly its two pre-existing unrelated generic/local leakage and naming-version-boundary findings. Passing software checks establish no scientific validation or UQ.
 
 ## Exclusions and stop boundary
 

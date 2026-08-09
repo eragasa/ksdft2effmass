@@ -19,7 +19,7 @@ checkpoint sets, chains, checksums, skill descriptors, and evidence identifiers.
 Issues use stable codes and deterministic ordering. A failed prerequisite stage
 returns no partially trusted primary result.
 
-`AuditEvidenceIdentifiers` currently parses caller-supplied Python module bytes
+`IdentifierAuditor` currently parses caller-supplied Python module bytes
 and applies explicit profile marker, scope, namespace, range, and protected-gap
 rules. It is an evidence-identifier audit, not a general evidence repository or
 semantic test reviewer.

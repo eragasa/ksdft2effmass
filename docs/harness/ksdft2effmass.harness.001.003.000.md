@@ -25,7 +25,8 @@ exists.
 | `checkpoints.py` | Checkpoint records, pure explicit decision transformation, and structural checkpoint-set validation. |
 | `chains.py` | Task/chain records and deterministic chain-state evaluation. |
 | `checksums.py` | Checksum records and explicit-root byte validation. |
-| `evidence.py` | Evidence-identifier occurrence records and caller-supplied source auditing. |
+| `evidence/identifiers.py` | Evidence-identifier occurrence records and caller-supplied source auditing. |
+| `evidence/python_conformance.py` | Explicit-input structural conformance for evidence-bearing Python modules. |
 | `human_review.py` | Immutable explicit-input review targets, observations, candidate findings, packet results, and deterministic packet preparation. |
 
 The package boundary exports public names from

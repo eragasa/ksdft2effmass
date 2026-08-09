@@ -50,32 +50,32 @@ Every maintained tool declares concisely:
 
 Avoid reflective registries, service locators, plugin frameworks, hidden global state, implicit repository discovery, speculative abstractions, and public classes created only to eliminate every private helper. Nontrivial behavior must have one clear owner.
 
-## Thin compatibility wrappers
+## Thin command wrappers
 
-Existing scripts under `harness/pi/validation/` and `harness/local/validation/` may temporarily remain as compatibility wrappers. A wrapper may only parse command arguments, construct public request DataObjects, invoke one public ActionObject, render its ResultObject deterministically, and translate the result to an exit status. It must not retain validation algorithms, repository discovery, hidden policy, or duplicate domain logic.
+Scripts under `harness/pi/validation/` and `harness/local/validation/` may remain as thin command wrappers. A wrapper may only parse command arguments, construct public request DataObjects, invoke one public ActionObject, render its ResultObject deterministically, and translate the result to an exit status. It must not retain validation algorithms, repository discovery, hidden policy, or duplicate domain logic.
 
-The migrated pilot retains this supported compatibility-command form:
+The maintained command form is:
 
 ```text
-python/.venv/bin/python harness/pi/validation/validate_python_test_evidence.py \
+python/.venv/bin/python harness/pi/validation/validate_python_conformance.py \
   --ownership OWNERSHIP.json [--migration-map MIGRATION.json] TEST_MODULE.py [...]
 ```
 
 The package does not implement a `-m` entry point. Maintained Python callers instead use the public package API:
 
 ```python
-from ksdft2effmass.harness.pi import (
-    PythonTestEvidenceRequest,
-    PythonTestEvidenceSource,
-    ValidatePythonTestEvidence,
+from ksdft2effmass.harness.pi.evidence import (
+    PythonConformanceRequest,
+    PythonModuleSource,
+    PythonConformanceValidator,
 )
 
-request = PythonTestEvidenceRequest(
-    sources=(PythonTestEvidenceSource("test__example.py", source_bytes),),
+request = PythonConformanceRequest(
+    sources=(PythonModuleSource("test__example.py", source_bytes),),
     ownership_path="ownership.json",
     ownership_payload=ownership_bytes,
 )
-result = ValidatePythonTestEvidence().execute(request)
+result = PythonConformanceValidator().execute(request)
 ```
 
 Here `source_bytes` and `ownership_bytes` are caller-supplied `bytes`. No `just` installation, new CLI framework, or other dependency is required.
@@ -127,21 +127,21 @@ For the completed validator pilot, the inspector reports `completed`, one declar
 
 ## Completed validator-migration pilot
 
-Under the completed task `harness-simplification.agents.validator-migration-pilot`, the implemented pilot completes the first bounded migration under this contract. Reusable behavior now belongs to the generic `ksdft2effmass.harness.pi.test_evidence` module and is exported from `ksdft2effmass.harness.pi` through these public types:
+Under the completed task `harness-simplification.agents.validator-migration-pilot`, the implemented pilot completed the first bounded migration under this contract. Reusable behavior now belongs to the generic `ksdft2effmass.harness.pi.evidence.python_conformance` module and is exported from `ksdft2effmass.harness.pi.evidence` through these public types:
 
-- `PythonTestEvidenceSource`, an immutable representation of one caller-supplied path, byte payload, and caller-observed read outcome;
-- `PythonTestEvidenceRequest`, an immutable closed request containing explicit sources, ownership JSON bytes, and optional migration-map JSON bytes;
-- `PythonTestEvidenceFinding`, an immutable structured `TE.*` diagnostic;
-- `PythonTestEvidenceValidationResult`, an immutable result containing status, findings, paths, compatibility counts, and explicit claim boundaries; and
-- `ValidatePythonTestEvidence`, a fieldless stateless ActionObject whose `execute(request)` method returns the validation result.
+- `PythonModuleSource`, an immutable representation of one caller-supplied path, byte payload, and caller-observed read outcome;
+- `PythonConformanceRequest`, an immutable closed request containing explicit sources, ownership JSON bytes, and optional migration-map JSON bytes;
+- `PythonConformanceFinding`, an immutable structured `TE.*` diagnostic;
+- `PythonConformanceResult`, an immutable result containing status, findings, paths, compatibility counts, and explicit claim boundaries; and
+- `PythonConformanceValidator`, a fieldless stateless ActionObject whose `execute(request)` method returns the validation result.
 
-The package boundary is pure with respect to external state: it parses and validates only the bytes and metadata supplied in the request. It performs no filesystem reads, root or current-working-directory discovery, Git inspection, subprocess execution, or mutation. The old `harness/pi/validation/validate_python_test_evidence.py` path remains a controlled thin compatibility wrapper. It parses explicit arguments, reads only those named paths, constructs the public request, invokes `ValidatePythonTestEvidence.execute`, renders deterministic JSON, and maps `PASS` to exit status 0 and `FAIL` to exit status 1. Focused software-verification tests cover the public objects and action, generic dependency direction, and controlled wrapper/API agreement.
+The package boundary is pure with respect to external state: it parses and validates only the bytes and metadata supplied in the request. It performs no filesystem reads, root or current-working-directory discovery, Git inspection, subprocess execution, or mutation. `harness/pi/validation/validate_python_conformance.py` is the thin command wrapper. It parses explicit arguments, reads only those named paths, constructs the public request, invokes `PythonConformanceValidator.execute`, renders deterministic JSON, and maps `PASS` to exit status 0 and `FAIL` to exit status 1. Focused software-verification tests cover the public objects and action, generic dependency direction, and controlled wrapper/API agreement.
 
 The pilot intended one final integration review, but observed execution did not reliably enforce that policy. The interface displayed four completed assignments with identical review text and reviewer identity. Local durable mission artifacts identify one pilot review run, while the committed repository lacks enough run identity to reconstruct the exact execution count. Duplicate dispatch is therefore an orchestration defect. Duplicate outputs are not independent review evidence and are neither merged nor voted.
 
 Validation is structural software verification of the supplied Python source and metadata representation. It covers the maintained static syntax, documentation, ownership, evidence-identifier, parameter-inventory, and optional migration-map conventions and reports deterministic findings and inventory counts. A passing result does not establish oracle independence, mathematical or property/surface correctness, test cohesion, tolerance adequacy, numerical or scientific validation, uncertainty quantification, or human acceptance.
 
-The compatibility wrapper is retained temporarily; this pilot does not promise its permanent public availability or retire historical command records. Broader validator migration, live discovery, historical-agent retirement, delegation validation, SQLite or other evidence storage, scientific work, protected execution, and release work remain deferred and unauthorized.
+The command wrapper is maintained as the explicit file-I/O boundary; historical command records remain unchanged. SQLite or other evidence storage, scientific work, protected execution, and release work remain deferred and unauthorized.
 
 ## Navigation
 

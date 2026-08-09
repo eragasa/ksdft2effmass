@@ -59,7 +59,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "SkillDescriptor",
         "OwnershipScope",
         "AgentDescriptorView",
-        "EvidenceIdentifierOccurrence",
+        "evidence",
         "HumanReviewTarget",
         "HumanReviewObservation",
         "HumanReviewFinding",
@@ -72,17 +72,12 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "ChainView",
         "ChecksumEntry",
         "ChecksumManifest",
-        "PythonTestEvidenceSource",
-        "PythonTestEvidenceRequest",
-        "PythonTestEvidenceFinding",
         "TaskStateInspectionRequest",
         "ValidationIssue",
         "ValidationResult",
         "ProjectProfileLoadResult",
         "ResourceResolutionResult",
         "ChainEvaluationResult",
-        "EvidenceAuditResult",
-        "PythonTestEvidenceValidationResult",
         "TaskStateInspectionResult",
         "ResourceManifestRefreshResult",
         "CheckpointDecisionResolutionResult",
@@ -101,10 +96,8 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "OwnershipManifestValidator",
         "CheckpointSetValidator",
         "ChainStateEvaluator",
-        "AuditEvidenceIdentifiers",
         "HumanReviewPreparer",
         "HumanReviewDecisionRecorder",
-        "ValidatePythonTestEvidence",
         "TaskStateInspector",
         "ChecksumManifestValidator",
         "SkillResourceValidator",
@@ -149,10 +142,8 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
         "OwnershipManifestValidator",
         "CheckpointSetValidator",
         "ChainStateEvaluator",
-        "AuditEvidenceIdentifiers",
         "HumanReviewPreparer",
         "HumanReviewDecisionRecorder",
-        "ValidatePythonTestEvidence",
         "TaskStateInspector",
         "ChecksumManifestValidator",
         "SkillResourceValidator",
@@ -206,7 +197,7 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
 
     Acceptance: Every migrated name ends in an accepted suffix and the only temporary
     exceptions
-    are ``AuditEvidenceIdentifiers`` and ``ValidatePythonTestEvidence``.
+    are ``IdentifierAuditor`` and ``PythonConformanceValidator``.
 
     Interpretation: Failure indicates naming drift or an undocumented migration
     exception.
@@ -227,11 +218,12 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
         "Serializer",
         "Validator",
     )
-    deferred = {"AuditEvidenceIdentifiers", "ValidatePythonTestEvidence"}
     action_names = {
         name
-        for name in api.__all__
-        if isinstance(value := getattr(api, name), type)
+        for package in (api, api.evidence)
+        for name in package.__all__
+        if isinstance(value := getattr(package, name), type)
         and callable(getattr(value, "execute", None))
     }
-    assert {name for name in action_names if not name.endswith(suffixes)} == deferred
+    assert all(name.endswith(suffixes) for name in action_names)
+    assert {"IdentifierAuditor", "PythonConformanceValidator"} <= action_names

@@ -98,9 +98,9 @@
       "canonical_sha256": "a58ec686d58229ecdccbf40a617b6879ce80bc2081379b87eb2f60960142f531"
     },
     {
-      "vector_id": "wire-014-evidence-identifier-occurrence",
-      "record_kind": "EvidenceIdentifierOccurrence",
-      "instance_path": "../valid/evidence-identifier-occurrence.json",
+      "vector_id": "wire-014-identifier-occurrence",
+      "record_kind": "IdentifierOccurrence",
+      "instance_path": "../evidence/valid/identifier-occurrence.json",
       "canonical_json": "{\"evidence_id\":\"VX-B-001\",\"line\":1,\"path\":\"tests/classification-beta/test_example.py\",\"schema_version\":1}\n",
       "canonical_sha256": "4bdf682843aac8c6fc56ff1cc61c2b8a33cbe1fb591bd125adb50949a01e11e0"
     },

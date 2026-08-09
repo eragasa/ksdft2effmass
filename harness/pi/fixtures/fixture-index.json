@@ -7,7 +7,7 @@
     "checkpoint-record",
     "checksum-entry",
     "checksum-manifest",
-    "evidence-identifier-occurrence",
+    "identifier-occurrence",
     "ownership-manifest-view",
     "ownership-scope",
     "project-profile",

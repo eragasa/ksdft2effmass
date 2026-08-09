@@ -35,7 +35,7 @@ Matching content hashes do not permit replacement. The profile, manifests, forma
 
 ## Markers, namespaces, and scopes
 
-The local marker vocabulary is `software_verification`, `numerical_verification`, `scientific_validation`, and `uncertainty_quantification`. The profile assigns audited evidence namespaces only to the software-verification and numerical-verification directory-tree scopes. Repository-wide maintained-test ownership and conformance are additionally closed by `.pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json` and `python/.venv/bin/python harness/local/validation/validate_repository_test_evidence.py`; the profile namespace rules do not waive an uninventoried or nonconforming current module:
+The local marker vocabulary is `software_verification`, `numerical_verification`, `scientific_validation`, and `uncertainty_quantification`. The profile assigns audited evidence namespaces only to the software-verification and numerical-verification directory-tree scopes. Repository-wide maintained-test ownership and conformance are additionally closed by `.pi/evidence/python-conformance/module-inventory.json` and `python/.venv/bin/python harness/local/validation/validate_evidence_repository_conformance.py`; the profile namespace rules do not waive an uninventoried or nonconforming current module:
 
 - `python/tests/software_verification` uses marker `software_verification` and the listed `SV-*` prefix/range/width rules;
 - `python/tests/numerical_verification` uses marker `numerical_verification` and the listed `NV-*` prefix/range/width rules.

@@ -50,7 +50,7 @@ entry; optional Graphify operation references remain on demand.
 | `develop-architecture-decision` | A genuine material architecture choice with exactly three defensible conceptual alternatives | 126 lines | Extractable decision method with local authority inputs | No material overlap: durable architecture agents supply independence; the skill supplies decision method | **Keep** |
 | `develop-harness-resources` | Design and evolution of generic or project-local textual resources | 241 lines across entry and reference | Canonical extractable skill with project profile inputs | Stable resource-agent judgment was extracted without H3/H4 paths, counts, hashes, phase gates, or agent procedure | **Keep:** generic/local ownership, identity, closure, fixtures, descriptor, manifest, deterministic routing, and claim boundaries retained |
 | `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 309 lines | Project/domain-specific | Fixed inventories, migration/checkpoint history, command gates, test/docs grammar, and invocation ceremony were removed in Slice 2 | **Keep:** operator meaning retained; general architecture, tests, docs, and open decisions route to their owning skills |
-| `develop-python-test-evidence` | Semantic design, writing, restructuring, and review of maintained Python evidence | 260 lines; byte footprint reduced by about half | Extractable core with a local profile | Invocation profiles, repository-conformance campaign state, universal migration ceremony, reporting envelopes, and validator implementation detail were removed in Slice 3 | **Keep:** evidence rigor retained; `ValidatePythonTestEvidence` and its CLI own structural enforcement |
+| `develop-python-test-evidence` | Semantic design, writing, restructuring, and review of maintained Python evidence | 260 lines; byte footprint reduced by about half | Extractable core with a local profile | Invocation profiles, repository-conformance campaign state, universal migration ceremony, reporting envelopes, and validator implementation detail were removed in Slice 3 | **Keep:** evidence rigor retained; `PythonConformanceValidator` and its CLI own structural enforcement |
 | `document-python-research-software` | Public Python docstrings, API/concept pages, Sphinx integration, and serialization documentation | 21 lines | Extractable core with local build inputs | Correctly refers test semantics to the test-evidence skill | **Keep** |
 | `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `TaskStateInspector` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
 | `recommend-next-task` | State-gated, read-only selection of one human-selectable next task | 117 lines | Project-specific planning policy | Broad repository discovery, fixed reporting schemas, orchestration ceremony, and duplicated control-plane procedure were removed in Slice 4 | **Keep:** use maintained task-state inspection; read-only and human-selection boundaries are unchanged |
@@ -157,8 +157,9 @@ rationalization sequence.
 
 ## Maintained ActionObject inventory
 
-The public export surfaces were inspected directly. The generic package exports
-15 Actions and the project-local package exports 15 Actions.
+The public export surfaces were inspected directly. The generic root package exports
+15 Actions, the generic `evidence` subpackage exports 2 Actions, and the project-local
+package exports 15 Actions.
 
 | Source | Existing ActionObjects | Primary deterministic ownership |
 |---|---|---|
@@ -169,8 +170,8 @@ The public export surfaces were inspected directly. The generic package exports
 | `checkpoints.py` | `CheckpointDecisionResolver`, `CheckpointSetValidator` | Pure explicit decision transformation and checkpoint lifecycle/relation validation |
 | `chains.py` | `ChainStateEvaluator` | Active, blocked, and structurally ready chain facts |
 | `checksums.py` | `ChecksumManifestValidator` | Root-confined exact checksum verification |
-| `evidence.py` | `AuditEvidenceIdentifiers` | Evidence namespace, marker, owner, and duplicate inspection |
-| `test_evidence.py` | `ValidatePythonTestEvidence` | Explicit-path structural maintained-test validation |
+| `evidence/identifiers.py` | `IdentifierAuditor` | Evidence namespace, marker, owner, and duplicate inspection |
+| `evidence/python_conformance.py` | `PythonConformanceValidator` | Explicit-path structural maintained-test validation |
 | `task_state.py` | `TaskStateInspector` | Exact declared task/ownership/completion/artifact/run/handoff inspection |
 | `local/context.py` | `LocalHarnessContextLoader` | Explicit-root profile/manifest composition |
 | `local/adapters.py` | `CheckpointRecordAdapter`, `TaskRecordAdapter`, `ChainRecordAdapter`, `AgentRecordAdapter`, `OwnershipManifestAdapter`, `ChecksumCatalogAdapter`, `SkillInventoryAdapter`, `EvidenceOwnershipManifestAdapter`, `EvidenceModuleSelector` | Strict compatibility adaptation of caller-selected repository records |
@@ -184,15 +185,15 @@ The public export surfaces were inspected directly. The generic package exports
 |---|---|
 | `python/.../local/inspect_task_state.py` | Keep as the thin `TaskStateInspector` CLI |
 | `python/.../local/refresh_resource_manifest.py` | Keep as the thin read-only `ResourceManifestRefresher` proposal CLI |
-| `python/.../local/audit_evidence_identifiers.py` | Keep as the thin explicit-root and explicit-inventory `AuditEvidenceIdentifiers` CLI |
-| `harness/pi/validation/validate_python_test_evidence.py` | Keep as the thin `ValidatePythonTestEvidence` CLI |
-| `harness/local/validation/validate_repository_test_evidence.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
+| `python/.../local/identifier_audit.py` | Keep as the thin explicit-root and explicit-inventory `IdentifierAuditor` CLI |
+| `harness/pi/validation/validate_python_conformance.py` | Keep as the thin `PythonConformanceValidator` CLI |
+| `harness/local/validation/validate_evidence_repository_conformance.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
 | `.pi/skills/validate_skill_capabilities.py` | Keep as the current fixed repository capability-inventory validator |
 | `.pi/skills/validate_harness.py` | Keep as selected-route command composition; it does not replace pure route Actions |
 | `harness/local/validation/replay_current_validators.py` | Keep as the current local-route wrapper while that route remains configured |
 | `harness/pi/validation/validate_h3_resources.py` | Retain as a legacy broad resource completion validator; do not copy it into a skill |
 | `harness/pi/validation/validate_architecture_decision_cases.py` | Keep as deterministic cases for the architecture-decision skill contract |
-| `.pi/skills/audit_evidence_identifiers.py` | Retired in Slice 9 after controlled and maintained-inventory replacement gates passed; historical command records remain unchanged |
+| `.pi/skills/identifier_audit.py` | Retired in Slice 9 after controlled and maintained-inventory replacement gates passed; historical command records remain unchanged |
 
 ## Capability-to-owner matrix
 
@@ -222,8 +223,8 @@ secondary consumers do not share ownership.
 | Checkpoint lifecycle validation | `ACTION_EXISTING` | `CheckpointSetValidator` | Chain evaluation and checkpoint skill |
 | Chain active/blocked/ready evaluation | `ACTION_EXISTING` | `ChainStateEvaluator` | Local validation and planning |
 | Checksum verification | `ACTION_EXISTING` | `ChecksumManifestValidator` | Local validation |
-| Evidence-ID and executable-marker inspection | `ACTION_EXISTING` | `AuditEvidenceIdentifiers` and thin local CLI | Test-evidence workflows |
-| Structural Python test-evidence inspection | `ACTION_EXISTING` | `ValidatePythonTestEvidence` | Test-evidence skill and local gate |
+| Evidence-ID and executable-marker inspection | `ACTION_EXISTING` | `IdentifierAuditor` and thin local CLI | Test-evidence workflows |
+| Structural Python test-evidence inspection | `ACTION_EXISTING` | `PythonConformanceValidator` | Test-evidence skill and local gate |
 | Explicit local profile/manifest composition | `ACTION_EXISTING` | `LocalHarnessContextLoader` | Local validation |
 | Selected historical/live record normalization | `ACTION_EXISTING` | local `Adapt*` Actions and `EvidenceModuleSelector` | Local validation only |
 | Validation route selection and rollback facts | `ACTION_EXISTING` | `ValidationRouteSelector` / `LegacyRouteConfigurationPreparer` | Route wrapper |
@@ -231,7 +232,7 @@ secondary consumers do not share ownership.
 | Project-local validator composition | `ACTION_EXISTING` | `LocalRepositoryValidator` | Maintained route consumers |
 | Fixed repository skill-capability inventory validation | `ACTION_EXISTING` | `.pi/skills/validate_skill_capabilities.py` | Maintained local route |
 | Maintained route execution/inspection | `ACTION_EXISTING` | `.pi/skills/validate_harness.py` and current replay wrapper | Root verification |
-| Repository maintained-test conformance gate | `ACTION_EXISTING` | `validate_repository_test_evidence.py` | Authorized test-conformance tasks |
+| Repository maintained-test conformance gate | `ACTION_EXISTING` | `validate_evidence_repository_conformance.py` | Authorized test-conformance tasks |
 | Writer/reviewer authority, independence, and handoff | `DURABLE_AGENT` | 10 durable agent records | Task assignments |
 | Paths, phases, assignments, checkpoints, gates, and successors | `TASK_STATE` | active chain/task/ownership/checkpoint records | Agents and skills as explicit inputs |
 | Human-facing architecture and operation explanation | `DOCUMENTATION` | numbered harness pages and public harness docs | Humans and agents |
@@ -339,7 +340,7 @@ cutover task should compose those owners instead.
 | Parity comparison | `ShadowPairComparator`, `ShadowSuiteReplayer` | No duplicate tool |
 | Route inspection/selection | `ValidationRouteSelector`, `LegacyRouteConfigurationPreparer`; selected wrapper in `validate_harness.py` | No duplicate tool |
 | Checksum verification | `ChecksumManifestValidator` | No duplicate tool |
-| Evidence-ID inspection | `AuditEvidenceIdentifiers` plus thin explicit-inventory CLI | Duplicate legacy AST script retired after conformance gates passed |
+| Evidence-ID inspection | `IdentifierAuditor` plus thin explicit-inventory CLI | Duplicate legacy AST script retired after conformance gates passed |
 | Maintained validation-command inspection | `TaskStateInspector` reports declared completion command | No duplicate tool |
 | Capability-inventory inspection | `validate_skill_capabilities.py` validates the fixed repository inventory | Keep tool; do not create an Action until a second input contract needs a reusable public result |
 | Checkpoint resolution record transformation | `CheckpointDecisionResolver` | Pure explicit immutable transformation implemented in Slice 6 |
@@ -417,7 +418,7 @@ it does not create or activate that skill and does not alter this sequence.
    boundaries. Existing Actions remain deterministic owners; canonical and live
    skill/reference bytes are identical.
 9. **Completed — retire one duplicate tool:** corrected normalized field parsing in
-   `AuditEvidenceIdentifiers`, added its thin explicit-inventory CLI, migrated live
+   `IdentifierAuditor`, added its thin explicit-inventory CLI, migrated live
    callers, confirmed all 201 maintained modules pass, and removed the standalone
    duplicate AST policy.
 10. **Completed — reconcile one bounded historical routing group:** the six

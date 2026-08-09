@@ -132,14 +132,24 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
     )
     schemas = {
         path.stem.removesuffix(".schema"): json.loads(path.read_text())
-        for path in (ROOT / "harness/pi/schemas/records").glob("*.schema.json")
+        for path in (ROOT / "harness/pi/schemas").rglob("*.schema.json")
     }
 
     def exercise_stem_case_123_7(stem: Any) -> Any:
         schema = schemas[stem]
-        valid_path = ROOT / f"harness/pi/fixtures/valid/{stem}.json"
+        if stem == "identifier-occurrence":
+            valid_path = (
+                ROOT / "harness/pi/fixtures/evidence/valid/identifier-occurrence.json"
+            )
+            invalid_path = (
+                ROOT
+                / "harness/pi/fixtures/evidence/invalid/schema"
+                / "identifier-occurrence.json"
+            )
+        else:
+            valid_path = ROOT / f"harness/pi/fixtures/valid/{stem}.json"
+            invalid_path = ROOT / f"harness/pi/fixtures/invalid/schema/{stem}.json"
         valid = json.loads(valid_path.read_text())
-        invalid_path = ROOT / f"harness/pi/fixtures/invalid/schema/{stem}.json"
         invalid = json.loads(invalid_path.read_text())
         validator = Draft202012Validator(schema, registry=registry)
         assert not list(validator.iter_errors(valid)), stem
