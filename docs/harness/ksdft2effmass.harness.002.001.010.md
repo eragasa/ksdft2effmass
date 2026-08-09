@@ -120,7 +120,9 @@ replacing them.
 | `HarnessTaskDocumentationRenderer` | ActionObject | Pure explicit-input rendering to `HarnessTaskDocumentation` |
 | `HarnessTaskDocumentationComparator` | ActionObject | Exact source/rendered comparison and mapping-coverage analysis |
 | `HarnessTaskDocumentationComparisonResult` | ResultObject | Status, structured findings, exact differences, and unmapped spans |
-| `HarnessTaskMigrationReviewPacket` | ResultObject | Exact immutable source, mappings, candidate Task and JSON, content, profile, rendering, comparison, and generic review packet |
+| `HarnessTaskMigrationReviewPacketRequest` | immutable DataObject | Complete explicit runtime input boundary for preparing one packet; owns intrinsic type, immutability, tuple, nonempty, and lexical invariants but no cross-object validation |
+| `HarnessTaskMigrationReviewPacketPreparer` | stateless ActionObject | Validates all cross-object identities and compatibility in one explicit request, reuses generic human-review behavior where appropriate, and deterministically produces one immutable packet |
+| `HarnessTaskMigrationReviewPacket` | ResultObject | Immutable validated result produced by `HarnessTaskMigrationReviewPacketPreparer`; binds the exact request values without interpreting a human response or performing authority-changing work |
 | `HarnessTaskMigrationDisposition` | enumeration | Accept file, revise contract or mapping, retain documentation ownership, or defer file |
 | `HarnessTaskMigrationFileDisposition` | ResultObject | Exact migration packet, existing `HumanReviewDecision`, and migration-specific disposition |
 | `HarnessTaskMigrationFileDispositionRecorder` | ActionObject | Validates packet/decision identity and records one explicit file disposition without persistence or activation |
@@ -129,6 +131,12 @@ The supporting fields above are proposed ownership categories. Stage 1 must free
 exact names, types, ordering, invariants, and wire representation after all six
 mappings. Detailed `HarnessTask` fields remain intentionally pending and are not
 invented by these diagrams.
+
+`HarnessTaskMigrationReviewPacketRequest` is runtime-only unless Stage 1 later
+establishes a justified wire or persistence requirement. Its existence does not
+expand the serialized-record set. Its constructor owns only intrinsic type,
+immutability, tuple, nonempty, and lexical invariants. Cross-object identity and
+compatibility belong to `HarnessTaskMigrationReviewPacketPreparer`.
 
 ## Overview class diagram
 
@@ -173,6 +181,12 @@ classDiagram
     }
     class HarnessTaskDocumentationComparisonResult {
         <<ResultObject>>
+    }
+    class HarnessTaskMigrationReviewPacketRequest {
+        <<immutable DataObject>>
+    }
+    class HarnessTaskMigrationReviewPacketPreparer {
+        <<stateless ActionObject>>
     }
     class HarnessTaskMigrationReviewPacket {
         <<ResultObject>>
@@ -222,13 +236,17 @@ classDiagram
     HarnessTaskDocumentationComparator ..> HarnessTaskDocumentation : rendered input
     HarnessTaskDocumentationComparator ..> HarnessTaskSourceMapping : coverage input
     HarnessTaskDocumentationComparator ..> HarnessTaskDocumentationComparisonResult : output
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentSource : exact source
-    HarnessTaskMigrationReviewPacket *-- HarnessTask : candidate
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentationContent : explicit narrative
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskProjectionProfile : explicit profile
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentation : rendered output
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentationComparisonResult : comparison
-    HarnessTaskMigrationReviewPacket *-- HumanReviewPacket : generic review component
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentSource : exact source
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskSourceMapping : complete ordered mappings
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTask : candidate
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentationContent : explicit narrative
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskProjectionProfile : explicit profile
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentation : rendered output
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentationComparisonResult : comparison
+    HarnessTaskMigrationReviewPacketRequest *-- HumanReviewPacket : generic review component
+    HarnessTaskMigrationReviewPacketPreparer ..> HarnessTaskMigrationReviewPacketRequest : explicit input
+    HarnessTaskMigrationReviewPacketPreparer ..> HarnessTaskMigrationReviewPacket : immutable output
+    HarnessTaskMigrationReviewPacket *-- HarnessTaskMigrationReviewPacketRequest : validated exact values
     HarnessTaskMigrationFileDisposition *-- HarnessTaskMigrationReviewPacket : exact packet
     HarnessTaskMigrationFileDisposition *-- HumanReviewDecision : exact human response
     HarnessTaskMigrationFileDisposition --> HarnessTaskMigrationDisposition : file outcome
@@ -468,20 +486,26 @@ classDiagram
     }
 ```
 
-### `HarnessTaskMigrationReviewPacket`
+### `HarnessTaskMigrationReviewPacketRequest`
 
 ```mermaid
 classDiagram
-    class HarnessTaskMigrationReviewPacket {
-        <<ResultObject>>
-        +packet identity
-        +exact source and mappings
-        +candidate HarnessTask and canonical JSON
-        +explicit documentation content and profile
-        +rendered documentation and comparison
-        +HumanReviewPacket review component
+    class HarnessTaskMigrationReviewPacketRequest {
+        <<immutable DataObject>>
+        +HarnessTaskDocumentSource source
+        +tuple~HarnessTaskSourceMapping~ mappings
+        +HarnessTask candidate_task
+        +bytes canonical_task_json
+        +HarnessTaskDocumentationContent documentation_content
+        +HarnessTaskProjectionProfile projection_profile
+        +HarnessTaskDocumentation rendered_documentation
+        +HarnessTaskDocumentationComparisonResult comparison
+        +HumanReviewPacket human_review_packet
     }
     class HarnessTaskDocumentSource {
+        <<DataObject>>
+    }
+    class HarnessTaskSourceMapping {
         <<DataObject>>
     }
     class HarnessTask {
@@ -502,13 +526,84 @@ classDiagram
     class HumanReviewPacket {
         <<ResultObject>>
     }
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentSource : exact source
-    HarnessTaskMigrationReviewPacket *-- HarnessTask : candidate
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentationContent : narrative
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskProjectionProfile : profile
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentation : rendered
-    HarnessTaskMigrationReviewPacket *-- HarnessTaskDocumentationComparisonResult : comparison
-    HarnessTaskMigrationReviewPacket *-- HumanReviewPacket : observations and findings
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentSource : exact source
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskSourceMapping : complete ordered tuple
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTask : candidate
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentationContent : narrative and opaque bytes
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskProjectionProfile : rendering configuration
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentation : rendered output
+    HarnessTaskMigrationReviewPacketRequest *-- HarnessTaskDocumentationComparisonResult : comparison
+    HarnessTaskMigrationReviewPacketRequest *-- HumanReviewPacket : generic review component
+```
+
+The request validates only intrinsic type, immutability, tuple, nonempty, and
+lexical invariants. It does not validate compatibility among its objects. It is
+runtime-only unless the frozen Stage-1 contract later justifies a wire or
+persistence requirement.
+
+### `HarnessTaskMigrationReviewPacketPreparer`
+
+```mermaid
+classDiagram
+    class HarnessTaskMigrationReviewPacketPreparer {
+        <<stateless ActionObject>>
+        +execute(request) HarnessTaskMigrationReviewPacket
+    }
+    class HarnessTaskMigrationReviewPacketRequest {
+        <<immutable DataObject>>
+    }
+    class HarnessTaskMigrationReviewPacket {
+        <<ResultObject>>
+    }
+    class HumanReviewPreparer {
+        <<ActionObject>>
+    }
+    HarnessTaskMigrationReviewPacketPreparer ..> HarnessTaskMigrationReviewPacketRequest : explicit input
+    HarnessTaskMigrationReviewPacketPreparer ..> HumanReviewPreparer : may reuse generic behavior
+    HarnessTaskMigrationReviewPacketPreparer ..> HarnessTaskMigrationReviewPacket : deterministic output
+```
+
+Its exact proposed action boundary is:
+
+```text
+HarnessTaskMigrationReviewPacketPreparer.execute(
+    request: HarnessTaskMigrationReviewPacketRequest,
+) -> HarnessTaskMigrationReviewPacket
+```
+
+The preparer owns source-identity agreement; complete, ordered, nonoverlapping
+mapping coverage; mapping references to the exact source; candidate Task and
+canonical JSON agreement; documentation-content and source-span agreement;
+projection-profile and rendered-document agreement; rendered/source comparison
+identity; consistency of comparison status, differences, findings, and unmapped
+spans; generic `HumanReviewPacket` target and revision agreement; and
+deterministic construction of the immutable migration packet.
+
+It may reuse `HumanReviewPreparer` behavior but does not duplicate or replace
+generic human-review semantics. It performs no filesystem or repository
+discovery, current-directory or Git-root inference, Git access, persistence,
+human-response interpretation, human acceptance, source replacement, Task
+migration, checkpoint mutation, Task activation, or successor activation.
+
+### `HarnessTaskMigrationReviewPacket`
+
+```mermaid
+classDiagram
+    class HarnessTaskMigrationReviewPacket {
+        <<ResultObject>>
+        +packet identity
+        +validated exact request values
+        +immutable construction
+    }
+    class HarnessTaskMigrationReviewPacketRequest {
+        <<immutable DataObject>>
+    }
+    class HarnessTaskMigrationReviewPacketPreparer {
+        <<stateless ActionObject>>
+    }
+    HarnessTaskMigrationReviewPacketPreparer ..> HarnessTaskMigrationReviewPacketRequest : validates
+    HarnessTaskMigrationReviewPacketPreparer ..> HarnessTaskMigrationReviewPacket : produces
+    HarnessTaskMigrationReviewPacket *-- HarnessTaskMigrationReviewPacketRequest : binds exact values
 ```
 
 ### `HarnessTaskMigrationDisposition`
@@ -574,13 +669,60 @@ classDiagram
     HarnessTaskMigrationFileDispositionRecorder ..> HarnessTaskMigrationFileDisposition : output
 ```
 
+## Public-interface accounting
+
+The proposal contains exactly 19 new interfaces: 10 DataObject or ResultObject
+interfaces, seven ActionObjects, and two enumerations. The two newly explicit
+interfaces are the runtime-only immutable
+`HarnessTaskMigrationReviewPacketRequest` and the stateless
+`HarnessTaskMigrationReviewPacketPreparer`. Reused classes in the earlier table
+do not count as newly proposed interfaces.
+
+The request does not automatically become a serialized record. Stage 1 may add a
+wire or persistence contract only if its completed mappings establish a concrete
+need and the renewed human review accepts it. No implementation or serialized
+record is added by this proposal correction.
+
+`HarnessTaskMigrationReviewPacket` remains the immutable ResultObject produced
+by the preparer. `HumanReviewDecisionRecorder` remains the sole owner of the
+generic human decision. `HarnessTaskMigrationFileDispositionRecorder` remains
+the migration-domain action that validates the exact packet/decision
+relationship and produces `HarnessTaskMigrationFileDisposition`. Neither action
+moves human interpretation or authority into packet preparation or disposition
+recording.
+
+## Proposed verification obligations
+
+Stage 1 must specify software-verification evidence for these boundaries without
+implementing tests during the contract stage:
+
+- request construction accepts only the exact field types and enforces
+  immutability, tuple, nonempty, and lexical invariants;
+- request construction does not perform cross-object identity or compatibility
+  validation;
+- the preparer rejects every listed source, mapping, Task/JSON, documentation,
+  projection, rendering, comparison, and generic-review incompatibility;
+- equivalent explicit requests produce equal immutable packet values
+  deterministically;
+- the preparer performs no discovery, Git access, persistence, human-response
+  interpretation, authority change, mutation, migration, activation, or
+  successor activation;
+- any reuse of `HumanReviewPreparer` preserves generic human-review semantics;
+- `HumanReviewDecisionRecorder` retains generic decision ownership; and
+- `HarnessTaskMigrationFileDispositionRecorder` requires the exact packet and
+  decision relationship and cannot interpret or accept a human response.
+
+No request serialization round-trip obligation exists unless Stage 1 separately
+justifies and proposes a wire contract for human acceptance.
+
 ## Stage 1: Task-model contract
 
 Stage 1 performs current-revision inventory, complete six-file source-span
 mapping, field and rendering-contract derivation, canonical schema and fixture
-design, public-API design, verification-obligation design, and renewed human
-review. It does not replace source authority, implement a class, generate a file
-packet, or migrate a file.
+design, public-API accounting for all 19 proposed interfaces, verification-
+obligation design for the request/preparer and remaining boundaries, and renewed
+human review. It does not replace source authority, implement a class, generate
+a file packet, or migrate a file.
 
 The maintained Stage-1 Task page is
 [harness.002.001.011](ksdft2effmass.harness.002.001.011.md).

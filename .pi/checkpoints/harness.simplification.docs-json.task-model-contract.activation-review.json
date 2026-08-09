@@ -5,7 +5,7 @@
   "status": "pending",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T15:54:24Z",
-  "question": "After reviewing docs/harness/ksdft2effmass.harness.002.001.010.md and docs/harness/ksdft2effmass.harness.002.001.011.md, should the contract-only HarnessTask model stage be activated to complete all six mappings and return the frozen field and rendering contract for explicit human acceptance before any implementation or migration?",
+  "question": "After reviewing docs/harness/ksdft2effmass.harness.002.001.010.md and docs/harness/ksdft2effmass.harness.002.001.011.md, should the contract-only HarnessTask model stage be activated to complete all six mappings and return the frozen 19-interface field, rendering, explicit packet-request, and stateless packet-preparer contract for explicit human acceptance before any implementation or migration?",
   "options": [
     {
       "id": "A",
@@ -23,8 +23,8 @@
       "consequence": "Keep the existing Markdown sources, attempt-1 catalogs, JSON pilot, operational chain, and architecture decisions unchanged; activate no migration work."
     }
   ],
-  "recommendation": "Option A if the two maintained review pages now state the intended complete information model, explicit renderer inputs, diagrams, contract-freeze boundary, review semantics, and Stage-2 block. Stage 1 is analysis and contract design only.",
-  "blocked_scope": "Stage-1 activation; current-revision inventory and mapping work; final HarnessTask field, wire, renderer-input, mapping, packet, disposition, API, schema-design, fixture-design, and verification-obligation design; all implementation; all file packets and migrations; Stage-2 activation; selection-state implementation; chain cutover; successor activation; SQLite, telemetry, scientific, publication, external, protected, or release work.",
+  "recommendation": "Option A if the two maintained review pages now state the intended 19-interface information model, 20-diagram accounting, explicit renderer inputs, runtime-only packet request, stateless packet preparer, immutable packet result, decision ownership, verification obligations, contract-freeze boundary, review semantics, and Stage-2 block. Stage 1 is analysis and contract design only.",
+  "blocked_scope": "Stage-1 activation; current-revision inventory and mapping work; final HarnessTask field, wire, renderer-input, mapping, packet-request, packet-preparer, packet, disposition, API, schema-design, fixture-design, and verification-obligation design; all implementation; all file packets and migrations; Stage-2 activation; selection-state implementation; chain cutover; successor activation; SQLite, telemetry, scientific, publication, external, protected, or release work.",
   "safe_scope": "Human review of the proposed Stage-1 and Stage-2 Task JSON and intake records, maintained review pages 002.001.010 and 002.001.011, resolved Option-B checkpoint, renewed checkpoint, existing authority catalogs, and accepted architecture decisions. Deterministic validation and persistence of this renewed pending boundary are permitted.",
   "authoritative_files": [
     "AGENTS.md",

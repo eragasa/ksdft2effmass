@@ -46,14 +46,26 @@ Stage 1 must return, without implementation:
 7. explicit `HarnessTaskProjectionProfile` configuration and template inputs;
 8. renderer and comparator contracts;
 9. comparison finding and unmapped-span representation;
-10. immutable migration packet and exact file-disposition contracts;
-11. reuse decisions for existing human-review and identity objects;
-12. mixed Markdown/JSON `TaskRecordAdapter` and `TaskStateInspector` obligations;
-13. proposed public imports, schemas, fixtures, tests, and maintained docs; and
-14. one frozen-contract human-review packet.
+10. an immutable runtime-only `HarnessTaskMigrationReviewPacketRequest` contract
+    containing every explicit packet-preparation input, intrinsic invariants, and
+    no constructor-owned cross-object validation;
+11. a stateless `HarnessTaskMigrationReviewPacketPreparer` contract with the
+    exact request-to-packet action boundary, complete cross-object validation,
+    deterministic construction, and explicit side-effect exclusions;
+12. immutable migration packet and exact file-disposition contracts that retain
+    generic decision ownership in `HumanReviewDecisionRecorder`;
+13. reuse decisions for existing human-review and identity objects;
+14. mixed Markdown/JSON `TaskRecordAdapter` and `TaskStateInspector` obligations;
+15. exact public-interface accounting for 19 proposed interfaces and exactly 20
+    Mermaid class diagrams;
+16. proposed public imports, schemas, fixtures, software-verification
+    obligations, and maintained docs, without adding request serialization
+    unless a wire requirement is separately justified; and
+17. one frozen-contract human-review packet.
 
-The full proposed class inventory, explicit rendering equation, overview diagram,
-and focused diagram for every proposed class are maintained in
+The full proposed class inventory, explicit rendering equation, public-interface
+accounting, verification obligations, overview diagram, and focused diagram for
+every proposed class are maintained in
 [harness.002.001.010](ksdft2effmass.harness.002.001.010.md).
 
 ## Source authority
