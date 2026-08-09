@@ -34,7 +34,7 @@ successor, or authorize protected work automatically.
 
 ```mermaid
 flowchart TD
-    Authority["Current human instruction and controlling task scope"] --> Construct["1. Caller constructs explicit HumanReviewTarget"]
+    Authority["Current human instruction and controlling task scope"] --> Construct["1. Root agent constructs explicit HumanReviewTarget"]
     Construct --> Target["HumanReviewTarget"]
     Target --> Observe["2. Supply deterministic observations and candidate findings"]
     Observe --> Prepare["3. Prepare review packet"]
@@ -59,8 +59,9 @@ already made by the human. Neither ActionObject performs the review itself.
 
 ### Where the target comes from
 
-The review coordinator constructs `HumanReviewTarget` explicitly from the current
-human-authorized scope and controlling task: a review identifier, exact revision,
+The root agent, acting as the explicit API caller, constructs `HumanReviewTarget`
+from the current human-authorized scope and controlling task: a review identifier,
+exact revision,
 represented subject, explicit paths, evidence class, and contract references. The
 runtime API validates that supplied record but does not select files, discover a Git
 revision, infer scope, or decide what should be reviewed. There is therefore no target

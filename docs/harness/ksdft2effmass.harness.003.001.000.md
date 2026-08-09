@@ -64,9 +64,9 @@ One review unit contains:
 
 ## First-slice workflow
 
-1. The review coordinator constructs `HumanReviewTarget` from the current
-   human-authorized source/test scope and exact revision; the API performs no target
-   discovery.
+1. The root agent, acting as the explicit API caller, constructs
+   `HumanReviewTarget` from the current human-authorized source/test scope and exact
+   revision; the API performs no target discovery.
 2. Deterministic checks produce explicit observations.
 3. `PrepareHumanReviewPacket` validates and orders supplied records.
 4. The derived Markdown packet presents the contract, observations, test inventory,
