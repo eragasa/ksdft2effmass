@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-model-contract",
   "title": "Freeze the HarnessTask information and rendering contract",
-  "status": "awaiting_human_review",
+  "status": "active",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.schema-projection"
