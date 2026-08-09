@@ -31,7 +31,7 @@
 - [ ] Start paper outline/LaTeX (ksdft2effmass/paper/)
 - [ ] 
 - [ ] Familiarize yourself with the project
-	- [ ] Conference Abstract: https://github.com/eragasa/ksdft2effmass/blob/dev/docs/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md
+	- [ ] Conference Abstract: https://github.com/eragasa/ksdft2effmass/blob/dev/docs/publications/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md
 	- [ ] Computational Tasks: https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/ksdft2effmass.computational.00.md
 	- [ ] https://github.com/eragasa/ksdft2effmass/blob/dev/docs/research/ksdft2effmass.00.md
 - [ ] Tight-binding

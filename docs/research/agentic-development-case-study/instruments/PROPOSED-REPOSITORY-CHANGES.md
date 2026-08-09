@@ -92,7 +92,7 @@ Add metadata equivalent to:
   "preprint_target": "arXiv",
   "primary_category": "cs.SE",
   "preprint_status": "planned",
-  "manuscript_path": "docs/papers/agentic-development-case-study/"
+  "manuscript_path": "docs/publications/papers/agentic-development-case-study/"
 }
 ```
 

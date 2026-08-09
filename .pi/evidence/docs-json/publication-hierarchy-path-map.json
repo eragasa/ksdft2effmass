@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.publication.hierarchy",
+  "authority_status": "temporary_non_authoritative_migration_input",
+  "base_revision": "6b7a94266a0ab012322497a38c3a28705efe8686",
+  "source_inventory": ".pi/evidence/docs-json/publication-triage.json",
+  "root_map": [
+    {
+      "old_path": "docs/conferences",
+      "new_path": "docs/publications/conferences"
+    },
+    {
+      "old_path": "docs/papers",
+      "new_path": "docs/publications/papers"
+    }
+  ],
+  "counts": {
+    "source_files": 23,
+    "byte_preserving_moves": 20,
+    "move_and_populate": 1,
+    "deleted": 1,
+    "untracked_byte_preserving_moves": 1
+  },
+  "path_map": [
+    {
+      "old_path": "docs/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "new_path": "docs/publications/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "disposition": "byte_preserving_move",
+      "git_object": "d23a7ae3bb137fa6d31f25ace37ba7e25fdd51a7"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/ICMSEP2026.00.md",
+      "new_path": "docs/publications/conferences/ICMSEP2026/ICMSEP2026.00.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "1d4c67e5fdd87d0d2fde0f0df01b182e5e821dec"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/LA2.pdf",
+      "new_path": null,
+      "disposition": "deleted_by_explicit_human_authorization",
+      "git_object": "9cf2aa9eee2c75f76b38ce7959f58fef89987e61"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md",
+      "new_path": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "dfcf5d0ea84a1f81843bd778bea3c8760b66b85d"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.pdf",
+      "new_path": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.pdf",
+      "disposition": "byte_preserving_move",
+      "git_object": "cbc81d232dadaed911ffcd3e574f259e74ce5b26"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md",
+      "new_path": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "d60adaec72d5d2fb0706722a8b2813d6f000f39b"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/ksdft2effmass.paper.md",
+      "new_path": "docs/publications/ksdft2effmass.publications.00.md",
+      "disposition": "move_and_populate_as_publication_root_index",
+      "source_git_object": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "old_path": "docs/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "new_path": "docs/publications/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "disposition": "byte_preserving_move",
+      "git_object": "f3f5d57320e7e9ac01740686fa08de358a9e7cb4"
+    },
+    {
+      "old_path": "docs/papers/.DS_Store",
+      "new_path": "docs/publications/papers/.DS_Store",
+      "disposition": "untracked_byte_preserving_move",
+      "sha256": "1da85f0bb29f51694d0bcf7d4deff36bac0195ff31dae3112d3d63d5e851fe82"
+    },
+    {
+      "old_path": "docs/papers/agentic-development-case-study/ARXIV-READINESS.md",
+      "new_path": "docs/publications/papers/agentic-development-case-study/ARXIV-READINESS.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "ef25729cb87f9196c118aa4ca023589c504d7698"
+    },
+    {
+      "old_path": "docs/papers/agentic-development-case-study/README.md",
+      "new_path": "docs/publications/papers/agentic-development-case-study/README.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "de165cda39775faab671a44e07fd7740e8472bf6"
+    },
+    {
+      "old_path": "docs/papers/ksdft2efffmass.P03.md",
+      "new_path": "docs/publications/papers/ksdft2efffmass.P03.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "a5d1c7c1bef78fdda53ef23a6f9758ce18ed604a"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P01.md",
+      "new_path": "docs/publications/papers/ksdft2effmass.P01.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "921e5eeb29579c4f359648c92a51afb16580bc68"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P02.md",
+      "new_path": "docs/publications/papers/ksdft2effmass.P02.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "6c958ac9f2cea23ebb7a34ae5ecaebc8012c1234"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/README.md",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/README.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "29907353cd1c4fcebaedc664577644a5d1851c93"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/elsarticle-num.bst",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/elsarticle-num.bst",
+      "disposition": "byte_preserving_move",
+      "git_object": "04caf565b1fb84a21aa3fe39ed84d8841c020437"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/elsarticle.cls",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/elsarticle.cls",
+      "disposition": "byte_preserving_move",
+      "git_object": "bb570d1d22a1f3b589a638c82d2913aad1c84952"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/highlights.txt",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/highlights.txt",
+      "disposition": "byte_preserving_move",
+      "git_object": "3489ea05e6657e3d1525f4269fd99fd7988a5bd7"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/manuscript.bbl",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/manuscript.bbl",
+      "disposition": "byte_preserving_move",
+      "git_object": "6d997a15c5fbce1d4001d8f77ff9044b2719d4e6"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/manuscript.pdf",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/manuscript.pdf",
+      "disposition": "byte_preserving_move",
+      "git_object": "accf7b69988a1848892c799d0d52812bd015b5b0"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/manuscript.tex",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+      "disposition": "byte_preserving_move",
+      "git_object": "e1e7cc5fdfdda220e57c25664f91d102dd3847e0"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.P91/references.bib",
+      "new_path": "docs/publications/papers/ksdft2effmass.P91/references.bib",
+      "disposition": "byte_preserving_move",
+      "git_object": "26ec6be81965305293218ed13c92ffe8fb6f91b0"
+    },
+    {
+      "old_path": "docs/papers/ksdft2effmass.papers.00.md",
+      "new_path": "docs/publications/papers/ksdft2effmass.papers.00.md",
+      "disposition": "byte_preserving_move",
+      "git_object": "a21f109bf0db089dda732b0ece46779b59d2354d"
+    }
+  ],
+  "link_updates": [
+    "docs/index.md",
+    "docs/meetings/20260728-LLENARIZAS.md",
+    "docs/meetings/20260804-LLENARIZAS.md",
+    "docs/research/agentic-development-case-study/instruments/PROPOSED-REPOSITORY-CHANGES.md",
+    ".pi/tasks/backend-neutral-kohn-sham-qe-architecture.md",
+    ".pi/tasks/backend-neutral-cpn-workflow-architecture.md"
+  ],
+  "historical_reference_policy": "Immutable historical evidence, baselines, resolved checkpoints, and replay validators retain the paths they recorded. The active hierarchy checkpoint and source triage snapshot also retain old paths as decision and migration inputs.",
+  "claim_boundary": "The map records repository placement only and does not establish submission, publication, release, scientific validation, or authority to delete any path other than LA2.pdf."
+}

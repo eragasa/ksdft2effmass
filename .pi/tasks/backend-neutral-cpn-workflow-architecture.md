@@ -126,7 +126,7 @@ The directional neutral-specification -> capability -> concrete mapper/serialize
 - `docs/architecture/`: CPN, static import direction, scientific object, adapter, persistence, and ownership decisions;
 - `docs/computational/`: places/markings, calculation protocols, stages, and acceptance evidence;
 - `docs/research/`: scientific relationships, claims, limitations, and epistemic boundaries;
-- `docs/papers/`: static claim prerequisites, not workflow runtime state.
+- `docs/publications/papers/`: static claim prerequisites, not workflow runtime state.
 
 ## Validation gates for this correction
 

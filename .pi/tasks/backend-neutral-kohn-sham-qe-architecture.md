@@ -105,7 +105,7 @@ forbidden-contract scans, `git diff --check`, and Sphinx warnings-as-errors.
 These checks are control-plane/software documentation evidence only.
 
 The unrelated pre-existing untracked file
-`docs/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md` was preserved
+`docs/publications/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md` was preserved
 unchanged and excluded from this task's acceptance scope. Its simplified diagram
 is not authoritative for the approved adapter ownership.
 

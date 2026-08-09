@@ -1,6 +1,6 @@
 # Normalize publication documentation
 
-Status: proposed_inactive
+Status: completed; both child Tasks completed on 2026-08-09
 
 Task identity: `harness.simplification.docs-json.publication`
 

@@ -11,10 +11,11 @@ The stateful Colored Petri Net workflow, stage markings, static prerequisite
 projection, and executable task hierarchy are documented in
 [[computational/ksdft2Effmass.computational.00|Computational Program]].
 
-## Papers
+## Publications
 
-The publication dependency structure is documented in
-[[papers/ksdft2effmass.papers.00|Papers Pipeline]].
+Conference material, publication planning, and manuscript working files are
+indexed in
+[[publications/ksdft2effmass.publications.00|Publications]].
 
 ## Architecture
 
