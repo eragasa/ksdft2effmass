@@ -2,11 +2,9 @@
   "schema_version": 1,
   "task_id": "harness.simplification.resources.h3-validator-retirement",
   "title": "Retire the H3 operational validator without losing current resource-contract coverage",
-  "status": "blocked",
+  "status": "active",
   "parent_task_id": null,
-  "task_prerequisite_ids": [
-    "harness.simplification.docs-json"
-  ],
+  "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": true,
   "objective": "Retire the historical H3 completion validator as a live operational dependency while assigning every still-valid resource requirement to a maintained DataObject, ResultObject, ActionObject, focused test, or thin composed CLI and preserving historical H3 evidence unchanged.",
@@ -33,7 +31,7 @@
     "Do not rewrite accepted H3 tasks, checkpoints, reviews, checksums, or retained evidence, and do not recreate obsolete H3-only invariants elsewhere.",
     "Do not add executable completion drivers under .pi/tasks or .pi/evidence, another replay system, repository-root discovery, a plugin framework, generated orchestration scripts, or implicit current-working-directory authority.",
     "Do not add dependencies or lockfile changes, implement SQLite or P3 work, run scientific or external calculations, or perform publication, release, protected execution, or unrelated repository-wide campaigns.",
-    "Do not activate this Task or change implementation files until its recorded parent-review precondition is satisfied or a later explicit human decision changes that precondition."
+    "Treat the completed failed parent review as correction input; do not reinterpret it as a passing review or rewrite its retained result."
   ],
   "intake_path": ".pi/tasks/harness.simplification.resources.h3-validator-retirement.intake.md"
 }

@@ -14,4 +14,4 @@ Inspect all live callers, including the current replay wrapper, H4 route and rep
 
 Delete the historical validator only after the disposition map is complete, every retained requirement has a current owner, live callers use the replacement, focused validation passes, and the bounded review has no unresolved material defect. Stop if a valid requirement has no coherent maintained owner without material scope expansion.
 
-The original requested precondition requires the parent documentation/JSON pilot to have passed its pending integration review before implementation changes begin. The review recorded in `.pi/evidence/docs-json/parent-integration-review.md` failed on the two H3 findings, so this Task is recorded as blocked and is not activated.
+The parent documentation/JSON pilot's pending integration review completed and failed on the two H3 findings recorded in `.pi/evidence/docs-json/parent-integration-review.md`. The current human authorization treats completion of that review—not a passing result—as satisfying this Task's review precondition. The findings remain unchanged correction inputs; they are not reinterpreted as a pass.

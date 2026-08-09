@@ -1,11 +1,12 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "blocked_parent_integration_review",
-  "active_task": null,
+  "status": "h3_validator_retirement_active",
+  "active_task": "harness.simplification.resources.h3-validator-retirement",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
-    "harness.simplification.docs-json.schema-projection"
+    "harness.simplification.docs-json.schema-projection",
+    "harness.simplification.resources.h3-validator-retirement"
   ],
   "chain": [],
   "task_sequence": [
