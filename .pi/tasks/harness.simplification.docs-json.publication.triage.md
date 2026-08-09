@@ -1,6 +1,6 @@
 # Triage publication documentation
 
-Status: proposed_inactive
+Status: active; authorized by the human PI on 2026-08-09
 
 Task identity: `harness.simplification.docs-json.publication.triage`
 
@@ -22,4 +22,4 @@ Return only ambiguous or materially consequential cases to the human. The human 
 
 Produce one temporary triage record containing the bounded inventory, deterministic classifications with reasons, and the ambiguity queue. Completion requires complete selected-root path coverage, no duplicate paths, disposition of every ambiguity, and a compact input for `harness.simplification.docs-json.publication.hierarchy`.
 
-This Task does not move, rename, delete, rewrite, publish, submit, or release files. It remains inactive until authorized.
+This Task does not move, rename, delete, rewrite, publish, submit, or release files. Human authorization activates only this bounded inventory and triage.

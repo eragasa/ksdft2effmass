@@ -1,8 +1,8 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "awaiting_next_task_selection",
-  "active_task": null,
+  "status": "docs_json_publication_triage_active",
+  "active_task": "harness.simplification.docs-json.publication.triage",
   "automatic_successor_activation": false,
   "chain": [],
   "task_sequence": [
@@ -178,7 +178,15 @@
       "prerequisites": [
         "harness.simplification.api.action-object-grammar:completed"
       ],
-      "status": "proposed_inactive"
+      "status": "decomposed_child_active"
+    },
+    {
+      "id": "harness.simplification.docs-json.publication.triage",
+      "record": ".pi/tasks/harness.simplification.docs-json.publication.triage.md",
+      "prerequisites": [
+        "harness.simplification.api.action-object-grammar:completed"
+      ],
+      "status": "active"
     },
     {
       "id": "harness.simplification.evidence.naming",

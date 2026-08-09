@@ -1,6 +1,6 @@
 # Migrate documentation and the JSON control surface
 
-Status: proposed_inactive; no decomposed Task is active
+Status: decomposed; `harness.simplification.docs-json.publication.triage` is active; the parent is not independently executable
 
 Task identity: `harness.simplification.docs-json`
 
