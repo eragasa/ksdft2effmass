@@ -38,6 +38,8 @@ Object ownership
      - Every explicit runtime input required for packet preparation.
    * - ``HarnessTaskMigrationReviewPacket``
      - One validated exact request bundle.
+   * - ``HarnessTaskMigrationReviewDocument``
+     - Runtime-only exact UTF-8 human-review Markdown bytes, derived path, and identity.
    * - ``HarnessTaskMigrationFileDisposition``
      - Exact packet, generic human decision, and migration-specific outcome.
 
@@ -58,6 +60,8 @@ Object ownership
      - Report exact byte differences, mapping coverage, and block preservation.
    * - ``HarnessTaskMigrationReviewPacketPreparer``
      - Validate all cross-object agreement and return an immutable packet.
+   * - ``HarnessTaskMigrationReviewPacketRenderer``
+     - Render a validated packet as a deterministic complete before/after Markdown view.
    * - ``HarnessTaskMigrationFileDispositionRecorder``
      - Validate exact packet binding and the closed disposition table.
 
@@ -139,14 +143,29 @@ File-specific human mediation
 -----------------------------
 
 Packet preparation recomputes canonical JSON, rendering, comparison, complete mapping
-coverage, exact block selection, target paths, target revision, and generic packet
-canonicality.  The generic packet must contain the exact immutable observations that
-bind source identity and byte count, candidate-JSON identity, mappings and unmapped
-spans, rendered identity, comparison status and differences, opaque-block
-preservation, and applicable limitations.  Missing, altered, stale, empty, or
-unrelated observations fail preparation.  It performs no discovery or persistence.
-The disposition recorder revalidates the retained request through the public packet
-preparer before requiring exact generic packet binding and applying this closed table:
+coverage, exact block selection, and generic packet canonicality.  The target must use
+the candidate-derived review ID and subject, ``software_verification`` evidence class,
+the exact accepted HarnessTask and migration-review contract references, the source
+revision, and exactly the source and candidate-documentation paths.  The generic
+packet must contain exact immutable observations binding source path, revision,
+explicit Git-object value or absence, byte count and identity; candidate-JSON
+identity; mappings and unmapped spans; rendered identity; comparison status and
+differences; opaque-block preservation; and applicable limitations.  Missing,
+altered, stale, empty, or unrelated material fails preparation.
+
+The project-local public surface contains 21 HarnessTask interfaces: the accepted 19
+plus the narrow ``HarnessTaskMigrationReviewDocument`` and
+``HarnessTaskMigrationReviewPacketRenderer`` correction.  The renderer first
+revalidates the packet, then emits complete original Markdown, canonical candidate
+JSON, candidate maintained Markdown, mapping table, exact differences and unified
+diff, opaque-block result, rollback identity, limitations, and exactly four choices.
+It strictly decodes UTF-8, chooses a backtick fence longer than every enclosed
+backtick run, and emits exactly one final LF.  Its document is a non-authoritative
+runtime view.
+
+The disposition recorder revalidates both the packet and the generic decision through
+their public ActionObjects before requiring exact binding and applying this closed
+table:
 
 .. list-table:: Generic and migration dispositions
    :header-rows: 1
@@ -193,6 +212,9 @@ API reference
 .. autoclass:: HarnessTaskMigrationReviewPacketPreparer
    :members:
 .. autoclass:: HarnessTaskMigrationReviewPacket
+.. autoclass:: HarnessTaskMigrationReviewDocument
+.. autoclass:: HarnessTaskMigrationReviewPacketRenderer
+   :members:
 .. autoclass:: HarnessTaskMigrationDisposition
    :members:
 .. autoclass:: HarnessTaskMigrationFileDisposition

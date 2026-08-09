@@ -1,0 +1,57 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance",
+  "task_id": "harness.simplification.docs-json.task-implementation-hardening",
+  "episode_id": "harness.simplification.docs-json.task-implementation-hardening",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T19:34:56Z",
+  "question": "Should the corrected 21-interface Stage-2A HarnessTask implementation and its complete deterministic human-review boundary be accepted exactly as presented, completing Stage 2A while all six Markdown Tasks remain unchanged and Stage 2B remains inactive pending separate activation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the corrected Stage-2A implementation and human-review boundary.",
+      "consequence": "Accept the unchanged 16-field wire contract, original 19 interfaces, two runtime-only human-review rendering interfaces, complete source/target binding, generic-decision revalidation, deterministic document format, focused evidence, and documented limitations. Complete Stage 2A only; leave Stage 2B inactive and prepare no real migration packet until separately activated."
+    },
+    {
+      "id": "B",
+      "summary": "Request another exact bounded correction before acceptance.",
+      "consequence": "Keep Stage 2A open, identify the exact remaining contract-consistent correction and authority, and prepare no real migration packet or Stage-2B activation."
+    },
+    {
+      "id": "C",
+      "summary": "Defer Stage-2A implementation acceptance.",
+      "consequence": "Retain the corrected implementation as provisional evidence, keep Stage 2A incomplete and Stage 2B blocked, and perform no migration or unrelated work."
+    }
+  ],
+  "recommendation": "Inspect the representative rendered review document, complete source and target binding, exact decision reconstruction, public-interface correction, limitations, and unchanged authority boundary directly; test counts and review agreement do not determine human acceptance.",
+  "blocked_scope": "Stage-2A completion and human implementation acceptance; any Stage-2B activation; any real migration packet, candidate JSON for a selected Task, maintained migration documentation, file disposition, or source migration; further public-contract revision; legacy projection synchronization; selection-state work; chain cutover; automatic successor activation; dependency, lockfile, environment, SQLite, telemetry, scientific, publication, external, protected, release, or unrelated work.",
+  "safe_scope": "Human review of the renewed implementation-acceptance packet, corrected 21-interface public implementation, representative exact human-review document, maintained evidence and documentation, clean committed-tree validation, unchanged six source identities, active durable Task state, chain state, and this checkpoint. Deterministic validation and persistence of this pending boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/human-review-boundary-validation.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/hardening-decisions.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/integration-review.md",
+    "docs/api/harness-task.rst",
+    "docs/harness/ksdft2effmass.harness.002.001.012.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/human-review-boundary-validation.md",
+    "docs/harness/ksdft2effmass.harness.002.001.012.md"
+  ],
+  "resumption_status": "blocked_pending_stage_2a_human_review_boundary_acceptance"
+}

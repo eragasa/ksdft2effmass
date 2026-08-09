@@ -1,15 +1,21 @@
 {
   "schema_version": 1,
   "expected_old_node_ids": [
-    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_30_names"
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_30_names",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v2.py::test_public_api__accepted_table__exports_exact_nineteen_interfaces"
   ],
   "expected_new_node_ids": [
-    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_49_names"
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_51_names",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v2.py::test_public_api__corrected_table__exports_exact_twenty_one_interfaces"
   ],
   "mappings": [
     {
       "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_30_names",
-      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_49_names"
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py::test_public_api__exports__contains_exact_51_names"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v2.py::test_public_api__accepted_table__exports_exact_nineteen_interfaces",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v2.py::test_public_api__corrected_table__exports_exact_twenty_one_interfaces"
     }
   ]
 }

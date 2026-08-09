@@ -36,14 +36,17 @@ A material required change stops and returns for explicit contract review.
 
 Stage 2A implements:
 
-- the 19 project-local public interfaces and 16-field schema-version-2
-  `HarnessTask`;
+- the unchanged 16-field schema-version-2 `HarnessTask`, original 19 interfaces,
+  and explicitly corrected runtime-only review document and renderer, for 21
+  project-local public interfaces;
 - project-local schema, fixtures, profile, resource-manifest relationships, and
   canonical serializer/deserializer behavior;
 - `LocalValidationResult` graph diagnostics, including exact `PIHL.TASK.*` codes
   and precedence;
-- authoritative-template parsing, explicit rendering, exact byte-structural
-  comparison, packet preparation, and migration-disposition behavior;
+- authoritative-template parsing, explicit documentation rendering, exact
+  byte-structural comparison, complete source/target packet binding, deterministic
+  human-readable review-document rendering, generic-decision revalidation, and
+  migration-disposition behavior;
 - accepted `ResourcePath` rejection coverage and focused hardening tests;
 - mixed version-1 JSON, version-2 JSON, and Markdown `TaskRecordAdapter` and
   `TaskStateInspector` compatibility; and
@@ -71,7 +74,7 @@ Stage 2A must stop at a human checkpoint with one concise packet containing:
 4. one representative manually supplied `HarnessTask` → canonical JSON and
    `HarnessTask` + documentation content + projection profile → rendered Markdown
    example, explicitly labeled as not demonstrating Markdown-to-JSON extraction;
-5. exact source/rendered diff for that example;
+5. exact source/rendered diff and representative complete human-review document;
 6. focused test and validation results;
 7. independent-review findings and dispositions;
 8. known limitations;

@@ -20,6 +20,7 @@ from typing import Any
 
 from ..human_review import (
     HumanReviewDecision,
+    HumanReviewDecisionRecorder,
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
@@ -43,6 +44,18 @@ _TEMPLATE_TOKEN = re.compile(
     rb"\{\{(task|content)\.([A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)\}\}"
 )
 _COMPARISON_STATUSES = {"EXACT", "MAPPED_DIFFERENCES", "UNMAPPED_DIFFERENCES"}
+_MIGRATION_REVIEW_CONTRACT_REFERENCES = (
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/evidence/task-control/task-document-human-mediation-decision.md",
+)
+_MIGRATION_REVIEW_CLAIM_BOUNDARY = (
+    "Byte-structural software verification does not establish semantic migration "
+    "correctness.",
+    "The rendered review document is not operational authority or a human decision.",
+    "No packet or document authenticates human identity or authorizes migration or "
+    "activation.",
+)
 
 
 def _sha256(content: bytes) -> ArtifactIdentity:
@@ -1112,7 +1125,10 @@ class HarnessTaskMigrationReviewPacketPreparer:
         ValueError
             If mapping identifiers, complete coverage, source/span identities,
             canonical JSON, documentation IDs/blocks/targets, rendering, comparison,
-            generic packet canonicality, target revision, or target paths disagree.
+            generic packet canonicality, complete source provenance observations,
+            candidate-derived review ID and subject, software-verification class,
+            accepted contract references, target revision, or exact target paths
+            disagree.
 
         Notes
         -----
@@ -1174,6 +1190,21 @@ class HarnessTaskMigrationReviewPacketPreparer:
         )
         if review != canonical_review:
             raise ValueError("human review packet is not canonical")
+        expected_review_id = f"harness-task-migration.{request.candidate_task.task_id}"
+        if review.target.review_id != expected_review_id:
+            raise ValueError("human review target ID differs from candidate Task")
+        expected_subject = (
+            f"HarnessTask migration candidate {request.candidate_task.task_id} from "
+            f"{source.path} to {rendered.path}"
+        )
+        if review.target.represented_subject != expected_subject:
+            raise ValueError("human review subject differs from candidate migration")
+        if review.target.evidence_class != "software_verification":
+            raise ValueError(
+                "human review evidence class must be software_verification"
+            )
+        if review.target.contract_references != _MIGRATION_REVIEW_CONTRACT_REFERENCES:
+            raise ValueError("human review contract references differ")
         if review.target.revision != source.revision:
             raise ValueError("human review target revision differs from source")
         if review.target.paths != (source.path, rendered.path):
@@ -1328,8 +1359,13 @@ class HarnessTaskMigrationReviewPacketPreparer:
                 source.path,
                 detail(
                     {
+                        "artifact_identity": represented_identity(
+                            source.artifact_identity
+                        ),
                         "byte_count": source.byte_count,
-                        "identity": represented_identity(source.artifact_identity),
+                        "git_object": source.git_object,
+                        "path": source.path,
+                        "revision": source.revision,
                     }
                 ),
             ),
@@ -1358,6 +1394,238 @@ class HarnessTaskMigrationReviewPacket:
     def __post_init__(self) -> None:
         if type(self.request) is not HarnessTaskMigrationReviewPacketRequest:
             raise TypeError("request must be HarnessTaskMigrationReviewPacketRequest")
+
+
+@dataclass(frozen=True, slots=True)
+class HarnessTaskMigrationReviewDocument:
+    """Represent one deterministic human-readable migration review document.
+
+    Parameters
+    ----------
+    path
+        Derived project-local destination for the non-authoritative review view.
+    content
+        Exact UTF-8 Markdown bytes with exactly one final LF.
+    artifact_identity
+        SHA-256 identity matching ``content``.
+
+    Raises
+    ------
+    TypeError
+        If content or identity has the wrong exact runtime type.
+    ValueError
+        If the path is invalid, content is not UTF-8 with exactly one final LF, or
+        the identity does not match the exact bytes.
+
+    Notes
+    -----
+    This runtime-only DataObject is not operational authority, a persisted decision,
+    or migration authorization. Cross-object rendering belongs to
+    :class:`HarnessTaskMigrationReviewPacketRenderer`.
+    """
+
+    path: ResourcePath
+    content: bytes
+    artifact_identity: ArtifactIdentity
+
+    def __post_init__(self) -> None:
+        _require_path(self.path, "path")
+        if type(self.content) is not bytes:
+            raise TypeError("content must be bytes")
+        if not self.content.endswith(b"\n") or self.content.endswith(b"\n\n"):
+            raise ValueError("content must have exactly one final LF")
+        try:
+            self.content.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise ValueError("content must be UTF-8") from exc
+        if type(self.artifact_identity) is not ArtifactIdentity:
+            raise TypeError("artifact_identity must be ArtifactIdentity")
+        if self.artifact_identity != _sha256(self.content):
+            raise ValueError("artifact_identity must identify content")
+
+
+class HarnessTaskMigrationReviewPacketRenderer:
+    """Render one validated packet as a deterministic human-readable Markdown view.
+
+    The renderer revalidates the exact retained request through the public packet
+    preparer, decodes included source and candidate bytes strictly as UTF-8, chooses
+    safe Markdown fences from the enclosed content, and emits exactly one final LF.
+    It performs no discovery, file reads, Git operations, persistence, migration,
+    activation, human-response interpretation, or authority authentication.
+    """
+
+    __slots__ = ()
+
+    def execute(
+        self, packet: HarnessTaskMigrationReviewPacket
+    ) -> HarnessTaskMigrationReviewDocument:
+        """Return a reproducible complete before/after review document.
+
+        Parameters
+        ----------
+        packet
+            Exact validated migration-review packet.
+
+        Returns
+        -------
+        HarnessTaskMigrationReviewDocument
+            Runtime-only Markdown bytes, derived path, and exact SHA-256 identity.
+
+        Raises
+        ------
+        TypeError
+            If ``packet`` has the wrong exact public type.
+        ValueError
+            If the packet differs from its prepared result or source, candidate JSON,
+            or rendered documentation is not valid UTF-8.
+
+        Notes
+        -----
+        The original Markdown, canonical candidate JSON, and candidate maintained
+        Markdown are included completely. Fenced presentation does not normalize or
+        reflow their decoded UTF-8 text. The structured packet and a later recorded
+        disposition remain authoritative over this rendered view.
+        """
+        if type(packet) is not HarnessTaskMigrationReviewPacket:
+            raise TypeError("packet must be HarnessTaskMigrationReviewPacket")
+        validated = HarnessTaskMigrationReviewPacketPreparer().execute(packet.request)
+        if packet != validated:
+            raise ValueError("packet must equal its validated prepared result")
+        request = packet.request
+        source_text = self._decode(request.source.content, "source content")
+        candidate_json_text = self._decode(
+            request.canonical_task_json, "canonical_task_json"
+        )
+        rendered_text = self._decode(
+            request.rendered_documentation.content, "rendered documentation"
+        )
+        comparison = request.comparison
+        target = request.human_review_packet.target
+        source = request.source
+        candidate_json_identity = _sha256(request.canonical_task_json)
+        mapping_rows = "\n".join(
+            "| "
+            + " | ".join(
+                (
+                    self._table_cell(mapping.mapping_id),
+                    f"`{mapping.start_byte}:{mapping.end_byte}`",
+                    f"`{mapping.disposition.value}`",
+                    self._table_cell(list(mapping.target_references)),
+                    self._table_cell(mapping.transformation),
+                    self._table_cell(mapping.rationale),
+                )
+            )
+            + " |"
+            for mapping in request.mappings
+        )
+        opaque_lines = tuple(
+            f"- `{mapping.mapping_id}`: preserved exactly; "
+            f"SHA-256 `{mapping.span_identity.digest}`"
+            for mapping in request.mappings
+            if mapping.disposition
+            is HarnessTaskSourceDisposition.DOCUMENTATION_OWNED_CONTENT
+        )
+        differences = (
+            "\n".join(f"- `{item}`" for item in comparison.differences)
+            if comparison.differences
+            else "- None"
+        )
+        unmapped = (
+            "\n".join(f"- `{start}:{end}`" for start, end in comparison.unmapped_spans)
+            if comparison.unmapped_spans
+            else "- None"
+        )
+        unified_diff = "\n".join(
+            difflib.unified_diff(
+                source_text.splitlines(),
+                rendered_text.splitlines(),
+                fromfile=source.path,
+                tofile=request.rendered_documentation.path,
+                lineterm="",
+            )
+        )
+        sections = (
+            f"# HarnessTask migration review: `{request.candidate_task.task_id}`",
+            "## Review target\n\n"
+            f"- Review ID: `{target.review_id}`\n"
+            f"- Subject: {target.represented_subject}\n"
+            f"- Evidence class: `{target.evidence_class}`\n"
+            f"- Source revision: `{source.revision}`\n"
+            "- Contract references:\n"
+            + "\n".join(f"  - `{item}`" for item in target.contract_references),
+            "## Source provenance and rollback identity\n\n"
+            f"- Path: `{source.path}`\n"
+            f"- Revision: `{source.revision}`\n"
+            "- Git object: "
+            f"{f'`{source.git_object}`' if source.git_object else '`None`'}\n"
+            f"- Byte count: `{source.byte_count}`\n"
+            f"- SHA-256: `{source.artifact_identity.digest}`\n"
+            f"- Rollback identity: `{source.artifact_identity.algorithm}:"
+            f"{source.artifact_identity.digest}`",
+            "## Original Markdown\n\n" + self._fenced(source_text, "markdown"),
+            "## Candidate canonical HarnessTask JSON\n\n"
+            f"Identity: `{candidate_json_identity.algorithm}:"
+            f"{candidate_json_identity.digest}`\n\n"
+            + self._fenced(candidate_json_text, "json"),
+            "## Candidate maintained Markdown\n\n"
+            f"Identity: `{request.rendered_documentation.artifact_identity.algorithm}:"
+            f"{request.rendered_documentation.artifact_identity.digest}`\n\n"
+            + self._fenced(rendered_text, "markdown"),
+            "## Source mappings\n\n"
+            "| Mapping ID | Source bytes | Disposition | Target references | "
+            "Transformation | Rationale |\n"
+            "|---|---:|---|---|---|---|\n" + mapping_rows,
+            "## Exact comparison\n\n"
+            f"- Status: `{comparison.status}`\n"
+            f"- Source identity: `{comparison.source_identity.algorithm}:"
+            f"{comparison.source_identity.digest}`\n"
+            f"- Rendered identity: `{comparison.rendered_identity.algorithm}:"
+            f"{comparison.rendered_identity.digest}`\n\n"
+            "### Byte differences\n\n"
+            f"{differences}\n\n"
+            "### Unmapped spans\n\n"
+            f"{unmapped}\n\n"
+            "### Human-readable unified diff\n\n" + self._fenced(unified_diff, "diff"),
+            "## Opaque documentation-block preservation\n\n"
+            + ("\n".join(opaque_lines) if opaque_lines else "- None"),
+            "## Limitations and claim boundary\n\n"
+            + "\n".join(
+                f"- {item}"
+                for item in (*comparison.limitations, *_MIGRATION_REVIEW_CLAIM_BOUNDARY)
+            ),
+            "## Human choices\n\n"
+            "Choose exactly one:\n\n"
+            "1. Accept this file migration.\n"
+            "2. Revise the contract or mappings.\n"
+            "3. Retain Markdown ownership.\n"
+            "4. Defer the file.",
+        )
+        content = ("\n\n".join(sections).rstrip("\n") + "\n").encode("utf-8")
+        path = f"{request.candidate_task.documentation_path}.migration-review.md"
+        return HarnessTaskMigrationReviewDocument(path, content, _sha256(content))
+
+    @staticmethod
+    def _decode(content: bytes, field: str) -> str:
+        try:
+            return content.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise ValueError(
+                f"{field} must be UTF-8 for human review rendering"
+            ) from exc
+
+    @staticmethod
+    def _fenced(content: str, language: str) -> str:
+        longest = max(
+            (len(match.group(0)) for match in re.finditer(r"`+", content)), default=0
+        )
+        fence = "`" * max(3, longest + 1)
+        separator = "" if content.endswith("\n") else "\n"
+        return f"{fence}{language}\n{content}{separator}{fence}"
+
+    @staticmethod
+    def _table_cell(value: object) -> str:
+        represented = json.dumps(value, ensure_ascii=True, separators=(",", ":"))
+        return represented.replace("|", r"\|")
 
 
 class HarnessTaskMigrationDisposition(StrEnum):
@@ -1447,8 +1715,9 @@ class HarnessTaskMigrationFileDispositionRecorder:
         TypeError
             If any input has the wrong exact public type.
         ValueError
-            If the generic decision does not retain the packet's exact generic review
-            packet or the dispositions violate the frozen compatibility table:
+            If the packet or generic decision differs from the result reconstructed by
+            its public ActionObject, the decision does not retain the packet's exact
+            generic review packet, or the dispositions violate the compatibility table:
             accepted/accept, bounded-correction/revise, rejected/retain, and
             deferred/defer.
 
@@ -1466,6 +1735,17 @@ class HarnessTaskMigrationFileDispositionRecorder:
         )
         if packet != validated_packet:
             raise ValueError("packet must equal its validated prepared result")
+        validated_decision = HumanReviewDecisionRecorder().execute(
+            packet.request.human_review_packet,
+            human_decision.human_response,
+            human_decision.disposition,
+            human_decision.authorized_scope,
+        )
+        if human_decision != validated_decision:
+            raise ValueError(
+                "human decision must equal the canonical result for the exact "
+                "review packet"
+            )
         if type(migration_disposition) is not HarnessTaskMigrationDisposition:
             raise TypeError(
                 "migration_disposition must be HarnessTaskMigrationDisposition"

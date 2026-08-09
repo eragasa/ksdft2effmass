@@ -74,6 +74,12 @@
       "sut": "HarnessTaskMigrationFileDispositionRecorder"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewDocument.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationReviewDocument"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacket.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -84,6 +90,12 @@
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "sut": "HarnessTaskMigrationReviewPacketPreparer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketRenderer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationReviewPacketRenderer"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketRequest.py",

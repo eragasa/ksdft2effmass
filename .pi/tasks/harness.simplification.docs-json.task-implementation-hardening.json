@@ -14,8 +14,10 @@
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.activation-review.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.implementation-acceptance.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.corrected-implementation-acceptance.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json",
     ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
     ".pi/evidence/docs-json/task-implementation-hardening/bounded-correction-validation.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/human-review-boundary-validation.md",
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
@@ -25,8 +27,8 @@
     "docs/harness/ksdft2effmass.harness.002.001.012.md"
   ],
   "authorized_scope": [
-    "Implement exactly the accepted 16-field schema-version-2 HarnessTask and the accepted 19 project-local public interfaces without changing accepted fields, signatures, ownership boundaries, or wire behavior.",
-    "Add the accepted project-local schema, projection profile, fixtures, serializer and deserializer, LocalValidationResult graph validation, renderer, byte-structural comparator, packet preparation, migration-disposition behavior, public imports, and explicit resource-manifest relationships.",
+    "Implement exactly the accepted 16-field schema-version-2 HarnessTask and the original accepted 19 project-local public interfaces without changing their fields, signatures, ownership boundaries, or wire behavior; add only the explicitly authorized narrow runtime-only HarnessTaskMigrationReviewDocument and HarnessTaskMigrationReviewPacketRenderer correction, for a corrected total of 21 interfaces.",
+    "Add the accepted project-local schema, projection profile, fixtures, serializer and deserializer, LocalValidationResult graph validation, documentation rendering, byte-structural comparator, packet preparation, deterministic complete human-review packet rendering, migration-disposition behavior, public imports, and explicit resource-manifest relationships.",
     "Complete the explicitly deferred Stage-2 hardening decisions for PIHL.TASK codes and precedence, authoritative-template parsing, comparator algorithms, schema fixtures, accepted ResourcePath rejection cases, and focused tests without reopening the accepted public contract.",
     "Preserve mixed Markdown and JSON TaskRecordAdapter compatibility and exact TaskStateInspector behavior for the existing version-1 JSON pilot and all six unchanged Markdown Tasks.",
     "Use a representative non-migration example with a manually supplied HarnessTask to demonstrate canonical JSON serialization, rendered Markdown behavior, opaque source preservation, and exact source/rendered differences; label it as illustrative or synthetic test evidence rather than a Markdown-to-JSON extraction or real migration packet.",
@@ -35,7 +37,7 @@
     "At completion, prepare one concise implementation-acceptance packet that is understandable without reading mappings, command transcripts, or every test and then stop for explicit human acceptance."
   ],
   "completion_criteria": [
-    "Implemented production code, public imports, schemas, fixtures, profiles, manifests, adapters, inspection behavior, focused tests, and maintained documentation agree with the accepted Stage-1 contract or any difference is explicitly identified as a blocker requiring human contract review.",
+    "Implemented production code, corrected 21-interface public imports, schemas, fixtures, profiles, manifests, adapters, inspection behavior, focused tests, and maintained documentation agree with the accepted Stage-1 contract plus the explicitly authorized runtime-only human-review rendering correction, or any other difference is identified as a blocker requiring human contract review.",
     "Exact PIHL.TASK diagnostics and precedence, template parsing, comparator algorithms, schema fixtures, ResourcePath rejection behavior, and hardening tests are documented and verified without silently changing the accepted contract.",
     "The representative example explicitly identifies its manually supplied HarnessTask, retained source identity, canonical HarnessTask JSON, rendered Markdown, and exact source/rendered diff, but demonstrates no Markdown-to-JSON extraction, is not a real file-migration packet, and changes none of the six authoritative Markdown Tasks.",
     "The independent review and one correction pass, if needed, satisfy the accepted review semantics and leave no material finding unresolved.",

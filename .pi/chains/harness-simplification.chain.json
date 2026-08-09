@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "corrected_task_implementation_hardening_acceptance_review_pending",
+  "status": "task_implementation_hardening_human_review_boundary_acceptance_pending",
   "active_task": null,
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [

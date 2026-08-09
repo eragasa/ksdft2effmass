@@ -15,6 +15,7 @@ Passing establishes software-interface behavior only. It does not establish a
 migration, activation, scientific validity, or human acceptance.
 """
 
+import json
 from dataclasses import replace
 
 import pytest
@@ -208,5 +209,162 @@ def test_method__packet_binding__rejects_incomplete_stale_or_unrelated_review(
             review.findings,
             review.limitations,
         )
+    with pytest.raises(ValueError):
+        SUT().execute(replace(request, human_review_packet=changed_review))
+
+
+@pytest.mark.parametrize(
+    "field,mutation",
+    (
+        pytest.param("path", "omit", id="omit_source_path"),
+        pytest.param("revision", "omit", id="omit_source_revision"),
+        pytest.param("git_object", "omit", id="omit_git_object"),
+        pytest.param("byte_count", "omit", id="omit_byte_count"),
+        pytest.param("artifact_identity", "omit", id="omit_artifact_identity"),
+        pytest.param("path", "change", id="change_source_path"),
+        pytest.param("revision", "change", id="change_source_revision"),
+        pytest.param("git_object", "change", id="change_git_object"),
+        pytest.param("byte_count", "change", id="change_byte_count"),
+        pytest.param("artifact_identity", "change", id="change_artifact_identity"),
+    ),
+)
+def test_method__source_observation__binds_complete_provenance(
+    field: str, mutation: str
+) -> None:
+    """Evidence ID: ``SV-HT-057``.
+
+    Requirement: The source observation binds path, revision, optional Git object,
+    byte count, and SHA-256 identity, including explicit Git-object absence.
+
+    Method: Independently omit or change each canonical detail field and also prepare
+    one valid request whose Git object is ``None``.
+
+    Oracle: The explicit source DataObject fields supply the complete exact provenance
+    account; JSON ``null`` represents absent Git identity.
+
+    Acceptance: The unchanged requests prepare; every omitted or changed field raises
+    ``ValueError`` during packet preparation.
+
+    Interpretation: Failure exposes source provenance that can drift without changing
+    the human-facing packet.
+
+    Limitations: Exact provenance binding does not establish provenance truth, semantic
+    migration correctness, authority, or acceptance.
+    """
+    request = make_request(git_object=None)
+    assert SUT().execute(request).request.source.git_object is None
+    review = request.human_review_packet
+    source_observation = next(
+        item
+        for item in review.observations
+        if item.observation_id == "harness-task-migration.source"
+    )
+    detail = json.loads(source_observation.detail or "")
+    assert detail["git_object"] is None
+    if mutation == "omit":
+        del detail[field]
+    else:
+        detail[field] = "changed" if field != "byte_count" else 999
+    changed_observation = replace(
+        source_observation,
+        detail=json.dumps(
+            detail, ensure_ascii=True, separators=(",", ":"), sort_keys=True
+        ),
+    )
+    observations = tuple(
+        changed_observation
+        if item.observation_id == "harness-task-migration.source"
+        else item
+        for item in review.observations
+    )
+    changed_review = HumanReviewPreparer().execute(
+        review.target, observations, review.findings, review.limitations
+    )
+    with pytest.raises(ValueError, match="observations"):
+        SUT().execute(replace(request, human_review_packet=changed_review))
+
+
+def test_method__source_observation__rejects_git_object_drift() -> None:
+    """Evidence ID: ``SV-HT-058``.
+
+    Requirement: Changing only the source Git object invalidates retained observations.
+
+    Method: Replace the valid source DataObject with an equal object carrying another
+    valid 40-character Git object while retaining the original review packet.
+
+    Oracle: The source observation's explicit Git-object field must equal the source.
+
+    Acceptance: Packet preparation raises ``ValueError`` for observation disagreement.
+
+    Interpretation: Failure permits rollback provenance to drift after review material
+    is prepared.
+
+    Limitations: A lexical Git object is caller-supplied and is not repository-verified.
+    """
+    request = make_request()
+    changed_source = replace(request.source, git_object="c" * 40)
+    with pytest.raises(ValueError, match="observations"):
+        SUT().execute(replace(request, source=changed_source))
+
+
+@pytest.mark.parametrize(
+    "partition",
+    (
+        pytest.param("review-id", id="stale_review_id"),
+        pytest.param("subject", id="unrelated_subject"),
+        pytest.param("evidence-class", id="wrong_evidence_class"),
+        pytest.param("missing-contract", id="missing_contract_reference"),
+        pytest.param("altered-contract", id="altered_contract_reference"),
+        pytest.param("revision", id="stale_revision"),
+        pytest.param("additional-path", id="additional_path"),
+        pytest.param("missing-path", id="missing_path"),
+    ),
+)
+def test_method__review_target__binds_exact_candidate_migration(partition: str) -> None:
+    """Evidence ID: ``SV-HT-059``.
+
+    Requirement: The generic target exactly identifies the candidate Task/file review,
+    software-verification class, accepted contracts, source revision, and two paths.
+
+    Method: Alter one target partition while retaining the complete validated internal
+    migration bundle.
+
+    Oracle: Candidate Task ID and paths derive the exact review ID and subject; the
+    accepted contract paths and software-verification classification are fixed.
+
+    Acceptance: Every unrelated, stale, additional, or missing target partition raises
+    ``ValueError``.
+
+    Interpretation: Failure permits a valid data bundle to be presented under another
+    review target.
+
+    Limitations: Target agreement does not authenticate a human or accept a migration.
+    """
+    request = make_request()
+    review = request.human_review_packet
+    target = review.target
+    if partition == "review-id":
+        changed_target = replace(target, review_id="harness-task-migration.stale")
+    elif partition == "subject":
+        changed_target = replace(target, represented_subject="Unrelated migration")
+    elif partition == "evidence-class":
+        changed_target = replace(target, evidence_class="not_applicable")
+    elif partition == "missing-contract":
+        changed_target = replace(
+            target, contract_references=target.contract_references[:-1]
+        )
+    elif partition == "altered-contract":
+        changed_target = replace(
+            target,
+            contract_references=target.contract_references[:-1]
+            + ("records/unrelated-contract.md",),
+        )
+    elif partition == "revision":
+        changed_target = replace(target, revision="c" * 40)
+    elif partition == "additional-path":
+        changed_target = replace(target, paths=target.paths + ("records/extra.md",))
+    else:
+        changed_target = replace(target, paths=(target.paths[1],))
+    changed_review = replace(review, target=changed_target)
     with pytest.raises(ValueError):
         SUT().execute(replace(request, human_review_packet=changed_review))

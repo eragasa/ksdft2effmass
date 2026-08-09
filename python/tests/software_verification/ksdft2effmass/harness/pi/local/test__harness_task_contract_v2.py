@@ -8,7 +8,7 @@ packet, compatibility, and public-export agreement for the accepted local Task m
 Intrinsic and cross-object scope
 
 The evidence owns the cohesive version-2 contract artifact rather than any second
-public class. Class-owned modules separately establish all 19 public identities.
+public class. Class-owned modules separately establish all 21 public identities.
 
 VVUQ and scientific exclusions
 
@@ -70,31 +70,34 @@ _PUBLIC_NAMES = (
     "HarnessTaskMigrationReviewPacketRequest",
     "HarnessTaskMigrationReviewPacketPreparer",
     "HarnessTaskMigrationReviewPacket",
+    "HarnessTaskMigrationReviewDocument",
+    "HarnessTaskMigrationReviewPacketRenderer",
     "HarnessTaskMigrationDisposition",
     "HarnessTaskMigrationFileDisposition",
     "HarnessTaskMigrationFileDispositionRecorder",
 )
 
 
-def test_public_api__accepted_table__exports_exact_nineteen_interfaces() -> None:
+def test_public_api__corrected_table__exports_exact_twenty_one_interfaces() -> None:
     """Evidence ID: ``SV-HT-020``.
 
-    Requirement: The local public surface exposes every and only every newly accepted
-    HarnessTask interface named by the 19-row contract table.
+    Requirement: The local public surface exposes the accepted 19 HarnessTask
+    interfaces plus the two explicitly corrected human-review rendering interfaces.
 
     Method: Resolve the frozen names through the maintained public module and compare
     them with the task-model module's public class definitions.
 
-    Oracle: The accepted Stage-1 interface table supplies the exact ordered names.
+    Oracle: The accepted Stage-1 table and bounded Stage-2A rendering correction supply
+    the exact ordered names.
 
-    Acceptance: All 19 names resolve to classes and no additional public class is
+    Acceptance: All 21 names resolve to classes and no additional public class is
     defined by ``task_model``.
 
     Interpretation: Failure identifies missing, renamed, or accidental public API.
 
     Limitations: Existing unrelated local exports are intentionally outside this check.
     """
-    assert len(_PUBLIC_NAMES) == 19
+    assert len(_PUBLIC_NAMES) == 21
     assert all(isinstance(getattr(local_api, name), type) for name in _PUBLIC_NAMES)
     task_model = __import__(
         "ksdft2effmass.harness.pi.local.task_model", fromlist=["unused"]

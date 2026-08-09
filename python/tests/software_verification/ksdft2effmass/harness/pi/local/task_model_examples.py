@@ -71,14 +71,17 @@ def _detail(value: object) -> str:
     return json.dumps(value, ensure_ascii=True, separators=(",", ":"), sort_keys=True)
 
 
-def make_request() -> HarnessTaskMigrationReviewPacketRequest:
+def make_request(
+    *,
+    source_bytes: bytes = b"Synthetic introduction.\n",
+    git_object: str | None = "b" * 40,
+) -> HarnessTaskMigrationReviewPacketRequest:
     """Construct one compatible explicit packet-preparation request."""
     task = make_task()
-    source_bytes = b"Synthetic introduction.\n"
     source = HarnessTaskDocumentSource(
         "records/example-source.md",
         "a" * 40,
-        "b" * 40,
+        git_object,
         source_bytes,
         len(source_bytes),
         identity(source_bytes),
@@ -109,12 +112,17 @@ def make_request() -> HarnessTaskMigrationReviewPacketRequest:
         source, rendered, (mapping,)
     )
     target = HumanReviewTarget(
-        "synthetic-migration-review",
+        f"harness-task-migration.{task.task_id}",
         source.revision,
-        "Synthetic non-migration example",
+        f"HarnessTask migration candidate {task.task_id} from {source.path} to "
+        f"{rendered.path}",
         (source.path, rendered.path),
         "software_verification",
-        ("records/contract.md",),
+        (
+            ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+            ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+            ".pi/evidence/task-control/task-document-human-mediation-decision.md",
+        ),
     )
     canonical_json = HarnessTaskSerializer().execute(task)
     observations = (
@@ -228,8 +236,13 @@ def make_request() -> HarnessTaskMigrationReviewPacketRequest:
             source.path,
             _detail(
                 {
+                    "artifact_identity": _represented_identity(
+                        source.artifact_identity
+                    ),
                     "byte_count": source.byte_count,
-                    "identity": _represented_identity(source.artifact_identity),
+                    "git_object": source.git_object,
+                    "path": source.path,
+                    "revision": source.revision,
                 }
             ),
         ),

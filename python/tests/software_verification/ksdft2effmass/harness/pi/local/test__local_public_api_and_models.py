@@ -2,7 +2,7 @@ r"""Software verification of local public api and models.
 
 Facet and represented meaning
 
-Software verification of the 49-name local public import surface and immutable
+Software verification of the 51-name local public import surface and immutable
 routing/data records.
 
 Intrinsic and cross-object scope
@@ -88,24 +88,28 @@ EXPECTED = (
     "HarnessTaskMigrationReviewPacketRequest",
     "HarnessTaskMigrationReviewPacketPreparer",
     "HarnessTaskMigrationReviewPacket",
+    "HarnessTaskMigrationReviewDocument",
+    "HarnessTaskMigrationReviewPacketRenderer",
     "HarnessTaskMigrationDisposition",
     "HarnessTaskMigrationFileDisposition",
     "HarnessTaskMigrationFileDispositionRecorder",
 )
 
 
-def test_public_api__exports__contains_exact_49_names() -> None:
+def test_public_api__exports__contains_exact_51_names() -> None:
     """Evidence ID: SV-HL-001
 
-    Requirement: The project-local package exposes exactly the accepted 49 public names.
+    Requirement: The project-local package exposes exactly the corrected 51 public
+    names.
 
     Method: Compare the package ``__all__`` and runtime attributes to a fixed
     independent
     inventory.
 
-    Oracle: The accepted H4 and HarnessTask inventories supply the exact local boundary.
+    Oracle: The accepted H4 inventory and corrected HarnessTask inventory supply the
+    exact local boundary.
 
-    Acceptance: The ordered tuple is exact, has length 49, and every name resolves.
+    Acceptance: The ordered tuple is exact, has length 51, and every name resolves.
 
     Interpretation: Failure identifies packaging drift or an incorrect inventory.
 
@@ -114,7 +118,7 @@ def test_public_api__exports__contains_exact_49_names() -> None:
     portability.
     """
     assert tuple(local.__all__) == EXPECTED
-    assert len(EXPECTED) == 49
+    assert len(EXPECTED) == 51
     assert all(getattr(local, name) is not None for name in EXPECTED)
 
 

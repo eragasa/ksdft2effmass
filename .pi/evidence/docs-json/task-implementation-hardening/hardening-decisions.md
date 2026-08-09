@@ -18,7 +18,7 @@ Claim boundary: These decisions define software-verification behavior only. They
 
 The numbered display is lexical for this fixed code set, not a separate priority override. `HarnessTask` rejects intrinsic self-parent, self-prerequisite, and Task/external prerequisite overlap before graph construction; the graph action therefore does not duplicate constructor diagnostics for states that cannot be represented by a valid `HarnessTask`.
 
-Parent and prerequisite cycles are rendered by the lexically least rotation of the cycle's Task identifiers. The validator uses iterative traversal, applies no lifecycle policy, and performs no discovery or I/O.
+Parent and prerequisite cycles are rendered by the lexically least rotation of each deterministically detected cycle. The validator rejects cyclic graphs but does not claim to enumerate every elementary cycle. It uses iterative traversal, applies no lifecycle policy, and performs no discovery or I/O.
 
 ## Identifier and ResourcePath behavior
 
@@ -77,18 +77,42 @@ Packet preparation recomputes and requires agreement for:
 - explicit rendering;
 - explicit comparison;
 - canonical generic human-review packet;
-- exact immutable observations binding source identity and byte count, candidate
-  canonical-JSON identity, source mappings and unmapped spans, rendered identity,
+- exact immutable observations binding source path, revision, optional Git object
+  (including explicit absence), byte count and identity, candidate canonical-JSON
+  identity, source mappings and unmapped spans, rendered identity,
   exact comparison status and differences, opaque-block preservation, and applicable
   limitations;
 - exact agreement of generic findings and limitations with the comparison result;
+- a candidate-derived review ID and represented subject;
+- exact `software_verification` evidence classification and accepted HarnessTask,
+  migration-Task, and human-mediation contract references;
 - source revision; and
 - the exact source and rendered target paths.
 
 The generic packet may not be empty, incomplete, stale, or unrelated. The disposition
 recorder deterministically revalidates the retained request through
-`HarnessTaskMigrationReviewPacketPreparer`, so direct construction of the public
-packet DataObject cannot bypass these checks.
+`HarnessTaskMigrationReviewPacketPreparer` and reconstructs the generic decision
+through `HumanReviewDecisionRecorder`, so direct construction of either public
+DataObject cannot bypass the applicable checks.
+
+## Human-review document rendering
+
+The explicit Stage-2A correction adds two runtime-only public interfaces, increasing
+the HarnessTask inventory from 19 to 21 without changing the 16-field wire record:
+
+- `HarnessTaskMigrationReviewDocument` retains a derived resource path, exact UTF-8
+  Markdown bytes with exactly one final LF, and their SHA-256 identity; and
+- `HarnessTaskMigrationReviewPacketRenderer` revalidates the packet and emits complete
+  original Markdown, canonical candidate JSON, candidate maintained Markdown, source
+  mappings, exact comparison and unified diff, opaque-block preservation, rollback
+  identity, limitations, claim boundaries, and exactly four human choices.
+
+The renderer strictly rejects invalid UTF-8. Each fenced block uses backticks with a
+length greater than every backtick run in its enclosed content; embedded tildes cannot
+close that fence. Equal packets produce equal bytes and identities. Rendering performs
+no discovery, I/O, Git operation, persistence, migration, activation, decision
+interpretation, or authentication. The document is a non-authoritative human view;
+the structured packet and eventual recorded disposition remain authority.
 
 The disposition recorder retains the exact generic review packet and uses only this closed table:
 
