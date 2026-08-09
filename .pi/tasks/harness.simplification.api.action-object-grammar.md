@@ -1,6 +1,6 @@
 # Normalize public ActionObject grammar
 
-Status: implementation_complete_awaiting_human_acceptance
+Status: completed
 
 Task identity: `harness.simplification.api.action-object-grammar`
 
@@ -54,6 +54,10 @@ Completion requires the accepted convention in every owning surface, complete af
 Ruff, mypy, structural maintained-evidence validation, the repository evidence gate, evidence-identifier audit, resource hash agreement, Sphinx warnings-as-errors, task-state checks, and diff checks pass. The affected suite passes, as do 2,869 tests when the two wheel tests are excluded. The full 2,871-node run reaches only two wheel-test setup errors because `python/.venv` has no `pip`; no test assertion fails after the wrapper-fixture correction.
 
 The H3 resource validator still reports its two pre-existing generic/local leakage and stale manifest-version-boundary findings; this Task did not redefine those unrelated accepted resource boundaries. Passing software checks establish no scientific validation or UQ.
+
+## Human acceptance
+
+The human PI selected option `A` on 2026-08-09. The accepted scope closes this Task with the implemented grammar normalization, hard renames, class-owned local test migration, evidence-docstring format, and synchronized live surfaces. No successor was activated.
 
 ## Exclusions and stop boundary
 

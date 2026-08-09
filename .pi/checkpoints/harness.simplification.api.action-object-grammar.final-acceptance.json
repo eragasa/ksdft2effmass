@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.api.action-object-grammar.final-acceptance",
   "task_id": "harness.simplification.api.action-object-grammar",
   "episode_id": "harness.simplification.api.action-object-grammar",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T09:25:22Z",
   "question": "Should the completed ActionObject grammar normalization receive final human acceptance and close without activating a successor?",
@@ -37,10 +37,10 @@
     ".pi/evidence/action-object-grammar/node-migration.json",
     ".pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-09T09:33:55Z",
+  "authorized_scope": "Record final acceptance of the ActionObject grammar, 28 hard renames, project-local class-owned test migration, canonical evidence-docstring format, and synchronized live surfaces. Close this Task only; do not automatically activate a successor.",
   "record_paths": [
     ".pi/checkpoints/harness.simplification.api.action-object-grammar.final-acceptance.json",
     ".pi/tasks/harness.simplification.api.action-object-grammar.md",
@@ -49,5 +49,5 @@
     ".pi/evidence/action-object-grammar/node-migration.json",
     ".pi/evidence/action-object-grammar/ownership.json"
   ],
-  "resumption_status": "awaiting_human_acceptance; no_successor_active"
+  "resumption_status": "task_closed_human_accepted; no_successor_active"
 }
