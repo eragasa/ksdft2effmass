@@ -26,7 +26,7 @@
 
 ## Chain context
 
-**Chain-owned active Task:** harness.simplification.control.task-catalog-reconciliation
+**Chain-owned active Task:** None
 
 **Chain-owned explicit activation facts:**
 - harness.simplification.agents.delegation-validation

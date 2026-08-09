@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.control.task-catalog-reconciliation",
   "title": "Reconcile the harness-simplification Task catalog",
-  "status": "active",
+  "status": "superseded_by_task_graph_selection_state_decision",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.agents.delegation-validation"

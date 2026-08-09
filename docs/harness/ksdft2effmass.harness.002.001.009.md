@@ -28,9 +28,11 @@ Completed:
 - `harness-simplification.agents.historical-retirement`
 - `harness.simplification.agents.delegation-validation`
 
-Active by explicit human selection:
+Resolved architecture selection:
 
-- `harness.simplification.control.task-catalog-reconciliation`
+- Option C: Task graph plus a minimal selection-state record
+- `harness.simplification.control.task-catalog-reconciliation` was superseded
+  before execution because it would preserve a competing catalog
 
 Inactive and unauthorized:
 
