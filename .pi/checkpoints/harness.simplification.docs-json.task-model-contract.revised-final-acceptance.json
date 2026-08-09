@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.task-model-contract.revised-final-acceptance",
   "task_id": "harness.simplification.docs-json.task-model-contract",
   "episode_id": "harness.simplification.docs-json.task-model-contract",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T17:12:08Z",
   "question": "After applying the human-directed documentation progression correction so the six proposed destinations are docs/harness/ksdft2effmass.harness.002.002.000.md through .002.002.005.md, should the otherwise unchanged frozen Stage-1 contract be accepted as the fixed input to later Stage-2 implementation?",
@@ -41,14 +41,16 @@
     ".pi/evidence/docs-json/task-model-contract/validation.md",
     ".pi/chains/harness-simplification.chain.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "B — Apply one minimal contract clarification before acceptance.\n\nPreserve the complete six-file mappings, 16 HarnessTask fields, 19-interface\ncount, and all existing review corrections.\n\nChange only these contract decisions:\n\n1. HarnessTaskGraphValidator returns the existing project-local\n   LocalValidationResult rather than generic ValidationResult. Exact PIHL.TASK.*\n   codes and precedence are deferred to Stage 2 implementation hardening.\n\n2. HarnessTaskProjectionProfile has one authoritative template representation.\n   Its constructor owns only profile-intrinsic invariants. Documentation-mapping\n   coverage and Task/content/profile compatibility belong to the renderer and\n   packet preparer. Exact parsing and validation cases are deferred to Stage 2.\n\n3. HarnessTaskDocumentationComparator reports exact byte differences, mapping\n   coverage, and documentation-block preservation. It does not claim that a\n   mapped transformation is semantically correct or human-accepted. Exact\n   comparison algorithms and hardening tests are deferred to Stage 2.\n\n4. ResourcePath uses the already accepted harness path contract. Exhaustive\n   schema fixtures and rejection tests are deferred to Stage 2.\n\nThe version-1 generated-page drift is accepted as a separate legacy limitation\nand does not block Stage 1. Do not repair or synchronize it here.\n\nThis is a contract-text correction only. Do not alter the mappings, add\ninterfaces, run another independent review, implement JSON behavior, or activate\nStage 2. Return directly for renewed human acceptance.",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-09T17:18:19Z",
+  "authorized_scope": "Apply only the four stated contract-text clarifications, preserve the six-file mappings, 16 HarnessTask fields, 19-interface count, and existing review corrections, record the version-1 generated-page drift as an accepted separate legacy limitation, create one renewed acceptance checkpoint, and perform no implementation, migration, additional independent review, drift synchronization, or Stage-2 activation.",
   "record_paths": [
     ".pi/chains/harness-simplification.chain.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.revised-final-acceptance.json",
     ".pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md",
+    ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/integration-review.md",
     ".pi/evidence/docs-json/task-model-contract/review-correction.md",
@@ -59,5 +61,5 @@
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md"
   ],
-  "resumption_status": "blocked_pending_revised_contract_acceptance"
+  "resumption_status": "option_B_resolved"
 }

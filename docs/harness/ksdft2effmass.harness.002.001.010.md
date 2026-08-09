@@ -92,7 +92,7 @@ human accepts a transformation for the exact file.
 | `HumanReviewDecision` | Reused to preserve exact human response and generic normalized review disposition |
 | `HumanReviewPreparer` | Reused to canonicalize the generic review component |
 | `HumanReviewDecisionRecorder` | Reused to record the generic human decision component |
-| `ValidationResult` | Reused as the graph-validator structural result |
+| `LocalValidationResult` and `LocalIssue` | Reused as the project-local graph-validator result and issue types; exact `PIHL.TASK.*` codes and precedence are deferred to Stage 2 |
 | `TaskRecordAdapter` | Retained as a temporary mixed Markdown/JSON compatibility adapter; not the canonical model |
 | `TaskStateInspector` | Retained as the explicit-input consumer of mixed-format compatibility views; never Task authority |
 
@@ -110,15 +110,15 @@ replacing them.
 | `HarnessTask` | DataObject | Canonical Task information in the frozen 16-field proposal derived from complete six-file mappings |
 | `HarnessTaskSerializer` | ActionObject | Canonical versioned JSON from one accepted `HarnessTask` |
 | `HarnessTaskDeserializer` | ActionObject | Strict canonical JSON to `HarnessTask` |
-| `HarnessTaskGraphValidator` | ActionObject | Parent, prerequisite, identity, and cross-Task compatibility |
+| `HarnessTaskGraphValidator` | ActionObject | Parent, prerequisite, identity, and cross-Task compatibility returned as `LocalValidationResult` |
 | `HarnessTaskDocumentSource` | DataObject | Exact source path, revision or Git identity, bytes, byte count, and `ArtifactIdentity` |
 | `HarnessTaskSourceDisposition` | enumeration | Canonical Task field, documentation-owned content, historical evidence, or proposed removal |
 | `HarnessTaskSourceMapping` | DataObject | Exact byte span and identity, source identity, disposition, nonempty target-reference tuple, transformation, and rationale |
 | `HarnessTaskDocumentationContent` | DataObject | Explicit documentation-owned narrative and opaque bytes plus accepted mappings |
-| `HarnessTaskProjectionProfile` | DataObject | Explicit rendering configuration, ordering, and exact template identity or bytes |
+| `HarnessTaskProjectionProfile` | DataObject | One authoritative `template_bytes` representation plus intrinsic profile identity, version, and final-LF policy |
 | `HarnessTaskDocumentation` | DataObject | Complete rendered Markdown bytes and `ArtifactIdentity` |
 | `HarnessTaskDocumentationRenderer` | ActionObject | Pure explicit-input rendering to `HarnessTaskDocumentation` |
-| `HarnessTaskDocumentationComparator` | ActionObject | Exact source/rendered comparison and mapping-coverage analysis |
+| `HarnessTaskDocumentationComparator` | ActionObject | Exact byte differences, mapping coverage, and documentation-block preservation without semantic or human-acceptance claims |
 | `HarnessTaskDocumentationComparisonResult` | ResultObject | Status, structured findings, exact differences, and unmapped spans |
 | `HarnessTaskMigrationReviewPacketRequest` | immutable DataObject | Complete explicit runtime input boundary for preparing one packet; owns intrinsic type, immutability, tuple, nonempty, and lexical invariants but no cross-object validation |
 | `HarnessTaskMigrationReviewPacketPreparer` | stateless ActionObject | Validates all cross-object identities and compatibility in one explicit request, reuses generic human-review behavior where appropriate, and deterministically produces one immutable packet |
@@ -168,6 +168,25 @@ no wire or persistence need for it. Its existence does not expand the
 serialized-record set. Its constructor owns only intrinsic type, immutability,
 tuple, nonempty, and lexical invariants. Cross-object identity and compatibility
 belong to `HarnessTaskMigrationReviewPacketPreparer`.
+
+## Final contract clarifications
+
+- `HarnessTaskGraphValidator` returns existing project-local
+  `LocalValidationResult`; exact `PIHL.TASK.*` codes and precedence are Stage-2
+  hardening details.
+- `HarnessTaskProjectionProfile.template_bytes` is the sole authoritative
+  template representation. Its constructor owns only profile-intrinsic
+  invariants. Mapping coverage and Task/content/profile compatibility belong to
+  the renderer and packet preparer; parsing cases are deferred to Stage 2.
+- `HarnessTaskDocumentationComparator` reports exact byte differences, mapping
+  coverage, and documentation-block preservation. Mechanical mapped coverage is
+  not semantic correctness or human acceptance; algorithms and hardening tests
+  are deferred to Stage 2.
+- `ResourcePath` uses the accepted harness path contract unchanged. Exhaustive
+  schema fixtures and rejection tests are deferred to Stage 2.
+
+The human accepted the version-1 generated-page drift as a separate legacy
+limitation. It does not block Stage 1 and is not repaired or synchronized here.
 
 ## Overview class diagram
 
@@ -255,7 +274,7 @@ classDiagram
     class HumanReviewDecision {
         <<ResultObject>>
     }
-    class ValidationResult {
+    class LocalValidationResult {
         <<ResultObject>>
     }
     class TaskRecordAdapter {
@@ -268,7 +287,7 @@ classDiagram
     HarnessTaskSerializer ..> HarnessTask : input
     HarnessTaskDeserializer ..> HarnessTask : output
     HarnessTaskGraphValidator ..> HarnessTask : input graph
-    HarnessTaskGraphValidator ..> ValidationResult : output
+    HarnessTaskGraphValidator ..> LocalValidationResult : project-local output
     HarnessTaskDocumentSource *-- ArtifactIdentity : exact bytes
     HarnessTaskSourceMapping --> HarnessTaskSourceDisposition : classifies span
     HarnessTaskDocumentationContent *-- HarnessTaskDocumentSource : source
@@ -364,16 +383,16 @@ classDiagram
 classDiagram
     class HarnessTaskGraphValidator {
         <<ActionObject>>
-        +execute(tasks) ValidationResult
+        +execute(tasks) LocalValidationResult
     }
     class HarnessTask {
         <<DataObject>>
     }
-    class ValidationResult {
+    class LocalValidationResult {
         <<ResultObject>>
     }
     HarnessTaskGraphValidator ..> HarnessTask : explicit graph input
-    HarnessTaskGraphValidator ..> ValidationResult : structural output
+    HarnessTaskGraphValidator ..> LocalValidationResult : PIHL TASK findings
 ```
 
 ### `HarnessTaskDocumentSource`
@@ -454,11 +473,11 @@ classDiagram
 classDiagram
     class HarnessTaskProjectionProfile {
         <<DataObject>>
-        +profile identity and version
-        +section and field ordering
-        +format rules
-        +exact template identity or bytes
-        +final newline policy
+        +schema_version
+        +profile_id
+        +template_bytes
+        +template_identity
+        +final_lf
     }
 ```
 
@@ -772,8 +791,10 @@ implementing tests during the contract stage:
 - `HarnessTaskMigrationFileDispositionRecorder` requires the exact packet and
   decision relationship and cannot interpret or accept a human response.
 
-No request serialization round-trip obligation exists unless Stage 1 separately
-justifies and proposes a wire contract for human acceptance.
+No request serialization round-trip obligation exists. Exact `PIHL.TASK.*`
+codes and precedence, template parsing and validation cases, comparator
+algorithms and hardening tests, and exhaustive schema and accepted-`ResourcePath`
+rejection fixtures are deferred to Stage 2.
 
 ## Stage 1: Task-model contract
 

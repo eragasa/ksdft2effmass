@@ -74,7 +74,8 @@ every proposed class are maintained in
 - [Complete 118-span mapping set](../../.pi/evidence/docs-json/task-model-contract/source-mappings.json)
 - [Frozen 19-interface contract](../../.pi/evidence/docs-json/task-model-contract/harness-task-contract.md)
 - [Human-directed documentation progression correction](../../.pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md)
-- [Deterministic validation and bounded limitation](../../.pi/evidence/docs-json/task-model-contract/validation.md)
+- [Final contract clarification](../../.pi/evidence/docs-json/task-model-contract/final-contract-clarification.md)
+- [Deterministic validation and accepted legacy limitation](../../.pi/evidence/docs-json/task-model-contract/validation.md)
 
 The inventory binds six Git blobs and 20,074 bytes at revision
 `dd50c74513f6c51e2a1c823a60b3111738082b3c`. The mapping set covers every byte
@@ -134,13 +135,18 @@ resource/wire integration, graph lifecycle policy, and six-record compatibility.
 The original failed result remains unchanged, no material contract finding
 remains unresolved, and no repeated review was performed.
 
-The existing version-1 projection validator reports
-`TASK_RENDER_EXPECTED_DRIFT` and `TASK_RENDER_LIVE_DRIFT` because Stage-1
-activation changed the chain-owned active Task while the completed pilot's
-non-authoritative generated page and expected fixture retain the earlier null
-value. Stage 1 excludes generated-page and fixture synchronization. Option A asks
-the human to accept this bounded limitation for later separately authorized
-synchronization; the stale page is not authority.
+The final contract-text clarification changes no mapping, `HarnessTask` field,
+interface count, or prior review disposition. It assigns graph findings to
+project-local `LocalValidationResult`, makes `template_bytes` the sole profile
+template representation, limits comparator claims to exact structural evidence,
+and reuses the accepted `ResourcePath` contract. Exact codes, parsing,
+algorithms, exhaustive cases, and hardening tests remain Stage-2 work.
+
+The human accepted the existing version-1 projection validator's
+`TASK_RENDER_EXPECTED_DRIFT` and `TASK_RENDER_LIVE_DRIFT` as a separate legacy
+limitation that does not block Stage 1. The non-authoritative generated page and
+expected fixture retain the earlier null active-Task value and are not repaired
+or synchronized here.
 
 Stage 1 completes only after the human explicitly accepts the frozen field and
 rendering contract. Stage 2 remains blocked until that acceptance is durable.

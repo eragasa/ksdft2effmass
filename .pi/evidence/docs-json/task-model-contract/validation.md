@@ -1,6 +1,6 @@
 # HarnessTask model-contract deterministic validation
 
-Validation status: passed for the Stage-1 contract package with one excluded current-projection drift reported below
+Validation status: passed for the Stage-1 contract package with one accepted separate legacy-projection limitation reported below
 
 Source revision: `dd50c74513f6c51e2a1c823a60b3111738082b3c`
 
@@ -12,13 +12,15 @@ Documentation progression correction: PASS — the six unique proposed targets a
 
 Contract accounting: PASS — 16 exact `HarnessTask` fields, 19 proposed interfaces, 20 Mermaid diagrams, one focused diagram per interface
 
+Final clarification: PASS — graph results use existing `LocalValidationResult`; the projection profile has one authoritative `template_bytes` representation and only intrinsic constructor invariants; comparator claims are byte-structural rather than semantic; `ResourcePath` reuses the accepted contract; Stage-2 hardening owns exact codes, precedence, parsing, comparison algorithms, and exhaustive cases
+
 Review correction assertions: PASS — all seven retained review findings have explicit corrected dispositions and deterministic checks
 
 Task schemas: PASS — active Stage 1 and blocked Stage 2 validate against the current project-local Task schema
 
 Task/chain relations: PASS — Stage 1 is the active Task; Stage 2 remains blocked; automatic successor activation is false
 
-Checkpoint validation: PASS — 39 checkpoint records valid and exactly one unresolved final-acceptance checkpoint
+Checkpoint validation: PASS — 41 checkpoint records valid and exactly one unresolved clarified-final-acceptance checkpoint
 
 Relative links: PASS
 
@@ -28,7 +30,7 @@ Dependency and lockfile boundary: PASS — unchanged
 
 Implementation boundary: PASS — no Python source, schema, fixture, projection profile, production test, migrated Task JSON, proposed destination document, dependency, or lockfile was created or modified
 
-## Excluded current-projection drift
+## Accepted separate legacy-projection limitation
 
 Command: existing `validate_task_schema_projection.py` invocation for the completed version-1 schema-projection pilot
 
@@ -36,4 +38,4 @@ Result: FAIL with `TASK_RENDER_EXPECTED_DRIFT` and `TASK_RENDER_LIVE_DRIFT`
 
 Cause: activation of Stage 1 changed the authoritative chain-owned active-Task fact from null to `harness.simplification.docs-json.task-model-contract`, while the completed pilot's non-authoritative generated page and expected-byte fixture retain the pre-activation null value.
 
-Disposition status: pending human acceptance. Stage 1 explicitly excludes generated-document and fixture modification, so this contract-only Task does not rewrite either file. The drift does not affect source identities, mapping coverage, the proposed version-2 contract, or exact TaskStateInspector results. Acceptance Option A explicitly accepts this bounded current-state limitation for later separately authorized synchronization; it does not treat the stale generated page as authority.
+Disposition status: accepted by the human as a separate legacy limitation that does not block Stage 1. Stage 1 explicitly excludes generated-document and fixture modification, so this contract-only correction does not rewrite either file. The drift does not affect source identities, mapping coverage, the proposed version-2 contract, or exact TaskStateInspector results, and the stale generated page is not authority.

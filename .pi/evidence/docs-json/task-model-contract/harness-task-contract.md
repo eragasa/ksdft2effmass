@@ -20,7 +20,7 @@ The public model contains exactly 19 proposed interfaces. Concrete immutable rec
 
 `Identifier` uses `^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$`.
 
-`ResourcePath` is relative, uses `/`, contains no empty, `.` or `..` segment, backslash, control character, or platform device name, and never derives authority from the current directory.
+`ResourcePath` uses the already accepted harness path contract unchanged. This proposal adds no competing path grammar or policy. Exhaustive schema fixtures and rejection cases for that accepted contract are deferred to Stage 2 implementation hardening.
 
 `ArtifactIdentity` is the existing schema-version-1 SHA-256 identity with algorithm `sha256` and a 64-character lowercase hexadecimal digest.
 
@@ -83,9 +83,9 @@ The existing project-local `harness/local/schemas/task-record.schema.json` remai
 
 Stereotype: stateless ActionObject.
 
-Boundary: `execute(tasks: tuple[HarnessTask, ...]) -> ValidationResult`.
+Boundary: `execute(tasks: tuple[HarnessTask, ...]) -> LocalValidationResult`.
 
-It requires an exact nonempty tuple and validates unique Task identities; resolvable parents and Task prerequisites; no self-parent or self-prerequisite; disjoint Task and external prerequisites; acyclic parent and prerequisite graphs; unique intake and documentation paths; and consistency of every parent and prerequisite reference with the supplied graph. It treats `status` as opaque project-local lifecycle text and applies no completed-prerequisite or active-status policy. Existing explicit Task/chain relation validation owns lifecycle compatibility. It does not infer parentage from dot prefixes, infer ordering from file names, select an active Task, activate a successor, read a chain, or access files. Findings use stable identifiers and deterministic order by finding identifier, subject, and related identity.
+It returns the existing project-local `LocalValidationResult` and project-local `LocalIssue` values. It requires an exact nonempty tuple and validates unique Task identities; resolvable parents and Task prerequisites; no self-parent or self-prerequisite; disjoint Task and external prerequisites; acyclic parent and prerequisite graphs; unique intake and documentation paths; and consistency of every parent and prerequisite reference with the supplied graph. It treats `status` as opaque project-local lifecycle text and applies no completed-prerequisite or active-status policy. Existing explicit Task/chain relation validation owns lifecycle compatibility. It does not infer parentage from dot prefixes, infer ordering from file names, select an active Task, activate a successor, read a chain, or access files. Findings use the `PIHL.TASK.*` namespace and deterministic `LocalValidationResult` ordering; exact codes and precedence are deferred to Stage 2 implementation hardening.
 
 ## 5. HarnessTaskDocumentSource
 
@@ -121,9 +121,9 @@ The two tuples are exact, nonempty, equal length, and preserve source order; map
 
 Stereotype: immutable DataObject.
 
-Fields, in order: `schema_version: int`, `profile_id: Identifier`, `template_bytes: bytes`, `template_identity: ArtifactIdentity`, `layout_tokens: tuple[str, ...]`, and `final_lf: bool`.
+Fields, in order: `schema_version: int`, `profile_id: Identifier`, `template_bytes: bytes`, `template_identity: ArtifactIdentity`, and `final_lf: bool`.
 
-Schema version is 1. Template identity intrinsically matches exact template bytes. `layout_tokens` is an exact nonempty tuple. Tokens use the closed prefixes `literal:`, `task:`, and `content:` followed by a nonempty lexical reference. `task:` and `content:` references are each unique; every content mapping ID occurs exactly once as a `content:` token; `literal:` tokens may repeat. The profile contains every template and ordering input; it never discovers a template or parser state.
+`template_bytes` is the one authoritative template representation. Schema version is 1; template bytes are exact and nonempty; template identity intrinsically matches those bytes; profile ID and final-LF policy satisfy their accepted intrinsic types. The constructor owns only these profile-intrinsic invariants. It does not parse template syntax or validate documentation-mapping coverage or Task/content/profile compatibility. Those cross-object responsibilities belong to `HarnessTaskDocumentationRenderer` and `HarnessTaskMigrationReviewPacketPreparer`. Exact template parsing rules and validation cases are deferred to Stage 2 implementation hardening. The profile never discovers a template or parser state.
 
 ## 10. HarnessTaskDocumentation
 
@@ -137,7 +137,7 @@ Stereotype: stateless ActionObject.
 
 Boundary: `execute(task: HarnessTask, content: HarnessTaskDocumentationContent, profile: HarnessTaskProjectionProfile) -> HarnessTaskDocumentation`.
 
-It validates explicit Task/content/profile compatibility, resolves every layout token exactly once as required by the profile, preserves each documentation-owned byte block exactly, formats canonical Task values by the profile, enforces the declared final-LF rule, and returns complete Markdown bytes. It performs no filesystem, current-directory, repository-root, Git, global-template, persistence, activation, acceptance, or migration behavior.
+It owns documentation-mapping coverage and explicit Task/content/profile compatibility, interprets the profile's one authoritative template representation, preserves each documentation-owned byte block exactly, formats canonical Task values by the profile, enforces the declared final-LF rule, and returns complete Markdown bytes. Exact template parsing and hardening cases are deferred to Stage 2. It performs no filesystem, current-directory, repository-root, Git, global-template, persistence, activation, acceptance, or migration behavior.
 
 ## 12. HarnessTaskDocumentationComparator
 
@@ -145,7 +145,7 @@ Stereotype: stateless ActionObject.
 
 Boundary: `execute(source: HarnessTaskDocumentSource, rendered: HarnessTaskDocumentation, mappings: tuple[HarnessTaskSourceMapping, ...]) -> HarnessTaskDocumentationComparisonResult`.
 
-It validates ordered contiguous source coverage, compares exact bytes, attributes every difference to accepted canonical rendering or an exact documentation block, and reports any unmapped or incompatible difference. It does not decide whether a migration is acceptable.
+It reports exact byte differences, ordered mapping coverage, and exact preservation or change of each documentation-owned block. A difference may be mechanically located within a mapped transformation without implying that the transformation is semantically correct or human-accepted. The comparator does not decide migration acceptance. Exact comparison algorithms and hardening tests are deferred to Stage 2.
 
 ## 13. HarnessTaskDocumentationComparisonResult
 
@@ -153,7 +153,7 @@ Stereotype: immutable ResultObject.
 
 Fields, in order: `status: Identifier`, `source_identity: ArtifactIdentity`, `rendered_identity: ArtifactIdentity`, `differences: tuple[str, ...]`, `findings: tuple[HumanReviewFinding, ...]`, `unmapped_spans: tuple[tuple[int, int], ...]`, and `limitations: tuple[str, ...]`.
 
-Closed statuses are `EXACT`, `MAPPED_DIFFERENCES`, and `UNMAPPED_DIFFERENCES`. Difference, finding, span, and limitation tuples are immutable and deterministically ordered. Intrinsic range validity belongs to the result; agreement with actual source bytes belongs to the comparator and packet preparer.
+Closed statuses are `EXACT`, `MAPPED_DIFFERENCES`, and `UNMAPPED_DIFFERENCES`. `MAPPED_DIFFERENCES` means only that every byte difference is mechanically covered by declared mappings; it is not semantic approval. Difference, finding, span, and limitation tuples are immutable and deterministically ordered. Intrinsic range validity belongs to the result; agreement with actual source bytes belongs to the comparator and packet preparer.
 
 ## 14. HarnessTaskMigrationReviewPacketRequest
 
@@ -210,7 +210,7 @@ No other pair is valid. `HumanReviewDecisionRecorder` remains the sole owner of 
 
 ## Public import accounting
 
-All 19 proposed names are exported from the project-local `ksdft2effmass.harness.pi.local` surface and owned in a focused Task-domain module or subpackage. Existing `ArtifactIdentity`, `ValidationResult`, human-review classes, `TaskRecordAdapter`, and `TaskStateInspector` are reused and do not count toward 19. No nominal base class, Workflow, selection-state class, or new free-function API is proposed.
+All 19 proposed names are exported from the project-local `ksdft2effmass.harness.pi.local` surface and owned in a focused Task-domain module or subpackage. Existing `ArtifactIdentity`, project-local `LocalValidationResult` and `LocalIssue`, human-review classes, `TaskRecordAdapter`, and `TaskStateInspector` are reused and do not count toward 19. No nominal base class, Workflow, selection-state class, or new free-function API is proposed.
 
 ## Proposed resources and compatibility
 
@@ -220,10 +220,10 @@ The accepted implementation stage may add only these project-local resource fami
 - projection profile `harness/local/projections/harness-task-documentation-v2.json`, resource ID `ksdft2effmass.local.harness-task-documentation.v2`;
 - fixture index `harness/local/fixtures/task-record-v2/fixture-index.json`, resource ID `ksdft2effmass.local.task-record-v2.fixture-index`;
 - canonical valid fixtures `harness/local/fixtures/task-record-v2/valid/minimal.json` and `complete.json`, resource IDs `ksdft2effmass.local.task-record-v2.valid.minimal` and `ksdft2effmass.local.task-record-v2.valid.complete`;
-- invalid fixtures under `harness/local/fixtures/task-record-v2/invalid/`: `missing-<field>.json` and `wrong-type-<field>.json` for each of the 16 exact wire fields, plus `unknown-field.json`, `boolean-schema-version.json`, `unsupported-version.json`, `duplicate-key.json`, `invalid-identifier.json`, `invalid-path.json`, `unsorted-identifiers.json`, `duplicate-identifiers.json`, `unsorted-paths.json`, `duplicate-paths.json`, `duplicate-narrative.json`, `empty-required-text.json`, and `empty-required-tuple.json`; each resource ID is `ksdft2effmass.local.task-record-v2.invalid.<filename-stem>`;
+- invalid fixtures under `harness/local/fixtures/task-record-v2/invalid/`, with the exhaustive case set and resource IDs deferred to Stage 2 implementation hardening;
 - explicit entries and dependencies in `harness/local/resource-manifest.json` and `harness/local/fixtures/oracle-index.json`.
 
-The schema has no resource dependency. The projection profile depends on the v2 schema. Every valid or invalid fixture depends on the v2 schema. The fixture index depends on the schema and every indexed fixture. The oracle-index entry depends on the fixture index. Each manifest entry binds the exact resource ID, relative path, SHA-256 identity calculated from implementation bytes, kind, and these explicit dependencies; no identity is fabricated before those bytes exist. No generic `harness/pi` resource or manifest changes are proposed. The v2 schema and canonical fixtures define serializer/deserializer agreement; the projection profile depends on the v2 schema and contains only explicit rendering inputs.
+The schema has no resource dependency. The projection profile depends on the v2 schema. Every valid or invalid fixture depends on the v2 schema. The fixture index depends on the schema and every indexed fixture. The oracle-index entry depends on the fixture index. Each manifest entry binds its resource ID, relative path, SHA-256 identity calculated from implementation bytes, kind, and explicit dependencies; no identity is fabricated before those bytes exist. Exact invalid-schema cases, accepted-`ResourcePath` rejection cases, template-parsing cases, and hardening-test precedence are deferred to Stage 2. No generic `harness/pi` resource or manifest changes are proposed. The v2 schema and canonical fixtures define serializer/deserializer agreement; the projection profile depends on the v2 schema and contains only explicit rendering inputs.
 
 Compatibility covers the existing version-1 JSON pilot plus all six Markdown records before migration. After each accepted serial migration it covers the pilot, the increasing set of version-2 JSON records, and the decreasing six-to-zero Markdown set. `TaskRecordAdapter` remains the temporary mixed-format compatibility boundary and delegates version-2 canonical JSON semantics to the project-local deserializer rather than becoming the model.
 
@@ -242,7 +242,7 @@ These are proposed destinations, not created files. Each Stage-2 file packet mus
 
 ## Proposed verification obligations
 
-Implementation evidence must cover every public class in a class-owned `test__<PublicClass>.py` module, plus genuine artifact-owned schema and canonical-byte fixtures. Required evidence includes intrinsic type/value boundaries; Boolean rejection for integer fields; nested immutability; serializer canonical bytes; strict duplicate/unknown/missing-key rejection; deserializer round trip; graph cycles and missing references; explicit-input rendering and opaque-byte preservation; exact difference attribution; request/preparer responsibility separation; every preparer incompatibility; deterministic packet equality; generic decision ownership; exact packet/decision recording; absence of discovery, I/O, persistence, activation, and successor behavior; existing pilot compatibility; and mixed Markdown/JSON `TaskStateInspector` behavior after each serial migration.
+Implementation evidence must cover every public class in a class-owned `test__<PublicClass>.py` module, plus genuine artifact-owned schema and canonical-byte fixtures. Required evidence categories include intrinsic type/value boundaries; nested immutability; serializer canonical bytes; deserializer round trip; structural graph failures through `LocalValidationResult`; explicit-input rendering and opaque-byte preservation; exact byte differences, mapping coverage, and documentation-block preservation without semantic-acceptance claims; request/preparer responsibility separation; deterministic packet equality; generic decision ownership; exact packet/decision recording; absence of discovery, I/O, persistence, activation, and successor behavior; existing pilot compatibility; and mixed Markdown/JSON `TaskStateInspector` behavior after each serial migration. Exact `PIHL.TASK.*` codes and precedence, template parsing and validation cases, comparator algorithms and hardening cases, and exhaustive schema and accepted-`ResourcePath` rejection fixtures are Stage-2 implementation-hardening outputs rather than frozen Stage-1 text.
 
 Passing structural evidence establishes only software-contract conformance. It does not establish scientific validity, publication acceptance, or human acceptance.
 
