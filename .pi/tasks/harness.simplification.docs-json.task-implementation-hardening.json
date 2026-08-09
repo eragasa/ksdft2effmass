@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-implementation-hardening",
   "title": "Implement and harden the accepted HarnessTask contract",
-  "status": "awaiting_human_review",
+  "status": "active",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-model-contract"
