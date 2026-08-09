@@ -1,6 +1,6 @@
 # Co-design JSON control schemas and generated documentation
 
-Status: proposed_inactive; requires completed documentation correction
+Status: active; authorized by the human PI on 2026-08-09 after completed documentation correction
 
 Task identity: `harness.simplification.docs-json.schema-projection`
 
