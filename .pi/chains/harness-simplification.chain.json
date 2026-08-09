@@ -165,10 +165,26 @@
       "status": "inactive_unauthorized"
     },
     {
-      "id": "harness-simplification.evidence.pytest-naming",
-      "record": ".pi/tasks/harness-simplification.evidence.pytest-naming.md",
+      "id": "harness.simplification.api.action-object-grammar",
+      "record": ".pi/tasks/harness.simplification.api.action-object-grammar.md",
       "prerequisites": [
         "harness-simplification.agents.delegation-validation:completed"
+      ],
+      "status": "proposed_inactive"
+    },
+    {
+      "id": "harness.simplification.docs-json",
+      "record": ".pi/tasks/harness.simplification.docs-json.md",
+      "prerequisites": [
+        "harness.simplification.api.action-object-grammar:completed"
+      ],
+      "status": "proposed_inactive"
+    },
+    {
+      "id": "harness.simplification.evidence.naming",
+      "record": ".pi/tasks/harness.simplification.evidence.naming.md",
+      "prerequisites": [
+        "harness.simplification.api.action-object-grammar:completed"
       ],
       "status": "proposed_inactive"
     },
@@ -176,7 +192,7 @@
       "id": "harness-simplification.evidence-and-sqlite",
       "record": null,
       "prerequisites": [
-        "harness-simplification.evidence.pytest-naming:completed"
+        "harness.simplification.evidence.naming:completed"
       ],
       "status": "inactive_unauthorized"
     },
