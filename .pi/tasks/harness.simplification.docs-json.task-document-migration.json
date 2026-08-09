@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-document-migration",
   "title": "Migrate Task documents serially under the accepted HarnessTask contract",
-  "status": "blocked_on_task_model_contract",
+  "status": "awaiting_human_review",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-model-contract"
@@ -11,6 +11,12 @@
   "explicit_activation_required": true,
   "objective": "After the HarnessTask field, wire, rendering-input, comparison, review-packet, and compatibility contract is completed and human-accepted, implement that unchanged contract and migrate the six selected Task files exactly one at a time with one durable human disposition per file.",
   "authority_reference_paths": [
+    ".pi/checkpoints/harness.simplification.docs-json.task-document-migration.serial-activation-review.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
+    ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
+    ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
     ".pi/evidence/task-control/task-document-human-mediation-decision.md",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
     ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",

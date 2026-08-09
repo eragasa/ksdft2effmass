@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.task-model-contract.clarified-final-acceptance",
   "task_id": "harness.simplification.docs-json.task-model-contract",
   "episode_id": "harness.simplification.docs-json.task-model-contract",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T17:22:55Z",
   "question": "After applying only the four requested contract-text clarifications while preserving all six mappings, 16 HarnessTask fields, 19 interfaces, 20 diagrams, prior review corrections, and the accepted separate version-1 legacy limitation, should the clarified Stage-1 contract be accepted as the fixed input to later Stage-2 implementation?",
@@ -42,19 +42,21 @@
     ".pi/evidence/docs-json/task-model-contract/validation.md",
     ".pi/chains/harness-simplification.chain.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "A — Accept the clarified frozen HarnessTask contract and complete Stage 1.\n\nI accept:\n\n- the six-source, 20,074-byte inventory;\n- all 118 reviewed source mappings;\n- the 16-field schema-version-2 HarnessTask;\n- the 19-interface project-local architecture;\n- the 20 Mermaid diagrams;\n- the six proposed documentation destinations\n  docs/harness/ksdft2effmass.harness.002.002.000.md through\n  docs/harness/ksdft2effmass.harness.002.002.005.md;\n- the retained failed independent review and seven verified correction\n  dispositions;\n- the final contract clarifications; and\n- the version-1 projection drift as a separate non-authoritative legacy\n  limitation.\n\nComplete and close Stage 1 only.\n\nThis acceptance does not activate Stage 2, implement any interface, create\nschemas or fixtures, migrate any file, synchronize the version-1 projection,\nimplement selection state, or authorize SQLite, telemetry, scientific,\nprotected, publication, or release work.\n\nExact PIHL.TASK.* codes, template parsing, comparator algorithms, schema\nfixtures, ResourcePath rejection cases, and hardening tests remain Stage-2\nimplementation obligations. They may not silently change the accepted public\nfields, signatures, ownership boundaries, or wire contract. Any required\nmaterial contract change must return for explicit human review.\n\nLeave Stage 2 inactive pending separate activation.",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-09T17:28:37Z",
+  "authorized_scope": "Accept the clarified frozen HarnessTask contract exactly as reviewed, preserve the accepted inventory, mappings, fields, interfaces, diagrams, documentation destinations, review dispositions, final clarifications, and separate version-1 legacy limitation, complete and close Stage 1 only, and leave Stage 2 inactive pending separate activation. Perform no implementation, schema or fixture creation, migration, projection synchronization, selection-state work, or other excluded work.",
   "record_paths": [
     ".pi/chains/harness-simplification.chain.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-document-migration.serial-activation-review.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/validation.md",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
     ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md"
   ],
-  "resumption_status": "blocked_pending_clarified_contract_acceptance"
+  "resumption_status": "stage_1_human_accepted"
 }

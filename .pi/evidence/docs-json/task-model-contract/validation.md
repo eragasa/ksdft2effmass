@@ -1,6 +1,6 @@
 # HarnessTask model-contract deterministic validation
 
-Validation status: passed for the Stage-1 contract package with one accepted separate legacy-projection limitation reported below
+Validation status: passed and human-accepted for completed Stage 1, with one accepted separate legacy-projection limitation reported below
 
 Source revision: `dd50c74513f6c51e2a1c823a60b3111738082b3c`
 
@@ -16,11 +16,11 @@ Final clarification: PASS — graph results use existing `LocalValidationResult`
 
 Review correction assertions: PASS — all seven retained review findings have explicit corrected dispositions and deterministic checks
 
-Task schemas: PASS — active Stage 1 and blocked Stage 2 validate against the current project-local Task schema
+Task schemas: PASS — completed Stage 1 and inactive Stage 2 validate against the current project-local Task schema
 
-Task/chain relations: PASS — Stage 1 is the active Task; Stage 2 remains blocked; automatic successor activation is false
+Task/chain relations: PASS — Stage 1 is completed, the chain has no active Task, Stage 2 awaits separate human activation review, and automatic successor activation is false
 
-Checkpoint validation: PASS — 41 checkpoint records valid and exactly one unresolved clarified-final-acceptance checkpoint
+Checkpoint validation: PASS — 42 checkpoint records valid and exactly one unresolved Stage-2 serial-activation checkpoint
 
 Relative links: PASS
 

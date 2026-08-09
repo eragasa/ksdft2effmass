@@ -2,16 +2,16 @@
 document_id: ksdft2effmass.harness.002.001.011
 task_id: harness.simplification.docs-json.task-model-contract
 parent: ksdft2effmass.harness.002.001.000
-status: frozen-contract-awaiting-human-acceptance
+status: human-accepted-completed
 sphinx: excluded
 ---
 
 # Human review: HarnessTask model-contract stage
 
-> **Stage 1 is active and its corrected frozen contract awaits human acceptance.**
-> This page does not activate implementation, replace Markdown source authority,
-> create a migration packet, migrate a file, define selection state, or authorize
-> Stage 2.
+> **Stage 1 is human-accepted and complete.** This page records the frozen
+> contract but does not activate implementation, replace Markdown source
+> authority, create a migration packet, migrate a file, define selection state,
+> or authorize Stage 2.
 
 ## Objective
 
@@ -148,8 +148,9 @@ limitation that does not block Stage 1. The non-authoritative generated page and
 expected fixture retain the earlier null active-Task value and are not repaired
 or synchronized here.
 
-Stage 1 completes only after the human explicitly accepts the frozen field and
-rendering contract. Stage 2 remains blocked until that acceptance is durable.
+The human explicitly accepted the frozen field and rendering contract through
+`.pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json`.
+Stage 1 is complete. Stage 2 remains inactive pending separate activation.
 
 ## Exclusions
 
@@ -159,12 +160,14 @@ implementation, chain cutover or deletion, dependency change, SQLite, telemetry,
 scientific work, publication, external execution, protected work, release action,
 or automatic successor activation.
 
-## Human review question
+## Human acceptance
 
-After independent review and disposition of its findings, should the frozen
-19-interface contract, complete six-file mappings, and proposed documentation
-destinations be accepted for later Stage-2 implementation? Acceptance will not
-activate Stage 2 or accept any individual migration packet.
+The human accepted the six-source inventory, all 118 mappings, 16-field
+schema-version-2 `HarnessTask`, 19-interface architecture, 20 diagrams, six
+`002.002` documentation destinations, retained failed review and seven corrected
+findings, final clarifications, and separate legacy projection limitation.
+Acceptance completes Stage 1 only and does not activate Stage 2 or accept any
+individual migration packet.
 
 ## Navigation
 

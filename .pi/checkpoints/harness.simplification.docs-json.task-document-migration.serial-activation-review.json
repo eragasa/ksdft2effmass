@@ -1,0 +1,56 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.task-document-migration.serial-activation-review",
+  "task_id": "harness.simplification.docs-json.task-document-migration",
+  "episode_id": "harness.simplification.docs-json.task-document-migration",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T17:29:20Z",
+  "question": "Now that Stage 1 is human-accepted and complete, should Stage 2 be activated to implement the frozen HarnessTask contract, complete the explicitly deferred implementation hardening, preserve mixed-format compatibility, and then prepare exactly one first-file migration packet for separate human disposition?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Activate Stage 2 exactly under the accepted contract.",
+      "consequence": "Activate only harness.simplification.docs-json.task-document-migration. Implement the accepted project-local contract and Stage-2 hardening obligations without changing accepted public fields, signatures, ownership, or wire behavior; preserve mixed Markdown/JSON inspection; then prepare exactly one first-file packet and stop for its human disposition. Accept no file migration automatically."
+    },
+    {
+      "id": "B",
+      "summary": "Revise the Stage-2 implementation Task before activation.",
+      "consequence": "Keep Stage 2 inactive, apply only the requested control or implementation-plan correction, and return for renewed activation review without implementation or migration."
+    },
+    {
+      "id": "C",
+      "summary": "Defer Stage 2.",
+      "consequence": "Keep the accepted Stage-1 contract and six Markdown sources unchanged, leave Stage 2 inactive, and perform no implementation or migration."
+    }
+  ],
+  "recommendation": "Option A only if implementation should begin now. Stage 1 is complete, the accepted contract is frozen, exact PIHL.TASK codes and precedence, template parsing, comparator algorithms, schema fixtures, ResourcePath rejection cases, and hardening tests are explicitly Stage-2 obligations, and every file migration still requires its own later human disposition.",
+  "blocked_scope": "Stage-2 activation; all public-interface, serializer, deserializer, graph-validator, renderer, comparator, packet, recorder, schema, fixture, test, adapter, inspection, and documentation implementation; any first-file packet; every file migration or disposition; projection-drift synchronization; material contract change; selection-state work; chain cutover; successor activation; dependency, lockfile, SQLite, telemetry, scientific, publication, external, protected, or release work.",
+  "safe_scope": "Human review of the accepted Stage-1 contract and acceptance checkpoint, Stage-2 Task and intake, maintained review pages, this checkpoint, and the unchanged six source files. Deterministic validation and persistence of this pending activation boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
+    ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
+    ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-document-migration.serial-activation-review.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md"
+  ],
+  "resumption_status": "blocked_pending_stage_2_activation_review"
+}

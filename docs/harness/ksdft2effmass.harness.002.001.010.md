@@ -2,16 +2,16 @@
 document_id: ksdft2effmass.harness.002.001.010
 task_id: harness.simplification.docs-json.task-document-migration
 parent: ksdft2effmass.harness.002.001.000
-status: frozen-contract-awaiting-human-acceptance
+status: stage-1-accepted-stage-2-activation-review-pending
 sphinx: excluded
 ---
 
 # Human review: HarnessTask contract and serial document migration
 
-> **Revised proposal; no Task is active.** This page presents the complete
-> two-stage architecture for renewed human review. It does not accept the
-> proposed information model, activate either stage, implement a public object,
-> prepare a file packet, migrate a file, or authorize selection-state work.
+> **Stage 1 is human-accepted and complete; Stage 2 is inactive pending separate
+> activation review.** This page does not activate Stage 2, implement a public
+> object, prepare a file packet, migrate a file, or authorize selection-state
+> work.
 
 ## Why the proposal was divided
 
@@ -24,10 +24,10 @@ separately authorized stages:
    field, wire, rendering-input, mapping, comparison, review-packet, public-API,
    and verification contract. It replaces no source authority and performs no
    implementation or migration.
-2. `harness.simplification.docs-json.task-document-migration` remains blocked
-   until Stage 1 is completed and explicitly human-accepted. It then implements
-   the accepted contract and migrates one file at a time without changing the
-   contract.
+2. `harness.simplification.docs-json.task-document-migration` is now prerequisite-
+   eligible but inactive pending separate activation review. If activated, it
+   must implement the accepted contract and migrate one file at a time without
+   changing the contract.
 
 Candidate selection-state implementation is deferred to a later separately
 authorized Task. The current chain remains operational authority throughout both
@@ -863,10 +863,10 @@ successor activation.
 
 ## Renewed human review question
 
-Should the frozen 19-interface contract, complete 118-span mapping set, six
-proposed documentation destinations, and verified correction dispositions be
-accepted as the Stage-2 implementation contract? Acceptance completes Stage 1
-but does not activate Stage 2 or accept any file migration.
+Should Stage 2 be activated to implement the accepted frozen contract and begin
+with implementation hardening before preparing exactly one first-file migration
+packet? Activation would not accept any file migration, selection-state work,
+chain cutover, or automatic successor activation.
 
 ## Navigation
 
