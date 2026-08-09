@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "task_id": "example.task",
+  "title": "Example Task",
+  "status": "proposed",
+  "status_detail": null,
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Represent the minimum valid HarnessTask fixture.",
+  "authority_reference_paths": [
+    "records/decision.md"
+  ],
+  "authorized_scope": [
+    "Exercise the accepted version-2 wire contract."
+  ],
+  "completion_criteria": [
+    "Canonical round trip is exact."
+  ],
+  "exclusions": [
+    "No activation or migration is authorized."
+  ],
+  "intake_path": "records/example.intake.md",
+  "documentation_path": "docs/\ud800.md"
+}

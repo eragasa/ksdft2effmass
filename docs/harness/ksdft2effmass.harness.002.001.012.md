@@ -2,14 +2,15 @@
 document_id: ksdft2effmass.harness.002.001.012
 task_id: harness.simplification.docs-json.task-implementation-hardening
 parent: ksdft2effmass.harness.002.001.000
-status: proposed-awaiting-activation-review
+status: active-implementation-hardening
 sphinx: excluded
 ---
 
 # Human review: HarnessTask implementation and hardening
 
-> **Stage 2A is inactive.** This page reviews implementation authorization only.
-> It does not accept an implementation, prepare a real migration packet, migrate
+> **Stage 2A is active and not yet implementation-accepted.** The activation
+> checkpoint authorized implementation and hardening only. This page does not
+> accept the resulting implementation, prepare a real migration packet, migrate
 > a source file, activate Stage 2B, or modify the accepted Stage-1 contract.
 
 ## Purpose
@@ -31,9 +32,9 @@ Stage 2A cannot silently change accepted fields, signatures, ownership boundarie
 wire behavior, documentation destinations, mapping semantics, or review behavior.
 A material required change stops and returns for explicit contract review.
 
-## Authorized implementation proposal
+## Authorized implementation scope
 
-Stage 2A would implement:
+Stage 2A implements:
 
 - the 19 project-local public interfaces and 16-field schema-version-2
   `HarnessTask`;

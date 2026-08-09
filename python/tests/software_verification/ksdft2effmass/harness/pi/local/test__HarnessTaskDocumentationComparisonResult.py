@@ -1,0 +1,79 @@
+r"""Software verification of ``HarnessTaskDocumentationComparisonResult``.
+
+Facet and represented meaning
+
+Software verification of one accepted project-local HarnessTask surface.
+
+Intrinsic and cross-object scope
+
+The sole primary SUT is ``HarnessTaskDocumentationComparisonResult``.
+Artifact-owned evidence covers detailed cross-object algorithms.
+
+VVUQ and scientific exclusions
+
+Passing establishes software-interface behavior only. It does not establish a
+migration, activation, scientific validity, or human acceptance.
+"""
+
+import pytest
+
+from ksdft2effmass.harness.pi.local import HarnessTaskDocumentationComparisonResult
+
+from .task_model_examples import make_request
+
+pytestmark = pytest.mark.software_verification
+SUT = HarnessTaskDocumentationComparisonResult
+
+
+def test_constructor__public_stereotype__has_exact_runtime_identity() -> None:
+    """Evidence ID: ``SV-HT-013``.
+
+    Requirement: The public immutable object has its accepted runtime identity.
+
+    Method: Construct or enumerate the public SUT using explicit synthetic support
+    input.
+
+    Oracle: The accepted 19-interface table supplies the expected name and stereotype.
+
+    Acceptance: Runtime identity, fieldlessness, fields, or closed values match exactly.
+
+    Interpretation: Failure identifies public API, stereotype, or value-semantics drift.
+
+    Limitations: Detailed algorithms are asserted by focused artifact-owned evidence.
+    """
+    value = make_request().comparison
+    assert type(value) is SUT
+    assert value == value
+
+
+def test_constructor__ranges__reject_invalid_values() -> None:
+    """Evidence ID: ``SV-HT-044``.
+
+    Requirement: Comparison results enforce closed status, unique ordered findings,
+    and nonempty ranges.
+
+    Method: Exercise independently invalid partitions against explicit synthetic input.
+
+    Oracle: The accepted public constructor or ActionObject contract defines exact
+    outcomes.
+
+    Acceptance: Valid input remains exact and every specified invalid partition
+    fails closed.
+
+    Interpretation: Failure identifies intrinsic or cross-object contract drift.
+
+    Limitations: Software verification does not authorize migration or human acceptance.
+    """
+    result = make_request().comparison
+    with pytest.raises(ValueError, match="status"):
+        SUT("OTHER", result.source_identity, result.rendered_identity, (), (), (), ())
+    with pytest.raises(ValueError, match="nonempty"):
+        SUT(
+            "UNMAPPED_DIFFERENCES",
+            result.source_identity,
+            result.rendered_identity,
+            ("insert",),
+            (),
+            ((0, 0),),
+            (),
+        )

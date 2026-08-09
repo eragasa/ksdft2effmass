@@ -2,7 +2,7 @@ r"""Software verification of local public api and models.
 
 Facet and represented meaning
 
-Software verification of the 30-name local public import surface and immutable
+Software verification of the 49-name local public import surface and immutable
 routing/data records.
 
 Intrinsic and cross-object scope
@@ -72,21 +72,40 @@ EXPECTED = (
     "ShadowReplayResult",
     "LocalRepositoryValidator",
     "ValidationRoute",
+    "HarnessTask",
+    "HarnessTaskSerializer",
+    "HarnessTaskDeserializer",
+    "HarnessTaskGraphValidator",
+    "HarnessTaskDocumentSource",
+    "HarnessTaskSourceDisposition",
+    "HarnessTaskSourceMapping",
+    "HarnessTaskDocumentationContent",
+    "HarnessTaskProjectionProfile",
+    "HarnessTaskDocumentation",
+    "HarnessTaskDocumentationRenderer",
+    "HarnessTaskDocumentationComparator",
+    "HarnessTaskDocumentationComparisonResult",
+    "HarnessTaskMigrationReviewPacketRequest",
+    "HarnessTaskMigrationReviewPacketPreparer",
+    "HarnessTaskMigrationReviewPacket",
+    "HarnessTaskMigrationDisposition",
+    "HarnessTaskMigrationFileDisposition",
+    "HarnessTaskMigrationFileDispositionRecorder",
 )
 
 
-def test_public_api__exports__contains_exact_30_names() -> None:
+def test_public_api__exports__contains_exact_49_names() -> None:
     """Evidence ID: SV-HL-001
 
-    Requirement: The project-local package exposes exactly the accepted 30 public names.
+    Requirement: The project-local package exposes exactly the accepted 49 public names.
 
     Method: Compare the package ``__all__`` and runtime attributes to a fixed
     independent
     inventory.
 
-    Oracle: The H4 public inventory is transcribed from the activated local boundary.
+    Oracle: The accepted H4 and HarnessTask inventories supply the exact local boundary.
 
-    Acceptance: The ordered tuple is exact, has length 30, and every name resolves.
+    Acceptance: The ordered tuple is exact, has length 49, and every name resolves.
 
     Interpretation: Failure identifies packaging drift or an incorrect inventory.
 
@@ -95,7 +114,7 @@ def test_public_api__exports__contains_exact_30_names() -> None:
     portability.
     """
     assert tuple(local.__all__) == EXPECTED
-    assert len(EXPECTED) == 30
+    assert len(EXPECTED) == 49
     assert all(getattr(local, name) is not None for name in EXPECTED)
 
 
@@ -107,9 +126,8 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
 
     Method: Select exported classes exposing ``execute`` and inspect their exact names.
 
-    Oracle: The accepted suffixes describe adapter, loader, selector, preparer,
-    comparator,
-    replayer, and validator operation owners.
+    Oracle: The accepted suffixes describe adapter, comparator, deserializer, loader,
+    preparer, recorder, renderer, replayer, selector, serializer, and validator owners.
 
     Acceptance: Every selected public class ends with one accepted Actionizer suffix.
 
@@ -120,10 +138,14 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
     suffixes = (
         "Adapter",
         "Comparator",
+        "Deserializer",
         "Loader",
         "Preparer",
+        "Recorder",
+        "Renderer",
         "Replayer",
         "Selector",
+        "Serializer",
         "Validator",
     )
     actions = (

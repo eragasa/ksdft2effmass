@@ -146,21 +146,18 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
 def test_public_api__package_local_imports__avoid_execution_side_effects() -> None:
     """Evidence ID: SV-HL-008
 
-    Requirement: Installed-source package imports expose all 30 local symbols without
-    initiating
-    validation or command execution.
+    Requirement: Installed-source package imports expose all 49 local symbols without
+    initiating validation or command execution.
 
-    Method: Import all seven local submodules and inspect their public action classes
-    and
-    package export inventory.
+    Method: Import all eight local public submodules and inspect their public action
+    classes and package export inventory.
 
     Oracle: Python import semantics and the exact local module inventory define the
     expected
     represented state.
 
-    Acceptance: Every module imports, all 30 names remain available, and no route or
-    subprocess
-    result is produced by import.
+    Acceptance: Every module imports, all 49 names remain available, and no route or
+    subprocess result is produced by import.
 
     Interpretation: Failure identifies packaging, circular-import, or import-side-effect
     regression.
@@ -177,12 +174,13 @@ def test_public_api__package_local_imports__avoid_execution_side_effects() -> No
         "shadow",
         "validation",
         "_parsing",
+        "task_model",
     )
     imported = [
         __import__(f"ksdft2effmass.harness.pi.local.{name}", fromlist=["*"])
         for name in modules
     ]
-    assert len(imported) == 7
+    assert len(imported) == 8
     assert (
-        len(__import__("ksdft2effmass.harness.pi.local", fromlist=["*"]).__all__) == 30
+        len(__import__("ksdft2effmass.harness.pi.local", fromlist=["*"]).__all__) == 49
     )

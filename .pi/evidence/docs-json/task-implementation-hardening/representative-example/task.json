@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "task_id": "synthetic.task",
+  "title": "Synthetic Task",
+  "status": "proposed",
+  "status_detail": "Illustrative only.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Demonstrate the accepted explicit round trip.",
+  "authority_reference_paths": [
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md"
+  ],
+  "authorized_scope": [
+    "Use synthetic bytes only."
+  ],
+  "completion_criteria": [
+    "Canonical JSON and rendered bytes are retained."
+  ],
+  "exclusions": [
+    "No real Task is migrated."
+  ],
+  "intake_path": "records/synthetic.intake.md",
+  "documentation_path": "docs/synthetic-task.md"
+}

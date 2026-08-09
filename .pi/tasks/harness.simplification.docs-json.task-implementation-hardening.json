@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-implementation-hardening",
   "title": "Implement and harden the accepted HarnessTask contract",
-  "status": "active",
+  "status": "awaiting_human_implementation_acceptance",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-model-contract"
@@ -12,6 +12,8 @@
   "objective": "Implement and verify the exact human-accepted Stage-1 HarnessTask contract, preserve all six Markdown Tasks unchanged and authoritative, and stop at a concise human implementation-acceptance packet before any real migration packet or source migration.",
   "authority_reference_paths": [
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.activation-review.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.implementation-acceptance.json",
+    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",

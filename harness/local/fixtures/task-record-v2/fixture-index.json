@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "schema": "../../schemas/task-record-v2.schema.json",
+  "valid": [
+    "valid/minimal.json",
+    "valid/complete.json"
+  ],
+  "invalid": {
+    "invalid/boolean-schema-version.json": {
+      "layer": "schema",
+      "expected": [
+        "const"
+      ]
+    },
+    "invalid/duplicate-authority-path.json": {
+      "layer": "schema",
+      "expected": [
+        "uniqueItems"
+      ]
+    },
+    "invalid/duplicate-key.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    },
+    "invalid/duplicate-narrative.json": {
+      "layer": "schema",
+      "expected": [
+        "uniqueItems"
+      ]
+    },
+    "invalid/invalid-identifier.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/invalid-path.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/missing-documentation-path.json": {
+      "layer": "schema",
+      "expected": [
+        "required"
+      ]
+    },
+    "invalid/overlapping-prerequisites.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    },
+    "invalid/path-absolute.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-backslash.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-c1-control.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-del.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-device-name.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-dot-segment.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-drive-prefix.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-empty-segment.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-line-separator.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-non-nfc.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    },
+    "invalid/path-paragraph-separator.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-parent-segment.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-trailing-slash.json": {
+      "layer": "schema",
+      "expected": [
+        "pattern"
+      ]
+    },
+    "invalid/path-unpaired-surrogate.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    },
+    "invalid/unknown-field.json": {
+      "layer": "schema",
+      "expected": [
+        "additionalProperties"
+      ]
+    },
+    "invalid/unsorted-prerequisites.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    },
+    "invalid/unsupported-version.json": {
+      "layer": "schema",
+      "expected": [
+        "const"
+      ]
+    },
+    "invalid/wrong-type-status.json": {
+      "layer": "schema",
+      "expected": [
+        "type"
+      ]
+    }
+  },
+  "claim_boundary": "Synthetic fixtures establish only schema and runtime software-contract behavior."
+}

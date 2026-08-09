@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTask.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTask"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDeserializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDeserializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentSource.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDocumentSource"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDocumentation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationComparator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDocumentationComparator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationComparisonResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDocumentationComparisonResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationContent.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDocumentationContent"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskDocumentationRenderer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskDocumentationRenderer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskGraphValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskGraphValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationDisposition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationDisposition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationFileDisposition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationFileDisposition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationFileDispositionRecorder.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationFileDispositionRecorder"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacket.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationReviewPacket"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketPreparer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationReviewPacketPreparer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskMigrationReviewPacketRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskProjectionProfile.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskProjectionProfile"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSourceDisposition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskSourceDisposition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskSourceMapping.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessTaskSourceMapping"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v2.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "HarnessTask version-2 cross-surface contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "local context dependency and nonmutation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "local public api and models"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_resource_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "harness pi resource contract"
+    }
+  ]
+}

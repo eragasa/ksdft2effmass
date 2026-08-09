@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "evidentiary_status": "Illustrative example and synthetic test data; not a migration packet or research evidence.",
+  "source_identity": "40ada86450912593bb5554de6b6536011eadce13eaa103ecfe4754846d088fd9",
+  "canonical_task_json_identity": "ea9e3d602c9946341df3697f2419fa8fb87eeaced339db1dd4ab3abfe8f49e1d",
+  "rendered_identity": "22ee50b56de9b6c01d7a7ce9679bc889d9446ac1b3d3643adfc9a317c8d783cd",
+  "template_identity": "c064215ba47c0275df3567933511ec5d2aab50d2974c85d9fcde6b2d3f58077c",
+  "comparison_status": "MAPPED_DIFFERENCES",
+  "differences": [
+    "insert:source[0:0]->rendered[0:158]"
+  ],
+  "unmapped_spans": [],
+  "limitations": [
+    "Mapped differences are mechanical coverage only and do not establish semantic correctness or human acceptance."
+  ],
+  "changed_authoritative_tasks": false
+}

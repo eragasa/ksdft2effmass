@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 from typing import Any
 
@@ -30,13 +31,14 @@ from ._parsing import (
     success,
 )
 from .models import AdaptationResult, EvidenceOwnershipRelation, LocalIssue
+from .task_model import HarnessTaskDeserializer
 
 
 def _invalid(area: str, path: str, exc: Exception) -> AdaptationResult:
     return failure(LocalIssue(f"PIHL.{area}.INVALID", path, str(exc)))
 
 
-_TASK_FIELDS = frozenset(
+_TASK_V1_FIELDS = frozenset(
     {
         "schema_version",
         "task_id",
@@ -76,14 +78,24 @@ def _task_record_values(
     task: dict[str, Any],
 ) -> tuple[str, tuple[str, ...], tuple[str, ...], str, bool]:
     """Validate one complete project-local JSON Task and return view fields."""
-    missing = _TASK_FIELDS - set(task)
-    unknown = set(task) - _TASK_FIELDS
+    if task.get("schema_version") == 2:
+        payload = (json.dumps(task, ensure_ascii=False) + "\n").encode("utf-8")
+        model = HarnessTaskDeserializer().execute(payload)
+        return (
+            model.task_id,
+            model.task_prerequisite_ids,
+            model.external_prerequisite_ids,
+            model.status,
+            model.explicit_activation_required,
+        )
+    missing = _TASK_V1_FIELDS - set(task)
+    unknown = set(task) - _TASK_V1_FIELDS
     if missing:
         raise ValueError(f"JSON Task is missing {sorted(missing)[0]}")
     if unknown:
         raise ValueError(f"JSON Task has unknown field {sorted(unknown)[0]}")
     if type(task["schema_version"]) is not int or task["schema_version"] != 1:
-        raise ValueError("schema_version must equal integer 1")
+        raise ValueError("schema_version must equal integer 1 or 2")
 
     task_id = as_str(task["task_id"], "task_id")
     if _IDENTIFIER.fullmatch(task_id) is None:

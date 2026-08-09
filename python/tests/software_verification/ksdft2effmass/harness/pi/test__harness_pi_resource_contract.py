@@ -468,7 +468,15 @@ def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() 
         ),
         (
             ROOT / "harness/local",
-            ("extensions", "profiles", "projections", "schemas", "validation"),
+            (
+                "extensions",
+                "fixtures/oracle-index.json",
+                "fixtures/task-record-v2",
+                "profiles",
+                "projections",
+                "schemas",
+                "validation",
+            ),
         ),
     )
     manifests = tuple(
@@ -482,7 +490,11 @@ def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() 
         {
             path.relative_to(root).as_posix()
             for family in families
-            for path in (root / family).rglob("*")
+            for path in (
+                (root / family,)
+                if (root / family).is_file()
+                else (root / family).rglob("*")
+            )
             if path.is_file() and "__pycache__" not in path.parts
         }
         for root, _, families in manifests

@@ -1,0 +1,67 @@
+r"""Software verification of ``HarnessTaskGraphValidator``.
+
+Facet and represented meaning
+
+Software verification of one accepted project-local HarnessTask surface.
+
+Intrinsic and cross-object scope
+
+The sole primary SUT is ``HarnessTaskGraphValidator``.
+Artifact-owned evidence covers detailed cross-object algorithms.
+
+VVUQ and scientific exclusions
+
+Passing establishes software-interface behavior only. It does not establish a
+migration, activation, scientific validity, or human acceptance.
+"""
+
+import pytest
+
+from ksdft2effmass.harness.pi.local import HarnessTaskGraphValidator
+
+pytestmark = pytest.mark.software_verification
+SUT = HarnessTaskGraphValidator
+
+
+def test_constructor__public_stereotype__has_exact_runtime_identity() -> None:
+    """Evidence ID: ``SV-HT-004``.
+
+    Requirement: The public ActionObject is fieldless, stateless, and can be
+    constructed directly.
+
+    Method: Construct or enumerate the public SUT using explicit synthetic support
+    input.
+
+    Oracle: The accepted 19-interface table supplies the expected name and stereotype.
+
+    Acceptance: Runtime identity, fieldlessness, fields, or closed values match exactly.
+
+    Interpretation: Failure identifies public API, stereotype, or value-semantics drift.
+
+    Limitations: Detailed algorithms are asserted by focused artifact-owned evidence.
+    """
+    assert SUT.__slots__ == ()
+    assert type(SUT()) is SUT
+
+
+def test_method__execute__rejects_empty_graph() -> None:
+    """Evidence ID: ``SV-HT-036``.
+
+    Requirement: Graph validation requires one exact nonempty Task tuple.
+
+    Method: Exercise independently invalid partitions against explicit synthetic input.
+
+    Oracle: The accepted public constructor or ActionObject contract defines exact
+    outcomes.
+
+    Acceptance: Valid input remains exact and every specified invalid partition
+    fails closed.
+
+    Interpretation: Failure identifies intrinsic or cross-object contract drift.
+
+    Limitations: Software verification does not authorize migration or human acceptance.
+    """
+    with pytest.raises(ValueError, match="nonempty"):
+        SUT().execute(())
+    with pytest.raises(TypeError):
+        SUT().execute([])  # type: ignore[arg-type]

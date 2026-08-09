@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "example.task.child",
+  "title": "Complete Example Task",
+  "status": "completed",
+  "status_detail": "Completed by synthetic software-verification evidence.",
+  "parent_task_id": "example.task",
+  "task_prerequisite_ids": [
+    "example.task"
+  ],
+  "external_prerequisite_ids": [
+    "external.input"
+  ],
+  "explicit_activation_required": true,
+  "objective": "Represent every non-null HarnessTask field.",
+  "authority_reference_paths": [
+    "records/decision.md",
+    "records/evidence.json"
+  ],
+  "authorized_scope": [
+    "Exercise complete represented state.",
+    "Retain exact ordering."
+  ],
+  "completion_criteria": [
+    "All fields survive canonical round trip."
+  ],
+  "exclusions": [
+    "Synthetic fixture data is not research evidence."
+  ],
+  "intake_path": "records/example-child.intake.md",
+  "documentation_path": "docs/example-child.md"
+}
