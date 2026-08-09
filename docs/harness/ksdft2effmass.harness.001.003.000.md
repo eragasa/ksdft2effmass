@@ -37,18 +37,21 @@ specifies that behavior.
 ## Human-review packet boundary
 
 The package exports `HumanReviewTarget`, `HumanReviewObservation`,
-`HumanReviewFinding`, `HumanReviewPacket`, and `HumanReviewPreparer`.
-The records own intrinsic lexical and immutable-state invariants; the fieldless
-ActionObject owns target membership, identifier relationships, canonical ordering,
-and packet-status derivation. A failed observation produces
-`blocked_by_invalid_observation`; other intrinsically valid observation statuses
-produce `ready_for_human_review`. Neither status is a human disposition or
-acceptance.
+`HumanReviewFinding`, `HumanReviewPacket`, `HumanReviewDecision`,
+`HumanReviewPreparer`, and `HumanReviewDecisionRecorder`. The records own intrinsic
+lexical and immutable-state invariants. `HumanReviewPreparer` owns target membership,
+identifier relationships, canonical ordering, and packet-status derivation. A failed
+observation produces `blocked_by_failed_observation`; other intrinsically valid
+observation statuses produce `ready_for_human_review`. Neither status is a human
+disposition or acceptance.
 
-The module consumes only explicit records and text. It performs no repository or
+`HumanReviewDecisionRecorder` requires canonical prepared packet state and stores the
+exact immutable packet with explicit response, disposition, and scope values. The
+module consumes only explicit records and text. It performs no repository or
 filesystem discovery, Git execution, clock access, network or subprocess activity,
-database persistence, decision recording, correction, or successor activation. It
-is not a member of the wire-record union and defines no serialization contract.
+database persistence, natural-language interpretation, correction, or successor
+activation. Its records are not members of the wire-record union, and it defines no
+serialization contract.
 
 ## Project-local modules
 

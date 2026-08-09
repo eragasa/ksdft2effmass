@@ -2,7 +2,7 @@
 document_id: ksdft2effmass.harness.003.001.000
 task_id: human-review-interface.review-packet-pilot
 parent: ksdft2effmass.harness.003.000.000
-status: decision_recording_awaiting_human_review
+status: decision_recording_architecture_corrected_awaiting_human_review
 sphinx: excluded
 ---
 
@@ -25,7 +25,7 @@ It is retained at
 | Item | Proposal | Status |
 |---|---|---|
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | Human Review Packet and Decision Workflow | `proposed_inactive` |
-| [harness.003.001.002](ksdft2effmass.harness.003.001.002.md) | Human decision recording | `implemented_awaiting_human_review` |
+| [harness.003.001.002](ksdft2effmass.harness.003.001.002.md) | Human decision recording | `architecture_corrected_awaiting_human_review` |
 
 ## Implemented runtime boundary
 
@@ -104,8 +104,10 @@ nominal role base classes. The human-directed hard rename makes
 `HumanReviewPreparer` the sole public preparation name; the former
 `PrepareHumanReviewPacket` export is removed rather than retained as an alias.
 
-`HumanReviewDecision` and `RecordHumanReviewDecision` are now implemented as a
-separate bounded runtime slice. Every decision-persistence and interaction interface
+`HumanReviewDecision` and `HumanReviewDecisionRecorder` are now architecture-corrected
+as a separate bounded runtime slice. The ActionObject name describes the result it
+creates; the former `RecordHumanReviewDecision` export is removed rather than retained
+as a compatibility alias. Every decision-persistence and interaction interface
 remains unimplemented and inactive.
 
 ## Candidate telemetry

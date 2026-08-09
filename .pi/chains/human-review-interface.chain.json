@@ -1,12 +1,16 @@
 {
   "name": "human-review-interface",
   "description": "Incrementally introduce deterministic human-review preparation while preserving direct human disposition and acceptance authority.",
-  "status": "human_decision_recording_implemented_awaiting_human_review",
+  "status": "human_decision_recording_architecture_corrected_awaiting_human_review",
   "active_task": null,
   "automatic_successor_activation": false,
   "findings": {
     "HRI-PILOT-F01": "resolved",
-    "HRI-PILOT-F02": "resolved"
+    "HRI-PILOT-F02": "resolved",
+    "HRI-ARCH-F01": "corrected_awaiting_human_review",
+    "HRI-ARCH-F02": "corrected_awaiting_human_review",
+    "HRI-ARCH-F03": "corrected_awaiting_human_review",
+    "HRI-ARCH-F04": "corrected_awaiting_human_review"
   },
   "chain": [],
   "task_sequence": [
@@ -30,7 +34,7 @@
       "prerequisites": [
         "human-review-interface.review-packet-pilot:human_accepted_pass"
       ],
-      "status": "implemented_awaiting_human_review"
+      "status": "architecture_corrected_awaiting_human_review"
     },
     {
       "id": "human-review-interface.persistence-evaluation",

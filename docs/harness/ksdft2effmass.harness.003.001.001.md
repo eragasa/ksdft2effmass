@@ -47,16 +47,16 @@ activation.
 
 ## Proposed DataObjects
 
-The request, item, decision, progress, and summary shapes below remain candidate
-immutable public contracts. The candidate expanded packet shape is not the current
-implemented packet contract. Field names and types remain subject to a later accepted
-architecture decision.
+The session request, item, item decision, progress, and summary shapes below remain
+candidate immutable public contracts. They use distinct future names rather than
+redefining the current implemented packet and decision contracts. Field names and
+types remain subject to a later accepted architecture decision.
 
-### `HumanReviewRequest`
+### `HumanReviewSessionRequest`
 
 ```python
 @dataclass(frozen=True, slots=True)
-class HumanReviewRequest:
+class HumanReviewSessionRequest:
     review_id: str
     task_id: str
     starting_revision: str
@@ -90,15 +90,14 @@ An item would be bounded and human-readable. It would contain only the material
 needed to review one represented surface and would not embed an unbounded repository
 diff or complete command log. Omitted or truncated material would be explicit.
 
-### `HumanReviewPacket`
+### `HumanReviewSession`
 
-The following is a proposed future expansion, not the implemented first-slice
-`HumanReviewPacket`. Adopting it would require a separately accepted public-contract
-change.
+This proposed future session composes multiple item-level review surfaces without
+redefining the implemented first-slice `HumanReviewPacket`.
 
 ```python
 @dataclass(frozen=True, slots=True)
-class HumanReviewPacket:
+class HumanReviewSession:
     review_id: str
     task_id: str
     starting_revision: str
@@ -106,15 +105,15 @@ class HumanReviewPacket:
     items: tuple[HumanReviewItem, ...]
 ```
 
-Packet item ordering would be deterministic. The packet would be reconstructable
+Session item ordering would be deterministic. The session would be reconstructable
 from immutable revisions, explicit paths, and declared authoritative inputs rather
 than from ambient repository discovery.
 
-### `HumanReviewDecision`
+### `HumanReviewItemDecision`
 
 ```python
 @dataclass(frozen=True, slots=True)
-class HumanReviewDecision:
+class HumanReviewItemDecision:
     review_id: str
     item_id: str
     human_response: str
@@ -137,13 +136,13 @@ There is deliberately no generic `PASS` disposition that could be mistaken for
 whole-task acceptance. A later contract must define timestamp authority and
 representation before `recorded_at` can become a public field.
 
-### `HumanReviewProgressResult`
+### `HumanReviewSessionProgress`
 
 This proposed immutable ResultObject would report completed item IDs, pending item
 IDs, the current item ID, whether correction is pending, whether review is complete,
 and deterministically ordered structured conflicts.
 
-### `HumanReviewSummary`
+### `HumanReviewSessionSummary`
 
 This proposed immutable ResultObject would contain the review identity, reviewed
 revisions, ordered decisions, approved items, corrected items, deferred or rejected
@@ -155,9 +154,9 @@ to express that role.
 
 ## Proposed ActionObjects
 
-### `PrepareHumanReview`
+### `PrepareHumanReviewSession`
 
-A proposed stateless ActionObject would:
+A proposed stateless ActionObject would return a `HumanReviewSession` and:
 
 - receive explicit request inputs;
 - observe only explicit revisions and paths through an authorized local adapter;
@@ -169,18 +168,18 @@ A proposed stateless ActionObject would:
 - avoid contacting subagents; and
 - perform no repository mutation.
 
-### `RecordHumanReviewDecision`
+### `RecordHumanReviewItemDecision`
 
-A proposed stateless ActionObject would accept one packet and one human decision,
+A proposed stateless ActionObject would accept one session and one human item decision,
 verify matching review and item identities, preserve the human response verbatim,
 validate disposition and correction-scope consistency, and return updated immutable
 progress. It would not interpret ambiguous human prose, edit source, activate a
 writer, resolve a checkpoint, or accept the full task. Human-intent interpretation,
 when needed, remains a separate human-facing skill or root responsibility.
 
-### `SummarizeHumanReview`
+### `SummarizeHumanReviewSession`
 
-A proposed stateless ActionObject would combine the packet and recorded decisions,
+A proposed stateless ActionObject would combine the session and recorded decisions,
 detect missing or duplicate decisions, and return deterministic review status. It
 would not convert approval of one or all items into task acceptance.
 

@@ -154,7 +154,7 @@ def test_field__immutability__has_exact_value_semantics() -> None:
     first = make_packet()
     assert first == make_packet()
     with pytest.raises(FrozenInstanceError):
-        first.status = "blocked_by_invalid_observation"  # type: ignore[misc]
+        first.status = "blocked_by_failed_observation"  # type: ignore[misc]
 
 
 @pytest.mark.parametrize(
@@ -162,7 +162,7 @@ def test_field__immutability__has_exact_value_semantics() -> None:
     (
         pytest.param("ready_for_human_review", id="ready_for_human_review"),
         pytest.param(
-            "blocked_by_invalid_observation", id="blocked_by_invalid_observation"
+            "blocked_by_failed_observation", id="blocked_by_failed_observation"
         ),
     ),
 )

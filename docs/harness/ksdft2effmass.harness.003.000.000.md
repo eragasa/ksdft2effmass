@@ -2,15 +2,15 @@
 document_id: ksdft2effmass.harness.003.000.000
 task_id: null
 parent: ksdft2effmass.harness.000.000.000
-status: decision_recording_awaiting_human_review
+status: decision_recording_architecture_corrected_awaiting_human_review
 sphinx: excluded
 ---
 
 # Human review interface
 
-> **Corrected pilot accepted; decision recording awaits review.** The explicit-input
-> packet pilot is human-accepted as software-verification PASS. Pure runtime decision
-> representation is implemented and awaiting direct human review. Persistence,
+> **Corrected pilot accepted; architecture-corrected decision recording awaits review.**
+> The explicit-input packet pilot is human-accepted as software-verification PASS.
+> Pure runtime decision representation is corrected and awaiting direct human review. Persistence,
 > automatic acceptance, checkpoints, and successor activation remain inactive.
 
 ## Problem
@@ -70,7 +70,7 @@ select review targets.
 | Review subject and supplied material | `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding` | None; callers supply these records   | Implemented                               | [Initial round](ksdft2effmass.harness.003.001.000.md)            |
 | Packet preparation                   | `HumanReviewPacket`                                                 | `HumanReviewPreparer`           | Corrected pilot human-accepted            | [Initial round](ksdft2effmass.harness.003.001.000.md)            |
 | Human judgment                       | Human response outside the API                                      | None; the person performs the review | Human authority only                      | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
-| Decision representation              | `HumanReviewDecision`                                               | `RecordHumanReviewDecision`          | Implemented, awaiting direct human review | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
+| Decision representation              | `HumanReviewDecision`                                               | `HumanReviewDecisionRecorder`          | Architecture-corrected, awaiting direct human review | [Human decision recording](ksdft2effmass.harness.003.001.002.md) |
 | Persistence and querying             | Not defined                                                         | Not defined                          | Proposed and inactive                     | Architecture alternatives below                                  |
 
 The detailed decision-recording page contains separate DataObject and ActionObject

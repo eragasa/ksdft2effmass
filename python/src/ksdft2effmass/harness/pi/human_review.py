@@ -30,7 +30,7 @@ _EVIDENCE_CLASSES = {
 }
 _OBSERVATION_STATUSES = {"passed", "failed", "indeterminate", "not_run"}
 _FINDING_SEVERITIES = {"blocker", "high", "medium", "low", "advisory"}
-_PACKET_STATUSES = {"ready_for_human_review", "blocked_by_invalid_observation"}
+_PACKET_STATUSES = {"ready_for_human_review", "blocked_by_failed_observation"}
 _DECISION_DISPOSITIONS = {
     "accepted",
     "bounded_correction",
@@ -232,7 +232,7 @@ class HumanReviewPacket:
     limitations
         Canonically ordered substantive limitations.
     status
-        ``ready_for_human_review`` or ``blocked_by_invalid_observation``.
+        ``ready_for_human_review`` or ``blocked_by_failed_observation``.
 
     Notes
     -----
@@ -280,10 +280,8 @@ class HumanReviewDecision:
 
     Parameters
     ----------
-    review_id
-        Exact identifier of the packet being dispositioned.
-    reviewed_revision
-        Exact lowercase 40-character revision copied from the packet target.
+    packet
+        Exact immutable packet being dispositioned.
     human_response
         Nonempty built-in string preserved exactly without interpretation.
     disposition
@@ -301,19 +299,14 @@ class HumanReviewDecision:
     human authority, persist state, or activate work.
     """
 
-    review_id: str
-    reviewed_revision: str
+    packet: HumanReviewPacket
     human_response: str
     disposition: str
     authorized_scope: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        _require_identifier(self.review_id, "review_id")
-        _require_builtin_str(self.reviewed_revision, "reviewed_revision")
-        if _GIT_REVISION.fullmatch(self.reviewed_revision) is None:
-            raise ValueError(
-                "reviewed_revision must contain 40 lowercase hexadecimal characters"
-            )
+        if type(self.packet) is not HumanReviewPacket:
+            raise TypeError("packet must be HumanReviewPacket")
         _require_builtin_str(self.human_response, "human_response")
         if not self.human_response:
             raise ValueError("human_response must be nonempty")
@@ -335,7 +328,7 @@ class HumanReviewDecision:
         object.__setattr__(self, "authorized_scope", authorized_scope)
 
 
-class RecordHumanReviewDecision:
+class HumanReviewDecisionRecorder:
     """Record an explicit normalized human decision without interpreting text.
 
     The action is fieldless and stateless. Packet-to-decision compatibility is its
@@ -356,7 +349,7 @@ class RecordHumanReviewDecision:
         Parameters
         ----------
         packet
-            Exact prepared packet whose target identity is copied.
+            Exact prepared packet retained by the decision.
         human_response
             Exact nonempty built-in string to preserve without interpretation.
         disposition
@@ -375,8 +368,9 @@ class RecordHumanReviewDecision:
         TypeError
             If the packet or decision fields have wrong semantic types.
         ValueError
-            If intrinsic decision invariants fail, or ``accepted`` is supplied for a
-            packet blocked by an invalid observation.
+            If intrinsic decision invariants fail, the packet is not a canonical
+            ``HumanReviewPreparer`` result, or ``accepted`` is supplied for a packet
+            blocked by a failed observation.
 
         Notes
         -----
@@ -387,14 +381,26 @@ class RecordHumanReviewDecision:
         """
         if type(packet) is not HumanReviewPacket:
             raise TypeError("packet must be HumanReviewPacket")
+        try:
+            canonical_packet = HumanReviewPreparer().execute(
+                packet.target,
+                packet.observations,
+                packet.findings,
+                packet.limitations,
+            )
+        except ValueError as error:
+            raise ValueError(
+                "packet must equal its canonical prepared result"
+            ) from error
+        if packet != canonical_packet:
+            raise ValueError("packet must equal its canonical prepared result")
         if (
             disposition == "accepted"
-            and packet.status == "blocked_by_invalid_observation"
+            and packet.status == "blocked_by_failed_observation"
         ):
             raise ValueError("accepted disposition requires a ready packet")
         return HumanReviewDecision(
-            packet.target.review_id,
-            packet.target.revision,
+            packet,
             human_response,
             disposition,
             authorized_scope,
@@ -434,7 +440,7 @@ class HumanReviewPreparer:
         -------
         HumanReviewPacket
             Canonically ordered packet. A failed observation yields
-            ``blocked_by_invalid_observation``; otherwise the packet is
+            ``blocked_by_failed_observation``; otherwise the packet is
             ``ready_for_human_review``.
 
         Raises
@@ -489,7 +495,7 @@ class HumanReviewPreparer:
         canonical_findings = tuple(sorted(findings, key=lambda item: item.finding_id))
         canonical_limitations = tuple(sorted(limitations))
         status = (
-            "blocked_by_invalid_observation"
+            "blocked_by_failed_observation"
             if any(item.status == "failed" for item in canonical_observations)
             else "ready_for_human_review"
         )

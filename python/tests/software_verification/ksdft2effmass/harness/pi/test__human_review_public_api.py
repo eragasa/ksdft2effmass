@@ -21,12 +21,12 @@ import pytest
 import ksdft2effmass.harness.pi as public_package
 from ksdft2effmass.harness.pi import (
     HumanReviewDecision,
+    HumanReviewDecisionRecorder,
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
     HumanReviewPreparer,
     HumanReviewTarget,
-    RecordHumanReviewDecision,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -37,7 +37,7 @@ PUBLIC_NAMES = (
     "HumanReviewPacket",
     "HumanReviewDecision",
     "HumanReviewPreparer",
-    "RecordHumanReviewDecision",
+    "HumanReviewDecisionRecorder",
 )
 
 
@@ -66,7 +66,7 @@ def test_public_api__package__exports_exact_defining_module_identities() -> None
         HumanReviewPacket,
         HumanReviewDecision,
         HumanReviewPreparer,
-        RecordHumanReviewDecision,
+        HumanReviewDecisionRecorder,
     )
     assert tuple(getattr(public_package, name) for name in PUBLIC_NAMES) == expected
     assert all(name in public_package.__all__ for name in PUBLIC_NAMES)

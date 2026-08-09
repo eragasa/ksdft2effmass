@@ -239,11 +239,19 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2e1a044b3b7bd85a483736c38e77d5b516c7e238795af2a3f3848e821676c551",
+      "content_sha256": "f3900c34181f9454474cb4ce378d0a012928adb99da1f750e1322c34101123f2",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py",
       "sut": "HumanReviewDecision"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ae803f16b7a9f1ac9f4da765cfd5782ac692720313cb7b786445d5bd84b68e8f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py",
+      "sut": "HumanReviewDecisionRecorder"
     },
     {
       "conformance_status": "conforming",
@@ -263,7 +271,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "0f0c3070e61c0fa0ea98cc02b10f669ca2a66006e3dcf888d8ef53197118028a",
+      "content_sha256": "cb4176e07798551d2bcf2274d7cba147de626c68d6530908e78ca2abde2a78df",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py",
@@ -271,7 +279,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "cad651e67ff48ba724271d8961e4f3f57839802b79a07a66042bc2ad0724c351",
+      "content_sha256": "8b5f206a666c65a7909f1eb486cdf6c9c17f039f280c8757f3538612da6d3bb9",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py",
@@ -380,14 +388,6 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py",
       "sut": "PythonTestEvidenceValidationResult"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "9ed319164104b601e75529700c3e754433911e6930dc4dcc8e97144908f4f8a4",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py",
-      "sut": "RecordHumanReviewDecision"
     },
     {
       "conformance_status": "conforming",
@@ -592,7 +592,7 @@
     {
       "artifact": "harness pi public api",
       "conformance_status": "conforming",
-      "content_sha256": "50cbbaa5dbff02788aad85cdaf7b2a95ebf0f46969eb137582b9c478f6791502",
+      "content_sha256": "a7bb530a1af44cea204edeb6a3b5c67e12ade41255d9682e0be1010984b74583",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py"
@@ -600,7 +600,7 @@
     {
       "artifact": "human review public api and dependency boundary",
       "conformance_status": "conforming",
-      "content_sha256": "7cb85d157faa82f68649cc94a188d2cf6479b200f7990a0bf9b8c96e416f0451",
+      "content_sha256": "273343399e4310bb987935f6c6324a8e7de5a49dee32287c303cd4ab113cd212",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__human_review_public_api.py"

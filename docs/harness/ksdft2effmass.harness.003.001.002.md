@@ -2,13 +2,13 @@
 document_id: ksdft2effmass.harness.003.001.002
 task_id: human-review-interface.human-decision-recording
 parent: ksdft2effmass.harness.003.001.000
-status: implemented_awaiting_human_review
+status: architecture_corrected_awaiting_human_review
 sphinx: excluded
 ---
 
 # Human decision recording
 
-> **Implemented and awaiting direct human review.** This slice represents an explicit
+> **Architecture-corrected and awaiting direct human review.** This slice represents an explicit
 > decision already made by a human. It does not perform the human review, interpret
 > natural language, persist state, mutate Git or checkpoints, or activate successors.
 
@@ -28,7 +28,7 @@ flowchart TD
     Prepare --> Packet["HumanReviewPacket"]
 
     Packet --> Human["Human reads packet and makes decision outside the software API"]
-    Human -->|exact response text| Record["RecordHumanReviewDecision"]
+    Human -->|exact response text| Record["HumanReviewDecisionRecorder"]
     CallerDisposition["Caller-supplied normalized disposition"] --> Record
     CallerScope["Caller-supplied authorized scope"] --> Record
     Packet --> Record
@@ -46,14 +46,14 @@ flowchart TD
 | `HumanReviewObservation` | DataObject containing one deterministic observation | Supplied by an external deterministic check |
 | `HumanReviewFinding` | DataObject containing one candidate issue for human judgment | Supplied by a human or separately authorized analysis |
 | `HumanReviewPacket` | ResultObject, semantically a DataObject, containing prepared review material | Returned by `HumanReviewPreparer.execute` |
-| `HumanReviewDecision` | ResultObject, semantically a DataObject, containing an already-made human decision | Returned by `RecordHumanReviewDecision.execute` |
+| `HumanReviewDecision` | ResultObject, semantically a DataObject, containing an already-made human decision | Returned by `HumanReviewDecisionRecorder.execute` |
 
 ### ActionObjects
 
 | Object | Explicit inputs | Result | What it does not do |
 |---|---|---|---|
 | `HumanReviewPreparer` | Target, observations, findings, and limitations | `HumanReviewPacket` | Does not run checks, discover findings, or make a human decision |
-| `RecordHumanReviewDecision` | Packet, exact human response, normalized disposition, and authorized scope | `HumanReviewDecision` | Does not interpret text, authenticate authority, persist state, or activate work |
+| `HumanReviewDecisionRecorder` | Packet, exact human response, normalized disposition, and authorized scope | `HumanReviewDecision` | Does not interpret text, authenticate authority, persist state, or activate work |
 
 ## Class diagrams
 
@@ -158,34 +158,40 @@ classDiagram
 
 ### `HumanReviewDecision`
 
-A decision owns copied scalar identity, exact response, disposition, and scope values.
-It does not contain the packet and has no persistence object.
+A decision owns the exact immutable packet plus exact response, disposition, and scope
+values. Packet composition binds the decision to all reviewed observations, findings,
+limitations, and derived status without defining persistence.
 
 ```mermaid
 classDiagram
     class HumanReviewDecision {
-        +str review_id
-        +str reviewed_revision
+        +HumanReviewPacket packet
         +str human_response
         +str disposition
         +Tuple~str~ authorized_scope
     }
+    class HumanReviewPacket
+
+    HumanReviewDecision *-- "1" HumanReviewPacket : packet
 ```
 
-### `RecordHumanReviewDecision`
+### `HumanReviewDecisionRecorder`
 
 The recording ActionObject depends on one explicit packet plus scalar decision inputs.
-Its return type is shown on the operation; no persistence or successor class is part
-of its decomposition.
+It uses `HumanReviewPreparer` to require canonical packet relationships, ordering, and
+status before recording. Its return type is shown on the operation; no persistence or
+successor class is part of its decomposition.
 
 ```mermaid
 classDiagram
-    class RecordHumanReviewDecision {
+    class HumanReviewDecisionRecorder {
         +execute(packet, human_response, disposition, authorized_scope) HumanReviewDecision
     }
     class HumanReviewPacket
+    class HumanReviewPreparer
 
-    RecordHumanReviewDecision ..> HumanReviewPacket : input
+    HumanReviewDecisionRecorder ..> HumanReviewPacket : input
+    HumanReviewDecisionRecorder ..> HumanReviewPreparer : canonical validation
 ```
 
 ### Target provenance
@@ -205,8 +211,7 @@ human judgment occurs outside the API.
 `HumanReviewDecision` is an immutable concrete ResultObject and semantically a
 DataObject. It stores:
 
-- the packet review identifier;
-- the packet target's exact lowercase 40-character reviewed revision;
+- the exact immutable `HumanReviewPacket` being dispositioned;
 - the exact human-response string without trimming or rewriting;
 - one caller-supplied normalized disposition; and
 - an ordered immutable tuple of explicit authorized-scope statements.
@@ -218,14 +223,16 @@ state rules, not natural-language interpretation.
 
 ## Recording action
 
-`RecordHumanReviewDecision` is a fieldless stateless ActionObject. Its `execute`
+`HumanReviewDecisionRecorder` is a fieldless stateless ActionObject. Its `execute`
 method receives one `HumanReviewPacket`, exact human-response text, an explicit
-normalized disposition, and explicit scope. It copies packet identity and constructs
-one decision. Identical inputs return equal decisions and leave the packet unchanged.
+normalized disposition, and explicit scope. It first requires the packet to equal the
+canonical result reconstructed by `HumanReviewPreparer`, then stores that exact packet
+in the decision. Identical inputs return equal decisions and leave the packet unchanged.
+Distinct packets with the same target remain distinct decision values.
 
-The action rejects `accepted` when the packet is
-`blocked_by_invalid_observation`. A ready packet may be explicitly accepted even when
-advisory findings or limitations remain. This compatibility rule does not grant the
+The action rejects noncanonical public packet values and rejects `accepted` when the
+canonical packet is `blocked_by_failed_observation`. A ready packet may be explicitly
+accepted even when advisory findings or limitations remain. This compatibility rule does not grant the
 caller human authority and does not automatically accept any packet.
 
 ## Explicit exclusions

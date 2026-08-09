@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "expected_old_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__exact_fields__preserves_types_text_revision_and_scope",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_field__immutability_and_equality__use_exact_value_semantics",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[accepted]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[bounded_correction]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[deferred]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[rejected]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[bounded_correction_requires_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[accepted_prohibits_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[deferred_prohibits_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[rejected_prohibits_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[duplicate_items]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[empty_item]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[empty_review_identifier]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[uppercase_revision]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[short_revision]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[empty_response]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[unsupported_disposition]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[identifier_subclass]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[revision_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[response_subclass]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[disposition_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[mutable_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[scope_item_subclass]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__transfers_identity_preserves_text_and_is_idempotent",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[accepted]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[bounded_correction]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[deferred]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[rejected]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__accepts_ready_packet_with_advisories_and_limitations",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_acceptance_of_blocked_packet",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[bounded_without_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[accepted_with_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[deferred_with_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[rejected_with_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__does_not_interpret_human_response[reject_words_with_explicit_acceptance]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__does_not_interpret_human_response[accept_words_with_explicit_rejection]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__has_no_external_checkpoint_or_successor_effect",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__exact_result__owns_canonical_tuple_fields",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__immutability__has_exact_value_semantics",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[ready_for_human_review]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[blocked_by_invalid_observation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_observation_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_finding_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[blank_limitation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[acceptance_like_status]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[mutable_observation_container]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__authority_boundary__stores_no_human_decision_or_recommendation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__orders_inputs_and_preserves_substantive_text",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__is_idempotent_for_identical_inputs_from_any_cwd",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__maps_failed_observation_to_blocked_packet",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_observation_identifiers]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_finding_identifiers]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_unknown_supporting_observation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[observation_outside_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[finding_outside_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_observations]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_observation_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_findings]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_finding_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_limitations]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[blank_limitation]"
+  ],
+  "expected_new_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__exact_fields__preserves_packet_text_and_scope",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_field__immutability_and_equality__use_exact_value_semantics",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[accepted]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[bounded_correction]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[deferred]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[rejected]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[bounded_correction_requires_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[accepted_prohibits_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[deferred_prohibits_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[rejected_prohibits_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[duplicate_items]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[empty_item]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[empty_response]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[unsupported_disposition]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[empty_review_identifier]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[uppercase_revision]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[short_revision]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[identifier_subclass]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[revision_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[response_subclass]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[disposition_wrong_type]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[mutable_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[scope_item_subclass]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__transfers_identity_preserves_text_and_is_idempotent",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[accepted]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[bounded_correction]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[deferred]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[rejected]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__accepts_ready_packet_with_advisories_and_limitations",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_acceptance_of_blocked_packet",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[bounded_without_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[accepted_with_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[deferred_with_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[rejected_with_scope]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__does_not_interpret_human_response[reject_words_with_explicit_acceptance]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__does_not_interpret_human_response[accept_words_with_explicit_rejection]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__has_no_external_checkpoint_or_successor_effect",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__exact_result__owns_canonical_tuple_fields",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__immutability__has_exact_value_semantics",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[ready_for_human_review]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[blocked_by_failed_observation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_observation_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_finding_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[blank_limitation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[acceptance_like_status]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[mutable_observation_container]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__authority_boundary__stores_no_human_decision_or_recommendation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_constructor__action_object__is_stateless_and_fieldless",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__orders_inputs_and_preserves_substantive_text",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__is_idempotent_for_identical_inputs_from_any_cwd",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__maps_failed_observation_to_blocked_packet",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_observation_identifiers]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_finding_identifiers]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_unknown_supporting_observation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[observation_outside_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[finding_outside_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_target]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_observations]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_observation_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_findings]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_finding_member]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_limitations]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[blank_limitation]"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__exact_fields__preserves_types_text_revision_and_scope",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__exact_fields__preserves_packet_text_and_scope"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_field__immutability_and_equality__use_exact_value_semantics",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_field__immutability_and_equality__use_exact_value_semantics"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[accepted]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[accepted]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[bounded_correction]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[bounded_correction]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[deferred]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[deferred]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[rejected]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__disposition__accepts_closed_vocabulary[rejected]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[bounded_correction_requires_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[bounded_correction_requires_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[accepted_prohibits_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[accepted_prohibits_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[deferred_prohibits_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[deferred_prohibits_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[rejected_prohibits_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__scope_policy__rejects_invalid_disposition_combinations[rejected_prohibits_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[duplicate_items]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[duplicate_items]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[empty_item]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__authorized_scope__rejects_duplicate_and_empty_items[empty_item]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[empty_review_identifier]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[empty_review_identifier]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[uppercase_revision]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[uppercase_revision]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[short_revision]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[short_revision]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[empty_response]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[empty_response]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[unsupported_disposition]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_values__rejects_invalid_lexical_values[unsupported_disposition]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[identifier_subclass]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[identifier_subclass]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[revision_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[revision_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[response_subclass]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[response_subclass]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[disposition_wrong_type]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[disposition_wrong_type]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[mutable_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[mutable_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[scope_item_subclass]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecision.py::test_constructor__decision_fields__rejects_wrong_semantic_types[scope_item_subclass]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_constructor__action_object__is_stateless_and_fieldless",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_constructor__action_object__is_stateless_and_fieldless"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__transfers_identity_preserves_text_and_is_idempotent",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__transfers_identity_preserves_text_and_is_idempotent"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[accepted]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[accepted]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[bounded_correction]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[bounded_correction]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[deferred]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[deferred]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__records_each_explicit_normalized_disposition[rejected]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__records_each_explicit_normalized_disposition[rejected]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__accepts_ready_packet_with_advisories_and_limitations",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__accepts_ready_packet_with_advisories_and_limitations"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_acceptance_of_blocked_packet",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_acceptance_of_blocked_packet"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[bounded_without_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[bounded_without_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[accepted_with_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[accepted_with_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[deferred_with_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[deferred_with_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__rejects_invalid_disposition_scope_combinations[rejected_with_scope]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__rejects_invalid_disposition_scope_combinations[rejected_with_scope]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__does_not_interpret_human_response[reject_words_with_explicit_acceptance]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__does_not_interpret_human_response[reject_words_with_explicit_acceptance]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__does_not_interpret_human_response[accept_words_with_explicit_rejection]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__does_not_interpret_human_response[accept_words_with_explicit_rejection]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__RecordHumanReviewDecision.py::test_method__execute__has_no_external_checkpoint_or_successor_effect",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py::test_method__execute__has_no_external_checkpoint_or_successor_effect"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__exact_result__owns_canonical_tuple_fields",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__exact_result__owns_canonical_tuple_fields"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__immutability__has_exact_value_semantics",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__immutability__has_exact_value_semantics"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[ready_for_human_review]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[ready_for_human_review]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[blocked_by_invalid_observation]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__status__accepts_closed_vocabulary[blocked_by_failed_observation]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_target]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_target]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_observation_member]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_observation_member]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_finding_member]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[wrong_finding_member]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[blank_limitation]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[blank_limitation]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[acceptance_like_status]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[acceptance_like_status]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[mutable_observation_container]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_constructor__result_fields__rejects_invalid_partitions[mutable_observation_container]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__authority_boundary__stores_no_human_decision_or_recommendation",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPacket.py::test_field__authority_boundary__stores_no_human_decision_or_recommendation"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_constructor__action_object__is_stateless_and_fieldless",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_constructor__action_object__is_stateless_and_fieldless"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__orders_inputs_and_preserves_substantive_text",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__orders_inputs_and_preserves_substantive_text"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__is_idempotent_for_identical_inputs_from_any_cwd",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__is_idempotent_for_identical_inputs_from_any_cwd"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__maps_failed_observation_to_blocked_packet",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__maps_failed_observation_to_blocked_packet"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_observation_identifiers]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_observation_identifiers]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_finding_identifiers]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_duplicate_record_identifiers[duplicate_finding_identifiers]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_unknown_supporting_observation",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_unknown_supporting_observation"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[observation_outside_target]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[observation_outside_target]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[finding_outside_target]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_paths_outside_target[finding_outside_target]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_target]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_target]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_observations]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_observations]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_observation_member]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_observation_member]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_findings]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_findings]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_finding_member]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[wrong_finding_member]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_limitations]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[mutable_limitations]"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[blank_limitation]",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewPreparer.py::test_method__execute__rejects_wrong_input_types[blank_limitation]"
+    }
+  ]
+}

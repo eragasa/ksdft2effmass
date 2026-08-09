@@ -1,10 +1,10 @@
-r"""Software verification of ``RecordHumanReviewDecision``.
+r"""Software verification of ``HumanReviewDecisionRecorder``.
 
 Facet and represented meaning
 Software verification of pure explicit recording of one already-made human decision.
 
 Intrinsic and cross-object scope
-The sole primary SUT is ``RecordHumanReviewDecision``. Packet identity transfer,
+The sole primary SUT is ``HumanReviewDecisionRecorder``. Packet identity transfer,
 blocked-packet compatibility, explicit disposition handling, idempotency, nonmutation,
 and absence of interpretation or external effects are covered.
 
@@ -22,15 +22,15 @@ import pytest
 
 from ksdft2effmass.harness.pi import (
     HumanReviewDecision,
+    HumanReviewDecisionRecorder,
     HumanReviewFinding,
     HumanReviewObservation,
     HumanReviewPacket,
     HumanReviewTarget,
-    RecordHumanReviewDecision,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = RecordHumanReviewDecision
+SUT = HumanReviewDecisionRecorder
 
 
 def make_packet(status: str = "ready_for_human_review") -> HumanReviewPacket:
@@ -85,7 +85,7 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     """Evidence ID
     ``SV-HARNESS-161``.
     Requirement
-    RecordHumanReviewDecision is a concrete fieldless stateless ActionObject.
+    HumanReviewDecisionRecorder is a concrete fieldless stateless ActionObject.
     Method
     Construct two instances and inspect their storage boundaries.
     Oracle
@@ -109,18 +109,20 @@ def test_method__execute__transfers_identity_preserves_text_and_is_idempotent() 
     """Evidence ID
     ``SV-HARNESS-162``.
     Requirement
-    Recording copies exact packet identity, preserves response text, and is
+    Recording stores the exact packet, preserves response text, and is
     deterministic without mutating the packet.
     Method
-    Snapshot one ready packet and execute twice with identical explicit inputs.
+    Snapshot one ready packet, execute twice with identical inputs, then record the
+    same response for a distinct canonical packet sharing the target.
     Oracle
-    Packet target fields, exact string equality, dataclass equality, and frozen packet
-    value semantics are independent exact oracles.
+    Exact packet identity, string equality, dataclass equality, inequality, and frozen
+    packet value semantics are independent exact oracles.
     Acceptance
-    Equal decisions contain exact identity and response values, and the packet equals
-    its pre-execution snapshot.
+    Equal inputs return equal decisions bound to the original packet; the distinct
+    packet returns a distinct decision, and neither packet is mutated.
     Interpretation
-    Failure identifies identity drift, text rewriting, nondeterminism, or mutation.
+    Failure identifies packet detachment, identity collapse, text rewriting,
+    nondeterminism, or mutation.
     Limitations
     Equality is runtime value equality, not persisted identity.
     """
@@ -132,10 +134,14 @@ def test_method__execute__transfers_identity_preserves_text_and_is_idempotent() 
     second = SUT().execute(*inputs)
     assert first == second
     assert type(first) is HumanReviewDecision
-    assert first.review_id == packet.target.review_id
-    assert first.reviewed_revision == packet.target.revision
+    assert first.packet is packet
     assert first.human_response == response
     assert packet == snapshot
+
+    distinct_packet = replace(packet, limitations=("Different limitation.",))
+    distinct = SUT().execute(distinct_packet, response, "accepted", ())
+    assert distinct.packet is distinct_packet
+    assert distinct != first
 
 
 @pytest.mark.parametrize(
@@ -185,7 +191,7 @@ def test_method__execute__accepts_ready_packet_with_advisories_and_limitations()
     Method
     Accept a ready packet containing one advisory finding and one limitation.
     Oracle
-    Only ``blocked_by_invalid_observation`` prohibits accepted disposition.
+    Only ``blocked_by_failed_observation`` prohibits accepted disposition.
     Acceptance
     The decision is accepted while the source packet retains its advisory and
     limitation.
@@ -205,23 +211,53 @@ def test_method__execute__rejects_acceptance_of_blocked_packet() -> None:
     """Evidence ID
     ``SV-HARNESS-165``.
     Requirement
-    A packet blocked by an invalid observation cannot receive accepted disposition.
+    Recording rejects noncanonical packet state, and a canonical packet blocked by a
+    failed observation cannot receive accepted disposition.
     Method
-    Supply an explicit accepted disposition for a blocked packet.
+    Supply packets with failed/ready status disagreement, noncanonical ordering, an
+    unknown supporting relationship, and canonical blocked status.
     Oracle
-    The accepted packet-to-decision compatibility rule fixes exact rejection.
+    HumanReviewPreparer owns status, ordering, and relationship rules; the accepted
+    packet-to-decision compatibility rule owns blocked acceptance rejection.
     Acceptance
-    ValueError is raised with the stable ready-packet message.
+    Every noncanonical packet raises the stable canonical-result error, while the
+    canonical blocked packet raises the stable ready-packet error.
     Interpretation
-    Failure identifies fail-open acceptance compatibility.
+    Failure identifies fail-open packet trust or acceptance compatibility.
     Limitations
-    Other normalized dispositions remain available for blocked packets.
+    Runtime canonical equivalence does not establish historical provenance.
     """
+    packet = make_packet()
+    failed = replace(packet.observations[0], status="failed")
+    wrong_status = replace(packet, observations=(failed,))
+    alpha = replace(
+        packet.observations[0], observation_id="human-review.observation.alpha"
+    )
+    wrong_order = replace(packet, observations=(packet.observations[0], alpha))
+    unknown_support = replace(
+        packet.findings[0],
+        supporting_observation_ids=("human-review.observation.unknown",),
+    )
+    wrong_relationship = replace(packet, findings=(unknown_support,))
+
+    with pytest.raises(
+        ValueError, match="^packet must equal its canonical prepared result$"
+    ):
+        SUT().execute(wrong_status, "Accept.", "accepted", ())
+    with pytest.raises(
+        ValueError, match="^packet must equal its canonical prepared result$"
+    ):
+        SUT().execute(wrong_order, "Accept.", "accepted", ())
+    with pytest.raises(
+        ValueError, match="^packet must equal its canonical prepared result$"
+    ):
+        SUT().execute(wrong_relationship, "Accept.", "accepted", ())
+
     with pytest.raises(
         ValueError, match="^accepted disposition requires a ready packet$"
     ):
         SUT().execute(
-            make_packet("blocked_by_invalid_observation"), "Accept.", "accepted", ()
+            make_packet("blocked_by_failed_observation"), "Accept.", "accepted", ()
         )
 
 

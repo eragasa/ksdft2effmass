@@ -222,7 +222,7 @@ def test_method__execute__maps_failed_observation_to_blocked_packet() -> None:
     Method
     Prepare a packet containing one explicitly failed observation.
     Oracle
-    The accepted packet-status derivation maps failed to blocked_by_invalid_observation.
+    The accepted packet-status derivation maps failed to blocked_by_failed_observation.
     Acceptance
     The exact blocked status is returned without a PASS or disposition field.
     Interpretation
@@ -234,7 +234,7 @@ def test_method__execute__maps_failed_observation_to_blocked_packet() -> None:
         make_observation("human-review.observation.failed"), status="failed"
     )
     packet = SUT().execute(make_target(), (observation,), (), ())
-    assert packet.status == "blocked_by_invalid_observation"
+    assert packet.status == "blocked_by_failed_observation"
     assert "disposition" not in packet.__dataclass_fields__
 
 

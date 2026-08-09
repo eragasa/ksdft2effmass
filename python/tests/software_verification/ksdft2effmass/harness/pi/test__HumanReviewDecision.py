@@ -7,7 +7,7 @@ decision.
 Intrinsic and cross-object scope
 The sole primary SUT is ``HumanReviewDecision``. Exact fields, intrinsic invariants,
 immutability, and value semantics are covered; packet compatibility belongs to
-``RecordHumanReviewDecision``.
+``HumanReviewDecisionRecorder``.
 
 VVUQ and scientific exclusions
 Passing establishes only the stated software contract. It does not authenticate human
@@ -19,7 +19,11 @@ from dataclasses import FrozenInstanceError, replace
 
 import pytest
 
-from ksdft2effmass.harness.pi import HumanReviewDecision
+from ksdft2effmass.harness.pi import (
+    HumanReviewDecision,
+    HumanReviewPacket,
+    HumanReviewTarget,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = HumanReviewDecision
@@ -27,6 +31,33 @@ SUT = HumanReviewDecision
 
 class StringSubclass(str):
     """Support exact built-in string rejection without owning evidence."""
+
+
+def make_packet() -> HumanReviewPacket:
+    """Evidence ID
+    Owns no identifier; supports decision evidence.
+    Requirement
+    Decision tests require one exact immutable packet.
+    Method
+    Construct a fixed target and intrinsically valid empty ready packet.
+    Oracle
+    Public target and packet constructors define valid support values.
+    Acceptance
+    Return one HumanReviewPacket.
+    Interpretation
+    Failure identifies setup drift rather than decision behavior.
+    Limitations
+    The helper does not prepare, review, or disposition the packet.
+    """
+    target = HumanReviewTarget(
+        "human-review.example",
+        "a" * 40,
+        "ExampleSubject",
+        ("python/src/example.py",),
+        "software_verification",
+        (),
+    )
+    return HumanReviewPacket(target, (), (), (), "ready_for_human_review")
 
 
 def make_decision() -> HumanReviewDecision:
@@ -46,61 +77,54 @@ def make_decision() -> HumanReviewDecision:
     This helper owns no evidence claim.
     """
     return SUT(
-        "human-review.example",
-        "a" * 40,
+        make_packet(),
         "  Correct only the stated paths.  ",
         "bounded_correction",
         ("Modify source.py only.",),
     )
 
 
-def test_constructor__exact_fields__preserves_types_text_revision_and_scope() -> None:
+def test_constructor__exact_fields__preserves_packet_text_and_scope() -> None:
     """Evidence ID
     ``SV-HARNESS-155``.
     Requirement
-    A decision maps exact built-in scalar values and defensively owns ordered scope.
+    A decision binds the exact immutable packet and defensively owns ordered scope.
     Method
-    Construct a bounded decision with whitespace and punctuation in the response,
+    Construct a bounded decision with an explicit packet, whitespace, and punctuation,
     then inspect field values, exact types, tuple identity, and dataclass field order.
     Oracle
-    Caller-supplied values, built-in Python types, and the accepted five-field contract
+    Caller-supplied values, public packet identity, and the accepted four-field contract
     are exact independent oracles.
     Acceptance
-    Every value is unchanged, the revision remains exact, scalar types are built-in,
-    scope order is retained in a separately owned tuple, and fields match the contract.
+    The packet is retained by identity, text is unchanged, scope order is retained in a
+    separately owned tuple, and fields match the contract.
     Interpretation
-    Failure identifies mapping, normalization, typing, or ownership drift.
+    Failure identifies packet detachment, normalization, typing, or ownership drift.
     Limitations
-    Construction does not establish caller authority.
+    Construction does not establish caller authority or packet preparation provenance.
     """
+    packet = make_packet()
     scope = ("First exact scope.", "Second exact scope!")
     response = "\n Accept exactly this; preserve punctuation! \t"
-    decision = SUT(
-        "human-review.example",
-        "0123456789abcdef0123456789abcdef01234567",
-        response,
-        "bounded_correction",
-        scope,
-    )
+    decision = SUT(packet, response, "bounded_correction", scope)
     assert tuple(decision.__dataclass_fields__) == (
-        "review_id",
-        "reviewed_revision",
+        "packet",
         "human_response",
         "disposition",
         "authorized_scope",
     )
-    assert decision.review_id == "human-review.example"
-    assert decision.reviewed_revision == "0123456789abcdef0123456789abcdef01234567"
+    assert decision.packet is packet
     assert decision.human_response == response
     assert decision.disposition == "bounded_correction"
     assert decision.authorized_scope == scope
     assert decision.authorized_scope is not scope
-    assert type(decision.review_id) is str
-    assert type(decision.reviewed_revision) is str
+    assert type(decision.packet) is HumanReviewPacket
     assert type(decision.human_response) is str
     assert type(decision.disposition) is str
     assert type(decision.authorized_scope) is tuple
     assert all(type(item) is str for item in decision.authorized_scope)
+    with pytest.raises(TypeError, match="^packet must be HumanReviewPacket$"):
+        replace(decision, packet=object())  # type: ignore[arg-type]
 
 
 def test_field__immutability_and_equality__use_exact_value_semantics() -> None:
@@ -153,9 +177,7 @@ def test_constructor__disposition__accepts_closed_vocabulary(disposition: str) -
     scope = (
         ("Correct one bounded surface.",) if disposition == "bounded_correction" else ()
     )
-    decision = SUT(
-        "human-review.example", "a" * 40, "Exact response.", disposition, scope
-    )
+    decision = SUT(make_packet(), "Exact response.", disposition, scope)
     assert decision.disposition == disposition
 
 
@@ -207,7 +229,7 @@ def test_constructor__scope_policy__rejects_invalid_disposition_combinations(
     Scope statements are represented text, not executable authorization.
     """
     with pytest.raises(ValueError, match=f"^{message}$"):
-        SUT("human-review.example", "a" * 40, "Exact response.", disposition, scope)
+        SUT(make_packet(), "Exact response.", disposition, scope)
 
 
 @pytest.mark.parametrize(
@@ -244,21 +266,12 @@ def test_constructor__authorized_scope__rejects_duplicate_and_empty_items(
     The API does not interpret the substantive meaning of scope text.
     """
     with pytest.raises(ValueError, match=f"^{message}$"):
-        SUT(
-            "human-review.example",
-            "a" * 40,
-            "Exact response.",
-            "bounded_correction",
-            scope,
-        )
+        SUT(make_packet(), "Exact response.", "bounded_correction", scope)
 
 
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        pytest.param("review_id", "", id="empty_review_identifier"),
-        pytest.param("reviewed_revision", "A" * 40, id="uppercase_revision"),
-        pytest.param("reviewed_revision", "a" * 39, id="short_revision"),
         pytest.param("human_response", "", id="empty_response"),
         pytest.param("disposition", "pass", id="unsupported_disposition"),
     ),
@@ -269,12 +282,11 @@ def test_constructor__decision_values__rejects_invalid_lexical_values(
     """Evidence ID
     ``SV-HARNESS-160``.
     Requirement
-    Built-in string fields enforce identifier, revision, nonempty-response, and closed
-    disposition-value invariants.
+    Built-in string fields enforce nonempty-response and closed disposition invariants.
     Method
     Replace one valid field with each invalid built-in string partition.
     Oracle
-    Public lexical and vocabulary contracts fix ValueError rejection.
+    Public response and disposition contracts fix ValueError rejection.
     Acceptance
     Every partition raises ValueError before a decision is constructed.
     Interpretation
@@ -289,6 +301,9 @@ def test_constructor__decision_values__rejects_invalid_lexical_values(
 @pytest.mark.parametrize(
     ("field", "value"),
     (
+        pytest.param("review_id", "", id="empty_review_identifier"),
+        pytest.param("reviewed_revision", "A" * 40, id="uppercase_revision"),
+        pytest.param("reviewed_revision", "a" * 39, id="short_revision"),
         pytest.param(
             "review_id",
             StringSubclass("human-review.example"),
@@ -315,18 +330,19 @@ def test_constructor__decision_fields__rejects_wrong_semantic_types(
     """Evidence ID
     ``SV-HARNESS-169``.
     Requirement
-    Decision fields reject subclasses, wrong scalar kinds, and mutable scope containers
-    rather than coercing them to accepted built-in types.
+    Decision fields reject wrong semantic types, while removed copied identity fields
+    reject every representative historical value without a compatibility alias.
     Method
-    Replace one valid field with each wrong-semantic-type partition.
+    Replace one current field with each wrong type or pass each removed identity field
+    and historical partition through dataclass replacement.
     Oracle
-    The public exact built-in type contract fixes TypeError rejection.
+    The public exact-type and accepted four-field contracts fix TypeError rejection.
     Acceptance
     Every partition raises TypeError before a decision is constructed.
     Interpretation
-    Failure identifies permissive coercion or exact-type validation drift.
+    Failure identifies permissive coercion or a stale copied-identity constructor field.
     Limitations
-    Invalid values of accepted built-in types are covered separately.
+    Target identity remains available through ``decision.packet.target``.
     """
     with pytest.raises(TypeError):
         replace(make_decision(), **{field: value})  # type: ignore[arg-type]

@@ -39,7 +39,8 @@ or protected work.
 ## Runtime construction
 
 The corresponding immutable `HumanReviewDecision` was constructed and checked through
-the public `RecordHumanReviewDecision.execute` ActionObject using an explicit ready
+the public `HumanReviewDecisionRecorder.execute` ActionObject using an explicit ready
 `HumanReviewPacket`, the exact response above, normalized disposition `accepted`, and
-empty authorized scope. The Markdown file is maintained human-facing evidence, not a
+empty authorized scope. The resulting decision retains that exact immutable packet;
+it does not reduce packet identity to the target review identifier and revision. The Markdown file is maintained human-facing evidence, not a
 public JSON wire contract or persistence format.
