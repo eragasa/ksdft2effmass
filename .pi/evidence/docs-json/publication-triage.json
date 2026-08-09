@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.publication.triage",
+  "authority_status": "temporary_non_authoritative_migration_input",
+  "lifecycle": "delete_after_parent_docs_json_migration_acceptance",
+  "tracked_revision": "107f6b1d39be1af460c03183e880d3063f1320a0",
+  "roots": [
+    "docs/conferences",
+    "docs/papers"
+  ],
+  "inclusion_rule": "Every regular file and symlink beneath the selected roots in the inspected worktree; symlinks are recorded without traversal. Directories are listed separately. Tracked regular files use Git object identity; untracked regular files use SHA-256.",
+  "directories": [
+    "docs/conferences/ICMSEP2026",
+    "docs/papers/agentic-development-case-study",
+    "docs/papers/ksdft2effmass.P91"
+  ],
+  "counts": {
+    "directories": 3,
+    "regular_files": 23,
+    "symlinks": 0,
+    "tracked_files": 22,
+    "untracked_files": 1,
+    "deterministically_classified_files": 21,
+    "ambiguous_files": 2
+  },
+  "entries": [
+    {
+      "path": "docs/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "entry_kind": "regular_file",
+      "git_object": "d23a7ae3bb137fa6d31f25ace37ba7e25fdd51a7",
+      "classification": "working_source",
+      "reason": "Editable OOXML contains the project abstract and methodology in future tense; package metadata names a project author as last modifier and supplies no submission evidence."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ICMSEP2026.00.md",
+      "entry_kind": "regular_file",
+      "git_object": "1d4c67e5fdd87d0d2fde0f0df01b182e5e821dec",
+      "classification": "direct_project_documentation",
+      "reason": "Short project-maintained note records intended journal targeting rather than manuscript content."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/LA2.pdf",
+      "entry_kind": "regular_file",
+      "git_object": "9cf2aa9eee2c75f76b38ce7959f58fef89987e61",
+      "classification": "unresolved",
+      "reason": "Extracted text is a Long Assessment on the iron-carbon phase diagram, unrelated to the declared silicon publication; repository evidence does not determine whether it is an external reference or a retained historical artifact.",
+      "minimal_excerpt": "Long Assessment 2 — Iron–Carbon Phase Diagram and Phase Transformations"
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md",
+      "entry_kind": "regular_file",
+      "git_object": "dfcf5d0ea84a1f81843bd778bea3c8760b66b85d",
+      "classification": "working_source",
+      "reason": "Human-readable project abstract and manuscript text uses future tense and explicitly labels results as expected."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.pdf",
+      "entry_kind": "regular_file",
+      "git_object": "cbc81d232dadaed911ffcd3e574f259e74ce5b26",
+      "classification": "generated_output",
+      "reason": "PDF metadata identifies an Obsidian/Chromium producer and a title matching the adjacent Markdown working source."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md",
+      "entry_kind": "regular_file",
+      "git_object": "d60adaec72d5d2fb0706722a8b2813d6f000f39b",
+      "classification": "direct_project_documentation",
+      "reason": "Maintained Mermaid diagram documents the project computational fanout rather than a publication manuscript."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ksdft2effmass.paper.md",
+      "entry_kind": "regular_file",
+      "git_object": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "classification": "unresolved",
+      "reason": "The tracked blob is empty and no repository content or introducing-commit evidence identifies whether it is working source, a historical artifact, or an accidental placeholder."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "entry_kind": "regular_file",
+      "git_object": "f3f5d57320e7e9ac01740686fa08de358a9e7cb4",
+      "classification": "editor_or_temporary",
+      "reason": "Microsoft Office lock-file naming and binary owner metadata identify an editor-generated temporary file."
+    },
+    {
+      "path": "docs/papers/.DS_Store",
+      "entry_kind": "regular_file",
+      "sha256": "1da85f0bb29f51694d0bcf7d4deff36bac0195ff31dae3112d3d63d5e851fe82",
+      "classification": "editor_or_temporary",
+      "reason": "Untracked Apple Finder directory metadata is neither project documentation nor publication content."
+    },
+    {
+      "path": "docs/papers/agentic-development-case-study/ARXIV-READINESS.md",
+      "entry_kind": "regular_file",
+      "git_object": "ef25729cb87f9196c118aa4ca023589c504d7698",
+      "classification": "working_source",
+      "reason": "Preprint-readiness and manuscript-structure planning explicitly distinguishes preliminary and future versions and makes no submission claim."
+    },
+    {
+      "path": "docs/papers/agentic-development-case-study/README.md",
+      "entry_kind": "regular_file",
+      "git_object": "de165cda39775faab671a44e07fd7740e8472bf6",
+      "classification": "working_source",
+      "reason": "Directory-owned manuscript plan lists future source files and explicitly states that no submission or publication is claimed."
+    },
+    {
+      "path": "docs/papers/ksdft2efffmass.P03.md",
+      "entry_kind": "regular_file",
+      "git_object": "a5d1c7c1bef78fdda53ef23a6f9758ce18ed604a",
+      "classification": "direct_project_documentation",
+      "reason": "Research note defines a candidate empirical contribution, cost model, and evidence strategy rather than a complete manuscript."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P01.md",
+      "entry_kind": "regular_file",
+      "git_object": "921e5eeb29579c4f359648c92a51afb16580bc68",
+      "classification": "direct_project_documentation",
+      "reason": "Project manuscript record and planned claim remain Waiting on declared computational gates."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P02.md",
+      "entry_kind": "regular_file",
+      "git_object": "6c958ac9f2cea23ebb7a34ae5ecaebc8012c1234",
+      "classification": "direct_project_documentation",
+      "reason": "Project paper plan defines dependencies, hypotheses, and intended sections for future impurity-operator work."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/README.md",
+      "entry_kind": "regular_file",
+      "git_object": "29907353cd1c4fcebaedc664577644a5d1851c93",
+      "classification": "direct_project_documentation",
+      "reason": "Package guide identifies each source/generated/vendor role and explicitly labels the manuscript pre-results."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/elsarticle-num.bst",
+      "entry_kind": "regular_file",
+      "git_object": "04caf565b1fb84a21aa3fe39ed84d8841c020437",
+      "classification": "external_reference",
+      "reason": "Package README identifies the Elsevier numbered-reference BibTeX style as vendored submission support."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/elsarticle.cls",
+      "entry_kind": "regular_file",
+      "git_object": "bb570d1d22a1f3b589a638c82d2913aad1c84952",
+      "classification": "external_reference",
+      "reason": "Package README identifies the Elsevier document class as vendored submission support."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/highlights.txt",
+      "entry_kind": "regular_file",
+      "git_object": "3489ea05e6657e3d1525f4269fd99fd7988a5bd7",
+      "classification": "working_source",
+      "reason": "Editable journal-highlight text belongs to the pre-results manuscript package."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/manuscript.bbl",
+      "entry_kind": "regular_file",
+      "git_object": "6d997a15c5fbce1d4001d8f77ff9044b2719d4e6",
+      "classification": "generated_output",
+      "reason": "Package README explicitly identifies the BBL as a generated bibliography fallback."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/manuscript.pdf",
+      "entry_kind": "regular_file",
+      "git_object": "accf7b69988a1848892c799d0d52812bd015b5b0",
+      "classification": "generated_output",
+      "reason": "Package README and TeX producer metadata identify a compiled working draft generated from manuscript.tex."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/manuscript.tex",
+      "entry_kind": "regular_file",
+      "git_object": "e1e7cc5fdfdda220e57c25664f91d102dd3847e0",
+      "classification": "working_source",
+      "reason": "Editable Elsevier manuscript source uses future-tense methods and expected outcomes."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.P91/references.bib",
+      "entry_kind": "regular_file",
+      "git_object": "26ec6be81965305293218ed13c92ffe8fb6f91b0",
+      "classification": "working_source",
+      "reason": "Editable bibliography database is an input to the pre-results manuscript build."
+    },
+    {
+      "path": "docs/papers/ksdft2effmass.papers.00.md",
+      "entry_kind": "regular_file",
+      "git_object": "a21f109bf0db089dda732b0ece46779b59d2354d",
+      "classification": "direct_project_documentation",
+      "reason": "Project publication pipeline and paper registry explicitly define static claim prerequisites and manuscript states."
+    }
+  ],
+  "ambiguity_queue": [
+    {
+      "path": "docs/conferences/ICMSEP2026/LA2.pdf",
+      "question": "Should the unrelated iron-carbon assessment be treated as an external reference, a retained historical artifact, or unresolved for the hierarchy task?",
+      "options": [
+        "external_reference",
+        "historical_artifact",
+        "unresolved"
+      ],
+      "recommendation": "historical_artifact",
+      "reason": "Its content is unrelated to the silicon publication and repository evidence does not establish that it is a reference consumed by project work."
+    },
+    {
+      "path": "docs/conferences/ICMSEP2026/ksdft2effmass.paper.md",
+      "question": "Should the empty tracked file be treated as working source, a retained historical artifact, or unresolved for the hierarchy task?",
+      "options": [
+        "working_source",
+        "historical_artifact",
+        "unresolved"
+      ],
+      "recommendation": "unresolved",
+      "reason": "The zero-byte blob and its history provide no evidence beyond filename and location."
+    }
+  ],
+  "claim_boundary": "Classification records repository role only. It does not establish authorship, submission, publication, scientific correctness, validation, or permission to move or delete a file."
+}

@@ -1,6 +1,6 @@
 # Triage publication documentation
 
-Status: active; authorized by the human PI on 2026-08-09
+Status: blocked_awaiting_human_disposition; authorized by the human PI on 2026-08-09
 
 Task identity: `harness.simplification.docs-json.publication.triage`
 
@@ -21,5 +21,7 @@ Return only ambiguous or materially consequential cases to the human. The human 
 ## Output and completion
 
 Produce one temporary triage record containing the bounded inventory, deterministic classifications with reasons, and the ambiguity queue. Completion requires complete selected-root path coverage, no duplicate paths, disposition of every ambiguity, and a compact input for `harness.simplification.docs-json.publication.hierarchy`.
+
+The temporary record is `.pi/evidence/docs-json/publication-triage.json`. It covers 23 regular files at revision `107f6b1d39be1af460c03183e880d3063f1320a0`: 22 tracked files by Git object identity and one untracked `.DS_Store` by SHA-256. Twenty-one classifications are deterministic. Human disposition remains for `LA2.pdf` and the empty `ksdft2effmass.paper.md`. Independent review identified the empty file as a missing ambiguity; the deterministic correction added it to the queue.
 
 This Task does not move, rename, delete, rewrite, publish, submit, or release files. Human authorization activates only this bounded inventory and triage.
