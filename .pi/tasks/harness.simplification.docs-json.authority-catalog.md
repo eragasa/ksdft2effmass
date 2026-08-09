@@ -1,6 +1,6 @@
 # Build a temporary documentation/control comparison baseline
 
-Status: active; authorized by the human PI on 2026-08-09; no successor activates automatically
+Status: completed; six-file baseline reviewed and verified on 2026-08-09; no successor activates automatically
 
 Task identity: `harness.simplification.docs-json.authority-catalog`
 
@@ -85,3 +85,11 @@ If repository changes invalidate the set, discard it and regenerate it; do not a
 Completion requires complete path coverage for the declared roots and revision, valid JSON, reproducible identities and counts, explicit treatment of parse failures, a verified whole-file/residual partition, and bounded semantic claims.
 
 The baseline may claim complete path coverage only for its declared inputs. It must not claim complete semantic extraction or repository-wide authority analysis. It does not modify represented files, resolve scientific meaning, or introduce SQLite.
+
+## Result and handoff
+
+The six temporary files are under `.pi/evidence/docs-json/authority-catalog/`. At activation revision `2341ab3fea58c5e501f792f8a4eb6d3a6c393ea9`, they cover all 223 eligible tracked `docs/` blobs before subtracting one control-record overlap, leaving 222 documentation entries. The control side contains the selected harness-simplification chain and all 22 unique non-null record paths referenced by that chain.
+
+Seven bounded mappings identify four agreements and three precedence-resolved deterministic documentation corrections (`MAP-003` through `MAP-005`). No human ambiguity remains. Every mapping is partial, so all 245 entries correctly remain in the residual catalogs. Unsupported binary extraction remains visible for four publication artifacts.
+
+Independent review found one unsupported predecessor crosswalk and insufficiently reproducible extraction metadata. The single correction pass removed the false crosswalk and added exact runtime, selection, decoding, regex, JSON traversal, ordering, predecessor, serialization, and residual-rule definitions to the manifest. Final verification confirmed the six-file boundary, Git tree identities, counts, parse statuses, reviewed mappings, manifest hashes, and whole-file/residual partition. The three corrections are the bounded input to `harness.simplification.docs-json.documentation-correction`, which remains inactive.
