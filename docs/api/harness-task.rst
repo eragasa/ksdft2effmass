@@ -190,7 +190,8 @@ Operational migration-review commands
 The project-local ``mediate-harness-task-migration`` skill owns authorization
 routing, complete-document presentation, and the mandatory human stop.  Two thin
 commands own only explicit filesystem observation, translation into the immutable
-objects above, atomic immutable output creation, and canonical structured standard output.
+objects above, atomic immutable output creation or byte-identical recovery, and
+canonical structured standard output.
 The accepted ActionObjects remain authoritative for validation, serialization,
 rendering, comparison, packet preparation, generic decision recording, and
 migration-disposition compatibility.
@@ -217,9 +218,15 @@ existing ``HarnessTaskSourceMapping`` fields, representing identities as
 ``span_sha256`` and using the complete record's source identity.  The projection
 profile uses the maintained version-1 base64 template representation documented
 above.  Inputs must be regular nonsymlink files; traversal, ambient discovery, CWD
-fallback, Git discovery, and source selection are rejected. Output destinations must
-not already exist and are never silently replaced. Parent-component race hardening is
-outside the trusted-local command threat model.
+fallback, Git discovery, and source selection are rejected. An absent review output is
+atomically created without replacement. An existing confined nonsymlink regular file
+is accepted only when its bytes equal the reconstructed document; it is not rewritten
+or otherwise mutated. A differing file is a deterministic conflict. The canonical
+receipt uses stable ``result: available`` output, so creation and byte-identical recovery
+produce byte-identical standard output. A later session reruns this same command with
+the same durable inputs to recover the packet binding; session memory and terminal
+output are not authority. Parent-component race hardening remains outside the
+trusted-local command threat model.
 
 After one explicit human response, disposition reconstructs all original material
 and binds the exact generated document::

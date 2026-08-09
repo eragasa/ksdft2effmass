@@ -11,8 +11,8 @@ Use this skill only for one explicitly authorized HarnessTask file-migration rev
 
 1. Reconstruct authority from durable local records. Require Stage 2B or another exact migration Task to be explicitly active.
 2. Require exactly one authorized source and destination, plus explicit candidate Task JSON, mapping record, projection profile, source revision, and Git object or explicit absence. If any artifact is missing, name it exactly and stop.
-3. Invoke the maintained preparation command with explicit root-relative paths. Verify its canonical result, packet binding, and review-document SHA-256 and byte count.
-4. Present the complete generated review document. A brief orientation may precede it; never replace the document with a summary.
+3. Invoke the maintained preparation command with explicit root-relative paths. Preparation is idempotent when an existing review document is byte-identical. A later session recovers the canonical receipt by rerunning the same command with the same explicit inputs; session memory and retained terminal output are not authoritative. A differing existing document is a conflict: stop without modification.
+4. Verify the canonical result, packet binding, and review-document SHA-256 and byte count, then present the complete generated review document. A brief orientation may precede it; never replace the document with a summary.
 5. Stop for explicit human disposition.
 
 ## Disposition

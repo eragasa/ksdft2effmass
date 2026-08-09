@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2982,
+  "expected_collected_node_count": 2983,
   "expected_module_count": 244,
   "modules": [
     {
@@ -344,7 +344,7 @@
     {
       "artifact": "harness-task-migration-commands-v1",
       "conformance_status": "conforming",
-      "content_sha256": "1e253567ba080c1428ddafdfebd55597a3256cdea6aa64df9d56e9ccf1cf9f8e",
+      "content_sha256": "1a9816c2738e62274926f479ab02755b412475db084478f48f17aaebad87c8ca",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_migration_commands.py"

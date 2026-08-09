@@ -192,8 +192,30 @@ def prepare_synthetic_review(
 
     Limitations: This helper makes no independent acceptance claim.
     """
-    assert prepare_main(make_preparation_arguments(root)) == 0
-    return json.loads(capsys.readouterr().out)
+    arguments = make_preparation_arguments(root)
+    assert prepare_main(arguments) == 0
+    first = json.loads(capsys.readouterr().out)
+    review_path = root / "synthetic/review.md"
+    original_bytes = review_path.read_bytes()
+    original_stat = review_path.stat()
+    assert prepare_main(arguments) == 0
+    recovered = json.loads(capsys.readouterr().out)
+    recovered_stat = review_path.stat()
+    assert recovered == first
+    assert review_path.read_bytes() == original_bytes
+    assert (
+        recovered_stat.st_ino,
+        recovered_stat.st_mode,
+        recovered_stat.st_size,
+        recovered_stat.st_mtime_ns,
+    ) == (
+        original_stat.st_ino,
+        original_stat.st_mode,
+        original_stat.st_size,
+        original_stat.st_mtime_ns,
+    )
+    assert not tuple((root / "synthetic").glob(".review.md.*"))
+    return recovered
 
 
 def test_artifact__arguments__requires_closed_explicit_interface() -> None:
@@ -264,7 +286,7 @@ def test_artifact__paths__rejects_traversal_and_symlinks(
 
     Interpretation: Failure exposes an ambient, traversal, or symlink read path.
 
-    Limitations: Operating-system atomic replacement semantics are assumed.
+    Limitations: Parent-component race hardening remains outside the threat model.
     """
     args = make_preparation_arguments(tmp_path)
     args[args.index("synthetic/source.md")] = "../source.md"
@@ -277,6 +299,24 @@ def test_artifact__paths__rejects_traversal_and_symlinks(
     args = make_existing_input_arguments(tmp_path)
     assert prepare_main(args) == 2
     assert json.loads(capsys.readouterr().out)["status"] == "INVALID_INPUT"
+
+    symlink_root = tmp_path / "symlink-output"
+    symlink_root.mkdir()
+    symlink_args = make_preparation_arguments(symlink_root)
+    symlink_target = symlink_root / "synthetic/target-review.md"
+    symlink_target.write_bytes(b"target\n")
+    (symlink_root / "synthetic/review.md").symlink_to(symlink_target)
+    assert prepare_main(symlink_args) == 2
+    capsys.readouterr()
+
+    directory_root = tmp_path / "directory-output"
+    directory_root.mkdir()
+    directory_args = make_preparation_arguments(directory_root)
+    (directory_root / "synthetic/review.md").mkdir()
+    assert prepare_main(directory_args) == 2
+    capsys.readouterr()
+    assert not tuple(symlink_root.glob("synthetic/.review.md.*"))
+    assert not tuple(directory_root.glob("synthetic/.review.md.*"))
 
 
 def make_existing_input_arguments(root: Path) -> list[str]:
@@ -343,7 +383,7 @@ def test_artifact__rendering__is_deterministic_and_canonical(
 
     Requirement: Identical explicit inputs produce byte-identical review documents.
 
-    Method: Prepare, preserve output bytes, remove only output, and prepare again.
+    Method: Prepare once, discard the receipt, and prepare against the same output.
 
     Oracle: Existing packet renderer and canonical compact stdout define exact bytes.
 
@@ -357,17 +397,37 @@ def test_artifact__rendering__is_deterministic_and_canonical(
     assert prepare_main(args) == 0
     stdout_one = capsys.readouterr().out
     result_one = json.loads(stdout_one)
-    first = (tmp_path / "synthetic/review.md").read_bytes()
-    (tmp_path / "synthetic/review.md").unlink()
+    review_path = tmp_path / "synthetic/review.md"
+    first = review_path.read_bytes()
+    stat_one = review_path.stat()
     assert prepare_main(args) == 0
     stdout_two = capsys.readouterr().out
+    stat_two = review_path.stat()
     assert stdout_one == stdout_two
-    assert first == (tmp_path / "synthetic/review.md").read_bytes()
+    assert first == review_path.read_bytes()
+    assert (stat_one.st_ino, stat_one.st_mode, stat_one.st_mtime_ns) == (
+        stat_two.st_ino,
+        stat_two.st_mode,
+        stat_two.st_mtime_ns,
+    )
     assert (
         stdout_one
         == json.dumps(result_one, separators=(",", ":"), sort_keys=True) + "\n"
     )
+    assert result_one["result"] == "available"
+    assert result_one["packet_binding_sha256"] == (
+        "fbb81a733b630e08dc1fb0c74d772eca7fdcf94ca464dffaa7eb87a49658385e"
+    )
+    assert result_one["candidate_json_sha256"] == (
+        "c60f13691acd33e513cc87bc114d9146544c7fa32420bb6d18139e9bbc053270"
+    )
+    assert result_one["review_document"] == {
+        "byte_count": 3314,
+        "path": "synthetic/review.md",
+        "sha256": "0968c1882b87a53f80195866b5cb79c9a9af441e43ee6f14513d45106b608312",
+    }
     assert result_one["review_document"]["sha256"] == calculate_sha256(first)
+    assert not tuple((tmp_path / "synthetic").glob(".review.md.*"))
 
 
 def test_artifact__output__preserves_existing_immutable_file(
@@ -375,13 +435,13 @@ def test_artifact__output__preserves_existing_immutable_file(
 ) -> None:
     """Evidence ID: ``SV-HT-068``.
 
-    Requirement: A valid repeated preparation never replaces an existing output.
+    Requirement: A differing existing output is a conflict and remains immutable.
 
     Method: Precreate sentinel output and invoke preparation with valid inputs.
 
-    Oracle: Atomic immutable creation rejects an occupied destination.
+    Oracle: Only byte-identical reconstructed output is recoverable.
 
-    Acceptance: Status is 2 and sentinel bytes remain exact.
+    Acceptance: Status is 1 and sentinel bytes remain exact.
 
     Interpretation: Failure permits silent packet replacement.
 
@@ -390,9 +450,68 @@ def test_artifact__output__preserves_existing_immutable_file(
     args = make_preparation_arguments(tmp_path)
     output = tmp_path / "synthetic/review.md"
     output.write_bytes(b"sentinel\n")
-    assert prepare_main(args) == 2
-    assert json.loads(capsys.readouterr().out)["status"] == "INVALID_INPUT"
+    before = output.stat()
+    assert prepare_main(args) == 1
+    result = json.loads(capsys.readouterr().out)
+    assert result["status"] == "INVALID_PACKET"
+    assert "packet_binding_sha256" not in result
     assert output.read_bytes() == b"sentinel\n"
+    after = output.stat()
+    assert (before.st_ino, before.st_mode, before.st_mtime_ns) == (
+        after.st_ino,
+        after.st_mode,
+        after.st_mtime_ns,
+    )
+    assert not tuple((tmp_path / "synthetic").glob(".review.md.*"))
+
+
+def test_artifact__recovery__rejects_stale_candidate_profile_and_output_path(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Evidence ID: ``SV-HT-072``.
+
+    Requirement: Recovery preserves candidate, profile, and output-path binding.
+
+    Method: Independently stale canonical candidate bytes, profile identity, and path.
+
+    Oracle: Canonical Task JSON, exact template identity, and root confinement bind.
+
+    Acceptance: Stale content returns 1, traversal returns 2, and no output is created.
+
+    Interpretation: Failure permits recovery from substituted durable inputs.
+
+    Limitations: Source and mapping identity partitions are owned by ``SV-HT-064``.
+    """
+    candidate_root = tmp_path / "candidate"
+    candidate_root.mkdir()
+    candidate_args = make_preparation_arguments(candidate_root)
+    candidate = candidate_root / "synthetic/candidate.json"
+    candidate.write_bytes(candidate.read_bytes() + b"\n")
+    assert prepare_main(candidate_args) == 1
+    capsys.readouterr()
+
+    profile_root = tmp_path / "profile"
+    profile_root.mkdir()
+    profile_args = make_preparation_arguments(profile_root)
+    profile = profile_root / "synthetic/profile.json"
+    represented = json.loads(profile.read_bytes())
+    represented["template_identity"]["digest"] = "0" * 64
+    write_json_fixture(profile, represented)
+    assert prepare_main(profile_args) == 1
+    capsys.readouterr()
+
+    output_root = tmp_path / "output"
+    output_root.mkdir()
+    output_args = make_preparation_arguments(output_root)
+    output_args[output_args.index("synthetic/review.md")] = "../review.md"
+    assert prepare_main(output_args) == 2
+    capsys.readouterr()
+    assert not (candidate_root / "synthetic/review.md").exists()
+    assert not tuple(candidate_root.glob("synthetic/.review.md.*"))
+    assert not (profile_root / "synthetic/review.md").exists()
+    assert not tuple(profile_root.glob("synthetic/.review.md.*"))
+    assert not (output_root / "synthetic/review.md").exists()
+    assert not tuple(output_root.glob("synthetic/.review.md.*"))
 
 
 def test_artifact__disposition__rejects_substitution_and_incompatibility(
@@ -523,8 +642,8 @@ def test_artifact__end_to_end__records_exact_synthetic_disposition(
 
     Requirement: Explicit synthetic inputs flow through preparation and both recorders.
 
-    Method: Prepare one exact document, then supply an explicit synthetic defer
-    response.
+    Method: Discard the first receipt, recover it by repeated preparation, then
+    supply an explicit synthetic defer response.
 
     Oracle: Public ActionObjects, canonical JSON, and retained exact response define
     output.
@@ -549,6 +668,7 @@ def test_artifact__end_to_end__records_exact_synthetic_disposition(
     assert disposition_main(make_disposition_arguments(tmp_path, prepared)) == 2
     capsys.readouterr()
     assert (tmp_path / "synthetic/disposition.json").read_bytes() == record_bytes
+    assert not tuple((tmp_path / "synthetic").glob(".disposition.json.*"))
     assert (tmp_path / "synthetic/source.md").read_bytes() == source_before
     assert (tmp_path / "synthetic/candidate.json").read_bytes() == candidate_before
     assert not (tmp_path / "synthetic/next-review.md").exists()

@@ -531,7 +531,7 @@
     {
       "skill_name": "mediate-harness-task-migration",
       "path": ".pi/skills/mediate-harness-task-migration/SKILL.md",
-      "content_sha256": "d2d808cd5018632127e8f83028e2f78089e07b8744dc89efdc1cdf627e295f61",
+      "content_sha256": "d529d1288ec3ac8e16aefea28620bd7a6b76f7646353f4b3beb5e42da35f5aed",
       "trigger_description": "An authorized serial workflow must prepare or present one HarnessTask migration review, record one explicit file disposition, or continue after that response.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-harness-implementation.md",
@@ -548,7 +548,7 @@
         "verbatim human response and explicit normalized dispositions when recording"
       ],
       "outputs": [
-        "one complete deterministic review document and canonical preparation result",
+        "one complete deterministic review document and recoverable canonical preparation receipt",
         "one exact canonical immutable disposition record"
       ],
       "side_effects": [
@@ -562,9 +562,9 @@
         "python -m ksdft2effmass.harness.pi.local.record_harness_task_migration_disposition"
       ],
       "authorization_requirements": "Stage 2B or another exact migration Task must already be explicitly active; only an explicit human response supplies a file disposition.",
-      "failure_behavior": "Name the missing or stale explicit artifact and stop without fallback discovery, migration, activation, or next-file preparation.",
+      "failure_behavior": "Name the missing or stale explicit artifact or differing existing document and stop without fallback discovery, mutation, migration, activation, or next-file preparation.",
       "retry_behavior": "Retry only with corrected explicit inputs or explicit renewed authority; retain prior review identities.",
-      "idempotency": "Preparation is byte-deterministic for identical files; disposition records are canonical for identical exact inputs.",
+      "idempotency": "Preparation atomically creates an absent review or accepts an existing byte-identical review without mutation and emits the same canonical receipt; disposition records are canonical and nonreplaceable.",
       "evidence_classification": "synthetic and operational software verification only; no migration acceptance, scientific evidence, or activation",
       "current_validation_status": "Project-local canonical/live bytes, descriptor closure, routing, and focused synthetic command behavior are maintained.",
       "primary_classification": "HUMAN_DECISION_SUPPORT",

@@ -29,6 +29,8 @@ Focused maintained evidence uses only synthetic files and establishes software v
 
 The single bounded read-only integration review reported two high findings and one medium limitation. The correction pass bound the explicit output review path into the packet identity and added focused path-substitution evidence. It also changed output handling from silent replacement to atomic fail-if-present creation for both review and disposition records, with focused repeated-write evidence. The medium parent-component symlink TOCTOU limitation is retained explicitly under the trusted-local threat model; no claim of adversarial filesystem race hardening is made.
 
+A final bounded Stage-2A operational recovery correction makes preparation idempotent. An absent review document is atomically created without replacement. An existing confined byte-identical regular file is accepted without mutation and emits the same stable `result: available` receipt, allowing a later session to recover the exact packet binding. Differing, symlinked, nonregular, stale, or drifting outputs fail closed. Disposition output remains immutable and nonreplaceable. The existing observation-construction duplication is deferred maintainability debt and continues to fail closed through packet-preparer equality.
+
 ## Administrative state
 
 Stage 2A remains pending explicit human acceptance at `.pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json`. Stage 2B remains inactive and blocked. The chain retains `active_task: null` and `automatic_successor_activation: false`. All six authoritative Markdown Tasks remain byte-identical to `.pi/evidence/docs-json/task-model-contract/source-inventory.json`.

@@ -11,10 +11,10 @@ from typing import TextIO
 from ._harness_task_migration_cli import (
     CommandInputError,
     canonical_json_bytes,
+    ensure_identical_output,
     prepare_review,
     read_input,
     resolved_root,
-    write_atomic,
 )
 
 
@@ -39,7 +39,7 @@ def _emit(value: object, *, stream: TextIO | None = None) -> None:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Invoke accepted ActionObjects and atomically write one review document.
+    """Invoke accepted ActionObjects and make one review document available.
 
     Exit status ``0`` is success, ``1`` is deterministic packet invalidity, ``2``
     is invalid command input, and ``3`` is an unexpected command failure.
@@ -66,7 +66,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             profile_payload=profile,
             review_output_path=args.output_review_document.as_posix(),
         )
-        output = write_atomic(
+        output = ensure_identical_output(
             root,
             args.output_review_document,
             prepared.document.content,
@@ -87,6 +87,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "path": output.relative_to(root).as_posix(),
                 "sha256": prepared.document.artifact_identity.digest,
             },
+            "result": "available",
             "schema_version": 1,
             "status": "PASS",
         }

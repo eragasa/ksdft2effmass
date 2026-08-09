@@ -12,6 +12,7 @@ import base64
 import hashlib
 import json
 import os
+import stat
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -170,6 +171,48 @@ def write_atomic(root: Path, supplied: Path, content: bytes, label: str) -> Path
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
+    return path
+
+
+def ensure_identical_output(
+    root: Path, supplied: Path, expected: bytes, label: str
+) -> Path:
+    """Create an absent output or verify one stable byte-identical regular file."""
+    path = confined_path(root, supplied, label, output=True)
+    if not path.exists() and not path.is_symlink():
+        return write_atomic(root, supplied, expected, label)
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    if hasattr(os, "O_NOATIME"):
+        flags |= os.O_NOATIME
+    try:
+        descriptor = os.open(path, flags)
+        with os.fdopen(descriptor, "rb") as stream:
+            before = os.fstat(stream.fileno())
+            if not stat.S_ISREG(before.st_mode):
+                raise CommandInputError(f"{label} must be a regular file")
+            observed = stream.read()
+            after = os.fstat(stream.fileno())
+        selected = os.lstat(path)
+    except CommandInputError:
+        raise
+    except OSError as exc:
+        raise CommandInputError(f"could not inspect existing {label}") from exc
+    stable_fields = (
+        "st_dev",
+        "st_ino",
+        "st_mode",
+        "st_size",
+        "st_mtime_ns",
+        "st_ctime_ns",
+    )
+    if any(getattr(before, name) != getattr(after, name) for name in stable_fields):
+        raise CommandInputError(f"{label} identity drifted during inspection")
+    if any(getattr(after, name) != getattr(selected, name) for name in stable_fields):
+        raise CommandInputError(f"{label} was concurrently replaced")
+    if observed != expected:
+        raise ValueError(f"existing {label} differs from reconstructed document")
     return path
 
 
