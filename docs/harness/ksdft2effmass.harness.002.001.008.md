@@ -443,6 +443,9 @@ it does not create or activate that skill and does not alter this sequence.
   nonmutating runtime probes did not reopen this completed architecture work.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
+- The separately authorized
+  `harness.simplification.control.task-catalog-reconciliation` Task is active and
+  may classify these proposals without activating or implementing them.
 
 The harness-simplification chain records Slice 10 completion and owns current
 active-task state; this page does not activate another slice. Slice 7 retirement

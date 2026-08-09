@@ -28,6 +28,10 @@ Completed:
 - `harness-simplification.agents.historical-retirement`
 - `harness.simplification.agents.delegation-validation`
 
+Active by explicit human selection:
+
+- `harness.simplification.control.task-catalog-reconciliation`
+
 Inactive and unauthorized:
 
 - `harness-simplification.execution.review-dispatch-idempotency`
