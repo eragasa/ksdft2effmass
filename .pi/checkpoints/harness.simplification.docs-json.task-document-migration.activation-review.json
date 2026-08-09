@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.task-document-migration.activation-review",
+  "task_id": "harness.simplification.docs-json.task-document-migration",
+  "episode_id": "harness.simplification.docs-json.task-document-migration",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T15:21:03Z",
+  "question": "After reviewing docs/harness/ksdft2effmass.harness.002.001.010.md, should the six-file human-mediated Task-document migration be activated with the stated information-preservation, object-model, serial-review, mixed-format inspection, compatibility, rollback, shadow-state, and exclusion boundaries?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Activate the proposed six-file Task-document migration exactly as reviewed.",
+      "consequence": "Activate only harness.simplification.docs-json.task-document-migration. Begin with current-revision inventory and contract work, keep all six Tasks exactly inspectable with mixed-format compatibility, then prepare exactly one file packet at a time. Keep the operational chain authoritative, retain rollback identities, and leave all excluded work inactive."
+    },
+    {
+      "id": "B",
+      "summary": "Revise the proposed Task or maintained review document before activation.",
+      "consequence": "Keep the Task inactive, record the requested corrections, regenerate or update the review material, and return for another explicit human review without beginning implementation."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the migration.",
+      "consequence": "Keep the Task inactive and preserve the existing Markdown, JSON pilot, chain, catalogs, and architecture decisions unchanged."
+    }
+  ],
+  "recommendation": "Option A, provided the maintained review page accurately captures the intended six-file scope and one-file-at-a-time human mediation. It resumes the original two-list migration without batch conversion or chain cutover.",
+  "blocked_scope": "Task activation; HarnessTask, serializer, deserializer, graph validator, renderer, comparator, schema, fixture, source, test, documentation, TaskStateInspector, compatibility, projection, and rollback implementation; current-revision inventory creation; any file review packet; Markdown-to-JSON migration; candidate selection-state creation; chain cutover; successor activation; SQLite, publication, scientific, external, protected, or release work.",
+  "safe_scope": "Human review of docs/harness/ksdft2effmass.harness.002.001.010.md, the proposed Task JSON and intake, this checkpoint, and the already accepted authority catalogs and architecture decisions. Deterministic validation and persistence of this pending review boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/evidence/docs-json/authority-catalog/catalog-manifest.json",
+    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
+    ".pi/evidence/task-control/task-graph-selection-state-decision.md",
+    ".pi/evidence/task-control/task-document-human-mediation-decision.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/harness.simplification.docs-json.task-document-migration.activation-review.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "resumption_status": "blocked_pending_human_review; migration remains inactive"
+}

@@ -37,6 +37,11 @@ Resolved architecture selection:
 - `harness.simplification.control.task-catalog-reconciliation` was superseded
   before execution because it would preserve a competing catalog
 
+Pending human review:
+
+- `harness.simplification.docs-json.task-document-migration` is proposed in
+  [harness.002.001.010](ksdft2effmass.harness.002.001.010.md) and remains inactive
+
 Inactive and unauthorized:
 
 - `harness-simplification.execution.review-dispatch-idempotency`
@@ -97,4 +102,4 @@ stage automatically activates the next.
 - **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
 - **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
 - **Previous:** [Harness capability ownership rationalization](ksdft2effmass.harness.002.001.008.md)
-- **Next:** [Human review interface](ksdft2effmass.harness.003.000.000.md)
+- **Next:** [Human review: per-file Task-document migration](ksdft2effmass.harness.002.001.010.md)
