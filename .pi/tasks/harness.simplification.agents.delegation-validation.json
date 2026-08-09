@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.agents.delegation-validation",
   "title": "Validate delegation to the durable agent set",
-  "status": "active",
+  "status": "completed",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness-simplification.agents.historical-retirement"

@@ -26,7 +26,7 @@
 
 ## Chain context
 
-**Chain-owned active Task:** harness.simplification.agents.delegation-validation
+**Chain-owned active Task:** None
 
 **Chain-owned explicit activation facts:**
 - harness.simplification.agents.delegation-validation

@@ -439,8 +439,8 @@ it does not create or activate that skill and does not alter this sequence.
 - SQLite/evidence redesign, review-dispatch idempotency, package extraction,
   historical-file deletion, and publication remain inactive.
 - The separately authorized
-  `harness.simplification.agents.delegation-validation` Task is active; its
-  nonmutating runtime probes do not reopen this completed architecture work.
+  `harness.simplification.agents.delegation-validation` Task is completed; its
+  nonmutating runtime probes did not reopen this completed architecture work.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 

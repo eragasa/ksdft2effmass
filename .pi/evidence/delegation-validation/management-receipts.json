@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.agents.delegation-validation",
+  "probed_revision": "ccb46328bf4a4013b2caf1af45cce20fd05091b2",
+  "inventory_observation": {
+    "source": "pi-subagents management list action",
+    "scope": "project",
+    "executable_project_agent_count": 10,
+    "executable_project_agent_ids": [
+      "ksdft2effmass.ksdft2effmass-architecture",
+      "ksdft2effmass.ksdft2effmass-documentation",
+      "ksdft2effmass.ksdft2effmass-harness-architecture",
+      "ksdft2effmass.ksdft2effmass-harness-documentation",
+      "ksdft2effmass.ksdft2effmass-harness-implementation",
+      "ksdft2effmass.ksdft2effmass-harness-integration-reviewer",
+      "ksdft2effmass.ksdft2effmass-harness-tests",
+      "ksdft2effmass.ksdft2effmass-implementation",
+      "ksdft2effmass.ksdft2effmass-integration-reviewer",
+      "ksdft2effmass.ksdft2effmass-tests"
+    ],
+    "repository_agent_record_count": 34,
+    "configured_disabled_agent_count": 24,
+    "configured_set_difference_count": 10,
+    "configured_set_difference_agrees_with_management_inventory": true,
+    "disabled_agent_launches": 0
+  },
+  "probe_status_observations": [
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-architecture",
+      "run_id": "4e9553f0",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "4384cb689651df3aef2617c841186e735755d3be38e90499d2398e2f2aee49eb",
+      "output_sha256": "d982cf84e23f1087560a89a348f204083a5f59dcefb9f3edf21102db3c3dbed8"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-implementation",
+      "run_id": "09d5a012",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "bace2fab05cb0346f13491f22f9d7ed754739e1d66b88945c7e157118c4803af",
+      "output_sha256": "21dcefa3d56b298e8af3f1c01d177284db27ab0a899795b01157e8bb086a838c"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-tests",
+      "run_id": "0d67b801",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "894a5dd33237924bc9578613539b164efe4b8f5ebf7b753e006bed2f6a4b804d",
+      "output_sha256": "4ceda7984024d9e3f11f7a7b1773c9ebf0f0a9ab89ba3dcb5657d5dc4f285df3"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-documentation",
+      "run_id": "e4b5fa43",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "ad0cbbaec0649c2127ae20c6506f94c7fefd635086096ab1257640daf8de9904",
+      "output_sha256": "021a492e847222f98083cd3c45f1e2fba610d3d383831d3411ff1da92353999a"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-integration-reviewer",
+      "run_id": "4e4df563",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "b7f8f4d39636dc6a406aceafe7e75d674d9888805df0ca7204b344bae1eda5ad",
+      "output_sha256": "469a852ac51269b343bc04d03aa68264eddd70f29ea3e5e20aaf3b705438a971"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-harness-architecture",
+      "run_id": "18c6aba7",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "51d8201b7bab73f1336c5b56b8df19fca1f2e7fcff0b9c15eca4b920f926d3ed",
+      "output_sha256": "f4b71f2089e7e476f7f3dd97c5988fa6de316bf23cac506580ca1b293005ad84"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-harness-implementation",
+      "run_id": "d041a221",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "7aa742d33b9247e49fa6d0e45feaa61698662f667e43b4169b7897b3300b5c6a",
+      "output_sha256": "e0479c4366c35a2d80e80834f0cc4cae93a6e0d3ce49552ebc80a4e670d8bd65"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-harness-tests",
+      "run_id": "ca8d9113",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "e7066779cc0db34bdfb48305dfdbb2804d00845b3a3119125bb14b77f3ac58df",
+      "output_sha256": "62e946ae0421e66bd669bdb2463a0440cfb6b724fa111e4ac0ed7644543d238f"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-harness-documentation",
+      "run_id": "3b508158",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "70ce3cfa30cfc9a15087303bef6906a6f15159e9ba729f982a278d87ee50b027",
+      "output_sha256": "2df214b2ee43bfba3cf19e665c90c138977a652d5aa136eb7428971098518e51"
+    },
+    {
+      "agent_id": "ksdft2effmass.ksdft2effmass-harness-integration-reviewer",
+      "run_id": "4e12f330",
+      "management_state": "remembered foreground",
+      "child_status": "completed",
+      "exit_code": 0,
+      "acceptance": "not-required",
+      "process_signal_in_meta": "SIGTERM",
+      "meta_sha256": "2fc09904e36e7025aab3ac405368861690610293bffcc4dca213c53fac5b20f2",
+      "output_sha256": "7d0c29fec1fe3839de81a57e9d2f444c9721ac861d89147f154730374f042098"
+    }
+  ],
+  "limitations": [
+    "Management list and status observations are retained by the parent from supported read-only management actions; the individual child metadata files do not contain the management child_status field.",
+    "The SIGTERM field is preserved exactly rather than interpreted as success; exit code, produced output, and management child status are recorded separately.",
+    "The runtime artifacts are ignored operational files. Their exact bytes are bound here by SHA-256, but this record does not make those files maintained repository evidence.",
+    "No probe or disabled historical agent was relaunched to create this receipt."
+  ]
+}

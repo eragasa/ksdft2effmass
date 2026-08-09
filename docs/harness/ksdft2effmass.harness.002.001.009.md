@@ -26,9 +26,6 @@ Completed:
 - `harness-simplification.agents.live-discovery-cleanup`
 - `harness-simplification.agents.live-discovery`
 - `harness-simplification.agents.historical-retirement`
-
-Active by explicit human selection:
-
 - `harness.simplification.agents.delegation-validation`
 
 Inactive and unauthorized:
@@ -57,7 +54,7 @@ presence and runtime discoverability grant no task authority.
    structured results. Keep existing scripts as the execution backend.
 5. **Durable agents.** Durable harness capability roles now exist. Project-role
    simplification, live-discovery changes, and historical discovery retirement
-   are complete. The separately authorized delegation-validation slice is active.
+   and the separately authorized delegation-validation slice are complete.
 6. **State-owner cutover.** Move one operational record family at a time to the
    accepted state interface, with exports and rollback verified at each step.
 7. **Extraction readiness.** Build a disposable generic package candidate without
