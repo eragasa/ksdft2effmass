@@ -57,12 +57,9 @@ flowchart TD
 
 ### Target provenance
 
-`HumanReviewTarget` is constructed explicitly by the root agent acting as the API
-caller, from the current human instruction and controlling task scope. Its review identifier, exact
-revision, represented subject, paths, evidence class, and contract references are all
-caller-supplied. No ActionObject discovers a repository, chooses files, reads Git, or
-infers what deserves review. Selecting the target remains an authority and scope
-operation outside the runtime API.
+The root agent constructs `HumanReviewTarget` using the exact revision and file paths
+specified by the human instruction or controlling task. The API does not discover or
+select review targets.
 
 `HumanReviewObservation` and `HumanReviewFinding` are explicit input records. This
 slice does not introduce a generic `HumanReviewObserver` or `HumanReviewFinder`:

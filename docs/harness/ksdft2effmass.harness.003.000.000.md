@@ -59,13 +59,9 @@ already made by the human. Neither ActionObject performs the review itself.
 
 ### Where the target comes from
 
-The root agent, acting as the explicit API caller, constructs `HumanReviewTarget`
-from the current human-authorized scope and controlling task: a review identifier,
-exact revision,
-represented subject, explicit paths, evidence class, and contract references. The
-runtime API validates that supplied record but does not select files, discover a Git
-revision, infer scope, or decide what should be reviewed. There is therefore no target
-finder ActionObject in this boundary.
+The root agent constructs `HumanReviewTarget` using the exact revision and file paths
+specified by the human instruction or controlling task. The API does not discover or
+select review targets.
 
 ## Decomposition
 
