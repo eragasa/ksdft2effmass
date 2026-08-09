@@ -1,0 +1,46 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.publication.hierarchy.selection",
+  "task_id": "harness.simplification.docs-json.publication.hierarchy",
+  "episode_id": "harness.simplification.docs-json.publication.hierarchy",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T10:31:05Z",
+  "question": "Should the pending triage checkpoint be superseded, the publication hierarchy Task be activated, docs/conferences move to docs/publications/conferences, docs/papers move to docs/publications/papers, LA2.pdf be deleted, and the empty ksdft2effmass.paper.md become the populated root index docs/publications/ksdft2effmass.publications.00.md?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Yes; supersede triage and apply the exact publication hierarchy.",
+      "consequence": "Close triage, activate the hierarchy Task, apply the two directory moves, delete the exact unrelated LA2.pdf artifact, create the publication-root index from the empty tracked file, and synchronize affected repository links and navigation without changing publication or scientific claims."
+    },
+    {
+      "id": "B",
+      "summary": "No; provide corrected paths or dispositions.",
+      "consequence": "Keep hierarchy work inactive until the corrected exact mapping is supplied."
+    }
+  ],
+  "recommendation": "Option A because it records the exact hierarchy and file dispositions supplied through the human clarification sequence.",
+  "blocked_scope": "Any publication submission, publication, release, scientific or external execution, content rewrite beyond the new factual index, deletion of any artifact other than the exact LA2.pdf path, and activation of any successor Task.",
+  "safe_scope": "Durable activation; moving docs/conferences to docs/publications/conferences and docs/papers to docs/publications/papers; deleting docs/conferences/ICMSEP2026/LA2.pdf; moving the empty docs/conferences/ICMSEP2026/ksdft2effmass.paper.md to docs/publications/ksdft2effmass.publications.00.md and populating it as a factual publication index; updating affected links, navigation, manifests, and checksums; and deterministic validation and one consolidated review.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.publication.triage.md",
+    ".pi/tasks/harness.simplification.docs-json.publication.hierarchy.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/evidence/docs-json/publication-triage.json",
+    "docs/conferences",
+    "docs/papers"
+  ],
+  "human_response": "yes",
+  "normalized_decision": "A — supersede the triage checkpoint, activate the publication hierarchy Task, apply the exact docs/publications hierarchy, delete only LA2.pdf, and create the publication-root index at docs/publications/ksdft2effmass.publications.00.md",
+  "resolved_at": "2026-08-09T10:31:05Z",
+  "authorized_scope": "Activate and execute harness.simplification.docs-json.publication.hierarchy. Move docs/conferences/ to docs/publications/conferences/ and docs/papers/ to docs/publications/papers/. Delete only docs/conferences/ICMSEP2026/LA2.pdf. Move the empty docs/conferences/ICMSEP2026/ksdft2effmass.paper.md to docs/publications/ksdft2effmass.publications.00.md and populate it as the factual publication index. Synchronize affected links, navigation, manifests, and checksums. Preserve all other file bytes where no link update is required. Do not submit, publish, release, perform scientific or external execution, delete another artifact, or activate a successor Task.",
+  "record_paths": [
+    ".pi/checkpoints/harness.simplification.docs-json.publication.hierarchy.selection.json",
+    ".pi/checkpoints/harness.simplification.docs-json.publication.triage.disposition.json",
+    ".pi/tasks/harness.simplification.docs-json.publication.triage.md",
+    ".pi/tasks/harness.simplification.docs-json.publication.hierarchy.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/evidence/docs-json/publication-triage.json"
+  ],
+  "resumption_status": "publication hierarchy Task authorized for exact bounded execution; no successor active"
+}

@@ -21,7 +21,8 @@
     "tracked_files": 22,
     "untracked_files": 1,
     "deterministically_classified_files": 21,
-    "ambiguous_files": 2
+    "human_disposed_files": 2,
+    "ambiguous_files": 0
   },
   "entries": [
     {
@@ -71,8 +72,9 @@
       "path": "docs/conferences/ICMSEP2026/ksdft2effmass.paper.md",
       "entry_kind": "regular_file",
       "git_object": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
-      "classification": "unresolved",
-      "reason": "The tracked blob is empty and no repository content or introducing-commit evidence identifies whether it is working source, a historical artifact, or an accidental placeholder."
+      "classification": "direct_project_documentation",
+      "reason": "The human PI identified this empty tracked file as the publication-root index source.",
+      "human_disposition": "Move and populate as docs/publications/ksdft2effmass.publications.00.md."
     },
     {
       "path": "docs/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
@@ -187,28 +189,20 @@
       "reason": "Project publication pipeline and paper registry explicitly define static claim prerequisites and manuscript states."
     }
   ],
-  "ambiguity_queue": [
+  "ambiguity_queue": [],
+  "human_dispositions": [
     {
       "path": "docs/conferences/ICMSEP2026/LA2.pdf",
-      "question": "Should the unrelated iron-carbon assessment be treated as an external reference, a retained historical artifact, or unresolved for the hierarchy task?",
-      "options": [
-        "external_reference",
-        "historical_artifact",
-        "unresolved"
-      ],
-      "recommendation": "historical_artifact",
-      "reason": "Its content is unrelated to the silicon publication and repository evidence does not establish that it is a reference consumed by project work."
+      "classification": "unresolved",
+      "disposition": "delete",
+      "reason": "The human PI explicitly authorized deletion after confirming the exact hierarchy mapping."
     },
     {
       "path": "docs/conferences/ICMSEP2026/ksdft2effmass.paper.md",
-      "question": "Should the empty tracked file be treated as working source, a retained historical artifact, or unresolved for the hierarchy task?",
-      "options": [
-        "working_source",
-        "historical_artifact",
-        "unresolved"
-      ],
-      "recommendation": "unresolved",
-      "reason": "The zero-byte blob and its history provide no evidence beyond filename and location."
+      "classification": "direct_project_documentation",
+      "disposition": "move_and_populate_as_publication_root_index",
+      "target_path": "docs/publications/ksdft2effmass.publications.00.md",
+      "reason": "The human PI explicitly assigned the publication-root index role and exact target path."
     }
   ],
   "claim_boundary": "Classification records repository role only. It does not establish authorship, submission, publication, scientific correctness, validation, or permission to move or delete a file."

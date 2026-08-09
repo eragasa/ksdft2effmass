@@ -1,6 +1,6 @@
 # Triage publication documentation
 
-Status: blocked_awaiting_human_disposition; authorized by the human PI on 2026-08-09
+Status: completed; human dispositions recorded and hierarchy handoff accepted on 2026-08-09
 
 Task identity: `harness.simplification.docs-json.publication.triage`
 
@@ -22,6 +22,6 @@ Return only ambiguous or materially consequential cases to the human. The human 
 
 Produce one temporary triage record containing the bounded inventory, deterministic classifications with reasons, and the ambiguity queue. Completion requires complete selected-root path coverage, no duplicate paths, disposition of every ambiguity, and a compact input for `harness.simplification.docs-json.publication.hierarchy`.
 
-The temporary record is `.pi/evidence/docs-json/publication-triage.json`. It covers 23 regular files at revision `107f6b1d39be1af460c03183e880d3063f1320a0`: 22 tracked files by Git object identity and one untracked `.DS_Store` by SHA-256. Twenty-one classifications are deterministic. Human disposition remains for `LA2.pdf` and the empty `ksdft2effmass.paper.md`. Independent review identified the empty file as a missing ambiguity; the deterministic correction added it to the queue.
+The temporary record is `.pi/evidence/docs-json/publication-triage.json`. It covers 23 regular files at revision `107f6b1d39be1af460c03183e880d3063f1320a0`: 22 tracked files by Git object identity and one untracked `.DS_Store` by SHA-256. Twenty-one classifications are deterministic. The human PI disposed the remaining cases by authorizing deletion of `LA2.pdf` and assigning the empty `ksdft2effmass.paper.md` as the publication-root index at `docs/publications/ksdft2effmass.publications.00.md`. Independent review identified the empty file as a missing ambiguity before that human disposition. The accepted record is the compact input to `harness.simplification.docs-json.publication.hierarchy`.
 
 This Task does not move, rename, delete, rewrite, publish, submit, or release files. Human authorization activates only this bounded inventory and triage.

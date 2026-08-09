@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.publication.triage.disposition",
   "task_id": "harness.simplification.docs-json.publication.triage",
   "episode_id": "harness.simplification.docs-json.publication.triage",
-  "status": "pending",
+  "status": "superseded",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T10:23:07Z",
   "question": "Should the 21 deterministic publication-document classifications be accepted as a set, with LA2.pdf classified as a historical artifact and the empty ksdft2effmass.paper.md retained as unresolved?",
@@ -46,5 +46,5 @@
     ".pi/chains/harness-simplification.chain.json",
     ".pi/evidence/docs-json/publication-triage.json"
   ],
-  "resumption_status": "awaiting_human_disposition; no_hierarchy_task_active"
+  "resumption_status": "superseded_without_resolution_by_harness.simplification.docs-json.publication.hierarchy.selection; the human selected a concrete hierarchy, deletion, and index disposition instead"
 }

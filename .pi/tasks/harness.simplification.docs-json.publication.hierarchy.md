@@ -1,6 +1,6 @@
 # Normalize publication documentation hierarchy
 
-Status: proposed_inactive; requires completed publication triage
+Status: active; authorized by the human PI on 2026-08-09 after completed publication triage
 
 Task identity: `harness.simplification.docs-json.publication.hierarchy`
 
@@ -24,4 +24,4 @@ For unchanged moved files, Git identity or byte equality must be preserved. Subm
 
 Completion requires the applied path map, resolved links, correct generated/external/source treatment, preserved content identities, and a compact handoff to `harness.simplification.docs-json.authority-catalog`.
 
-This Task does not alter scientific or publication claims, delete artifacts, publish, submit, or release material. It remains inactive until authorized.
+This Task does not alter scientific or publication claims, publish, submit, or release material. The human PI explicitly authorized deletion of only `docs/conferences/ICMSEP2026/LA2.pdf`, movement of the two publication trees under `docs/publications/`, and creation of `docs/publications/ksdft2effmass.publications.00.md` from the empty tracked conference file. No other deletion is authorized.
