@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.control.successor-selection",
   "title": "Select and explicitly activate the next harness-simplification Task",
-  "status": "inactive",
+  "status": "superseded_by_direct_human_selection",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.resources.h3-validator-retirement"
