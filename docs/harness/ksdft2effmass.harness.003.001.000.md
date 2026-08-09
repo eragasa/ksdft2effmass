@@ -31,14 +31,13 @@ It is retained at
 
 The packet-preparation slice exports five public interfaces:
 
-- `HumanReviewTarget` identifies one exact revision, represented subject, explicit
-  path set, evidence class, and contract references;
-- `HumanReviewObservation` records one deterministic check observation;
-- `HumanReviewFinding` records one candidate issue for human judgment;
-- `HumanReviewPacket` is the immutable ResultObject containing canonical
-  observations, candidate findings, limitations, and packet status; and
-- `PrepareHumanReviewPacket` is a fieldless ActionObject that validates cross-record
-  relationships and returns deterministic ordering from explicit inputs.
+| Interface | Kind | Role |
+|---|---|---|
+| `HumanReviewTarget` | DataObject | Identifies one exact revision, represented subject, explicit path set, evidence class, and contract references. |
+| `HumanReviewObservation` | DataObject | Records one deterministic check observation supplied by the caller. |
+| `HumanReviewFinding` | DataObject | Records one candidate issue for human judgment. |
+| `HumanReviewPacket` | ResultObject, semantically a DataObject | Contains canonical observations, candidate findings, limitations, and packet status. |
+| `PrepareHumanReviewPacket` | Fieldless ActionObject | Validates cross-record relationships and returns deterministic ordering from explicit inputs. |
 
 Construction and preparation perform no filesystem, Git, clock, network, subprocess,
 or database action. The API has no human-decision or recommendation field and no
