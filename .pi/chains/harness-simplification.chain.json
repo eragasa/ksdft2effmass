@@ -1,10 +1,11 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "awaiting_next_task_selection",
-  "active_task": null,
+  "status": "delegation_validation_active",
+  "active_task": "harness.simplification.agents.delegation-validation",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
+    "harness.simplification.agents.delegation-validation",
     "harness.simplification.docs-json.schema-projection",
     "harness.simplification.resources.h3-validator-retirement"
   ],
@@ -161,12 +162,11 @@
       "completed_by": "harness-simplification.agents.live-discovery-cleanup"
     },
     {
-      "id": "harness-simplification.agents.delegation-validation",
-      "record": null,
+      "id": "harness.simplification.agents.delegation-validation",
+      "record": ".pi/tasks/harness.simplification.agents.delegation-validation.json",
       "prerequisites": [
         "harness-simplification.agents.historical-retirement:completed"
-      ],
-      "status": "inactive_unauthorized"
+      ]
     },
     {
       "id": "harness.simplification.api.action-object-grammar",

@@ -436,8 +436,11 @@ it does not create or activate that skill and does not alter this sequence.
   public-contract task before any removal or generalization.
 - A Graphify execution wrapper is deferred because it would cross the external
   tool/dependency and command-runner boundary.
-- SQLite/evidence redesign, review-dispatch idempotency, delegation validation,
-  package extraction, historical-file deletion, and publication remain inactive.
+- SQLite/evidence redesign, review-dispatch idempotency, package extraction,
+  historical-file deletion, and publication remain inactive.
+- The separately authorized
+  `harness.simplification.agents.delegation-validation` Task is active; its
+  nonmutating runtime probes do not reopen this completed architecture work.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 

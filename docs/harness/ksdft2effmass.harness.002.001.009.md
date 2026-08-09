@@ -27,11 +27,14 @@ Completed:
 - `harness-simplification.agents.live-discovery`
 - `harness-simplification.agents.historical-retirement`
 
+Active by explicit human selection:
+
+- `harness.simplification.agents.delegation-validation`
+
 Inactive and unauthorized:
 
 - `harness-simplification.execution.review-dispatch-idempotency`
   (`deferred_inactive`)
-- `harness-simplification.agents.delegation-validation`
 - `harness-simplification.evidence-and-sqlite`
 
 The 24 historical phase-specific harness records remain present byte-for-byte
@@ -53,8 +56,8 @@ presence and runtime discoverability grant no task authority.
    `python/.venv/bin/python`, argument vectors, controlled environment, and
    structured results. Keep existing scripts as the execution backend.
 5. **Durable agents.** Durable harness capability roles now exist. Project-role
-   simplification, live-discovery changes, delegation validation, and any later
-   retirement remain separate proposed slices.
+   simplification, live-discovery changes, and historical discovery retirement
+   are complete. The separately authorized delegation-validation slice is active.
 6. **State-owner cutover.** Move one operational record family at a time to the
    accepted state interface, with exports and rollback verified at each step.
 7. **Extraction readiness.** Build a disposable generic package candidate without

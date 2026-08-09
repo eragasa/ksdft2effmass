@@ -10,8 +10,8 @@ sphinx: excluded
 
 > **Incremental architecture.** Five durable project roles and five durable
 > harness roles exist. Their bounded simplification and the executable harness-tool
-> placement contract are complete. One validator migration pilot remains the next
-> ordered `inactive_unauthorized` proposal and has not begun.
+> placement contract are complete. The separately authorized durable-agent
+> delegation-validation Task is active; it changes no durable role definition.
 
 The implemented durable sets provide stable capability identities. They are
 available for explicit assignment but do not activate themselves, grant path
@@ -77,12 +77,12 @@ completed executable harness-tool placement contract, maintained-tool object
 model, thin-wrapper boundary, and proportional execution and delegation rules.
 It changes no executable harness behavior and migrates no script.
 
-The chain retains `harness-simplification.agents.validator-migration-pilot` as
-the next `inactive_unauthorized` entry with `record: null`; it is not activated
-or begun. Live discovery, historical retirement, broader delegation validation,
-SQLite or evidence-storage work, and later protected work remain inactive and
-proposed. Existing historical identities remain present and retained evidence
-remains historically accurate.
+The chain records the validator migration pilot, live-discovery cleanup, and
+historical discovery retirement as completed. It now explicitly activates
+`harness.simplification.agents.delegation-validation` for bounded nonmutating
+runtime probes. SQLite, evidence-storage work, later protected work, and
+successor activation remain inactive and unauthorized. Existing historical
+identities remain present and retained evidence remains historically accurate.
 
 ## Navigation
 

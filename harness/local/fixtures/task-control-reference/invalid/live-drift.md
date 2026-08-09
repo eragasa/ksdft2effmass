@@ -26,9 +26,10 @@
 
 ## Chain context
 
-**Chain-owned active Task:** None
+**Chain-owned active Task:** harness.simplification.agents.delegation-validation
 
 **Chain-owned explicit activation facts:**
+- harness.simplification.agents.delegation-validation
 - harness.simplification.docs-json.schema-projection
 - harness.simplification.resources.h3-validator-retirement
 
