@@ -402,7 +402,14 @@ def manifest_gate() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
                         if family.exists() for p in family.rglob("*") if p.is_file()}
         if layer == "local":
             actual_owned = {p.relative_to(root).as_posix() for family in
-                            (root / "profiles", root / "extensions", root / "validation") if family.exists()
+                            (
+                                root / "profiles",
+                                root / "projections",
+                                root / "schemas",
+                                root / "extensions",
+                                root / "validation",
+                            )
+                            if family.exists()
                             for p in family.rglob("*") if p.is_file() and "__pycache__" not in p.parts}
             if (root / "validation-route.json").is_file():
                 actual_owned.add("validation-route.json")

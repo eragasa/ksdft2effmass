@@ -64,3 +64,5 @@
 ## Non-authoritative intake
 
 **Task-owned intake link:** [harness.simplification.docs-json.schema-projection.intake.md](harness.simplification.docs-json.schema-projection.intake.md)
+
+Unexpected expected-page drift.

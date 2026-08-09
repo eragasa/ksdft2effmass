@@ -4,7 +4,7 @@
 
 `harness/pi/` is the generic textual-resource root. A caller supplies this root explicitly together with `harness/pi/resource-manifest.json`; neither the current directory, Git, caller-supplied runtime-state records, environment variables, parent-directory search, nor package fallback selects it. An optional project-local root and manifest are separate explicit inputs.
 
-The generic manifest has stable identity `pih.generic.resources`, manifest version `3`, and layer `generic`. Each resource entry is identified by its opaque, stable `resource_id`, not by its path. An entry also records its `resource_kind`, `format_version`, manifest-root-relative `ResourcePath`, exact SHA-256 `content_identity`, and complete, sorted `dependency_ids`. The manifest therefore distinguishes:
+The generic manifest has stable identity `pih.generic.resources`, manifest version `4`, and layer `generic`. Each resource entry is identified by its opaque, stable `resource_id`, not by its path. An entry also records its `resource_kind`, `format_version`, manifest-root-relative `ResourcePath`, exact SHA-256 `content_identity`, and complete, sorted `dependency_ids`. The manifest therefore distinguishes:
 
 - stable logical identity (`resource_id` or `manifest_id`);
 - contract revision (`format_version` or `manifest_version`);
@@ -23,7 +23,12 @@ JSON is the wire representation of `ResourceManifest`; `JsonRecordSerializer` an
 - read-only `pih.skill.develop-architecture-decision.v1`, its descriptor `pih.manifest.skill-descriptor.develop-architecture-decision.v1`, and `pih.reference.architecture-decision-conventions.v1`;
 - record schemas under the `pih.schema.record-*.v1` identities;
 - reusable schema entry points `pih.schema.project-profile.v1`, `pih.schema.resource-manifest.v1`, and `pih.schema.skill-descriptor.v1`; and
-- `pih.schema.common-wire-definitions.v1` for shared wire definitions.
+- `pih.schema.common-wire-definitions.v1` for shared wire definitions; and
+- `pih.schema.documentation-projection-profile.v1` for project-neutral projection-profile structure.
+
+The maintained projection validator and renderer receive every schema, instance, normalized context, profile, expected page, and generated page explicitly. They reject duplicate JSON keys and do not discover repositories or generated inputs. Project paths, Task identities, lifecycle vocabulary, relational policy, and selected output locations remain local inputs. These resource-level mechanics intentionally do not add a public Task object or serializer.
+
+As with the other generic commands under `harness/pi/validation/`, the projection command is maintained executable validation tooling rather than a manifest-addressed textual resource. The generic manifest owns its projection-profile schema; focused command tests own executable behavior. The project-local validator receives the generic command path explicitly and declares only manifest-owned schema/profile dependencies. This preserves the existing generic resource-inventory boundary without treating executable location as implicit discovery.
 
 The skill descriptor names its entry and complete required-resource closure. Construction and deserialization retain intrinsic validation but produce only candidate records: a resource self-edge and duplicate manifest entries remain representable. Manifest resources use deterministic complete-key canonical ordering and preserve duplicates. `ResourceManifestValidator` then owns duplicate IDs/paths, self/cycles, missing or generic-to-local dependencies, compatibility/mismatch, and forbidden replacement. `ResourceResolver` and skill validation propagate its failure and short-circuit without selecting or interpreting resources. A successful structural check does not authorize invocation of a skill; authorization, side-effect, retry, and termination policies remain separate facts.
 

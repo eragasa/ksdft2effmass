@@ -97,3 +97,97 @@ def test_method__execute__sorts_selected_tasks_and_fails_closed_when_missing() -
     assert incomplete.validation.status == "FAIL"
     assert incomplete.value is None
     assert "missing selected task bytes" in incomplete.validation.issues[0].detail
+
+
+def test_method__execute__validates_complete_json_task_and_chain_agreement() -> None:
+    """Evidence ID: SV-HL-045
+
+    Requirement: A chain-referenced JSON Task must satisfy the complete local shape,
+    preserve canonical prerequisites, and agree with chain-owned activation facts.
+
+    Method: Adapt one complete JSON Task, then independently introduce duplicated chain
+    authority, identity disagreement, and noncanonical prerequisite ordering.
+
+    Oracle: The accepted file-per-Task contract and chain allocation define the exact
+    valid fields, canonical order, identity join, and activation relation.
+
+    Acceptance: The valid Task produces the expected TaskReference; every isolated
+    contract defect fails without a value and reports its represented conflict.
+
+    Interpretation: Failure indicates incomplete Task validation, silent normalization,
+    or ambiguous Task/chain authority.
+
+    Limitations: This verifies one project-local JSON pilot and retained Markdown
+    composition; it does not establish persistence, SQLite behavior, or activation.
+    """
+    json_path = "records/example.task.json"
+    json_task = {
+        "schema_version": 1,
+        "task_id": "example.task",
+        "title": "Example Task",
+        "status": "active",
+        "parent_task_id": "parent.task",
+        "task_prerequisite_ids": ["prior.task"],
+        "external_prerequisite_ids": ["external.decision"],
+        "explicit_activation_required": True,
+        "objective": "Verify one complete JSON Task.",
+        "authority_reference_paths": ["records/decision.json"],
+        "authorized_scope": ["Adapt this synthetic Task."],
+        "completion_criteria": ["The public adaptation passes."],
+        "exclusions": ["No work is activated."],
+        "intake_path": "records/intake.md",
+    }
+    mixed_chain = {
+        "active_task": "example.task",
+        "automatic_successor_activation": False,
+        "explicitly_activated_task_ids": ["example.task"],
+        "task_sequence": [
+            {
+                "id": "prior.task",
+                "record": "records/prior.md",
+                "prerequisites": [],
+                "status": "completed",
+            },
+            {"id": "example.task", "record": json_path},
+        ],
+    }
+    prior = ("records/prior.md", b"# Prior\n\nStatus: completed\n")
+
+    def adapt_json_task(task: dict[str, object], chain: dict[str, object]) -> Any:
+        documents = (prior, (json_path, json.dumps(task).encode()))
+        return TaskRecordAdapter().execute(documents, json.dumps(chain).encode(), b"{}")
+
+    adapted_json = adapt_json_task(json_task, mixed_chain)
+    assert adapted_json.validation.status == "PASS"
+    selected = next(
+        item for item in cast(Any, adapted_json.value) if item.task_id == "example.task"
+    )
+    assert selected.task_prerequisite_ids == ("prior.task",)
+    assert selected.external_prerequisite_ids == ("external.decision",)
+    assert selected.status == "active"
+    assert selected.explicit_activation_required is True
+
+    duplicated_chain = json.loads(json.dumps(mixed_chain))
+    duplicated_chain["task_sequence"][1]["status"] = "active"
+    duplicated = adapt_json_task(json_task, duplicated_chain)
+    assert duplicated.validation.status == "FAIL"
+    assert "duplicated" in duplicated.validation.issues[0].detail
+
+    mismatched_task = {**json_task, "task_id": "different.task"}
+    mismatch = adapt_json_task(mismatched_task, mixed_chain)
+    assert mismatch.validation.status == "FAIL"
+    assert "identity differs" in mismatch.validation.issues[0].detail
+
+    unsorted_task = {
+        **json_task,
+        "task_prerequisite_ids": ["prior.task", "another.task"],
+    }
+    unsorted = adapt_json_task(unsorted_task, mixed_chain)
+    assert unsorted.validation.status == "FAIL"
+    assert "unique and sorted" in unsorted.validation.issues[0].detail
+
+    incomplete_task = dict(json_task)
+    del incomplete_task["title"]
+    incomplete = adapt_json_task(incomplete_task, mixed_chain)
+    assert incomplete.validation.status == "FAIL"
+    assert "missing title" in incomplete.validation.issues[0].detail

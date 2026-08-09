@@ -71,8 +71,10 @@ class TaskStateInspectionResult:
     repository_root
         Absolute filesystem boundary used by the inspection.
     task_id, task_status, active_task_id
-        Requested identity, resolved status, and chain-declared active identity. Status
-        is absent when the requested task cannot be resolved.
+        Requested identity, resolved status, and chain-declared active identity. A
+        JSON-backed Task supplies its status from the exact referenced Task record;
+        bootstrap Markdown Tasks retain their chain-entry status. Status is absent
+        when the requested task cannot be resolved.
     chain_path, task_record_path, ownership_manifest_path
         Exact declared root-relative control paths, when present.
     completion_validator_path, completion_command
@@ -202,7 +204,9 @@ class TaskStateInspector:
         Notes
         -----
         The action reads no path unless the request, selected chain entry, or selected
-        ownership manifest names it exactly. It never performs recursive discovery.
+        ownership manifest names it exactly. A JSON Task record is read only through
+        that exact chain reference and identity disagreement fails closed. Generated
+        documentation is never an input. The action never performs recursive discovery.
         """
         if type(request) is not TaskStateInspectionRequest:
             raise TypeError("request must be TaskStateInspectionRequest")

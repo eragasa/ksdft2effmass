@@ -101,10 +101,15 @@ def _parse_chain(
         task_entry = matches[0]
         selected = _SelectedTask()
         state.selected_task = selected
-        selected.status = _require_identifier(task_entry.get("status"), "task status")
         raw_record = task_entry.get("record")
         if raw_record is not None:
             selected.task_record_path = _require_path(raw_record, "task record")
+        if selected.task_record_path is None or not selected.task_record_path.endswith(
+            ".json"
+        ):
+            selected.status = _require_identifier(
+                task_entry.get("status"), "task status"
+            )
         raw_ownership = task_entry.get("ownership_manifest")
         if raw_ownership is not None:
             selected.ownership_path = _require_path(raw_ownership, "ownership manifest")
@@ -146,6 +151,17 @@ def _assignments(
     if len(assignments) != len(set(assignments)):
         raise ValueError(f"{kind} assignments must be unique")
     return tuple(sorted(assignments))
+
+
+def _parse_json_task(
+    payload: bytes,
+    task_id: Identifier,
+) -> Identifier:
+    """Return status from one exact JSON Task after identity agreement."""
+    task = _json_object(payload)
+    if _require_identifier(task.get("task_id"), "task record id") != task_id:
+        raise ValueError("JSON Task identity differs from requested task")
+    return _require_identifier(task.get("status"), "task status")
 
 
 def _parse_ownership(

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "title": "Schema projection pilot fixture",
+  "status": "active",
+  "parent_task_id": "harness.simplification.docs-json",
+  "task_prerequisite_ids": ["harness.simplification.docs-json.documentation-correction"],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Verify the bounded project-local Task record contract.",
+  "authority_reference_paths": ["records/decision.json"],
+  "authorized_scope": ["Validate this synthetic structural fixture."],
+  "completion_criteria": ["All declared structural checks pass."],
+  "exclusions": ["No execution or activation is authorized."],
+  "intake_path": "records/intake.md"
+}

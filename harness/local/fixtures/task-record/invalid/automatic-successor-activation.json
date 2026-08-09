@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.schema-projection",
+  "title": "Automatic successor fixture",
+  "status": "active",
+  "parent_task_id": "harness.simplification.docs-json",
+  "task_prerequisite_ids": ["harness.simplification.docs-json.documentation-correction"],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Isolate forbidden automatic successor activation in the selected chain.",
+  "authority_reference_paths": ["records/decision.json"],
+  "authorized_scope": ["Validate this synthetic structural fixture."],
+  "completion_criteria": ["The declared relational check fails closed."],
+  "exclusions": ["No execution or activation is authorized."],
+  "intake_path": "records/intake.md"
+}

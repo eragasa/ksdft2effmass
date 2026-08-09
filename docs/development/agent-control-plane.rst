@@ -177,6 +177,24 @@ and resumes only the authorized incomplete work without requiring the human to
 paste the previous checkpoint report. If a checkpoint was already resolved, the
 decision is not requested again.
 
+The bounded Task-record pilot uses one authoritative project-local JSON file for
+its exact chain-referenced Task.  That Task file owns lifecycle status, one
+canonical ``parent_task_id``, separate Task and external prerequisites,
+objective, authority and scope, completion criteria, exclusions, and its intake
+link.  The selected chain separately owns membership and order, ``active_task``,
+explicit activation facts, and ``automatic_successor_activation``.  Identity or
+ownership duplication fails closed.  Other chain entries remain Markdown
+bootstrap records during this one-Task pilot.
+
+The complete sibling Markdown reference is deterministically generated from the
+explicitly selected JSON Task, chain, and project-local profile.  It and the
+separate human intake page are non-authoritative, cannot activate work or supply
+scope/status/completion, and are never control inputs.  Parent hierarchy,
+prerequisites, and chain sequence remain distinct.  Automatic successor
+activation remains disabled.  Future SQLite portability is only a record-design
+consideration; this pilot adds no database, migration, event-log, timestamp, or
+persistence API.
+
 The ``recommend-next-task`` skill is designed to work without chat history. It is
 invoked only when no task or checkpoint remains active and the human asks for a
 planning transition. It reconstructs state from ``AGENTS.md``, checkpoint and
@@ -198,8 +216,8 @@ comparison records/actions. Callers supply the repository root, generic
 and identities, and externally collected legacy/local observations. The package
 has no ambient repository discovery and does not execute a legacy command.
 
-The live resource pair is generic/local manifest version 2 with explicit
-``ksdft2effmass.profile.v2`` composition. Accepted H3 checksum evidence remains
+The live resource pair is generic manifest version 4 and local manifest version
+5 with explicit ``ksdft2effmass.profile.v2`` composition. Accepted H3 checksum evidence remains
 the historical version-1 resource snapshot and rollback oracle; it is not
 rewritten to match current v2 identities. The generic manifest is the generic
 resource-inventory source of truth. The six-skill capability inventory is

@@ -26,6 +26,11 @@ CHECKS = (
         "harness/pi/validation/validate_architecture_decision_cases.py",
         '"status":"PASS"',
     ),
+    (
+        "current-task-schema-projection",
+        "harness/local/validation/validate_task_schema_projection.py",
+        '"status":"PASS"',
+    ),
 )
 
 
@@ -64,8 +69,30 @@ def main() -> int:
             checks.append({"check_id": check_id, "exit_status": 127, "status": "FAIL"})
             continue
         try:
+            command = [sys.executable, str(target)]
+            if check_id == "current-task-schema-projection":
+                explicit_paths = {
+                    "generic-validator": "harness/pi/validation/validate_documentation_projection.py",
+                    "task-schema": "harness/local/schemas/task-record.schema.json",
+                    "profile-schema": "harness/pi/schemas/documentation-projection-profile.schema.json",
+                    "profile": "harness/local/projections/task-control-reference-v1.json",
+                    "task": ".pi/tasks/harness.simplification.docs-json.schema-projection.json",
+                    "chain": ".pi/chains/harness-simplification.chain.json",
+                    "expected": "harness/local/fixtures/task-control-reference/expected/harness.simplification.docs-json.schema-projection.md",
+                    "generated": ".pi/tasks/harness.simplification.docs-json.schema-projection.md",
+                    "oracle-index": "harness/local/fixtures/oracle-index.json",
+                    "fixtures-root": "harness/local/fixtures/task-record",
+                }
+                for name, relative_path in explicit_paths.items():
+                    command.extend((f"--{name}", str(root / relative_path)))
+                command.extend(
+                    (
+                        "--task-record-path",
+                        ".pi/tasks/harness.simplification.docs-json.schema-projection.json",
+                    )
+                )
             completed = subprocess.run(
-                (sys.executable, str(target)),
+                command,
                 cwd=root,
                 env={**os.environ, "PYTHONHASHSEED": "0", "PYTHONIOENCODING": "utf-8"},
                 stdin=subprocess.DEVNULL,

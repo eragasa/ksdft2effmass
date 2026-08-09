@@ -38,6 +38,7 @@ TASK_PATH = ".pi/tasks/example.md"
 OWNERSHIP_PATH = ".pi/task-ownership/example.json"
 COMPLETION_PATH = "tools/check.py"
 ARTIFACT_PATH = "records/artifact.json"
+JSON_TASK_PATH = ".pi/tasks/example.json"
 
 
 def write_controlled_repository(
@@ -48,7 +49,8 @@ def write_controlled_repository(
     ownership_path: str = OWNERSHIP_PATH,
     extra_task_fields: dict[str, Any] | None = None,
 ) -> None:
-    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078.
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078
+    and SV-HARNESS-171.
 
     Requirement: Action evidence requires one explicit controlled durable-state tree.
 
@@ -119,7 +121,8 @@ def write_controlled_repository(
 
 
 def request(root: Path, task_id: str = TASK_ID) -> TaskStateInspectionRequest:
-    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078.
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078
+    and SV-HARNESS-171.
 
     Requirement: Action cases require one exact public request shape.
 
@@ -205,6 +208,61 @@ def test_method__execute_declared_state__reports_exact_bounded_records(
     assert result.durable_handoff_record_status == "not_declared"
     assert result.inspected_paths == result.read_paths
     assert result.validation.status == "PASS"
+
+
+def test_method__execute_json_task__uses_exact_reference_identity_and_status(
+    tmp_path: Path,
+) -> None:
+    """Evidence ID: SV-HARNESS-171
+
+    Requirement: TaskStateInspector reads a JSON Task only through the selected exact
+    chain reference and obtains identity and status from that record.
+
+    Method: Replace one controlled Markdown reference with a JSON reference, inspect it,
+    retain an irrelevant chain status field, and then change the JSON identity.
+
+    Oracle: The generic inspection contract owns exact path selection, duplicate-key
+    rejection, identity agreement, and status extraction but not local Task schema
+    policy.
+
+    Acceptance: Exact-reference inspection reports JSON status and only the JSON path;
+    identity disagreement fails with REFERENCE_INVALID.
+
+    Interpretation: Failure indicates fallback discovery, chain-status precedence, local
+    policy leakage, or missing identity validation.
+
+    Limitations: Complete project-local schema and Task/chain authority validation
+    belongs to local adapters and validators; no activation or persistence is
+    established.
+    """
+    write_controlled_repository(tmp_path)
+    chain_file = tmp_path / CHAIN_PATH
+    chain = json.loads(chain_file.read_text())
+    entry = chain["task_sequence"][0]
+    entry["record"] = JSON_TASK_PATH
+    del entry["prerequisites"]
+    chain_file.write_text(json.dumps(chain))
+    json_task = tmp_path / JSON_TASK_PATH
+    json_task.write_text(json.dumps({"task_id": TASK_ID, "status": "active"}))
+    ownership_file = tmp_path / OWNERSHIP_PATH
+    ownership = json.loads(ownership_file.read_text())
+    ownership["task_record"] = JSON_TASK_PATH
+    ownership_file.write_text(json.dumps(ownership))
+
+    json_result = SUT().execute(request(tmp_path))
+    assert json_result.task_status == "active"
+    assert json_result.task_record_path == JSON_TASK_PATH
+    assert JSON_TASK_PATH in json_result.read_paths
+    assert TASK_PATH not in json_result.read_paths
+    assert json_result.validation.status == "PASS"
+
+    json_task.write_text(json.dumps({"task_id": "different.task", "status": "active"}))
+    mismatched = SUT().execute(request(tmp_path))
+    assert mismatched.validation.status == "FAIL"
+    assert any(
+        issue.code == "PIH.TASK_STATE.REFERENCE_INVALID"
+        for issue in mismatched.validation.issues
+    )
 
 
 def test_method__execute_unknown_task__reports_required_resolution_failure(

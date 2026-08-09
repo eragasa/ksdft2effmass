@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2871,
+  "expected_collected_node_count": 2873,
   "expected_module_count": 221,
   "modules": [
     {
@@ -147,7 +147,7 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__TaskRecordAdapter.py",
       "sut": "TaskRecordAdapter",
-      "content_sha256": "cf5b5d303ec03a99ac667b0cf999e39385d585211ef9c6be72341a97e5dd113e"
+      "content_sha256": "1b92acf4f8be9f1b4a66058814e385617bbfaae08912f24e68cc97fc1db7c77f"
     },
     {
       "conformance_status": "conforming",
@@ -631,7 +631,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "af058b4592f38c567ac57236e26c347a350fa49273cc83681ee8f703275d756d",
+      "content_sha256": "f24876017347a21bf40095185a755ebf0a85513dd9feb0a8b1b195e98a4cffb3",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__TaskStateInspector.py",

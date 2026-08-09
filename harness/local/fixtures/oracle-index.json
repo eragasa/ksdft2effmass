@@ -2,5 +2,23 @@
   "explicit_profile": "explicit-profile/use-cases.json",
   "overlay_and_leakage": "overlay-and-leakage/cases.json",
   "evidence_classification": "evidence-classification/cases.json",
-  "claim_boundary": "These fixtures verify structural software behavior. The numerical_verification label is profile classification input only; no numerical result, scientific validation, or uncertainty-quantification claim is made."
+  "claim_boundary": "These fixtures verify structural software behavior. The numerical_verification label is profile classification input only; no numerical result, scientific validation, or uncertainty-quantification claim is made.",
+  "task_control_reference_expected": "task-control-reference/expected/harness.simplification.docs-json.schema-projection.md",
+  "task_record": {
+    "valid/schema-projection.json": [],
+    "invalid/automatic-successor-activation.json": ["TASK_AUTOMATIC_SUCCESSOR_FORBIDDEN"],
+    "invalid/chain-authority-duplication.json": ["TASK_CHAIN_AUTHORITY_DUPLICATION"],
+    "invalid/missing-task-id.json": ["TASK_SCHEMA_REQUIRED"],
+    "invalid/unknown-chain-owned-field.json": ["TASK_SCHEMA_ADDITIONAL_PROPERTIES"],
+    "invalid/self-prerequisite.json": ["TASK_PREREQUISITE_SELF"],
+    "invalid/overlapping-prerequisites.json": ["TASK_PREREQUISITE_OVERLAP"],
+    "invalid/unsorted-prerequisites.json": ["TASK_ARRAY_NOT_SORTED"],
+    "invalid/record-chain-id-mismatch.json": ["TASK_CHAIN_ID_MISMATCH"],
+    "invalid/unknown-task-prerequisite.json": ["TASK_PREREQUISITE_NOT_CHAIN_MEMBER"],
+    "invalid/active-without-chain-activation.json": ["TASK_ACTIVATION_CONFLICT"]
+  },
+  "task_projection": {
+    "invalid/expected-drift.md": ["TASK_RENDER_EXPECTED_DRIFT"],
+    "invalid/live-drift.md": ["TASK_RENDER_LIVE_DRIFT"]
+  }
 }

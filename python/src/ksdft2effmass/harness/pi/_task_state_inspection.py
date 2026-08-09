@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from ._task_state_documents import _PARSE_ERRORS, _parse_chain, _parse_ownership
+from ._task_state_documents import (
+    _PARSE_ERRORS,
+    _parse_chain,
+    _parse_json_task,
+    _parse_ownership,
+)
 from ._task_state_files import _InspectionFiles
 from .task_state import (
     TaskStateInspectionRequest,
@@ -64,7 +69,19 @@ def _inspect_task_state(
 
     if selected_task is not None:
         if task_record_path is not None:
-            files.inspect(task_record_path)
+            task_payload = files.inspect(task_record_path)
+            if task_payload is not None and task_record_path.endswith(".json"):
+                try:
+                    task_status = _parse_json_task(task_payload, request.task_id)
+                except _PARSE_ERRORS as exc:
+                    files.issues.append(
+                        _issue(
+                            "PIH.TASK_STATE.REFERENCE_INVALID",
+                            f"JSON Task state is malformed: {exc}.",
+                            request.task_id,
+                            task_record_path,
+                        )
+                    )
         if ownership_path is not None:
             ownership_payload = files.inspect(ownership_path)
             if ownership_payload is not None:

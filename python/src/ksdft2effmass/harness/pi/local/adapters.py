@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from typing import Any
 
 from .. import (
     AgentDescriptorView,
@@ -33,6 +34,96 @@ from .models import AdaptationResult, EvidenceOwnershipRelation, LocalIssue
 
 def _invalid(area: str, path: str, exc: Exception) -> AdaptationResult:
     return failure(LocalIssue(f"PIHL.{area}.INVALID", path, str(exc)))
+
+
+_TASK_FIELDS = frozenset(
+    {
+        "schema_version",
+        "task_id",
+        "title",
+        "status",
+        "parent_task_id",
+        "task_prerequisite_ids",
+        "external_prerequisite_ids",
+        "explicit_activation_required",
+        "objective",
+        "authority_reference_paths",
+        "authorized_scope",
+        "completion_criteria",
+        "exclusions",
+        "intake_path",
+    }
+)
+_IDENTIFIER = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$")
+_RESOURCE_PATH = re.compile(
+    r"^(?!/)(?!.*(?:^|/)\.{1,2}(?:/|$))(?!.*//)(?!.*\\)"
+    r"[^\x00-\x1f/]+(?:/[^\x00-\x1f/]+)*$"
+)
+
+
+def _strict_strings(value: object, field: str) -> tuple[str, ...]:
+    values = strings(value, field)
+    if (
+        type(value) is not list
+        or list(values) != value
+        or len(set(values)) != len(values)
+    ):
+        raise ValueError(f"{field} must be unique and sorted")
+    return values
+
+
+def _task_record_values(
+    task: dict[str, Any],
+) -> tuple[str, tuple[str, ...], tuple[str, ...], str, bool]:
+    """Validate one complete project-local JSON Task and return view fields."""
+    missing = _TASK_FIELDS - set(task)
+    unknown = set(task) - _TASK_FIELDS
+    if missing:
+        raise ValueError(f"JSON Task is missing {sorted(missing)[0]}")
+    if unknown:
+        raise ValueError(f"JSON Task has unknown field {sorted(unknown)[0]}")
+    if type(task["schema_version"]) is not int or task["schema_version"] != 1:
+        raise ValueError("schema_version must equal integer 1")
+
+    task_id = as_str(task["task_id"], "task_id")
+    if _IDENTIFIER.fullmatch(task_id) is None:
+        raise ValueError("task_id must be a version-1 identifier")
+    parent = task["parent_task_id"]
+    if parent is not None:
+        parent = as_str(parent, "parent_task_id")
+        if _IDENTIFIER.fullmatch(parent) is None or parent == task_id:
+            raise ValueError("parent_task_id must be a distinct version-1 identifier")
+
+    task_deps = _strict_strings(task["task_prerequisite_ids"], "task_prerequisite_ids")
+    external = _strict_strings(
+        task["external_prerequisite_ids"], "external_prerequisite_ids"
+    )
+    if task_id in {*task_deps, *external}:
+        raise ValueError("Task cannot depend on itself")
+    if set(task_deps) & set(external):
+        raise ValueError("Task and external prerequisites must be disjoint")
+
+    authority_paths = _strict_strings(
+        task["authority_reference_paths"], "authority_reference_paths"
+    )
+    for path in (*authority_paths, as_str(task["intake_path"], "intake_path")):
+        if _RESOURCE_PATH.fullmatch(path) is None:
+            raise ValueError("Task resource paths must be canonical relative paths")
+    for field in (
+        "authorized_scope",
+        "completion_criteria",
+        "exclusions",
+    ):
+        values = strings(task[field], field)
+        if not values:
+            raise ValueError(f"{field} must not be empty")
+    as_str(task["title"], "title")
+    as_str(task["objective"], "objective")
+    status = as_str(task["status"], "status")
+    explicit = as_bool(
+        task["explicit_activation_required"], "explicit_activation_required"
+    )
+    return task_id, task_deps, external, status, explicit
 
 
 def _options(value: object) -> tuple[tuple[str, str, str | None], ...]:
@@ -110,7 +201,13 @@ class CheckpointRecordAdapter:
 
 
 class TaskRecordAdapter:
-    """Bind selected task Markdown bytes to authoritative chain task entries."""
+    """Bind selected Markdown or JSON Task bytes to exact chain references.
+
+    JSON-backed Tasks own their identity, status, separated prerequisite kinds,
+    and explicit-activation requirement. Their chain entries may contain only
+    chain-owned reference information; duplicated Task-owned fields fail closed.
+    Markdown-backed bootstrap Tasks retain the legacy chain-owned adaptation.
+    """
 
     __slots__ = ()
 
@@ -134,17 +231,23 @@ class TaskRecordAdapter:
         for path, payload in task_documents:
             if type(path) is not str or type(payload) is not bytes:
                 raise TypeError("task document entries must be (str, bytes)")
-            try:
-                text = payload.decode("utf-8")
-            except UnicodeDecodeError as exc:
-                return _invalid("TASK", path, exc)
-            if not text.startswith("# ") or "Status:" not in text:
-                return failure(
-                    LocalIssue(
-                        "PIHL.TASK.INVALID", path, "missing title or Status field"
+            if path.endswith(".json"):
+                document, issue = parse_object(payload, path)
+                if issue is not None:
+                    return failure(issue)
+                supplied[path] = document
+            else:
+                try:
+                    text = payload.decode("utf-8")
+                except UnicodeDecodeError as exc:
+                    return _invalid("TASK", path, exc)
+                if not text.startswith("# ") or "Status:" not in text:
+                    return failure(
+                        LocalIssue(
+                            "PIHL.TASK.INVALID", path, "missing title or Status field"
+                        )
                     )
-                )
-            supplied[path] = payload
+                supplied[path] = None
         try:
             entries = chain["task_sequence"]
             if type(entries) is not list:
@@ -154,6 +257,20 @@ class TaskRecordAdapter:
             )
             result = []
             ids = {as_str(x.get("id"), "task id") for x in entries if type(x) is dict}
+            json_selected = any(document is not None for document in supplied.values())
+            chain_active = chain.get("active_task")
+            if chain_active is not None:
+                chain_active = as_str(chain_active, "active_task")
+            chain_activated_ids = (
+                _strict_strings(
+                    chain.get("explicitly_activated_task_ids"),
+                    "explicitly_activated_task_ids",
+                )
+                if json_selected
+                else ()
+            )
+            if any(value not in ids for value in chain_activated_ids):
+                raise ValueError("explicit activation names a nonmember Task")
             for item in entries:
                 if type(item) is not dict:
                     raise TypeError("task entry must be an object")
@@ -161,13 +278,48 @@ class TaskRecordAdapter:
                 record = as_str(item["record"], "task record")
                 if record not in supplied:
                     raise ValueError(f"missing selected task bytes for {record}")
-                task_deps: list[str] = []
-                external: list[str] = []
-                for dep in item.get("prerequisites", []):
-                    name = as_str(dep, "prerequisite").split(":", 1)[0]
-                    (task_deps if name in ids else external).append(
-                        dep if name not in ids else name
+                task_document = supplied[record]
+                if task_document is not None:
+                    forbidden = {
+                        "status",
+                        "prerequisites",
+                        "parent_task_id",
+                        "task_prerequisite_ids",
+                        "external_prerequisite_ids",
+                        "explicit_activation_required",
+                    } & set(item)
+                    if forbidden:
+                        raise ValueError(
+                            "JSON Task fields are duplicated in chain entry"
+                        )
+                    record_id, task_deps, external, status, explicit = (
+                        _task_record_values(task_document)
                     )
+                    if record_id != task_id:
+                        raise ValueError("JSON Task identity differs from chain entry")
+                    if any(dependency not in ids for dependency in task_deps):
+                        raise ValueError("Task prerequisite is not a chain member")
+                    if (status == "active") != (chain_active == task_id):
+                        raise ValueError(
+                            "JSON Task status conflicts with chain active_task"
+                        )
+                    activation_count = chain_activated_ids.count(task_id)
+                    if status == "active" and explicit and activation_count != 1:
+                        raise ValueError("active JSON Task lacks explicit activation")
+                    if not explicit and activation_count:
+                        raise ValueError("JSON Task has unexpected explicit activation")
+                else:
+                    task_dep_list: list[str] = []
+                    external_list: list[str] = []
+                    for dep in item.get("prerequisites", []):
+                        name = as_str(dep, "prerequisite").split(":", 1)[0]
+                        (task_dep_list if name in ids else external_list).append(
+                            dep if name not in ids else name
+                        )
+                    task_deps = tuple(task_dep_list)
+                    external = tuple(external_list)
+                    status = as_str(item["status"], "status")
+                    explicit = task_id in {"H1", "H2", "H3", "H4", "H5"}
                 result.append(
                     TaskReference(
                         1,
@@ -175,8 +327,8 @@ class TaskRecordAdapter:
                         record,
                         tuple(sorted(task_deps)),
                         tuple(sorted(external)),
-                        as_str(item["status"], "status"),
-                        task_id in {"H1", "H2", "H3", "H4", "H5"},
+                        status,
+                        explicit,
                     )
                 )
             if activated not in {None, *(x.task_id for x in result)}:

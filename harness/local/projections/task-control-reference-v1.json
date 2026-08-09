@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "output_title_selector": "task.title",
+  "generated_notice": "GENERATED NON-AUTHORITATIVE REFERENCE. The selected Task JSON and chain are authoritative. This page cannot activate work and must never be used as a control input.",
+  "sections": [
+    {
+      "section_id": "identity-status",
+      "heading": "Identity and status",
+      "items": [
+        {"label": "Task-owned identity", "selector": "task.task_id", "format": "scalar"},
+        {"label": "Task-owned status", "selector": "task.status", "format": "scalar"}
+      ]
+    },
+    {
+      "section_id": "objective",
+      "heading": "Objective",
+      "items": [
+        {"label": "Task-owned objective", "selector": "task.objective", "format": "scalar"}
+      ]
+    },
+    {
+      "section_id": "hierarchy",
+      "heading": "Hierarchy",
+      "items": [
+        {"label": "Task-owned canonical parent", "selector": "task.parent_task_id", "format": "scalar"}
+      ]
+    },
+    {
+      "section_id": "prerequisites",
+      "heading": "Prerequisites",
+      "items": [
+        {"label": "Task-owned Task prerequisites", "selector": "task.task_prerequisite_ids", "format": "list"},
+        {"label": "Task-owned external prerequisites", "selector": "task.external_prerequisite_ids", "format": "list"}
+      ]
+    },
+    {
+      "section_id": "chain-context",
+      "heading": "Chain context",
+      "items": [
+        {"label": "Chain-owned active Task", "selector": "chain.active_task", "format": "scalar"},
+        {"label": "Chain-owned explicit activation facts", "selector": "chain.explicitly_activated_task_ids", "format": "list"},
+        {"label": "Chain-owned automatic successor activation", "selector": "chain.automatic_successor_activation", "format": "boolean"}
+      ]
+    },
+    {
+      "section_id": "authority-scope",
+      "heading": "Authority and scope",
+      "items": [
+        {"label": "Task-owned authority references", "selector": "task.authority_reference_paths", "format": "list"},
+        {"label": "Task-owned authorized scope", "selector": "task.authorized_scope", "format": "list"}
+      ]
+    },
+    {
+      "section_id": "completion",
+      "heading": "Completion",
+      "items": [
+        {"label": "Task-owned completion criteria", "selector": "task.completion_criteria", "format": "list"}
+      ]
+    },
+    {
+      "section_id": "exclusions",
+      "heading": "Exclusions",
+      "items": [
+        {"label": "Task-owned exclusions", "selector": "task.exclusions", "format": "list"}
+      ]
+    },
+    {
+      "section_id": "intake-link",
+      "heading": "Non-authoritative intake",
+      "items": [
+        {"label": "Task-owned intake link", "selector": "task.intake_path", "format": "link"}
+      ]
+    }
+  ],
+  "final_lf": true
+}
