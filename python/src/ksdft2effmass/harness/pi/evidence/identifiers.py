@@ -279,7 +279,7 @@ class IdentifierAuditor:
             try:
                 source = payload.decode("utf-8")
                 tree = ast.parse(source, filename=path)
-            except UnicodeDecodeError, SyntaxError:
+            except (UnicodeDecodeError, SyntaxError):  # fmt: skip
                 issues.append(
                     _issue(
                         "PIH.EVIDENCE.SOURCE_INVALID",
@@ -345,7 +345,7 @@ class IdentifierAuditor:
                     try:
                         prefix, number = eid.rsplit("-", 1)
                         _require_identifier(eid, "evidence_id")
-                    except TypeError, ValueError:
+                    except (TypeError, ValueError):  # fmt: skip
                         issues.append(
                             _issue(
                                 "PIH.EVIDENCE.ID_INVALID",

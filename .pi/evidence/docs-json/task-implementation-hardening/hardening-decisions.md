@@ -77,8 +77,18 @@ Packet preparation recomputes and requires agreement for:
 - explicit rendering;
 - explicit comparison;
 - canonical generic human-review packet;
+- exact immutable observations binding source identity and byte count, candidate
+  canonical-JSON identity, source mappings and unmapped spans, rendered identity,
+  exact comparison status and differences, opaque-block preservation, and applicable
+  limitations;
+- exact agreement of generic findings and limitations with the comparison result;
 - source revision; and
-- source and rendered target paths.
+- the exact source and rendered target paths.
+
+The generic packet may not be empty, incomplete, stale, or unrelated. The disposition
+recorder deterministically revalidates the retained request through
+`HarnessTaskMigrationReviewPacketPreparer`, so direct construction of the public
+packet DataObject cannot bypass these checks.
 
 The disposition recorder retains the exact generic review packet and uses only this closed table:
 

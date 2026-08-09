@@ -8,7 +8,9 @@ work, select successors, establish completion, or provide human acceptance.
 
 This API is implementation infrastructure.  Its tests provide software
 verification only; they do not validate scientific results.  The Stage-2A
-representative data are synthetic and are not a migration packet.
+representative data are synthetic and are not a migration packet.  Its
+``HarnessTask`` is supplied manually: the example demonstrates serialization,
+rendering, and byte comparison, not Markdown-to-JSON extraction.
 
 Object ownership
 ----------------
@@ -138,8 +140,13 @@ File-specific human mediation
 
 Packet preparation recomputes canonical JSON, rendering, comparison, complete mapping
 coverage, exact block selection, target paths, target revision, and generic packet
-canonicality.  It performs no discovery or persistence.  The disposition recorder
-requires exact generic packet binding and applies this closed table:
+canonicality.  The generic packet must contain the exact immutable observations that
+bind source identity and byte count, candidate-JSON identity, mappings and unmapped
+spans, rendered identity, comparison status and differences, opaque-block
+preservation, and applicable limitations.  Missing, altered, stale, empty, or
+unrelated observations fail preparation.  It performs no discovery or persistence.
+The disposition recorder revalidates the retained request through the public packet
+preparer before requiring exact generic packet binding and applying this closed table:
 
 .. list-table:: Generic and migration dispositions
    :header-rows: 1

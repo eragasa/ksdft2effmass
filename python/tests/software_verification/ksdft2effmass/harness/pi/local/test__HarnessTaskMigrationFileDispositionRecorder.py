@@ -15,9 +15,18 @@ Passing establishes software-interface behavior only. It does not establish a
 migration, activation, scientific validity, or human acceptance.
 """
 
+from dataclasses import replace
+
 import pytest
 
-from ksdft2effmass.harness.pi.local import HarnessTaskMigrationFileDispositionRecorder
+from ksdft2effmass.harness.pi import HumanReviewDecision, HumanReviewPreparer
+from ksdft2effmass.harness.pi.local import (
+    HarnessTaskMigrationDisposition,
+    HarnessTaskMigrationFileDispositionRecorder,
+    HarnessTaskMigrationReviewPacket,
+)
+
+from .task_model_examples import make_request
 
 pytestmark = pytest.mark.software_verification
 SUT = HarnessTaskMigrationFileDispositionRecorder
@@ -64,3 +73,40 @@ def test_method__execute__rejects_wrong_public_types() -> None:
     """
     with pytest.raises(TypeError, match="packet"):
         SUT().execute(object(), object(), object())  # type: ignore[arg-type]
+
+
+def test_method__execute__revalidates_directly_constructed_packet() -> None:
+    """Evidence ID: ``SV-HT-051``.
+
+    Requirement: Disposition recording must reject a directly constructed migration
+    packet whose retained request has not passed packet preparation.
+
+    Method: Remove all required binding observations, directly construct the public
+    packet, and attempt an otherwise compatible deferred disposition.
+
+    Oracle: The public packet preparer is the accepted deterministic validator for the
+    exact retained request.
+
+    Acceptance: The recorder raises ``ValueError`` before returning a disposition.
+
+    Interpretation: Failure exposes an unvalidated-packet disposition path.
+
+    Limitations: The synthetic decision does not authenticate a person, persist a
+    decision, authorize migration, or activate work.
+    """
+    request = make_request()
+    review = request.human_review_packet
+    incomplete_review = HumanReviewPreparer().execute(
+        review.target, (), review.findings, review.limitations
+    )
+    incomplete_request = replace(request, human_review_packet=incomplete_review)
+    direct_packet = HarnessTaskMigrationReviewPacket(incomplete_request)
+    decision = HumanReviewDecision(
+        incomplete_review, "Synthetic defer response", "deferred", ()
+    )
+    with pytest.raises(ValueError, match="observations"):
+        SUT().execute(
+            direct_packet,
+            decision,
+            HarnessTaskMigrationDisposition.DEFER_FILE,
+        )

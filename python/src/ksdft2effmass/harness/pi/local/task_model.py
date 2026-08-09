@@ -21,6 +21,7 @@ from typing import Any
 from ..human_review import (
     HumanReviewDecision,
     HumanReviewFinding,
+    HumanReviewObservation,
     HumanReviewPacket,
     HumanReviewPreparer,
 )
@@ -1175,14 +1176,165 @@ class HarnessTaskMigrationReviewPacketPreparer:
             raise ValueError("human review packet is not canonical")
         if review.target.revision != source.revision:
             raise ValueError("human review target revision differs from source")
-        if (
-            source.path not in review.target.paths
-            or rendered.path not in review.target.paths
-        ):
+        if review.target.paths != (source.path, rendered.path):
             raise ValueError(
-                "human review target paths must include source and rendered paths"
+                "human review target paths must equal source and rendered paths"
+            )
+        expected_observations = self._expected_observations(request)
+        if review.observations != expected_observations:
+            raise ValueError(
+                "human review observations do not bind the migration evidence"
+            )
+        if review.findings != comparison.findings:
+            raise ValueError("human review findings differ from comparison findings")
+        if review.limitations != comparison.limitations:
+            raise ValueError(
+                "human review limitations differ from applicable limitations"
             )
         return HarnessTaskMigrationReviewPacket(request)
+
+    @staticmethod
+    def _expected_observations(
+        request: HarnessTaskMigrationReviewPacketRequest,
+    ) -> tuple[HumanReviewObservation, ...]:
+        """Return exact immutable observations binding all reviewed material."""
+
+        def detail(value: object) -> str:
+            return json.dumps(
+                value, ensure_ascii=True, separators=(",", ":"), sort_keys=True
+            )
+
+        def represented_identity(value: ArtifactIdentity) -> dict[str, object]:
+            return {
+                "algorithm": value.algorithm,
+                "digest": value.digest,
+                "schema_version": value.schema_version,
+            }
+
+        source = request.source
+        rendered = request.rendered_documentation
+        comparison = request.comparison
+        canonical_identity = _sha256(request.canonical_task_json)
+        mapping_account = [
+            {
+                "disposition": mapping.disposition.value,
+                "end_byte": mapping.end_byte,
+                "mapping_id": mapping.mapping_id,
+                "rationale": mapping.rationale,
+                "source_identity": represented_identity(mapping.source_identity),
+                "span_identity": represented_identity(mapping.span_identity),
+                "start_byte": mapping.start_byte,
+                "target_references": list(mapping.target_references),
+                "transformation": mapping.transformation,
+            }
+            for mapping in request.mappings
+        ]
+        opaque_blocks = [
+            {
+                "mapping_id": mapping.mapping_id,
+                "preserved": True,
+                "span_identity": represented_identity(mapping.span_identity),
+            }
+            for mapping in request.mappings
+            if mapping.disposition
+            is HarnessTaskSourceDisposition.DOCUMENTATION_OWNED_CONTENT
+        ]
+        observations = (
+            HumanReviewObservation(
+                "harness-task-migration.candidate-json",
+                "candidate canonical HarnessTask JSON identity",
+                "passed",
+                "The candidate canonical JSON is bound to the reviewed packet.",
+                request.candidate_task.documentation_path,
+                detail(
+                    {
+                        "byte_count": len(request.canonical_task_json),
+                        "candidate_task_id": request.candidate_task.task_id,
+                        "identity": represented_identity(canonical_identity),
+                    }
+                ),
+            ),
+            HumanReviewObservation(
+                "harness-task-migration.comparison",
+                "exact source and rendered byte comparison",
+                "failed" if comparison.unmapped_spans else "passed",
+                "The exact comparison result is bound to the reviewed packet.",
+                rendered.path,
+                detail(
+                    {
+                        "differences": list(comparison.differences),
+                        "rendered_identity": represented_identity(
+                            comparison.rendered_identity
+                        ),
+                        "source_identity": represented_identity(
+                            comparison.source_identity
+                        ),
+                        "status": comparison.status,
+                        "unmapped_spans": [
+                            list(span) for span in comparison.unmapped_spans
+                        ],
+                    }
+                ),
+            ),
+            HumanReviewObservation(
+                "harness-task-migration.limitations",
+                "applicable comparison limitations",
+                "passed",
+                "Every applicable comparison limitation is bound to the packet.",
+                rendered.path,
+                detail({"limitations": list(comparison.limitations)}),
+            ),
+            HumanReviewObservation(
+                "harness-task-migration.mappings",
+                "source mappings and unmapped-span account",
+                "failed" if comparison.unmapped_spans else "passed",
+                "All source mappings and unmapped spans are bound to the packet.",
+                source.path,
+                detail(
+                    {
+                        "mappings": mapping_account,
+                        "unmapped_spans": [
+                            list(span) for span in comparison.unmapped_spans
+                        ],
+                    }
+                ),
+            ),
+            HumanReviewObservation(
+                "harness-task-migration.opaque-blocks",
+                "opaque documentation-block preservation",
+                "passed",
+                "Every documentation-owned source block is preserved exactly.",
+                rendered.path,
+                detail({"documentation_blocks": opaque_blocks}),
+            ),
+            HumanReviewObservation(
+                "harness-task-migration.rendered",
+                "rendered-document identity",
+                "passed",
+                "The rendered document bytes are bound to the reviewed packet.",
+                rendered.path,
+                detail(
+                    {
+                        "byte_count": len(rendered.content),
+                        "identity": represented_identity(rendered.artifact_identity),
+                    }
+                ),
+            ),
+            HumanReviewObservation(
+                "harness-task-migration.source",
+                "source identity and byte count",
+                "passed",
+                "The exact source bytes are bound to the reviewed packet.",
+                source.path,
+                detail(
+                    {
+                        "byte_count": source.byte_count,
+                        "identity": represented_identity(source.artifact_identity),
+                    }
+                ),
+            ),
+        )
+        return tuple(sorted(observations, key=lambda item: item.observation_id))
 
 
 @dataclass(frozen=True, slots=True)
@@ -1196,8 +1348,9 @@ class HarnessTaskMigrationReviewPacket:
 
     Notes
     -----
-    Direct construction checks only type. Use the preparer for cross-object
-    validation. Packet existence does not authorize migration.
+    Direct construction checks only type. The disposition recorder deterministically
+    revalidates the retained request through the public preparer before accepting the
+    packet. Packet existence does not authorize migration.
     """
 
     request: HarnessTaskMigrationReviewPacketRequest
@@ -1308,6 +1461,11 @@ class HarnessTaskMigrationFileDispositionRecorder:
             raise TypeError("packet must be HarnessTaskMigrationReviewPacket")
         if type(human_decision) is not HumanReviewDecision:
             raise TypeError("human_decision must be HumanReviewDecision")
+        validated_packet = HarnessTaskMigrationReviewPacketPreparer().execute(
+            packet.request
+        )
+        if packet != validated_packet:
+            raise ValueError("packet must equal its validated prepared result")
         if type(migration_disposition) is not HarnessTaskMigrationDisposition:
             raise TypeError(
                 "migration_disposition must be HarnessTaskMigrationDisposition"

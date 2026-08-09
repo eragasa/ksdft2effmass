@@ -8,7 +8,7 @@
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": true,
-  "objective": "Demonstrate the accepted explicit round trip.",
+  "objective": "Demonstrate manually supplied HarnessTask serialization and rendering.",
   "authority_reference_paths": [
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md"
   ],

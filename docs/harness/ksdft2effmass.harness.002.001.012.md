@@ -49,9 +49,10 @@ Stage 2A implements:
   `TaskStateInspector` compatibility; and
 - focused tests and maintained public documentation.
 
-The implementation may use one representative illustrative or synthetic
-Markdown → `HarnessTask` JSON → rendered Markdown example. It may not use that
-example as a real file-migration packet or modify any selected source.
+The implementation may use one representative illustrative or synthetic example
+with a manually supplied `HarnessTask`, canonical JSON, rendered Markdown, and exact
+source comparison. It must not describe that example as Markdown-to-JSON extraction
+or use it as a real file-migration packet or modification of any selected source.
 
 ## Independent review
 
@@ -67,7 +68,9 @@ Stage 2A must stop at a human checkpoint with one concise packet containing:
 1. exact production files added or changed;
 2. final public API table;
 3. every difference from the accepted Stage-1 contract;
-4. one representative Markdown → `HarnessTask` JSON → rendered Markdown example;
+4. one representative manually supplied `HarnessTask` → canonical JSON and
+   `HarnessTask` + documentation content + projection profile → rendered Markdown
+   example, explicitly labeled as not demonstrating Markdown-to-JSON extraction;
 5. exact source/rendered diff for that example;
 6. focused test and validation results;
 7. independent-review findings and dispositions;

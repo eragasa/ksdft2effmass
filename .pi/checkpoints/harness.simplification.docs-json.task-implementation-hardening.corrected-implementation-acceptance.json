@@ -1,0 +1,57 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.task-implementation-hardening.corrected-implementation-acceptance",
+  "task_id": "harness.simplification.docs-json.task-implementation-hardening",
+  "episode_id": "harness.simplification.docs-json.task-implementation-hardening",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T19:04:23Z",
+  "question": "Should the corrected Stage-2A HarnessTask implementation be accepted exactly as presented in the renewed implementation-acceptance packet, completing Stage 2A while all six Markdown Tasks remain unchanged and Stage 2B remains inactive pending separate activation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the corrected Stage-2A implementation.",
+      "consequence": "Accept the bounded committed-tree, packet-binding, disposition-revalidation, representative-example, evidence, documentation, and durable-record corrections. Complete Stage 2A only. Leave Stage 2B inactive and prepare no real migration packet until a separate activation decision."
+    },
+    {
+      "id": "B",
+      "summary": "Request another exact bounded correction before acceptance.",
+      "consequence": "Keep Stage 2A open, identify the exact remaining contract-consistent correction and its authority, and prepare no real migration packet or Stage-2B activation."
+    },
+    {
+      "id": "C",
+      "summary": "Defer corrected Stage-2A implementation acceptance.",
+      "consequence": "Retain the corrected implementation as provisional evidence, keep Stage 2A incomplete and Stage 2B blocked, and perform no migration or unrelated work."
+    }
+  ],
+  "recommendation": "Review the renewed packet's exact accepted-contract behavior, binding observations, clean committed-tree source-path proof, limitations, and unchanged authority boundary directly; test counts and review agreement do not determine human acceptance.",
+  "blocked_scope": "Stage-2A completion and human implementation acceptance; any Stage-2B activation; any real migration packet, candidate JSON for a selected Task, maintained migration documentation, file disposition, or source migration; contract revision; legacy projection synchronization; selection-state work; chain cutover; automatic successor activation; dependency, lockfile, environment, SQLite, telemetry, scientific, publication, external, protected, release, or unrelated work.",
+  "safe_scope": "Human review of the renewed concise implementation-acceptance packet, corrected production implementation, maintained evidence and documentation, clean committed-tree validation, unchanged six source identities, active durable task state, chain state, and this checkpoint. Deterministic validation and persistence of this pending decision boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/bounded-correction-validation.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/hardening-decisions.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/integration-review.md",
+    "docs/api/harness-task.rst",
+    "docs/harness/ksdft2effmass.harness.002.001.012.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.corrected-implementation-acceptance.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
+    ".pi/evidence/docs-json/task-implementation-hardening/bounded-correction-validation.md",
+    "docs/harness/ksdft2effmass.harness.002.001.012.md"
+  ],
+  "resumption_status": "blocked_pending_corrected_stage_2a_implementation_acceptance"
+}

@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2924,
+  "expected_collected_node_count": 2937,
   "expected_module_count": 241,
   "modules": [
     {
@@ -179,7 +179,7 @@
       "evidence_class": "software_verification",
       "sut": "HarnessTaskMigrationFileDispositionRecorder",
       "conformance_status": "conforming",
-      "content_sha256": "b791def2a0dd3f68fbe8f906afa599628cc45b54e8349a8ed0c715db07a63fc0"
+      "content_sha256": "2b5aa4550c63fc6d4f0358026202c08a8b79ea6a3fe52a126b17e1170dce2301"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacket.py",
@@ -195,7 +195,7 @@
       "evidence_class": "software_verification",
       "sut": "HarnessTaskMigrationReviewPacketPreparer",
       "conformance_status": "conforming",
-      "content_sha256": "c9f60020e1eeec52fadde0117b7d753ba7f11cb02674ea5700d3a18a13f1c5a1"
+      "content_sha256": "08c4b70734de5493fd5a188deaa99d501c0c75d2d1e0445f93377b00107e6d0b"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskMigrationReviewPacketRequest.py",

@@ -6,7 +6,7 @@ Status: proposed
 
 ## Objective
 
-Demonstrate the accepted explicit round trip.
+Demonstrate manually supplied HarnessTask serialization and rendering.
 
 ## Preserved illustrative source
 
