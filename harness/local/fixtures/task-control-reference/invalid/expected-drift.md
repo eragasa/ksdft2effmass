@@ -30,6 +30,7 @@
 
 **Chain-owned explicit activation facts:**
 - harness.simplification.docs-json.schema-projection
+- harness.simplification.resources.h3-validator-retirement
 
 **Chain-owned automatic successor activation:** false
 

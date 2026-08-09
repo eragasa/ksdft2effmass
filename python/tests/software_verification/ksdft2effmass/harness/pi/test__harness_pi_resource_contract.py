@@ -1,14 +1,15 @@
-r"""Software verification of harness pi h3 resource contract.
+r"""Software verification of harness pi resource contract.
 
 Facet and represented meaning
 
-Software verification of Python/H3 schema, fixture, and canonical-byte agreement; no
-physical model, mathematical operator, or numerical representation is represented.
+Software verification of schema, fixture, and canonical-byte agreement; no physical
+model, mathematical operator, or numerical representation is represented.
 
 Intrinsic and cross-object scope
 
-The primary owner is the accepted H3 resource contract. Accepted schemas, fixtures, and
-canonical vectors are read-only independent oracles for the public Python wire actions.
+The primary owner is the maintained resource-contract artifact. Retained schemas,
+fixtures, and canonical vectors are read-only independent oracles for the public Python
+wire actions.
 
 VVUQ and scientific exclusions
 
@@ -42,14 +43,14 @@ pytestmark = pytest.mark.software_verification
 def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     """Evidence ID: SV-HARNESS-036
 
-    Requirement: Every accepted H3 canonical vector decodes and re-encodes to its exact
+    Requirement: Every retained canonical vector decodes and re-encodes to its exact
     RFC
     8785-plus-LF bytes and SHA-256 identity.
 
     Method: Consume all indexed vectors, caller-select each public record kind, decode,
     encode, and hash using the public actions.
 
-    Oracle: H3's accepted canonical-json-vectors file independently fixes record kinds,
+    Oracle: The retained canonical-json-vectors file independently fixes record kinds,
     byte
     strings, and digests.
 
@@ -57,9 +58,8 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     exact
     indexed lowercase SHA-256 digest.
 
-    Interpretation: Failure identifies a Python codec, H3 vector, accepted contract, or
-    environment
-    discrepancy for independent review.
+    Interpretation: Failure identifies a Python codec, retained vector, accepted
+    contract, or environment discrepancy for independent review.
 
     Limitations: This is textual software verification only; it does not establish Rust
     conformance, numerical correctness, scientific validation, or UQ.
@@ -97,7 +97,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
 def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> None:
     """Evidence ID: SV-HARNESS-037
 
-    Requirement: All sixteen H3 valid record fixtures are schema-valid and
+    Requirement: All sixteen retained valid record fixtures are schema-valid and
     Python-decodable,
     while every indexed schema-invalid fixture is rejected by both boundaries.
 
@@ -105,7 +105,7 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
     2020-12
     validation, then invoke strict public decoding.
 
-    Oracle: The accepted H3 fixture index and record schemas define the independent
+    Oracle: The retained fixture index and record schemas define the independent
     acceptance partition.
 
     Acceptance: Each valid fixture has no schema errors and decodes PASS; each invalid
@@ -171,21 +171,21 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
 def test_artifact__diagnostic_path_corpus__matches_python_construction() -> None:
     """Evidence ID: SV-HARNESS-038
 
-    Requirement: The complete accepted H3 DiagnosticPath valid/invalid corpus agrees
+    Requirement: The complete retained DiagnosticPath valid/invalid corpus agrees
     with Python
     ValidationIssue construction without normalization.
 
     Method: Construct the public issue from each indexed lexical spelling, including the
     escaped surrogate case, and observe exact retention or ValueError code text.
 
-    Oracle: H3's accepted DiagnosticPath oracle index fixes every spelling and expected
+    Oracle: The retained DiagnosticPath oracle index fixes every spelling and expected
     issue code independently of production implementation.
 
     Acceptance: All four valid cases retain their exact path or None; all nineteen
     invalid cases
     raise ValueError containing the indexed code.
 
-    Interpretation: Failure identifies lexical-contract drift in source or accepted H3
+    Interpretation: Failure identifies lexical-contract drift in source or retained
     evidence.
 
     Limitations: DiagnosticPath is lexical only; this test makes no filesystem
@@ -221,9 +221,9 @@ def decode_public_case_record(kind: WireRecordKind, value: object) -> object:
 
     Requirement: Case records must be constructed only through the public wire boundary.
 
-    Method: Encode H3 JSON data and call the selected public decoder.
+    Method: Encode retained JSON data and call the selected public decoder.
 
-    Oracle: The H3 case document fixes the supplied represented value.
+    Oracle: The retained case document fixes the supplied represented value.
 
     Acceptance: Decoding passes and returns a complete record.
 
@@ -243,13 +243,13 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
 ) -> None:
     """Evidence ID: SV-HARNESS-046
 
-    Requirement: Every H3 resource-resolution and overlay case has its declared action
-    result.
+    Requirement: Every retained resource-resolution and overlay case has its declared
+    Action result.
 
-    Method: Copy the H3 roots, apply declared symlinks, decode records publicly, and run
-    manifest validation or resource resolution with explicit roots.
+    Method: Copy the retained fixture roots, apply declared symlinks, decode records
+    publicly, and run manifest validation or resource resolution with explicit roots.
 
-    Oracle: The accepted H3 oracle index fixes all 19 acceptance partitions and codes.
+    Oracle: The retained oracle index fixes all 19 acceptance partitions and codes.
 
     Acceptance: Status and sole expected code match; PASS selects the declared
     layer/path;
@@ -395,18 +395,19 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
 def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
     """Evidence ID: SV-HARNESS-047
 
-    Requirement: All H3 semantic-invariant cases honor the declared schema/wire
+    Requirement: All retained semantic-invariant cases honor the declared schema/wire
     boundary.
 
-    Method: Consume every indexed case and invoke public decoding where H3 requires it.
+    Method: Consume every indexed case and invoke public decoding where the retained
+    oracle requires it.
 
-    Oracle: The accepted seven-case H3 index fixes schema and semantic expectations.
+    Oracle: The retained seven-case index fixes schema and semantic expectations.
 
     Acceptance: Schema-rejected cases are not decoded; each decoded semantic case
     returns its
     exact declared status/code partition and record presence.
 
-    Interpretation: Failure identifies H3/schema/decoder contract drift.
+    Interpretation: Failure identifies retained-schema/decoder contract drift.
 
     Limitations: Relational manifest acceptance is owned by the resource-resolution
     evidence.
@@ -437,3 +438,134 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
 
     _ = [exercise_case_case_365_1(case) for case in (index["cases"])]
     assert len(seen) == 7
+
+
+def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() -> None:
+    """Evidence ID: SV-HARNESS-172
+
+    Requirement: Generic and local manifests exactly cover their declared textual
+    resource families, select one local profile, and contain valid UTF-8 resources.
+
+    Method: Compare manifest paths with the bounded declarative roots and decode each
+    selected resource without invoking repository discovery.
+
+    Oracle: The maintained resource layout fixes generic schemas/skills and local
+    extensions/profiles/projections/schemas/validation as the complete families.
+
+    Acceptance: Declared and bounded path sets are equal, one profile is selected, and
+    every selected resource is a nonsymlink regular UTF-8 file.
+
+    Interpretation: Failure identifies manifest coverage, stale registration, path-kind,
+    or textual encoding drift.
+
+    Limitations: This establishes bounded textual resource coverage only; runtime Action
+    behavior, authorization, scientific validity, and UQ are excluded.
+    """
+    roots = (
+        (
+            ROOT / "harness/pi",
+            ("schemas", "skills"),
+        ),
+        (
+            ROOT / "harness/local",
+            ("extensions", "profiles", "projections", "schemas", "validation"),
+        ),
+    )
+    manifests = tuple(
+        (root, json.loads((root / "resource-manifest.json").read_text()), families)
+        for root, families in roots
+    )
+    declared_sets = tuple(
+        {item["path"] for item in manifest["resources"]} for _, manifest, _ in manifests
+    )
+    actual_sets = tuple(
+        {
+            path.relative_to(root).as_posix()
+            for family in families
+            for path in (root / family).rglob("*")
+            if path.is_file() and "__pycache__" not in path.parts
+        }
+        for root, _, families in manifests
+    )
+    assert declared_sets == actual_sets
+    selected_paths = tuple(
+        root / relative
+        for (root, _, _), declared in zip(manifests, declared_sets, strict=True)
+        for relative in declared
+    )
+    assert all(path.is_file() and not path.is_symlink() for path in selected_paths)
+    assert all(path.read_text(encoding="utf-8") is not None for path in selected_paths)
+    local = manifests[1][1]
+    assert sum(item["path"].startswith("profiles/") for item in local["resources"]) == 1
+
+
+def test_artifact__resource_documentation__retains_current_contract_concepts() -> None:
+    """Evidence ID: SV-HARNESS-173
+
+    Requirement: Maintained generic/local resource and skill documentation retains its
+    current contract concepts without relying on phase completion prose.
+
+    Method: Read the three maintained documentation surfaces and the test-evidence
+    convention reference, then compare required concept phrases.
+
+    Oracle: Current resource ownership, path, claim-boundary, and maintained
+    test-evidence contracts fix the required concepts independently of the retired
+    validator.
+
+    Acceptance: Every required concept is present and both superseded evidence headings
+    remain expressly prohibited by the maintained reference.
+
+    Interpretation: Failure identifies maintained documentation or skill-reference
+    drift.
+
+    Limitations: Concept presence does not establish prose quality, Action correctness,
+    authorization, scientific validation, or UQ.
+    """
+    requirements = {
+        ROOT / "harness/pi/docs/resources.md": (
+            "root explicitly",
+            "extend",
+            "symlink",
+            "SHA-256",
+            "DiagnosticPath",
+            "human acceptance",
+        ),
+        ROOT / "harness/pi/docs/evidence-grammar.md": (
+            "class_owned",
+            "artifact_owned",
+            "software verification",
+            "numerical verification",
+            "scientific validation",
+            "uncertainty quantification",
+        ),
+        ROOT / "harness/local/docs/project-profile.md": (
+            "explicit",
+            "extend_only",
+            "namespace",
+            "marker",
+            "compatibility",
+            "local",
+        ),
+    }
+    texts = {path: path.read_text(encoding="utf-8").casefold() for path in requirements}
+    assert all(
+        concept.casefold() in texts[path]
+        for path, concepts in requirements.items()
+        for concept in concepts
+    )
+    conventions = (
+        ROOT
+        / "harness/pi/skills/develop-python-test-evidence/references"
+        / "test-evidence-conventions.md"
+    ).read_text(encoding="utf-8")
+    assert all(
+        heading in conventions
+        for heading in (
+            "Facet and represented meaning",
+            "Intrinsic and cross-object scope",
+            "VVUQ and scientific exclusions",
+        )
+    )
+    assert "superseded and prohibited" in conventions
+    assert "Evidence class and represented meaning" in conventions
+    assert "Owned contract, oracle, and scope" in conventions

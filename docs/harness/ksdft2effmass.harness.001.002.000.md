@@ -49,12 +49,14 @@ resource contracts. Controlled valid and invalid fixtures provide independent
 structural oracles. Passing a fixture or schema check establishes its declared
 software contract only; fixtures are not scientific results.
 
-## Validation route
+## Current resource validation
 
-`harness/local/validation-route.json` selects the maintained local route and
-retains a legacy rollback value. The current replay entry point invokes declared
-validators and fails if a required observation is missing, malformed, nonzero,
-or does not report the required pass condition.
+`harness/local/validation/validate_local_harness_resources.py` accepts explicit
+repository, generic-resource, local-resource, profile, and manifest paths. It
+uses maintained context-loading and resource-resolution Actions, emits a
+structured deterministic result, propagates nested failures, and distinguishes
+invalid input from an unexpected command-boundary failure. It performs no route
+selection, historical replay, Git mutation, or current-directory discovery.
 
 ## Navigation
 

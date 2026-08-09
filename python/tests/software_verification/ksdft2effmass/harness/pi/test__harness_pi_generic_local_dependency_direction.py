@@ -7,8 +7,8 @@ mathematics, or numerical representation is involved.
 
 Intrinsic and cross-object scope
 
-The primary owner is the generic/local dependency-direction artifact. Accepted H1
-direction rules and H3 generic/local manifests are independent oracles.
+The primary owner is the generic/local dependency-direction artifact. Maintained
+direction rules and selected generic/local manifests are independent oracles.
 
 VVUQ and scientific exclusions
 
@@ -81,27 +81,25 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
 def test_artifact__generic_resources__contain_no_project_local_identifiers() -> None:
     """Evidence ID: SV-HARNESS-042
 
-    Requirement: Generic resources neither depend on local resource identities nor embed
-    the
-    project-local manifest identity.
+    Requirement: Generic resources neither depend on nor embed project-local identities,
+    paths, or runtime-state roots.
 
-    Method: Read the accepted generic and local manifests and compare generic dependency
-    closure with the exact local ID set and local manifest identity.
+    Method: Read the selected generic and local manifests, compare dependency closure,
+    and inspect only manifest-selected generic textual resources for explicit prohibited
+    project spellings.
 
-    Oracle: H1 overlay rules and accepted H3 manifests fix extension-only
-    local-to-generic
-    direction.
+    Oracle: The maintained extension-only rule, local manifest identity and resource
+    IDs, and project-local path boundary fix the prohibited direction.
 
-    Acceptance: Generic resource dependencies are disjoint from local resource IDs and
-    canonical
-    generic manifest text omits the local manifest ID.
+    Acceptance: Generic dependencies are disjoint from local IDs, generic selected text
+    omits local IDs and manifest identity, and no selected text contains the project
+    package name, local resource root, or runtime-state root.
 
     Interpretation: Failure identifies accepted-resource leakage or a direction-contract
     discrepancy.
 
-    Limitations: This checks declared manifest dependencies and one explicit identity,
-    not
-    arbitrary prose semantics or runtime dispatch.
+    Limitations: This checks explicit identities and path spellings, not arbitrary
+    semantic equivalence, dynamic strings, authorization, science, or runtime dispatch.
     """
     generic_path = ROOT / "harness/pi/resource-manifest.json"
     generic = json.loads(generic_path.read_text())
@@ -111,4 +109,12 @@ def test_artifact__generic_resources__contain_no_project_local_identifiers() -> 
         dep for item in generic["resources"] for dep in item["dependency_ids"]
     }
     assert dependencies.isdisjoint(local_ids)
-    assert local["manifest_id"] not in generic_path.read_text()
+    selected_text = "\n".join(
+        (ROOT / "harness/pi" / item["path"]).read_text(encoding="utf-8")
+        for item in generic["resources"]
+    )
+    assert local["manifest_id"] not in selected_text
+    assert all(resource_id not in selected_text for resource_id in local_ids)
+    assert "ksdft2effmass" not in selected_text.casefold()
+    assert "harness/local/" not in selected_text
+    assert ".pi/" not in selected_text

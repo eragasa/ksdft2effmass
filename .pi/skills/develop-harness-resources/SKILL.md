@@ -69,16 +69,10 @@ algorithms or treats their structural results as authorization.
 
 ## Manifest maintenance
 
-Require explicit resource IDs. For an existing selected entry whose bytes
-changed, use the read-only proposal command:
-
-```bash
-python/.venv/bin/python -m \
-  ksdft2effmass.harness.pi.local.refresh_resource_manifest \
-  --root <explicit-resource-root> \
-  --manifest <explicit-manifest-path> \
-  --resource-id <resource-id>
-```
+Require explicit resource IDs. For an existing selected entry whose bytes changed, use the project-local read-only
+manifest-refresh command with an explicit resource root, explicit manifest path, and
+explicit resource ID. This generic skill does not select a project package or command
+module.
 
 Do not calculate applicable digests with ad hoc shell or inline Python, scan a
 repository for resources, or treat refresh as resource discovery. New entries

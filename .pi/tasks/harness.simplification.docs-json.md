@@ -1,6 +1,6 @@
 # Migrate documentation and the JSON control surface
 
-Status: blocked; all child Tasks are completed under Option C file-per-Task JSON authority, but the consolidated parent integration review failed on two current H3 resource-boundary findings; no child is active
+Status: completed; all child Tasks are completed under Option C file-per-Task JSON authority, the consolidated-review findings have contract-consistent dispositions, and no child is active
 
 Task identity: `harness.simplification.docs-json`
 
@@ -50,4 +50,4 @@ The parent is complete when each decomposed Task completes, their inputs and out
 
 The single consolidated review at revision `b6d0834b80b3d9ee64d86c02f66501bf9d7314be` failed. Its durable report is `.pi/evidence/docs-json/parent-integration-review.md`.
 
-The review confirmed agreement of the completed child outputs but found two material current-state defects: the historical H3 validator retains an obsolete manifest-version invariant, and generic resources contain project-local identities or paths. The parent remains blocked. The future H3-validator-retirement Task is recorded but cannot start under its stated precondition unless a later explicit human decision changes that precondition or the parent first obtains a passing integration review through another authorized correction.
+The review confirmed agreement of the completed child outputs but found two material current-state defects: the historical H3 validator retained an obsolete manifest-version invariant, and generic resources contained project-local identities or paths. The authorized H3-validator-retirement correction classified and retired the obsolete invariant, corrected generic leakage, reassigned every retained gate, removed the phase-era live interfaces, and preserved historical evidence. The final review and correction disposition is `.pi/evidence/h3-validator-retirement/integration-review.md`; no material parent finding remains unresolved.

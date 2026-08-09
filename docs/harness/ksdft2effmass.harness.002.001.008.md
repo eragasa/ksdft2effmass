@@ -190,9 +190,9 @@ package exports 15 Actions.
 | `harness/pi/validation/validate_python_conformance.py` | Keep as the thin `PythonConformanceValidator` CLI |
 | `harness/local/validation/validate_evidence_repository_conformance.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
 | `.pi/skills/validate_skill_capabilities.py` | Keep as the current fixed repository capability-inventory validator |
-| `.pi/skills/validate_harness.py` | Keep as selected-route command composition; it does not replace pure route Actions |
-| `harness/local/validation/replay_current_validators.py` | Keep as the current local-route wrapper while that route remains configured |
-| `harness/pi/validation/validate_h3_resources.py` | Retain as a legacy broad resource completion validator; do not copy it into a skill |
+| `.pi/skills/validate_harness.py` | Retired from current operation with the phase-era route; historical evidence references remain unchanged |
+| `harness/local/validation/replay_current_validators.py` | Retired from current operation rather than renamed into another replay system |
+| `harness/pi/validation/validate_h3_resources.py` | Retired after its current gates received explicit Action, focused-test, historical-only, or obsolete dispositions |
 | `harness/pi/validation/validate_architecture_decision_cases.py` | Keep as deterministic cases for the architecture-decision skill contract |
 | `.pi/skills/identifier_audit.py` | Retired in Slice 9 after controlled and maintained-inventory replacement gates passed; historical command records remain unchanged |
 
@@ -228,11 +228,11 @@ secondary consumers do not share ownership.
 | Structural Python test-evidence inspection | `ACTION_EXISTING` | `PythonConformanceValidator` | Test-evidence skill and local gate |
 | Explicit local profile/manifest composition | `ACTION_EXISTING` | `LocalHarnessContextLoader` | Local validation |
 | Selected historical/live record normalization | `ACTION_EXISTING` | local `Adapt*` Actions and `EvidenceModuleSelector` | Local validation only |
-| Validation route selection and rollback facts | `ACTION_EXISTING` | `ValidationRouteSelector` / `LegacyRouteConfigurationPreparer` | Route wrapper |
-| Normalized parity comparison and aggregation | `ACTION_EXISTING` | `ShadowPairComparator` / `ShadowSuiteReplayer` | Integration reviewer |
-| Project-local validator composition | `ACTION_EXISTING` | `LocalRepositoryValidator` | Maintained route consumers |
-| Fixed repository skill-capability inventory validation | `ACTION_EXISTING` | `.pi/skills/validate_skill_capabilities.py` | Maintained local route |
-| Maintained route execution/inspection | `ACTION_EXISTING` | `.pi/skills/validate_harness.py` and current replay wrapper | Root verification |
+| Validation route selection and rollback facts | `ACTION_EXISTING` | `ValidationRouteSelector` / `LegacyRouteConfigurationPreparer` | Retained compatibility inputs; no current operational route |
+| Normalized parity comparison and aggregation | `ACTION_EXISTING` | `ShadowPairComparator` / `ShadowSuiteReplayer` | Retained compatibility and historical comparison |
+| Project-local validator composition | `ACTION_EXISTING` | `LocalRepositoryValidator` | Explicit current validation clients |
+| Fixed repository skill-capability inventory validation | `ACTION_EXISTING` | `.pi/skills/validate_skill_capabilities.py` | Root verification |
+| Current harness resource validation | `ACTION_EXISTING` | `LocalHarnessContextLoader`, `ResourceResolver`, and `validate_local_harness_resources.py` | Root verification |
 | Repository maintained-test conformance gate | `ACTION_EXISTING` | `validate_evidence_repository_conformance.py` | Authorized test-conformance tasks |
 | Writer/reviewer authority, independence, and handoff | `DURABLE_AGENT` | 10 durable agent records | Task assignments |
 | Paths, phases, assignments, checkpoints, gates, and successors | `TASK_STATE` | active chain/task/ownership/checkpoint records | Agents and skills as explicit inputs |

@@ -212,7 +212,7 @@
     {
       "skill_name": "develop-harness-resources",
       "path": ".pi/skills/develop-harness-resources/SKILL.md",
-      "content_sha256": "67d70b3811f720183b2347352b7548581534a2ed9a7975c96a7354c631d1d8e7",
+      "content_sha256": "d93d0d04f991b286694f4ba182256d9b5006929d9ead22ef15ce7376a3455b46",
       "trigger_description": "Creating, changing, versioning, reviewing, or relocating generic or project-local harness textual resources and their manifests, profiles, descriptors, schemas, fixtures, policy references, or documentation.",
       "current_consumers": [
         "docs/harness/ksdft2effmass.harness.002.001.008.md",
@@ -780,11 +780,11 @@
       "current_status": "applicable and executed by this audit"
     },
     {
-      "block": "HarnessValidationRouteBlock",
-      "command": "python/.venv/bin/python .pi/skills/validate_harness.py --repository-root <absolute-repository-root> --route-config <absolute-route-config>",
-      "evidence_owner": ".pi/skills/validate_harness.py, harness/local/validation-route.json, and harness/local/validation/replay_current_validators.py",
-      "classification": "repository-local harness validation routing",
-      "current_status": "selected local route validates current H3 manifests/resources and the complete live skill inventory through a closed fail-closed replay; legacy rollback remains retained"
+      "block": "LocalHarnessResourceValidationBlock",
+      "command": "python/.venv/bin/python harness/local/validation/validate_local_harness_resources.py --repository-root <absolute-repository-root> --generic-resource-root <absolute-generic-resource-root> --local-resource-root <absolute-local-resource-root> --profile <absolute-profile-path> --generic-manifest <absolute-generic-manifest-path> --local-manifest <absolute-local-manifest-path>",
+      "evidence_owner": "LocalHarnessContextLoader, ResourceResolver, and the thin project-local command",
+      "classification": "explicit-input current harness resource validation",
+      "current_status": "maintained current interface with structured nested-failure propagation; phase-era routing and replay are retired"
     },
     {
       "block": "EvidenceIdentifierAuditBlock",

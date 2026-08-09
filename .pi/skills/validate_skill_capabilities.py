@@ -74,7 +74,7 @@ REQUIRED_TOOL_BLOCKS = {
     "JsonSchemaValidationBlock",
     "ChecksumValidationBlock",
     "GitDiffCheckBlock",
-    "HarnessValidationRouteBlock",
+    "LocalHarnessResourceValidationBlock",
     "EvidenceIdentifierAuditBlock",
     "CheckpointSchemaValidationBlock",
     "StaticDependencyDirectionToolBlock",

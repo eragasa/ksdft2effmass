@@ -45,6 +45,8 @@ class RepositoryRoots:
                 raise TypeError(f"{name} must be pathlib.Path")
             if not value.is_absolute():
                 raise ValueError(f"{name} must be an absolute path")
+            if ".." in value.parts:
+                raise ValueError(f"{name} must not contain parent traversal")
         if not self.generic_resource_root.is_relative_to(self.repository_root):
             raise ValueError("generic_resource_root must be below repository_root")
         if not self.local_resource_root.is_relative_to(self.repository_root):

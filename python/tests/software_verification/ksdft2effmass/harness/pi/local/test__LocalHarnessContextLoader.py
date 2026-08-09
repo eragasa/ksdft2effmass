@@ -45,12 +45,13 @@ def test_method__execute__rejects_invalid_profile_and_unconfined_roots(
     explicit profile.
 
     Acceptance: Valid inputs produce ``LocalHarnessContext``; invalid profile reports
-    ``PIHL.CONTEXT.PROFILE_INVALID``; relative or outside roots raise ``ValueError``.
+    ``PIHL.CONTEXT.PROFILE_INVALID``; relative or outside roots raise ``ValueError``;
+    and a symlinked resource root reports ``PIHL.CONTEXT.ROOT_INVALID``.
 
     Interpretation: Failure indicates ambient discovery or weakened confinement.
 
-    Limitations: Symlink races, installation relocation, scientific validity, and UQ are
-    excluded.
+    Limitations: Concurrent filesystem replacement, installation relocation,
+    scientific validity, and UQ are excluded.
     """
     context = local_context()
     assert isinstance(context, LocalHarnessContext)
@@ -69,3 +70,13 @@ def test_method__execute__rejects_invalid_profile_and_unconfined_roots(
     outside.mkdir(exist_ok=True)
     with pytest.raises(ValueError):
         RepositoryRoots(root, outside, root / "harness/local")
+    temporary_root = tmp_path / "explicit-repository"
+    generic = temporary_root / "generic"
+    local = temporary_root / "local"
+    generic.mkdir(parents=True)
+    local.mkdir()
+    linked_generic = temporary_root / "linked-generic"
+    linked_generic.symlink_to(generic, target_is_directory=True)
+    linked_roots = RepositoryRoots(temporary_root, linked_generic, local)
+    linked = LocalHarnessContextLoader().execute(linked_roots, b"{}", b"{}", b"{}")
+    assert linked.validation.issues[0].code == "PIHL.CONTEXT.ROOT_INVALID"

@@ -46,20 +46,13 @@ Project profiles supply marker vocabulary, evidence namespaces and ranges, scope
 | Complete test-module structural convention | `PythonConformanceValidator` |
 | Semantic test design and review | `develop-python-test-evidence` |
 
-`IdentifierAuditor` accepts only supplied module bytes and an explicit project profile. The project-local wrapper reads one explicit maintained inventory and only its listed modules beneath an explicit absolute root:
-
-```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.identifier_audit \
-  --root <absolute-repository-root> \
-  --profile harness/local/profiles/ksdft2effmass-v2.json \
-  --inventory .pi/evidence/python-conformance/module-inventory.json
-```
+`IdentifierAuditor` accepts only supplied module bytes and an explicit project profile. A project-local wrapper may read one explicitly selected maintained inventory and only its listed modules beneath an explicit absolute root. Generic documentation does not select a project package, profile path, inventory path, or runtime-state root; the project-local command documentation owns those arguments.
 
 The production ActionObject is the sole evidence-ID parser and policy owner. The former standalone AST script is retired; historical evidence may continue to name the command that produced it.
 
 ## Validation claim boundary
 
-Resource-task validation may establish only the behavior it directly checks: resource and schema structure, manifest closure and acyclicity, exact content hashes, supported versions, extension-only overlay rules, project-leakage rejection, explicit-root resolution, fixture/oracle consistency, canonical JSON vectors, and evidence-classification structure.
+Resource-contract validation may establish only the behavior it directly checks: resource and schema structure, manifest closure and acyclicity, exact content hashes, supported versions, extension-only overlay rules, project-leakage rejection, explicit-root resolution, fixture/oracle consistency, canonical JSON vectors, and evidence-classification structure.
 
 A `PASS` means only that the supplied resources satisfy those declared structural and software-contract checks. It does not establish:
 
@@ -69,7 +62,7 @@ A `PASS` means only that the supplied resources satisfy those declared structura
 - provenance, semantic interchangeability, physical correctness, package readiness, or publication readiness;
 - scientific validation or uncertainty quantification.
 
-The resource task contains no scientific calculation and makes no scientific-validation or uncertainty-quantification claim. Its fixtures are textual software-verification evidence; a numerical verification label in a project fixture is classification input, not a newly executed numerical result.
+Resource-contract checks contain no scientific calculation and make no scientific-validation or uncertainty-quantification claim. Their fixtures are textual software-verification evidence; a numerical-verification label supplied by a project is classification input, not a newly executed numerical result.
 
 ## Consumption by the later Python consumer
 

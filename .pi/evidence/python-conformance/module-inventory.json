@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "13c814ce53cab46b1d1a2cebab091c8a88bd33d4",
-  "expected_collected_node_count": 2873,
+  "expected_collected_node_count": 2862,
   "expected_module_count": 221,
   "modules": [
     {
@@ -99,7 +99,7 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__LocalHarnessContextLoader.py",
       "sut": "LocalHarnessContextLoader",
-      "content_sha256": "30191eee81270730dd0afc2882b52acde824a26bc8aa410b841ef2ea253dbe2c"
+      "content_sha256": "5f5cf141fdfb1260063b047ad3e5324c7d644290b88c37577f6e7f39819b9f7a"
     },
     {
       "conformance_status": "conforming",
@@ -158,17 +158,9 @@
       "content_sha256": "43fc124ab419b789574f3d0ce4a795e3ed5421b222f8da3e7f8bd87f6761b8cc"
     },
     {
-      "artifact": "h4 hc02 route fail closed",
-      "conformance_status": "conforming",
-      "content_sha256": "e0188139919dcf1d9667878bc502a1e97e5fae8ec1e62370bf31fea4b9f0aeba",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py"
-    },
-    {
       "artifact": "h4 replay and completion evidence",
       "conformance_status": "conforming",
-      "content_sha256": "076df9103009d881807446846d8fb303ee2761212526d82850e5146dbfd62563",
+      "content_sha256": "92adcffdf2ba42c3f2046ba106d4ce48f41c78a60aecca0271b7c39811fd02e8",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py"
@@ -200,7 +192,7 @@
     {
       "artifact": "local public api and models",
       "conformance_status": "conforming",
-      "content_sha256": "3155ab02ef42f00cfee66679f7e01badab23562adb5d7b58f3f1ee44a2b0e24a",
+      "content_sha256": "fb7e2dec85841cfd4be7bc77a0ad17c3c5c48d567bb85036d4edf131bf237abe",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py"
@@ -212,6 +204,14 @@
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__refresh_resource_manifest_command_api_agreement.py"
+    },
+    {
+      "artifact": "validate local harness resources command API agreement",
+      "conformance_status": "conforming",
+      "content_sha256": "376417cd30921987184d84007f88ce3d28810433495bd7f4fe8e910d8e9e9252",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__validate_local_harness_resources_command_api_agreement.py"
     },
     {
       "conformance_status": "conforming",
@@ -664,18 +664,18 @@
     {
       "artifact": "harness pi generic local dependency direction",
       "conformance_status": "conforming",
-      "content_sha256": "7c38fb33e891aa26b39be0a87ed78e4c03830ecb71269864d90699a1336533fb",
+      "content_sha256": "67a0f97b1979fe6e22e3ee1476437fb6427458e43fbba081721b5f02a96672a1",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py"
     },
     {
-      "artifact": "harness pi h3 resource contract",
+      "artifact": "harness pi resource contract",
       "conformance_status": "conforming",
-      "content_sha256": "1162eee3d05b2d810657db6f3041f8c37a67d1c9423af20f4b16346f7cfdd546",
+      "content_sha256": "1bf81849e010a894072a1fa5f29fca184c16c8cb32323a0a7fe48322a9a59f03",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_h3_resource_contract.py"
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_resource_contract.py"
     },
     {
       "artifact": "harness pi path confinement contract",

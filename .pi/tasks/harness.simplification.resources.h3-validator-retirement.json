@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "harness.simplification.resources.h3-validator-retirement",
   "title": "Retire the H3 operational validator without losing current resource-contract coverage",
-  "status": "active",
+  "status": "completed",
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
@@ -11,6 +11,8 @@
   "authority_reference_paths": [
     ".pi/chains/harness-simplification.chain.json",
     ".pi/evidence/docs-json/parent-integration-review.md",
+    ".pi/evidence/h3-validator-retirement/gate-disposition-map.json",
+    ".pi/evidence/h3-validator-retirement/integration-review.md",
     ".pi/tasks/harness.simplification.resources.h3-validator-retirement.intake.md"
   ],
   "authorized_scope": [

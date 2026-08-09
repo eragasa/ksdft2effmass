@@ -64,14 +64,7 @@ Intrinsic field invariants and canonical resource ordering belong to `ArtifactId
 
 `ResourceManifestRefresher` owns a different deterministic operation: given one existing manifest, one explicit absolute root, and explicit manifest resource IDs, it reuses the maintained exact-case, nonsymlink, root-confined regular-file observation and computes SHA-256 from observed bytes. It returns a new immutable, canonically ordered manifest proposal and the sorted IDs whose identities changed. Every nonidentity resource field and every manifest field is preserved. Unknown IDs and filesystem failures are structured findings with no partial manifest.
 
-Refresh does not scan a root, discover or add resources, remove resources, infer a repository, validate an unrelated generic/local profile relationship, mutate the input manifest, write JSON, or invoke Git. Filesystem persistence remains outside the generic ActionObject. Callers may serialize a successful proposal with `JsonRecordSerializer`; the thin read-only command is:
-
-```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.refresh_resource_manifest \
-  --root /absolute/path/to/resource/root \
-  --manifest /absolute/path/to/resource-manifest.json \
-  --resource-id pih.skill.example.v1
-```
+Refresh does not scan a root, discover or add resources, remove resources, infer a repository, validate an unrelated generic/local profile relationship, mutate the input manifest, write JSON, or invoke Git. Filesystem persistence remains outside the generic ActionObject. Callers may serialize a successful proposal with `JsonRecordSerializer`. A project-local thin command supplies an absolute resource root, an absolute manifest path, and one or more explicit resource IDs. Generic documentation does not select the project package or command module.
 
 The command emits deterministic JSON and exits `0` for a proposal, `1` for structured validation failure, `2` for invalid explicit command inputs, and `3` for an unexpected command-boundary failure. It has no write mode. Matching or refreshed hashes establish exact byte identity only; they do not establish semantic correctness, provenance truth, scientific validity, uncertainty quantification, or human acceptance.
 
@@ -81,8 +74,8 @@ The command emits deterministic JSON and exits `0` for a proposal, `1` for struc
 
 `harness/pi/fixtures/canonical/canonical-json-vectors.json` supplies the canonical record vectors: RFC 8785 JSON encoded as UTF-8 followed by exactly one LF, with an expected SHA-256. These vectors preserve exact DiagnosticPath spelling and are the shared input for later Python-consumer encoding/decoding and intended Rust agreement. They are contract fixtures, not execution results.
 
-## Resource-to-Python-consumer handoff
+## Resource consumers
 
-After separate human acceptance of the resource task, the later Python consumer task may consume the accepted generic manifest, local manifest, project profile, schemas, skill resources, fixtures, canonical vectors, and resource-task completion-validator identity as read-only inputs. That consumer is expected to implement the accepted generic Python contract against those exact identities and to test explicit-root resolution, closure, canonical bytes, dependency direction, and path semantics.
+A consumer may receive an explicitly selected generic manifest, local manifest, project profile, schemas, skill resources, fixtures, and canonical vectors as read-only inputs. Current Actions and focused tests check explicit-root resolution, closure, canonical bytes, dependency direction, and path semantics against those selected identities.
 
-This handoff does not activate the later Python consumer task. It remains blocked until the resource task is human-accepted, receives separate explicit human authorization, and passes its own ownership preflight. Resource-task documentation neither creates Python production code nor authorizes a local integration task, another successor task, skill cutover, publication, or external or scientific execution.
+Resource documentation does not activate work, authorize a skill, select a successor, establish human acceptance, or permit publication, external execution, or scientific execution.

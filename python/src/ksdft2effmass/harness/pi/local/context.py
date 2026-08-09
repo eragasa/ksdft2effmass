@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+from pathlib import Path
 
 from .. import (
     ArtifactIdentity,
@@ -50,20 +51,38 @@ class LocalHarnessContextLoader:
         """
         if type(roots) is not RepositoryRoots:
             raise TypeError("roots must be RepositoryRoots")
+        resolved_roots: dict[str, Path] = {}
         for name in (
             "repository_root",
             "generic_resource_root",
             "local_resource_root",
         ):
             root = getattr(roots, name)
-            if not root.exists() or not root.is_dir():
+            try:
+                resolved = root.resolve(strict=True)
+            except OSError:
+                resolved = None
+            if resolved is None or resolved != root or not root.is_dir():
                 return failure(
                     LocalIssue(
                         "PIHL.CONTEXT.ROOT_INVALID",
                         str(root),
-                        f"{name} must be an existing directory",
+                        f"{name} must be an existing resolved nonsymlink directory",
                     )
                 )
+            resolved_roots[name] = resolved
+        repository_root = resolved_roots["repository_root"]
+        if any(
+            not resolved_roots[name].is_relative_to(repository_root)
+            for name in ("generic_resource_root", "local_resource_root")
+        ):
+            return failure(
+                LocalIssue(
+                    "PIHL.CONTEXT.ROOT_INVALID",
+                    None,
+                    "resource roots must resolve below repository_root",
+                )
+            )
         for value, name in (
             (profile_bytes, "profile"),
             (generic_manifest_bytes, "generic manifest"),

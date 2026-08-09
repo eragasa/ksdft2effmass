@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.resources.h3-validator-retirement",
+  "disposition": "RETIRE_OBSOLETE",
+  "reason": "These maintained nodes exercised the retired phase route, replay, or monolithic H3 scanner. Retained current requirements are reassigned in the gate disposition map; historical evidence records remain unchanged.",
+  "retired_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__accepts_authorized_maintained_routes[legacy_route]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__accepts_authorized_maintained_routes[local_route]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[missing_schema_version]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[nonlegacy_rollback_route]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[shadow]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[unexpected_field]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[unknown]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[unsupported]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__h3_route_gate__rejects_invalid_maintained_routes[unsupported_schema_version]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__run_route__accepts_exact_all_pass_observations[legacy_side]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__run_route__accepts_exact_all_pass_observations[local_side]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__run_route__fails_on_failed_h3_observation",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__run_route__rejects_incomplete_or_malformed_observations[duplicate_observation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__run_route__rejects_incomplete_or_malformed_observations[malformed_observation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_hc02_route_fail_closed.py::test_artifact__run_route__rejects_incomplete_or_malformed_observations[missing_observation]",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py::test_artifact__h3_leakage__ignores_import_cache_and_bytecode",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py::test_artifact__h3_leakage__rejects_invalid_utf8_maintained_text",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py::test_artifact__local_manifest__owns_exact_maintained_route_identity",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py::test_artifact__maintained_route__selects_local_without_mutation"
+  ]
+}

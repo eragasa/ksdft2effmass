@@ -216,11 +216,11 @@ comparison records/actions. Callers supply the repository root, generic
 and identities, and externally collected legacy/local observations. The package
 has no ambient repository discovery and does not execute a legacy command.
 
-The live resource pair is generic manifest version 4 and local manifest version
-5 with explicit ``ksdft2effmass.profile.v2`` composition. Accepted H3 checksum evidence remains
-the historical version-1 resource snapshot and rollback oracle; it is not
-rewritten to match current v2 identities. The generic manifest is the generic
-resource-inventory source of truth. The six-skill capability inventory is
+The selected resource pair and ``ksdft2effmass.profile.v2`` bind exact generic
+and local manifest identities and versions. Accepted phase-era checksum evidence
+remains a historical resource snapshot; it is not rewritten to match current
+identities. The generic manifest is the generic resource-inventory source of
+truth. The six-skill capability inventory is
 ``.pi/skills/skill-capability-inventory.json`` checked against canonical live
 roots; mutable task, chain, or checkpoint snapshots do not belong in it.
 
@@ -229,24 +229,20 @@ project-local compatibility input. The local adapter emits generic
 ``artifact_owned`` with explicit nondirectional ``agreement`` metadata and
 preserved participant identities. This does not add a generic ownership kind.
 
-The concrete live consumer is ``.pi/skills/validate_harness.py``, and
-``harness/local/validation-route.json`` is the single owner of its route
-selection. At the pending H4 boundary that file selects
-``ValidationRoute.LEGACY``. Shadow pairs are classified exactly as
-``equivalent``, ``intentional``, ``deferred``, or ``defect``; deferred and defect
-pairs prohibit cutover. Only human-acceptance closeout may change exactly that
-route value to ``ValidationRoute.LOCAL``, after every pair is eligible and all
-gates and reviews pass; no other file or ambient default selects authority.
+The current resource command is
+``harness/local/validation/validate_local_harness_resources.py``. Callers supply
+absolute repository, generic-resource, local-resource, profile, and manifest
+paths. The command invokes maintained context-loading and resource-resolution
+Actions, emits deterministic structured results, propagates nested failures,
+and distinguishes invalid input from internal command-boundary failure. It has
+no route selector, rollback route, historical replay dependency, Git mutation,
+or current-directory authority.
 
-``LegacyRouteConfigurationPreparer`` is the pure local action that changes an explicit
-configuration back to ``ValidationRoute.LEGACY``. Operational rollback changes
-the single route-owner file to legacy and reruns the identical validation
-commands. The action does not restore, delete, or otherwise mutate filesystem
-resources. If the prior skill or version-1 profile bytes are also needed, they
-are restored separately with a Git revert or checkout from the recorded H4
-starting revision. The former skill names remain only in explicit migration
-traceability and historical records, not as live aliases. H4 remains active; H5
-and P2 remain blocked and require separate explicit activation.
+Phase-era route consumers, replay wrappers, and completion validators are not
+current operational interfaces. Their accepted evidence remains historical and
+unchanged. Current Task activation and rollback authority resides only in the
+applicable durable chain, Task, and checkpoint records; resource validation does
+not select or activate work.
 
 Colored Petri Net workflow control
 -----------------------------------

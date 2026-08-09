@@ -213,6 +213,8 @@ def test_constructor__local_records__enforces_invariants_and_value_semantics(
             AdaptationResult(mutable, LocalValidationResult("PASS", ()))
 
     _ = [exercise_mutable_case_148_1(mutable) for mutable in (mutable_cases)]
+    with pytest.raises(ValueError, match="parent traversal"):
+        RepositoryRoots(repo, repo / "g" / ".." / "g", repo / "l")
     with pytest.raises(ValueError):
         RouteConfiguration(ValidationRoute.LOCAL, ValidationRoute.LOCAL)
     with pytest.raises(ValueError):
