@@ -1,6 +1,6 @@
 # Migrate documentation and the JSON control surface
 
-Status: decomposed; `harness.simplification.docs-json.documentation-correction` is active after the completed authority catalog; the parent is not independently executable
+Status: decomposed; publication normalization, authority catalog, and documentation correction are completed; no child Task is active and the parent is not independently executable
 
 Task identity: `harness.simplification.docs-json`
 

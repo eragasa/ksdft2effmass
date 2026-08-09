@@ -30,10 +30,11 @@ The inspected repository has ten repository-local skills, 34 retained project
 agent records, 30 publicly exported maintained harness ActionObjects, and ten
 maintained or retained harness command wrappers/validators relevant to this
 audit. Project PI configuration exposes the 10 durable agents and disables the
-24 phase-specific records. The harness-simplification chain has
-`active_task: null`; no durable agent is currently assigned, automatic successor
-activation is disabled, and the next delegation-validation task remains
-inactive and unauthorized.
+24 phase-specific records. The [harness-simplification chain](../../.pi/chains/harness-simplification.chain.json)
+owns live task status, prerequisites, and successor state. This page does not
+restate a mutable active-task or next-task snapshot. Availability of a durable
+agent does not assign it, and later work still requires explicit task
+authorization.
 
 The ownership rule used below is strict: each substantive capability has one
 primary classification and owner. A secondary consumer may invoke or apply that
@@ -440,10 +441,10 @@ it does not create or activate that skill and does not alter this sequence.
 - P3 and all scientific, numerical, external, protected, and release execution
   remain outside this proposal.
 
-The bounded harness-simplification chain entry records Slice 10 completion with
-`active_task: null`; it does not activate another slice. Slice 7 retirement of
-`inspect-task-state` remains deferred, and telemetry and other successors remain
-inactive pending separate human authorization.
+The harness-simplification chain records Slice 10 completion and owns current
+active-task state; this page does not activate another slice. Slice 7 retirement
+of `inspect-task-state` remains deferred, and telemetry or other successors
+still require separate human authorization.
 
 ## Navigation
 

@@ -1,6 +1,6 @@
 # Correct documentation/control inconsistencies
 
-Status: active; authorized by the human PI on 2026-08-09 after the completed comparison baseline
+Status: completed; three deterministic corrections independently reviewed on 2026-08-09
 
 Task identity: `harness.simplification.docs-json.documentation-correction`
 
@@ -34,3 +34,11 @@ Documentation may locate or explain work, but it cannot activate a Task or suppl
 Completion requires corrected documentation, resolved links, preserved subject-matter contracts and human intake, an explicit unresolved list if any, and a bounded schema-projection handoff.
 
 This Task does not change scientific meaning, activate work, resolve checkpoints, create runtime routing, or perform repository-wide rewriting beyond authorized paths.
+
+## Result and schema-projection handoff
+
+The reviewed `MAP-003`, `MAP-004`, and `MAP-005` corrections were applied to exactly three maintained harness pages. Mutable active-task and next-task snapshots now defer to the owning chain; obsolete `record: null` and unbegun successor claims were removed; and completed durable project-agent simplification and retirement from live discovery are distinguished from the 24 retained disabled historical records. No ambiguity remains.
+
+Direct stale-phrase checks, relative-link checks, `git diff --check`, checkpoint validation, and a Sphinx warnings-as-errors build pass. Consolidated independent review returned no findings and confirmed that subject matter, historical attribution, non-activation boundaries, and protected/scientific claim boundaries are preserved.
+
+The bounded pilot candidate for `harness.simplification.docs-json.schema-projection` is the Task control family: chain `task_sequence` references and active-task facts, transitional Markdown Task identity/status/authority/completion fields, the existing narrow `TaskReference` DataObject, and `TaskRecordAdapter`. The next Task must select exact authoritative JSON fields, fixtures, and one complete generated reference-page target before implementing a full public Task DataObject or serializer. This handoff does not select those contract semantics, implement a Task module, or activate schema projection.

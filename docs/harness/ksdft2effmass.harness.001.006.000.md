@@ -49,10 +49,12 @@ Additional duplication includes:
 - repeated command assembly and result interpretation;
 - retained legacy and current route machinery.
 
-The current `evidence/identifiers.py` owns evidence-identifier auditing only. It does not own
-an evidence-record repository, event log, query interface, reconciliation index,
-or SQLite state. Project-agent simplification and historical-agent retirement
-also remain future work.
+The current `evidence/identifiers.py` owns evidence-identifier auditing only. It
+does not own an evidence-record repository, event log, query interface,
+reconciliation index, or SQLite state. Durable project-agent simplification and
+retirement of phase-specific agents from live discovery are complete. The 24
+disabled phase-specific records remain retained historical artifacts rather
+than live selectable roles.
 
 ## Execution environment
 

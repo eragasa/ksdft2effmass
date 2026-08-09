@@ -71,15 +71,14 @@ narrow-write exception applies only under exact task ownership. Historical
 records continue to identify work performed under their original assignments.
 No executable was migrated in this task.
 
-The chain lists
-`harness-simplification.agents.executable-tool-placement-contract` followed by
-`harness-simplification.agents.validator-migration-pilot` as ordered
-`inactive_unauthorized` proposal entries. Both have `record: null`: no task
-record or child page exists for either entry, and neither task is activated or
-begun. The pilot remains limited to one validator, not a broad script migration.
-Live discovery, historical retirement, delegation and handoff validation,
-SQLite or evidence-storage work, and later protected work remain inactive and
-proposed.
+The executable-tool placement contract and validator migration pilot now have
+durable Task records. Their current lifecycle, prerequisites, and successor
+state belong to the
+[harness-simplification chain](../../.pi/chains/harness-simplification.chain.json),
+not this page; later work requires explicit activation. The accepted pilot scope
+remained limited to one validator rather than a broad script migration. SQLite,
+evidence-storage work, and later protected work remain outside this completed
+project-role slice.
 
 ## Validation and rollback
 
