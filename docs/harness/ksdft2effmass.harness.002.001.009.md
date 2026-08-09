@@ -31,6 +31,9 @@ Completed:
 Resolved architecture selection:
 
 - Option C: Task graph plus a minimal selection-state record
+- Task-document migration requires one exact human disposition per file; LaTeX,
+  Mermaid, code fences, and other opaque project content remain byte-preserved
+  unless the human explicitly accepts a stated transformation for that file
 - `harness.simplification.control.task-catalog-reconciliation` was superseded
   before execution because it would preserve a competing catalog
 
