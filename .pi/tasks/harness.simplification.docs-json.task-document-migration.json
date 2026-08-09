@@ -1,50 +1,45 @@
 {
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-document-migration",
-  "title": "Migrate Task documents through per-file human review",
-  "status": "awaiting_human_review",
+  "title": "Migrate Task documents serially under the accepted HarnessTask contract",
+  "status": "blocked_on_task_model_contract",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
-    "harness.simplification.docs-json.schema-projection"
+    "harness.simplification.docs-json.task-model-contract"
   ],
   "external_prerequisite_ids": [],
   "explicit_activation_required": true,
-  "objective": "Resume the unfinished documentation/control authority merge, define an immutable project-local HarnessTask representation with canonical JSON and maintained Markdown rendering, and migrate the six remaining docs/JSON-family Task records serially without losing documentation-owned project information.",
+  "objective": "After the HarnessTask field, wire, rendering-input, comparison, review-packet, and compatibility contract is completed and human-accepted, implement that unchanged contract and migrate the six selected Task files exactly one at a time with one durable human disposition per file.",
   "authority_reference_paths": [
-    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
-    ".pi/evidence/docs-json/authority-catalog/catalog-manifest.json",
     ".pi/evidence/task-control/task-document-human-mediation-decision.md",
-    ".pi/evidence/task-control/task-graph-selection-state-decision.md",
-    ".pi/tasks/harness.simplification.docs-json.md",
-    "docs/harness/ksdft2effmass.harness.002.001.010.md"
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md"
   ],
   "authorized_scope": [
-    "Preserve the accepted initial documentation and control inventories as immutable attempt-1 evidence; create a new current-revision bounded inventory and reviewed mappings for only the six selected docs/JSON-family Task records and their maintained review documents.",
-    "Define a public immutable project-local HarnessTask DataObject only after the reviewed mappings establish its necessary fields; keep intrinsic invariants on HarnessTask and graph compatibility on a HarnessTaskGraphValidator ActionObject.",
-    "Implement HarnessTaskSerializer and HarnessTaskDeserializer for canonical versioned JSON, HarnessTaskDocumentationRenderer for complete maintained Markdown, and HarnessTaskDocumentationComparator returning a structured immutable comparison result.",
-    "Add schema, fixtures, supported public imports, focused software-verification tests, and maintained API and concept documentation required by the accepted HarnessTask contract without adding dependencies.",
-    "Prepare and process exactly one immutable human-review packet at a time for the six selected source Task files, binding source identity, candidate JSON, mapping coverage, opaque blocks, rendered Markdown, exact diff, and unmapped spans; stop for an explicit human disposition before applying that file.",
-    "Keep all six selected Tasks exactly inspectable throughout the mixed Markdown/JSON migration: add the already completed publication parent to operational chain membership before activation, preserve TaskRecordAdapter mixed-format compatibility, and update TaskStateInspector and maintained projections for HarnessTask and candidate selection-state inputs.",
-    "After all six accepted file migrations, introduce a non-authoritative candidate minimal selection-state record for shadow comparison only; retain the current chain as operational authority until a separately reviewed cutover decision.",
-    "Retain exact pre-migration chain and source identities and a per-file old/new migration map; demonstrate compatibility after every accepted file and define rollback as a normal Git revert to the preceding accepted per-file decision boundary without deleting or rewriting historical evidence."
+    "The selected source paths are exactly .pi/tasks/harness.simplification.docs-json.md, .pi/tasks/harness.simplification.docs-json.publication.md, .pi/tasks/harness.simplification.docs-json.publication.triage.md, .pi/tasks/harness.simplification.docs-json.publication.hierarchy.md, .pi/tasks/harness.simplification.docs-json.authority-catalog.md, and .pi/tasks/harness.simplification.docs-json.documentation-correction.md.",
+    "Begin only after harness.simplification.docs-json.task-model-contract is completed and its frozen field and rendering contract has an explicit human-acceptance record; consume that exact accepted contract without silently adding fields or changing ownership.",
+    "Implement the accepted HarnessTask, canonical serializer and deserializer, graph validator, explicit documentation-content and projection inputs, Markdown renderer, exact comparator and result, source mapping, migration review packet, file disposition recording, compatibility behavior, schemas, fixtures, public imports, tests, and maintained documentation.",
+    "Keep the current chain operational and preserve mixed Markdown/JSON TaskRecordAdapter compatibility plus exact TaskStateInspector behavior throughout migration.",
+    "For each of the six exact source files, prepare one immutable review packet containing source identity and bytes, accepted-contract mappings, candidate JSON, explicit documentation-content input, projection profile, rendered Markdown, exact comparison findings, opaque-block treatment, and unmapped spans, then stop for one durable human disposition.",
+    "Apply only the currently accepted file migration, verify canonical JSON round trip, exact accepted Markdown rendering, graph and compatibility behavior, retained evidence and rollback identity, and only then prepare the next file.",
+    "If a file reveals a required HarnessTask schema or rendering-contract change, stop migration without modifying that contract and route the issue to a separately reviewed task-model-contract revision decision."
   ],
   "completion_criteria": [
-    "The maintained review page docs/harness/ksdft2effmass.harness.002.001.010.md is accepted before activation and remains consistent with the Task JSON without supplying activation authority.",
-    "The current-revision two-list inventory and mappings account for every Task-relevant source span in the six selected files as a HarnessTask field, documentation-owned narrative, historical evidence, or explicit human-approved removal; no span is silently discarded.",
-    "HarnessTask JSON round trips preserve exact represented values, canonical serialization is deterministic, graph validation is fail-closed, and supported public imports, typing, schema fixtures, tests, and documentation agree.",
-    "For each selected file, the exact human-reviewed packet and disposition are retained; LaTeX, Mermaid, code fences, links, tables, directives, and other opaque project content remain byte-identical unless that file's human disposition explicitly accepts a stated transformation.",
-    "After each accepted migration, deserializing canonical JSON and rendering the maintained review document reproduces the human-accepted bytes, and the comparator reports no unexplained difference before the next file packet is prepared.",
-    "The six migrated JSON Tasks preserve identities, parent relationships, prerequisites, lifecycle facts, authority references, scope, completion, exclusions, results, limitations, and review-document references established by the mappings.",
-    "All six selected Tasks remain resolvable and exactly inspectable before, during, and after mixed-format migration; TaskStateInspector, TaskRecordAdapter compatibility, maintained review projections, and chain references agree after every accepted file.",
-    "The candidate selection-state shadow agrees with the operational chain for active Task, explicit activation receipts, and disabled automatic succession, but no cutover or chain retirement occurs in this Task.",
-    "The retained pre-migration identities and per-file migration map support a verified non-destructive Git-revert rollback to each preceding accepted decision boundary without altering historical chain evidence.",
-    "Focused and broader affected checks, Sphinx with warnings as errors, dependency and lockfile checks, one consolidated independent review, and final Task-state inspection pass with no unresolved material finding."
+    "The exact accepted Stage-1 contract identity is recorded and unchanged by Stage 2, and every implemented public surface, schema, fixture, test, and maintained document agrees with it.",
+    "Each selected file has exactly one immutable packet and one exact human disposition; no later packet is prepared before the current disposition and accepted migration verification are durably recorded.",
+    "No accepted file packet silently expands or changes HarnessTask fields, canonical JSON, renderer inputs, mapping semantics, opaque-content ownership, or comparison policy; required changes stop and return to contract revision.",
+    "LaTeX, Mermaid, code fences, directives, tables, links, and other opaque project content remain byte-identical unless the exact file disposition accepts a stated transformation.",
+    "All six Tasks remain exactly inspectable under mixed Markdown/JSON compatibility, and every accepted file passes canonical round trip, complete rendering, exact comparison, graph validation, projection, rollback-identity, and focused software-verification checks.",
+    "One independent review is completed, every material finding receives an explicit disposition, every correction receives deterministic verification, and no material finding remains unresolved; an initial failed review remains recorded as failed and no repeated review loop is authorized.",
+    "All six file migrations are human-dispositioned and verified, but the current chain remains operational authority and no selection-state implementation, chain cutover, deletion, or successor activation occurs."
   ],
   "exclusions": [
-    "Do not batch-approve files, infer approval from silence or passing checks, prepare a later file before the current file disposition is recorded, or overwrite a source or generated review document before exact human acceptance.",
-    "Do not normalize, reflow, reinterpret, or silently drop LaTeX, Mermaid, code fences, directives, tables, links, or other opaque project content.",
-    "Do not migrate Task records outside the six declared docs/JSON-family files, delete or cut over the operational chain, make candidate selection state authoritative, activate a successor automatically, or rewrite historical catalogs, evidence, checkpoints, or decisions.",
-    "Do not implement SQLite, event logs, repository discovery, package extraction, publication, scientific work, external execution, dependency changes, release actions, or protected work."
+    "Do not activate before the Stage-1 Task-model contract is completed and human-accepted, and do not implement or migrate while this Task status is blocked.",
+    "Do not batch-approve files, infer approval from silence or checks, prepare a later packet early, or alter the accepted model contract inside a file migration.",
+    "Do not normalize, reflow, reinterpret, or silently drop LaTeX, Mermaid, code fences, directives, tables, links, opaque blocks, documentation-owned narrative, or historical evidence.",
+    "Do not implement candidate selection state, cut over or delete the chain, migrate Tasks outside the six selected files, add dependencies, change lockfiles, or perform SQLite, telemetry, scientific, publication, external, protected, or release work."
   ],
   "intake_path": ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md"
 }

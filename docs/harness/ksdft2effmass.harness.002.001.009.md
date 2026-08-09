@@ -37,10 +37,12 @@ Resolved architecture selection:
 - `harness.simplification.control.task-catalog-reconciliation` was superseded
   before execution because it would preserve a competing catalog
 
-Pending human review:
+Pending renewed human review:
 
-- `harness.simplification.docs-json.task-document-migration` is proposed in
-  [harness.002.001.010](ksdft2effmass.harness.002.001.010.md) and remains inactive
+- Stage 1 `harness.simplification.docs-json.task-model-contract` is proposed in
+  [harness.002.001.011](ksdft2effmass.harness.002.001.011.md) and remains inactive
+- Stage 2 `harness.simplification.docs-json.task-document-migration` remains
+  inactive and blocked on completed, human-accepted Stage 1
 
 Inactive and unauthorized:
 

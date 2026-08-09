@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.task-model-contract",
+  "title": "Freeze the HarnessTask information and rendering contract",
+  "status": "awaiting_human_review",
+  "parent_task_id": "harness.simplification.docs-json",
+  "task_prerequisite_ids": [
+    "harness.simplification.docs-json.schema-projection"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Complete source-span mappings for all six selected Task documents, derive one complete proposed HarnessTask and documentation-rendering contract from those mappings, and return the frozen field, wire, rendering-input, comparison, review-packet, and public-API design for explicit human acceptance without replacing source authority or implementing migration behavior.",
+  "authority_reference_paths": [
+    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
+    ".pi/evidence/docs-json/authority-catalog/catalog-manifest.json",
+    ".pi/evidence/task-control/task-document-human-mediation-decision.md",
+    ".pi/evidence/task-control/task-graph-selection-state-decision.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md"
+  ],
+  "authorized_scope": [
+    "The selected source paths are exactly .pi/tasks/harness.simplification.docs-json.md, .pi/tasks/harness.simplification.docs-json.publication.md, .pi/tasks/harness.simplification.docs-json.publication.triage.md, .pi/tasks/harness.simplification.docs-json.publication.hierarchy.md, .pi/tasks/harness.simplification.docs-json.authority-catalog.md, and .pi/tasks/harness.simplification.docs-json.documentation-correction.md.",
+    "Create a current-revision immutable inventory for all six selected Task source files and complete source-span mappings for all six before proposing the final HarnessTask field contract or preparing any file-migration packet.",
+    "Classify every selected source span as canonical Task information, documentation-owned narrative or opaque content, historical evidence, or an explicitly proposed removal requiring human decision; preserve exact source identities and bytes.",
+    "Derive one complete proposed HarnessTask field contract and canonical JSON wire contract, including versioning, intrinsic invariants, strict serialization and deserialization behavior, and Task-graph validation obligations, without implementing them.",
+    "Define explicit renderer inputs as HarnessTask plus explicit HarnessTaskDocumentationContent plus HarnessTaskProjectionProfile, with no implicit filesystem, current-working-directory, repository-root, global-template, or parser-state input.",
+    "Complete the proposed information model and diagrams for canonical Task information, exact source identity and bytes, source-span mappings, documentation-owned and opaque content, projection configuration, rendered output, exact comparison, structured findings and unmapped spans, immutable per-file migration review packets, exact human file dispositions, and mixed Markdown/JSON compatibility ownership.",
+    "Specify proposed public imports, schemas and fixtures, software-verification obligations, maintained documentation obligations, compatibility expectations, and accepted review semantics as contract design only.",
+    "Obtain explicit human acceptance of the frozen field and rendering contract before any source authority replacement, public implementation, migration packet, or serial file migration begins."
+  ],
+  "completion_criteria": [
+    "All six selected files have complete exact source-span coverage under one current-revision mapping set, with no silent gap and no replacement of Markdown source authority.",
+    "The proposed HarnessTask fields, canonical wire representation, renderer inputs, documentation-content ownership, comparison semantics, review packet, file disposition, adapter boundary, public API, and verification obligations are internally consistent and fully represented in the maintained review documents and Mermaid diagrams.",
+    "The contract explicitly identifies existing HumanReview and ArtifactIdentity objects that are reused, identifies why any new migration-specific object is not a near-duplicate, and leaves no required ownership implicit.",
+    "Selection-state implementation is absent from the scope; the accepted future separation of Task data and selection state is preserved only as an architectural boundary.",
+    "One independent review is completed, every material finding receives an explicit disposition, every correction receives deterministic verification, and no material finding remains unresolved; the original review result is never rewritten.",
+    "The human explicitly accepts or revises the frozen field and rendering contract through the renewed review checkpoint before this Task can complete or Stage 2 can activate."
+  ],
+  "exclusions": [
+    "Do not implement HarnessTask or any serializer, deserializer, renderer, comparator, graph validator, packet, disposition, adapter, schema, fixture, test, or selection-state behavior.",
+    "Do not create a per-file migration packet, replace source authority, write migrated Task JSON, overwrite maintained review documents, or begin serial file migration.",
+    "Do not infer exact HarnessTask fields before completing mappings for all six files, and do not place all maintained narrative inside canonical Task JSON merely to simplify rendering.",
+    "Do not implement candidate selection state, change chain authority, delete or cut over the chain, migrate another Task family, add dependencies, modify lockfiles, or perform scientific, publication, external, protected, release, SQLite, or telemetry work."
+  ],
+  "intake_path": ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md"
+}

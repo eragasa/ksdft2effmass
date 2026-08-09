@@ -1,0 +1,57 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.task-model-contract.activation-review",
+  "task_id": "harness.simplification.docs-json.task-model-contract",
+  "episode_id": "harness.simplification.docs-json.task-model-contract",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T15:54:24Z",
+  "question": "After reviewing docs/harness/ksdft2effmass.harness.002.001.010.md and docs/harness/ksdft2effmass.harness.002.001.011.md, should the contract-only HarnessTask model stage be activated to complete all six mappings and return the frozen field and rendering contract for explicit human acceptance before any implementation or migration?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Activate Stage 1 exactly as reviewed.",
+      "consequence": "Activate only harness.simplification.docs-json.task-model-contract. Complete current-revision six-file mappings and proposed contract design, then return for explicit human acceptance. Perform no implementation, source-authority replacement, file packet, migration, selection-state work, or Stage-2 activation."
+    },
+    {
+      "id": "B",
+      "summary": "Revise the Stage-1 contract proposal before activation.",
+      "consequence": "Keep both stages inactive, apply only the requested proposal corrections, and return for renewed review without implementation or migration."
+    },
+    {
+      "id": "C",
+      "summary": "Defer both stages.",
+      "consequence": "Keep the existing Markdown sources, attempt-1 catalogs, JSON pilot, operational chain, and architecture decisions unchanged; activate no migration work."
+    }
+  ],
+  "recommendation": "Option A if the two maintained review pages now state the intended complete information model, explicit renderer inputs, diagrams, contract-freeze boundary, review semantics, and Stage-2 block. Stage 1 is analysis and contract design only.",
+  "blocked_scope": "Stage-1 activation; current-revision inventory and mapping work; final HarnessTask field, wire, renderer-input, mapping, packet, disposition, API, schema-design, fixture-design, and verification-obligation design; all implementation; all file packets and migrations; Stage-2 activation; selection-state implementation; chain cutover; successor activation; SQLite, telemetry, scientific, publication, external, protected, or release work.",
+  "safe_scope": "Human review of the proposed Stage-1 and Stage-2 Task JSON and intake records, maintained review pages 002.001.010 and 002.001.011, resolved Option-B checkpoint, renewed checkpoint, existing authority catalogs, and accepted architecture decisions. Deterministic validation and persistence of this renewed pending boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/evidence/docs-json/authority-catalog/catalog-manifest.json",
+    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
+    ".pi/evidence/task-control/task-graph-selection-state-decision.md",
+    ".pi/evidence/task-control/task-document-human-mediation-decision.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.activation-review.json",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "resumption_status": "blocked_pending_renewed_human_review; both stages remain inactive"
+}
