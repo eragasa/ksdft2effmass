@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordResidualAnalyzer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns finite binary64 regression behavior at normal and
 subnormal scales. Historical ``NV-ORA-007`` through ``NV-ORA-016`` identifiers remain
@@ -9,6 +10,7 @@ through ``SV-ORA-016`` because threshold-only claims cannot retain a
 numerical-verification classification.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The SUT is ``OperatorRecordResidualAnalyzer``. Synthetic ``complex128`` represented
 differences exercise scalar magnitude, Frobenius, and spectral paths in eV. Independent
@@ -17,6 +19,7 @@ bounded regression envelopes, not proven forward-error bounds for NumPy, LAPACK,
 arbitrary SVD backend.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only that the listed supported environment and shapes remain inside
 the unchanged regression envelopes without leaked RuntimeWarning and preserve the
@@ -74,27 +77,32 @@ class ScalarCase:
 
 
 def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceResult:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Residual analysis accepts a compatible represented difference with the supplied
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Residual analysis accepts a compatible represented difference with the
+    supplied
     complex128 matrix and explicit eV unit.
-    Method
-    Construct or inspect only the named synthetic fixture operation (difference); the
+
+    Method: Construct or inspect only the named synthetic fixture operation
+    (difference); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -110,28 +118,32 @@ def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceRe
 def execute_without_runtime_warning(
     matrix: npt.NDArray[np.complex128],
 ) -> OperatorRecordComparisonResult:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Residual execution for finite synthetic matrices must not leak a NumPy
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Residual execution for finite synthetic matrices must not leak a NumPy
     RuntimeWarning.
-    Method
-    Construct or inspect only the named synthetic fixture operation (execute without
+
+    Method: Construct or inspect only the named synthetic fixture operation (execute
+    without
     runtime warning); the helper owns no assertion result and introduces no hidden
     oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -143,27 +155,32 @@ def execute_without_runtime_warning(
 
 
 def assert_nonzero_normal_close(actual: float, expected: float) -> None:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    A nonzero normal binary64 result is compared with a nonzero independently calculated
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: A nonzero normal binary64 result is compared with a nonzero
+    independently calculated
     reference under the declared local regression envelope.
-    Method
-    Construct or inspect only the named synthetic fixture operation (assert nonzero
+
+    Method: Construct or inspect only the named synthetic fixture operation (assert
+    nonzero
     normal close); the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -183,27 +200,32 @@ def assert_nonzero_normal_close(actual: float, expected: float) -> None:
 
 
 def binary64_ulp_distance(actual: float, expected: float) -> int:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    The ULP regression check compares nonnegative binary64 bit patterns by their
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: The ULP regression check compares nonnegative binary64 bit patterns by
+    their
     monotone unsigned encoding.
-    Method
-    Construct or inspect only the named synthetic fixture operation (binary64 ulp
+
+    Method: Construct or inspect only the named synthetic fixture operation (binary64
+    ulp
     distance); the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -215,27 +237,32 @@ def binary64_ulp_distance(actual: float, expected: float) -> int:
 
 
 def assert_subnormal_ulp_close(actual: float, expected: float) -> int:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    A subnormal regression result must remain positive and within the declared inclusive
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: A subnormal regression result must remain positive and within the
+    declared inclusive
     ULP envelope of a positive subnormal reference.
-    Method
-    Construct or inspect only the named synthetic fixture operation (assert subnormal
+
+    Method: Construct or inspect only the named synthetic fixture operation (assert
+    subnormal
     ulp close); the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -249,27 +276,32 @@ def assert_subnormal_ulp_close(actual: float, expected: float) -> int:
 
 
 def assert_ordering(maximum: float, spectral: float, frobenius: float) -> None:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Stored residual metrics satisfy the public order zero <= maximum <= spectral <=
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Stored residual metrics satisfy the public order zero <= maximum <=
+    spectral <=
     Frobenius.
-    Method
-    Construct or inspect only the named synthetic fixture operation (assert ordering);
+
+    Method: Construct or inspect only the named synthetic fixture operation (assert
+    ordering);
     the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -292,29 +324,33 @@ NORMAL_COMPLEX_CASES = (
 
 @pytest.mark.parametrize("case", NORMAL_COMPLEX_CASES)
 def test_method__execute__normal_complex_scalar_paths(case: ScalarCase) -> None:
-    r"""Evidence ID
-    SV-ORA-007
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    r"""Evidence ID: SV-ORA-007
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition:
     execute: normal complex scalar paths.
-    Method
-    Construct the declared complex128 represented difference for execute: normal complex
+
+    Method: Construct the declared complex128 represented difference for execute: normal
+    complex
     scalar paths, invoke execute() with RuntimeWarning promoted to error where numerical
     operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each scalar is finite and nonzero and its absolute error is at most
+
+    Acceptance: Each scalar is finite and nonzero and its absolute error is at most
     64*epsilon*abs(expected), with a strictly positive bound smaller than the expected
     magnitude.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -339,29 +375,33 @@ def test_method__execute__normal_complex_scalar_paths(case: ScalarCase) -> None:
 
 
 def test_method__execute__small_normal_real_scalar_path() -> None:
-    r"""Evidence ID
-    SV-ORA-009
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    r"""Evidence ID: SV-ORA-009
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition:
     execute: small normal real scalar path.
-    Method
-    Construct the declared complex128 represented difference for execute: small normal
+
+    Method: Construct the declared complex128 represented difference for execute: small
+    normal
     real scalar path, invoke execute() with RuntimeWarning promoted to error where
     numerical operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each scalar is finite and nonzero and its absolute error is at most
+
+    Acceptance: Each scalar is finite and nonzero and its absolute error is at most
     64*epsilon*abs(expected), with a strictly positive bound smaller than the expected
     magnitude.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -404,29 +444,34 @@ COMPLEX_SUBNORMAL_CASES = (
 def test_method__execute__complex_subnormal_scalar_paths(
     case: ScalarCase,
 ) -> None:
-    r"""Evidence ID
-    SV-ORA-010
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    r"""Evidence ID: SV-ORA-010
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition:
     execute: complex subnormal scalar paths.
-    Method
-    Construct the declared complex128 represented difference for execute: complex
+
+    Method: Construct the declared complex128 represented difference for execute:
+    complex
     subnormal scalar paths, invoke execute() with RuntimeWarning promoted to error where
     numerical operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each expected and actual scalar is strictly positive, their unsigned binary64
+
+    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+    binary64
     encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
     acceptance.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -464,29 +509,34 @@ DEEP_SUBNORMAL_CASES = (
 
 @pytest.mark.parametrize("case", DEEP_SUBNORMAL_CASES)
 def test_method__execute__deep_subnormal_scalar_paths(case: ScalarCase) -> None:
-    r"""Evidence ID
-    SV-ORA-012
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    r"""Evidence ID: SV-ORA-012
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition:
     execute: deep subnormal scalar paths.
-    Method
-    Construct the declared complex128 represented difference for execute: deep subnormal
+
+    Method: Construct the declared complex128 represented difference for execute: deep
+    subnormal
     scalar paths, invoke execute() with RuntimeWarning promoted to error where numerical
     operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each expected and actual scalar is strictly positive, their unsigned binary64
+
+    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+    binary64
     encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
     acceptance.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -509,29 +559,34 @@ def test_method__execute__deep_subnormal_scalar_paths(case: ScalarCase) -> None:
 
 
 def test_method__execute__smallest_positive_binary64_subnormal_path() -> None:
-    r"""Evidence ID
-    SV-ORA-014
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    r"""Evidence ID: SV-ORA-014
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition:
     execute: smallest positive binary64 subnormal path.
-    Method
-    Construct the declared complex128 represented difference for execute: smallest
+
+    Method: Construct the declared complex128 represented difference for execute:
+    smallest
     positive binary64 subnormal path, invoke execute() with RuntimeWarning promoted to
     error where numerical operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each expected and actual scalar is strictly positive, their unsigned binary64
+
+    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+    binary64
     encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
     acceptance.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -556,29 +611,33 @@ def test_method__execute__smallest_positive_binary64_subnormal_path() -> None:
 
 
 def test_field__two_dimensional_subnormal_ordering_regression__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORA-015
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition: two
+    r"""Evidence ID: SV-ORA-015
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition: two
     dimensional subnormal ordering regression: is exact.
-    Method
-    Construct the declared complex128 represented difference for two dimensional
+
+    Method: Construct the declared complex128 represented difference for two dimensional
     subnormal ordering regression: is exact, invoke execute() with RuntimeWarning
     promoted to error where numerical operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each expected and actual scalar is strictly positive, their unsigned binary64
+
+    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+    binary64
     encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
     acceptance.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
@@ -610,29 +669,33 @@ def test_field__two_dimensional_subnormal_ordering_regression__is_exact() -> Non
 
 
 def test_method__execute__largest_finite_binary64_scalar_path() -> None:
-    r"""Evidence ID
-    SV-ORA-016
-    Requirement
-    OperatorRecordResidualAnalyzer enforces this public residual-analysis partition:
+    r"""Evidence ID: SV-ORA-016
+
+    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
+    partition:
     execute: largest finite binary64 scalar path.
-    Method
-    Construct the declared complex128 represented difference for execute: largest finite
+
+    Method: Construct the declared complex128 represented difference for execute:
+    largest finite
     binary64 scalar path, invoke execute() with RuntimeWarning promoted to error where
     numerical operations occur, and inspect public outputs.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    Each scalar is finite and nonzero and its absolute error is at most
+
+    Acceptance: Each scalar is finite and nonzero and its absolute error is at most
     64*epsilon*abs(expected), with a strictly positive bound smaller than the expected
     magnitude.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    Approximate nonzero cases are bounded binary64 regression checks for the listed
+
+    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
+    the listed
     shapes and environment, not numerical-verification proofs for arbitrary matrices or
     backends; they establish no physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.

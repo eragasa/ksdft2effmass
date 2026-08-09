@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "starting_revision": "43f740500da39fe276e7745d3a9b69ab5f6bd9cd",
+  "grammar": "<DataObject-or-operation-target><Actionizer>",
+  "entries": [
+    {
+      "class_name": "ChainStateEvaluator",
+      "module": "ksdft2effmass.harness.pi.chains",
+      "path": "python/src/ksdft2effmass/harness/pi/chains.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "EvaluateChainState"
+    },
+    {
+      "class_name": "CheckpointDecisionResolver",
+      "module": "ksdft2effmass.harness.pi.checkpoints",
+      "path": "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ResolveCheckpointDecision"
+    },
+    {
+      "class_name": "CheckpointSetValidator",
+      "module": "ksdft2effmass.harness.pi.checkpoints",
+      "path": "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ValidateCheckpointSet"
+    },
+    {
+      "class_name": "ChecksumManifestValidator",
+      "module": "ksdft2effmass.harness.pi.checksums",
+      "path": "python/src/ksdft2effmass/harness/pi/checksums.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ValidateChecksumManifest"
+    },
+    {
+      "class_name": "AuditEvidenceIdentifiers",
+      "module": "ksdft2effmass.harness.pi.evidence",
+      "path": "python/src/ksdft2effmass/harness/pi/evidence.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "deferred_to_evidence_subpackage",
+      "successor_task": "harness.simplification.evidence.naming"
+    },
+    {
+      "class_name": "HumanReviewDecisionRecorder",
+      "module": "ksdft2effmass.harness.pi.human_review",
+      "path": "python/src/ksdft2effmass/harness/pi/human_review.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "conforming"
+    },
+    {
+      "class_name": "HumanReviewPreparer",
+      "module": "ksdft2effmass.harness.pi.human_review",
+      "path": "python/src/ksdft2effmass/harness/pi/human_review.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "conforming"
+    },
+    {
+      "class_name": "CheckpointRecordAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptCheckpointRecords"
+    },
+    {
+      "class_name": "TaskRecordAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptTaskRecords"
+    },
+    {
+      "class_name": "ChainRecordAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptChainRecord"
+    },
+    {
+      "class_name": "AgentRecordAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptAgentRecords"
+    },
+    {
+      "class_name": "OwnershipManifestAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptOwnershipManifest"
+    },
+    {
+      "class_name": "ChecksumCatalogAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptChecksumCatalog"
+    },
+    {
+      "class_name": "SkillInventoryAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptSkillInventory"
+    },
+    {
+      "class_name": "EvidenceOwnershipManifestAdapter",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "AdaptEvidenceOwnershipManifest"
+    },
+    {
+      "class_name": "EvidenceModuleSelector",
+      "module": "ksdft2effmass.harness.pi.local.adapters",
+      "path": "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "SelectEvidenceModules"
+    },
+    {
+      "class_name": "LocalHarnessContextLoader",
+      "module": "ksdft2effmass.harness.pi.local.context",
+      "path": "python/src/ksdft2effmass/harness/pi/local/context.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "LoadLocalHarnessContext"
+    },
+    {
+      "class_name": "ValidationRouteSelector",
+      "module": "ksdft2effmass.harness.pi.local.routing",
+      "path": "python/src/ksdft2effmass/harness/pi/local/routing.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "SelectValidationRoute"
+    },
+    {
+      "class_name": "LegacyRouteConfigurationPreparer",
+      "module": "ksdft2effmass.harness.pi.local.routing",
+      "path": "python/src/ksdft2effmass/harness/pi/local/routing.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "RollBackValidationRoute"
+    },
+    {
+      "class_name": "ShadowPairComparator",
+      "module": "ksdft2effmass.harness.pi.local.shadow",
+      "path": "python/src/ksdft2effmass/harness/pi/local/shadow.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "CompareShadowPair"
+    },
+    {
+      "class_name": "ShadowSuiteReplayer",
+      "module": "ksdft2effmass.harness.pi.local.shadow",
+      "path": "python/src/ksdft2effmass/harness/pi/local/shadow.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "ReplayShadowSuite"
+    },
+    {
+      "class_name": "LocalRepositoryValidator",
+      "module": "ksdft2effmass.harness.pi.local.validation",
+      "path": "python/src/ksdft2effmass/harness/pi/local/validation.py",
+      "public_surface": "ksdft2effmass.harness.pi.local",
+      "status": "renamed",
+      "previous_name": "ValidateLocalRepository"
+    },
+    {
+      "class_name": "OwnershipManifestValidator",
+      "module": "ksdft2effmass.harness.pi.ownership",
+      "path": "python/src/ksdft2effmass/harness/pi/ownership.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ValidateOwnershipManifest"
+    },
+    {
+      "class_name": "ProjectProfileLoader",
+      "module": "ksdft2effmass.harness.pi.profiles",
+      "path": "python/src/ksdft2effmass/harness/pi/profiles.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "LoadProjectProfile"
+    },
+    {
+      "class_name": "ResourceManifestValidator",
+      "module": "ksdft2effmass.harness.pi.resources",
+      "path": "python/src/ksdft2effmass/harness/pi/resources.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ValidateResourceManifest"
+    },
+    {
+      "class_name": "ResourceManifestRefresher",
+      "module": "ksdft2effmass.harness.pi.resources",
+      "path": "python/src/ksdft2effmass/harness/pi/resources.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "RefreshResourceManifest"
+    },
+    {
+      "class_name": "ResourceResolver",
+      "module": "ksdft2effmass.harness.pi.resources",
+      "path": "python/src/ksdft2effmass/harness/pi/resources.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ResolveResource"
+    },
+    {
+      "class_name": "SkillResourceValidator",
+      "module": "ksdft2effmass.harness.pi.resources",
+      "path": "python/src/ksdft2effmass/harness/pi/resources.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "ValidateSkillResources"
+    },
+    {
+      "class_name": "TaskStateInspector",
+      "module": "ksdft2effmass.harness.pi.task_state",
+      "path": "python/src/ksdft2effmass/harness/pi/task_state.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "InspectTaskState"
+    },
+    {
+      "class_name": "ValidatePythonTestEvidence",
+      "module": "ksdft2effmass.harness.pi.test_evidence",
+      "path": "python/src/ksdft2effmass/harness/pi/test_evidence.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "deferred_to_evidence_subpackage",
+      "successor_task": "harness.simplification.evidence.naming"
+    },
+    {
+      "class_name": "JsonRecordSerializer",
+      "module": "ksdft2effmass.harness.pi.validation",
+      "path": "python/src/ksdft2effmass/harness/pi/validation.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "SerializeJsonRecord"
+    },
+    {
+      "class_name": "JsonRecordDeserializer",
+      "module": "ksdft2effmass.harness.pi.validation",
+      "path": "python/src/ksdft2effmass/harness/pi/validation.py",
+      "public_surface": "ksdft2effmass.harness.pi",
+      "status": "renamed",
+      "previous_name": "DeserializeJsonRecord"
+    },
+    {
+      "class_name": "OperatorRecordComparator",
+      "module": "ksdft2effmass.operators.comparison",
+      "path": "python/src/ksdft2effmass/operators/comparison.py",
+      "public_surface": "ksdft2effmass.operators",
+      "status": "conforming"
+    },
+    {
+      "class_name": "OperatorRecordCompatibilityAnalyzer",
+      "module": "ksdft2effmass.operators.compatibility",
+      "path": "python/src/ksdft2effmass/operators/compatibility.py",
+      "public_surface": "ksdft2effmass.operators",
+      "status": "conforming"
+    },
+    {
+      "class_name": "OperatorRecordDifferencer",
+      "module": "ksdft2effmass.operators.difference",
+      "path": "python/src/ksdft2effmass/operators/difference.py",
+      "public_surface": "ksdft2effmass.operators",
+      "status": "conforming"
+    },
+    {
+      "class_name": "HermiticityAnalyzer",
+      "module": "ksdft2effmass.operators.hermiticity",
+      "path": "python/src/ksdft2effmass/operators/hermiticity.py",
+      "public_surface": "ksdft2effmass.operators",
+      "status": "conforming"
+    },
+    {
+      "class_name": "OperatorRecordResidualAnalyzer",
+      "module": "ksdft2effmass.operators.residuals",
+      "path": "python/src/ksdft2effmass/operators/residuals.py",
+      "public_surface": "ksdft2effmass.operators",
+      "status": "conforming"
+    },
+    {
+      "class_name": "ArtifactIdentityVerifier",
+      "module": "ksdft2effmass.provenance.actions",
+      "path": "python/src/ksdft2effmass/provenance/actions.py",
+      "public_surface": "ksdft2effmass.provenance",
+      "status": "conforming"
+    },
+    {
+      "class_name": "ExecutionOutcomeCorrelator",
+      "module": "ksdft2effmass.provenance.actions",
+      "path": "python/src/ksdft2effmass/provenance/actions.py",
+      "public_surface": "ksdft2effmass.provenance",
+      "status": "conforming"
+    },
+    {
+      "class_name": "TransitionEnabler",
+      "module": "ksdft2effmass.workflows.cpn.execution",
+      "path": "python/src/ksdft2effmass/workflows/cpn/execution.py",
+      "public_surface": "ksdft2effmass.workflows.cpn",
+      "status": "conforming"
+    },
+    {
+      "class_name": "TransitionFirer",
+      "module": "ksdft2effmass.workflows.cpn.execution",
+      "path": "python/src/ksdft2effmass/workflows/cpn/execution.py",
+      "public_surface": "ksdft2effmass.workflows.cpn",
+      "status": "conforming"
+    },
+    {
+      "class_name": "CpnMarkingValidator",
+      "module": "ksdft2effmass.workflows.cpn.validation",
+      "path": "python/src/ksdft2effmass/workflows/cpn/validation.py",
+      "public_surface": "ksdft2effmass.workflows.cpn",
+      "status": "conforming"
+    },
+    {
+      "class_name": "CpnDefinitionValidator",
+      "module": "ksdft2effmass.workflows.cpn.validation",
+      "path": "python/src/ksdft2effmass/workflows/cpn/validation.py",
+      "public_surface": "ksdft2effmass.workflows.cpn",
+      "status": "conforming"
+    }
+  ]
+}

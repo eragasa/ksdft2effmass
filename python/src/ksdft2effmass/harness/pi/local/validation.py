@@ -8,17 +8,17 @@ from pathlib import Path
 from .. import (
     AgentDescriptorView,
     AuditEvidenceIdentifiers,
+    ChainStateEvaluator,
     ChainView,
     CheckpointRecord,
+    CheckpointSetValidator,
     ChecksumManifest,
-    EvaluateChainState,
+    ChecksumManifestValidator,
+    OwnershipManifestValidator,
     OwnershipManifestView,
+    ResourceManifestValidator,
     SkillDescriptor,
-    ValidateCheckpointSet,
-    ValidateChecksumManifest,
-    ValidateOwnershipManifest,
-    ValidateResourceManifest,
-    ValidateSkillResources,
+    SkillResourceValidator,
     ValidationResult,
 )
 from .models import LocalHarnessContext
@@ -69,7 +69,7 @@ class RepositoryValidationResult:
             raise ValueError("status does not agree with generic results")
 
 
-class ValidateLocalRepository:
+class LocalRepositoryValidator:
     """Compose generic validators over explicit project-local selections."""
 
     __slots__ = ()
@@ -88,7 +88,7 @@ class ValidateLocalRepository:
         values.append(
             (
                 "resources",
-                ValidateResourceManifest().execute(
+                ResourceManifestValidator().execute(
                     context.generic_manifest,
                     context.generic_manifest_identity,
                     context.local_manifest,
@@ -100,14 +100,14 @@ class ValidateLocalRepository:
         values.append(
             (
                 "checkpoints",
-                ValidateCheckpointSet().execute(
+                CheckpointSetValidator().execute(
                     adapted_records.checkpoints,
                     tuple(x.task_id for x in adapted_records.chain.tasks),
                     profile,
                 ),
             )
         )
-        chain_result = EvaluateChainState().execute(
+        chain_result = ChainStateEvaluator().execute(
             adapted_records.chain,
             adapted_records.checkpoints,
             adapted_records.known_external_prerequisite_ids,
@@ -119,7 +119,7 @@ class ValidateLocalRepository:
             values.append(
                 (
                     "ownership",
-                    ValidateOwnershipManifest().execute(
+                    OwnershipManifestValidator().execute(
                         adapted_records.ownership,
                         adapted_records.chain,
                         adapted_records.agents,
@@ -133,7 +133,7 @@ class ValidateLocalRepository:
             values.append(
                 (
                     "checksums",
-                    ValidateChecksumManifest().execute(
+                    ChecksumManifestValidator().execute(
                         adapted_records.checksum_root, adapted_records.checksums
                     ),
                 )
@@ -142,7 +142,7 @@ class ValidateLocalRepository:
             values.append(
                 (
                     "skills",
-                    ValidateSkillResources().execute(
+                    SkillResourceValidator().execute(
                         adapted_records.skills,
                         context.generic_manifest,
                         context.generic_manifest_identity,

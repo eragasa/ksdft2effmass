@@ -1,17 +1,20 @@
 r"""Software verification of workflow cpn v1 json fixtures python runtime contract.
 
 Facet and represented meaning
+
 --------------------------------------
 Software verification of the version-1 CPN JSON fixture family <-> Python runtime
 contract, using synthetic routing representations rather than scientific data.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The version-1 CPN JSON fixture family <-> Python runtime contract is the primary
 artifact owner. Declared fixture classifications, version-1 schemas, and public Python
 error/result surfaces are the exact oracles.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing confirms only the exercised fixture/schema/runtime contract; failure may
 indicate fixture, schema, parser, runtime, or evidence drift. Numerical verification,
@@ -67,82 +70,75 @@ pytestmark = pytest.mark.software_verification
 
 
 def strict_load_json(path: Path) -> object:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031, SV-CPN-170,
+    """Evidence ID: Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031,
+    SV-CPN-170,
     SV-CPN-171, SV-CPN-172, SV-CPN-173.
-    Requirement
-    Load fixture JSON while rejecting nonstandard nonfinite constants.
 
-    Method
-    Read repository text and decode with a controlled ``parse_constant`` callback.
+    Requirement: Load fixture JSON while rejecting nonstandard nonfinite constants.
 
-    Oracle
-    Standard JSON excludes NaN and infinities; the supplied fixture path fixes the
+    Method: Read repository text and decode with a controlled ``parse_constant``
+    callback.
+
+    Oracle: Standard JSON excludes NaN and infinities; the supplied fixture path fixes
+    the
     input.
 
-    Acceptance
-    Return decoded data or raise ``ValueError`` for a nonstandard constant.
+    Acceptance: Return decoded data or raise ``ValueError`` for a nonstandard constant.
 
-    Interpretation
-    This helper supports the named fixture evidence and owns no separate pass claim.
+    Interpretation: This helper supports the named fixture evidence and owns no separate
+    pass claim.
 
-    Limitations
-    It is not a production serializer and does not validate fixture semantics."""
+    Limitations: It is not a production serializer and does not validate fixture
+    semantics."""
 
     def reject_constant(value: str) -> object:
-        """Evidence ID
-        -----------
-        Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031, SV-CPN-170,
+        """Evidence ID: Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031,
+        SV-CPN-170,
         SV-CPN-171, SV-CPN-172, and SV-CPN-173.
 
-        Requirement
-        Translate any decoder-supplied nonstandard JSON constant into deterministic
+        Requirement: Translate any decoder-supplied nonstandard JSON constant into
+        deterministic
         rejection.
 
-        Method
-        Raise ``ValueError`` containing the supplied constant text.
+        Method: Raise ``ValueError`` containing the supplied constant text.
 
-        Oracle
-        Strict JSON language rules exclude every such callback value.
+        Oracle: Strict JSON language rules exclude every such callback value.
 
-        Acceptance
-        Always raise ``ValueError``.
+        Acceptance: Always raise ``ValueError``.
 
-        Interpretation
-        This nested helper supports SV-CPN-030 and owns no separate pass claim.
+        Interpretation: This nested helper supports SV-CPN-030 and owns no separate pass
+        claim.
 
-        Limitations
-        The controlled decoder callback is not itself validated."""
+        Limitations: The controlled decoder callback is not itself validated."""
         raise ValueError(f"nonstandard JSON constant: {value}")
 
     return json.loads(path.read_text(), parse_constant=reject_constant)
 
 
 def validate_fixture_document(schema_name: str, fixture: Path) -> None:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031, SV-CPN-171,
+    """Evidence ID: Owns no identifier; supports SV-CPN-029, SV-CPN-030, SV-CPN-031,
+    SV-CPN-171,
     SV-CPN-172, SV-CPN-173.
-    Requirement
-    Validate one fixture through one named local version-1 schema entry point.
 
-    Method
-    Load schema and fixture locally, then invoke Draft 2020-12 validation with the fixed
+    Requirement: Validate one fixture through one named local version-1 schema entry
+    point.
+
+    Method: Load schema and fixture locally, then invoke Draft 2020-12 validation with
+    the fixed
     registry.
 
-    Oracle
-    The caller-supplied schema/fixture pairing and local registry define the check.
+    Oracle: The caller-supplied schema/fixture pairing and local registry define the
+    check.
 
-    Acceptance
-    Complete without exception for conforming data or propagate exact validation/load
+    Acceptance: Complete without exception for conforming data or propagate exact
+    validation/load
     failure.
 
-    Interpretation
-    This helper supports the named fixture evidence and owns no separate pass claim.
+    Interpretation: This helper supports the named fixture evidence and owns no separate
+    pass claim.
 
-    Limitations
-    It does not independently classify fixtures or test network behavior."""
+    Limitations: It does not independently classify fixtures or test network
+    behavior."""
     schema = json.loads((ROOT / schema_name).read_text())
     jsonschema.Draft202012Validator(schema, registry=REGISTRY).validate(
         strict_load_json(fixture)
@@ -172,97 +168,69 @@ VALID_FIXTURE_CASES = (
 def test_artifact__valid_json_fixtures__conform_to_declared_schemas(
     fixture_name: str, schema_name: str
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-029
+    """Evidence ID: SV-CPN-029
 
-    Requirement
-    -----------
-    Each declared valid fixture conforms to its declared narrow schema entry point.
+    Requirement: Each declared valid fixture conforms to its declared narrow schema
+    entry point.
 
-    Method
-    ------
-    Validate one explicit fixture/schema pair through the local registry and strict
+    Method: Validate one explicit fixture/schema pair through the local registry and
+    strict
     loader.
 
-    Oracle
-    ------
-    The versioned fixture inventory explicitly fixes the accepted schema classification.
+    Oracle: The versioned fixture inventory explicitly fixes the accepted schema
+    classification.
 
-    Acceptance
-    ----------
-    Validation completes without exception, warning, or network resolution.
+    Acceptance: Validation completes without exception, warning, or network resolution.
 
-    Interpretation
-    --------------
-    Failure may identify fixture, mapping, schema, registry, parser, or library drift.
+    Interpretation: Failure may identify fixture, mapping, schema, registry, parser, or
+    library drift.
 
-    Limitations
-    -----------
-    Schema success does not establish runtime semantics, science, UQ, or Rust agreement.
+    Limitations: Schema success does not establish runtime semantics, science, UQ, or
+    Rust agreement.
     """
     validate_fixture_document(schema_name, ROOT / "valid" / fixture_name)
 
 
 def fixture_validation_succeeds(schema_name: str, path: Path) -> bool:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports no collected evidence owner.
-    Requirement
-    -----------
-    Expose repeated fixture-validation mechanics without an independent claim.
+    """Evidence ID: Owns no identifier; supports no collected evidence owner.
 
-    Method
-    ------
-    Validate one named repository fixture against its supplied public schema.
+    Requirement: Expose repeated fixture-validation mechanics without an independent
+    claim.
 
-    Oracle
-    ------
-    The supported artifact tests own fixture classification; this helper owns none.
+    Method: Validate one named repository fixture against its supplied public schema.
 
-    Acceptance
-    ----------
-    Return ``True`` after validation and propagate every validation failure.
+    Oracle: The supported artifact tests own fixture classification; this helper owns
+    none.
 
-    Interpretation
-    --------------
-    Helper failure invalidates the supported artifact evidence execution.
+    Acceptance: Return ``True`` after validation and propagate every validation failure.
 
-    Limitations
-    -----------
-    This does not establish runtime semantics, scientific validation, or UQ.
+    Interpretation: Helper failure invalidates the supported artifact evidence
+    execution.
+
+    Limitations: This does not establish runtime semantics, scientific validation, or
+    UQ.
     """
     validate_fixture_document(schema_name, path)
     return True
 
 
 def fixture_is_rejected(schema_name: str, path: Path) -> bool:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports no collected evidence owner.
-    Requirement
-    -----------
-    Expose deterministic structural-rejection mechanics without an independent claim.
+    """Evidence ID: Owns no identifier; supports no collected evidence owner.
 
-    Method
-    ------
-    Validate one supplied fixture and translate only JSON-Schema rejection to ``True``.
+    Requirement: Expose deterministic structural-rejection mechanics without an
+    independent claim.
 
-    Oracle
-    ------
-    The supported artifact test owns the schema oracle; this helper owns none.
+    Method: Validate one supplied fixture and translate only JSON-Schema rejection to
+    ``True``.
 
-    Acceptance
-    ----------
-    Return ``True`` exactly when ``jsonschema.ValidationError`` is raised.
+    Oracle: The supported artifact test owns the schema oracle; this helper owns none.
 
-    Interpretation
-    --------------
-    Helper failure invalidates the supported artifact evidence setup.
+    Acceptance: Return ``True`` exactly when ``jsonschema.ValidationError`` is raised.
 
-    Limitations
-    -----------
-    This does not validate schema meaning, runtime semantics, science, or UQ.
+    Interpretation: Helper failure invalidates the supported artifact evidence setup.
+
+    Limitations: This does not validate schema meaning, runtime semantics, science, or
+    UQ.
     """
     try:
         validate_fixture_document(schema_name, path)
@@ -292,66 +260,46 @@ STRUCTURAL_INVALID_CASES = (
 def test_artifact__structural_invalid_json_fixtures__are_rejected(
     fixture_name: str, schema_name: str
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-030
+    """Evidence ID: SV-CPN-030
 
-    Requirement
-    -----------
-    Each declared structurally invalid fixture is rejected by its public schema layer.
+    Requirement: Each declared structurally invalid fixture is rejected by its public
+    schema layer.
 
-    Method
-    ------
-    Validate one explicit invalid fixture/schema pair through the local registry.
+    Method: Validate one explicit invalid fixture/schema pair through the local
+    registry.
 
-    Oracle
-    ------
-    The versioned invalid-fixture classification fixes schema rejection.
+    Oracle: The versioned invalid-fixture classification fixes schema rejection.
 
-    Acceptance
-    ----------
-    Validation raises exactly ``jsonschema.ValidationError``.
+    Acceptance: Validation raises exactly ``jsonschema.ValidationError``.
 
-    Interpretation
-    --------------
-    Failure may identify fixture, schema, registry, parser, library, or evidence drift.
+    Interpretation: Failure may identify fixture, schema, registry, parser, library, or
+    evidence drift.
 
-    Limitations
-    -----------
-    Relational invalidity, runtime semantics, science, UQ, and Rust are excluded.
+    Limitations: Relational invalidity, runtime semantics, science, UQ, and Rust are
+    excluded.
     """
     with pytest.raises(jsonschema.ValidationError):
         validate_fixture_document(schema_name, ROOT / "invalid" / fixture_name)
 
 
 def test_artifact__boolean_integer_fixture__rejects_wrong_semantic_type() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-173
+    """Evidence ID: SV-CPN-173
 
-    Requirement
-    -----------
-    The marking schema rejects Boolean in an integer control field.
+    Requirement: The marking schema rejects Boolean in an integer control field.
 
-    Method
-    ------
-    Validate the explicit ``boolean-as-integer`` fixture through the marking schema.
+    Method: Validate the explicit ``boolean-as-integer`` fixture through the marking
+    schema.
 
-    Oracle
-    ------
-    JSON Boolean and integer are distinct semantic wire types under the public contract.
+    Oracle: JSON Boolean and integer are distinct semantic wire types under the public
+    contract.
 
-    Acceptance
-    ----------
-    Validation raises exactly ``jsonschema.ValidationError``.
+    Acceptance: Validation raises exactly ``jsonschema.ValidationError``.
 
-    Interpretation
-    --------------
-    Failure permits wrong-semantic-type coercion or indicates fixture/schema drift.
+    Interpretation: Failure permits wrong-semantic-type coercion or indicates
+    fixture/schema drift.
 
-    Limitations
-    -----------
-    Other wrong types, runtime construction, science, UQ, and Rust are excluded.
+    Limitations: Other wrong types, runtime construction, science, UQ, and Rust are
+    excluded.
     """
     with pytest.raises(jsonschema.ValidationError):
         validate_fixture_document(
@@ -360,33 +308,22 @@ def test_artifact__boolean_integer_fixture__rejects_wrong_semantic_type() -> Non
 
 
 def test_artifact__strict_json_fixture__rejects_nonfinite_real() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-170
+    """Evidence ID: SV-CPN-170
 
-    Requirement
-    -----------
-    The designated nonfinite REAL fixture is rejected during strict JSON parsing.
+    Requirement: The designated nonfinite REAL fixture is rejected during strict JSON
+    parsing.
 
-    Method
-    ------
-    Load ``nonfinite-real.json`` with the controlled strict loader.
+    Method: Load ``nonfinite-real.json`` with the controlled strict loader.
 
-    Oracle
-    ------
-    Standard strict JSON excludes the fixture's nonfinite numeric token.
+    Oracle: Standard strict JSON excludes the fixture's nonfinite numeric token.
 
-    Acceptance
-    ----------
-    Parsing raises exactly ``ValueError``.
+    Acceptance: Parsing raises exactly ``ValueError``.
 
-    Interpretation
-    --------------
-    Failure admits a nonstandard JSON value or indicates fixture/parser drift.
+    Interpretation: Failure admits a nonstandard JSON value or indicates fixture/parser
+    drift.
 
-    Limitations
-    -----------
-    Schema in-memory NaN behavior, runtime construction, science, UQ, and Rust are
+    Limitations: Schema in-memory NaN behavior, runtime construction, science, UQ, and
+    Rust are
     excluded.
     """
     with pytest.raises(ValueError):
@@ -394,26 +331,22 @@ def test_artifact__strict_json_fixture__rejects_nonfinite_real() -> None:
 
 
 def make_wire_token(data: dict[str, Any]) -> CpnToken:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-031, SV-CPN-171, SV-CPN-172.
-    Requirement
-    Construct one public routing token from the bounded relational fixture shape.
+    """Evidence ID: Owns no identifier; supports SV-CPN-031, SV-CPN-171, SV-CPN-172.
 
-    Method
-    Require no outcome and map every fixture field to the public constructor.
+    Requirement: Construct one public routing token from the bounded relational fixture
+    shape.
 
-    Oracle
-    The version-1 token wire/runtime field correspondence fixes the mapping.
+    Method: Require no outcome and map every fixture field to the public constructor.
 
-    Acceptance
-    Return the matching ``CpnToken`` or raise for unsupported/out-of-contract input.
+    Oracle: The version-1 token wire/runtime field correspondence fixes the mapping.
 
-    Interpretation
-    This helper supports SV-CPN-031 and owns no separate pass claim.
+    Acceptance: Return the matching ``CpnToken`` or raise for
+    unsupported/out-of-contract input.
 
-    Limitations
-    It is a local test parser, not a production serializer; outcomes are excluded."""
+    Interpretation: This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations: It is a local test parser, not a production serializer; outcomes are
+    excluded."""
     outcome_data = data["outcome"]
     if outcome_data is not None:
         raise ValueError("relational marking fixtures do not use outcomes")
@@ -437,26 +370,19 @@ def make_wire_token(data: dict[str, Any]) -> CpnToken:
 
 
 def make_wire_marking(data: dict[str, Any]) -> CpnMarking:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-031, SV-CPN-171, SV-CPN-172.
-    Requirement
-    Construct one complete public marking from the bounded fixture shape.
+    """Evidence ID: Owns no identifier; supports SV-CPN-031, SV-CPN-171, SV-CPN-172.
 
-    Method
-    Map places and tokens in fixture order through public constructors.
+    Requirement: Construct one complete public marking from the bounded fixture shape.
 
-    Oracle
-    The version-1 marking wire/runtime field correspondence fixes the mapping.
+    Method: Map places and tokens in fixture order through public constructors.
 
-    Acceptance
-    Return the matching ``CpnMarking``.
+    Oracle: The version-1 marking wire/runtime field correspondence fixes the mapping.
 
-    Interpretation
-    This helper supports SV-CPN-031 and owns no separate pass claim.
+    Acceptance: Return the matching ``CpnMarking``.
 
-    Limitations
-    It is a local test parser and assumes list-shaped places."""
+    Interpretation: This helper supports SV-CPN-031 and owns no separate pass claim.
+
+    Limitations: It is a local test parser and assumes list-shaped places."""
     places = data["places"]
     assert isinstance(places, list)
     return CpnMarking(
@@ -474,27 +400,21 @@ def make_wire_marking(data: dict[str, Any]) -> CpnMarking:
 
 
 def make_wire_guard(data: dict[str, Any]) -> GuardExpression:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-031, SV-CPN-171.
-    Requirement
-    Construct only the closed guard shapes used by relational net fixtures.
+    """Evidence ID: Owns no identifier; supports SV-CPN-031, SV-CPN-171.
 
-    Method
-    Map TRUE directly or map one token-field/literal comparison through public enums and
+    Requirement: Construct only the closed guard shapes used by relational net fixtures.
+
+    Method: Map TRUE directly or map one token-field/literal comparison through public
+    enums and
     objects.
 
-    Oracle
-    The bounded relational fixture grammar fixes the supported branches.
+    Oracle: The bounded relational fixture grammar fixes the supported branches.
 
-    Acceptance
-    Return the corresponding ``GuardExpression``.
+    Acceptance: Return the corresponding ``GuardExpression``.
 
-    Interpretation
-    This helper supports SV-CPN-031 and owns no separate pass claim.
+    Interpretation: This helper supports SV-CPN-031 and owns no separate pass claim.
 
-    Limitations
-    Other valid guard/expression shapes are intentionally excluded."""
+    Limitations: Other valid guard/expression shapes are intentionally excluded."""
     operator = GuardOperator(data["operator"])
     if operator is GuardOperator.TRUE:
         return GuardExpression(operator)
@@ -518,27 +438,21 @@ def make_wire_guard(data: dict[str, Any]) -> GuardExpression:
 
 
 def make_wire_net(data: dict[str, Any]) -> CpnNetDefinition:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-031, SV-CPN-171.
-    Requirement
-    Construct the bounded no-arc public net shapes used by relational fixtures.
+    """Evidence ID: Owns no identifier; supports SV-CPN-031, SV-CPN-171.
 
-    Method
-    Map colors, places, transitions, guards, and initial marking through public
+    Requirement: Construct the bounded no-arc public net shapes used by relational
+    fixtures.
+
+    Method: Map colors, places, transitions, guards, and initial marking through public
     constructors.
 
-    Oracle
-    The bounded fixture wire/runtime correspondence fixes the mapping.
+    Oracle: The bounded fixture wire/runtime correspondence fixes the mapping.
 
-    Acceptance
-    Return the corresponding ``CpnNetDefinition`` with an empty arc tuple.
+    Acceptance: Return the corresponding ``CpnNetDefinition`` with an empty arc tuple.
 
-    Interpretation
-    This helper supports SV-CPN-031 and owns no separate pass claim.
+    Interpretation: This helper supports SV-CPN-031 and owns no separate pass claim.
 
-    Limitations
-    It is not a general parser and excludes arc-bearing nets."""
+    Limitations: It is not a general parser and excludes arc-bearing nets."""
     colors = data["colors"]
     places = data["places"]
     transitions = data["transitions"]
@@ -580,57 +494,50 @@ def make_wire_net(data: dict[str, Any]) -> CpnNetDefinition:
 
 
 def make_collision_net() -> CpnNetDefinition:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-172.
-    Requirement
-    Build the minimal valid public net required to exercise an existing-output-ID
+    """Evidence ID: Owns no identifier; supports SV-CPN-172.
+
+    Requirement: Build the minimal valid public net required to exercise an
+    existing-output-ID
     collision.
 
-    Method
-    Compose fixed synthetic public objects and a token loaded from the declared valid
+    Method: Compose fixed synthetic public objects and a token loaded from the declared
+    valid
     marking fixture.
 
-    Oracle
-    The public firing preconditions and fixture token fix the controlled setup.
+    Oracle: The public firing preconditions and fixture token fix the controlled setup.
 
-    Acceptance
-    Return a valid net whose initial marking already owns the tested output ID.
+    Acceptance: Return a valid net whose initial marking already owns the tested output
+    ID.
 
-    Interpretation
-    This helper supports SV-CPN-031 and owns no separate pass claim.
+    Interpretation: This helper supports SV-CPN-031 and owns no separate pass claim.
 
-    Limitations
-    The setup is synthetic and validates neither general firing correctness nor
+    Limitations: The setup is synthetic and validates neither general firing correctness
+    nor
     scientific behavior."""
 
     def literal(
         kind: ContractValueKind,
         value: None | bool | int | float | str | tuple[str, ...],
     ) -> ValueExpression:
-        """Evidence ID
-        -----------
-        Owns no identifier; supports SV-CPN-172.
+        """Evidence ID: Owns no identifier; supports SV-CPN-172.
 
-        Requirement
-        Construct one explicitly tagged literal expression used by the controlled
+        Requirement: Construct one explicitly tagged literal expression used by the
+        controlled
         collision net.
 
-        Method
-        Wrap the supplied accepted kind/value in public ``ContractValue`` and
+        Method: Wrap the supplied accepted kind/value in public ``ContractValue`` and
         ``ValueExpression`` objects.
 
-        Oracle
-        The fixed collision-net assignment list supplies each expected kind/value pair.
+        Oracle: The fixed collision-net assignment list supplies each expected
+        kind/value pair.
 
-        Acceptance
-        Return the tagged literal or propagate public-constructor rejection.
+        Acceptance: Return the tagged literal or propagate public-constructor rejection.
 
-        Interpretation
-        This nested helper supports SV-CPN-031 and owns no separate pass claim.
+        Interpretation: This nested helper supports SV-CPN-031 and owns no separate pass
+        claim.
 
-        Limitations
-        It does not independently validate literal semantics or general expression
+        Limitations: It does not independently validate literal semantics or general
+        expression
         evaluation."""
         return ValueExpression(
             ValueExpressionKind.LITERAL,
@@ -699,34 +606,24 @@ DEFINITION_RELATIONAL_CASES = (
 def test_artifact__definition_relational_fixtures__reach_public_issue_code(
     fixture_name: str, expected_code: CpnIssueCode
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-031
+    """Evidence ID: SV-CPN-031
 
-    Requirement
-    -----------
-    Each schema-valid definition-relational fixture reaches its declared public issue.
+    Requirement: Each schema-valid definition-relational fixture reaches its declared
+    public issue.
 
-    Method
-    ------
-    Validate, strictly load, construct, and execute ``CpnDefinitionValidator``.
+    Method: Validate, strictly load, construct, and execute ``CpnDefinitionValidator``.
 
-    Oracle
-    ------
-    The fixture classification fixes the exact expected ``CpnIssueCode``.
+    Oracle: The fixture classification fixes the exact expected ``CpnIssueCode``.
 
-    Acceptance
-    ----------
-    Schema succeeds and the runtime issue set contains the exact expected code.
+    Acceptance: Schema succeeds and the runtime issue set contains the exact expected
+    code.
 
-    Interpretation
-    --------------
-    Failure may identify fixture, schema, parser, constructor, validator, or oracle
+    Interpretation: Failure may identify fixture, schema, parser, constructor,
+    validator, or oracle
     drift.
 
-    Limitations
-    -----------
-    The local parser is not persistence; science, UQ, engine execution, and Rust are
+    Limitations: The local parser is not persistence; science, UQ, engine execution, and
+    Rust are
     excluded.
     """
     path = ROOT / "invalid" / fixture_name
@@ -755,34 +652,24 @@ MARKING_RELATIONAL_CASES = (
 def test_artifact__marking_relational_fixtures__reach_public_issue_code(
     fixture_name: str, expected_code: CpnIssueCode
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-171
+    """Evidence ID: SV-CPN-171
 
-    Requirement
-    -----------
-    Each schema-valid marking-relational fixture reaches its declared public issue.
+    Requirement: Each schema-valid marking-relational fixture reaches its declared
+    public issue.
 
-    Method
-    ------
-    Validate, strictly load, construct, and execute ``CpnMarkingValidator``.
+    Method: Validate, strictly load, construct, and execute ``CpnMarkingValidator``.
 
-    Oracle
-    ------
-    The fixture classification fixes the exact expected ``CpnIssueCode``.
+    Oracle: The fixture classification fixes the exact expected ``CpnIssueCode``.
 
-    Acceptance
-    ----------
-    Schema succeeds and the runtime issue set contains the exact expected code.
+    Acceptance: Schema succeeds and the runtime issue set contains the exact expected
+    code.
 
-    Interpretation
-    --------------
-    Failure may identify fixture, schema, parser, constructor, validator, or oracle
+    Interpretation: Failure may identify fixture, schema, parser, constructor,
+    validator, or oracle
     drift.
 
-    Limitations
-    -----------
-    The local parser is not persistence; science, UQ, engine execution, and Rust are
+    Limitations: The local parser is not persistence; science, UQ, engine execution, and
+    Rust are
     excluded.
     """
     path = ROOT / "invalid" / fixture_name
@@ -799,33 +686,24 @@ def test_artifact__marking_relational_fixtures__reach_public_issue_code(
 
 
 def test_artifact__output_collision_fixture__reaches_public_error_code() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-172
+    """Evidence ID: SV-CPN-172
 
-    Requirement
-    -----------
-    The schema-valid output-collision fixture reaches ``OUTPUT_ID_COLLISION``.
+    Requirement: The schema-valid output-collision fixture reaches
+    ``OUTPUT_ID_COLLISION``.
 
-    Method
-    ------
-    Validate, load, construct the public request, and execute ``TransitionFirer``.
+    Method: Validate, load, construct the public request, and execute
+    ``TransitionFirer``.
 
-    Oracle
-    ------
-    The fixture classification fixes the exact public collision error code.
+    Oracle: The fixture classification fixes the exact public collision error code.
 
-    Acceptance
-    ----------
-    Schema succeeds and firing raises ``CpnFiringError`` with the exact code.
+    Acceptance: Schema succeeds and firing raises ``CpnFiringError`` with the exact
+    code.
 
-    Interpretation
-    --------------
-    Failure may identify fixture, schema, parser, constructor, firer, or oracle drift.
+    Interpretation: Failure may identify fixture, schema, parser, constructor, firer, or
+    oracle drift.
 
-    Limitations
-    -----------
-    The local parser is not persistence; science, UQ, external engines, and Rust are
+    Limitations: The local parser is not persistence; science, UQ, external engines, and
+    Rust are
     excluded.
     """
     path = ROOT / "invalid" / "output-id-collision.json"

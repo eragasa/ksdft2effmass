@@ -83,7 +83,7 @@ class _EvidenceDeclaration:
 
 def _declaration(doc: str) -> _EvidenceDeclaration:
     """Parse one normalized fielded or historical owner declaration."""
-    matches = list(re.finditer(r"(?m)^Evidence ID\s*$", doc))
+    matches = list(re.finditer(r"(?m)^Evidence ID:\s*(?P<value>.*)$", doc))
     if len(matches) > 1:
         return _EvidenceDeclaration(
             (),
@@ -91,10 +91,7 @@ def _declaration(doc: str) -> _EvidenceDeclaration:
             "Test function has multiple Evidence ID fields.",
         )
     if matches:
-        start = matches[0].end()
-        end = re.search(r"(?m)^Requirement\s*$", doc[start:])
-        stop = start + end.start() if end else len(doc)
-        declaration = doc[start:stop].strip()
+        declaration = matches[0].group("value").strip()
         if not declaration:
             return _EvidenceDeclaration(
                 (),

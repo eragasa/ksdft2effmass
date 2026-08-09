@@ -1,6 +1,7 @@
 r"""Numerical verification of ``OperatorRecordResidualAnalyzer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the analytical norms facet. System under test and
 evidence class
@@ -79,6 +80,7 @@ quantification. Scientific validation and uncertainty quantification have not
 been performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The class-owned SUT is ``OperatorRecordResidualAnalyzer``. Synthetic represented
 matrices, declared binary64 scale regimes, units, warning-as-error policy,
@@ -86,6 +88,7 @@ analytical expected values, and exact or documented tolerance rules remain the
 independent oracles recorded below; production private helpers are not oracles.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only agreement with the stated mathematics for the represented
 shapes, dtypes, units, scales, zero exclusions, and warning policy. Failure may
@@ -154,27 +157,32 @@ class AnalyticalCase:
 
 
 def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceResult:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Residual analysis accepts a compatible represented difference with the supplied
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Residual analysis accepts a compatible represented difference with the
+    supplied
     complex128 matrix and explicit eV unit.
-    Method
-    Construct or inspect only the named synthetic fixture operation (difference); the
+
+    Method: Construct or inspect only the named synthetic fixture operation
+    (difference); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    The synthetic matrices cover only the stated shapes, complex128 precision, eV units,
+
+    Limitations: The synthetic matrices cover only the stated shapes, complex128
+    precision, eV units,
     and scales; they do not establish physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
     """
@@ -187,27 +195,32 @@ def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceRe
 
 
 def assert_nonzero_normal_close(actual: float, expected: float) -> None:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    A nonzero normal binary64 result is compared with a nonzero independently calculated
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: A nonzero normal binary64 result is compared with a nonzero
+    independently calculated
     reference under the declared local regression envelope.
-    Method
-    Construct or inspect only the named synthetic fixture operation (assert nonzero
+
+    Method: Construct or inspect only the named synthetic fixture operation (assert
+    nonzero
     normal close); the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    The synthetic matrices cover only the stated shapes, complex128 precision, eV units,
+
+    Limitations: The synthetic matrices cover only the stated shapes, complex128
+    precision, eV units,
     and scales; they do not establish physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
     """
@@ -224,27 +237,32 @@ def assert_nonzero_normal_close(actual: float, expected: float) -> None:
 
 
 def assert_metric(actual: float, expected: float) -> None:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    An analytical residual metric is either exactly zero or a nonzero normal binary64
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: An analytical residual metric is either exactly zero or a nonzero
+    normal binary64
     value within its declared forward-error criterion.
-    Method
-    Construct or inspect only the named synthetic fixture operation (assert metric); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (assert
+    metric); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Exact scalar identities, hand-derived matrix norms where stated, Python exception
+
+    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+    exception
     semantics, and the public structured-error taxonomy determine the expected result
     independently of analyzer private helpers.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the stated represented residual or error-boundary case; failure
+
+    Interpretation: A pass supports only the stated represented residual or
+    error-boundary case; failure
     may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
     drift.
-    Limitations
-    The synthetic matrices cover only the stated shapes, complex128 precision, eV units,
+
+    Limitations: The synthetic matrices cover only the stated shapes, complex128
+    precision, eV units,
     and scales; they do not establish physical correctness, scientific validation, UQ,
     portability, or cross-language agreement.
     """
@@ -333,27 +351,31 @@ CASES = (
 def test_method__execute__matches_independent_analytical_norms(
     case: AnalyticalCase,
 ) -> None:
-    r"""Evidence ID
-    NV-ORA-001
-    Requirement
-    The finite-matrix residual kernel returns the analytical maximum-entry, Frobenius,
+    r"""Evidence ID: NV-ORA-001
+
+    Requirement: The finite-matrix residual kernel returns the analytical maximum-entry,
+    Frobenius,
     and spectral norms in documented metric order.
-    Method
-    Execute each module-owned ``complex128`` matrix through the public analyzer while
+
+    Method: Execute each module-owned ``complex128`` matrix through the public analyzer
+    while
     treating every ``RuntimeWarning`` as an error.
-    Oracle
-    Independently derived values documented in the module and stored in
+
+    Oracle: Independently derived values documented in the module and stored in
     ``AnalyticalCase``; production NumPy norm or SVD calls do not construct expected
     values.
-    Acceptance
-    Expected zero is exact. Nonzero normal values satisfy the explicit ``64 * eps``
+
+    Acceptance: Expected zero is exact. Nonzero normal values satisfy the explicit ``64
+    * eps``
     relative-error bound, which cannot accept zero. Stored metrics satisfy ``0 <=
     maximum <= spectral <= Frobenius``.
-    Interpretation
-    Passing establishes agreement for these six finite analytical cases and absence of
+
+    Interpretation: Passing establishes agreement for these six finite analytical cases
+    and absence of
     leaked NumPy runtime warnings.
-    Limitations
-    Passing does not establish physical equivalence, basis or gauge alignment,
+
+    Limitations: Passing does not establish physical equivalence, basis or gauge
+    alignment,
     scientific residual acceptability, DFT or Wannier accuracy, model validation, or
     uncertainty quantification. Subnormal behavior is outside this module.
     """

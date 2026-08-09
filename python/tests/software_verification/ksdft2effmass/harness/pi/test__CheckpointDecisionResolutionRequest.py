@@ -1,14 +1,17 @@
 r"""Software verification of ``CheckpointDecisionResolutionRequest``.
 
 Facet and represented meaning
+
 Software verification of explicit immutable checkpoint-resolution inputs.
 
 Intrinsic and cross-object scope
+
 The sole primary SUT is ``CheckpointDecisionResolutionRequest``. Exact field types,
 identifier and timestamp validity, distinct statuses, verbatim response storage,
 equality, and immutability are in scope. Human-intent interpretation is excluded.
 
 VVUQ and scientific exclusions
+
 Passing establishes only the stated software contract, not scientific validity,
 uncertainty quantification, human acceptance, or operational authorization.
 """
@@ -29,20 +32,19 @@ SUT = CheckpointDecisionResolutionRequest
 
 
 def make_pending_checkpoint_for_request() -> CheckpointRecord:
-    """Evidence ID
-    Owns no identifier; supports request-constructor evidence.
-    Requirement
-    Tests require one independently valid unresolved generic checkpoint.
-    Method
-    Construct a public CheckpointRecord from fixed exact fields.
-    Oracle
-    The public CheckpointRecord contract defines valid support input.
-    Acceptance
-    Return one immutable pending checkpoint with two declared options.
-    Interpretation
-    Failure indicates invalid setup rather than request behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports request-constructor evidence.
+
+    Requirement: Tests require one independently valid unresolved generic checkpoint.
+
+    Method: Construct a public CheckpointRecord from fixed exact fields.
+
+    Oracle: The public CheckpointRecord contract defines valid support input.
+
+    Acceptance: Return one immutable pending checkpoint with two declared options.
+
+    Interpretation: Failure indicates invalid setup rather than request behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     return CheckpointRecord(
         1,
@@ -64,20 +66,19 @@ def make_pending_checkpoint_for_request() -> CheckpointRecord:
 
 
 def make_valid_request_values() -> dict[str, Any]:
-    """Evidence ID
-    Owns no identifier; supports request-constructor evidence.
-    Requirement
-    Constructor partitions require one complete valid field mapping.
-    Method
-    Return fixed explicit values without normalization or clock access.
-    Oracle
-    The accepted request contract fixes every support value.
-    Acceptance
-    Return values that construct one valid request.
-    Interpretation
-    Failure indicates invalid setup rather than request behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports request-constructor evidence.
+
+    Requirement: Constructor partitions require one complete valid field mapping.
+
+    Method: Return fixed explicit values without normalization or clock access.
+
+    Oracle: The accepted request contract fixes every support value.
+
+    Acceptance: Return values that construct one valid request.
+
+    Interpretation: Failure indicates invalid setup rather than request behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     return {
         "checkpoint": make_pending_checkpoint_for_request(),
@@ -91,21 +92,23 @@ def make_valid_request_values() -> dict[str, Any]:
 
 
 def test_constructor__valid_fields__maps_exact_values_and_verbatim_response() -> None:
-    """Evidence ID
-    SV-HARNESS-098
-    Requirement
-    A valid request preserves every explicit field, including human text verbatim.
-    Method
-    Construct two requests from the same complete valid field mapping.
-    Oracle
-    Exact supplied values and dataclass equality provide the independent oracle.
-    Acceptance
-    Every field maps exactly, whitespace is preserved, and equal requests compare
+    """Evidence ID: SV-HARNESS-098
+
+    Requirement: A valid request preserves every explicit field, including human text
+    verbatim.
+
+    Method: Construct two requests from the same complete valid field mapping.
+
+    Oracle: Exact supplied values and dataclass equality provide the independent oracle.
+
+    Acceptance: Every field maps exactly, whitespace is preserved, and equal requests
+    compare
     equal.
-    Interpretation
-    Failure indicates mapping, normalization, or value-semantic drift.
-    Limitations
-    Construction does not select an option or authorize checkpoint persistence.
+
+    Interpretation: Failure indicates mapping, normalization, or value-semantic drift.
+
+    Limitations: Construction does not select an option or authorize checkpoint
+    persistence.
     """
     values = make_valid_request_values()
     request = SUT(**values)
@@ -159,20 +162,21 @@ def test_constructor__valid_fields__maps_exact_values_and_verbatim_response() ->
 def test_constructor__invalid_field__raises_semantic_exception(
     field: str, value: Any, exception: type[Exception]
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-099
-    Requirement
-    Wrong semantic types raise TypeError and typed invariant violations ValueError.
-    Method
-    Replace one valid request field with each required invalid partition.
-    Oracle
-    The public request invariant table fixes each exception family.
-    Acceptance
-    Every partition raises the declared exception family.
-    Interpretation
-    Failure indicates type, identifier, timestamp, or nonempty-contract drift.
-    Limitations
-    Option membership and checkpoint lifecycle are ActionObject concerns.
+    """Evidence ID: SV-HARNESS-099
+
+    Requirement: Wrong semantic types raise TypeError and typed invariant violations
+    ValueError.
+
+    Method: Replace one valid request field with each required invalid partition.
+
+    Oracle: The public request invariant table fixes each exception family.
+
+    Acceptance: Every partition raises the declared exception family.
+
+    Interpretation: Failure indicates type, identifier, timestamp, or nonempty-contract
+    drift.
+
+    Limitations: Option membership and checkpoint lifecycle are ActionObject concerns.
     """
     values = make_valid_request_values()
     values[field] = value
@@ -181,20 +185,19 @@ def test_constructor__invalid_field__raises_semantic_exception(
 
 
 def test_field__frozen_assignment__raises_attribute_error() -> None:
-    """Evidence ID
-    SV-HARNESS-100
-    Requirement
-    Request state is immutable after construction.
-    Method
-    Assign to one public field through a runtime-selected field name.
-    Oracle
-    Frozen dataclass assignment semantics are the exact oracle.
-    Acceptance
-    Assignment raises AttributeError and the response remains unchanged.
-    Interpretation
-    Failure indicates an unauthorized mutable request boundary.
-    Limitations
-    The nested checkpoint has its own independent immutability contract.
+    """Evidence ID: SV-HARNESS-100
+
+    Requirement: Request state is immutable after construction.
+
+    Method: Assign to one public field through a runtime-selected field name.
+
+    Oracle: Frozen dataclass assignment semantics are the exact oracle.
+
+    Acceptance: Assignment raises AttributeError and the response remains unchanged.
+
+    Interpretation: Failure indicates an unauthorized mutable request boundary.
+
+    Limitations: The nested checkpoint has its own independent immutability contract.
     """
     request = SUT(**make_valid_request_values())
     field = "human_response"

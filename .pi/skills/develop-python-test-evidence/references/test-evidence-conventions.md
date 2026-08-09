@@ -78,19 +78,25 @@ as `general`, `behavior`, or `misc`.
 
 ## Test documentation
 
-Every evidence-owning test documents these fields in order:
+Every evidence-owning test documents these labeled paragraphs in order, with the value beginning after a colon and one blank line between paragraphs:
 
 ```text
-Evidence ID
-Requirement
-Method
-Oracle
-Acceptance
-Interpretation
-Limitations
+Evidence ID: <stable identifier>
+
+Requirement: <public contract or mathematical claim>
+
+Method: <public inputs and operation>
+
+Oracle: <independently known behavior or value>
+
+Acceptance: <exact or justified approximate criterion>
+
+Interpretation: <meaning of failure>
+
+Limitations: <excluded inputs and claims>
 ```
 
-**Evidence ID** is the stable owner identity. **Requirement** states the public contract or
+Do not place a label on a line by itself. **Evidence ID** is the stable owner identity. **Requirement** states the public contract or
 mathematical claim, not assertion syntax. **Method** states public inputs and operation without
 disguising the oracle. **Oracle** states independently known behavior or value and its source.
 **Acceptance** states the exact value, exception, representation, tolerance, ULP bound, or residual

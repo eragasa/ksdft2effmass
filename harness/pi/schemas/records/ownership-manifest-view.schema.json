@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/ownership-manifest-view.schema.json",
   "title": "OwnershipManifestView",
   "type": "object",
-  "description": "JSON Schema enforces normalized tuple shapes, nonempty writer/reviewer collections, and whole-item uniqueness. It cannot enforce uniqueness of individual role/agent tuple positions, cross-writer scope nonoverlap, writer/reviewer disjointness, canonical ordering, or completion-path ownership; ValidateOwnershipManifest must enforce those semantic relations. Schema conformance alone grants no path authority or acceptance.",
+  "description": "JSON Schema enforces normalized tuple shapes, nonempty writer/reviewer collections, and whole-item uniqueness. It cannot enforce uniqueness of individual role/agent tuple positions, cross-writer scope nonoverlap, writer/reviewer disjointness, canonical ordering, or completion-path ownership; OwnershipManifestValidator must enforce those semantic relations. Schema conformance alone grants no path authority or acceptance.",
   "properties": {
     "schema_version": {
       "type": "integer",

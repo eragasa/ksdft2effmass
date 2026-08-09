@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecord``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the value semantics facet. Represented contract
 --------------------
@@ -26,6 +27,7 @@ validation, uncertainty quantification, and Rust conformance have not been
 performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecord``; collaborators only construct inputs or
 expose public outcomes. Accepted public contracts, literal expected values, Python
@@ -33,6 +35,7 @@ language semantics, and assigned schema or fixture artifacts provide the oracles
 runtime warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -72,23 +75,26 @@ EQUALITY_FIELDS = (
 
 
 def test_method__eq__exact_structural_equality_uses_every_stored_field() -> None:
-    r"""Evidence ID
-    SV-OR-038
-    Requirement
-    Equal independently constructed records match all eight stored fields; changing any
+    r"""Evidence ID: SV-OR-038
+
+    Requirement: Equal independently constructed records match all eight stored fields;
+    changing any
     one field makes them unequal.
-    Method
-    Construct one baseline, one identical value, and eight valid single-field variants
+
+    Method: Construct one baseline, one identical value, and eight valid single-field
+    variants
     through public constructors.
-    Oracle
-    The approved exact DataObject contract includes fields even when compatibility rules
+
+    Oracle: The approved exact DataObject contract includes fields even when
+    compatibility rules
     deliberately ignore them.
-    Acceptance
-    Baseline equals the identical record and differs from every variant.
-    Interpretation
-    Passing establishes complete structural equality ownership.
-    Limitations
-    It does not execute compatibility, determine physical equivalence, use approximate
+
+    Acceptance: Baseline equals the identical record and differs from every variant.
+
+    Interpretation: Passing establishes complete structural equality ownership.
+
+    Limitations: It does not execute compatibility, determine physical equivalence, use
+    approximate
     comparison, establish scientific validation, UQ, or Rust conformance.
     """
 
@@ -113,24 +119,28 @@ def test_method__eq__exact_structural_equality_uses_every_stored_field() -> None
 
 
 def test_method__eq__matrix_equality_is_exact_complex_and_position_sensitive() -> None:
-    r"""Evidence ID
-    SV-OR-039
-    Requirement
-    Matrix equality uses exact entry values and positions, including complex components;
+    r"""Evidence ID: SV-OR-039
+
+    Requirement: Matrix equality uses exact entry values and positions, including
+    complex components;
     any nonzero representable perturbation is observable.
-    Method
-    Compare zero baseline with a smallest-positive-binary64 perturbation, complex
+
+    Method: Compare zero baseline with a smallest-positive-binary64 perturbation,
+    complex
     perturbation, and position-swapped pair without approximation.
-    Oracle
-    Exact literal/IEEE values and positions independently define inequality.
-    Acceptance
-    Every matrix variant compares unequal; independently identical matrices compare
+
+    Oracle: Exact literal/IEEE values and positions independently define inequality.
+
+    Acceptance: Every matrix variant compares unequal; independently identical matrices
+    compare
     equal.
-    Interpretation
-    Passing establishes ``np.array_equal``-style exact semantics rather than
+
+    Interpretation: Passing establishes ``np.array_equal``-style exact semantics rather
+    than
     tolerance-based equality.
-    Limitations
-    It uses no approximate comparison, calculates no error norm, and does not determine
+
+    Limitations: It uses no approximate comparison, calculates no error norm, and does
+    not determine
     physical equivalence, scientific validation, UQ, or Rust conformance.
     """
 
@@ -150,21 +160,22 @@ def test_method__eq__matrix_equality_is_exact_complex_and_position_sensitive() -
 
 
 def test_method__eq__uses_provenance_content() -> None:
-    r"""Evidence ID
-    SV-OR-040
-    Requirement
-    Equal key/value content compares equal independent of insertion order; changed,
+    r"""Evidence ID: SV-OR-040
+
+    Requirement: Equal key/value content compares equal independent of insertion order;
+    changed,
     removed, added, or renamed content compares unequal.
-    Method
-    Construct valid records with explicitly authored provenance mappings.
-    Oracle
-    Python mapping-content equality is the approved provenance semantics.
-    Acceptance
-    Reordered content is equal; every content variation is unequal.
-    Interpretation
-    Passing establishes mapping rather than sequence semantics.
-    Limitations
-    It does not validate provenance truth, serialization order, scientific validation,
+
+    Method: Construct valid records with explicitly authored provenance mappings.
+
+    Oracle: Python mapping-content equality is the approved provenance semantics.
+
+    Acceptance: Reordered content is equal; every content variation is unequal.
+
+    Interpretation: Passing establishes mapping rather than sequence semantics.
+
+    Limitations: It does not validate provenance truth, serialization order, scientific
+    validation,
     UQ, or Rust conformance.
     """
 
@@ -185,22 +196,25 @@ def test_method__eq__uses_provenance_content() -> None:
 
 
 def test_method__eq__equality_protocol_returns_notimplemented_for_unrelated() -> None:
-    r"""Evidence ID
-    SV-OR-041
-    Requirement
-    Direct ``__eq__`` returns ``NotImplemented`` for unrelated objects and ordinary
+    r"""Evidence ID: SV-OR-041
+
+    Requirement: Direct ``__eq__`` returns ``NotImplemented`` for unrelated objects and
+    ordinary
     comparison yields inequality.
-    Method
-    Compare one valid record with a fresh arbitrary object.
-    Oracle
-    The approved Python data-model protocol defines reflected handling.
-    Acceptance
-    Direct result is exactly ``NotImplemented`` and ordinary equality is false while
+
+    Method: Compare one valid record with a fresh arbitrary object.
+
+    Oracle: The approved Python data-model protocol defines reflected handling.
+
+    Acceptance: Direct result is exactly ``NotImplemented`` and ordinary equality is
+    false while
     inequality is true.
-    Interpretation
-    Passing establishes cooperative equality behavior without duck typing.
-    Limitations
-    It does not compare subclasses or establish scientific validation, UQ, or Rust
+
+    Interpretation: Passing establishes cooperative equality behavior without duck
+    typing.
+
+    Limitations: It does not compare subclasses or establish scientific validation, UQ,
+    or Rust
     conformance.
     """
 
@@ -213,22 +227,23 @@ def test_method__eq__equality_protocol_returns_notimplemented_for_unrelated() ->
 
 
 def test_method__hash__operator_record_is_publicly_unhashable() -> None:
-    r"""Evidence ID
-    SV-OR-042
-    Requirement
-    Array-valued exact state has no approved content hash.
-    Method
-    Inspect the public class protocol, abstract Hashable behavior, and ordinary
+    r"""Evidence ID: SV-OR-042
+
+    Requirement: Array-valued exact state has no approved content hash.
+
+    Method: Inspect the public class protocol, abstract Hashable behavior, and ordinary
     ``hash()`` failure.
-    Oracle
-    ``OperatorRecord.__hash__ is None`` is the approved public contract.
-    Acceptance
-    Class hash is ``None``, instance is not ``Hashable``, and ``hash`` raises exactly
+
+    Oracle: ``OperatorRecord.__hash__ is None`` is the approved public contract.
+
+    Acceptance: Class hash is ``None``, instance is not ``Hashable``, and ``hash``
+    raises exactly
     ``TypeError``.
-    Interpretation
-    Passing prevents accidental matrix/provenance hash introduction.
-    Limitations
-    It does not propose a Rust hash, test identity hashing, establish scientific
+
+    Interpretation: Passing prevents accidental matrix/provenance hash introduction.
+
+    Limitations: It does not propose a Rust hash, test identity hashing, establish
+    scientific
     validation, UQ, or Rust conformance.
     """
 

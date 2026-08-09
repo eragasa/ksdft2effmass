@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/resource-manifest.schema.json",
   "title": "ResourceManifest",
   "type": "object",
-  "description": "The intrinsic layer/extends_manifest_id pairing is enforced by this schema: generic requires null and local requires an Identifier. Relationally invalid candidate manifests remain representable: ValidateResourceManifest owns duplicate resource IDs/paths, self-edges, missing/cyclic or generic-to-local dependencies, compatibility, manifest mismatch, and forbidden local replacement. Schema conformance alone does not authorize or accept a manifest.",
+  "description": "The intrinsic layer/extends_manifest_id pairing is enforced by this schema: generic requires null and local requires an Identifier. Relationally invalid candidate manifests remain representable: ResourceManifestValidator owns duplicate resource IDs/paths, self-edges, missing/cyclic or generic-to-local dependencies, compatibility, manifest mismatch, and forbidden local replacement. Schema conformance alone does not authorize or accept a manifest.",
   "properties": {
     "schema_version": {
       "type": "integer",

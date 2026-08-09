@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/skill-descriptor.schema.json",
   "title": "SkillDescriptor",
   "type": "object",
-  "description": "JSON Schema enforces field shapes, closed policy values, nonempty closures, and whole-array uniqueness. It cannot compare entry_resource_id or authorization_policy_id with required_resource_ids or assert identifier ordering; ValidateSkillResources must establish closure inclusion, resource kinds, declared dependencies, and policy/behavior compatibility. Schema conformance grants no invocation authority or acceptance.",
+  "description": "JSON Schema enforces field shapes, closed policy values, nonempty closures, and whole-array uniqueness. It cannot compare entry_resource_id or authorization_policy_id with required_resource_ids or assert identifier ordering; SkillResourceValidator must establish closure inclusion, resource kinds, declared dependencies, and policy/behavior compatibility. Schema conformance grants no invocation authority or acceptance.",
   "properties": {
     "schema_version": {
       "type": "integer",

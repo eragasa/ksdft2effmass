@@ -257,20 +257,20 @@ def semantic_invariant_gate(validators: dict[str, Any]) -> None:
             continue
         if kind == "ResourceReference":
             self_edge = instance.get("resource_id") in instance.get("dependency_ids", [])
-            valid_boundary = (self_edge and semantic.get("stage") == "DeserializeJsonRecord" and
+            valid_boundary = (self_edge and semantic.get("stage") == "JsonRecordDeserializer" and
                               semantic.get("status") == "PASS" and semantic.get("issue_code") is None and
-                              semantic.get("next_stage") == "ValidateResourceManifest" and
+                              semantic.get("next_stage") == "ResourceManifestValidator" and
                               semantic.get("next_status") == "FAIL" and
                               semantic.get("next_issue_code") == "PIH.RESOURCE.DEPENDENCY_CYCLE")
         elif kind == "TaskReference":
             invalid = instance.get("task_id") in instance.get("task_prerequisite_ids", [])
-            valid_boundary = (invalid and semantic.get("stage") == "DeserializeJsonRecord" and
+            valid_boundary = (invalid and semantic.get("stage") == "JsonRecordDeserializer" and
                               semantic.get("status") == "FAIL" and
                               semantic.get("issue_code") == "PIH.WIRE.INVALID_VALUE")
         elif kind == "ChainView":
             task_ids = {task.get("task_id") for task in instance.get("tasks", [])}
             invalid = not set(instance.get("explicitly_activated_task_ids", [])) <= task_ids
-            valid_boundary = (invalid and semantic.get("stage") == "DeserializeJsonRecord" and
+            valid_boundary = (invalid and semantic.get("stage") == "JsonRecordDeserializer" and
                               semantic.get("status") == "FAIL" and
                               semantic.get("issue_code") == "PIH.WIRE.INVALID_VALUE")
         else:

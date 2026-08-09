@@ -30,7 +30,7 @@ Do not require special wording such as `record this decision`, `resume the task`
 `update the checkpoint`, or `continue the chain`.
 
 Checkpoint parsing and lifecycle validation belong to the maintained
-[`CheckpointRecord` and `ValidateCheckpointSet`](../../../python/src/ksdft2effmass/harness/pi/checkpoints.py)
+[`CheckpointRecord` and `CheckpointSetValidator`](../../../python/src/ksdft2effmass/harness/pi/checkpoints.py)
 contract, not this skill.
 
 ## Matching rules
@@ -80,10 +80,10 @@ meaning for the human or resolve a different checkpoint.
 ## Deterministic-action boundary
 This skill interprets intent; it does not transform checkpoint records.
 Deterministic generic record transformation belongs to
-`ResolveCheckpointDecision`. Checkpoint validation remains with the maintained
+`CheckpointDecisionResolver`. Checkpoint validation remains with the maintained
 validator, while project-local writing remains outside this skill.
 
-Current task-state inspection belongs to `InspectTaskState` via
+Current task-state inspection belongs to `TaskStateInspector` via
 [inspect-task-state](../../../.pi/skills/inspect-task-state/SKILL.md). Next-task
 selection belongs to
 [recommend-next-task](../../../.pi/skills/recommend-next-task/SKILL.md), and

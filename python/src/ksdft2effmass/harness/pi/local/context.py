@@ -6,17 +6,17 @@ import hashlib
 
 from .. import (
     ArtifactIdentity,
-    DeserializeJsonRecord,
-    LoadProjectProfile,
+    JsonRecordDeserializer,
+    ProjectProfileLoader,
     ResourceManifest,
-    ValidateResourceManifest,
+    ResourceManifestValidator,
     WireRecordKind,
 )
 from ._parsing import failure, success
 from .models import AdaptationResult, LocalHarnessContext, LocalIssue, RepositoryRoots
 
 
-class LoadLocalHarnessContext:
+class LocalHarnessContextLoader:
     """Load and validate explicit profile and manifest bytes.
 
     Notes
@@ -71,7 +71,7 @@ class LoadLocalHarnessContext:
         ):
             if type(value) is not bytes:
                 raise TypeError(f"{name} bytes must be bytes")
-        profile_result = LoadProjectProfile().execute(profile_bytes, None, (1,), (1,))
+        profile_result = ProjectProfileLoader().execute(profile_bytes, None, (1,), (1,))
         if profile_result.profile is None:
             return failure(
                 LocalIssue(
@@ -85,7 +85,7 @@ class LoadLocalHarnessContext:
             (generic_manifest_bytes, "generic"),
             (local_manifest_bytes, "local"),
         ):
-            result = DeserializeJsonRecord().execute(
+            result = JsonRecordDeserializer().execute(
                 WireRecordKind.ResourceManifest, payload
             )
             if type(result.record) is not ResourceManifest:
@@ -96,7 +96,7 @@ class LoadLocalHarnessContext:
                 )
             decoded.append(result.record)
         generic, local = decoded
-        validation = ValidateResourceManifest().execute(
+        validation = ResourceManifestValidator().execute(
             generic,
             ArtifactIdentity(
                 1, "sha256", hashlib.sha256(generic_manifest_bytes).hexdigest()

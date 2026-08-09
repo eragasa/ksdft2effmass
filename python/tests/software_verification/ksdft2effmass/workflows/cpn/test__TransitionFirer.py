@@ -1,12 +1,14 @@
 r"""Software verification of ``TransitionFirer``.
 
 Facet and represented meaning
+
 --------------------------------------
 This module provides software-verification evidence for the public ``TransitionFirer``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 ``TransitionFirer`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
@@ -14,6 +16,7 @@ error-taxonomy rules provide the independent oracles. Collaborators only constru
 inputs or expose public outcomes.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing means the named software contracts hold; failure may identify an implementation,
 fixture, oracle transcription, environment, or public-contract inconsistency. This
@@ -59,38 +62,31 @@ SUT = TransitionFirer
 
 
 def replace_ready_place(net: CpnNetDefinition, token: CpnToken) -> CpnNetDefinition:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-021, SV-CPN-022.
-    Requirement
-    -----------
-    Provide explicit synthetic setup or assertion mechanics without creating an
+    """Evidence ID: Owns no identifier; supports SV-CPN-021, SV-CPN-022.
+
+    Requirement: Provide explicit synthetic setup or assertion mechanics without
+    creating an
     independent pass claim.
 
-    Method
-    ------
-    Construct or transform the public CPN test inputs required by the listed evidence
+    Method: Construct or transform the public CPN test inputs required by the listed
+    evidence
     owners. Prior helper description: Return a net whose ready place contains one
     independently valid token.
 
-    Oracle
-    ------
-    The helper has no independent oracle; each supported test owns and documents the
+    Oracle: The helper has no independent oracle; each supported test owns and documents
+    the
     applicable contract oracle.
 
-    Acceptance
-    ----------
-    Return the exact public object or deterministic setup consumed by every listed
+    Acceptance: Return the exact public object or deterministic setup consumed by every
+    listed
     evidence owner, without swallowing exceptions or asserting a separate result.
 
-    Interpretation
-    --------------
-    A helper failure blocks or invalidates its listed evidence owners but is not an
+    Interpretation: A helper failure blocks or invalidates its listed evidence owners
+    but is not an
     independent evidence failure.
 
-    Limitations
-    -----------
-    The helper is synthetic, supports only the complete identifier list above, owns no
+    Limitations: The helper is synthetic, supports only the complete identifier list
+    above, owns no
     independent evidence ID, and establishes no numerical verification, scientific
     validation, uncertainty quantification, physical meaning, or cross-language
     conformance."""
@@ -112,32 +108,23 @@ def replace_ready_place(net: CpnNetDefinition, token: CpnToken) -> CpnNetDefinit
 def transform_iteration_arc(
     arc: ArcDefinition, retry_parent_assignment: TokenFieldAssignment
 ) -> ArcDefinition:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-020.
-    Requirement
-    -----------
-    Provide explicit synthetic arc setup without an independent pass claim.
+    """Evidence ID: Owns no identifier; supports SV-CPN-020.
 
-    Method
-    ------
-    Transform the declared authorization input and output arcs for retry routing.
+    Requirement: Provide explicit synthetic arc setup without an independent pass claim.
 
-    Oracle
-    ------
-    The supported test owns the routing oracle; this helper owns none.
+    Method: Transform the declared authorization input and output arcs for retry
+    routing.
 
-    Acceptance
-    ----------
-    Return the exact transformed public arc and leave unrelated arcs unchanged.
+    Oracle: The supported test owns the routing oracle; this helper owns none.
 
-    Interpretation
-    --------------
-    Failure invalidates setup for the supported evidence rather than adding evidence.
+    Acceptance: Return the exact transformed public arc and leave unrelated arcs
+    unchanged.
 
-    Limitations
-    -----------
-    Synthetic setup excludes engine execution, scientific validation, UQ, and physics.
+    Interpretation: Failure invalidates setup for the supported evidence rather than
+    adding evidence.
+
+    Limitations: Synthetic setup excludes engine execution, scientific validation, UQ,
+    and physics.
     """
     if arc.direction is ArcDirection.INPUT and arc.place_id == "authorization":
         assert arc.input_inscription is not None
@@ -170,32 +157,24 @@ def transform_iteration_arc(
 def transform_retry_arc(
     arc: ArcDefinition, retry_parent_assignment: TokenFieldAssignment
 ) -> ArcDefinition:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-020.
-    Requirement
-    -----------
-    Provide explicit synthetic retry-arc setup without an independent pass claim.
+    """Evidence ID: Owns no identifier; supports SV-CPN-020.
 
-    Method
-    ------
-    Change the ready input to read mode and append the retry-parent output assignment.
+    Requirement: Provide explicit synthetic retry-arc setup without an independent pass
+    claim.
 
-    Oracle
-    ------
-    The supported test owns the routing oracle; this helper owns none.
+    Method: Change the ready input to read mode and append the retry-parent output
+    assignment.
 
-    Acceptance
-    ----------
-    Return the exact transformed public arc and leave unrelated arcs unchanged.
+    Oracle: The supported test owns the routing oracle; this helper owns none.
 
-    Interpretation
-    --------------
-    Failure invalidates setup for the supported evidence rather than adding evidence.
+    Acceptance: Return the exact transformed public arc and leave unrelated arcs
+    unchanged.
 
-    Limitations
-    -----------
-    Synthetic setup excludes engine execution, scientific validation, UQ, and physics.
+    Interpretation: Failure invalidates setup for the supported evidence rather than
+    adding evidence.
+
+    Limitations: Synthetic setup excludes engine execution, scientific validation, UQ,
+    and physics.
     """
     if (
         arc.direction is ArcDirection.INPUT
@@ -226,38 +205,31 @@ def transform_retry_arc(
 
 
 def make_iteration_net(net: CpnNetDefinition) -> CpnNetDefinition:
-    """Evidence ID
-    -----------
-    Owns no identifier; supports SV-CPN-020.
-    Requirement
-    -----------
-    Provide explicit synthetic setup or assertion mechanics without creating an
+    """Evidence ID: Owns no identifier; supports SV-CPN-020.
+
+    Requirement: Provide explicit synthetic setup or assertion mechanics without
+    creating an
     independent pass claim.
 
-    Method
-    ------
-    Construct or transform the public CPN test inputs required by the listed evidence
+    Method: Construct or transform the public CPN test inputs required by the listed
+    evidence
     owners. Prior helper description: Build two firings whose routing data explicitly
     retains iteration index 7.
 
-    Oracle
-    ------
-    The helper has no independent oracle; each supported test owns and documents the
+    Oracle: The helper has no independent oracle; each supported test owns and documents
+    the
     applicable contract oracle.
 
-    Acceptance
-    ----------
-    Return the exact public object or deterministic setup consumed by every listed
+    Acceptance: Return the exact public object or deterministic setup consumed by every
+    listed
     evidence owner, without swallowing exceptions or asserting a separate result.
 
-    Interpretation
-    --------------
-    A helper failure blocks or invalidates its listed evidence owners but is not an
+    Interpretation: A helper failure blocks or invalidates its listed evidence owners
+    but is not an
     independent evidence failure.
 
-    Limitations
-    -----------
-    The helper is synthetic, supports only the complete identifier list above, owns no
+    Limitations: The helper is synthetic, supports only the complete identifier list
+    above, owns no
     independent evidence ID, and establishes no numerical verification, scientific
     validation, uncertainty quantification, physical meaning, or cross-language
     conformance."""
@@ -329,17 +301,12 @@ def make_iteration_net(net: CpnNetDefinition) -> CpnNetDefinition:
 def test_method__execute__firing_consumes_reads_produces_and_revises(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-017
+    """Evidence ID: SV-CPN-017
 
-    Requirement
-    -----------
-    read/consume/output firing and revision audit.
+    Requirement: read/consume/output firing and revision audit.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: read/consume/output firing and revision
     audit. Prior requirement detail: The version-1 P1 contract requires
@@ -352,28 +319,24 @@ def test_method__execute__firing_consumes_reads_produces_and_revises(
     mismatch means firing did not implement the declared multiset inscriptions. Prior
     limitations detail: The produced token is routing state, not a scientific result.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must read/consume/output firing and revision
+    Oracle: The documented public rule that the SUT must read/consume/output firing and
+    revision
     audit is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     binding = (
@@ -403,18 +366,14 @@ def test_method__execute__firing_consumes_reads_produces_and_revises(
 def test_method__execute__maximum_revision_returns_structured_overflow(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-086
+    """Evidence ID: SV-CPN-086
 
-    Requirement
-    -----------
-    maximum-revision firing raises the stable structured overflow error before successor
+    Requirement: maximum-revision firing raises the stable structured overflow error
+    before successor
     construction.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: fail stably before constructing an
     overflowing successor. Requirement: firing a valid marking at revision ``2**63 - 1``
@@ -426,28 +385,24 @@ def test_method__execute__maximum_revision_returns_structured_overflow(
     either leaks integer overflow or constructs invalid state. The test does not
     validate execution engines, persistence, or scientific semantics.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must maximum-revision firing raises the
+    Oracle: The documented public rule that the SUT must maximum-revision firing raises
+    the
     stable structured overflow error before successor construction is the contract
     oracle; fixed synthetic values, Python exact type/value semantics, and the public
     error taxonomy provide independently inspectable expected outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     maximum = 2**63 - 1
@@ -469,17 +424,12 @@ def test_method__execute__maximum_revision_returns_structured_overflow(
 def test_method__execute__output_count_and_collision_are_structured(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-018
+    """Evidence ID: SV-CPN-018
 
-    Requirement
-    -----------
-    intrinsic output IDs versus marking collisions.
+    Requirement: intrinsic output IDs versus marking collisions.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: intrinsic output IDs versus marking
     collisions. Prior requirement detail: The version-1 P1 contract requires intrinsic
@@ -492,28 +442,24 @@ def test_method__execute__output_count_and_collision_are_structured(
     identifier validity with current-marking firing policy. Prior limitations detail:
     Identity generation policy remains caller-owned.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must intrinsic output IDs versus marking
+    Oracle: The documented public rule that the SUT must intrinsic output IDs versus
+    marking
     collisions is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     binding = (
@@ -540,17 +486,12 @@ def test_method__execute__output_count_and_collision_are_structured(
 def test_method__execute__binding_is_explicit_and_current(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-019
+    """Evidence ID: SV-CPN-019
 
-    Requirement
-    -----------
-    current binding and intrinsic ResultObject consistency.
+    Requirement: current binding and intrinsic ResultObject consistency.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: current binding and intrinsic ResultObject
     consistency. Prior requirement detail: The version-1 P1 contract requires current
@@ -563,28 +504,23 @@ def test_method__execute__binding_is_explicit_and_current(
     enabled binding. Prior limitations detail: This does not bypass invariants or test
     persistence.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must current binding and intrinsic
+    Oracle: The documented public rule that the SUT must current binding and intrinsic
     ResultObject consistency is the contract oracle; fixed synthetic values, Python
     exact type/value semantics, and the public error taxonomy provide independently
     inspectable expected outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(TransitionNotEnabledError) as error:
@@ -599,18 +535,14 @@ def test_method__execute__binding_is_explicit_and_current(
 def test_method__execute__terminal_failure_is_read_for_retry_and_retained(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-020
+    """Evidence ID: SV-CPN-020
 
-    Requirement
-    -----------
-    retained retry history and deterministic repeated firing with the same explicitly
+    Requirement: retained retry history and deterministic repeated firing with the same
+    explicitly
     supplied iteration index; no automatic index advancement.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: retained retry history and repeated
     nonnumeric firing. Prior requirement detail: The version-1 P1 contract permits
@@ -634,29 +566,24 @@ def test_method__execute__terminal_failure_is_read_for_retry_and_retained(
     it does not establish convergence or scientific iteration policy, scientific
     validation, or uncertainty quantification.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must retained retry history and
+    Oracle: The documented public rule that the SUT must retained retry history and
     deterministic repeated firing with the same explicitly supplied iteration index; no
     automatic index advancement is the contract oracle; fixed synthetic values, Python
     exact type/value semantics, and the public error taxonomy provide independently
     inspectable expected outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     original = executable_net.initial_marking.places[2].tokens[0]
@@ -722,39 +649,30 @@ def test_method__execute__terminal_failure_is_read_for_retry_and_retained(
     iteration_net = make_iteration_net(executable_net)
 
     def execute_two_cycles() -> CpnMarking:
-        """Evidence ID
-        -----------
-        Owns no identifier; supports SV-CPN-020.
+        """Evidence ID: Owns no identifier; supports SV-CPN-020.
 
-        Requirement
-        -----------
-        Provide explicit synthetic setup or assertion mechanics without creating an
+        Requirement: Provide explicit synthetic setup or assertion mechanics without
+        creating an
         independent pass claim.
 
-        Method
-        ------
-        Construct or transform the public CPN test inputs required by the listed
+        Method: Construct or transform the public CPN test inputs required by the listed
         evidence owners. Prior helper description: Execute twice with explicit index 7
         and return immutable state.
 
-        Oracle
-        ------
-        The helper has no independent oracle; each supported test owns and documents the
+        Oracle: The helper has no independent oracle; each supported test owns and
+        documents the
         applicable contract oracle.
 
-        Acceptance
-        ----------
-        Return the exact public object or deterministic setup consumed by every listed
+        Acceptance: Return the exact public object or deterministic setup consumed by
+        every listed
         evidence owner, without swallowing exceptions or asserting a separate result.
 
-        Interpretation
-        --------------
-        A helper failure blocks or invalidates its listed evidence owners but is not an
+        Interpretation: A helper failure blocks or invalidates its listed evidence
+        owners but is not an
         independent evidence failure.
 
-        Limitations
-        -----------
-        The helper is synthetic, supports only the complete identifier list above, owns
+        Limitations: The helper is synthetic, supports only the complete identifier list
+        above, owns
         no independent evidence ID, and establishes no numerical verification,
         scientific validation, uncertainty quantification, physical meaning, or
         cross-language conformance."""
@@ -812,17 +730,12 @@ def test_method__execute__terminal_failure_is_read_for_retry_and_retained(
 def test_method__execute__terminal_consume_is_rejected(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-021
+    """Evidence ID: SV-CPN-021
 
-    Requirement
-    -----------
-    terminal outcome consumption prohibition.
+    Requirement: terminal outcome consumption prohibition.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: terminal outcome consumption prohibition.
     Prior requirement detail: The version-1 P1 contract requires terminal outcome
@@ -834,28 +747,23 @@ def test_method__execute__terminal_consume_is_rejected(
     interpretation detail: Any successful firing would erase retained terminal history.
     Prior limitations detail: No retry authorization semantics are evaluated here.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must terminal outcome consumption
+    Oracle: The documented public rule that the SUT must terminal outcome consumption
     prohibition is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     original = executable_net.initial_marking.places[2].tokens[0]
@@ -886,17 +794,12 @@ def test_method__execute__terminal_consume_is_rejected(
 def test_method__execute__recoverable_blocked_token_can_be_consumed(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-022
+    """Evidence ID: SV-CPN-022
 
-    Requirement
-    -----------
-    consumption of recoverable blocked state.
+    Requirement: consumption of recoverable blocked state.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: consumption of recoverable blocked state.
     Prior requirement detail: The version-1 P1 contract requires consumption of
@@ -909,28 +812,24 @@ def test_method__execute__recoverable_blocked_token_can_be_consumed(
     unrepresentable. Prior limitations detail: The test does not decide when a real
     branch should be blocked.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must consumption of recoverable blocked
+    Oracle: The documented public rule that the SUT must consumption of recoverable
+    blocked
     state is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     original = executable_net.initial_marking.places[2].tokens[0]
@@ -958,17 +857,12 @@ def test_method__execute__recoverable_blocked_token_can_be_consumed(
 def test_method__execute__firer_rejects_wrong_public_argument_types(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-034
+    """Evidence ID: SV-CPN-034
 
-    Requirement
-    -----------
-    wrong-type validation at the TransitionFirer boundary.
+    Requirement: wrong-type validation at the TransitionFirer boundary.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: wrong-type validation at the
     TransitionFirer boundary. Prior requirement detail: The version-1 P1 contract
@@ -984,28 +878,23 @@ def test_method__execute__firer_rejects_wrong_public_argument_types(
     Python semantic types only and does not alter protected wire-number or integer-width
     rules.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must wrong-type validation at the
+    Oracle: The documented public rule that the SUT must wrong-type validation at the
     TransitionFirer boundary is the contract oracle; fixed synthetic values, Python
     exact type/value semantics, and the public error taxonomy provide independently
     inspectable expected outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     binding = (

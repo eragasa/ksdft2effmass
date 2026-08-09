@@ -1,14 +1,17 @@
-r"""Software verification of ``ResolveResource``.
+r"""Software verification of ``ResourceResolver``.
 
 Facet and represented meaning
-Software verification of the public ``ResolveResource`` surface; no physical model,
+
+Software verification of the public ``ResourceResolver`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
 Intrinsic and cross-object scope
-The sole primary SUT is ``ResolveResource``.  Accepted H1 field/wire contracts and
+
+The sole primary SUT is ``ResourceResolver``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
 VVUQ and scientific exclusions
+
 Passing checks only the stated software contract. Numerical verification, scientific
 validation, uncertainty quantification, physical correctness, and cross-language
 conformance are excluded.
@@ -21,30 +24,31 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi import ResolveResource
+from ksdft2effmass.harness.pi import ResourceResolver
 
 pytestmark = pytest.mark.software_verification
-SUT = ResolveResource
+SUT = ResourceResolver
 
 
 def test_constructor__action_object__is_stateless_and_fieldless() -> None:
-    """Evidence ID
-    SV-HARNESS-028
-    Requirement
-    ResolveResource is a concrete stateless ActionObject.
-    Method
-    Construct two instances and inspect their public storage boundary.
-    Oracle
-    The accepted H1 action contract requires no retained root, profile, cache,
+    """Evidence ID: SV-HARNESS-028
+
+    Requirement: ResourceResolver is a concrete stateless ActionObject.
+
+    Method: Construct two instances and inspect their public storage boundary.
+
+    Oracle: The accepted H1 action contract requires no retained root, profile, cache,
     client, or mutable state.
-    Acceptance
-    Construction succeeds and instances expose no instance dictionary or slots
+
+    Acceptance: Construction succeeds and instances expose no instance dictionary or
+    slots
     containing fields.
-    Interpretation
-    A failure identifies a production, accepted-contract, fixture, or environment
+
+    Interpretation: A failure identifies a production, accepted-contract, fixture, or
+    environment
     discrepancy requiring independent review.
-    Limitations
-    This is exact software verification only; it makes no numerical,
+
+    Limitations: This is exact software verification only; it makes no numerical,
     scientific-validation, UQ, physical, or Rust-conformance claim.
     """
     action = SUT()
@@ -55,30 +59,33 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
 def test_method__execute_valid_and_invalid__returns_exact_partition(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-052
-    Requirement
-    The public action executes one valid and one major invalid partition.
-    Method
-    Invoke execute directly with accepted records and a controlled invalid input.
-    Oracle
-    Accepted H1 action semantics and H3 fixtures fix the exact result partition.
-    Acceptance
-    Valid output is exact; invalid output has the expected code and no partial value.
-    Interpretation
-    Failure identifies action-contract drift requiring independent review.
-    Limitations
-    This is deterministic software verification, not scientific validation or UQ.
+    """Evidence ID: SV-HARNESS-052
+
+    Requirement: The public action executes one valid and one major invalid partition.
+
+    Method: Invoke execute directly with accepted records and a controlled invalid
+    input.
+
+    Oracle: Accepted H1 action semantics and H3 fixtures fix the exact result partition.
+
+    Acceptance: Valid output is exact; invalid output has the expected code and no
+    partial value.
+
+    Interpretation: Failure identifies action-contract drift requiring independent
+    review.
+
+    Limitations: This is deterministic software verification, not scientific validation
+    or UQ.
     """
 
     import json
     import shutil
 
     from ksdft2effmass.harness.pi import (
-        DeserializeJsonRecord,
+        JsonRecordDeserializer,
+        JsonRecordSerializer,
         ProjectProfile,
         ResourceManifest,
-        SerializeJsonRecord,
         WireRecordKind,
     )
 
@@ -91,7 +98,7 @@ def test_method__execute_valid_and_invalid__returns_exact_partition(
     )
 
     def decode(kind: WireRecordKind, value: Any) -> object:
-        result = DeserializeJsonRecord().execute(
+        result = JsonRecordDeserializer().execute(
             kind, (json.dumps(value) + "\n").encode()
         )
         assert result.record is not None
@@ -100,7 +107,7 @@ def test_method__execute_valid_and_invalid__returns_exact_partition(
     generic = decode(WireRecordKind.ResourceManifest, case["generic_manifest"])
     profile = decode(WireRecordKind.ProjectProfile, case["profile"])
     assert isinstance(generic, ResourceManifest) and isinstance(profile, ProjectProfile)
-    identity = SerializeJsonRecord().execute(generic).content_identity
+    identity = JsonRecordSerializer().execute(generic).content_identity
     assert identity is not None
     work = tmp_path / "roots"
     shutil.copytree(root / "harness/pi/fixtures/resource-resolution/roots", work)
@@ -143,34 +150,39 @@ def test_method__execute_valid_and_invalid__returns_exact_partition(
 def test_method__execute_invalid_manifest__short_circuits_without_selection(
     tmp_path: Path, case_id: str, expected_code: str
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-063
-    Requirement
-    ResolveResource validates a manifest first and returns no selected/interpreted
+    """Evidence ID: SV-HARNESS-063
+
+    Requirement: ResourceResolver validates a manifest first and returns no
+    selected/interpreted
     resource result when that manifest is relationally invalid.
-    Method
-    Deserialize each corrected H3 candidate, supply a deliberately absent explicit
+
+    Method: Deserialize each corrected H3 candidate, supply a deliberately absent
+    explicit
     root, and request a represented resource ID through the public action.
-    Oracle
-    Corrected H1 action precedence fixes manifest failure before filesystem access;
+
+    Oracle: Corrected H1 action precedence fixes manifest failure before filesystem
+    access;
     H3 fixes the exact relational issue code for each candidate.
-    Acceptance
-    The exact singleton manifest code is propagated and both ``reference`` and
+
+    Acceptance: The exact singleton manifest code is propagated and both ``reference``
+    and
     ``resolved_path`` are None; no root needs to exist.
-    Interpretation
-    Failure identifies manifest-gate bypass, partial-result leakage, precedence drift,
+
+    Interpretation: Failure identifies manifest-gate bypass, partial-result leakage,
+    precedence drift,
     or H3 fixture disagreement.
-    Limitations
-    Only the corrected duplicate/self-edge partitions are covered; no physical,
+
+    Limitations: Only the corrected duplicate/self-edge partitions are covered; no
+    physical,
     scientific-validation, UQ, or Rust-conformance claim is made.
     """
     import json
 
     from ksdft2effmass.harness.pi import (
-        DeserializeJsonRecord,
+        JsonRecordDeserializer,
+        JsonRecordSerializer,
         ProjectProfile,
         ResourceManifest,
-        SerializeJsonRecord,
         WireRecordKind,
     )
 
@@ -180,17 +192,17 @@ def test_method__execute_invalid_manifest__short_circuits_without_selection(
             root / f"harness/pi/fixtures/resource-resolution/cases/{case_id}.json"
         ).read_text()
     )
-    manifest_result = DeserializeJsonRecord().execute(
+    manifest_result = JsonRecordDeserializer().execute(
         WireRecordKind.ResourceManifest,
         (json.dumps(case["generic_manifest"]) + "\n").encode(),
     )
-    profile_result = DeserializeJsonRecord().execute(
+    profile_result = JsonRecordDeserializer().execute(
         WireRecordKind.ProjectProfile,
         (json.dumps(case["profile"]) + "\n").encode(),
     )
     assert isinstance(manifest_result.record, ResourceManifest)
     assert isinstance(profile_result.record, ProjectProfile)
-    identity = SerializeJsonRecord().execute(manifest_result.record).content_identity
+    identity = JsonRecordSerializer().execute(manifest_result.record).content_identity
     assert identity is not None
 
     result = SUT().execute(

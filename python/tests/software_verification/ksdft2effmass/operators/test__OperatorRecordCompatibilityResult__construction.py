@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordCompatibilityResult``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the construction facet. System under test
 -----------------
@@ -61,6 +62,7 @@ Uncertainty quantification has not been performed. This structural audit result
 contains no uncertainty model or propagation procedure.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordCompatibilityResult``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -69,6 +71,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -102,27 +105,32 @@ def make_issue(
         OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
     ),
 ) -> OperatorRecordCompatibilityIssue:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Compatibility-result cases require a public issue with the requested mismatch code
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Compatibility-result cases require a public issue with the requested
+    mismatch code
     and canonical record identifiers.
-    Method
-    Construct or inspect only the named synthetic fixture operation (make issue); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (make
+    issue); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -131,24 +139,27 @@ def make_issue(
 
 
 def test_constructor__construct_compatible_empty_issue_result__is_enforced() -> None:
-    r"""Evidence ID
-    SV-ORCAR-001
-    Requirement
-    The ResultObject stores exactly three declared fields and accepts an empty exact
+    r"""Evidence ID: SV-ORCAR-001
+
+    Requirement: The ResultObject stores exactly three declared fields and accepts an
+    empty exact
     tuple as compatible audit state.
-    Method
-    Construct directly, inspect public values, public dataclass fields, and resolved
+
+    Method: Construct directly, inspect public values, public dataclass fields, and
+    resolved
     annotations.
-    Oracle
-    The approved ResultObject contract declares the two string identifiers and exact
+
+    Oracle: The approved ResultObject contract declares the two string identifiers and
+    exact
     Issue tuple as its only stored fields.
-    Acceptance
-    Fields and annotations match exactly; identifiers and empty tuple are retained; the
+
+    Acceptance: Fields and annotations match exactly; identifiers and empty tuple are
+    retained; the
     tuple is built-in and compatibility is true.
-    Interpretation
-    Passing establishes the compatible direct-construction boundary.
-    Limitations
-    No compatibility rule executes and no record pair is analyzed.
+
+    Interpretation: Passing establishes the compatible direct-construction boundary.
+
+    Limitations: No compatibility rule executes and no record pair is analyzed.
     """
 
     result = OperatorRecordCompatibilityResult("reference", "candidate", ())
@@ -191,23 +202,26 @@ def test_constructor__construct_compatible_empty_issue_result__is_enforced() -> 
 def test_constructor__construct_canonical_single_and_multi_issue__is_enforced(
     codes: tuple[OperatorRecordCompatibilityMismatchCode, ...],
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-002
-    Requirement
-    One, multiple distinct, and all public mismatch codes are admitted when represented
+    r"""Evidence ID: SV-ORCAR-002
+
+    Requirement: One, multiple distinct, and all public mismatch codes are admitted when
+    represented
     by Issues in canonical order.
-    Method
-    Construct synthetic Issues directly from each parameterized code tuple.
-    Oracle
-    ``CANONICAL_RULES`` references the public enum order already verified by ``the
+
+    Method: Construct synthetic Issues directly from each parameterized code tuple.
+
+    Oracle: ``CANONICAL_RULES`` references the public enum order already verified by
+    ``the
     owning evidence``; Result admission is the evidence under test here.
-    Acceptance
-    Stored Issue code identity and order exactly match the supplied canonical sequence,
+
+    Acceptance: Stored Issue code identity and order exactly match the supplied
+    canonical sequence,
     including the complete public tuple.
-    Interpretation
-    Passing establishes structural admission of canonical Issue sequences.
-    Limitations
-    It does not establish that an analyzer can produce these sequences from
+
+    Interpretation: Passing establishes structural admission of canonical Issue
+    sequences.
+
+    Limitations: It does not establish that an analyzer can produce these sequences from
     independently valid records.
     """
 
@@ -236,22 +250,25 @@ def test_constructor__construct_canonical_single_and_multi_issue__is_enforced(
 def test_field__represented_state__derive_complete_canonical_rules_applied(
     issues: tuple[OperatorRecordCompatibilityIssue, ...],
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-003
-    Requirement
-    ``rules_applied`` always equals the complete public enum tuple and is an exact
+    r"""Evidence ID: SV-ORCAR-003
+
+    Requirement: ``rules_applied`` always equals the complete public enum tuple and is
+    an exact
     built-in tuple, independently of reported issues.
-    Method
-    Inspect the derived property on empty and nonempty valid results.
-    Oracle
-    The approved property contract derives ``CANONICAL_RULES``; enum content itself
+
+    Method: Inspect the derived property on empty and nonempty valid results.
+
+    Oracle: The approved property contract derives ``CANONICAL_RULES``; enum content
+    itself
     remains independently owned by ``the owning evidence``.
-    Acceptance
-    Both results expose the same exact built-in canonical tuple.
-    Interpretation
-    Passing establishes ResultObject derivation of complete rule coverage.
-    Limitations
-    It does not verify enum membership independently or execute those rules.
+
+    Acceptance: Both results expose the same exact built-in canonical tuple.
+
+    Interpretation: Passing establishes ResultObject derivation of complete rule
+    coverage.
+
+    Limitations: It does not verify enum membership independently or execute those
+    rules.
     """
 
     result = OperatorRecordCompatibilityResult("reference", "candidate", issues)
@@ -281,21 +298,22 @@ def test_field__represented_state__derive_complete_canonical_rules_applied(
 def test_field__represented__derive_compatibility_only_from_issue_emptiness(
     issues: tuple[OperatorRecordCompatibilityIssue, ...],
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-004
-    Requirement
-    Empty issues imply true compatibility and every nonempty tuple implies false
+    r"""Evidence ID: SV-ORCAR-004
+
+    Requirement: Empty issues imply true compatibility and every nonempty tuple implies
+    false
     compatibility.
-    Method
-    Construct empty, single-Issue, and multi-Issue valid results.
-    Oracle
-    The approved property equation is ``is_compatible == (issues == ())``.
-    Acceptance
-    The property is the exact Boolean result of that expression.
-    Interpretation
-    Passing prevents independently stored contradictory compatibility state.
-    Limitations
-    Derived software state is not evidence of physical compatibility.
+
+    Method: Construct empty, single-Issue, and multi-Issue valid results.
+
+    Oracle: The approved property equation is ``is_compatible == (issues == ())``.
+
+    Acceptance: The property is the exact Boolean result of that expression.
+
+    Interpretation: Passing prevents independently stored contradictory compatibility
+    state.
+
+    Limitations: Derived software state is not evidence of physical compatibility.
     """
 
     result = OperatorRecordCompatibilityResult("reference", "candidate", issues)
@@ -313,21 +331,21 @@ def test_field__represented__derive_compatibility_only_from_issue_emptiness(
 def test_constructor__derived_property_keywords__are_rejected(
     derived_kwargs: dict[str, object],
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-005
-    Requirement
-    Neither ``is_compatible`` nor ``rules_applied`` is constructor state.
-    Method
-    Attempt a fourth positional argument and each derived-property keyword.
-    Oracle
-    The approved constructor contains exactly the three stored fields.
-    Acceptance
-    Every unsupported call raises ``TypeError`` without relying on complete
+    r"""Evidence ID: SV-ORCAR-005
+
+    Requirement: Neither ``is_compatible`` nor ``rules_applied`` is constructor state.
+
+    Method: Attempt a fourth positional argument and each derived-property keyword.
+
+    Oracle: The approved constructor contains exactly the three stored fields.
+
+    Acceptance: Every unsupported call raises ``TypeError`` without relying on complete
     interpreter-generated message text.
-    Interpretation
-    Passing prevents contradictory or caller-selected derived audit state.
-    Limitations
-    Interpreter diagnostic wording is not made part of the public contract.
+
+    Interpretation: Passing prevents contradictory or caller-selected derived audit
+    state.
+
+    Limitations: Interpreter diagnostic wording is not made part of the public contract.
     """
     with pytest.raises(TypeError):
         OperatorRecordCompatibilityResult(
@@ -336,20 +354,22 @@ def test_constructor__derived_property_keywords__are_rejected(
 
 
 def test_constructor__fourth_positional_derived_state__is_rejected() -> None:
-    r"""Evidence ID
-    SV-ORCAR-014
-    Requirement
-    Derived compatibility state cannot be supplied as a fourth positional field.
-    Method
-    Call the public constructor with valid stored fields and one extra Boolean.
-    Oracle
-    The accepted constructor contains exactly three stored fields.
-    Acceptance
-    Exactly ``TypeError`` is raised.
-    Interpretation
-    A pass confirms positional arity; failure indicates represented-state drift.
-    Limitations
-    Keyword rejection, physical compatibility, validation, UQ, and Rust are excluded.
+    r"""Evidence ID: SV-ORCAR-014
+
+    Requirement: Derived compatibility state cannot be supplied as a fourth positional
+    field.
+
+    Method: Call the public constructor with valid stored fields and one extra Boolean.
+
+    Oracle: The accepted constructor contains exactly three stored fields.
+
+    Acceptance: Exactly ``TypeError`` is raised.
+
+    Interpretation: A pass confirms positional arity; failure indicates
+    represented-state drift.
+
+    Limitations: Keyword rejection, physical compatibility, validation, UQ, and Rust are
+    excluded.
     """
     with pytest.raises(TypeError):
         OperatorRecordCompatibilityResult("reference", "candidate", (), False)  # type: ignore[call-arg]
@@ -369,21 +389,21 @@ def test_constructor__fourth_positional_derived_state__is_rejected() -> None:
 def test_method__serialize__exclude_unsupported_serialization_apis(
     api_name: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-013
-    Requirement
-    No listed object-owned serialization method is approved.
-    Method
-    Inspect the public class and one valid instance for each API name.
-    Oracle
-    The approved architecture requires a separate serializer and versioned schema for
+    r"""Evidence ID: SV-ORCAR-013
+
+    Requirement: No listed object-owned serialization method is approved.
+
+    Method: Inspect the public class and one valid instance for each API name.
+
+    Oracle: The approved architecture requires a separate serializer and versioned
+    schema for
     any future compatibility-result wire format.
-    Acceptance
-    Every listed API is absent from class and instance.
-    Interpretation
-    Passing preserves explicit serializer ownership.
-    Limitations
-    This does not specify or test a future compatibility-result schema.
+
+    Acceptance: Every listed API is absent from class and instance.
+
+    Interpretation: Passing preserves explicit serializer ownership.
+
+    Limitations: This does not specify or test a future compatibility-result schema.
     """
 
     result = OperatorRecordCompatibilityResult("reference", "candidate", ())

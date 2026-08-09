@@ -296,25 +296,43 @@ def sections(doc: str | None, labels: tuple[str, ...]) -> tuple[bool, str]:
     if not doc:
         return False, "docstring is missing"
     positions: list[int] = []
+    matches_by_label: list[re.Match[str]] = []
+    inline_fields = labels == FIELDS
     for label in labels:
-        matches = list(re.finditer(rf"(?m)^\s*{re.escape(label)}\s*:?\s*$", doc))
-        if len(matches) != 1:
-            return False, f"{label!r} must occur exactly once"
-        positions.append(matches[0].start())
-        end = matches[0].end()
-        next_start = min(
-            (
-                m.start()
-                for other in labels
-                for m in re.finditer(rf"(?m)^\s*{re.escape(other)}\s*:?\s*$", doc)
-                if m.start() > end
-            ),
-            default=len(doc),
+        pattern = (
+            rf"(?m)^[ \t]*{re.escape(label)}:[ \t]+\S.*$"
+            if inline_fields
+            else rf"(?m)^[ \t]*{re.escape(label)}[ \t]*$"
         )
-        if not doc[end:next_start].strip():
-            return False, f"{label!r} has an empty body"
+        matches = list(re.finditer(pattern, doc))
+        if len(matches) != 1:
+            style = "one 'Label: value' paragraph" if inline_fields else "exactly once"
+            return False, f"{label!r} must occur as {style}"
+        positions.append(matches[0].start())
+        matches_by_label.append(matches[0])
     if positions != sorted(positions):
         return False, "required sections are out of order"
+    if inline_fields:
+        for current, following in zip(
+            matches_by_label, matches_by_label[1:], strict=False
+        ):
+            between = doc[current.end() : following.start()]
+            if not re.search(r"(?<!\n)\n\n\Z", between):
+                return False, "evidence paragraphs must be separated by one blank line"
+        return True, ""
+    for index, match in enumerate(matches_by_label):
+        next_start = (
+            matches_by_label[index + 1].start()
+            if index + 1 < len(matches_by_label)
+            else len(doc)
+        )
+        body = doc[match.end() : next_start]
+        if not re.match(r"\n\n(?!\n)", body):
+            return False, "module sections must begin after one blank line"
+        if index + 1 < len(matches_by_label) and not re.search(r"(?<!\n)\n\n\Z", body):
+            return False, "module sections must be separated by one blank line"
+        if not body.strip():
+            return False, f"{labels[index]!r} has an empty body"
     return True, ""
 
 
@@ -690,11 +708,13 @@ def section_body(doc: str, label: str) -> str:
     """Return one exact evidence-field body, or an empty string when absent."""
     field_pattern = "|".join(map(re.escape, FIELDS))
     match = re.search(
-        rf"(?ms)^\s*{re.escape(label)}\s*:?\s*$\n"
-        rf"(?P<body>.*?)(?=^\s*(?:{field_pattern})\s*:?\s*$|\Z)",
+        rf"(?ms)^[ \t]*{re.escape(label)}:[ \t]+(?P<first>\S.*?)[ \t]*$"
+        rf"(?P<rest>.*?)(?=^[ \t]*(?:{field_pattern}):[ \t]+\S.*$|\Z)",
         doc,
     )
-    return match.group("body").strip() if match else ""
+    if match is None:
+        return ""
+    return f"{match.group('first')}\n{match.group('rest')}".strip()
 
 
 def literal_string_inventory(tree: ast.Module, name: str) -> tuple[str, ...] | None:

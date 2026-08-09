@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-from .checkpoints import CheckpointRecord, ValidateCheckpointSet
+from .checkpoints import CheckpointRecord, CheckpointSetValidator
 from .identity import (
     Identifier,
     ResourcePath,
@@ -95,7 +95,7 @@ class ChainView:
                 raise TypeError(f"{name} must be bool")
 
 
-class EvaluateChainState:
+class ChainStateEvaluator:
     """Derive active, blocked, and structurally ready task facts."""
 
     __slots__ = ()
@@ -230,7 +230,7 @@ class EvaluateChainState:
                     chain.active_task_id,
                 )
             )
-        cpvalidation = ValidateCheckpointSet().execute(
+        cpvalidation = CheckpointSetValidator().execute(
             checkpoints, tuple(sorted(taskmap)), profile
         )
         issues.extend(cpvalidation.issues)

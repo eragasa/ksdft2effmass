@@ -1,12 +1,14 @@
 r"""Software verification of ``TransitionEnabler``.
 
 Facet and represented meaning
+
 --------------------------------------
 This module provides software-verification evidence for the public ``TransitionEnabler``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 ``TransitionEnabler`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
@@ -14,6 +16,7 @@ error-taxonomy rules provide the independent oracles. Collaborators only constru
 inputs or expose public outcomes.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing means the named software contracts hold; failure may identify an implementation,
 fixture, oracle transcription, environment, or public-contract inconsistency. This
@@ -43,17 +46,12 @@ SUT = TransitionEnabler
 def test_method__execute__enablement_synchronizes_multiple_inputs(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-015
+    """Evidence ID: SV-CPN-015
 
-    Requirement
-    -----------
-    synchronization across consume and read inputs.
+    Requirement: synchronization across consume and read inputs.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: synchronization across consume and read
     inputs. Prior requirement detail: The version-1 P1 contract requires synchronization
@@ -67,28 +65,24 @@ def test_method__execute__enablement_synchronizes_multiple_inputs(
     regressed. Prior limitations detail: No external execution occurs when a transition
     is enabled.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must synchronization across consume and read
+    Oracle: The documented public rule that the SUT must synchronization across consume
+    and read
     inputs is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     result = TransitionEnabler().execute(
@@ -104,17 +98,12 @@ def test_method__execute__enablement_synchronizes_multiple_inputs(
 def test_method__execute__enablement_returns_deterministic_multiset_choices(
     token_factory: Callable[..., CpnToken], executable_net: CpnNetDefinition
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-016
+    """Evidence ID: SV-CPN-016
 
-    Requirement
-    -----------
-    deterministic enumeration of multiset choices.
+    Requirement: deterministic enumeration of multiset choices.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: deterministic enumeration of multiset
     choices. Prior requirement detail: The version-1 P1 contract requires deterministic
@@ -127,28 +116,24 @@ def test_method__execute__enablement_returns_deterministic_multiset_choices(
     nondeterministic order. Prior limitations detail: The case covers one varying input,
     not reachability exploration.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must deterministic enumeration of multiset
+    Oracle: The documented public rule that the SUT must deterministic enumeration of
+    multiset
     choices is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     places = tuple(
@@ -171,17 +156,12 @@ def test_method__execute__enablement_returns_deterministic_multiset_choices(
 def test_method__execute__unknown_transition_retains_structured_detail(
     executable_net: cpn.CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-024
+    """Evidence ID: SV-CPN-024
 
-    Requirement
-    -----------
-    structured unknown-transition failure.
+    Requirement: structured unknown-transition failure.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: structured unknown-transition failure.
     Prior requirement detail: The version-1 P1 contract requires structured
@@ -193,28 +173,24 @@ def test_method__execute__unknown_transition_retains_structured_detail(
     machine-readable context or accepts an undefined transition. Prior limitations
     detail: No binding enumeration occurs for the missing transition.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must structured unknown-transition failure
+    Oracle: The documented public rule that the SUT must structured unknown-transition
+    failure
     is the contract oracle; fixed synthetic values, Python exact type/value semantics,
     and the public error taxonomy provide independently inspectable expected outcomes
     where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(cpn.CpnBindingError) as error:
@@ -228,17 +204,12 @@ def test_method__execute__unknown_transition_retains_structured_detail(
 def test_method__execute__invalid_marking_translates_to_structured_error(
     executable_net: cpn.CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-025
+    """Evidence ID: SV-CPN-025
 
-    Requirement
-    -----------
-    operational translation of an invalid marking.
+    Requirement: operational translation of an invalid marking.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: operational translation of an invalid
     marking. Prior requirement detail: The version-1 P1 contract requires operational
@@ -251,28 +222,24 @@ def test_method__execute__invalid_marking_translates_to_structured_error(
     operational translation. Prior limitations detail: The underlying issue list is
     covered separately.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must operational translation of an invalid
+    Oracle: The documented public rule that the SUT must operational translation of an
+    invalid
     marking is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     marking = cpn.CpnMarking(
@@ -286,17 +253,12 @@ def test_method__execute__invalid_marking_translates_to_structured_error(
 def test_method__execute__invalid_definition_translates_to_structured_error(
     executable_net: cpn.CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-026
+    """Evidence ID: SV-CPN-026
 
-    Requirement
-    -----------
-    operational translation of an invalid definition.
+    Requirement: operational translation of an invalid definition.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: operational translation of an invalid
     definition. Prior requirement detail: The version-1 P1 contract requires operational
@@ -309,28 +271,24 @@ def test_method__execute__invalid_definition_translates_to_structured_error(
     definitions bypass structured translation. Prior limitations detail: This is
     definition software verification, not a physical model check.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must operational translation of an invalid
+    Oracle: The documented public rule that the SUT must operational translation of an
+    invalid
     definition is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     bad_place = replace(executable_net.places[0], allowed_color_ids=("missing",))

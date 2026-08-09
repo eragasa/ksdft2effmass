@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordJsonSerializer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the round trip facet. Object: exact
 record-to-text-to-record behavior. Evidence class: software
@@ -14,6 +15,7 @@ quantification, or Rust conformance; failure indicates lossy mapping or ownershi
 drift.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordJsonSerializer``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -22,6 +24,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -70,29 +73,34 @@ SUT = OperatorRecordJsonSerializer
 def test_method__serialize__exact_deterministic_round_trips(
     matrix: np.ndarray, provenance: dict[str, str]
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-017
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-017
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     serialize: exact deterministic round trips.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (serialize: exact deterministic round trips); warnings and coercive fallback
     behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -114,28 +122,33 @@ def test_method__serialize__exact_deterministic_round_trips(
 
 
 def test_method__deserialize__deserialized_state_is_defensively_owned_and() -> None:
-    r"""Evidence ID
-    SV-ORJS-018
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-018
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: deserialized state is defensively owned and.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: deserialized state is defensively owned and); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly ValueError or TypeError with the asserted public
+
+    Acceptance: The named partition raises exactly ValueError or TypeError with the
+    asserted public
     message, code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

@@ -1,6 +1,7 @@
 r"""Software verification of ``EnergyReference``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the invariants facet. Facet and represented DataObject
 --------------------------------
@@ -28,6 +29,7 @@ scientific validation, uncertainty quantification, or Rust conformance is
 established.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``EnergyReference``; collaborators only construct inputs or
 expose public outcomes. Accepted public contracts, literal expected values, Python
@@ -35,6 +37,7 @@ language semantics, and assigned schema or fixture artifacts provide the oracles
 runtime warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -69,24 +72,28 @@ SUT = EnergyReference
 def test_constructor__invalid_zero_wrong_types_are_rejected__is_enforced(
     invalid_zero: object,
 ) -> None:
-    r"""Evidence ID
-    SV-ER-006
-    Requirement
-    ``zero`` must be a Python string; ``None``, Booleans, numbers, bytes, and arbitrary
+    r"""Evidence ID: SV-ER-006
+
+    Requirement: ``zero`` must be a Python string; ``None``, Booleans, numbers, bytes,
+    and arbitrary
     objects are not coerced into convention identifiers.
-    Method
-    Keep ``unit`` valid and use ``Any``/``cast`` only at the deliberate invalid ``zero``
+
+    Method: Keep ``unit`` valid and use ``Any``/``cast`` only at the deliberate invalid
+    ``zero``
     constructor boundary.
-    Oracle
-    The approved field-specific contract requires an energy-reference zero string and
+
+    Oracle: The approved field-specific contract requires an energy-reference zero
+    string and
     the repository wrong-type taxonomy.
-    Acceptance
-    Every case raises ``TypeError`` and the diagnostic identifies ``zero`` and the
+
+    Acceptance: Every case raises ``TypeError`` and the diagnostic identifies ``zero``
+    and the
     string requirement without freezing the complete message.
-    Interpretation
-    Passing establishes zero-field typing independently of unit typing.
-    Limitations
-    It does not interpret labels, execute compatibility or serialization, perform
+
+    Interpretation: Passing establishes zero-field typing independently of unit typing.
+
+    Limitations: It does not interpret labels, execute compatibility or serialization,
+    perform
     scientific validation or UQ, or establish Rust conformance.
     """
 
@@ -99,21 +106,23 @@ def test_constructor__invalid_zero_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_zero_is_rejected_without__is_enforced() -> None:
-    r"""Evidence ID
-    SV-ER-007
-    Requirement
-    A correctly typed zero-convention label must be nonempty; construction performs no
+    r"""Evidence ID: SV-ER-007
+
+    Requirement: A correctly typed zero-convention label must be nonempty; construction
+    performs no
     trimming or replacement.
-    Method
-    Construct with ``zero=""`` and a valid unit.
-    Oracle
-    The approved intrinsic nonempty invariant defines field-specific ``ValueError``.
-    Acceptance
-    Construction raises ``ValueError`` and identifies the empty zero field.
-    Interpretation
-    Passing establishes the correct-type/value taxonomy boundary.
-    Limitations
-    Every nonempty string, including whitespace-only metadata, remains governed by exact
+
+    Method: Construct with ``zero=""`` and a valid unit.
+
+    Oracle: The approved intrinsic nonempty invariant defines field-specific
+    ``ValueError``.
+
+    Acceptance: Construction raises ``ValueError`` and identifies the empty zero field.
+
+    Interpretation: Passing establishes the correct-type/value taxonomy boundary.
+
+    Limitations: Every nonempty string, including whitespace-only metadata, remains
+    governed by exact
     preservation; no physical interpretation, scientific validation, UQ, or Rust
     conformance is established.
     """
@@ -141,24 +150,28 @@ def test_constructor__empty_zero_is_rejected_without__is_enforced() -> None:
 def test_constructor__invalid_unit_wrong_types_are_rejected__is_enforced(
     invalid_unit: object,
 ) -> None:
-    r"""Evidence ID
-    SV-ER-008
-    Requirement
-    ``unit`` must be a Python string; ``None``, Booleans, numbers, bytes, and arbitrary
+    r"""Evidence ID: SV-ER-008
+
+    Requirement: ``unit`` must be a Python string; ``None``, Booleans, numbers, bytes,
+    and arbitrary
     objects are not coerced into unit labels.
-    Method
-    Keep ``zero`` valid and use ``Any``/``cast`` only at the deliberate invalid ``unit``
+
+    Method: Keep ``zero`` valid and use ``Any``/``cast`` only at the deliberate invalid
+    ``unit``
     constructor boundary.
-    Oracle
-    The approved field-specific contract requires an energy-reference unit string and
+
+    Oracle: The approved field-specific contract requires an energy-reference unit
+    string and
     the repository wrong-type taxonomy.
-    Acceptance
-    Every case raises ``TypeError`` and the diagnostic identifies ``unit`` and the
+
+    Acceptance: Every case raises ``TypeError`` and the diagnostic identifies ``unit``
+    and the
     string requirement without freezing the complete message.
-    Interpretation
-    Passing establishes unit typing independently of zero typing.
-    Limitations
-    It does not introduce a registry or conversion, execute compatibility or
+
+    Interpretation: Passing establishes unit typing independently of zero typing.
+
+    Limitations: It does not introduce a registry or conversion, execute compatibility
+    or
     serialization, perform scientific validation or UQ, or establish Rust conformance.
     """
 
@@ -171,21 +184,23 @@ def test_constructor__invalid_unit_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_unit_is_rejected_without_unit_lookup__is_enforced() -> None:
-    r"""Evidence ID
-    SV-ER-009
-    Requirement
-    A correctly typed unit label must be nonempty while remaining an open textual
+    r"""Evidence ID: SV-ER-009
+
+    Requirement: A correctly typed unit label must be nonempty while remaining an open
+    textual
     vocabulary.
-    Method
-    Construct with a valid zero convention and ``unit=""``.
-    Oracle
-    The approved intrinsic nonempty invariant defines field-specific ``ValueError``.
-    Acceptance
-    Construction raises ``ValueError`` and identifies the empty unit field.
-    Interpretation
-    Passing establishes the correct-type/value taxonomy boundary.
-    Limitations
-    It validates no label vocabulary, dimensions, or conversions and establishes no
+
+    Method: Construct with a valid zero convention and ``unit=""``.
+
+    Oracle: The approved intrinsic nonempty invariant defines field-specific
+    ``ValueError``.
+
+    Acceptance: Construction raises ``ValueError`` and identifies the empty unit field.
+
+    Interpretation: Passing establishes the correct-type/value taxonomy boundary.
+
+    Limitations: It validates no label vocabulary, dimensions, or conversions and
+    establishes no
     scientific validation, UQ, or Rust conformance.
     """
 

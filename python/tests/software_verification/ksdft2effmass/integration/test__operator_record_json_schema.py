@@ -1,6 +1,7 @@
 r"""Software verification of OperatorRecordJsonSchema.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned module owns the operator record json schema facet. Object:
 language-neutral schema and its interoperability with Python serializer
@@ -15,6 +16,7 @@ cross-field exclusions. Passing is not scientific validation, UQ, serializer-
 internal validation, or Rust conformance; failure indicates artifact/runtime drift.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordJsonSchema``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -23,6 +25,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -45,25 +48,30 @@ SPEC = Path(__file__).resolve().parents[5] / "specification/operator-record/v1"
 
 
 def load_json(path: Path) -> Any:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Schema evidence needs decoded JSON values from the named repository artifact without
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Schema evidence needs decoded JSON values from the named repository
+    artifact without
     changing their bytes or meaning.
-    Method
-    Construct or inspect only the named synthetic fixture operation (load json); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (load json);
+    the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    The checked-in Draft 2020-12 schema, its literal required-field vocabulary, and the
+
+    Oracle: The checked-in Draft 2020-12 schema, its literal required-field vocabulary,
+    and the
     classified valid/invalid fixture manifest define the expected structural result.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -71,26 +79,31 @@ def load_json(path: Path) -> Any:
 
 
 def test_artifact__public_schema_is_valid_draft_2020_12__agrees_exactly() -> None:
-    r"""Evidence ID
-    SV-ORJSC-001
-    Requirement
-    The public version-1 JSON Schema has this exact structural property: public schema
+    r"""Evidence ID: SV-ORJSC-001
+
+    Requirement: The public version-1 JSON Schema has this exact structural property:
+    public schema
     is valid draft 2020 12: agrees exactly.
-    Method
-    Load the public schema and named literal fixture partition (public schema is valid
+
+    Method: Load the public schema and named literal fixture partition (public schema is
+    valid
     draft 2020 12: agrees exactly), then apply Draft 2020-12 validation without invoking
     serializer private helpers.
-    Oracle
-    The checked-in Draft 2020-12 schema, its literal required-field vocabulary, and the
+
+    Oracle: The checked-in Draft 2020-12 schema, its literal required-field vocabulary,
+    and the
     classified valid/invalid fixture manifest define the expected structural result.
-    Acceptance
-    Schema validity, exact fixture membership, and acceptance or rejection by Draft
+
+    Acceptance: Schema validity, exact fixture membership, and acceptance or rejection
+    by Draft
     2020-12 validation agree exactly with the declared fixture class.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -103,26 +116,31 @@ def test_artifact__public_schema_is_valid_draft_2020_12__agrees_exactly() -> Non
 
 
 def test_artifact__serializer_output_and_valid_fixtures__agrees_exactly() -> None:
-    r"""Evidence ID
-    SV-ORJSC-002
-    Requirement
-    The public version-1 JSON Schema has this exact structural property: serializer
+    r"""Evidence ID: SV-ORJSC-002
+
+    Requirement: The public version-1 JSON Schema has this exact structural property:
+    serializer
     output and valid fixtures: agrees exactly.
-    Method
-    Load the public schema and named literal fixture partition (serializer output and
+
+    Method: Load the public schema and named literal fixture partition (serializer
+    output and
     valid fixtures: agrees exactly), then apply Draft 2020-12 validation without
     invoking serializer private helpers.
-    Oracle
-    The checked-in Draft 2020-12 schema, its literal required-field vocabulary, and the
+
+    Oracle: The checked-in Draft 2020-12 schema, its literal required-field vocabulary,
+    and the
     classified valid/invalid fixture manifest define the expected structural result.
-    Acceptance
-    Schema validity, exact fixture membership, and acceptance or rejection by Draft
+
+    Acceptance: Schema validity, exact fixture membership, and acceptance or rejection
+    by Draft
     2020-12 validation agree exactly with the declared fixture class.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -157,26 +175,30 @@ def test_artifact__serializer_output_and_valid_fixtures__agrees_exactly() -> Non
 def test_artifact__schema_rejects_expressible_invalid_fixture__agrees_exactly(
     name: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORJSC-003
-    Requirement
-    The public version-1 JSON Schema has this exact structural property: schema rejects
+    r"""Evidence ID: SV-ORJSC-003
+
+    Requirement: The public version-1 JSON Schema has this exact structural property:
+    schema rejects
     expressible invalid fixture: agrees exactly.
-    Method
-    Load the public schema and named literal fixture partition (schema rejects
+
+    Method: Load the public schema and named literal fixture partition (schema rejects
     expressible invalid fixture: agrees exactly), then apply Draft 2020-12 validation
     without invoking serializer private helpers.
-    Oracle
-    The checked-in Draft 2020-12 schema, its literal required-field vocabulary, and the
+
+    Oracle: The checked-in Draft 2020-12 schema, its literal required-field vocabulary,
+    and the
     classified valid/invalid fixture manifest define the expected structural result.
-    Acceptance
-    The named partition raises exactly jsonschema.ValidationError with the asserted
+
+    Acceptance: The named partition raises exactly jsonschema.ValidationError with the
+    asserted
     public message, code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -198,26 +220,31 @@ def test_artifact__schema_rejects_expressible_invalid_fixture__agrees_exactly(
 def test_artifact__schema_rejects_unknown_value_fixtures__agrees_exactly(
     name: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORJSC-005
-    Requirement
-    The public version-1 JSON Schema has this exact structural property: schema rejects
+    r"""Evidence ID: SV-ORJSC-005
+
+    Requirement: The public version-1 JSON Schema has this exact structural property:
+    schema rejects
     unknown value fixtures: agrees exactly.
-    Method
-    Load the public schema and named literal fixture partition (schema rejects unknown
+
+    Method: Load the public schema and named literal fixture partition (schema rejects
+    unknown
     value fixtures: agrees exactly), then apply Draft 2020-12 validation without
     invoking serializer private helpers.
-    Oracle
-    The checked-in Draft 2020-12 schema, its literal required-field vocabulary, and the
+
+    Oracle: The checked-in Draft 2020-12 schema, its literal required-field vocabulary,
+    and the
     classified valid/invalid fixture manifest define the expected structural result.
-    Acceptance
-    The named partition raises exactly jsonschema.ValidationError with the asserted
+
+    Acceptance: The named partition raises exactly jsonschema.ValidationError with the
+    asserted
     public message, code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -239,26 +266,31 @@ def test_artifact__schema_rejects_unknown_value_fixtures__agrees_exactly(
 def test_artifact__schema_rejects_wrong_semantic_type_fixtures__agrees_exactly(
     name: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORJSC-004
-    Requirement
-    The public version-1 JSON Schema has this exact structural property: schema rejects
+    r"""Evidence ID: SV-ORJSC-004
+
+    Requirement: The public version-1 JSON Schema has this exact structural property:
+    schema rejects
     wrong semantic type fixtures: agrees exactly.
-    Method
-    Load the public schema and named literal fixture partition (schema rejects wrong
+
+    Method: Load the public schema and named literal fixture partition (schema rejects
+    wrong
     semantic type fixtures: agrees exactly), then apply Draft 2020-12 validation without
     invoking serializer private helpers.
-    Oracle
-    The checked-in Draft 2020-12 schema, its literal required-field vocabulary, and the
+
+    Oracle: The checked-in Draft 2020-12 schema, its literal required-field vocabulary,
+    and the
     classified valid/invalid fixture manifest define the expected structural result.
-    Acceptance
-    The named partition raises exactly jsonschema.ValidationError with the asserted
+
+    Acceptance: The named partition raises exactly jsonschema.ValidationError with the
+    asserted
     public message, code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

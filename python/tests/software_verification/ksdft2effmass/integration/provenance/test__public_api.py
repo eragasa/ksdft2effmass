@@ -1,12 +1,14 @@
 r"""Software verification of public api.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned software verification covers the exact Python package import
 surface, its accepted export inventory, and the defining-module ownership of every
 exported object.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The ``ksdft2effmass.provenance`` package import surface is the owned artifact.
 ``provenance.__all__`` and the accepted P2 export inventory define the public
@@ -15,6 +17,7 @@ class and enum behavior remains owned by dedicated class modules. Dependency
 direction is owned separately by ``test__import_dependency_direction.py``.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the declared Python package surface. It does not establish
 individual object behavior, dependency direction, numerical verification,
@@ -121,24 +124,28 @@ EXPECTED_ENUM_EXPORTS = {
 
 
 def test_public_api__export_inventory__matches_exact_accepted_surface() -> None:
-    """Evidence ID
-    SV-PROV-062
-    Requirement
-    The package exports exactly the accepted sorted, unique P2 public-name inventory.
-    Method
-    Compare ``provenance.__all__`` with the fixed independent EXPECTED_EXPORTS tuple
+    """Evidence ID: SV-PROV-062
+
+    Requirement: The package exports exactly the accepted sorted, unique P2 public-name
+    inventory.
+
+    Method: Compare ``provenance.__all__`` with the fixed independent EXPECTED_EXPORTS
+    tuple
     and check the fixed tuple's ordering and uniqueness.
-    Oracle
-    The literal EXPECTED_EXPORTS tuple records the accepted P2 package boundary
+
+    Oracle: The literal EXPECTED_EXPORTS tuple records the accepted P2 package boundary
     independently of package discovery or runtime derivation.
-    Acceptance
-    ``provenance.__all__`` equals EXPECTED_EXPORTS exactly, and EXPECTED_EXPORTS
+
+    Acceptance: ``provenance.__all__`` equals EXPECTED_EXPORTS exactly, and
+    EXPECTED_EXPORTS
     equals its sorted unique form.
-    Interpretation
-    Failure identifies a missing, extra, renamed, duplicated, or reordered public
+
+    Interpretation: Failure identifies a missing, extra, renamed, duplicated, or
+    reordered public
     export, or a defect in the maintained independent oracle.
-    Limitations
-    Export inventory does not establish defining-module ownership, object behavior,
+
+    Limitations: Export inventory does not establish defining-module ownership, object
+    behavior,
     dependency direction, or another language's package surface.
     """
     assert provenance.__all__ == EXPECTED_EXPORTS
@@ -146,24 +153,28 @@ def test_public_api__export_inventory__matches_exact_accepted_surface() -> None:
 
 
 def test_public_api__defining_modules__match_exact_ownership_map() -> None:
-    """Evidence ID
-    SV-PROV-063
-    Requirement
-    Every accepted package export originates from its exact defining provenance
+    """Evidence ID: SV-PROV-063
+
+    Requirement: Every accepted package export originates from its exact defining
+    provenance
     submodule rather than a legacy, compatibility, backend, or CPN module.
-    Method
-    Build one complete name-to-``__module__`` observation for EXPECTED_EXPORTS and
+
+    Method: Build one complete name-to-``__module__`` observation for EXPECTED_EXPORTS
+    and
     compare it with the fixed literal EXPECTED_MODULE_ORIGINS mapping.
-    Oracle
-    EXPECTED_MODULE_ORIGINS independently assigns every accepted export to one exact
+
+    Oracle: EXPECTED_MODULE_ORIGINS independently assigns every accepted export to one
+    exact
     defining module; no prefix matching or production-derived expectation is used.
-    Acceptance
-    The complete observed mapping equals EXPECTED_MODULE_ORIGINS exactly.
-    Interpretation
-    Failure identifies export resolution drift, wrong submodule ownership, legacy or
+
+    Acceptance: The complete observed mapping equals EXPECTED_MODULE_ORIGINS exactly.
+
+    Interpretation: Failure identifies export resolution drift, wrong submodule
+    ownership, legacy or
     compatibility routing, backend/CPN leakage, or a stale maintained oracle.
-    Limitations
-    Exact defining modules do not establish transitive dependency direction or
+
+    Limitations: Exact defining modules do not establish transitive dependency direction
+    or
     individual exported-object behavior.
     """
     observed = {name: getattr(provenance, name).__module__ for name in EXPECTED_EXPORTS}
@@ -171,25 +182,30 @@ def test_public_api__defining_modules__match_exact_ownership_map() -> None:
 
 
 def test_public_api__enum_exports__are_exact_defining_class_objects() -> None:
-    """Evidence ID
-    SV-PROV-076
-    Requirement
-    The package re-exports exactly the intended public enum classes as the identical
+    """Evidence ID: SV-PROV-076
+
+    Requirement: The package re-exports exactly the intended public enum classes as the
+    identical
     class objects supplied by their defining modules.
-    Method
-    Resolve the fixed EXPECTED_ENUM_EXPORTS names from the package and compare one
+
+    Method: Resolve the fixed EXPECTED_ENUM_EXPORTS names from the package and compare
+    one
     exact observed name-to-class dictionary with the defining-class dictionary.
-    Oracle
-    The literal enum-name inventory and explicit defining-module class references
+
+    Oracle: The literal enum-name inventory and explicit defining-module class
+    references
     specify the accepted package re-export identities independently of ``__all__``.
-    Acceptance
-    The observed enum dictionary equals EXPECTED_ENUM_EXPORTS with object identity
+
+    Acceptance: The observed enum dictionary equals EXPECTED_ENUM_EXPORTS with object
+    identity
     semantics for each class value.
-    Interpretation
-    Failure identifies a missing, replaced, aliased, or wrongly defined enum re-export,
+
+    Interpretation: Failure identifies a missing, replaced, aliased, or wrongly defined
+    enum re-export,
     or a defect in the maintained enum inventory.
-    Limitations
-    This package-surface evidence does not retest enum members, wire values,
+
+    Limitations: This package-surface evidence does not retest enum members, wire
+    values,
     ``StrEnum`` behavior, or any other class-owned enum semantics.
     """
     observed = {name: getattr(provenance, name) for name in EXPECTED_ENUM_EXPORTS}

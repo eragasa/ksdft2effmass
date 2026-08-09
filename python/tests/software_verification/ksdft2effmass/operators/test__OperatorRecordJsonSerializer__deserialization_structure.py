@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordJsonSerializer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the deserialization structure facet. Object: serializer
 JSON parser and version-1 object/matrix structure boundary.
@@ -13,6 +14,7 @@ scientific validation, UQ, or Rust conformance; failure indicates runtime,
 specification, documentation, or evidence drift.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordJsonSerializer``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -21,6 +23,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -43,27 +46,32 @@ SUT = OperatorRecordJsonSerializer
 
 
 def valid_payload() -> dict[str, Any]:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Structural deserialization cases require one complete schema-version-1 payload
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Structural deserialization cases require one complete schema-version-1
+    payload
     before changing a single structural partition.
-    Method
-    Construct or inspect only the named synthetic fixture operation (valid payload); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (valid
+    payload); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -72,20 +80,20 @@ def valid_payload() -> dict[str, Any]:
 
 @pytest.mark.parametrize("text", [pytest.param("{", id="truncated_object")])
 def test_method__deserialize__malformed_json__raises_value_error(text: str) -> None:
-    r"""Evidence ID
-    SV-ORJS-007
-    Requirement
-    Syntactically malformed JSON is rejected before payload interpretation.
-    Method
-    Deserialize a fixed truncated object text.
-    Oracle
-    JSON grammar requires a closing brace.
-    Acceptance
-    Exactly ``ValueError`` is raised.
-    Interpretation
-    A pass confirms syntax translation; failure indicates parser-boundary drift.
-    Limitations
-    Semantic payload types, validation, UQ, and Rust are excluded.
+    r"""Evidence ID: SV-ORJS-007
+
+    Requirement: Syntactically malformed JSON is rejected before payload interpretation.
+
+    Method: Deserialize a fixed truncated object text.
+
+    Oracle: JSON grammar requires a closing brace.
+
+    Acceptance: Exactly ``ValueError`` is raised.
+
+    Interpretation: A pass confirms syntax translation; failure indicates
+    parser-boundary drift.
+
+    Limitations: Semantic payload types, validation, UQ, and Rust are excluded.
     """
     with pytest.raises(ValueError):
         OperatorRecordJsonSerializer().deserialize(text)
@@ -101,40 +109,41 @@ def test_method__deserialize__malformed_json__raises_value_error(text: str) -> N
     ],
 )
 def test_method__deserialize__nonobject_top_level__raises_type_error(text: str) -> None:
-    r"""Evidence ID
-    SV-ORJS-019
-    Requirement
-    Valid JSON values of the wrong top-level semantic type are rejected.
-    Method
-    Deserialize array, null, string, and number JSON values independently.
-    Oracle
-    Schema-version-1 records require one top-level JSON object.
-    Acceptance
-    Exactly ``TypeError`` names the top-level object role.
-    Interpretation
-    A pass confirms wrong-type taxonomy; failure indicates runtime layering drift.
-    Limitations
-    Object field invariants, validation, UQ, and Rust are excluded.
+    r"""Evidence ID: SV-ORJS-019
+
+    Requirement: Valid JSON values of the wrong top-level semantic type are rejected.
+
+    Method: Deserialize array, null, string, and number JSON values independently.
+
+    Oracle: Schema-version-1 records require one top-level JSON object.
+
+    Acceptance: Exactly ``TypeError`` names the top-level object role.
+
+    Interpretation: A pass confirms wrong-type taxonomy; failure indicates runtime
+    layering drift.
+
+    Limitations: Object field invariants, validation, UQ, and Rust are excluded.
     """
     with pytest.raises(TypeError, match="top-level object"):
         OperatorRecordJsonSerializer().deserialize(text)
 
 
 def test_method__deserialize__duplicate_object_key__raises_value_error() -> None:
-    r"""Evidence ID
-    SV-ORJS-020
-    Requirement
-    Duplicate JSON object keys are rejected rather than resolved by ordering.
-    Method
-    Deserialize text containing two ``schema_version`` keys.
-    Oracle
-    The strict wire contract forbids duplicate keys.
-    Acceptance
-    Exactly ``ValueError`` identifies duplication.
-    Interpretation
-    A pass confirms strict object parsing; failure indicates parser policy drift.
-    Limitations
-    Other malformed JSON, validation, UQ, and Rust are excluded.
+    r"""Evidence ID: SV-ORJS-020
+
+    Requirement: Duplicate JSON object keys are rejected rather than resolved by
+    ordering.
+
+    Method: Deserialize text containing two ``schema_version`` keys.
+
+    Oracle: The strict wire contract forbids duplicate keys.
+
+    Acceptance: Exactly ``ValueError`` identifies duplication.
+
+    Interpretation: A pass confirms strict object parsing; failure indicates parser
+    policy drift.
+
+    Limitations: Other malformed JSON, validation, UQ, and Rust are excluded.
     """
     with pytest.raises(ValueError, match="duplicate"):
         OperatorRecordJsonSerializer().deserialize(
@@ -153,20 +162,21 @@ def test_method__deserialize__duplicate_object_key__raises_value_error() -> None
 def test_method__deserialize__nonstandard_numeric_constant__raises_value_error(
     constant: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-021
-    Requirement
-    Nonstandard nonfinite JSON numeric constants are rejected at parse time.
-    Method
-    Place each fixed token in the schema-version field of an object.
-    Oracle
-    RFC-compatible JSON numbers exclude NaN and infinities.
-    Acceptance
-    Exactly ``ValueError`` identifies a nonstandard constant.
-    Interpretation
-    A pass confirms strict numeric parsing; failure indicates parser drift.
-    Limitations
-    Finite semantic values, validation, UQ, and Rust are excluded.
+    r"""Evidence ID: SV-ORJS-021
+
+    Requirement: Nonstandard nonfinite JSON numeric constants are rejected at parse
+    time.
+
+    Method: Place each fixed token in the schema-version field of an object.
+
+    Oracle: RFC-compatible JSON numbers exclude NaN and infinities.
+
+    Acceptance: Exactly ``ValueError`` identifies a nonstandard constant.
+
+    Interpretation: A pass confirms strict numeric parsing; failure indicates parser
+    drift.
+
+    Limitations: Finite semantic values, validation, UQ, and Rust are excluded.
     """
     with pytest.raises(ValueError, match="nonstandard"):
         OperatorRecordJsonSerializer().deserialize(
@@ -196,28 +206,33 @@ def test_method__deserialize__nonstandard_numeric_constant__raises_value_error(
 def test_field__exact_fields_at_every_structured_object_level__is_exact(
     path: tuple[str, ...], remove: str | None, extra: str | None
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-008
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition: exact
+    r"""Evidence ID: SV-ORJS-008
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition: exact
     fields at every structured object level: is exact.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (exact fields at every structured object level: is exact); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly ValueError with the asserted public message,
+
+    Acceptance: The named partition raises exactly ValueError with the asserted public
+    message,
     code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -248,28 +263,33 @@ def test_field__exact_fields_at_every_structured_object_level__is_exact(
     ],
 )
 def test_method__deserialize__schema_version_is_exact_integer_one(version: Any) -> None:
-    r"""Evidence ID
-    SV-ORJS-009
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-009
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: schema version is exact integer one.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: schema version is exact integer one); warnings and coercive fallback
     behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly expected with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly expected with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -299,28 +319,33 @@ def test_method__deserialize__schema_version_is_exact_integer_one(version: Any) 
 def test_field__matrix_container_pair_rank_and_shape_rules__is_exact(
     matrix: Any, expected: type[Exception], message: str
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-010
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition: matrix
+    r"""Evidence ID: SV-ORJS-010
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition: matrix
     container pair rank and shape rules: is exact.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (matrix container pair rank and shape rules: is exact); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly expected with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly expected with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -343,28 +368,33 @@ def test_field__matrix_container_pair_rank_and_shape_rules__is_exact(
 def test_method__deserialize__nested_records_require_json_object_containers(
     field: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-011
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-011
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: nested records require json object containers.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: nested records require json object containers); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly TypeError with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly TypeError with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

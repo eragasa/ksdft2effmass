@@ -1,18 +1,21 @@
 r"""Software verification of schema fixture family v1.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned module verifies corrected schema pattern inventory,
 trailing-line-feed rejection, and isolated invalid-fixture meanings as exact software
 wire evidence.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The version-1 schema plus canonical valid and strict invalid fixture families are
 primary. The Draft 2020-12 metaschema, Python regex behavior used by jsonschema, and
 public strict serializer are independently exercised collaborators.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the declared schema/fixture software boundary. It excludes
 provenance truth, numerical verification, scientific validation, UQ, persistence-system
@@ -67,21 +70,27 @@ EXPECTED_DEFINITIONS = {
 
 
 def make_unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-399, SV-PROV-400, and SV-PROV-401.
-    Requirement
-    Construct one JSON object only when every encoded member name is unique.
-    Method
-    Compare the incoming pair count with its key set before constructing a built-in
+    """Evidence ID: Owns no identifier; supports SV-PROV-399, SV-PROV-400, and
+    SV-PROV-401.
+
+    Requirement: Construct one JSON object only when every encoded member name is
+    unique.
+
+    Method: Compare the incoming pair count with its key set before constructing a
+    built-in
     dict.
-    Oracle
-    RFC JSON object member identity and exact Python string equality define uniqueness.
-    Acceptance
-    Return a dict for unique names and raise ValueError for any duplicated member name.
-    Interpretation
-    Failure indicates malformed local artifact text or a strict-decoding oracle defect.
-    Limitations
-    This helper does not validate schemas, fixture meaning, runtime records, science,
+
+    Oracle: RFC JSON object member identity and exact Python string equality define
+    uniqueness.
+
+    Acceptance: Return a dict for unique names and raise ValueError for any duplicated
+    member name.
+
+    Interpretation: Failure indicates malformed local artifact text or a strict-decoding
+    oracle defect.
+
+    Limitations: This helper does not validate schemas, fixture meaning, runtime
+    records, science,
     persistence, portability, validation, or UQ.
     """
     if len(pairs) != len({key for key, _value in pairs}):
@@ -90,21 +99,27 @@ def make_unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def decode_strict_json_object(text: str) -> dict[str, Any]:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-399, SV-PROV-400, and SV-PROV-401.
-    Requirement
-    Decode one artifact as a strict finite JSON object without duplicate member names.
-    Method
-    Use the standard decoder with duplicate rejection and non-finite-token rejection.
-    Oracle
-    JSON object grammar excludes duplicate contract names and non-finite numeric tokens.
-    Acceptance
-    Return an exact built-in dict; malformed, duplicate, non-finite, or nonobject input
+    """Evidence ID: Owns no identifier; supports SV-PROV-399, SV-PROV-400, and
+    SV-PROV-401.
+
+    Requirement: Decode one artifact as a strict finite JSON object without duplicate
+    member names.
+
+    Method: Use the standard decoder with duplicate rejection and non-finite-token
+    rejection.
+
+    Oracle: JSON object grammar excludes duplicate contract names and non-finite numeric
+    tokens.
+
+    Acceptance: Return an exact built-in dict; malformed, duplicate, non-finite, or
+    nonobject input
     raises ValueError or AssertionError.
-    Interpretation
-    Failure identifies artifact lexical/shape drift or strict-decoder setup failure.
-    Limitations
-    Strict decoding establishes no schema acceptance, runtime construction, provenance
+
+    Interpretation: Failure identifies artifact lexical/shape drift or strict-decoder
+    setup failure.
+
+    Limitations: Strict decoding establishes no schema acceptance, runtime construction,
+    provenance
     truth, persistence, scientific validation, UQ, or cross-language behavior.
     """
     value = json.loads(
@@ -119,20 +134,25 @@ def decode_strict_json_object(text: str) -> dict[str, Any]:
 
 
 def collect_schema_pattern_values(value: object) -> tuple[str, ...]:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-399.
-    Requirement
-    Expose every decoded JSON Schema ``pattern`` value without inspecting raw text.
-    Method
-    Recursively traverse object values and array elements and retain pattern values.
-    Oracle
-    The decoded JSON member name ``pattern`` independently identifies regex locations.
-    Acceptance
-    Return one string entry for every recursively encountered pattern member.
-    Interpretation
-    Failure indicates schema traversal, decoded type, or pattern-member shape drift.
-    Limitations
-    Inventory traversal does not establish regex semantics, schema completeness,
+    """Evidence ID: Owns no identifier; supports SV-PROV-399.
+
+    Requirement: Expose every decoded JSON Schema ``pattern`` value without inspecting
+    raw text.
+
+    Method: Recursively traverse object values and array elements and retain pattern
+    values.
+
+    Oracle: The decoded JSON member name ``pattern`` independently identifies regex
+    locations.
+
+    Acceptance: Return one string entry for every recursively encountered pattern
+    member.
+
+    Interpretation: Failure indicates schema traversal, decoded type, or pattern-member
+    shape drift.
+
+    Limitations: Inventory traversal does not establish regex semantics, schema
+    completeness,
     runtime behavior, scientific validation, UQ, persistence, or portability.
     """
     if isinstance(value, dict):
@@ -154,22 +174,26 @@ def collect_schema_pattern_values(value: object) -> tuple[str, ...]:
 
 
 def make_schema_fixture_validator() -> jsonschema.Draft202012Validator:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-400 and SV-PROV-401.
-    Requirement
-    Build the complete local Draft 2020-12 validator with the active NFC checker.
-    Method
-    Strictly decode the fixed schema, compile it, and register exact Unicode NFC
+    """Evidence ID: Owns no identifier; supports SV-PROV-400 and SV-PROV-401.
+
+    Requirement: Build the complete local Draft 2020-12 validator with the active NFC
+    checker.
+
+    Method: Strictly decode the fixed schema, compile it, and register exact Unicode NFC
     normalization with jsonschema's format-checker boundary.
-    Oracle
-    The checked-in schema, Draft 2020-12 metaschema, and unicodedata NFC transform are
+
+    Oracle: The checked-in schema, Draft 2020-12 metaschema, and unicodedata NFC
+    transform are
     independent inputs to the fixture checks.
-    Acceptance
-    Return a compiled validator that applies built-in formats and active ``nfc`` checks.
-    Interpretation
-    Failure is schema/compiler/NFC setup drift, not fixture acceptance evidence.
-    Limitations
-    This helper does not prove fixture classification, runtime mapping, provenance
+
+    Acceptance: Return a compiled validator that applies built-in formats and active
+    ``nfc`` checks.
+
+    Interpretation: Failure is schema/compiler/NFC setup drift, not fixture acceptance
+    evidence.
+
+    Limitations: This helper does not prove fixture classification, runtime mapping,
+    provenance
     truth,
     persistence, execution validity, scientific validation, UQ, or portability.
     """
@@ -185,26 +209,31 @@ def make_schema_fixture_validator() -> jsonschema.Draft202012Validator:
 
 
 def test_artifact__schema_patterns__use_exact_end_of_input_contract() -> None:
-    """Evidence ID
-    SV-PROV-399
-    Requirement
-    The version-1 schema has exact corrected pattern counts, no vulnerable variants, and
+    """Evidence ID: SV-PROV-399
+
+    Requirement: The version-1 schema has exact corrected pattern counts, no vulnerable
+    variants, and
     unchanged record, path-pattern, and timestamp-pattern inventories.
-    Method
-    Strictly decode and compile the schema, recursively count decoded pattern values,
+
+    Method: Strictly decode and compile the schema, recursively count decoded pattern
+    values,
     compare exact definitions/references, and validate ordinary and final-LF strings
     through three Draft 2020-12 pattern validators.
-    Oracle
-    Explicit accepted counts, names, refs, regex strings, and representative strings are
+
+    Oracle: Explicit accepted counts, names, refs, regex strings, and representative
+    strings are
     independent of the schema's repeated locations.
-    Acceptance
-    Counts are 73 identifier, 5 digest, 2 version, and zero old variants; all 17 record
+
+    Acceptance: Counts are 73 identifier, 5 digest, 2 version, and zero old variants;
+    all 17 record
     names/refs, 5 path patterns, and 3 timestamp patterns remain exact; ordinary values
     pass and the corresponding final-LF values raise ValidationError.
-    Interpretation
-    Failure identifies schema JSON, dialect, metaschema, inventory, or end-anchor drift.
-    Limitations
-    This mechanical inventory does not establish all schema semantics, fixture
+
+    Interpretation: Failure identifies schema JSON, dialect, metaschema, inventory, or
+    end-anchor drift.
+
+    Limitations: This mechanical inventory does not establish all schema semantics,
+    fixture
     classification, runtime construction, provenance truth, validation, UQ, or storage.
     """
     schema = decode_strict_json_object(SCHEMA_PATH.read_text(encoding="utf-8"))
@@ -300,26 +329,31 @@ def test_artifact__trailing_line_feed_fixtures__fail_schema_and_runtime(
     field_name: str,
     invalid_value: str,
 ) -> None:
-    """Evidence ID
-    SV-PROV-400
-    Requirement
-    Each otherwise-valid trailing-LF fixture is canonical JSON rejected by both the
+    """Evidence ID: SV-PROV-400
+
+    Requirement: Each otherwise-valid trailing-LF fixture is canonical JSON rejected by
+    both the
     complete schema and strict public runtime at its named pattern field.
-    Method
-    Strictly decode original text, assert exact field and canonical bytes, require both
+
+    Method: Strictly decode original text, assert exact field and canonical bytes,
+    require both
     rejection layers, then remove only the value's final LF and require both layers
     pass.
-    Oracle
-    Four explicit record/field/value cases and canonical JSON rules independently define
+
+    Oracle: Four explicit record/field/value cases and canonical JSON rules
+    independently define
     the controlled defect and corrected counterpart.
-    Acceptance
-    Original text has one file LF and escaped value LF, raises schema ValidationError
+
+    Acceptance: Original text has one file LF and escaped value LF, raises schema
+    ValidationError
     and ProvenanceJsonError, while the one-field counterpart passes both layers.
-    Interpretation
-    Failure identifies fixture isolation/canonicalization, pattern, schema, or runtime
+
+    Interpretation: Failure identifies fixture isolation/canonicalization, pattern,
+    schema, or runtime
     strictness drift.
-    Limitations
-    Four representatives do not exhaust string locations or establish provenance truth,
+
+    Limitations: Four representatives do not exhaust string locations or establish
+    provenance truth,
     persistence, execution validity, validation, UQ, or cross-language conformance.
     """
     path = INVALID_ROOT / fixture_name
@@ -373,26 +407,31 @@ def test_artifact__corrected_invalid_fixtures__isolate_named_defect(
     fixture_name: str,
     schema_rejects_original: bool,
 ) -> None:
-    """Evidence ID
-    SV-PROV-401
-    Requirement
-    Each retained invalid fixture contains its exact named defect and forms a complete
+    """Evidence ID: SV-PROV-401
+
+    Requirement: Each retained invalid fixture contains its exact named defect and forms
+    a complete
     schema-valid and runtime-valid record after one local correction.
-    Method
-    Strictly decode canonical original text, assert and remove/change only the named
+
+    Method: Strictly decode canonical original text, assert and remove/change only the
+    named
     feature, compare original schema classification with its explicit layer expectation,
     require runtime rejection, and pass the counterpart through both layers.
-    Oracle
-    Explicit removed fields, required attempt ID, calendar dates, sorted roles, valid
+
+    Oracle: Explicit removed fields, required attempt ID, calendar dates, sorted roles,
+    valid
     identifier, and schema-layer expectations independently define each counterpart.
-    Acceptance
-    Each original has one exact defect and expected schema classification, always fails
+
+    Acceptance: Each original has one exact defect and expected schema classification,
+    always fails
     runtime, and has a one-feature counterpart that passes both layers.
-    Interpretation
-    Failure identifies unrelated fixture defects, canonical drift, or schema/runtime
+
+    Interpretation: Failure identifies unrelated fixture defects, canonical drift, or
+    schema/runtime
     classification disagreement.
-    Limitations
-    The surrogate scalar also violates identifier grammar if scalar prechecking is
+
+    Limitations: The surrogate scalar also violates identifier grammar if scalar
+    prechecking is
     absent; this case does not prove ordering of every runtime validation layer, nor
     provenance truth, persistence, execution validity, scientific validation, or UQ.
     """

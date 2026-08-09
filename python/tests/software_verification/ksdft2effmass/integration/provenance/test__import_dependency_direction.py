@@ -1,18 +1,21 @@
 r"""Software verification of import dependency direction.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned software verification represents the static import graph of the
 ``ksdft2effmass.provenance`` package. Exact fixed relative-adjacency and per-file
 absolute-import mappings are the independent oracles.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The artifact is the AST-visible static import graph of the seven production provenance
 modules. Package export identity is owned by ``test__public_api.py``. Each import form
 retains its complete module, imported names, and relative level before comparison.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the declared static import inventories. Dynamic and transitive
 imports, imports performed by dependencies, runtime service construction, and
@@ -116,20 +119,25 @@ class StaticImportDependency:
 def extract_static_import_dependencies(
     path: Path,
 ) -> frozenset[StaticImportDependency]:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-070 and SV-PROV-071.
-    Requirement
-    Static imports retain the syntax needed by both exact dependency oracles.
-    Method
-    Parse one Python file and represent each Import alias or complete ImportFrom node.
-    Oracle
-    Python AST fields define form, full module, imported names, and relative level.
-    Acceptance
-    Return immutable records without root reduction or discarded relative forms.
-    Interpretation
-    A mismatch indicates incomplete extraction rather than package behavior.
-    Limitations
-    Dynamic and transitive imports and runtime service construction are excluded.
+    """Evidence ID: Owns no identifier; supports SV-PROV-070 and SV-PROV-071.
+
+    Requirement: Static imports retain the syntax needed by both exact dependency
+    oracles.
+
+    Method: Parse one Python file and represent each Import alias or complete ImportFrom
+    node.
+
+    Oracle: Python AST fields define form, full module, imported names, and relative
+    level.
+
+    Acceptance: Return immutable records without root reduction or discarded relative
+    forms.
+
+    Interpretation: A mismatch indicates incomplete extraction rather than package
+    behavior.
+
+    Limitations: Dynamic and transitive imports and runtime service construction are
+    excluded.
     """
     nodes = tuple(ast.walk(ast.parse(path.read_text(encoding="utf-8"))))
     direct_imports = {
@@ -154,29 +162,33 @@ def extract_static_import_dependencies(
 def test_artifact__internal_import_graph__matches_exact_relative_layering(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-PROV-070
-    Requirement
-    The exact provenance module inventory uses only the accepted level-one relative
+    """Evidence ID: SV-PROV-070
+
+    Requirement: The exact provenance module inventory uses only the accepted level-one
+    relative
     imports and the accepted internal adjacency, never absolute internal or ambiguous
     relative forms.
-    Method
-    Extract every production import and each controlled accepted, absolute-internal,
+
+    Method: Extract every production import and each controlled accepted,
+    absolute-internal,
     module-less-relative, and higher-level-relative syntax example; then classify each
     controlled prohibited form with the production predicates.
-    Oracle
-    The accepted P2 decomposition fixes EXPECTED_INTERNAL_IMPORTS, permits only
+
+    Oracle: The accepted P2 decomposition fixes EXPECTED_INTERNAL_IMPORTS, permits only
     ``from .module import name`` for internal edges, and fixes each controlled AST form
     and its prohibited category exactly.
-    Acceptance
-    Filenames and adjacency match exactly; production has no ambiguous relative or
+
+    Acceptance: Filenames and adjacency match exactly; production has no ambiguous
+    relative or
     absolute internal records; every controlled import equals its exact immutable
     record, and each prohibited record appears in its exact prohibited classification.
-    Interpretation
-    Failure identifies source inventory drift, an unauthorized internal edge or form,
+
+    Interpretation: Failure identifies source inventory drift, an unauthorized internal
+    edge or form,
     discarded import syntax, incorrect extraction, or incorrect classification.
-    Limitations
-    Dynamic imports, call architecture, runtime behavior, and package export identity
+
+    Limitations: Dynamic imports, call architecture, runtime behavior, and package
+    export identity
     are not assessed.
     """
     paths = {path.name: path for path in SOURCE.glob("*.py")}
@@ -323,25 +335,29 @@ def test_artifact__internal_import_graph__matches_exact_relative_layering(
 def test_artifact__absolute_import_inventory__matches_exact_dependency_boundary(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-PROV-071
-    Requirement
-    Every provenance production module has exactly its accepted static absolute-import
+    """Evidence ID: SV-PROV-071
+
+    Requirement: Every provenance production module has exactly its accepted static
+    absolute-import
     modules and no undeclared standard-library, project-package, or third-party edge.
-    Method
-    Compare full AST module names per file and exercise controlled undeclared imports
+
+    Method: Compare full AST module names per file and exercise controlled undeclared
+    imports
     spanning standard-library, project, scheduler, plugin, and third-party packages.
-    Oracle
-    The accepted P2 architecture and current source decomposition fix
+
+    Oracle: The accepted P2 architecture and current source decomposition fix
     EXPECTED_ABSOLUTE_IMPORTS independently of production constants and source prose.
-    Acceptance
-    The per-file mapping equals the fixed mapping exactly, and the controlled source
+
+    Acceptance: The per-file mapping equals the fixed mapping exactly, and the
+    controlled source
     produces exactly the fixed set of six undeclared full-module names.
-    Interpretation
-    Failure indicates dependency-boundary drift or extraction that truncates a module
+
+    Interpretation: Failure indicates dependency-boundary drift or extraction that
+    truncates a module
     path; it does not establish that an imported dependency executes.
-    Limitations
-    Dynamic and transitive imports, dependency internals, runtime service construction,
+
+    Limitations: Dynamic and transitive imports, dependency internals, runtime service
+    construction,
     equivalent architectures without static imports, and scientific behavior are
     excluded.
     """

@@ -1,6 +1,7 @@
 r"""Software verification of ``HermiticityNumericalError``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the HermiticityNumericalError facet. System under test
 -----------------
@@ -52,6 +53,7 @@ A future Rust mapping would use a closed error enum, but no Rust evidence or
 serialized numerical-exception format is approved.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``HermiticityNumericalError``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -60,6 +62,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -86,24 +89,24 @@ SUT = HermiticityNumericalError
 class UnrelatedReason(Enum):
     r"""Test-local non-owner enum supporting ``SV-HNE-005``.
 
-    Evidence ID
-    Supporting fixture for ``SV-HNE-005``; it owns no separate identifier.
-    Requirement
-    An enum member from another nominal taxonomy is not a
+    Evidence ID: Supporting fixture for ``SV-HNE-005``; it owns no separate identifier.
+
+    Requirement: An enum member from another nominal taxonomy is not a
     ``HermiticityNumericalErrorCode``, even when its value matches the
     approved machine-readable string.
-    Method
-    Define one synthetic local member with value ``nonfinite_residual`` and
+
+    Method: Define one synthetic local member with value ``nonfinite_residual`` and
     supply it only at the deliberate invalid constructor boundary.
-    Oracle
-    The approved constructor requires nominal membership in
+
+    Oracle: The approved constructor requires nominal membership in
     ``HermiticityNumericalErrorCode`` rather than enum-like shape or value.
-    Acceptance
-    The owning invalid-input test rejects this member with ``TypeError``.
-    Interpretation
-    Rejection establishes closed enum ownership without raw-value coercion.
-    Limitations
-    This fixture does not inspect enum members, aliases, lookups, Analyzer
+
+    Acceptance: The owning invalid-input test rejects this member with ``TypeError``.
+
+    Interpretation: Rejection establishes closed enum ownership without raw-value
+    coercion.
+
+    Limitations: This fixture does not inspect enum members, aliases, lookups, Analyzer
     behavior, numerical verification, scientific validation, uncertainty
     quantification, or Rust conformance.
     """
@@ -112,23 +115,27 @@ class UnrelatedReason(Enum):
 
 
 def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
-    r"""Evidence ID
-    SV-HNE-001
-    Requirement
-    One approved structured reason directly constructs ``HermiticityNumericalError``,
+    r"""Evidence ID: SV-HNE-001
+
+    Requirement: One approved structured reason directly constructs
+    ``HermiticityNumericalError``,
     which remains a ``ValueError`` and an ``Exception``.
-    Method
-    Construct through public imports without invoking the Analyzer and inspect only
+
+    Method: Construct through public imports without invoking the Analyzer and inspect
+    only
     documented inheritance.
-    Oracle
-    The approved public exception contract specifies ``ValueError`` inheritance and a
+
+    Oracle: The approved public exception contract specifies ``ValueError`` inheritance
+    and a
     one-reason constructor.
-    Acceptance
-    Construction succeeds and both hierarchy checks are true.
-    Interpretation
-    Passing establishes public direct construction and exception taxonomy.
-    Limitations
-    ``Exception.args``, traceback formatting, source location, hashability, pickling,
+
+    Acceptance: Construction succeeds and both hierarchy checks are true.
+
+    Interpretation: Passing establishes public direct construction and exception
+    taxonomy.
+
+    Limitations: ``Exception.args``, traceback formatting, source location, hashability,
+    pickling,
     private state, Analyzer emission, numerical verification, scientific validation, UQ,
     and Rust conformance are untested.
     """
@@ -152,24 +159,28 @@ def test_constructor__public_construction_and_exception_taxonomy__is_enforced() 
 def test_field__represented_state__accepted_reasons_retain_identity(
     reason: HermiticityNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-HNE-002
-    Requirement
-    Every current closed-enum member is accepted and retained through the public
+    r"""Evidence ID: SV-HNE-002
+
+    Requirement: Every current closed-enum member is accepted and retained through the
+    public
     ``reason`` field without reconstruction or string conversion.
-    Method
-    Parameterize over the complete public enum, construct directly, and compare the
+
+    Method: Parameterize over the complete public enum, construct directly, and compare
+    the
     retained field with the supplied member by identity.
-    Oracle
-    The approved exception contract accepts exactly ``HermiticityNumericalErrorCode``
+
+    Oracle: The approved exception contract accepts exactly
+    ``HermiticityNumericalErrorCode``
     members and retains the supplied object.
-    Acceptance
-    ``error.reason is reason`` for every current member.
-    Interpretation
-    Passing establishes complete current reason admission and exact identity retention;
+
+    Acceptance: ``error.reason is reason`` for every current member.
+
+    Interpretation: Passing establishes complete current reason admission and exact
+    identity retention;
     the current enum contains only ``NONFINITE_RESIDUAL``.
-    Limitations
-    Member count, aliases, ``StrEnum`` behavior, and lookup semantics belong to
+
+    Limitations: Member count, aliases, ``StrEnum`` behavior, and lookup semantics
+    belong to
     ``SV-HNEC`` evidence. Analyzer emission, numerical verification, scientific
     validation, UQ, and Rust conformance are not tested.
     """
@@ -180,24 +191,28 @@ def test_field__represented_state__accepted_reasons_retain_identity(
 
 
 def test_constructor__positional_and_keyword_construction_retain__is_enforced() -> None:
-    r"""Evidence ID
-    SV-HNE-003
-    Requirement
-    Positional and ``reason=`` keyword construction both retain the canonical public
+    r"""Evidence ID: SV-HNE-003
+
+    Requirement: Positional and ``reason=`` keyword construction both retain the
+    canonical public
     enum member.
-    Method
-    Construct two distinct exception objects with the two supported call forms and
+
+    Method: Construct two distinct exception objects with the two supported call forms
+    and
     inspect each public ``reason`` field by identity.
-    Oracle
-    The approved public signature names one parameter ``reason`` and Python supports
+
+    Oracle: The approved public signature names one parameter ``reason`` and Python
+    supports
     positional or matching keyword binding.
-    Acceptance
-    Both fields are the canonical ``NONFINITE_RESIDUAL`` singleton.
-    Interpretation
-    Passing establishes constructor-form equivalence for retained structured state, not
+
+    Acceptance: Both fields are the canonical ``NONFINITE_RESIDUAL`` singleton.
+
+    Interpretation: Passing establishes constructor-form equivalence for retained
+    structured state, not
     exception-object equality.
-    Limitations
-    No exception value-equality contract, Analyzer emission, numerical verification,
+
+    Limitations: No exception value-equality contract, Analyzer emission, numerical
+    verification,
     scientific validation, uncertainty quantification, or Rust conformance is tested.
     """
 
@@ -211,25 +226,29 @@ def test_constructor__positional_and_keyword_construction_retain__is_enforced() 
 
 
 def test_protocol__str__human_readable_structured_reason_summary() -> None:
-    r"""Evidence ID
-    SV-HNE-004
-    Requirement
-    The human-readable message identifies a Hermiticity numerical failure and contains
+    r"""Evidence ID: SV-HNE-004
+
+    Requirement: The human-readable message identifies a Hermiticity numerical failure
+    and contains
     the stable retained reason value ``nonfinite_residual``.
-    Method
-    Construct directly, case-fold only the failure phrase, and inspect the literal
+
+    Method: Construct directly, case-fold only the failure phrase, and inspect the
+    literal
     stable reason value without asserting full message equality.
-    Oracle
-    Approved public documentation promises a concise failure summary containing the enum
+
+    Oracle: Approved public documentation promises a concise failure summary containing
+    the enum
     value, not fixed punctuation or separators.
-    Acceptance
-    Both semantic failure content and the stable reason value occur, while
+
+    Acceptance: Both semantic failure content and the stable reason value occur, while
     ``error.reason`` remains the canonical structured category.
-    Interpretation
-    Passing establishes a useful secondary diagnostic without requiring callers to parse
+
+    Interpretation: Passing establishes a useful secondary diagnostic without requiring
+    callers to parse
     it for machine-readable state.
-    Limitations
-    Full formatting, capitalization, punctuation, Analyzer emission, numerical accuracy,
+
+    Limitations: Full formatting, capitalization, punctuation, Analyzer emission,
+    numerical accuracy,
     scientific validation, UQ, and Rust conformance are not compatibility guarantees or
     tested evidence.
     """
@@ -260,24 +279,28 @@ def test_protocol__str__human_readable_structured_reason_summary() -> None:
 def test_constructor__invalid_reason_types_are_rejected__is_enforced(
     invalid_reason: object,
 ) -> None:
-    r"""Evidence ID
-    SV-HNE-005
-    Requirement
-    ``None``, Booleans, integer, one raw string, unrelated enum member, and arbitrary
+    r"""Evidence ID: SV-HNE-005
+
+    Requirement: ``None``, Booleans, integer, one raw string, unrelated enum member, and
+    arbitrary
     object are rejected rather than coerced to the owner enum.
-    Method
-    Pass each independently collected value using ``Any`` and ``cast`` only at this
+
+    Method: Pass each independently collected value using ``Any`` and ``cast`` only at
+    this
     deliberate invalid constructor boundary.
-    Oracle
-    The approved constructor requires nominal ``HermiticityNumericalErrorCode``
+
+    Oracle: The approved constructor requires nominal ``HermiticityNumericalErrorCode``
     ownership and documents ``TypeError`` with the stable owner-type fragment.
-    Acceptance
-    Every input raises exactly ``TypeError`` naming ``HermiticityNumericalErrorCode``.
-    Interpretation
-    Passing establishes closed structured-reason typing and no raw-string or enum-like
+
+    Acceptance: Every input raises exactly ``TypeError`` naming
+    ``HermiticityNumericalErrorCode``.
+
+    Interpretation: Passing establishes closed structured-reason typing and no
+    raw-string or enum-like
     coercion.
-    Limitations
-    The raw string appears once; its equivalence to the enum's string value is not
+
+    Limitations: The raw string appears once; its equivalence to the enum's string value
+    is not
     duplicated. No Analyzer, numerical verification, scientific validation, uncertainty
     quantification, or Rust conformance is tested.
     """
@@ -298,25 +321,29 @@ def test_constructor__invalid_reason_types_are_rejected__is_enforced(
 def test_constructor__input_boundary__additional_free_form_detail_is_excluded(
     detail_form: str,
 ) -> None:
-    r"""Evidence ID
-    SV-HNE-006
-    Requirement
-    The approved structured ``reason`` is the sole constructor state; additional
+    r"""Evidence ID: SV-HNE-006
+
+    Requirement: The approved structured ``reason`` is the sole constructor state;
+    additional
     arbitrary detail raises ``TypeError`` and is not exposed.
-    Method
-    Invoke an ``Any``-typed constructor only at each deliberate invalid- signature
+
+    Method: Invoke an ``Any``-typed constructor only at each deliberate invalid-
+    signature
     boundary, then inspect a valid exception for ``detail``.
-    Oracle
-    The approved one-parameter signature and enum-backed reason model define no
+
+    Oracle: The approved one-parameter signature and enum-backed reason model define no
     additional free-form detail parameter or attribute.
-    Acceptance
-    Both invalid forms raise exactly ``TypeError`` and a valid instance has no public
+
+    Acceptance: Both invalid forms raise exactly ``TypeError`` and a valid instance has
+    no public
     ``detail`` attribute.
-    Interpretation
-    Passing prevents arbitrary prose from competing with the structured ``reason``
+
+    Interpretation: Passing prevents arbitrary prose from competing with the structured
+    ``reason``
     category.
-    Limitations
-    Signature-generated ``TypeError`` wording is not frozen. The approved ``reason``
+
+    Limitations: Signature-generated ``TypeError`` wording is not frozen. The approved
+    ``reason``
     field remains present. Analyzer emission, numerical verification, scientific
     validation, UQ, and Rust conformance are not tested.
     """
@@ -336,23 +363,25 @@ def test_constructor__input_boundary__additional_free_form_detail_is_excluded(
 
 
 def test_method__serialize__exception_has_no_serialization_api() -> None:
-    r"""Evidence ID
-    SV-HNE-007
-    Requirement
-    The in-memory structured exception exposes none of the six unapproved JSON,
+    r"""Evidence ID: SV-HNE-007
+
+    Requirement: The in-memory structured exception exposes none of the six unapproved
+    JSON,
     dictionary, serializer, or deserializer method names.
-    Method
-    Inspect both a valid instance and the public class for each excluded method.
-    Oracle
-    ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
+
+    Method: Inspect both a valid instance and the public class for each excluded method.
+
+    Oracle: ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
     numerical-exception JSON schema or independent serializer is approved.
-    Acceptance
-    Every excluded method name is absent from both instance and class.
-    Interpretation
-    Passing establishes serialization exclusion while preserving ``reason`` as the
+
+    Acceptance: Every excluded method name is absent from both instance and class.
+
+    Interpretation: Passing establishes serialization exclusion while preserving
+    ``reason`` as the
     in-memory machine-readable category.
-    Limitations
-    ``StrEnum`` compatibility does not create a wire format. Pickling and future schemas
+
+    Limitations: ``StrEnum`` compatibility does not create a wire format. Pickling and
+    future schemas
     are unspecified; no Analyzer emission, numerical verification, scientific
     validation, UQ, Rust serialization, or Rust conformance is established.
     """

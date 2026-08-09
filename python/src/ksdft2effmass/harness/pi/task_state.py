@@ -175,7 +175,7 @@ class TaskStateInspectionResult:
             raise TypeError("validation must be ValidationResult")
 
 
-class InspectTaskState:
+class TaskStateInspector:
     """Inspect one task through exact root-confined durable references only."""
 
     __slots__ = ()

@@ -9,12 +9,12 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .. import (
-    DeserializeJsonRecord,
-    RefreshResourceManifest,
+    JsonRecordDeserializer,
+    JsonRecordSerializer,
     ResourceManifest,
+    ResourceManifestRefresher,
     ResourceManifestRefreshRequest,
     ResourceManifestRefreshResult,
-    SerializeJsonRecord,
     ValidationIssue,
     ValidationResult,
     WireRecordKind,
@@ -37,7 +37,7 @@ def _command_object(
 ) -> dict[str, object]:
     proposed_manifest: str | None = None
     if result.manifest is not None:
-        serialized = SerializeJsonRecord().execute(result.manifest)
+        serialized = JsonRecordSerializer().execute(result.manifest)
         if serialized.payload is None:
             raise AssertionError("successful serialization must contain payload")
         proposed_manifest = serialized.payload.decode("utf-8")
@@ -77,7 +77,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise ValueError("manifest path must be absolute")
         if args.manifest.is_symlink() or not args.manifest.is_file():
             raise ValueError("manifest path must name a regular nonsymlink file")
-        decoded = DeserializeJsonRecord().execute(
+        decoded = JsonRecordDeserializer().execute(
             WireRecordKind.ResourceManifest, args.manifest.read_bytes()
         )
         if decoded.validation.status == "FAIL":
@@ -91,7 +91,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 decoded.record,
                 tuple(args.resource_id),
             )
-            result = RefreshResourceManifest().execute(request)
+            result = ResourceManifestRefresher().execute(request)
             payload = _command_object(result)
             exit_status = 0 if result.validation.status != "FAIL" else 1
     except (TypeError, ValueError, OSError) as exc:

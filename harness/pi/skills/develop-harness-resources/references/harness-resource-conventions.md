@@ -58,9 +58,9 @@ order. The manifest must contain the complete transitive closure selected by a
 skill descriptor or profile. Dependency IDs express represented requirements,
 not execution order, ownership assignment, or acceptance.
 
-`ValidateResourceManifest` owns duplicate ID/path detection, extension-only
+`ResourceManifestValidator` owns duplicate ID/path detection, extension-only
 overlay enforcement, missing dependencies, dependency cycles, generic/local
-direction, profile compatibility, and format support. `ValidateSkillResources`
+direction, profile compatibility, and format support. `SkillResourceValidator`
 owns entry kind, required-resource closure, authorization-policy inclusion, and
 profile-supported skill behavior. Do not restate their algorithms in prose or
 ad hoc scripts.
@@ -106,12 +106,12 @@ New logical resources require explicit authoring of resource ID, kind, format
 version, path, dependencies, and initial content identity. Do not infer manifest
 membership by scanning files.
 
-For existing entries, `RefreshResourceManifest` observes only explicitly selected
+For existing entries, `ResourceManifestRefresher` observes only explicitly selected
 manifest paths beneath one explicit root and proposes canonical updated content.
-It does not write a manifest or discover resources. `ResolveResource` verifies
+It does not write a manifest or discover resources. `ResourceResolver` verifies
 root-confined exact-case nonsymlink regular-file selection and an existing
-identity. Canonical JSON remains owned by `SerializeJsonRecord` and
-`DeserializeJsonRecord`.
+identity. Canonical JSON remains owned by `JsonRecordSerializer` and
+`JsonRecordDeserializer`.
 
 After a resource family changes, validate the generic manifest, optional local
 manifest, selected profile binding, descriptor closure, path confinement,

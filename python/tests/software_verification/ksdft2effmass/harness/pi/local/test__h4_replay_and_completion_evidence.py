@@ -1,13 +1,16 @@
 r"""Software verification of h4 replay and completion evidence.
 
 Facet and represented meaning
+
 Software verification of the retained H4 replay/completion evidence boundary.
 
 Intrinsic and cross-object scope
+
 The primary owner is h4 replay and completion evidence; public behavior and fixed
 repository resources provide the exact oracle.
 
 VVUQ and scientific exclusions
+
 Passing establishes only the stated software contract. Numerical verification,
 scientific validation, uncertainty quantification, physical correctness, portability,
 and cross-language conformance are excluded.
@@ -32,25 +35,30 @@ pytestmark = pytest.mark.software_verification
 
 
 def load(path: Path, name: str) -> Any:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-020.
-    Requirement
-    Provide explicit setup mechanics for the h4 replay and completion evidence evidence
+    """Evidence ID: Owns no identifier; supports SV-HL-020.
+
+    Requirement: Provide explicit setup mechanics for the h4 replay and completion
+    evidence evidence
     without owning an independent result.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -62,24 +70,29 @@ def load(path: Path, name: str) -> Any:
 
 
 def test_workflow__side_selection__runs_exact_suite_without_evidence_mutation() -> None:
-    """Evidence ID
-    SV-HL-020
-    Requirement
-    Both no-write sides consume the same exact eight explicit identity sets.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-020
+
+    Requirement: Both no-write sides consume the same exact eight explicit identity
+    sets.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -110,24 +123,29 @@ def test_workflow__side_selection__runs_exact_suite_without_evidence_mutation() 
 def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-021
-    Requirement
-    A symlink spelling and resolved repository root compose deterministically.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-021
+
+    Requirement: A symlink spelling and resolved repository root compose
+    deterministically.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -165,24 +183,28 @@ def test_workflow__symlinked_absolute_invocation__canonicalizes_script_path(
 def test_artifact__parity_identity__is_bound_only_to_declared_git_blobs(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-022
-    Requirement
-    Current R-input edits are irrelevant, while a different R blob fails.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-022
+
+    Requirement: Current R-input edits are irrelevant, while a different R blob fails.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -272,24 +294,28 @@ def test_artifact__parity_identity__is_bound_only_to_declared_git_blobs(
 def test_artifact__e_hash_index__rejects_generated_artifact_tampering(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-023
-    Requirement
-    The deterministic E index covers exactly the three generated reports.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-023
+
+    Requirement: The deterministic E index covers exactly the three generated reports.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -327,24 +353,29 @@ def test_artifact__e_hash_index__rejects_generated_artifact_tampering(
 def test_artifact__unrelated_inventory__checks_hashes_without_status_equality(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-024
-    Requirement
-    Recorded unrelated hashes remain optional and later E files are tolerated.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-024
+
+    Requirement: Recorded unrelated hashes remain optional and later E files are
+    tolerated.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -371,24 +402,29 @@ def test_artifact__unrelated_inventory__checks_hashes_without_status_equality(
 def test_artifact__replay_input_definition__excludes_every_generated_e_artifact() -> (
     None
 ):
-    """Evidence ID
-    SV-HL-025
-    Requirement
-    R owns stable inputs only; generated reports and their index stay outside.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-025
+
+    Requirement: R owns stable inputs only; generated reports and their index stay
+    outside.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -417,24 +453,28 @@ def test_artifact__replay_input_definition__excludes_every_generated_e_artifact(
 def test_artifact__maintained_route__selects_local_without_mutation(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-026
-    Requirement
-    Invoke the concrete consumer for legacy, local, and shadow routes.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-026
+
+    Requirement: Invoke the concrete consumer for legacy, local, and shadow routes.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -454,25 +494,30 @@ def test_artifact__maintained_route__selects_local_without_mutation(
 def make_completion_records(
     validator: Any,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-020.
-    Requirement
-    Provide explicit setup mechanics for the h4 replay and completion evidence evidence
+    """Evidence ID: Owns no identifier; supports SV-HL-020.
+
+    Requirement: Provide explicit setup mechanics for the h4 replay and completion
+    evidence evidence
     without owning an independent result.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -514,24 +559,28 @@ def make_completion_records(
 
 
 def test_artifact__focused_pytest__requires_pass_and_integer_zero() -> None:
-    """Evidence ID
-    SV-HL-027
-    Requirement
-    Nonzero or boolean exit status cannot attest the focused run.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-027
+
+    Requirement: Nonzero or boolean exit status cannot attest the focused run.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -559,24 +608,29 @@ def test_artifact__focused_pytest__requires_pass_and_integer_zero() -> None:
 
 
 def test_artifact__focused_pytest__rejects_missing_same_run_count() -> None:
-    """Evidence ID
-    SV-HL-028
-    Requirement
-    A successful focused run must retain an internally consistent same-run count.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-028
+
+    Requirement: A successful focused run must retain an internally consistent same-run
+    count.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -605,24 +659,28 @@ def test_artifact__focused_pytest__rejects_missing_same_run_count() -> None:
 
 
 def test_artifact__focused_pytest__rejects_falsified_retained_count() -> None:
-    """Evidence ID
-    SV-HL-029
-    Requirement
-    Summary, reported, and same-run observed counts must agree exactly.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-029
+
+    Requirement: Summary, reported, and same-run observed counts must agree exactly.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -652,24 +710,28 @@ def test_artifact__focused_pytest__rejects_falsified_retained_count() -> None:
 
 
 def test_artifact__focused_pytest__accepts_true_same_run_count() -> None:
-    """Evidence ID
-    SV-HL-030
-    Requirement
-    A retained count remains valid when all same-run count facts agree.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-030
+
+    Requirement: A retained count remains valid when all same-run count facts agree.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -700,24 +762,29 @@ def test_artifact__focused_pytest__accepts_true_same_run_count() -> None:
 
 
 def test_artifact__full_pytest__uses_same_run_count_without_fixed_total() -> None:
-    """Evidence ID
-    SV-HL-031
-    Requirement
-    Full-suite counts follow the same run-consistent contract as focused tests.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-031
+
+    Requirement: Full-suite counts follow the same run-consistent contract as focused
+    tests.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -744,24 +811,29 @@ def test_artifact__full_pytest__uses_same_run_count_without_fixed_total() -> Non
 
 
 def test_artifact__frozen_inventory__rejects_independent_e_mismatch() -> None:
-    """Evidence ID
-    SV-HL-032
-    Requirement
-    E cannot substitute its own module or evidence-ID inventory for R blobs.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-032
+
+    Requirement: E cannot substitute its own module or evidence-ID inventory for R
+    blobs.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -789,24 +861,28 @@ def test_artifact__frozen_inventory__rejects_independent_e_mismatch() -> None:
 def test_artifact__h3_leakage__ignores_import_cache_and_bytecode(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-033
-    Requirement
-    Import caches plus explicit pyc/pyo files are outside the text scan.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-033
+
+    Requirement: Import caches plus explicit pyc/pyo files are outside the text scan.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -833,24 +909,28 @@ def test_artifact__h3_leakage__ignores_import_cache_and_bytecode(
 def test_artifact__h3_leakage__rejects_invalid_utf8_maintained_text(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-034
-    Requirement
-    A manifest-declared maintained text path cannot evade UTF-8 validation.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-034
+
+    Requirement: A manifest-declared maintained text path cannot evade UTF-8 validation.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -876,24 +956,28 @@ def test_artifact__h3_leakage__rejects_invalid_utf8_maintained_text(
 
 
 def test_artifact__local_manifest__owns_exact_maintained_route_identity() -> None:
-    """Evidence ID
-    SV-HL-035
-    Requirement
-    The local manifest binds the exact maintained legacy route bytes.
-    Method
-    Load the retained replay or completion validator, alter only the named record field
+    """Evidence ID: SV-HL-035
+
+    Requirement: The local manifest binds the exact maintained legacy route bytes.
+
+    Method: Load the retained replay or completion validator, alter only the named
+    record field
     or disposable artifact, and execute its public validation boundary.
-    Oracle
-    Versioned H4 record structure, current maintained route resources, and exact hash or
+
+    Oracle: Versioned H4 record structure, current maintained route resources, and exact
+    hash or
     same-run count relations fix the expected outcome independently.
-    Acceptance
-    The named exact equality, diagnostic substring, status, count relation, or byte
+
+    Acceptance: The named exact equality, diagnostic substring, status, count relation,
+    or byte
     nonmutation must hold; no tolerance is used.
-    Interpretation
-    Failure identifies retained-validator drift, stale resource identity, incorrect
+
+    Interpretation: Failure identifies retained-validator drift, stale resource
+    identity, incorrect
     controlled mutation, or a nonmutation boundary defect.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """

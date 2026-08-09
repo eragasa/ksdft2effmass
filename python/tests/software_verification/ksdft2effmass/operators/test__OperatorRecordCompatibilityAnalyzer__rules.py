@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordCompatibilityAnalyzer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the rules facet. System under test
 -----------------
@@ -44,6 +45,7 @@ Analyzer regression, contract/documentation mismatch, or evidence defect that
 requires investigation, not scientific invalidity by itself.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordCompatibilityAnalyzer``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -52,6 +54,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -113,27 +116,32 @@ def make_record(
     energy_unit: str = "eV",
     provenance: Mapping[str, str] | None = None,
 ) -> OperatorRecord:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Every analyzed fixture must satisfy intrinsic state-space, basis, matrix-dimension,
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Every analyzed fixture must satisfy intrinsic state-space, basis,
+    matrix-dimension,
     finite-value, and geometry invariants before analysis.
-    Method
-    Build explicit public metadata and a finite ``np.complex128`` matrix. ``dimension =
+
+    Method: Build explicit public metadata and a finite ``np.complex128`` matrix.
+    ``dimension =
     len(basis_ordering)`` couples state-space dimension to the valid ordering; supplied
     matrices explicitly match that dimension.
-    Oracle
-    Public record construction defines intrinsic validity. Analyzer-critical fields are
+
+    Oracle: Public record construction defines intrinsic validity. Analyzer-critical
+    fields are
     dimension, state-space and operator kinds, ordered labels and basis kind, cell and
     geometry conventions/units, and energy zero/unit.
-    Acceptance
-    Public construction returns an intrinsically valid record without broad coercion,
+
+    Acceptance: Public construction returns an intrinsically valid record without broad
+    coercion,
     mutation, or invariant bypass.
-    Interpretation
-    A returned record can reach Analyzer findings without frozen-object mutation or
+
+    Interpretation: A returned record can reach Analyzer findings without frozen-object
+    mutation or
     invariant bypass.
-    Limitations
-    Record/state-space/basis identifiers, geometry-system text, and provenance are
+
+    Limitations: Record/state-space/basis identifiers, geometry-system text, and
+    provenance are
     deliberately ignored fields. All matrices and metadata are synthetic: they come from
     no DFT, Wannierization, experiment, or impurity extraction and establish no physical
     equivalence, scientific validation, or uncertainty quantification. Notes ----- The
@@ -169,21 +177,23 @@ def make_record(
 def issue_codes(
     result: OperatorRecordCompatibilityResult,
 ) -> tuple[OperatorRecordCompatibilityMismatchCode, ...]:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Ordered assertions must observe the ResultObject's existing issue order.
-    Method
-    Read public Issue codes sequentially without a set, dictionary, sort, or private
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Ordered assertions must observe the ResultObject's existing issue
+    order.
+
+    Method: Read public Issue codes sequentially without a set, dictionary, sort, or
+    private
     Analyzer method.
-    Oracle
-    ``result.issues`` is the public deterministic audit tuple.
-    Acceptance
-    Output codes exactly preserve the public Issue tuple's existing order.
-    Interpretation
-    The tuple exposes exactly the order returned by ``execute()``.
-    Limitations
-    This projection neither executes rules nor independently defines their canonical
+
+    Oracle: ``result.issues`` is the public deterministic audit tuple.
+
+    Acceptance: Output codes exactly preserve the public Issue tuple's existing order.
+
+    Interpretation: The tuple exposes exactly the order returned by ``execute()``.
+
+    Limitations: This projection neither executes rules nor independently defines their
+    canonical
     order, scientific validation, or uncertainty quantification.
     """
 
@@ -193,26 +203,31 @@ def issue_codes(
 def make_rule_candidate(
     code: OperatorRecordCompatibilityMismatchCode,
 ) -> OperatorRecord:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Every public mismatch code must be reachable from independently valid records, with
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Every public mismatch code must be reachable from independently valid
+    records, with
     coupled findings retained where validity requires them.
-    Method
-    Select an explicit public-constructor variation for the requested code; no mutation,
+
+    Method: Select an explicit public-constructor variation for the requested code; no
+    mutation,
     invariant bypass, broad coercion, set, or dictionary drives rule execution or
     ordering.
-    Oracle
-    The approved Analyzer rule inventory specifies each isolated variation and the
+
+    Oracle: The approved Analyzer rule inventory specifies each isolated variation and
+    the
     dimension/ordered-label coupling.
-    Acceptance
-    Construction succeeds with only the documented isolated variation or unavoidable
+
+    Acceptance: Construction succeeds with only the documented isolated variation or
+    unavoidable
     coupled dimension/ordering variation.
-    Interpretation
-    The returned record differs only in the targeted critical field, except that a
+
+    Interpretation: The returned record differs only in the targeted critical field,
+    except that a
     dimension change also requires a valid different label count.
-    Limitations
-    Reachability demonstrates software behavior, not physical compatibility, scientific
+
+    Limitations: Reachability demonstrates software behavior, not physical
+    compatibility, scientific
     acceptability of subtraction, scientific validation, or uncertainty quantification.
     """
 
@@ -323,25 +338,28 @@ def test_method__execute__every_public_mismatch_rule_is_reachable_from_valid(
     code: OperatorRecordCompatibilityMismatchCode,
     expected_codes: tuple[OperatorRecordCompatibilityMismatchCode, ...],
 ) -> None:
-    r"""Evidence ID
-    SV-ORCA-004
-    Requirement
-    Each public code is observable. Dimension mismatch must produce the coupled
+    r"""Evidence ID: SV-ORCA-004
+
+    Requirement: Each public code is observable. Dimension mismatch must produce the
+    coupled
     ordered-label finding because valid records require matrix dimension = state-space
     dimension = basis-ordering length; remaining cases change only one critical field
     and produce one code.
-    Method
-    Construct reference and candidate independently through public objects, execute the
+
+    Method: Construct reference and candidate independently through public objects,
+    execute the
     Analyzer, and compare the exact ordered code tuple.
-    Oracle
-    The parameter table is the approved rule-to-finding contract, including the
+
+    Oracle: The parameter table is the approved rule-to-finding contract, including the
     explicitly non-isolatable dimension finding.
-    Acceptance
-    Every parameter returns exactly its documented ordered tuple.
-    Interpretation
-    Passing establishes rule reachability without malformed-state fixtures.
-    Limitations
-    Exact synthetic metadata mismatches are software evidence only; they do not assess
+
+    Acceptance: Every parameter returns exactly its documented ordered tuple.
+
+    Interpretation: Passing establishes rule reachability without malformed-state
+    fixtures.
+
+    Limitations: Exact synthetic metadata mismatches are software evidence only; they do
+    not assess
     physical equivalence, alignment, scientific validation, or uncertainty
     quantification.
     """
@@ -355,25 +373,30 @@ def test_method__execute__every_public_mismatch_rule_is_reachable_from_valid(
 
 
 def test_method__execute__orders_all_mismatches() -> None:
-    r"""Evidence ID
-    SV-ORCA-015
-    Requirement
-    A complete multi-finding audit follows public enum order, and every public enum
+    r"""Evidence ID: SV-ORCA-015
+
+    Requirement: A complete multi-finding audit follows public enum order, and every
+    public enum
     member is reachable through valid records.
-    Method
-    Compare valid dimension-two and dimension-three records differing in all critical
+
+    Method: Compare valid dimension-two and dimension-three records differing in all
+    critical
     fields; assert tuple order first, then set membership coverage.
-    Oracle
-    The public enum itself owns canonical ordering, so no second hard-coded competing
+
+    Oracle: The public enum itself owns canonical ordering, so no second hard-coded
+    competing
     sequence is created.
-    Acceptance
-    Ordered issue codes equal the enum tuple and observed membership equals the set of
+
+    Acceptance: Ordered issue codes equal the enum tuple and observed membership equals
+    the set of
     all public enum members.
-    Interpretation
-    Passing establishes deterministic public audit order and complete code reachability;
+
+    Interpretation: Passing establishes deterministic public audit order and complete
+    code reachability;
     set equality is coverage only and does not drive ordering.
-    Limitations
-    The candidate remains intrinsically valid but synthetic. This does not establish
+
+    Limitations: The candidate remains intrinsically valid but synthetic. This does not
+    establish
     physical equivalence, alignment, scientific validation, or uncertainty
     quantification.
     """

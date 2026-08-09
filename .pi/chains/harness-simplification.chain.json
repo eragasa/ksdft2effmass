@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "action_object_grammar_active",
+  "status": "action_object_grammar_awaiting_human_acceptance",
   "active_task": "harness.simplification.api.action-object-grammar",
   "automatic_successor_activation": false,
   "chain": [],
@@ -170,7 +170,7 @@
       "prerequisites": [
         "harness-simplification.evidence.audit-action-conformance:completed"
       ],
-      "status": "active"
+      "status": "implementation_complete_awaiting_human_acceptance"
     },
     {
       "id": "harness.simplification.docs-json",

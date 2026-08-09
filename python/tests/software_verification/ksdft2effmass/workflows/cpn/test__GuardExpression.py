@@ -1,12 +1,14 @@
 r"""Software verification of ``GuardExpression``.
 
 Facet and represented meaning
+
 --------------------------------------
 This module provides software-verification evidence for the public ``GuardExpression``
 software surface and its finite, exact CPN routing representation. It does not represent
 a physical observable or numerical approximation.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 ``GuardExpression`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
@@ -14,6 +16,7 @@ error-taxonomy rules provide the independent oracles. Collaborators only constru
 inputs or expose public outcomes.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing means the named software contracts hold; failure may identify an implementation,
 fixture, oracle transcription, environment, or public-contract inconsistency. This
@@ -38,17 +41,12 @@ SUT = GuardExpression
 
 
 def test_constructor__fields__guard_arity_is_enforced() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-007
+    """Evidence ID: SV-CPN-007
 
-    Requirement
-    -----------
-    operator-specific guard arity.
+    Requirement: operator-specific guard arity.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: operator-specific guard arity. Prior
     requirement detail: The version-1 P1 contract requires operator-specific guard
@@ -60,28 +58,24 @@ def test_constructor__fields__guard_arity_is_enforced() -> None:
     became independently valid. Prior limitations detail: Comparison value typing is
     owned by separate evidence.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must operator-specific guard arity is the
+    Oracle: The documented public rule that the SUT must operator-specific guard arity
+    is the
     contract oracle; fixed synthetic values, Python exact type/value semantics, and the
     public error taxonomy provide independently inspectable expected outcomes where
     used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(ValueError, match="arity"):
@@ -91,36 +85,25 @@ def test_constructor__fields__guard_arity_is_enforced() -> None:
 
 
 def test_constructor__fields__every_guard_shape_is_publicly_constructible() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-074
+    """Evidence ID: SV-CPN-074
 
-    Requirement
-    -----------
-    ``GuardExpression`` preserves the exact accepted state for its
+    Requirement: ``GuardExpression`` preserves the exact accepted state for its
     ``fields`` contract.
 
-    Method
-    ------
-    Construct the public SUT and inspect retained exact public outcomes.
+    Method: Construct the public SUT and inspect retained exact public outcomes.
 
-    Oracle
-    ------
-    The documented public invariant and fixed synthetic inputs provide the independent
+    Oracle: The documented public invariant and fixed synthetic inputs provide the
+    independent
     exact state oracle.
 
-    Acceptance
-    ----------
-    Every retained exact state assertion holds.
+    Acceptance: Every retained exact state assertion holds.
 
-    Interpretation
-    --------------
-    Pass supports only this accepted-state partition; failure may identify
+    Interpretation: Pass supports only this accepted-state partition; failure may
+    identify
     implementation, fixture, oracle, environment, or contract drift.
 
-    Limitations
-    -----------
-    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    Limitations: Synthetic cases exclude unexercised inputs, engine execution,
+    persistence,
     numerical verification, scientific validation, UQ, physics, and portability.
     """
     true = SUT(GuardOperator.TRUE)
@@ -150,36 +133,25 @@ def test_constructor__fields__every_guard_shape_is_publicly_constructible() -> N
 
 
 def test_constructor__fields__rejects_invalid_state() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-147
+    """Evidence ID: SV-CPN-147
 
-    Requirement
-    -----------
-    ``GuardExpression`` rejects the documented invalid state for its
+    Requirement: ``GuardExpression`` rejects the documented invalid state for its
     ``fields`` contract.
 
-    Method
-    ------
-    Exercise the retained synthetic invalid inputs through the public SUT.
+    Method: Exercise the retained synthetic invalid inputs through the public SUT.
 
-    Oracle
-    ------
-    The documented public invariant and fixed synthetic inputs provide the independent
+    Oracle: The documented public invariant and fixed synthetic inputs provide the
+    independent
     exact error-taxonomy oracle.
 
-    Acceptance
-    ----------
-    Every retained invalid call raises the documented exact public exception.
+    Acceptance: Every retained invalid call raises the documented exact public
+    exception.
 
-    Interpretation
-    --------------
-    Pass supports only this rejection partition; failure may identify
+    Interpretation: Pass supports only this rejection partition; failure may identify
     implementation, fixture, oracle, environment, or contract drift.
 
-    Limitations
-    -----------
-    Synthetic cases exclude unexercised inputs, engine execution, persistence,
+    Limitations: Synthetic cases exclude unexercised inputs, engine execution,
+    persistence,
     numerical verification, scientific validation, UQ, physics, and portability.
     """
     true = SUT(GuardOperator.TRUE)
@@ -218,17 +190,12 @@ def test_constructor__fields__rejects_invalid_state() -> None:
 
 
 def test_constructor__fields__guard_fields_reject_wrong_semantic_types() -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-075
+    """Evidence ID: SV-CPN-075
 
-    Requirement
-    -----------
-    reject non-enum operators and non-guard operand tuples.
+    Requirement: reject non-enum operators and non-guard operand tuples.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: reject non-enum operators and non-guard
     operand tuples. Controlled-invalid public construction exercises the error boundary;
@@ -236,28 +203,24 @@ def test_constructor__fields__guard_fields_reject_wrong_semantic_types() -> None
     rather than arity ``ValueError``. Failure permits nondeclarative guard state. No
     collaborator behavior is validated.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must reject non-enum operators and non-guard
+    Oracle: The documented public rule that the SUT must reject non-enum operators and
+    non-guard
     operand tuples is the contract oracle; fixed synthetic values, Python exact
     type/value semantics, and the public error taxonomy provide independently
     inspectable expected outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     with pytest.raises(TypeError, match="operator"):

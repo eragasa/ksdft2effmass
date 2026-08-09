@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordComparisonNumericalErrorCode``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the OperatorRecordComparisonNumericalErrorCode facet.
 System under test
@@ -55,6 +56,7 @@ quantification, Rust implementation, or Rust conformance. ``StrEnum`` behavior
 does not approve a serialized exception format.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordComparisonNumericalErrorCode``; collaborators
 only construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -63,6 +65,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -102,25 +105,29 @@ EXPECTED_MEMBERS = (
 
 
 def test_field__exact_closed_member_sequence_and_stable_values__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORCNEC-001
-    Requirement
-    Public iteration contains exactly the three approved residual-error members with
+    r"""Evidence ID: SV-ORCNEC-001
+
+    Requirement: Public iteration contains exactly the three approved residual-error
+    members with
     their stable values in declaration order.
-    Method
-    Compare public enum iteration with the independently written literal
+
+    Method: Compare public enum iteration with the independently written literal
     ``EXPECTED_MEMBERS`` tuple.
-    Oracle
-    The approved closed enum contract is the literal ordered name/value sequence, not a
+
+    Oracle: The approved closed enum contract is the literal ordered name/value
+    sequence, not a
     sequence generated from production members.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes exact count, names, values, order, and absence of unapproved
+
+    Interpretation: Passing establishes exact count, names, values, order, and absence
+    of unapproved
     additional iterable members.
-    Limitations
-    This does not inspect source location or establish production emission, numerical
+
+    Limitations: This does not inspect source location or establish production emission,
+    numerical
     algorithms, scientific validation, uncertainty quantification, or Rust conformance.
     """
 
@@ -134,25 +141,30 @@ def test_field__exact_closed_member_sequence_and_stable_values__is_exact() -> No
 
 
 def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORCNEC-002
-    Requirement
-    The public Enum registry has exactly the three approved declaration-order keys, each
+    r"""Evidence ID: SV-ORCNEC-002
+
+    Requirement: The public Enum registry has exactly the three approved
+    declaration-order keys, each
     mapped to its corresponding public member, with no aliases.
-    Method
-    Inspect documented ``Enum.__members__`` keys, values, and count and compare its
+
+    Method: Inspect documented ``Enum.__members__`` keys, values, and count and compare
+    its
     count with public iteration.
-    Oracle
-    The approved no-alias contract permits only the three literal public names in
+
+    Oracle: The approved no-alias contract permits only the three literal public names
+    in
     ``EXPECTED_MEMBERS`` order.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing distinguishes three declared names, three iterable members, and zero hidden
+
+    Interpretation: Passing distinguishes three declared names, three iterable members,
+    and zero hidden
     aliases.
-    Limitations
-    No private Enum attributes, production analyzer behavior, numerical verification,
+
+    Limitations: No private Enum attributes, production analyzer behavior, numerical
+    verification,
     scientific validation, uncertainty quantification, or Rust conformance are tested.
     """
 
@@ -194,24 +206,29 @@ def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
 def test_field__represented_state__strenum_machine_value(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCNEC-003
-    Requirement
-    The enum subclasses Python 3.14 ``StrEnum`` and each member behaves as its ASCII
+    r"""Evidence ID: SV-ORCNEC-003
+
+    Requirement: The enum subclasses Python 3.14 ``StrEnum`` and each member behaves as
+    its ASCII
     lowercase snake-case machine-readable value.
-    Method
-    Inspect public inheritance, string identity/equality, ``str()``, explicit lexical
+
+    Method: Inspect public inheritance, string identity/equality, ``str()``, explicit
+    lexical
     full match, and ASCII encoding for every public member.
-    Oracle
-    Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical convention.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Oracle: Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical
+    convention.
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes deterministic Python string behavior and lexical form for all
+
+    Interpretation: Passing establishes deterministic Python string behavior and lexical
+    form for all
     current members.
-    Limitations
-    No JSON, ``repr()``, hash, pickle, wire format, metric computation, scientific
+
+    Limitations: No JSON, ``repr()``, hash, pickle, wire format, metric computation,
+    scientific
     validation, uncertainty quantification, or Rust conformance is tested.
     """
 
@@ -243,23 +260,27 @@ def test_field__represented_state__strenum_machine_value(
 def test_method__call__value_based_lookup_round_trips(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCNEC-004
-    Requirement
-    ``EnumClass(value)`` returns the canonical enum singleton for every approved
+    r"""Evidence ID: SV-ORCNEC-004
+
+    Requirement: ``EnumClass(value)`` returns the canonical enum singleton for every
+    approved
     machine-readable value.
-    Method
-    Construct the enum from each member's public value and compare by identity with that
+
+    Method: Construct the enum from each member's public value and compare by identity
+    with that
     member.
-    Oracle
-    Standard Enum value lookup and the approved stable values.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Oracle: Standard Enum value lookup and the approved stable values.
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes deterministic value-based construction round trips.
-    Limitations
-    Uppercase, padded, byte, integer, and unrelated-enum coercions are not approved as
+
+    Interpretation: Passing establishes deterministic value-based construction round
+    trips.
+
+    Limitations: Uppercase, padded, byte, integer, and unrelated-enum coercions are not
+    approved as
     successful behavior. No analyzer execution, scientific validation, uncertainty
     quantification, or Rust conformance is tested.
     """
@@ -287,23 +308,26 @@ def test_method__call__value_based_lookup_round_trips(
 def test_method__getitem__name_based_lookup_round_trips(
     code: OperatorRecordComparisonNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCNEC-005
-    Requirement
-    ``EnumClass[name]`` returns the canonical enum singleton for every approved public
+    r"""Evidence ID: SV-ORCNEC-005
+
+    Requirement: ``EnumClass[name]`` returns the canonical enum singleton for every
+    approved public
     member name.
-    Method
-    Subscribe by each member's public ``name`` and compare by identity.
-    Oracle
-    Standard Enum name lookup and the approved public names.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Method: Subscribe by each member's public ``name`` and compare by identity.
+
+    Oracle: Standard Enum name lookup and the approved public names.
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes deterministic name-based lookup distinct from value- based
+
+    Interpretation: Passing establishes deterministic name-based lookup distinct from
+    value- based
     construction.
-    Limitations
-    Member names are not machine-readable values. No metric calculation, production
+
+    Limitations: Member names are not machine-readable values. No metric calculation,
+    production
     emission, scientific validation, uncertainty quantification, or Rust conformance is
     tested.
     """
@@ -321,24 +345,28 @@ def test_method__getitem__name_based_lookup_round_trips(
 def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
     lookup_kind: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCNEC-006
-    Requirement
-    An unknown value raises ``ValueError`` and an unknown name raises ``KeyError``
+    r"""Evidence ID: SV-ORCNEC-006
+
+    Requirement: An unknown value raises ``ValueError`` and an unknown name raises
+    ``KeyError``
     through their respective public lookup forms.
-    Method
-    Exercise one representative invalid ``EnumClass(value)`` construction and one
+
+    Method: Exercise one representative invalid ``EnumClass(value)`` construction and
+    one
     invalid ``EnumClass[name]`` subscription.
-    Oracle
-    Standard Enum taxonomy specifies ``ValueError`` for invalid values and ``KeyError``
+
+    Oracle: Standard Enum taxonomy specifies ``ValueError`` for invalid values and
+    ``KeyError``
     for invalid names.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes predictable exact lookup-failure categories.
-    Limitations
-    Standard-library exception messages are not frozen. No broad exception tuple,
+
+    Interpretation: Passing establishes predictable exact lookup-failure categories.
+
+    Limitations: Standard-library exception messages are not frozen. No broad exception
+    tuple,
     residual algorithm, differencer, Workflow, scientific validation, uncertainty
     quantification, or Rust conformance is tested.
     """

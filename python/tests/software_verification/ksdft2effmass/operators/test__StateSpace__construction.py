@@ -1,6 +1,7 @@
 r"""Software verification of ``StateSpace``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the construction facet. This module owns public
 construction, exact field mapping, accepted dimension
@@ -24,6 +25,7 @@ operator-domain correctness, matrix compatibility, DFT or Wannier validity,
 scientific validation, uncertainty quantification, or Rust conformance.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``StateSpace``; collaborators only construct inputs or expose
 public outcomes. Accepted public contracts, literal expected values, Python language
@@ -31,6 +33,7 @@ semantics, and assigned schema or fixture artifacts provide the oracles. No runt
 warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -55,22 +58,24 @@ def make_state_space(
     kind: str = "finite synthetic",
     dimension: int = 2,
 ) -> StateSpace:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Valid fixtures use explicit typed fields and pass them unchanged to the public
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Valid fixtures use explicit typed fields and pass them unchanged to the
+    public
     constructor.
-    Method
-    Construct ``StateSpace`` with the supplied metadata.
-    Oracle
-    The approved public contract defines the three constructor roles and object-owned
+
+    Method: Construct ``StateSpace`` with the supplied metadata.
+
+    Oracle: The approved public contract defines the three constructor roles and
+    object-owned
     canonicalization.
-    Acceptance
-    A valid public ``StateSpace`` is returned.
-    Interpretation
-    The helper provides synthetic metadata without hidden coercion.
-    Limitations
-    It performs no basis construction, allocates no vector or matrix storage, and
+
+    Acceptance: A valid public ``StateSpace`` is returned.
+
+    Interpretation: The helper provides synthetic metadata without hidden coercion.
+
+    Limitations: It performs no basis construction, allocates no vector or matrix
+    storage, and
     establishes no physical or scientific validity, scientific validation, uncertainty
     quantification, or Rust conformance.
     """
@@ -79,23 +84,27 @@ def make_state_space(
 
 
 def test_constructor__public_fields_are_mapped_exactly__is_enforced() -> None:
-    r"""Evidence ID
-    SV-SS-001
-    Requirement
-    Public construction stores exactly supplied identifier, kind, and positive dimension
+    r"""Evidence ID: SV-SS-001
+
+    Requirement: Public construction stores exactly supplied identifier, kind, and
+    positive dimension
     values in their declared roles and built-in types.
-    Method
-    Construct through ``ksdft2effmass.operators.StateSpace`` using distinct valid
+
+    Method: Construct through ``ksdft2effmass.operators.StateSpace`` using distinct
+    valid
     synthetic values and inspect the public fields.
-    Oracle
-    The approved three-field DataObject contract defines mapping and stored built-in
+
+    Oracle: The approved three-field DataObject contract defines mapping and stored
+    built-in
     types independently of source location.
-    Acceptance
-    All values match exactly and types are exactly ``str``, ``str``, and ``int``.
-    Interpretation
-    Passing establishes supported construction and stored-field mapping.
-    Limitations
-    It does not establish basis or matrix compatibility, physical meaning, scientific
+
+    Acceptance: All values match exactly and types are exactly ``str``, ``str``, and
+    ``int``.
+
+    Interpretation: Passing establishes supported construction and stored-field mapping.
+
+    Limitations: It does not establish basis or matrix compatibility, physical meaning,
+    scientific
     validation, uncertainty quantification, or Rust conformance.
     """
 
@@ -124,23 +133,26 @@ def test_constructor__public_fields_are_mapped_exactly__is_enforced() -> None:
 def test_constructor__accepted_dimension_scalars_canonicalize_to__is_enforced(
     dimension: int | np.integer,
 ) -> None:
-    r"""Evidence ID
-    SV-SS-002
-    Requirement
-    Python and NumPy integer scalars are admitted with value preservation and canonical
+    r"""Evidence ID: SV-SS-002
+
+    Requirement: Python and NumPy integer scalars are admitted with value preservation
+    and canonical
     built-in ``int`` storage; positive one is valid.
-    Method
-    Construct independently with each representative scalar.
-    Oracle
-    The approved runtime and typing contracts admit these integer families and require
+
+    Method: Construct independently with each representative scalar.
+
+    Oracle: The approved runtime and typing contracts admit these integer families and
+    require
     canonical stored ``int`` state.
-    Acceptance
-    Stored dimension equals ``int(dimension)`` and has exact type ``int``.
-    Interpretation
-    Passing synchronizes runtime admission, value preservation, and stored type across
+
+    Acceptance: Stored dimension equals ``int(dimension)`` and has exact type ``int``.
+
+    Interpretation: Passing synchronizes runtime admission, value preservation, and
+    stored type across
     representative widths.
-    Limitations
-    It does not approve Boolean semantics or every third-party integer-like protocol and
+
+    Limitations: It does not approve Boolean semantics or every third-party integer-like
+    protocol and
     establishes no numerical or scientific validation, UQ, or Rust conformance.
     """
 
@@ -155,23 +167,26 @@ def test_constructor__accepted_dimension_scalars_canonicalize_to__is_enforced(
 
 
 def test_field__arbitrary_positive_structural_dimension_has_no__is_exact() -> None:
-    r"""Evidence ID
-    SV-SS-003
-    Requirement
-    ``StateSpace`` imposes positivity only, with no approved maximum dimension or
+    r"""Evidence ID: SV-SS-003
+
+    Requirement: ``StateSpace`` imposes positivity only, with no approved maximum
+    dimension or
     allocation policy.
-    Method
-    Construct synthetic metadata with the Python integer ``10**1000``.
-    Oracle
-    The intrinsic contract treats dimension as structural metadata; matrix and basis
+
+    Method: Construct synthetic metadata with the Python integer ``10**1000``.
+
+    Oracle: The intrinsic contract treats dimension as structural metadata; matrix and
+    basis
     constraints remain separate ``OperatorRecord`` invariants.
-    Acceptance
-    The arbitrary-precision value is preserved exactly as built-in ``int``.
-    Interpretation
-    Passing establishes that construction itself adds no dimension cap or vector/matrix
+
+    Acceptance: The arbitrary-precision value is preserved exactly as built-in ``int``.
+
+    Interpretation: Passing establishes that construction itself adds no dimension cap
+    or vector/matrix
     allocation.
-    Limitations
-    It does not promise that an ``OperatorRecord`` matrix of this dimension can be
+
+    Limitations: It does not promise that an ``OperatorRecord`` matrix of this dimension
+    can be
     allocated or processed and establishes no scientific validation, UQ, or Rust
     conformance.
     """
@@ -186,22 +201,24 @@ def test_field__arbitrary_positive_structural_dimension_has_no__is_exact() -> No
 def test_field__represented_state__valid_strings_are_preserved_exactly_without() -> (
     None
 ):
-    r"""Evidence ID
-    SV-SS-004
-    Requirement
-    Valid nonempty identifier and kind metadata are stored without stripping, case
+    r"""Evidence ID: SV-SS-004
+
+    Requirement: Valid nonempty identifier and kind metadata are stored without
+    stripping, case
     folding, slug conversion, Unicode normalization, or enumeration.
-    Method
-    Construct with mixed-case nonempty strings and compare exact values.
-    Oracle
-    The approved metadata contract requires exact preservation and no normalization
+
+    Method: Construct with mixed-case nonempty strings and compare exact values.
+
+    Oracle: The approved metadata contract requires exact preservation and no
+    normalization
     policy.
-    Acceptance
-    Both stored strings equal their inputs exactly.
-    Interpretation
-    Passing establishes preservation of these valid descriptive strings.
-    Limitations
-    It does not approve every possible semantic label or whitespace-only metadata and
+
+    Acceptance: Both stored strings equal their inputs exactly.
+
+    Interpretation: Passing establishes preservation of these valid descriptive strings.
+
+    Limitations: It does not approve every possible semantic label or whitespace-only
+    metadata and
     establishes no physical validity, scientific validation, UQ, or Rust conformance.
     """
 
@@ -214,22 +231,23 @@ def test_field__represented_state__valid_strings_are_preserved_exactly_without()
 
 
 def test_method__serialize__state_space_has_no_standalone_serialization_api() -> None:
-    r"""Evidence ID
-    SV-SS-005
-    Requirement
-    Neither instance nor class exposes the six unapproved standalone JSON, dictionary,
+    r"""Evidence ID: SV-SS-005
+
+    Requirement: Neither instance nor class exposes the six unapproved standalone JSON,
+    dictionary,
     serializer, or deserializer method names.
-    Method
-    Inspect a valid instance and the public class for each excluded name.
-    Oracle
-    Schema version 1 assigns nested state-space serialization exclusively to
+
+    Method: Inspect a valid instance and the public class for each excluded name.
+
+    Oracle: Schema version 1 assigns nested state-space serialization exclusively to
     ``OperatorRecordJsonSerializer`` and approves no independent wire format.
-    Acceptance
-    Every excluded method is absent from instance and class.
-    Interpretation
-    Passing establishes the current nested-only serialization boundary.
-    Limitations
-    Pickling and future approved schemas are unspecified. No record round trip,
+
+    Acceptance: Every excluded method is absent from instance and class.
+
+    Interpretation: Passing establishes the current nested-only serialization boundary.
+
+    Limitations: Pickling and future approved schemas are unspecified. No record round
+    trip,
     scientific validation, uncertainty quantification, or Rust conformance is
     established.
     """

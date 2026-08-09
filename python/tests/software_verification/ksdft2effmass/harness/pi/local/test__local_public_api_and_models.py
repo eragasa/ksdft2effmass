@@ -1,15 +1,18 @@
 r"""Software verification of local public api and models.
 
 Facet and represented meaning
+
 Software verification of the 30-name local public import surface and immutable
 routing/data records.
 
 Intrinsic and cross-object scope
+
 The artifact owner is ``ksdft2effmass.harness.pi.local``; exact exports, constructors,
 sorting, and rollback are checked against the accepted H4 task and public source
 contract.
 
 VVUQ and scientific exclusions
+
 Passing establishes software representation behavior only, not numerical verification,
 scientific validation, UQ, physical correctness, or cross-language conformance.
 """
@@ -20,6 +23,7 @@ from typing import Any
 import pytest
 
 import ksdft2effmass.harness.pi.local as local
+from ksdft2effmass.harness.pi import ValidationIssue, ValidationResult
 from ksdft2effmass.harness.pi.local import (
     AdaptationResult,
     EvidenceOwnershipRelation,
@@ -27,7 +31,7 @@ from ksdft2effmass.harness.pi.local import (
     LocalIssue,
     LocalValidationResult,
     RepositoryRoots,
-    RollBackValidationRoute,
+    RepositoryValidationResult,
     RouteConfiguration,
     RouteSelection,
     ShadowObservation,
@@ -38,55 +42,56 @@ from ksdft2effmass.harness.pi.local import (
 pytestmark = pytest.mark.software_verification
 
 EXPECTED = (
-    "AdaptAgentRecords",
-    "AdaptChainRecord",
-    "AdaptCheckpointRecords",
-    "AdaptChecksumCatalog",
-    "AdaptEvidenceOwnershipManifest",
-    "AdaptOwnershipManifest",
-    "AdaptSkillInventory",
-    "AdaptTaskRecords",
+    "AgentRecordAdapter",
+    "ChainRecordAdapter",
+    "CheckpointRecordAdapter",
+    "ChecksumCatalogAdapter",
+    "EvidenceOwnershipManifestAdapter",
+    "OwnershipManifestAdapter",
+    "SkillInventoryAdapter",
+    "TaskRecordAdapter",
     "AdaptationResult",
     "AdaptedRepositoryRecords",
-    "CompareShadowPair",
+    "ShadowPairComparator",
     "EvidenceOwnershipRelation",
     "LegacyInvocation",
-    "LoadLocalHarnessContext",
+    "LocalHarnessContextLoader",
     "LocalHarnessContext",
     "LocalIssue",
     "LocalValidationResult",
-    "ReplayShadowSuite",
+    "ShadowSuiteReplayer",
     "RepositoryRoots",
     "RepositoryValidationResult",
-    "RollBackValidationRoute",
+    "LegacyRouteConfigurationPreparer",
     "RouteConfiguration",
     "RouteSelection",
-    "SelectEvidenceModules",
-    "SelectValidationRoute",
+    "EvidenceModuleSelector",
+    "ValidationRouteSelector",
     "ShadowObservation",
     "ShadowPairResult",
     "ShadowReplayResult",
-    "ValidateLocalRepository",
+    "LocalRepositoryValidator",
     "ValidationRoute",
 )
 
 
 def test_public_api__exports__contains_exact_30_names() -> None:
-    """Evidence ID
-    SV-HL-001
-    Requirement
-    The project-local package exposes exactly the accepted 30 public names.
-    Method
-    Compare the package ``__all__`` and runtime attributes to a fixed independent
+    """Evidence ID: SV-HL-001
+
+    Requirement: The project-local package exposes exactly the accepted 30 public names.
+
+    Method: Compare the package ``__all__`` and runtime attributes to a fixed
+    independent
     inventory.
-    Oracle
-    The H4 public inventory is transcribed from the activated local boundary.
-    Acceptance
-    The ordered tuple is exact, has length 30, and every name resolves.
-    Interpretation
-    Failure identifies packaging drift or an incorrect inventory.
-    Limitations
-    This does not establish behavior of each export, numerical results, science, UQ, or
+
+    Oracle: The H4 public inventory is transcribed from the activated local boundary.
+
+    Acceptance: The ordered tuple is exact, has length 30, and every name resolves.
+
+    Interpretation: Failure identifies packaging drift or an incorrect inventory.
+
+    Limitations: This does not establish behavior of each export, numerical results,
+    science, UQ, or
     portability.
     """
     assert tuple(local.__all__) == EXPECTED
@@ -94,27 +99,67 @@ def test_public_api__exports__contains_exact_30_names() -> None:
     assert all(getattr(local, name) is not None for name in EXPECTED)
 
 
+def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
+    """Evidence ID: SV-HL-044
+
+    Requirement: Every project-local public ActionObject uses target-first Actionizer
+    grammar.
+
+    Method: Select exported classes exposing ``execute`` and inspect their exact names.
+
+    Oracle: The accepted suffixes describe adapter, loader, selector, preparer,
+    comparator,
+    replayer, and validator operation owners.
+
+    Acceptance: Every selected public class ends with one accepted Actionizer suffix.
+
+    Interpretation: Failure indicates project-local public naming drift.
+
+    Limitations: Naming does not establish behavior, scientific validity, or UQ.
+    """
+    suffixes = (
+        "Adapter",
+        "Comparator",
+        "Loader",
+        "Preparer",
+        "Replayer",
+        "Selector",
+        "Validator",
+    )
+    actions = (
+        name
+        for name in local.__all__
+        if isinstance(value := getattr(local, name), type)
+        and callable(getattr(value, "execute", None))
+    )
+    assert all(name.endswith(suffixes) for name in actions)
+
+
 def test_constructor__local_records__enforces_invariants_and_value_semantics(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HL-002
-    Requirement
-    Local records reject invalid types/order/status and retain immutable exact values.
-    Method
-    Construct representative valid and invalid RepositoryRoots, LocalIssue,
+    """Evidence ID: SV-HL-002
+
+    Requirement: Local records reject invalid types/order/status and retain immutable
+    exact values.
+
+    Method: Construct representative valid and invalid RepositoryRoots, LocalIssue,
     LocalValidationResult, AdaptationResult, LegacyInvocation, ShadowObservation,
-    RouteConfiguration, and RouteSelection values.
-    Oracle
-    Dataclass and enum invariants documented by the public constructors define exact
+    RouteConfiguration, RouteSelection, and RepositoryValidationResult values.
+
+    Oracle: Dataclass and enum invariants documented by the public constructors define
+    exact
     outcomes.
-    Acceptance
-    Valid values compare exactly; invalid roots, namespaces, order, failed values, and
+
+    Acceptance: Valid values compare exactly; invalid roots, namespaces, order, failed
+    values, and
     rollback targets raise TypeError or ValueError.
-    Interpretation
-    Failure indicates a constructor-contract defect or stale test transcription.
-    Limitations
-    Filesystem lifetime, subprocess execution, numerical verification, science, UQ, and
+
+    Interpretation: Failure indicates a constructor-contract defect or stale test
+    transcription.
+
+    Limitations: Filesystem lifetime, subprocess execution, numerical verification,
+    science, UQ, and
     cross-language behavior are excluded.
     """
     repo = tmp_path.resolve()
@@ -144,12 +189,17 @@ def test_constructor__local_records__enforces_invariants_and_value_semantics(
         0,
     )
     assert selection.authoritative_route is ValidationRoute.LEGACY
-    assert (
-        RollBackValidationRoute()
-        .execute(RouteConfiguration(ValidationRoute.LOCAL))
-        .route
-        is ValidationRoute.LEGACY
+    passing = ValidationResult(1, "PASS", ())
+    warning_issue = ValidationIssue(
+        1, "PIH.EVIDENCE.PROTECTED_GAP", "WARNING", None, None, (), "gap"
     )
+    warning = ValidationResult(1, "WARN", (warning_issue,))
+    assert (
+        RepositoryValidationResult("WARN", (("a", passing), ("b", warning))).status
+        == "WARN"
+    )
+    with pytest.raises(ValueError):
+        RepositoryValidationResult("PASS", (("a", warning),))
     with pytest.raises(ValueError):
         LocalIssue("BAD", None, "x")
     with pytest.raises(ValueError):

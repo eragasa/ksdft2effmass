@@ -109,7 +109,7 @@
     {
       "skill_name": "design-data-action-objects",
       "path": ".pi/skills/design-data-action-objects/SKILL.md",
-      "content_sha256": "4cfb8c5bff6063b8ea34ad260e2f94d4b0f3693fb4dffc275f7f6127e5402d82",
+      "content_sha256": "7d93894f9331e443fed5433aa6273ed6fe8b07b1becbfa540e17dd9633351ae8",
       "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit DataObject, ResultObject, ActionObject, serializer, Workflow, or free-function owner.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
@@ -212,7 +212,7 @@
     {
       "skill_name": "develop-harness-resources",
       "path": ".pi/skills/develop-harness-resources/SKILL.md",
-      "content_sha256": "43800804fd66bdff4bf0390a99ee654348be59912f7eb78fb4b1051542f3b74f",
+      "content_sha256": "67d70b3811f720183b2347352b7548581534a2ed9a7975c96a7354c631d1d8e7",
       "trigger_description": "Creating, changing, versioning, reviewing, or relocating generic or project-local harness textual resources and their manifests, profiles, descriptors, schemas, fixtures, policy references, or documentation.",
       "current_consumers": [
         "docs/harness/ksdft2effmass.harness.002.001.008.md",
@@ -241,7 +241,7 @@
         "existing explicit-root harness resource ActionObjects and maintained commands"
       ],
       "deterministic_scripts_used": [
-        "RefreshResourceManifest proposal CLI and existing resource/profile/descriptor validators"
+        "ResourceManifestRefresher proposal CLI and existing resource/profile/descriptor validators"
       ],
       "authorization_requirements": "The controlling task supplies path and mutation authority; behavior/version decisions and project or scientific meaning require applicable accepted authority.",
       "failure_behavior": "Stop on ambiguous ownership, generic replacement, reversed dependency direction, schema/runtime conflict, unauthorized versioning, missing profile/manifest, unsupported deterministic operation, or scientific meaning in generic resources.",
@@ -312,7 +312,7 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "d9b71d90affb695772d384fb5d82ebcac61fd8885526e70f43e99a549a626233",
+      "content_sha256": "d95f15b4b90ac28eb63167a3e315a652df251fcdc17de0734f09875d3bd62ee9",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
@@ -531,7 +531,7 @@
     {
       "skill_name": "recommend-next-task",
       "path": ".pi/skills/recommend-next-task/SKILL.md",
-      "content_sha256": "e77a687046075de6384412ceea77321eabf66abc18e3132a44627f4d79be207c",
+      "content_sha256": "b41f0d2bbcde65515775d995e06ea41bb60fd4578a9d8949139576a796937eb4",
       "trigger_description": "Human asks which currently eligible task should follow or how the project should continue; not ordinary implementation, checkpoint resolution, architecture review, or status inspection alone.",
       "current_consumers": [
         "AGENTS.md"
@@ -561,7 +561,7 @@
         "bounded authoritative repository inspection"
       ],
       "deterministic_scripts_used": [
-        "InspectTaskState stable CLI when exact chain path and task identity are known"
+        "TaskStateInspector stable CLI when exact chain path and task identity are known"
       ],
       "authorization_requirements": "The skill may recommend only; human selection is required before any task creation, activation, assignment, acceptance, implementation, or launch.",
       "failure_behavior": "Report active work, route a pending checkpoint, or stop with the exact missing or conflicting durable record and one focused question when applicable.",
@@ -572,7 +572,7 @@
       "primary_classification": "HUMAN_DECISION_SUPPORT",
       "hardening_applied": [
         "concise authority order and state gate",
-        "bounded InspectTaskState routing",
+        "bounded TaskStateInspector routing",
         "single serious-candidate selection rule",
         "explicit read-only human-selection stop"
       ],
@@ -581,7 +581,7 @@
     {
       "skill_name": "resolve-human-checkpoint",
       "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
-      "content_sha256": "31c9483f30eaabd532c2c0f47e8a82e9ad25e682691b37401b59928f90b66a03",
+      "content_sha256": "22eb8c76b752e0ca6d988d76177c99674614645dbf5047f8ee9be0a81ac260fc",
       "trigger_description": "Interpret a current human answer only when it appears to answer a durably represented unresolved checkpoint.",
       "current_consumers": [
         "AGENTS.md",
@@ -610,7 +610,7 @@
         "none required; bounded durable checkpoint inspection supplies inputs"
       ],
       "deterministic_scripts_used": [
-        "ValidateCheckpointSet remains the maintained checkpoint validation owner"
+        "CheckpointSetValidator remains the maintained checkpoint validation owner"
       ],
       "authorization_requirements": "Only the preserved human response supplies decision authority; the skill may interpret but cannot invent a decision, broaden scope, mutate records, or activate work.",
       "failure_behavior": "Return ambiguous with one focused question, no_matching_checkpoint, or conflict without mutating durable state.",
@@ -624,7 +624,7 @@
         "exactly one checkpoint and normalized decision rule",
         "restricted affirmative interpretation",
         "verbatim response and scope boundaries",
-        "pure ResolveCheckpointDecision transformation routing"
+        "pure CheckpointDecisionResolver transformation routing"
       ],
       "stop_condition": "Stop after one concise interpretation result or clarification question; never transform records, persist state, resume work, or activate a successor."
     }
@@ -703,7 +703,7 @@
     {
       "block": "CheckpointReviewBlock",
       "kind": "human_decision_support",
-      "evidence_owner": "resolve-human-checkpoint interpretation plus ResolveCheckpointDecision transformation and ValidateCheckpointSet validation",
+      "evidence_owner": "resolve-human-checkpoint interpretation plus CheckpointDecisionResolver transformation and CheckpointSetValidator validation",
       "result": "concise interpretation result and separately invoked deterministic transformed-record result",
       "authority": "preserved human response only"
     },

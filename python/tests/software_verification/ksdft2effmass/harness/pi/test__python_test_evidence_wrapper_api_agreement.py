@@ -1,11 +1,16 @@
 r"""Software verification of Python test-evidence wrapper/API agreement.
 
 Facet and represented meaning
+
 This module verifies the package import surface and compatibility command relation.
+
 Intrinsic and cross-object scope
+
 The primary artifact is wrapper/API agreement; controlled source and JSON bytes are
 shared inputs, and the public result fields define the exact comparison projection.
+
 VVUQ and scientific exclusions
+
 Passing establishes command/API software parity only, not semantic test quality,
 numerical verification, scientific validation, UQ, portability, or acceptance.
 """
@@ -41,29 +46,33 @@ PUBLIC_NAMES = (
 VALID_SOURCE = b'''r"""Software verification of wrapper agreement artifact.
 
 Facet and represented meaning
+
 This fixture represents one exact software artifact.
+
 Intrinsic and cross-object scope
+
 The controlled artifact and literal equality supply the complete oracle.
+
 VVUQ and scientific exclusions
+
 Passing establishes software structure only, not validation or UQ.
 """
 
 
 def test_artifact__literal_value__equals_itself():
-    """Evidence ID
-    SV-TEV-WRAP-FIX-001
-    Requirement
-    The literal value equals itself.
-    Method
-    Compare one controlled integer literal.
-    Oracle
-    Python integer equality fixes the result.
-    Acceptance
-    Equality is exactly true.
-    Interpretation
-    Failure identifies fixture drift.
-    Limitations
-    No scientific, numerical, or UQ claim is made.
+    """Evidence ID: SV-TEV-WRAP-FIX-001
+
+    Requirement: The literal value equals itself.
+
+    Method: Compare one controlled integer literal.
+
+    Oracle: Python integer equality fixes the result.
+
+    Acceptance: Equality is exactly true.
+
+    Interpretation: Failure identifies fixture drift.
+
+    Limitations: No scientific, numerical, or UQ claim is made.
     """
     assert 1 == 1
 '''
@@ -80,23 +89,24 @@ INCOMPLETE_MIGRATION = json.dumps(
 
 
 def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> None:
-    """Evidence ID
-    SV-TEV-023
-    Requirement
-    All five validator types are direct package exports defined in the generic
+    """Evidence ID: SV-TEV-023
+
+    Requirement: All five validator types are direct package exports defined in the
+    generic
     ``test_evidence`` module.
-    Method
-    Compare direct imports, package attributes, ``__all__``, and ``__module__``.
-    Oracle
-    The accepted placement contract and pilot public surface fix the five names and
+
+    Method: Compare direct imports, package attributes, ``__all__``, and ``__module__``.
+
+    Oracle: The accepted placement contract and pilot public surface fix the five names
+    and
     their one exact generic defining module.
-    Acceptance
-    Direct imports are identical to package attributes, all names occur in
+
+    Acceptance: Direct imports are identical to package attributes, all names occur in
     ``__all__``, and every defining module is exact.
-    Interpretation
-    Failure identifies package-export or placement drift.
-    Limitations
-    Import agreement does not establish behavior or release compatibility.
+
+    Interpretation: Failure identifies package-export or placement drift.
+
+    Limitations: Import agreement does not establish behavior or release compatibility.
     """
     imported = (
         PythonTestEvidenceSource,
@@ -136,24 +146,27 @@ def test_artifact__wrapper_api_projection__has_exact_parity(
     expected_status: str,
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-TEV-024
-    Requirement
-    The wrapper and public action have exact status, finding, ordering, count, path,
+    """Evidence ID: SV-TEV-024
+
+    Requirement: The wrapper and public action have exact status, finding, ordering,
+    count, path,
     JSON-shape, and exit-status parity on the same controlled cases.
-    Method
-    Write shared explicit bytes for the compatibility command, execute it, and
+
+    Method: Write shared explicit bytes for the compatibility command, execute it, and
     independently execute the public action over those identical bytes.
-    Oracle
-    The thin-wrapper contract requires its JSON to be the lossless public result
+
+    Oracle: The thin-wrapper contract requires its JSON to be the lossless public result
     projection and exit zero exactly for PASS.
-    Acceptance
-    Parsed command JSON equals the literal public-field projection, path and code
+
+    Acceptance: Parsed command JSON equals the literal public-field projection, path and
+    code
     order match, and exit status matches both status and the declared case.
-    Interpretation
-    Failure identifies wrapper translation, command, API, or fixture drift.
-    Limitations
-    Temporary-file orchestration is tested; no repository discovery is implied.
+
+    Interpretation: Failure identifies wrapper translation, command, API, or fixture
+    drift.
+
+    Limitations: Temporary-file orchestration is tested; no repository discovery is
+    implied.
     """
     module = tmp_path / "test__wrapper_agreement.py"
     module.write_bytes(payload)
@@ -242,20 +255,24 @@ def test_artifact__wrapper_api_projection__has_exact_parity(
 
 
 def test_artifact__wrapper_json__is_deterministic_for_identical_command() -> None:
-    """Evidence ID
-    SV-TEV-025
-    Requirement
-    Repeating the same compatibility command emits identical canonical JSON bytes.
-    Method
-    Run the wrapper twice against the same accepted repository fixture and ownership.
-    Oracle
-    The command contract fixes sorted compact JSON and deterministic validation order.
-    Acceptance
-    Both executions pass and stdout bytes are exactly equal with no stderr.
-    Interpretation
-    Failure identifies nondeterministic validation or serialization drift.
-    Limitations
-    This does not establish equality across Python versions or operating systems.
+    """Evidence ID: SV-TEV-025
+
+    Requirement: Repeating the same compatibility command emits identical canonical JSON
+    bytes.
+
+    Method: Run the wrapper twice against the same accepted repository fixture and
+    ownership.
+
+    Oracle: The command contract fixes sorted compact JSON and deterministic validation
+    order.
+
+    Acceptance: Both executions pass and stdout bytes are exactly equal with no stderr.
+
+    Interpretation: Failure identifies nondeterministic validation or serialization
+    drift.
+
+    Limitations: This does not establish equality across Python versions or operating
+    systems.
     """
     arguments = [
         sys.executable,

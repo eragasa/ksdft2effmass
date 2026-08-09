@@ -36,20 +36,19 @@ def consumer_source(
     )
     return f'''{decorator}
 def test_artifact__consumer_{name}__accepts_named_cases({parameter_names}):
-    """Evidence ID
-    SV-FIX-{900 + index:03d}
-    Requirement
-    The controlled consumer represents one explicit static parameter family.
-    Method
-    Supply the declared cases through one pytest parametrize decorator.
-    Oracle
-    The controlled fixture source fixes the expected static case inventory.
-    Acceptance
-    Every supplied argument is non-null in the illustrative test body.
-    Interpretation
-    Validator findings identify controlled static-grammar acceptance or rejection.
-    Limitations
-    This fixture is not executed and makes no scientific, numerical, or UQ claim.
+    """Evidence ID: SV-FIX-{900 + index:03d}
+
+    Requirement: The controlled consumer represents one explicit static parameter family.
+
+    Method: Supply the declared cases through one pytest parametrize decorator.
+
+    Oracle: The controlled fixture source fixes the expected static case inventory.
+
+    Acceptance: Every supplied argument is non-null in the illustrative test body.
+
+    Interpretation: Validator findings identify controlled static-grammar acceptance or rejection.
+
+    Limitations: This fixture is not executed and makes no scientific, numerical, or UQ claim.
     """
     assert {acceptance}
 '''
@@ -72,10 +71,15 @@ def fixture_source(case: dict[str, Any]) -> str:
     return f'''r"""Software verification of named parameter inventory validator fixture.
 
 Facet and represented meaning
+
 This controlled artifact represents one static parameter-inventory syntax.
+
 Intrinsic and cross-object scope
+
 The module AST and validator finding set are the complete controlled relation.
+
 VVUQ and scientific exclusions
+
 Passing concerns static software verification only, not scientific validation or UQ.
 """
 
@@ -262,10 +266,15 @@ def run_semantic_rule_source(
     source = f'''r"""{opening}
 
 Facet and represented meaning
+
 This controlled artifact represents one deterministic validator rule.
+
 Intrinsic and cross-object scope
+
 The source AST and validator finding set are the complete controlled relation.
+
 VVUQ and scientific exclusions
+
 Passing concerns structural software verification only, not semantic correctness.
 """
 
@@ -275,20 +284,19 @@ import pytest
 
 
 def {test_name}():
-    """Evidence ID
-    {case_id}
-    Requirement
-    {requirement}
-    Method
-    Execute one controlled public syntax pattern without production dependencies.
-    Oracle
-    The fixture declares the exact expected deterministic finding class.
-    Acceptance
-    The validator emits or omits that finding exactly as declared.
-    Interpretation
-    The result verifies only the controlled structural rule implementation.
-    Limitations
-    This fixture proves no oracle independence, scientific validity, or UQ.
+    """Evidence ID: {case_id}
+
+    Requirement: {requirement}
+
+    Method: Execute one controlled public syntax pattern without production dependencies.
+
+    Oracle: The fixture declares the exact expected deterministic finding class.
+
+    Acceptance: The validator emits or omits that finding exactly as declared.
+
+    Interpretation: The result verifies only the controlled structural rule implementation.
+
+    Limitations: This fixture proves no oracle independence, scientific validity, or UQ.
     """
     {body}
 '''

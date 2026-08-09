@@ -18,7 +18,7 @@ from .identity import (
 )
 from .ownership import OwnershipScope
 from .validation import (
-    DeserializeJsonRecord,
+    JsonRecordDeserializer,
     ProjectProfileLoadResult,
     WireRecordKind,
     _issue,
@@ -175,7 +175,7 @@ class ProjectProfile:
             )
 
 
-class LoadProjectProfile:
+class ProjectProfileLoader:
     """Load strict profile JSON from caller-supplied bytes only."""
 
     __slots__ = ()
@@ -201,7 +201,7 @@ class LoadProjectProfile:
             _require_tuple(values, name)
             for v in values:
                 _require_version(v, name)
-        decoded = DeserializeJsonRecord().execute(
+        decoded = JsonRecordDeserializer().execute(
             WireRecordKind.ProjectProfile, profile_bytes
         )
         if decoded.validation.status == "FAIL":

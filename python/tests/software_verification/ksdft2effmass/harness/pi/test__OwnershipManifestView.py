@@ -1,14 +1,17 @@
 r"""Software verification of ``OwnershipManifestView``.
 
 Facet and represented meaning
+
 Software verification of the public ``OwnershipManifestView`` surface; no physical
 model, mathematical operator, or numerical representation is represented.
 
 Intrinsic and cross-object scope
+
 The sole primary SUT is ``OwnershipManifestView``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
 VVUQ and scientific exclusions
+
 Passing checks only the stated software contract. Numerical verification, scientific
 validation, uncertainty quantification, physical correctness, and cross-language
 conformance are excluded.
@@ -22,7 +25,7 @@ from typing import Any
 import pytest
 
 from ksdft2effmass.harness.pi import (
-    DeserializeJsonRecord,
+    JsonRecordDeserializer,
     OwnershipManifestView,
     WireRecordKind,
 )
@@ -34,31 +37,34 @@ SUT = OwnershipManifestView
 
 
 def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
-    """Evidence ID
-    SV-HARNESS-009
-    Requirement
-    OwnershipManifestView accepts the complete valid version-1 H3 wire instance and
+    """Evidence ID: SV-HARNESS-009
+
+    Requirement: OwnershipManifestView accepts the complete valid version-1 H3 wire
+    instance and
     is immutable.
-    Method
-    Decode the accepted ``ownership-manifest-view.json`` fixture through the
+
+    Method: Decode the accepted ``ownership-manifest-view.json`` fixture through the
     caller-selected public record kind, then attempt field mutation.
-    Oracle
-    The accepted H1 field contract and H3 valid fixture fix the class, field values,
+
+    Oracle: The accepted H1 field contract and H3 valid fixture fix the class, field
+    values,
     tuple storage, and immutability.
-    Acceptance
-    The result is exactly SUT, validation is PASS, tuple fields remain tuples, and
+
+    Acceptance: The result is exactly SUT, validation is PASS, tuple fields remain
+    tuples, and
     mutation raises AttributeError.
-    Interpretation
-    A failure identifies a production, accepted-contract, fixture, or environment
+
+    Interpretation: A failure identifies a production, accepted-contract, fixture, or
+    environment
     discrepancy requiring independent review.
-    Limitations
-    This is exact software verification only; it makes no numerical,
+
+    Limitations: This is exact software verification only; it makes no numerical,
     scientific-validation, UQ, physical, or Rust-conformance claim.
     """
     payload = (
         ROOT / "harness/pi/fixtures/valid/ownership-manifest-view.json"
     ).read_bytes()
-    result = DeserializeJsonRecord().execute(
+    result = JsonRecordDeserializer().execute(
         WireRecordKind.OwnershipManifestView, payload
     )
     assert result.validation.status == "PASS"

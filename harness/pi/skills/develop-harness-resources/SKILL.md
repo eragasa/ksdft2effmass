@@ -55,13 +55,13 @@ assignments, checkpoints, retries, or handoff procedure.
 
 | Operation | Existing owner |
 |---|---|
-| Manifest structure and overlay validation | `ValidateResourceManifest` |
-| Explicit selected identity refresh | `RefreshResourceManifest` |
-| Root-confined selection and hashing | `ResolveResource` |
-| Skill descriptor closure | `ValidateSkillResources` |
-| Canonical JSON | `SerializeJsonRecord` and `DeserializeJsonRecord` |
-| Checksum validation | `ValidateChecksumManifest` |
-| Project profile loading | `LoadProjectProfile` |
+| Manifest structure and overlay validation | `ResourceManifestValidator` |
+| Explicit selected identity refresh | `ResourceManifestRefresher` |
+| Root-confined selection and hashing | `ResourceResolver` |
+| Skill descriptor closure | `SkillResourceValidator` |
+| Canonical JSON | `JsonRecordSerializer` and `JsonRecordDeserializer` |
+| Checksum validation | `ChecksumManifestValidator` |
+| Project profile loading | `ProjectProfileLoader` |
 | Local composition | Existing project-local context ActionObject |
 
 This skill decides what resources should represent. It never duplicates those

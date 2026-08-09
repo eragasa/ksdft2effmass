@@ -48,14 +48,14 @@
       "instance_path": "cases/resource-reference-self-dependency.json",
       "schema_expectation": "accept",
       "semantic_validator_expectation": {
-        "stage": "DeserializeJsonRecord",
+        "stage": "JsonRecordDeserializer",
         "status": "PASS",
         "issue_code": null,
-        "next_stage": "ValidateResourceManifest",
+        "next_stage": "ResourceManifestValidator",
         "next_status": "FAIL",
         "next_issue_code": "PIH.RESOURCE.DEPENDENCY_CYCLE"
       },
-      "reason": "Self-dependency is structurally representable and deserializes successfully; manifest relational validity belongs to ValidateResourceManifest.",
+      "reason": "Self-dependency is structurally representable and deserializes successfully; manifest relational validity belongs to ResourceManifestValidator.",
       "downstream_context": "Resolution and skill validation short-circuit after the propagated manifest-validation failure."
     },
     {
@@ -64,7 +64,7 @@
       "instance_path": "cases/task-reference-self-prerequisite.json",
       "schema_expectation": "accept",
       "semantic_validator_expectation": {
-        "stage": "DeserializeJsonRecord",
+        "stage": "JsonRecordDeserializer",
         "status": "FAIL",
         "issue_code": "PIH.WIRE.INVALID_VALUE"
       },
@@ -77,7 +77,7 @@
       "instance_path": "cases/chain-view-activated-id-absent.json",
       "schema_expectation": "accept",
       "semantic_validator_expectation": {
-        "stage": "DeserializeJsonRecord",
+        "stage": "JsonRecordDeserializer",
         "status": "FAIL",
         "issue_code": "PIH.WIRE.INVALID_VALUE"
       },

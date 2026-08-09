@@ -1,11 +1,17 @@
-r"""Software verification of ``InspectTaskState``.
+r"""Software verification of ``TaskStateInspector``.
 
 Facet and represented meaning
+
 This module verifies bounded resolution of one task's declared durable repository state.
+
 Intrinsic and cross-object scope
-The sole SUT is ``InspectTaskState``; controlled repository trees and literal chain and
+
+The sole SUT is ``TaskStateInspector``; controlled repository trees and literal chain
+and
 ownership documents supply independent path, ordering, and missing-state oracles.
+
 VVUQ and scientific exclusions
+
 Passing establishes bounded software inspection only, not interactive run history,
 review independence, numerical verification, scientific validation, UQ, or acceptance.
 """
@@ -19,13 +25,13 @@ from typing import Any
 import pytest
 
 from ksdft2effmass.harness.pi import (
-    InspectTaskState,
     TaskStateInspectionRequest,
     TaskStateInspectionResult,
+    TaskStateInspector,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = InspectTaskState
+SUT = TaskStateInspector
 TASK_ID = "example.task"
 CHAIN_PATH = ".pi/chains/example.json"
 TASK_PATH = ".pi/tasks/example.md"
@@ -42,20 +48,23 @@ def write_controlled_repository(
     ownership_path: str = OWNERSHIP_PATH,
     extra_task_fields: dict[str, Any] | None = None,
 ) -> None:
-    """Evidence ID
-    Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078.
-    Requirement
-    Action evidence requires one explicit controlled durable-state tree.
-    Method
-    Write literal chain, task, ownership, completion, and artifact files below one root.
-    Oracle
-    The literal documents independently declare every path the action may inspect.
-    Acceptance
-    The helper creates only the named controlled files and applies explicit task fields.
-    Interpretation
-    Failure supports diagnosis of fixture setup rather than action correctness.
-    Limitations
-    The helper owns no evidence and does not invoke the SUT.
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078.
+
+    Requirement: Action evidence requires one explicit controlled durable-state tree.
+
+    Method: Write literal chain, task, ownership, completion, and artifact files below
+    one root.
+
+    Oracle: The literal documents independently declare every path the action may
+    inspect.
+
+    Acceptance: The helper creates only the named controlled files and applies explicit
+    task fields.
+
+    Interpretation: Failure supports diagnosis of fixture setup rather than action
+    correctness.
+
+    Limitations: The helper owns no evidence and does not invoke the SUT.
     """
     chain = {
         "name": "example",
@@ -110,39 +119,39 @@ def write_controlled_repository(
 
 
 def request(root: Path, task_id: str = TASK_ID) -> TaskStateInspectionRequest:
-    """Evidence ID
-    Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078.
-    Requirement
-    Action cases require one exact public request shape.
-    Method
-    Construct the request with the controlled absolute root and chain path.
-    Oracle
-    The fixture constants independently fix the selected task and chain.
-    Acceptance
-    The helper returns one valid public request without filesystem discovery.
-    Interpretation
-    Failure supports diagnosis of fixture or request-contract drift.
-    Limitations
-    The helper owns no evidence and does not execute the action.
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078.
+
+    Requirement: Action cases require one exact public request shape.
+
+    Method: Construct the request with the controlled absolute root and chain path.
+
+    Oracle: The fixture constants independently fix the selected task and chain.
+
+    Acceptance: The helper returns one valid public request without filesystem
+    discovery.
+
+    Interpretation: Failure supports diagnosis of fixture or request-contract drift.
+
+    Limitations: The helper owns no evidence and does not execute the action.
     """
     return TaskStateInspectionRequest(1, root.resolve(), CHAIN_PATH, task_id)
 
 
 def test_constructor__action_object__is_stateless_and_fieldless() -> None:
-    """Evidence ID
-    SV-HARNESS-071
-    Requirement
-    InspectTaskState is a concrete stateless ActionObject.
-    Method
-    Construct the action and inspect its instance storage boundary.
-    Oracle
-    The maintained-tool contract prohibits retained roots, caches, and mutable state.
-    Acceptance
-    The instance has no dictionary and the class declares empty slots.
-    Interpretation
-    Failure identifies unauthorized retained state.
-    Limitations
-    Execute behavior is covered separately.
+    """Evidence ID: SV-HARNESS-071
+
+    Requirement: TaskStateInspector is a concrete stateless ActionObject.
+
+    Method: Construct the action and inspect its instance storage boundary.
+
+    Oracle: The maintained-tool contract prohibits retained roots, caches, and mutable
+    state.
+
+    Acceptance: The instance has no dictionary and the class declares empty slots.
+
+    Interpretation: Failure identifies unauthorized retained state.
+
+    Limitations: Execute behavior is covered separately.
     """
     value = SUT()
     assert not hasattr(value, "__dict__")
@@ -152,23 +161,27 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
 def test_method__execute_declared_state__reports_exact_bounded_records(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-072
-    Requirement
-    Execute resolves the exact selected task and only its declared durable references.
-    Method
-    Inspect a controlled valid chain with task, ownership, completion, and artifact
+    """Evidence ID: SV-HARNESS-072
+
+    Requirement: Execute resolves the exact selected task and only its declared durable
+    references.
+
+    Method: Inspect a controlled valid chain with task, ownership, completion, and
+    artifact
     files.
-    Oracle
-    The literal tree fixes status, paths, completion command, and sorted role
+
+    Oracle: The literal tree fixes status, paths, completion command, and sorted role
     identities.
-    Acceptance
-    The result exactly reports the declared facts, read paths, and no validation issues.
-    Interpretation
-    Failure identifies task resolution, ordering, reference, or result-construction
+
+    Acceptance: The result exactly reports the declared facts, read paths, and no
+    validation issues.
+
+    Interpretation: Failure identifies task resolution, ordering, reference, or
+    result-construction
     drift.
-    Limitations
-    Undeclared runtime history and interactive reviewer counts remain excluded.
+
+    Limitations: Undeclared runtime history and interactive reviewer counts remain
+    excluded.
     """
     write_controlled_repository(tmp_path)
     result = SUT().execute(request(tmp_path))
@@ -197,20 +210,22 @@ def test_method__execute_declared_state__reports_exact_bounded_records(
 def test_method__execute_unknown_task__reports_required_resolution_failure(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-073
-    Requirement
-    An exact task identity absent from the selected chain is an explicit failure.
-    Method
-    Request an unknown identity from an otherwise valid controlled chain.
-    Oracle
-    Exact task selection requires one and only one matching chain entry.
-    Acceptance
-    The result has no task status and contains PIH.TASK_STATE.TASK_MISSING.
-    Interpretation
-    Failure identifies guessing, fallback selection, or missing diagnostics.
-    Limitations
-    Similar task names and cross-chain discovery are intentionally excluded.
+    """Evidence ID: SV-HARNESS-073
+
+    Requirement: An exact task identity absent from the selected chain is an explicit
+    failure.
+
+    Method: Request an unknown identity from an otherwise valid controlled chain.
+
+    Oracle: Exact task selection requires one and only one matching chain entry.
+
+    Acceptance: The result has no task status and contains PIH.TASK_STATE.TASK_MISSING.
+
+    Interpretation: Failure identifies guessing, fallback selection, or missing
+    diagnostics.
+
+    Limitations: Similar task names and cross-chain discovery are intentionally
+    excluded.
     """
     write_controlled_repository(tmp_path)
     result = SUT().execute(request(tmp_path, "missing.task"))
@@ -234,21 +249,25 @@ def test_method__execute_missing_required_reference__reports_exact_path(
     missing_path: str,
     expected_result_field: str,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-074
-    Requirement
-    A declared task or ownership record that is absent is reported as invalid state.
-    Method
-    Remove one selected required file from the controlled repository before inspection.
-    Oracle
-    The chain's exact reference fixes the missing path without any fallback search.
-    Acceptance
-    Validation fails with PIH.PATH.MISSING at the selected path while retaining its
+    """Evidence ID: SV-HARNESS-074
+
+    Requirement: A declared task or ownership record that is absent is reported as
+    invalid state.
+
+    Method: Remove one selected required file from the controlled repository before
+    inspection.
+
+    Oracle: The chain's exact reference fixes the missing path without any fallback
+    search.
+
+    Acceptance: Validation fails with PIH.PATH.MISSING at the selected path while
+    retaining its
     field.
-    Interpretation
-    Failure identifies silent omission, recursive fallback, or path-reporting drift.
-    Limitations
-    Filesystem races after inspection are excluded.
+
+    Interpretation: Failure identifies silent omission, recursive fallback, or
+    path-reporting drift.
+
+    Limitations: Filesystem races after inspection are excluded.
     """
     write_controlled_repository(tmp_path)
     (tmp_path / missing_path).unlink()
@@ -263,20 +282,21 @@ def test_method__execute_missing_required_reference__reports_exact_path(
 def test_method__execute_declared_missing_run__distinguishes_absence(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-075
-    Requirement
-    A declared-but-missing run record differs from no declared run record.
-    Method
-    Add one exact absent run-record path to the controlled task entry.
-    Oracle
-    The declaration fixes both the expected status and missing path.
-    Acceptance
-    Run status is declared_missing and validation reports PIH.PATH.MISSING there.
-    Interpretation
-    Failure identifies conflation of undeclared and invalid durable runtime state.
-    Limitations
-    Interactive runtime observations are outside repository state.
+    """Evidence ID: SV-HARNESS-075
+
+    Requirement: A declared-but-missing run record differs from no declared run record.
+
+    Method: Add one exact absent run-record path to the controlled task entry.
+
+    Oracle: The declaration fixes both the expected status and missing path.
+
+    Acceptance: Run status is declared_missing and validation reports PIH.PATH.MISSING
+    there.
+
+    Interpretation: Failure identifies conflation of undeclared and invalid durable
+    runtime state.
+
+    Limitations: Interactive runtime observations are outside repository state.
     """
     run_path = "records/run.json"
     write_controlled_repository(
@@ -292,20 +312,22 @@ def test_method__execute_declared_missing_run__distinguishes_absence(
 def test_method__execute_traversal_declaration__fails_without_root_escape(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-076
-    Requirement
-    Declared artifact paths cannot traverse above the explicit repository root.
-    Method
-    Supply one task entry whose artifact declaration contains a parent segment.
-    Oracle
-    The established ResourcePath policy prohibits traversal segments.
-    Acceptance
-    Validation fails and no inspected or read path contains the traversal value.
-    Interpretation
-    Failure identifies unsafe path acceptance or an attempted root escape.
-    Limitations
-    Operating-system permission policy is excluded.
+    """Evidence ID: SV-HARNESS-076
+
+    Requirement: Declared artifact paths cannot traverse above the explicit repository
+    root.
+
+    Method: Supply one task entry whose artifact declaration contains a parent segment.
+
+    Oracle: The established ResourcePath policy prohibits traversal segments.
+
+    Acceptance: Validation fails and no inspected or read path contains the traversal
+    value.
+
+    Interpretation: Failure identifies unsafe path acceptance or an attempted root
+    escape.
+
+    Limitations: Operating-system permission policy is excluded.
     """
     write_controlled_repository(
         tmp_path,
@@ -318,20 +340,21 @@ def test_method__execute_traversal_declaration__fails_without_root_escape(
 
 
 def test_method__execute_symlink_reference__rejects_indirection(tmp_path: Path) -> None:
-    """Evidence ID
-    SV-HARNESS-077
-    Requirement
-    Exact durable references reject symlinked files and path components.
-    Method
-    Replace the declared task record with a symlink to a controlled regular file.
-    Oracle
-    The action contract prohibits symlink traversal under the explicit root.
-    Acceptance
-    Validation contains PIH.PATH.SYMLINK for the declared task-record path.
-    Interpretation
-    Failure identifies filesystem-boundary weakening or hidden indirection.
-    Limitations
-    Platforms without symlink support may skip this controlled case.
+    """Evidence ID: SV-HARNESS-077
+
+    Requirement: Exact durable references reject symlinked files and path components.
+
+    Method: Replace the declared task record with a symlink to a controlled regular
+    file.
+
+    Oracle: The action contract prohibits symlink traversal under the explicit root.
+
+    Acceptance: Validation contains PIH.PATH.SYMLINK for the declared task-record path.
+
+    Interpretation: Failure identifies filesystem-boundary weakening or hidden
+    indirection.
+
+    Limitations: Platforms without symlink support may skip this controlled case.
     """
     write_controlled_repository(tmp_path)
     target = tmp_path / "target.md"
@@ -353,22 +376,25 @@ def test_method__execute_repeated_request__ignores_undeclared_decoys(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-078
-    Requirement
-    Repeated inspection is equal and performs no recursive or directory discovery.
-    Method
-    Add unrelated decoy run and handoff files, prohibit Path glob/iterdir methods, and
+    """Evidence ID: SV-HARNESS-078
+
+    Requirement: Repeated inspection is equal and performs no recursive or directory
+    discovery.
+
+    Method: Add unrelated decoy run and handoff files, prohibit Path glob/iterdir
+    methods, and
     execute the same request twice.
-    Oracle
-    Only literal chain references may be inspected; decoys are undeclared and
+
+    Oracle: Only literal chain references may be inspected; decoys are undeclared and
     irrelevant.
-    Acceptance
-    Results are equal, discovery hooks are unused, and no decoy path is reported.
-    Interpretation
-    Failure identifies retained state, nondeterminism, or forbidden recursive discovery.
-    Limitations
-    Direct reads of declared files remain required operational behavior.
+
+    Acceptance: Results are equal, discovery hooks are unused, and no decoy path is
+    reported.
+
+    Interpretation: Failure identifies retained state, nondeterminism, or forbidden
+    recursive discovery.
+
+    Limitations: Direct reads of declared files remain required operational behavior.
     """
     write_controlled_repository(tmp_path)
     decoys = ("unrelated/run.json", "unrelated/handoff.json")

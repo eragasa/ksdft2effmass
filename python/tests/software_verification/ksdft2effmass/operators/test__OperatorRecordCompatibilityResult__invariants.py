@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordCompatibilityResult``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the invariants facet. System under test
 -----------------
@@ -58,6 +59,7 @@ Uncertainty quantification has not been performed; no uncertainty is represented
 or propagated by these structural invariants.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordCompatibilityResult``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -66,6 +68,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -106,27 +109,32 @@ def make_issue(
         OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
     ),
 ) -> OperatorRecordCompatibilityIssue:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Compatibility-result cases require a public issue with the requested mismatch code
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Compatibility-result cases require a public issue with the requested
+    mismatch code
     and canonical record identifiers.
-    Method
-    Construct or inspect only the named synthetic fixture operation (make issue); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (make
+    issue); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -152,23 +160,27 @@ def test_constructor__enforce_identifier_invariants__is_enforced(
     invalid_value: Any,
     expected_exception: type[Exception],
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-006
-    Requirement
-    Each identifier is an independently validated nonempty string; wrong semantic types
+    r"""Evidence ID: SV-ORCAR-006
+
+    Requirement: Each identifier is an independently validated nonempty string; wrong
+    semantic types
     raise ``TypeError`` and empty strings raise ``ValueError``.
-    Method
-    Change exactly one named identifier per parameterized construction.
-    Oracle
-    The approved source contract documents field-specific identifier diagnostics and the
+
+    Method: Change exactly one named identifier per parameterized construction.
+
+    Oracle: The approved source contract documents field-specific identifier diagnostics
+    and the
     repository type/value exception taxonomy.
-    Acceptance
-    The exact exception category is raised and its diagnostic names the independently
+
+    Acceptance: The exact exception category is raised and its diagnostic names the
+    independently
     invalid reference or candidate identifier.
-    Interpretation
-    Passing establishes identifier validation without cross-field masking.
-    Limitations
-    Identifier content has provenance meaning only and is not scientifically validated
+
+    Interpretation: Passing establishes identifier validation without cross-field
+    masking.
+
+    Limitations: Identifier content has provenance meaning only and is not
+    scientifically validated
     here.
     """
 
@@ -206,22 +218,25 @@ def test_constructor__enforce_identifier_invariants__is_enforced(
 def test_method__require__require_exact_builtin_tuple_for_issues(
     invalid_issues: Any,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-007
-    Requirement
-    ``issues`` requires ``type(issues) is tuple`` before element validation.
-    Method
-    Supply mutable, iterable, set-like, scalar, subclass, and arbitrary containers; set
+    r"""Evidence ID: SV-ORCAR-007
+
+    Requirement: ``issues`` requires ``type(issues) is tuple`` before element
+    validation.
+
+    Method: Supply mutable, iterable, set-like, scalar, subclass, and arbitrary
+    containers; set
     fixtures contain only an unrelated hashable sentinel.
-    Oracle
-    The approved public boundary rejects rather than canonicalizes every non-exact
+
+    Oracle: The approved public boundary rejects rather than canonicalizes every
+    non-exact
     built-in tuple.
-    Acceptance
-    Each case raises ``TypeError`` with the exact-tuple diagnostic.
-    Interpretation
-    Passing establishes container-type precedence over element checks.
-    Limitations
-    No Issue or Result is used as a set member or dictionary key, so this evidence
+
+    Acceptance: Each case raises ``TypeError`` with the exact-tuple diagnostic.
+
+    Interpretation: Passing establishes container-type precedence over element checks.
+
+    Limitations: No Issue or Result is used as a set member or dictionary key, so this
+    evidence
     creates no implicit hashability contract.
     """
 
@@ -247,21 +262,23 @@ def test_method__require__require_exact_builtin_tuple_for_issues(
 def test_method__require__require_public_compatibility_issue_elements(
     invalid_issue: Any,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCAR-008
-    Requirement
-    Every exact-tuple element is an ``OperatorRecordCompatibilityIssue``; codes and raw
+    r"""Evidence ID: SV-ORCAR-008
+
+    Requirement: Every exact-tuple element is an ``OperatorRecordCompatibilityIssue``;
+    codes and raw
     values are not coerced.
-    Method
-    Place one representative invalid element in an exact built-in tuple.
-    Oracle
-    The approved element validation raises ``TypeError`` naming the public Issue type.
-    Acceptance
-    Every case raises ``TypeError`` with an Issue-specific diagnostic.
-    Interpretation
-    Passing establishes the public element boundary after tuple admission.
-    Limitations
-    This does not exercise analyzer construction of valid Issues.
+
+    Method: Place one representative invalid element in an exact built-in tuple.
+
+    Oracle: The approved element validation raises ``TypeError`` naming the public Issue
+    type.
+
+    Acceptance: Every case raises ``TypeError`` with an Issue-specific diagnostic.
+
+    Interpretation: Passing establishes the public element boundary after tuple
+    admission.
+
+    Limitations: This does not exercise analyzer construction of valid Issues.
     """
 
     with pytest.raises(TypeError) as exc_info:
@@ -273,22 +290,23 @@ def test_method__require__require_public_compatibility_issue_elements(
 
 
 def test_field__reject_duplicated_mismatch_codes_from_distinct__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORCAR-009
-    Requirement
-    No two stored Issues may carry the same mismatch code.
-    Method
-    Construct two distinct Issue objects containing the same enum member.
-    Oracle
-    The approved ResultObject invariant defines duplication by code, not repeated object
+    r"""Evidence ID: SV-ORCAR-009
+
+    Requirement: No two stored Issues may carry the same mismatch code.
+
+    Method: Construct two distinct Issue objects containing the same enum member.
+
+    Oracle: The approved ResultObject invariant defines duplication by code, not
+    repeated object
     identity.
-    Acceptance
-    Distinct objects share code identity and their tuple raises the documented
+
+    Acceptance: Distinct objects share code identity and their tuple raises the
+    documented
     duplicate-code ``ValueError``.
-    Interpretation
-    Passing establishes authoritative code-level uniqueness.
-    Limitations
-    The case does not imply that the mismatch is analyzer-reachable.
+
+    Interpretation: Passing establishes authoritative code-level uniqueness.
+
+    Limitations: The case does not imply that the mismatch is analyzer-reachable.
     """
 
     code = OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
@@ -304,22 +322,24 @@ def test_field__reject_duplicated_mismatch_codes_from_distinct__is_exact() -> No
 
 
 def test_field__reject_noncanonical_issue_ordering__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORCAR-010
-    Requirement
-    Issue codes must preserve their relative canonical enum order.
-    Method
-    Place ``OPERATOR_KIND_MISMATCH`` before the earlier ``STATE_SPACE_KIND_MISMATCH``
+    r"""Evidence ID: SV-ORCAR-010
+
+    Requirement: Issue codes must preserve their relative canonical enum order.
+
+    Method: Place ``OPERATOR_KIND_MISMATCH`` before the earlier
+    ``STATE_SPACE_KIND_MISMATCH``
     and construct through the public boundary.
-    Oracle
-    ``CANONICAL_RULES`` supplies the already-verified public order; the ResultObject's
+
+    Oracle: ``CANONICAL_RULES`` supplies the already-verified public order; the
+    ResultObject's
     rejection policy is under test.
-    Acceptance
-    Construction raises the documented canonical-order ``ValueError``.
-    Interpretation
-    Passing complements positive canonical admission under ``the owning evidence``.
-    Limitations
-    No private ordering helper is called and no analyzer rule executes.
+
+    Acceptance: Construction raises the documented canonical-order ``ValueError``.
+
+    Interpretation: Passing complements positive canonical admission under ``the owning
+    evidence``.
+
+    Limitations: No private ordering helper is called and no analyzer rule executes.
     """
 
     assert CANONICAL_RULES.index(

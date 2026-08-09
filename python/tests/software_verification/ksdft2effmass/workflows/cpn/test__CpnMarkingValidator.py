@@ -1,12 +1,14 @@
 r"""Software verification of ``CpnMarkingValidator``.
 
 Facet and represented meaning
+
 --------------------------------------
 This module provides software-verification evidence for the public
 ``CpnMarkingValidator`` software surface and its finite, exact CPN routing
 representation. It does not represent a physical observable or numerical approximation.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 ``CpnMarkingValidator`` is the sole primary SUT. Tests exercise its documented public
 contract with synthetic routing inputs; exact constructor, language, enum, ordering, and
@@ -14,6 +16,7 @@ error-taxonomy rules provide the independent oracles. Collaborators only constru
 inputs or expose public outcomes.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing means the named software contracts hold; failure may identify an implementation,
 fixture, oracle transcription, environment, or public-contract inconsistency. This
@@ -42,17 +45,12 @@ SUT = CpnMarkingValidator
 def test_method__execute__accepts_complete_multiset_marking(
     token_factory: Callable[..., CpnToken], executable_net: CpnNetDefinition
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-036
+    """Evidence ID: SV-CPN-036
 
-    Requirement
-    -----------
-    accept a complete two-token multiset marking.
+    Requirement: accept a complete two-token multiset marking.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: accept a complete two-token multiset
     marking. Requirement: validation preserves multiplicity rather than collapsing a
@@ -62,28 +60,24 @@ def test_method__execute__accepts_complete_multiset_marking(
     means a contract-valid multiset was rejected. Limitation: durable marking storage
     and reachability are excluded.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must accept a complete two-token multiset
+    Oracle: The documented public rule that the SUT must accept a complete two-token
+    multiset
     marking is the contract oracle; fixed synthetic values, Python exact type/value
     semantics, and the public error taxonomy provide independently inspectable expected
     outcomes where used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     marking = CpnMarking(
@@ -102,17 +96,12 @@ def test_method__execute__accepts_complete_multiset_marking(
 def test_method__execute__wrong_complete_place_set_has_stable_code(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-013
+    """Evidence ID: SV-CPN-013
 
-    Requirement
-    -----------
-    complete place-set validation.
+    Requirement: complete place-set validation.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: complete place-set validation. Prior
     requirement detail: The version-1 P1 contract requires complete place-set
@@ -124,28 +113,24 @@ def test_method__execute__wrong_complete_place_set_has_stable_code(
     Absence of that code means incomplete markings can pass compatibility validation.
     Prior limitations detail: This case does not test token colors.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must complete place-set validation is the
+    Oracle: The documented public rule that the SUT must complete place-set validation
+    is the
     contract oracle; fixed synthetic values, Python exact type/value semantics, and the
     public error taxonomy provide independently inspectable expected outcomes where
     used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     marking = CpnMarking(1, executable_net.model_id, 0, (PlaceMarking("ready", ()),))
@@ -156,17 +141,12 @@ def test_method__execute__wrong_complete_place_set_has_stable_code(
 def test_method__execute__unknown_color_reference_is_structured(
     executable_net: CpnNetDefinition,
 ) -> None:
-    """Evidence ID
-    -----------
-    SV-CPN-014
+    """Evidence ID: SV-CPN-014
 
-    Requirement
-    -----------
-    structured unknown-color diagnostics.
+    Requirement: structured unknown-color diagnostics.
 
-    Method
-    ------
-    Exercise the primary SUT through the public construction or operation boundary using
+    Method: Exercise the primary SUT through the public construction or operation
+    boundary using
     the synthetic valid and controlled-invalid inputs retained in the executable body.
     The prior scenario documentation states: structured unknown-color diagnostics. Prior
     requirement detail: The version-1 P1 contract requires structured unknown-color
@@ -179,28 +159,24 @@ def test_method__execute__unknown_color_reference_is_structured(
     Prior limitations detail: The test does not infer payload or physical type
     compatibility.
 
-    Oracle
-    ------
-    The documented public rule that the SUT must structured unknown-color diagnostics is
+    Oracle: The documented public rule that the SUT must structured unknown-color
+    diagnostics is
     the contract oracle; fixed synthetic values, Python exact type/value semantics, and
     the public error taxonomy provide independently inspectable expected outcomes where
     used.
 
-    Acceptance
-    ----------
-    Every preserved exact equality, identity, ordering, representation, and expected
+    Acceptance: Every preserved exact equality, identity, ordering, representation, and
+    expected
     exception type, message, or code assertion must hold. No approximate tolerance or
     warning is accepted unless the preserved executable case explicitly states one.
 
-    Interpretation
-    --------------
-    Pass supports only this named software contract. Failure may indicate a production
+    Interpretation: Pass supports only this named software contract. Failure may
+    indicate a production
     implementation defect, invalid synthetic fixture, oracle transcription error,
     environment issue, or inconsistency in the documented public contract.
 
-    Limitations
-    -----------
-    The case excludes unexercised inputs and dependencies, physical conclusions,
+    Limitations: The case excludes unexercised inputs and dependencies, physical
+    conclusions,
     numerical verification, scientific validation, uncertainty quantification,
     persistence and engine-adapter behavior, and cross-language conformance."""
     token = executable_net.initial_marking.places[2].tokens[0]

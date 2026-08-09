@@ -9,15 +9,15 @@ from __future__ import annotations
 
 from typing import TypeAlias
 
-from .chains import ChainView, EvaluateChainState, TaskReference
+from .chains import ChainStateEvaluator, ChainView, TaskReference
 from .checkpoints import (
     CheckpointDecisionResolutionRequest,
     CheckpointDecisionResolutionResult,
+    CheckpointDecisionResolver,
     CheckpointRecord,
-    ResolveCheckpointDecision,
-    ValidateCheckpointSet,
+    CheckpointSetValidator,
 )
-from .checksums import ChecksumEntry, ChecksumManifest, ValidateChecksumManifest
+from .checksums import ChecksumEntry, ChecksumManifest, ChecksumManifestValidator
 from .evidence import AuditEvidenceIdentifiers, EvidenceIdentifierOccurrence
 from .human_review import (
     HumanReviewDecision,
@@ -39,25 +39,25 @@ from .identity import (
 )
 from .ownership import (
     AgentDescriptorView,
+    OwnershipManifestValidator,
     OwnershipManifestView,
     OwnershipScope,
-    ValidateOwnershipManifest,
 )
-from .profiles import LoadProjectProfile, ProjectProfile
+from .profiles import ProjectProfile, ProjectProfileLoader
 from .resources import (
-    RefreshResourceManifest,
-    ResolveResource,
     ResourceManifest,
+    ResourceManifestRefresher,
     ResourceManifestRefreshRequest,
     ResourceManifestRefreshResult,
+    ResourceManifestValidator,
     ResourceReference,
+    ResourceResolver,
     SkillDescriptor,
-    ValidateResourceManifest,
-    ValidateSkillResources,
+    SkillResourceValidator,
 )
-from .task_state import InspectTaskState as InspectTaskState
 from .task_state import TaskStateInspectionRequest as TaskStateInspectionRequest
 from .task_state import TaskStateInspectionResult as TaskStateInspectionResult
+from .task_state import TaskStateInspector as TaskStateInspector
 from .test_evidence import PythonTestEvidenceFinding as PythonTestEvidenceFinding
 from .test_evidence import PythonTestEvidenceRequest as PythonTestEvidenceRequest
 from .test_evidence import PythonTestEvidenceSource as PythonTestEvidenceSource
@@ -67,13 +67,13 @@ from .test_evidence import (
 from .test_evidence import ValidatePythonTestEvidence as ValidatePythonTestEvidence
 from .validation import (
     ChainEvaluationResult,
-    DeserializeJsonRecord,
     EvidenceAuditResult,
     JsonDeserializationResult,
+    JsonRecordDeserializer,
+    JsonRecordSerializer,
     JsonSerializationResult,
     ProjectProfileLoadResult,
     ResourceResolutionResult,
-    SerializeJsonRecord,
     ValidationIssue,
     ValidationResult,
     WireRecordKind,
@@ -156,23 +156,23 @@ __all__ = (
     "WireRecordKind",
     "HarnessWireRecord",
     "HarnessInternalError",
-    "SerializeJsonRecord",
-    "DeserializeJsonRecord",
-    "LoadProjectProfile",
-    "RefreshResourceManifest",
-    "ResolveResource",
-    "ValidateResourceManifest",
-    "ResolveCheckpointDecision",
-    "ValidateOwnershipManifest",
-    "ValidateCheckpointSet",
-    "EvaluateChainState",
+    "JsonRecordSerializer",
+    "JsonRecordDeserializer",
+    "ProjectProfileLoader",
+    "ResourceManifestRefresher",
+    "ResourceResolver",
+    "ResourceManifestValidator",
+    "CheckpointDecisionResolver",
+    "OwnershipManifestValidator",
+    "CheckpointSetValidator",
+    "ChainStateEvaluator",
     "AuditEvidenceIdentifiers",
     "HumanReviewPreparer",
     "HumanReviewDecisionRecorder",
     "ValidatePythonTestEvidence",
-    "InspectTaskState",
-    "ValidateChecksumManifest",
-    "ValidateSkillResources",
+    "TaskStateInspector",
+    "ChecksumManifestValidator",
+    "SkillResourceValidator",
     "Identifier",
     "ResourcePath",
     "OwnershipScopePath",

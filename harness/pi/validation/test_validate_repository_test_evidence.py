@@ -1,4 +1,17 @@
-"""Focused regression tests for the repository-wide test-evidence completion gate."""
+r"""Regression tests for the repository-wide evidence completion gate.
+
+Facet and represented meaning
+
+The module verifies agreement between the maintained inventory and repository gate.
+
+Intrinsic and cross-object scope
+
+The repository gate command is the artifact owner; exact current counts are in scope.
+
+VVUQ and scientific exclusions
+
+Passing establishes structural software agreement only, not scientific validation or UQ.
+"""
 
 from __future__ import annotations
 
@@ -11,8 +24,21 @@ ROOT = Path(__file__).resolve().parents[3]
 GATE = ROOT / "harness/local/validation/validate_repository_test_evidence.py"
 
 
-def test_repository_gate_accepts_the_complete_current_inventory() -> None:
-    """Require exact current inventory, structural, identity, and collection closure."""
+def test_artifact__repository_gate__accepts_complete_current_inventory() -> None:
+    """Evidence ID: Owns no maintained identifier; harness-level regression only.
+
+    Requirement: The repository gate accepts the exact maintained module and node inventory.
+
+    Method: Execute the gate from the repository root and inspect its canonical JSON.
+
+    Oracle: The maintained inventory declares 221 modules, 2,871 nodes, and 1,158 owners.
+
+    Acceptance: Exit and status pass, counts match exactly, and no finding is emitted.
+
+    Interpretation: Failure indicates inventory, identity, collection, or gate drift.
+
+    Limitations: Structural agreement does not establish semantic quality or human acceptance.
+    """
     completed = subprocess.run(
         [sys.executable, str(GATE)],
         cwd=ROOT,
@@ -25,12 +51,12 @@ def test_repository_gate_accepts_the_complete_current_inventory() -> None:
     assert completed.returncode == 0
     assert result["status"] == "PASS"
     assert result["counts"]["baseline_modules"] == 182
-    assert result["counts"]["discovered_modules"] == 182
+    assert result["counts"]["discovered_modules"] == 221
     assert result["counts"]["baseline_collected_nodes"] == 2383
-    assert result["counts"]["collected_nodes"] == 2569
+    assert result["counts"]["collected_nodes"] == 2871
     assert result["counts"]["findings"] == 0
     assert result["findings"] == []
     assert result["structural_result"]["status"] == "PASS"
-    assert result["structural_result"]["counts"]["unique_evidence_owners"] == 1021
+    assert result["structural_result"]["counts"]["unique_evidence_owners"] == 1158
     assert "semantic cohesion" in result["claim_boundary"]
     assert "human acceptance" in result["claim_boundary"]

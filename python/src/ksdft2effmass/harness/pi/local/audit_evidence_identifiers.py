@@ -14,8 +14,8 @@ from typing import Any
 from .. import (
     AuditEvidenceIdentifiers,
     EvidenceAuditResult,
-    LoadProjectProfile,
     ProjectProfile,
+    ProjectProfileLoader,
     ValidationIssue,
 )
 
@@ -120,7 +120,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise ValueError("root must name a regular nonsymlink directory")
         profile_path = _explicit_file(root, args.profile, "profile")
         inventory_path = _explicit_file(root, args.inventory, "inventory")
-        loaded = LoadProjectProfile().execute(
+        loaded = ProjectProfileLoader().execute(
             profile_path.read_bytes(), None, (1,), (1,)
         )
         if loaded.validation.status == "FAIL":

@@ -55,8 +55,9 @@ mathematics, or trusted reference data as oracles. Do not use private behavior o
 a reproduction of the production algorithm as the primary oracle. Use exact
 acceptance for exact contracts and justified tolerances for numerical contracts.
 
-Each evidence-owning test documents its Evidence ID, Requirement, Method,
-Oracle, Acceptance, Interpretation, and Limitations. Helpers remain ID-free,
+Each evidence-owning test uses `Label: value` paragraphs for Evidence ID,
+Requirement, Method, Oracle, Acceptance, Interpretation, and Limitations, with
+one blank line between paragraphs. Helpers remain ID-free,
 semantically named, and non-tautological. Parameterized cases use explicit
 semantic IDs.
 

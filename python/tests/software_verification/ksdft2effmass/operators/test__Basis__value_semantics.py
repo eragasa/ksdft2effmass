@@ -1,6 +1,7 @@
 r"""Software verification of ``Basis``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the value semantics facet. This module owns
 frozen/slotted stored state and exact structural equality. For
@@ -24,6 +25,7 @@ gauge alignment, physical equivalence, scientific validation, uncertainty
 quantification, or Rust conformance is established.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``Basis``; collaborators only construct inputs or expose public
 outcomes. Accepted public contracts, literal expected values, Python language
@@ -31,6 +33,7 @@ semantics, and assigned schema or fixture artifacts provide the oracles. No runt
 warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -57,21 +60,22 @@ def make_basis(
     ordering: tuple[str, ...] = ("a", "b"),
     orthonormal: bool = True,
 ) -> Basis:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Value fixtures use typed abstract labels and pass all four fields unchanged to the
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Value fixtures use typed abstract labels and pass all four fields
+    unchanged to the
     public constructor.
-    Method
-    Construct an independent ``Basis`` from explicit keyword arguments.
-    Oracle
-    The approved DataObject contract defines exact four-field state.
-    Acceptance
-    A valid synthetic ``Basis`` is returned.
-    Interpretation
-    The helper supplies independently constructible metadata values.
-    Limitations
-    It constructs no vectors or overlap matrix, performs no orthogonality calculation,
+
+    Method: Construct an independent ``Basis`` from explicit keyword arguments.
+
+    Oracle: The approved DataObject contract defines exact four-field state.
+
+    Acceptance: A valid synthetic ``Basis`` is returned.
+
+    Interpretation: The helper supplies independently constructible metadata values.
+
+    Limitations: It constructs no vectors or overlap matrix, performs no orthogonality
+    calculation,
     and establishes no physical validity, scientific validation, uncertainty
     quantification, or Rust conformance.
     """
@@ -97,23 +101,26 @@ def test_field__stored_state_is_frozen_and_slotted__is_exact(
     field_name: str,
     replacement: object,
 ) -> None:
-    r"""Evidence ID
-    SV-B-017
-    Requirement
-    Dataclass state is exactly identifier, kind, ordering, and orthonormal; no instance
+    r"""Evidence ID: SV-B-017
+
+    Requirement: Dataclass state is exactly identifier, kind, ordering, and orthonormal;
+    no instance
     dictionary exists and ordinary assignment is forbidden.
-    Method
-    Inspect standard dataclass fields and ``__dict__``, then use ordinary ``setattr`` on
+
+    Method: Inspect standard dataclass fields and ``__dict__``, then use ordinary
+    ``setattr`` on
     each declared field.
-    Oracle
-    The approved frozen, slotted four-field DataObject contract defines state.
-    Acceptance
-    Exact field names are present, ``__dict__`` is absent, and each assignment raises
+
+    Oracle: The approved frozen, slotted four-field DataObject contract defines state.
+
+    Acceptance: Exact field names are present, ``__dict__`` is absent, and each
+    assignment raises
     exactly ``FrozenInstanceError``.
-    Interpretation
-    Passing establishes API-level immutable slotted metadata state.
-    Limitations
-    No invariant bypass, ``object.__setattr__``, hash behavior, cross-object behavior,
+
+    Interpretation: Passing establishes API-level immutable slotted metadata state.
+
+    Limitations: No invariant bypass, ``object.__setattr__``, hash behavior,
+    cross-object behavior,
     scientific validation, UQ, or Rust conformance is tested.
     """
 
@@ -127,25 +134,30 @@ def test_field__stored_state_is_frozen_and_slotted__is_exact(
 
 
 def test_method__eq__covers_ordered_complete_state() -> None:
-    r"""Evidence ID
-    SV-B-018
-    Requirement
-    Independent identical metadata values compare equal; identifier, kind, label order,
+    r"""Evidence ID: SV-B-018
+
+    Requirement: Independent identical metadata values compare equal; identifier, kind,
+    label order,
     label spelling, and orthonormal changes compare unequal.
-    Method
-    Construct a baseline, an identical value, and one variant for each observable
+
+    Method: Construct a baseline, an identical value, and one variant for each
+    observable
     distinction, then compare without approximation.
-    Oracle
-    Frozen-dataclass structural equality and exact ordered-label semantics define the
+
+    Oracle: Frozen-dataclass structural equality and exact ordered-label semantics
+    define the
     expected relations.
-    Acceptance
-    Only the independently identical Basis equals the baseline; all five variants are
+
+    Acceptance: Only the independently identical Basis equals the baseline; all five
+    variants are
     unequal, including ``("a", "b")`` versus ``("b", "a")``.
-    Interpretation
-    Passing establishes exact metadata value semantics, not object identity or physical
+
+    Interpretation: Passing establishes exact metadata value semantics, not object
+    identity or physical
     basis equivalence.
-    Limitations
-    Approximate/gauge/physical equivalence, matrix compatibility, hash behavior,
+
+    Limitations: Approximate/gauge/physical equivalence, matrix compatibility, hash
+    behavior,
     scientific validation, UQ, and Rust conformance are untested.
     """
 

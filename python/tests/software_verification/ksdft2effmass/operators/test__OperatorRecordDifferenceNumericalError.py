@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordDifferenceNumericalError``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the OperatorRecordDifferenceNumericalError facet.
 System under test
@@ -47,6 +48,7 @@ quantification. Future Rust mapping is conceptual through the enum category; no
 Rust implementation, conformance, or serialized exception format is established.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordDifferenceNumericalError``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -55,6 +57,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -81,23 +84,23 @@ SUT = OperatorRecordDifferenceNumericalError
 class UnrelatedErrorCode(Enum):
     r"""Test-local non-owner enum supporting ``SV-ORDNE-004``.
 
-    Evidence ID
-    Supporting fixture for ``SV-ORDNE-004``; it owns no separate evidence
+    Evidence ID: Supporting fixture for ``SV-ORDNE-004``; it owns no separate evidence
     identifier.
-    Requirement
-    A member of another enum is not a difference numerical-error code, even
+
+    Requirement: A member of another enum is not a difference numerical-error code, even
     when its value resembles the approved machine-readable string.
-    Method
-    Define one local enum member with value ``"nonfinite_difference"`` and
+
+    Method: Define one local enum member with value ``"nonfinite_difference"`` and
     supply that member at the deliberate invalid constructor boundary.
-    Oracle
-    The public constructor requires nominal membership in
+
+    Oracle: The public constructor requires nominal membership in
     ``OperatorRecordDifferenceNumericalErrorCode``.
-    Interpretation
-    Rejection demonstrates exact enum ownership rather than value-based or
+
+    Interpretation: Rejection demonstrates exact enum ownership rather than value-based
+    or
     string-based coercion.
-    Limitations
-    This fixture does not test the production enum's membership, aliases,
+
+    Limitations: This fixture does not test the production enum's membership, aliases,
     lookup behavior, differencer execution, numerical verification,
     scientific validation, uncertainty quantification, or Rust conformance.
     """
@@ -106,24 +109,28 @@ class UnrelatedErrorCode(Enum):
 
 
 def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
-    r"""Evidence ID
-    SV-ORDNE-001
-    Requirement
-    The supported public constructor accepts the approved structured code and produces a
+    r"""Evidence ID: SV-ORDNE-001
+
+    Requirement: The supported public constructor accepts the approved structured code
+    and produces a
     ``ValueError`` and ``Exception`` instance.
-    Method
-    Construct the exception directly through public imports without invoking
+
+    Method: Construct the exception directly through public imports without invoking
     ``OperatorRecordDifferencer`` and inspect only documented inheritance.
-    Oracle
-    The accepted exception contract declares ``ValueError`` inheritance and a one-code
+
+    Oracle: The accepted exception contract declares ``ValueError`` inheritance and a
+    one-code
     public constructor.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes direct public construction and documented hierarchy.
-    Limitations
-    Internal module location, traceback layout, ``Exception.args``, differencer
+
+    Interpretation: Passing establishes direct public construction and documented
+    hierarchy.
+
+    Limitations: Internal module location, traceback layout, ``Exception.args``,
+    differencer
     emission, numerical verification, scientific validation, uncertainty quantification,
     and Rust conformance are not tested.
     """
@@ -148,26 +155,29 @@ def test_constructor__public_construction_and_exception_taxonomy__is_enforced() 
 def test_field__accepted_codes_retain_identity__is_exact(
     code: OperatorRecordDifferenceNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-ORDNE-002
-    Requirement
-    Every current public difference-error code is admitted without reconstruction,
+    r"""Evidence ID: SV-ORDNE-002
+
+    Requirement: Every current public difference-error code is admitted without
+    reconstruction,
     string conversion, or identity loss.
-    Method
-    Parameterize over the complete public enum, construct the exception, and compare its
+
+    Method: Parameterize over the complete public enum, construct the exception, and
+    compare its
     public ``code`` attribute with the input by identity.
-    Oracle
-    The approved constructor accepts exactly
+
+    Oracle: The approved constructor accepts exactly
     ``OperatorRecordDifferenceNumericalErrorCode`` members and retains the supplied
     member.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes complete current enum admission and exact structured- code
+
+    Interpretation: Passing establishes complete current enum admission and exact
+    structured- code
     identity retention.
-    Limitations
-    Member count, aliases, ``StrEnum`` behavior, lookup taxonomy, exception
+
+    Limitations: Member count, aliases, ``StrEnum`` behavior, lookup taxonomy, exception
     equality/hashability, differencer execution, numerical verification, scientific
     validation, uncertainty quantification, and Rust conformance belong elsewhere or
     remain unperformed.
@@ -179,27 +189,32 @@ def test_field__accepted_codes_retain_identity__is_exact(
 
 
 def test_protocol__str__human_readable_message_summarizes_authoritative_code() -> None:
-    r"""Evidence ID
-    SV-ORDNE-003
-    Requirement
-    The human-readable message identifies an operator-record difference numerical
+    r"""Evidence ID: SV-ORDNE-003
+
+    Requirement: The human-readable message identifies an operator-record difference
+    numerical
     failure and contains the retained code's stable value, while ``error.code`` remains
     authoritative machine-readable state.
-    Method
-    Construct the exception, inspect semantic substrings in ``str(error)``, and verify
+
+    Method: Construct the exception, inspect semantic substrings in ``str(error)``, and
+    verify
     direct code identity.
-    Oracle
-    Accepted source documentation promises a human-readable difference- failure message
+
+    Oracle: Accepted source documentation promises a human-readable difference- failure
+    message
     containing the enum value, but does not freeze incidental punctuation,
     capitalization, or separators.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes useful human diagnostics without promoting the message to a
+
+    Interpretation: Passing establishes useful human diagnostics without promoting the
+    message to a
     machine-parsing API.
-    Limitations
-    Exact full message formatting, ``Exception.args``, differencer emission, subtraction
+
+    Limitations: Exact full message formatting, ``Exception.args``, differencer
+    emission, subtraction
     accuracy, scientific validation, uncertainty quantification, and Rust conformance
     are not tested.
     """
@@ -229,26 +244,30 @@ def test_protocol__str__human_readable_message_summarizes_authoritative_code() -
 def test_constructor__invalid_code_types_are_rejected__is_enforced(
     invalid_code: object,
 ) -> None:
-    r"""Evidence ID
-    SV-ORDNE-004
-    Requirement
-    Raw strings, ``None``, Booleans, unrelated enum members, and arbitrary objects are
+    r"""Evidence ID: SV-ORDNE-004
+
+    Requirement: Raw strings, ``None``, Booleans, unrelated enum members, and arbitrary
+    objects are
     rejected rather than coerced to the owner enum.
-    Method
-    Pass each representative invalid value directly to the public constructor, using
+
+    Method: Pass each representative invalid value directly to the public constructor,
+    using
     ``Any`` and ``cast`` only at this deliberate invalid-type boundary.
-    Oracle
-    The accepted constructor requires nominal
+
+    Oracle: The accepted constructor requires nominal
     ``OperatorRecordDifferenceNumericalErrorCode`` ownership and documents ``TypeError``
     with the precise owner-type fragment.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes wrong-type taxonomy and prevents string/value-based coercion or
+
+    Interpretation: Passing establishes wrong-type taxonomy and prevents
+    string/value-based coercion or
     admission of another enum's member.
-    Limitations
-    Valid-code acceptance belongs to ``the owning evidence``. No broad exception tuple,
+
+    Limitations: Valid-code acceptance belongs to ``the owning evidence``. No broad
+    exception tuple,
     differencer execution, numerical verification, scientific validation, uncertainty
     quantification, or Rust conformance is tested.
     """
@@ -269,27 +288,31 @@ def test_constructor__invalid_code_types_are_rejected__is_enforced(
 def test_constructor__input_boundary__free_form_reason_and_extra_argument_are(
     reason_form: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORDNE-005
-    Requirement
-    The constructor accepts only one structured code; positional and keyword free-form
+    r"""Evidence ID: SV-ORDNE-005
+
+    Requirement: The constructor accepts only one structured code; positional and
+    keyword free-form
     reasons raise ``TypeError``, and successful instances expose no public ``reason``
     attribute.
-    Method
-    Invoke the constructor through a deliberate ``Any``-typed invalid- signature
+
+    Method: Invoke the constructor through a deliberate ``Any``-typed invalid- signature
     boundary for each reason form, then inspect an ordinary valid instance for absence
     of ``reason``.
-    Oracle
-    The approved signature has exactly one ``code`` parameter and defines no free-form
+
+    Oracle: The approved signature has exactly one ``code`` parameter and defines no
+    free-form
     reason attribute.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing protects the closed enum-backed taxonomy from contradictory or arbitrary
+
+    Interpretation: Passing protects the closed enum-backed taxonomy from contradictory
+    or arbitrary
     structured diagnostic state.
-    Limitations
-    Signature-generated ``TypeError`` wording is not frozen. Message text, differencer
+
+    Limitations: Signature-generated ``TypeError`` wording is not frozen. Message text,
+    differencer
     execution, numerical verification, scientific validation, uncertainty
     quantification, and Rust conformance are not tested.
     """
@@ -309,24 +332,28 @@ def test_constructor__input_boundary__free_form_reason_and_extra_argument_are(
 
 
 def test_method__serialize__exception_has_no_serialization_api() -> None:
-    r"""Evidence ID
-    SV-ORDNE-006
-    Requirement
-    The in-memory structured exception exposes none of the six unapproved JSON,
+    r"""Evidence ID: SV-ORDNE-006
+
+    Requirement: The in-memory structured exception exposes none of the six unapproved
+    JSON,
     dictionary, serializer, or deserializer method names.
-    Method
-    Inspect both the valid instance and public class for each excluded name.
-    Oracle
-    Schema version 1 serializes ``OperatorRecord`` only; no numerical- exception schema
+
+    Method: Inspect both the valid instance and public class for each excluded name.
+
+    Oracle: Schema version 1 serializes ``OperatorRecord`` only; no numerical- exception
+    schema
     or independent exception serializer is approved.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    Passing establishes absence of object-owned serialization APIs while preserving
+
+    Interpretation: Passing establishes absence of object-owned serialization APIs while
+    preserving
     ``error.code`` as in-memory machine-readable state.
-    Limitations
-    Pickling, traceback serialization, future schema design, differencer execution,
+
+    Limitations: Pickling, traceback serialization, future schema design, differencer
+    execution,
     numerical verification, scientific validation, uncertainty quantification, and Rust
     conformance are outside this evidence. Future Rust mapping remains conceptual
     through the enum category only.

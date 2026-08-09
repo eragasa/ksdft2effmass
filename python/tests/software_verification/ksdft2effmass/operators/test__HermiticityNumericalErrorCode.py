@@ -1,6 +1,7 @@
 r"""Software verification of ``HermiticityNumericalErrorCode``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the HermiticityNumericalErrorCode facet. System under
 test
@@ -65,6 +66,7 @@ uncertainty quantification, Rust implementation, or Rust conformance.
 ``StrEnum`` behavior does not approve a numerical-error wire format.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``HermiticityNumericalErrorCode``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -73,6 +75,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -104,24 +107,27 @@ EXPECTED_MEMBERS = (
 
 
 def test_field__exact_closed_member_sequence_and_stable_value__is_exact() -> None:
-    r"""Evidence ID
-    SV-HNEC-001
-    Requirement
-    Public iteration contains exactly ``NONFINITE_RESIDUAL`` with stable value
+    r"""Evidence ID: SV-HNEC-001
+
+    Requirement: Public iteration contains exactly ``NONFINITE_RESIDUAL`` with stable
+    value
     ``nonfinite_residual`` in the sole declaration-order position.
-    Method
-    Compare public enum iteration with the independently written literal
+
+    Method: Compare public enum iteration with the independently written literal
     ``EXPECTED_MEMBERS`` tuple.
-    Oracle
-    The approved closed contract is the literal ordered name/value sequence, not a
+
+    Oracle: The approved closed contract is the literal ordered name/value sequence, not
+    a
     sequence generated from production members.
-    Acceptance
-    Iterated name/value pairs equal ``EXPECTED_MEMBERS`` exactly.
-    Interpretation
-    Passing establishes one member, exact name and value, deterministic order, and
+
+    Acceptance: Iterated name/value pairs equal ``EXPECTED_MEMBERS`` exactly.
+
+    Interpretation: Passing establishes one member, exact name and value, deterministic
+    order, and
     absence of unapproved additional iterable members.
-    Limitations
-    This does not inspect source location or establish Analyzer emission, numerical
+
+    Limitations: This does not inspect source location or establish Analyzer emission,
+    numerical
     accuracy, physical Hermiticity, scientific validation, uncertainty quantification,
     or Rust conformance.
     """
@@ -133,23 +139,27 @@ def test_field__exact_closed_member_sequence_and_stable_value__is_exact() -> Non
 
 
 def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
-    r"""Evidence ID
-    SV-HNEC-002
-    Requirement
-    The public Enum registry contains only ``NONFINITE_RESIDUAL`` mapped to the sole
+    r"""Evidence ID: SV-HNEC-002
+
+    Requirement: The public Enum registry contains only ``NONFINITE_RESIDUAL`` mapped to
+    the sole
     canonical member.
-    Method
-    Compare documented ``Enum.__members__`` with an independently explicit one-entry
+
+    Method: Compare documented ``Enum.__members__`` with an independently explicit
+    one-entry
     dictionary and compare registry and iteration counts.
-    Oracle
-    The approved no-alias contract permits exactly one declared public name and one
+
+    Oracle: The approved no-alias contract permits exactly one declared public name and
+    one
     iterable member.
-    Acceptance
-    Registry equality and both explicit lengths equal one.
-    Interpretation
-    Passing establishes no compatibility aliases or hidden declared names.
-    Limitations
-    No private Enum internals, Analyzer behavior, numerical verification, serialization,
+
+    Acceptance: Registry equality and both explicit lengths equal one.
+
+    Interpretation: Passing establishes no compatibility aliases or hidden declared
+    names.
+
+    Limitations: No private Enum internals, Analyzer behavior, numerical verification,
+    serialization,
     scientific validation, uncertainty quantification, or Rust conformance is tested.
     """
 
@@ -173,24 +183,28 @@ def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
 def test_field__represented_state__strenum_machine_value(
     code: HermiticityNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-HNEC-003
-    Requirement
-    The enum subclasses ``StrEnum`` and its member behaves as the ASCII lowercase
+    r"""Evidence ID: SV-HNEC-003
+
+    Requirement: The enum subclasses ``StrEnum`` and its member behaves as the ASCII
+    lowercase
     snake-case machine-readable string ``nonfinite_residual``.
-    Method
-    Inspect public inheritance, string type/equality, ``str()``, lexical full match, and
+
+    Method: Inspect public inheritance, string type/equality, ``str()``, lexical full
+    match, and
     ASCII encoding.
-    Oracle
-    Python 3.14 ``StrEnum`` semantics and the approved literal machine value and lexical
+
+    Oracle: Python 3.14 ``StrEnum`` semantics and the approved literal machine value and
+    lexical
     convention.
-    Acceptance
-    Every inheritance, string, lexical, and ASCII check succeeds.
-    Interpretation
-    Passing establishes deterministic in-memory Python machine-string behavior for the
+
+    Acceptance: Every inheritance, string, lexical, and ASCII check succeeds.
+
+    Interpretation: Passing establishes deterministic in-memory Python machine-string
+    behavior for the
     sole member.
-    Limitations
-    ``repr()``, hash, pickle, JSON, wire formats, numerical detection, scientific
+
+    Limitations: ``repr()``, hash, pickle, JSON, wire formats, numerical detection,
+    scientific
     validation, uncertainty quantification, and Rust conformance are not tested.
     """
 
@@ -213,21 +227,22 @@ def test_field__represented_state__strenum_machine_value(
 def test_method__call__value_based_lookup_round_trips(
     code: HermiticityNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-HNEC-004
-    Requirement
-    ``EnumClass(value)`` returns the canonical member for both its public value and the
+    r"""Evidence ID: SV-HNEC-004
+
+    Requirement: ``EnumClass(value)`` returns the canonical member for both its public
+    value and the
     independently literal ``nonfinite_residual`` string.
-    Method
-    Perform both public value-construction forms and compare by identity.
-    Oracle
-    Standard Enum value lookup and the approved stable literal value.
-    Acceptance
-    Both lookups return the exact canonical singleton.
-    Interpretation
-    Passing establishes deterministic value-based round trips.
-    Limitations
-    Uppercase, padded, byte, integer, and unrelated-enum coercions are not approved as
+
+    Method: Perform both public value-construction forms and compare by identity.
+
+    Oracle: Standard Enum value lookup and the approved stable literal value.
+
+    Acceptance: Both lookups return the exact canonical singleton.
+
+    Interpretation: Passing establishes deterministic value-based round trips.
+
+    Limitations: Uppercase, padded, byte, integer, and unrelated-enum coercions are not
+    approved as
     successful behavior. No Analyzer execution, numerical verification, scientific
     validation, UQ, or Rust conformance is tested.
     """
@@ -247,21 +262,22 @@ def test_method__call__value_based_lookup_round_trips(
 def test_method__getitem__name_based_lookup_round_trips(
     code: HermiticityNumericalErrorCode,
 ) -> None:
-    r"""Evidence ID
-    SV-HNEC-005
-    Requirement
-    ``EnumClass[name]`` returns the canonical member for both its public name and the
+    r"""Evidence ID: SV-HNEC-005
+
+    Requirement: ``EnumClass[name]`` returns the canonical member for both its public
+    name and the
     independently literal ``NONFINITE_RESIDUAL`` name.
-    Method
-    Perform both public name-subscription forms and compare by identity.
-    Oracle
-    Standard Enum name lookup and the approved literal public name.
-    Acceptance
-    Both lookups return the exact canonical singleton.
-    Interpretation
-    Passing establishes name lookup separately from value construction.
-    Limitations
-    The member name is not the lowercase machine value. No Analyzer emission, numerical
+
+    Method: Perform both public name-subscription forms and compare by identity.
+
+    Oracle: Standard Enum name lookup and the approved literal public name.
+
+    Acceptance: Both lookups return the exact canonical singleton.
+
+    Interpretation: Passing establishes name lookup separately from value construction.
+
+    Limitations: The member name is not the lowercase machine value. No Analyzer
+    emission, numerical
     verification, serialization, scientific validation, uncertainty quantification, or
     Rust conformance is tested.
     """
@@ -280,23 +296,25 @@ def test_method__getitem__name_based_lookup_round_trips(
 def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
     lookup_kind: str,
 ) -> None:
-    r"""Evidence ID
-    SV-HNEC-006
-    Requirement
-    An unknown value raises ``ValueError`` and an unknown name raises ``KeyError``
+    r"""Evidence ID: SV-HNEC-006
+
+    Requirement: An unknown value raises ``ValueError`` and an unknown name raises
+    ``KeyError``
     through their distinct public lookup forms.
-    Method
-    Exercise one invalid ``EnumClass(value)`` construction and one invalid
+
+    Method: Exercise one invalid ``EnumClass(value)`` construction and one invalid
     ``EnumClass[name]`` subscription without a broad exception tuple.
-    Oracle
-    Standard Enum taxonomy specifies ``ValueError`` for invalid values and ``KeyError``
+
+    Oracle: Standard Enum taxonomy specifies ``ValueError`` for invalid values and
+    ``KeyError``
     for invalid names.
-    Acceptance
-    Each parameter raises exactly its required standard exception class.
-    Interpretation
-    Passing establishes predictable lookup-failure taxonomy.
-    Limitations
-    Standard-library message wording is not frozen. No Analyzer, matrix, numerical
+
+    Acceptance: Each parameter raises exactly its required standard exception class.
+
+    Interpretation: Passing establishes predictable lookup-failure taxonomy.
+
+    Limitations: Standard-library message wording is not frozen. No Analyzer, matrix,
+    numerical
     algorithm, dependent exception, scientific validation, uncertainty quantification,
     or Rust conformance is tested.
     """

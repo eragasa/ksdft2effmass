@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordJsonSerializer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the deserialization values facet. Object: serializer
 scalar/container value admission and DataObject propagation.
@@ -13,6 +14,7 @@ TypeError/ValueError categories. Passing does not constitute scientific validati
 uncertainty quantification, or Rust conformance; failure requires investigation.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordJsonSerializer``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -21,6 +23,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -44,27 +47,32 @@ SUT = OperatorRecordJsonSerializer
 
 
 def mutated(path: tuple[str | int, ...], value: Any) -> str:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Value-deserialization cases require deterministic replacement of one declared JSON
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Value-deserialization cases require deterministic replacement of one
+    declared JSON
     path while all other payload values remain valid.
-    Method
-    Construct or inspect only the named synthetic fixture operation (mutated); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (mutated);
+    the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -75,27 +83,32 @@ def mutated(path: tuple[str | int, ...], value: Any) -> str:
 
 
 def raw_number(path: tuple[str | int, ...], token: str) -> str:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Overflow evidence requires inserting one raw JSON numeric token without accidental
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Overflow evidence requires inserting one raw JSON numeric token without
+    accidental
     string coercion by the test fixture.
-    Method
-    Construct or inspect only the named synthetic fixture operation (raw number); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (raw
+    number); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -115,28 +128,33 @@ def raw_number(path: tuple[str | int, ...], token: str) -> str:
 def test_method__deserialize__booleans_are_not_numeric_values(
     path: tuple[str | int, ...],
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-012
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-012
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: booleans are not numeric values.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: booleans are not numeric values); warnings and coercive fallback
     behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly TypeError with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly TypeError with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -157,28 +175,33 @@ def test_method__deserialize__booleans_are_not_numeric_values(
 def test_method__deserialize__numeric_strings_are_not_numbers(
     path: tuple[str | int, ...],
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-013
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-013
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: numeric strings are not numbers.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: numeric strings are not numbers); warnings and coercive fallback
     behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly TypeError with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly TypeError with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -204,28 +227,33 @@ def test_method__deserialize__numeric_strings_are_not_numbers(
 def test_constructor__numeric_overflow_maps_to_finite_value_error__is_enforced(
     path: tuple[str | int, ...], sign: str
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-014
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-014
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     numeric overflow maps to finite value error: is enforced.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (numeric overflow maps to finite value error: is enforced); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly ValueError with the asserted public message,
+
+    Acceptance: The named partition raises exactly ValueError with the asserted public
+    message,
     code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -256,28 +284,33 @@ def test_constructor__numeric_overflow_maps_to_finite_value_error__is_enforced(
 def test_method__deserialize__json_scalar_and_container_semantics(
     path: tuple[str | int, ...], value: Any, expected: type[Exception]
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-015
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-015
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: json scalar and container semantics.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: json scalar and container semantics); warnings and coercive fallback
     behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly expected with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly expected with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -309,28 +342,33 @@ def test_method__deserialize__json_scalar_and_container_semantics(
 def test_method__deserialize__public_dataobject_invariants_propagate(
     path: tuple[str | int, ...], value: Any, message: str
 ) -> None:
-    r"""Evidence ID
-    SV-ORJS-016
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-016
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     deserialize: public dataobject invariants propagate.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (deserialize: public dataobject invariants propagate); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    The named partition raises exactly ValueError with the asserted public message,
+
+    Acceptance: The named partition raises exactly ValueError with the asserted public
+    message,
     code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecord``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the metadata invariants facet. Represented contract
 --------------------
@@ -26,6 +27,7 @@ validation, uncertainty quantification, and Rust conformance have not been
 performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecord``; collaborators only construct inputs or
 expose public outcomes. Accepted public contracts, literal expected values, Python
@@ -33,6 +35,7 @@ language semantics, and assigned schema or fixture artifacts provide the oracles
 runtime warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -69,21 +72,24 @@ SUT = OperatorRecord
 def test_constructor__invalid_identifier_wrong_types_are_rejected__is_enforced(
     invalid_identifier: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-018
-    Requirement
-    ``identifier`` is a Python string and is not created by coercion.
-    Method
-    Keep every other field valid and use ``Any`` only at the invalid public boundary.
-    Oracle
-    The approved field contract and wrong-type taxonomy require ``TypeError``.
-    Acceptance
-    Every case raises ``TypeError`` and diagnostic fragments identify the record
+    r"""Evidence ID: SV-OR-018
+
+    Requirement: ``identifier`` is a Python string and is not created by coercion.
+
+    Method: Keep every other field valid and use ``Any`` only at the invalid public
+    boundary.
+
+    Oracle: The approved field contract and wrong-type taxonomy require ``TypeError``.
+
+    Acceptance: Every case raises ``TypeError`` and diagnostic fragments identify the
+    record
     identifier and string requirement.
-    Interpretation
-    Passing establishes identifier typing independently of operator kind.
-    Limitations
-    It does not judge naming suitability, compatibility, scientific validation, UQ, or
+
+    Interpretation: Passing establishes identifier typing independently of operator
+    kind.
+
+    Limitations: It does not judge naming suitability, compatibility, scientific
+    validation, UQ, or
     Rust conformance.
     """
 
@@ -96,20 +102,20 @@ def test_constructor__invalid_identifier_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_identifier_is_rejected__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-019
-    Requirement
-    Record identifier is nonempty and is not normalized before validation.
-    Method
-    Construct with ``identifier=""`` and otherwise valid state.
-    Oracle
-    The approved nonempty invariant requires field-specific ``ValueError``.
-    Acceptance
-    ``ValueError`` identifies identifier and empty value.
-    Interpretation
-    Passing establishes the semantic-type/value taxonomy split.
-    Limitations
-    It does not add vocabulary policy or establish scientific validation, UQ, or Rust
+    r"""Evidence ID: SV-OR-019
+
+    Requirement: Record identifier is nonempty and is not normalized before validation.
+
+    Method: Construct with ``identifier=""`` and otherwise valid state.
+
+    Oracle: The approved nonempty invariant requires field-specific ``ValueError``.
+
+    Acceptance: ``ValueError`` identifies identifier and empty value.
+
+    Interpretation: Passing establishes the semantic-type/value taxonomy split.
+
+    Limitations: It does not add vocabulary policy or establish scientific validation,
+    UQ, or Rust
     conformance.
     """
 
@@ -136,21 +142,23 @@ def test_constructor__empty_identifier_is_rejected__is_enforced() -> None:
 def test_constructor__invalid_operator_kind_wrong_types_are__is_enforced(
     invalid_kind: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-020
-    Requirement
-    ``operator_kind`` is a Python string and is not created by coercion.
-    Method
-    Keep every other field valid and use ``Any`` only at the invalid public boundary.
-    Oracle
-    The approved field contract and wrong-type taxonomy require ``TypeError``.
-    Acceptance
-    Every case raises ``TypeError`` and diagnostic fragments identify operator kind and
+    r"""Evidence ID: SV-OR-020
+
+    Requirement: ``operator_kind`` is a Python string and is not created by coercion.
+
+    Method: Keep every other field valid and use ``Any`` only at the invalid public
+    boundary.
+
+    Oracle: The approved field contract and wrong-type taxonomy require ``TypeError``.
+
+    Acceptance: Every case raises ``TypeError`` and diagnostic fragments identify
+    operator kind and
     string requirement.
-    Interpretation
-    Passing establishes kind typing independently of identifier.
-    Limitations
-    It validates no operator vocabulary, physical meaning, scientific validation, UQ, or
+
+    Interpretation: Passing establishes kind typing independently of identifier.
+
+    Limitations: It validates no operator vocabulary, physical meaning, scientific
+    validation, UQ, or
     Rust conformance.
     """
 
@@ -163,20 +171,20 @@ def test_constructor__invalid_operator_kind_wrong_types_are__is_enforced(
 
 
 def test_constructor__empty_operator_kind_is_rejected__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-021
-    Requirement
-    Operator-kind metadata is nonempty and remains an open exact string.
-    Method
-    Construct with ``operator_kind=""`` and otherwise valid state.
-    Oracle
-    The approved nonempty invariant requires field-specific ``ValueError``.
-    Acceptance
-    ``ValueError`` identifies operator kind and empty value.
-    Interpretation
-    Passing establishes the semantic-type/value taxonomy split.
-    Limitations
-    It adds no enumeration and establishes no scientific validation, UQ, or Rust
+    r"""Evidence ID: SV-OR-021
+
+    Requirement: Operator-kind metadata is nonempty and remains an open exact string.
+
+    Method: Construct with ``operator_kind=""`` and otherwise valid state.
+
+    Oracle: The approved nonempty invariant requires field-specific ``ValueError``.
+
+    Acceptance: ``ValueError`` identifies operator kind and empty value.
+
+    Interpretation: Passing establishes the semantic-type/value taxonomy split.
+
+    Limitations: It adds no enumeration and establishes no scientific validation, UQ, or
+    Rust
     conformance.
     """
 
@@ -199,20 +207,21 @@ def test_constructor__empty_operator_kind_is_rejected__is_enforced() -> None:
 def test_constructor__invalid_state_space_objects_are_rejected__is_enforced(
     invalid_dependency: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-022
-    Requirement
-    ``state_space`` is a validated public StateSpace, not duck-typed state.
-    Method
-    Replace only that dependency using ``Any`` at the invalid boundary.
-    Oracle
-    The approved nominal dependency contract requires field-specific ``TypeError``.
-    Acceptance
-    Diagnostic fragments identify ``state_space`` and ``StateSpace``.
-    Interpretation
-    Passing establishes the dependency type boundary only.
-    Limitations
-    StateSpace intrinsic invariants, scientific validation, UQ, and Rust conformance are
+    r"""Evidence ID: SV-OR-022
+
+    Requirement: ``state_space`` is a validated public StateSpace, not duck-typed state.
+
+    Method: Replace only that dependency using ``Any`` at the invalid boundary.
+
+    Oracle: The approved nominal dependency contract requires field-specific
+    ``TypeError``.
+
+    Acceptance: Diagnostic fragments identify ``state_space`` and ``StateSpace``.
+
+    Interpretation: Passing establishes the dependency type boundary only.
+
+    Limitations: StateSpace intrinsic invariants, scientific validation, UQ, and Rust
+    conformance are
     outside this evidence.
     """
 
@@ -244,20 +253,21 @@ def test_constructor__invalid_state_space_objects_are_rejected__is_enforced(
 def test_constructor__invalid_basis_objects_are_rejected__is_enforced(
     invalid_dependency: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-023
-    Requirement
-    ``basis`` is a validated public Basis, not duck-typed metadata.
-    Method
-    Replace only that dependency using ``Any`` at the invalid boundary.
-    Oracle
-    The approved nominal dependency contract requires field-specific ``TypeError``.
-    Acceptance
-    Diagnostic fragments identify ``basis`` and ``Basis``.
-    Interpretation
-    Passing establishes the dependency type boundary only.
-    Limitations
-    Basis intrinsic invariants, scientific validation, UQ, and Rust conformance are
+    r"""Evidence ID: SV-OR-023
+
+    Requirement: ``basis`` is a validated public Basis, not duck-typed metadata.
+
+    Method: Replace only that dependency using ``Any`` at the invalid boundary.
+
+    Oracle: The approved nominal dependency contract requires field-specific
+    ``TypeError``.
+
+    Acceptance: Diagnostic fragments identify ``basis`` and ``Basis``.
+
+    Interpretation: Passing establishes the dependency type boundary only.
+
+    Limitations: Basis intrinsic invariants, scientific validation, UQ, and Rust
+    conformance are
     outside this evidence.
     """
 
@@ -289,20 +299,21 @@ def test_constructor__invalid_basis_objects_are_rejected__is_enforced(
 def test_constructor__invalid_geometry_objects_are_rejected__is_enforced(
     invalid_dependency: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-024
-    Requirement
-    ``geometry`` is a validated public Geometry, not duck-typed metadata.
-    Method
-    Replace only that dependency using ``Any`` at the invalid boundary.
-    Oracle
-    The approved nominal dependency contract requires field-specific ``TypeError``.
-    Acceptance
-    Diagnostic fragments identify ``geometry`` and ``Geometry``.
-    Interpretation
-    Passing establishes the dependency type boundary only.
-    Limitations
-    Geometry intrinsic/numerical evidence, scientific validation, UQ, and Rust
+    r"""Evidence ID: SV-OR-024
+
+    Requirement: ``geometry`` is a validated public Geometry, not duck-typed metadata.
+
+    Method: Replace only that dependency using ``Any`` at the invalid boundary.
+
+    Oracle: The approved nominal dependency contract requires field-specific
+    ``TypeError``.
+
+    Acceptance: Diagnostic fragments identify ``geometry`` and ``Geometry``.
+
+    Interpretation: Passing establishes the dependency type boundary only.
+
+    Limitations: Geometry intrinsic/numerical evidence, scientific validation, UQ, and
+    Rust
     conformance are outside this evidence.
     """
 
@@ -334,20 +345,22 @@ def test_constructor__invalid_geometry_objects_are_rejected__is_enforced(
 def test_constructor__invalid_energy_reference_objects_are__is_enforced(
     invalid_dependency: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-025
-    Requirement
-    ``energy_reference`` is a validated public EnergyReference.
-    Method
-    Replace only that dependency using ``Any`` at the invalid boundary.
-    Oracle
-    The approved nominal dependency contract requires field-specific ``TypeError``.
-    Acceptance
-    Diagnostic fragments identify ``energy_reference`` and ``EnergyReference``.
-    Interpretation
-    Passing establishes the dependency type boundary only.
-    Limitations
-    EnergyReference intrinsic invariants, scientific validation, UQ, and Rust
+    r"""Evidence ID: SV-OR-025
+
+    Requirement: ``energy_reference`` is a validated public EnergyReference.
+
+    Method: Replace only that dependency using ``Any`` at the invalid boundary.
+
+    Oracle: The approved nominal dependency contract requires field-specific
+    ``TypeError``.
+
+    Acceptance: Diagnostic fragments identify ``energy_reference`` and
+    ``EnergyReference``.
+
+    Interpretation: Passing establishes the dependency type boundary only.
+
+    Limitations: EnergyReference intrinsic invariants, scientific validation, UQ, and
+    Rust
     conformance are outside this evidence.
     """
 
@@ -386,21 +399,22 @@ def test_constructor__invalid_energy_reference_objects_are__is_enforced(
 def test_constructor__invalid_provenance_containers_are_rejected__is_enforced(
     invalid_provenance: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-026
-    Requirement
-    Provenance is a ``Mapping``; iterable pairs and other containers are not silently
+    r"""Evidence ID: SV-OR-026
+
+    Requirement: Provenance is a ``Mapping``; iterable pairs and other containers are
+    not silently
     passed through ``dict()``.
-    Method
-    Pass each invalid object at the deliberate public boundary.
-    Oracle
-    The approved nominal container contract requires ``TypeError``.
-    Acceptance
-    Every diagnostic identifies provenance and mapping semantics.
-    Interpretation
-    Passing establishes strict provenance-container ownership.
-    Limitations
-    Mapping contents are separate evidence; no scientific validation, UQ, or Rust
+
+    Method: Pass each invalid object at the deliberate public boundary.
+
+    Oracle: The approved nominal container contract requires ``TypeError``.
+
+    Acceptance: Every diagnostic identifies provenance and mapping semantics.
+
+    Interpretation: Passing establishes strict provenance-container ownership.
+
+    Limitations: Mapping contents are separate evidence; no scientific validation, UQ,
+    or Rust
     conformance is established.
     """
 
@@ -424,20 +438,20 @@ def test_constructor__invalid_provenance_containers_are_rejected__is_enforced(
 def test_constructor__invalid_provenance_key_types_are_rejected__is_enforced(
     invalid_key: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-027
-    Requirement
-    Every provenance key is a Python string without coercion.
-    Method
-    Keep one valid string value and place the invalid object only as key.
-    Oracle
-    The approved mapping-content taxonomy requires ``TypeError``.
-    Acceptance
-    Diagnostic identifies provenance keys/values and strings.
-    Interpretation
-    Passing establishes key typing independently of value typing.
-    Limitations
-    It does not validate provenance truth, scientific validation, UQ, or Rust
+    r"""Evidence ID: SV-OR-027
+
+    Requirement: Every provenance key is a Python string without coercion.
+
+    Method: Keep one valid string value and place the invalid object only as key.
+
+    Oracle: The approved mapping-content taxonomy requires ``TypeError``.
+
+    Acceptance: Diagnostic identifies provenance keys/values and strings.
+
+    Interpretation: Passing establishes key typing independently of value typing.
+
+    Limitations: It does not validate provenance truth, scientific validation, UQ, or
+    Rust
     conformance.
     """
 
@@ -450,20 +464,20 @@ def test_constructor__invalid_provenance_key_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_provenance_key_is_rejected__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-028
-    Requirement
-    Every key is nonempty.
-    Method
-    Construct with one empty key and valid value.
-    Oracle
-    The approved content invariant requires ``ValueError``.
-    Acceptance
-    Diagnostic identifies provenance and empty content.
-    Interpretation
-    Passing establishes key value-taxonomy independently.
-    Limitations
-    It establishes no provenance truth, scientific validation, UQ, or Rust conformance.
+    r"""Evidence ID: SV-OR-028
+
+    Requirement: Every key is nonempty.
+
+    Method: Construct with one empty key and valid value.
+
+    Oracle: The approved content invariant requires ``ValueError``.
+
+    Acceptance: Diagnostic identifies provenance and empty content.
+
+    Interpretation: Passing establishes key value-taxonomy independently.
+
+    Limitations: It establishes no provenance truth, scientific validation, UQ, or Rust
+    conformance.
     """
 
     with pytest.raises(ValueError) as exc_info:
@@ -486,20 +500,20 @@ def test_constructor__empty_provenance_key_is_rejected__is_enforced() -> None:
 def test_constructor__invalid_provenance_value_types_are_rejected__is_enforced(
     invalid_value: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-029
-    Requirement
-    Every provenance value is a Python string without coercion.
-    Method
-    Keep one valid key and place the invalid object only as value.
-    Oracle
-    The approved mapping-content taxonomy requires ``TypeError``.
-    Acceptance
-    Diagnostic identifies provenance keys/values and strings.
-    Interpretation
-    Passing establishes value typing independently of key typing.
-    Limitations
-    It does not validate provenance truth, scientific validation, UQ, or Rust
+    r"""Evidence ID: SV-OR-029
+
+    Requirement: Every provenance value is a Python string without coercion.
+
+    Method: Keep one valid key and place the invalid object only as value.
+
+    Oracle: The approved mapping-content taxonomy requires ``TypeError``.
+
+    Acceptance: Diagnostic identifies provenance keys/values and strings.
+
+    Interpretation: Passing establishes value typing independently of key typing.
+
+    Limitations: It does not validate provenance truth, scientific validation, UQ, or
+    Rust
     conformance.
     """
 
@@ -512,20 +526,20 @@ def test_constructor__invalid_provenance_value_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_provenance_value_is_rejected__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-030
-    Requirement
-    Every value is nonempty.
-    Method
-    Construct with one valid key and empty value.
-    Oracle
-    The approved content invariant requires ``ValueError``.
-    Acceptance
-    Diagnostic identifies provenance and empty content.
-    Interpretation
-    Passing establishes value taxonomy independently.
-    Limitations
-    It establishes no provenance truth, scientific validation, UQ, or Rust conformance.
+    r"""Evidence ID: SV-OR-030
+
+    Requirement: Every value is nonempty.
+
+    Method: Construct with one valid key and empty value.
+
+    Oracle: The approved content invariant requires ``ValueError``.
+
+    Acceptance: Diagnostic identifies provenance and empty content.
+
+    Interpretation: Passing establishes value taxonomy independently.
+
+    Limitations: It establishes no provenance truth, scientific validation, UQ, or Rust
+    conformance.
     """
 
     with pytest.raises(ValueError) as exc_info:
@@ -536,22 +550,25 @@ def test_constructor__empty_provenance_value_is_rejected__is_enforced() -> None:
 
 
 def test_constructor__explicit_empty_provenance_mapping_is__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-031
-    Requirement
-    Empty provenance is valid and is not replaced by fixture defaults.
-    Method
-    Supply ``{}`` explicitly through a helper that distinguishes ``None`` from empty
+    r"""Evidence ID: SV-OR-031
+
+    Requirement: Empty provenance is valid and is not replaced by fixture defaults.
+
+    Method: Supply ``{}`` explicitly through a helper that distinguishes ``None`` from
+    empty
     mappings using ``is None``.
-    Oracle
-    The approved Mapping contract imposes entry invariants but no nonempty container
+
+    Oracle: The approved Mapping contract imposes entry invariants but no nonempty
+    container
     invariant.
-    Acceptance
-    Construction succeeds and exposed provenance remains empty.
-    Interpretation
-    Passing establishes empty-mapping admission and fixture transparency.
-    Limitations
-    Absence of provenance does not establish reproducibility, scientific validation, UQ,
+
+    Acceptance: Construction succeeds and exposed provenance remains empty.
+
+    Interpretation: Passing establishes empty-mapping admission and fixture
+    transparency.
+
+    Limitations: Absence of provenance does not establish reproducibility, scientific
+    validation, UQ,
     or Rust conformance.
     """
 

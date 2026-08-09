@@ -44,21 +44,22 @@ def make_state_space(
 ) -> StateSpace:
     r"""Construct synthetic finite state-space metadata.
 
-    Evidence ID
-    Owns no identifier; supports operator-record evidence modules.
-    Requirement
-    OperatorRecord fixtures use an independently valid public StateSpace.
-    Method
-    Supply the explicit identifier and dimension unchanged with kind
+    Evidence ID: Owns no identifier; supports operator-record evidence modules.
+
+    Requirement: OperatorRecord fixtures use an independently valid public StateSpace.
+
+    Method: Supply the explicit identifier and dimension unchanged with kind
     ``"finite synthetic"``.
-    Oracle
-    The approved StateSpace constructor owns its intrinsic invariants.
-    Acceptance
-    Construction returns a valid public ``StateSpace`` with the supplied roles.
-    Interpretation
-    The result provides typed dependency metadata for OperatorRecord tests.
-    Limitations
-    The helper performs no matrix inference, DFT, Wannier, experimental, or
+
+    Oracle: The approved StateSpace constructor owns its intrinsic invariants.
+
+    Acceptance: Construction returns a valid public ``StateSpace`` with the supplied
+    roles.
+
+    Interpretation: The result provides typed dependency metadata for OperatorRecord
+    tests.
+
+    Limitations: The helper performs no matrix inference, DFT, Wannier, experimental, or
     impurity calculation and establishes no physical/scientific validity,
     scientific validation, UQ, or Rust conformance.
     """
@@ -74,24 +75,26 @@ def make_basis(
 ) -> Basis:
     r"""Construct synthetic ordered-basis metadata.
 
-    Evidence ID
-    Owns no identifier; supports operator-record evidence modules.
-    Requirement
-    OperatorRecord fixtures use an independently valid Basis with explicit
+    Evidence ID: Owns no identifier; supports operator-record evidence modules.
+
+    Requirement: OperatorRecord fixtures use an independently valid Basis with explicit
     ordering and orthonormality metadata.
-    Method
-    Pass identifier, ordering, and orthonormality unchanged with deterministic
+
+    Method: Pass identifier, ordering, and orthonormality unchanged with deterministic
     kind ``"test basis"``.
-    Oracle
-    The approved Basis constructor owns sequence canonicalization and its
+
+    Oracle: The approved Basis constructor owns sequence canonicalization and its
     intrinsic metadata invariants.
-    Acceptance
-    Construction returns a valid public ``Basis`` with unchanged explicit inputs.
-    Interpretation
-    The result provides typed dependency metadata without modifying frozen
+
+    Acceptance: Construction returns a valid public ``Basis`` with unchanged explicit
+    inputs.
+
+    Interpretation: The result provides typed dependency metadata without modifying
+    frozen
     state or numerically checking orthogonality.
-    Limitations
-    No basis vectors, DFT, Wannier, experimental, or impurity calculation are
+
+    Limitations: No basis vectors, DFT, Wannier, experimental, or impurity calculation
+    are
     supplied; no physical/scientific validity, scientific validation, UQ, or
     Rust conformance is established.
     """
@@ -102,22 +105,23 @@ def make_basis(
 def make_geometry(*, system: str = "synthetic") -> Geometry:
     r"""Construct synthetic finite-cell metadata.
 
-    Evidence ID
-    Owns no identifier; supports operator-record evidence modules.
-    Requirement
-    OperatorRecord fixtures use an independently valid public Geometry.
-    Method
-    Pass the system unchanged and supply the exact identity cell,
+    Evidence ID: Owns no identifier; supports operator-record evidence modules.
+
+    Requirement: OperatorRecord fixtures use an independently valid public Geometry.
+
+    Method: Pass the system unchanged and supply the exact identity cell,
     ``"finite synthetic"`` boundary conditions, Cartesian row-vector
     convention, and ``"angstrom"`` label.
-    Oracle
-    The approved Geometry constructor owns cell and metadata invariants.
-    Acceptance
-    Construction returns a valid public ``Geometry`` with the fixed synthetic cell.
-    Interpretation
-    The result supplies deterministic represented geometry metadata.
-    Limitations
-    It performs no normalization, conversion, DFT, Wannier, experimental, or
+
+    Oracle: The approved Geometry constructor owns cell and metadata invariants.
+
+    Acceptance: Construction returns a valid public ``Geometry`` with the fixed
+    synthetic cell.
+
+    Interpretation: The result supplies deterministic represented geometry metadata.
+
+    Limitations: It performs no normalization, conversion, DFT, Wannier, experimental,
+    or
     impurity calculation and establishes no physical/scientific validity,
     scientific validation, UQ, or Rust conformance.
     """
@@ -138,21 +142,21 @@ def make_energy_reference(
 ) -> EnergyReference:
     r"""Construct synthetic textual energy-reference metadata.
 
-    Evidence ID
-    Owns no identifier; supports operator-record evidence modules.
-    Requirement
-    OperatorRecord fixtures use an independently valid EnergyReference.
-    Method
-    Pass the explicit zero-convention and unit strings unchanged.
-    Oracle
-    The approved EnergyReference constructor owns its intrinsic string
+    Evidence ID: Owns no identifier; supports operator-record evidence modules.
+
+    Requirement: OperatorRecord fixtures use an independently valid EnergyReference.
+
+    Method: Pass the explicit zero-convention and unit strings unchanged.
+
+    Oracle: The approved EnergyReference constructor owns its intrinsic string
     invariants and performs no conversion.
-    Acceptance
-    Construction returns a valid public ``EnergyReference`` without conversion.
-    Interpretation
-    The result supplies deterministic represented energy metadata.
-    Limitations
-    No normalization, conversion, DFT, Wannier, experimental, or impurity
+
+    Acceptance: Construction returns a valid public ``EnergyReference`` without
+    conversion.
+
+    Interpretation: The result supplies deterministic represented energy metadata.
+
+    Limitations: No normalization, conversion, DFT, Wannier, experimental, or impurity
     calculation occurs; no physical/scientific validity, scientific
     validation, UQ, or Rust conformance is established.
     """
@@ -173,26 +177,28 @@ def make_record(
 ) -> OperatorRecord:
     r"""Construct a public synthetic ``OperatorRecord`` without hidden coercion.
 
-    Evidence ID
-    Owns no identifier; supports operator-record evidence modules.
-    Requirement
-    Valid fixtures expose every record dependency and preserve caller matrix
+    Evidence ID: Owns no identifier; supports operator-record evidence modules.
+
+    Requirement: Valid fixtures expose every record dependency and preserve caller
+    matrix
     and provenance choices, including an explicitly empty mapping.
-    Method
-    Use a nested-list 2x2 matrix and typed public dependencies only when the
+
+    Method: Use a nested-list 2x2 matrix and typed public dependencies only when the
     corresponding argument is ``None``. Pass every non-``None`` input
     unchanged to ``OperatorRecord``. Provenance uses an explicit ``is None``
     branch rather than truth-value fallback.
-    Oracle
-    The approved eight-field OperatorRecord contract owns matrix
+
+    Oracle: The approved eight-field OperatorRecord contract owns matrix
     canonicalization, dependency relations, and defensive copying.
-    Acceptance
-    Construction returns a valid public ``OperatorRecord`` with explicit inputs.
-    Interpretation
-    The helper creates independently reproducible synthetic software state
+
+    Acceptance: Construction returns a valid public ``OperatorRecord`` with explicit
+    inputs.
+
+    Interpretation: The helper creates independently reproducible synthetic software
+    state
     while leaving the behavior under test visible at the public constructor.
-    Limitations
-    It does not call ``np.asarray`` or pre-coerce matrix values, infer
+
+    Limitations: It does not call ``np.asarray`` or pre-coerce matrix values, infer
     dependency dimensions from malformed matrices, mutate frozen objects,
     normalize values, or perform DFT, Wannier, experimental, or impurity
     calculations. Construction establishes no physical/scientific validity,

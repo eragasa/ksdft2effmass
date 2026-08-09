@@ -11,14 +11,14 @@ sphinx: excluded
 > **Rationalization status.** Slices 1 through 5 simplified
 > `design-data-action-objects`, `develop-operator-records`,
 > `develop-python-test-evidence`, `recommend-next-task`, and
-> `resolve-human-checkpoint`; Slice 6 implemented `ResolveCheckpointDecision`;
+> `resolve-human-checkpoint`; Slice 6 implemented `CheckpointDecisionResolver`;
 > Slice 7 is deferred; Slice 8 created `develop-harness-resources`; Slice 9
 > corrected evidence auditing and retired its duplicate AST script; and Slice 10
 > reconciled the historical resource-phase routing group. Later slices remain
 > proposals. This page does not activate another skill, agent,
 > ActionObject, tool, route, or task. The separately authorized
 > `harness-simplification.resources.manifest-refresh` vertical slice added the
-> deterministic `RefreshResourceManifest` ActionObject without changing the
+> deterministic `ResourceManifestRefresher` ActionObject without changing the
 > completed Slice 4 baseline or activating Slice 5 or `develop-harness-resources`.
 
 Starting revision: `507221c8928f981e4b9697b097f22cdfbd1ba03d`
@@ -52,10 +52,10 @@ entry; optional Graphify operation references remain on demand.
 | `develop-operator-records` | Represented finite-operator semantics, metadata, compatibility, difference, residual, Hermiticity, and serialization | 309 lines | Project/domain-specific | Fixed inventories, migration/checkpoint history, command gates, test/docs grammar, and invocation ceremony were removed in Slice 2 | **Keep:** operator meaning retained; general architecture, tests, docs, and open decisions route to their owning skills |
 | `develop-python-test-evidence` | Semantic design, writing, restructuring, and review of maintained Python evidence | 260 lines; byte footprint reduced by about half | Extractable core with a local profile | Invocation profiles, repository-conformance campaign state, universal migration ceremony, reporting envelopes, and validator implementation detail were removed in Slice 3 | **Keep:** evidence rigor retained; `ValidatePythonTestEvidence` and its CLI own structural enforcement |
 | `document-python-research-software` | Public Python docstrings, API/concept pages, Sphinx integration, and serialization documentation | 21 lines | Extractable core with local build inputs | Correctly refers test semantics to the test-evidence skill | **Keep** |
-| `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `InspectTaskState` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
+| `inspect-task-state` | Invoke exact bounded task-state inspection for a known chain and task | 46 lines | Project-local command guidance | Contains no reusable judgment beyond input selection and interpretation; behavior is `TaskStateInspector` plus its CLI | **Merge/retire:** retain command documentation outside skill routing |
 | `recommend-next-task` | State-gated, read-only selection of one human-selectable next task | 117 lines | Project-specific planning policy | Broad repository discovery, fixed reporting schemas, orchestration ceremony, and duplicated control-plane procedure were removed in Slice 4 | **Keep:** use maintained task-state inspection; read-only and human-selection boundaries are unchanged |
 | `graphify` | Explicitly requested local Graphify use under project safety policy | 167 mandatory lines | Project-specific external-tool policy | Exact external-tool safety policy is intentional; operation-specific references are loaded only when needed | **Keep** |
-| `resolve-human-checkpoint` | Interpret one current human answer to a durable unresolved checkpoint | 99 lines | Project-local interpretation policy | Git, resumption, CPN, replay, incremental-acceptance, validation-command, and mutation ceremony were removed in Slice 5 | **Keep:** intent matching, ambiguity detection, verbatim response preservation, normalized decision, and authorized-scope boundaries retained; transformation routes to `ResolveCheckpointDecision` |
+| `resolve-human-checkpoint` | Interpret one current human answer to a durable unresolved checkpoint | 99 lines | Project-local interpretation policy | Git, resumption, CPN, replay, incremental-acceptance, validation-command, and mutation ceremony were removed in Slice 5 | **Keep:** intent matching, ambiguity detection, verbatim response preservation, normalized decision, and authorized-scope boundaries retained; transformation routes to `CheckpointDecisionResolver` |
 
 Capability classification and implementation disposition are different axes. A
 `SKILL_EXISTING` capability row means the reusable interpretation capability has
@@ -114,16 +114,16 @@ skill; it does not mean delete or rewrite the file.
 | Inactive agent | Reusable extraction and authoritative destination | Discard from live capability routing |
 |---|---|---|
 | `ksdft2effmass-harness-cutover-architecture-reviewer` | Generic/local boundary judgment uses `design-data-action-objects`; independence uses durable harness architecture/review roles; routing facts use existing route Actions | H4 identity, rollback checklist, PASS/FAIL ceremony |
-| `ksdft2effmass-harness-cutover-integration-reviewer` | Cross-surface review uses durable harness integration reviewer; parity and routes use `CompareShadowPair`, `ReplayShadowSuite`, `SelectValidationRoute`, and `RollBackValidationRoute` | H4 commands, starting revision, fixed rollback and successor mechanics |
-| `ksdft2effmass-harness-cutover-skill-resource-reviewer` | Resource-design judgment uses `develop-harness-resources`; closure is `ValidateResourceManifest` and `ValidateSkillResources` | H4 skill-name correction and stale-path inventory |
+| `ksdft2effmass-harness-cutover-integration-reviewer` | Cross-surface review uses durable harness integration reviewer; parity and routes use `ShadowPairComparator`, `ShadowSuiteReplayer`, `ValidationRouteSelector`, and `LegacyRouteConfigurationPreparer` | H4 commands, starting revision, fixed rollback and successor mechanics |
+| `ksdft2effmass-harness-cutover-skill-resource-reviewer` | Resource-design judgment uses `develop-harness-resources`; closure is `ResourceManifestValidator` and `SkillResourceValidator` | H4 skill-name correction and stale-path inventory |
 | `ksdft2effmass-harness-generic-resource-writer` | Generic/local resource judgment is `develop-harness-resources`; writer authority remains durable harness implementation | H3 paths, accepted-H1 wording, path fences |
 | `ksdft2effmass-harness-h2-verification-evidence-writer` | Evidence classification uses `develop-python-test-evidence`; artifact ownership is task state | H2 evidence paths, checksum/acceptance inventory, handoff phase |
 | `ksdft2effmass-harness-h3-verification-evidence-writer` | Evidence classification uses `develop-python-test-evidence`; documentation facts use the durable documentation role when assigned | H3 activation, handoff, review aggregation, fixed paths |
 | `ksdft2effmass-harness-local-doc-control-writer` | Documentation procedure uses `document-python-research-software`; role boundary uses durable harness documentation | H4 control synchronization, fixed paths, successor prohibitions |
 | `ksdft2effmass-harness-local-python-writer` | Object ownership uses `design-data-action-objects`; implemented local behavior remains with maintained local Actions | H4 path assignment, cutover state, generic-contract stop wording |
-| `ksdft2effmass-harness-local-resource-writer` | Local overlay/profile judgment is `develop-harness-resources`; manifest validity is `ValidateResourceManifest` | H3 paths, phase sequencing, fixed prohibitions |
-| `ksdft2effmass-harness-local-test-parity-writer` | Test semantics use `develop-python-test-evidence`; parity uses `CompareShadowPair` and `ReplayShadowSuite`; role boundary uses durable harness tests | H4 evidence paths, completion script ownership, cutover acceptance state |
-| `ksdft2effmass-harness-option-a-contract-resource-writer` | Relational validity is already `ValidateResourceManifest`; intrinsic object rules remain DataObject contracts | H2-HC01 option, one-time correction paths, historical accepted values |
+| `ksdft2effmass-harness-local-resource-writer` | Local overlay/profile judgment is `develop-harness-resources`; manifest validity is `ResourceManifestValidator` | H3 paths, phase sequencing, fixed prohibitions |
+| `ksdft2effmass-harness-local-test-parity-writer` | Test semantics use `develop-python-test-evidence`; parity uses `ShadowPairComparator` and `ShadowSuiteReplayer`; role boundary uses durable harness tests | H4 evidence paths, completion script ownership, cutover acceptance state |
+| `ksdft2effmass-harness-option-a-contract-resource-writer` | Relational validity is already `ResourceManifestValidator`; intrinsic object rules remain DataObject contracts | H2-HC01 option, one-time correction paths, historical accepted values |
 | `ksdft2effmass-harness-python-architecture-rust-reviewer` | Object ownership uses `design-data-action-objects`; architecture independence uses durable harness architecture | H2 36-interface inventory, intended-port phase checklist |
 | `ksdft2effmass-harness-python-documentation-writer` | Public Python documentation uses `document-python-research-software` and durable harness documentation | Single H2 page assignment and fixed H3 inputs |
 | `ksdft2effmass-harness-python-evidence-vvuq-reviewer` | Evidence semantics use `develop-python-test-evidence`; independent review uses durable harness integration reviewer | H2 inventory closure and phase completion gate |
@@ -135,7 +135,7 @@ skill; it does not mean delete or rewrite the file.
 | `ksdft2effmass-harness-resource-evidence-vvuq-reviewer` | Evidence semantics use `develop-python-test-evidence`; independent review uses durable harness integration reviewer | H3 fixture inventory and phase PASS/FAIL ceremony |
 | `ksdft2effmass-harness-resource-integration-reviewer` | Resource/checksum/local-composition Actions own mechanics; durable harness integration review owns independence | H3 control state and H2-inactive handoff checklist |
 | `ksdft2effmass-harness-resource-test-writer` | Test semantics use `develop-python-test-evidence`; resource judgment uses `develop-harness-resources`; durable harness tests own implementation | H3 fixture paths and accepted-H1 case inventory |
-| `ksdft2effmass-harness-resource-validation-writer` | `ValidateResourceManifest`, `ResolveResource`, `RefreshResourceManifest`, `ValidateSkillResources`, `ValidateChecksumManifest`, and maintained local Actions own deterministic behavior | H3 validator path, dependency-free completion-script assignment |
+| `ksdft2effmass-harness-resource-validation-writer` | `ResourceManifestValidator`, `ResourceResolver`, `ResourceManifestRefresher`, `SkillResourceValidator`, `ChecksumManifestValidator`, and maintained local Actions own deterministic behavior | H3 validator path, dependency-free completion-script assignment |
 | `ksdft2effmass-harness-skill-resource-cutover-writer` | Resource judgment is `develop-harness-resources`; capability inventory is the maintained validator/tool | TEST-EVIDENCE-SKILL-1/H4 migration, fixed consumers, activation mechanics |
 
 The extraction result is intentionally small: one cohesive maintained
@@ -149,8 +149,8 @@ The six resource-phase agent records remain disabled, byte-unchanged, and
 Reusable generic/local resource judgment belongs to `develop-harness-resources`.
 Durable harness agents own assigned implementation, tests, documentation,
 architecture advice, and independent integration review. Deterministic mechanics
-remain with `ValidateResourceManifest`, `ResolveResource`,
-`RefreshResourceManifest`, `ValidateSkillResources`, `ValidateChecksumManifest`,
+remain with `ResourceManifestValidator`, `ResourceResolver`,
+`ResourceManifestRefresher`, `SkillResourceValidator`, `ChecksumManifestValidator`,
 and maintained project-local composition Actions. No phase agent was revived and
 no historical record was deleted. This completes the resource-agent
 rationalization sequence.
@@ -162,28 +162,28 @@ The public export surfaces were inspected directly. The generic package exports
 
 | Source | Existing ActionObjects | Primary deterministic ownership |
 |---|---|---|
-| `validation.py` | `SerializeJsonRecord`, `DeserializeJsonRecord` | Canonical closed wire serialization and strict kind-selected decoding |
-| `profiles.py` | `LoadProjectProfile` | Profile byte decoding, identity, schema, and contract compatibility |
-| `resources.py` | `ValidateResourceManifest`, `RefreshResourceManifest`, `ResolveResource`, `ValidateSkillResources` | Manifest closure/overlay/leakage, explicit-path identity refresh, confined resolution/hash, skill-resource closure |
-| `ownership.py` | `ValidateOwnershipManifest` | Task/agent/scope/completion-command ownership relations |
-| `checkpoints.py` | `ResolveCheckpointDecision`, `ValidateCheckpointSet` | Pure explicit decision transformation and checkpoint lifecycle/relation validation |
-| `chains.py` | `EvaluateChainState` | Active, blocked, and structurally ready chain facts |
-| `checksums.py` | `ValidateChecksumManifest` | Root-confined exact checksum verification |
+| `validation.py` | `JsonRecordSerializer`, `JsonRecordDeserializer` | Canonical closed wire serialization and strict kind-selected decoding |
+| `profiles.py` | `ProjectProfileLoader` | Profile byte decoding, identity, schema, and contract compatibility |
+| `resources.py` | `ResourceManifestValidator`, `ResourceManifestRefresher`, `ResourceResolver`, `SkillResourceValidator` | Manifest closure/overlay/leakage, explicit-path identity refresh, confined resolution/hash, skill-resource closure |
+| `ownership.py` | `OwnershipManifestValidator` | Task/agent/scope/completion-command ownership relations |
+| `checkpoints.py` | `CheckpointDecisionResolver`, `CheckpointSetValidator` | Pure explicit decision transformation and checkpoint lifecycle/relation validation |
+| `chains.py` | `ChainStateEvaluator` | Active, blocked, and structurally ready chain facts |
+| `checksums.py` | `ChecksumManifestValidator` | Root-confined exact checksum verification |
 | `evidence.py` | `AuditEvidenceIdentifiers` | Evidence namespace, marker, owner, and duplicate inspection |
 | `test_evidence.py` | `ValidatePythonTestEvidence` | Explicit-path structural maintained-test validation |
-| `task_state.py` | `InspectTaskState` | Exact declared task/ownership/completion/artifact/run/handoff inspection |
-| `local/context.py` | `LoadLocalHarnessContext` | Explicit-root profile/manifest composition |
-| `local/adapters.py` | `AdaptCheckpointRecords`, `AdaptTaskRecords`, `AdaptChainRecord`, `AdaptAgentRecords`, `AdaptOwnershipManifest`, `AdaptChecksumCatalog`, `AdaptSkillInventory`, `AdaptEvidenceOwnershipManifest`, `SelectEvidenceModules` | Strict compatibility adaptation of caller-selected repository records |
-| `local/routing.py` | `SelectValidationRoute`, `RollBackValidationRoute` | Pure legacy/shadow/local selection and non-destructive rollback configuration |
-| `local/shadow.py` | `CompareShadowPair`, `ReplayShadowSuite` | Normalized parity classification and aggregate assessment; no command launch |
-| `local/validation.py` | `ValidateLocalRepository` | Composition of selected generic validators without severity downgrade |
+| `task_state.py` | `TaskStateInspector` | Exact declared task/ownership/completion/artifact/run/handoff inspection |
+| `local/context.py` | `LocalHarnessContextLoader` | Explicit-root profile/manifest composition |
+| `local/adapters.py` | `CheckpointRecordAdapter`, `TaskRecordAdapter`, `ChainRecordAdapter`, `AgentRecordAdapter`, `OwnershipManifestAdapter`, `ChecksumCatalogAdapter`, `SkillInventoryAdapter`, `EvidenceOwnershipManifestAdapter`, `EvidenceModuleSelector` | Strict compatibility adaptation of caller-selected repository records |
+| `local/routing.py` | `ValidationRouteSelector`, `LegacyRouteConfigurationPreparer` | Pure legacy/shadow/local selection and non-destructive rollback configuration |
+| `local/shadow.py` | `ShadowPairComparator`, `ShadowSuiteReplayer` | Normalized parity classification and aggregate assessment; no command launch |
+| `local/validation.py` | `LocalRepositoryValidator` | Composition of selected generic validators without severity downgrade |
 
 ### Maintained wrappers and validators
 
 | Tool | Disposition |
 |---|---|
-| `python/.../local/inspect_task_state.py` | Keep as the thin `InspectTaskState` CLI |
-| `python/.../local/refresh_resource_manifest.py` | Keep as the thin read-only `RefreshResourceManifest` proposal CLI |
+| `python/.../local/inspect_task_state.py` | Keep as the thin `TaskStateInspector` CLI |
+| `python/.../local/refresh_resource_manifest.py` | Keep as the thin read-only `ResourceManifestRefresher` proposal CLI |
 | `python/.../local/audit_evidence_identifiers.py` | Keep as the thin explicit-root and explicit-inventory `AuditEvidenceIdentifiers` CLI |
 | `harness/pi/validation/validate_python_test_evidence.py` | Keep as the thin `ValidatePythonTestEvidence` CLI |
 | `harness/local/validation/validate_repository_test_evidence.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
@@ -206,29 +206,29 @@ secondary consumers do not share ownership.
 | Represented finite-operator scientific/software judgment | `SKILL_EXISTING` | `develop-operator-records` | Project implementation/tests/docs/reviewer |
 | Evidence class, owner, oracle, acceptance, and semantic review | `SKILL_EXISTING` | `develop-python-test-evidence` | Test writers and integration reviewers |
 | Public Python and Sphinx documentation procedure | `SKILL_EXISTING` | `document-python-research-software` | Documentation and implementation agents |
-| Exact declared task-state inspection | `ACTION_EXISTING` | `InspectTaskState` and CLI | Root agent and task workflows |
+| Exact declared task-state inspection | `ACTION_EXISTING` | `TaskStateInspector` and CLI | Root agent and task workflows |
 | Single next-task recommendation judgment | `SKILL_EXISTING` | `recommend-next-task` | Root agent only |
 | Explicit local Graphify safety procedure | `SKILL_EXISTING` | `graphify` | Root agent after explicit request |
 | Human checkpoint intent matching and ambiguity judgment | `SKILL_EXISTING` | `resolve-human-checkpoint` | Root agent |
-| Deterministic checkpoint resolution transformation | `ACTION_EXISTING` | `ResolveCheckpointDecision` | Interpreted decision consumers and authorized local workflows |
-| Canonical harness wire JSON | `ACTION_EXISTING` | `SerializeJsonRecord` / `DeserializeJsonRecord` | Profiles, resources, adapters |
-| Project-profile loading and compatibility | `ACTION_EXISTING` | `LoadProjectProfile` | Local context |
+| Deterministic checkpoint resolution transformation | `ACTION_EXISTING` | `CheckpointDecisionResolver` | Interpreted decision consumers and authorized local workflows |
+| Canonical harness wire JSON | `ACTION_EXISTING` | `JsonRecordSerializer` / `JsonRecordDeserializer` | Profiles, resources, adapters |
+| Project-profile loading and compatibility | `ACTION_EXISTING` | `ProjectProfileLoader` | Local context |
 | Generic/local resource design and evolution judgment | `SKILL_EXISTING` | `develop-harness-resources` | Harness implementation/docs/tests/reviewer |
-| Manifest closure, overlay, and generic-to-local leakage | `ACTION_EXISTING` | `ValidateResourceManifest` | Context and repository validation |
-| Explicit-path resource identity refresh | `ACTION_EXISTING` | `RefreshResourceManifest` and read-only CLI | Resource authors using `develop-harness-resources` |
-| Root-confined resource selection and hashing | `ACTION_EXISTING` | `ResolveResource` | Resource consumers |
-| Skill descriptor/resource closure | `ACTION_EXISTING` | `ValidateSkillResources` | Capability/resource routing |
-| Ownership relation validation | `ACTION_EXISTING` | `ValidateOwnershipManifest` | Task preflight and local validation |
-| Checkpoint lifecycle validation | `ACTION_EXISTING` | `ValidateCheckpointSet` | Chain evaluation and checkpoint skill |
-| Chain active/blocked/ready evaluation | `ACTION_EXISTING` | `EvaluateChainState` | Local validation and planning |
-| Checksum verification | `ACTION_EXISTING` | `ValidateChecksumManifest` | Local validation |
+| Manifest closure, overlay, and generic-to-local leakage | `ACTION_EXISTING` | `ResourceManifestValidator` | Context and repository validation |
+| Explicit-path resource identity refresh | `ACTION_EXISTING` | `ResourceManifestRefresher` and read-only CLI | Resource authors using `develop-harness-resources` |
+| Root-confined resource selection and hashing | `ACTION_EXISTING` | `ResourceResolver` | Resource consumers |
+| Skill descriptor/resource closure | `ACTION_EXISTING` | `SkillResourceValidator` | Capability/resource routing |
+| Ownership relation validation | `ACTION_EXISTING` | `OwnershipManifestValidator` | Task preflight and local validation |
+| Checkpoint lifecycle validation | `ACTION_EXISTING` | `CheckpointSetValidator` | Chain evaluation and checkpoint skill |
+| Chain active/blocked/ready evaluation | `ACTION_EXISTING` | `ChainStateEvaluator` | Local validation and planning |
+| Checksum verification | `ACTION_EXISTING` | `ChecksumManifestValidator` | Local validation |
 | Evidence-ID and executable-marker inspection | `ACTION_EXISTING` | `AuditEvidenceIdentifiers` and thin local CLI | Test-evidence workflows |
 | Structural Python test-evidence inspection | `ACTION_EXISTING` | `ValidatePythonTestEvidence` | Test-evidence skill and local gate |
-| Explicit local profile/manifest composition | `ACTION_EXISTING` | `LoadLocalHarnessContext` | Local validation |
-| Selected historical/live record normalization | `ACTION_EXISTING` | local `Adapt*` Actions and `SelectEvidenceModules` | Local validation only |
-| Validation route selection and rollback facts | `ACTION_EXISTING` | `SelectValidationRoute` / `RollBackValidationRoute` | Route wrapper |
-| Normalized parity comparison and aggregation | `ACTION_EXISTING` | `CompareShadowPair` / `ReplayShadowSuite` | Integration reviewer |
-| Project-local validator composition | `ACTION_EXISTING` | `ValidateLocalRepository` | Maintained route consumers |
+| Explicit local profile/manifest composition | `ACTION_EXISTING` | `LocalHarnessContextLoader` | Local validation |
+| Selected historical/live record normalization | `ACTION_EXISTING` | local `Adapt*` Actions and `EvidenceModuleSelector` | Local validation only |
+| Validation route selection and rollback facts | `ACTION_EXISTING` | `ValidationRouteSelector` / `LegacyRouteConfigurationPreparer` | Route wrapper |
+| Normalized parity comparison and aggregation | `ACTION_EXISTING` | `ShadowPairComparator` / `ShadowSuiteReplayer` | Integration reviewer |
+| Project-local validator composition | `ACTION_EXISTING` | `LocalRepositoryValidator` | Maintained route consumers |
 | Fixed repository skill-capability inventory validation | `ACTION_EXISTING` | `.pi/skills/validate_skill_capabilities.py` | Maintained local route |
 | Maintained route execution/inspection | `ACTION_EXISTING` | `.pi/skills/validate_harness.py` and current replay wrapper | Root verification |
 | Repository maintained-test conformance gate | `ACTION_EXISTING` | `validate_repository_test_evidence.py` | Authorized test-conformance tasks |
@@ -237,7 +237,7 @@ secondary consumers do not share ownership.
 | Human-facing architecture and operation explanation | `DOCUMENTATION` | numbered harness pages and public harness docs | Humans and agents |
 | Closed H2/H3/H4 command inventories and ceremony | `HISTORICAL_ONLY` | retained phase records/evidence | Historical reconstruction only |
 | Phase-specific agent capability routing | `DUPLICATE_RETIRE` | durable agents plus accepted skill/Action destinations | Disabled historical agent files only |
-| `inspect-task-state` procedural skill routing | `DUPLICATE_RETIRE` | `InspectTaskState` plus maintained CLI documentation | Current skill until bounded retirement |
+| `inspect-task-state` procedural skill routing | `DUPLICATE_RETIRE` | `TaskStateInspector` plus maintained CLI documentation | Current skill until bounded retirement |
 | General `assess-harness-cutover` procedure | `DUPLICATE_RETIRE` | route/parity Actions, architecture skill, and durable integration reviewer | A cutover task may compose them |
 
 Counts from the 38 current rows are:
@@ -279,8 +279,8 @@ the completed per-skill updates above.
   Python object boundaries, `document-python-research-software` for public
   Python docs, and `develop-python-test-evidence` for maintained pytest evidence.
   It owns textual-resource design judgment, which none of those skills owns.
-- **Deterministic components outside the skill:** `ValidateResourceManifest`,
-  `RefreshResourceManifest`, `ResolveResource`, `ValidateSkillResources`,
+- **Deterministic components outside the skill:** `ResourceManifestValidator`,
+  `ResourceManifestRefresher`, `ResourceResolver`, `SkillResourceValidator`,
   canonical wire serialization, checksum validation, and local repository
   composition.
 - **Expected references/scripts:** a concise, de-historicized resource-contract
@@ -310,8 +310,8 @@ accepted hashes, or phase completion gates.
 - **Possible procedure:** establish identical inputs, compare normalized results,
   classify differences, inspect route/rollback, review boundaries, and stop for
   any human choice.
-- **Relationship to existing owners:** `CompareShadowPair` and
-  `ReplayShadowSuite` own parity; route Actions own routing; `ValidateLocalRepository`
+- **Relationship to existing owners:** `ShadowPairComparator` and
+  `ShadowSuiteReplayer` own parity; route Actions own routing; `LocalRepositoryValidator`
   owns composed checks; `develop-architecture-decision` owns genuine alternatives;
   the durable integration reviewer owns independent cross-surface assessment.
 - **Deterministic components outside a skill:** all parity, route, checksum,
@@ -333,19 +333,19 @@ cutover task should compose those owners instead.
 
 | Repeated operation | Existing owner or proposal | Decision |
 |---|---|---|
-| Resource-manifest validation | `ValidateResourceManifest` | No duplicate tool |
-| Explicit selected resource-identity refresh | `RefreshResourceManifest` | Maintained Action and read-only CLI added by the bounded refresh slice |
-| Generic/local leakage detection | `ValidateResourceManifest` | No duplicate tool |
-| Parity comparison | `CompareShadowPair`, `ReplayShadowSuite` | No duplicate tool |
-| Route inspection/selection | `SelectValidationRoute`, `RollBackValidationRoute`; selected wrapper in `validate_harness.py` | No duplicate tool |
-| Checksum verification | `ValidateChecksumManifest` | No duplicate tool |
+| Resource-manifest validation | `ResourceManifestValidator` | No duplicate tool |
+| Explicit selected resource-identity refresh | `ResourceManifestRefresher` | Maintained Action and read-only CLI added by the bounded refresh slice |
+| Generic/local leakage detection | `ResourceManifestValidator` | No duplicate tool |
+| Parity comparison | `ShadowPairComparator`, `ShadowSuiteReplayer` | No duplicate tool |
+| Route inspection/selection | `ValidationRouteSelector`, `LegacyRouteConfigurationPreparer`; selected wrapper in `validate_harness.py` | No duplicate tool |
+| Checksum verification | `ChecksumManifestValidator` | No duplicate tool |
 | Evidence-ID inspection | `AuditEvidenceIdentifiers` plus thin explicit-inventory CLI | Duplicate legacy AST script retired after conformance gates passed |
-| Maintained validation-command inspection | `InspectTaskState` reports declared completion command | No duplicate tool |
+| Maintained validation-command inspection | `TaskStateInspector` reports declared completion command | No duplicate tool |
 | Capability-inventory inspection | `validate_skill_capabilities.py` validates the fixed repository inventory | Keep tool; do not create an Action until a second input contract needs a reusable public result |
-| Checkpoint resolution record transformation | `ResolveCheckpointDecision` | Pure explicit immutable transformation implemented in Slice 6 |
+| Checkpoint resolution record transformation | `CheckpointDecisionResolver` | Pure explicit immutable transformation implemented in Slice 6 |
 
-`ResolveCheckpointDecision` owns deterministic generic checkpoint-record
-transformation after intent interpretation. `ValidateCheckpointSet` remains the
+`CheckpointDecisionResolver` owns deterministic generic checkpoint-record
+transformation after intent interpretation. `CheckpointSetValidator` remains the
 checkpoint-set validation owner. Request and result are runtime DataObjects, not
 wire records. Because project-local checkpoint JSON has additional fields, no
 local rewrite CLI was added; lossless project-local patching, persistence, Git,
@@ -394,7 +394,7 @@ it does not create or activate that skill and does not alter this sequence.
    resources remain byte-identical; test behavior and evidence IDs are unchanged.
 4. **Completed — update `recommend-next-task`.** Retained state-gated,
    read-only selection of exactly one proposed task and the human-selection stop.
-   Exact known task state now routes through maintained `InspectTaskState` usage;
+   Exact known task state now routes through maintained `TaskStateInspector` usage;
    broad repository discovery, fixed reporting schemas, and duplicated
    orchestration and control-plane procedure were removed.
 5. **Completed — update `resolve-human-checkpoint`.** Retained human-intent
@@ -403,8 +403,8 @@ it does not create or activate that skill and does not alter this sequence.
    human-authority boundary. Git, commit/push, resumption, CPN, retry/replay,
    invocation-envelope, incremental-acceptance, validation-command, and mutation
    ceremony were removed. Deterministic transformation is assigned to
-   `ResolveCheckpointDecision`, implemented separately in Slice 6.
-6. **Completed — implement one Action:** `ResolveCheckpointDecision` now owns
+   `CheckpointDecisionResolver`, implemented separately in Slice 6.
+6. **Completed — implement one Action:** `CheckpointDecisionResolver` now owns
    pure explicit immutable generic checkpoint transformation, exact option-ID
    membership, deterministic conflicts, and idempotent repetition. Runtime
    request/result records remain outside `HarnessWireRecord`; no local rewrite

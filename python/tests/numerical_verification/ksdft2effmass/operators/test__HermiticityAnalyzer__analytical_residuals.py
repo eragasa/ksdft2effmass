@@ -1,14 +1,13 @@
 r"""Numerical verification of ``HermiticityAnalyzer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the analytical residuals facet. Evidence IDs
 ------------
 ``NV-HA-001`` through ``NV-HA-005``.
 
-Requirement
------------
-For a stored binary64 matrix :math:`H`, ``HermiticityAnalyzer`` computes
+Requirement: For a stored binary64 matrix :math:`H`, ``HermiticityAnalyzer`` computes
 
 .. math::
 
@@ -18,42 +17,37 @@ All matrices and residuals in these cases use the explicit energy unit ``eV``.
 Hermiticity status is invariant under unitary similarity, while a nonzero
 entrywise maximum residual magnitude is generally basis dependent.
 
-Method
-------
-``NV-HA-001`` through ``NV-HA-005`` use five small explicitly prepared
+Method: ``NV-HA-001`` through ``NV-HA-005`` use five small explicitly prepared
 ``np.complex128`` matrices, closed-form analytical oracles independent of the
 production algorithm, and public Analyzer execution with ``RuntimeWarning``
 promoted to an error.
 
-Oracle
-------
-Expected values are derived entry by entry in test documentation using exact zero,
+Oracle: Expected values are derived entry by entry in test documentation using exact
+zero,
 ``math.sqrt(26.0)``, ``1.0``, and ``1.0 / math.sqrt(3.0)``. Expected values are
 never formed with the production Analyzer, private helpers, or a replicated
 ``np.max(np.abs(H - H.conj().T))`` calculation.
 
-Acceptance
-----------
-Analytical zero must be exactly ``0.0``. Nonzero normal binary64 values satisfy
+Acceptance: Analytical zero must be exactly ``0.0``. Nonzero normal binary64 values
+satisfy
 ``abs(actual - expected) <= 64 * eps * abs(expected)`` with both values and the
 bound explicitly nonzero and the bound smaller than the expected magnitude.
 
-Interpretation
---------------
-Passing establishes agreement with five small analytical matrix cases under the
+Interpretation: Passing establishes agreement with five small analytical matrix cases
+under the
 stated binary64 criterion. Failure may indicate an Analyzer regression,
 unsupported platform/backend behavior, or an oracle/evidence defect requiring
 investigation; it does not by itself establish physical-model error.
 
-Limitations
------------
-The relative criterion is local to small normal-scale cases, not an arbitrary-
+Limitations: The relative criterion is local to small normal-scale cases, not an
+arbitrary-
 dimension forward-error theorem, production tolerance policy, or scientific
 acceptance policy. Synthetic matrices make no DFT, Wannier, impurity, basis/gauge
 correctness, or scientific-validity claim. Scientific validation, uncertainty
 quantification, and Rust conformance are not established.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The class-owned SUT is ``HermiticityAnalyzer``. Synthetic represented matrices,
 declared binary64 scale regimes, units, warning-as-error policy, analytical expected
@@ -61,6 +55,7 @@ values, and exact or documented tolerance rules remain the independent oracles
 recorded below; production private helpers are not oracles.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only agreement with the stated mathematics for the represented
 shapes, dtypes, units, scales, zero exclusions, and warning policy. Failure may
@@ -98,23 +93,28 @@ def make_record(
     *,
     energy_unit: str = "eV",
 ) -> OperatorRecord:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    ----------- Numerical cases supply explicitly prepared ``np.complex128`` matrices
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: ----------- Numerical cases supply explicitly prepared
+    ``np.complex128`` matrices
     with matching finite metadata and no broad matrix coercion.
-    Method
-    ------ Derive dimension from the already valid square shape, then construct matching
+
+    Method: ------ Derive dimension from the already valid square shape, then construct
+    matching
     state-space and ordered-basis metadata with deterministic geometry/provenance.
-    Oracle
-    ------ The supplied matrix is passed unchanged; public constructors validate state.
-    Acceptance
-    ---------- A valid ``OperatorRecord`` is produced for public Analyzer execution.
-    Interpretation
-    -------------- The helper isolates fixture construction from independently derived
+
+    Oracle: ------ The supplied matrix is passed unchanged; public constructors validate
+    state.
+
+    Acceptance: ---------- A valid ``OperatorRecord`` is produced for public Analyzer
+    execution.
+
+    Interpretation: -------------- The helper isolates fixture construction from
+    independently derived
     oracles.
-    Limitations
-    ----------- It performs no ``np.asarray`` coercion and makes no DFT, Wannier,
+
+    Limitations: ----------- It performs no ``np.asarray`` coercion and makes no DFT,
+    Wannier,
     impurity, scientific-validation, UQ, or Rust-conformance claim.
     """
 
@@ -141,20 +141,24 @@ def make_record(
 def execute_with_runtime_warnings_as_errors(
     analyzer: HermiticityAnalyzer, record: OperatorRecord
 ) -> HermiticityResult:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    ----------- Every numerical evidence execution must leak no ``RuntimeWarning``.
-    Method
-    ------ Promote ``RuntimeWarning`` to an exception around public ``execute()``.
-    Oracle
-    ------ Successful production execution returns the public ResultObject.
-    Acceptance
-    ---------- Execution returns normally; any leaked warning fails before assertions.
-    Interpretation
-    -------------- The helper makes the warning boundary uniform and auditable.
-    Limitations
-    ----------- It does not suppress or validate other warning classes and establishes
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: ----------- Every numerical evidence execution must leak no
+    ``RuntimeWarning``.
+
+    Method: ------ Promote ``RuntimeWarning`` to an exception around public
+    ``execute()``.
+
+    Oracle: ------ Successful production execution returns the public ResultObject.
+
+    Acceptance: ---------- Execution returns normally; any leaked warning fails before
+    assertions.
+
+    Interpretation: -------------- The helper makes the warning boundary uniform and
+    auditable.
+
+    Limitations: ----------- It does not suppress or validate other warning classes and
+    establishes
     no scientific validation, UQ, or Rust conformance.
     """
 
@@ -164,24 +168,28 @@ def execute_with_runtime_warnings_as_errors(
 
 
 def assert_normal_binary64_close(actual: float, expected: float) -> None:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    ----------- Nonzero normal analytical values use a criterion that cannot accept
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: ----------- Nonzero normal analytical values use a criterion that
+    cannot accept
     zero.
-    Method
-    ------ Compare absolute error with ``64 * binary64_eps * abs(expected)``.
-    Oracle
-    ------ ``np.finfo(np.float64).eps`` defines machine epsilon; each caller supplies an
+
+    Method: ------ Compare absolute error with ``64 * binary64_eps * abs(expected)``.
+
+    Oracle: ------ ``np.finfo(np.float64).eps`` defines machine epsilon; each caller
+    supplies an
     independently derived closed-form expected value.
-    Acceptance
-    ---------- Both values are nonzero, the bound is positive and smaller than the
+
+    Acceptance: ---------- Both values are nonzero, the bound is positive and smaller
+    than the
     expected magnitude, and absolute error does not exceed the bound.
-    Interpretation
-    -------------- Passing establishes local binary64 agreement for these small normal
+
+    Interpretation: -------------- Passing establishes local binary64 agreement for
+    these small normal
     cases.
-    Limitations
-    ----------- The bound is not a production tolerance, scientific criterion,
+
+    Limitations: ----------- The bound is not a production tolerance, scientific
+    criterion,
     arbitrary- dimension theorem, scientific validation, UQ, or Rust-conformance result.
     """
 
@@ -197,21 +205,25 @@ def assert_normal_binary64_close(actual: float, expected: float) -> None:
 
 
 def test_field__exact_hermitian_matrix_has_exact_zero_residual__is_exact() -> None:
-    r"""Evidence ID
-    NV-HA-001
-    Requirement
-    ----------- The stored matrix ``[[1, i], [-i, 2]]`` equals its conjugate transpose.
-    Method
-    ------ Analyze the explicit 2x2 ``np.complex128`` representation.
-    Oracle
-    ------ Diagonal imaginary parts vanish and ``H_01 = conj(H_10)`` exactly, so every
+    r"""Evidence ID: NV-HA-001
+
+    Requirement: ----------- The stored matrix ``[[1, i], [-i, 2]]`` equals its
+    conjugate transpose.
+
+    Method: ------ Analyze the explicit 2x2 ``np.complex128`` representation.
+
+    Oracle: ------ Diagonal imaginary parts vanish and ``H_01 = conj(H_10)`` exactly, so
+    every
     entry of :math:`H-H^\dagger` is zero and :math:`\varepsilon_H=0\,\mathrm{eV}`.
-    Acceptance
-    ---------- The residual is exactly ``0.0`` under warning-as-error execution.
-    Interpretation
-    -------------- Passing verifies exact-zero behavior for this analytical case.
-    Limitations
-    ----------- It is one small synthetic matrix, not arbitrary-dimension verification,
+
+    Acceptance: ---------- The residual is exactly ``0.0`` under warning-as-error
+    execution.
+
+    Interpretation: -------------- Passing verifies exact-zero behavior for this
+    analytical case.
+
+    Limitations: ----------- It is one small synthetic matrix, not arbitrary-dimension
+    verification,
     physical Hermiticity, scientific validation, UQ, or Rust conformance.
     """
 
@@ -227,24 +239,27 @@ def test_field__exact_hermitian_matrix_has_exact_zero_residual__is_exact() -> No
 
 
 def test_method__execute__complex_two_by_two_residual_is_sqrt_26() -> None:
-    r"""Evidence ID
-    NV-HA-002
-    Requirement
-    ----------- The Analyzer implements the entrywise maximum conjugate-transpose
+    r"""Evidence ID: NV-HA-002
+
+    Requirement: ----------- The Analyzer implements the entrywise maximum
+    conjugate-transpose
     residual.
-    Method
-    ------ Analyze ``[[1, 2+i], [3+4i, 4]]`` as explicit ``np.complex128``.
-    Oracle
-    ------ The upper residual is ``(2+i)-conj(3+4i)=-1+5i`` with magnitude
+
+    Method: ------ Analyze ``[[1, 2+i], [3+4i, 4]]`` as explicit ``np.complex128``.
+
+    Oracle: ------ The upper residual is ``(2+i)-conj(3+4i)=-1+5i`` with magnitude
     :math:`\sqrt{26}\,\mathrm{eV}`; the lower is its negative conjugate and diagonals
     are zero.
-    Acceptance
-    ---------- Actual residual satisfies the explicit 64-epsilon normal-value criterion
+
+    Acceptance: ---------- Actual residual satisfies the explicit 64-epsilon
+    normal-value criterion
     against ``math.sqrt(26.0)`` with warnings treated as errors.
-    Interpretation
-    -------------- Passing verifies this nonzero complex analytical case.
-    Limitations
-    ----------- The local criterion is not production/scientific tolerance policy,
+
+    Interpretation: -------------- Passing verifies this nonzero complex analytical
+    case.
+
+    Limitations: ----------- The local criterion is not production/scientific tolerance
+    policy,
     arbitrary-dimension proof, scientific validation, UQ, or Rust conformance.
     """
 
@@ -260,21 +275,23 @@ def test_method__execute__complex_two_by_two_residual_is_sqrt_26() -> None:
 
 
 def test_method__execute__real_nonsymmetric_residual_is_one() -> None:
-    r"""Evidence ID
-    NV-HA-003
-    Requirement
-    ----------- The entrywise criterion applies to real nonsymmetric matrices.
-    Method
-    ------ Analyze the explicit matrix ``[[1, 2], [3, 4]]``.
-    Oracle
-    ------ :math:`H-H^\dagger=[[0,-1],[1,0]]`, so the maximum magnitude is
+    r"""Evidence ID: NV-HA-003
+
+    Requirement: ----------- The entrywise criterion applies to real nonsymmetric
+    matrices.
+
+    Method: ------ Analyze the explicit matrix ``[[1, 2], [3, 4]]``.
+
+    Oracle: ------ :math:`H-H^\dagger=[[0,-1],[1,0]]`, so the maximum magnitude is
     :math:`1\,\mathrm{eV}`.
-    Acceptance
-    ---------- Actual residual satisfies the explicit 64-epsilon normal-value criterion.
-    Interpretation
-    -------------- Passing verifies this nonzero real analytical case.
-    Limitations
-    ----------- It is not a production/scientific tolerance, arbitrary-dimension
+
+    Acceptance: ---------- Actual residual satisfies the explicit 64-epsilon
+    normal-value criterion.
+
+    Interpretation: -------------- Passing verifies this nonzero real analytical case.
+
+    Limitations: ----------- It is not a production/scientific tolerance,
+    arbitrary-dimension
     theorem, scientific validation, UQ, or Rust conformance.
     """
 
@@ -290,26 +307,30 @@ def test_method__execute__real_nonsymmetric_residual_is_one() -> None:
 
 
 def test_field__exact_hermiticity_survives_genuine_unitary__is_exact() -> None:
-    r"""Evidence ID
-    NV-HA-004
-    Requirement
-    ----------- If :math:`H=H^\dagger` and :math:`U^\dagger U=I`, then :math:`U^\dagger
+    r"""Evidence ID: NV-HA-004
+
+    Requirement: ----------- If :math:`H=H^\dagger` and :math:`U^\dagger U=I`, then
+    :math:`U^\dagger
     H U` is Hermitian.
-    Method
-    ------ Use the exact phase unitary ``diag(1, i)`` and explicitly form ``U.conj().T @
+
+    Method: ------ Use the exact phase unitary ``diag(1, i)`` and explicitly form
+    ``U.conj().T @
     H @ U`` from an exact Hermitian matrix.
-    Oracle
-    ------ The selected entries ``1, -1, i, -i`` are exactly representable; the
+
+    Oracle: ------ The selected entries ``1, -1, i, -i`` are exactly representable; the
     transformed matrix is exactly ``[[1, -1], [-1, 2]]`` and both residuals are exactly
     :math:`0\,\mathrm{eV}`.
-    Acceptance
-    ---------- Original and transformed residuals both equal exactly ``0.0`` with
+
+    Acceptance: ---------- Original and transformed residuals both equal exactly ``0.0``
+    with
     warnings treated as errors.
-    Interpretation
-    -------------- Passing verifies unitary invariance of exact Hermiticity for a
+
+    Interpretation: -------------- Passing verifies unitary invariance of exact
+    Hermiticity for a
     genuine basis transformation, correcting the former unrotated fixture evidence.
-    Limitations
-    ----------- It does not claim every floating similarity remains bitwise exact or
+
+    Limitations: ----------- It does not claim every floating similarity remains bitwise
+    exact or
     establish basis/gauge correctness, scientific validation, UQ, or Rust conformance.
     """
 
@@ -336,26 +357,30 @@ def test_field__exact_hermiticity_survives_genuine_unitary__is_exact() -> None:
 
 
 def test_method__execute__nonzero_entrywise_residual_is_basis_dependent() -> None:
-    r"""Evidence ID
-    NV-HA-005
-    Requirement
-    ----------- Hermiticity status is unitarily invariant, but the nonzero entrywise
+    r"""Evidence ID: NV-HA-005
+
+    Requirement: ----------- Hermiticity status is unitarily invariant, but the nonzero
+    entrywise
     maximum residual generally is not.
-    Method
-    ------ Set only ``H[0,1]=1`` and form ``U^dagger H U`` with the 3x3 discrete-Fourier
+
+    Method: ------ Set only ``H[0,1]=1`` and form ``U^dagger H U`` with the 3x3
+    discrete-Fourier
     unitary using :math:`\omega=-1/2+i\sqrt{3}/2`.
-    Oracle
-    ------ Initially ``H-H^dagger`` has two unit-magnitude entries, giving
+
+    Oracle: ------ Initially ``H-H^dagger`` has two unit-magnitude entries, giving
     :math:`1\,\mathrm{eV}`. Fourier similarity distributes the skew-Hermitian residual
     so its largest entry has closed-form magnitude :math:`1/\sqrt{3}\,\mathrm{eV}`.
-    Acceptance
-    ---------- Both results satisfy the explicit 64-epsilon criterion against ``1.0``
+
+    Acceptance: ---------- Both results satisfy the explicit 64-epsilon criterion
+    against ``1.0``
     and ``1.0 / math.sqrt(3.0)`` under warning-as-error execution.
-    Interpretation
-    -------------- Passing shows nonzero magnitude basis dependence without
+
+    Interpretation: -------------- Passing shows nonzero magnitude basis dependence
+    without
     contradicting invariance of zero-versus-nonzero Hermiticity status.
-    Limitations
-    ----------- This one floating Fourier case is not a basis/gauge-correctness
+
+    Limitations: ----------- This one floating Fourier case is not a
+    basis/gauge-correctness
     assessment, arbitrary-dimension theorem, scientific validation, UQ, or Rust
     conformance.
     """

@@ -1,11 +1,16 @@
 r"""Software verification of ``TaskStateInspectionResult``.
 
 Facet and represented meaning
+
 This module verifies immutable bounded task-state results and deterministic collections.
+
 Intrinsic and cross-object scope
+
 The sole SUT is ``TaskStateInspectionResult``; ``ValidationResult`` is a collaborator
 and literal state supplies the exact invariant oracle.
+
 VVUQ and scientific exclusions
+
 Passing establishes result representation only, not repository completeness, runtime
 history, numerical verification, scientific validation, UQ, or acceptance.
 """
@@ -24,20 +29,23 @@ SUT = TaskStateInspectionResult
 
 
 def make_result(**changes: object) -> TaskStateInspectionResult:
-    """Evidence ID
-    Owns no identifier; supports SV-HARNESS-069 and SV-HARNESS-070.
-    Requirement
-    Result tests require one complete valid represented baseline.
-    Method
-    Construct the public result from literal values and apply explicit field overrides.
-    Oracle
-    The result constructor contract fixes the valid baseline and permitted overrides.
-    Acceptance
-    The helper returns exactly one public result or propagates its public exception.
-    Interpretation
-    Failure supports diagnosis of result-construction or fixture drift only.
-    Limitations
-    This helper owns no evidence and does not inspect repository state.
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-069 and SV-HARNESS-070.
+
+    Requirement: Result tests require one complete valid represented baseline.
+
+    Method: Construct the public result from literal values and apply explicit field
+    overrides.
+
+    Oracle: The result constructor contract fixes the valid baseline and permitted
+    overrides.
+
+    Acceptance: The helper returns exactly one public result or propagates its public
+    exception.
+
+    Interpretation: Failure supports diagnosis of result-construction or fixture drift
+    only.
+
+    Limitations: This helper owns no evidence and does not inspect repository state.
     """
     values: dict[str, object] = {
         "schema_version": 1,
@@ -72,20 +80,23 @@ def make_result(**changes: object) -> TaskStateInspectionResult:
 
 
 def test_constructor__durable_state__preserves_explicit_statuses() -> None:
-    """Evidence ID
-    SV-HARNESS-069
-    Requirement
-    The result preserves explicit durable references, declaration statuses, and limits.
-    Method
-    Construct the complete valid baseline and inspect representative public fields.
-    Oracle
-    Literal constructor values independently fix the expected represented state.
-    Acceptance
-    Task status, completion command, record status, paths, and validation match exactly.
-    Interpretation
-    Failure identifies result-field loss, coercion, or construction drift.
-    Limitations
-    This does not establish that represented files exist.
+    """Evidence ID: SV-HARNESS-069
+
+    Requirement: The result preserves explicit durable references, declaration statuses,
+    and limits.
+
+    Method: Construct the complete valid baseline and inspect representative public
+    fields.
+
+    Oracle: Literal constructor values independently fix the expected represented state.
+
+    Acceptance: Task status, completion command, record status, paths, and validation
+    match exactly.
+
+    Interpretation: Failure identifies result-field loss, coercion, or construction
+    drift.
+
+    Limitations: This does not establish that represented files exist.
     """
     result = make_result()
     assert result.task_status == "completed"
@@ -115,21 +126,22 @@ def test_constructor__durable_state__preserves_explicit_statuses() -> None:
 def test_constructor__deterministic_state__rejects_noncanonical_values(
     changes: dict[str, object],
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-070
-    Requirement
-    Result collections and declaration statuses have one deterministic representation.
-    Method
-    Replace one valid baseline field with a controlled noncanonical value.
-    Oracle
-    The public result invariant requires sorted unique values, known statuses, and
+    """Evidence ID: SV-HARNESS-070
+
+    Requirement: Result collections and declaration statuses have one deterministic
+    representation.
+
+    Method: Replace one valid baseline field with a controlled noncanonical value.
+
+    Oracle: The public result invariant requires sorted unique values, known statuses,
+    and
     read-path containment.
-    Acceptance
-    Every declared noncanonical partition raises ValueError.
-    Interpretation
-    Failure identifies weakened deterministic-result invariants.
-    Limitations
-    Action ordering and filesystem reads are covered separately.
+
+    Acceptance: Every declared noncanonical partition raises ValueError.
+
+    Interpretation: Failure identifies weakened deterministic-result invariants.
+
+    Limitations: Action ordering and filesystem reads are covered separately.
     """
     with pytest.raises(ValueError):
         make_result(**changes)

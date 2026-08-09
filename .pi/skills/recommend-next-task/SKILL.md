@@ -46,7 +46,7 @@ prerequisite remains blocked, or durable state is insufficient or conflicting.
 | State is sufficient and no work is active | Evaluate next-task candidates. |
 
 When the exact chain path and task ID are known, use the maintained
-`InspectTaskState` ActionObject through the stable command documented by
+`TaskStateInspector` ActionObject through the stable command documented by
 [inspect-task-state](../inspect-task-state/SKILL.md). Do not reconstruct the
 same state with broad searches, inline scripts, session memory, or historical
 evidence. If the identity is unknown, inspect only the small authoritative chain
@@ -93,7 +93,7 @@ it. Do not create state to fill the gap.
 
 ## Routing
 
-- Exact bounded task-state inspection belongs to `InspectTaskState` and the
+- Exact bounded task-state inspection belongs to `TaskStateInspector` and the
   [inspect-task-state](../inspect-task-state/SKILL.md) usage skill.
 - Human checkpoint interpretation belongs to
   [resolve-human-checkpoint](../../../.agents/skills/resolve-human-checkpoint/SKILL.md).

@@ -11,7 +11,7 @@ from .. import (
     CheckpointRecord,
     ChecksumEntry,
     ChecksumManifest,
-    DeserializeJsonRecord,
+    JsonRecordDeserializer,
     OwnershipManifestView,
     OwnershipScope,
     ResourcePath,
@@ -52,7 +52,7 @@ def _options(value: object) -> tuple[tuple[str, str, str | None], ...]:
     return tuple(result)
 
 
-class AdaptCheckpointRecords:
+class CheckpointRecordAdapter:
     """Normalize caller-selected live checkpoint JSON documents."""
 
     __slots__ = ()
@@ -109,7 +109,7 @@ class AdaptCheckpointRecords:
         return success(tuple(sorted(records, key=lambda x: x.checkpoint_id)))
 
 
-class AdaptTaskRecords:
+class TaskRecordAdapter:
     """Bind selected task Markdown bytes to authoritative chain task entries."""
 
     __slots__ = ()
@@ -186,7 +186,7 @@ class AdaptTaskRecords:
         return success(tuple(sorted(result, key=lambda x: x.task_id)))
 
 
-class AdaptChainRecord:
+class ChainRecordAdapter:
     """Normalize the live chain using already adapted task records."""
 
     __slots__ = ()
@@ -228,7 +228,7 @@ class AdaptChainRecord:
         return success(view)
 
 
-class AdaptAgentRecords:
+class AgentRecordAdapter:
     """Extract immutable identities from selected agent front matter."""
 
     __slots__ = ()
@@ -251,7 +251,7 @@ class AdaptAgentRecords:
         return success(tuple(sorted(records, key=lambda x: x.agent_id)))
 
 
-class AdaptOwnershipManifest:
+class OwnershipManifestAdapter:
     """Normalize live version-2 and retained version-1 ownership manifests."""
 
     __slots__ = ()
@@ -363,7 +363,7 @@ class AdaptOwnershipManifest:
         return success(view)
 
 
-class AdaptChecksumCatalog:
+class ChecksumCatalogAdapter:
     """Normalize retained sha256sum-style catalog bytes."""
 
     __slots__ = ()
@@ -390,7 +390,7 @@ class AdaptChecksumCatalog:
             return _invalid("CHECKSUM", "catalog", exc)
 
 
-class AdaptSkillInventory:
+class SkillInventoryAdapter:
     """Select canonical skills and decode their generic descriptor bytes."""
 
     __slots__ = ()
@@ -410,7 +410,7 @@ class AdaptSkillInventory:
             names = {as_str(item["skill_name"], "skill_name") for item in skills}
             descriptors = []
             for path, payload in descriptor_bytes:
-                decoded = DeserializeJsonRecord().execute(
+                decoded = JsonRecordDeserializer().execute(
                     WireRecordKind.SkillDescriptor, payload
                 )
                 if type(decoded.record) is not SkillDescriptor:
@@ -426,7 +426,7 @@ class AdaptSkillInventory:
         return success(tuple(sorted(descriptors, key=lambda x: x.skill_id)))
 
 
-class AdaptEvidenceOwnershipManifest:
+class EvidenceOwnershipManifestAdapter:
     """Normalize the retained P1 evidence-ownership manifest.
 
     The action consumes only caller-supplied bytes. It maps the historical
@@ -525,7 +525,7 @@ def _evidence_ids(value: object) -> tuple[str, ...]:
     return tuple(sorted(identifiers))
 
 
-class SelectEvidenceModules:
+class EvidenceModuleSelector:
     """Confine caller-selected evidence module bytes to profile scopes."""
 
     __slots__ = ()

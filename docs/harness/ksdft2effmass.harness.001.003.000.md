@@ -89,10 +89,10 @@ must patch those records without discarding local fields.
 | Responsibility | Owner |
 |---|---|
 | Human-intent interpretation, ambiguity detection, and verbatim response selection | `resolve-human-checkpoint` |
-| Pure immutable transformation of one generic checkpoint decision view | `ResolveCheckpointDecision` |
+| Pure immutable transformation of one generic checkpoint decision view | `CheckpointDecisionResolver` |
 | Project-local JSON patching, validation, persistence, Git operations, and task resumption | Separately authorized root/local workflow |
 
-`ResolveCheckpointDecision` receives all decision-bearing values explicitly. It
+`CheckpointDecisionResolver` receives all decision-bearing values explicitly. It
 uses no repository, filesystem, clock, serializer, task/chain mutation, Git, or
 successor behavior. A successful repeat with identical values is an unchanged
 idempotent result; conflicts are deterministic checkpoint findings. Neither the

@@ -1,14 +1,17 @@
 r"""Software verification of ``HumanReviewDecisionRecorder``.
 
 Facet and represented meaning
+
 Software verification of pure explicit recording of one already-made human decision.
 
 Intrinsic and cross-object scope
+
 The sole primary SUT is ``HumanReviewDecisionRecorder``. Packet identity transfer,
 blocked-packet compatibility, explicit disposition handling, idempotency, nonmutation,
 and absence of interpretation or external effects are covered.
 
 VVUQ and scientific exclusions
+
 Passing establishes only the stated software contract. It does not infer or
 authenticate human authority, persist a decision, or establish numerical verification,
 scientific validation, or UQ.
@@ -34,20 +37,20 @@ SUT = HumanReviewDecisionRecorder
 
 
 def make_packet(status: str = "ready_for_human_review") -> HumanReviewPacket:
-    """Evidence ID
-    Owns no identifier; supports recording evidence.
-    Requirement
-    Recording tests require one explicit packet with advisories and limitations.
-    Method
-    Construct fixed public target, observation, finding, and packet records.
-    Oracle
-    Their accepted constructors define valid support input.
-    Acceptance
-    Return one HumanReviewPacket with the requested valid status.
-    Interpretation
-    Failure identifies setup drift rather than recording behavior.
-    Limitations
-    The helper does not prepare or disposition the packet.
+    """Evidence ID: Owns no identifier; supports recording evidence.
+
+    Requirement: Recording tests require one explicit packet with advisories and
+    limitations.
+
+    Method: Construct fixed public target, observation, finding, and packet records.
+
+    Oracle: Their accepted constructors define valid support input.
+
+    Acceptance: Return one HumanReviewPacket with the requested valid status.
+
+    Interpretation: Failure identifies setup drift rather than recording behavior.
+
+    Limitations: The helper does not prepare or disposition the packet.
     """
     target = HumanReviewTarget(
         "human-review.example",
@@ -82,21 +85,22 @@ def make_packet(status: str = "ready_for_human_review") -> HumanReviewPacket:
 
 
 def test_constructor__action_object__is_stateless_and_fieldless() -> None:
-    """Evidence ID
-    ``SV-HARNESS-161``.
-    Requirement
-    HumanReviewDecisionRecorder is a concrete fieldless stateless ActionObject.
-    Method
-    Construct two instances and inspect their storage boundaries.
-    Oracle
-    The accepted action contract requires no retained packet, actor, clock, client,
+    """Evidence ID: ``SV-HARNESS-161``.
+
+    Requirement: HumanReviewDecisionRecorder is a concrete fieldless stateless
+    ActionObject.
+
+    Method: Construct two instances and inspect their storage boundaries.
+
+    Oracle: The accepted action contract requires no retained packet, actor, clock,
+    client,
     persistence handle, or mutable state.
-    Acceptance
-    Both instances lack dictionaries and the class declares empty slots.
-    Interpretation
-    Failure identifies unauthorized retained state.
-    Limitations
-    Static storage does not establish runtime compatibility behavior.
+
+    Acceptance: Both instances lack dictionaries and the class declares empty slots.
+
+    Interpretation: Failure identifies unauthorized retained state.
+
+    Limitations: Static storage does not establish runtime compatibility behavior.
     """
     first = SUT()
     second = SUT()
@@ -106,25 +110,28 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
 
 
 def test_method__execute__transfers_identity_preserves_text_and_is_idempotent() -> None:
-    """Evidence ID
-    ``SV-HARNESS-162``.
-    Requirement
-    Recording stores the exact packet, preserves response text, and is
+    """Evidence ID: ``SV-HARNESS-162``.
+
+    Requirement: Recording stores the exact packet, preserves response text, and is
     deterministic without mutating the packet.
-    Method
-    Snapshot one ready packet, execute twice with identical inputs, then record the
+
+    Method: Snapshot one ready packet, execute twice with identical inputs, then record
+    the
     same response for a distinct canonical packet sharing the target.
-    Oracle
-    Exact packet identity, string equality, dataclass equality, inequality, and frozen
+
+    Oracle: Exact packet identity, string equality, dataclass equality, inequality, and
+    frozen
     packet value semantics are independent exact oracles.
-    Acceptance
-    Equal inputs return equal decisions bound to the original packet; the distinct
+
+    Acceptance: Equal inputs return equal decisions bound to the original packet; the
+    distinct
     packet returns a distinct decision, and neither packet is mutated.
-    Interpretation
-    Failure identifies packet detachment, identity collapse, text rewriting,
+
+    Interpretation: Failure identifies packet detachment, identity collapse, text
+    rewriting,
     nondeterminism, or mutation.
-    Limitations
-    Equality is runtime value equality, not persisted identity.
+
+    Limitations: Equality is runtime value equality, not persisted identity.
     """
     packet = make_packet()
     snapshot = replace(packet)
@@ -160,20 +167,21 @@ def test_method__execute__transfers_identity_preserves_text_and_is_idempotent() 
 def test_method__execute__records_each_explicit_normalized_disposition(
     disposition: str, scope: tuple[str, ...]
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-163``.
-    Requirement
-    The action records every normalized disposition when explicit scope is compatible.
-    Method
-    Execute once for each closed-vocabulary disposition and its required scope shape.
-    Oracle
-    Caller-supplied normalized values and exact tuple equality are exact.
-    Acceptance
-    The returned decision retains disposition and scope unchanged.
-    Interpretation
-    Failure identifies hidden mapping or disposition-routing drift.
-    Limitations
-    The action does not decide which disposition the human intended.
+    """Evidence ID: ``SV-HARNESS-163``.
+
+    Requirement: The action records every normalized disposition when explicit scope is
+    compatible.
+
+    Method: Execute once for each closed-vocabulary disposition and its required scope
+    shape.
+
+    Oracle: Caller-supplied normalized values and exact tuple equality are exact.
+
+    Acceptance: The returned decision retains disposition and scope unchanged.
+
+    Interpretation: Failure identifies hidden mapping or disposition-routing drift.
+
+    Limitations: The action does not decide which disposition the human intended.
     """
     decision = SUT().execute(make_packet(), "Exact response.", disposition, scope)
     assert decision.disposition == disposition
@@ -183,22 +191,23 @@ def test_method__execute__records_each_explicit_normalized_disposition(
 def test_method__execute__accepts_ready_packet_with_advisories_and_limitations() -> (
     None
 ):
-    """Evidence ID
-    ``SV-HARNESS-164``.
-    Requirement
-    Advisory findings and limitations do not automatically block explicit acceptance
+    """Evidence ID: ``SV-HARNESS-164``.
+
+    Requirement: Advisory findings and limitations do not automatically block explicit
+    acceptance
     of a ready packet.
-    Method
-    Accept a ready packet containing one advisory finding and one limitation.
-    Oracle
-    Only ``blocked_by_failed_observation`` prohibits accepted disposition.
-    Acceptance
-    The decision is accepted while the source packet retains its advisory and
+
+    Method: Accept a ready packet containing one advisory finding and one limitation.
+
+    Oracle: Only ``blocked_by_failed_observation`` prohibits accepted disposition.
+
+    Acceptance: The decision is accepted while the source packet retains its advisory
+    and
     limitation.
-    Interpretation
-    Failure identifies unauthorized automatic review acceptance policy.
-    Limitations
-    This test does not judge whether acceptance is substantively wise.
+
+    Interpretation: Failure identifies unauthorized automatic review acceptance policy.
+
+    Limitations: This test does not judge whether acceptance is substantively wise.
     """
     packet = make_packet()
     decision = SUT().execute(packet, "Accept despite advisory.", "accepted", ())
@@ -208,24 +217,28 @@ def test_method__execute__accepts_ready_packet_with_advisories_and_limitations()
 
 
 def test_method__execute__rejects_acceptance_of_blocked_packet() -> None:
-    """Evidence ID
-    ``SV-HARNESS-165``.
-    Requirement
-    Recording rejects noncanonical packet state, and a canonical packet blocked by a
+    """Evidence ID: ``SV-HARNESS-165``.
+
+    Requirement: Recording rejects noncanonical packet state, and a canonical packet
+    blocked by a
     failed observation cannot receive accepted disposition.
-    Method
-    Supply packets with failed/ready status disagreement, noncanonical ordering, an
+
+    Method: Supply packets with failed/ready status disagreement, noncanonical ordering,
+    an
     unknown supporting relationship, and canonical blocked status.
-    Oracle
-    HumanReviewPreparer owns status, ordering, and relationship rules; the accepted
+
+    Oracle: HumanReviewPreparer owns status, ordering, and relationship rules; the
+    accepted
     packet-to-decision compatibility rule owns blocked acceptance rejection.
-    Acceptance
-    Every noncanonical packet raises the stable canonical-result error, while the
+
+    Acceptance: Every noncanonical packet raises the stable canonical-result error,
+    while the
     canonical blocked packet raises the stable ready-packet error.
-    Interpretation
-    Failure identifies fail-open packet trust or acceptance compatibility.
-    Limitations
-    Runtime canonical equivalence does not establish historical provenance.
+
+    Interpretation: Failure identifies fail-open packet trust or acceptance
+    compatibility.
+
+    Limitations: Runtime canonical equivalence does not establish historical provenance.
     """
     packet = make_packet()
     failed = replace(packet.observations[0], status="failed")
@@ -273,20 +286,21 @@ def test_method__execute__rejects_acceptance_of_blocked_packet() -> None:
 def test_method__execute__rejects_invalid_disposition_scope_combinations(
     disposition: str, scope: tuple[str, ...]
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-166``.
-    Requirement
-    Recording preserves the decision object's exact disposition/scope invariant.
-    Method
-    Execute with each invalid normalized disposition/scope combination.
-    Oracle
-    HumanReviewDecision owns and supplies the intrinsic rejection rule.
-    Acceptance
-    Every invalid combination raises ValueError and returns no decision.
-    Interpretation
-    Failure identifies scope bypass at the action boundary.
-    Limitations
-    Intrinsic message partitions are covered by HumanReviewDecision evidence.
+    """Evidence ID: ``SV-HARNESS-166``.
+
+    Requirement: Recording preserves the decision object's exact disposition/scope
+    invariant.
+
+    Method: Execute with each invalid normalized disposition/scope combination.
+
+    Oracle: HumanReviewDecision owns and supplies the intrinsic rejection rule.
+
+    Acceptance: Every invalid combination raises ValueError and returns no decision.
+
+    Interpretation: Failure identifies scope bypass at the action boundary.
+
+    Limitations: Intrinsic message partitions are covered by HumanReviewDecision
+    evidence.
     """
     with pytest.raises(ValueError):
         SUT().execute(make_packet(), "Exact response.", disposition, scope)
@@ -310,21 +324,25 @@ def test_method__execute__rejects_invalid_disposition_scope_combinations(
 def test_method__execute__does_not_interpret_human_response(
     response: str, disposition: str
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-167``.
-    Requirement
-    Human-response language never overrides the explicit normalized disposition.
-    Method
-    Pair acceptance-like and rejection-like text with the opposite explicit values.
-    Oracle
-    Exact caller-supplied disposition, rather than natural-language content, is the
+    """Evidence ID: ``SV-HARNESS-167``.
+
+    Requirement: Human-response language never overrides the explicit normalized
+    disposition.
+
+    Method: Pair acceptance-like and rejection-like text with the opposite explicit
+    values.
+
+    Oracle: Exact caller-supplied disposition, rather than natural-language content, is
+    the
     sole normalized-value oracle.
-    Acceptance
-    Response and explicit disposition are both preserved exactly without fuzzy match.
-    Interpretation
-    Failure identifies unauthorized natural-language interpretation.
-    Limitations
-    The action assumes the caller supplied an already-normalized human decision.
+
+    Acceptance: Response and explicit disposition are both preserved exactly without
+    fuzzy match.
+
+    Interpretation: Failure identifies unauthorized natural-language interpretation.
+
+    Limitations: The action assumes the caller supplied an already-normalized human
+    decision.
     """
     decision = SUT().execute(make_packet(), response, disposition, ())
     assert decision.human_response == response
@@ -334,24 +352,29 @@ def test_method__execute__does_not_interpret_human_response(
 def test_method__execute__has_no_external_checkpoint_or_successor_effect(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-168``.
-    Requirement
-    Recording is pure runtime behavior with no filesystem, Git, clock, network,
+    """Evidence ID: ``SV-HARNESS-168``.
+
+    Requirement: Recording is pure runtime behavior with no filesystem, Git, clock,
+    network,
     subprocess, database, checkpoint, or successor dependency or mutation.
-    Method
-    Execute from an empty nonrepository directory, compare its contents, and inspect
+
+    Method: Execute from an empty nonrepository directory, compare its contents, and
+    inspect
     the defining module's import and call roots.
-    Oracle
-    The authorized implementation needs only dataclasses, re, and lexical identity
+
+    Oracle: The authorized implementation needs only dataclasses, re, and lexical
+    identity
     rules; the explicit forbidden boundary vocabulary is exact.
-    Acceptance
-    The directory remains empty, imports stay within the pure set, and no prohibited
+
+    Acceptance: The directory remains empty, imports stay within the pure set, and no
+    prohibited
     external call root occurs.
-    Interpretation
-    Failure identifies hidden discovery, persistence, orchestration, or external I/O.
-    Limitations
-    Static inspection covers maintained source calls, not arbitrary Python runtime
+
+    Interpretation: Failure identifies hidden discovery, persistence, orchestration, or
+    external I/O.
+
+    Limitations: Static inspection covers maintained source calls, not arbitrary Python
+    runtime
     implementation internals.
     """
     monkeypatch.chdir(tmp_path)

@@ -1,19 +1,23 @@
 r"""Software verification of OperatorRecordJsonFixtures.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned module owns the operator record json fixtures facet. Object:
 complete version-1 valid/invalid golden-file corpus. Evidence class:
 software verification, distinct from serializer facet and schema metamodel evidence.
+
 Requirement: directories contain exactly the approved named files; valid files
 round-trip to deterministic canonical serializer text and invalid files are all
 rejected. Strategy: filesystem enumeration and public serializer calls only.
+
 Oracle: approved inventory and each golden classification. Acceptance is complete
 set equality and classification agreement. Passing does not validate physical data,
 scientific meaning, UQ, independent Rust behavior, or serializer internals; failure
 indicates missing/stale artifacts or interoperability drift.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordJsonFixtures``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -22,6 +26,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -58,26 +63,30 @@ INVALID_NAMES = {
 
 
 def fixture_names(kind: str) -> set[str]:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Fixture discovery returns the exact versioned JSON filenames for the requested valid
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Fixture discovery returns the exact versioned JSON filenames for the
+    requested valid
     or invalid family.
-    Method
-    Construct or inspect only the named synthetic fixture operation (fixture names); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (fixture
+    names); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
+
+    Oracle: The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
     filename inventories define both membership and the layer expected to accept or
     reject each file.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -85,27 +94,31 @@ def fixture_names(kind: str) -> set[str]:
 
 
 def test_artifact__golden_fixture_inventory_is_exact__agrees_exactly() -> None:
-    r"""Evidence ID
-    SV-ORJF-001
-    Requirement
-    The version-1 golden fixture family has this exact runtime interoperability
+    r"""Evidence ID: SV-ORJF-001
+
+    Requirement: The version-1 golden fixture family has this exact runtime
+    interoperability
     property: golden fixture inventory is exact: agrees exactly.
-    Method
-    Enumerate the checked-in version-1 fixtures for golden fixture inventory is exact:
+
+    Method: Enumerate the checked-in version-1 fixtures for golden fixture inventory is
+    exact:
     agrees exactly and pass each case through the documented public serializer boundary.
-    Oracle
-    The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
+
+    Oracle: The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
     filename inventories define both membership and the layer expected to accept or
     reject each file.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -124,28 +137,31 @@ def test_artifact__golden_fixture_inventory_is_exact__agrees_exactly() -> None:
 def test_artifact__valid_golden_files_have_deterministic__agrees_exactly(
     name: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORJF-002
-    Requirement
-    The version-1 golden fixture family has this exact runtime interoperability
+    r"""Evidence ID: SV-ORJF-002
+
+    Requirement: The version-1 golden fixture family has this exact runtime
+    interoperability
     property: valid golden files have deterministic: agrees exactly.
-    Method
-    Enumerate the checked-in version-1 fixtures for valid golden files have
+
+    Method: Enumerate the checked-in version-1 fixtures for valid golden files have
     deterministic: agrees exactly and pass each case through the documented public
     serializer boundary.
-    Oracle
-    The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
+
+    Oracle: The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
     filename inventories define both membership and the layer expected to accept or
     reject each file.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -182,27 +198,31 @@ def test_artifact__valid_golden_files_have_deterministic__agrees_exactly(
 def test_artifact__invalid_golden_files_are_rejected_by_public__agrees_exactly(
     name: str, expected: type[Exception]
 ) -> None:
-    r"""Evidence ID
-    SV-ORJF-003
-    Requirement
-    The version-1 golden fixture family has this exact runtime interoperability
+    r"""Evidence ID: SV-ORJF-003
+
+    Requirement: The version-1 golden fixture family has this exact runtime
+    interoperability
     property: invalid golden files are rejected by public: agrees exactly.
-    Method
-    Enumerate the checked-in version-1 fixtures for invalid golden files are rejected by
+
+    Method: Enumerate the checked-in version-1 fixtures for invalid golden files are
+    rejected by
     public: agrees exactly and pass each case through the documented public serializer
     boundary.
-    Oracle
-    The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
+
+    Oracle: The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
     filename inventories define both membership and the layer expected to accept or
     reject each file.
-    Acceptance
-    The named partition raises exactly expected with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly expected with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -223,27 +243,31 @@ def test_artifact__invalid_golden_files_are_rejected_by_public__agrees_exactly(
 def test_artifact__unknown_value_golden_files_are_rejected_by__agrees_exactly(
     name: str, expected: type[Exception]
 ) -> None:
-    r"""Evidence ID
-    SV-ORJF-005
-    Requirement
-    The version-1 golden fixture family has this exact runtime interoperability
+    r"""Evidence ID: SV-ORJF-005
+
+    Requirement: The version-1 golden fixture family has this exact runtime
+    interoperability
     property: unknown value golden files are rejected by: agrees exactly.
-    Method
-    Enumerate the checked-in version-1 fixtures for unknown value golden files are
+
+    Method: Enumerate the checked-in version-1 fixtures for unknown value golden files
+    are
     rejected by: agrees exactly and pass each case through the documented public
     serializer boundary.
-    Oracle
-    The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
+
+    Oracle: The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
     filename inventories define both membership and the layer expected to accept or
     reject each file.
-    Acceptance
-    The named partition raises exactly expected with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly expected with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -262,27 +286,31 @@ def test_artifact__unknown_value_golden_files_are_rejected_by__agrees_exactly(
 def test_artifact__wrong_semantic_type_golden_files_are__agrees_exactly(
     name: str, expected: type[Exception]
 ) -> None:
-    r"""Evidence ID
-    SV-ORJF-004
-    Requirement
-    The version-1 golden fixture family has this exact runtime interoperability
+    r"""Evidence ID: SV-ORJF-004
+
+    Requirement: The version-1 golden fixture family has this exact runtime
+    interoperability
     property: wrong semantic type golden files are: agrees exactly.
-    Method
-    Enumerate the checked-in version-1 fixtures for wrong semantic type golden files
+
+    Method: Enumerate the checked-in version-1 fixtures for wrong semantic type golden
+    files
     are: agrees exactly and pass each case through the documented public serializer
     boundary.
-    Oracle
-    The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
+
+    Oracle: The checked-in valid, schema-invalid, unknown-value, and wrong-semantic-type
     filename inventories define both membership and the layer expected to accept or
     reject each file.
-    Acceptance
-    The named partition raises exactly expected with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly expected with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only the declared schema/fixture layer agreement; failure identifies
+
+    Interpretation: A pass supports only the declared schema/fixture layer agreement;
+    failure identifies
     schema drift, fixture misclassification, runtime-layer drift, or an evidence defect.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

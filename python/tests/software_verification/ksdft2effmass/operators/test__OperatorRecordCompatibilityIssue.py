@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordCompatibilityIssue``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the OperatorRecordCompatibilityIssue facet. System
 under test
@@ -75,6 +76,7 @@ Uncertainty quantification has not been performed. This structural value-object
 contract contains no uncertainty model or propagation procedure.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordCompatibilityIssue``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -83,6 +85,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -114,24 +117,29 @@ class UnrelatedCode(StrEnum):
 
 
 def test_constructor__construct_issue_from_public_mismatch_code__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OCI-001
-    Requirement
-    Construction requires only one authoritative public mismatch-code member.
-    Method
-    Construct with ``ENERGY_UNIT_MISMATCH``; inspect public state and the documented
+    r"""Evidence ID: SV-OCI-001
+
+    Requirement: Construction requires only one authoritative public mismatch-code
+    member.
+
+    Method: Construct with ``ENERGY_UNIT_MISMATCH``; inspect public state and the
+    documented
     dataclass field names and resolved public annotation.
-    Oracle
-    The approved public contract declares exactly one stored field, ``code``, typed as
+
+    Oracle: The approved public contract declares exactly one stored field, ``code``,
+    typed as
     ``OperatorRecordCompatibilityMismatchCode``; the enum property owns the approved
     description text.
-    Acceptance
-    Field metadata and annotation match exactly, ``code`` retains enum identity, and
+
+    Acceptance: Field metadata and annotation match exactly, ``code`` retains enum
+    identity, and
     ``description`` derives from the code without a text argument.
-    Interpretation
-    Passing verifies enum-member identity as authoritative machine state.
-    Limitations
-    One representative construction does not establish all-code derivation, analyzer
+
+    Interpretation: Passing verifies enum-member identity as authoritative machine
+    state.
+
+    Limitations: One representative construction does not establish all-code derivation,
+    analyzer
     reachability, or actual operator compatibility.
     """
 
@@ -201,24 +209,27 @@ def test_constructor__construct_issue_from_public_mismatch_code__is_enforced() -
 def test_field__derive_canonical_description_for_every_mismatch_code__is_exact(
     code: OperatorRecordCompatibilityMismatchCode,
 ) -> None:
-    r"""Evidence ID
-    SV-OCI-002
-    Requirement
-    Every public mismatch code must construct an Issue whose description is derived
+    r"""Evidence ID: SV-OCI-002
+
+    Requirement: Every public mismatch code must construct an Issue whose description is
+    derived
     directly from the authoritative enum member.
-    Method
-    Parameterize over public enum iteration and inspect Issue code identity and
+
+    Method: Parameterize over public enum iteration and inspect Issue code identity and
     description properties.
-    Oracle
-    Public enum iteration supplies the complete member set, and each enum member's
+
+    Oracle: Public enum iteration supplies the complete member set, and each enum
+    member's
     public ``description`` is the canonical derivation source.
-    Acceptance
-    Every Issue retains the code singleton and exposes its nonempty, whitespace-trimmed
+
+    Acceptance: Every Issue retains the code singleton and exposes its nonempty,
+    whitespace-trimmed
     built-in string description exactly.
-    Interpretation
-    Passing establishes complete Issue-to-code description derivation.
-    Limitations
-    Exact wording and description uniqueness belong to ``the owning evidence`` and are
+
+    Interpretation: Passing establishes complete Issue-to-code description derivation.
+
+    Limitations: Exact wording and description uniqueness belong to ``the owning
+    evidence`` and are
     deliberately not re-specified here; reachability is not tested.
     """
 
@@ -244,25 +255,29 @@ def test_field__derive_canonical_description_for_every_mismatch_code__is_exact(
 def test_field__reject_values_that_are_not_public_mismatch_codes__is_exact(
     invalid_code: Any,
 ) -> None:
-    r"""Evidence ID
-    SV-OCI-003
-    Requirement
-    ``code`` must be an ``OperatorRecordCompatibilityMismatchCode``; raw values and
+    r"""Evidence ID: SV-OCI-003
+
+    Requirement: ``code`` must be an ``OperatorRecordCompatibilityMismatchCode``; raw
+    values and
     unrelated types are not coerced.
-    Method
-    Construct with representative string, null, Boolean, object, and unrelated-enum
+
+    Method: Construct with representative string, null, Boolean, object, and
+    unrelated-enum
     inputs.
-    Oracle
-    The public constructor contract accepts only the mismatch-code enum and documents
+
+    Oracle: The public constructor contract accepts only the mismatch-code enum and
+    documents
     ``TypeError`` without raw-value coercion.
-    Acceptance
-    Each input raises ``TypeError`` with a field-specific diagnostic naming
+
+    Acceptance: Each input raises ``TypeError`` with a field-specific diagnostic naming
     ``OperatorRecordCompatibilityMismatchCode``.
-    Interpretation
-    Passing requires callers to explicitly select or construct the public enum member
+
+    Interpretation: Passing requires callers to explicitly select or construct the
+    public enum member
     before constructing an Issue.
-    Limitations
-    This is representative type-boundary coverage, not exhaustive Python object
+
+    Limitations: This is representative type-boundary coverage, not exhaustive Python
+    object
     enumeration or analyzer behavior.
     """
 
@@ -275,24 +290,27 @@ def test_field__reject_values_that_are_not_public_mismatch_codes__is_exact(
 
 
 def test_constructor__input_boundary__reject_independently_supplied_free_form() -> None:
-    r"""Evidence ID
-    SV-OCI-004
-    Requirement
-    The constructor accepts only ``code`` and cannot store independently supplied
+    r"""Evidence ID: SV-OCI-004
+
+    Requirement: The constructor accepts only ``code`` and cannot store independently
+    supplied
     description text.
-    Method
-    Attempt both a second positional argument and an undeclared description keyword
+
+    Method: Attempt both a second positional argument and an undeclared description
+    keyword
     through the public constructor.
-    Oracle
-    The approved constructor contract contains only ``code`` and explicitly excludes
+
+    Oracle: The approved constructor contract contains only ``code`` and explicitly
+    excludes
     independently supplied description state.
-    Acceptance
-    Each unsupported call raises ``TypeError`` without depending on complete
+
+    Acceptance: Each unsupported call raises ``TypeError`` without depending on complete
     interpreter-generated message wording.
-    Interpretation
-    Structural rejection prevents contradictory code/description states.
-    Limitations
-    The test does not make interpreter-generated diagnostic text public API.
+
+    Interpretation: Structural rejection prevents contradictory code/description states.
+
+    Limitations: The test does not make interpreter-generated diagnostic text public
+    API.
     """
 
     code = OperatorRecordCompatibilityMismatchCode.MATRIX_DIMENSION_MISMATCH
@@ -308,24 +326,28 @@ def test_constructor__input_boundary__reject_independently_supplied_free_form() 
 
 
 def test_constructor__enforce_immutable_slotted_state__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OCI-005
-    Requirement
-    Authoritative code, derived description, and object shape remain unchanged after
+    r"""Evidence ID: SV-OCI-005
+
+    Requirement: Authoritative code, derived description, and object shape remain
+    unchanged after
     construction; no per-instance dictionary is exposed.
-    Method
-    Attempt assignment to ``code``, ``description``, and one undeclared attribute, then
+
+    Method: Attempt assignment to ``code``, ``description``, and one undeclared
+    attribute, then
     inspect the documented slotted-object boundary.
-    Oracle
-    The approved frozen, slotted DataObject architecture requires assignment rejection
+
+    Oracle: The approved frozen, slotted DataObject architecture requires assignment
+    rejection
     and no per-instance dynamic-attribute dictionary.
-    Acceptance
-    Every assignment raises exactly ``FrozenInstanceError`` and the instance has no
+
+    Acceptance: Every assignment raises exactly ``FrozenInstanceError`` and the instance
+    has no
     ``__dict__``.
-    Interpretation
-    Passing protects compatibility-audit evidence from ordinary mutation.
-    Limitations
-    No private attributes or invariant-bypass techniques are inspected.
+
+    Interpretation: Passing protects compatibility-audit evidence from ordinary
+    mutation.
+
+    Limitations: No private attributes or invariant-bypass techniques are inspected.
     """
 
     issue = OperatorRecordCompatibilityIssue(
@@ -345,23 +367,27 @@ def test_constructor__enforce_immutable_slotted_state__is_enforced() -> None:
 
 
 def test_method__eq__exact_structural_equality_by_mismatch_code() -> None:
-    r"""Evidence ID
-    SV-OCI-006
-    Requirement
-    Independently constructed Issues compare by their sole stored code field.
-    Method
-    Compare two Issues with one code, an Issue with a different code, and an unrelated
+    r"""Evidence ID: SV-OCI-006
+
+    Requirement: Independently constructed Issues compare by their sole stored code
+    field.
+
+    Method: Compare two Issues with one code, an Issue with a different code, and an
+    unrelated
     object.
-    Oracle
-    The public exact DataObject equality contract uses the sole authoritative ``code``
+
+    Oracle: The public exact DataObject equality contract uses the sole authoritative
+    ``code``
     field and defines no text or approximate comparison policy.
-    Acceptance
-    Same-code Issues are equal; different-code and unrelated values are not.
-    Interpretation
-    Passing establishes exact code-based value equality, not free-form text comparison
+
+    Acceptance: Same-code Issues are equal; different-code and unrelated values are not.
+
+    Interpretation: Passing establishes exact code-based value equality, not free-form
+    text comparison
     or approximate numerical equality.
-    Limitations
-    Equality does not prove that actual records are compatible. Hash behavior is
+
+    Limitations: Equality does not prove that actual records are compatible. Hash
+    behavior is
     intentionally not asserted because it is not an explicit contract.
     """
 
@@ -394,21 +420,24 @@ def test_method__eq__exact_structural_equality_by_mismatch_code() -> None:
 def test_method__serialize__exclude_unsupported_serialization_apis(
     api_name: str,
 ) -> None:
-    r"""Evidence ID
-    SV-OCI-007
-    Requirement
-    The Issue exposes none of the listed object-owned serialization methods.
-    Method
-    Inspect both the public class and a valid instance for each API name.
-    Oracle
-    The approved architecture assigns future wire formats to an explicit serializer and
+    r"""Evidence ID: SV-OCI-007
+
+    Requirement: The Issue exposes none of the listed object-owned serialization
+    methods.
+
+    Method: Inspect both the public class and a valid instance for each API name.
+
+    Oracle: The approved architecture assigns future wire formats to an explicit
+    serializer and
     versioned schema, not to this Issue value object.
-    Acceptance
-    Every named API is absent from both surfaces.
-    Interpretation
-    Passing preserves serializer ownership and the absence of an Issue wire format.
-    Limitations
-    Future compatibility-result serialization requires separate approval, an explicit
+
+    Acceptance: Every named API is absent from both surfaces.
+
+    Interpretation: Passing preserves serializer ownership and the absence of an Issue
+    wire format.
+
+    Limitations: Future compatibility-result serialization requires separate approval,
+    an explicit
     serializer ActionObject, and a versioned schema.
     """
 

@@ -1,17 +1,20 @@
 r"""Software verification of ``CapabilityKind``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned evidence verifies the closed wire vocabulary and the public
 ``StrEnum`` value- and name-lookup surfaces.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The sole primary SUT is ``CapabilityKind``. Fixed version-1 names and values
 provide the oracle for synthetic, dimensionless metadata. No warnings are
 expected, and no collaborator is a co-owner.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the stated enum contract; failure indicates a source,
 test-oracle, or accepted-contract mismatch. This evidence does not establish
@@ -31,22 +34,25 @@ pytestmark = pytest.mark.software_verification
 
 
 def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
-    """Evidence ID
-    SV-PROV-030
-    Requirement
-    The enum exposes the exact ordered version-1 names and values without aliases.
-    Method
-    Inspect iteration, the public member mapping, and ``StrEnum`` inheritance.
-    Oracle
-    The accepted vocabulary is EXECUTE/execute, PARSE/parse, RENDER/render, and
+    """Evidence ID: SV-PROV-030
+
+    Requirement: The enum exposes the exact ordered version-1 names and values without
+    aliases.
+
+    Method: Inspect iteration, the public member mapping, and ``StrEnum`` inheritance.
+
+    Oracle: The accepted vocabulary is EXECUTE/execute, PARSE/parse, RENDER/render, and
     TRANSFER/transfer in that order.
-    Acceptance
-    Names, values, order, member keys, member count, and inheritance match exactly.
-    Interpretation
-    A pass confirms the closed vocabulary; a failure identifies source, oracle, or
+
+    Acceptance: Names, values, order, member keys, member count, and inheritance match
+    exactly.
+
+    Interpretation: A pass confirms the closed vocabulary; a failure identifies source,
+    oracle, or
     contract drift.
-    Limitations
-    This does not test lookup errors, external behavior, numerical verification,
+
+    Limitations: This does not test lookup errors, external behavior, numerical
+    verification,
     validation, UQ, portability, or cross-language agreement.
     """
     expected = (
@@ -73,20 +79,23 @@ def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
 def test_method__call__resolves_each_wire_value(
     value: str, expected: CapabilityKind
 ) -> None:
-    """Evidence ID
-    SV-PROV-176
-    Requirement
-    Calling the enum class with each accepted wire value returns its canonical member.
-    Method
-    Call the public enum constructor for each explicitly named version-1 value.
-    Oracle
-    The fixed value-to-member pairs are declared independently in the parameter table.
-    Acceptance
-    Each call returns the expected member by identity and emits no warning.
-    Interpretation
-    A pass confirms value lookup; a failure identifies constructor or vocabulary drift.
-    Limitations
-    This does not test name lookup, external behavior, validation, UQ, portability,
+    """Evidence ID: SV-PROV-176
+
+    Requirement: Calling the enum class with each accepted wire value returns its
+    canonical member.
+
+    Method: Call the public enum constructor for each explicitly named version-1 value.
+
+    Oracle: The fixed value-to-member pairs are declared independently in the parameter
+    table.
+
+    Acceptance: Each call returns the expected member by identity and emits no warning.
+
+    Interpretation: A pass confirms value lookup; a failure identifies constructor or
+    vocabulary drift.
+
+    Limitations: This does not test name lookup, external behavior, validation, UQ,
+    portability,
     or cross-language agreement.
     """
     assert SUT(value) is expected
@@ -104,42 +113,47 @@ def test_method__call__resolves_each_wire_value(
 def test_method__getitem__resolves_each_member_name(
     name: str, expected: CapabilityKind
 ) -> None:
-    """Evidence ID
-    SV-PROV-238
-    Requirement
-    Bracketed enum lookup resolves every accepted member name to its canonical member.
-    Method
-    Apply the public class subscription surface to each explicit version-1 name.
-    Oracle
-    The fixed name-to-member pairs are declared independently in the parameter table.
-    Acceptance
-    Each lookup returns the expected member by identity and emits no warning.
-    Interpretation
-    A pass confirms name lookup; a failure identifies subscription or name-
+    """Evidence ID: SV-PROV-238
+
+    Requirement: Bracketed enum lookup resolves every accepted member name to its
+    canonical member.
+
+    Method: Apply the public class subscription surface to each explicit version-1 name.
+
+    Oracle: The fixed name-to-member pairs are declared independently in the parameter
+    table.
+
+    Acceptance: Each lookup returns the expected member by identity and emits no
+    warning.
+
+    Interpretation: A pass confirms name lookup; a failure identifies subscription or
+    name-
     vocabulary drift.
-    Limitations
-    This new owner does not test value construction, external behavior, validation,
+
+    Limitations: This new owner does not test value construction, external behavior,
+    validation,
     UQ, portability, or cross-language agreement.
     """
     assert cast(Any, SUT)[name] is expected
 
 
 def test_method__call__rejects_unknown_wire_value() -> None:
-    """Evidence ID
-    SV-PROV-177
-    Requirement
-    Calling the enum class with an unknown string wire value fails.
-    Method
-    Call the public constructor with the fixed absent string ``unknown``.
-    Oracle
-    The accepted values are exactly execute, parse, render, and transfer.
-    Acceptance
-    The call raises ``ValueError`` and returns no member.
-    Interpretation
-    A pass confirms the closed string vocabulary; a failure indicates an unexpectedly
+    """Evidence ID: SV-PROV-177
+
+    Requirement: Calling the enum class with an unknown string wire value fails.
+
+    Method: Call the public constructor with the fixed absent string ``unknown``.
+
+    Oracle: The accepted values are exactly execute, parse, render, and transfer.
+
+    Acceptance: The call raises ``ValueError`` and returns no member.
+
+    Interpretation: A pass confirms the closed string vocabulary; a failure indicates an
+    unexpectedly
     accepted value or stale vocabulary evidence.
-    Limitations
-    This does not characterize wrong semantic types, external behavior, validation,
+
+    Limitations: This does not characterize wrong semantic types, external behavior,
+    validation,
     UQ, portability, or cross-language agreement.
     """
     with pytest.raises(ValueError):
@@ -147,21 +161,24 @@ def test_method__call__rejects_unknown_wire_value() -> None:
 
 
 def test_method__call__rejects_wrong_semantic_type() -> None:
-    """Evidence ID
-    SV-PROV-402
-    Requirement
-    Calling the enum class with an integer rather than a string wire value fails.
-    Method
-    Call the public constructor with integer ``1`` through a static-only cast.
-    Oracle
-    The accepted wire vocabulary contains strings only; integer 1 is not a wire value.
-    Acceptance
-    The call raises ``ValueError`` and returns no member.
-    Interpretation
-    A pass confirms rejection of this wrong-type partition; a failure indicates
+    """Evidence ID: SV-PROV-402
+
+    Requirement: Calling the enum class with an integer rather than a string wire value
+    fails.
+
+    Method: Call the public constructor with integer ``1`` through a static-only cast.
+
+    Oracle: The accepted wire vocabulary contains strings only; integer 1 is not a wire
+    value.
+
+    Acceptance: The call raises ``ValueError`` and returns no member.
+
+    Interpretation: A pass confirms rejection of this wrong-type partition; a failure
+    indicates
     unintended acceptance or changed Python enum semantics.
-    Limitations
-    Integer 1 represents the wrong-semantic-type partition; other Python types,
+
+    Limitations: Integer 1 represents the wrong-semantic-type partition; other Python
+    types,
     validation, UQ, portability, and cross-language agreement are excluded.
     """
     with pytest.raises(ValueError):
@@ -169,20 +186,21 @@ def test_method__call__rejects_wrong_semantic_type() -> None:
 
 
 def test_method__getitem__rejects_unknown_member_name() -> None:
-    """Evidence ID
-    SV-PROV-178
-    Requirement
-    Bracketed enum lookup rejects names outside the closed member-name set.
-    Method
-    Look up the fixed absent name ``UNKNOWN`` through class subscription.
-    Oracle
-    The accepted member names are exactly EXECUTE, PARSE, RENDER, and TRANSFER.
-    Acceptance
-    Lookup raises ``KeyError`` and returns no member.
-    Interpretation
-    A pass confirms closed name lookup; a failure indicates name-vocabulary drift.
-    Limitations
-    This tests one representative absent name, not external behavior, validation,
+    """Evidence ID: SV-PROV-178
+
+    Requirement: Bracketed enum lookup rejects names outside the closed member-name set.
+
+    Method: Look up the fixed absent name ``UNKNOWN`` through class subscription.
+
+    Oracle: The accepted member names are exactly EXECUTE, PARSE, RENDER, and TRANSFER.
+
+    Acceptance: Lookup raises ``KeyError`` and returns no member.
+
+    Interpretation: A pass confirms closed name lookup; a failure indicates
+    name-vocabulary drift.
+
+    Limitations: This tests one representative absent name, not external behavior,
+    validation,
     UQ, portability, or cross-language agreement.
     """
     with pytest.raises(KeyError):

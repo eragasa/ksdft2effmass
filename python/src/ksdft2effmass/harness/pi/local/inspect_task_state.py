@@ -9,9 +9,9 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .. import (
-    InspectTaskState,
     TaskStateInspectionRequest,
     TaskStateInspectionResult,
+    TaskStateInspector,
     ValidationIssue,
 )
 
@@ -69,7 +69,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             args.chain,
             args.task_id,
         )
-        result = InspectTaskState().execute(request)
+        result = TaskStateInspector().execute(request)
         payload = result_object(result)
         exit_status = 0 if result.validation.status != "FAIL" else 1
     except (TypeError, ValueError, OSError) as exc:

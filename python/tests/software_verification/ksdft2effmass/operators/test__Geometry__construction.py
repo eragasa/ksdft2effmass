@@ -1,6 +1,7 @@
 r"""Software verification of ``Geometry``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the construction facet. Object and evidence class
 -------------------------
@@ -19,6 +20,7 @@ conversion, structure-relaxation, scientific-validation, or UQ calculation. Rust
 conformance is not established.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``Geometry``; collaborators only construct inputs or expose
 public outcomes. Accepted public contracts, literal expected values, Python language
@@ -26,6 +28,7 @@ semantics, and assigned schema or fixture artifacts provide the oracles. No runt
 warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -54,21 +57,23 @@ def make_geometry(
     coordinate_convention: str = "Cartesian row vectors + signs",
     length_unit: str = "Synthetic length [L]",
 ) -> Geometry:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Inputs pass unchanged to the public constructor; no ``np.asarray``, ``float``, or
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Inputs pass unchanged to the public constructor; no ``np.asarray``,
+    ``float``, or
     ``tuple`` coercion is performed here.
-    Method
-    Use explicit synthetic row-lattice and metadata defaults.
-    Oracle
-    The approved public Geometry contract defines the five stored fields.
-    Acceptance
-    The caller receives the public constructor result.
-    Interpretation
-    The helper isolates construction while preserving caller input identity.
-    Limitations
-    Metadata use synthetic length unit ``Synthetic length [L]`` and Cartesian row-vector
+
+    Method: Use explicit synthetic row-lattice and metadata defaults.
+
+    Oracle: The approved public Geometry contract defines the five stored fields.
+
+    Acceptance: The caller receives the public constructor result.
+
+    Interpretation: The helper isolates construction while preserving caller input
+    identity.
+
+    Limitations: Metadata use synthetic length unit ``Synthetic length [L]`` and
+    Cartesian row-vector
     convention. No DFT, Wannier, experimental, crystallographic, or impurity calculation
     produced the fixture; it establishes no scientific validity, scientific validation,
     UQ, or Rust conformance.
@@ -84,21 +89,23 @@ def make_geometry(
 
 
 def test_constructor__public_fields_are_mapped_exactly__is_enforced() -> None:
-    r"""Evidence ID
-    SV-G-001
-    Requirement
-    Public construction stores exactly ``system``, ``cell``, ``boundary_conditions``,
+    r"""Evidence ID: SV-G-001
+
+    Requirement: Public construction stores exactly ``system``, ``cell``,
+    ``boundary_conditions``,
     ``coordinate_convention``, and ``length_unit``.
-    Method
-    Import from the supported package and compare every public stored field.
-    Oracle
-    The approved five-field Geometry model and explicit fixture values.
-    Acceptance
-    Every field equals its independently selected input exactly.
-    Interpretation
-    Passing verifies public construction without source-location assertions.
-    Limitations
-    It does not establish physical realism, serialization, scientific validation, UQ, or
+
+    Method: Import from the supported package and compare every public stored field.
+
+    Oracle: The approved five-field Geometry model and explicit fixture values.
+
+    Acceptance: Every field equals its independently selected input exactly.
+
+    Interpretation: Passing verifies public construction without source-location
+    assertions.
+
+    Limitations: It does not establish physical realism, serialization, scientific
+    validation, UQ, or
     Rust conformance.
     """
 
@@ -140,23 +147,26 @@ def test_constructor__approved_nested_sequences_and_scalars_are__is_enforced(
     | tuple[tuple[int, int, int], ...]
     | tuple[list[np.integer], ...],
 ) -> None:
-    r"""Evidence ID
-    SV-G-002
-    Requirement
-    Tuple/list nested sequences and Python/NumPy integer/floating scalars are accepted
+    r"""Evidence ID: SV-G-002
+
+    Requirement: Tuple/list nested sequences and Python/NumPy integer/floating scalars
+    are accepted
     and stored as nested built-in tuples of exact built-in floats.
-    Method
-    Pass raw parameter values directly to ``Geometry`` without helper coercion, then
+
+    Method: Pass raw parameter values directly to ``Geometry`` without helper coercion,
+    then
     recursively inspect stored container and scalar types.
-    Oracle
-    The approved constructor admission and canonical storage contract.
-    Acceptance
-    Outer and inner containers have exact type ``tuple`` and every component has exact
+
+    Oracle: The approved constructor admission and canonical storage contract.
+
+    Acceptance: Outer and inner containers have exact type ``tuple`` and every component
+    has exact
     type ``float`` while numerical values are preserved.
-    Interpretation
-    Passing establishes constructor-owned canonicalization, not broad NumPy coercion.
-    Limitations
-    Scalar examples are representative; no scientific validation, UQ, unit
+
+    Interpretation: Passing establishes constructor-owned canonicalization, not broad
+    NumPy coercion.
+
+    Limitations: Scalar examples are representative; no scientific validation, UQ, unit
     interpretation, or Rust conformance is established.
     """
 
@@ -169,20 +179,21 @@ def test_constructor__approved_nested_sequences_and_scalars_are__is_enforced(
 
 
 def test_field__caller_owned_mutable_cell_is_defensively_copied__is_exact() -> None:
-    r"""Evidence ID
-    SV-G-003
-    Requirement
-    Geometry owns an immutable defensive copy of caller-provided sequences.
-    Method
-    Construct from nested lists, mutate one inner row and append an outer row.
-    Oracle
-    The original identity cell is the independently recorded expected value.
-    Acceptance
-    Stored state remains the original nested tuple of floats.
-    Interpretation
-    Passing verifies ordinary public operational immutability and ownership.
-    Limitations
-    It does not claim protection against unsupported interpreter internals, scientific
+    r"""Evidence ID: SV-G-003
+
+    Requirement: Geometry owns an immutable defensive copy of caller-provided sequences.
+
+    Method: Construct from nested lists, mutate one inner row and append an outer row.
+
+    Oracle: The original identity cell is the independently recorded expected value.
+
+    Acceptance: Stored state remains the original nested tuple of floats.
+
+    Interpretation: Passing verifies ordinary public operational immutability and
+    ownership.
+
+    Limitations: It does not claim protection against unsupported interpreter internals,
+    scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -198,21 +209,23 @@ def test_field__caller_owned_mutable_cell_is_defensively_copied__is_exact() -> N
 
 
 def test_field__metadata_strings_are_preserved_exactly__is_exact() -> None:
-    r"""Evidence ID
-    SV-G-004
-    Requirement
-    Geometry treats all four metadata strings as explicit uninterpreted text.
-    Method
-    Construct with mixed case, leading/trailing spaces, and punctuation.
-    Oracle
-    Exact input literals are the expected stored values.
-    Acceptance
-    Every metadata field compares exactly equal to its input literal.
-    Interpretation
-    Passing excludes trimming, case folding, normalization, and vocabulary lookup from
+    r"""Evidence ID: SV-G-004
+
+    Requirement: Geometry treats all four metadata strings as explicit uninterpreted
+    text.
+
+    Method: Construct with mixed case, leading/trailing spaces, and punctuation.
+
+    Oracle: Exact input literals are the expected stored values.
+
+    Acceptance: Every metadata field compares exactly equal to its input literal.
+
+    Interpretation: Passing excludes trimming, case folding, normalization, and
+    vocabulary lookup from
     construction.
-    Limitations
-    It does not establish that any label is a recognized physical convention, scientific
+
+    Limitations: It does not establish that any label is a recognized physical
+    convention, scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -230,22 +243,24 @@ def test_field__metadata_strings_are_preserved_exactly__is_exact() -> None:
 
 
 def test_field__cell__preserves_left_handed_nonorthogonal_rows() -> None:
-    r"""Evidence ID
-    SV-G-005
-    Requirement
-    Geometry does not impose orthogonality or positive handedness and does not reorder
+    r"""Evidence ID: SV-G-005
+
+    Requirement: Geometry does not impose orthogonality or positive handedness and does
+    not reorder
     row vectors or alter signs.
-    Method
-    Construct a lower-triangular skew cell with diagonal product ``-24``.
-    Oracle
-    Nonzero diagonal product proves independence analytically; the negative product
+
+    Method: Construct a lower-triangular skew cell with diagonal product ``-24``.
+
+    Oracle: Nonzero diagonal product proves independence analytically; the negative
+    product
     proves left handedness without calling NumPy linear algebra.
-    Acceptance
-    Stored nested floats exactly preserve the selected rows and signs.
-    Interpretation
-    Passing establishes representation fidelity only.
-    Limitations
-    Admission does not claim physical realism, crystallographic validity, scientific
+
+    Acceptance: Stored nested floats exactly preserve the selected rows and signs.
+
+    Interpretation: Passing establishes representation fidelity only.
+
+    Limitations: Admission does not claim physical realism, crystallographic validity,
+    scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -256,20 +271,20 @@ def test_field__cell__preserves_left_handed_nonorthogonal_rows() -> None:
 
 
 def test_method__serialize__geometry_exposes_no_standalone_serialization_api() -> None:
-    r"""Evidence ID
-    SV-G-006
-    Requirement
-    Geometry has no standalone serialize/deserialize or dict/JSON API.
-    Method
-    Inspect only the six explicitly prohibited public attribute names.
-    Oracle
-    Serialization ownership belongs to ``OperatorRecordJsonSerializer``.
-    Acceptance
-    None of the names is present on a valid Geometry instance.
-    Interpretation
-    Passing verifies the DataObject/ActionObject serialization boundary.
-    Limitations
-    It does not test nested record serialization, scientific validation, UQ, or Rust
+    r"""Evidence ID: SV-G-006
+
+    Requirement: Geometry has no standalone serialize/deserialize or dict/JSON API.
+
+    Method: Inspect only the six explicitly prohibited public attribute names.
+
+    Oracle: Serialization ownership belongs to ``OperatorRecordJsonSerializer``.
+
+    Acceptance: None of the names is present on a valid Geometry instance.
+
+    Interpretation: Passing verifies the DataObject/ActionObject serialization boundary.
+
+    Limitations: It does not test nested record serialization, scientific validation,
+    UQ, or Rust
     conformance.
     """
 

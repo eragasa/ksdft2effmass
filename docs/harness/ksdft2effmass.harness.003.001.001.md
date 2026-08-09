@@ -288,7 +288,7 @@ contract. This proposal does not design a SQLite schema or authorize these paths
 ## Relationship to checkpoints
 
 Review decisions concern individual items. Checkpoint decisions resolve genuine
-human choices or final task acceptance. `ResolveCheckpointDecision` transforms an
+human choices or final task acceptance. `CheckpointDecisionResolver` transforms an
 already interpreted checkpoint decision; it does not interpret review prose.
 Review-item approval must not silently resolve a checkpoint. A completed review may
 become an input to a later acceptance checkpoint, but cannot substitute for it.

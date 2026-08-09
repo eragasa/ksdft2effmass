@@ -1,17 +1,20 @@
 r"""Software verification of ``ExecutionOutcomeCorrelator``.
 
 Facet and represented meaning
+
 -----------------------------
 This module verifies stateless exact comparison of request, correlation, and attempt
 identities for both successful-result and structured-failure outcome families.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 ``ExecutionOutcomeCorrelator`` is the sole SUT. Public request and outcome records are
 collaborators; direct comparison of independently selected literal IDs supplies the
 oracle and canonical issue order.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes correlation logic and result mapping only. It excludes external
 execution, authorization validity, provenance truth, numerical verification, scientific
@@ -37,20 +40,24 @@ pytestmark = pytest.mark.software_verification
 
 
 def make_execution_request() -> ExternalExecutionRequest:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-054, SV-PROV-055, SV-PROV-172, and SV-PROV-173.
-    Requirement
-    Provide one explicit immutable request with independently visible correlation IDs.
-    Method
-    Construct the public request record with request-1, correlation-1, and attempt-1.
-    Oracle
-    Literal constructor inputs fix the three source identities and other valid fields.
-    Acceptance
-    A valid request is returned without authorization lookup or execution.
-    Interpretation
-    Failure is collaborator setup failure rather than correlator evidence.
-    Limitations
-    The request is synthetic and does not authorize external activity.
+    """Evidence ID: Owns no identifier; supports SV-PROV-054, SV-PROV-055, SV-PROV-172,
+    and SV-PROV-173.
+
+    Requirement: Provide one explicit immutable request with independently visible
+    correlation IDs.
+
+    Method: Construct the public request record with request-1, correlation-1, and
+    attempt-1.
+
+    Oracle: Literal constructor inputs fix the three source identities and other valid
+    fields.
+
+    Acceptance: A valid request is returned without authorization lookup or execution.
+
+    Interpretation: Failure is collaborator setup failure rather than correlator
+    evidence.
+
+    Limitations: The request is synthetic and does not authorize external activity.
     """
     return ExternalExecutionRequest(
         "request-1",
@@ -141,24 +148,28 @@ def test_method__execute_result_identity_combinations__returns_exact_correlation
     attempt_matches: bool,
     expected_issues: tuple[CorrelationIssue, ...],
 ) -> None:
-    """Evidence ID
-    SV-PROV-054
-    Requirement
-    Result outcomes report exactly the mismatching subset of three identities in
+    """Evidence ID: SV-PROV-054
+
+    Requirement: Result outcomes report exactly the mismatching subset of three
+    identities in
     canonical order.
-    Method
-    Exercise all eight match/mismatch combinations with the required semantic case IDs.
-    Oracle
-    Independent literal equality predicts issue membership; tuple emptiness predicts
+
+    Method: Exercise all eight match/mismatch combinations with the required semantic
+    case IDs.
+
+    Oracle: Independent literal equality predicts issue membership; tuple emptiness
+    predicts
     status.
-    Acceptance
-    Issues, status, copied request ID, and result outcome ID each equal their exact
+
+    Acceptance: Issues, status, copied request ID, and result outcome ID each equal
+    their exact
     expected values.
-    Interpretation
-    Failure indicates comparison, all-issues-on-any-mismatch, ordering, status, or
+
+    Interpretation: Failure indicates comparison, all-issues-on-any-mismatch, ordering,
+    status, or
     mapping defects.
-    Limitations
-    Result content and external execution are not validated.
+
+    Limitations: Result content and external execution are not validated.
     """
     outcome = ExternalExecutionResult(
         "result-1",
@@ -256,24 +267,28 @@ def test_method__execute_failure_identity_combinations__returns_exact_correlatio
     attempt_matches: bool,
     expected_issues: tuple[CorrelationIssue, ...],
 ) -> None:
-    """Evidence ID
-    SV-PROV-172
-    Requirement
-    Failure outcomes report exactly the mismatching subset of three identities in
+    """Evidence ID: SV-PROV-172
+
+    Requirement: Failure outcomes report exactly the mismatching subset of three
+    identities in
     canonical order.
-    Method
-    Exercise all eight match/mismatch combinations with the required semantic case IDs.
-    Oracle
-    Independent literal equality predicts issue membership; tuple emptiness predicts
+
+    Method: Exercise all eight match/mismatch combinations with the required semantic
+    case IDs.
+
+    Oracle: Independent literal equality predicts issue membership; tuple emptiness
+    predicts
     status.
-    Acceptance
-    Issues, status, copied request ID, and failure outcome ID each equal their exact
+
+    Acceptance: Issues, status, copied request ID, and failure outcome ID each equal
+    their exact
     expected values.
-    Interpretation
-    Failure indicates comparison, all-issues-on-any-mismatch, ordering, status, or
+
+    Interpretation: Failure indicates comparison, all-issues-on-any-mismatch, ordering,
+    status, or
     mapping defects.
-    Limitations
-    Failure cause, diagnostics, and external execution are not validated.
+
+    Limitations: Failure cause, diagnostics, and external execution are not validated.
     """
     outcome = ExternalExecutionFailure(
         "failure-1",
@@ -298,20 +313,20 @@ def test_method__execute_failure_identity_combinations__returns_exact_correlatio
 
 
 def test_method__execute_request_type__rejects_mapping_lookalike() -> None:
-    """Evidence ID
-    SV-PROV-055
-    Requirement
-    request must be an ExternalExecutionRequest rather than a mapping lookalike.
-    Method
-    Pass an empty mapping with a valid successful result.
-    Oracle
-    The public signature requires TypeError without coercion.
-    Acceptance
-    execute raises TypeError.
-    Interpretation
-    Failure indicates an unintentionally broadened request boundary.
-    Limitations
-    Subclass behavior is not separately partitioned.
+    """Evidence ID: SV-PROV-055
+
+    Requirement: request must be an ExternalExecutionRequest rather than a mapping
+    lookalike.
+
+    Method: Pass an empty mapping with a valid successful result.
+
+    Oracle: The public signature requires TypeError without coercion.
+
+    Acceptance: execute raises TypeError.
+
+    Interpretation: Failure indicates an unintentionally broadened request boundary.
+
+    Limitations: Subclass behavior is not separately partitioned.
     """
     outcome = ExternalExecutionResult(
         "result-1",
@@ -328,20 +343,19 @@ def test_method__execute_request_type__rejects_mapping_lookalike() -> None:
 
 
 def test_method__execute_outcome_type__rejects_mapping_lookalike() -> None:
-    """Evidence ID
-    SV-PROV-173
-    Requirement
-    outcome must be an ExternalExecutionResult or ExternalExecutionFailure.
-    Method
-    Pass an empty mapping with a valid request.
-    Oracle
-    The public outcome union requires TypeError without coercion.
-    Acceptance
-    execute raises TypeError.
-    Interpretation
-    Failure indicates an unintentionally broadened outcome boundary.
-    Limitations
-    Accepted-family subclasses are not separately partitioned.
+    """Evidence ID: SV-PROV-173
+
+    Requirement: outcome must be an ExternalExecutionResult or ExternalExecutionFailure.
+
+    Method: Pass an empty mapping with a valid request.
+
+    Oracle: The public outcome union requires TypeError without coercion.
+
+    Acceptance: execute raises TypeError.
+
+    Interpretation: Failure indicates an unintentionally broadened outcome boundary.
+
+    Limitations: Accepted-family subclasses are not separately partitioned.
     """
     with pytest.raises(TypeError):
         SUT().execute(make_execution_request(), {})  # type: ignore[arg-type]

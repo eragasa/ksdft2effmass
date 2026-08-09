@@ -1,14 +1,17 @@
 r"""Software verification of ``ChainView``.
 
 Facet and represented meaning
+
 Software verification of the public ``ChainView`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
 Intrinsic and cross-object scope
+
 The sole primary SUT is ``ChainView``.  Accepted H1 field/wire contracts and read-only
 H3 fixtures are independent exact oracles.
 
 VVUQ and scientific exclusions
+
 Passing checks only the stated software contract. Numerical verification, scientific
 validation, uncertainty quantification, physical correctness, and cross-language
 conformance are excluded.
@@ -21,7 +24,7 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi import ChainView, DeserializeJsonRecord, WireRecordKind
+from ksdft2effmass.harness.pi import ChainView, JsonRecordDeserializer, WireRecordKind
 
 ROOT = Path(__file__).resolve().parents[6]
 
@@ -30,28 +33,31 @@ SUT = ChainView
 
 
 def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
-    """Evidence ID
-    SV-HARNESS-012
-    Requirement
-    ChainView accepts the complete valid version-1 H3 wire instance and is immutable.
-    Method
-    Decode the accepted ``chain-view.json`` fixture through the caller-selected
+    """Evidence ID: SV-HARNESS-012
+
+    Requirement: ChainView accepts the complete valid version-1 H3 wire instance and is
+    immutable.
+
+    Method: Decode the accepted ``chain-view.json`` fixture through the caller-selected
     public record kind, then attempt field mutation.
-    Oracle
-    The accepted H1 field contract and H3 valid fixture fix the class, field values,
+
+    Oracle: The accepted H1 field contract and H3 valid fixture fix the class, field
+    values,
     tuple storage, and immutability.
-    Acceptance
-    The result is exactly SUT, validation is PASS, tuple fields remain tuples, and
+
+    Acceptance: The result is exactly SUT, validation is PASS, tuple fields remain
+    tuples, and
     mutation raises AttributeError.
-    Interpretation
-    A failure identifies a production, accepted-contract, fixture, or environment
+
+    Interpretation: A failure identifies a production, accepted-contract, fixture, or
+    environment
     discrepancy requiring independent review.
-    Limitations
-    This is exact software verification only; it makes no numerical,
+
+    Limitations: This is exact software verification only; it makes no numerical,
     scientific-validation, UQ, physical, or Rust-conformance claim.
     """
     payload = (ROOT / "harness/pi/fixtures/valid/chain-view.json").read_bytes()
-    result = DeserializeJsonRecord().execute(WireRecordKind.ChainView, payload)
+    result = JsonRecordDeserializer().execute(WireRecordKind.ChainView, payload)
     assert result.validation.status == "PASS"
     assert type(result.record) is SUT
 

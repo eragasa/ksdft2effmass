@@ -1,6 +1,7 @@
 r"""Software verification of package wheel.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned software verification represents the built Python wheel. The fixed
 provenance runtime-module inventory is the content oracle, Python ZIP/wheel path
@@ -8,6 +9,7 @@ semantics are the archive oracle, and isolated ``python -I -S`` execution is the
 oracle.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The built wheel is the owned artifact. Public API inventory is owned separately by
 ``test__public_api.py``; dependency direction is owned separately by
@@ -15,6 +17,7 @@ The built wheel is the owned artifact. Public API inventory is owned separately 
 the independent content and import owners.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing applies only to the current interpreter, platform, and already provisioned
 local build tools. It does not establish publication, release readiness, installation
@@ -51,25 +54,30 @@ EXPECTED_WHEEL_MODULES = {
 def select_provenance_python_entries(
     archive_paths: set[PurePosixPath] | frozenset[PurePosixPath],
 ) -> set[str]:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-072.
-    Requirement
-    Wheel-content evidence observes every Python source entry recursively beneath the
+    """Evidence ID: Owns no identifier; supports SV-PROV-072.
+
+    Requirement: Wheel-content evidence observes every Python source entry recursively
+    beneath the
     provenance package rather than only its direct children.
-    Method
-    Apply ``PurePosixPath.is_relative_to`` and the ``.py`` suffix to controlled or real
+
+    Method: Apply ``PurePosixPath.is_relative_to`` and the ``.py`` suffix to controlled
+    or real
     wheel archive paths.
-    Oracle
-    POSIX path ancestry beneath ``ksdft2effmass/provenance`` and the exact ``.py``
+
+    Oracle: POSIX path ancestry beneath ``ksdft2effmass/provenance`` and the exact
+    ``.py``
     suffix independently define the selected archive entries.
-    Acceptance
-    Return the POSIX strings of all and only Python entries recursively beneath the
+
+    Acceptance: Return the POSIX strings of all and only Python entries recursively
+    beneath the
     provenance package.
-    Interpretation
-    Missing nested entries indicates an incomplete content oracle; extra entries
+
+    Interpretation: Missing nested entries indicates an incomplete content oracle; extra
+    entries
     indicate selection outside the owned package subtree or source-file type.
-    Limitations
-    Selection alone does not establish the expected inventory, wheel validity,
+
+    Limitations: Selection alone does not establish the expected inventory, wheel
+    validity,
     importability, publication readiness, or behavior of selected modules.
     """
     provenance_package = PurePosixPath("ksdft2effmass/provenance")
@@ -82,24 +90,29 @@ def select_provenance_python_entries(
 
 @pytest.fixture(scope="module")
 def built_provenance_wheel(tmp_path_factory: pytest.TempPathFactory) -> Path:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-072 and SV-PROV-395.
-    Requirement
-    Both wheel evidence owners receive the same locally built artifact without index or
+    """Evidence ID: Owns no identifier; supports SV-PROV-072 and SV-PROV-395.
+
+    Requirement: Both wheel evidence owners receive the same locally built artifact
+    without index or
     dependency access during the build subprocess.
-    Method
-    Invoke the current interpreter's pip once with no dependencies, no build isolation,
+
+    Method: Invoke the current interpreter's pip once with no dependencies, no build
+    isolation,
     no index, inherited environment, and explicit index-disabling variables.
-    Oracle
-    A zero pip exit status and exactly one project wheel define successful setup.
-    Acceptance
-    The offline command finishes within 120 seconds and yields exactly one wheel whose
+
+    Oracle: A zero pip exit status and exactly one project wheel define successful
+    setup.
+
+    Acceptance: The offline command finishes within 120 seconds and yields exactly one
+    wheel whose
     filename identifies this project in an isolated temporary directory.
-    Interpretation
-    Failure indicates missing preinstalled build tooling, local build configuration, or
+
+    Interpretation: Failure indicates missing preinstalled build tooling, local build
+    configuration, or
     wheel production setup; it is not archive-content or isolated-import evidence.
-    Limitations
-    The environment must already contain compatible pip, setuptools, and wheel; setup
+
+    Limitations: The environment must already contain compatible pip, setuptools, and
+    wheel; setup
     does not establish publication, release readiness, or platform coverage.
     """
     wheel_dir = tmp_path_factory.mktemp("provenance-wheel")
@@ -141,29 +154,34 @@ def built_provenance_wheel(tmp_path_factory: pytest.TempPathFactory) -> Path:
 def test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_tests(
     built_provenance_wheel: Path,
 ) -> None:
-    """Evidence ID
-    SV-PROV-072
-    Requirement
-    The wheel contains exactly every accepted Python source entry recursively below
+    """Evidence ID: SV-PROV-072
+
+    Requirement: The wheel contains exactly every accepted Python source entry
+    recursively below
     ``ksdft2effmass/provenance/`` and no archive entry whose path has an exact ``tests``
     component.
-    Method
-    Apply the same recursive provenance-subtree selector to controlled direct and nested
+
+    Method: Apply the same recursive provenance-subtree selector to controlled direct
+    and nested
     paths and to the built wheel ZIP names, then inspect every real archive name by
     POSIX path components.
-    Oracle
-    EXPECTED_WHEEL_MODULES, the controlled four-entry observation, and Python ZIP/wheel
+
+    Oracle: EXPECTED_WHEEL_MODULES, the controlled four-entry observation, and Python
+    ZIP/wheel
     POSIX path semantics fix the independent content inventory and test-tree exclusion.
-    Acceptance
-    The selector observes the expected direct module, an unexpected direct module, a
+
+    Acceptance: The selector observes the expected direct module, an unexpected direct
+    module, a
     nested ``__init__.py``, and a nested ordinary module; real-wheel provenance Python
     entries equal EXPECTED_WHEEL_MODULES exactly; and no archive path contains an exact
     ``tests`` component.
-    Interpretation
-    Failure indicates a nonrecursive selector or unexpected, missing, or misplaced wheel
+
+    Interpretation: Failure indicates a nonrecursive selector or unexpected, missing, or
+    misplaced wheel
     content rather than build setup or import execution behavior.
-    Limitations
-    Non-Python package data semantics, installation, publication, other platforms, and
+
+    Limitations: Non-Python package data semantics, installation, publication, other
+    platforms, and
     scientific behavior are excluded.
     """
     controlled_archive_paths = {
@@ -186,25 +204,30 @@ def test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_t
 def test_artifact__wheel_import__succeeds_without_ambient_site_packages(
     built_provenance_wheel: Path,
 ) -> None:
-    """Evidence ID
-    SV-PROV-395
-    Requirement
-    The built wheel supplies the provenance package to an interpreter using only the
+    """Evidence ID: SV-PROV-395
+
+    Requirement: The built wheel supplies the provenance package to an interpreter using
+    only the
     wheel plus the Python standard library, without ambient site-packages.
-    Method
-    Run the current interpreter with ``-I -S``, prepend the exact wheel to ``sys.path``,
+
+    Method: Run the current interpreter with ``-I -S``, prepend the exact wheel to
+    ``sys.path``,
     import provenance, and print its file origin and one stable public sentinel.
-    Oracle
-    Isolated Python import semantics, the exact wheel path, the package ``__init__.py``
+
+    Oracle: Isolated Python import semantics, the exact wheel path, the package
+    ``__init__.py``
     suffix, and ``ArtifactIdentity`` class name define the independent import oracle.
-    Acceptance
-    The subprocess exits zero within 30 seconds; its origin is lexically the exact wheel
+
+    Acceptance: The subprocess exits zero within 30 seconds; its origin is lexically the
+    exact wheel
     plus ``ksdft2effmass/provenance/__init__.py``; its sentinel is ``ArtifactIdentity``.
-    Interpretation
-    Failure indicates isolated import, wheel origin, or sentinel drift rather than
+
+    Interpretation: Failure indicates isolated import, wheel origin, or sentinel drift
+    rather than
     archive inventory, general installation, or release failure.
-    Limitations
-    This covers one current interpreter and platform, excludes dependency availability
+
+    Limitations: This covers one current interpreter and platform, excludes dependency
+    availability
     elsewhere, and does not duplicate the complete public API inventory.
     """
     wheel = built_provenance_wheel.resolve()

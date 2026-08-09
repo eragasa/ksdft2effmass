@@ -108,7 +108,7 @@ The current durable-agent loader has no repository-defined include mechanism for
 
 ## Bounded task-state inspection
 
-`TaskStateInspectionRequest`, `InspectTaskState`, and `TaskStateInspectionResult` provide one root-confined operation for reconstructing the declared durable repository state of an exact task. The request contains an explicit absolute repository root, one root-relative chain path, and one exact task identity. The action reads only that chain and exact task-record, ownership-manifest, completion-validator, artifact, run-record, and handoff-record paths declared by the selected chain entry or ownership manifest. It rejects absolute, traversal, escaping, missing, non-file, and symlinked references and performs no recursive directory search, Git command, subprocess, network access, temporary-log inspection, session inspection, or mutation.
+`TaskStateInspectionRequest`, `TaskStateInspector`, and `TaskStateInspectionResult` provide one root-confined operation for reconstructing the declared durable repository state of an exact task. The request contains an explicit absolute repository root, one root-relative chain path, and one exact task identity. The action reads only that chain and exact task-record, ownership-manifest, completion-validator, artifact, run-record, and handoff-record paths declared by the selected chain entry or ownership manifest. It rejects absolute, traversal, escaping, missing, non-file, and symlinked references and performs no recursive directory search, Git command, subprocess, network access, temporary-log inspection, session inspection, or mutation.
 
 The project-local command wrapper is:
 

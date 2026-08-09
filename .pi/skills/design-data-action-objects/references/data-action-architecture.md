@@ -52,6 +52,18 @@ operation, or explicitly authorized external boundary. It should:
 
 Do not create a generic ActionObject base class solely to label classes.
 
+### Public naming grammar
+
+Name a public ActionObject using:
+
+```text
+<DataObject-or-operation-target><Actionizer>
+```
+
+The name begins with the principal represented input, result family, or operation target and ends with a precise agent noun such as `Validator`, `Resolver`, `Evaluator`, `Serializer`, `Deserializer`, `Loader`, `Auditor`, `Inspector`, `Preparer`, `Recorder`, `Refresher`, `Adapter`, `Selector`, `Comparator`, `Analyzer`, `Differencer`, `Verifier`, `Correlator`, `Enabler`, or `Firer`. Examples include `ResourceManifestValidator`, `CheckpointDecisionResolver`, `JsonRecordSerializer`, and `HumanReviewDecisionRecorder`.
+
+Do not use verb-first forms such as `ValidateResourceManifest` or vague suffixes such as `Manager`, `Handler`, and `Processor`. A domain subpackage may supply the domain noun, but the class name must remain unambiguous at its supported public import surface.
+
 ## Serialization and persistence
 
 Serialization and deserialization belong to a named serializer ActionObject.
@@ -112,6 +124,7 @@ require speculative foreign-language designs.
 - Is a free function genuinely ownerless and cohesive?
 - Is a Workflow reusable behavior rather than test or task ceremony?
 - Are dependencies explicit and hidden mutable or global state absent?
+- Does every public ActionObject follow `<DataObject-or-operation-target><Actionizer>` with a precise agent noun?
 - Is abstraction supported by demonstrated polymorphism?
 - Is portability required by an actual contract or task?
 - Are subject, mathematics, representation, implementation, and evidence claims

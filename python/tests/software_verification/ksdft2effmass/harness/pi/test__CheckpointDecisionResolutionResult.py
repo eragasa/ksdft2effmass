@@ -1,14 +1,17 @@
 r"""Software verification of ``CheckpointDecisionResolutionResult``.
 
 Facet and represented meaning
+
 Software verification of immutable checkpoint-resolution outcomes.
 
 Intrinsic and cross-object scope
+
 The sole primary SUT is ``CheckpointDecisionResolutionResult``. Exact field types,
 success/failure value consistency, changed semantics, equality, and immutability are
 in scope. Transformation behavior and persistence are excluded.
 
 VVUQ and scientific exclusions
+
 Passing establishes only the result-record software contract, not scientific
 validity, uncertainty quantification, human acceptance, or operational completion.
 """
@@ -31,20 +34,19 @@ SUT = CheckpointDecisionResolutionResult
 
 
 def make_resolved_checkpoint_for_result() -> CheckpointRecord:
-    """Evidence ID
-    Owns no identifier; supports resolution-result evidence.
-    Requirement
-    Result tests require one independently valid resolved checkpoint.
-    Method
-    Construct a public CheckpointRecord from fixed exact fields.
-    Oracle
-    The public CheckpointRecord contract defines valid support input.
-    Acceptance
-    Return one immutable resolved checkpoint.
-    Interpretation
-    Failure indicates invalid setup rather than result behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports resolution-result evidence.
+
+    Requirement: Result tests require one independently valid resolved checkpoint.
+
+    Method: Construct a public CheckpointRecord from fixed exact fields.
+
+    Oracle: The public CheckpointRecord contract defines valid support input.
+
+    Acceptance: Return one immutable resolved checkpoint.
+
+    Interpretation: Failure indicates invalid setup rather than result behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     return CheckpointRecord(
         1,
@@ -66,39 +68,37 @@ def make_resolved_checkpoint_for_result() -> CheckpointRecord:
 
 
 def make_pass_checkpoint_validation() -> ValidationResult:
-    """Evidence ID
-    Owns no identifier; supports successful result-state evidence.
-    Requirement
-    Result tests require exact issue-free validation.
-    Method
-    Construct PASS with no findings.
-    Oracle
-    ValidationResult's public contract fixes this state.
-    Acceptance
-    Return one exact successful ValidationResult.
-    Interpretation
-    Failure indicates invalid setup rather than result behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports successful result-state evidence.
+
+    Requirement: Result tests require exact issue-free validation.
+
+    Method: Construct PASS with no findings.
+
+    Oracle: ValidationResult's public contract fixes this state.
+
+    Acceptance: Return one exact successful ValidationResult.
+
+    Interpretation: Failure indicates invalid setup rather than result behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     return ValidationResult(1, "PASS", ())
 
 
 def make_fail_checkpoint_validation() -> ValidationResult:
-    """Evidence ID
-    Owns no identifier; supports failed result-state evidence.
-    Requirement
-    Result tests require one registered checkpoint failure.
-    Method
-    Construct STATUS_CONFLICT and its matching FAIL aggregate.
-    Oracle
-    ValidationResult's public contract fixes issue/status consistency.
-    Acceptance
-    Return one exact failed ValidationResult.
-    Interpretation
-    Failure indicates invalid setup rather than result behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports failed result-state evidence.
+
+    Requirement: Result tests require one registered checkpoint failure.
+
+    Method: Construct STATUS_CONFLICT and its matching FAIL aggregate.
+
+    Oracle: ValidationResult's public contract fixes issue/status consistency.
+
+    Acceptance: Return one exact failed ValidationResult.
+
+    Interpretation: Failure indicates invalid setup rather than result behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     issue = ValidationIssue(
         1,
@@ -113,20 +113,23 @@ def make_fail_checkpoint_validation() -> ValidationResult:
 
 
 def test_constructor__successful_changed_and_unchanged__map_exact_values() -> None:
-    """Evidence ID
-    SV-HARNESS-101
-    Requirement
-    Successful results represent both a changed transformation and idempotent no-op.
-    Method
-    Construct changed and unchanged results with the same exact successful inputs.
-    Oracle
-    The accepted result contract and dataclass equality fix represented values.
-    Acceptance
-    Both retain the checkpoint, exact bool values, PASS validation, and equal copies.
-    Interpretation
-    Failure indicates successful-state, bool, or equality drift.
-    Limitations
-    Construction does not prove the ActionObject selected the correct state.
+    """Evidence ID: SV-HARNESS-101
+
+    Requirement: Successful results represent both a changed transformation and
+    idempotent no-op.
+
+    Method: Construct changed and unchanged results with the same exact successful
+    inputs.
+
+    Oracle: The accepted result contract and dataclass equality fix represented values.
+
+    Acceptance: Both retain the checkpoint, exact bool values, PASS validation, and
+    equal copies.
+
+    Interpretation: Failure indicates successful-state, bool, or equality drift.
+
+    Limitations: Construction does not prove the ActionObject selected the correct
+    state.
     """
     checkpoint = make_resolved_checkpoint_for_result()
     validation = make_pass_checkpoint_validation()
@@ -140,20 +143,19 @@ def test_constructor__successful_changed_and_unchanged__map_exact_values() -> No
 
 
 def test_constructor__failed_result__contains_no_partial_checkpoint() -> None:
-    """Evidence ID
-    SV-HARNESS-102
-    Requirement
-    Failed results contain no checkpoint and report changed=False.
-    Method
-    Construct the exact failure partition from a registered validation issue.
-    Oracle
-    The accepted no-partial-result contract fixes all three fields.
-    Acceptance
-    Construction succeeds only with None, exact False, and FAIL validation.
-    Interpretation
-    Failure indicates partial-result or failure-state drift.
-    Limitations
-    This does not establish which Action input produced the failure.
+    """Evidence ID: SV-HARNESS-102
+
+    Requirement: Failed results contain no checkpoint and report changed=False.
+
+    Method: Construct the exact failure partition from a registered validation issue.
+
+    Oracle: The accepted no-partial-result contract fixes all three fields.
+
+    Acceptance: Construction succeeds only with None, exact False, and FAIL validation.
+
+    Interpretation: Failure indicates partial-result or failure-state drift.
+
+    Limitations: This does not establish which Action input produced the failure.
     """
     validation = make_fail_checkpoint_validation()
     result = SUT(None, False, validation)
@@ -197,40 +199,38 @@ def test_constructor__invalid_result_state__raises_semantic_exception(
     validation: Any,
     exception: type[Exception],
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-103
-    Requirement
-    Result types and success/failure/changed consistency fail closed.
-    Method
-    Construct each required wrong-type and contradictory-state partition.
-    Oracle
-    The public result invariant table fixes TypeError versus ValueError.
-    Acceptance
-    Every partition raises its declared exception family.
-    Interpretation
-    Failure indicates exact-bool, partial-result, or consistency drift.
-    Limitations
-    Warning-status behavior is outside these exact PASS/FAIL partitions.
+    """Evidence ID: SV-HARNESS-103
+
+    Requirement: Result types and success/failure/changed consistency fail closed.
+
+    Method: Construct each required wrong-type and contradictory-state partition.
+
+    Oracle: The public result invariant table fixes TypeError versus ValueError.
+
+    Acceptance: Every partition raises its declared exception family.
+
+    Interpretation: Failure indicates exact-bool, partial-result, or consistency drift.
+
+    Limitations: Warning-status behavior is outside these exact PASS/FAIL partitions.
     """
     with pytest.raises(exception):
         SUT(checkpoint, changed, validation)
 
 
 def test_field__frozen_assignment__raises_attribute_error() -> None:
-    """Evidence ID
-    SV-HARNESS-104
-    Requirement
-    Result state is immutable after construction.
-    Method
-    Assign through a runtime-selected public field name.
-    Oracle
-    Frozen dataclass assignment semantics are the exact oracle.
-    Acceptance
-    Assignment raises AttributeError and changed remains True.
-    Interpretation
-    Failure indicates an unauthorized mutable ResultObject boundary.
-    Limitations
-    The nested checkpoint owns its own immutability contract.
+    """Evidence ID: SV-HARNESS-104
+
+    Requirement: Result state is immutable after construction.
+
+    Method: Assign through a runtime-selected public field name.
+
+    Oracle: Frozen dataclass assignment semantics are the exact oracle.
+
+    Acceptance: Assignment raises AttributeError and changed remains True.
+
+    Interpretation: Failure indicates an unauthorized mutable ResultObject boundary.
+
+    Limitations: The nested checkpoint owns its own immutability contract.
     """
     result = SUT(
         make_resolved_checkpoint_for_result(),

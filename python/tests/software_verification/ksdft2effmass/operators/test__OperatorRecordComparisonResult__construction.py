@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordComparisonResult``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the construction facet. System under test and evidence
 class
@@ -35,6 +36,7 @@ residual acceptability. Scientific validation and uncertainty quantification
 have not been performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordComparisonResult``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -43,6 +45,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -64,29 +67,34 @@ SUT = OperatorRecordComparisonResult
 
 
 def test_constructor__construct_valid_comparison_result__is_enforced() -> None:
-    r"""Evidence ID
-    SV-ORCR-001
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition: construct
+    r"""Evidence ID: SV-ORCR-001
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition: construct
     valid comparison result: is enforced.
-    Method
-    Construct valid baseline instances, change only the named construct valid comparison
+
+    Method: Construct valid baseline instances, change only the named construct valid
+    comparison
     result: is enforced partition, and observe constructor, field, equality, hash, or
     public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -137,29 +145,34 @@ def test_constructor__canonicalize_documented_numeric_scalars__is_enforced(
     spectral: object,
     frobenius: object,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-002
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition:
+    r"""Evidence ID: SV-ORCR-002
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition:
     canonicalize documented numeric scalars: is enforced.
-    Method
-    Construct valid baseline instances, change only the named canonicalize documented
+
+    Method: Construct valid baseline instances, change only the named canonicalize
+    documented
     numeric scalars: is enforced partition, and observe constructor, field, equality,
     hash, or public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -185,33 +198,38 @@ def test_constructor__canonicalize_documented_numeric_scalars__is_enforced(
 
 
 def test_field__accept_documented_large_positive_structural__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORCR-003
-    Requirement
-    The documented ResultObject contract accepts any positive Python integer and imposes
+    r"""Evidence ID: SV-ORCR-003
+
+    Requirement: The documented ResultObject contract accepts any positive Python
+    integer and imposes
     no analyzer/comparator maximum-dimension policy. method and acceptance Store a very
     large positive integer exactly without allocating a matrix. interpretation and
     limitations This is structural Python metadata. It does not claim that the
     corresponding matrix fits available memory, define a serialized Rust boundary, or
     move numerical dimension policy from the producing ActionObject into the
     ResultObject.
-    Method
-    Exercise the named public surface with the synthetic inputs and semantic partition
+
+    Method: Exercise the named public surface with the synthetic inputs and semantic
+    partition
     encoded unchanged in the test body; warnings are not accepted unless explicitly
     controlled.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    A pass supports only this requirement; a failure may identify an implementation,
+
+    Interpretation: A pass supports only this requirement; a failure may identify an
+    implementation,
     fixture, oracle, environment, or accepted-contract defect and requires diagnosis
     rather than weakened expectations.
-    Limitations
-    This synthetic software evidence does not establish numerical verification, physical
+
+    Limitations: This synthetic software evidence does not establish numerical
+    verification, physical
     correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
@@ -226,29 +244,33 @@ def test_field__accept_documented_large_positive_structural__is_exact() -> None:
 
 
 def test_method__serialize__exclude_unapproved_result_serialization_apis() -> None:
-    r"""Evidence ID
-    SV-ORCR-004
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition: serialize:
+    r"""Evidence ID: SV-ORCR-004
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition: serialize:
     exclude unapproved result serialization apis.
-    Method
-    Construct valid baseline instances, change only the named serialize: exclude
+
+    Method: Construct valid baseline instances, change only the named serialize: exclude
     unapproved result serialization apis partition, and observe constructor, field,
     equality, hash, or public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

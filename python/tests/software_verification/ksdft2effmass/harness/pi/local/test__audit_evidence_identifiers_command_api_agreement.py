@@ -1,15 +1,18 @@
 r"""Software verification of audit evidence identifiers command API agreement.
 
 Facet and represented meaning
+
 Software verification of the thin project-local command projection of the public
 ``AuditEvidenceIdentifiers`` ActionObject.
 
 Intrinsic and cross-object scope
+
 The primary owner is the explicit-root, explicit-inventory command/API artifact.
 Argument parsing, profile loading, inventory identity, projection, exit status, root
 confinement, and nonmutation are in scope.
 
 VVUQ and scientific exclusions
+
 Passing establishes structural command/API agreement only. Semantic cohesion, oracle
 independence, numerical correctness, scientific validation, uncertainty quantification,
 and human acceptance are excluded.
@@ -25,7 +28,7 @@ import pytest
 
 from ksdft2effmass.harness.pi import (
     AuditEvidenceIdentifiers,
-    DeserializeJsonRecord,
+    JsonRecordDeserializer,
     ProjectProfile,
     WireRecordKind,
 )
@@ -35,47 +38,45 @@ pytestmark = pytest.mark.software_verification
 
 
 def valid_source(identifier: str = "VX-A-001") -> bytes:
-    """Evidence ID
-    Owns no identifier; supports command/API evidence.
-    Requirement
-    Command tests require one convention-compliant marked module.
-    Method
-    Interpolate one controlled identifier into fixed source bytes.
-    Oracle
-    The accepted field and marker grammar defines valid support input.
-    Acceptance
-    Return deterministic UTF-8 Python bytes.
-    Interpretation
-    Failure identifies setup rather than command behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports command/API evidence.
+
+    Requirement: Command tests require one convention-compliant marked module.
+
+    Method: Interpolate one controlled identifier into fixed source bytes.
+
+    Oracle: The accepted field and marker grammar defines valid support input.
+
+    Acceptance: Return deterministic UTF-8 Python bytes.
+
+    Interpretation: Failure identifies setup rather than command behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     return (
         "import pytest\n"
         "pytestmark = pytest.mark.verification_alpha\n"
         "def test_owner():\n"
-        '    """Evidence ID\n'
+        '    """Evidence ID: '
         f"    ``{identifier}``.\n"
-        "    Requirement\n"
+        "    Requirement: "
         '    Exact controlled behavior.\n    """\n'
     ).encode()
 
 
 def prepare_inputs(root: Path, payload: bytes) -> tuple[Path, Path, str]:
-    """Evidence ID
-    Owns no identifier; supports command/API evidence.
-    Requirement
-    CLI tests require explicit profile, inventory, and module files.
-    Method
-    Write controlled files beneath a temporary supplied root.
-    Oracle
-    Public profile bytes and SHA-256 define exact support inputs.
-    Acceptance
-    Return profile path, inventory path, and module-relative path.
-    Interpretation
-    Failure identifies invalid setup.
-    Limitations
-    Writes are confined to the controlled temporary tree.
+    """Evidence ID: Owns no identifier; supports command/API evidence.
+
+    Requirement: CLI tests require explicit profile, inventory, and module files.
+
+    Method: Write controlled files beneath a temporary supplied root.
+
+    Oracle: Public profile bytes and SHA-256 define exact support inputs.
+
+    Acceptance: Return profile path, inventory path, and module-relative path.
+
+    Interpretation: Failure identifies invalid setup.
+
+    Limitations: Writes are confined to the controlled temporary tree.
     """
     repository = Path(__file__).resolve().parents[7]
     profile_bytes = (
@@ -102,20 +103,19 @@ def prepare_inputs(root: Path, payload: bytes) -> tuple[Path, Path, str]:
 
 
 def file_snapshot(root: Path) -> dict[str, bytes]:
-    """Evidence ID
-    Owns no identifier; supports command/API evidence.
-    Requirement
-    Nonmutation assertions require exact controlled-tree bytes.
-    Method
-    Read regular files beneath the temporary test root.
-    Oracle
-    Relative path and byte equality are exact.
-    Acceptance
-    Return a path-sorted byte mapping.
-    Interpretation
-    Failure identifies snapshot setup drift.
-    Limitations
-    This helper is used only on controlled temporary trees.
+    """Evidence ID: Owns no identifier; supports command/API evidence.
+
+    Requirement: Nonmutation assertions require exact controlled-tree bytes.
+
+    Method: Read regular files beneath the temporary test root.
+
+    Oracle: Relative path and byte equality are exact.
+
+    Acceptance: Return a path-sorted byte mapping.
+
+    Interpretation: Failure identifies snapshot setup drift.
+
+    Limitations: This helper is used only on controlled temporary trees.
     """
     return {
         path.relative_to(root).as_posix(): path.read_bytes()
@@ -129,22 +129,26 @@ def test_artifact__command_api__agrees_on_success_and_exact_inventory(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-119``.
-    Requirement
-    The CLI and ActionObject agree for the exact inventory without discovery or writes.
-    Method
-    Create one inventoried valid module plus an unlisted invalid module, change to a
+    """Evidence ID: ``SV-HARNESS-119``.
+
+    Requirement: The CLI and ActionObject agree for the exact inventory without
+    discovery or writes.
+
+    Method: Create one inventoried valid module plus an unlisted invalid module, change
+    to a
     nonrepository CWD, invoke main, and compare its JSON with direct API output.
-    Oracle
-    The public ActionObject and exact input bytes independently fix the projection.
-    Acceptance
-    Exit is zero; status, occurrence, ID, path, line, and counts agree; the unlisted
+
+    Oracle: The public ActionObject and exact input bytes independently fix the
+    projection.
+
+    Acceptance: Exit is zero; status, occurrence, ID, path, line, and counts agree; the
+    unlisted
     file is ignored; all controlled bytes remain unchanged.
-    Interpretation
-    Failure indicates projection, inventory, discovery, CWD, or mutation drift.
-    Limitations
-    Direct main invocation excludes interpreter installation behavior.
+
+    Interpretation: Failure indicates projection, inventory, discovery, CWD, or mutation
+    drift.
+
+    Limitations: Direct main invocation excludes interpreter installation behavior.
     """
     root = tmp_path / "explicit-root"
     root.mkdir()
@@ -153,7 +157,7 @@ def test_artifact__command_api__agrees_on_success_and_exact_inventory(
     unlisted.write_bytes(b"not python !")
     before = file_snapshot(root)
 
-    decoded = DeserializeJsonRecord().execute(
+    decoded = JsonRecordDeserializer().execute(
         WireRecordKind.ProjectProfile, profile_path.read_bytes()
     )
     assert isinstance(decoded.record, ProjectProfile)
@@ -196,23 +200,27 @@ def test_artifact__command_request__rejects_empty_inventory(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-154``.
-    Requirement
-    The command rejects an explicit zero-module inventory before performing an audit.
-    Method
-    Supply ``expected_module_count`` zero with an empty modules array, prevent any
+    """Evidence ID: ``SV-HARNESS-154``.
+
+    Requirement: The command rejects an explicit zero-module inventory before performing
+    an audit.
+
+    Method: Supply ``expected_module_count`` zero with an empty modules array, prevent
+    any
     ActionObject execution, snapshot the inputs, and invoke the maintained command.
-    Oracle
-    The accepted command contract requires canonical ERROR JSON, exit 2, and the
+
+    Oracle: The accepted command contract requires canonical ERROR JSON, exit 2, and the
     stable message ``modules must be nonempty`` for an empty inventory.
-    Acceptance
-    The exact canonical payload and exit status are returned, the audit is not
+
+    Acceptance: The exact canonical payload and exit status are returned, the audit is
+    not
     invoked, and every controlled input byte remains unchanged.
-    Interpretation
-    Failure identifies empty-inventory fail-open, audit invocation, or input mutation.
-    Limitations
-    Nonempty inventory identity and audit-result projection are covered separately.
+
+    Interpretation: Failure identifies empty-inventory fail-open, audit invocation, or
+    input mutation.
+
+    Limitations: Nonempty inventory identity and audit-result projection are covered
+    separately.
     """
     root = tmp_path / "root"
     root.mkdir()
@@ -257,20 +265,19 @@ def test_artifact__command_request__rejects_empty_inventory(
 def test_artifact__command_api__maps_failed_audit_to_exit_one(
     tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-120``.
-    Requirement
-    An ActionObject audit failure returns deterministic JSON and exit 1.
-    Method
-    Inventory one marked module with an empty Evidence ID field.
-    Oracle
-    The public grammar and command exit contract fix FAIL and ID_INVALID.
-    Acceptance
-    Exit is one with one ID_INVALID finding and no occurrences.
-    Interpretation
-    Failure indicates audit-status or exit-translation drift.
-    Limitations
-    Invalid command construction is covered separately.
+    """Evidence ID: ``SV-HARNESS-120``.
+
+    Requirement: An ActionObject audit failure returns deterministic JSON and exit 1.
+
+    Method: Inventory one marked module with an empty Evidence ID field.
+
+    Oracle: The public grammar and command exit contract fix FAIL and ID_INVALID.
+
+    Acceptance: Exit is one with one ID_INVALID finding and no occurrences.
+
+    Interpretation: Failure indicates audit-status or exit-translation drift.
+
+    Limitations: Invalid command construction is covered separately.
     """
     root = tmp_path / "root"
     root.mkdir()
@@ -305,20 +312,22 @@ def test_artifact__command_request__rejects_invalid_confined_inputs(
     capsys: pytest.CaptureFixture[str],
     partition: str,
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-121``.
-    Requirement
-    Invalid or root-escaping explicit requests fail before ActionObject execution.
-    Method
-    Supply either an outside-root profile or a stale inventoried content identity.
-    Oracle
-    Lexical explicit-root confinement and SHA-256 equality are exact request rules.
-    Acceptance
-    Each partition returns exit 2 and deterministic ERROR JSON.
-    Interpretation
-    Failure indicates path-confinement or inventory-identity drift.
-    Limitations
-    Operating-system permission failures are not simulated.
+    """Evidence ID: ``SV-HARNESS-121``.
+
+    Requirement: Invalid or root-escaping explicit requests fail before ActionObject
+    execution.
+
+    Method: Supply either an outside-root profile or a stale inventoried content
+    identity.
+
+    Oracle: Lexical explicit-root confinement and SHA-256 equality are exact request
+    rules.
+
+    Acceptance: Each partition returns exit 2 and deterministic ERROR JSON.
+
+    Interpretation: Failure indicates path-confinement or inventory-identity drift.
+
+    Limitations: Operating-system permission failures are not simulated.
     """
     root = tmp_path / "root"
     root.mkdir()
@@ -349,20 +358,20 @@ def test_artifact__command_request__rejects_invalid_confined_inputs(
 def test_artifact__command_request__requires_absolute_root_without_mutation(
     tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    """Evidence ID
-    ``SV-HARNESS-122``.
-    Requirement
-    The command rejects an implicit relative root and never mutates request files.
-    Method
-    Prepare valid inputs, snapshot them, and invoke main with a relative root.
-    Oracle
-    The documented explicit absolute-root contract is exact.
-    Acceptance
-    Exit is two, status is ERROR, and every file remains byte-identical.
-    Interpretation
-    Failure indicates implicit-CWD behavior or command-side mutation.
-    Limitations
-    The ActionObject itself has no filesystem boundary.
+    """Evidence ID: ``SV-HARNESS-122``.
+
+    Requirement: The command rejects an implicit relative root and never mutates request
+    files.
+
+    Method: Prepare valid inputs, snapshot them, and invoke main with a relative root.
+
+    Oracle: The documented explicit absolute-root contract is exact.
+
+    Acceptance: Exit is two, status is ERROR, and every file remains byte-identical.
+
+    Interpretation: Failure indicates implicit-CWD behavior or command-side mutation.
+
+    Limitations: The ActionObject itself has no filesystem boundary.
     """
     root = tmp_path / "root"
     root.mkdir()

@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecord``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the ownership facet. Represented contract
 --------------------
@@ -25,6 +26,7 @@ applicable. Scientific validation, uncertainty quantification, and Rust
 conformance have not been performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecord``; collaborators only construct inputs or
 expose public outcomes. Accepted public contracts, literal expected values, Python
@@ -32,6 +34,7 @@ language semantics, and assigned schema or fixture artifacts provide the oracles
 runtime warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -56,22 +59,25 @@ SUT = OperatorRecord
 
 
 def test_field__matrix_is_defensively_owned_from_array_and_view__is_exact() -> None:
-    r"""Evidence ID
-    SV-OR-032
-    Requirement
-    Stored matrix values cannot change when caller-owned source storage is later
+    r"""Evidence ID: SV-OR-032
+
+    Requirement: Stored matrix values cannot change when caller-owned source storage is
+    later
     mutated.
-    Method
-    Construct once from a direct array and once from a noncontiguous view, then mutate
+
+    Method: Construct once from a direct array and once from a noncontiguous view, then
+    mutate
     the direct source and the view's underlying base array.
-    Oracle
-    Literal pre-mutation values define expected represented state.
-    Acceptance
-    Both stored matrices retain exact original values.
-    Interpretation
-    Passing establishes defensive matrix ownership for both source forms.
-    Limitations
-    It does not inspect private backing objects, establish physical validity, scientific
+
+    Oracle: Literal pre-mutation values define expected represented state.
+
+    Acceptance: Both stored matrices retain exact original values.
+
+    Interpretation: Passing establishes defensive matrix ownership for both source
+    forms.
+
+    Limitations: It does not inspect private backing objects, establish physical
+    validity, scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -89,21 +95,23 @@ def test_field__matrix_is_defensively_owned_from_array_and_view__is_exact() -> N
 
 
 def test_field__matrix_is_operationally_immutable_through_public__is_exact() -> None:
-    r"""Evidence ID
-    SV-OR-033
-    Requirement
-    Stored matrices reject ordinary item assignment and ``setflags(write=True)``; a
+    r"""Evidence ID: SV-OR-033
+
+    Requirement: Stored matrices reject ordinary item assignment and
+    ``setflags(write=True)``; a
     reversible flag alone is insufficient.
-    Method
-    Attempt both public NumPy mutation routes on one valid record.
-    Oracle
-    NumPy's public read-only mutation taxonomy is ``ValueError``.
-    Acceptance
-    Both attempts raise exactly ``ValueError`` and values remain unchanged.
-    Interpretation
-    Passing establishes operational immutability through ordinary public APIs.
-    Limitations
-    It asserts no private backing type or adversarial memory manipulation and
+
+    Method: Attempt both public NumPy mutation routes on one valid record.
+
+    Oracle: NumPy's public read-only mutation taxonomy is ``ValueError``.
+
+    Acceptance: Both attempts raise exactly ``ValueError`` and values remain unchanged.
+
+    Interpretation: Passing establishes operational immutability through ordinary public
+    APIs.
+
+    Limitations: It asserts no private backing type or adversarial memory manipulation
+    and
     establishes no scientific validation, UQ, or Rust conformance.
     """
 
@@ -120,24 +128,29 @@ def test_field__matrix_is_operationally_immutable_through_public__is_exact() -> 
 
 
 def test_field__represented__non_c_inputs_have_equal_c_contiguous_canonical() -> None:
-    r"""Evidence ID
-    SV-OR-034
-    Requirement
-    Approved NumPy layouts produce exact equal C-contiguous, defensively owned record
+    r"""Evidence ID: SV-OR-034
+
+    Requirement: Approved NumPy layouts produce exact equal C-contiguous, defensively
+    owned record
     matrices.
-    Method
-    Construct equivalent records from C-order, Fortran-order, and strided view inputs,
+
+    Method: Construct equivalent records from C-order, Fortran-order, and strided view
+    inputs,
     inspect public flags/values, then mutate every source.
-    Oracle
-    The literal matrix ``[[1, 2], [3, 4]]`` and exact equality define the independent
+
+    Oracle: The literal matrix ``[[1, 2], [3, 4]]`` and exact equality define the
+    independent
     expected representation.
-    Acceptance
-    All records compare equal, values match, all stored arrays are C-order, and
+
+    Acceptance: All records compare equal, values match, all stored arrays are C-order,
+    and
     subsequent source mutation has no effect.
-    Interpretation
-    Passing establishes deterministic canonical layout across admitted inputs.
-    Limitations
-    It does not inspect private ``.base`` state, benchmark layout, perform scientific
+
+    Interpretation: Passing establishes deterministic canonical layout across admitted
+    inputs.
+
+    Limitations: It does not inspect private ``.base`` state, benchmark layout, perform
+    scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -167,22 +180,24 @@ def test_field__represented__non_c_inputs_have_equal_c_contiguous_canonical() ->
 def test_field__provenance_is_defensively_owned_from_mutable_mapping__is_exact() -> (
     None
 ):
-    r"""Evidence ID
-    SV-OR-035
-    Requirement
-    Replacing, adding, or removing caller dictionary entries cannot alter stored
+    r"""Evidence ID: SV-OR-035
+
+    Requirement: Replacing, adding, or removing caller dictionary entries cannot alter
+    stored
     provenance.
-    Method
-    Construct from a three-entry dictionary, perform all three mutations, and compare
+
+    Method: Construct from a three-entry dictionary, perform all three mutations, and
+    compare
     exposed content with an independent pre-mutation copy.
-    Oracle
-    Literal original key/value content defines expected mapping state.
-    Acceptance
-    Stored provenance remains exactly the original content.
-    Interpretation
-    Passing establishes defensive provenance ownership.
-    Limitations
-    It does not validate provenance truth, serialization, scientific validation, UQ, or
+
+    Oracle: Literal original key/value content defines expected mapping state.
+
+    Acceptance: Stored provenance remains exactly the original content.
+
+    Interpretation: Passing establishes defensive provenance ownership.
+
+    Limitations: It does not validate provenance truth, serialization, scientific
+    validation, UQ, or
     Rust conformance.
     """
 
@@ -198,24 +213,28 @@ def test_field__provenance_is_defensively_owned_from_mutable_mapping__is_exact()
 
 
 def test_field__public_provenance_is_read_only_mapping__is_exact() -> None:
-    r"""Evidence ID
-    SV-OR-036
-    Requirement
-    Public provenance satisfies ``Mapping`` and exposes no successful item assignment,
+    r"""Evidence ID: SV-OR-036
+
+    Requirement: Public provenance satisfies ``Mapping`` and exposes no successful item
+    assignment,
     deletion, or update route.
-    Method
-    Check the abstract public interface; use ``Any`` only for deliberate invalid
+
+    Method: Check the abstract public interface; use ``Any`` only for deliberate invalid
     mutation attempts; inspect update-method absence.
-    Oracle
-    The approved read-only Mapping contract fixes content and mutation rejection, not a
+
+    Oracle: The approved read-only Mapping contract fixes content and mutation
+    rejection, not a
     concrete implementation type.
-    Acceptance
-    Mapping membership holds, assignment/deletion raise ``TypeError``, and no public
+
+    Acceptance: Mapping membership holds, assignment/deletion raise ``TypeError``, and
+    no public
     ``update`` method is exposed.
-    Interpretation
-    Passing establishes read-only provenance through ordinary public APIs.
-    Limitations
-    It does not require ``MappingProxyType``, test serializer behavior, scientific
+
+    Interpretation: Passing establishes read-only provenance through ordinary public
+    APIs.
+
+    Limitations: It does not require ``MappingProxyType``, test serializer behavior,
+    scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -249,22 +268,25 @@ def test_field__outer_record_state_is_frozen_and_slotted__is_exact(
     attribute: str,
     replacement: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-037
-    Requirement
-    The record is frozen/slotted: fields cannot be reassigned, dynamic state cannot be
+    r"""Evidence ID: SV-OR-037
+
+    Requirement: The record is frozen/slotted: fields cannot be reassigned, dynamic
+    state cannot be
     added, and no instance ``__dict__`` exists.
-    Method
-    Use ordinary ``setattr`` only, without invariant bypasses.
-    Oracle
-    The approved frozen dataclass contract produces ``FrozenInstanceError``.
-    Acceptance
-    Every assignment raises exactly ``FrozenInstanceError`` and ``__dict__`` is absent.
-    Interpretation
-    Passing establishes outer DataObject immutability independently of nested
+
+    Method: Use ordinary ``setattr`` only, without invariant bypasses.
+
+    Oracle: The approved frozen dataclass contract produces ``FrozenInstanceError``.
+
+    Acceptance: Every assignment raises exactly ``FrozenInstanceError`` and ``__dict__``
+    is absent.
+
+    Interpretation: Passing establishes outer DataObject immutability independently of
+    nested
     matrix/provenance mutation evidence.
-    Limitations
-    It does not use ``object.__setattr__``, inspect private slots, establish scientific
+
+    Limitations: It does not use ``object.__setattr__``, inspect private slots,
+    establish scientific
     validation, UQ, or Rust conformance.
     """
 

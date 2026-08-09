@@ -1,6 +1,6 @@
 # Normalize public ActionObject grammar
 
-Status: active
+Status: implementation_complete_awaiting_human_acceptance
 
 Task identity: `harness.simplification.api.action-object-grammar`
 
@@ -38,6 +38,22 @@ This Task does not change DataObject ownership, operation behavior, scientific m
 ## Completion gates
 
 Completion requires the accepted convention in every owning surface, complete affected-object inventory, deterministic naming checks, only contract-required maintained-evidence node mappings, synchronized public surfaces, relevant tests and documentation checks, one consolidated review, and final human acceptance when required.
+
+## Implemented result
+
+- inventoried 43 public `execute()` ActionObjects: 28 hard-renamed, 13 already conforming, and 2 evidence-package names explicitly deferred to `harness.simplification.evidence.naming` to avoid a double rename;
+- removed old live exports and compatibility aliases;
+- migrated generic and project-local source, wrappers, schemas, resources, skills, documentation, manifests, and public tests;
+- split the 15 project-local public ActionObjects into class-owned `test__<ActionObject>.py` modules;
+- standardized maintained evidence docstrings as `Label: value` paragraphs with exactly one blank line and added deterministic enforcement;
+- retained 73 one-to-one predecessor node mappings and added nine new evidence nodes without predecessors; and
+- retained the inventory and task-local ownership records under `.pi/evidence/action-object-grammar/`.
+
+## Validation and residual limitations
+
+Ruff, mypy, structural maintained-evidence validation, the repository evidence gate, evidence-identifier audit, resource hash agreement, Sphinx warnings-as-errors, task-state checks, and diff checks pass. The affected suite passes, as do 2,869 tests when the two wheel tests are excluded. The full 2,871-node run reaches only two wheel-test setup errors because `python/.venv` has no `pip`; no test assertion fails after the wrapper-fixture correction.
+
+The H3 resource validator still reports its two pre-existing generic/local leakage and stale manifest-version-boundary findings; this Task did not redefine those unrelated accepted resource boundaries. Passing software checks establish no scientific validation or UQ.
 
 ## Exclusions and stop boundary
 

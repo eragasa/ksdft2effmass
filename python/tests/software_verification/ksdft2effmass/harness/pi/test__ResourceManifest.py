@@ -1,14 +1,17 @@
 r"""Software verification of ``ResourceManifest``.
 
 Facet and represented meaning
+
 Software verification of the public ``ResourceManifest`` surface; no physical model,
 mathematical operator, or numerical representation is represented.
 
 Intrinsic and cross-object scope
+
 The sole primary SUT is ``ResourceManifest``.  Accepted H1 field/wire contracts and
 read-only H3 fixtures are independent exact oracles.
 
 VVUQ and scientific exclusions
+
 Passing checks only the stated software contract. Numerical verification, scientific
 validation, uncertainty quantification, physical correctness, and cross-language
 conformance are excluded.
@@ -22,7 +25,7 @@ from typing import Any
 import pytest
 
 from ksdft2effmass.harness.pi import (
-    DeserializeJsonRecord,
+    JsonRecordDeserializer,
     ResourceManifest,
     WireRecordKind,
 )
@@ -34,29 +37,32 @@ SUT = ResourceManifest
 
 
 def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
-    """Evidence ID
-    SV-HARNESS-003
-    Requirement
-    ResourceManifest accepts the complete valid version-1 H3 wire instance and is
+    """Evidence ID: SV-HARNESS-003
+
+    Requirement: ResourceManifest accepts the complete valid version-1 H3 wire instance
+    and is
     immutable.
-    Method
-    Decode the accepted ``resource-manifest.json`` fixture through the
+
+    Method: Decode the accepted ``resource-manifest.json`` fixture through the
     caller-selected public record kind, then attempt field mutation.
-    Oracle
-    The accepted H1 field contract and H3 valid fixture fix the class, field values,
+
+    Oracle: The accepted H1 field contract and H3 valid fixture fix the class, field
+    values,
     tuple storage, and immutability.
-    Acceptance
-    The result is exactly SUT, validation is PASS, tuple fields remain tuples, and
+
+    Acceptance: The result is exactly SUT, validation is PASS, tuple fields remain
+    tuples, and
     mutation raises AttributeError.
-    Interpretation
-    A failure identifies a production, accepted-contract, fixture, or environment
+
+    Interpretation: A failure identifies a production, accepted-contract, fixture, or
+    environment
     discrepancy requiring independent review.
-    Limitations
-    This is exact software verification only; it makes no numerical,
+
+    Limitations: This is exact software verification only; it makes no numerical,
     scientific-validation, UQ, physical, or Rust-conformance claim.
     """
     payload = (ROOT / "harness/pi/fixtures/valid/resource-manifest.json").read_bytes()
-    result = DeserializeJsonRecord().execute(WireRecordKind.ResourceManifest, payload)
+    result = JsonRecordDeserializer().execute(WireRecordKind.ResourceManifest, payload)
     assert result.validation.status == "PASS"
     assert type(result.record) is SUT
 
@@ -74,26 +80,30 @@ def test_constructor__h3_valid_fixture__preserves_exact_public_value() -> None:
 
 
 def test_constructor__canonical_resources__preserves_relational_duplicates() -> None:
-    """Evidence ID
-    SV-HARNESS-061
-    Requirement
-    Canonical manifest ordering preserves duplicate IDs, duplicate paths, and exact
+    """Evidence ID: SV-HARNESS-061
+
+    Requirement: Canonical manifest ordering preserves duplicate IDs, duplicate paths,
+    and exact
     duplicate entries for later relational validation.
-    Method
-    Construct four references in reverse canonical order, including one ID duplicate,
+
+    Method: Construct four references in reverse canonical order, including one ID
+    duplicate,
     one path duplicate, and an exact duplicate, then construct a generic manifest.
-    Oracle
-    The corrected H1 field contract fixes stable canonical sorting without
+
+    Oracle: The corrected H1 field contract fixes stable canonical sorting without
     deduplication; Python tuple multiplicity supplies the independent exact-count
     oracle.
-    Acceptance
-    The manifest has four entries in canonical order, both duplicated fields occur with
+
+    Acceptance: The manifest has four entries in canonical order, both duplicated fields
+    occur with
     count three, and the exact reference occurs twice.
-    Interpretation
-    Failure identifies unauthorized constructor rejection, lossy canonicalization, or
+
+    Interpretation: Failure identifies unauthorized constructor rejection, lossy
+    canonicalization, or
     contract/test-data drift.
-    Limitations
-    This test does not accept the candidate manifest; scientific validation, UQ,
+
+    Limitations: This test does not accept the candidate manifest; scientific
+    validation, UQ,
     physical correctness, and Rust conformance are excluded.
     """
     from ksdft2effmass.harness.pi import ArtifactIdentity, ResourceReference

@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordComparisonResult``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the invariants facet. System under test and evidence
 class
@@ -35,6 +36,7 @@ equivalence. Scientific validation and uncertainty quantification have not been
 performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordComparisonResult``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -43,6 +45,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -65,27 +68,32 @@ SUT = OperatorRecordComparisonResult
 
 
 def comparison_result(**overrides: object) -> OperatorRecordComparisonResult:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Comparison-result cases require a valid baseline whose public fields can be
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Comparison-result cases require a valid baseline whose public fields
+    can be
     overridden one partition at a time.
-    Method
-    Construct or inspect only the named synthetic fixture operation (comparison result);
+
+    Method: Construct or inspect only the named synthetic fixture operation (comparison
+    result);
     the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -156,31 +164,36 @@ def test_constructor__enforce_identifier_invariants__is_enforced(
     expected_error: type[Exception],
     expected_message: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-005
-    Requirement
-    Reference and candidate identifiers are independently nonempty strings. method and
+    r"""Evidence ID: SV-ORCR-005
+
+    Requirement: Reference and candidate identifiers are independently nonempty strings.
+    method and
     acceptance Supply one invalid role per collected case and require the exact
     ``TypeError``/``ValueError`` class and field-specific diagnostic. interpretation and
     limitations Passing verifies identifier state only; no trimming or string-subclass
     policy beyond the documented constructor behavior is asserted.
-    Method
-    Exercise the named public surface with the synthetic inputs and semantic partition
+
+    Method: Exercise the named public surface with the synthetic inputs and semantic
+    partition
     encoded unchanged in the test body; warnings are not accepted unless explicitly
     controlled.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    A pass supports only this requirement; a failure may identify an implementation,
+
+    Interpretation: A pass supports only this requirement; a failure may identify an
+    implementation,
     fixture, oracle, environment, or accepted-contract defect and requires diagnosis
     rather than weakened expectations.
-    Limitations
-    This synthetic software evidence does not establish numerical verification, physical
+
+    Limitations: This synthetic software evidence does not establish numerical
+    verification, physical
     correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
@@ -205,28 +218,33 @@ def test_constructor__enforce_energy_unit_invariants__is_enforced(
     expected_error: type[Exception],
     expected_message: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-006
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition: enforce
+    r"""Evidence ID: SV-ORCR-006
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition: enforce
     energy unit invariants: is enforced.
-    Method
-    Construct valid baseline instances, change only the named enforce energy unit
+
+    Method: Construct valid baseline instances, change only the named enforce energy
+    unit
     invariants: is enforced partition, and observe constructor, field, equality, hash,
     or public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The named partition raises exactly expected_error with the asserted public message,
+
+    Acceptance: The named partition raises exactly expected_error with the asserted
+    public message,
     code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -288,32 +306,37 @@ def test_constructor__enforce_matrix_dimension_invariants__is_enforced(
     expected_error: type[Exception],
     expected_message: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-007
-    Requirement
-    Python and NumPy integer scalars are admitted, then required to be positive;
+    r"""Evidence ID: SV-ORCR-007
+
+    Requirement: Python and NumPy integer scalars are admitted, then required to be
+    positive;
     Boolean, floating, string, and arbitrary-object inputs are not integer semantics.
     method and acceptance Collect each invalid category independently and require exact
     exception taxonomy with a dimension-specific diagnostic. interpretation and
     limitations Positive NumPy canonicalization is covered by ``the owning evidence``.
     No upper dimension policy or allocation feasibility is tested here.
-    Method
-    Exercise the named public surface with the synthetic inputs and semantic partition
+
+    Method: Exercise the named public surface with the synthetic inputs and semantic
+    partition
     encoded unchanged in the test body; warnings are not accepted unless explicitly
     controlled.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    A pass supports only this requirement; a failure may identify an implementation,
+
+    Interpretation: A pass supports only this requirement; a failure may identify an
+    implementation,
     fixture, oracle, environment, or accepted-contract defect and requires diagnosis
     rather than weakened expectations.
-    Limitations
-    This synthetic software evidence does not establish numerical verification, physical
+
+    Limitations: This synthetic software evidence does not establish numerical
+    verification, physical
     correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
@@ -733,28 +756,33 @@ RESIDUAL_INVARIANT_CASES = (
 def test_constructor__enforce_residual_scalar_invariants__is_enforced(
     case: ResidualInvariantCase,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-008
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition: enforce
+    r"""Evidence ID: SV-ORCR-008
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition: enforce
     residual scalar invariants: is enforced.
-    Method
-    Construct valid baseline instances, change only the named enforce residual scalar
+
+    Method: Construct valid baseline instances, change only the named enforce residual
+    scalar
     invariants: is enforced partition, and observe constructor, field, equality, hash,
     or public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The named partition raises exactly case.expected_error with the asserted public
+
+    Acceptance: The named partition raises exactly case.expected_error with the asserted
+    public
     message, code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -788,28 +816,33 @@ def test_constructor__enforce_mathematical_metric_ordering__is_enforced(
     frobenius: float,
     expected_message: str,
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-009
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition: enforce
+    r"""Evidence ID: SV-ORCR-009
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition: enforce
     mathematical metric ordering: is enforced.
-    Method
-    Construct valid baseline instances, change only the named enforce mathematical
+
+    Method: Construct valid baseline instances, change only the named enforce
+    mathematical
     metric ordering: is enforced partition, and observe constructor, field, equality,
     hash, or public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The named partition raises exactly ValueError with the asserted public message,
+
+    Acceptance: The named partition raises exactly ValueError with the asserted public
+    message,
     code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -842,32 +875,37 @@ def test_constructor__enforce_mathematical_metric_ordering__is_enforced(
 def test_constructor__reject_uncanonicalized_roundoff_order__is_enforced(
     maximum: float, spectral: float, frobenius: float
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-010
-    Requirement
-    The ResultObject strictly rejects supplied ``maximum > spectral`` even when the
+    r"""Evidence ID: SV-ORCR-010
+
+    Requirement: The ResultObject strictly rejects supplied ``maximum > spectral`` even
+    when the
     inversion resembles binary64 roundoff. method and acceptance Supply two known raw
     regression triples and require the exact ordering ``ValueError``. interpretation and
     limitations The analyzer owns raw computation, allowance evaluation, permitted
     upward canonicalization, and subsequent construction. This test does not execute or
     numerically verify that analyzer policy.
-    Method
-    Exercise the named public surface with the synthetic inputs and semantic partition
+
+    Method: Exercise the named public surface with the synthetic inputs and semantic
+    partition
     encoded unchanged in the test body; warnings are not accepted unless explicitly
     controlled.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Every existing assertion, exact value, exception taxonomy, ordering rule, fixture
+
+    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+    rule, fixture
     identity, and explicit tolerance or ULP criterion passes unchanged.
-    Interpretation
-    A pass supports only this requirement; a failure may identify an implementation,
+
+    Interpretation: A pass supports only this requirement; a failure may identify an
+    implementation,
     fixture, oracle, environment, or accepted-contract defect and requires diagnosis
     rather than weakened expectations.
-    Limitations
-    This synthetic software evidence does not establish numerical verification, physical
+
+    Limitations: This synthetic software evidence does not establish numerical
+    verification, physical
     correctness, scientific validation, UQ, portability, or cross-language agreement.
     """
 
@@ -932,28 +970,33 @@ def test_constructor__reject_uncanonicalized_roundoff_order__is_enforced(
 def test_constructor__input_boundary__translate_huge_integer_metric_conversion(
     field_name: str, field_label: str, value: int, value_label: str
 ) -> None:
-    r"""Evidence ID
-    SV-ORCR-011
-    Requirement
-    OperatorRecordComparisonResult enforces this structural-result partition: input
+    r"""Evidence ID: SV-ORCR-011
+
+    Requirement: OperatorRecordComparisonResult enforces this structural-result
+    partition: input
     boundary: translate huge integer metric conversion.
-    Method
-    Construct valid baseline instances, change only the named input boundary: translate
+
+    Method: Construct valid baseline instances, change only the named input boundary:
+    translate
     huge integer metric conversion partition, and observe constructor, field, equality,
     hash, or public-API behavior as applicable.
-    Oracle
-    Literal constructor values, the declared public-field inventory where completeness
+
+    Oracle: Literal constructor values, the declared public-field inventory where
+    completeness
     is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
     result independently.
-    Acceptance
-    The named partition raises exactly ValueError with the asserted public message,
+
+    Acceptance: The named partition raises exactly ValueError with the asserted public
+    message,
     code, or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

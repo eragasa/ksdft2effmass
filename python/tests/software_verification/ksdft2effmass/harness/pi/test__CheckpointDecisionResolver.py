@@ -1,15 +1,18 @@
-r"""Software verification of ``ResolveCheckpointDecision``.
+r"""Software verification of ``CheckpointDecisionResolver``.
 
 Facet and represented meaning
+
 Software verification of pure deterministic generic checkpoint transformation.
 
 Intrinsic and cross-object scope
-The sole primary SUT is ``ResolveCheckpointDecision``. Explicit status matching,
+
+The sole primary SUT is ``CheckpointDecisionResolver``. Explicit status matching,
 option membership, immutable field replacement and preservation, idempotency,
 conflicts, deterministic findings, nonmutation, and no operational side effects are in
 scope. Human-intent interpretation and project-local JSON patching are excluded.
 
 VVUQ and scientific exclusions
+
 Passing establishes only deterministic software behavior, not scientific validity,
 uncertainty quantification, human acceptance, persistence, or task resumption.
 """
@@ -23,12 +26,12 @@ import pytest
 
 from ksdft2effmass.harness.pi import (
     CheckpointDecisionResolutionRequest,
+    CheckpointDecisionResolver,
     CheckpointRecord,
-    ResolveCheckpointDecision,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = ResolveCheckpointDecision
+SUT = CheckpointDecisionResolver
 
 
 def make_checkpoint_for_resolution(
@@ -39,20 +42,21 @@ def make_checkpoint_for_resolution(
     resolved_at: str | None = None,
     authorized_scope: str | None = None,
 ) -> CheckpointRecord:
-    """Evidence ID
-    Owns no identifier; supports checkpoint-transformation evidence.
-    Requirement
-    Action tests require exact synthetic generic checkpoint states.
-    Method
-    Construct CheckpointRecord from fixed fields and explicit lifecycle overrides.
-    Oracle
-    The public generic record contract defines valid represented support states.
-    Acceptance
-    Return one immutable checkpoint preserving fixed nonresolution fields.
-    Interpretation
-    Failure indicates invalid setup rather than Action behavior.
-    Limitations
-    This helper owns no independent evidence claim or local checkpoint fields.
+    """Evidence ID: Owns no identifier; supports checkpoint-transformation evidence.
+
+    Requirement: Action tests require exact synthetic generic checkpoint states.
+
+    Method: Construct CheckpointRecord from fixed fields and explicit lifecycle
+    overrides.
+
+    Oracle: The public generic record contract defines valid represented support states.
+
+    Acceptance: Return one immutable checkpoint preserving fixed nonresolution fields.
+
+    Interpretation: Failure indicates invalid setup rather than Action behavior.
+
+    Limitations: This helper owns no independent evidence claim or local checkpoint
+    fields.
     """
     return CheckpointRecord(
         1,
@@ -82,20 +86,19 @@ def make_resolution_request(
     resolved_at: str = "2026-08-04T00:01:02Z",
     authorized_scope: str = "bounded implementation",
 ) -> CheckpointDecisionResolutionRequest:
-    """Evidence ID
-    Owns no identifier; supports checkpoint-transformation evidence.
-    Requirement
-    Action tests require complete explicit decision-bearing inputs.
-    Method
-    Construct a request from one checkpoint and caller-selected overrides.
-    Oracle
-    The accepted request contract fixes valid support values.
-    Acceptance
-    Return one immutable request without interpretation or clock access.
-    Interpretation
-    Failure indicates invalid setup rather than Action behavior.
-    Limitations
-    This helper owns no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports checkpoint-transformation evidence.
+
+    Requirement: Action tests require complete explicit decision-bearing inputs.
+
+    Method: Construct a request from one checkpoint and caller-selected overrides.
+
+    Oracle: The accepted request contract fixes valid support values.
+
+    Acceptance: Return one immutable request without interpretation or clock access.
+
+    Interpretation: Failure indicates invalid setup rather than Action behavior.
+
+    Limitations: This helper owns no independent evidence claim.
     """
     return CheckpointDecisionResolutionRequest(
         checkpoint,
@@ -109,20 +112,21 @@ def make_resolution_request(
 
 
 def test_constructor__action_object__is_stateless_and_fieldless() -> None:
-    """Evidence ID
-    SV-HARNESS-105
-    Requirement
-    ResolveCheckpointDecision is a concrete fieldless stateless ActionObject.
-    Method
-    Construct two instances and inspect their public storage boundary.
-    Oracle
-    The accepted ActionObject contract requires empty slots and no dictionary.
-    Acceptance
-    Both instances construct without mutable instance state.
-    Interpretation
-    Failure indicates hidden state or public ActionObject drift.
-    Limitations
-    Structural statelessness alone does not establish transformation correctness.
+    """Evidence ID: SV-HARNESS-105
+
+    Requirement: CheckpointDecisionResolver is a concrete fieldless stateless
+    ActionObject.
+
+    Method: Construct two instances and inspect their public storage boundary.
+
+    Oracle: The accepted ActionObject contract requires empty slots and no dictionary.
+
+    Acceptance: Both instances construct without mutable instance state.
+
+    Interpretation: Failure indicates hidden state or public ActionObject drift.
+
+    Limitations: Structural statelessness alone does not establish transformation
+    correctness.
     """
     assert SUT.__slots__ == ()
     assert not hasattr(SUT(), "__dict__")
@@ -132,21 +136,25 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
 def test_method__execute__resolves_pending_with_exact_changes_and_preservation() -> (
     None
 ):
-    """Evidence ID
-    SV-HARNESS-106
-    Requirement
-    A matching pending checkpoint resolves with only five resolution fields changed.
-    Method
-    Execute option A against a synthetic pending record and compare every field.
-    Oracle
-    The explicit request and original immutable record fix changed and preserved state.
-    Acceptance
-    Result is PASS/changed, exact decision fields are set, all listed nonresolution
+    """Evidence ID: SV-HARNESS-106
+
+    Requirement: A matching pending checkpoint resolves with only five resolution fields
+    changed.
+
+    Method: Execute option A against a synthetic pending record and compare every field.
+
+    Oracle: The explicit request and original immutable record fix changed and preserved
+    state.
+
+    Acceptance: Result is PASS/changed, exact decision fields are set, all listed
+    nonresolution
     fields and option ordering are preserved, and input remains unchanged.
-    Interpretation
-    Failure indicates transformation, option matching, preservation, or mutation drift.
-    Limitations
-    No project-local fields, persistence, or human interpretation are represented.
+
+    Interpretation: Failure indicates transformation, option matching, preservation, or
+    mutation drift.
+
+    Limitations: No project-local fields, persistence, or human interpretation are
+    represented.
     """
     checkpoint = make_checkpoint_for_resolution()
     request = make_resolution_request(checkpoint)
@@ -190,20 +198,23 @@ def test_method__execute__resolves_pending_with_exact_changes_and_preservation()
 
 
 def test_method__execute__resolves_blocked_when_explicitly_expected() -> None:
-    """Evidence ID
-    SV-HARNESS-107
-    Requirement
-    A blocked checkpoint resolves only when blocked is the explicit expected status.
-    Method
-    Supply a blocked record and expected_status='blocked' with declared option B.
-    Oracle
-    Exact request status and option fields determine the transformation.
-    Acceptance
-    Result is changed/PASS and records option B without altering resumption status.
-    Interpretation
-    Failure indicates hard-coded pending status, option choice, or resumption drift.
-    Limitations
-    The action does not infer that blocked should resolve or resume a task.
+    """Evidence ID: SV-HARNESS-107
+
+    Requirement: A blocked checkpoint resolves only when blocked is the explicit
+    expected status.
+
+    Method: Supply a blocked record and expected_status='blocked' with declared option
+    B.
+
+    Oracle: Exact request status and option fields determine the transformation.
+
+    Acceptance: Result is changed/PASS and records option B without altering resumption
+    status.
+
+    Interpretation: Failure indicates hard-coded pending status, option choice, or
+    resumption drift.
+
+    Limitations: The action does not infer that blocked should resolve or resume a task.
     """
     checkpoint = make_checkpoint_for_resolution(status="blocked")
     request = make_resolution_request(
@@ -223,23 +234,24 @@ def test_method__execute__resolves_blocked_when_explicitly_expected() -> None:
 def test_method__execute__unknown_option_and_partial_state_return_ordered_failure() -> (
     None
 ):
-    """Evidence ID
-    SV-HARNESS-108
-    Requirement
-    Unknown exact option IDs and partial unresolved resolution state fail
+    """Evidence ID: SV-HARNESS-108
+
+    Requirement: Unknown exact option IDs and partial unresolved resolution state fail
     structurally with deterministic ordering and no partial record.
-    Method
-    Request lowercase undeclared option 'a' from pending state containing two
+
+    Method: Request lowercase undeclared option 'a' from pending state containing two
     contradictory resolution fields.
-    Oracle
-    Closed issue-code lexical ordering fixes DECISION_UNKNOWN before
+
+    Oracle: Closed issue-code lexical ordering fixes DECISION_UNKNOWN before
     STATE_CONTRADICTION and exact related field ordering.
-    Acceptance
-    Both exact codes and related IDs are ordered, checkpoint is None, changed=False.
-    Interpretation
-    Failure indicates case-insensitive matching, partial resolution, or ordering drift.
-    Limitations
-    The action does not explain or reinterpret the unknown human decision.
+
+    Acceptance: Both exact codes and related IDs are ordered, checkpoint is None,
+    changed=False.
+
+    Interpretation: Failure indicates case-insensitive matching, partial resolution, or
+    ordering drift.
+
+    Limitations: The action does not explain or reinterpret the unknown human decision.
     """
     checkpoint = make_checkpoint_for_resolution(
         human_response="partial", authorized_scope="partial scope"
@@ -258,20 +270,21 @@ def test_method__execute__unknown_option_and_partial_state_return_ordered_failur
 
 
 def test_method__execute__identical_repetition_returns_unchanged_checkpoint() -> None:
-    """Evidence ID
-    SV-HARNESS-109
-    Requirement
-    Repeating an identical explicit resolution is a successful idempotent no-op.
-    Method
-    Resolve pending state, then execute the same decision values on its result.
-    Oracle
-    Exact checkpoint/request field equality fixes idempotent repetition.
-    Acceptance
-    First result is changed, second is PASS/unchanged and returns the existing object.
-    Interpretation
-    Failure indicates duplicate resolution or idempotency drift.
-    Limitations
-    No persistence or replay protocol is exercised.
+    """Evidence ID: SV-HARNESS-109
+
+    Requirement: Repeating an identical explicit resolution is a successful idempotent
+    no-op.
+
+    Method: Resolve pending state, then execute the same decision values on its result.
+
+    Oracle: Exact checkpoint/request field equality fixes idempotent repetition.
+
+    Acceptance: First result is changed, second is PASS/unchanged and returns the
+    existing object.
+
+    Interpretation: Failure indicates duplicate resolution or idempotency drift.
+
+    Limitations: No persistence or replay protocol is exercised.
     """
     request = make_resolution_request(make_checkpoint_for_resolution())
     first = SUT().execute(request)
@@ -301,20 +314,23 @@ def test_method__execute__identical_repetition_returns_unchanged_checkpoint() ->
 def test_method__execute__resolved_field_conflict_returns_structured_failure(
     overrides: dict[str, str], related_id: str
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-110
-    Requirement
-    Any differing explicit resolution field conflicts with already-resolved state.
-    Method
-    Change one response, decision, timestamp, or scope field per semantic partition.
-    Oracle
-    Exact field equality and the closed RESOLUTION_CONFLICT code are the oracle.
-    Acceptance
-    Each case returns the exact code/field and no checkpoint or changed result.
-    Interpretation
-    Failure indicates silent overwrite or conflict-classification drift.
-    Limitations
-    Multi-field conflicts are represented by the same sorted related-ID mechanism.
+    """Evidence ID: SV-HARNESS-110
+
+    Requirement: Any differing explicit resolution field conflicts with already-resolved
+    state.
+
+    Method: Change one response, decision, timestamp, or scope field per semantic
+    partition.
+
+    Oracle: Exact field equality and the closed RESOLUTION_CONFLICT code are the oracle.
+
+    Acceptance: Each case returns the exact code/field and no checkpoint or changed
+    result.
+
+    Interpretation: Failure indicates silent overwrite or conflict-classification drift.
+
+    Limitations: Multi-field conflicts are represented by the same sorted related-ID
+    mechanism.
     """
     checkpoint = make_checkpoint_for_resolution(
         status="resolved",
@@ -341,20 +357,23 @@ def test_method__execute__resolved_field_conflict_returns_structured_failure(
 
 
 def test_method__execute__unexpected_status_returns_status_conflict() -> None:
-    """Evidence ID
-    SV-HARNESS-111
-    Requirement
-    Current status outside both explicit request statuses fails deterministically.
-    Method
-    Execute a pending-to-resolved request against a cancelled checkpoint.
-    Oracle
-    Exact status comparison and STATUS_CONFLICT define the partition.
-    Acceptance
-    The singleton issue identifies all sorted statuses and no checkpoint is returned.
-    Interpretation
-    Failure indicates implicit lifecycle choice or status-conflict drift.
-    Limitations
-    Profile-relative lifecycle validity remains ValidateCheckpointSet's concern.
+    """Evidence ID: SV-HARNESS-111
+
+    Requirement: Current status outside both explicit request statuses fails
+    deterministically.
+
+    Method: Execute a pending-to-resolved request against a cancelled checkpoint.
+
+    Oracle: Exact status comparison and STATUS_CONFLICT define the partition.
+
+    Acceptance: The singleton issue identifies all sorted statuses and no checkpoint is
+    returned.
+
+    Interpretation: Failure indicates implicit lifecycle choice or status-conflict
+    drift.
+
+    Limitations: Profile-relative lifecycle validity remains CheckpointSetValidator's
+    concern.
     """
     checkpoint = make_checkpoint_for_resolution(status="cancelled")
     result = SUT().execute(make_resolution_request(checkpoint))
@@ -372,24 +391,29 @@ def test_method__execute__unexpected_status_returns_status_conflict() -> None:
 def test_method__execute__uses_only_explicit_state_without_operational_effects(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-112
-    Requirement
-    Transformation has no task, chain, filesystem, clock, Git, resumption, or
+    """Evidence ID: SV-HARNESS-112
+
+    Requirement: Transformation has no task, chain, filesystem, clock, Git, resumption,
+    or
     successor effect and depends only on explicit request state.
-    Method
-    Execute twice from an unrelated empty CWD, snapshot directory state, and inspect
+
+    Method: Execute twice from an unrelated empty CWD, snapshot directory state, and
+    inspect
     preserved task/resumption fields and deterministic equality.
-    Oracle
-    Empty-directory state, explicit timestamp, exact result equality, and preserved
+
+    Oracle: Empty-directory state, explicit timestamp, exact result equality, and
+    preserved
     fields provide independent observable oracles.
-    Acceptance
-    Results are equal, directory remains empty, explicit timestamp is used, and task
+
+    Acceptance: Results are equal, directory remains empty, explicit timestamp is used,
+    and task
     and resumption fields are unchanged.
-    Interpretation
-    Failure indicates ambient input, nondeterminism, write, or lifecycle side effect.
-    Limitations
-    This behavioral check does not invoke Git, a clock API, or successor machinery.
+
+    Interpretation: Failure indicates ambient input, nondeterminism, write, or lifecycle
+    side effect.
+
+    Limitations: This behavioral check does not invoke Git, a clock API, or successor
+    machinery.
     """
     elsewhere = tmp_path / "unrelated-cwd"
     elsewhere.mkdir()

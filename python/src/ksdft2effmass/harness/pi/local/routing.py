@@ -35,7 +35,7 @@ class RouteSelection:
             raise ValueError("route selection is absent from the exact truth table")
 
 
-class SelectValidationRoute:
+class ValidationRouteSelector:
     """Convert explicit route configuration into deterministic run facts."""
 
     __slots__ = ()
@@ -47,7 +47,7 @@ class SelectValidationRoute:
         return RouteSelection(*_ROUTE_TRUTH_TABLE[configuration.route])
 
 
-class RollBackValidationRoute:
+class LegacyRouteConfigurationPreparer:
     """Construct the retained legacy rollback route without transforming data."""
 
     __slots__ = ()

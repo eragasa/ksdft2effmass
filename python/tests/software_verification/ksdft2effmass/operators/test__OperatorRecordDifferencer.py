@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordDifferencer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the OperatorRecordDifferencer facet. The tested
 ActionObject enforces compatibility before forming the represented
@@ -13,6 +14,7 @@ propagation, and numerical-failure translation.  They do not establish a
 physical impurity interpretation or scientific validation of any model.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordDifferencer``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -21,6 +23,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -60,27 +63,31 @@ VALID_CELL = ((1.0, 0.0, 0.0), (0.0, 2.0, 0.0), (0.0, 0.0, 3.0))
 def make_record(
     matrix: Any, *, identifier: str, energy_unit: str = "eV"
 ) -> OperatorRecord:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Differencer and comparator cases require independently valid synthetic records with
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Differencer and comparator cases require independently valid synthetic
+    records with
     controlled identifiers, matrices, and energy units.
-    Method
-    Construct or inspect only the named synthetic fixture operation (make record); the
+
+    Method: Construct or inspect only the named synthetic fixture operation (make
+    record); the
     helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -106,29 +113,32 @@ def make_record(
 
 
 def test_method__execute__differencer_retains_explicit_compatibility_analyzer() -> None:
-    r"""Evidence ID
-    SV-ORD-001
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-001
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: differencer retains explicit compatibility analyzer.
-    Method
-    Construct independently valid reference and candidate records for execute:
+
+    Method: Construct independently valid reference and candidate records for execute:
     differencer retains explicit compatibility analyzer, then invoke execute() and
     inspect only public results or errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -140,28 +150,31 @@ def test_method__execute__differencer_retains_explicit_compatibility_analyzer() 
 
 
 def test_method__execute__differencer_rejects_non_analyzer_dependency() -> None:
-    r"""Evidence ID
-    SV-ORD-002
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-002
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: differencer rejects non analyzer dependency.
-    Method
-    Construct independently valid reference and candidate records for execute:
+
+    Method: Construct independently valid reference and candidate records for execute:
     differencer rejects non analyzer dependency, then invoke execute() and inspect only
     public results or errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    The named partition raises exactly TypeError with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly TypeError with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -173,29 +186,33 @@ def test_method__execute__differencer_rejects_non_analyzer_dependency() -> None:
 
 
 def test_method__execute__forms_signed_real_difference() -> None:
-    r"""Evidence ID
-    SV-ORD-003
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-003
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: forms signed real difference.
-    Method
-    Construct independently valid reference and candidate records for execute: forms
+
+    Method: Construct independently valid reference and candidate records for execute:
+    forms
     signed real difference, then invoke execute() and inspect only public results or
     errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -220,29 +237,33 @@ def test_method__execute__forms_signed_real_difference() -> None:
 
 
 def test_method__execute__complex_candidate_minus_reference() -> None:
-    r"""Evidence ID
-    SV-ORD-004
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-004
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: complex candidate minus reference.
-    Method
-    Construct independently valid reference and candidate records for execute: complex
+
+    Method: Construct independently valid reference and candidate records for execute:
+    complex
     candidate minus reference, then invoke execute() and inspect only public results or
     errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -281,29 +302,32 @@ def test_method__execute__complex_candidate_minus_reference() -> None:
 
 
 def test_method__execute__propagates_incompatibility() -> None:
-    r"""Evidence ID
-    SV-ORD-005
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-005
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: propagates incompatibility.
-    Method
-    Construct independently valid reference and candidate records for execute:
+
+    Method: Construct independently valid reference and candidate records for execute:
     propagates incompatibility, then invoke execute() and inspect only public results or
     errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    The named partition raises exactly IncompatibleOperatorRecordsError with the
+
+    Acceptance: The named partition raises exactly IncompatibleOperatorRecordsError with
+    the
     asserted public message, code, or attached result; no alternate exception is
     accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -324,29 +348,33 @@ def test_method__execute__propagates_incompatibility() -> None:
 
 
 def test_method__execute__checks_compatibility_first() -> None:
-    r"""Evidence ID
-    SV-ORD-006
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-006
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: checks compatibility first.
-    Method
-    Construct independently valid reference and candidate records for execute: checks
+
+    Method: Construct independently valid reference and candidate records for execute:
+    checks
     compatibility first, then invoke execute() and inspect only public results or
     errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    The named partition raises exactly IncompatibleOperatorRecordsError with the
+
+    Acceptance: The named partition raises exactly IncompatibleOperatorRecordsError with
+    the
     asserted public message, code, or attached result; no alternate exception is
     accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -372,28 +400,31 @@ def test_method__execute__checks_compatibility_first() -> None:
 
 
 def test_method__execute__differencer_requires_operator_record_inputs() -> None:
-    r"""Evidence ID
-    SV-ORD-007
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-007
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: differencer requires operator record inputs.
-    Method
-    Construct independently valid reference and candidate records for execute:
+
+    Method: Construct independently valid reference and candidate records for execute:
     differencer requires operator record inputs, then invoke execute() and inspect only
     public results or errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    The named partition raises exactly TypeError with the asserted public message, code,
+
+    Acceptance: The named partition raises exactly TypeError with the asserted public
+    message, code,
     or attached result; no alternate exception is accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -408,29 +439,32 @@ def test_method__execute__differencer_requires_operator_record_inputs() -> None:
 def test_method__execute__differencer_translates_nonfinite_subtraction_without() -> (
     None
 ):
-    r"""Evidence ID
-    SV-ORD-008
-    Requirement
-    OperatorRecordDifferencer publicly enforces the candidate-minus-reference operation
+    r"""Evidence ID: SV-ORD-008
+
+    Requirement: OperatorRecordDifferencer publicly enforces the
+    candidate-minus-reference operation
     partition: execute: differencer translates nonfinite subtraction without.
-    Method
-    Construct independently valid reference and candidate records for execute:
+
+    Method: Construct independently valid reference and candidate records for execute:
     differencer translates nonfinite subtraction without, then invoke execute() and
     inspect only public results or errors.
-    Oracle
-    Literal elementwise candidate-minus-reference arithmetic, exact metadata,
+
+    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
     compatibility rules, and the public structured-error taxonomy determine the result
     independently of the differencer implementation.
-    Acceptance
-    The named partition raises exactly OperatorRecordDifferenceNumericalError with the
+
+    Acceptance: The named partition raises exactly
+    OperatorRecordDifferenceNumericalError with the
     asserted public message, code, or attached result; no alternate exception is
     accepted.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

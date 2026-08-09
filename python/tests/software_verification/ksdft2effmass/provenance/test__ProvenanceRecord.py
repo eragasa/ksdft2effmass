@@ -1,17 +1,20 @@
 r"""Software verification of ``ProvenanceRecord``.
 
 Facet and represented meaning
+
 -----------------------------
 This module verifies immutable manifest, parent-provenance, and artifact links
 represented by a durable provenance record.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 ``ProvenanceRecord`` is the sole SUT; scalar, tuple, direct self-parent, immutability,
 and value invariants are intrinsic. Linked-object existence and graph-wide cycles are
 excluded.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Evidence excludes truth of asserted provenance, numerical verification, scientific
 validation, UQ, physical correctness, and cross-language conformance.
@@ -28,21 +31,21 @@ pytestmark = pytest.mark.software_verification
 
 
 def test_constructor__provenance_fields__maps_canonical_links() -> None:
-    """Evidence ID
-    SV-PROV-014
-    Requirement
-    Provenance identifiers, parents, manifest, and artifacts map exactly in canonical
+    """Evidence ID: SV-PROV-014
+
+    Requirement: Provenance identifiers, parents, manifest, and artifacts map exactly in
+    canonical
     order.
-    Method
-    Construct a public record with two sorted parent and artifact identifiers.
-    Oracle
-    The accepted field mapping and lexical tuple order are fixed.
-    Acceptance
-    The complete field tuple equals the supplied values exactly.
-    Interpretation
-    Failure indicates mapping or ordering drift.
-    Limitations
-    Existence and truth of linked records are not checked.
+
+    Method: Construct a public record with two sorted parent and artifact identifiers.
+
+    Oracle: The accepted field mapping and lexical tuple order are fixed.
+
+    Acceptance: The complete field tuple equals the supplied values exactly.
+
+    Interpretation: Failure indicates mapping or ordering drift.
+
+    Limitations: Existence and truth of linked records are not checked.
     """
     value = SUT("prov-2", "manifest-1", ("prov-0", "prov-1"), ("a", "b"))
     assert (
@@ -63,20 +66,22 @@ def test_constructor__provenance_fields__maps_canonical_links() -> None:
 def test_constructor__canonical_parent_links__reject_noncanonical_tuples(
     parents: tuple[str, ...],
 ) -> None:
-    """Evidence ID
-    SV-PROV-015
-    Requirement
-    Parent-provenance links are lexically sorted and duplicate-free.
-    Method
-    Construct with the named unsorted or duplicate parent tuple.
-    Oracle
-    Lexical ordering and set cardinality independently classify both fixed tuples.
-    Acceptance
-    Construction raises ValueError.
-    Interpretation
-    Failure permits nondeterministic or duplicate provenance parent state.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-015
+
+    Requirement: Parent-provenance links are lexically sorted and duplicate-free.
+
+    Method: Construct with the named unsorted or duplicate parent tuple.
+
+    Oracle: Lexical ordering and set cardinality independently classify both fixed
+    tuples.
+
+    Acceptance: Construction raises ValueError.
+
+    Interpretation: Failure permits nondeterministic or duplicate provenance parent
+    state.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     with pytest.raises(ValueError):
@@ -84,20 +89,22 @@ def test_constructor__canonical_parent_links__reject_noncanonical_tuples(
 
 
 def test_constructor__direct_self_parent__rejects_record_local_cycle() -> None:
-    """Evidence ID
-    SV-PROV-137
-    Requirement
-    A ProvenanceRecord cannot name its own provenance_id as a direct parent.
-    Method
-    Construct an otherwise valid record with the sole parent equal to provenance_id.
-    Oracle
-    Exact equality of the two public identifier inputs supplies the oracle.
-    Acceptance
-    Construction raises ValueError.
-    Interpretation
-    Failure permits a record-local provenance self-edge.
-    Limitations
-    General graph cycles, scientific validation, UQ, and cross-language conformance
+    """Evidence ID: SV-PROV-137
+
+    Requirement: A ProvenanceRecord cannot name its own provenance_id as a direct
+    parent.
+
+    Method: Construct an otherwise valid record with the sole parent equal to
+    provenance_id.
+
+    Oracle: Exact equality of the two public identifier inputs supplies the oracle.
+
+    Acceptance: Construction raises ValueError.
+
+    Interpretation: Failure permits a record-local provenance self-edge.
+
+    Limitations: General graph cycles, scientific validation, UQ, and cross-language
+    conformance
     are excluded.
     """
     with pytest.raises(ValueError):
@@ -105,20 +112,20 @@ def test_constructor__direct_self_parent__rejects_record_local_cycle() -> None:
 
 
 def test_constructor__parent_collection_semantic_type__rejects_list() -> None:
-    """Evidence ID
-    SV-PROV-129
-    Requirement
-    parent_provenance_ids requires an exact built-in tuple.
-    Method
-    Construct with an empty list in the parent field.
-    Oracle
-    The public exact collection-type contract classifies lists.
-    Acceptance
-    Construction raises TypeError.
-    Interpretation
-    Failure permits mutable parent collection state.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-129
+
+    Requirement: parent_provenance_ids requires an exact built-in tuple.
+
+    Method: Construct with an empty list in the parent field.
+
+    Oracle: The public exact collection-type contract classifies lists.
+
+    Acceptance: Construction raises TypeError.
+
+    Interpretation: Failure permits mutable parent collection state.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     with pytest.raises(TypeError):
@@ -126,20 +133,19 @@ def test_constructor__parent_collection_semantic_type__rejects_list() -> None:
 
 
 def test_field__operational_immutability__rejects_reassignment() -> None:
-    """Evidence ID
-    SV-PROV-016
-    Requirement
-    Provenance records are operationally immutable.
-    Method
-    Construct with immutable tuples and attempt field reassignment.
-    Oracle
-    Frozen DataObject semantics are the accepted architecture.
-    Acceptance
-    Reassignment raises FrozenInstanceError.
-    Interpretation
-    Failure indicates mutable durable provenance.
-    Limitations
-    Hostile reflection is excluded.
+    """Evidence ID: SV-PROV-016
+
+    Requirement: Provenance records are operationally immutable.
+
+    Method: Construct with immutable tuples and attempt field reassignment.
+
+    Oracle: Frozen DataObject semantics are the accepted architecture.
+
+    Acceptance: Reassignment raises FrozenInstanceError.
+
+    Interpretation: Failure indicates mutable durable provenance.
+
+    Limitations: Hostile reflection is excluded.
     """
     value = SUT("p", "m", (), ())
     with pytest.raises(FrozenInstanceError):
@@ -166,20 +172,20 @@ def test_field__operational_immutability__rejects_reassignment() -> None:
 def test_field__scalar_identifier_values__reject_nonportable_text(
     field: str, invalid: str
 ) -> None:
-    """Evidence ID
-    SV-PROV-098
-    Requirement
-    Provenance scalar identifiers are nonempty NFC bounded identifiers.
-    Method
-    Replace the named scalar with the named malformed string.
-    Oracle
-    The identifier grammar and NFC definition classify each literal.
-    Acceptance
-    Construction raises ValueError.
-    Interpretation
-    Failure admits malformed provenance identity state.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-098
+
+    Requirement: Provenance scalar identifiers are nonempty NFC bounded identifiers.
+
+    Method: Replace the named scalar with the named malformed string.
+
+    Oracle: The identifier grammar and NFC definition classify each literal.
+
+    Acceptance: Construction raises ValueError.
+
+    Interpretation: Failure admits malformed provenance identity state.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     values: dict[str, object] = {
@@ -200,20 +206,20 @@ def test_field__scalar_identifier_values__reject_nonportable_text(
     ],
 )
 def test_field__scalar_identifier_semantic_types__reject_bytes(field: str) -> None:
-    """Evidence ID
-    SV-PROV-130
-    Requirement
-    Provenance scalar identifiers require built-in strings.
-    Method
-    Replace the named scalar with bytes.
-    Oracle
-    The exact semantic-type contract classifies bytes.
-    Acceptance
-    Construction raises TypeError.
-    Interpretation
-    Failure indicates unintended provenance scalar coercion.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-130
+
+    Requirement: Provenance scalar identifiers require built-in strings.
+
+    Method: Replace the named scalar with bytes.
+
+    Oracle: The exact semantic-type contract classifies bytes.
+
+    Acceptance: Construction raises TypeError.
+
+    Interpretation: Failure indicates unintended provenance scalar coercion.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     values: dict[str, object] = {
@@ -248,20 +254,21 @@ def test_field__scalar_identifier_semantic_types__reject_bytes(field: str) -> No
 def test_field__identifier_collection_values__reject_noncanonical_tuples(
     field: str, invalid_tuple: tuple[str, ...]
 ) -> None:
-    """Evidence ID
-    SV-PROV-099
-    Requirement
-    Provenance identifier tuples are sorted, unique, and contain portable identifiers.
-    Method
-    Replace the named collection with the named invalid built-in tuple.
-    Oracle
-    Ordering, uniqueness, identifier grammar, and NFC classify each tuple.
-    Acceptance
-    Construction raises ValueError.
-    Interpretation
-    Failure permits nondeterministic or malformed provenance links.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-099
+
+    Requirement: Provenance identifier tuples are sorted, unique, and contain portable
+    identifiers.
+
+    Method: Replace the named collection with the named invalid built-in tuple.
+
+    Oracle: Ordering, uniqueness, identifier grammar, and NFC classify each tuple.
+
+    Acceptance: Construction raises ValueError.
+
+    Interpretation: Failure permits nondeterministic or malformed provenance links.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     values: dict[str, object] = {
@@ -282,20 +289,20 @@ def test_field__identifier_collection_values__reject_noncanonical_tuples(
     ],
 )
 def test_field__identifier_collection_semantic_types__reject_lists(field: str) -> None:
-    """Evidence ID
-    SV-PROV-131
-    Requirement
-    Provenance identifier collections require exact built-in tuples.
-    Method
-    Replace the named collection with a one-member list.
-    Oracle
-    The public exact collection-type contract classifies lists.
-    Acceptance
-    Construction raises TypeError.
-    Interpretation
-    Failure permits mutable provenance collection state.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-131
+
+    Requirement: Provenance identifier collections require exact built-in tuples.
+
+    Method: Replace the named collection with a one-member list.
+
+    Oracle: The public exact collection-type contract classifies lists.
+
+    Acceptance: Construction raises TypeError.
+
+    Interpretation: Failure permits mutable provenance collection state.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     values: dict[str, object] = {
@@ -318,20 +325,20 @@ def test_field__identifier_collection_semantic_types__reject_lists(field: str) -
 def test_field__identifier_collection_member_semantic_types__reject_bytes(
     field: str,
 ) -> None:
-    """Evidence ID
-    SV-PROV-132
-    Requirement
-    Every provenance identifier tuple member requires a built-in string.
-    Method
-    Put bytes into the named otherwise valid tuple.
-    Oracle
-    The exact member semantic-type contract classifies bytes.
-    Acceptance
-    Construction raises TypeError.
-    Interpretation
-    Failure indicates unintended tuple-member coercion.
-    Limitations
-    Synthetic metadata only; scientific validation, UQ, physical correctness, and
+    """Evidence ID: SV-PROV-132
+
+    Requirement: Every provenance identifier tuple member requires a built-in string.
+
+    Method: Put bytes into the named otherwise valid tuple.
+
+    Oracle: The exact member semantic-type contract classifies bytes.
+
+    Acceptance: Construction raises TypeError.
+
+    Interpretation: Failure indicates unintended tuple-member coercion.
+
+    Limitations: Synthetic metadata only; scientific validation, UQ, physical
+    correctness, and
     cross-language conformance are excluded.
     """
     values: dict[str, object] = {
@@ -345,21 +352,22 @@ def test_field__identifier_collection_member_semantic_types__reject_bytes(
 
 
 def test_method__eq__includes_all_provenance_links() -> None:
-    """Evidence ID
-    SV-PROV-100
-    Requirement
-    ProvenanceRecord equality distinguishes otherwise equal records when the artifact
+    """Evidence ID: SV-PROV-100
+
+    Requirement: ProvenanceRecord equality distinguishes otherwise equal records when
+    the artifact
     relation tuple differs.
-    Method
-    Compare equal public values and one value with a different artifact tuple.
-    Oracle
-    Frozen dataclass fields define exact equality.
-    Acceptance
-    Equal records compare equal and the changed artifact relation compares unequal.
-    Interpretation
-    Failure indicates incomplete durable value semantics.
-    Limitations
-    Equality does not establish truth of provenance claims.
+
+    Method: Compare equal public values and one value with a different artifact tuple.
+
+    Oracle: Frozen dataclass fields define exact equality.
+
+    Acceptance: Equal records compare equal and the changed artifact relation compares
+    unequal.
+
+    Interpretation: Failure indicates incomplete durable value semantics.
+
+    Limitations: Equality does not establish truth of provenance claims.
     """
     value = SUT("p", "m", ("parent",), ("a",))
     assert value == SUT("p", "m", ("parent",), ("a",))

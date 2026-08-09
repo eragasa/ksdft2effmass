@@ -1,16 +1,19 @@
 r"""Software verification of json fixtures runtime agreement v1.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned module verifies checked-in version-1 fixture classification,
 strict public runtime mapping, and canonical serialization as distinct software layers.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The fixture families are primary. The Draft 2020-12 schema, public provenance record
 classes, and public JSON serializer are independently named collaborators and oracles.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Pass/failure concerns nonnumerical software interoperability only. Evidence excludes
 provenance truth, numerical verification, scientific validation, UQ, persistence,
@@ -242,41 +245,49 @@ INVALID_FIXTURE_CASES = (
 
 
 def is_nfc_text(value: object) -> bool:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-067.
-    Requirement
-    Provide the active NFC predicate used by valid-fixture schema evidence.
-    Method
-    Accept one decoded schema value and compare it with Unicode NFC normalization.
-    Oracle
-    Python unicodedata.normalize defines NFC independently of the production serializer.
-    Acceptance
-    Return true exactly for built-in strings already in NFC.
-    Interpretation
-    Failure is schema-evidence setup/oracle failure, not an independent runtime result.
-    Limitations
-    This helper does not validate JSON parsing, record construction, scientific
+    """Evidence ID: Owns no identifier; supports SV-PROV-067.
+
+    Requirement: Provide the active NFC predicate used by valid-fixture schema evidence.
+
+    Method: Accept one decoded schema value and compare it with Unicode NFC
+    normalization.
+
+    Oracle: Python unicodedata.normalize defines NFC independently of the production
+    serializer.
+
+    Acceptance: Return true exactly for built-in strings already in NFC.
+
+    Interpretation: Failure is schema-evidence setup/oracle failure, not an independent
+    runtime result.
+
+    Limitations: This helper does not validate JSON parsing, record construction,
+    scientific
     meaning, UQ, portability, or cross-language behavior.
     """
     return type(value) is str and unicodedata.normalize("NFC", value) == value
 
 
 def make_provenance_schema_validator() -> jsonschema.Draft202012Validator:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-067 and SV-PROV-103.
-    Requirement
-    Provide local Draft 2020-12 schema checking with active Unicode NFC format checks.
-    Method
-    Load the fixed public schema and register Python NFC normalization without network
+    """Evidence ID: Owns no identifier; supports SV-PROV-067 and SV-PROV-103.
+
+    Requirement: Provide local Draft 2020-12 schema checking with active Unicode NFC
+    format checks.
+
+    Method: Load the fixed public schema and register Python NFC normalization without
+    network
     access.
-    Oracle
-    The checked-in schema and Python unicodedata definition independently define checks.
-    Acceptance
-    Return a configured validator for the two named artifact evidence owners.
-    Interpretation
-    Failure is evidence setup failure, not an independent schema/runtime test result.
-    Limitations
-    The helper does not validate strict lexical JSON, scientific meaning, UQ,
+
+    Oracle: The checked-in schema and Python unicodedata definition independently define
+    checks.
+
+    Acceptance: Return a configured validator for the two named artifact evidence
+    owners.
+
+    Interpretation: Failure is evidence setup failure, not an independent schema/runtime
+    test result.
+
+    Limitations: The helper does not validate strict lexical JSON, scientific meaning,
+    UQ,
     portability, or cross-language behavior.
     """
     schema = json.loads(
@@ -290,20 +301,25 @@ def make_provenance_schema_validator() -> jsonschema.Draft202012Validator:
 def extract_declared_fixture_paths(
     parameter_cases: tuple[Any, ...],
 ) -> tuple[Path, ...]:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-396 and SV-PROV-397.
-    Requirement
-    Derive declared fixture paths directly from one local pytest.param inventory.
-    Method
-    Read the first declared value from each static local parameter entry in order.
-    Oracle
-    The explicit module-local pytest.param tuple is the sole declared-case source.
-    Acceptance
-    Every entry supplies a Path first value and returned paths preserve declared order.
-    Interpretation
-    Failure indicates a malformed local parameter inventory rather than fixture drift.
-    Limitations
-    This helper performs no discovery, execution, schema validation, deserialization,
+    """Evidence ID: Owns no identifier; supports SV-PROV-396 and SV-PROV-397.
+
+    Requirement: Derive declared fixture paths directly from one local pytest.param
+    inventory.
+
+    Method: Read the first declared value from each static local parameter entry in
+    order.
+
+    Oracle: The explicit module-local pytest.param tuple is the sole declared-case
+    source.
+
+    Acceptance: Every entry supplies a Path first value and returned paths preserve
+    declared order.
+
+    Interpretation: Failure indicates a malformed local parameter inventory rather than
+    fixture drift.
+
+    Limitations: This helper performs no discovery, execution, schema validation,
+    deserialization,
     scientific validation, UQ, persistence, or cross-language checking.
     """
     values = tuple(parameter_case.values[0] for parameter_case in parameter_cases)
@@ -316,25 +332,29 @@ def assert_exact_declared_fixture_family(
     declared_paths: tuple[Path, ...],
     discovered_paths: tuple[Path, ...],
 ) -> None:
-    """Evidence ID
-    Owns no identifier; supports SV-PROV-396 and SV-PROV-397.
-    Requirement
-    Compare one declared fixture-path inventory bidirectionally with one discovered
+    """Evidence ID: Owns no identifier; supports SV-PROV-396 and SV-PROV-397.
+
+    Requirement: Compare one declared fixture-path inventory bidirectionally with one
+    discovered
     family.
-    Method
-    Require declared-path uniqueness and exact set equality without performing
+
+    Method: Require declared-path uniqueness and exact set equality without performing
     discovery.
-    Oracle
-    Explicit declared paths and the caller-supplied checked-in directory inventory are
+
+    Oracle: Explicit declared paths and the caller-supplied checked-in directory
+    inventory are
     independent sides of the artifact relation.
-    Acceptance
-    Every declared path is unique and declared and discovered path sets are exactly
+
+    Acceptance: Every declared path is unique and declared and discovered path sets are
+    exactly
     equal.
-    Interpretation
-    Failure identifies duplicate declarations, omissions, nonexistent declarations, or
+
+    Interpretation: Failure identifies duplicate declarations, omissions, nonexistent
+    declarations, or
     wrong-family placement.
-    Limitations
-    Exact path agreement does not establish fixture contents, runtime behavior,
+
+    Limitations: Exact path agreement does not establish fixture contents, runtime
+    behavior,
     provenance truth, numerical verification, scientific validation, UQ, or portability.
     """
     assert len(declared_paths) == len(set(declared_paths))
@@ -345,20 +365,23 @@ def assert_exact_declared_fixture_family(
 def test_artifact__valid_fixture_parameters__belong_to_maintained_family(
     fixture_case: ValidFixtureCase,
 ) -> None:
-    """Evidence ID
-    SV-PROV-140
-    Requirement
-    Every declared valid-fixture parameter belongs to the maintained valid family.
-    Method
-    Extract the declared path from the named valid case and compare it with VALID.
-    Oracle
-    The checked-in valid fixture directory independently defines membership.
-    Acceptance
-    The declared path is present in VALID exactly.
-    Interpretation
-    Failure indicates a stale parameter entry or wrong-family classification.
-    Limitations
-    Membership establishes no completeness, schema, runtime, scientific, UQ, or
+    """Evidence ID: SV-PROV-140
+
+    Requirement: Every declared valid-fixture parameter belongs to the maintained valid
+    family.
+
+    Method: Extract the declared path from the named valid case and compare it with
+    VALID.
+
+    Oracle: The checked-in valid fixture directory independently defines membership.
+
+    Acceptance: The declared path is present in VALID exactly.
+
+    Interpretation: Failure indicates a stale parameter entry or wrong-family
+    classification.
+
+    Limitations: Membership establishes no completeness, schema, runtime, scientific,
+    UQ, or
     cross-language result.
     """
     path, _expected_type = fixture_case
@@ -367,23 +390,27 @@ def test_artifact__valid_fixture_parameters__belong_to_maintained_family(
 
 def test_artifact__valid_fixture_inventory__matches_declared_parameter_family_exactly(  # noqa: E501
 ) -> None:
-    """Evidence ID
-    SV-PROV-396
-    Requirement
-    Declared valid cases and discovered valid fixtures form one exact unique family.
-    Method
-    Extract paths from VALID_FIXTURE_CASES, compare them exactly with VALID, and inject
+    """Evidence ID: SV-PROV-396
+
+    Requirement: Declared valid cases and discovered valid fixtures form one exact
+    unique family.
+
+    Method: Extract paths from VALID_FIXTURE_CASES, compare them exactly with VALID, and
+    inject
     controlled omitted, nonexistent, and duplicate declarations through the same helper.
-    Oracle
-    The static named inventory and checked-in valid directory are independent
+
+    Oracle: The static named inventory and checked-in valid directory are independent
     inventories.
-    Acceptance
-    Real inventories agree exactly; omission, nonexistent declaration, and duplication
+
+    Acceptance: Real inventories agree exactly; omission, nonexistent declaration, and
+    duplication
     each raise AssertionError under the same exact-family mechanism.
-    Interpretation
-    Failure identifies valid-family inventory drift or a completeness oracle defect.
-    Limitations
-    Path completeness does not establish fixture contents, schema semantics, runtime
+
+    Interpretation: Failure identifies valid-family inventory drift or a completeness
+    oracle defect.
+
+    Limitations: Path completeness does not establish fixture contents, schema
+    semantics, runtime
     mapping, canonical text, provenance truth, validation, UQ, or portability.
     """
     declared_paths = extract_declared_fixture_paths(VALID_FIXTURE_CASES)
@@ -403,22 +430,26 @@ def test_artifact__valid_fixture_inventory__matches_declared_parameter_family_ex
 def test_artifact__valid_fixtures__pass_schema_validation(
     fixture_case: ValidFixtureCase,
 ) -> None:
-    """Evidence ID
-    SV-PROV-067
-    Requirement
-    Every maintained valid fixture satisfies the public version-1 JSON Schema.
-    Method
-    Decode the named fixture with json and validate it using the configured local schema
+    """Evidence ID: SV-PROV-067
+
+    Requirement: Every maintained valid fixture satisfies the public version-1 JSON
+    Schema.
+
+    Method: Decode the named fixture with json and validate it using the configured
+    local schema
     validator.
-    Oracle
-    The checked-in schema plus active NFC format checker independently define structural
+
+    Oracle: The checked-in schema plus active NFC format checker independently define
+    structural
     acceptance.
-    Acceptance
-    Schema validation completes without an exception for all 17 valid cases.
-    Interpretation
-    Failure identifies schema, fixture classification, NFC oracle, or jsonschema drift.
-    Limitations
-    Schema acceptance does not establish strict runtime mapping, canonical text,
+
+    Acceptance: Schema validation completes without an exception for all 17 valid cases.
+
+    Interpretation: Failure identifies schema, fixture classification, NFC oracle, or
+    jsonschema drift.
+
+    Limitations: Schema acceptance does not establish strict runtime mapping, canonical
+    text,
     provenance truth, scientific validation, UQ, persistence, or cross-language
     behavior.
     """
@@ -432,22 +463,26 @@ def test_artifact__valid_fixtures__pass_schema_validation(
 def test_artifact__valid_fixtures__deserialize_to_exact_public_record_type(
     fixture_case: ValidFixtureCase,
 ) -> None:
-    """Evidence ID
-    SV-PROV-135
-    Requirement
-    Every maintained valid fixture maps to its exact intended public provenance class.
-    Method
-    Deserialize original UTF-8 fixture text through the public serializer and compare
+    """Evidence ID: SV-PROV-135
+
+    Requirement: Every maintained valid fixture maps to its exact intended public
+    provenance class.
+
+    Method: Deserialize original UTF-8 fixture text through the public serializer and
+    compare
     exact result type identity with the class declared in the canonical named case.
-    Oracle
-    The explicit public class in VALID_FIXTURE_CASES independently fixes each mapping.
-    Acceptance
-    For all 17 fixtures, ``type(record) is expected_type``.
-    Interpretation
-    Failure identifies fixture classification, runtime constructor, serializer mapping,
+
+    Oracle: The explicit public class in VALID_FIXTURE_CASES independently fixes each
+    mapping.
+
+    Acceptance: For all 17 fixtures, ``type(record) is expected_type``.
+
+    Interpretation: Failure identifies fixture classification, runtime constructor,
+    serializer mapping,
     or public-class oracle drift.
-    Limitations
-    Exact class mapping does not establish canonical serialization, provenance truth,
+
+    Limitations: Exact class mapping does not establish canonical serialization,
+    provenance truth,
     scientific validation, UQ, persistence, portability, or cross-language conformance.
     """
     path, expected_type = fixture_case
@@ -461,20 +496,23 @@ def test_artifact__valid_fixtures__deserialize_to_exact_public_record_type(
 def test_artifact__valid_fixtures__serialize_to_canonical_round_trip_text(
     fixture_case: ValidFixtureCase,
 ) -> None:
-    """Evidence ID
-    SV-PROV-136
-    Requirement
-    Each valid fixture is the exact canonical serialization of its represented record.
-    Method
-    Deserialize the named fixture and serialize the resulting public record.
-    Oracle
-    The checked-in original UTF-8 fixture text is the independent canonical-text oracle.
-    Acceptance
-    Serialized output equals original text exactly for all 17 valid cases.
-    Interpretation
-    Failure identifies runtime serialization, canonicalization, or fixture-text drift.
-    Limitations
-    Canonical text agreement does not establish schema completeness, provenance truth,
+    """Evidence ID: SV-PROV-136
+
+    Requirement: Each valid fixture is the exact canonical serialization of its
+    represented record.
+
+    Method: Deserialize the named fixture and serialize the resulting public record.
+
+    Oracle: The checked-in original UTF-8 fixture text is the independent canonical-text
+    oracle.
+
+    Acceptance: Serialized output equals original text exactly for all 17 valid cases.
+
+    Interpretation: Failure identifies runtime serialization, canonicalization, or
+    fixture-text drift.
+
+    Limitations: Canonical text agreement does not establish schema completeness,
+    provenance truth,
     scientific validation, UQ, persistence, portability, or cross-language behavior.
     """
     path, _expected_type = fixture_case
@@ -487,20 +525,23 @@ def test_artifact__valid_fixtures__serialize_to_canonical_round_trip_text(
 def test_artifact__invalid_fixture_parameters__belong_to_maintained_family(
     path: Path,
 ) -> None:
-    """Evidence ID
-    SV-PROV-141
-    Requirement
-    Every declared invalid-fixture parameter belongs to the maintained invalid family.
-    Method
-    Compare each path from INVALID_FIXTURE_CASES with the discovered INVALID tuple.
-    Oracle
-    The checked-in invalid fixture directory independently defines membership.
-    Acceptance
-    The declared path is present in INVALID exactly.
-    Interpretation
-    Failure indicates a stale parameter entry or wrong-family classification.
-    Limitations
-    Membership establishes no completeness, runtime rejection, scientific, UQ,
+    """Evidence ID: SV-PROV-141
+
+    Requirement: Every declared invalid-fixture parameter belongs to the maintained
+    invalid family.
+
+    Method: Compare each path from INVALID_FIXTURE_CASES with the discovered INVALID
+    tuple.
+
+    Oracle: The checked-in invalid fixture directory independently defines membership.
+
+    Acceptance: The declared path is present in INVALID exactly.
+
+    Interpretation: Failure indicates a stale parameter entry or wrong-family
+    classification.
+
+    Limitations: Membership establishes no completeness, runtime rejection, scientific,
+    UQ,
     persistence, or cross-language result.
     """
     assert path in INVALID
@@ -508,23 +549,27 @@ def test_artifact__invalid_fixture_parameters__belong_to_maintained_family(
 
 def test_artifact__invalid_fixture_inventory__matches_declared_parameter_family_exactly(  # noqa: E501
 ) -> None:
-    """Evidence ID
-    SV-PROV-397
-    Requirement
-    Declared invalid cases and discovered invalid fixtures form one exact unique family.
-    Method
-    Extract paths from INVALID_FIXTURE_CASES, compare them exactly with INVALID, and
+    """Evidence ID: SV-PROV-397
+
+    Requirement: Declared invalid cases and discovered invalid fixtures form one exact
+    unique family.
+
+    Method: Extract paths from INVALID_FIXTURE_CASES, compare them exactly with INVALID,
+    and
     inject one controlled omitted declaration through the same exact-family helper.
-    Oracle
-    The static named inventory and checked-in invalid directory are independent
+
+    Oracle: The static named inventory and checked-in invalid directory are independent
     inventories.
-    Acceptance
-    Real inventories agree exactly and an undeclared discovered invalid path raises
+
+    Acceptance: Real inventories agree exactly and an undeclared discovered invalid path
+    raises
     AssertionError under the same mechanism.
-    Interpretation
-    Failure identifies invalid-family inventory drift or a completeness oracle defect.
-    Limitations
-    Path completeness does not establish runtime rejection, fixture meaning, provenance
+
+    Interpretation: Failure identifies invalid-family inventory drift or a completeness
+    oracle defect.
+
+    Limitations: Path completeness does not establish runtime rejection, fixture
+    meaning, provenance
     truth, scientific validation, UQ, persistence, or cross-language behavior.
     """
     declared_paths = extract_declared_fixture_paths(INVALID_FIXTURE_CASES)
@@ -537,23 +582,26 @@ def test_artifact__invalid_fixture_inventory__matches_declared_parameter_family_
 def test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime(
     path: Path,
 ) -> None:
-    """Evidence ID
-    SV-PROV-068
-    Requirement
-    Each maintained invalid fixture is rejected at the strict public Python JSON
+    """Evidence ID: SV-PROV-068
+
+    Requirement: Each maintained invalid fixture is rejected at the strict public Python
+    JSON
     boundary.
-    Method
-    Pass each original UTF-8 fixture directly to public deserialization without
+
+    Method: Pass each original UTF-8 fixture directly to public deserialization without
     permissive preprocessing.
-    Oracle
-    Its checked-in invalid-family classification independently declares rejection.
-    Acceptance
-    All 31 cases raise ProvenanceJsonError.
-    Interpretation
-    Failure may indicate runtime permissiveness, fixture misclassification, or contract
+
+    Oracle: Its checked-in invalid-family classification independently declares
+    rejection.
+
+    Acceptance: All 31 cases raise ProvenanceJsonError.
+
+    Interpretation: Failure may indicate runtime permissiveness, fixture
+    misclassification, or contract
     drift.
-    Limitations
-    Runtime rejection does not establish schema rejection, provenance truth, scientific
+
+    Limitations: Runtime rejection does not establish schema rejection, provenance
+    truth, scientific
     validation, UQ, persistence, portability, or cross-language behavior.
     """
     with pytest.raises(provenance.ProvenanceJsonError):
@@ -563,24 +611,28 @@ def test_artifact__invalid_fixture_family__is_rejected_by_strict_runtime(
 
 
 def test_artifact__fixture_types__cover_serializable_schema_inventory() -> None:
-    """Evidence ID
-    SV-PROV-069
-    Requirement
-    Valid fixtures provide one canonically named representative for every schema record
+    """Evidence ID: SV-PROV-069
+
+    Requirement: Valid fixtures provide one canonically named representative for every
+    schema record
     definition.
-    Method
-    Compare fixture record_type values and stems with schema record_type constants using
+
+    Method: Compare fixture record_type values and stems with schema record_type
+    constants using
     fixed artifacts.
-    Oracle
-    Independently maintained fixture objects and schema definitions supply the
+
+    Oracle: Independently maintained fixture objects and schema definitions supply the
     inventories.
-    Acceptance
-    Record-type sets are exactly equal and every fixture stem equals its record_type.
-    Interpretation
-    Failure indicates missing, extra, misnamed, or schema-divergent interoperability
+
+    Acceptance: Record-type sets are exactly equal and every fixture stem equals its
+    record_type.
+
+    Interpretation: Failure indicates missing, extra, misnamed, or schema-divergent
+    interoperability
     fixtures.
-    Limitations
-    One synthetic representative does not exhaust domains or establish provenance truth,
+
+    Limitations: One synthetic representative does not exhaust domains or establish
+    provenance truth,
     validation, UQ, persistence, portability, or cross-language conformance.
     """
     schema = json.loads(
@@ -605,22 +657,25 @@ def test_artifact__fixture_types__cover_serializable_schema_inventory() -> None:
 def test_artifact__corrected_invalid_fixture_inventory__contains_required_stems() -> (
     None
 ):
-    """Evidence ID
-    SV-PROV-142
-    Requirement
-    The corrected invalid family retains every required legacy and unsafe fixture stem,
+    """Evidence ID: SV-PROV-142
+
+    Requirement: The corrected invalid family retains every required legacy and unsafe
+    fixture stem,
     including the removed ``retryable`` field channel.
-    Method
-    Compare the fixed required stem set with stems discovered in INVALID.
-    Oracle
-    The corrected version-1 contract independently fixes the required stem set.
-    Acceptance
-    The required set, including ``legacy-retryable-field``, is a subset of discovered
+
+    Method: Compare the fixed required stem set with stems discovered in INVALID.
+
+    Oracle: The corrected version-1 contract independently fixes the required stem set.
+
+    Acceptance: The required set, including ``legacy-retryable-field``, is a subset of
+    discovered
     invalid fixture stems.
-    Interpretation
-    Failure identifies missing retained correction evidence or fixture inventory drift.
-    Limitations
-    Existence establishes no runtime rejection, provenance truth, scientific validation,
+
+    Interpretation: Failure identifies missing retained correction evidence or fixture
+    inventory drift.
+
+    Limitations: Existence establishes no runtime rejection, provenance truth,
+    scientific validation,
     UQ, persistence, portability, or cross-language result.
     """
     required = {
@@ -658,26 +713,30 @@ def test_artifact__corrected_invalid_fixture_inventory__contains_required_stems(
 def test_artifact__corrected_invalid_fixtures__reject_legacy_channels(
     stem: str,
 ) -> None:
-    """Evidence ID
-    SV-PROV-079
-    Requirement
-    Named invalid fixtures retain rejection evidence for removed environment, argument,
+    """Evidence ID: SV-PROV-079
+
+    Requirement: Named invalid fixtures retain rejection evidence for removed
+    environment, argument,
     message, verification-detail, and ``retryable`` channels plus corrected invalid
     forms.
-    Method
-    Require each semantic fixture stem and pass original text to the strict
+
+    Method: Require each semantic fixture stem and pass original text to the strict
     deserializer.
-    Oracle
-    The corrected version-1 contract independently classifies every named shape as
+
+    Oracle: The corrected version-1 contract independently classifies every named shape
+    as
     invalid.
-    Acceptance
-    Every named fixture exists in INVALID and raises ProvenanceJsonError, including
+
+    Acceptance: Every named fixture exists in INVALID and raises ProvenanceJsonError,
+    including
     ``legacy-retryable-field``.
-    Interpretation
-    Failure indicates missing retained evidence, parser permissiveness, or contract
+
+    Interpretation: Failure indicates missing retained evidence, parser permissiveness,
+    or contract
     drift.
-    Limitations
-    Credential detection, provenance truth, scientific validation, UQ, persistence,
+
+    Limitations: Credential detection, provenance truth, scientific validation, UQ,
+    persistence,
     portability, and cross-language claims are excluded.
     """
     path = ROOT / "fixtures/invalid" / f"{stem}.json"
@@ -689,24 +748,28 @@ def test_artifact__corrected_invalid_fixtures__reject_legacy_channels(
 
 
 def test_artifact__direct_self_dependency_fixture__has_layered_classification() -> None:
-    """Evidence ID
-    SV-PROV-103
-    Requirement
-    The self-dependency fixture is runtime-invalid although its unrelated wire structure
+    """Evidence ID: SV-PROV-103
+
+    Requirement: The self-dependency fixture is runtime-invalid although its unrelated
+    wire structure
     is schema-valid.
-    Method
-    Validate decoded structure, compare manifest and dependency identities, then
+
+    Method: Validate decoded structure, compare manifest and dependency identities, then
     strictly deserialize original text.
-    Oracle
-    Fixture classification and exact identifier equality independently supply structural
+
+    Oracle: Fixture classification and exact identifier equality independently supply
+    structural
     and runtime expectations.
-    Acceptance
-    Schema validation succeeds, identifiers are equal, and deserialization raises
+
+    Acceptance: Schema validation succeeds, identifiers are equal, and deserialization
+    raises
     ProvenanceJsonError.
-    Interpretation
-    Failure indicates fixture, schema-layer, runtime-relation, or classification drift.
-    Limitations
-    Indirect cycles, provenance truth, scientific validation, UQ, persistence,
+
+    Interpretation: Failure indicates fixture, schema-layer, runtime-relation, or
+    classification drift.
+
+    Limitations: Indirect cycles, provenance truth, scientific validation, UQ,
+    persistence,
     portability, and cross-language conformance are excluded.
     """
     path = ROOT / "fixtures/invalid/direct-self-dependent-run-manifest.json"

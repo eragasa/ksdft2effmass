@@ -27,7 +27,11 @@ checklist.
   perform the operation.
 - An **ActionObject** owns a reusable operation, policy, analysis,
   transformation, comparison, validation, serialization, or external boundary.
-  It normally exposes `execute(...)` and avoids hidden mutable state.
+  It normally exposes `execute(...)` and avoids hidden mutable state. Name each
+  public ActionObject `<DataObject-or-operation-target><Actionizer>`, using a
+  precise suffix such as `Validator`, `Resolver`, `Serializer`, `Auditor`, or
+  `Preparer`; do not use verb-first names or vague `Manager`, `Handler`, or
+  `Processor` suffixes.
 - A **serializer ActionObject** owns serialization, deserialization, and
   wire-format mechanics. Wire-format validity remains distinct from scientific
   validity.

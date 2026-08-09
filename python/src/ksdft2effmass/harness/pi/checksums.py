@@ -51,7 +51,7 @@ class ChecksumManifest:
             raise ValueError("entries must be unique and path-sorted")
 
 
-class ValidateChecksumManifest:
+class ChecksumManifestValidator:
     """Compare declared identities below one explicit root without repair."""
 
     __slots__ = ()

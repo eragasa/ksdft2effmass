@@ -1,0 +1,53 @@
+{
+  "checkpoint_id": "harness.simplification.api.action-object-grammar.final-acceptance",
+  "task_id": "harness.simplification.api.action-object-grammar",
+  "episode_id": "harness.simplification.api.action-object-grammar",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T09:25:22Z",
+  "question": "Should the completed ActionObject grammar normalization receive final human acceptance and close without activating a successor?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the implementation and close this Task only.",
+      "consequence": "Record final acceptance of the grammar, 28 hard renames, project-local class-owned test migration, canonical evidence-docstring format, and synchronized live surfaces. No successor activates."
+    },
+    {
+      "id": "B",
+      "summary": "Request one specified correction.",
+      "consequence": "Keep the Task active and limit correction to the human-specified finding."
+    },
+    {
+      "id": "C",
+      "summary": "Defer or reject acceptance.",
+      "consequence": "Keep the Task blocked; docs/JSON and evidence naming remain inactive."
+    }
+  ],
+  "recommendation": "Option A. The independent review's fixture and exact-spacing findings were corrected. Ruff, mypy, 2,869 non-wheel tests, 63 harness-level tests, structural and repository evidence validation, identifier audit, resource hashes, Sphinx warnings-as-errors, task-state inspection, and diff checks pass. The two wheel tests cannot start because the existing virtual environment lacks pip. The H3 resource validator retains two unrelated pre-existing generic/local leakage and stale version-boundary findings. No scientific validation or UQ is claimed.",
+  "blocked_scope": "Task closure, successor eligibility, docs/JSON implementation, evidence-subpackage implementation, SQLite, protected execution, publication, and release.",
+  "safe_scope": "Read-only inspection of the implementation, retained evidence, review findings, validation outputs, and committed boundary. Deterministic checkpoint validation is permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.api.action-object-grammar.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    ".pi/skills/design-data-action-objects/references/data-action-architecture.md",
+    "docs/development/source-documentation.rst",
+    ".pi/evidence/action-object-grammar/action-object-inventory.json",
+    ".pi/evidence/action-object-grammar/node-migration.json",
+    ".pi/evidence/test-evidence-repository-conformance/maintained-test-inventory.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/harness.simplification.api.action-object-grammar.final-acceptance.json",
+    ".pi/tasks/harness.simplification.api.action-object-grammar.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/evidence/action-object-grammar/action-object-inventory.json",
+    ".pi/evidence/action-object-grammar/node-migration.json",
+    ".pi/evidence/action-object-grammar/ownership.json"
+  ],
+  "resumption_status": "awaiting_human_acceptance; no_successor_active"
+}

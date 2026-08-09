@@ -1,10 +1,12 @@
 r"""Software verification of ``OperatorRecordDifferenceResult``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the construction facet.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordDifferenceResult``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -13,6 +15,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -37,27 +40,31 @@ SUT = OperatorRecordDifferenceResult
 def compatible_result(
     reference_identifier: str = "reference", candidate_identifier: str = "candidate"
 ) -> OperatorRecordCompatibilityResult:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Difference-result fixtures require an explicitly compatible audit carrying the
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Difference-result fixtures require an explicitly compatible audit
+    carrying the
     requested reference and candidate identifiers.
-    Method
-    Construct or inspect only the named synthetic fixture operation (compatible result);
+
+    Method: Construct or inspect only the named synthetic fixture operation (compatible
+    result);
     the helper owns no assertion result and introduces no hidden oracle.
-    Oracle
-    The literal constructor inputs, exact ndarray values, declared public-field
+
+    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
     inventory, frozen dataclass semantics, and Python equality/hash rules determine the
     expected result.
-    Acceptance
-    The helper returns exactly the requested fixture value or applies only the
+
+    Acceptance: The helper returns exactly the requested fixture value or applies only
+    the
     documented comparison; all pass/fail assertions remain in the owning test.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -67,29 +74,32 @@ def compatible_result(
 
 
 def test_constructor__constructs_valid_difference_result_with__is_enforced() -> None:
-    r"""Evidence ID
-    SV-ORDR-001
-    Requirement
-    OperatorRecordDifferenceResult enforces this represented-data partition: constructs
+    r"""Evidence ID: SV-ORDR-001
+
+    Requirement: OperatorRecordDifferenceResult enforces this represented-data
+    partition: constructs
     valid difference result with: is enforced.
-    Method
-    Construct valid baseline instances, change only the named constructs valid
+
+    Method: Construct valid baseline instances, change only the named constructs valid
     difference result with: is enforced partition, and observe constructor, field,
     equality, hash, or public-API behavior as applicable.
-    Oracle
-    The literal constructor inputs, exact ndarray values, declared public-field
+
+    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
     inventory, frozen dataclass semantics, and Python equality/hash rules determine the
     expected result.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -106,29 +116,33 @@ def test_constructor__constructs_valid_difference_result_with__is_enforced() -> 
 
 
 def test_field__accepts_arbitrary_positive_square_dimension__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORDR-002
-    Requirement
-    OperatorRecordDifferenceResult enforces this represented-data partition: accepts
+    r"""Evidence ID: SV-ORDR-002
+
+    Requirement: OperatorRecordDifferenceResult enforces this represented-data
+    partition: accepts
     arbitrary positive square dimension: is exact.
-    Method
-    Construct valid baseline instances, change only the named accepts arbitrary positive
+
+    Method: Construct valid baseline instances, change only the named accepts arbitrary
+    positive
     square dimension: is exact partition, and observe constructor, field, equality,
     hash, or public-API behavior as applicable.
-    Oracle
-    The literal constructor inputs, exact ndarray values, declared public-field
+
+    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
     inventory, frozen dataclass semantics, and Python equality/hash rules determine the
     expected result.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -142,29 +156,33 @@ def test_field__accepts_arbitrary_positive_square_dimension__is_exact() -> None:
 
 
 def test_public_api__unsupported_methods__are_absent() -> None:
-    r"""Evidence ID
-    SV-ORDR-003
-    Requirement
-    OperatorRecordDifferenceResult enforces this represented-data partition: unsupported
+    r"""Evidence ID: SV-ORDR-003
+
+    Requirement: OperatorRecordDifferenceResult enforces this represented-data
+    partition: unsupported
     methods: are absent.
-    Method
-    Construct valid baseline instances, change only the named unsupported methods: are
+
+    Method: Construct valid baseline instances, change only the named unsupported
+    methods: are
     absent partition, and observe constructor, field, equality, hash, or public-API
     behavior as applicable.
-    Oracle
-    The literal constructor inputs, exact ndarray values, declared public-field
+
+    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
     inventory, frozen dataclass semantics, and Python equality/hash rules determine the
     expected result.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

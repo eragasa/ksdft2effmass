@@ -1,14 +1,17 @@
 r"""Software verification of harness pi h3 resource contract.
 
 Facet and represented meaning
+
 Software verification of Python/H3 schema, fixture, and canonical-byte agreement; no
 physical model, mathematical operator, or numerical representation is represented.
 
 Intrinsic and cross-object scope
+
 The primary owner is the accepted H3 resource contract. Accepted schemas, fixtures, and
 canonical vectors are read-only independent oracles for the public Python wire actions.
 
 VVUQ and scientific exclusions
+
 Passing establishes only exact textual software agreement. Numerical verification,
 scientific validation, uncertainty quantification, physical correctness, and completed
 Rust conformance are excluded.
@@ -26,8 +29,8 @@ from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 from referencing import Registry, Resource
 
 from ksdft2effmass.harness.pi import (
-    DeserializeJsonRecord,
-    SerializeJsonRecord,
+    JsonRecordDeserializer,
+    JsonRecordSerializer,
     WireRecordKind,
 )
 
@@ -37,25 +40,28 @@ pytestmark = pytest.mark.software_verification
 
 
 def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
-    """Evidence ID
-    SV-HARNESS-036
-    Requirement
-    Every accepted H3 canonical vector decodes and re-encodes to its exact RFC
+    """Evidence ID: SV-HARNESS-036
+
+    Requirement: Every accepted H3 canonical vector decodes and re-encodes to its exact
+    RFC
     8785-plus-LF bytes and SHA-256 identity.
-    Method
-    Consume all indexed vectors, caller-select each public record kind, decode,
+
+    Method: Consume all indexed vectors, caller-select each public record kind, decode,
     encode, and hash using the public actions.
-    Oracle
-    H3's accepted canonical-json-vectors file independently fixes record kinds, byte
+
+    Oracle: H3's accepted canonical-json-vectors file independently fixes record kinds,
+    byte
     strings, and digests.
-    Acceptance
-    All seventeen payloads produce PASS, byte-for-byte equality, and the exact
+
+    Acceptance: All seventeen payloads produce PASS, byte-for-byte equality, and the
+    exact
     indexed lowercase SHA-256 digest.
-    Interpretation
-    Failure identifies a Python codec, H3 vector, accepted contract, or environment
+
+    Interpretation: Failure identifies a Python codec, H3 vector, accepted contract, or
+    environment
     discrepancy for independent review.
-    Limitations
-    This is textual software verification only; it does not establish Rust
+
+    Limitations: This is textual software verification only; it does not establish Rust
     conformance, numerical correctness, scientific validation, or UQ.
     """
     index_path = ROOT / "harness/pi/fixtures/canonical/canonical-json-vectors.json"
@@ -73,12 +79,12 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
                 + "\n"
             ).encode()
         )
-        decoded = DeserializeJsonRecord().execute(
+        decoded = JsonRecordDeserializer().execute(
             WireRecordKind(vector["record_kind"]), payload
         )
         assert decoded.validation.status == "PASS", vector["vector_id"]
         assert decoded.record is not None
-        encoded = SerializeJsonRecord().execute(decoded.record)
+        encoded = JsonRecordSerializer().execute(decoded.record)
         expected = vector["canonical_json"].encode()
         assert encoded.payload == expected, vector["vector_id"]
         assert hashlib.sha256(expected).hexdigest() == vector["canonical_sha256"]
@@ -89,25 +95,29 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
 
 
 def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> None:
-    """Evidence ID
-    SV-HARNESS-037
-    Requirement
-    All sixteen H3 valid record fixtures are schema-valid and Python-decodable,
+    """Evidence ID: SV-HARNESS-037
+
+    Requirement: All sixteen H3 valid record fixtures are schema-valid and
+    Python-decodable,
     while every indexed schema-invalid fixture is rejected by both boundaries.
-    Method
-    Pair record schemas with same-stem valid and invalid fixtures, run Draft 2020-12
+
+    Method: Pair record schemas with same-stem valid and invalid fixtures, run Draft
+    2020-12
     validation, then invoke strict public decoding.
-    Oracle
-    The accepted H3 fixture index and record schemas define the independent
+
+    Oracle: The accepted H3 fixture index and record schemas define the independent
     acceptance partition.
-    Acceptance
-    Each valid fixture has no schema errors and decodes PASS; each invalid fixture
+
+    Acceptance: Each valid fixture has no schema errors and decodes PASS; each invalid
+    fixture
     has schema errors and decodes FAIL with no record.
-    Interpretation
-    Failure identifies schema/Python drift, a fixture defect, or a contract
+
+    Interpretation: Failure identifies schema/Python drift, a fixture defect, or a
+    contract
     discrepancy rather than proving which artifact is wrong.
-    Limitations
-    Relational action behavior and scientific meaning are outside this exact
+
+    Limitations: Relational action behavior and scientific meaning are outside this
+    exact
     schema/wire partition check.
     """
     stems = json.loads(
@@ -136,12 +146,12 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
         assert list(validator.iter_errors(invalid)), stem
         kind = WireRecordKind("".join(part.title() for part in stem.split("-")))
         assert (
-            DeserializeJsonRecord()
+            JsonRecordDeserializer()
             .execute(kind, valid_path.read_bytes())
             .validation.status
             == "PASS"
         )
-        rejected = DeserializeJsonRecord().execute(kind, invalid_path.read_bytes())
+        rejected = JsonRecordDeserializer().execute(kind, invalid_path.read_bytes())
         assert rejected.validation.status == "FAIL"
         assert rejected.record is None
 
@@ -149,24 +159,27 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
 
 
 def test_artifact__diagnostic_path_corpus__matches_python_construction() -> None:
-    """Evidence ID
-    SV-HARNESS-038
-    Requirement
-    The complete accepted H3 DiagnosticPath valid/invalid corpus agrees with Python
+    """Evidence ID: SV-HARNESS-038
+
+    Requirement: The complete accepted H3 DiagnosticPath valid/invalid corpus agrees
+    with Python
     ValidationIssue construction without normalization.
-    Method
-    Construct the public issue from each indexed lexical spelling, including the
+
+    Method: Construct the public issue from each indexed lexical spelling, including the
     escaped surrogate case, and observe exact retention or ValueError code text.
-    Oracle
-    H3's accepted DiagnosticPath oracle index fixes every spelling and expected
+
+    Oracle: H3's accepted DiagnosticPath oracle index fixes every spelling and expected
     issue code independently of production implementation.
-    Acceptance
-    All four valid cases retain their exact path or None; all nineteen invalid cases
+
+    Acceptance: All four valid cases retain their exact path or None; all nineteen
+    invalid cases
     raise ValueError containing the indexed code.
-    Interpretation
-    Failure identifies lexical-contract drift in source or accepted H3 evidence.
-    Limitations
-    DiagnosticPath is lexical only; this test makes no filesystem existence,
+
+    Interpretation: Failure identifies lexical-contract drift in source or accepted H3
+    evidence.
+
+    Limitations: DiagnosticPath is lexical only; this test makes no filesystem
+    existence,
     resource-kind, or Rust-runtime claim.
     """
     from ksdft2effmass.harness.pi import ValidationIssue
@@ -194,23 +207,22 @@ def test_artifact__diagnostic_path_corpus__matches_python_construction() -> None
 
 
 def decode_public_case_record(kind: WireRecordKind, value: object) -> object:
-    """Evidence ID
-    Owns no identifier; supports SV-HARNESS-036.
-    Requirement
-    Case records must be constructed only through the public wire boundary.
-    Method
-    Encode H3 JSON data and call the selected public decoder.
-    Oracle
-    The H3 case document fixes the supplied represented value.
-    Acceptance
-    Decoding passes and returns a complete record.
-    Interpretation
-    Failure indicates fixture, contract, or decoder disagreement.
-    Limitations
-    This helper makes no independent evidence claim.
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-036.
+
+    Requirement: Case records must be constructed only through the public wire boundary.
+
+    Method: Encode H3 JSON data and call the selected public decoder.
+
+    Oracle: The H3 case document fixes the supplied represented value.
+
+    Acceptance: Decoding passes and returns a complete record.
+
+    Interpretation: Failure indicates fixture, contract, or decoder disagreement.
+
+    Limitations: This helper makes no independent evidence claim.
     """
     payload = (json.dumps(value, ensure_ascii=False) + "\n").encode()
-    result = DeserializeJsonRecord().execute(kind, payload)
+    result = JsonRecordDeserializer().execute(kind, payload)
     assert result.validation.status == "PASS"
     assert result.record is not None
     return result.record
@@ -219,32 +231,34 @@ def decode_public_case_record(kind: WireRecordKind, value: object) -> object:
 def test_artifact__resource_resolution_corpus__matches_structured_actions(
     tmp_path: Path,
 ) -> None:
-    """Evidence ID
-    SV-HARNESS-046
-    Requirement
-    Every H3 resource-resolution and overlay case has its declared action result.
-    Method
-    Copy the H3 roots, apply declared symlinks, decode records publicly, and run
+    """Evidence ID: SV-HARNESS-046
+
+    Requirement: Every H3 resource-resolution and overlay case has its declared action
+    result.
+
+    Method: Copy the H3 roots, apply declared symlinks, decode records publicly, and run
     manifest validation or resource resolution with explicit roots.
-    Oracle
-    The accepted H3 oracle index fixes all 19 acceptance partitions and codes.
-    Acceptance
-    Status and sole expected code match; PASS selects the declared layer/path;
+
+    Oracle: The accepted H3 oracle index fixes all 19 acceptance partitions and codes.
+
+    Acceptance: Status and sole expected code match; PASS selects the declared
+    layer/path;
     FAIL returns no partial path or reference.
-    Interpretation
-    Failure indicates action, fixture, setup, or accepted-contract disagreement.
-    Limitations
-    The disposable filesystem checks software confinement, not provenance.
+
+    Interpretation: Failure indicates action, fixture, setup, or accepted-contract
+    disagreement.
+
+    Limitations: The disposable filesystem checks software confinement, not provenance.
     """
     import shutil
     from collections import Counter
 
     from ksdft2effmass.harness.pi import (
+        JsonRecordSerializer,
         ProjectProfile,
-        ResolveResource,
         ResourceManifest,
-        SerializeJsonRecord,
-        ValidateResourceManifest,
+        ResourceManifestValidator,
+        ResourceResolver,
     )
 
     base = ROOT / "harness/pi/fixtures/resource-resolution"
@@ -276,7 +290,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
         )
         assert isinstance(generic, ResourceManifest)
         assert isinstance(profile, ProjectProfile)
-        generic_serialized = SerializeJsonRecord().execute(generic)
+        generic_serialized = JsonRecordSerializer().execute(generic)
         generic_identity = generic_serialized.content_identity
         assert generic_identity is not None
         local_data = case["local_manifest"]
@@ -287,7 +301,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
         )
         assert local is None or isinstance(local, ResourceManifest)
         local_serialized = (
-            SerializeJsonRecord().execute(local) if local is not None else None
+            JsonRecordSerializer().execute(local) if local is not None else None
         )
         local_identity = (
             local_serialized.content_identity if local_serialized is not None else None
@@ -304,7 +318,7 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
             ) -> Any:
                 assert serialized.validation.status == "PASS"
                 assert serialized.payload is not None
-                round_trip = DeserializeJsonRecord().execute(
+                round_trip = JsonRecordDeserializer().execute(
                     WireRecordKind.ResourceManifest, serialized.payload
                 )
                 assert round_trip.validation.status == "PASS"
@@ -331,13 +345,13 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
                 exercise_candidate_and_serialized_case_278_2(candidate, serialized)
                 for candidate, serialized in candidates
             ]
-            validation = ValidateResourceManifest().execute(
+            validation = ResourceManifestValidator().execute(
                 generic, generic_identity, local, local_identity, profile
             )
             assert validation.status == expected["status"], oracle["case_id"]
             assert expected["issue_code"] in {issue.code for issue in validation.issues}
             return
-        result = ResolveResource().execute(
+        result = ResourceResolver().execute(
             case["resource_id"],
             work / case["generic_root"].removeprefix("roots/"),
             generic,
@@ -369,21 +383,23 @@ def test_artifact__resource_resolution_corpus__matches_structured_actions(
 
 
 def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
-    """Evidence ID
-    SV-HARNESS-047
-    Requirement
-    All H3 semantic-invariant cases honor the declared schema/wire boundary.
-    Method
-    Consume every indexed case and invoke public decoding where H3 requires it.
-    Oracle
-    The accepted seven-case H3 index fixes schema and semantic expectations.
-    Acceptance
-    Schema-rejected cases are not decoded; each decoded semantic case returns its
+    """Evidence ID: SV-HARNESS-047
+
+    Requirement: All H3 semantic-invariant cases honor the declared schema/wire
+    boundary.
+
+    Method: Consume every indexed case and invoke public decoding where H3 requires it.
+
+    Oracle: The accepted seven-case H3 index fixes schema and semantic expectations.
+
+    Acceptance: Schema-rejected cases are not decoded; each decoded semantic case
+    returns its
     exact declared status/code partition and record presence.
-    Interpretation
-    Failure identifies H3/schema/decoder contract drift.
-    Limitations
-    Relational manifest acceptance is owned by the resource-resolution evidence.
+
+    Interpretation: Failure identifies H3/schema/decoder contract drift.
+
+    Limitations: Relational manifest acceptance is owned by the resource-resolution
+    evidence.
     """
     base = ROOT / "harness/pi/fixtures/semantic-invariants"
     index = json.loads((base / "oracle-index.json").read_text())
@@ -396,7 +412,7 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
         expectation = case["semantic_validator_expectation"]
         if expectation["stage"] == "not_run":
             return
-        result = DeserializeJsonRecord().execute(
+        result = JsonRecordDeserializer().execute(
             WireRecordKind(case["record_kind"]), payload
         )
         assert result.validation.status == expectation["status"]

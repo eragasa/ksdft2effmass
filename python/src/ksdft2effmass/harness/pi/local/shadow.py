@@ -203,7 +203,7 @@ class ShadowReplayResult:
             raise TypeError("authoritative_clean_revision must be nonempty str")
 
 
-class CompareShadowPair:
+class ShadowPairComparator:
     """Compare normalized fields and apply explicit accepted difference rules."""
 
     __slots__ = ()
@@ -299,7 +299,7 @@ class CompareShadowPair:
         )
 
 
-class ReplayShadowSuite:
+class ShadowSuiteReplayer:
     """Aggregate externally executed pairs against one explicit clean root.
 
     This action intentionally does not launch commands. Collection remains an

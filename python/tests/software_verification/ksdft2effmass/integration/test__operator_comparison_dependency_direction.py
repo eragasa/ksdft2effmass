@@ -1,6 +1,7 @@
 r"""Software verification of OperatorComparisonDependencyDirection.
 
 Facet and represented meaning
+
 -----------------------------
 This artifact-owned module owns the operator comparison dependency direction facet.
 This technical integration module, rather than an Analyzer object test, owns the
@@ -13,6 +14,7 @@ Failure indicates an architecture regression or an evidence-contract defect that
 requires investigation; passing does not establish scientific correctness.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorComparisonDependencyDirection``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -21,6 +23,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -46,21 +49,22 @@ MODULE_ORDER = (
 
 
 def local_imports(module_path: Path) -> tuple[str, ...]:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Dependency evidence must inspect maintained first-party package edges.
-    Method
-    Parse one module and retain level-one ``from .<module> import`` targets.
-    Oracle
-    Python's public AST identifies relative import statements explicitly.
-    Acceptance
-    The tuple contains every direct approved-subsystem relative import in source
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Dependency evidence must inspect maintained first-party package edges.
+
+    Method: Parse one module and retain level-one ``from .<module> import`` targets.
+
+    Oracle: Python's public AST identifies relative import statements explicitly.
+
+    Acceptance: The tuple contains every direct approved-subsystem relative import in
+    source
     traversal order.
-    Interpretation
-    Returned names are the source-declared local dependency edges.
-    Limitations
-    Dynamic imports are outside the current package contract and this helper does not
+
+    Interpretation: Returned names are the source-declared local dependency edges.
+
+    Limitations: Dynamic imports are outside the current package contract and this
+    helper does not
     execute imports, assess Analyzer behavior, perform scientific validation, or perform
     uncertainty quantification.
     """
@@ -79,22 +83,24 @@ def local_imports(module_path: Path) -> tuple[str, ...]:
 def test_artifact__operator_comparison_modules_follow_approved__agrees_exactly() -> (
     None
 ):
-    r"""Evidence ID
-    SV-ORCD-001
-    Requirement
-    A module may import only earlier comparison-subsystem layers; in particular,
+    r"""Evidence ID: SV-ORCD-001
+
+    Requirement: A module may import only earlier comparison-subsystem layers; in
+    particular,
     compatibility cannot import difference, residuals, or comparison.
-    Method
-    Parse each maintained module and compare every local edge with the approved rank
+
+    Method: Parse each maintained module and compare every local edge with the approved
+    rank
     tuple.
-    Oracle
-    The active architecture contract defines ``MODULE_ORDER``.
-    Acceptance
-    Every imported comparison-subsystem module has a strictly lower rank.
-    Interpretation
-    Passing establishes the maintained static dependency-direction gate.
-    Limitations
-    This is package integration evidence, not public Analyzer behavior, scientific
+
+    Oracle: The active architecture contract defines ``MODULE_ORDER``.
+
+    Acceptance: Every imported comparison-subsystem module has a strictly lower rank.
+
+    Interpretation: Passing establishes the maintained static dependency-direction gate.
+
+    Limitations: This is package integration evidence, not public Analyzer behavior,
+    scientific
     validation, or uncertainty quantification; it makes no claim about physical or
     numerical validity.
     """

@@ -522,7 +522,7 @@ def _is_wire_record(value: object) -> bool:
     return True
 
 
-class SerializeJsonRecord:
+class JsonRecordSerializer:
     """Serialize a closed wire record as canonical JSON plus LF."""
 
     __slots__ = ()
@@ -542,7 +542,7 @@ class SerializeJsonRecord:
                 + "\n"
             ).encode("utf-8")
         except (UnicodeError, ValueError, TypeError) as exc:
-            raise HarnessInternalError("SerializeJsonRecord", str(exc)) from exc
+            raise HarnessInternalError("JsonRecordSerializer", str(exc)) from exc
         identity = ArtifactIdentity(1, "sha256", hashlib.sha256(payload).hexdigest())
         return JsonSerializationResult(payload, identity, _result())
 
@@ -908,7 +908,7 @@ def _construct(kind: WireRecordKind, obj: dict[str, Any]) -> Any:
     raise AssertionError("WireRecordKind is not exhaustively handled")
 
 
-class DeserializeJsonRecord:
+class JsonRecordDeserializer:
     """Strictly decode caller-selected wire JSON without kind inference."""
 
     __slots__ = ()

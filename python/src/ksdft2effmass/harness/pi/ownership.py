@@ -132,7 +132,7 @@ class OwnershipManifestView:
             )
 
 
-class ValidateOwnershipManifest:
+class OwnershipManifestValidator:
     """Validate ownership relations against explicit chain, agents, and profile."""
 
     __slots__ = ()

@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/checkpoint-record.schema.json",
   "title": "CheckpointRecord",
   "type": "object",
-  "description": "Profile lifecycle vocabulary determines the required unresolved/resolved field combinations, so ValidateCheckpointSet—not this standalone schema—enforces status-relative nullability/nonemptiness and uniqueness of option IDs across tuple entries. JSON Schema enforces tuple shape, whole-option uniqueness, timestamp syntax annotations, and record-path whole-array uniqueness. Schema conformance does not record or accept a human decision.",
+  "description": "Profile lifecycle vocabulary determines the required unresolved/resolved field combinations, so CheckpointSetValidator—not this standalone schema—enforces status-relative nullability/nonemptiness and uniqueness of option IDs across tuple entries. JSON Schema enforces tuple shape, whole-option uniqueness, timestamp syntax annotations, and record-path whole-array uniqueness. Schema conformance does not record or accept a human decision.",
   "properties": {
     "schema_version": {
       "type": "integer",

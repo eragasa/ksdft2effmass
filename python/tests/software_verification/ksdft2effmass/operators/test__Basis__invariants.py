@@ -1,6 +1,7 @@
 r"""Software verification of ``Basis``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the invariants facet. This module owns
 ordering-container admission; nonempty, string, and unique label
@@ -23,6 +24,7 @@ gauge alignment, physical equivalence, scientific validation, uncertainty
 quantification, or Rust conformance.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``Basis``; collaborators only construct inputs or expose public
 outcomes. Accepted public contracts, literal expected values, Python language
@@ -30,6 +32,7 @@ semantics, and assigned schema or fixture artifacts provide the oracles. No runt
 warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -52,20 +55,20 @@ SUT = Basis
 
 
 def label_generator() -> Generator[str]:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    A generator is an iterable but not an approved ordered-sequence input.
-    Method
-    Yield two abstract labels without materializing a sequence.
-    Oracle
-    The approved container contract explicitly excludes generators.
-    Acceptance
-    The caller receives a generator for deliberate invalid construction.
-    Interpretation
-    This isolates iterable rejection from label validity.
-    Limitations
-    It constructs no Basis and establishes no scientific validation, UQ, or Rust
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: A generator is an iterable but not an approved ordered-sequence input.
+
+    Method: Yield two abstract labels without materializing a sequence.
+
+    Oracle: The approved container contract explicitly excludes generators.
+
+    Acceptance: The caller receives a generator for deliberate invalid construction.
+
+    Interpretation: This isolates iterable rejection from label validity.
+
+    Limitations: It constructs no Basis and establishes no scientific validation, UQ, or
+    Rust
     conformance.
     """
 
@@ -90,24 +93,28 @@ def label_generator() -> Generator[str]:
 def test_constructor__invalid_ordering_containers_are_rejected__is_enforced(
     invalid_ordering: object,
 ) -> None:
-    r"""Evidence ID
-    SV-B-007
-    Requirement
-    Ordering admits ordered sequences, not bare text, unordered collections, mappings,
+    r"""Evidence ID: SV-B-007
+
+    Requirement: Ordering admits ordered sequences, not bare text, unordered
+    collections, mappings,
     generators, scalar values, or arbitrary objects.
-    Method
-    Use ``Any``/``cast`` only at the deliberate invalid constructor boundary.
-    Oracle
-    Basis order is semantic, so the approved runtime container contract excludes these
+
+    Method: Use ``Any``/``cast`` only at the deliberate invalid constructor boundary.
+
+    Oracle: Basis order is semantic, so the approved runtime container contract excludes
+    these
     representative inputs.
-    Acceptance
-    Every case raises exactly ``TypeError`` and identifies ``basis ordering``; non-text
+
+    Acceptance: Every case raises exactly ``TypeError`` and identifies ``basis
+    ordering``; non-text
     cases also identify the ordered-sequence requirement.
-    Interpretation
-    Passing establishes that arbitrary iterable consumption cannot silently choose or
+
+    Interpretation: Passing establishes that arbitrary iterable consumption cannot
+    silently choose or
     exhaust coordinate order.
-    Limitations
-    This does not enumerate every third-party sequence implementation and establishes no
+
+    Limitations: This does not enumerate every third-party sequence implementation and
+    establishes no
     numerical/scientific validation, UQ, or Rust conformance.
     """
 
@@ -135,20 +142,20 @@ def test_constructor__invalid_ordering_containers_are_rejected__is_enforced(
 def test_constructor__empty_ordering_sequences_are_rejected__is_enforced(
     ordering: tuple[str, ...] | list[str],
 ) -> None:
-    r"""Evidence ID
-    SV-B-008
-    Requirement
-    No zero-label Basis convention is approved.
-    Method
-    Construct with correctly typed empty tuple and list sequences.
-    Oracle
-    The intrinsic nonempty-ordering invariant defines ``ValueError``.
-    Acceptance
-    Each case raises exactly ``ValueError`` with ordering/empty diagnostics.
-    Interpretation
-    Passing distinguishes valid container type from invalid empty value.
-    Limitations
-    No matrix dimension, scientific validation, UQ, or Rust conformance is established.
+    r"""Evidence ID: SV-B-008
+
+    Requirement: No zero-label Basis convention is approved.
+
+    Method: Construct with correctly typed empty tuple and list sequences.
+
+    Oracle: The intrinsic nonempty-ordering invariant defines ``ValueError``.
+
+    Acceptance: Each case raises exactly ``ValueError`` with ordering/empty diagnostics.
+
+    Interpretation: Passing distinguishes valid container type from invalid empty value.
+
+    Limitations: No matrix dimension, scientific validation, UQ, or Rust conformance is
+    established.
     """
 
     with pytest.raises(ValueError) as exc_info:
@@ -172,22 +179,25 @@ def test_constructor__empty_ordering_sequences_are_rejected__is_enforced(
 def test_constructor__invalid_label_wrong_types_are_rejected__is_enforced(
     invalid_label: object,
 ) -> None:
-    r"""Evidence ID
-    SV-B-009
-    Requirement
-    Every coordinate label must have string semantics; values are not coerced.
-    Method
-    Place one deliberate invalid value after a valid label and cast only at that public
+    r"""Evidence ID: SV-B-009
+
+    Requirement: Every coordinate label must have string semantics; values are not
+    coerced.
+
+    Method: Place one deliberate invalid value after a valid label and cast only at that
+    public
     boundary.
-    Oracle
-    The exact-label contract requires strings and defines ``TypeError``.
-    Acceptance
-    Every case raises exactly ``TypeError`` identifying ``basis label`` and the string
+
+    Oracle: The exact-label contract requires strings and defines ``TypeError``.
+
+    Acceptance: Every case raises exactly ``TypeError`` identifying ``basis label`` and
+    the string
     requirement.
-    Interpretation
-    Passing establishes label typing separately from container typing.
-    Limitations
-    Label physical meaning, scientific validation, UQ, and Rust conformance are not
+
+    Interpretation: Passing establishes label typing separately from container typing.
+
+    Limitations: Label physical meaning, scientific validation, UQ, and Rust conformance
+    are not
     established.
     """
 
@@ -201,20 +211,20 @@ def test_constructor__invalid_label_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_label_is_rejected_without__is_enforced() -> None:
-    r"""Evidence ID
-    SV-B-010
-    Requirement
-    Every label is nonempty; no trimming or normalization policy is added.
-    Method
-    Construct with ``("a", "")`` in an otherwise valid object.
-    Oracle
-    The intrinsic label invariant defines field-specific ``ValueError``.
-    Acceptance
-    Construction raises exactly ``ValueError`` identifying the empty label.
-    Interpretation
-    Passing establishes the explicit empty-string boundary only.
-    Limitations
-    Whitespace semantics, physical labels, scientific validation, UQ, and Rust
+    r"""Evidence ID: SV-B-010
+
+    Requirement: Every label is nonempty; no trimming or normalization policy is added.
+
+    Method: Construct with ``("a", "")`` in an otherwise valid object.
+
+    Oracle: The intrinsic label invariant defines field-specific ``ValueError``.
+
+    Acceptance: Construction raises exactly ``ValueError`` identifying the empty label.
+
+    Interpretation: Passing establishes the explicit empty-string boundary only.
+
+    Limitations: Whitespace semantics, physical labels, scientific validation, UQ, and
+    Rust
     conformance are unspecified or untested.
     """
 
@@ -227,22 +237,24 @@ def test_constructor__empty_label_is_rejected_without__is_enforced() -> None:
 
 
 def test_constructor__duplicate_labels_are_rejected_but_case__is_enforced() -> None:
-    r"""Evidence ID
-    SV-B-011
-    Requirement
-    Exact duplicates are invalid, while case-distinct labels remain distinct because no
+    r"""Evidence ID: SV-B-011
+
+    Requirement: Exact duplicates are invalid, while case-distinct labels remain
+    distinct because no
     normalization precedes uniqueness testing.
-    Method
-    Reject ``("a", "a")`` and independently admit ``("a", "A")``.
-    Oracle
-    The approved exact-label uniqueness rule is case-sensitive.
-    Acceptance
-    Duplicate construction raises exactly ``ValueError`` with uniqueness wording; the
+
+    Method: Reject ``("a", "a")`` and independently admit ``("a", "A")``.
+
+    Oracle: The approved exact-label uniqueness rule is case-sensitive.
+
+    Acceptance: Duplicate construction raises exactly ``ValueError`` with uniqueness
+    wording; the
     case-distinct ordering is preserved exactly.
-    Interpretation
-    Passing establishes uniqueness without case folding or sorting.
-    Limitations
-    It does not infer orbital identity or physical equivalence and establishes no
+
+    Interpretation: Passing establishes uniqueness without case folding or sorting.
+
+    Limitations: It does not infer orbital identity or physical equivalence and
+    establishes no
     scientific validation, UQ, or Rust conformance.
     """
 
@@ -266,20 +278,22 @@ def test_constructor__duplicate_labels_are_rejected_but_case__is_enforced() -> N
 def test_constructor__invalid_identifier_wrong_types_are_rejected__is_enforced(
     invalid_identifier: object,
 ) -> None:
-    r"""Evidence ID
-    SV-B-012
-    Requirement
-    Identifier names the metadata object and must be a string without coercion.
-    Method
-    Cast only the deliberate invalid identifier at the public boundary.
-    Oracle
-    The approved field-specific identifier contract defines ``TypeError``.
-    Acceptance
-    Every case raises exactly ``TypeError`` identifying basis identifier/string.
-    Interpretation
-    Passing establishes identifier typing independently of kind.
-    Limitations
-    Name suitability, scientific validation, UQ, and Rust conformance are not
+    r"""Evidence ID: SV-B-012
+
+    Requirement: Identifier names the metadata object and must be a string without
+    coercion.
+
+    Method: Cast only the deliberate invalid identifier at the public boundary.
+
+    Oracle: The approved field-specific identifier contract defines ``TypeError``.
+
+    Acceptance: Every case raises exactly ``TypeError`` identifying basis
+    identifier/string.
+
+    Interpretation: Passing establishes identifier typing independently of kind.
+
+    Limitations: Name suitability, scientific validation, UQ, and Rust conformance are
+    not
     established.
     """
 
@@ -292,20 +306,20 @@ def test_constructor__invalid_identifier_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_identifier_is_rejected__is_enforced() -> None:
-    r"""Evidence ID
-    SV-B-013
-    Requirement
-    Basis metadata identifiers are nonempty exact strings.
-    Method
-    Construct with an empty identifier and valid independent fields.
-    Oracle
-    The approved identifier invariant defines ``ValueError``.
-    Acceptance
-    The exception identifies the empty basis identifier.
-    Interpretation
-    Passing establishes only nonemptiness without normalization.
-    Limitations
-    Physical identity, scientific validation, UQ, and Rust conformance are not
+    r"""Evidence ID: SV-B-013
+
+    Requirement: Basis metadata identifiers are nonempty exact strings.
+
+    Method: Construct with an empty identifier and valid independent fields.
+
+    Oracle: The approved identifier invariant defines ``ValueError``.
+
+    Acceptance: The exception identifies the empty basis identifier.
+
+    Interpretation: Passing establishes only nonemptiness without normalization.
+
+    Limitations: Physical identity, scientific validation, UQ, and Rust conformance are
+    not
     established.
     """
 
@@ -329,20 +343,20 @@ def test_constructor__empty_identifier_is_rejected__is_enforced() -> None:
 def test_constructor__invalid_kind_wrong_types_are_rejected__is_enforced(
     invalid_kind: object,
 ) -> None:
-    r"""Evidence ID
-    SV-B-014
-    Requirement
-    Kind describes a convention and must be a string without coercion.
-    Method
-    Cast only the deliberate invalid kind at the public boundary.
-    Oracle
-    The approved field-specific kind contract defines ``TypeError``.
-    Acceptance
-    Every case raises exactly ``TypeError`` identifying basis kind/string.
-    Interpretation
-    Passing establishes kind typing independently of identifier.
-    Limitations
-    No closed vocabulary, physical class, scientific validation, UQ, or Rust conformance
+    r"""Evidence ID: SV-B-014
+
+    Requirement: Kind describes a convention and must be a string without coercion.
+
+    Method: Cast only the deliberate invalid kind at the public boundary.
+
+    Oracle: The approved field-specific kind contract defines ``TypeError``.
+
+    Acceptance: Every case raises exactly ``TypeError`` identifying basis kind/string.
+
+    Interpretation: Passing establishes kind typing independently of identifier.
+
+    Limitations: No closed vocabulary, physical class, scientific validation, UQ, or
+    Rust conformance
     is established.
     """
 
@@ -355,20 +369,20 @@ def test_constructor__invalid_kind_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_kind_is_rejected__is_enforced() -> None:
-    r"""Evidence ID
-    SV-B-015
-    Requirement
-    Basis kind metadata is nonempty but remains an open exact string.
-    Method
-    Construct with an empty kind and valid independent fields.
-    Oracle
-    The approved kind invariant defines ``ValueError``.
-    Acceptance
-    The exception identifies the empty basis kind.
-    Interpretation
-    Passing establishes nonemptiness without vocabulary normalization.
-    Limitations
-    Physical convention validity, scientific validation, UQ, and Rust conformance are
+    r"""Evidence ID: SV-B-015
+
+    Requirement: Basis kind metadata is nonempty but remains an open exact string.
+
+    Method: Construct with an empty kind and valid independent fields.
+
+    Oracle: The approved kind invariant defines ``ValueError``.
+
+    Acceptance: The exception identifies the empty basis kind.
+
+    Interpretation: Passing establishes nonemptiness without vocabulary normalization.
+
+    Limitations: Physical convention validity, scientific validation, UQ, and Rust
+    conformance are
     not established.
     """
 
@@ -394,21 +408,22 @@ def test_constructor__empty_kind_is_rejected__is_enforced() -> None:
 def test_constructor__non_python_boolean_orthonormality_is__is_enforced(
     invalid_orthonormal: object,
 ) -> None:
-    r"""Evidence ID
-    SV-B-016
-    Requirement
-    ``orthonormal`` accepts exact built-in Python ``bool`` only.
-    Method
-    Pass integer, NumPy Boolean, string, ``None``, and object substitutes, casting only
+    r"""Evidence ID: SV-B-016
+
+    Requirement: ``orthonormal`` accepts exact built-in Python ``bool`` only.
+
+    Method: Pass integer, NumPy Boolean, string, ``None``, and object substitutes,
+    casting only
     at the deliberate invalid public boundary.
-    Oracle
-    The approved nominal Boolean contract defines ``TypeError``.
-    Acceptance
-    Every case raises exactly ``TypeError`` identifying ``Python bool``.
-    Interpretation
-    Passing establishes no truthy/falsy or NumPy-Boolean coercion.
-    Limitations
-    It performs no orthogonality calculation and establishes no scientific validation,
+
+    Oracle: The approved nominal Boolean contract defines ``TypeError``.
+
+    Acceptance: Every case raises exactly ``TypeError`` identifying ``Python bool``.
+
+    Interpretation: Passing establishes no truthy/falsy or NumPy-Boolean coercion.
+
+    Limitations: It performs no orthogonality calculation and establishes no scientific
+    validation,
     uncertainty quantification, or Rust conformance.
     """
 

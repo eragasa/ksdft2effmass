@@ -31,6 +31,13 @@ Dataclass fields must be documented individually, including scientific meaning,
 mathematical symbol when applicable, expected type, units, allowed values,
 invariants, canonicalization, and relationship to other fields.
 
+Public ActionObjects use
+``<DataObject-or-operation-target><Actionizer>`` grammar.  The final word is a
+precise agent noun such as ``Validator``, ``Resolver``, ``Evaluator``,
+``Serializer``, ``Auditor``, ``Inspector``, ``Preparer``, ``Recorder``, or
+``Comparator``.  Do not use verb-first forms or vague ``Manager``, ``Handler``,
+or ``Processor`` suffixes.
+
 Private implementation details
 ------------------------------
 

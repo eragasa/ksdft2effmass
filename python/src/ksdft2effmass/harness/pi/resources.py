@@ -22,8 +22,8 @@ from .identity import (
     _require_version,
 )
 from .validation import (
+    JsonRecordSerializer,
     ResourceResolutionResult,
-    SerializeJsonRecord,
     ValidationIssue,
     ValidationResult,
     _issue,
@@ -265,7 +265,7 @@ def _manifest_maps(
     )
 
 
-class ValidateResourceManifest:
+class ResourceManifestValidator:
     """Validate profile binding, overlay direction, compatibility, and closure."""
 
     __slots__ = ()
@@ -306,7 +306,7 @@ class ValidateResourceManifest:
                     generic_manifest.manifest_id,
                 )
             )
-        actual = SerializeJsonRecord().execute(generic_manifest).content_identity
+        actual = JsonRecordSerializer().execute(generic_manifest).content_identity
         if actual != generic_manifest_identity:
             issues.append(
                 _issue(
@@ -345,7 +345,7 @@ class ValidateResourceManifest:
                 )
             if (
                 local_manifest_identity is not None
-                and SerializeJsonRecord().execute(local_manifest).content_identity
+                and JsonRecordSerializer().execute(local_manifest).content_identity
                 != local_manifest_identity
             ):
                 issues.append(
@@ -551,12 +551,12 @@ def _confined_file(root: Path, path: str) -> tuple[Path | None, ValidationIssue 
     return current, None
 
 
-class RefreshResourceManifest:
+class ResourceManifestRefresher:
     """Refresh selected content identities beneath one explicit root.
 
     The stateless action resolves only paths already declared by the supplied
     manifest, reuses the same exact-case, nonsymlink, root-confined regular-file
-    observation as :class:`ResolveResource`, and computes SHA-256 from observed
+    observation as :class:`ResourceResolver`, and computes SHA-256 from observed
     bytes. It returns a new manifest without discovering resources or writing a
     file.
     """
@@ -635,7 +635,9 @@ class RefreshResourceManifest:
             try:
                 digest = hashlib.sha256(path.read_bytes()).hexdigest()
             except OSError as exc:
-                raise HarnessInternalError("RefreshResourceManifest", str(exc)) from exc
+                raise HarnessInternalError(
+                    "ResourceManifestRefresher", str(exc)
+                ) from exc
             identity = ArtifactIdentity(1, "sha256", digest)
             identities[resource_id] = identity
             if identity != reference.content_identity:
@@ -669,7 +671,7 @@ class RefreshResourceManifest:
         )
 
 
-class ResolveResource:
+class ResourceResolver:
     """Resolve and hash one resource beneath explicit roots."""
 
     __slots__ = ()
@@ -690,7 +692,7 @@ class ResolveResource:
             local_root is not None and not isinstance(local_root, Path)
         ):
             raise TypeError("roots must be pathlib.Path")
-        validation = ValidateResourceManifest().execute(
+        validation = ResourceManifestValidator().execute(
             generic_manifest,
             generic_manifest_identity,
             local_manifest,
@@ -773,7 +775,7 @@ class ResolveResource:
         try:
             digest = hashlib.sha256(path.read_bytes()).hexdigest()
         except OSError as exc:
-            raise HarnessInternalError("ResolveResource", str(exc)) from exc
+            raise HarnessInternalError("ResourceResolver", str(exc)) from exc
         if digest != ref.content_identity.digest:
             return ResourceResolutionResult(
                 None,
@@ -792,7 +794,7 @@ class ResolveResource:
         return ResourceResolutionResult(path, ref, _result())
 
 
-class ValidateSkillResources:
+class SkillResourceValidator:
     """Validate skill descriptors against a validated resource closure."""
 
     __slots__ = ()
@@ -806,7 +808,7 @@ class ValidateSkillResources:
         local_manifest_identity: ArtifactIdentity | None,
         profile: ProjectProfile,
     ) -> ValidationResult:
-        base = ValidateResourceManifest().execute(
+        base = ResourceManifestValidator().execute(
             generic_manifest,
             generic_manifest_identity,
             local_manifest,

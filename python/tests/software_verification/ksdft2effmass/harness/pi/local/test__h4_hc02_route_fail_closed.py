@@ -1,13 +1,16 @@
 r"""Software verification of h4 hc02 route fail closed.
 
 Facet and represented meaning
+
 Focused software verification for the authorized H4-HC02 route correction.
 
 Intrinsic and cross-object scope
+
 The primary owner is h4 hc02 route fail closed; public behavior and fixed repository
 resources provide the exact oracle.
 
 VVUQ and scientific exclusions
+
 Passing establishes only the stated software contract. Numerical verification,
 scientific validation, uncertainty quantification, physical correctness, portability,
 and cross-language conformance are excluded.
@@ -23,37 +26,36 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
-    RollBackValidationRoute,
-    RouteConfiguration,
-    ValidationRoute,
-)
-
 from .conftest import repository_root
 
 pytestmark = pytest.mark.software_verification
 
 
 def load_module(path: Path, name: str) -> Any:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-014.
-    Requirement
-    Provide explicit setup mechanics for the h4 hc02 route fail closed evidence without
+    """Evidence ID: Owns no identifier; supports SV-HL-014.
+
+    Requirement: Provide explicit setup mechanics for the h4 hc02 route fail closed
+    evidence without
     owning an independent result.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -65,25 +67,30 @@ def load_module(path: Path, name: str) -> Any:
 
 
 def h3_route_result(tmp_path: Path, route: object) -> Any:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-014.
-    Requirement
-    Provide explicit setup mechanics for the h4 hc02 route fail closed evidence without
+    """Evidence ID: Owns no identifier; supports SV-HL-014.
+
+    Requirement: Provide explicit setup mechanics for the h4 hc02 route fail closed
+    evidence without
     owning an independent result.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -118,25 +125,30 @@ def h3_route_result(tmp_path: Path, route: object) -> Any:
 
 
 def route_configuration(route: str) -> dict[str, object]:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-014.
-    Requirement
-    Provide explicit setup mechanics for the h4 hc02 route fail closed evidence without
+    """Evidence ID: Owns no identifier; supports SV-HL-014.
+
+    Requirement: Provide explicit setup mechanics for the h4 hc02 route fail closed
+    evidence without
     owning an independent result.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -149,24 +161,29 @@ def route_configuration(route: str) -> dict[str, object]:
 def test_artifact__h3_route_gate__accepts_authorized_maintained_routes(
     tmp_path: Path, route: str
 ) -> None:
-    """Evidence ID
-    SV-HL-014
-    Requirement
-    The maintained H3 route permits only the authorized legacy/local choices.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+    """Evidence ID: SV-HL-014
+
+    Requirement: The maintained H3 route permits only the authorized legacy/local
+    choices.
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -205,24 +222,28 @@ def test_artifact__h3_route_gate__accepts_authorized_maintained_routes(
 def test_artifact__h3_route_gate__rejects_invalid_maintained_routes(
     tmp_path: Path, candidate: dict[str, object]
 ) -> None:
-    """Evidence ID
-    SV-HL-015
-    Requirement
-    Malformed or unauthorized maintained routes fail the closed H3 gate.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+    """Evidence ID: SV-HL-015
+
+    Requirement: Malformed or unauthorized maintained routes fail the closed H3 gate.
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -235,25 +256,30 @@ def test_artifact__h3_route_gate__rejects_invalid_maintained_routes(
 
 
 def replay_payload(consumer: Any, side: str) -> dict[str, Any]:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-014.
-    Requirement
-    Provide explicit setup mechanics for the h4 hc02 route fail closed evidence without
+    """Evidence ID: Owns no identifier; supports SV-HL-014.
+
+    Requirement: Provide explicit setup mechanics for the h4 hc02 route fail closed
+    evidence without
     owning an independent result.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -290,25 +316,30 @@ def replay_payload(consumer: Any, side: str) -> dict[str, Any]:
 
 
 def load_consumer() -> Any:
-    """Evidence ID
-    Owns no identifier; supports SV-HL-014.
-    Requirement
-    Provide explicit setup mechanics for the h4 hc02 route fail closed evidence without
+    """Evidence ID: Owns no identifier; supports SV-HL-014.
+
+    Requirement: Provide explicit setup mechanics for the h4 hc02 route fail closed
+    evidence without
     owning an independent result.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -321,24 +352,28 @@ def load_consumer() -> Any:
 def test_artifact__run_route__fails_on_failed_h3_observation(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
-    """Evidence ID
-    SV-HL-016
-    Requirement
-    A successful process cannot mask a failed H3 observation.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+    """Evidence ID: SV-HL-016
+
+    Requirement: A successful process cannot mask a failed H3 observation.
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -366,24 +401,28 @@ def test_artifact__run_route__fails_on_failed_h3_observation(
 def test_artifact__run_route__accepts_exact_all_pass_observations(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path, side: str
 ) -> None:
-    """Evidence ID
-    SV-HL-017
-    Requirement
-    Exact all-PASS payloads preserve local and retained legacy behavior.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+    """Evidence ID: SV-HL-017
+
+    Requirement: Exact all-PASS payloads preserve local and retained legacy behavior.
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -433,24 +472,28 @@ def test_artifact__run_route__accepts_exact_all_pass_observations(
 def test_artifact__run_route__rejects_incomplete_or_malformed_observations(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path, defect: str
 ) -> None:
-    """Evidence ID
-    SV-HL-018
-    Requirement
-    Missing, duplicate, and malformed observations fail closed.
-    Method
-    Construct the named route or replay partition, substitute only the public route
+    """Evidence ID: SV-HL-018
+
+    Requirement: Missing, duplicate, and malformed observations fail closed.
+
+    Method: Construct the named route or replay partition, substitute only the public
+    route
     dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
+
+    Oracle: The closed route schema, exact current-local check inventory, and
+    retained-legacy
     observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
+
+    Acceptance: Status, command exit values, route identity, and issue text match
+    exactly; no
     approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
+
+    Interpretation: Failure identifies route-schema drift, consumer precedence drift,
+    controlled-payload
     error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
+
+    Limitations: This is deterministic software verification only; numerical
+    verification, scientific
     validation, UQ, physical correctness, portability, and cross-language claims are
     excluded.
     """
@@ -472,38 +515,3 @@ def test_artifact__run_route__rejects_incomplete_or_malformed_observations(
         ),
     )
     assert consumer.run_route(tmp_path, "local")["status"] == "FAIL"
-
-
-def test_method__execute__returns_retained_legacy_route() -> None:
-    """Evidence ID
-    SV-HL-019
-    Requirement
-    Rollback from every non-legacy route returns the legacy configuration.
-    Method
-    Construct the named route or replay partition, substitute only the public route
-    dependency, and invoke the maintained H3 gate or route consumer.
-    Oracle
-    The closed route schema, exact current-local check inventory, and retained-legacy
-    observation shape fix the result independently of the consumer.
-    Acceptance
-    Status, command exit values, route identity, and issue text match exactly; no
-    approximate or warning acceptance is used.
-    Interpretation
-    Failure identifies route-schema drift, consumer precedence drift, controlled-payload
-    error, or stale current-resource evidence.
-    Limitations
-    This is deterministic software verification only; numerical verification, scientific
-    validation, UQ, physical correctness, portability, and cross-language claims are
-    excluded.
-    """
-    action = RollBackValidationRoute()
-
-    def exercise_route_case_396_1(route: Any) -> Any:
-        assert action.execute(RouteConfiguration(route)) == RouteConfiguration(
-            ValidationRoute.LEGACY
-        )
-
-    _ = [
-        exercise_route_case_396_1(route)
-        for route in ((ValidationRoute.LOCAL, ValidationRoute.SHADOW))
-    ]

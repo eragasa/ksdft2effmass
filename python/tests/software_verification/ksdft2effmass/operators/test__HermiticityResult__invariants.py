@@ -1,6 +1,7 @@
 r"""Software verification of ``HermiticityResult``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the invariants facet. Facet and contract
 ------------------
@@ -27,6 +28,7 @@ physical Hermiticity, DFT or Wannier validity, scientific validation,
 uncertainty quantification, or Rust conformance.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``HermiticityResult``; collaborators only construct inputs or
 expose public outcomes. Accepted public contracts, literal expected values, Python
@@ -34,6 +36,7 @@ language semantics, and assigned schema or fixture artifacts provide the oracles
 runtime warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -72,24 +75,29 @@ SUT = HermiticityResult
 def test_constructor__residual_wrong_types_are_rejected__is_enforced(
     invalid_residual: object,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-006
-    Requirement
-    Booleans, ``None``, numeric strings, bytes, complex values, and arbitrary objects
+    r"""Evidence ID: SV-HR-006
+
+    Requirement: Booleans, ``None``, numeric strings, bytes, complex values, and
+    arbitrary objects
     are not residual real numbers and are not coerced.
-    Method
-    Call the public constructor directly, using ``Any`` and ``cast`` only at this
+
+    Method: Call the public constructor directly, using ``Any`` and ``cast`` only at
+    this
     deliberate invalid residual boundary.
-    Oracle
-    The approved ResultObject and Sphinx contracts require an admitted real scalar and
+
+    Oracle: The approved ResultObject and Sphinx contracts require an admitted real
+    scalar and
     the residual-specific diagnostic.
-    Acceptance
-    Every case raises exactly ``TypeError`` with residual-specific wording that
+
+    Acceptance: Every case raises exactly ``TypeError`` with residual-specific wording
+    that
     identifies the real-number requirement.
-    Interpretation
-    Passing establishes residual semantic typing and Boolean/string/complex exclusion.
-    Limitations
-    Finiteness and sign have separate evidence. No Analyzer, numerical verification,
+
+    Interpretation: Passing establishes residual semantic typing and
+    Boolean/string/complex exclusion.
+
+    Limitations: Finiteness and sign have separate evidence. No Analyzer, numerical
+    verification,
     scientific validation, UQ, or Rust conformance is tested.
     """
 
@@ -118,24 +126,27 @@ def test_constructor__residual_wrong_types_are_rejected__is_enforced(
 def test_constructor__residual_must_be_finite__is_enforced(
     invalid_residual: float | int,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-007
-    Requirement
-    Residual storage is finite binary64; accepted Python integer conversion overflow
+    r"""Evidence ID: SV-HR-007
+
+    Requirement: Residual storage is finite binary64; accepted Python integer conversion
+    overflow
     maps to ``ValueError`` rather than leaking ``OverflowError``.
-    Method
-    Construct directly under a local RuntimeWarning-as-error boundary with each
+
+    Method: Construct directly under a local RuntimeWarning-as-error boundary with each
     correctly typed invalid value.
-    Oracle
-    The approved finite-scalar contract defines the residual-specific public
+
+    Oracle: The approved finite-scalar contract defines the residual-specific public
     ``ValueError`` diagnostic.
-    Acceptance
-    Every case raises exactly ``ValueError`` with residual-specific finite- number
+
+    Acceptance: Every case raises exactly ``ValueError`` with residual-specific finite-
+    number
     wording and emits no RuntimeWarning.
-    Interpretation
-    Passing establishes finite-number taxonomy including conversion overflow.
-    Limitations
-    This is constructor software verification, not extreme-scale residual numerical
+
+    Interpretation: Passing establishes finite-number taxonomy including conversion
+    overflow.
+
+    Limitations: This is constructor software verification, not extreme-scale residual
+    numerical
     verification, scientific validation, UQ, or Rust conformance.
     """
 
@@ -163,23 +174,27 @@ def test_constructor__residual_must_be_finite__is_enforced(
 def test_constructor__residual_must_be_nonnegative__is_enforced(
     negative_residual: float,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-008
-    Requirement
-    A residual is non-negative; finite negative values cannot be stored.
-    Method
-    Construct directly with two synthetic negative scales and valid other fields.
-    Oracle
-    The approved intrinsic invariant defines the residual-specific non-negativity
+    r"""Evidence ID: SV-HR-008
+
+    Requirement: A residual is non-negative; finite negative values cannot be stored.
+
+    Method: Construct directly with two synthetic negative scales and valid other
+    fields.
+
+    Oracle: The approved intrinsic invariant defines the residual-specific
+    non-negativity
     diagnostic.
-    Acceptance
-    Every case raises exactly ``ValueError`` with residual-specific non-negativity
+
+    Acceptance: Every case raises exactly ``ValueError`` with residual-specific
+    non-negativity
     wording.
-    Interpretation
-    Passing establishes sign enforcement; exact zero admission is owned by ``the owning
+
+    Interpretation: Passing establishes sign enforcement; exact zero admission is owned
+    by ``the owning
     evidence``.
-    Limitations
-    Multiple scales do not constitute numerical verification. Analyzer behavior,
+
+    Limitations: Multiple scales do not constitute numerical verification. Analyzer
+    behavior,
     scientific validation, UQ, and Rust conformance are untested.
     """
 
@@ -212,24 +227,29 @@ def test_constructor__residual_must_be_nonnegative__is_enforced(
 def test_constructor__tolerance_wrong_types_are_rejected__is_enforced(
     invalid_tolerance: object,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-009
-    Requirement
-    Booleans, ``None``, numeric strings, bytes, complex values, and arbitrary objects
+    r"""Evidence ID: SV-HR-009
+
+    Requirement: Booleans, ``None``, numeric strings, bytes, complex values, and
+    arbitrary objects
     are not tolerance real numbers and are not coerced.
-    Method
-    Call the public constructor directly, using ``Any`` and ``cast`` only at this
+
+    Method: Call the public constructor directly, using ``Any`` and ``cast`` only at
+    this
     deliberate invalid tolerance boundary.
-    Oracle
-    The approved ResultObject and Sphinx contracts require an admitted real scalar and
+
+    Oracle: The approved ResultObject and Sphinx contracts require an admitted real
+    scalar and
     the tolerance-specific diagnostic.
-    Acceptance
-    Every case raises exactly ``TypeError`` with tolerance-specific wording that
+
+    Acceptance: Every case raises exactly ``TypeError`` with tolerance-specific wording
+    that
     identifies the real-number requirement.
-    Interpretation
-    Passing establishes the tolerance boundary independently of residual evidence.
-    Limitations
-    Finiteness and sign have separate evidence. No Analyzer, numerical verification,
+
+    Interpretation: Passing establishes the tolerance boundary independently of residual
+    evidence.
+
+    Limitations: Finiteness and sign have separate evidence. No Analyzer, numerical
+    verification,
     scientific validation, UQ, or Rust conformance is tested.
     """
 
@@ -258,24 +278,27 @@ def test_constructor__tolerance_wrong_types_are_rejected__is_enforced(
 def test_constructor__tolerance_must_be_finite__is_enforced(
     invalid_tolerance: float | int,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-010
-    Requirement
-    Tolerance storage is finite binary64; integer conversion overflow maps to
+    r"""Evidence ID: SV-HR-010
+
+    Requirement: Tolerance storage is finite binary64; integer conversion overflow maps
+    to
     ``ValueError`` rather than leaking ``OverflowError``.
-    Method
-    Construct directly under a RuntimeWarning-as-error boundary with each correctly
+
+    Method: Construct directly under a RuntimeWarning-as-error boundary with each
+    correctly
     typed invalid tolerance.
-    Oracle
-    The approved finite-scalar contract defines the tolerance-specific public
+
+    Oracle: The approved finite-scalar contract defines the tolerance-specific public
     ``ValueError`` diagnostic.
-    Acceptance
-    Every case raises exactly ``ValueError`` with tolerance-specific finite- number
+
+    Acceptance: Every case raises exactly ``ValueError`` with tolerance-specific finite-
+    number
     wording and emits no RuntimeWarning.
-    Interpretation
-    Passing establishes tolerance finite-number taxonomy independently.
-    Limitations
-    This does not verify tolerance suitability, Analyzer numerics, scientific
+
+    Interpretation: Passing establishes tolerance finite-number taxonomy independently.
+
+    Limitations: This does not verify tolerance suitability, Analyzer numerics,
+    scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -303,23 +326,28 @@ def test_constructor__tolerance_must_be_finite__is_enforced(
 def test_constructor__tolerance_must_be_nonnegative__is_enforced(
     negative_tolerance: float,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-011
-    Requirement
-    No negative-tolerance convention is supported; values are not converted to absolute
+    r"""Evidence ID: SV-HR-011
+
+    Requirement: No negative-tolerance convention is supported; values are not converted
+    to absolute
     magnitude.
-    Method
-    Construct directly with two finite negative tolerances and valid other fields.
-    Oracle
-    The approved intrinsic invariant defines the tolerance-specific non-negativity
+
+    Method: Construct directly with two finite negative tolerances and valid other
+    fields.
+
+    Oracle: The approved intrinsic invariant defines the tolerance-specific
+    non-negativity
     diagnostic.
-    Acceptance
-    Every case raises exactly ``ValueError`` with tolerance-specific non-negativity
+
+    Acceptance: Every case raises exactly ``ValueError`` with tolerance-specific
+    non-negativity
     wording.
-    Interpretation
-    Passing establishes exact sign enforcement for stored tolerance policy.
-    Limitations
-    This does not assess scientific appropriateness of any non-negative tolerance,
+
+    Interpretation: Passing establishes exact sign enforcement for stored tolerance
+    policy.
+
+    Limitations: This does not assess scientific appropriateness of any non-negative
+    tolerance,
     numerical verification, scientific validation, UQ, or Rust conformance.
     """
 
@@ -349,26 +377,30 @@ def test_constructor__tolerance_must_be_nonnegative__is_enforced(
 def test_constructor__energy_unit_wrong_types_are_rejected__is_enforced(
     invalid_energy_unit: object,
 ) -> None:
-    r"""Evidence ID
-    SV-HR-012
-    Requirement
-    The energy unit must satisfy the approved Python string policy; other values are not
+    r"""Evidence ID: SV-HR-012
+
+    Requirement: The energy unit must satisfy the approved Python string policy; other
+    values are not
     converted or interpreted as unit names.
-    Method
-    Call the public constructor directly, using ``Any`` and ``cast`` only at the
+
+    Method: Call the public constructor directly, using ``Any`` and ``cast`` only at the
     deliberate invalid unit boundary.
-    Oracle
-    The approved ResultObject contract uses ``isinstance(value, str)`` semantics and the
+
+    Oracle: The approved ResultObject contract uses ``isinstance(value, str)`` semantics
+    and the
     field-specific string diagnostic; it does not impose an exact-built-in-string
     boundary or unit registry.
-    Acceptance
-    Every non-string raises exactly ``TypeError`` with field-specific wording that
+
+    Acceptance: Every non-string raises exactly ``TypeError`` with field-specific
+    wording that
     identifies the string requirement.
-    Interpretation
-    Passing establishes field-specific semantic typing without introducing physical-unit
+
+    Interpretation: Passing establishes field-specific semantic typing without
+    introducing physical-unit
     validation.
-    Limitations
-    Python string subclasses remain permitted by existing policy; NumPy string scalars
+
+    Limitations: Python string subclasses remain permitted by existing policy; NumPy
+    string scalars
     are not Python ``str`` instances. No normalization, unit conversion, scientific
     validation, UQ, or Rust conformance is tested.
     """
@@ -386,25 +418,29 @@ def test_constructor__energy_unit_wrong_types_are_rejected__is_enforced(
 
 
 def test_constructor__empty_energy_unit_is_rejected_without__is_enforced() -> None:
-    r"""Evidence ID
-    SV-HR-013
-    Requirement
-    An empty energy-unit string is invalid; this task introduces no trimming,
+    r"""Evidence ID: SV-HR-013
+
+    Requirement: An empty energy-unit string is invalid; this task introduces no
+    trimming,
     normalization, case folding, unit registry, or conversion.
-    Method
-    Construct directly with ``""`` and separately confirm that the existing
+
+    Method: Construct directly with ``""`` and separately confirm that the existing
     nonempty-string policy leaves a whitespace-only string unchanged.
-    Oracle
-    The approved contract requires a nonempty Python string and deliberately specifies
+
+    Oracle: The approved contract requires a nonempty Python string and deliberately
+    specifies
     no syntax or physical-name validation.
-    Acceptance
-    The empty string raises exactly ``ValueError`` with field-specific empty-value
+
+    Acceptance: The empty string raises exactly ``ValueError`` with field-specific
+    empty-value
     wording, while ``" "`` remains accepted and retained exactly.
-    Interpretation
-    Passing establishes the existing lexical boundary without silently broadening unit
+
+    Interpretation: Passing establishes the existing lexical boundary without silently
+    broadening unit
     semantics.
-    Limitations
-    acceptance of a nonempty string does not establish a recognized or physically
+
+    Limitations: acceptance of a nonempty string does not establish a recognized or
+    physically
     suitable unit. No unit conversion, scientific validation, UQ, or Rust conformance is
     established.
     """

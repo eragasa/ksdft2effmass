@@ -3,7 +3,7 @@
   "$id": "https://schemas.pi-harness.org/v1/records/chain-view.schema.json",
   "title": "ChainView",
   "type": "object",
-  "description": "JSON Schema enforces record shapes, nonempty tasks, and whole-array uniqueness. It cannot compare task_id properties across tasks, require active_task_id or explicitly_activated_task_ids to name entries in tasks, or assert identifier ordering; EvaluateChainState must enforce those semantic relations. Schema conformance alone does not establish readiness, activation, or authorization.",
+  "description": "JSON Schema enforces record shapes, nonempty tasks, and whole-array uniqueness. It cannot compare task_id properties across tasks, require active_task_id or explicitly_activated_task_ids to name entries in tasks, or assert identifier ordering; ChainStateEvaluator must enforce those semantic relations. Schema conformance alone does not establish readiness, activation, or authorization.",
   "properties": {
     "schema_version": {
       "type": "integer",

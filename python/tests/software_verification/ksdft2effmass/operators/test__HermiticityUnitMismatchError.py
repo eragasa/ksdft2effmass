@@ -1,6 +1,7 @@
 r"""Software verification of ``HermiticityUnitMismatchError``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the HermiticityUnitMismatchError facet. System and
 operational boundary
@@ -42,6 +43,7 @@ verification, scientific validation, uncertainty quantification, dimensional-
 equivalence evidence, conversion-factor evidence, or Rust conformance.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``HermiticityUnitMismatchError``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -50,6 +52,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -74,21 +77,24 @@ def make_error(
     analyzer_energy_unit: str = "eV",
     record_energy_unit: str = "hartree",
 ) -> HermiticityUnitMismatchError:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Defaults are distinct nonempty strings in ordered Analyzer and record roles.
-    Method
-    Pass the two caller-supplied strings unchanged to the public exception constructor
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Defaults are distinct nonempty strings in ordered Analyzer and record
+    roles.
+
+    Method: Pass the two caller-supplied strings unchanged to the public exception
+    constructor
     without ``Any`` or ``cast``.
-    Oracle
-    The approved structured-error contract admits exact nonempty string disagreement.
-    Acceptance
-    Construction returns ``HermiticityUnitMismatchError`` for the defaults.
-    Interpretation
-    The result is deterministic synthetic in-memory software evidence.
-    Limitations
-    The helper performs no conversion or dimensional analysis and constructs no Analyzer
+
+    Oracle: The approved structured-error contract admits exact nonempty string
+    disagreement.
+
+    Acceptance: Construction returns ``HermiticityUnitMismatchError`` for the defaults.
+
+    Interpretation: The result is deterministic synthetic in-memory software evidence.
+
+    Limitations: The helper performs no conversion or dimensional analysis and
+    constructs no Analyzer
     or ``OperatorRecord``. It establishes no physical unit validity, numerical
     verification, scientific validation, uncertainty quantification, or Rust
     conformance.
@@ -101,23 +107,27 @@ def make_error(
 
 
 def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
-    r"""Evidence ID
-    SV-HUME-001
-    Requirement
-    Two distinct nonempty public strings directly construct the exception, which remains
+    r"""Evidence ID: SV-HUME-001
+
+    Requirement: Two distinct nonempty public strings directly construct the exception,
+    which remains
     a ``ValueError`` and an ``Exception``.
-    Method
-    Construct through the supported public import with ``"eV"`` in the Analyzer role and
+
+    Method: Construct through the supported public import with ``"eV"`` in the Analyzer
+    role and
     ``"hartree"`` in the record role.
-    Oracle
-    The approved public exception contract specifies the documented hierarchy and
+
+    Oracle: The approved public exception contract specifies the documented hierarchy
+    and
     two-unit constructor.
-    Acceptance
-    Construction succeeds and both hierarchy checks are true.
-    Interpretation
-    Passing establishes direct public construction and exception taxonomy.
-    Limitations
-    ``Exception.args``, traceback formatting, source location, hashability, pickling,
+
+    Acceptance: Construction succeeds and both hierarchy checks are true.
+
+    Interpretation: Passing establishes direct public construction and exception
+    taxonomy.
+
+    Limitations: ``Exception.args``, traceback formatting, source location, hashability,
+    pickling,
     private state, numerical verification, scientific validation, uncertainty
     quantification, and Rust conformance are untested.
     """
@@ -129,24 +139,29 @@ def test_constructor__public_construction_and_exception_taxonomy__is_enforced() 
 
 
 def test_field__exact_analyzer_and_record_unit_roles_are_retained__is_exact() -> None:
-    r"""Evidence ID
-    SV-HUME-002
-    Requirement
-    The Analyzer-policy unit and record-metadata unit remain distinguishable and are not
+    r"""Evidence ID: SV-HUME-002
+
+    Requirement: The Analyzer-policy unit and record-metadata unit remain
+    distinguishable and are not
     swapped during exception construction.
-    Method
-    Construct with clearly distinct values and compare each public field by string
+
+    Method: Construct with clearly distinct values and compare each public field by
+    string
     equality, including explicit cross-role inequalities.
-    Oracle
-    The approved structured-error contract assigns one public field to each ordered
+
+    Oracle: The approved structured-error contract assigns one public field to each
+    ordered
     constructor role.
-    Acceptance
-    Each field equals its corresponding input and differs from the opposite role's
+
+    Acceptance: Each field equals its corresponding input and differs from the opposite
+    role's
     input.
-    Interpretation
-    Passing establishes role fidelity by value without requiring string object identity.
-    Limitations
-    The Analyzer tolerance would use ``analyzer_energy_unit`` and the stored
+
+    Interpretation: Passing establishes role fidelity by value without requiring string
+    object identity.
+
+    Limitations: The Analyzer tolerance would use ``analyzer_energy_unit`` and the
+    stored
     matrix/residual would use ``record_energy_unit``; this test constructs neither and
     does not test propagation, conversion, numerical verification, scientific
     validation, UQ, or Rust conformance.
@@ -167,25 +182,30 @@ def test_field__exact_analyzer_and_record_unit_roles_are_retained__is_exact() ->
 
 
 def test_protocol__str__human_readable_unit_mismatch_summary() -> None:
-    r"""Evidence ID
-    SV-HUME-003
-    Requirement
-    The message identifies an energy-unit mismatch, includes both unit values, and
+    r"""Evidence ID: SV-HUME-003
+
+    Requirement: The message identifies an energy-unit mismatch, includes both unit
+    values, and
     distinguishes Analyzer and record roles.
-    Method
-    Construct a valid mismatch and inspect only stable semantic role/value content in
+
+    Method: Construct a valid mismatch and inspect only stable semantic role/value
+    content in
     ``str(error)``.
-    Oracle
-    Approved public documentation promises a role-labeled human-readable mismatch
+
+    Oracle: Approved public documentation promises a role-labeled human-readable
+    mismatch
     summary but not incidental punctuation, quoting, or separators.
-    Acceptance
-    Case-insensitive role phrases and both exact input values occur in the message;
+
+    Acceptance: Case-insensitive role phrases and both exact input values occur in the
+    message;
     structured fields retain the same values.
-    Interpretation
-    Passing establishes a useful diagnostic without requiring message parsing for
+
+    Interpretation: Passing establishes a useful diagnostic without requiring message
+    parsing for
     programmatic state.
-    Limitations
-    Full message equality, capitalization, punctuation, separators, physical unit
+
+    Limitations: Full message equality, capitalization, punctuation, separators,
+    physical unit
     validity, numerical verification, scientific validation, uncertainty quantification,
     and Rust conformance are not established.
     """
@@ -219,24 +239,29 @@ def test_protocol__str__human_readable_unit_mismatch_summary() -> None:
 def test_constructor__invalid_unit_types_are_rejected__is_enforced(
     role: str, invalid_unit: object
 ) -> None:
-    r"""Evidence ID
-    SV-HUME-004
-    Requirement
-    ``None``, each Boolean value, integers, and arbitrary objects are rejected
+    r"""Evidence ID: SV-HUME-004
+
+    Requirement: ``None``, each Boolean value, integers, and arbitrary objects are
+    rejected
     independently in both unit roles, with a diagnostic identifying the invalid role.
-    Method
-    Pass one value per parameter through ``Any``/``cast`` only at the deliberate invalid
+
+    Method: Pass one value per parameter through ``Any``/``cast`` only at the deliberate
+    invalid
     constructor boundary while keeping the opposite role valid.
-    Oracle
-    The approved public taxonomy requires ``TypeError`` and the precise role-specific
+
+    Oracle: The approved public taxonomy requires ``TypeError`` and the precise
+    role-specific
     diagnostic fragment.
-    Acceptance
-    Every independently collected case raises exactly ``TypeError`` naming either
+
+    Acceptance: Every independently collected case raises exactly ``TypeError`` naming
+    either
     ``analyzer energy unit`` or ``record energy unit`` as selected.
-    Interpretation
-    Passing establishes independent role and invalid-family validation without coercion.
-    Limitations
-    Empty and equal strings are correctly typed invariant failures tested separately. No
+
+    Interpretation: Passing establishes independent role and invalid-family validation
+    without coercion.
+
+    Limitations: Empty and equal strings are correctly typed invariant failures tested
+    separately. No
     Analyzer, conversion, numerical verification, scientific validation, uncertainty
     quantification, or Rust conformance is tested.
     """
@@ -263,23 +288,26 @@ def test_constructor__invalid_unit_types_are_rejected__is_enforced(
 def test_constructor__empty_unit_strings_are_rejected__is_enforced(
     empty_role: str,
 ) -> None:
-    r"""Evidence ID
-    SV-HUME-005
-    Requirement
-    Both role-specific unit strings must be nonempty; an empty correctly typed string
+    r"""Evidence ID: SV-HUME-005
+
+    Requirement: Both role-specific unit strings must be nonempty; an empty correctly
+    typed string
     violates the invariant rather than the type boundary.
-    Method
-    Supply ``""`` independently in each role while the opposite role is a valid nonempty
+
+    Method: Supply ``""`` independently in each role while the opposite role is a valid
+    nonempty
     string.
-    Oracle
-    The approved public taxonomy requires ``ValueError`` and a diagnostic naming the
+
+    Oracle: The approved public taxonomy requires ``ValueError`` and a diagnostic naming
+    the
     empty role.
-    Acceptance
-    Each case raises exactly ``ValueError`` with its role-specific fragment.
-    Interpretation
-    Passing establishes independent nonempty-string validation.
-    Limitations
-    Whitespace-only strings are not normalized or rejected by this contract; no
+
+    Acceptance: Each case raises exactly ``ValueError`` with its role-specific fragment.
+
+    Interpretation: Passing establishes independent nonempty-string validation.
+
+    Limitations: Whitespace-only strings are not normalized or rejected by this
+    contract; no
     trimming, registry validation, Analyzer execution, numerical verification,
     scientific validation, UQ, or Rust conformance is tested.
     """
@@ -306,25 +334,29 @@ def test_field__exact_mismatch_semantics_and_equal_unit_rejection__is_exact(
     record_energy_unit: str,
     is_mismatch: bool,
 ) -> None:
-    r"""Evidence ID
-    SV-HUME-006
-    Requirement
-    Equal strings cannot represent a mismatch and raise ``ValueError``; ``"eV"`` versus
+    r"""Evidence ID: SV-HUME-006
+
+    Requirement: Equal strings cannot represent a mismatch and raise ``ValueError``;
+    ``"eV"`` versus
     ``"EV"`` is admitted under exact case-sensitive comparison.
-    Method
-    Select two equal pairs and one case-only differing pair independently of the
+
+    Method: Select two equal pairs and one case-only differing pair independently of the
     constructor, then inspect the documented outcome and retained values.
-    Oracle
-    The approved invariant is exact Python string inequality, with no unit normalization
+
+    Oracle: The approved invariant is exact Python string inequality, with no unit
+    normalization
     or physical-equivalence inference.
-    Acceptance
-    Equal pairs raise exactly ``ValueError`` identifying the need to differ; the
+
+    Acceptance: Equal pairs raise exactly ``ValueError`` identifying the need to differ;
+    the
     case-only pair constructs and retains both exact strings.
-    Interpretation
-    Passing establishes software string semantics only, not that differently cased
+
+    Interpretation: Passing establishes software string semantics only, not that
+    differently cased
     strings denote physically different units.
-    Limitations
-    Approximate equality, conversion, registry lookup, Analyzer execution, numerical
+
+    Limitations: Approximate equality, conversion, registry lookup, Analyzer execution,
+    numerical
     verification, scientific validation, uncertainty quantification, and Rust
     conformance are outside this evidence.
     """
@@ -359,25 +391,30 @@ def test_field__exact_mismatch_semantics_and_equal_unit_rejection__is_exact(
 def test_constructor__input_boundary__free_form_reason_and_extra_argument_are(
     reason_form: str,
 ) -> None:
-    r"""Evidence ID
-    SV-HUME-007
-    Requirement
-    The constructor accepts only the two ordered unit strings; extra reasons raise
+    r"""Evidence ID: SV-HUME-007
+
+    Requirement: The constructor accepts only the two ordered unit strings; extra
+    reasons raise
     ``TypeError`` and valid exceptions expose no public ``reason``.
-    Method
-    Invoke an ``Any``-typed constructor only at each deliberate invalid- signature
+
+    Method: Invoke an ``Any``-typed constructor only at each deliberate invalid-
+    signature
     boundary, then inspect a valid exception.
-    Oracle
-    The approved two-parameter signature and structured role fields define no free-form
+
+    Oracle: The approved two-parameter signature and structured role fields define no
+    free-form
     reason parameter or attribute.
-    Acceptance
-    Both extra-argument forms raise exactly ``TypeError`` and ``reason`` is absent from
+
+    Acceptance: Both extra-argument forms raise exactly ``TypeError`` and ``reason`` is
+    absent from
     a valid instance.
-    Interpretation
-    Passing prevents arbitrary text from competing with the ordered unit fields as
+
+    Interpretation: Passing prevents arbitrary text from competing with the ordered unit
+    fields as
     structured mismatch evidence.
-    Limitations
-    Signature-generated ``TypeError`` wording, Analyzer propagation, numerical
+
+    Limitations: Signature-generated ``TypeError`` wording, Analyzer propagation,
+    numerical
     verification, scientific validation, uncertainty quantification, and Rust
     conformance are not tested.
     """
@@ -396,23 +433,25 @@ def test_constructor__input_boundary__free_form_reason_and_extra_argument_are(
 
 
 def test_method__serialize__exception_has_no_serialization_api() -> None:
-    r"""Evidence ID
-    SV-HUME-008
-    Requirement
-    The in-memory structured exception exposes none of the six unapproved JSON,
+    r"""Evidence ID: SV-HUME-008
+
+    Requirement: The in-memory structured exception exposes none of the six unapproved
+    JSON,
     dictionary, serializer, or deserializer method names.
-    Method
-    Inspect both a valid instance and the public class for each excluded method.
-    Oracle
-    ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
+
+    Method: Inspect both a valid instance and the public class for each excluded method.
+
+    Oracle: ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
     unit-mismatch exception wire format is approved.
-    Acceptance
-    Every excluded method name is absent from both instance and class.
-    Interpretation
-    Passing establishes serialization exclusion while retaining the ordered unit strings
+
+    Acceptance: Every excluded method name is absent from both instance and class.
+
+    Interpretation: Passing establishes serialization exclusion while retaining the
+    ordered unit strings
     as in-memory state.
-    Limitations
-    Pickling and future schemas are unspecified. No Rust serialization or conformance,
+
+    Limitations: Pickling and future schemas are unspecified. No Rust serialization or
+    conformance,
     Analyzer execution, numerical verification, scientific validation, or uncertainty
     quantification is established.
     """

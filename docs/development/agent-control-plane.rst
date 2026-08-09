@@ -220,7 +220,7 @@ pairs prohibit cutover. Only human-acceptance closeout may change exactly that
 route value to ``ValidationRoute.LOCAL``, after every pair is eligible and all
 gates and reviews pass; no other file or ambient default selects authority.
 
-``RollBackValidationRoute`` is the pure local action that changes an explicit
+``LegacyRouteConfigurationPreparer`` is the pure local action that changes an explicit
 configuration back to ``ValidationRoute.LEGACY``. Operational rollback changes
 the single route-owner file to legacy and reruns the identical validation
 commands. The action does not restore, delete, or otherwise mutate filesystem

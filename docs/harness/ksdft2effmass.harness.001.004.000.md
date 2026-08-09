@@ -26,7 +26,7 @@ semantic test reviewer.
 
 ## Local composition
 
-`ValidateLocalRepository` invokes applicable generic validators over an explicit
+`LocalRepositoryValidator` invokes applicable generic validators over an explicit
 local context and explicitly adapted records. It preserves generic severity and
 returns ordered named results. Local replay scripts run selected maintained
 validators and require both successful execution and the expected structured

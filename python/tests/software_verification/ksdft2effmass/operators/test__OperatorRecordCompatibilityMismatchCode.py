@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecordCompatibilityMismatchCode``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the OperatorRecordCompatibilityMismatchCode facet.
 System under test
@@ -68,6 +69,7 @@ Uncertainty quantification has not been performed. The enum contract contains no
 uncertainty model or propagation procedure.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordCompatibilityMismatchCode``; collaborators only
 construct inputs or expose public outcomes. Accepted public contracts, literal
@@ -76,6 +78,7 @@ provide the oracles. No runtime warning is accepted unless a test explicitly sta
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -178,23 +181,26 @@ EXPECTED_CONTRACT: tuple[ExpectedMismatchCodeContract, ...] = (
 
 
 def test_field__exact_public_names_values_and_canonical_ordering__is_exact() -> None:
-    r"""Evidence ID
-    SV-OCMC-001
-    Requirement
-    Enum iteration must equal the approved ordered name/value sequence without extra,
+    r"""Evidence ID: SV-OCMC-001
+
+    Requirement: Enum iteration must equal the approved ordered name/value sequence
+    without extra,
     missing, or reordered members.
-    Method
-    Compare public iteration pairs with the independent literal contract.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Method: Compare public iteration pairs with the independent literal contract.
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    The two tuples are exactly equal.
-    Interpretation
-    Passing establishes the Python enum's exact iterable public rule set.
-    Limitations
-    This does not establish rule reachability or analyzer behavior. Order is public
+
+    Acceptance: The two tuples are exactly equal.
+
+    Interpretation: Passing establishes the Python enum's exact iterable public rule
+    set.
+
+    Limitations: This does not establish rule reachability or analyzer behavior. Order
+    is public
     because compatibility results and analyzers use
     ``tuple(OperatorRecordCompatibilityMismatchCode)`` as canonical order.
     """
@@ -226,25 +232,28 @@ def test_field__exact_public_names_values_and_canonical_ordering__is_exact() -> 
 def test_protocol__str__python_strenum_and_machine_string_behavior(
     expected: ExpectedMismatchCodeContract,
 ) -> None:
-    r"""Evidence ID
-    SV-OCMC-002
-    Requirement
-    The enum must subclass ``enum.StrEnum`` and every value must be a nonempty ASCII
+    r"""Evidence ID: SV-OCMC-002
+
+    Requirement: The enum must subclass ``enum.StrEnum`` and every value must be a
+    nonempty ASCII
     string satisfying ``^[a-z][a-z0-9_]*$``.
-    Method
-    Resolve each approved name and inspect inheritance, string compatibility, exact
+
+    Method: Resolve each approved name and inspect inheritance, string compatibility,
+    exact
     value type, ``str()`` behavior, ASCII encoding, and ``re.fullmatch``.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Every property holds for every expected member.
-    Interpretation
-    Passing verifies the Python representation needed for deterministic cross-language
+
+    Acceptance: Every property holds for every expected member.
+
+    Interpretation: Passing verifies the Python representation needed for deterministic
+    cross-language
     mapping.
-    Limitations
-    It does not prove that a Rust implementation exists or is conformant.
+
+    Limitations: It does not prove that a Rust implementation exists or is conformant.
     """
 
     code = OperatorRecordCompatibilityMismatchCode[expected.name]
@@ -277,24 +286,26 @@ def test_protocol__str__python_strenum_and_machine_string_behavior(
 def test_method__getitem__name_and_value_lookup_round_trips(
     expected: ExpectedMismatchCodeContract,
 ) -> None:
-    r"""Evidence ID
-    SV-OCMC-003
-    Requirement
-    Public construction by stable value and subscription by public name must return the
+    r"""Evidence ID: SV-OCMC-003
+
+    Requirement: Public construction by stable value and subscription by public name
+    must return the
     same canonical enum singleton.
-    Method
-    Resolve the expected member by name, then perform both documented public lookup
+
+    Method: Resolve the expected member by name, then perform both documented public
+    lookup
     forms.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Both lookup results are identical to the resolved member.
-    Interpretation
-    Passing establishes deterministic value-based and name-based lookup.
-    Limitations
-    No private enum internals or compatibility analysis are exercised.
+
+    Acceptance: Both lookup results are identical to the resolved member.
+
+    Interpretation: Passing establishes deterministic value-based and name-based lookup.
+
+    Limitations: No private enum internals or compatibility analysis are exercised.
     """
 
     code = OperatorRecordCompatibilityMismatchCode[expected.name]
@@ -304,24 +315,28 @@ def test_method__getitem__name_and_value_lookup_round_trips(
 
 
 def test_field__unique_values_and_absence_of_enum_aliases__is_exact() -> None:
-    r"""Evidence ID
-    SV-OCMC-004
-    Requirement
-    The complete documented ``Enum.__members__`` mapping must contain only the expected
+    r"""Evidence ID: SV-OCMC-004
+
+    Requirement: The complete documented ``Enum.__members__`` mapping must contain only
+    the expected
     ordered public names, with no aliases, and values are unique.
-    Method
-    Compare member-map and iteration counts, compare ordered member-map names with the
+
+    Method: Compare member-map and iteration counts, compare ordered member-map names
+    with the
     independent contract, and compare value count with set size.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Counts match, names match exactly, and every stable value is unique.
-    Interpretation
-    Passing closes the alias gap left by normal enum iteration, which omits aliases.
-    Limitations
-    ``Enum.__members__`` is the documented public Enum API; no project-private
+
+    Acceptance: Counts match, names match exactly, and every stable value is unique.
+
+    Interpretation: Passing closes the alias gap left by normal enum iteration, which
+    omits aliases.
+
+    Limitations: ``Enum.__members__`` is the documented public Enum API; no
+    project-private
     implementation state or rule reachability is tested.
     """
 
@@ -355,25 +370,28 @@ def test_field__unique_values_and_absence_of_enum_aliases__is_exact() -> None:
 def test_field__canonical_public_descriptions__is_exact(
     expected: ExpectedMismatchCodeContract,
 ) -> None:
-    r"""Evidence ID
-    SV-OCMC-005
-    Requirement
-    Every member exposes its approved exact human-readable description as a
+    r"""Evidence ID: SV-OCMC-005
+
+    Requirement: Every member exposes its approved exact human-readable description as a
     deterministic, nonempty, whitespace-trimmed built-in string.
-    Method
-    Compare two public property reads with the independent description row and inspect
+
+    Method: Compare two public property reads with the independent description row and
+    inspect
     exact type and boundary whitespace.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Both reads equal the approved text and all string invariants hold.
-    Interpretation
-    Passing establishes synchronized human-facing compatibility findings; the enum value
+
+    Acceptance: Both reads equal the approved text and all string invariants hold.
+
+    Interpretation: Passing establishes synchronized human-facing compatibility
+    findings; the enum value
     remains the stable machine-readable code.
-    Limitations
-    Descriptions are not replacements for values in serialization or cross-language
+
+    Limitations: Descriptions are not replacements for values in serialization or
+    cross-language
     logic and do not prove analyzer reachability.
     """
 
@@ -389,24 +407,28 @@ def test_field__canonical_public_descriptions__is_exact(
 
 
 def test_method__getitem__invalid_name_and_value_lookup_failures() -> None:
-    r"""Evidence ID
-    SV-OCMC-006
-    Requirement
-    An unknown stable value raises ``ValueError`` and an unknown public name raises
+    r"""Evidence ID: SV-OCMC-006
+
+    Requirement: An unknown stable value raises ``ValueError`` and an unknown public
+    name raises
     ``KeyError`` through standard enum lookup APIs.
-    Method
-    Perform one invalid value construction and one invalid name subscription.
-    Oracle
-    The accepted public contract, fixed literal expectations, public artifacts, and
+
+    Method: Perform one invalid value construction and one invalid name subscription.
+
+    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
+    and
     Python language semantics determine the result independently of production private
     helpers.
-    Acceptance
-    Each operation raises exactly its intended exception category; no broad exception
+
+    Acceptance: Each operation raises exactly its intended exception category; no broad
+    exception
     tuple or complete message match is used.
-    Interpretation
-    Passing establishes predictable lookup failure categories for callers.
-    Limitations
-    Exception-message text and analyzer diagnostics are outside this evidence.
+
+    Interpretation: Passing establishes predictable lookup failure categories for
+    callers.
+
+    Limitations: Exception-message text and analyzer diagnostics are outside this
+    evidence.
     """
 
     with pytest.raises(ValueError):

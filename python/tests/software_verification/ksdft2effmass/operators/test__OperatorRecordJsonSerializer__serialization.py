@@ -1,9 +1,11 @@
 r"""Software verification of ``OperatorRecordJsonSerializer``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the serialization facet. Object: serializer
 ``serialize`` behavior. Evidence class: software verification.
+
 Requirement: deterministic sorted compact JSON with nine exact top-level fields,
 all eight record fields, and row-major ``[real, imaginary]`` complex entries.
 Strategy: serialize an independently constructed synthetic record and compare with
@@ -13,6 +15,7 @@ uncertainty quantification, or Rust conformance; failure requires contract/sourc
 evidence investigation.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecordJsonSerializer``; collaborators only construct
 inputs or expose public outcomes. Accepted public contracts, literal expected
@@ -21,6 +24,7 @@ the oracles. No runtime warning is accepted unless a test explicitly states
 otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -43,29 +47,34 @@ SUT = OperatorRecordJsonSerializer
 
 
 def test_method__serialize__serialization_is_sorted_compact_and_deterministic() -> None:
-    r"""Evidence ID
-    SV-ORJS-004
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-004
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     serialize: serialization is sorted compact and deterministic.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (serialize: serialization is sorted compact and deterministic); warnings and
     coercive fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -81,29 +90,34 @@ def test_method__serialize__serialization_is_sorted_compact_and_deterministic() 
 def test_method__serialize__serialization_emits_exact_nested_fields_and_values() -> (
     None
 ):
-    r"""Evidence ID
-    SV-ORJS-005
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-005
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     serialize: serialization emits exact nested fields and values.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (serialize: serialization emits exact nested fields and values); warnings and
     coercive fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """
@@ -145,29 +159,34 @@ def test_method__serialize__serialization_emits_exact_nested_fields_and_values()
 
 
 def test_field__complex_matrix_encoding_is_row_major_pairs__is_exact() -> None:
-    r"""Evidence ID
-    SV-ORJS-006
-    Requirement
-    OperatorRecordJsonSerializer enforces this version-1 JSON boundary partition:
+    r"""Evidence ID: SV-ORJS-006
+
+    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+    partition:
     complex matrix encoding is row major pairs: is exact.
-    Method
-    Invoke serialize() or deserialize() on the explicit schema-version-1 partition
+
+    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+    partition
     (complex matrix encoding is row major pairs: is exact); warnings and coercive
     fallback behavior are not accepted.
-    Oracle
-    The public version-1 schema, fixed wire-field vocabulary, literal JSON grammar, and
+
+    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+    grammar, and
     DataObject constructor invariants determine the expected text, value, or exception
     independently of serializer private methods.
-    Acceptance
-    All literal values, arrays, field names, ordering relations, object identities,
+
+    Acceptance: All literal values, arrays, field names, ordering relations, object
+    identities,
     absences, and deterministic text asserted by the case match exactly; no approximate
     fallback is used.
-    Interpretation
-    A pass supports only this named public-contract partition; failure identifies
+
+    Interpretation: A pass supports only this named public-contract partition; failure
+    identifies
     implementation drift, an incorrect controlled input, an oracle defect, or
     accepted-contract inconsistency.
-    Limitations
-    The synthetic software cases do not establish numerical verification, physical
+
+    Limitations: The synthetic software cases do not establish numerical verification,
+    physical
     correctness, scientific validation, UQ, portability, exhaustive inputs, or
     cross-language agreement.
     """

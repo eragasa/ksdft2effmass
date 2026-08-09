@@ -200,7 +200,7 @@ class CheckpointDecisionResolutionResult:
             raise ValueError("changed result must be successful")
 
 
-class ResolveCheckpointDecision:
+class CheckpointDecisionResolver:
     """Transform one generic checkpoint after intent is already interpreted.
 
     The fieldless action consumes only explicit request state. It performs no
@@ -347,7 +347,7 @@ class ResolveCheckpointDecision:
         return CheckpointDecisionResolutionResult(resolved, True, validation)
 
 
-class ValidateCheckpointSet:
+class CheckpointSetValidator:
     """Validate checkpoint identities and lifecycle state without resolving them."""
 
     __slots__ = ()

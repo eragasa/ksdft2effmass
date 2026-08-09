@@ -1,6 +1,7 @@
 r"""Software verification of ``StateSpace``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the value semantics facet. This module owns frozen and
 slotted stored state plus exact structural equality.
@@ -21,6 +22,7 @@ uncertainty quantification, or Rust conformance. Hash behavior is intentionally
 unspecified and untested.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``StateSpace``; collaborators only construct inputs or expose
 public outcomes. Accepted public contracts, literal expected values, Python language
@@ -28,6 +30,7 @@ semantics, and assigned schema or fixture artifacts provide the oracles. No runt
 warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -53,22 +56,24 @@ def make_state_space(
     kind: str = "finite synthetic",
     dimension: int = 2,
 ) -> StateSpace:
-    r"""Evidence ID
-    Owns no identifier; supports evidence in this module.
-    Requirement
-    Value-semantics fixtures use typed valid fields passed unchanged to the public
+    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+    Requirement: Value-semantics fixtures use typed valid fields passed unchanged to the
+    public
     constructor.
-    Method
-    Construct independent ``StateSpace`` objects from explicit keyword arguments.
-    Oracle
-    The approved DataObject contract defines the three stored fields and
+
+    Method: Construct independent ``StateSpace`` objects from explicit keyword
+    arguments.
+
+    Oracle: The approved DataObject contract defines the three stored fields and
     constructor-owned canonicalization.
-    Acceptance
-    A valid public synthetic ``StateSpace`` is returned.
-    Interpretation
-    The helper supplies independently constructible metadata values.
-    Limitations
-    It constructs no basis, allocates no vector or matrix, and establishes no physical
+
+    Acceptance: A valid public synthetic ``StateSpace`` is returned.
+
+    Interpretation: The helper supplies independently constructible metadata values.
+
+    Limitations: It constructs no basis, allocates no vector or matrix, and establishes
+    no physical
     validity, scientific validation, uncertainty quantification, or Rust conformance.
     """
 
@@ -87,23 +92,27 @@ def test_field__stored_state_is_frozen_and_slotted__is_exact(
     field_name: str,
     replacement: object,
 ) -> None:
-    r"""Evidence ID
-    SV-SS-012
-    Requirement
-    Dataclass state is exactly ``identifier``, ``kind``, and ``dimension``; no instance
+    r"""Evidence ID: SV-SS-012
+
+    Requirement: Dataclass state is exactly ``identifier``, ``kind``, and ``dimension``;
+    no instance
     dictionary exists and ordinary assignment is forbidden.
-    Method
-    Inspect standard dataclass fields, inspect the instance ``__dict__`` boundary, and
+
+    Method: Inspect standard dataclass fields, inspect the instance ``__dict__``
+    boundary, and
     attempt ordinary ``setattr`` for each declared field.
-    Oracle
-    The approved frozen, slotted three-field DataObject contract defines stored state.
-    Acceptance
-    Field names match exactly, ``__dict__`` is absent, and every assignment raises
+
+    Oracle: The approved frozen, slotted three-field DataObject contract defines stored
+    state.
+
+    Acceptance: Field names match exactly, ``__dict__`` is absent, and every assignment
+    raises
     exactly ``FrozenInstanceError``.
-    Interpretation
-    Passing establishes API-level immutable slotted metadata state.
-    Limitations
-    No invariant bypass, ``object.__setattr__``, hash behavior, cross-object behavior,
+
+    Interpretation: Passing establishes API-level immutable slotted metadata state.
+
+    Limitations: No invariant bypass, ``object.__setattr__``, hash behavior,
+    cross-object behavior,
     scientific validation, UQ, or Rust conformance is tested.
     """
 
@@ -117,24 +126,28 @@ def test_field__stored_state_is_frozen_and_slotted__is_exact(
 
 
 def test_method__eq__exact_structural_equality_uses_all_stored_fields() -> None:
-    r"""Evidence ID
-    SV-SS-013
-    Requirement
-    Independently constructed objects with identical canonical metadata are equal;
+    r"""Evidence ID: SV-SS-013
+
+    Requirement: Independently constructed objects with identical canonical metadata are
+    equal;
     changing identifier, kind, or dimension independently makes them unequal.
-    Method
-    Construct a baseline, an identical value, and three single-field variants, then
+
+    Method: Construct a baseline, an identical value, and three single-field variants,
+    then
     compare without approximation.
-    Oracle
-    The approved frozen dataclass contract defines exact structural equality over every
+
+    Oracle: The approved frozen dataclass contract defines exact structural equality
+    over every
     stored field.
-    Acceptance
-    The identical value compares equal and each variant compares unequal.
-    Interpretation
-    Passing establishes exact metadata value semantics, not identity or physical
+
+    Acceptance: The identical value compares equal and each variant compares unequal.
+
+    Interpretation: Passing establishes exact metadata value semantics, not identity or
+    physical
     equivalence.
-    Limitations
-    Approximate or physical equivalence, basis and matrix compatibility, hash behavior,
+
+    Limitations: Approximate or physical equivalence, basis and matrix compatibility,
+    hash behavior,
     scientific validation, UQ, and Rust conformance are unspecified or untested.
     """
 

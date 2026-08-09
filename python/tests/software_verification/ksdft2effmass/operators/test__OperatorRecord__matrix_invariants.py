@@ -1,6 +1,7 @@
 r"""Software verification of ``OperatorRecord``.
 
 Facet and represented meaning
+
 -----------------------------
 This class-owned module owns the matrix invariants facet. Represented contract
 --------------------
@@ -26,6 +27,7 @@ verification is not applicable. Scientific validation, uncertainty
 quantification, and Rust conformance have not been performed.
 
 Intrinsic and cross-object scope
+
 --------------------------------
 The primary owner is ``OperatorRecord``; collaborators only construct inputs or
 expose public outcomes. Accepted public contracts, literal expected values, Python
@@ -33,6 +35,7 @@ language semantics, and assigned schema or fixture artifacts provide the oracles
 runtime warning is accepted unless a test explicitly states otherwise.
 
 VVUQ and scientific exclusions
+
 ------------------------------
 Passing establishes only the documented software contract and exact or explicitly
 bounded acceptance rules. Failure may identify implementation, fixture, oracle,
@@ -68,22 +71,24 @@ SUT = OperatorRecord
 def test_constructor__invalid_matrix_rank_is_rejected__is_enforced(
     matrix: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-008
-    Requirement
-    A matrix representation is exactly two-dimensional.
-    Method
-    Pass approved numerical containers with invalid rank at the deliberate invalid
+    r"""Evidence ID: SV-OR-008
+
+    Requirement: A matrix representation is exactly two-dimensional.
+
+    Method: Pass approved numerical containers with invalid rank at the deliberate
+    invalid
     public boundary using ``Any`` only there.
-    Oracle
-    The public rank invariant fixes ``ValueError`` and the two-dimensional semantic
+
+    Oracle: The public rank invariant fixes ``ValueError`` and the two-dimensional
+    semantic
     diagnostic.
-    Acceptance
-    Every case raises ``ValueError`` identifying two-dimensional form.
-    Interpretation
-    Passing establishes stable rank rejection before matrix analysis.
-    Limitations
-    It does not test squareness, physical dimensions, scientific validation, UQ, or Rust
+
+    Acceptance: Every case raises ``ValueError`` identifying two-dimensional form.
+
+    Interpretation: Passing establishes stable rank rejection before matrix analysis.
+
+    Limitations: It does not test squareness, physical dimensions, scientific
+    validation, UQ, or Rust
     conformance.
     """
 
@@ -101,20 +106,21 @@ def test_constructor__invalid_matrix_rank_is_rejected__is_enforced(
 def test_constructor__nonsquare_two_dimensional_matrices_are__is_enforced(
     matrix: list[list[int]],
 ) -> None:
-    r"""Evidence ID
-    SV-OR-009
-    Requirement
-    Represented operator matrices are square.
-    Method
-    Construct from regular nested lists with unequal axis lengths.
-    Oracle
-    Literal row/column counts independently determine nonsquareness.
-    Acceptance
-    Each case raises ``ValueError`` identifying the square invariant.
-    Interpretation
-    Passing establishes shape rejection independently of metadata dimensions.
-    Limitations
-    No norm, Hermiticity, scientific validation, UQ, or Rust conformance is established.
+    r"""Evidence ID: SV-OR-009
+
+    Requirement: Represented operator matrices are square.
+
+    Method: Construct from regular nested lists with unequal axis lengths.
+
+    Oracle: Literal row/column counts independently determine nonsquareness.
+
+    Acceptance: Each case raises ``ValueError`` identifying the square invariant.
+
+    Interpretation: Passing establishes shape rejection independently of metadata
+    dimensions.
+
+    Limitations: No norm, Hermiticity, scientific validation, UQ, or Rust conformance is
+    established.
     """
 
     with pytest.raises(ValueError, match="square"):
@@ -131,21 +137,23 @@ def test_constructor__nonsquare_two_dimensional_matrices_are__is_enforced(
 def test_constructor__input__ragged_nested_sequences_have_stable_public(
     matrix: list[list[int]],
 ) -> None:
-    r"""Evidence ID
-    SV-OR-010
-    Requirement
-    Nested rows form a rectangular two-dimensional array before conversion.
-    Method
-    Pass ragged lists directly without NumPy preprocessing.
-    Oracle
-    Literal row lengths independently establish raggedness.
-    Acceptance
-    ``ValueError`` identifies non-ragged rectangular form; backend coercion wording is
+    r"""Evidence ID: SV-OR-010
+
+    Requirement: Nested rows form a rectangular two-dimensional array before conversion.
+
+    Method: Pass ragged lists directly without NumPy preprocessing.
+
+    Oracle: Literal row lengths independently establish raggedness.
+
+    Acceptance: ``ValueError`` identifies non-ragged rectangular form; backend coercion
+    wording is
     not exposed.
-    Interpretation
-    Passing establishes deterministic public taxonomy for malformed shape.
-    Limitations
-    It does not duplicate serializer malformed-payload evidence, scientific validation,
+
+    Interpretation: Passing establishes deterministic public taxonomy for malformed
+    shape.
+
+    Limitations: It does not duplicate serializer malformed-payload evidence, scientific
+    validation,
     UQ, or Rust conformance.
     """
 
@@ -169,23 +177,28 @@ def test_constructor__input__ragged_nested_sequences_have_stable_public(
 def test_constructor__invalid_matrix_scalar_wrong_types_are__is_enforced(
     invalid_entry: object,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-011
-    Requirement
-    Entries are approved real/complex numeric scalars; Boolean, textual, null, and
+    r"""Evidence ID: SV-OR-011
+
+    Requirement: Entries are approved real/complex numeric scalars; Boolean, textual,
+    null, and
     arbitrary values are not numbers for this contract.
-    Method
-    Place each invalid value in one entry of an otherwise valid nested list and use
+
+    Method: Place each invalid value in one entry of an otherwise valid nested list and
+    use
     ``Any`` only at the invalid constructor boundary.
-    Oracle
-    The approved scalar taxonomy requires ``TypeError`` and numeric-scalar wording.
-    Acceptance
-    Every case raises ``TypeError`` identifying matrix entries and numeric scalar
+
+    Oracle: The approved scalar taxonomy requires ``TypeError`` and numeric-scalar
+    wording.
+
+    Acceptance: Every case raises ``TypeError`` identifying matrix entries and numeric
+    scalar
     semantics.
-    Interpretation
-    Passing establishes rejection before NumPy can silently coerce values.
-    Limitations
-    Finiteness is separate; no scientific validation, UQ, or Rust conformance is
+
+    Interpretation: Passing establishes rejection before NumPy can silently coerce
+    values.
+
+    Limitations: Finiteness is separate; no scientific validation, UQ, or Rust
+    conformance is
     established.
     """
 
@@ -210,21 +223,21 @@ def test_constructor__invalid_matrix_scalar_wrong_types_are__is_enforced(
 def test_constructor__nonfinite_real_components_are_rejected__is_enforced(
     nonfinite_real: float | complex,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-012
-    Requirement
-    Every stored real component is finite.
-    Method
-    Place each semantically numerical value in a valid 2x2 matrix.
-    Oracle
-    IEEE finiteness of the explicitly selected real component is independent of
+    r"""Evidence ID: SV-OR-012
+
+    Requirement: Every stored real component is finite.
+
+    Method: Place each semantically numerical value in a valid 2x2 matrix.
+
+    Oracle: IEEE finiteness of the explicitly selected real component is independent of
     production conversion.
-    Acceptance
-    Construction raises ``ValueError`` with finite-component semantics.
-    Interpretation
-    Passing establishes finite real-component storage policy.
-    Limitations
-    It computes no norm or physical metric and establishes no scientific validation, UQ,
+
+    Acceptance: Construction raises ``ValueError`` with finite-component semantics.
+
+    Interpretation: Passing establishes finite real-component storage policy.
+
+    Limitations: It computes no norm or physical metric and establishes no scientific
+    validation, UQ,
     or Rust conformance.
     """
 
@@ -243,21 +256,23 @@ def test_constructor__nonfinite_real_components_are_rejected__is_enforced(
 def test_constructor__nonfinite_imaginary_components_are_rejected__is_enforced(
     nonfinite_imaginary: complex,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-013
-    Requirement
-    Every stored imaginary component is finite even when its real component is finite.
-    Method
-    Place each explicit complex scalar in a valid 2x2 matrix.
-    Oracle
-    IEEE finiteness of the independently selected imaginary component is the approved
+    r"""Evidence ID: SV-OR-013
+
+    Requirement: Every stored imaginary component is finite even when its real component
+    is finite.
+
+    Method: Place each explicit complex scalar in a valid 2x2 matrix.
+
+    Oracle: IEEE finiteness of the independently selected imaginary component is the
+    approved
     storage oracle.
-    Acceptance
-    Construction raises ``ValueError`` with finite-component semantics.
-    Interpretation
-    Passing establishes finite imaginary-component storage policy.
-    Limitations
-    It computes no norm or physical metric and establishes no scientific validation, UQ,
+
+    Acceptance: Construction raises ``ValueError`` with finite-component semantics.
+
+    Interpretation: Passing establishes finite imaginary-component storage policy.
+
+    Limitations: It computes no norm or physical metric and establishes no scientific
+    validation, UQ,
     or Rust conformance.
     """
 
@@ -275,24 +290,28 @@ def test_constructor__nonfinite_imaginary_components_are_rejected__is_enforced(
 def test_constructor__complex128_conversion_overflow__raises_value_error(
     huge_integer: int,
 ) -> None:
-    r"""Evidence ID
-    SV-OR-014
-    Requirement
-    Huge Python integers map conversion overflow to finite-number ``ValueError``;
+    r"""Evidence ID: SV-OR-014
+
+    Requirement: Huge Python integers map conversion overflow to finite-number
+    ``ValueError``;
     largest finite binary64 entries remain admissible.
-    Method
-    Construct with huge signed integers, then with signed maximum finite floats while
+
+    Method: Construct with huge signed integers, then with signed maximum finite floats
+    while
     promoting RuntimeWarning to an error.
-    Oracle
-    Python arbitrary-precision magnitude and ``np.finfo(float64).max`` define overflow
+
+    Oracle: Python arbitrary-precision magnitude and ``np.finfo(float64).max`` define
+    overflow
     and representable boundaries independently.
-    Acceptance
-    Huge integers raise ``ValueError`` without leaked ``OverflowError``; finite extremes
+
+    Acceptance: Huge integers raise ``ValueError`` without leaked ``OverflowError``;
+    finite extremes
     are stored exactly without RuntimeWarning.
-    Interpretation
-    Passing establishes storage-range policy without a norm calculation.
-    Limitations
-    It does not promise later algorithms cannot overflow or establish scientific
+
+    Interpretation: Passing establishes storage-range policy without a norm calculation.
+
+    Limitations: It does not promise later algorithms cannot overflow or establish
+    scientific
     validation, UQ, or Rust conformance.
     """
     with pytest.raises(ValueError, match="finite complex128"):
@@ -300,20 +319,21 @@ def test_constructor__complex128_conversion_overflow__raises_value_error(
 
 
 def test_constructor__finite_binary64_extremes__are_admitted_without_warning() -> None:
-    r"""Evidence ID
-    SV-OR-044
-    Requirement
-    Signed maximum finite binary64 matrix entries remain representable.
-    Method
-    Construct a diagonal matrix under RuntimeWarning-as-error.
-    Oracle
-    ``np.finfo(np.float64).max`` is the finite binary64 boundary.
-    Acceptance
-    Construction emits no RuntimeWarning and stores both signs exactly.
-    Interpretation
-    A pass confirms finite-boundary admission; failure indicates conversion drift.
-    Limitations
-    Later algorithm overflow, physical meaning, validation, UQ, and Rust are excluded.
+    r"""Evidence ID: SV-OR-044
+
+    Requirement: Signed maximum finite binary64 matrix entries remain representable.
+
+    Method: Construct a diagonal matrix under RuntimeWarning-as-error.
+
+    Oracle: ``np.finfo(np.float64).max`` is the finite binary64 boundary.
+
+    Acceptance: Construction emits no RuntimeWarning and stores both signs exactly.
+
+    Interpretation: A pass confirms finite-boundary admission; failure indicates
+    conversion drift.
+
+    Limitations: Later algorithm overflow, physical meaning, validation, UQ, and Rust
+    are excluded.
     """
     maximum = np.finfo(np.float64).max
     with warnings.catch_warnings():
@@ -324,21 +344,23 @@ def test_constructor__finite_binary64_extremes__are_admitted_without_warning() -
 
 
 def test_constructor__matrix_dimension_must_match_state_space__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-015
-    Requirement
-    Matrix axis dimension equals ``state_space.dimension``.
-    Method
-    Supply a 3x3 matrix, dimension-two StateSpace, and length-three Basis so basis
+    r"""Evidence ID: SV-OR-015
+
+    Requirement: Matrix axis dimension equals ``state_space.dimension``.
+
+    Method: Supply a 3x3 matrix, dimension-two StateSpace, and length-three Basis so
+    basis
     length does not cause the selected first failure.
-    Oracle
-    Literal matrix and dependency dimensions establish disagreement.
-    Acceptance
-    Field-specific ``ValueError`` identifies matrix/state-space dimension.
-    Interpretation
-    Passing establishes the cross-object invariant in its diagnostic order.
-    Limitations
-    It does not infer dependencies from malformed matrices or establish scientific
+
+    Oracle: Literal matrix and dependency dimensions establish disagreement.
+
+    Acceptance: Field-specific ``ValueError`` identifies matrix/state-space dimension.
+
+    Interpretation: Passing establishes the cross-object invariant in its diagnostic
+    order.
+
+    Limitations: It does not infer dependencies from malformed matrices or establish
+    scientific
     validation, UQ, or Rust conformance.
     """
 
@@ -351,21 +373,22 @@ def test_constructor__matrix_dimension_must_match_state_space__is_enforced() -> 
 
 
 def test_constructor__basis_ordering_length_must_match_state__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-016
-    Requirement
-    ``len(basis.ordering) == state_space.dimension``.
-    Method
-    Supply an agreeing 2x2 matrix and dimension-two StateSpace with an independently
+    r"""Evidence ID: SV-OR-016
+
+    Requirement: ``len(basis.ordering) == state_space.dimension``.
+
+    Method: Supply an agreeing 2x2 matrix and dimension-two StateSpace with an
+    independently
     valid one-label Basis.
-    Oracle
-    Literal dependency dimensions establish the single disagreement.
-    Acceptance
-    Field-specific ``ValueError`` identifies basis ordering and state space.
-    Interpretation
-    Passing establishes index-order metadata agreement.
-    Limitations
-    It does not mutate dependencies, test Basis intrinsic invariants, or establish
+
+    Oracle: Literal dependency dimensions establish the single disagreement.
+
+    Acceptance: Field-specific ``ValueError`` identifies basis ordering and state space.
+
+    Interpretation: Passing establishes index-order metadata agreement.
+
+    Limitations: It does not mutate dependencies, test Basis intrinsic invariants, or
+    establish
     scientific validation, UQ, or Rust conformance.
     """
 
@@ -378,23 +401,26 @@ def test_constructor__basis_ordering_length_must_match_state__is_enforced() -> N
 
 
 def test_constructor__operator_record_requires_independently__is_enforced() -> None:
-    r"""Evidence ID
-    SV-OR-017
-    Requirement
-    OperatorRecord requires ``basis.orthonormal is True`` while standalone Basis permits
+    r"""Evidence ID: SV-OR-017
+
+    Requirement: OperatorRecord requires ``basis.orthonormal is True`` while standalone
+    Basis permits
     ``False``.
-    Method
-    Construct an ordinary valid two-label Basis carrying ``False`` and pass it with
+
+    Method: Construct an ordinary valid two-label Basis carrying ``False`` and pass it
+    with
     otherwise agreeing record state.
-    Oracle
-    The approved ownership boundary assigns this restriction to the record.
-    Acceptance
-    Basis construction succeeds; record construction raises field-specific
+
+    Oracle: The approved ownership boundary assigns this restriction to the record.
+
+    Acceptance: Basis construction succeeds; record construction raises field-specific
     ``ValueError``.
-    Interpretation
-    Passing preserves Basis validity while enforcing record representation.
-    Limitations
-    It performs no numerical orthogonality proof, scientific validation, UQ, or Rust
+
+    Interpretation: Passing preserves Basis validity while enforcing record
+    representation.
+
+    Limitations: It performs no numerical orthogonality proof, scientific validation,
+    UQ, or Rust
     conformance.
     """
 
