@@ -1,51 +1,49 @@
 {
   "schema_version": 1,
   "task_id": "harness.simplification.docs-json.task-document-migration",
-  "title": "Migrate Task documents serially under the accepted HarnessTask contract",
-  "status": "awaiting_human_review",
+  "title": "Migrate six Task documents serially after implementation acceptance",
+  "status": "blocked_on_task_implementation_hardening",
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
-    "harness.simplification.docs-json.task-model-contract"
+    "harness.simplification.docs-json.task-implementation-hardening"
   ],
   "external_prerequisite_ids": [],
   "explicit_activation_required": true,
-  "objective": "After the HarnessTask field, wire, rendering-input, comparison, review-packet, and compatibility contract is completed and human-accepted, implement that unchanged contract and migrate the six selected Task files exactly one at a time with one durable human disposition per file.",
+  "objective": "After Stage 2A implementation is explicitly human-accepted and this Task is separately activated, prepare and disposition exactly one human-readable migration packet at a time for the six selected Markdown Tasks without changing the accepted HarnessTask contract.",
   "authority_reference_paths": [
-    ".pi/checkpoints/harness.simplification.docs-json.task-document-migration.serial-activation-review.json",
-    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.clarified-final-acceptance.json",
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
     ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
     ".pi/evidence/task-control/task-document-human-mediation-decision.md",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
-    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
-    "docs/harness/ksdft2effmass.harness.002.001.010.md",
-    "docs/harness/ksdft2effmass.harness.002.001.011.md"
+    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    "docs/harness/ksdft2effmass.harness.002.001.013.md"
   ],
   "authorized_scope": [
-    "The selected source paths are exactly .pi/tasks/harness.simplification.docs-json.md, .pi/tasks/harness.simplification.docs-json.publication.md, .pi/tasks/harness.simplification.docs-json.publication.triage.md, .pi/tasks/harness.simplification.docs-json.publication.hierarchy.md, .pi/tasks/harness.simplification.docs-json.authority-catalog.md, and .pi/tasks/harness.simplification.docs-json.documentation-correction.md.",
-    "Begin only after harness.simplification.docs-json.task-model-contract is completed and its frozen field and rendering contract has an explicit human-acceptance record; consume that exact accepted contract without silently adding fields or changing ownership.",
-    "Implement the accepted HarnessTask, canonical serializer and deserializer, graph validator, explicit documentation-content and projection inputs, Markdown renderer, exact comparator and result, source mapping, migration review packet, file disposition recording, compatibility behavior, schemas, fixtures, public imports, tests, and maintained documentation.",
-    "Keep the current chain operational and preserve mixed Markdown/JSON TaskRecordAdapter compatibility plus exact TaskStateInspector behavior throughout migration.",
-    "For each of the six exact source files, prepare one immutable review packet containing source identity and bytes, accepted-contract mappings, candidate JSON, explicit documentation-content input, projection profile, rendered Markdown, exact comparison findings, opaque-block treatment, and unmapped spans, then stop for one durable human disposition.",
-    "Apply only the currently accepted file migration, verify canonical JSON round trip, exact accepted Markdown rendering, graph and compatibility behavior, retained evidence and rollback identity, and only then prepare the next file.",
-    "If a file reveals a required HarnessTask schema or rendering-contract change, stop migration without modifying that contract and route the issue to a separately reviewed task-model-contract revision decision."
+    "The selected source paths remain exactly .pi/tasks/harness.simplification.docs-json.md, .pi/tasks/harness.simplification.docs-json.publication.md, .pi/tasks/harness.simplification.docs-json.publication.triage.md, .pi/tasks/harness.simplification.docs-json.publication.hierarchy.md, .pi/tasks/harness.simplification.docs-json.authority-catalog.md, and .pi/tasks/harness.simplification.docs-json.documentation-correction.md.",
+    "Begin only after harness.simplification.docs-json.task-implementation-hardening is completed and explicitly human-accepted and this Stage-2B Task receives a separate human activation decision.",
+    "Prepare exactly one immutable migration packet at a time in the accepted order; stop for its explicit human disposition and complete any accepted migration verification before preparing a later packet.",
+    "Each packet presents a concise human-readable before/after view containing the original Markdown, candidate canonical JSON, candidate maintained documentation, explanation of content moved to each destination, exact unexplained differences, opaque-content preservation result, rollback identity, and a simple accept, revise, retain Markdown, or defer decision.",
+    "The packet may link to detailed mappings, exact identities, and validation evidence but must not require the human to read raw mappings, command transcripts, or every test to understand the file decision.",
+    "Apply only an explicitly accepted current-file migration, verify canonical round trip, rendered documentation, exact comparison, graph and mixed-format compatibility, retained evidence, rollback identity, and unchanged later sources, then stop or prepare the next packet only when authorized by the current disposition.",
+    "If any file reveals a required material change to accepted public fields, signatures, ownership boundaries, wire behavior, rendering ownership, comparison claims, or packet semantics, stop without changing the contract and return to explicit human contract review."
   ],
   "completion_criteria": [
-    "The exact accepted Stage-1 contract identity is recorded and unchanged by Stage 2, and every implemented public surface, schema, fixture, test, and maintained document agrees with it.",
-    "Each selected file has exactly one immutable packet and one exact human disposition; no later packet is prepared before the current disposition and accepted migration verification are durably recorded.",
-    "No accepted file packet silently expands or changes HarnessTask fields, canonical JSON, renderer inputs, mapping semantics, opaque-content ownership, or comparison policy; required changes stop and return to contract revision.",
+    "Stage 2A implementation acceptance and Stage-2B activation are durably recorded before the first real packet is prepared.",
+    "Each selected file has exactly one human-readable immutable packet and one exact human disposition, and no later file is prepared before the current file is dispositioned and any accepted migration is verified.",
+    "Every packet contains all eight required before/after elements and clearly distinguishes explained mapped transformations from exact unexplained differences and human acceptance.",
     "LaTeX, Mermaid, code fences, directives, tables, links, and other opaque project content remain byte-identical unless the exact file disposition accepts a stated transformation.",
-    "All six Tasks remain exactly inspectable under mixed Markdown/JSON compatibility, and every accepted file passes canonical round trip, complete rendering, exact comparison, graph validation, projection, rollback-identity, and focused software-verification checks.",
-    "One independent review is completed, every material finding receives an explicit disposition, every correction receives deterministic verification, and no material finding remains unresolved; an initial failed review remains recorded as failed and no repeated review loop is authorized.",
-    "All six file migrations are human-dispositioned and verified, but the current chain remains operational authority and no selection-state implementation, chain cutover, deletion, or successor activation occurs."
+    "A revise decision changes only the current candidate within accepted authority; retain Markdown leaves that source authoritative and unmigrated; defer postpones it without implied acceptance; a required contract change stops the Task.",
+    "All accepted files pass canonical round trip, complete rendering, exact byte-structural comparison, graph validation, mixed-format inspection, rollback-identity, and focused verification checks while undispositioned Markdown sources remain authoritative and unchanged.",
+    "All six file decisions and verifications are complete, but the chain remains operational authority and no selection-state implementation, chain cutover, deletion, or automatic successor activation occurs."
   ],
   "exclusions": [
-    "Do not activate before the Stage-1 Task-model contract is completed and human-accepted, and do not implement or migrate while this Task status is blocked.",
-    "Do not batch-approve files, infer approval from silence or checks, prepare a later packet early, or alter the accepted model contract inside a file migration.",
-    "Do not normalize, reflow, reinterpret, or silently drop LaTeX, Mermaid, code fences, directives, tables, links, opaque blocks, documentation-owned narrative, or historical evidence.",
-    "Do not implement candidate selection state, cut over or delete the chain, migrate Tasks outside the six selected files, add dependencies, change lockfiles, or perform SQLite, telemetry, scientific, publication, external, protected, or release work."
+    "Do not activate before Stage 2A is human-accepted and a separate Stage-2B activation checkpoint is resolved as approval.",
+    "Do not batch files, prepare a later packet early, infer acceptance from silence, tests, or review, or apply a migration without the exact current-file human disposition.",
+    "Do not reopen or silently modify the accepted Stage-1 contract or accepted Stage-2A public implementation through a file migration.",
+    "Do not normalize, reflow, reinterpret, or silently drop opaque content, documentation-owned narrative, historical evidence, or unexplained differences.",
+    "Do not implement selection state, cut over or delete the chain, migrate Tasks outside the six selected files, add dependencies, change lockfiles, or perform SQLite, telemetry, scientific, publication, external, protected, release, or unrelated harness work."
   ],
   "intake_path": ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md"
 }

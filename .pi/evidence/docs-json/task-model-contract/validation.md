@@ -16,11 +16,11 @@ Final clarification: PASS — graph results use existing `LocalValidationResult`
 
 Review correction assertions: PASS — all seven retained review findings have explicit corrected dispositions and deterministic checks
 
-Task schemas: PASS — completed Stage 1 and inactive Stage 2 validate against the current project-local Task schema
+Task schemas: PASS — completed Stage 1, inactive Stage 2A, and blocked Stage 2B validate against the current project-local Task schema
 
-Task/chain relations: PASS — Stage 1 is completed, the chain has no active Task, Stage 2 awaits separate human activation review, and automatic successor activation is false
+Task/chain relations: PASS — Stage 1 is completed, the chain has no active Task, Stage 2A awaits separate human activation review, Stage 2B is blocked on human-accepted Stage 2A, and automatic successor activation is false
 
-Checkpoint validation: PASS — 42 checkpoint records valid and exactly one unresolved Stage-2 serial-activation checkpoint
+Checkpoint validation: PASS — 43 checkpoint records valid and exactly one unresolved Stage-2A activation checkpoint
 
 Relative links: PASS
 

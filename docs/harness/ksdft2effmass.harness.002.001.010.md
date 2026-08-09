@@ -1,17 +1,17 @@
 ---
 document_id: ksdft2effmass.harness.002.001.010
-task_id: harness.simplification.docs-json.task-document-migration
+task_id: null
 parent: ksdft2effmass.harness.002.001.000
-status: stage-1-accepted-stage-2-activation-review-pending
+status: stage-1-accepted-stage-2a-activation-review-pending
 sphinx: excluded
 ---
 
 # Human review: HarnessTask contract and serial document migration
 
-> **Stage 1 is human-accepted and complete; Stage 2 is inactive pending separate
-> activation review.** This page does not activate Stage 2, implement a public
-> object, prepare a file packet, migrate a file, or authorize selection-state
-> work.
+> **Stage 1 is human-accepted and complete; Stage 2A and Stage 2B are separately
+> inactive.** Stage 2A awaits activation review and Stage 2B remains blocked on
+> human-accepted Stage 2A. This page activates neither Task, prepares no file
+> packet, migrates no file, and authorizes no selection-state work.
 
 ## Why the proposal was divided
 
@@ -24,10 +24,11 @@ separately authorized stages:
    field, wire, rendering-input, mapping, comparison, review-packet, public-API,
    and verification contract. It replaces no source authority and performs no
    implementation or migration.
-2. `harness.simplification.docs-json.task-document-migration` is now prerequisite-
-   eligible but inactive pending separate activation review. If activated, it
-   must implement the accepted contract and migrate one file at a time without
-   changing the contract.
+2. The former combined Stage 2 was revised before activation into two Tasks:
+   `harness.simplification.docs-json.task-implementation-hardening` implements
+   and hardens the contract, then stops for human implementation acceptance;
+   `harness.simplification.docs-json.task-document-migration` remains blocked
+   until that acceptance and later performs only serial one-file migration.
 
 Candidate selection-state implementation is deferred to a later separately
 authorized Task. The current chain remains operational authority throughout both
@@ -808,11 +809,15 @@ a file packet, or migrate a file.
 The maintained Stage-1 Task page is
 [harness.002.001.011](ksdft2effmass.harness.002.001.011.md).
 
-## Stage 2: serial per-file migration
+## Stage 2A and Stage 2B
 
-Stage 2 remains inactive and blocked until Stage 1 is completed and its frozen
-contract is explicitly human-accepted. Stage 2 then implements exactly that
-contract and processes the six files serially.
+[Stage 2A](ksdft2effmass.harness.002.001.012.md) is implementation and hardening
+only. It creates no real migration packet and must stop at the specified concise
+human implementation-acceptance packet.
+
+[Stage 2B](ksdft2effmass.harness.002.001.013.md) remains inactive and blocked
+until Stage 2A is explicitly human-accepted and separately activates. It then
+processes the six files serially.
 
 One immutable file packet is prepared, then work stops for one human disposition:
 
@@ -846,7 +851,7 @@ drift and its pending disposition are reported in the
 
 ## Selection-state boundary
 
-Selection-state implementation is outside both proposed stages. The accepted
+Selection-state implementation is outside Stage 1, Stage 2A, and Stage 2B. The accepted
 architecture still requires future selection state to remain separate from Task
 data, but its DataObject, fields, validation, comparison, diagrams, implementation,
 and cutover require a later separately authorized Task. The current chain remains
@@ -854,19 +859,20 @@ operational authority and may not be deleted or cut over here.
 
 ## Explicit exclusions
 
-Neither proposed stage authorizes implementation or migration before its own
-activation. Neither stage authorizes batch review, ambient discovery, hidden
-renderer inputs, schema expansion during Stage 2, selection-state implementation,
+No inactive stage authorizes implementation or migration before its own
+activation. Neither Stage 2A nor Stage 2B authorizes batch review, ambient
+discovery, hidden renderer inputs, silent accepted-contract expansion,
+selection-state implementation,
 chain cutover or deletion, SQLite, telemetry, dependencies, scientific work,
 publication, external execution, protected work, release action, or automatic
 successor activation.
 
 ## Renewed human review question
 
-Should Stage 2 be activated to implement the accepted frozen contract and begin
-with implementation hardening before preparing exactly one first-file migration
-packet? Activation would not accept any file migration, selection-state work,
-chain cutover, or automatic successor activation.
+Should Stage 2A be activated to implement and harden the accepted frozen
+contract, preserve all six Markdown sources unchanged, and return one concise
+implementation-acceptance packet before any Stage-2B activation or real migration
+packet?
 
 ## Navigation
 

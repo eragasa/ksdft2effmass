@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.task-document-migration.serial-activation-review",
   "task_id": "harness.simplification.docs-json.task-document-migration",
   "episode_id": "harness.simplification.docs-json.task-document-migration",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T17:29:20Z",
   "question": "Now that Stage 1 is human-accepted and complete, should Stage 2 be activated to implement the frozen HarnessTask contract, complete the explicitly deferred implementation hardening, preserve mixed-format compatibility, and then prepare exactly one first-file migration packet for separate human disposition?",
@@ -40,17 +40,21 @@
     "docs/harness/ksdft2effmass.harness.002.001.011.md",
     ".pi/chains/harness-simplification.chain.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "B — Revise Stage 2 before activation.\n\nThe current checkpoint conflates authorization to implement the accepted\ncontract with human review of the resulting implementation.\n\nDivide Stage 2 into two separately activated Tasks.\n\nStage 2A — HarnessTask implementation and hardening\n\nImplement the accepted Stage-1 contract, including:\n\n- the project-local public interfaces;\n- schema and fixtures;\n- serializer and deserializer;\n- graph validation;\n- rendering and comparison;\n- packet preparation and disposition behavior;\n- mixed Markdown/JSON adapter compatibility;\n- focused tests and maintained documentation.\n\nDo not prepare a real file-migration packet or migrate any source file.\n\nAt completion, stop at a human implementation-acceptance checkpoint with one\nconcise review packet containing:\n\n1. the exact production files added or changed;\n2. the final public API table;\n3. any difference from the accepted Stage-1 contract;\n4. one representative Markdown → HarnessTask JSON → rendered Markdown example;\n5. the exact source/rendered diff for that example;\n6. focused test and validation results;\n7. independent-review findings and their dispositions;\n8. known limitations;\n9. confirmation that all six Markdown Tasks remain authoritative and unchanged;\n   and\n10. the proposed Stage-2B activation boundary.\n\nThe packet should link to detailed evidence but must not require the human to\nread mappings, command transcripts, or every test to understand the decision.\n\nStage 2B — Serial six-file migration\n\nKeep this Task inactive until Stage 2A is explicitly human-accepted.\n\nAfter activation, prepare exactly one migration packet at a time. Each packet\nmust present a human-readable before/after view:\n\n- original Markdown;\n- candidate canonical JSON;\n- candidate maintained documentation;\n- concise explanation of content moved to each destination;\n- exact unexplained differences, if any;\n- opaque-content preservation result;\n- rollback identity; and\n- a simple accept, revise, retain Markdown, or defer decision.\n\nNo later file may be prepared before the current file is dispositioned.\n\nDo not reopen or modify the accepted Stage-1 contract through this\ndecomposition. Do not begin implementation, migration, SQLite, selection-state,\nchain cutover, or unrelated harness work. Return the revised two-stage plan for\nactivation review.",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-09T17:41:11Z",
+  "authorized_scope": "Revise only the inactive Stage-2 control and documentation plan into separately activated Stage 2A HarnessTask implementation/hardening and Stage 2B serial six-file migration Tasks, preserve the accepted Stage-1 contract, add the specified concise implementation-acceptance packet and per-file before/after review boundaries, create one renewed Stage-2A activation checkpoint, and perform no implementation, migration, SQLite, selection-state, chain cutover, or unrelated work.",
   "record_paths": [
     ".pi/chains/harness-simplification.chain.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-document-migration.serial-activation-review.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.activation-review.json",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
     ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
-    "docs/harness/ksdft2effmass.harness.002.001.011.md"
+    "docs/harness/ksdft2effmass.harness.002.001.011.md",
+    "docs/harness/ksdft2effmass.harness.002.001.012.md",
+    "docs/harness/ksdft2effmass.harness.002.001.013.md"
   ],
-  "resumption_status": "blocked_pending_stage_2_activation_review"
+  "resumption_status": "option_B_resolved"
 }

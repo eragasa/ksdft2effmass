@@ -174,3 +174,4 @@ individual migration packet.
 - **Index:** [Harness documentation](ksdft2effmass.harness.000.000.000.md)
 - **Parent:** [First harness simplification round](ksdft2effmass.harness.002.001.000.md)
 - **Previous:** [HarnessTask contract and serial migration](ksdft2effmass.harness.002.001.010.md)
+- **Next:** [HarnessTask implementation and hardening](ksdft2effmass.harness.002.001.012.md)
