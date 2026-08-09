@@ -1,0 +1,65 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.schema-projection.task-json-authority",
+  "task_id": "harness.simplification.docs-json.schema-projection",
+  "episode_id": "harness.simplification.docs-json.schema-projection",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T11:21:12Z",
+  "question": "Which authoritative JSON persistence and allocation architecture should govern the Task control family before its schema, fixtures, and deterministic full-page documentation projection are defined?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Chain-owned aggregate — embed each complete authoritative Task record in its one owning chain JSON.",
+      "consequence": "The chain aggregate owns complete Task data and separate hierarchy, prerequisite, sequence, active-task, and activation relations. Proceed only to bounded contract definition; do not implement or activate a successor."
+    },
+    {
+      "id": "B",
+      "summary": "Central catalog — store all complete authoritative Task records in one JSON Task catalog referenced by chains.",
+      "consequence": "The catalog owns Task-local data, hierarchy, and prerequisites; chains own sequence and activation. Proceed only to bounded contract definition and cross-record invariants."
+    },
+    {
+      "id": "C",
+      "summary": "File per Task — store each complete authoritative Task record in its own JSON file referenced by chains.",
+      "consequence": "Each Task file owns Task-local data, hierarchy, and prerequisites; chains own sequence and activation. Proceed only to bounded contract definition and cross-record invariants."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Retain the Markdown bootstrap and current chain boundary. Do not define a Task schema, create fixtures, implement rendering, or generate a reference page."
+    }
+  ],
+  "recommendation": "Option C — one authoritative JSON file per Task referenced by chains. It provides the strongest Task-local authority, bounded inspection and context, Git-diff locality, and failure isolation while preserving explicit chain-owned sequence and activation relations and the existing TaskReference record-path boundary.",
+  "blocked_scope": "Architecture selection by an agent; Task field/schema authoring; fixtures; Python implementation; serializer or renderer implementation; generated-page work; Markdown-to-JSON cutover; successor activation; SQLite or event-log work; scientific, protected-execution, publication, or release authority.",
+  "safe_scope": "Human review of Options A through D and the decision document at .pi/evidence/docs-json/task-json-authority-architecture.md. Deterministic validation and persistence of this pending decision boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.md",
+    ".pi/tasks/harness.simplification.docs-json.documentation-correction.md",
+    ".pi/tasks/harness.simplification.docs-json.schema-projection.md",
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/evidence/docs-json/task-json-authority-architecture.md",
+    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
+    ".pi/evidence/pi-harness-incubation/H1/field-and-wire-contract.md",
+    ".pi/evidence/pi-harness-incubation/H1/contract-surface.md",
+    "python/src/ksdft2effmass/harness/pi/chains.py",
+    "python/src/ksdft2effmass/harness/pi/local/adapters.py",
+    "python/src/ksdft2effmass/harness/pi/task_state.py",
+    "harness/pi/schemas/records/task-reference.schema.json",
+    "harness/pi/schemas/records/chain-view.schema.json",
+    "harness/pi/resource-manifest.json",
+    "harness/local/resource-manifest.json",
+    "harness/local/profiles/ksdft2effmass-v2.json",
+    "docs/development/agent-control-plane.rst"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/harness.simplification.docs-json.schema-projection.task-json-authority.json",
+    ".pi/evidence/docs-json/task-json-authority-architecture.md",
+    ".pi/tasks/harness.simplification.docs-json.schema-projection.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "resumption_status": "awaiting_human_task_json_authority_selection; no schema or implementation work authorized"
+}
