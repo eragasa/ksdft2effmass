@@ -1,6 +1,6 @@
 # Build a temporary documentation/control comparison baseline
 
-Status: proposed_inactive; no successor activates automatically
+Status: active; authorized by the human PI on 2026-08-09; no successor activates automatically
 
 Task identity: `harness.simplification.docs-json.authority-catalog`
 
