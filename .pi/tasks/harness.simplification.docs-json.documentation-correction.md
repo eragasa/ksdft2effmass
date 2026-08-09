@@ -1,6 +1,6 @@
 # Correct documentation/control inconsistencies
 
-Status: proposed_inactive; requires the completed comparison baseline
+Status: active; authorized by the human PI on 2026-08-09 after the completed comparison baseline
 
 Task identity: `harness.simplification.docs-json.documentation-correction`
 
