@@ -231,12 +231,12 @@ Proposed Stage-2 destinations:
 
 | Source Task | Maintained documentation | Non-executable intake |
 |---|---|---|
-| `.pi/tasks/harness.simplification.docs-json.md` | `docs/harness/ksdft2effmass.harness.002.001.012.md` | `.pi/tasks/harness.simplification.docs-json.intake.md` |
-| `.pi/tasks/harness.simplification.docs-json.publication.md` | `docs/harness/ksdft2effmass.harness.002.001.013.md` | `.pi/tasks/harness.simplification.docs-json.publication.intake.md` |
-| `.pi/tasks/harness.simplification.docs-json.publication.triage.md` | `docs/harness/ksdft2effmass.harness.002.001.014.md` | `.pi/tasks/harness.simplification.docs-json.publication.triage.intake.md` |
-| `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.md` | `docs/harness/ksdft2effmass.harness.002.001.015.md` | `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.intake.md` |
-| `.pi/tasks/harness.simplification.docs-json.authority-catalog.md` | `docs/harness/ksdft2effmass.harness.002.001.016.md` | `.pi/tasks/harness.simplification.docs-json.authority-catalog.intake.md` |
-| `.pi/tasks/harness.simplification.docs-json.documentation-correction.md` | `docs/harness/ksdft2effmass.harness.002.001.017.md` | `.pi/tasks/harness.simplification.docs-json.documentation-correction.intake.md` |
+| `.pi/tasks/harness.simplification.docs-json.md` | `docs/harness/ksdft2effmass.harness.002.002.000.md` | `.pi/tasks/harness.simplification.docs-json.intake.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.md` | `docs/harness/ksdft2effmass.harness.002.002.001.md` | `.pi/tasks/harness.simplification.docs-json.publication.intake.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.triage.md` | `docs/harness/ksdft2effmass.harness.002.002.002.md` | `.pi/tasks/harness.simplification.docs-json.publication.triage.intake.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.md` | `docs/harness/ksdft2effmass.harness.002.002.003.md` | `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.intake.md` |
+| `.pi/tasks/harness.simplification.docs-json.authority-catalog.md` | `docs/harness/ksdft2effmass.harness.002.002.004.md` | `.pi/tasks/harness.simplification.docs-json.authority-catalog.intake.md` |
+| `.pi/tasks/harness.simplification.docs-json.documentation-correction.md` | `docs/harness/ksdft2effmass.harness.002.002.005.md` | `.pi/tasks/harness.simplification.docs-json.documentation-correction.intake.md` |
 
 These are proposed destinations, not created files. Each Stage-2 file packet must bind exact candidate bytes and receive one explicit human disposition.
 

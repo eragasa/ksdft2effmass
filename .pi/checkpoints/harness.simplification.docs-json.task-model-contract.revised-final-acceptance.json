@@ -1,0 +1,63 @@
+{
+  "checkpoint_id": "harness.simplification.docs-json.task-model-contract.revised-final-acceptance",
+  "task_id": "harness.simplification.docs-json.task-model-contract",
+  "episode_id": "harness.simplification.docs-json.task-model-contract",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-09T17:12:08Z",
+  "question": "After applying the human-directed documentation progression correction so the six proposed destinations are docs/harness/ksdft2effmass.harness.002.002.000.md through .002.002.005.md, should the otherwise unchanged frozen Stage-1 contract be accepted as the fixed input to later Stage-2 implementation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the corrected frozen Stage-1 contract.",
+      "consequence": "Accept the 16-field schema-version-2 HarnessTask model, project-local ownership, complete mappings, corrected 002.002.000 through 002.002.005 documentation progression, resource and verification obligations, and corrected review dispositions. Accept the bounded stale non-authoritative version-1 generated projection as an activation-state drift left for separately authorized synchronization. Complete Stage 1 and leave Stage 2 inactive pending separate activation; accept no file migration."
+    },
+    {
+      "id": "B",
+      "summary": "Revise the corrected contract again before acceptance.",
+      "consequence": "Keep Stage 1 open, record the requested bounded correction, and return for renewed human review without implementation or migration."
+    },
+    {
+      "id": "C",
+      "summary": "Defer contract acceptance.",
+      "consequence": "Keep the corrected frozen package as proposed evidence, leave Stage 1 incomplete and Stage 2 blocked, and perform no implementation or migration."
+    }
+  ],
+  "recommendation": "Option A. The requested 002.002 progression is applied consistently across the inventory, all documentation-target mappings, maintained review page, and frozen contract. The six source identities, 20,074 source bytes, 118 spans, 16 fields, 19 interfaces, 20 diagrams, retained failed review, seven corrected findings, and bounded version-1 projection limitation are otherwise unchanged.",
+  "blocked_scope": "Human acceptance of the corrected frozen contract; Stage-1 completion; any Stage-2 activation or implementation; any individual migration packet or file disposition; creation of the six proposed docs/ targets; source replacement; selection-state work; chain cutover; successor activation; schema, fixture, source, test, dependency, lockfile, SQLite, telemetry, scientific, publication, external, protected, or release work.",
+  "safe_scope": "Human review of docs/harness/ksdft2effmass.harness.002.001.010.md and .011.md; the corrected source inventory, source mappings, frozen contract, documentation-destination correction, retained review, review correction, and validation records; the active Task and this checkpoint. Deterministic validation and persistence of this pending decision boundary are permitted.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md",
+    ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
+    ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md",
+    ".pi/evidence/docs-json/task-model-contract/integration-review.md",
+    ".pi/evidence/docs-json/task-model-contract/review-correction.md",
+    ".pi/evidence/docs-json/task-model-contract/validation.md",
+    ".pi/chains/harness-simplification.chain.json"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.revised-final-acceptance.json",
+    ".pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md",
+    ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
+    ".pi/evidence/docs-json/task-model-contract/integration-review.md",
+    ".pi/evidence/docs-json/task-model-contract/review-correction.md",
+    ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
+    ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
+    ".pi/evidence/docs-json/task-model-contract/validation.md",
+    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "docs/harness/ksdft2effmass.harness.002.001.010.md",
+    "docs/harness/ksdft2effmass.harness.002.001.011.md"
+  ],
+  "resumption_status": "blocked_pending_revised_contract_acceptance"
+}

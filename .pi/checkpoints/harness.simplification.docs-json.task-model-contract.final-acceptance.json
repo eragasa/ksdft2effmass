@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.task-model-contract.final-acceptance",
   "task_id": "harness.simplification.docs-json.task-model-contract",
   "episode_id": "harness.simplification.docs-json.task-model-contract",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T16:55:38Z",
   "question": "After reviewing the complete six-source inventory, 118-span mapping set, frozen project-local 19-interface HarnessTask contract, proposed docs/ destinations, retained failed review, verified correction dispositions, and the bounded excluded version-1 generated-projection drift, should this contract be accepted as the fixed input to later Stage-2 implementation?",
@@ -40,13 +40,15 @@
     ".pi/evidence/docs-json/task-model-contract/validation.md",
     ".pi/chains/harness-simplification.chain.json"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "migrate docs-json to docs/harness/ksdft2effmass.harness.002.002.***.md so that the progression makes sense",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-09T17:11:11Z",
+  "authorized_scope": "Revise only the six proposed documentation destinations into the coherent docs/harness/ksdft2effmass.harness.002.002.000.md through .002.002.005.md sequence, synchronize the contract package and renewed acceptance checkpoint, and perform no implementation or migration.",
   "record_paths": [
     ".pi/chains/harness-simplification.chain.json",
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.final-acceptance.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.revised-final-acceptance.json",
+    ".pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/integration-review.md",
     ".pi/evidence/docs-json/task-model-contract/review-correction.md",
@@ -57,5 +59,5 @@
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md"
   ],
-  "resumption_status": "blocked_pending_contract_acceptance"
+  "resumption_status": "option_B_resolved"
 }

@@ -73,6 +73,7 @@ every proposed class are maintained in
 - [Immutable six-source inventory](../../.pi/evidence/docs-json/task-model-contract/source-inventory.json)
 - [Complete 118-span mapping set](../../.pi/evidence/docs-json/task-model-contract/source-mappings.json)
 - [Frozen 19-interface contract](../../.pi/evidence/docs-json/task-model-contract/harness-task-contract.md)
+- [Human-directed documentation progression correction](../../.pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md)
 - [Deterministic validation and bounded limitation](../../.pi/evidence/docs-json/task-model-contract/validation.md)
 
 The inventory binds six Git blobs and 20,074 bytes at revision
@@ -82,15 +83,17 @@ Stage-2 documentation destinations without creating them:
 
 | Source | Proposed maintained `docs/` target |
 |---|---|
-| `.pi/tasks/harness.simplification.docs-json.md` | `docs/harness/ksdft2effmass.harness.002.001.012.md` |
-| `.pi/tasks/harness.simplification.docs-json.publication.md` | `docs/harness/ksdft2effmass.harness.002.001.013.md` |
-| `.pi/tasks/harness.simplification.docs-json.publication.triage.md` | `docs/harness/ksdft2effmass.harness.002.001.014.md` |
-| `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.md` | `docs/harness/ksdft2effmass.harness.002.001.015.md` |
-| `.pi/tasks/harness.simplification.docs-json.authority-catalog.md` | `docs/harness/ksdft2effmass.harness.002.001.016.md` |
-| `.pi/tasks/harness.simplification.docs-json.documentation-correction.md` | `docs/harness/ksdft2effmass.harness.002.001.017.md` |
+| `.pi/tasks/harness.simplification.docs-json.md` | `docs/harness/ksdft2effmass.harness.002.002.000.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.md` | `docs/harness/ksdft2effmass.harness.002.002.001.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.triage.md` | `docs/harness/ksdft2effmass.harness.002.002.002.md` |
+| `.pi/tasks/harness.simplification.docs-json.publication.hierarchy.md` | `docs/harness/ksdft2effmass.harness.002.002.003.md` |
+| `.pi/tasks/harness.simplification.docs-json.authority-catalog.md` | `docs/harness/ksdft2effmass.harness.002.002.004.md` |
+| `.pi/tasks/harness.simplification.docs-json.documentation-correction.md` | `docs/harness/ksdft2effmass.harness.002.002.005.md` |
 
-These targets remain proposed until this contract is accepted. Stage 2 still
-requires one immutable packet and one explicit human disposition per file.
+The human replaced the earlier `002.001.012` through `002.001.017` proposal with
+this coherent `002.002.000` through `002.002.005` progression. These corrected
+targets remain proposed until the contract is accepted. Stage 2 still requires
+one immutable packet and one explicit human disposition per file.
 
 ## Source authority
 

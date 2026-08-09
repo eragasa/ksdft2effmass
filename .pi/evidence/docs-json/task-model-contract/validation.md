@@ -8,6 +8,8 @@ Source identity and mapping coverage: PASS — six Git blobs, 20,074 bytes, 118 
 
 Documentation routing after correction: PASS — every mapping with a `docs/` target uses `DOCUMENTATION_OWNED_CONTENT`
 
+Documentation progression correction: PASS — the six unique proposed targets are exactly `docs/harness/ksdft2effmass.harness.002.002.000.md` through `.002.002.005.md`; the former `.002.001.012.md` through `.002.001.017.md` targets are absent from the current inventory, mappings, contract, and maintained review page
+
 Contract accounting: PASS — 16 exact `HarnessTask` fields, 19 proposed interfaces, 20 Mermaid diagrams, one focused diagram per interface
 
 Review correction assertions: PASS — all seven retained review findings have explicit corrected dispositions and deterministic checks

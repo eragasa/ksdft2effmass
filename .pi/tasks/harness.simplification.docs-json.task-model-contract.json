@@ -12,8 +12,10 @@
   "objective": "Complete source-span mappings for all six selected Task documents, derive one complete proposed HarnessTask and documentation-rendering contract from those mappings, and return the frozen field, wire, rendering-input, comparison, review-packet, and public-API design for explicit human acceptance without replacing source authority or implementing migration behavior.",
   "authority_reference_paths": [
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.final-acceptance.json",
+    ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.revised-final-acceptance.json",
     ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
     ".pi/evidence/docs-json/authority-catalog/catalog-manifest.json",
+    ".pi/evidence/docs-json/task-model-contract/documentation-destination-correction.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/integration-review.md",
     ".pi/evidence/docs-json/task-model-contract/review-correction.md",
