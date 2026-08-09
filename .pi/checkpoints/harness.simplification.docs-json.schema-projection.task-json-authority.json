@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplification.docs-json.schema-projection.task-json-authority",
   "task_id": "harness.simplification.docs-json.schema-projection",
   "episode_id": "harness.simplification.docs-json.schema-projection",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-09T11:21:12Z",
   "question": "Which authoritative JSON persistence and allocation architecture should govern the Task control family before its schema, fixtures, and deterministic full-page documentation projection are defined?",
@@ -51,15 +51,15 @@
     "harness/local/profiles/ksdft2effmass-v2.json",
     "docs/development/agent-control-plane.rst"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "C because we eventually want to go sqllite",
+  "normalized_decision": "C",
+  "resolved_at": "2026-08-09T11:25:24Z",
+  "authorized_scope": "Select Option C as the Task JSON allocation basis: one authoritative project-local JSON file per Task referenced by chains. Within the active schema-projection Task, define the smallest Task-owned field contract, chain-owned sequence and activation relations, fail-closed cross-record invariants, valid and invalid fixtures, one deterministic full-page projection profile and expected page, and applicable explicit-input validation/rendering mechanics. Preserve future SQLite portability as a design consideration only. Do not implement SQLite or event logs, automatic activation or dispatch, scientific or protected authority, publication, release, or a successor Task.",
   "record_paths": [
     ".pi/checkpoints/harness.simplification.docs-json.schema-projection.task-json-authority.json",
     ".pi/evidence/docs-json/task-json-authority-architecture.md",
     ".pi/tasks/harness.simplification.docs-json.schema-projection.md",
     ".pi/chains/harness-simplification.chain.json"
   ],
-  "resumption_status": "awaiting_human_task_json_authority_selection; no schema or implementation work authorized"
+  "resumption_status": "option_C_resolved; schema_projection_task_resumed; SQLite remains unauthorized"
 }

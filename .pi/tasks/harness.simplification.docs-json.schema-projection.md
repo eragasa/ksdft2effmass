@@ -1,6 +1,6 @@
 # Co-design JSON control schemas and generated documentation
 
-Status: blocked_awaiting_human_decision; activated on 2026-08-09 after completed documentation correction
+Status: active; Option C file-per-Task JSON authority selected by the human PI on 2026-08-09
 
 Task identity: `harness.simplification.docs-json.schema-projection`
 
@@ -44,6 +44,8 @@ Completion requires the accepted schema and fixtures, deterministic full-page re
 
 This Task does not convert all documentation to JSON, introduce SQLite, change scientific meaning, or activate work from generated pages.
 
-## Current decision boundary
+## Resolved architecture
 
-The Task control family is the bounded pilot. Three materially distinct authoritative JSON allocations remain: complete Task records embedded in owning chains, one central Task catalog referenced by chains, or one authoritative JSON file per Task referenced by chains. The decision analysis is `.pi/evidence/docs-json/task-json-authority-architecture.md`; the pending checkpoint is `.pi/checkpoints/harness.simplification.docs-json.schema-projection.task-json-authority.json`. Schema fields, fixtures, rendering, generated-page work, and Python implementation remain blocked until the human selects an allocation.
+The Task control family is the bounded pilot. The human PI selected one authoritative project-local JSON file per Task, referenced by chains. Each Task file owns Task-local fields; chains own membership, sequence, active-task relation, and explicit activation facts. The decision analysis is `.pi/evidence/docs-json/task-json-authority-architecture.md`, and the resolved checkpoint is `.pi/checkpoints/harness.simplification.docs-json.schema-projection.task-json-authority.json`.
+
+Future SQLite portability may guide clean record boundaries, but SQLite and event-log implementation remain unauthorized. Exact fields, fixtures, fail-closed cross-record invariants, projection profile, and generated-page target remain to be defined within this active Task.

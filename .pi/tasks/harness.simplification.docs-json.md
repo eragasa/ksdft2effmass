@@ -1,6 +1,6 @@
 # Migrate documentation and the JSON control surface
 
-Status: decomposed; `harness.simplification.docs-json.schema-projection` is blocked awaiting the Task JSON authority decision; the parent is not independently executable
+Status: decomposed; `harness.simplification.docs-json.schema-projection` is active under resolved Option C file-per-Task JSON authority; the parent is not independently executable
 
 Task identity: `harness.simplification.docs-json`
 
