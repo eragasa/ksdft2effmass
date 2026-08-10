@@ -21,7 +21,6 @@ from __future__ import annotations
 import ast
 import json
 from pathlib import Path
-from typing import Any
 
 import pytest
 
@@ -34,49 +33,138 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
     """Evidence ID: SV-HARNESS-041
 
     Requirement: Generic Python must not import local harness code or project-domain
-    modules.
+    modules through absolute or relative import syntax.
 
-    Method: Parse every production module below the exact generic package root and
-    inspect
-    all import nodes without importing private behavior.
+    Method: Resolve every production import against its containing package and exercise
+    controlled absolute and relative import examples before scanning the generic tree.
 
-    Oracle: H1 normatively states ``generic Python -/-> local Python`` and prohibits
-    project-domain imports.
+    Oracle: Python's relative-import level semantics and the H1 generic-to-local and
+    project-domain dependency prohibitions determine each absolute target.
 
-    Acceptance: No import target contains ``harness.pi.local`` or begins with any
-    project
-    scientific-domain module.
+    Acceptance: Controlled examples resolve to their exact absolute targets, and no
+    actual target starts with a prohibited package.
 
-    Interpretation: Failure identifies an architecture dependency-direction defect in
-    production source.
+    Interpretation: Failure identifies either an import-resolution oracle defect or an
+    architecture dependency-direction defect in production source.
 
-    Limitations: AST import inspection does not prove absence of every possible dynamic
-    dependency or establish scientific correctness.
+    Limitations: AST inspection does not detect dynamic imports or establish scientific
+    correctness.
     """
     prohibited = (
         "ksdft2effmass.harness.pi.local",
         "ksdft2effmass.operators",
         "ksdft2effmass.workflows",
     )
+    source_root = ROOT / "python/src"
+    generic_root = source_root / "ksdft2effmass/harness/pi"
 
-    def exercise_path_case_54_2(path: Any) -> Any:
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    def import_targets(source: str, path: Path) -> tuple[str, ...]:
+        relative = path.relative_to(source_root).with_suffix("")
+        module_parts = list(relative.parts)
+        package_parts = (
+            list(relative.parent.parts)
+            if path.name == "__init__.py"
+            else module_parts[:-1]
+        )
         targets: list[str] = []
 
-        def exercise_node_case_57_1(node: Any) -> Any:
+        def collect_import_targets(node: ast.AST) -> None:
             if isinstance(node, ast.Import):
                 targets.extend(alias.name for alias in node.names)
-            elif isinstance(node, ast.ImportFrom) and node.module:
-                targets.append(node.module)
+            elif isinstance(node, ast.ImportFrom):
+                if node.level:
+                    keep = len(package_parts) - (node.level - 1)
+                    base_parts = package_parts[: max(keep, 0)]
+                else:
+                    base_parts = []
+                if node.module:
+                    base_parts.extend(node.module.split("."))
+                base = ".".join(base_parts)
+                if base:
+                    targets.append(base)
+                targets.extend(
+                    ".".join((*base_parts, alias.name))
+                    for alias in node.names
+                    if alias.name != "*"
+                )
 
-        _ = [exercise_node_case_57_1(node) for node in ast.walk(tree)]
+        _ = [
+            collect_import_targets(node)
+            for node in ast.walk(ast.parse(source, filename=str(path)))
+        ]
+        return tuple(targets)
+
+    controlled_path = generic_root / "dbcontrol/example.py"
+    controlled = {
+        "import ksdft2effmass.harness.pi.local": ("ksdft2effmass.harness.pi.local",),
+        "from ksdft2effmass.harness.pi.local import dbcontrol": (
+            "ksdft2effmass.harness.pi.local",
+            "ksdft2effmass.harness.pi.local.dbcontrol",
+        ),
+        "from ..local import dbcontrol": (
+            "ksdft2effmass.harness.pi.local",
+            "ksdft2effmass.harness.pi.local.dbcontrol",
+        ),
+        "from ...pi.local import adapters": (
+            "ksdft2effmass.harness.pi.local",
+            "ksdft2effmass.harness.pi.local.adapters",
+        ),
+        "from .. import local": (
+            "ksdft2effmass.harness.pi",
+            "ksdft2effmass.harness.pi.local",
+        ),
+    }
+    assert {
+        source: import_targets(source, controlled_path) for source in controlled
+    } == controlled
+
+    def assert_import_direction(path: Path) -> None:
+        targets = import_targets(path.read_text(encoding="utf-8"), path)
         assert not any(target.startswith(prohibited) for target in targets), path
 
-    generic_root = ROOT / "python/src/ksdft2effmass/harness/pi"
     _ = [
-        exercise_path_case_54_2(path)
+        assert_import_direction(path)
         for path in generic_root.rglob("*.py")
         if "local" not in path.relative_to(generic_root).parts
+    ]
+
+
+def test_artifact__dbcontrol_modules__contain_no_module_level_functions() -> None:
+    """Evidence ID: software-verification.harness.dbcontrol-ownership.no-module-functions
+
+    Requirement: Every production transformation in both R2.1 dbcontrol packages is
+    owned by a cohesive object rather than a module-level implementation function.
+
+    Method: Parse every Python module under the generic and project-local dbcontrol
+    package roots and inspect only direct module-body nodes.
+
+    Oracle: Direct ``ast.FunctionDef`` and ``ast.AsyncFunctionDef`` nodes represent
+    module-level functions; methods occur beneath class nodes.
+
+    Acceptance: Neither package contains a direct module-level function node.
+
+    Interpretation: Failure identifies regression of the accepted R2.1 ownership
+    boundary.
+
+    Limitations: Structural ownership does not by itself prove behavioral cohesion or
+    public API compatibility.
+    """  # noqa: E501
+    roots = (
+        ROOT / "python/src/ksdft2effmass/harness/pi/dbcontrol",
+        ROOT / "python/src/ksdft2effmass/harness/pi/local/dbcontrol",
+    )
+
+    def assert_no_module_functions(path: Path) -> None:
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        assert not any(
+            isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            for node in tree.body
+        ), path
+
+    _ = [
+        assert_no_module_functions(path)
+        for root in roots
+        for path in root.rglob("*.py")
     ]
 
 

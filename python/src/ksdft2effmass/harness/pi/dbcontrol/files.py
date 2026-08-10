@@ -8,11 +8,6 @@ from ..identity import Identifier, _require_path
 from ..validation import ValidationIssue, _issue
 
 
-def _path_code(exc: ValueError) -> str:
-    code = str(exc).split(":", 1)[0]
-    return code if code.startswith("PIH.PATH.") else "PIH.TASK_STATE.REFERENCE_INVALID"
-
-
 class _InspectionFiles:
     """Track exact root-confined paths inspected by one action execution."""
 
@@ -25,6 +20,13 @@ class _InspectionFiles:
         self.inspected: set[str] = set()
         self.read: set[str] = set()
         self.missing: set[str] = set()
+
+    @staticmethod
+    def _path_code(exc: ValueError) -> str:
+        code = str(exc).split(":", 1)[0]
+        return (
+            code if code.startswith("PIH.PATH.") else "PIH.TASK_STATE.REFERENCE_INVALID"
+        )
 
     def root_is_valid(self) -> bool:
         """Return whether the caller-selected root is canonical and nonsymlinked."""
@@ -45,7 +47,7 @@ class _InspectionFiles:
             _require_path(path, "referenced path")
         except ValueError as exc:
             self.issues.append(
-                _issue(_path_code(exc), str(exc), self.task_id, path=None)
+                _issue(self._path_code(exc), str(exc), self.task_id, path=None)
             )
             return None
 

@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2886,
+  "expected_collected_node_count": 2888,
   "expected_module_count": 227,
   "modules": [
     {
@@ -247,7 +247,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5d53f7c131fcab9e370af62253f17cb5a48733b5d67c6e495f2359b424533d39",
+      "content_sha256": "83ade192d9cd7d930fa9fa36b65ef1d65460ae41ff38e18d8e93baba71f56755",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__sqlite_control.py",
@@ -711,7 +711,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "25d5da27f435f3382d855a86956df398dada7207b91e4a39bb8c4d58523e63f4",
+      "content_sha256": "29dbfe598fe6dbbc453210877c6a9fa6ade74b22e5c1cf86b470ae07b22c6bd4",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py",

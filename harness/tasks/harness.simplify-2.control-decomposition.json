@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2.control-decomposition",
   "title": "Decompose SQLite-hybrid control ownership",
   "status": "completed",
-  "status_detail": "completed with required verification and compatibility review; no successor activated",
+  "status_detail": "completed with bounded post-review boundary corrections; no successor activated",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplification.round-2.sqlite-hybrid-cutover"
@@ -11,14 +11,14 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Extract repository-specific SQLite-hybrid control construction into `python/src/ksdft2effmass/harness/pi/local/dbcontrol/`, relocate storage-neutral Task-state database reading, query, and private inspection behavior into `python/src/ksdft2effmass/harness/pi/dbcontrol/`, then remove the superseded modules after all consumers have migrated.",
+  "objective": "Extract repository-specific SQLite-hybrid control construction into `python/src/ksdft2effmass/harness/pi/local/dbcontrol/`, relocate project-neutral read-only SQLite Task-state database reading, query, and private inspection behavior into `python/src/ksdft2effmass/harness/pi/dbcontrol/`, then remove the superseded modules after all consumers have migrated.",
   "authority_reference_paths": [
     "AGENTS.md",
     "harness/intake/harness.simplify-2.md",
     "harness/tasks/harness.simplify-2.json"
   ],
   "authorized_scope": [
-    "Create `python/src/ksdft2effmass/harness/pi/dbcontrol/` for storage-neutral Task-state database reading, query, document parsing, file inspection, and private inspection behavior, and create `python/src/ksdft2effmass/harness/pi/local/dbcontrol/` for repository-specific records, schema and connection, ingestion, projections, deterministic SQL export, verification, migration, and command boundaries; split only where each subdomain has distinct inputs and invariants.",
+    "Create `python/src/ksdft2effmass/harness/pi/dbcontrol/` for project-neutral read-only SQLite Task-state database reading, query, document parsing, file inspection, and private inspection behavior, and create `python/src/ksdft2effmass/harness/pi/local/dbcontrol/` for repository-specific records, schema and connection, ingestion, projections, deterministic SQL export, verification, migration, and command boundaries; split only where each subdomain has distinct inputs and invariants.",
     "Extract all behavior from `python/src/ksdft2effmass/harness/pi/local/control.py`; use that module only as a temporary forwarding bridge while consumers migrate, prove that no live import remains, and remove the module as the final extraction step rather than deleting it before its behavior and consumers have moved.",
     "Relocate the private Task-state implementation formerly held by `python/src/ksdft2effmass/harness/pi/_task_control_state.py`, `_task_state_inspection.py`, `_task_state_documents.py`, and `_task_state_files.py` into cohesive private generic `dbcontrol` ownership. Retain the public `TaskStateInspectionRequest`, `TaskStateInspectionResult`, and `TaskStateInspector` identities and signatures in `task_state.py`, with private delegation and no new public API. Required dependency direction is `local.dbcontrol` to generic `dbcontrol` and `task_state` to generic `dbcontrol`; generic `dbcontrol` must not depend on `local.dbcontrol`, and `task_state` must not depend on `local.dbcontrol`.",
     "Keep `python/src/ksdft2effmass/harness/pi/local/control_cli.py` as a thin behavior-preserving consumer of the new `dbcontrol` owners for the duration of R2.1; do not relocate or remove the CLI in this work package. Record its imports, arguments, rendering, exit behavior, and live consumers in the R2.6 handoff so `harness.simplify-2.cli-consolidation` can migrate it with the complete maintained CLI surface.",
@@ -29,7 +29,7 @@
     "Before writer dispatch, name the workspace and baseline, exact owned paths, task-selected skills, required checks, preserved contracts, read-only review boundary, handoff fields, and the requirement that R2.2 remain inactive; routine reconnaissance uses at most one bounded scout followed by one focused reviewer when materially useful."
   ],
   "completion_criteria": [
-    "Generic `dbcontrol/` gives storage-neutral Task-state database reading, query, document parsing, file inspection, and private inspection explicit cohesive owners; `local/dbcontrol/` gives repository-specific records, schema and connection, ingestion, projections, SQL export, verification, migration, and command behavior explicit cohesive owners. Dependency direction is `local.dbcontrol` to generic `dbcontrol` and `task_state` to generic `dbcontrol`, with both reverse directions prohibited, while orchestration contains no domain mechanism and no new public API is introduced.",
+    "Generic `dbcontrol/` gives project-neutral read-only SQLite Task-state database reading, query, document parsing, file inspection, and private inspection explicit cohesive owners; `local/dbcontrol/` gives repository-specific records, schema and connection, ingestion, projections, SQL export, verification, migration, and command behavior explicit cohesive owners. Dependency direction is `local.dbcontrol` to generic `dbcontrol` and `task_state` to generic `dbcontrol`, with both reverse directions prohibited, while orchestration contains no domain mechanism and no new public API is introduced.",
     "All database-control behavior and live library consumers have migrated before `local/control.py` and the superseded private Task-state holder modules are removed; final repository scans find no live imports to the removed modules and no final `local.control` compatibility façade remains. `local/control_cli.py` remains only as the bounded R2.6 migration input and contains no duplicated domain behavior.",
     "The five package-level public migration and verification exports, the public Task-state inspection request, result, and ActionObject, and all execute signatures remain stable; deliberate removal is limited to the superseded direct `local.control` module path and private implementation paths.",
     "Old and new implementations agree over one immutable input corpus on SQLite DDL, normalized semantic digest, deterministic SQL bytes, migration result fields, projection paths and bytes, projection-manifest bytes, verifier results, and maintained command output; raw database hashes retain their existing report-only semantics.",

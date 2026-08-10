@@ -134,8 +134,8 @@ explicitly; neither tree replaces the other.
 
 ### R2.1 — Control decomposition
 
-Target internal ownership separates storage-neutral Task-state inspection from
-repository-specific control construction:
+Target internal ownership separates project-neutral read-only SQLite Task-state
+inspection from repository-specific control construction:
 
 ```text
 python/src/ksdft2effmass/harness/pi/dbcontrol/
@@ -160,7 +160,7 @@ python/src/ksdft2effmass/harness/pi/local/dbcontrol/
 
 | Owner | Responsibility |
 | --- | --- |
-| Generic `dbcontrol/database.py` | Storage-neutral, read-only Task lifecycle database queries. |
+| Generic `dbcontrol/database.py` | Project-neutral, read-only SQLite Task lifecycle queries. |
 | Generic `dbcontrol/documents.py`, `files.py`, and `inspection.py` | Private bounded Task-state document parsing, file inspection, and reconciliation moved from the superseded holder modules. |
 | `task_state.py` | Retained public `TaskStateInspector` identity and execute signature, with private delegation to generic `dbcontrol`; no new public API. |
 | Local `dbcontrol/records.py` and `schema.py` | Immutable migration and verification records plus the project-local SQLite DDL and schema version. |

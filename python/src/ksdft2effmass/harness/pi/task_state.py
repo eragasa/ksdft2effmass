@@ -211,13 +211,13 @@ class TaskStateInspector:
         if type(request) is not TaskStateInspectionRequest:
             raise TypeError("request must be TaskStateInspectionRequest")
 
-        from .dbcontrol.inspection import _query_task_state
+        from .dbcontrol.inspection import _TaskStateQuery
 
-        result = _query_task_state(
+        result = _TaskStateQuery(
             request.repository_root,
             request.chain_path,
             request.task_id,
-        )
+        ).execute()
         return TaskStateInspectionResult(
             1,
             request.repository_root,

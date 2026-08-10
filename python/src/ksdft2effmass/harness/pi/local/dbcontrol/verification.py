@@ -6,9 +6,9 @@ import sqlite3
 from pathlib import Path
 
 from .constants import CONTROL_DATABASE_PATH, CONTROL_SQL_PATH
-from .database import _execute_script, _semantic_digest_normalized
-from .encoding import _sha256
-from .projections import _projections
+from .database import _ControlDatabase
+from .encoding import _ControlEncoding
+from .projections import _ControlProjector
 from .records import HarnessControlVerificationResult
 
 
@@ -24,7 +24,7 @@ class HarnessControlVerifier:
         database = repository_root / CONTROL_DATABASE_PATH
         sql_path = repository_root / CONTROL_SQL_PATH
         reconstructed = database.with_name("harness-control.reconstructed.sqlite3")
-        _execute_script(reconstructed, sql_path.read_bytes())
+        _ControlDatabase.reconstruct(reconstructed, sql_path.read_bytes())
         try:
             with (
                 sqlite3.connect(database) as source,
@@ -32,17 +32,17 @@ class HarnessControlVerifier:
             ):
                 integrity = str(source.execute("PRAGMA integrity_check").fetchone()[0])
                 foreign = len(source.execute("PRAGMA foreign_key_check").fetchall())
-                source_digest = _semantic_digest_normalized(source)
-                target_digest = _semantic_digest_normalized(target)
-                source_projections = _projections(source)
-                target_projections = _projections(target)
+                source_digest = _ControlDatabase(source).normalized_semantic_digest()
+                target_digest = _ControlDatabase(target).normalized_semantic_digest()
+                source_projections = _ControlProjector(source).render_all()
+                target_projections = _ControlProjector(target).render_all()
             return HarnessControlVerificationResult(
                 integrity,
                 foreign,
                 source_digest,
                 target_digest,
-                _sha256(database.read_bytes()),
-                _sha256(reconstructed.read_bytes()),
+                _ControlEncoding.sha256(database.read_bytes()),
+                _ControlEncoding.sha256(reconstructed.read_bytes()),
                 source_projections == target_projections,
             )
         finally:

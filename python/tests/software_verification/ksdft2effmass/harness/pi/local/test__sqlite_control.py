@@ -17,11 +17,13 @@ These tests are software verification only. They do not validate scientific
 models, numerical algorithms, telemetry, protected execution, or human intent.
 """
 
+import sqlite3
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 
 import pytest
 
+from ksdft2effmass.harness.pi.dbcontrol.database import _TaskStateDatabaseReader
 from ksdft2effmass.harness.pi.local import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
@@ -29,6 +31,7 @@ from ksdft2effmass.harness.pi.local import (
     HarnessControlVerificationResult,
     HarnessControlVerifier,
 )
+from ksdft2effmass.harness.pi.local.dbcontrol.schema import _SCHEMA
 
 pytestmark = pytest.mark.software_verification
 
@@ -116,6 +119,48 @@ def test_artifact__verification_result__reconstruction_fields__preserve_exact_va
         "d",
     )
     assert result.projections_identical is True
+
+
+def test_artifact__task_state_schema__generic_reader_agrees_with_local_schema(
+    tmp_path: Path,
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.task-state-schema.generic-reader-agrees
+
+    Requirement: The project-local SQLite schema supplies the generic Task-state reader's
+    exact ``task_id``, ``lifecycle_status``, and ``is_active`` contract.
+
+    Method: Materialize the current local schema, insert one controlled Task and lifecycle
+    row, inspect the declared columns, and query it through the generic private reader.
+
+    Oracle: The controlled row has exact status ``active`` and integer activation value
+    one; SQLite ``PRAGMA table_info`` reports declared column names independently of the
+    reader.
+
+    Acceptance: The required columns are present and generic reading returns exactly
+    ``("active", True)``.
+
+    Interpretation: Failure identifies drift between project-local persistence and the
+    generic read-only Task-state contract.
+
+    Limitations: This checks the current schema/query seam, not migration completeness or
+    scientific behavior.
+    """  # noqa: E501
+    database = tmp_path / "control.sqlite3"
+    with sqlite3.connect(database) as connection:
+        connection.executescript(_SCHEMA)
+        connection.execute(
+            "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("test.task", 3, "Test", "Test", "task.json", None, 0, None, None, None),
+        )
+        connection.execute(
+            "INSERT INTO task_state VALUES (?,?,?,?)",
+            ("test.task", "active", 1, 0),
+        )
+        columns = {
+            row[1] for row in connection.execute("PRAGMA table_info(task_state)")
+        }
+    assert {"task_id", "lifecycle_status", "is_active"} <= columns
+    assert _TaskStateDatabaseReader(database).read("test.task") == ("active", True)
 
 
 def test_artifact__verification_action__relative_root__raises_value_error() -> None:

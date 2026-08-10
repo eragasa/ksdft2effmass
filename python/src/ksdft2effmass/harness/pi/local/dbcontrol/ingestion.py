@@ -11,52 +11,71 @@ from pathlib import Path
 from typing import Any
 
 from .constants import _EVIDENCE_CLASSES, _EVIDENCE_ID, _IDENTIFIER
-from .encoding import _sha256, _slug
-
-
-def _module_inventory(root: Path) -> list[dict[str, Any]]:
-    path = root / ".pi/evidence/python-conformance/module-inventory.json"
-    document = json.loads(path.read_text())
-    return list(document["modules"])
-
-
-def _canonical_evidence_id(module: dict[str, Any], function_name: str) -> str:
-    path = Path(module["path"])
-    parts = list(path.parts)
-    try:
-        start = parts.index("ksdft2effmass")
-        domain = [_slug(item) for item in parts[start + 1 : -1]]
-    except ValueError:
-        domain = ["repository"]
-    subject = _slug(path.stem.removeprefix("test__"))
-    claim = ".".join(
-        _slug(item) for item in function_name.removeprefix("test_").split("__")
-    )
-    prefix = _EVIDENCE_CLASSES[module["evidence_class"]]
-    return ".".join((prefix, *(domain or ["root"]), subject, claim))
-
-
-def _frontmatter(text: str) -> dict[str, str]:
-    if not text.startswith("---\n"):
-        return {}
-    end = text.find("\n---\n", 4)
-    if end < 0:
-        return {}
-    result = {}
-    for line in text[4:end].splitlines():
-        if ":" in line:
-            key, value = line.split(":", 1)
-            result[key.strip()] = value.strip()
-    return result
+from .encoding import _ControlEncoding
 
 
 class _RepositoryControlIngestor:
     """Ingest one explicit repository corpus into an initialized database."""
 
-    __slots__ = ()
+    __slots__ = ("connection", "root", "unresolved")
 
-    @staticmethod
-    def _migrate_tasks(connection: sqlite3.Connection, root: Path) -> None:
+    def __init__(
+        self,
+        connection: sqlite3.Connection,
+        root: Path,
+        unresolved: list[str],
+    ) -> None:
+        self.connection = connection
+        self.root = root
+        self.unresolved = unresolved
+
+    def execute(self) -> None:
+        """Ingest the complete repository control corpus in dependency order."""
+        self._migrate_tasks()
+        self._migrate_evidence()
+        self._migrate_collected_nodes()
+        self._migrate_agents_and_skills()
+        self._migrate_resources()
+        self._migrate_decisions()
+
+    def _module_inventory(self) -> list[dict[str, Any]]:
+        root = self.root
+        path = root / ".pi/evidence/python-conformance/module-inventory.json"
+        document = json.loads(path.read_text())
+        return list(document["modules"])
+
+    def _canonical_evidence_id(self, module: dict[str, Any], function_name: str) -> str:
+        path = Path(module["path"])
+        parts = list(path.parts)
+        try:
+            start = parts.index("ksdft2effmass")
+            domain = [_ControlEncoding.slug(item) for item in parts[start + 1 : -1]]
+        except ValueError:
+            domain = ["repository"]
+        subject = _ControlEncoding.slug(path.stem.removeprefix("test__"))
+        claim = ".".join(
+            _ControlEncoding.slug(item)
+            for item in function_name.removeprefix("test_").split("__")
+        )
+        prefix = _EVIDENCE_CLASSES[module["evidence_class"]]
+        return ".".join((prefix, *(domain or ["root"]), subject, claim))
+
+    def _frontmatter(self, text: str) -> dict[str, str]:
+        if not text.startswith("---\n"):
+            return {}
+        end = text.find("\n---\n", 4)
+        if end < 0:
+            return {}
+        result = {}
+        for line in text[4:end].splitlines():
+            if ":" in line:
+                key, value = line.split(":", 1)
+                result[key.strip()] = value.strip()
+        return result
+
+    def _migrate_tasks(self) -> None:
+        connection = self.connection
+        root = self.root
         task_paths = sorted(
             (root / "harness/tasks").glob("*.json"), key=lambda item: item.name
         )
@@ -159,7 +178,7 @@ class _RepositoryControlIngestor:
             connection.execute(
                 "INSERT INTO task_state_event VALUES (?,?,?,?,?)",
                 (
-                    f"task-state.{_slug(task_id)}.imported",
+                    f"task-state.{_ControlEncoding.slug(task_id)}.imported",
                     task_id,
                     0,
                     status,
@@ -219,18 +238,18 @@ class _RepositoryControlIngestor:
                     (source, target, "ordered_before"),
                 )
 
-    @staticmethod
-    def _migrate_evidence(
-        connection: sqlite3.Connection, root: Path, unresolved: list[str]
-    ) -> None:
-        for module in _module_inventory(root):
+    def _migrate_evidence(self) -> None:
+        connection = self.connection
+        root = self.root
+        unresolved = self.unresolved
+        for module in self._module_inventory():
             path = root / module["path"]
             if not path.is_file():
                 unresolved.append(f"unresolved test module: {module['path']}")
                 continue
             source = path.read_bytes()
             tree = ast.parse(source, filename=module["path"])
-            module_id = "test-module." + _slug(
+            module_id = "test-module." + _ControlEncoding.slug(
                 path.relative_to(root / "python/tests").with_suffix("").as_posix()
             ).replace("-", ".")
             subject = (
@@ -243,7 +262,7 @@ class _RepositoryControlIngestor:
                 (
                     module_id,
                     module["path"],
-                    _sha256(source),
+                    _ControlEncoding.sha256(source),
                     module["mode"],
                     subject,
                     _EVIDENCE_CLASSES[module["evidence_class"]],
@@ -263,7 +282,7 @@ class _RepositoryControlIngestor:
                     if old_id is not None
                     and _IDENTIFIER.fullmatch(old_id)
                     and old_id.split(".", 1)[0] in _EVIDENCE_CLASSES.values()
-                    else _canonical_evidence_id(module, node.name)
+                    else self._canonical_evidence_id(module, node.name)
                 )
                 naming = "semantic"
                 claim_summary = (
@@ -306,10 +325,10 @@ class _RepositoryControlIngestor:
                     except sqlite3.IntegrityError:
                         unresolved.append(f"duplicate historical alias: {old_id}")
 
-    @staticmethod
-    def _migrate_collected_nodes(
-        connection: sqlite3.Connection, root: Path, unresolved: list[str]
-    ) -> None:
+    def _migrate_collected_nodes(self) -> None:
+        connection = self.connection
+        root = self.root
+        unresolved = self.unresolved
         completed = subprocess.run(
             [str(root / "python/.venv/bin/pytest"), "--collect-only", "-q"],
             cwd=root / "python",
@@ -364,8 +383,9 @@ class _RepositoryControlIngestor:
                 "non-snake-case pytest composition and require normalization"
             )
 
-    @staticmethod
-    def _migrate_agents_and_skills(connection: sqlite3.Connection, root: Path) -> None:
+    def _migrate_agents_and_skills(self) -> None:
+        connection = self.connection
+        root = self.root
         skill_paths = sorted(
             (
                 *root.glob(".pi/skills/*/SKILL.md"),
@@ -376,8 +396,10 @@ class _RepositoryControlIngestor:
         skill_ids: set[str] = set()
         for path in skill_paths:
             relative = path.relative_to(root).as_posix()
-            meta = _frontmatter(path.read_text())
-            skill_id = _slug(meta.get("name", path.parent.name)).replace("-", ".")
+            meta = self._frontmatter(path.read_text())
+            skill_id = _ControlEncoding.slug(
+                meta.get("name", path.parent.name)
+            ).replace("-", ".")
             if skill_id in skill_ids:
                 skill_id = "project." + skill_id
             skill_ids.add(skill_id)
@@ -396,7 +418,7 @@ class _RepositoryControlIngestor:
                     descriptor.relative_to(root).as_posix()
                     if descriptor.exists()
                     else None,
-                    _sha256(path.read_bytes()),
+                    _ControlEncoding.sha256(path.read_bytes()),
                     1,
                 ),
             )
@@ -405,15 +427,17 @@ class _RepositoryControlIngestor:
             for row in connection.execute("SELECT skill_id FROM skill_definition")
         }
         for path in sorted(root.glob(".pi/agents/*.md"), key=lambda item: item.name):
-            meta = _frontmatter(path.read_text())
-            agent_id = _slug(meta.get("name", path.stem)).replace("-", ".")
+            meta = self._frontmatter(path.read_text())
+            agent_id = _ControlEncoding.slug(meta.get("name", path.stem)).replace(
+                "-", "."
+            )
             access = "writer" if meta.get("acceptanceRole") == "writer" else "read_only"
             connection.execute(
                 "INSERT INTO agent_definition VALUES (?,?,?,?,?,?)",
                 (
                     agent_id,
                     path.relative_to(root).as_posix(),
-                    _sha256(path.read_bytes()),
+                    _ControlEncoding.sha256(path.read_bytes()),
                     "durable",
                     access,
                     1,
@@ -431,8 +455,9 @@ class _RepositoryControlIngestor:
                         (agent_id, routed_skill_id),
                     )
 
-    @staticmethod
-    def _migrate_resources(connection: sqlite3.Connection, root: Path) -> None:
+    def _migrate_resources(self) -> None:
+        connection = self.connection
+        root = self.root
         manifests = (
             (
                 root / "harness/pi/resource-manifest.json",
@@ -454,7 +479,7 @@ class _RepositoryControlIngestor:
         for resource, layer, resource_root in resources:
             path = resource_root / resource["path"]
             digest = (
-                _sha256(path.read_bytes())
+                _ControlEncoding.sha256(path.read_bytes())
                 if path.is_file()
                 else resource["content_identity"]["digest"]
             )
@@ -486,8 +511,9 @@ class _RepositoryControlIngestor:
                             (resource["resource_id"], dependency, index),
                         )
 
-    @staticmethod
-    def _migrate_decisions(connection: sqlite3.Connection, root: Path) -> None:
+    def _migrate_decisions(self) -> None:
+        connection = self.connection
+        root = self.root
         for path in sorted(
             (root / ".pi/checkpoints").glob("*.json"), key=lambda item: item.name
         ):
@@ -522,7 +548,7 @@ class _RepositoryControlIngestor:
                 (
                     decision_id,
                     path.relative_to(root).as_posix(),
-                    _sha256(path.read_bytes()),
+                    _ControlEncoding.sha256(path.read_bytes()),
                     task_id,
                     disposition,
                     "resolved" if resolved else "unresolved",
