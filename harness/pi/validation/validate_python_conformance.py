@@ -100,32 +100,43 @@ def main() -> int:
         help="explicit versioned Python evidence-profile matrix JSON",
     )
     args = parser.parse_args()
+    parsed_models: tuple[Any, ...] = ()
+    source_inputs: tuple[Any, ...]
     if args.ownership is not None:
         if args.ownership.as_posix().endswith("module-inventory.json"):
             parser.error("generated module inventory is projection-only")
         ownership_payload, ownership_error = _read(args.ownership)
         ownership_path = args.ownership.as_posix()
+        source_inputs = tuple(_source(path) for path in args.paths)
     else:
         parser_impl = import_module(
             "ksdft2effmass.harness.pi.evidence.python_conformance.parser"
         )
         entries = []
+        models = []
+        sources = []
         for path in args.paths:
             payload = path.read_bytes()
             model = parser_impl.parse_module(path.as_posix(), payload)
+            models.append(model)
+            sources.append(PythonModuleSource(path.as_posix(), payload))
             entry = {
                 "path": path.as_posix(),
                 "mode": model.ownership_kind,
                 "evidence_class": model.evidence_class,
                 "evidence_profile": model.evidence_profile,
             }
-            entry["sut" if model.ownership_kind == "class_owned" else "artifact"] = model.owner_subject
+            entry["sut" if model.ownership_kind == "class_owned" else "artifact"] = (
+                model.owner_subject
+            )
             entries.append(entry)
         ownership_payload = json.dumps(
             {"schema_version": 1, "modules": entries}, separators=(",", ":")
         ).encode()
         ownership_error = None
         ownership_path = "<source-embedded-module-declarations>"
+        parsed_models = tuple(models)
+        source_inputs = tuple(sources)
     migration_payload: bytes | None = None
     migration_error: str | None = None
     if args.migration_map is not None:
@@ -135,7 +146,7 @@ def main() -> int:
     if args.profile_matrix is not None:
         profile_payload, profile_error = _read(args.profile_matrix)
     request = PythonConformanceRequest(
-        tuple(_source(path) for path in args.paths),
+        source_inputs,
         ownership_path,
         ownership_payload,
         ownership_error,
@@ -145,6 +156,7 @@ def main() -> int:
         args.profile_matrix.as_posix() if args.profile_matrix is not None else None,
         profile_payload,
         profile_error,
+        parsed_models,
     )
     result = PythonConformanceValidator().execute(request)
     print(
