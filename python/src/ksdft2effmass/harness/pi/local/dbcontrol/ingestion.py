@@ -7,6 +7,7 @@ import json
 import re
 import sqlite3
 import subprocess
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
@@ -17,17 +18,19 @@ from .encoding import _ControlEncoding
 class _RepositoryControlIngestor:
     """Ingest one explicit repository corpus into an initialized database."""
 
-    __slots__ = ("connection", "root", "unresolved")
+    __slots__ = ("connection", "root", "unresolved", "module_inventory")
 
     def __init__(
         self,
         connection: sqlite3.Connection,
         root: Path,
         unresolved: list[str],
+        module_inventory: tuple[Mapping[str, Any], ...] | None = None,
     ) -> None:
         self.connection = connection
         self.root = root
         self.unresolved = unresolved
+        self.module_inventory = module_inventory
 
     def execute(self) -> None:
         """Ingest the complete repository control corpus in dependency order."""
@@ -38,13 +41,16 @@ class _RepositoryControlIngestor:
         self._migrate_resources()
         self._migrate_decisions()
 
-    def _module_inventory(self) -> list[dict[str, Any]]:
-        root = self.root
-        path = root / ".pi/evidence/python-conformance/module-inventory.json"
+    def _module_inventory(self) -> list[Mapping[str, Any]]:
+        if self.module_inventory is not None:
+            return list(self.module_inventory)
+        path = self.root / ".pi/evidence/python-conformance/module-inventory.json"
         document = json.loads(path.read_text())
         return list(document["modules"])
 
-    def _canonical_evidence_id(self, module: dict[str, Any], function_name: str) -> str:
+    def _canonical_evidence_id(
+        self, module: Mapping[str, Any], function_name: str
+    ) -> str:
         path = Path(module["path"])
         parts = list(path.parts)
         try:

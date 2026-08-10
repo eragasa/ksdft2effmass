@@ -10,10 +10,16 @@ from .constants import CONTROL_DATABASE_PATH
 
 @dataclass(frozen=True, slots=True)
 class HarnessControlMigrationRequest:
-    """Explicit repository and destination for one control-state migration."""
+    """Explicit inputs for one control-state migration.
+
+    ``evidence_module_ownership_path`` optionally selects a repository-relative
+    Python-conformance ownership document.  When omitted, migration preserves
+    the compatibility behavior of reading the generated module inventory.
+    """
 
     repository_root: Path
     database_path: Path = CONTROL_DATABASE_PATH
+    evidence_module_ownership_path: Path | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -23,6 +29,21 @@ class HarnessControlMigrationRequest:
             raise ValueError("repository_root must be an absolute pathlib.Path")
         if not isinstance(self.database_path, Path) or self.database_path.is_absolute():
             raise ValueError("database_path must be repository-relative")
+        ownership_path = self.evidence_module_ownership_path
+        if ownership_path is not None and not isinstance(ownership_path, Path):
+            raise TypeError(
+                "evidence_module_ownership_path must be a pathlib.Path or None"
+            )
+        for name, path in (
+            ("database_path", self.database_path),
+            ("evidence_module_ownership_path", ownership_path),
+        ):
+            if path is not None and (
+                path == Path(".") or ".." in path.parts or path.is_absolute()
+            ):
+                raise ValueError(
+                    f"{name} must be a root-confined repository-relative path"
+                )
 
 
 @dataclass(frozen=True, slots=True)

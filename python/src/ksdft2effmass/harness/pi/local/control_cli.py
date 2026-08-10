@@ -20,12 +20,27 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=("migrate", "verify"))
     parser.add_argument("--repository-root", type=Path, required=True)
+    parser.add_argument(
+        "--evidence-module-ownership",
+        type=Path,
+        help=(
+            "repository-relative closed Python-conformance ownership input "
+            "used only by migrate"
+        ),
+    )
     args = parser.parse_args()
     root = args.repository_root.resolve()
     result: HarnessControlMigrationResult | HarnessControlVerificationResult
     if args.action == "migrate":
-        result = HarnessControlMigrator().execute(HarnessControlMigrationRequest(root))
+        result = HarnessControlMigrator().execute(
+            HarnessControlMigrationRequest(
+                root,
+                evidence_module_ownership_path=args.evidence_module_ownership,
+            )
+        )
     else:
+        if args.evidence_module_ownership is not None:
+            parser.error("--evidence-module-ownership is valid only with migrate")
         result = HarnessControlVerifier().execute(root)
     print(
         json.dumps(

@@ -2,8 +2,18 @@
 
 from __future__ import annotations
 
+import json
 import sqlite3
+from collections.abc import Mapping
+from pathlib import Path
+from types import MappingProxyType
+from typing import Any
 
+from ...evidence.python_conformance import (
+    PythonConformanceRequest,
+    PythonConformanceValidator,
+    PythonModuleSource,
+)
 from .constants import (
     _GENERATOR_ID,
     CONTROL_SCHEMA_VERSION,
@@ -23,6 +33,169 @@ class HarnessControlMigrator:
 
     __slots__ = ()
 
+    @staticmethod
+    def _repository_file(root: Path, relative: Path) -> Path:
+        """Resolve one explicit regular file without escaping ``root``."""
+        resolved_root = root.resolve()
+        try:
+            resolved = (resolved_root / relative).resolve(strict=True)
+            resolved.relative_to(resolved_root)
+        except (FileNotFoundError, RuntimeError, ValueError) as exc:
+            raise ValueError(
+                f"repository-relative input is not root-confined: {relative}"
+            ) from exc
+        if not resolved.is_file():
+            raise ValueError(
+                f"repository-relative input is not a regular file: {relative}"
+            )
+        return resolved
+
+    @classmethod
+    def _evidence_module_ownership(
+        cls, request: HarnessControlMigrationRequest
+    ) -> tuple[Mapping[str, Any], ...] | None:
+        """Load and conformance-check the optional explicit ownership snapshot."""
+        relative = request.evidence_module_ownership_path
+        if relative is None:
+            return None
+        ownership_path = cls._repository_file(request.repository_root, relative)
+        payload = ownership_path.read_bytes()
+        try:
+            document = json.loads(payload.decode("utf-8"))
+        except (UnicodeError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                "evidence-module ownership input must be valid UTF-8 JSON"
+            ) from exc
+        raw_modules = document.get("modules") if isinstance(document, dict) else None
+        if not isinstance(raw_modules, list):
+            raise ValueError("evidence-module ownership input requires a modules list")
+        if not raw_modules:
+            if document != {"schema_version": 1, "modules": []}:
+                raise ValueError(
+                    "empty evidence-module ownership input has invalid schema"
+                )
+            return ()
+        sources: list[PythonModuleSource] = []
+        for index, entry in enumerate(raw_modules):
+            raw_path = entry.get("path") if isinstance(entry, dict) else None
+            if not isinstance(raw_path, str) or not raw_path:
+                raise ValueError(
+                    f"evidence-module ownership modules[{index}].path is invalid"
+                )
+            module_relative = Path(raw_path)
+            if (
+                module_relative.is_absolute()
+                or ".." in module_relative.parts
+                or len(module_relative.parts) < 3
+                or module_relative.parts[:2] != ("python", "tests")
+                or module_relative.suffix != ".py"
+            ):
+                message = (
+                    "evidence-module ownership path is outside python/tests: "
+                    f"{raw_path}"
+                )
+                raise ValueError(message)
+            source_path = cls._repository_file(request.repository_root, module_relative)
+            sources.append(PythonModuleSource(raw_path, source_path.read_bytes()))
+        result = PythonConformanceValidator().execute(
+            PythonConformanceRequest(
+                tuple(sources),
+                relative.as_posix(),
+                payload,
+            )
+        )
+        if result.status != "PASS":
+            codes = ", ".join(sorted({finding.code for finding in result.findings}))
+            raise ValueError(
+                f"evidence-module ownership input is nonconforming: {codes}"
+            )
+        return tuple(MappingProxyType(dict(entry)) for entry in raw_modules)
+
+    @staticmethod
+    def _publish_generation(
+        outputs: Mapping[Path, bytes], database_path: Path, semantic_digest: str
+    ) -> None:
+        """Stage, verify, and publish one generation with rollback on failure.
+
+        Publication uses same-directory atomic replacements for individual files.
+        It does not claim filesystem-level multi-file atomicity: if one replacement
+        fails, retained backups restore every previously published output before the
+        error is returned.
+        """
+        destinations = tuple(sorted(outputs, key=lambda path: path.as_posix()))
+        staged = {
+            destination: destination.with_name(
+                f".{destination.name}.harness-control-staged"
+            )
+            for destination in destinations
+        }
+        backups = {
+            destination: destination.with_name(
+                f".{destination.name}.harness-control-backup"
+            )
+            for destination in destinations
+        }
+        existed = {destination: destination.exists() for destination in destinations}
+        staged_database = staged[database_path]
+        database_sidecars = tuple(
+            Path(str(staged_database) + suffix)
+            for suffix in ("-wal", "-shm", "-journal")
+        )
+        temporary_paths = (
+            *staged.values(),
+            *backups.values(),
+            *database_sidecars,
+        )
+        try:
+            for destination in destinations:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                staged[destination].unlink(missing_ok=True)
+                backups[destination].unlink(missing_ok=True)
+                staged[destination].write_bytes(outputs[destination])
+            for destination in destinations:
+                if staged[destination].read_bytes() != outputs[destination]:
+                    raise RuntimeError(
+                        f"staged output verification failed: {destination}"
+                    )
+            with sqlite3.connect(staged_database) as connection:
+                integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
+                foreign_keys = list(connection.execute("PRAGMA foreign_key_check"))
+                stored_digest = connection.execute(
+                    "SELECT value FROM harness_metadata WHERE key='semantic_digest'"
+                ).fetchone()
+            if integrity != "ok" or foreign_keys or stored_digest != (semantic_digest,):
+                raise RuntimeError("staged authoritative database verification failed")
+            for path in database_sidecars:
+                path.unlink(missing_ok=True)
+        except Exception:
+            for path in temporary_paths:
+                path.unlink(missing_ok=True)
+            raise
+        try:
+            for destination in destinations:
+                if existed[destination]:
+                    destination.replace(backups[destination])
+            for destination in destinations:
+                staged[destination].replace(destination)
+        except Exception as publish_error:
+            try:
+                for destination in reversed(destinations):
+                    if backups[destination].exists():
+                        destination.unlink(missing_ok=True)
+                        backups[destination].replace(destination)
+                    elif not existed[destination]:
+                        destination.unlink(missing_ok=True)
+            except Exception as rollback_error:
+                raise RuntimeError(
+                    "control generation publication and rollback both failed"
+                ) from rollback_error
+            raise RuntimeError(
+                "control generation publication failed; previous generation restored"
+            ) from publish_error
+        finally:
+            for path in temporary_paths:
+                path.unlink(missing_ok=True)
+
     def execute(
         self, request: HarnessControlMigrationRequest
     ) -> HarnessControlMigrationResult:
@@ -30,6 +203,7 @@ class HarnessControlMigrator:
         if type(request) is not HarnessControlMigrationRequest:
             raise TypeError("request must be HarnessControlMigrationRequest")
         root = request.repository_root
+        module_inventory = self._evidence_module_ownership(request)
         database_path = root / request.database_path
         database_path.parent.mkdir(parents=True, exist_ok=True)
         working = database_path.with_suffix(".building.sqlite3")
@@ -51,7 +225,9 @@ class HarnessControlMigrator:
                     ("telemetry_status", "deferred-inactive"),
                 ),
             )
-            _RepositoryControlIngestor(connection, root, unresolved).execute()
+            _RepositoryControlIngestor(
+                connection, root, unresolved, module_inventory
+            ).execute()
             connection.commit()
             projector = _ControlProjector(connection)
             projections = projector.render_all()
@@ -87,16 +263,9 @@ class HarnessControlMigrator:
             )
             connection.commit()
             sql_bytes = database.deterministic_sql_export()
+            counts = database.catalog_counts()
         finally:
             connection.close()
-        sql_path = root / CONTROL_SQL_PATH
-        sql_path.write_bytes(sql_bytes)
-        _ControlDatabase.reconstruct(database_path, sql_bytes)
-        working.unlink(missing_ok=True)
-        for path, (_kind, payload) in sorted(projections.items()):
-            destination = root / path
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(payload)
         manifest_bytes = _ControlProjector.projection_manifest_bytes(
             control_schema_version=CONTROL_SCHEMA_VERSION,
             semantic_database_digest=final_digest,
@@ -105,9 +274,20 @@ class HarnessControlMigrator:
             projections=projections,
             unresolved_naming_issues=tuple(sorted(unresolved)),
         )
-        (root / PROJECTION_MANIFEST_PATH).write_bytes(manifest_bytes)
-        with sqlite3.connect(database_path) as final:
-            counts = _ControlDatabase(final).catalog_counts()
+        _ControlDatabase.reconstruct(working, sql_bytes)
+        outputs = {
+            database_path: working.read_bytes(),
+            root / CONTROL_SQL_PATH: sql_bytes,
+            root / PROJECTION_MANIFEST_PATH: manifest_bytes,
+            **{
+                root / path: payload
+                for path, (_kind, payload) in sorted(projections.items())
+            },
+        }
+        try:
+            self._publish_generation(outputs, database_path, final_digest)
+        finally:
+            working.unlink(missing_ok=True)
         return HarnessControlMigrationResult(
             CONTROL_SCHEMA_VERSION,
             final_digest,

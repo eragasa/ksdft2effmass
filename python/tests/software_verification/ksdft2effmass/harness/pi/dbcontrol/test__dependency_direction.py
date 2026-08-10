@@ -1,4 +1,4 @@
-r"""Software verification of harness pi generic local dependency direction.
+r"""Software verification of R2.1 dbcontrol dependency direction.
 
 Facet and represented meaning
 
@@ -24,7 +24,7 @@ from pathlib import Path
 
 import pytest
 
-ROOT = Path(__file__).resolve().parents[6]
+ROOT = Path(__file__).resolve().parents[7]
 
 pytestmark = pytest.mark.software_verification
 
@@ -49,7 +49,7 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
 
     Limitations: AST inspection does not detect dynamic imports or establish scientific
     correctness.
-    """
+    """  # noqa: E501
     prohibited = (
         "ksdft2effmass.harness.pi.local",
         "ksdft2effmass.operators",
@@ -88,10 +88,12 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
                     if alias.name != "*"
                 )
 
-        _ = [
-            collect_import_targets(node)
-            for node in ast.walk(ast.parse(source, filename=str(path)))
-        ]
+        tuple(
+            map(
+                collect_import_targets,
+                ast.walk(ast.parse(source, filename=str(path))),
+            )
+        )
         return tuple(targets)
 
     controlled_path = generic_root / "dbcontrol/example.py"
@@ -122,11 +124,16 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
         targets = import_targets(path.read_text(encoding="utf-8"), path)
         assert not any(target.startswith(prohibited) for target in targets), path
 
-    _ = [
-        assert_import_direction(path)
-        for path in generic_root.rglob("*.py")
-        if "local" not in path.relative_to(generic_root).parts
-    ]
+    tuple(
+        map(
+            assert_import_direction,
+            (
+                path
+                for path in generic_root.rglob("*.py")
+                if "local" not in path.relative_to(generic_root).parts
+            ),
+        )
+    )
 
 
 def test_artifact__dbcontrol_modules__contain_no_module_level_functions() -> None:
@@ -161,11 +168,12 @@ def test_artifact__dbcontrol_modules__contain_no_module_level_functions() -> Non
             for node in tree.body
         ), path
 
-    _ = [
-        assert_no_module_functions(path)
-        for root in roots
-        for path in root.rglob("*.py")
-    ]
+    tuple(
+        map(
+            assert_no_module_functions,
+            (path for root in roots for path in root.rglob("*.py")),
+        )
+    )
 
 
 def test_artifact__generic_resources__contain_no_project_local_identifiers() -> None:
@@ -190,7 +198,7 @@ def test_artifact__generic_resources__contain_no_project_local_identifiers() -> 
 
     Limitations: This checks explicit identities and path spellings, not arbitrary
     semantic equivalence, dynamic strings, authorization, science, or runtime dispatch.
-    """
+    """  # noqa: E501
     generic_path = ROOT / "harness/pi/resource-manifest.json"
     generic = json.loads(generic_path.read_text())
     local = json.loads((ROOT / "harness/local/resource-manifest.json").read_text())

@@ -21,13 +21,15 @@
     "Parse each selected Python test module once into one immutable internal `PythonTestModuleModel`.",
     "Separate naming, documentation, parameterization, ownership, migration, and repository-conformance rule ownership while preserving their accepted semantics.",
     "Return deterministically ordered structured findings through the existing supported conformance result and Action surfaces.",
-    "Synchronize focused maintained test evidence and directly affected evidence documentation using the owning test-evidence procedure."
+    "Synchronize focused maintained test evidence and directly affected evidence documentation using the owning test-evidence procedure.",
+    "Review and, if appropriate, consolidate ownership of the explicit evidence-module inventory reconciliation mechanism with Python conformance's parsed model and rule owners."
   ],
   "completion_criteria": [
     "One AST parse supplies one immutable module model to independent rule evaluators, and no evaluator reparses source or owns another rule domain.",
     "Accepted evidence identities, historical aliases, naming, documentation, parameterization, ownership, migration, finding order, public imports, and execute signatures remain stable.",
     "Focused conformance tests, complete evidence and repository conformance, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.",
-    "The work package completes without activating its successor."
+    "The work package completes without activating its successor.",
+    "The explicit evidence-module inventory reconciliation mechanism is reviewed for duplication with the parsed model and rules, and any appropriate ownership consolidation preserves its validated explicit-input and transactional projection contract."
   ],
   "exclusions": [
     "Do not weaken evidence requirements, change accepted identifiers, expected values, tolerances, skips, or evidence classifications merely to obtain passing checks.",

@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2888,
-  "expected_module_count": 227,
+  "expected_collected_node_count": 2912,
+  "expected_module_count": 245,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -36,6 +36,166 @@
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
       "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2a7d25951fb1b4d1e87a7e31114a5053b21461c925b42a67c6455a863923de92",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___ChainState.py",
+      "sut": "_ChainState"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f75a46073822267cd280f8705e4da489067c5e3ae5d7f839754415fb5c333011",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___DuplicateKey.py",
+      "sut": "_DuplicateKey"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "436c4d9a8d1d735bb8d60fe131178ffe0366eafa316cfeea1443b0a9899c9528",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___InspectionFiles.py",
+      "sut": "_InspectionFiles"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c300a918e587cc3a92da95ed1b5752c5b2033e084d87144c5e267759185a8fdf",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___OwnershipState.py",
+      "sut": "_OwnershipState"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e3349adaead5c3a90739aef217026609a6b7955b9bfefffd285927a676a7d239",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___SelectedTask.py",
+      "sut": "_SelectedTask"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d108c7b75f101c24c59a55bccd0b5fec8e33524ae5a5e492844962adf7f8bdf7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateDatabaseReader.py",
+      "sut": "_TaskStateDatabaseReader"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "72c3ef126008e9b1d9ef04bc7b761fa07493d1e590394d51fb154dbb20bf5e08",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateDocumentParser.py",
+      "sut": "_TaskStateDocumentParser"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f45604f0ef4630fe847a02ab7e636678f6e84e1ddf8818e94a7a4a041dcd3cf4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateQuery.py",
+      "sut": "_TaskStateQuery"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a676398b119415214abb59423187d37a9a5ffb6205fb0d1b789240547d8da41a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateQueryResult.py",
+      "sut": "_TaskStateQueryResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6ded5ec414268ae25728d00648bce0189899f18f463b0d2fbbd17b1f917a093b",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__dependency_direction.py",
+      "artifact": "R2.1 dbcontrol dependency direction"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a037cceeb6b8d5222a59a4d99dbd8575d065c72d2fb1dea9d0d5bc9f731e210b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlMigrationRequest.py",
+      "sut": "HarnessControlMigrationRequest"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "17245e925c099df29b3e1cd2b2b50a94b2a2e565fe852a0ef2f7e69861701dd3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlMigrationResult.py",
+      "sut": "HarnessControlMigrationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3b6f2fda62664068717a328d354a3bf69f2f9e9179a024e5aab4c202a1ef2ef6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlMigrator.py",
+      "sut": "HarnessControlMigrator"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "894e211b7fb5c1a3d72634b9553a97ba7bfcf19c9b1e4b1305e8051c5e035452",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlVerificationResult.py",
+      "sut": "HarnessControlVerificationResult"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e5635a8979554ad890bbfcb1cc21cb610f8992c5e26501782ba7586659bdc226",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlVerifier.py",
+      "sut": "HarnessControlVerifier"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a2e74683f792bf3558eef1d6d53103a2ff4f9f8a447fc60992d48a1aec3f13f7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlDatabase.py",
+      "sut": "_ControlDatabase"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "647f0a35575ee5c8a5defdd332e94bc706b7814df3ba05c0a7783f9cd3981870",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlEncoding.py",
+      "sut": "_ControlEncoding"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c1ac876c8137ce224bb3190ac6fff7a5fedbc2c4502d78a20e6490a014b08bea",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py",
+      "sut": "_ControlProjector"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7026b573b318b9e2705b9fff2c9ff763481bb6d74c74a50afc57051f284652e9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___RepositoryControlIngestor.py",
+      "sut": "_RepositoryControlIngestor"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "36a96f5474fb099d3a0db3835f9720030ff1b562586183690845e5393e0f72aa",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_command_api_agreement.py",
+      "artifact": "maintained harness control command/API agreement"
     },
     {
       "conformance_status": "conforming",
@@ -244,14 +404,6 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__refresh_resource_manifest_command_api_agreement.py",
       "artifact": "refresh resource manifest command api agreement"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "83ade192d9cd7d930fa9fa36b65ef1d65460ae41ff38e18d8e93baba71f56755",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__sqlite_control.py",
-      "artifact": "authoritative SQLite harness control"
     },
     {
       "conformance_status": "conforming",
@@ -708,14 +860,6 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__WireRecordKind.py",
       "sut": "WireRecordKind"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "29dbfe598fe6dbbc453210877c6a9fa6ade74b22e5c1cf86b470ae07b22c6bd4",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py",
-      "artifact": "harness pi generic local dependency direction"
     },
     {
       "conformance_status": "conforming",

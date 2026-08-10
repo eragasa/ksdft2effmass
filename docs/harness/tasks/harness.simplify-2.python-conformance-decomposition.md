@@ -28,6 +28,7 @@ Decompose `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` a
 - Separate naming, documentation, parameterization, ownership, migration, and repository-conformance rule ownership while preserving their accepted semantics.
 - Return deterministically ordered structured findings through the existing supported conformance result and Action surfaces.
 - Synchronize focused maintained test evidence and directly affected evidence documentation using the owning test-evidence procedure.
+- Review and, if appropriate, consolidate ownership of the explicit evidence-module inventory reconciliation mechanism with Python conformance's parsed model and rule owners.
 
 ## Completion criteria
 
@@ -35,6 +36,7 @@ Decompose `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` a
 - Accepted evidence identities, historical aliases, naming, documentation, parameterization, ownership, migration, finding order, public imports, and execute signatures remain stable.
 - Focused conformance tests, complete evidence and repository conformance, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.
 - The work package completes without activating its successor.
+- The explicit evidence-module inventory reconciliation mechanism is reviewed for duplication with the parsed model and rules, and any appropriate ownership consolidation preserves its validated explicit-input and transactional projection contract.
 
 ## Exclusions
 
