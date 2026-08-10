@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.adapter-retirement",
   "title": "Retire and decompose project-local adapters",
-  "status": "active",
-  "status_detail": "explicitly activated by current human instruction for bounded R2.2 implementation; no successor activated",
+  "status": "completed",
+  "status_detail": "completed with a reviewed nine-row disposition matrix, contract-owned adapter decomposition, preserved public compatibility, required verification, and no successor activation",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.control-decomposition"

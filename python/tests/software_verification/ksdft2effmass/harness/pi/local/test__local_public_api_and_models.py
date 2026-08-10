@@ -17,12 +17,14 @@ Passing establishes software representation behavior only, not numerical verific
 scientific validation, UQ, physical correctness, or cross-language conformance.
 """
 
+from inspect import signature
 from pathlib import Path
 from typing import Any
 
 import pytest
 
 import ksdft2effmass.harness.pi.local as local
+import ksdft2effmass.harness.pi.local.adapters as adapter_facade
 from ksdft2effmass.harness.pi import ValidationIssue, ValidationResult
 from ksdft2effmass.harness.pi.local import (
     AdaptationResult,
@@ -40,6 +42,28 @@ from ksdft2effmass.harness.pi.local import (
 )
 
 pytestmark = pytest.mark.software_verification
+
+ADAPTER_EXECUTE_PARAMETERS = {
+    "AgentRecordAdapter": ("self", "agent_documents"),
+    "ChainRecordAdapter": (
+        "self",
+        "chain_bytes",
+        "task_records",
+        "activation_bytes",
+    ),
+    "CheckpointRecordAdapter": ("self", "checkpoint_documents"),
+    "ChecksumCatalogAdapter": ("self", "catalog_bytes"),
+    "EvidenceModuleSelector": ("self", "module_payloads", "profile"),
+    "EvidenceOwnershipManifestAdapter": ("self", "manifest_bytes"),
+    "OwnershipManifestAdapter": ("self", "manifest_bytes"),
+    "SkillInventoryAdapter": ("self", "inventory_bytes", "descriptor_bytes"),
+    "TaskRecordAdapter": (
+        "self",
+        "task_documents",
+        "chain_bytes",
+        "activation_bytes",
+    ),
+}
 
 EXPECTED = (
     "AgentRecordAdapter",
@@ -89,16 +113,18 @@ def test_public_api__exports__contains_exact_40_names() -> None:
     """Evidence ID: SV-HL-001
 
     Requirement: The project-local package exposes exactly the retained 40 public
-    names.
+    names, and the former adapter module preserves all nine adapter names and execute
+    signatures after contract-owned relocation.
 
-    Method: Compare the package ``__all__`` and runtime attributes to a fixed
-    independent
-    inventory.
+    Method: Compare the package and adapter-facade exports, runtime identities, and
+    execute parameter names to fixed independent inventories.
 
-    Oracle: The accepted H4 inventory and corrected HarnessTask inventory supply the
-    exact local boundary.
+    Oracle: The accepted H4 inventory, corrected HarnessTask inventory, and active R2.2
+    compatibility contract supply the exact local boundary and adapter signatures.
 
-    Acceptance: The ordered tuple is exact, has length 40, and every name resolves.
+    Acceptance: The ordered package tuple is exact and has length 40; every name
+    resolves; all nine facade classes are identical to the package exports; and every
+    execute parameter tuple is exact.
 
     Interpretation: Failure identifies packaging drift or an incorrect inventory.
 
@@ -109,6 +135,15 @@ def test_public_api__exports__contains_exact_40_names() -> None:
     assert tuple(local.__all__) == EXPECTED
     assert len(EXPECTED) == 40
     assert all(getattr(local, name) is not None for name in EXPECTED)
+    assert tuple(adapter_facade.__all__) == tuple(ADAPTER_EXECUTE_PARAMETERS)
+    assert all(
+        getattr(adapter_facade, name) is getattr(local, name)
+        for name in ADAPTER_EXECUTE_PARAMETERS
+    )
+    assert {
+        name: tuple(signature(getattr(local, name).execute).parameters)
+        for name in ADAPTER_EXECUTE_PARAMETERS
+    } == ADAPTER_EXECUTE_PARAMETERS
 
 
 def test_public_api__action_names__follow_target_actionizer_grammar() -> None:

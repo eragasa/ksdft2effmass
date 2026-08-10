@@ -391,7 +391,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "d988c946bb4f875122c0c9d5f751d1c331c21eb29d3af6f05bda8772d3eb12b7",
+      "content_sha256": "cff05730fb27452d0af600df5e66c9a308add6d0fbf02462e7a6026a30f562c4",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py",

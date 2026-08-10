@@ -209,10 +209,14 @@ H4 local harness routing
 ------------------------
 
 The project-local public package is
-``ksdft2effmass.harness.pi.local``. Its 30-name ``__all__`` exposes explicit-root
+``ksdft2effmass.harness.pi.local``. Its 40-name ``__all__`` exposes explicit-root
 context composition, adapters for selected live records and retained evidence,
-local validation, pure route selection and rollback, and deterministic shadow
-comparison records/actions. Callers supply the repository root, generic
+local validation, pure route selection and rollback, deterministic shadow
+comparison records/actions, the project-local Task model, and SQLite control
+migration and verification. The nine adapter ActionObjects remain public
+compatibility APIs, but their behavior is owned by Task, control-record,
+ownership, resource, and evidence modules; ``local.adapters`` is only a
+compatibility re-export facade. Callers supply the repository root, generic
 ``harness/pi/`` root, local ``harness/local/`` root, exact manifest/profile bytes
 and identities, and externally collected legacy/local observations. The package
 has no ambient repository discovery and does not execute a legacy command.

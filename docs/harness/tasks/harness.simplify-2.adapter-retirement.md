@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly activated by current human instruction for bounded R2.2 implementation; no successor activated
+`completed`: completed with a reviewed nine-row disposition matrix, contract-owned adapter decomposition, preserved public compatibility, required verification, and no successor activation
 
 ## Objective
 
