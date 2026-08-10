@@ -1,8 +1,8 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "task_model_simplification_completed_stage_2b_deferred_inactive",
-  "active_task": null,
+  "status": "harness_simplify_2_active_hybrid_control_migration",
+  "active_task": "harness.simplify-2",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
     "harness.simplification.agents.delegation-validation",
@@ -11,7 +11,8 @@
     "harness.simplification.docs-json.task-implementation-hardening",
     "harness.simplification.docs-json.task-model-contract",
     "harness.simplification.docs-json.task-model-simplification",
-    "harness.simplification.resources.h3-validator-retirement"
+    "harness.simplification.resources.h3-validator-retirement",
+    "harness.simplify-2"
   ],
   "chain": [],
   "task_sequence": [
@@ -192,6 +193,34 @@
     {
       "id": "harness-simplification.agents.resource-phase-routing-reconciliation",
       "record": "harness/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.json"
+    },
+    {
+      "id": "harness.simplify-2",
+      "record": "harness/tasks/harness.simplify-2.json"
+    },
+    {
+      "id": "harness.simplify-2.control-decomposition",
+      "record": "harness/tasks/harness.simplify-2.control-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.adapter-retirement",
+      "record": "harness/tasks/harness.simplify-2.adapter-retirement.json"
+    },
+    {
+      "id": "harness.simplify-2.python-conformance-decomposition",
+      "record": "harness/tasks/harness.simplify-2.python-conformance-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.resource-decomposition",
+      "record": "harness/tasks/harness.simplify-2.resource-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.wire-validation-decomposition",
+      "record": "harness/tasks/harness.simplify-2.wire-validation-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.json"
     }
   ]
 }

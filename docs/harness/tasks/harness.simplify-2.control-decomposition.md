@@ -1,0 +1,49 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Decompose SQLite-hybrid control ownership
+
+[Task index](index.md) · [Previous](./harness.simplify-2.adapter-retirement.md) · [Next](./harness.simplify-2.python-conformance-decomposition.md)
+
+## Status
+
+`inactive`: decomposed work package R2.1; separate explicit human activation required and no automatic successor activation
+
+## Objective
+
+Decompose the SQLite-hybrid control implementation into cohesive private ownership for records, schema, ingestion, projections, deterministic SQL export, verification, and thin migration orchestration.
+
+## Parent and prerequisites
+
+- Parent: `harness.simplify-2`
+- Depends on: `harness.simplification.round-2.sqlite-hybrid-cutover`
+
+## Authority references
+
+- AGENTS.md
+- harness/intake/harness.simplify-2.md
+- harness/tasks/harness.simplify-2.json
+
+## Authorized scope
+
+- Split `python/src/ksdft2effmass/harness/pi/local/control.py` by the accepted records, schema, ingestion, projections, SQL-export, verification, and migration boundaries only where each subdomain has distinct inputs and invariants.
+- Keep `HarnessControlMigrationRequest`, `HarnessControlMigrationResult`, and `HarnessControlMigrator` as the small public migration surface; keep migration orchestration thin.
+- Preserve `HarnessControlVerificationResult` and `HarnessControlVerifier` as existing public verification exports; the three-item migration surface does not authorize their removal or privatization.
+- Preserve the accepted SQLite schema and semantic identity, deterministic SQL recovery, projection bytes, verification behavior, and existing public imports and execute signatures.
+- Use `python/src/ksdft2effmass/harness/pi/local/__init__.py`, `python/tests/software_verification/ksdft2effmass/harness/pi/local/test__sqlite_control.py`, and `docs/api/harness-control.rst` as the directly affected public-export, focused-test, and API-documentation surfaces without changing dependencies.
+- Before writer dispatch, name the workspace and baseline, exact owned paths, task-selected skills, required checks, preserved contracts, read-only review boundary, handoff fields, and the requirement that R2.2 remain inactive; routine reconnaissance uses at most one bounded scout followed by one focused reviewer when materially useful.
+
+## Completion criteria
+
+- Control records, schema, ingestion, projections, SQL export, verification, and migration have explicit cohesive owners and one-way dependency direction, while orchestration contains no domain mechanism.
+- The five existing public migration and verification exports, their execute signatures, SQLite schema and semantic digest, deterministic SQL reconstruction, and generated projection bytes remain unchanged.
+- Focused control tests, SQLite reconstruction and projection agreement, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.
+- The work package completes without activating its successor; parent coordination remains active pending a separate explicit directive.
+
+## Exclusions
+
+- Do not change Task, evidence, resource, agent, skill, or decision semantics merely to simplify the split.
+- Do not create a second control model, new persistence authority, telemetry store, dependency, or generic framework.
+- Do not implement R2.2 through R2.6, activate another work package, modify scientific/package-source modules, or perform protected or release actions.
+
+## Historical source
+
+No archived source.

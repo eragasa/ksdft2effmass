@@ -216,8 +216,8 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     Oracle: The accepted version-3 schema and canonical graph independently define
     wire shape and represented relationships.
 
-    Acceptance: All 88 version-3 Tasks pass schema/runtime validation, nine retained
-    version-2 telemetry Tasks remain represented, graph nodes equal all 97 Task
+    Acceptance: All 95 version-3 Tasks pass schema/runtime validation, nine retained
+    version-2 telemetry Tasks remain represented, graph nodes equal all 104 Task
     identities, and supersession edges equal replacement fields exactly.
 
     Interpretation: Failure identifies catalog, schema, runtime, or graph drift.
@@ -244,7 +244,7 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     )
     tasks = tuple(HarnessTaskDeserializer().execute(payload) for payload in payloads)
     assert tuple(HarnessTaskSerializer().execute(task) for task in tasks) == payloads
-    assert len(tasks) == 88
+    assert len(tasks) == 95
     assert sum(document["schema_version"] == 2 for document in documents) == 9
     graph = json.loads((root / "harness/task-graph.json").read_text())
     assert {node["task_id"] for node in graph["nodes"]} == {

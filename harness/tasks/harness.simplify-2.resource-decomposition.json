@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.simplify-2.resource-decomposition",
+  "title": "Decompose resource resolution and routing ownership",
+  "status": "inactive",
+  "status_detail": "decomposed work package R2.4; separate explicit human activation required and no automatic successor activation",
+  "parent_task_id": "harness.simplify-2",
+  "task_prerequisite_ids": [
+    "harness.simplify-2.python-conformance-decomposition"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Decompose `python/src/ksdft2effmass/harness/pi/resources.py` into independent records, manifests, resolution, refresh or projection, and skill-closure ownership while preserving the distinct manifest-addressed resource tree under `harness/pi/` and simplifying project agent and skill routing.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/intake/harness.simplify-2.md",
+    "harness/tasks/harness.simplify-2.json"
+  ],
+  "authorized_scope": [
+    "Separate resource records, manifest semantics, explicit root-confined resolution, selected identity refresh or projection, and skill-resource closure along the accepted dependency direction.",
+    "Keep immutable records independent of operational Actions and preserve existing public resource Actions, imports, and execute signatures.",
+    "Preserve generic and project-local ownership: generic resources remain project-independent and project-local resources may depend only on accepted generic identities.",
+    "Rationalize maintained harness roles toward implementation, verification, documentation, and read-only integration review with shared policy stored once and task-selected skills."
+  ],
+  "completion_criteria": [
+    "Records, manifests, resolution, refresh or projection, and skill closure have explicit owners and the dependency direction remains records to manifests to operational consumers.",
+    "Generic resources perform no repository discovery and acquire no project Task identities, policy, or scientific meaning; project-local overlays do not replace generic identities.",
+    "Existing public resource Actions and supported manifests, profiles, descriptors, fixtures, and canonical or live copies remain contract-consistent.",
+    "Focused resource tests, manifest and descriptor closure, local overlay validation, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.",
+    "The work package completes without activating its successor."
+  ],
+  "exclusions": [
+    "Do not duplicate `ResourceManifestValidator`, `ResourceManifestRefresher`, `ResourceResolver`, `SkillResourceValidator`, or canonical-JSON algorithms.",
+    "Do not reverse the generic-to-project-local dependency direction, create implicit CWD or Git-root discovery, or change behavior versions without accepted authority.",
+    "Do not implement R2.5 or R2.6, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

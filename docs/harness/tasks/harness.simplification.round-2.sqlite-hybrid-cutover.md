@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Implement the complete SQLite-hybrid harness control cutover
 
-[Task index](index.md) · [Previous](./harness.simplification.resources.h3-validator-retirement.md) · [Next](./harness.telemetry.md)
+[Task index](index.md) · [Previous](./harness.simplification.resources.h3-validator-retirement.md) · [Next](./harness.simplify-2.md)
 
 ## Status
 

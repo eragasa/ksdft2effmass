@@ -1,0 +1,60 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Harness simplification round two
+
+[Task index](index.md) · [Previous](./harness.simplification.round-2.sqlite-hybrid-cutover.md) · [Next](./harness.simplify-2.adapter-retirement.md)
+
+## Status
+
+`active`: active coordinating parent; six ordered work packages are decomposed and inactive, implementation has not started, and automatic successor activation remains disabled
+
+## Objective
+
+Simplify the maintained harness so that a maintainer can change one policy—Task persistence, evidence naming, resource resolution, or wire serialization—without editing an orchestration monolith or synchronizing unrelated representations.
+
+## Parent and prerequisites
+
+- Depends on: `harness.simplification.round-2.sqlite-hybrid-cutover`
+- External prerequisite: `explicit_activation`
+
+## Authority references
+
+- AGENTS.md
+- harness/intake/harness.simplify-2.md
+
+## Authorized scope
+
+- R2.1 — Decompose `python/src/ksdft2effmass/harness/pi/local/control.py` into private records, schema, ingestion, projections, deterministic SQL export, verification, and thin migration ownership while preserving the small public migration surface, existing public verification exports, SQLite schema and semantic identity, and deterministic projections.
+- R2.2 — Audit `python/src/ksdft2effmass/harness/pi/local/adapters.py`, retire adapters with no live consumer or those translating only between generated projections, and split surviving Task, ownership, resource, and legacy compatibility adapters by owned contract without introducing a generic adapter framework.
+- R2.3 — Decompose `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` around one immutable parsed test-module model, one AST parse, independent naming, documentation, parameterization, ownership, migration, and repository-conformance rules, and deterministically ordered findings.
+- R2.4 — Decompose `python/src/ksdft2effmass/harness/pi/resources.py` into resource records, manifests, resolution, refresh/projection, and skill-closure ownership while keeping records independent of operational Actions and preserving existing public Actions.
+- R2.5 — Decompose `python/src/ksdft2effmass/harness/pi/validation.py` into canonical JSON support and explicit domain codecs whose dispatch layer routes wire kinds without owning domain field mappings; avoid magical registration and preserve supported public wire contracts.
+- R2.6 — Replace replay, H3-era resource gates, nested CLI validation, and duplicated live control paths with one composable maintained validation Action returning structured named checks, statuses, findings, and durations through one renderer.
+- Consolidate routine inspection, validation, projection, Task, and evidence operations behind a small maintained command surface backed by ActionObjects; routine repository inspection must not depend on generated shell or inline-Python fragments.
+- Preserve `.pi` Tasks, chains, checkpoints, decisions, and evidence as history while moving remaining live structured operational authority under `harness/`; remove compatibility readers only after proving that no live consumer remains.
+- Retire new proliferation of manually synchronized ownership, completion, verification, inventory, migration, review, transcript, and repeated chain-state copies; a Task, its graph relationships, lifecycle events, and referenced evidence should ordinarily suffice.
+- Rationalize maintained harness agent and skill routing toward implementation, verification, documentation, and read-only integration-review roles with shared policy stored once, task-selected skills, exact assignment inputs and output contracts, and bounded scout-then-reviewer dispatch rather than duplicated prompt fragments or parallel deep reviews for routine inspection.
+- Normalize maintained Python command examples and validation entry points on `python/.venv/bin/python` without adding or changing dependencies.
+- Keep tracked control state in `harness/state/harness-control.sqlite3` and keep any future volatile observations in the ignored `.pi/cache/harness-observations.sqlite3`; this Task does not implement telemetry.
+
+## Completion criteria
+
+- The six ordered child Tasks from `harness.simplify-2.control-decomposition` through `harness.simplify-2.validation-retirement` are complete, each changed subdomain has an explicit owner and dependency direction, and orchestration layers contain coordination rather than domain mechanism.
+- Existing public imports, ActionObject names and execute signatures, supported wire contracts, SQLite schema and semantic identity, deterministic SQL recovery, projection bytes, and compatibility behavior remain stable unless a separately resolved human decision explicitly authorizes a change.
+- One maintained validation Action produces structured named checks, statuses, findings, and durations without invoking another CLI and parsing its output; one CLI renderer exposes the result.
+- Live structured control has one SQLite authority, generated JSON and Markdown remain deterministic projections, legacy `.pi` material is historical rather than operational authority, and no second maintained control model remains.
+- A maintainer can change Task persistence, evidence naming, resource resolution, or wire serialization without editing an unrelated orchestration monolith or manually synchronizing unrelated representations.
+- Focused tests, the complete maintained harness software-verification suite, Ruff, mypy, resource and evidence conformance, deterministic SQLite reconstruction, projection agreement, documentation validation, and dependency-lock nonmutation checks pass.
+- One consolidated independent read-only compatibility review has no unresolved material findings after at most one consolidated correction pass.
+- The Task concludes pending explicit human acceptance with `active_task` restored to null and no automatic successor, telemetry, production-source refactor, scientific work, or protected execution activated.
+
+## Exclusions
+
+- Do not refactor `operators/serialization.py`, `workflows/cpn/execution.py`, `provenance/serialization.py`, or other scientific/package-source modules in this Task; those require separate source-contract audits and separately activated Tasks.
+- Do not split modules merely to reduce line counts. Split only where a subdomain has its own inputs, invariants, Action ownership, dependency direction, and focused tests; do not expose every internal codec or migration step as public API.
+- Do not implement telemetry, observations collection, live instrumentation, session parsing, benchmarks, dashboards, tokens, costs, or effectiveness claims. Telemetry remains deferred until the control, identity, command, authority, and validation surfaces are stable.
+- Do not rewrite or delete retained historical `.pi` Tasks, chains, checkpoints, exact human decisions, evidence, or provenance. Compatibility removal requires proven non-use and must preserve required historical traceability.
+- Do not add or replace dependencies, change `python/uv.lock`, publish or extract a package, perform release actions, execute external or scientific calculations, change scientific settings or contracts, claim scientific validation or uncertainty quantification, or activate any successor automatically.
+
+## Historical source
+
+No archived source.

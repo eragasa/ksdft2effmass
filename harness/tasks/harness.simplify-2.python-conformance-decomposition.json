@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.simplify-2.python-conformance-decomposition",
+  "title": "Decompose Python conformance around one parsed model",
+  "status": "inactive",
+  "status_detail": "decomposed work package R2.3; separate explicit human activation required and no automatic successor activation",
+  "parent_task_id": "harness.simplify-2",
+  "task_prerequisite_ids": [
+    "harness.simplify-2.adapter-retirement"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Decompose `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` around one immutable parsed test-module model and independent deterministic rule evaluators.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/intake/harness.simplify-2.md",
+    "harness/tasks/harness.simplify-2.json"
+  ],
+  "authorized_scope": [
+    "Parse each selected Python test module once into one immutable internal `PythonTestModuleModel`.",
+    "Separate naming, documentation, parameterization, ownership, migration, and repository-conformance rule ownership while preserving their accepted semantics.",
+    "Return deterministically ordered structured findings through the existing supported conformance result and Action surfaces.",
+    "Synchronize focused maintained test evidence and directly affected evidence documentation using the owning test-evidence procedure."
+  ],
+  "completion_criteria": [
+    "One AST parse supplies one immutable module model to independent rule evaluators, and no evaluator reparses source or owns another rule domain.",
+    "Accepted evidence identities, historical aliases, naming, documentation, parameterization, ownership, migration, finding order, public imports, and execute signatures remain stable.",
+    "Focused conformance tests, complete evidence and repository conformance, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.",
+    "The work package completes without activating its successor."
+  ],
+  "exclusions": [
+    "Do not weaken evidence requirements, change accepted identifiers, expected values, tolerances, skips, or evidence classifications merely to obtain passing checks.",
+    "Do not claim scientific validation or uncertainty quantification from software-conformance results.",
+    "Do not implement R2.4 through R2.6, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

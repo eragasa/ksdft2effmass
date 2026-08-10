@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Harness telemetry program
 
-[Task index](index.md) · [Previous](./harness.simplification.round-2.sqlite-hybrid-cutover.md) · [Next](./harness.telemetry.baseline.md)
+[Task index](index.md) · [Previous](./harness.simplify-2.wire-validation-decomposition.md) · [Next](./harness.telemetry.baseline.md)
 
 ## Status
 
