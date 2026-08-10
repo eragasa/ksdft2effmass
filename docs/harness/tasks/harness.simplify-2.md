@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: active coordinating parent; R2.1 control decomposition is completed, the remaining six ordered work packages are inactive, and automatic successor activation remains disabled
+`deferred_to_active_child`: coordinating parent deferred to explicitly active R2.2 adapter retirement; R2.1 is completed, the remaining five ordered work packages are inactive, and automatic successor activation remains disabled
 
 ## Objective
 

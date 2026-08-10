@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: decomposed work package R2.2; separate explicit human activation required and no automatic successor activation
+`active`: explicitly activated by current human instruction for bounded R2.2 implementation; no successor activated
 
 ## Objective
 
