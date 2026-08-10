@@ -4,114 +4,138 @@ Project-local compatibility adapters
 The nine public adapter ActionObjects convert explicitly supplied project-local
 bytes or records into generic harness records.  They perform no repository
 discovery, persistence, activation, protected execution, or scientific
-validation.  The supported import path remains
-``ksdft2effmass.harness.pi.local``.  The former
-``ksdft2effmass.harness.pi.local.adapters`` module is a compatibility facade;
+validation.  The supported package import path remains
+``ksdft2effmass.harness.pi.local``.  The module
+``ksdft2effmass.harness.pi.local.adapters`` remains a compatibility facade;
 concrete behavior is owned by the Task, control-record, ownership, resource, and
 evidence modules.
 
-R2.2 disposition audit
-----------------------
+R2.2 audit and decomposition
+----------------------------
 
-The audit found no maintained production-module instantiation or maintained
-command/script caller for any adapter.  Tests and historical references are
-verification or retained evidence, not live callers.  Repository inspection
-cannot prove the absence of third-party imports, however, and all nine names are
-part of the fixed public package surface.  Several adapters also consume current
-or retained inputs.  Therefore none satisfies both required deletion conditions:
-proved absence of a supported external consumer and proved absence of a required
-archived input.
+The completed R2.2 Task is **Audit and decompose project-local adapters**.
+Repository inspection found no maintained internal production instantiation and
+no maintained command or script caller for any of the nine adapters.  That
+finding establishes maintained repository non-use only.  Each currently
+exported public API remains a compatibility obligation.  Removing one requires
+a separately authorized compatibility or deprecation decision; repository
+non-use alone neither authorizes nor permanently prohibits removal.
 
-.. list-table:: Public adapter dispositions
+Retained historical bytes identify prior formats and behavior.  Their mere
+existence does not prove that a live public adapter remains necessary.  Tests and
+historical references are verification or retained evidence, not production
+callers.
+
+The exact completed disposition is:
+
+* adapters audited: **9**;
+* adapters relocated: **9**;
+* adapters removed: **0**;
+* public imports preserved: **9**; and
+* ``execute`` signatures preserved: **9**.
+
+.. list-table:: R2.2 adapter dispositions
    :header-rows: 1
-   :widths: 12 18 9 9 12 14 9 17
+   :widths: 12 15 10 10 12 15 15 18 18
 
    * - ActionObject
      - ``execute`` parameters after ``self``
-     - Production callers
-     - Commands/scripts
-     - Maintained documentation
-     - Resource or archived input
-     - Projection relation
-     - R2.2 disposition
+     - Maintained internal production caller
+     - Maintained command or script caller
+     - Supported public import
+     - Current input format
+     - Retained historical input
+     - Actual compatibility obligation
+     - Final R2.2 disposition
    * - ``TaskRecordAdapter``
      - ``task_documents, chain_bytes, activation_bytes``
      - None found
-     - External-command compatibility is documented; implementation not found
-     - :doc:`harness-task` retains projected-JSON and mixed Task compatibility
-     - Archived Markdown and version-1 Tasks; current version-2/3 Task JSON
-     - Reads deterministic Task JSON projections and retained source records
-     - Relocate to the Task owner; retain public and facade imports and exact signature
+     - None found; documentation mentions external-command compatibility
+     - Package import and ``local.adapters`` facade
+     - Version-3 Task JSON, chain JSON, activation JSON, and explicitly supplied Markdown
+     - Version-1/2 Task JSON, bootstrap Markdown, and retained activation records
+     - Exported class, exact signature, documented mixed-format behavior, and result contract
+     - Relocated to ``task_adapters``; facade retained; not removed
    * - ``ChainRecordAdapter``
      - ``chain_bytes, task_records, activation_bytes``
      - None found
      - None found
-     - Retained H4 compatibility inventory
-     - Retained chain and activation fixtures
-     - Adapts chain compatibility records
-     - Relocate beside Task records; retain public and facade imports and exact signature
+     - Package import and ``local.adapters`` facade
+     - Chain JSON, adapted Task references, and activation JSON
+     - Retained H4 chain and activation fixtures
+     - Exported class, exact signature, and chain-view result contract
+     - Relocated to ``task_adapters``; facade retained; not removed
    * - ``CheckpointRecordAdapter``
      - ``checkpoint_documents``
      - None found
      - None found
-     - Retained H4 compatibility inventory
-     - Durable checkpoint JSON and retained checkpoint fixtures
-     - Not projection-only
-     - Relocate to the control-record owner; retain public and facade imports and exact signature
+     - Package import and ``local.adapters`` facade
+     - Explicit checkpoint JSON path/byte pairs
+     - Retained resolved-checkpoint fixtures
+     - Exported class, exact signature, and checkpoint adaptation contract
+     - Relocated to ``control_record_adapters``; facade retained; not removed
    * - ``AgentRecordAdapter``
      - ``agent_documents``
      - None found
      - None found
-     - Retained H4 compatibility inventory
-     - Maintained agent Markdown front matter
-     - Not projection-only
-     - Relocate to the control-record owner; retain public and facade imports and exact signature
+     - Package import and ``local.adapters`` facade
+     - Agent Markdown front matter containing ``name`` and ``acceptanceRole``
+     - Retained agent-document fixtures and historical records
+     - Exported class, exact signature, and front-matter adaptation contract
+     - Relocated to ``control_record_adapters``; facade retained; not removed
    * - ``OwnershipManifestAdapter``
      - ``manifest_bytes``
      - None found
      - None found
-     - Ownership compatibility extension and retained H4 inventory
-     - Live version-2 and retained version-1 ownership manifests
-     - Not projection-only
-     - Relocate to the ownership owner; retain version-1 behavior, imports, and exact signature
+     - Package import and ``local.adapters`` facade
+     - Version-2 ownership-manifest JSON
+     - Version-1 ownership manifests and local ``boundary_owned`` spelling
+     - Exported class, exact signature, and supported version-1/2 behavior
+     - Relocated to ``ownership_adapters``; facade retained; not removed
    * - ``ChecksumCatalogAdapter``
      - ``catalog_bytes``
      - None found
      - None found
-     - Retained H4 compatibility inventory
-     - Retained ``sha256sum`` catalogs used as historical integrity evidence
-     - Catalogs may be generated snapshots but remain retained inputs
-     - Relocate to the resource owner; retain public and facade imports and exact signature
+     - Package import and ``local.adapters`` facade
+     - UTF-8 ``sha256sum``-style catalog bytes
+     - Retained checksum catalogs
+     - Exported class, exact signature, and catalog parsing contract
+     - Relocated to ``resource_adapters``; facade retained; not removed
    * - ``SkillInventoryAdapter``
      - ``inventory_bytes, descriptor_bytes``
      - None found
      - None found
-     - Retained H4 compatibility inventory
-     - Maintained skill inventory and versioned descriptor resources
-     - Joins maintained resource records
-     - Relocate to the resource owner; retain public and facade imports and exact signature
+     - Package import and ``local.adapters`` facade
+     - Skill-inventory JSON and versioned descriptor JSON
+     - Retained capability inventories and descriptors
+     - Exported class, exact signature, descriptor selection, and ordering contract
+     - Relocated to ``resource_adapters``; facade retained; not removed
    * - ``EvidenceOwnershipManifestAdapter``
      - ``manifest_bytes``
      - None found
      - None found
-     - Version-1 ownership compatibility extension
+     - Package import and ``local.adapters`` facade
+     - Version-3 P1 evidence-ownership manifest shape
      - Retained P1 evidence-ownership manifest
-     - Not projection-only
-     - Relocate to the evidence owner; retain P1 mapping, imports, and exact signature
+     - Exported class, exact signature, and P1 ownership mapping contract
+     - Relocated to ``evidence_adapters``; facade retained; not removed
    * - ``EvidenceModuleSelector``
      - ``module_payloads, profile``
      - None found
      - None found
-     - Retained H4 compatibility inventory
-     - Explicit test-module bytes and maintained profile scope rules
-     - Selects source bytes; does not translate a projection
-     - Relocate to the evidence owner; retain public and facade imports and exact signature
+     - Package import and ``local.adapters`` facade
+     - Explicit module path/byte pairs and a project profile
+     - Retained profile and module-selection fixtures
+     - Exported class, exact signature, path-scope selection, and ordering contract
+     - Relocated to ``evidence_adapters``; facade retained; not removed
 
-The dispositions preserve compatibility adapter version 1 because behavior,
-public imports, and signatures do not change.  A future removal or semantic
-change requires a separately authorized public-contract disposition and the
-applicable compatibility version change.  The SQLite ``dbcontrol`` package does
-not depend on these adapters.
+R2.2 decomposed the adapter monolith into five contract-specific modules and
+retained a compatibility facade. It did not reduce the nine-name public adapter
+surface.
+
+The relocation preserves compatibility adapter version 1 because behavior,
+public imports, and signatures did not change.  The SQLite ``dbcontrol`` package
+does not depend on these adapters.
 
 API reference
 -------------

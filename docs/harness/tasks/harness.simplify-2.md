@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: active coordinating parent; R2.1 control decomposition and R2.2 adapter retirement are completed, the remaining five ordered work packages are inactive, and automatic successor activation remains disabled
+`active`: active coordinating parent; R2.1 control decomposition and R2.2 adapter audit and decomposition are completed, the remaining five ordered work packages are inactive, and automatic successor activation remains disabled
 
 ## Objective
 
@@ -24,7 +24,7 @@ Simplify the maintained harness so that a maintainer can change one policy—Tas
 ## Authorized scope
 
 - R2.1 — Decompose `python/src/ksdft2effmass/harness/pi/local/control.py` into private records, schema, ingestion, projections, deterministic SQL export, verification, and thin migration ownership while preserving the small public migration surface, existing public verification exports, SQLite schema and semantic identity, and deterministic projections.
-- R2.2 — Audit `python/src/ksdft2effmass/harness/pi/local/adapters.py`, retire adapters with no live consumer or those translating only between generated projections, and split surviving Task, ownership, resource, and legacy compatibility adapters by owned contract without introducing a generic adapter framework.
+- R2.2 — Audit and decompose project-local adapters by relocating all nine implementations into five contract-specific modules while preserving all nine public imports, all nine `execute` signatures, and the compatibility facade; no adapter was removed.
 - R2.3 — Simplify the maintained Python evidence system end to end around one authoritative evidence model, proportionate routine-test and claim-bearing evidence profiles, one parsed module model and AST pass, independent rule ownership, derived inventories and control projections, one actionable add/move/delete/check workflow, and retirement of duplicated policy, reconciliation, generated prose, and gates while preserving meaningful evidence identities, classes, oracles, provenance, and migration traceability.
 - R2.4 — Decompose `python/src/ksdft2effmass/harness/pi/resources.py` into resource records, manifests, resolution, refresh/projection, and skill-closure ownership while keeping records independent of operational Actions and preserving existing public Actions.
 - R2.5 — Decompose `python/src/ksdft2effmass/harness/pi/validation.py` into canonical JSON support and explicit domain codecs whose dispatch layer routes wire kinds without owning domain field mappings; avoid magical registration and preserve supported public wire contracts.

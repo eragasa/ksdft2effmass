@@ -84,7 +84,7 @@
 - [`harness.simplification.resources.h3-validator-retirement`](harness.simplification.resources.h3-validator-retirement.md) — Retire the H3 operational validator without losing current resource-contract coverage (`completed`)
 - [`harness.simplification.round-2.sqlite-hybrid-cutover`](harness.simplification.round-2.sqlite-hybrid-cutover.md) — Implement the complete SQLite-hybrid harness control cutover (`completed`)
 - [`harness.simplify-2`](harness.simplify-2.md) — Harness simplification round two (`active`)
-- [`harness.simplify-2.adapter-retirement`](harness.simplify-2.adapter-retirement.md) — Retire and decompose project-local adapters (`completed`)
+- [`harness.simplify-2.adapter-retirement`](harness.simplify-2.adapter-retirement.md) — Audit and decompose project-local adapters (`completed`)
 - [`harness.simplify-2.cli-consolidation`](harness.simplify-2.cli-consolidation.md) — Consolidate maintained CLI scripts under python/src/cli (`inactive`)
 - [`harness.simplify-2.control-decomposition`](harness.simplify-2.control-decomposition.md) — Decompose SQLite-hybrid control ownership (`completed`)
 - [`harness.simplify-2.python-conformance-decomposition`](harness.simplify-2.python-conformance-decomposition.md) — Simplify the maintained Python evidence system (`inactive`)
