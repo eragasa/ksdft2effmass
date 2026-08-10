@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2.python-conformance-decomposition",
   "title": "Simplify the maintained Python evidence system",
   "status": "inactive",
-  "status_detail": "expanded end-to-end evidence-system work package R2.3; separate explicit human activation required and no automatic successor activation",
+  "status_detail": "corrected inactive R2.3 evidence-authority and reconstruction-input work package; separate explicit human activation required and no automatic successor activation",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.adapter-retirement"
@@ -11,40 +11,39 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Simplify the maintained Python evidence system end to end so that routine test addition, movement, deletion, and review use one authoritative evidence model and one actionable validation path, while preserving meaningful software-verification, numerical-verification, scientific-validation, uncertainty-quantification, provenance, and historical claims.",
+  "objective": "Make Python evidence authority and profile semantics explicit, derive one immutable parsed module model with independent rules, and prepare reconstructible evidence inputs for the existing full `HarnessControlMigrator` while preserving meaningful evidence identities and claims.",
   "authority_reference_paths": [
     "AGENTS.md",
     "harness/intake/harness.simplify-2.md",
     "harness/tasks/harness.simplify-2.json"
   ],
   "authorized_scope": [
-    "Establish one authoritative maintained Python evidence model for module identity, ownership kind, evidence class, evidence identifiers, predecessor or migration relationships, and collection expectations; treat inventories, counts, content identities, SQLite rows, and documentation summaries as deterministic projections rather than separately edited authority.",
-    "Define a versioned evidence-profile matrix for routine software tests, claim-bearing software verification, numerical verification, scientific validation, and uncertainty quantification; enumerate for each profile the required ownership metadata, prose, stable identifiers, predecessor records, oracle, acceptance rule, limitations, and provenance so that publication-style requirements apply only where they provide durable evidentiary value.",
-    "Parse each selected Python test module once into one immutable internal `PythonTestModuleModel`, and give naming, documentation, parameterization, ownership, migration, repository-conformance, and inventory-reconciliation rules independent explicit owners without duplicated AST or filesystem work.",
-    "Prevent private implementation classes from being represented as public `class_owned` evidence owners; use cohesive artifact ownership or the applicable routine-test profile while preserving public-contract evidence where it is meaningful.",
-    "Provide one maintained Action and one thin command path for adding, moving, deleting, and checking tests, with explicit inputs, deterministic structured findings, actionable remediation, transactional authority and projection updates, and no manual synchronization of counts, hashes, inventories, SQLite state, or generated documentation.",
-    "Audit and retire duplicated evidence policy, reconciliation, generated-prose requirements, and validation gates across Python source, command wrappers, skills, profiles, SQLite ingestion, JSON projections, documentation, and tests after proving that each retired path has no distinct live contract or consumer.",
-    "Preserve meaningful accepted evidence identifiers, historical aliases, evidence classes, independent-oracle requirements, and migration traceability through explicit compatibility or migration behavior; do not reinterpret software verification as numerical verification, scientific validation, uncertainty quantification, or human acceptance.",
-    "Synchronize focused maintained tests, evidence schemas and fixtures, generic and project-local resource manifests, generic and live mirrored test-evidence skills and complete convention references, project-local profiles and extensions, public evidence documentation, and directly affected control projections without adding dependencies or reversing generic-to-project-local dependency direction."
+    "Define the evidence authority flow as Python test source and embedded declarations plus a versioned evidence policy or profile plus explicit predecessor or migration relationships, producing one immutable derived `PythonTestModuleModel`, independent validation-rule results, and generated inventory, count, hash, SQLite-row, SQL-export, and documentation projections.",
+    "Keep authority explicit: Python source owns executable tests and embedded evidence declarations; the versioned policy or profile owns evidence requirements; explicit migration relationships own predecessor mappings; `PythonTestModuleModel` is a derived immutable in-memory model; inventories, counts, hashes, SQLite rows, SQL export, and generated documentation are projections rather than separately edited authority.",
+    "Keep `evidence_class` independent from `evidence_profile`: the class is one of `software_verification`, `numerical_verification`, `scientific_validation`, or `uncertainty_quantification`, while the profile is `routine` or `claim_bearing`.",
+    "Make `evidence_profile` determine required ownership metadata, prose, stable identifiers, oracle explanation, acceptance rule, limitations, provenance, and migration information. A routine software test must not inherit publication-style evidence prose merely because it is executable.",
+    "Parse each selected Python test module once into one immutable internal `PythonTestModuleModel`, and give naming, documentation, parameterization, ownership, migration, and repository-conformance rules independent explicit owners without duplicated AST or filesystem work.",
+    "Prepare explicit evidence-domain inputs for the existing full deterministic `HarnessControlMigrator`; make the evidence inventory and SQLite evidence rows reconstructible derived projections without adding another database-construction or publication path.",
+    "Correct the 13 private implementation classes currently represented as public `class_owned` owners. Use `class_owned` only when one public class is the sole system under test; represent private implementation tests through cohesive `artifact_owned` evidence or the routine profile.",
+    "Preserve meaningful evidence identifiers, evidence classes, oracle meaning, and predecessor relationships. Ownership migration must not delete or renumber existing evidence IDs, and intentional consolidation must retain explicit predecessor relationships.",
+    "Provide evidence-specific compatibility and reconstruction validation over one immutable corpus, including deterministic findings and agreement of retained semantic identities and unchanged projection bytes."
   ],
   "completion_criteria": [
-    "A maintainer can add, move, rename, or remove an ordinary Python test and obtain a conforming repository through one documented command path without manually editing generated inventories, counts, hashes, SQLite rows, or documentation projections.",
-    "One authoritative evidence model supplies deterministic derived inventory and control projections; old and new implementations agree over one immutable corpus on retained semantic identities and byte-identical outputs for unchanged contracts, while every intentionally changed projection or prose contract has explicit expected bytes or semantic acceptance and migration behavior before duplicated authorities and validators are removed.",
-    "A versioned evidence-profile matrix gives each evidence class and routine-test profile explicit required and forbidden metadata, prose, identifier, migration, oracle, acceptance, limitation, and provenance fields; conformance tests cover every profile and transition.",
-    "No private implementation class is classified as a public `class_owned` owner, no evidence module is forced into an unrelated public contract merely to satisfy the gate, and cohesive artifact ownership remains available for genuine package, command, schema, dependency, or cross-object contracts.",
-    "One AST parse supplies one immutable module model to independent rule evaluators, and no evaluator reparses source, duplicates inventory reconciliation, or owns another rule domain.",
-    "Validation failures identify the exact authoritative input and remediation; one passing maintained command establishes structural repository conformance without requiring nested CLI execution or manually synchronized secondary gates.",
-    "Accepted evidence identities, historical aliases, evidence classes, predecessor relationships, public imports, and supported execute signatures remain stable unless a separately resolved human decision authorizes a specific migration that this task then defines and tests.",
-    "Focused evidence-system tests, complete evidence and repository conformance, the maintained harness software-verification suite, Ruff, mypy, documentation validation, deterministic SQLite reconstruction and projection agreement, and dependency-lock nonmutation checks pass.",
-    "One consolidated independent read-only review has no unresolved material correctness, compatibility, evidence-meaning, or workflow findings after at most one correction pass.",
-    "The work package completes without activating its successor."
+    "The evidence authority and projection flow is explicit, and no inventory, count, hash, SQLite evidence row, SQL export, or generated evidence documentation is maintained as separately edited authority.",
+    "A versioned profile matrix defines required and forbidden ownership metadata, prose, stable identifiers, oracle explanation, acceptance rules, limitations, provenance, and migration information independently of the four evidence classes and for both `routine` and `claim_bearing` profiles.",
+    "One AST parse supplies one immutable `PythonTestModuleModel` to independent naming, documentation, parameterization, ownership, migration, and repository-conformance rule owners; no rule reparses source or owns another rule domain.",
+    "All 13 private implementation-class ownership declarations are corrected without deleting or renumbering evidence IDs; `class_owned` remains limited to one public class as the sole system under test, and every intentional consolidation records explicit predecessors.",
+    "Evidence-specific inputs reconstruct through the existing full `HarnessControlMigrator`, and generated inventory and SQLite evidence rows agree with source declarations, policy or profile requirements, and explicit migration relationships.",
+    "Meaningful accepted evidence identifiers, evidence classes, oracles, predecessor relationships, public imports, and supported execute signatures remain stable unless separately authorized.",
+    "Focused evidence tests, evidence conformance, deterministic full reconstruction and projection agreement, documentation validation, and dependency-lock nonmutation checks pass.",
+    "The work package completes without relocating repository-wide CLIs, retiring general validation routes, or activating its successor."
   ],
   "exclusions": [
-    "Do not remove or weaken an evidence requirement merely to obtain a passing gate; every retirement or proportionality change must identify the claim no longer requiring that machinery and preserve any distinct scientific, numerical, compatibility, provenance, or historical contract.",
-    "Do not change expected scientific or numerical values, tolerances, skips, evidence classifications, independent reference data, or validation and uncertainty-quantification protocols without their own applicable authority.",
-    "Do not claim numerical verification, scientific validation, uncertainty quantification, physical correctness, or human acceptance from structural evidence-system conformance or passing software tests.",
-    "Do not create a second evidence registry, generic metadata framework, telemetry system, dependency, or permanent compatibility layer.",
-    "Do not implement R2.4 through R2.7, activate another work package, modify scientific/package-source modules, or perform protected or release actions."
+    "Do not own repository-wide CLI relocation or general validation-route retirement; those remain R2.6 and R2.7 responsibilities.",
+    "Do not create another database writer, SQL mutation path, persistence framework, evidence registry, filesystem watcher, daemon, event log, or ambient repository discovery mechanism.",
+    "Do not remove or weaken evidence requirements merely to obtain a pass, and do not change scientific values, numerical tolerances, independent reference data, scientific-validation protocols, or uncertainty-quantification protocols.",
+    "Do not delete or renumber evidence IDs, erase predecessor relationships, reinterpret one evidence class as another, or claim scientific validation or uncertainty quantification from structural conformance.",
+    "Do not implement R2.4 through R2.7, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions."
   ],
   "intake_path": null,
   "archived_source": null
