@@ -2,8 +2,8 @@
   "schema_version": 2,
   "task_id": "harness.telemetry.session-jsonl-inventory",
   "title": "Inventory selected Pi session JSONL",
-  "status": "inactive",
-  "status_detail": "proposed inactive; separate explicit human activation required and no automatic successor activation",
+  "status": "completed",
+  "status_detail": "completed observational inventory; no parser, successor, parent-program execution, or automatic activation started",
   "parent_task_id": "harness.telemetry",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
@@ -21,8 +21,8 @@
     "A bounded inventory identifies supported, variant, unknown, unavailable, and prohibited fields from explicitly selected artifacts without retaining sensitive content."
   ],
   "exclusions": [
-    "The Task remains inactive, requires separate explicit human activation, performs no work merely by existing, and activates no successor automatically.",
-    "This layout does not authorize telemetry implementation, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
+    "Completion of this bounded observational inventory does not activate the parent program or any successor automatically.",
+    "This Task did not authorize telemetry event-contract design, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, effectiveness scoring, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
   ],
   "intake_path": null,
   "archived_source": null

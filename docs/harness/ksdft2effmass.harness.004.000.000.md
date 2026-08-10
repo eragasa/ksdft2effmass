@@ -53,7 +53,7 @@ harness.telemetry
 | Task ID | Title | Status | Parent | Prerequisites | Explicit activation |
 |---|---|---|---|---|---|
 | `harness.telemetry` | Harness telemetry program | Inactive | — | — | Yes |
-| `harness.telemetry.session-jsonl-inventory` | Inventory selected Pi session JSONL | Inactive | `harness.telemetry` | — | Yes |
+| `harness.telemetry.session-jsonl-inventory` | Inventory selected Pi session JSONL | Completed | `harness.telemetry` | — | Yes |
 | `harness.telemetry.retrospective-parser` | Implement the retrospective session parser | Inactive | `harness.telemetry` | `harness.telemetry.session-jsonl-inventory` | Yes |
 | `harness.telemetry.normalized-event-contract` | Freeze the normalized telemetry event contract | Inactive | `harness.telemetry` | `harness.telemetry.retrospective-parser` | Yes |
 | `harness.telemetry.sqlite-projection` | Implement the local SQLite telemetry projection | Inactive | `harness.telemetry` | `harness.telemetry.normalized-event-contract` | Yes |
@@ -92,10 +92,12 @@ These arrows follow the repository convention from prerequisite to dependent.
 ## Pi-session artifact source
 
 The retrospective source is only an explicitly selected Pi session JSONL
-artifact. The inventory Task must establish persisted event and version variants
-before a parser contract is frozen. The program performs no recursive session
-discovery, and Task existence does not authorize reading arbitrary historical
-sessions.
+artifact. The completed [structural inventory](../../harness/reports/telemetry/pi-session-jsonl-inventory.md)
+records the observed fields, relationships, availability, and privacy boundary;
+its [machine-readable report](../../harness/reports/telemetry/pi-session-jsonl-inventory.json)
+does not freeze a parser or normalized event contract. The program performs no
+recursive session discovery, and Task existence does not authorize reading
+arbitrary historical sessions.
 
 ## Privacy boundary
 
