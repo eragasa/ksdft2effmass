@@ -40,7 +40,7 @@ Decompose `python/src/ksdft2effmass/harness/pi/validation.py` into canonical JSO
 
 - Do not refactor `operators/serialization.py`, `workflows/cpn/execution.py`, `provenance/serialization.py`, or another production or scientific codec.
 - Do not add magical registration, plugin discovery, a generic codec framework, new public wire kinds, or compatibility changes without separate authority.
-- Do not implement R2.6, activate another work package, add dependencies, or perform protected or release actions.
+- Do not implement R2.6 CLI consolidation or R2.7 validation retirement, activate another work package, add dependencies, or perform protected or release actions.
 
 ## Historical source
 

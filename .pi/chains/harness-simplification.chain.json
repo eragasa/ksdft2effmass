@@ -219,6 +219,10 @@
       "record": "harness/tasks/harness.simplify-2.wire-validation-decomposition.json"
     },
     {
+      "id": "harness.simplify-2.cli-consolidation",
+      "record": "harness/tasks/harness.simplify-2.cli-consolidation.json"
+    },
+    {
       "id": "harness.simplify-2.validation-retirement",
       "record": "harness/tasks/harness.simplify-2.validation-retirement.json"
     }

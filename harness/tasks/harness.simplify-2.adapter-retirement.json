@@ -18,21 +18,29 @@
     "harness/tasks/harness.simplify-2.json"
   ],
   "authorized_scope": [
-    "Audit every live consumer of `python/src/ksdft2effmass/harness/pi/local/adapters.py` before moving or deleting behavior.",
-    "Retire adapters with no live consumer, adapters translating only between generated projections, and compatibility readers whose archived-input requirement is proven absent.",
-    "Split surviving behavior by Task, ownership, resource, and narrowly bounded legacy-Markdown contracts when those owners remain necessary.",
-    "Preserve required historical traceability and supported compatibility behavior, public imports, and execute signatures."
+    "Audit every live consumer and compatibility obligation of the nine public ActionObjects currently in `python/src/ksdft2effmass/harness/pi/local/adapters.py`: `TaskRecordAdapter`, `ChainRecordAdapter`, `CheckpointRecordAdapter`, `AgentRecordAdapter`, `OwnershipManifestAdapter`, `ChecksumCatalogAdapter`, `SkillInventoryAdapter`, `EvidenceOwnershipManifestAdapter`, and `EvidenceModuleSelector`.",
+    "For each adapter, record its public import path and execute signature, maintained documentation claim, internal Python callers, command or script callers, resource/profile/descriptor references, required archived input formats, whether it translates authoritative input or only generated projections, proposed disposition, and compatibility impact.",
+    "The verified planning baseline finds no maintained production-module instantiation of the nine adapters outside package exports; definitions, public exports, tests, maintained or historical documentation, and retained evidence remain references. This absence of an internal production caller is not by itself deletion authority because the adapters remain package-level public exports and `TaskRecordAdapter` is documented for external-command compatibility.",
+    "Assign each adapter exactly one disposition: retain as a supported public compatibility API; relocate under a cohesive Task, ownership, resource, evidence, or narrowly bounded legacy owner while preserving its supported import and signature; deprecate through an explicitly authorized compatibility change; or delete only after proving both that no supported external or command consumer and no required archived input depends on it.",
+    "Retire adapters that satisfy the deletion proof, adapters translating only between generated projections with no supported external obligation, and compatibility readers whose archived-input requirement is proven absent; do not count tests, retained evidence, or historical mentions as live production consumers, but preserve them as evidence of the prior contract where applicable.",
+    "Split surviving behavior by Task, ownership, resource, evidence, and narrowly bounded legacy-Markdown contracts when those owners remain necessary; do not introduce a generic adapter framework.",
+    "Keep R2.1 `dbcontrol` ownership separate: database-control ingestion may consume canonical domain objects or narrowly owned deserializers, but must not absorb `local/adapters.py` wholesale, duplicate an adapter layer, or make adapter survival necessary merely for architectural symmetry.",
+    "Preserve required historical traceability and every supported compatibility behavior, public import, and execute signature unless the adapter's explicit disposition authorizes its deprecation or removal."
   ],
   "completion_criteria": [
-    "Every retained adapter has an identified live consumer and one explicit owned contract; obsolete adapters and generated-projection translations are removed.",
-    "No generic adapter framework or reverse dependency from generic harness behavior to project-local state is introduced.",
-    "Focused adapter and compatibility tests, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.",
+    "A reviewed nine-row disposition matrix records the required consumer, command, resource, archive, projection, ownership, and compatibility evidence for every adapter and distinguishes no internal caller from no supported consumer.",
+    "Every retained adapter has an identified supported consumer or compatibility obligation and one explicit owned contract; every relocated adapter preserves its authorized public behavior; every removed adapter has both external-consumer and archived-input non-use evidence.",
+    "Obsolete adapters and generated-projection-only translations with no supported compatibility obligation are removed, while `TaskRecordAdapter` or any other documented external compatibility surface remains until its contract is explicitly dispositioned.",
+    "No adapter behavior is hidden in `dbcontrol`, no generic adapter framework is created, and no reverse dependency from generic harness behavior to project-local state is introduced.",
+    "Focused adapter, public-import, external-command compatibility, and archive-fixture tests, the maintained harness software-verification suite, Ruff, mypy, documentation validation, and dependency-lock nonmutation checks pass.",
     "The work package completes without activating its successor."
   ],
   "exclusions": [
+    "Do not infer deletion authority solely from repository-source non-use, package-export presence, tests, reviewer agreement, or retained evidence; supported external contracts and required archived inputs need explicit dispositions.",
     "Do not remove a compatibility reader without evidence that no live or required archived input consumes it.",
+    "Do not reopen the completed R2.1 `dbcontrol` decomposition or move database-control behavior back into adapters.",
     "Do not rewrite or delete retained `.pi` history, exact human decisions, Tasks, chains, checkpoints, or evidence.",
-    "Do not implement R2.3 through R2.6, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions."
+    "Do not implement R2.3 through R2.7, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions."
   ],
   "intake_path": null,
   "archived_source": null

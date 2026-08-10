@@ -40,7 +40,7 @@ Decompose `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` a
 
 - Do not weaken evidence requirements, change accepted identifiers, expected values, tolerances, skips, or evidence classifications merely to obtain passing checks.
 - Do not claim scientific validation or uncertainty quantification from software-conformance results.
-- Do not implement R2.4 through R2.6, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions.
+- Do not implement R2.4 through R2.7, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions.
 
 ## Historical source
 

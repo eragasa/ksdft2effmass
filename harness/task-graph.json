@@ -255,6 +255,9 @@
       "task_id": "harness.simplify-2.adapter-retirement"
     },
     {
+      "task_id": "harness.simplify-2.cli-consolidation"
+    },
+    {
       "task_id": "harness.simplify-2.control-decomposition"
     },
     {
@@ -368,6 +371,11 @@
     },
     {
       "source": "harness.simplify-2.adapter-retirement",
+      "target": "harness.simplify-2",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.cli-consolidation",
       "target": "harness.simplify-2",
       "kind": "child_of"
     },
@@ -832,6 +840,11 @@
       "kind": "depends_on"
     },
     {
+      "source": "harness.simplify-2.cli-consolidation",
+      "target": "harness.simplify-2.wire-validation-decomposition",
+      "kind": "depends_on"
+    },
+    {
       "source": "harness.simplify-2.control-decomposition",
       "target": "harness.simplification.round-2.sqlite-hybrid-cutover",
       "kind": "depends_on"
@@ -848,7 +861,7 @@
     },
     {
       "source": "harness.simplify-2.validation-retirement",
-      "target": "harness.simplify-2.wire-validation-decomposition",
+      "target": "harness.simplify-2.cli-consolidation",
       "kind": "depends_on"
     },
     {
@@ -1147,6 +1160,11 @@
       "kind": "ordered_before"
     },
     {
+      "source": "harness.simplify-2.cli-consolidation",
+      "target": "harness.simplify-2.validation-retirement",
+      "kind": "ordered_before"
+    },
+    {
       "source": "harness.simplify-2.control-decomposition",
       "target": "harness.simplify-2.adapter-retirement",
       "kind": "ordered_before"
@@ -1163,7 +1181,7 @@
     },
     {
       "source": "harness.simplify-2.wire-validation-decomposition",
-      "target": "harness.simplify-2.validation-retirement",
+      "target": "harness.simplify-2.cli-consolidation",
       "kind": "ordered_before"
     },
     {

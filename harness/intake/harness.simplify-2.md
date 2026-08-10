@@ -1,6 +1,6 @@
 # Harness simplification round two intake
 
-**Status:** Active coordinating parent. Six ordered work packages are decomposed and inactive; implementation has not started and automatic successor activation remains disabled.
+**Status:** Active coordinating parent. Seven ordered work packages are decomposed and inactive; implementation has not started and automatic successor activation remains disabled.
 
 **Task ID:** `harness.simplify-2`
 
@@ -28,7 +28,7 @@ Round two must preserve that accepted baseline rather than create another shadow
 
 ## Ordered Task decomposition
 
-The active parent coordinates six separately activated child Tasks. During the
+The active parent coordinates seven separately activated child Tasks. During the
 hybrid migration, the existing harness-simplification chain retains compatible
 selection state while SQLite owns the new structured control state. Decomposition
 does not activate the first child, and child completion does not activate its
@@ -41,7 +41,8 @@ successor automatically.
 | 3 | `harness.simplify-2.python-conformance-decomposition` | R2.3 — Python conformance decomposition |
 | 4 | `harness.simplify-2.resource-decomposition` | R2.4 — resource and routing decomposition |
 | 5 | `harness.simplify-2.wire-validation-decomposition` | R2.5 — wire validation decomposition |
-| 6 | `harness.simplify-2.validation-retirement` | R2.6 — validation consolidation and replay retirement |
+| 6 | `harness.simplify-2.cli-consolidation` | R2.6 — maintained CLI consolidation under `python/src/cli/` |
+| 7 | `harness.simplify-2.validation-retirement` | R2.7 — validation consolidation and replay retirement |
 
 Each child has `explicit_activation_required: true`. The parent retains shared
 contract-preservation requirements, exclusions, final integration review, and
@@ -75,15 +76,15 @@ harness task
 harness evidence
 ```
 
-Representative invocation:
+Every maintained live CLI script and entry point belongs directly under
+`python/src/cli/`; exact filenames and command grammar remain owned by R2.6.
+Representative invocation has the form:
 
 ```bash
-python/.venv/bin/python -m ksdft2effmass.harness inspect
-python/.venv/bin/python -m ksdft2effmass.harness validate
-python/.venv/bin/python -m ksdft2effmass.harness project
+python/.venv/bin/python python/src/cli/<command>.py <explicit arguments>
 ```
 
-Each command calls maintained ActionObjects. Routine inspection must not require agents to assemble inline Python or generated shell fragments.
+Each command calls maintained ActionObjects under `python/src/ksdft2effmass/`. Routine inspection must not require agents to assemble inline Python or generated shell fragments.
 
 ## Process-record retirement
 
@@ -136,26 +137,35 @@ explicitly; neither tree replaces the other.
 Target internal ownership:
 
 ```text
-python/src/ksdft2effmass/harness/pi/local/control/
+python/src/ksdft2effmass/harness/pi/local/dbcontrol/
 ├── __init__.py
 ├── records.py
 ├── schema.py
+├── connection.py
 ├── ingestion.py
 ├── projections.py
 ├── sql_export.py
 ├── verification.py
-└── migration.py
+├── migration.py
+└── task_state/
+    ├── __init__.py
+    ├── reader.py
+    ├── inspection.py
+    ├── documents.py
+    └── files.py
 ```
 
 | Module | Responsibility |
 | --- | --- |
 | `records.py` | Immutable request, result, and configuration DataObjects. |
-| `schema.py` | SQLite DDL, schema version, and connection initialization. |
+| `schema.py` | SQLite DDL and schema version. |
+| `connection.py` | Explicit SQLite connection initialization and reconstruction mechanics. |
 | `ingestion.py` | Task, evidence, test, agent, skill, resource, and decision import. |
 | `projections.py` | JSON, graph, manifest, inventory, and Markdown projections. |
 | `sql_export.py` | Deterministic SQL recovery export. |
 | `verification.py` | Integrity, foreign keys, semantic digest, and reconstruction agreement. |
 | `migration.py` | Thin orchestration only. |
+| `task_state/` | Private bounded Task-state reading, document parsing, file inspection, and reconciliation moved from the superseded holder modules. |
 
 Keep the public migration surface small:
 
@@ -272,7 +282,17 @@ python/src/ksdft2effmass/harness/pi/wire/
 
 Dispatch routes by wire kind. Domain codecs own their field mappings. The registry must not accumulate domain construction logic or expose every codec publicly.
 
-### R2.6 — Replay and H3 retirement
+### R2.6 — Maintained CLI consolidation
+
+Inventory every maintained live Python CLI under `python/src/ksdft2effmass/`,
+`harness/`, and `.pi/`. Move the final thin scripts and entry points directly
+under `python/src/cli/`, keep reusable behavior with its ActionObject owners under
+`python/src/ksdft2effmass/`, migrate every live consumer, and retire obsolete
+wrappers only after command/API agreement. Retain historical evidence scripts
+unchanged, and do not add installed console-script entry points or change package
+discovery.
+
+### R2.7 — Replay and H3 retirement
 
 Retire `replay_current_validators.py`, H3-era resource gates, and nested validation routes where live-consumer analysis proves them obsolete. Replace them with:
 
@@ -313,10 +333,11 @@ The tracked database contains definitions and accepted state. The ignored databa
 
 ## Python environment
 
-Every maintained command uses:
+Every maintained command uses the repository interpreter and a script under the
+single CLI root:
 
 ```text
-python/.venv/bin/python
+python/.venv/bin/python python/src/cli/<command>.py
 ```
 
 The environment must support package imports, pytest, Ruff, mypy, Sphinx, wheel tests, and maintained harness CLIs without assuming that a root virtual environment, system Python, or ad hoc shell is interchangeable.

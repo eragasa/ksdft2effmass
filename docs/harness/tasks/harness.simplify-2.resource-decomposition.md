@@ -41,7 +41,7 @@ Decompose `python/src/ksdft2effmass/harness/pi/resources.py` into independent re
 
 - Do not duplicate `ResourceManifestValidator`, `ResourceManifestRefresher`, `ResourceResolver`, `SkillResourceValidator`, or canonical-JSON algorithms.
 - Do not reverse the generic-to-project-local dependency direction, create implicit CWD or Git-root discovery, or change behavior versions without accepted authority.
-- Do not implement R2.5 or R2.6, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions.
+- Do not implement R2.5 through R2.7, activate another work package, add dependencies, modify scientific/package-source modules, or perform protected or release actions.
 
 ## Historical source
 

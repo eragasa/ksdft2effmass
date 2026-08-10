@@ -1,0 +1,54 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Consolidate maintained CLI scripts under python/src/cli
+
+[Task index](index.md) · [Previous](./harness.simplify-2.adapter-retirement.md) · [Next](./harness.simplify-2.control-decomposition.md)
+
+## Status
+
+`inactive`: decomposed work package R2.6; separate explicit human activation required and no automatic successor activation
+
+## Objective
+
+Consolidate every maintained live harness CLI script and entry point under `python/src/cli/` while keeping reusable behavior with its owning ActionObjects under `python/src/ksdft2effmass/` and preserving historical command evidence.
+
+## Parent and prerequisites
+
+- Parent: `harness.simplify-2`
+- Depends on: `harness.simplify-2.wire-validation-decomposition`
+
+## Authority references
+
+- AGENTS.md
+- harness/intake/harness.simplify-2.md
+- harness/tasks/harness.simplify-2.json
+
+## Authorized scope
+
+- Inventory every maintained live Python CLI and entry point currently under `python/src/ksdft2effmass/`, `harness/`, and `.pi/`; distinguish maintained operational commands from retained historical evidence scripts and one-time reproduction artifacts.
+- Create the final maintained CLI scripts directly under `python/src/cli/`. Each script is a thin explicit-argument adapter and renderer over public ActionObjects or other accepted reusable owners under `python/src/ksdft2effmass/`; scripts own no domain validation, persistence, discovery, scientific policy, or duplicated transformation behavior.
+- Migrate live consumers, maintained examples, skills, agents, task completion commands, resource descriptors, and documentation to `python/.venv/bin/python python/src/cli/<command>.py ...` invocations before retiring an old wrapper or module entry point.
+- Retire maintained live CLI wrappers and entry points elsewhere under `python/src/`, `harness/`, or `.pi/` only after exact consumer scans and command/API agreement prove replacement coverage; preserve historical records and historical scripts that identify commands actually used.
+- Preserve the accepted public ActionObject imports, DataObject and ResultObject contracts, execute signatures, structured findings, exit-status behavior, deterministic JSON or text rendering, explicit-root confinement, nonmutation boundaries, and error taxonomy behind each migrated command.
+- Keep `python/pyproject.toml`, package discovery, dependencies, and `python/uv.lock` unchanged. The `python/src/cli/` scripts are repository command surfaces and this Task does not add installed console-script entry points or a new importable top-level `cli` package.
+- Do not activate validation retirement automatically; produce a durable R2.7 handoff listing the final CLI inventory, retired paths, retained historical scripts, command/API agreement evidence, and unresolved compatibility risks.
+
+## Completion criteria
+
+- A reviewed inventory classifies every discovered Python CLI or entry point as migrated maintained command, retired obsolete wrapper, or retained historical script with its live consumers and replacement disposition.
+- Every maintained live harness CLI script and entry point resides directly under `python/src/cli/`; reusable behavior resides under `python/src/ksdft2effmass/`; no maintained operational CLI remains elsewhere under `python/src/`, `harness/`, or `.pi/`.
+- Every migrated command has focused command/API agreement covering explicit arguments, output bytes or structured projection, exit status, nonrepository working directory behavior where applicable, error handling, and nonmutation or authorized mutation boundaries.
+- All maintained command references use `python/.venv/bin/python python/src/cli/<command>.py`; generated shell and inline-Python command fragments are absent from live routing.
+- Historical `.pi` evidence, exact prior command records, and historical scripts remain unchanged and are not treated as maintained live CLI implementations.
+- Focused CLI tests, the maintained harness software-verification suite, Ruff, mypy, documentation and resource validation, command-reference scans, and dependency-lock nonmutation checks pass.
+- The work package completes without activating R2.7 or another successor.
+
+## Exclusions
+
+- Do not move reusable ActionObject, DataObject, ResultObject, validation, persistence, parsing, serialization, or scientific behavior into `python/src/cli/`; CLI scripts remain thin adapters and renderers.
+- Do not add an installed console-script entry point, change setuptools package discovery, create an importable top-level `cli` package, add or replace a dependency, or change `python/uv.lock`.
+- Do not rewrite or delete retained historical `.pi` evidence or historical scripts merely to satisfy the live CLI location rule.
+- Do not implement R2.7, activate another work package, modify scientific/package-source modules, or perform protected or release actions.
+
+## Historical source
+
+No archived source.

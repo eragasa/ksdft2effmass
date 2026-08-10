@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: active coordinating parent; six ordered work packages are decomposed and inactive, implementation has not started, and automatic successor activation remains disabled
+`active`: active coordinating parent; seven ordered work packages are decomposed and inactive, implementation has not started, and automatic successor activation remains disabled
 
 ## Objective
 
@@ -28,8 +28,9 @@ Simplify the maintained harness so that a maintainer can change one policy—Tas
 - R2.3 — Decompose `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` around one immutable parsed test-module model, one AST parse, independent naming, documentation, parameterization, ownership, migration, and repository-conformance rules, and deterministically ordered findings.
 - R2.4 — Decompose `python/src/ksdft2effmass/harness/pi/resources.py` into resource records, manifests, resolution, refresh/projection, and skill-closure ownership while keeping records independent of operational Actions and preserving existing public Actions.
 - R2.5 — Decompose `python/src/ksdft2effmass/harness/pi/validation.py` into canonical JSON support and explicit domain codecs whose dispatch layer routes wire kinds without owning domain field mappings; avoid magical registration and preserve supported public wire contracts.
-- R2.6 — Replace replay, H3-era resource gates, nested CLI validation, and duplicated live control paths with one composable maintained validation Action returning structured named checks, statuses, findings, and durations through one renderer.
-- Consolidate routine inspection, validation, projection, Task, and evidence operations behind a small maintained command surface backed by ActionObjects; routine repository inspection must not depend on generated shell or inline-Python fragments.
+- R2.6 — Consolidate every maintained live CLI script and entry point under `python/src/cli/`, keep reusable behavior under `python/src/ksdft2effmass/`, migrate live consumers, and preserve historical command evidence.
+- R2.7 — Replace replay, H3-era resource gates, nested CLI validation, and duplicated live control paths with one composable maintained validation Action returning structured named checks, statuses, findings, and durations through one renderer.
+- Consolidate routine inspection, validation, projection, Task, and evidence operations behind a small maintained command surface backed by ActionObjects; every maintained live CLI script and entry point must live under `python/src/cli/` while reusable behavior remains with its owning ActionObjects under `python/src/ksdft2effmass/`, and routine repository inspection must not depend on executable wrappers outside `python/src/cli`, generated shell, or inline-Python fragments.
 - Preserve `.pi` Tasks, chains, checkpoints, decisions, and evidence as history while moving remaining live structured operational authority under `harness/`; remove compatibility readers only after proving that no live consumer remains.
 - Retire new proliferation of manually synchronized ownership, completion, verification, inventory, migration, review, transcript, and repeated chain-state copies; a Task, its graph relationships, lifecycle events, and referenced evidence should ordinarily suffice.
 - Rationalize maintained harness agent and skill routing toward implementation, verification, documentation, and read-only integration-review roles with shared policy stored once, task-selected skills, exact assignment inputs and output contracts, and bounded scout-then-reviewer dispatch rather than duplicated prompt fragments or parallel deep reviews for routine inspection.
@@ -38,9 +39,9 @@ Simplify the maintained harness so that a maintainer can change one policy—Tas
 
 ## Completion criteria
 
-- The six ordered child Tasks from `harness.simplify-2.control-decomposition` through `harness.simplify-2.validation-retirement` are complete, each changed subdomain has an explicit owner and dependency direction, and orchestration layers contain coordination rather than domain mechanism.
+- The seven ordered child Tasks from `harness.simplify-2.control-decomposition` through `harness.simplify-2.validation-retirement`, including `harness.simplify-2.cli-consolidation`, are complete; each changed subdomain has an explicit owner and dependency direction, and orchestration layers contain coordination rather than domain mechanism.
 - Existing public imports, ActionObject names and execute signatures, supported wire contracts, SQLite schema and semantic identity, deterministic SQL recovery, projection bytes, and compatibility behavior remain stable unless a separately resolved human decision explicitly authorizes a change.
-- One maintained validation Action produces structured named checks, statuses, findings, and durations without invoking another CLI and parsing its output; one CLI renderer exposes the result.
+- One maintained validation Action produces structured named checks, statuses, findings, and durations without invoking another CLI and parsing its output; one CLI renderer under `python/src/cli/` exposes the result, and no maintained live CLI script or entry point remains outside `python/src/cli`.
 - Live structured control has one SQLite authority, generated JSON and Markdown remain deterministic projections, legacy `.pi` material is historical rather than operational authority, and no second maintained control model remains.
 - A maintainer can change Task persistence, evidence naming, resource resolution, or wire serialization without editing an unrelated orchestration monolith or manually synchronizing unrelated representations.
 - Focused tests, the complete maintained harness software-verification suite, Ruff, mypy, resource and evidence conformance, deterministic SQLite reconstruction, projection agreement, documentation validation, and dependency-lock nonmutation checks pass.
@@ -52,7 +53,7 @@ Simplify the maintained harness so that a maintainer can change one policy—Tas
 - Do not refactor `operators/serialization.py`, `workflows/cpn/execution.py`, `provenance/serialization.py`, or other scientific/package-source modules in this Task; those require separate source-contract audits and separately activated Tasks.
 - Do not split modules merely to reduce line counts. Split only where a subdomain has its own inputs, invariants, Action ownership, dependency direction, and focused tests; do not expose every internal codec or migration step as public API.
 - Do not implement telemetry, observations collection, live instrumentation, session parsing, benchmarks, dashboards, tokens, costs, or effectiveness claims. Telemetry remains deferred until the control, identity, command, authority, and validation surfaces are stable.
-- Do not rewrite or delete retained historical `.pi` Tasks, chains, checkpoints, exact human decisions, evidence, or provenance. Compatibility removal requires proven non-use and must preserve required historical traceability.
+- Do not rewrite or delete retained historical `.pi` Tasks, chains, checkpoints, exact human decisions, evidence, provenance, or the historical scripts that record commands actually used. The `python/src/cli` location rule applies to maintained live command implementations, not retained historical evidence scripts; compatibility removal requires proven non-use and must preserve required historical traceability.
 - Do not add or replace dependencies, change `python/uv.lock`, publish or extract a package, perform release actions, execute external or scientific calculations, change scientific settings or contracts, claim scientific validation or uncertainty quantification, or activate any successor automatically.
 
 ## Historical source

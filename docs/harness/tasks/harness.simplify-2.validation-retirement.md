@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: decomposed work package R2.6; separate explicit human activation required and no automatic successor activation
+`inactive`: decomposed work package R2.7; separate explicit human activation required and no automatic successor activation
 
 ## Objective
 
@@ -14,7 +14,7 @@ Replace replay, H3-era gates, nested CLI validation, and duplicated live control
 ## Parent and prerequisites
 
 - Parent: `harness.simplify-2`
-- Depends on: `harness.simplify-2.wire-validation-decomposition`
+- Depends on: `harness.simplify-2.cli-consolidation`
 
 ## Authority references
 
@@ -26,7 +26,7 @@ Replace replay, H3-era gates, nested CLI validation, and duplicated live control
 
 - Prove live-consumer obsolescence before retiring `replay_current_validators.py`, H3-era resource gates, nested CLI validation, or duplicated live control paths.
 - Provide one composable maintained validation Action returning structured named checks, statuses, findings, and durations, with one project-local renderer and no CLI-output parsing.
-- Consolidate routine inspect, validate, project, Task, and evidence operations behind a small maintained Action-backed command surface; normalize maintained examples and entry points on `python/.venv/bin/python`.
+- Consume the completed R2.6 CLI inventory and command/API agreement without reopening CLI placement or reintroducing maintained wrappers outside `python/src/cli/`; use the consolidated commands to expose integrated validation results without parsing another CLI's output.
 - Perform cross-package integration validation, synchronize directly affected documentation, and obtain one consolidated independent read-only compatibility review with at most one correction pass.
 - Conclude the parent program pending explicit human acceptance with `active_task` restored to null and no successor activated.
 
@@ -34,7 +34,7 @@ Replace replay, H3-era gates, nested CLI validation, and duplicated live control
 
 - One maintained validation Action produces structured named checks, statuses, findings, and durations; one renderer exposes the result and no validator invokes another CLI and parses its output.
 - Retired replay, H3-era, nested, and duplicated routes have no remaining live consumers; required historical records and compatibility remain preserved.
-- Routine maintained command examples use `python/.venv/bin/python` and do not require generated shell or inline-Python fragments.
+- The completed R2.6 command surface remains intact: every maintained live CLI script and entry point resides under `python/src/cli/`, no maintained executable wrapper elsewhere under `python/src/`, `harness/`, or `.pi/` becomes live again, and integrated validation requires no generated shell, inline-Python fragment, or nested CLI-output parsing.
 - Focused validation tests, the complete maintained harness software-verification suite, Ruff, mypy, resource and evidence conformance, deterministic SQLite reconstruction, projection agreement, Sphinx warnings-as-errors, and dependency-lock nonmutation checks pass.
 - One consolidated independent read-only compatibility review has no unresolved material findings after at most one consolidated correction pass.
 - The parent is complete pending explicit human acceptance, `active_task` is null, and no telemetry, production-source refactor, scientific work, protected execution, or successor is activated.
@@ -43,7 +43,7 @@ Replace replay, H3-era gates, nested CLI validation, and duplicated live control
 
 - Do not freeze a new public command grammar, import, or wire contract where the accepted parent authority leaves materially different defensible choices; stop for a human decision when required.
 - Do not implement telemetry, observations collection, instrumentation, benchmarks, dashboards, tokens, costs, or effectiveness claims.
-- Do not rewrite or delete retained `.pi` history, add dependencies, modify scientific/package-source modules, publish, release, or perform external, scientific, or other protected execution.
+- Do not rewrite or delete retained `.pi` history or historical evidence scripts that record commands actually used; the `python/src/cli` location requirement applies to maintained live CLIs. Do not add dependencies, modify scientific/package-source modules, publish, release, or perform external, scientific, or other protected execution.
 
 ## Historical source
 
