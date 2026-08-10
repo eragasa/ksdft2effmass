@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: coordinating parent restored after R2.3 completed; R2.4 is prerequisite-eligible but inactive, R2.5 through R2.7 remain inactive, and automatic successor activation remains disabled
+`deferred_to_active_child`: coordinating parent deferred to active R2.4 resource decomposition after R2.3 completed; R2.5 through R2.7 remain inactive, and automatic successor activation remains disabled
 
 ## Objective
 

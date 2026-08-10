@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: prerequisite-eligible but inactive R2.4 resource-authority and canonical-input work package
+`active`: activated by current human instruction for bounded R2.4 resource-authority and canonical-input implementation; no successor activated
 
 ## Objective
 
