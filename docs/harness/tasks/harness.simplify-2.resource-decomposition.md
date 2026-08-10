@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: corrected inactive R2.4 resource-authority and reconstruction-input work package; separate explicit human activation required and no automatic successor activation
+`inactive`: corrected inactive R2.4 resource-authority and reconstruction-input work package; parent-authorized deterministic transition only, currently not activated, and no automatic successor activation
 
 ## Objective
 
@@ -30,6 +30,9 @@ Decompose resource records, manifest semantics, resolution, refresh or projectio
 - Prepare explicit resource-domain inputs for the existing full deterministic `HarnessControlMigrator`, so resource definitions and projection identities participate in the same staged complete SQLite reconstruction and failure-safe publication path.
 - Keep resource manifests and source records authoritative for their represented resource contracts while treating SQLite resource rows, SQL export, and generated resource projections as reconstructible outputs.
 - Rationalize maintained harness roles toward implementation, verification, documentation, and read-only integration review with shared policy stored once and task-selected skills.
+- Use the existing `HarnessControlMigrator` throughout R2.4; private compiler extraction and full source-aware verifier integration belong only to R2.7.
+- Implement R2.4 as a complete vertical replacement of its owned resource subsystem: accepted end-state contract, isolated implementation, complete affected-data migration, controlled parity, one cutover, and removal of the obsolete live path. Do not retain old and new operational resource authorities after cutover except for temporary compatibility required by an accepted public contract.
+- Because the active parent authorizes the full round, R2.4 requires no separate human activation cycle once R2.3 is complete and the parent agent explicitly transitions to it with no unresolved checkpoint, human-owned material choice, protected action, or unresolved material review finding. Keep one active child, prohibit background activation, and keep automatic successor activation false.
 
 ## Completion criteria
 
@@ -38,7 +41,7 @@ Decompose resource records, manifest semantics, resolution, refresh or projectio
 - Existing public resource Actions and supported manifests, profiles, descriptors, fixtures, and canonical or live copies remain contract-consistent.
 - Explicit resource inputs reconstruct through the existing full `HarnessControlMigrator`, and SQLite resource rows, SQL export, and generated projections agree without a second database writer or synchronization framework.
 - Focused resource tests, manifest and descriptor closure, local overlay validation, deterministic full reconstruction and projection agreement, documentation validation, and dependency-lock nonmutation checks pass.
-- The work package completes without activating its successor.
+- The work package completes without self-activating its successor. A prerequisite-satisfied R2.5 transition is performed explicitly by the parent agent under the parent-authorized deterministic rule, not by an automatic successor mechanism.
 
 ## Exclusions
 
