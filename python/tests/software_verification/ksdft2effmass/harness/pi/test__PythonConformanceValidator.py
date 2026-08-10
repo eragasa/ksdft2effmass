@@ -22,6 +22,7 @@ cohesion, numerical verification, scientific validation, UQ, or human acceptance
 from __future__ import annotations
 
 import json
+from dataclasses import FrozenInstanceError
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +34,7 @@ from ksdft2effmass.harness.pi.evidence import (
     PythonConformanceValidator,
     PythonModuleSource,
 )
+from ksdft2effmass.harness.pi.evidence.python_conformance.parser import parse_module
 
 pytestmark = pytest.mark.software_verification
 SUT = PythonConformanceValidator
@@ -410,6 +412,33 @@ ROUTINE_OWNERSHIP = json.dumps(
     },
     separators=(",", ":"),
 ).encode()
+
+
+def test_artifact__parsed_module_model__is_deeply_immutable_at_rule_boundary() -> None:
+    """Evidence ID: software-verification.harness.python-conformance.model.deep-immutability
+
+    Requirement: The one parsed module model exposes immutable derived values and no
+    mutable AST or function-node collection to independent rule owners.
+
+    Method: Parse one literal module, inspect its public surface, and attempt mutation.
+
+    Oracle: Frozen dataclass semantics and tuple-valued names define the boundary.
+
+    Acceptance: Public AST attributes are absent, names are a tuple, and assignment
+    raises ``FrozenInstanceError``.
+
+    Interpretation: Failure indicates mutable syntax escaping the parser owner.
+
+    Limitations: Python's deliberate low-level object introspection is excluded.
+    """  # noqa: E501
+    model = parse_module(PATH, ROUTINE_SOURCE)
+    assert model.function_names == ("test_artifact__literal_value__equals_itself",)
+    assert not hasattr(model, "tree")
+    assert not hasattr(model, "functions")
+    assert not hasattr(model, "_tree")
+    assert not hasattr(model, "_functions")
+    with pytest.raises(FrozenInstanceError):
+        model.path = "changed.py"  # type: ignore[misc]
 
 
 def test_method__execute_routine_profile__accepts_exact_required_fields() -> None:

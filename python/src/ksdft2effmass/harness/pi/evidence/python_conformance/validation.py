@@ -22,7 +22,7 @@ from typing import Any
 from ...identity import _require_builtin_str, _require_tuple
 from .documentation import validate_profile_declaration
 from .migration import has_complete_predecessor_pairs
-from .model import PythonTestModuleModel
+from .model import PythonTestModuleModel, _module_syntax
 from .naming import validate_test_name
 from .ownership import validate_owner_profile
 from .parameterization import parameterized_functions as parameterized_function_models
@@ -810,7 +810,7 @@ def validate_file(
     """Apply independent rules to one already parsed module model."""
     path = model.path
     source = model.source
-    tree = model._tree
+    tree, functions = _module_syntax(model)
     module_doc = model.module_doc
     out: list[PythonConformanceFinding] = []
     first_line = (module_doc or "").splitlines()[0].strip() if module_doc else ""
@@ -963,7 +963,7 @@ def validate_file(
                     "artifact-owned filename must be descriptive lowercase snake case",
                 )
             )
-    for node in model._functions:
+    for node in functions:
         is_test = node.name.startswith("test_")
         name_problem = validate_test_name(node.name) if is_test else None
         if name_problem is not None:
@@ -1703,8 +1703,9 @@ class PythonConformanceValidator:
             parameterized_names = {
                 node.name for node in parameterized_function_models(model)
             }
-            for node in model._functions:
-                count = static_parameter_case_count(node, model._tree)
+            tree, functions = _module_syntax(model)
+            for node in functions:
+                count = static_parameter_case_count(node, tree)
                 if count is None:
                     static_parameter_cases_known = False
                 elif count:

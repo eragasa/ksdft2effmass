@@ -11,7 +11,7 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
-from ...evidence.python_conformance.model import PythonTestModuleModel
+from ...evidence.python_conformance.model import PythonTestModuleModel, _module_syntax
 from .constants import _EVIDENCE_CLASSES, _EVIDENCE_ID, _IDENTIFIER
 from .encoding import _ControlEncoding
 
@@ -266,7 +266,7 @@ class _RepositoryControlIngestor:
                 continue
             source = path.read_bytes()
             model = self.evidence_models[str(module["path"])]
-            tree = model._tree
+            tree, _functions = _module_syntax(model)
             module_doc = model.module_doc or ""
             profile_match = re.search(
                 r"(?m)^Evidence profile: (routine|claim_bearing)\s*$", module_doc
