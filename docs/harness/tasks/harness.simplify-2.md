@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: active coordinating parent; seven ordered work packages are decomposed and inactive, implementation has not started, and automatic successor activation remains disabled
+`active`: active coordinating parent; R2.1 control decomposition is completed, the remaining six ordered work packages are inactive, and automatic successor activation remains disabled
 
 ## Objective
 

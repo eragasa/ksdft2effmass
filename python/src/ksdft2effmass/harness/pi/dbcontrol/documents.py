@@ -6,8 +6,8 @@ import json
 from dataclasses import dataclass
 from typing import Any
 
-from .identity import Identifier, ResourcePath, _require_identifier, _require_path
-from .validation import ValidationIssue, _issue
+from ..identity import Identifier, ResourcePath, _require_identifier, _require_path
+from ..validation import ValidationIssue, _issue
 
 
 class _DuplicateKey(ValueError):

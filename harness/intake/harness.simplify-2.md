@@ -134,38 +134,44 @@ explicitly; neither tree replaces the other.
 
 ### R2.1 — Control decomposition
 
-Target internal ownership:
+Target internal ownership separates storage-neutral Task-state inspection from
+repository-specific control construction:
 
 ```text
+python/src/ksdft2effmass/harness/pi/dbcontrol/
+├── __init__.py
+├── database.py
+├── documents.py
+├── files.py
+└── inspection.py
+
 python/src/ksdft2effmass/harness/pi/local/dbcontrol/
 ├── __init__.py
+├── constants.py
+├── database.py
+├── encoding.py
+├── ingestion.py
+├── migration.py
+├── projections.py
 ├── records.py
 ├── schema.py
-├── connection.py
-├── ingestion.py
-├── projections.py
-├── sql_export.py
-├── verification.py
-├── migration.py
-└── task_state/
-    ├── __init__.py
-    ├── reader.py
-    ├── inspection.py
-    ├── documents.py
-    └── files.py
+└── verification.py
 ```
 
-| Module | Responsibility |
+| Owner | Responsibility |
 | --- | --- |
-| `records.py` | Immutable request, result, and configuration DataObjects. |
-| `schema.py` | SQLite DDL and schema version. |
-| `connection.py` | Explicit SQLite connection initialization and reconstruction mechanics. |
-| `ingestion.py` | Task, evidence, test, agent, skill, resource, and decision import. |
-| `projections.py` | JSON, graph, manifest, inventory, and Markdown projections. |
-| `sql_export.py` | Deterministic SQL recovery export. |
-| `verification.py` | Integrity, foreign keys, semantic digest, and reconstruction agreement. |
-| `migration.py` | Thin orchestration only. |
-| `task_state/` | Private bounded Task-state reading, document parsing, file inspection, and reconciliation moved from the superseded holder modules. |
+| Generic `dbcontrol/database.py` | Storage-neutral, read-only Task lifecycle database queries. |
+| Generic `dbcontrol/documents.py`, `files.py`, and `inspection.py` | Private bounded Task-state document parsing, file inspection, and reconciliation moved from the superseded holder modules. |
+| `task_state.py` | Retained public `TaskStateInspector` identity and execute signature, with private delegation to generic `dbcontrol`; no new public API. |
+| Local `dbcontrol/records.py` and `schema.py` | Immutable migration and verification records plus the project-local SQLite DDL and schema version. |
+| Local `dbcontrol/database.py` and `encoding.py` | Project-local connection, reconstruction, semantic-identity, deterministic SQL, hashing, and encoding mechanics. |
+| Local `dbcontrol/ingestion.py` | Repository-specific Task, evidence, test, agent, skill, resource, and decision import. |
+| Local `dbcontrol/projections.py` | Repository-specific JSON, graph, manifest, inventory, and Markdown projections. |
+| Local `dbcontrol/verification.py` and `migration.py` | Thin verification and migration orchestration over the project-local owners. |
+
+The required dependency direction is `local.dbcontrol` to generic `dbcontrol`
+and `task_state` to generic `dbcontrol`. Generic `dbcontrol` must not depend on
+`local.dbcontrol`, and `task_state` must not depend on `local.dbcontrol`.
 
 Keep the public migration surface small:
 

@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2",
   "title": "Harness simplification round two",
   "status": "active",
-  "status_detail": "active coordinating parent; seven ordered work packages are decomposed and inactive, implementation has not started, and automatic successor activation remains disabled",
+  "status_detail": "active coordinating parent; R2.1 control decomposition is completed, the remaining six ordered work packages are inactive, and automatic successor activation remains disabled",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.round-2.sqlite-hybrid-cutover"

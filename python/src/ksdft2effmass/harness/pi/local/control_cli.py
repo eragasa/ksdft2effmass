@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from .control import (
+from .dbcontrol import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
     HarnessControlMigrator,

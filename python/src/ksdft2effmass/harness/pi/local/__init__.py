@@ -17,7 +17,7 @@ from .adapters import (
     TaskRecordAdapter,
 )
 from .context import LocalHarnessContextLoader
-from .control import (
+from .dbcontrol import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
     HarnessControlMigrator,

@@ -72,9 +72,11 @@ def test_artifact__generic_python_imports__prohibit_local_and_project_domains() 
         _ = [exercise_node_case_57_1(node) for node in ast.walk(tree)]
         assert not any(target.startswith(prohibited) for target in targets), path
 
+    generic_root = ROOT / "python/src/ksdft2effmass/harness/pi"
     _ = [
         exercise_path_case_54_2(path)
-        for path in (Path("python/src/ksdft2effmass/harness/pi").glob("*.py"))
+        for path in generic_root.rglob("*.py")
+        if "local" not in path.relative_to(generic_root).parts
     ]
 
 

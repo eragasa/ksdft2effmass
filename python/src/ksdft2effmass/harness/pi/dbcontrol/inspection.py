@@ -2,20 +2,42 @@
 
 from __future__ import annotations
 
-from ._task_state_documents import (
+from dataclasses import dataclass
+from pathlib import Path
+
+from ..validation import ValidationResult, _issue, _result
+from .documents import (
     _PARSE_ERRORS,
     _parse_chain,
     _parse_json_task,
     _parse_ownership,
 )
-from ._task_state_files import _InspectionFiles
-from .task_state import (
-    TaskStateInspectionRequest,
-    TaskStateInspectionResult,
-)
-from .validation import _issue, _result
+from .files import _InspectionFiles
 
 _CONTROL_DATABASE_PATH = "harness/state/harness-control.sqlite3"
+
+
+@dataclass(frozen=True, slots=True)
+class _TaskStateQueryResult:
+    """Storage-neutral result used by the public Task-state action."""
+
+    task_status: str | None
+    active_task_id: str | None
+    task_record_path: str | None
+    ownership_manifest_path: str | None
+    completion_validator_path: str | None
+    completion_command: tuple[str, ...]
+    writers: tuple[tuple[str, str], ...]
+    reviewers: tuple[tuple[str, str], ...]
+    artifact_paths: tuple[str, ...]
+    run_record_paths: tuple[str, ...]
+    handoff_record_paths: tuple[str, ...]
+    durable_run_record_status: str
+    durable_handoff_record_status: str
+    inspected_paths: tuple[str, ...]
+    read_paths: tuple[str, ...]
+    limitations: tuple[str, ...]
+    validation: ValidationResult
 
 
 def _record_status(paths: tuple[str, ...], missing: set[str]) -> str:
@@ -24,17 +46,20 @@ def _record_status(paths: tuple[str, ...], missing: set[str]) -> str:
     return "declared_missing" if set(paths) & missing else "inspected"
 
 
-def _inspect_task_state(
-    request: TaskStateInspectionRequest,
-) -> TaskStateInspectionResult:
-    files = _InspectionFiles(request.repository_root, request.task_id)
+def _query_task_state(
+    repository_root: Path,
+    chain_path: str,
+    task_id: str,
+) -> _TaskStateQueryResult:
+    """Inspect one exact Task without importing its public ActionObject owner."""
+    files = _InspectionFiles(repository_root, task_id)
     root_valid = files.root_is_valid()
     if not root_valid:
         files.issues.append(
             _issue(
                 "PIH.PATH.ROOT_INVALID",
                 "repository_root must be an existing canonical nonsymlink directory.",
-                request.task_id,
+                task_id,
             )
         )
 
@@ -50,13 +75,13 @@ def _inspect_task_state(
     run_paths: tuple[str, ...] = ()
     handoff_paths: tuple[str, ...] = ()
 
-    chain_payload = files.inspect(request.chain_path) if root_valid else None
+    chain_payload = files.inspect(chain_path) if root_valid else None
     selected_task = None
     if chain_payload is not None:
         chain = _parse_chain(
             chain_payload,
-            request.task_id,
-            request.chain_path,
+            task_id,
+            chain_path,
             files.issues,
         )
         active_task = chain.active_task
@@ -74,13 +99,13 @@ def _inspect_task_state(
             task_payload = files.inspect(task_record_path)
             if task_payload is not None and task_record_path.endswith(".json"):
                 try:
-                    task_status = _parse_json_task(task_payload, request.task_id)
+                    task_status = _parse_json_task(task_payload, task_id)
                 except _PARSE_ERRORS as exc:
                     files.issues.append(
                         _issue(
                             "PIH.TASK_STATE.REFERENCE_INVALID",
                             f"JSON Task state is malformed: {exc}.",
-                            request.task_id,
+                            task_id,
                             task_record_path,
                         )
                     )
@@ -90,7 +115,7 @@ def _inspect_task_state(
                 try:
                     ownership = _parse_ownership(
                         ownership_payload,
-                        request.task_id,
+                        task_id,
                         task_record_path,
                         ownership_path,
                         files.issues,
@@ -105,26 +130,26 @@ def _inspect_task_state(
                         _issue(
                             "PIH.TASK_STATE.OWNERSHIP_INVALID",
                             f"Ownership state is malformed: {exc}.",
-                            request.task_id,
+                            task_id,
                             ownership_path,
                         )
                     )
         for path in tuple(sorted(set((*artifact_paths, *run_paths, *handoff_paths)))):
             files.inspect(path)
 
-    control_database = request.repository_root / _CONTROL_DATABASE_PATH
+    control_database = repository_root / _CONTROL_DATABASE_PATH
     if control_database.is_file() and not control_database.is_symlink():
-        from ._task_control_state import _load_task_state
+        from .database import _load_task_state
 
         files.inspect(_CONTROL_DATABASE_PATH)
-        database_state = _load_task_state(control_database, request.task_id)
+        database_state = _load_task_state(control_database, task_id)
         if database_state is None:
             files.issues.append(
                 _issue(
                     "PIH.TASK_STATE.REFERENCE_INVALID",
                     "The authoritative control database does not contain the "
                     "selected Task.",
-                    request.task_id,
+                    task_id,
                     _CONTROL_DATABASE_PATH,
                 )
             )
@@ -136,20 +161,20 @@ def _inspect_task_state(
                         "PIH.TASK_STATE.REFERENCE_INVALID",
                         "Projected Task status disagrees with authoritative "
                         "SQLite state.",
-                        request.task_id,
+                        task_id,
                         task_record_path,
                     )
                 )
             task_status = database_status
             if database_active:
-                active_task = request.task_id
-            elif active_task == request.task_id:
+                active_task = task_id
+            elif active_task == task_id:
                 files.issues.append(
                     _issue(
                         "PIH.TASK_STATE.REFERENCE_INVALID",
                         "Chain activation disagrees with authoritative SQLite state.",
-                        request.task_id,
-                        request.chain_path,
+                        task_id,
+                        chain_path,
                     )
                 )
 
@@ -174,13 +199,9 @@ def _inspect_task_state(
             "No durable handoff record is declared by the selected chain entry."
         )
 
-    return TaskStateInspectionResult(
-        1,
-        request.repository_root,
-        request.task_id,
+    return _TaskStateQueryResult(
         task_status,
         active_task,
-        request.chain_path,
         task_record_path,
         ownership_path,
         completion_path,

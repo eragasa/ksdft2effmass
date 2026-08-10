@@ -175,7 +175,7 @@ def test_public_api__package_local_imports__avoid_execution_side_effects() -> No
         "validation",
         "_parsing",
         "task_model",
-        "control",
+        "dbcontrol",
     )
     imported = [
         __import__(f"ksdft2effmass.harness.pi.local.{name}", fromlist=["*"])

@@ -86,7 +86,7 @@
 - [`harness.simplify-2`](harness.simplify-2.md) — Harness simplification round two (`active`)
 - [`harness.simplify-2.adapter-retirement`](harness.simplify-2.adapter-retirement.md) — Retire and decompose project-local adapters (`inactive`)
 - [`harness.simplify-2.cli-consolidation`](harness.simplify-2.cli-consolidation.md) — Consolidate maintained CLI scripts under python/src/cli (`inactive`)
-- [`harness.simplify-2.control-decomposition`](harness.simplify-2.control-decomposition.md) — Decompose SQLite-hybrid control ownership (`inactive`)
+- [`harness.simplify-2.control-decomposition`](harness.simplify-2.control-decomposition.md) — Decompose SQLite-hybrid control ownership (`completed`)
 - [`harness.simplify-2.python-conformance-decomposition`](harness.simplify-2.python-conformance-decomposition.md) — Decompose Python conformance around one parsed model (`inactive`)
 - [`harness.simplify-2.resource-decomposition`](harness.simplify-2.resource-decomposition.md) — Decompose resource resolution and routing ownership (`inactive`)
 - [`harness.simplify-2.validation-retirement`](harness.simplify-2.validation-retirement.md) — Consolidate validation and retire replay machinery (`inactive`)

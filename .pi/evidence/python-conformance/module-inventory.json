@@ -223,7 +223,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "0fd168d574307bc479c9cb220b94c04a97528cc6aed23e9fa3e1041d79704cc8",
+      "content_sha256": "794b9bc1bf014fb2559b6379e06e77d74aca0ad2971cb91df21460f98612c162",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py",
@@ -711,7 +711,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "67a0f97b1979fe6e22e3ee1476437fb6427458e43fbba081721b5f02a96672a1",
+      "content_sha256": "25d5da27f435f3382d855a86956df398dada7207b91e4a39bb8c4d58523e63f4",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py",

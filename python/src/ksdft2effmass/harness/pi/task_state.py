@@ -211,6 +211,33 @@ class TaskStateInspector:
         if type(request) is not TaskStateInspectionRequest:
             raise TypeError("request must be TaskStateInspectionRequest")
 
-        from ._task_state_inspection import _inspect_task_state
+        from .dbcontrol.inspection import _query_task_state
 
-        return _inspect_task_state(request)
+        result = _query_task_state(
+            request.repository_root,
+            request.chain_path,
+            request.task_id,
+        )
+        return TaskStateInspectionResult(
+            1,
+            request.repository_root,
+            request.task_id,
+            result.task_status,
+            result.active_task_id,
+            request.chain_path,
+            result.task_record_path,
+            result.ownership_manifest_path,
+            result.completion_validator_path,
+            result.completion_command,
+            result.writers,
+            result.reviewers,
+            result.artifact_paths,
+            result.run_record_paths,
+            result.handoff_record_paths,
+            result.durable_run_record_status,
+            result.durable_handoff_record_status,
+            result.inspected_paths,
+            result.read_paths,
+            result.limitations,
+            result.validation,
+        )

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .identity import Identifier, _require_path
-from .validation import ValidationIssue, _issue
+from ..identity import Identifier, _require_path
+from ..validation import ValidationIssue, _issue
 
 
 def _path_code(exc: ValueError) -> str:
