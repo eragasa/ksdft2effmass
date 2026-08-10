@@ -1,5 +1,9 @@
 r"""Software verification of HarnessTask version-3 cross-surface contract.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module verifies the focused public import, schema/fixture, mixed-format adapter,

@@ -1,5 +1,9 @@
 r"""Software verification of ``ShadowSuiteReplayer``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module verifies fail-closed aggregation of already supplied shadow-pair results.

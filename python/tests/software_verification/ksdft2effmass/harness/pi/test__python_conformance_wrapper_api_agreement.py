@@ -1,5 +1,9 @@
 r"""Software verification of Python conformance wrapper/API agreement.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies the evidence subpackage surface and thin command relation.

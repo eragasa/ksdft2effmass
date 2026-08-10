@@ -1,5 +1,9 @@
 r"""Software verification of local public api and models.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the 40-name local public import surface and immutable

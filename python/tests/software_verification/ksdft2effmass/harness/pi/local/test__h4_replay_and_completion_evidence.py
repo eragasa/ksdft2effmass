@@ -1,5 +1,9 @@
 r"""Software verification of h4 replay and completion evidence.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the retained H4 replay/completion evidence boundary.

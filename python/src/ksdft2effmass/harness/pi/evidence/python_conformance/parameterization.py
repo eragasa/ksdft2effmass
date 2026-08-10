@@ -13,7 +13,7 @@ def parameterized_functions(
     """Return functions with at least one static ``parametrize`` decorator."""
     return tuple(
         function
-        for function in model.functions
+        for function in model._functions
         if any(
             isinstance(decorator, ast.Call)
             and isinstance(decorator.func, ast.Attribute)

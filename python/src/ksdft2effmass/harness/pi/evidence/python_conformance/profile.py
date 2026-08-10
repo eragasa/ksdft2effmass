@@ -52,12 +52,21 @@ PROFILE_KEYS = {
 
 @dataclass(frozen=True, slots=True)
 class EvidenceProfilePolicy:
-    """One immutable validated evidence-profile rule set."""
+    """One immutable validated evidence-profile rule set, retaining all policy."""
 
     profile_id: str
     required_module_metadata: tuple[str, ...]
+    optional_module_metadata: tuple[str, ...]
+    forbidden_module_metadata: tuple[str, ...]
     required_test_fields: tuple[str, ...]
     optional_test_fields: tuple[str, ...]
+    forbidden_test_fields: tuple[str, ...]
+    identifier_requirement: str
+    oracle_requirement: str
+    acceptance_requirement: str
+    limitations_requirement: str
+    provenance_requirement: str
+    migration_requirement: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -160,8 +169,17 @@ def load_profile_matrix(
         profiles[profile_id] = EvidenceProfilePolicy(
             profile_id,
             tuple(item["required_module_metadata"]),
+            tuple(item["optional_module_metadata"]),
+            tuple(item["forbidden_module_metadata"]),
             tuple(item["required_test_fields"]),
             tuple(item["optional_test_fields"]),
+            tuple(item["forbidden_test_fields"]),
+            item["identifier_requirement"],
+            item["oracle_requirement"],
+            item["acceptance_requirement"],
+            item["limitations_requirement"],
+            item["provenance_requirement"],
+            item["migration_requirement"],
         )
     if frozenset(profiles) != PROFILE_IDS:
         return (

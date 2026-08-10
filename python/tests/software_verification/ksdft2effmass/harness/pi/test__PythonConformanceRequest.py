@@ -1,5 +1,9 @@
 r"""Software verification of ``PythonConformanceRequest``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies the closed explicit-input request and its optional migration state.

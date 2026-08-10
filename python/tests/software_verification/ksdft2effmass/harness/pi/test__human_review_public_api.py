@@ -1,5 +1,9 @@
 r"""Software verification of human review public api and dependency boundary.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of package exports, defining-module identities, and the pure

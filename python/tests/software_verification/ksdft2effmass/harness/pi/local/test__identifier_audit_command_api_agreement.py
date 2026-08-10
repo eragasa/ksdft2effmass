@@ -1,5 +1,9 @@
 r"""Software verification of identifier audit command API agreement.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the thin project-local command projection of the public

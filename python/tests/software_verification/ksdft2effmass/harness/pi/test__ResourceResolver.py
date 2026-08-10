@@ -1,5 +1,9 @@
 r"""Software verification of ``ResourceResolver``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the public ``ResourceResolver`` surface; no physical model,

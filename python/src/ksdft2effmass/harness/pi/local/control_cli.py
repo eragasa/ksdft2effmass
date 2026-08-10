@@ -33,6 +33,18 @@ def main() -> int:
         type=Path,
         help="repository-relative generic evidence profile matrix used only by migrate",
     )
+    parser.add_argument(
+        "--evidence-module",
+        type=Path,
+        action="append",
+        default=[],
+        help="explicit repository-relative Python test source (repeatable)",
+    )
+    parser.add_argument(
+        "--evidence-migration",
+        type=Path,
+        help="explicit repository-relative predecessor migration map",
+    )
     args = parser.parse_args()
     root = args.repository_root.resolve()
     result: HarnessControlMigrationResult | HarnessControlVerificationResult
@@ -42,12 +54,16 @@ def main() -> int:
                 root,
                 evidence_module_ownership_path=args.evidence_module_ownership,
                 evidence_profile_matrix_path=args.evidence_profile_matrix,
+                evidence_module_paths=tuple(args.evidence_module),
+                evidence_migration_path=args.evidence_migration,
             )
         )
     else:
         if (
             args.evidence_module_ownership is not None
             or args.evidence_profile_matrix is not None
+            or args.evidence_module
+            or args.evidence_migration is not None
         ):
             parser.error("evidence inputs are valid only with migrate")
         result = HarnessControlVerifier().execute(root)

@@ -1,5 +1,9 @@
 r"""Software verification of ``ChainEvaluationResult``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the public ``ChainEvaluationResult`` surface; no physical

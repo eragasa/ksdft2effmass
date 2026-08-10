@@ -1,5 +1,9 @@
 r"""Software verification of R2.1 dbcontrol dependency direction.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the generic-to-local dependency prohibition; no physical model,

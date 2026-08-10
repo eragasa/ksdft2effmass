@@ -33,6 +33,15 @@ class PythonTestModuleModel:
 
     path: str
     source: str
-    tree: ast.Module
+    _tree: ast.Module
     module_doc: str | None
-    functions: tuple[ast.FunctionDef | ast.AsyncFunctionDef, ...]
+    _functions: tuple[ast.FunctionDef | ast.AsyncFunctionDef, ...]
+    evidence_class: str
+    evidence_profile: str
+    ownership_kind: str
+    owner_subject: str
+
+    @property
+    def function_names(self) -> tuple[str, ...]:
+        """Top-level function names without exposing mutable syntax nodes."""
+        return tuple(function.name for function in self._functions)

@@ -1,5 +1,9 @@
 r"""Software verification of ``HarnessControlVerificationResult``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module owns the intrinsic behavior of

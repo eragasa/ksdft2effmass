@@ -1,5 +1,9 @@
 r"""Software verification of ``LocalRepositoryValidator``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of project-local composition of accepted generic validators.

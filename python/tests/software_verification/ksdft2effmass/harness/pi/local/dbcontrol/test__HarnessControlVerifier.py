@@ -1,5 +1,9 @@
 r"""Software verification of ``HarnessControlVerifier``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module owns the intrinsic represented behavior of ``HarnessControlVerifier``.
@@ -13,6 +17,7 @@ VVUQ and scientific exclusions
 This is software verification only; scientific validation and UQ are excluded.
 """
 
+import hashlib
 import sqlite3
 from pathlib import Path
 
@@ -67,8 +72,23 @@ def test_method__execute_valid_reconstruction__reports_exact_agreement(
     state.mkdir(parents=True)
     database_path = state / "harness-control.sqlite3"
     _ControlDatabase.reconstruct(database_path, (_SCHEMA + "\n").encode())
+    source_path = tmp_path / "python/tests/test__drift.py"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_bytes(b"original\n")
     with sqlite3.connect(database_path) as connection:
         connection.execute("INSERT INTO harness_metadata VALUES ('literal','value')")
+        connection.execute(
+            "INSERT INTO test_module VALUES (?,?,?,?,?,?,?)",
+            (
+                "test-module.drift",
+                "python/tests/test__drift.py",
+                hashlib.sha256(b"original\n").hexdigest(),
+                "artifact_owned",
+                "drift fixture",
+                "software-verification",
+                "routine",
+            ),
+        )
         connection.commit()
         sql = _ControlDatabase(connection).deterministic_sql_export()
     (state / "harness-control.sql").write_bytes(sql)
@@ -77,3 +97,6 @@ def test_method__execute_valid_reconstruction__reports_exact_agreement(
     assert result.semantic_digest == result.reconstructed_semantic_digest
     assert len(result.semantic_digest) == 64
     assert result.projections_identical is True
+    source_path.write_bytes(b"drifted\n")
+    drift = HarnessControlVerifier().execute(tmp_path.resolve())
+    assert drift.projections_identical is False

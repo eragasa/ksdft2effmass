@@ -1,5 +1,9 @@
 r"""Software verification of ``ValidationIssue``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the public ``ValidationIssue`` surface; no physical model,

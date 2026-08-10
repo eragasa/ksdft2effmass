@@ -1,5 +1,9 @@
 r"""Software verification of ``HumanReviewDecisionRecorder``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of pure explicit recording of one already-made human decision.

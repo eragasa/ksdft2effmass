@@ -1,5 +1,9 @@
 r"""Software verification of ``IdentifierAuditor``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the public evidence-identifier and executable-marker audit.

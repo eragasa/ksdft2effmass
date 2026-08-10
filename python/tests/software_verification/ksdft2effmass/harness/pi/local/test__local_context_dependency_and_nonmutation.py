@@ -1,5 +1,9 @@
 r"""Software verification of local context dependency and nonmutation.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of explicit-root composition, package imports, dependency

@@ -1,5 +1,9 @@
 r"""Software verification of workflow cpn python snakes and deferred engine isolation.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 --------------------------------------

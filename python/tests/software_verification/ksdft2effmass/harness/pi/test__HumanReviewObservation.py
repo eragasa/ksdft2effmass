@@ -1,5 +1,9 @@
 r"""Software verification of ``HumanReviewObservation``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of one immutable deterministic review observation.

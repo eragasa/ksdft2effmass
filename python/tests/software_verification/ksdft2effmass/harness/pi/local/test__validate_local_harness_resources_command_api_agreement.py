@@ -1,5 +1,9 @@
 r"""Software verification of validate local harness resources command API agreement.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of one explicit-input command over current harness resources.

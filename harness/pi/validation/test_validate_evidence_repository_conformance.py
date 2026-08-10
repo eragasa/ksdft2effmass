@@ -31,7 +31,7 @@ def test_artifact__repository_gate__accepts_complete_current_inventory() -> None
 
     Method: Execute the gate from the repository root and inspect its canonical JSON.
 
-    Oracle: The maintained inventory declares 245 modules, 2,921 nodes, and 1,209 owners.
+    Oracle: The maintained inventory declares 245 modules, 2,923 nodes, and 1,211 owners.
 
     Acceptance: Exit and status pass, counts match exactly, and no finding is emitted.
 
@@ -53,10 +53,10 @@ def test_artifact__repository_gate__accepts_complete_current_inventory() -> None
     assert result["counts"]["baseline_modules"] == 182
     assert result["counts"]["discovered_modules"] == 245
     assert result["counts"]["baseline_collected_nodes"] == 2383
-    assert result["counts"]["collected_nodes"] == 2921
+    assert result["counts"]["collected_nodes"] == 2923
     assert result["counts"]["findings"] == 0
     assert result["findings"] == []
     assert result["structural_result"]["status"] == "PASS"
-    assert result["structural_result"]["counts"]["unique_evidence_owners"] == 1209
+    assert result["structural_result"]["counts"]["unique_evidence_owners"] == 1211
     assert "semantic cohesion" in result["claim_boundary"]
     assert "human acceptance" in result["claim_boundary"]

@@ -47,7 +47,9 @@ FIELDS = (
     "Acceptance",
     "Interpretation",
     "Limitations",
+    "Provenance",
 )
+LEGACY_REQUIRED_FIELDS = FIELDS[:-1]
 ID_RE = re.compile(
     r"\b(?:(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}|"
     r"(?:software-verification|numerical-verification|scientific-validation|"
@@ -209,6 +211,7 @@ class PythonConformanceRequest:
     profile_path: str | None = None
     profile_payload: bytes | None = None
     profile_read_error: str | None = None
+    _parsed_models: tuple[PythonTestModuleModel, ...] = ()
 
     def __post_init__(self) -> None:
         _require_tuple(self.sources, "sources")
@@ -243,6 +246,17 @@ class PythonConformanceRequest:
                 _require_builtin_str(self.migration_read_error, "migration_read_error")
             if (self.migration_payload is None) == (self.migration_read_error is None):
                 raise ValueError("migration requires exactly one payload or read error")
+        _require_tuple(self._parsed_models, "_parsed_models")
+        if any(
+            type(model) is not PythonTestModuleModel for model in self._parsed_models
+        ):
+            raise TypeError("_parsed_models must contain PythonTestModuleModel values")
+        if self._parsed_models and tuple(
+            model.path for model in self._parsed_models
+        ) != tuple(source.path for source in self.sources):
+            raise ValueError(
+                "_parsed_models must exactly cover sources in request order"
+            )
         if self.profile_path is None:
             if self.profile_payload is not None or self.profile_read_error is not None:
                 raise ValueError("profile data requires profile_path")
@@ -796,7 +810,7 @@ def validate_file(
     """Apply independent rules to one already parsed module model."""
     path = model.path
     source = model.source
-    tree = model.tree
+    tree = model._tree
     module_doc = model.module_doc
     out: list[PythonConformanceFinding] = []
     first_line = (module_doc or "").splitlines()[0].strip() if module_doc else ""
@@ -949,7 +963,7 @@ def validate_file(
                     "artifact-owned filename must be descriptive lowercase snake case",
                 )
             )
-    for node in model.functions:
+    for node in model._functions:
         is_test = node.name.startswith("test_")
         name_problem = validate_test_name(node.name) if is_test else None
         if name_problem is not None:
@@ -1044,21 +1058,49 @@ def validate_file(
             )
         for code, param_detail in decorator_parameter_findings(node, tree):
             out.append(finding(code, path, param_detail, node.lineno))
-        required_fields: tuple[str, ...] = FIELDS
+        required_fields: tuple[str, ...] = LEGACY_REQUIRED_FIELDS
         if (
             evidence_profile is not None
             and profile_matrix is not None
             and evidence_profile in profile_matrix.profiles
         ):
-            policy_fields = profile_matrix.profiles[
-                evidence_profile
-            ].required_test_fields
+            policy = profile_matrix.profiles[evidence_profile]
+            policy_fields = policy.required_test_fields
             required_fields = tuple(field for field in FIELDS if field in policy_fields)
-        ok, detail = sections(ast.get_docstring(node, clean=False), required_fields)
+        doc = ast.get_docstring(node, clean=False) or ""
+        ok, detail = sections(doc, required_fields)
         if not ok:
             out.append(finding("TE.FUNCTION_DOC", path, detail, node.lineno))
             continue
-        doc = ast.get_docstring(node, clean=False) or ""
+        if evidence_profile is not None and profile_matrix is not None:
+            policy = profile_matrix.profiles[evidence_profile]
+            allowed_fields = set(
+                policy.required_test_fields + policy.optional_test_fields
+            )
+            positions: list[int] = []
+            field_problem = ""
+            for field in FIELDS:
+                matches = list(
+                    re.finditer(rf"(?m)^[ \t]*{re.escape(field)}:[ \t]+\S.*$", doc)
+                )
+                if field in policy.forbidden_test_fields and matches:
+                    field_problem = f"forbidden evidence field is present: {field}"
+                    break
+                if field not in allowed_fields and matches:
+                    field_problem = f"undeclared evidence field is present: {field}"
+                    break
+                if len(matches) > 1:
+                    field_problem = (
+                        f"{field!r} must occur as one 'Label: value' paragraph"
+                    )
+                    break
+                if matches:
+                    positions.append(matches[0].start())
+            if not field_problem and positions != sorted(positions):
+                field_problem = "evidence fields are out of canonical order"
+            if field_problem:
+                out.append(finding("TE.FUNCTION_DOC", path, field_problem, node.lineno))
+                continue
         if re.search(r"(?:!!|\?\?|(?<!\.)\.\.(?!\.))", doc):
             out.append(
                 finding(
@@ -1616,6 +1658,7 @@ class PythonConformanceValidator:
                     )
         seen: dict[str, str] = {}
         models: list[PythonTestModuleModel] = []
+        supplied_models = {model.path: model for model in request._parsed_models}
         for source in request.sources:
             if not source.is_regular_file:
                 findings.append(
@@ -1634,7 +1677,9 @@ class PythonConformanceValidator:
                 continue
             assert source.payload is not None
             try:
-                model = parse_module(source.path, source.payload)
+                model = supplied_models.get(source.path) or parse_module(
+                    source.path, source.payload
+                )
             except (UnicodeError, SyntaxError) as exc:
                 findings.append(finding("TE.PARSE", source.path, str(exc)))
                 continue
@@ -1658,8 +1703,8 @@ class PythonConformanceValidator:
             parameterized_names = {
                 node.name for node in parameterized_function_models(model)
             }
-            for node in model.functions:
-                count = static_parameter_case_count(node, model.tree)
+            for node in model._functions:
+                count = static_parameter_case_count(node, model._tree)
                 if count is None:
                     static_parameter_cases_known = False
                 elif count:

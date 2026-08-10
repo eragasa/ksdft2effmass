@@ -1,5 +1,9 @@
 r"""Software verification of ``HumanReviewPacket``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the immutable result prepared for direct human review.

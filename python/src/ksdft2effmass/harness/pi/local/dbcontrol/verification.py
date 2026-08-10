@@ -36,6 +36,23 @@ class HarnessControlVerifier:
                 target_digest = _ControlDatabase(target).normalized_semantic_digest()
                 source_projections = _ControlProjector(source).render_all()
                 target_projections = _ControlProjector(target).render_all()
+                source_rows = tuple(
+                    source.execute(
+                        "SELECT source_path,sha256 FROM test_module "
+                        "ORDER BY source_path"
+                    )
+                )
+            repository_sources_match = all(
+                (repository_root / path).is_file()
+                and _ControlEncoding.sha256((repository_root / path).read_bytes())
+                == digest
+                for path, digest in source_rows
+            )
+            maintained_projections_match = all(
+                not (repository_root / path).exists()
+                or (repository_root / path).read_bytes() == payload
+                for path, (_kind, payload) in source_projections.items()
+            )
             return HarnessControlVerificationResult(
                 integrity,
                 foreign,
@@ -43,7 +60,9 @@ class HarnessControlVerifier:
                 target_digest,
                 _ControlEncoding.sha256(database.read_bytes()),
                 _ControlEncoding.sha256(reconstructed.read_bytes()),
-                source_projections == target_projections,
+                source_projections == target_projections
+                and repository_sources_match
+                and maintained_projections_match,
             )
         finally:
             reconstructed.unlink(missing_ok=True)

@@ -1,5 +1,9 @@
 r"""Software verification of inspect task state command api agreement.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies exact JSON and exit agreement between the thin project-local

@@ -1,5 +1,9 @@
 r"""Software verification of ``EvidenceOwnershipManifestAdapter``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module verifies adaptation of retained evidence ownership metadata.

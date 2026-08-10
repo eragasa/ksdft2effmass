@@ -1,5 +1,9 @@
 r"""Software verification of ``AgentDescriptorView``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the public ``AgentDescriptorView`` surface; no physical model,

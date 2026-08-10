@@ -289,9 +289,10 @@ class _ControlProjector:
             ownership,
             subject,
             evidence_class,
+            evidence_profile,
         ) in connection.execute(
-            "SELECT source_path,sha256,ownership_kind,owner_subject,evidence_class "
-            "FROM test_module ORDER BY source_path"
+            "SELECT source_path,sha256,ownership_kind,owner_subject,"
+            "evidence_class,evidence_profile FROM test_module ORDER BY source_path"
         ):
             entry = {
                 "conformance_status": "conforming",
@@ -301,22 +302,28 @@ class _ControlProjector:
                 "path": source_path,
             }
             entry["sut" if ownership == "class_owned" else "artifact"] = subject
-            evidence_profile = self.evidence_profiles.get(source_path)
-            if evidence_profile is not None:
-                entry["evidence_profile"] = evidence_profile
+            entry["evidence_profile"] = evidence_profile
             modules.append(entry)
         node_count = int(
             connection.execute("SELECT COUNT(*) FROM test_node").fetchone()[0]
         )
+        metadata = dict(connection.execute("SELECT key,value FROM harness_metadata"))
         inventory = {
-            "baseline_collected_node_count": 2383,
-            "baseline_module_count": 182,
-            "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
+            "baseline_collected_node_count": int(
+                metadata.get("evidence_inventory_baseline_collected_node_count", "2383")
+            ),
+            "baseline_module_count": int(
+                metadata.get("evidence_inventory_baseline_module_count", "182")
+            ),
+            "baseline_revision": metadata.get(
+                "evidence_inventory_baseline_revision",
+                "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
+            ),
             "expected_collected_node_count": node_count,
             "expected_module_count": len(modules),
             "modules": modules,
             "schema_version": 1,
-            "test_root": "python/tests",
+            "test_root": metadata.get("evidence_inventory_test_root", "python/tests"),
         }
         result[".pi/evidence/python-conformance/module-inventory.json"] = (
             "evidence-module-inventory-json",

@@ -14,7 +14,6 @@ import hashlib
 import json
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -178,49 +177,35 @@ def main() -> int:
             )
         )
     structural_result: dict[str, Any] | None = None
-    if not findings and entries:
-        ownership = {
-            "schema_version": 1,
-            "modules": [
-                {
-                    key: entry[key]
-                    for key in ("path", "mode", "evidence_class", "sut", "artifact")
-                    if key in entry
-                }
-                for entry in entries
+    if not findings and relative_modules:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(VALIDATOR),
+                "--profile-matrix",
+                "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json",
+                "--migration-map",
+                ".pi/evidence/python-conformance/r2.3-private-owner-migration.json",
+                *relative_modules,
             ],
-        }
-        with tempfile.TemporaryDirectory(
-            prefix="test-evidence-ownership-"
-        ) as directory:
-            ownership_path = Path(directory) / "ownership.json"
-            ownership_path.write_text(json.dumps(ownership), encoding="utf-8")
-            completed = subprocess.run(
-                [
-                    sys.executable,
-                    str(VALIDATOR),
-                    "--ownership",
-                    str(ownership_path),
-                    *relative_modules,
-                ],
-                cwd=ROOT,
-                check=False,
-                capture_output=True,
-                text=True,
-                timeout=120,
-            )
-            try:
-                structural_result = json.loads(completed.stdout)
-            except json.JSONDecodeError:
-                findings.append(
-                    issue(
-                        "TE.REPOSITORY_STRUCTURAL",
-                        VALIDATOR.relative_to(ROOT).as_posix(),
-                        completed.stdout[-4000:] or completed.stderr[-4000:],
-                    )
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+        try:
+            structural_result = json.loads(completed.stdout)
+        except json.JSONDecodeError:
+            findings.append(
+                issue(
+                    "TE.REPOSITORY_STRUCTURAL",
+                    VALIDATOR.relative_to(ROOT).as_posix(),
+                    completed.stdout[-4000:] or completed.stderr[-4000:],
                 )
-            else:
-                findings.extend(structural_result.get("findings", []))
+            )
+        else:
+            findings.extend(structural_result.get("findings", []))
     result = {
         "schema_version": 1,
         "status": "PASS" if not findings else "FAIL",

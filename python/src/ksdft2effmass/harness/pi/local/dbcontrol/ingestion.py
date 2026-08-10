@@ -11,6 +11,7 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from ...evidence.python_conformance.model import PythonTestModuleModel
 from .constants import _EVIDENCE_CLASSES, _EVIDENCE_ID, _IDENTIFIER
 from .encoding import _ControlEncoding
 
@@ -24,6 +25,8 @@ class _RepositoryControlIngestor:
         "unresolved",
         "module_inventory",
         "evidence_profiles",
+        "evidence_models",
+        "evidence_predecessors",
     )
 
     def __init__(
@@ -31,13 +34,17 @@ class _RepositoryControlIngestor:
         connection: sqlite3.Connection,
         root: Path,
         unresolved: list[str],
-        module_inventory: tuple[Mapping[str, Any], ...] | None = None,
+        module_inventory: tuple[Mapping[str, Any], ...] = (),
+        evidence_models: tuple[PythonTestModuleModel, ...] = (),
+        evidence_predecessors: tuple[tuple[str, str], ...] = (),
     ) -> None:
         self.connection = connection
         self.root = root
         self.unresolved = unresolved
         self.module_inventory = module_inventory
         self.evidence_profiles: dict[str, str] = {}
+        self.evidence_models = {model.path: model for model in evidence_models}
+        self.evidence_predecessors = dict(evidence_predecessors)
 
     def execute(self) -> None:
         """Ingest the complete repository control corpus in dependency order."""
@@ -49,11 +56,7 @@ class _RepositoryControlIngestor:
         self._migrate_decisions()
 
     def _module_inventory(self) -> list[Mapping[str, Any]]:
-        if self.module_inventory is not None:
-            return list(self.module_inventory)
-        path = self.root / ".pi/evidence/python-conformance/module-inventory.json"
-        document = json.loads(path.read_text())
-        self.module_inventory = tuple(document["modules"])
+        """Return the explicit source-derived corpus; projections are never read."""
         return list(self.module_inventory)
 
     def _canonical_evidence_id(
@@ -262,8 +265,9 @@ class _RepositoryControlIngestor:
                 unresolved.append(f"unresolved test module: {module['path']}")
                 continue
             source = path.read_bytes()
-            tree = ast.parse(source, filename=module["path"])
-            module_doc = ast.get_docstring(tree, clean=False) or ""
+            model = self.evidence_models[str(module["path"])]
+            tree = model._tree
+            module_doc = model.module_doc or ""
             profile_match = re.search(
                 r"(?m)^Evidence profile: (routine|claim_bearing)\s*$", module_doc
             )
@@ -278,7 +282,7 @@ class _RepositoryControlIngestor:
                 or path.stem.removeprefix("test__")
             )
             connection.execute(
-                "INSERT INTO test_module VALUES (?,?,?,?,?,?)",
+                "INSERT INTO test_module VALUES (?,?,?,?,?,?,?)",
                 (
                     module_id,
                     module["path"],
@@ -286,6 +290,7 @@ class _RepositoryControlIngestor:
                     module["mode"],
                     subject,
                     _EVIDENCE_CLASSES[module["evidence_class"]],
+                    module["evidence_profile"],
                 ),
             )
             for node in ast.walk(tree):
@@ -331,6 +336,12 @@ class _RepositoryControlIngestor:
                             else "artifact_test",
                         ),
                     )
+                    predecessor = self.evidence_predecessors.get(owner_node)
+                    if predecessor is not None:
+                        connection.execute(
+                            "INSERT INTO evidence_predecessor VALUES (?,?)",
+                            (canonical, predecessor),
+                        )
                 except sqlite3.IntegrityError as exc:
                     unresolved.append(
                         f"duplicate evidence identity or owner: {canonical} ({exc})"

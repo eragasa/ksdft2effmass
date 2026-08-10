@@ -1,5 +1,9 @@
 r"""Software verification of json contract v1.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 -----------------------------

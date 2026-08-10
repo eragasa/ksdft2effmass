@@ -1,5 +1,9 @@
 r"""Software verification of ``SkillDescriptor``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the public ``SkillDescriptor`` surface; no physical model,

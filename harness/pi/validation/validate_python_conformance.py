@@ -86,9 +86,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--ownership",
-        required=True,
         type=Path,
-        help="JSON with modules[{path,mode,evidence_class,sut?|artifact?}]",
+        help="legacy explicit JSON metadata; generated inventories are not accepted",
     )
     parser.add_argument(
         "--migration-map",
@@ -101,7 +100,32 @@ def main() -> int:
         help="explicit versioned Python evidence-profile matrix JSON",
     )
     args = parser.parse_args()
-    ownership_payload, ownership_error = _read(args.ownership)
+    if args.ownership is not None:
+        if args.ownership.as_posix().endswith("module-inventory.json"):
+            parser.error("generated module inventory is projection-only")
+        ownership_payload, ownership_error = _read(args.ownership)
+        ownership_path = args.ownership.as_posix()
+    else:
+        parser_impl = import_module(
+            "ksdft2effmass.harness.pi.evidence.python_conformance.parser"
+        )
+        entries = []
+        for path in args.paths:
+            payload = path.read_bytes()
+            model = parser_impl.parse_module(path.as_posix(), payload)
+            entry = {
+                "path": path.as_posix(),
+                "mode": model.ownership_kind,
+                "evidence_class": model.evidence_class,
+                "evidence_profile": model.evidence_profile,
+            }
+            entry["sut" if model.ownership_kind == "class_owned" else "artifact"] = model.owner_subject
+            entries.append(entry)
+        ownership_payload = json.dumps(
+            {"schema_version": 1, "modules": entries}, separators=(",", ":")
+        ).encode()
+        ownership_error = None
+        ownership_path = "<source-embedded-module-declarations>"
     migration_payload: bytes | None = None
     migration_error: str | None = None
     if args.migration_map is not None:
@@ -112,7 +136,7 @@ def main() -> int:
         profile_payload, profile_error = _read(args.profile_matrix)
     request = PythonConformanceRequest(
         tuple(_source(path) for path in args.paths),
-        args.ownership.as_posix(),
+        ownership_path,
         ownership_payload,
         ownership_error,
         args.migration_map.as_posix() if args.migration_map is not None else None,

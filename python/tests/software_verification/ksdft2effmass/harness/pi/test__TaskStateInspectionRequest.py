@@ -1,5 +1,9 @@
 r"""Software verification of ``TaskStateInspectionRequest``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies the immutable explicit filesystem and task-selection request.

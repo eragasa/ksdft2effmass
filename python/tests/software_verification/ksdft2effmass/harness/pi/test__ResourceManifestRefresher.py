@@ -1,5 +1,9 @@
 r"""Software verification of ``ResourceManifestRefresher``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of deterministic explicit-path manifest identity refresh.

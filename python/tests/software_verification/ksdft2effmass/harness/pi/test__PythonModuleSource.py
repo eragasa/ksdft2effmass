@@ -1,5 +1,9 @@
 r"""Software verification of ``PythonModuleSource``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies exact construction and immutable represented read outcomes.

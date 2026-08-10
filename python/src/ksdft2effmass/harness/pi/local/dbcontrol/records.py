@@ -23,6 +23,8 @@ class HarnessControlMigrationRequest:
     database_path: Path = CONTROL_DATABASE_PATH
     evidence_module_ownership_path: Path | None = None
     evidence_profile_matrix_path: Path | None = None
+    evidence_module_paths: tuple[Path, ...] = ()
+    evidence_migration_path: Path | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -42,14 +44,37 @@ class HarnessControlMigrationRequest:
             raise TypeError(
                 "evidence_profile_matrix_path must be a pathlib.Path or None"
             )
-        if profile_path is not None and ownership_path is None:
+        if type(self.evidence_module_paths) is not tuple or any(
+            not isinstance(path, Path) for path in self.evidence_module_paths
+        ):
+            raise TypeError(
+                "evidence_module_paths must be a tuple of pathlib.Path values"
+            )
+        if len(self.evidence_module_paths) != len(set(self.evidence_module_paths)):
+            raise ValueError("evidence_module_paths must be unique")
+        migration_path = self.evidence_migration_path
+        if migration_path is not None and not isinstance(migration_path, Path):
+            raise TypeError("evidence_migration_path must be a pathlib.Path or None")
+        if (
+            profile_path is not None
+            and not self.evidence_module_paths
+            and ownership_path is None
+        ):
             raise ValueError(
-                "evidence_profile_matrix_path requires evidence_module_ownership_path"
+                "evidence_profile_matrix_path requires evidence_module_paths"
+            )
+        if self.evidence_module_paths and (
+            profile_path is None or migration_path is None
+        ):
+            raise ValueError(
+                "evidence_module_paths require explicit profile and migration inputs"
             )
         for name, path in (
             ("database_path", self.database_path),
             ("evidence_module_ownership_path", ownership_path),
             ("evidence_profile_matrix_path", profile_path),
+            ("evidence_migration_path", migration_path),
+            *(("evidence_module_paths", path) for path in self.evidence_module_paths),
         ):
             if path is not None and (
                 path == Path(".") or ".." in path.parts or path.is_absolute()

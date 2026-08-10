@@ -1,5 +1,9 @@
 r"""Software verification of harness pi resource contract.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of schema, fixture, and canonical-byte agreement; no physical

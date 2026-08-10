@@ -14,6 +14,8 @@ from ...evidence.python_conformance import (
     PythonConformanceValidator,
     PythonModuleSource,
 )
+from ...evidence.python_conformance.model import PythonTestModuleModel
+from ...evidence.python_conformance.parser import parse_module
 from .constants import (
     _GENERATOR_ID,
     CONTROL_SCHEMA_VERSION,
@@ -51,75 +53,79 @@ class HarnessControlMigrator:
         return resolved
 
     @classmethod
-    def _evidence_module_ownership(
+    def _canonical_evidence_corpus(
         cls, request: HarnessControlMigrationRequest
-    ) -> tuple[Mapping[str, Any], ...] | None:
-        """Load and conformance-check the optional explicit ownership snapshot."""
-        relative = request.evidence_module_ownership_path
-        if relative is None:
-            return None
-        ownership_path = cls._repository_file(request.repository_root, relative)
-        payload = ownership_path.read_bytes()
-        profile_path = request.evidence_profile_matrix_path
-        profile_payload: bytes | None = None
-        if profile_path is not None:
-            profile_payload = cls._repository_file(
-                request.repository_root, profile_path
-            ).read_bytes()
-        try:
-            document = json.loads(payload.decode("utf-8"))
-        except (UnicodeError, json.JSONDecodeError) as exc:
+    ) -> tuple[
+        tuple[Mapping[str, Any], ...],
+        tuple[PythonTestModuleModel, ...],
+        tuple[tuple[str, str], ...],
+    ]:
+        """Build canonical evidence inputs from source, policy, and migration map."""
+        if request.evidence_module_ownership_path is not None:
+            cls._repository_file(
+                request.repository_root, request.evidence_module_ownership_path
+            )
             raise ValueError(
-                "evidence-module ownership input must be valid UTF-8 JSON"
-            ) from exc
-        raw_modules = document.get("modules") if isinstance(document, dict) else None
-        if not isinstance(raw_modules, list):
-            raise ValueError("evidence-module ownership input requires a modules list")
-        if not raw_modules:
-            if document != {"schema_version": 1, "modules": []}:
-                raise ValueError(
-                    "empty evidence-module ownership input has invalid schema"
-                )
-            return ()
+                "generated or external module inventories are projection-only"
+            )
+        if not request.evidence_module_paths:
+            return (), (), ()
+        assert request.evidence_profile_matrix_path is not None
+        assert request.evidence_migration_path is not None
+        profile_path = cls._repository_file(
+            request.repository_root, request.evidence_profile_matrix_path
+        )
+        migration_path = cls._repository_file(
+            request.repository_root, request.evidence_migration_path
+        )
         sources: list[PythonModuleSource] = []
-        for index, entry in enumerate(raw_modules):
-            raw_path = entry.get("path") if isinstance(entry, dict) else None
-            if not isinstance(raw_path, str) or not raw_path:
-                raise ValueError(
-                    f"evidence-module ownership modules[{index}].path is invalid"
-                )
-            module_relative = Path(raw_path)
-            if (
-                module_relative.is_absolute()
-                or ".." in module_relative.parts
-                or len(module_relative.parts) < 3
-                or module_relative.parts[:2] != ("python", "tests")
-                or module_relative.suffix != ".py"
-            ):
-                message = (
-                    "evidence-module ownership path is outside python/tests: "
-                    f"{raw_path}"
-                )
-                raise ValueError(message)
-            source_path = cls._repository_file(request.repository_root, module_relative)
-            sources.append(PythonModuleSource(raw_path, source_path.read_bytes()))
+        models: list[PythonTestModuleModel] = []
+        modules: list[dict[str, Any]] = []
+        for relative in request.evidence_module_paths:
+            path = cls._repository_file(request.repository_root, relative)
+            payload = path.read_bytes()
+            raw_path = relative.as_posix()
+            model = parse_module(raw_path, payload)
+            sources.append(PythonModuleSource(raw_path, payload))
+            models.append(model)
+            entry: dict[str, Any] = {
+                "path": raw_path,
+                "mode": model.ownership_kind,
+                "evidence_class": model.evidence_class,
+                "evidence_profile": model.evidence_profile,
+            }
+            entry["sut" if model.ownership_kind == "class_owned" else "artifact"] = (
+                model.owner_subject
+            )
+            modules.append(entry)
+        ownership_payload = _ControlEncoding.canonical_json_bytes(
+            {"schema_version": 1, "modules": modules}
+        )
+        migration_payload = migration_path.read_bytes()
         result = PythonConformanceValidator().execute(
             PythonConformanceRequest(
                 tuple(sources),
-                relative.as_posix(),
-                payload,
-                profile_path=profile_path.as_posix()
-                if profile_path is not None
-                else None,
-                profile_payload=profile_payload,
+                "<source-embedded-module-declarations>",
+                ownership_payload,
+                migration_path=request.evidence_migration_path.as_posix(),
+                migration_payload=migration_payload,
+                profile_path=request.evidence_profile_matrix_path.as_posix(),
+                profile_payload=profile_path.read_bytes(),
+                _parsed_models=tuple(models),
             )
         )
         if result.status != "PASS":
-            codes = ", ".join(sorted({finding.code for finding in result.findings}))
-            raise ValueError(
-                f"evidence-module ownership input is nonconforming: {codes}"
-            )
-        return tuple(MappingProxyType(dict(entry)) for entry in raw_modules)
+            codes = ", ".join(sorted({item.code for item in result.findings}))
+            raise ValueError(f"canonical evidence inputs are nonconforming: {codes}")
+        document = json.loads(migration_payload)
+        predecessors = tuple(
+            (item["new_node_id"], item["old_node_id"]) for item in document["mappings"]
+        )
+        return (
+            tuple(MappingProxyType(item) for item in modules),
+            tuple(models),
+            predecessors,
+        )
 
     @staticmethod
     def _publish_generation(
@@ -213,7 +219,9 @@ class HarnessControlMigrator:
         if type(request) is not HarnessControlMigrationRequest:
             raise TypeError("request must be HarnessControlMigrationRequest")
         root = request.repository_root
-        module_inventory = self._evidence_module_ownership(request)
+        module_inventory, evidence_models, evidence_predecessors = (
+            self._canonical_evidence_corpus(request)
+        )
         database_path = root / request.database_path
         database_path.parent.mkdir(parents=True, exist_ok=True)
         working = database_path.with_suffix(".building.sqlite3")
@@ -233,10 +241,22 @@ class HarnessControlMigrator:
                         ".pi/cache/harness-observations.sqlite3",
                     ),
                     ("telemetry_status", "deferred-inactive"),
+                    ("evidence_inventory_baseline_collected_node_count", "2383"),
+                    ("evidence_inventory_baseline_module_count", "182"),
+                    (
+                        "evidence_inventory_baseline_revision",
+                        "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
+                    ),
+                    ("evidence_inventory_test_root", "python/tests"),
                 ),
             )
             ingestor = _RepositoryControlIngestor(
-                connection, root, unresolved, module_inventory
+                connection,
+                root,
+                unresolved,
+                module_inventory,
+                evidence_models,
+                evidence_predecessors,
             )
             ingestor.execute()
             connection.commit()

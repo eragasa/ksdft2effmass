@@ -1,5 +1,9 @@
 r"""Software verification of ``PythonConformanceValidator``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies the explicit-byte structural-validation action and result ordering.
@@ -437,6 +441,40 @@ def test_method__execute_routine_profile__accepts_exact_required_fields() -> Non
     )
     assert result.status == "PASS"
     assert result.unique_evidence_owners == 1
+
+
+def test_method__execute_routine_profile__rejects_duplicate_optional_field() -> None:
+    """Evidence ID: software-verification.harness.python-conformance.profile.optional-unique
+
+    Requirement: Every present optional routine evidence field occurs once in canonical
+    order as a paragraph-valid declaration.
+
+    Method: Add two optional Oracle paragraphs to the accepted routine fixture.
+
+    Oracle: The canonical profile makes Oracle optional, not repeatable.
+
+    Acceptance: Validation fails with exactly one function-document finding.
+
+    Interpretation: Failure identifies incomplete optional-field enforcement.
+
+    Limitations: Oracle semantics and scientific adequacy remain excluded.
+    """  # noqa: E501
+    source = ROUTINE_SOURCE.replace(
+        b"    Acceptance: Equality is exactly true.\n",
+        b"    Oracle: Literal equality.\n\n    Oracle: Python equality.\n\n"
+        b"    Acceptance: Equality is exactly true.\n",
+    )
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, source),),
+            "ownership.json",
+            ROUTINE_OWNERSHIP,
+            profile_path=PROFILE_PATH,
+            profile_payload=PROFILE_PAYLOAD,
+        )
+    )
+    assert result.status == "FAIL"
+    assert tuple(item.code for item in result.findings).count("TE.FUNCTION_DOC") == 1
 
 
 @pytest.mark.parametrize(

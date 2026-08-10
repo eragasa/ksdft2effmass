@@ -1,5 +1,9 @@
 r"""Software verification of ``ShadowPairComparator``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module verifies classification and ordering of supplied shadow observations.

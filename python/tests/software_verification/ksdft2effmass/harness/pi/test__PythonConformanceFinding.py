@@ -1,5 +1,9 @@
 r"""Software verification of ``PythonConformanceFinding``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 This module verifies one immutable deterministic structural diagnostic value.

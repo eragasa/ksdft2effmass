@@ -1,5 +1,9 @@
 r"""Software verification of harness pi path confinement contract.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of lexical path roles, issue ordering, and explicit-root

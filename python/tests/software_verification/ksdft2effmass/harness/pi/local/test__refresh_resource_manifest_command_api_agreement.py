@@ -1,5 +1,9 @@
 r"""Software verification of refresh resource manifest command api agreement.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 Software verification of the thin read-only CLI projection of the public resource

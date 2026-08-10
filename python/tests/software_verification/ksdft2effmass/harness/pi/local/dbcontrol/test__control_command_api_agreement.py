@@ -1,5 +1,9 @@
 r"""Software verification of maintained harness control command/API agreement.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module owns the cohesive control command/API agreement artifact.

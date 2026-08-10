@@ -1,5 +1,9 @@
 r"""Software verification of ``HarnessControlMigrator``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module owns the intrinsic represented behavior of ``HarnessControlMigrator``.
@@ -62,6 +66,10 @@ class SyntheticEvidenceFixture:
         source = dedent(
             f'''\
             r"""Software verification of {represented}.
+
+            Evidence profile: claim_bearing
+
+            Bounded artifact scope: one synthetic maintained evidence module.
 
             Facet and represented meaning
 
@@ -137,10 +145,33 @@ class SyntheticEvidenceFixture:
             ingestor._migrate_evidence()
 
         monkeypatch.setattr(_RepositoryControlIngestor, "execute", execute_evidence)
-        relative = SyntheticEvidenceFixture.write_ownership(root, entries)
+        profile = Path("harness/pi/evidence/profile.json")
+        profile_file = root / profile
+        profile_file.parent.mkdir(parents=True, exist_ok=True)
+        repository_profile = (
+            Path(__file__).resolve().parents[8]
+            / "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
+        )
+        profile_file.write_bytes(repository_profile.read_bytes())
+        migration = Path("updates/evidence-migration.json")
+        migration_file = root / migration
+        migration_file.parent.mkdir(parents=True, exist_ok=True)
+        migration_file.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "expected_old_node_ids": [],
+                    "expected_new_node_ids": [],
+                    "mappings": [],
+                }
+            )
+        )
         return HarnessControlMigrator().execute(
             HarnessControlMigrationRequest(
-                root.resolve(), evidence_module_ownership_path=relative
+                root.resolve(),
+                evidence_profile_matrix_path=profile,
+                evidence_module_paths=tuple(Path(entry["path"]) for entry in entries),
+                evidence_migration_path=migration,
             )
         )
 
@@ -209,7 +240,7 @@ def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
 
     Oracle: The independently supplied projection is exactly ``b"literal\n"`` at ``generated/literal.txt``.
 
-    Acceptance: Result schema is two, the database and SQL exist, projection bytes match exactly, its path is returned, and manifest names the path.
+    Acceptance: Result schema is three, the database and SQL exist, projection bytes match exactly, its path is returned, and manifest names the path.
 
     Interpretation: Failure indicates valid-path migration orchestration or write-boundary drift.
 
@@ -229,8 +260,8 @@ def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
     result = HarnessControlMigrator().execute(
         HarnessControlMigrationRequest(tmp_path.resolve())
     )
-    assert observed == [None]
-    assert result.schema_version == 2
+    assert observed == [()]
+    assert result.schema_version == 3
     assert result.projection_paths == ("generated/literal.txt",)
     assert (tmp_path / "harness/state/harness-control.sqlite3").is_file()
     assert (tmp_path / "harness/state/harness-control.sql").is_file()
@@ -302,7 +333,7 @@ def test_method__execute_invalid_ownership_snapshots__preserve_published_generat
     request = HarnessControlMigrationRequest(
         tmp_path.resolve(), evidence_module_ownership_path=Path("updates/modules.json")
     )
-    with pytest.raises(ValueError, match="valid UTF-8 JSON"):
+    with pytest.raises(ValueError, match="projection-only"):
         HarnessControlMigrator().execute(request)
     assert authoritative.read_bytes() == b"previous-generation\n"
     module_path = "python/tests/test__invalid_snapshot.py"
@@ -321,7 +352,7 @@ def test_method__execute_invalid_ownership_snapshots__preserve_published_generat
             }
         )
     )
-    with pytest.raises(ValueError, match="nonconforming"):
+    with pytest.raises(ValueError, match="projection-only"):
         HarnessControlMigrator().execute(request)
     assert authoritative.read_bytes() == b"previous-generation\n"
 

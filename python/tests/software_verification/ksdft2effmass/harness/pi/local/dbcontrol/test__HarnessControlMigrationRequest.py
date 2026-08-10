@@ -1,5 +1,9 @@
 r"""Software verification of ``HarnessControlMigrationRequest``.
 
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the module's declared evidence owner.
+
 Facet and represented meaning
 
 The module owns the intrinsic behavior of
@@ -75,6 +79,38 @@ def test_constructor__optional_ownership_input__is_immutable_and_root_confined()
     with pytest.raises(ValueError):
         HarnessControlMigrationRequest(
             root, evidence_profile_matrix_path=Path("harness/pi/evidence/profile.json")
+        )
+
+
+def test_constructor__canonical_evidence_inputs__are_explicit_and_immutable() -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migration-request.canonical-evidence-inputs
+
+    Requirement: Canonical evidence construction receives source modules, profile policy,
+    and predecessor migration relationships as explicit repository-relative inputs.
+
+    Method: Construct the public request with one path for each canonical input.
+
+    Oracle: The supplied immutable tuple and paths define the complete evidence boundary.
+
+    Acceptance: Every value is retained exactly and omission of profile or migration for
+    a nonempty module corpus raises ``ValueError``.
+
+    Interpretation: Failure indicates ambient discovery or generated-inventory authority.
+
+    Limitations: Input contents are validated by the migrator Action.
+    """  # noqa: E501
+    root = Path("/repository")
+    request = HarnessControlMigrationRequest(
+        root,
+        evidence_module_paths=(Path("python/tests/test__owner.py"),),
+        evidence_profile_matrix_path=Path("harness/pi/evidence/profile.json"),
+        evidence_migration_path=Path("harness/evidence/migration.json"),
+    )
+    assert request.evidence_module_paths == (Path("python/tests/test__owner.py"),)
+    assert request.evidence_migration_path == Path("harness/evidence/migration.json")
+    with pytest.raises(ValueError):
+        HarnessControlMigrationRequest(
+            root, evidence_module_paths=(Path("python/tests/test__owner.py"),)
         )
 
 

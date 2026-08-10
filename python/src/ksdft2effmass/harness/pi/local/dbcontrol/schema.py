@@ -80,7 +80,13 @@ CREATE TABLE test_module (
   sha256 TEXT NOT NULL CHECK(length(sha256)=64),
   ownership_kind TEXT NOT NULL CHECK(ownership_kind IN ('class_owned','artifact_owned')),
   owner_subject TEXT NOT NULL,
-  evidence_class TEXT NOT NULL CHECK(evidence_class IN ('software-verification','numerical-verification','scientific-validation','uncertainty-quantification'))
+  evidence_class TEXT NOT NULL CHECK(evidence_class IN ('software-verification','numerical-verification','scientific-validation','uncertainty-quantification')),
+  evidence_profile TEXT NOT NULL CHECK(evidence_profile IN ('routine','claim_bearing'))
+) WITHOUT ROWID;
+CREATE TABLE evidence_predecessor (
+  evidence_id TEXT NOT NULL REFERENCES evidence_claim(evidence_id),
+  predecessor_node_id TEXT NOT NULL,
+  PRIMARY KEY(evidence_id, predecessor_node_id)
 ) WITHOUT ROWID;
 CREATE TABLE evidence_owner (
   evidence_id TEXT PRIMARY KEY REFERENCES evidence_claim(evidence_id),
@@ -165,6 +171,7 @@ _TABLE_ORDER = (
     "evidence_claim",
     "evidence_alias",
     "test_module",
+    "evidence_predecessor",
     "evidence_owner",
     "test_node",
     "agent_definition",
