@@ -55,11 +55,12 @@ mathematics, or trusted reference data as oracles. Do not use private behavior o
 a reproduction of the production algorithm as the primary oracle. Use exact
 acceptance for exact contracts and justified tolerances for numerical contracts.
 
-Each evidence-owning test uses `Label: value` paragraphs for Evidence ID,
-Requirement, Method, Oracle, Acceptance, Interpretation, and Limitations, with
-one blank line between paragraphs. Helpers remain ID-free,
-semantically named, and non-tautological. Parameterized cases use explicit
-semantic IDs.
+Each module declares an evidence profile. The sole normative field and
+class/profile requirements are the versioned generic resource
+`evidence/python-test-evidence-profile-matrix-v1.json`; this skill does not
+repeat them. Required and present optional fields use `Label: value` paragraphs
+with one blank line between paragraphs. Helpers remain ID-free, semantically
+named, and non-tautological. Parameterized cases use explicit semantic IDs.
 
 ## Deterministic-validator boundary
 
@@ -68,7 +69,9 @@ it on explicit module paths and an explicit ownership file:
 
 ```text
 python/.venv/bin/python harness/pi/validation/validate_python_conformance.py \
-  --ownership <ownership.json> <test-module> [<test-module> ...]
+  --ownership <ownership.json> \
+  --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json \
+  <test-module> [<test-module> ...]
 ```
 
 Supply `--migration-map <map.json>` only for an authorized rename or migration

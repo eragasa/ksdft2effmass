@@ -1,4 +1,8 @@
-r"""Software verification of ``_OwnershipState``.
+r"""Software verification of generic dbcontrol ownership-state implementation artifact.
+
+Evidence profile: routine
+
+Bounded artifact scope: generic dbcontrol private ownership-state implementation behavior.
 
 Facet and represented meaning
 
@@ -11,7 +15,7 @@ Only the object's bounded contract is exercised; collaborators are literal input
 VVUQ and scientific exclusions
 
 This is software verification only; scientific validation and UQ are excluded.
-"""
+"""  # noqa: E501
 
 from dataclasses import FrozenInstanceError
 

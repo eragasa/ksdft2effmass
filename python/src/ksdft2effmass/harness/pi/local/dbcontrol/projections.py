@@ -14,10 +14,15 @@ from .encoding import _ControlEncoding
 class _ControlProjector:
     """Own deterministic projections for one control connection."""
 
-    __slots__ = ("connection",)
+    __slots__ = ("connection", "evidence_profiles")
 
-    def __init__(self, connection: sqlite3.Connection) -> None:
+    def __init__(
+        self,
+        connection: sqlite3.Connection,
+        evidence_profiles: Mapping[str, str] | None = None,
+    ) -> None:
         self.connection = connection
+        self.evidence_profiles = dict(evidence_profiles or {})
 
     def _task_payload(self, task_id: str) -> dict[str, Any]:
         connection = self.connection
@@ -296,6 +301,9 @@ class _ControlProjector:
                 "path": source_path,
             }
             entry["sut" if ownership == "class_owned" else "artifact"] = subject
+            evidence_profile = self.evidence_profiles.get(source_path)
+            if evidence_profile is not None:
+                entry["evidence_profile"] = evidence_profile
             modules.append(entry)
         node_count = int(
             connection.execute("SELECT COUNT(*) FROM test_node").fetchone()[0]

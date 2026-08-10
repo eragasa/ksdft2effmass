@@ -78,31 +78,20 @@ as `general`, `behavior`, or `misc`.
 
 ## Test documentation
 
-Every evidence-owning test documents these labeled paragraphs in order, with the value beginning after a colon and one blank line between paragraphs:
+The sole normative profile identities, allowed evidence-class/profile combinations,
+required and optional module metadata, required and optional per-test fields, stable
+identifier rules, and oracle, acceptance, limitation, provenance, and migration
+requirements are defined by the versioned generic resource
+`evidence/python-test-evidence-profile-matrix-v1.json`. Select the profile declared by
+the module and apply that resource without adding requirements from this explanatory
+reference.
 
-```text
-Evidence ID: <stable identifier>
-
-Requirement: <public contract or mathematical claim>
-
-Method: <public inputs and operation>
-
-Oracle: <independently known behavior or value>
-
-Acceptance: <exact or justified approximate criterion>
-
-Interpretation: <meaning of failure>
-
-Limitations: <excluded inputs and claims>
-```
-
-Do not place a label on a line by itself. **Evidence ID** is the stable owner identity. **Requirement** states the public contract or
-mathematical claim, not assertion syntax. **Method** states public inputs and operation without
-disguising the oracle. **Oracle** states independently known behavior or value and its source.
-**Acceptance** states the exact value, exception, representation, tolerance, ULP bound, or residual
-criterion. **Interpretation** distinguishes plausible software, fixture, oracle, contract,
-numerical, and scientific failures. **Limitations** identifies excluded inputs, regimes,
-dependencies, and claims. Concise case-specific formatting is preferred over boilerplate.
+Every field required by the selected profile, and every optional field that is
+present, uses `Label: value` syntax. Required fields occur once in their declared
+order with one blank line between paragraphs. Evidence identifiers remain stable
+owner identities. Requirements state the public contract or mathematical claim, and
+acceptance states the exact or justified approximate criterion. Optional explanatory
+prose must remain accurate when supplied and must not broaden the evidence class.
 
 ## Evidence identifiers and parameterization
 

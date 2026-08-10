@@ -1,0 +1,93 @@
+{
+  "expected_new_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__chain_state_implementation.py::test_constructor__defaults__represent_no_selection",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__duplicate_key_implementation.py::test_constructor__message__preserves_duplicate_key",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__inspection_files_implementation.py::test_method__inspect_literal_file__returns_exact_bytes",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__ownership_state_implementation.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__selected_task_implementation.py::test_constructor__defaults__represent_absent_declarations",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_database_reader_implementation.py::test_method__read_existing_row__returns_exact_lifecycle",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_document_parser_implementation.py::test_method__json_object_duplicate_key__raises_exact_error",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_query_implementation.py::test_staticmethod__record_status__distinguishes_declared_missing",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_query_result_implementation.py::test_constructor__explicit_state__preserves_exact_values",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_database_implementation.py::test_method__deterministic_sql_export__reconstructs_semantic_digest",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_encoding_implementation.py::test_staticmethod__encodings__match_independent_literals",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py::test_classmethod__projection_manifest_bytes__matches_literal_manifest",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py::test_method__render_all_literal_task__returns_exact_paths_and_bytes",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py::test_method__frontmatter__parses_literal_descriptor"
+  ],
+  "expected_old_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___ChainState.py::test_constructor__defaults__represent_no_selection",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___DuplicateKey.py::test_constructor__message__preserves_duplicate_key",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___InspectionFiles.py::test_method__inspect_literal_file__returns_exact_bytes",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___OwnershipState.py::test_field__immutable_state__rejects_reassignment",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___SelectedTask.py::test_constructor__defaults__represent_absent_declarations",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateDatabaseReader.py::test_method__read_existing_row__returns_exact_lifecycle",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateDocumentParser.py::test_method__json_object_duplicate_key__raises_exact_error",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateQuery.py::test_staticmethod__record_status__distinguishes_declared_missing",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateQueryResult.py::test_constructor__explicit_state__preserves_exact_values",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlDatabase.py::test_method__deterministic_sql_export__reconstructs_semantic_digest",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlEncoding.py::test_staticmethod__encodings__match_independent_literals",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py::test_classmethod__projection_manifest_bytes__matches_literal_manifest",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py::test_method__render_all_literal_task__returns_exact_paths_and_bytes",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___RepositoryControlIngestor.py::test_method__frontmatter__parses_literal_descriptor"
+  ],
+  "mappings": [
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__chain_state_implementation.py::test_constructor__defaults__represent_no_selection",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___ChainState.py::test_constructor__defaults__represent_no_selection"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__duplicate_key_implementation.py::test_constructor__message__preserves_duplicate_key",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___DuplicateKey.py::test_constructor__message__preserves_duplicate_key"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__inspection_files_implementation.py::test_method__inspect_literal_file__returns_exact_bytes",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___InspectionFiles.py::test_method__inspect_literal_file__returns_exact_bytes"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__ownership_state_implementation.py::test_field__immutable_state__rejects_reassignment",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___OwnershipState.py::test_field__immutable_state__rejects_reassignment"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__selected_task_implementation.py::test_constructor__defaults__represent_absent_declarations",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___SelectedTask.py::test_constructor__defaults__represent_absent_declarations"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_database_reader_implementation.py::test_method__read_existing_row__returns_exact_lifecycle",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateDatabaseReader.py::test_method__read_existing_row__returns_exact_lifecycle"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_document_parser_implementation.py::test_method__json_object_duplicate_key__raises_exact_error",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateDocumentParser.py::test_method__json_object_duplicate_key__raises_exact_error"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_query_implementation.py::test_staticmethod__record_status__distinguishes_declared_missing",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateQuery.py::test_staticmethod__record_status__distinguishes_declared_missing"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__task_state_query_result_implementation.py::test_constructor__explicit_state__preserves_exact_values",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___TaskStateQueryResult.py::test_constructor__explicit_state__preserves_exact_values"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_database_implementation.py::test_method__deterministic_sql_export__reconstructs_semantic_digest",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlDatabase.py::test_method__deterministic_sql_export__reconstructs_semantic_digest"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_encoding_implementation.py::test_staticmethod__encodings__match_independent_literals",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlEncoding.py::test_staticmethod__encodings__match_independent_literals"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py::test_classmethod__projection_manifest_bytes__matches_literal_manifest",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py::test_classmethod__projection_manifest_bytes__matches_literal_manifest"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py::test_method__render_all_literal_task__returns_exact_paths_and_bytes",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py::test_method__render_all_literal_task__returns_exact_paths_and_bytes"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py::test_method__frontmatter__parses_literal_descriptor",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___RepositoryControlIngestor.py::test_method__frontmatter__parses_literal_descriptor"
+    }
+  ],
+  "schema_version": 1
+}

@@ -464,7 +464,7 @@ def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() 
     roots = (
         (
             ROOT / "harness/pi",
-            ("schemas", "skills"),
+            ("evidence", "schemas", "skills"),
         ),
         (
             ROOT / "harness/local",

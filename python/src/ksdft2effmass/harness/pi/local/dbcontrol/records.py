@@ -13,13 +13,16 @@ class HarnessControlMigrationRequest:
     """Explicit inputs for one control-state migration.
 
     ``evidence_module_ownership_path`` optionally selects a repository-relative
-    Python-conformance ownership document.  When omitted, migration preserves
-    the compatibility behavior of reading the generated module inventory.
+    Python-conformance ownership document.  ``evidence_profile_matrix_path``
+    optionally supplies its generic versioned profile policy.  When ownership
+    is omitted, migration preserves the compatibility behavior of reading the
+    generated module inventory.
     """
 
     repository_root: Path
     database_path: Path = CONTROL_DATABASE_PATH
     evidence_module_ownership_path: Path | None = None
+    evidence_profile_matrix_path: Path | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -34,9 +37,19 @@ class HarnessControlMigrationRequest:
             raise TypeError(
                 "evidence_module_ownership_path must be a pathlib.Path or None"
             )
+        profile_path = self.evidence_profile_matrix_path
+        if profile_path is not None and not isinstance(profile_path, Path):
+            raise TypeError(
+                "evidence_profile_matrix_path must be a pathlib.Path or None"
+            )
+        if profile_path is not None and ownership_path is None:
+            raise ValueError(
+                "evidence_profile_matrix_path requires evidence_module_ownership_path"
+            )
         for name, path in (
             ("database_path", self.database_path),
             ("evidence_module_ownership_path", ownership_path),
+            ("evidence_profile_matrix_path", profile_path),
         ):
             if path is not None and (
                 path == Path(".") or ".." in path.parts or path.is_absolute()

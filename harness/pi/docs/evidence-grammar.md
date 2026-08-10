@@ -11,6 +11,23 @@ A helper owns no evidence identifier or independent pass claim. Protected histor
 
 Cross-object behavior belongs to the action or workflow that owns the operation. Technical integration belongs to an artifact rather than an invented class. Newly migrated modules use `Facet and represented meaning`, `Intrinsic and cross-object scope`, and `VVUQ and scientific exclusions`; the former evidence-class/owned-contract headings are superseded. The full reusable headings, fields, naming, cohesion, helpers, parameterization, exact-representation, schema/runtime layering, workflow, invocation profiles, and independent-oracle procedure is owned by `pih.reference.test-evidence-conventions.v1`; this page summarizes identity and consumption boundaries rather than duplicating that procedure.
 
+## Evidence profiles and authority flow
+
+Python source owns executable tests and embedded module declarations. The generic
+resource `pih.profile.python-test-evidence.v1` at
+`evidence/python-test-evidence-profile-matrix-v1.json` is the sole normative owner
+of profile identities, class/profile combinations, module metadata, per-test fields,
+stable identifier policy, and oracle, acceptance, limitation, provenance, and
+migration requirements. Explicit predecessor maps own migrations. Parsed module
+models, inventories, counts, hashes, SQLite rows, SQL export, and generated pages are
+derived projections rather than separately edited evidence authority.
+
+`PythonConformanceValidator` parses each supplied module once and shares one immutable
+`PythonTestModuleModel` with independent naming, documentation, parameterization,
+ownership, migration, and repository-conformance rules. Structural success does not
+establish assertion quality or any VVUQ claim beyond the test's declared evidence
+class.
+
 ## Artifact relation metadata
 
 Agreement, mapping direction, and package-surface relationships are metadata on one `artifact_owned` owner, not additional ownership kinds. Version 1 represents the relation with:
@@ -64,8 +81,16 @@ A `PASS` means only that the supplied resources satisfy those declared structura
 
 Resource-contract checks contain no scientific calculation and make no scientific-validation or uncertainty-quantification claim. Their fixtures are textual software-verification evidence; a numerical-verification label supplied by a project is classification input, not a newly executed numerical result.
 
-## Consumption by the later Python consumer
+## Python consumer boundary
 
-Subject to separate resource-task human acceptance and separate activation of the later Python consumer task, that consumer uses the grammar identity, schemas, project-profile rules, fixtures, and canonical vectors without redefining their meanings. Class-owned consumer tests attach to the relevant accepted public object or action. Artifact-owned consumer tests attach to concrete resource, import, path-confinement, canonical-wire, or generic/local dependency boundaries and record any agreement or mapping as relation metadata.
+The maintained Python consumer uses the grammar identity, profile matrix, schemas,
+project-profile rules, fixtures, and canonical vectors without redefining their
+meanings. Class-owned tests attach to one accepted public object or action.
+Artifact-owned tests attach to concrete resource, import, path-confinement,
+canonical-wire, private implementation, or generic/local dependency boundaries.
 
-The later Python consumer must preserve `class_owned` and `artifact_owned` as the only generic primary kinds. A project-local compatibility adapter may preserve an accepted legacy spelling and expose a comparison as artifact relation metadata, but generic code and resources must not depend on that local adapter. This handoff is an input contract only: it neither launches the consumer task nor retires, migrates, or dispatches any current skill or test.
+`class_owned` and `artifact_owned` remain the only generic primary kinds. A
+project-local compatibility adapter may preserve an accepted legacy spelling and
+expose a comparison as artifact relation metadata, but generic code and resources do
+not depend on that adapter. This boundary activates no successor, protected action,
+or scientific execution.

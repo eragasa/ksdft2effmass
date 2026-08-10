@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -357,3 +358,217 @@ def test_method__execute_request_type__rejects_foreign_object() -> None:
     """
     with pytest.raises(TypeError):
         SUT().execute(object())  # type: ignore[arg-type]
+
+
+PROFILE_PATH = "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
+PROFILE_PAYLOAD = (Path(__file__).resolve().parents[6] / PROFILE_PATH).read_bytes()
+ROUTINE_SOURCE = b'''r"""Software verification of routine artifact.
+
+Evidence profile: routine
+
+Bounded artifact scope: one controlled routine software artifact.
+
+Facet and represented meaning
+
+This fixture represents one exact routine software contract.
+
+Intrinsic and cross-object scope
+
+The bounded artifact is primary and owns no cross-object scientific behavior.
+
+VVUQ and scientific exclusions
+
+Passing excludes numerical verification, scientific validation, UQ, and acceptance.
+"""
+
+
+def test_artifact__literal_value__equals_itself():
+    """Evidence ID: SV-TEV-ROUTINE-FIX-001
+
+    Requirement: The controlled literal retains exact equality.
+
+    Acceptance: Equality is exactly true.
+    """
+    assert 1 == 1
+'''
+ROUTINE_OWNERSHIP = json.dumps(
+    {
+        "schema_version": 1,
+        "modules": [
+            {
+                "path": PATH,
+                "mode": "artifact_owned",
+                "evidence_class": "software_verification",
+                "evidence_profile": "routine",
+                "artifact": "routine artifact",
+            }
+        ],
+    },
+    separators=(",", ":"),
+).encode()
+
+
+def test_method__execute_routine_profile__accepts_exact_required_fields() -> None:
+    """Evidence ID: software-verification.harness.python-conformance.profile.routine
+
+    Requirement: Routine evidence requires Evidence ID, Requirement, and Acceptance
+    while its module declares profile, bounded scope, and VVUQ exclusions.
+
+    Method: Validate one literal routine module with only the three required per-test
+    fields against the canonical generic profile resource.
+
+    Oracle: HC01 decision D and the canonical profile matrix fix the exact required
+    field set independently of validator implementation.
+
+    Acceptance: Validation passes with one retained stable evidence owner.
+
+    Interpretation: Failure identifies profile loading or routine documentation drift.
+
+    Limitations: Semantic assertion quality and human acceptance remain excluded.
+    """
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, ROUTINE_SOURCE),),
+            "ownership.json",
+            ROUTINE_OWNERSHIP,
+            profile_path=PROFILE_PATH,
+            profile_payload=PROFILE_PAYLOAD,
+        )
+    )
+    assert result.status == "PASS"
+    assert result.unique_evidence_owners == 1
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    (
+        pytest.param("unsupported_schema", id="unsupported_schema"),
+        pytest.param("unknown_field", id="unknown_field"),
+        pytest.param("missing_class", id="missing_class"),
+        pytest.param("missing_profile", id="missing_profile"),
+        pytest.param("duplicate_combination", id="duplicate_combination"),
+        pytest.param("malformed_requirement", id="malformed_requirement"),
+    ),
+)
+def test_method__execute_profile_matrix__rejects_closed_structure_defects(
+    mutation: str,
+) -> None:
+    """Evidence ID: software-verification.harness.python-conformance.profile.closed
+
+    Requirement: The profile matrix rejects unsupported versions, unknown or missing
+    fields, missing classes or profiles, duplicate combinations, and malformed rules.
+
+    Method: Apply one isolated structural mutation to the canonical literal resource.
+
+    Oracle: The accepted closed version-one resource contract enumerates each rejected
+    partition.
+
+    Acceptance: Every partition yields exactly a TE.PROFILE_INPUT finding.
+
+    Interpretation: Failure identifies incomplete profile-policy closure.
+
+    Limitations: Resource-manifest hashing and semantic review are separate.
+    """
+    value = json.loads(PROFILE_PAYLOAD)
+    if mutation == "unsupported_schema":
+        value["schema_version"] = 2
+    elif mutation == "unknown_field":
+        value["unknown"] = None
+    elif mutation == "missing_class":
+        value["evidence_classes"].pop()
+    elif mutation == "missing_profile":
+        value["profiles"].pop()
+    elif mutation == "duplicate_combination":
+        value["combinations"].append(value["combinations"][0])
+    else:
+        value["profiles"][0]["required_test_fields"] = ["unknown"]
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, ROUTINE_SOURCE),),
+            "ownership.json",
+            ROUTINE_OWNERSHIP,
+            profile_path=PROFILE_PATH,
+            profile_payload=json.dumps(value, separators=(",", ":")).encode(),
+        )
+    )
+    assert tuple(item.code for item in result.findings).count("TE.PROFILE_INPUT") == 1
+
+
+def test_method__execute_module_model__parses_each_source_exactly_once(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: software-verification.harness.conformance.module.single-pass
+
+    Requirement: One AST parse supplies all rule and repository-conformance owners for
+    each selected module.
+
+    Method: Count parser-boundary calls while validating one conforming literal module.
+
+    Oracle: The accepted R2.3 architecture requires exactly one parse per source.
+
+    Acceptance: Validation passes and the parser call count is exactly one.
+
+    Interpretation: Failure identifies duplicated syntax work or parse bypass.
+
+    Limitations: Runtime performance beyond parse count is not measured.
+    """
+    from ksdft2effmass.harness.pi.evidence.python_conformance import parser
+
+    original = parser.ast.parse
+    calls = 0
+
+    def counted_parse(*args: Any, **kwargs: Any) -> Any:
+        nonlocal calls
+        calls += 1
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(parser.ast, "parse", counted_parse)
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, VALID_SOURCE),),
+            "ownership.json",
+            VALID_OWNERSHIP,
+        )
+    )
+    assert result.status == "PASS"
+    assert calls == 1
+
+
+def test_method__execute_private_class_owner__reports_ownership_finding() -> None:
+    """Evidence ID: software-verification.harness.conformance.ownership.private-class
+
+    Requirement: Class-owned evidence is limited to a public class as sole SUT.
+
+    Method: Supply a closed ownership entry naming one private implementation class.
+
+    Oracle: The R2.3 ownership contract prohibits leading-underscore class owners.
+
+    Acceptance: Validation reports TE.PRIVATE_CLASS_OWNER.
+
+    Interpretation: Failure permits private implementation to masquerade as public API.
+
+    Limitations: Cohesion of an accepted artifact-owned replacement is reviewed
+    separately.
+    """
+    ownership = json.dumps(
+        {
+            "schema_version": 1,
+            "modules": [
+                {
+                    "path": PATH,
+                    "mode": "class_owned",
+                    "evidence_class": "software_verification",
+                    "sut": "_Private",
+                }
+            ],
+        },
+        separators=(",", ":"),
+    ).encode()
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, VALID_SOURCE),),
+            "ownership.json",
+            ownership,
+        )
+    )
+    assert "TE.PRIVATE_CLASS_OWNER" in tuple(item.code for item in result.findings)

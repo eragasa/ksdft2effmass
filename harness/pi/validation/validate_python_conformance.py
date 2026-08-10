@@ -95,12 +95,21 @@ def main() -> int:
         type=Path,
         help="JSON with mappings[{old_node_id,new_node_id}]",
     )
+    parser.add_argument(
+        "--profile-matrix",
+        type=Path,
+        help="explicit versioned Python evidence-profile matrix JSON",
+    )
     args = parser.parse_args()
     ownership_payload, ownership_error = _read(args.ownership)
     migration_payload: bytes | None = None
     migration_error: str | None = None
     if args.migration_map is not None:
         migration_payload, migration_error = _read(args.migration_map)
+    profile_payload: bytes | None = None
+    profile_error: str | None = None
+    if args.profile_matrix is not None:
+        profile_payload, profile_error = _read(args.profile_matrix)
     request = PythonConformanceRequest(
         tuple(_source(path) for path in args.paths),
         args.ownership.as_posix(),
@@ -109,6 +118,9 @@ def main() -> int:
         args.migration_map.as_posix() if args.migration_map is not None else None,
         migration_payload,
         migration_error,
+        args.profile_matrix.as_posix() if args.profile_matrix is not None else None,
+        profile_payload,
+        profile_error,
     )
     result = PythonConformanceValidator().execute(request)
     print(

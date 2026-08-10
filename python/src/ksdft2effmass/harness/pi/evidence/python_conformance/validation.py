@@ -19,7 +19,16 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-from ..identity import _require_builtin_str, _require_tuple
+from ...identity import _require_builtin_str, _require_tuple
+from .documentation import validate_profile_declaration
+from .migration import has_complete_predecessor_pairs
+from .model import PythonTestModuleModel
+from .naming import validate_test_name
+from .ownership import validate_owner_profile
+from .parameterization import parameterized_functions as parameterized_function_models
+from .parser import parse_module
+from .profile import EvidenceProfileMatrix, load_profile_matrix
+from .repository import function_counts
 
 HEADINGS = (
     "Facet and represented meaning",
@@ -39,21 +48,6 @@ FIELDS = (
     "Interpretation",
     "Limitations",
 )
-SURFACES = (
-    "constructor",
-    "field",
-    "property",
-    "method",
-    "classmethod",
-    "staticmethod",
-    "protocol",
-    "public_api",
-    "artifact",
-    "workflow",
-)
-NAME_RE = re.compile(
-    r"^test_(" + "|".join(SURFACES) + r")__[a-z][a-z0-9_]*__[a-z][a-z0-9_]*$"
-)
 ID_RE = re.compile(
     r"\b(?:(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}|"
     r"(?:software-verification|numerical-verification|scientific-validation|"
@@ -68,7 +62,6 @@ EVIDENCE_OPENINGS = {
     "scientific_validation": "Scientific validation",
     "uncertainty_quantification": "Uncertainty quantification",
 }
-VAGUE_FACETS = {"behavior", "contract", "general", "misc"}
 UNKNOWN_VALUE_ID_WORDS = {"unknown", "unsupported", "unrecognized"}
 WRONG_TYPE_ID_WORDS = {
     "boolean",
@@ -191,6 +184,12 @@ class PythonConformanceRequest:
         Exact optional migration-map JSON bytes.
     migration_read_error
         Caller-rendered optional migration-map read failure.
+    profile_path
+        Diagnostic path for the optional generic evidence-profile matrix.
+    profile_payload
+        Exact optional profile-matrix JSON bytes.
+    profile_read_error
+        Caller-rendered optional profile-matrix read failure.
 
     Raises
     ------
@@ -207,6 +206,9 @@ class PythonConformanceRequest:
     migration_path: str | None = None
     migration_payload: bytes | None = None
     migration_read_error: str | None = None
+    profile_path: str | None = None
+    profile_payload: bytes | None = None
+    profile_read_error: str | None = None
 
     def __post_init__(self) -> None:
         _require_tuple(self.sources, "sources")
@@ -241,6 +243,20 @@ class PythonConformanceRequest:
                 _require_builtin_str(self.migration_read_error, "migration_read_error")
             if (self.migration_payload is None) == (self.migration_read_error is None):
                 raise ValueError("migration requires exactly one payload or read error")
+        if self.profile_path is None:
+            if self.profile_payload is not None or self.profile_read_error is not None:
+                raise ValueError("profile data requires profile_path")
+        else:
+            _require_builtin_str(self.profile_path, "profile_path")
+            if (
+                self.profile_payload is not None
+                and type(self.profile_payload) is not bytes
+            ):
+                raise TypeError("profile_payload must be bytes or None")
+            if self.profile_read_error is not None:
+                _require_builtin_str(self.profile_read_error, "profile_read_error")
+            if (self.profile_payload is None) == (self.profile_read_error is None):
+                raise ValueError("profile requires exactly one payload or read error")
 
 
 @dataclass(frozen=True, slots=True)
@@ -301,7 +317,7 @@ def sections(doc: str | None, labels: tuple[str, ...]) -> tuple[bool, str]:
         return False, "docstring is missing"
     positions: list[int] = []
     matches_by_label: list[re.Match[str]] = []
-    inline_fields = labels == FIELDS
+    inline_fields = bool(labels) and all(label in FIELDS for label in labels)
     for label in labels:
         pattern = (
             rf"(?m)^[ \t]*{re.escape(label)}:[ \t]+\S.*$"
@@ -772,21 +788,17 @@ def parameter_case_ids(
 
 
 def validate_file(
-    source_input: PythonModuleSource,
+    model: PythonTestModuleModel,
     owner: dict[str, Any],
     seen_ids: dict[str, str],
+    profile_matrix: EvidenceProfileMatrix | None,
 ) -> list[PythonConformanceFinding]:
-    path = source_input.path
+    """Apply independent rules to one already parsed module model."""
+    path = model.path
+    source = model.source
+    tree = model.tree
+    module_doc = model.module_doc
     out: list[PythonConformanceFinding] = []
-    if source_input.read_error is not None:
-        return [finding("TE.PARSE", path, source_input.read_error)]
-    assert source_input.payload is not None
-    try:
-        source = source_input.payload.decode("utf-8")
-        tree = ast.parse(source, filename=path)
-    except (UnicodeError, SyntaxError) as exc:
-        return [finding("TE.PARSE", path, str(exc))]
-    module_doc = ast.get_docstring(tree, clean=False)
     first_line = (module_doc or "").splitlines()[0].strip() if module_doc else ""
     if re.search(r"(?m)^#\s*ruff:\s*noqa:\s*E501\s*$", source):
         out.append(
@@ -838,6 +850,24 @@ def validate_file(
     ok, detail = sections(module_doc, HEADINGS)
     if not ok:
         out.append(finding("TE.MODULE_DOC", path, detail))
+    evidence_profile = owner.get("evidence_profile")
+    if evidence_profile is not None:
+        if profile_matrix is None or evidence_profile not in profile_matrix.profiles:
+            out.append(
+                finding(
+                    "TE.EVIDENCE_PROFILE",
+                    path,
+                    "declared evidence_profile requires a valid supplied "
+                    "profile matrix",
+                )
+            )
+        else:
+            out.extend(
+                finding(code, path, message)
+                for code, message in validate_profile_declaration(
+                    module_doc, evidence_profile
+                )
+            )
     for heading in SUPERSEDED_HEADINGS:
         if module_doc and re.search(rf"(?m)^\s*{re.escape(heading)}\s*$", module_doc):
             out.append(
@@ -919,31 +949,13 @@ def validate_file(
                     "artifact-owned filename must be descriptive lowercase snake case",
                 )
             )
-    for node in (
-        n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))
-    ):
+    for node in model.functions:
         is_test = node.name.startswith("test_")
-        if is_test and not NAME_RE.fullmatch(node.name):
-            out.append(
-                finding(
-                    "TE.TEST_NAME",
-                    path,
-                    "test name violates semantic surface/facet/behavior grammar",
-                    node.lineno,
-                )
-            )
-        elif is_test:
-            parts = node.name.split("__")
-            if len(parts) == 3 and parts[1] in VAGUE_FACETS:
-                out.append(
-                    finding(
-                        "TE.VAGUE_TEST_FACET",
-                        path,
-                        f"test facet {parts[1]!r} does not name a concrete public "
-                        "member or cohesive contract",
-                        node.lineno,
-                    )
-                )
+        name_problem = validate_test_name(node.name) if is_test else None
+        if name_problem is not None:
+            code, message = name_problem
+            out.append(finding(code, path, message, node.lineno))
+        if is_test:
             calls_sut = any(
                 isinstance(child, ast.Call)
                 and isinstance(child.func, ast.Name)
@@ -1032,7 +1044,17 @@ def validate_file(
             )
         for code, param_detail in decorator_parameter_findings(node, tree):
             out.append(finding(code, path, param_detail, node.lineno))
-        ok, detail = sections(ast.get_docstring(node, clean=False), FIELDS)
+        required_fields: tuple[str, ...] = FIELDS
+        if (
+            evidence_profile is not None
+            and profile_matrix is not None
+            and evidence_profile in profile_matrix.profiles
+        ):
+            policy_fields = profile_matrix.profiles[
+                evidence_profile
+            ].required_test_fields
+            required_fields = tuple(field for field in FIELDS if field in policy_fields)
+        ok, detail = sections(ast.get_docstring(node, clean=False), required_fields)
         if not ok:
             out.append(finding("TE.FUNCTION_DOC", path, detail, node.lineno))
             continue
@@ -1162,9 +1184,22 @@ def load_ownership(
         value = json.loads(payload.decode("utf-8"))
     except (UnicodeError, json.JSONDecodeError) as exc:
         return [], {}, [finding("TE.OWNERSHIP_INPUT", path, str(exc))]
+    minimal_keys = {"modules", "schema_version"}
+    projection_keys = minimal_keys | {
+        "baseline_collected_node_count",
+        "baseline_module_count",
+        "baseline_revision",
+        "expected_collected_node_count",
+        "expected_module_count",
+        "test_root",
+    }
     if (
         not isinstance(value, dict)
-        or set(value) != {"modules", "schema_version"}
+        or frozenset(value)
+        not in {
+            frozenset(minimal_keys),
+            frozenset(projection_keys),
+        }
         or value.get("schema_version") != 1
         or not isinstance(value.get("modules"), list)
     ):
@@ -1191,7 +1226,15 @@ def load_ownership(
                 )
             )
             continue
-        allowed = {"path", "mode", "evidence_class", "sut", "artifact"}
+        projection_entry_keys = {"conformance_status", "content_sha256"}
+        allowed = {
+            "path",
+            "mode",
+            "evidence_class",
+            "evidence_profile",
+            "sut",
+            "artifact",
+        } | projection_entry_keys
         if not set(item) <= allowed:
             out.append(
                 finding(
@@ -1231,9 +1274,18 @@ def load_ownership(
                     f"modules[{index}].evidence_class is invalid",
                 )
             )
+        evidence_profile = item.get("evidence_profile")
+        subject = item.get("sut") if mode == "class_owned" else item.get("artifact")
+        owner_problem = validate_owner_profile(mode, subject, evidence_profile)
+        if owner_problem is not None:
+            code, message = owner_problem
+            out.append(finding(code, path, f"modules[{index}]: {message}"))
+        profile_keys = {"evidence_profile"} if evidence_profile is not None else set()
+        semantic_keys = set(item) - projection_entry_keys
         if mode == "class_owned":
             if (
-                set(item) != {"path", "mode", "evidence_class", "sut"}
+                semantic_keys
+                != {"path", "mode", "evidence_class", "sut"} | profile_keys
                 or not isinstance(item.get("sut"), str)
                 or not item["sut"]
             ):
@@ -1245,7 +1297,8 @@ def load_ownership(
                     )
                 )
         elif mode == "artifact_owned" and (
-            set(item) != {"path", "mode", "evidence_class", "artifact"}
+            semantic_keys
+            != {"path", "mode", "evidence_class", "artifact"} | profile_keys
             or not isinstance(item.get("artifact"), str)
             or not item["artifact"].strip()
         ):
@@ -1352,11 +1405,8 @@ def validate_migration(
     if (
         isinstance(old_expected, list)
         and isinstance(new_expected, list)
-        and (
-            set(old_actual) != set(old_expected)
-            or set(new_actual) != set(new_expected)
-            or len(pairs) != len(old_expected)
-            or len(pairs) != len(new_expected)
+        and not has_complete_predecessor_pairs(
+            tuple(old_expected), tuple(new_expected), tuple(pairs)
         )
     ):
         out.append(
@@ -1492,7 +1542,8 @@ class PythonConformanceValidator:
         Parameters
         ----------
         request
-            Explicit module, ownership, and optional migration-map inputs.
+            Explicit module, ownership, optional migration-map, and optional
+            generic profile-matrix inputs.
 
         Returns
         -------
@@ -1508,6 +1559,29 @@ class PythonConformanceValidator:
         if type(request) is not PythonConformanceRequest:
             raise TypeError("request must be PythonConformanceRequest")
         findings: list[PythonConformanceFinding] = []
+        profile_matrix: EvidenceProfileMatrix | None = None
+        if request.profile_path is not None:
+            if request.profile_read_error is not None:
+                findings.append(
+                    finding(
+                        "TE.PROFILE_INPUT",
+                        request.profile_path,
+                        request.profile_read_error,
+                    )
+                )
+            else:
+                assert request.profile_payload is not None
+                profile_matrix, profile_problem = load_profile_matrix(
+                    request.profile_payload
+                )
+                if profile_problem is not None:
+                    findings.append(
+                        finding(
+                            "TE.PROFILE_INPUT",
+                            request.profile_path,
+                            profile_problem,
+                        )
+                    )
         supplied = [source.path for source in request.sources]
         if len(supplied) != len(set(supplied)):
             findings.append(
@@ -1524,7 +1598,24 @@ class PythonConformanceValidator:
             supplied,
         )
         findings.extend(ownership_findings)
+        if profile_matrix is not None:
+            for entry in entries:
+                evidence_profile = entry.get("evidence_profile")
+                if (
+                    evidence_profile is not None
+                    and (entry.get("evidence_class"), evidence_profile)
+                    not in profile_matrix.combinations
+                ):
+                    findings.append(
+                        finding(
+                            "TE.PROFILE_COMBINATION",
+                            request.ownership_path,
+                            "evidence_class/evidence_profile combination is "
+                            "unsupported",
+                        )
+                    )
         seen: dict[str, str] = {}
+        models: list[PythonTestModuleModel] = []
         for source in request.sources:
             if not source.is_regular_file:
                 findings.append(
@@ -1536,8 +1627,19 @@ class PythonConformanceValidator:
                 )
                 continue
             owner = by_path.get(source.path)
-            if owner is not None:
-                findings.extend(validate_file(source, owner, seen))
+            if owner is None:
+                continue
+            if source.read_error is not None:
+                findings.append(finding("TE.PARSE", source.path, source.read_error))
+                continue
+            assert source.payload is not None
+            try:
+                model = parse_module(source.path, source.payload)
+            except (UnicodeError, SyntaxError) as exc:
+                findings.append(finding("TE.PARSE", source.path, str(exc)))
+                continue
+            models.append(model)
+            findings.extend(validate_file(model, owner, seen, profile_matrix))
         if request.migration_path is not None:
             findings.extend(
                 validate_migration(
@@ -1549,26 +1651,20 @@ class PythonConformanceValidator:
         tests = helpers = parameterized = 0
         static_parameter_cases = 0
         static_parameter_cases_known = True
-        for source in request.sources:
-            if not source.is_regular_file or source.payload is None:
-                continue
-            try:
-                tree = ast.parse(source.payload.decode("utf-8"))
-            except UnicodeError, SyntaxError:
-                continue
-            functions = [
-                node
-                for node in tree.body
-                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-            ]
-            tests += sum(node.name.startswith("test_") for node in functions)
-            helpers += sum(not node.name.startswith("test_") for node in functions)
-            for node in functions:
-                count = static_parameter_case_count(node, tree)
+        for model in models:
+            model_tests, model_helpers = function_counts(model)
+            tests += model_tests
+            helpers += model_helpers
+            parameterized_names = {
+                node.name for node in parameterized_function_models(model)
+            }
+            for node in model.functions:
+                count = static_parameter_case_count(node, model.tree)
                 if count is None:
                     static_parameter_cases_known = False
                 elif count:
-                    parameterized += 1
+                    if node.name in parameterized_names:
+                        parameterized += 1
                     static_parameter_cases += count
         findings_by_code: dict[str, int] = {}
         for item in findings:

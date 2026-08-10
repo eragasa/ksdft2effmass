@@ -1,4 +1,8 @@
-r"""Software verification of ``_ControlDatabase``.
+r"""Software verification of project-local dbcontrol control-database implementation artifact.
+
+Evidence profile: routine
+
+Bounded artifact scope: project-local dbcontrol private control-database implementation behavior.
 
 Facet and represented meaning
 
@@ -11,7 +15,7 @@ Only the owner's bounded contract is exercised with literal or immutable inputs.
 VVUQ and scientific exclusions
 
 This is software verification only; scientific validation and UQ are excluded.
-"""
+"""  # noqa: E501
 
 import sqlite3
 from pathlib import Path

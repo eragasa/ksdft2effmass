@@ -45,11 +45,18 @@ def test_constructor__optional_ownership_input__is_immutable_and_root_confined()
     from dataclasses import FrozenInstanceError
 
     root = Path("/repository")
-    assert HarnessControlMigrationRequest(root).evidence_module_ownership_path is None
+    default = HarnessControlMigrationRequest(root)
+    assert default.evidence_module_ownership_path is None
+    assert default.evidence_profile_matrix_path is None
     request = HarnessControlMigrationRequest(
-        root, evidence_module_ownership_path=Path("updates/ownership.json")
+        root,
+        evidence_module_ownership_path=Path("updates/ownership.json"),
+        evidence_profile_matrix_path=Path("harness/pi/evidence/profile.json"),
     )
     assert request.evidence_module_ownership_path == Path("updates/ownership.json")
+    assert request.evidence_profile_matrix_path == Path(
+        "harness/pi/evidence/profile.json"
+    )
     with pytest.raises(FrozenInstanceError):
         request.evidence_module_ownership_path = None  # type: ignore[misc]
     with pytest.raises(TypeError):
@@ -64,6 +71,10 @@ def test_constructor__optional_ownership_input__is_immutable_and_root_confined()
     with pytest.raises(ValueError):
         HarnessControlMigrationRequest(
             root, evidence_module_ownership_path=Path("../ownership.json")
+        )
+    with pytest.raises(ValueError):
+        HarnessControlMigrationRequest(
+            root, evidence_profile_matrix_path=Path("harness/pi/evidence/profile.json")
         )
 
 

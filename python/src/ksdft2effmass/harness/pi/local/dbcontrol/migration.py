@@ -60,6 +60,12 @@ class HarnessControlMigrator:
             return None
         ownership_path = cls._repository_file(request.repository_root, relative)
         payload = ownership_path.read_bytes()
+        profile_path = request.evidence_profile_matrix_path
+        profile_payload: bytes | None = None
+        if profile_path is not None:
+            profile_payload = cls._repository_file(
+                request.repository_root, profile_path
+            ).read_bytes()
         try:
             document = json.loads(payload.decode("utf-8"))
         except (UnicodeError, json.JSONDecodeError) as exc:
@@ -102,6 +108,10 @@ class HarnessControlMigrator:
                 tuple(sources),
                 relative.as_posix(),
                 payload,
+                profile_path=profile_path.as_posix()
+                if profile_path is not None
+                else None,
+                profile_payload=profile_payload,
             )
         )
         if result.status != "PASS":
@@ -225,11 +235,12 @@ class HarnessControlMigrator:
                     ("telemetry_status", "deferred-inactive"),
                 ),
             )
-            _RepositoryControlIngestor(
+            ingestor = _RepositoryControlIngestor(
                 connection, root, unresolved, module_inventory
-            ).execute()
+            )
+            ingestor.execute()
             connection.commit()
-            projector = _ControlProjector(connection)
+            projector = _ControlProjector(connection, ingestor.evidence_profiles)
             projections = projector.render_all()
             for path, (kind, payload) in sorted(projections.items()):
                 connection.execute(

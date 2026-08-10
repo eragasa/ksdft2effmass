@@ -18,7 +18,13 @@ from .encoding import _ControlEncoding
 class _RepositoryControlIngestor:
     """Ingest one explicit repository corpus into an initialized database."""
 
-    __slots__ = ("connection", "root", "unresolved", "module_inventory")
+    __slots__ = (
+        "connection",
+        "root",
+        "unresolved",
+        "module_inventory",
+        "evidence_profiles",
+    )
 
     def __init__(
         self,
@@ -31,6 +37,7 @@ class _RepositoryControlIngestor:
         self.root = root
         self.unresolved = unresolved
         self.module_inventory = module_inventory
+        self.evidence_profiles: dict[str, str] = {}
 
     def execute(self) -> None:
         """Ingest the complete repository control corpus in dependency order."""
@@ -46,7 +53,8 @@ class _RepositoryControlIngestor:
             return list(self.module_inventory)
         path = self.root / ".pi/evidence/python-conformance/module-inventory.json"
         document = json.loads(path.read_text())
-        return list(document["modules"])
+        self.module_inventory = tuple(document["modules"])
+        return list(self.module_inventory)
 
     def _canonical_evidence_id(
         self, module: Mapping[str, Any], function_name: str
@@ -255,6 +263,12 @@ class _RepositoryControlIngestor:
                 continue
             source = path.read_bytes()
             tree = ast.parse(source, filename=module["path"])
+            module_doc = ast.get_docstring(tree, clean=False) or ""
+            profile_match = re.search(
+                r"(?m)^Evidence profile: (routine|claim_bearing)\s*$", module_doc
+            )
+            if profile_match is not None:
+                self.evidence_profiles[str(module["path"])] = profile_match.group(1)
             module_id = "test-module." + _ControlEncoding.slug(
                 path.relative_to(root / "python/tests").with_suffix("").as_posix()
             ).replace("-", ".")

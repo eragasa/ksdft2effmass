@@ -42,6 +42,7 @@
         "evidence_class": {
           "enum": ["software_verification", "numerical_verification", "scientific_validation", "uncertainty_quantification"]
         },
+        "evidence_profile": {"enum": ["routine", "claim_bearing"]},
         "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "conformance_status": {"enum": ["conforming", "not_yet_conforming"]}
       }
@@ -57,6 +58,7 @@
             "path": {"type": "string", "pattern": "^python/tests/.+\\.py$"},
             "mode": {"const": "class_owned"},
             "evidence_class": {"enum": ["software_verification", "numerical_verification", "scientific_validation", "uncertainty_quantification"]},
+            "evidence_profile": {"enum": ["routine", "claim_bearing"]},
             "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
             "conformance_status": {"enum": ["conforming", "not_yet_conforming"]},
             "sut": {"type": "string", "minLength": 1}
@@ -75,6 +77,7 @@
             "path": {"type": "string", "pattern": "^python/tests/.+\\.py$"},
             "mode": {"const": "artifact_owned"},
             "evidence_class": {"enum": ["software_verification", "numerical_verification", "scientific_validation", "uncertainty_quantification"]},
+            "evidence_profile": {"enum": ["routine", "claim_bearing"]},
             "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
             "conformance_status": {"enum": ["conforming", "not_yet_conforming"]},
             "artifact": {"type": "string", "minLength": 1}
