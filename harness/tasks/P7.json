@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "task_id": "P7",
+  "title": "P7 — Direct spectral/TB fan-out subnet",
+  "status": "blocked",
+  "status_detail": "blocked by accepted P3, P4, and P6",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P3",
+    "P4",
+    "P6"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement the CPN fan-out from an accepted neutral `PeriodicElectronicStructureDataset` parent to direct spectral/TB request and result tokens, with explicit training/withheld data, provenance, failure, retry, and acceptance states.\n\nThe route remains direct spectral DFT-to-TB fitting, not operator fitting. It never parses QE or reconstructs an operator from eigenvalues. Comparison eligibility retains parent/specification/representation metadata. Preserves G.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/tasks/P7.md"
+  ],
+  "authorized_scope": [
+    "Implement the CPN fan-out from an accepted neutral `PeriodicElectronicStructureDataset` parent to direct spectral/TB request and result tokens, with explicit training/withheld data, provenance, failure, retry, and acceptance states.",
+    "The route remains direct spectral DFT-to-TB fitting, not operator fitting. It never parses QE or reconstructs an operator from eigenvalues. Comparison eligibility retains parent/specification/representation metadata. Preserves G.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "completion_criteria": [
+    "Implement the CPN fan-out from an accepted neutral `PeriodicElectronicStructureDataset` parent to direct spectral/TB request and result tokens, with explicit training/withheld data, provenance, failure, retry, and acceptance states.",
+    "The route remains direct spectral DFT-to-TB fitting, not operator fitting. It never parses QE or reconstructs an operator from eigenvalues. Comparison eligibility retains parent/specification/representation metadata. Preserves G.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "exclusions": [
+    "Implement the CPN fan-out from an accepted neutral `PeriodicElectronicStructureDataset` parent to direct spectral/TB request and result tokens, with explicit training/withheld data, provenance, failure, retry, and acceptance states.",
+    "The route remains direct spectral DFT-to-TB fitting, not operator fitting. It never parses QE or reconstructs an operator from eigenvalues. Comparison eligibility retains parent/specification/representation metadata. Preserves G.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P7.md",
+    "sha256": "625220a4c614c9204fe3179fbbab2e00b6d8658d285999d75bfd2209750c7e2f"
+  }
+}

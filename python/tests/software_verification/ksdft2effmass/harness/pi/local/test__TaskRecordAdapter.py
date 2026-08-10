@@ -136,6 +136,7 @@ def test_method__execute__validates_complete_json_task_and_chain_agreement() -> 
         "completion_criteria": ["The public adaptation passes."],
         "exclusions": ["No work is activated."],
         "intake_path": "records/intake.md",
+        "archived_source": None,
     }
     mixed_chain = {
         "active_task": "example.task",

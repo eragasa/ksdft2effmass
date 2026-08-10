@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation",
+  "title": "Reconcile resource-phase agent routing",
+  "status": "completed",
+  "status_detail": "completed under `.pi/chains/harness-simplification.chain.json`",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "harness-simplification.resources.develop-harness-resources"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Task identity: `harness-simplification.agents.resource-phase-routing-reconciliation`",
+  "authority_reference_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/settings.json",
+    "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md",
+    "origin/dev"
+  ],
+  "authorized_scope": [
+    "Task identity: `harness-simplification.agents.resource-phase-routing-reconciliation`"
+  ],
+  "completion_criteria": [
+    "Task identity: `harness-simplification.agents.resource-phase-routing-reconciliation`"
+  ],
+  "exclusions": [
+    "Task identity: `harness-simplification.agents.resource-phase-routing-reconciliation`"
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md",
+    "sha256": "2d1549e645aa137cba36b602c9ca4ea4d9a4a30221d390ec7d3ee76bbca316a6"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 2,
+  "task_id": "harness-task-state-symlink-toctou-hardening",
+  "title": "Harden task-state file inspection against symlink TOCTOU races",
+  "status": "legacy_recorded",
+  "status_detail": "proposed backlog candidate; inactive and not authorized for implementation",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Task identity: `harness.task-state-symlink-toctou-hardening`",
+  "authority_reference_paths": [
+    ".pi/evidence/pi-harness-incubation/H2/review-integration-initial.md",
+    "harness/archive/task-control-v1/tasks/harness-task-state-symlink-toctou-hardening.md",
+    "python/src/ksdft2effmass/harness/pi/_task_state_files.py"
+  ],
+  "authorized_scope": [
+    "the public `TaskStateInspectionRequest`, `TaskStateInspectionResult`, and `InspectTaskState` API;",
+    "rejection of symlinked roots, files, and intermediate components;",
+    "exact declared-path inspection without recursive discovery;",
+    "deterministic inspected/read path reporting and validation issues; and",
+    "ordinary trusted-repository behavior and packaging compatibility."
+  ],
+  "completion_criteria": [
+    "This proposal authorizes no source, test, dependency, platform-support, or public-contract change. It requires separate human activation and any ownership or review records applicable at that time. It does not justify elevated execution, external computation, dependency additions, or changes to completed H2 evidence."
+  ],
+  "exclusions": [
+    "This proposal authorizes no source, test, dependency, platform-support, or public-contract change. It requires separate human activation and any ownership or review records applicable at that time. It does not justify elevated execution, external computation, dependency additions, or changes to completed H2 evidence."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/harness-task-state-symlink-toctou-hardening.md",
+    "sha256": "d5c4a542aa04b0ac86b2dce634590157a0db59a17caf39f2fc9ea661e0cfb306"
+  }
+}

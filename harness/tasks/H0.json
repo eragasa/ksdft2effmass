@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "task_id": "H0",
+  "title": "H0 — Harness inventory and ownership classification",
+  "status": "human_accepted_pass",
+  "status_detail": "closed as human-accepted planning evidence through resolved `H0-HC01`; H1--H5 and P2--P11 remain blocked and unauthorized",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P1"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "`EXTRACTABLE`;\n\n`SPLIT_GENERIC_AND_LOCAL`;\n\n`KEEP_PROJECT_LOCAL`;\n\n`RETIRE_AS_DUPLICATE`;\n\n`DEFER`.",
+  "authority_reference_paths": [
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
+    ".pi/evidence/pi-harness-incubation/H0",
+    "docs/harness",
+    "harness/archive/task-control-v1/tasks/H0.md",
+    "harness/local",
+    "harness/pi",
+    "python/src/ksdft2effmass/harness/pi",
+    "python/src/ksdft2effmass/harness/pi/local"
+  ],
+  "authorized_scope": [
+    "repository-local skills and references;",
+    "deterministic scripts and validators;",
+    "schemas, templates, manifests, and profiles;",
+    "task, checkpoint, chain, evidence, checksum, and Git decision-boundary mechanics;",
+    "task/test ownership and evidence-ID rules;",
+    "software- and numerical-verification conventions;",
+    "documentation and Sphinx/MyST collection policy;",
+    "package/path assumptions, current consumers, and duplicated responsibilities."
+  ],
+  "completion_criteria": [
+    "The human PI accepted Option A at `H0-HC01` on 2026-08-04. The 316-component\ninventory, generic/local boundary, six finding resolutions, H3-before-H2\nsequencing recommendation, and proposed minimum H1 contract are planning\nauthority for H1. Personal and concurrently edited working notes remain outside\nharness authority; H0 worktree observations about them are historical\nnonmutation provenance only, not required resources or reusable validator\ninputs.",
+    "H0 is closed. Only bounded H0 closeout documentation reconciliation under\n`docs/harness/` is authorized after the resolution boundary is pushed. H1 must\ndistinguish clean-revision reproducible validation from optional project-local\npre-commit worktree checks and reconcile successor vocabulary to the accepted\n`class_owned`/`artifact_owned` model before implementation. H1 does not activate\nautomatically and still requires separate explicit activation. H1--H5,\nP2--P11, implementation, package publication, external execution, and\nscientific execution remain blocked."
+  ],
+  "exclusions": [
+    "H0 performs no Python harness implementation, source movement, skill retirement, validator replacement, package extraction/publication, P2 work, CPN behavior change, schema/fixture/test mutation, external-tool execution, or scientific execution. It must not create `python/src/ksdft2effmass/harness/pi/`, `python/src/ksdft2effmass/harness/pi/local/`, `harness/pi/`, or `harness/local/` as implementation/resource trees.",
+    "H0 produces control-plane and software-inventory evidence. Numerical verification applies only to a future actual numerical algorithm. Scientific validation and uncertainty quantification are not applicable."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/H0.md",
+    "sha256": "f8bedd91bbdc836a84a98d6818e214a46e4b17edd1afe06e9d90aa6a6e3d6db3"
+  }
+}

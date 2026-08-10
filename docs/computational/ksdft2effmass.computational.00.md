@@ -233,7 +233,7 @@ manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
 The project-owned CPN architecture and P0–P11 task sequence are recorded in
-`.pi/tasks/backend-neutral-cpn-workflow-architecture.md` and
+`harness/tasks/backend-neutral-cpn-workflow-architecture.json` and
 `docs/architecture/colored-petri-net-workflows.md`. SNAKES is declared only as
 an optional `workflow` dependency. `P1-HC01` Option A and `P1-HC02` Option B are
 resolved. Final P1 acceptance was granted as Option A through `P1-HC03` on
@@ -390,7 +390,7 @@ No downstream task may depend only on a figure, manually copied parameter, or un
 The periodic KS/GKS scientific object and adapter architecture remains approved as prospectively corrected by `docs/architecture/periodic-electronic-structure-integration.md`.
 Its never-launched A–H linear workflow sequence is prospectively superseded by
 the project-owned CPN architecture and P0–P11 task program in
-`.pi/tasks/backend-neutral-cpn-workflow-architecture.md`. The human PI granted
+`harness/tasks/backend-neutral-cpn-workflow-architecture.json`. The human PI granted
 final acceptance through `CPN-HC01` on 2026-08-03, and the architecture task is
 closed. The human PI accepted bounded P0 as `CONDITIONAL_PASS` through resolved
 `P0-HC01` on 2026-08-03 and P0A as `PASS` through resolved `P0A-HC01` on the

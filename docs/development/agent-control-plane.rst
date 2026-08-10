@@ -16,7 +16,7 @@ silently override higher authority. Historical evidence records what happened
 and does not govern current work.
 
 The root ``AGENTS.md`` owns stable repository policy. Mutable state belongs in
-``.pi/chains/``, ``.pi/tasks/``, ``.pi/checkpoints/``, and durable human-decision
+``.pi/chains/``, ``harness/tasks/``, ``.pi/checkpoints/``, and durable human-decision
 records rather than in constitutions or explanatory documentation. In the
 validated project environment, both Codex and pi discover repository-local
 skills under ``.agents/skills/``. pi additionally discovers pi-specific skills
@@ -24,8 +24,9 @@ under ``.pi/skills/``. A project skill may shadow a same-named global pi skill.
 Codex configuration or hooks belong under ``.codex/`` only when explicitly
 approved.
 
-``.pi/tasks/`` contains durable task and decision records. ``.pi/skills/``
-contains pi-specific skills with no shared equivalent. ``.pi/agents/`` and
+``harness/tasks/`` contains canonical Task records; archived Markdown and intake
+evidence under ``harness/archive/task-control-v1/`` is not runtime authority.
+``.pi/skills/`` contains pi-specific skills with no shared equivalent. ``.pi/agents/`` and
 ``.pi/chains/`` describe pi subagents and chains. ``.agents/skills/`` contains
 shared repository-local agent skills such as the manually installed Graphify
 skill.

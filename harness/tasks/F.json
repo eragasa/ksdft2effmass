@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "task_id": "F",
+  "title": "Task F — Quantum ESPRESSO execution boundary",
+  "status": "legacy_recorded",
+  "status_detail": "prospectively superseded for workflow sequencing by P2/P5/P6; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement the explicit QE process boundary and synthetic execution infrastructure while preserving the separate states of process completion, SCF convergence, numerical acceptance, and scientific validation.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/F.md"
+  ],
+  "authorized_scope": [
+    "execution configuration DataObjects;",
+    "`QuantumEspressoExecutionResult` ResultObject;",
+    "concrete runner/executor composition;",
+    "`SCFConvergenceResult` and convergence analyzer;",
+    "artifact classification and sealed-output handoff;",
+    "synthetic command-executor fixtures."
+  ],
+  "completion_criteria": [
+    "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance completes the synthetic execution/parser component of G01a but does not itself pass G01a or authorize G02 production."
+  ],
+  "exclusions": [
+    "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance completes the synthetic execution/parser component of G01a but does not itself pass G01a or authorize G02 production."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/F.md",
+    "sha256": "e76394dc83c830fd347177b8663afb68d7ebc9967e03d538c2d8dfc3d5f026a4"
+  }
+}

@@ -20,7 +20,7 @@
     "completion_criteria",
     "exclusions",
     "intake_path",
-    "documentation_path"
+    "archived_source"
   ],
   "$defs": {
     "identifier": {
@@ -33,52 +33,125 @@
     },
     "identifier_array": {
       "type": "array",
-      "items": {"$ref": "#/$defs/identifier"},
+      "items": {
+        "$ref": "#/$defs/identifier"
+      },
       "uniqueItems": true
     },
     "text_array": {
       "type": "array",
       "minItems": 1,
-      "items": {"type": "string", "minLength": 1},
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
       "uniqueItems": true
+    },
+    "archived_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
     }
   },
   "properties": {
-    "schema_version": {"const": 2},
-    "task_id": {"$ref": "#/$defs/identifier"},
-    "title": {"type": "string", "minLength": 1},
-    "status": {"$ref": "#/$defs/identifier"},
+    "schema_version": {
+      "const": 2
+    },
+    "task_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "$ref": "#/$defs/identifier"
+    },
     "status_detail": {
       "oneOf": [
-        {"type": "string", "minLength": 1},
-        {"type": "null"}
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
       ]
     },
     "parent_task_id": {
       "oneOf": [
-        {"$ref": "#/$defs/identifier"},
-        {"type": "null"}
+        {
+          "$ref": "#/$defs/identifier"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
-    "task_prerequisite_ids": {"$ref": "#/$defs/identifier_array"},
-    "external_prerequisite_ids": {"$ref": "#/$defs/identifier_array"},
-    "explicit_activation_required": {"type": "boolean"},
-    "objective": {"type": "string", "minLength": 1},
+    "task_prerequisite_ids": {
+      "$ref": "#/$defs/identifier_array"
+    },
+    "external_prerequisite_ids": {
+      "$ref": "#/$defs/identifier_array"
+    },
+    "explicit_activation_required": {
+      "type": "boolean"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
     "authority_reference_paths": {
       "type": "array",
       "minItems": 1,
-      "items": {"$ref": "#/$defs/path"},
+      "items": {
+        "$ref": "#/$defs/path"
+      },
       "uniqueItems": true
     },
-    "authorized_scope": {"$ref": "#/$defs/text_array"},
-    "completion_criteria": {"$ref": "#/$defs/text_array"},
-    "exclusions": {"$ref": "#/$defs/text_array"},
+    "authorized_scope": {
+      "$ref": "#/$defs/text_array"
+    },
+    "completion_criteria": {
+      "$ref": "#/$defs/text_array"
+    },
+    "exclusions": {
+      "$ref": "#/$defs/text_array"
+    },
     "intake_path": {
       "oneOf": [
-        {"$ref": "#/$defs/path"},
-        {"type": "null"}
+        {
+          "$ref": "#/$defs/path"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
-    "documentation_path": {"$ref": "#/$defs/path"}
+    "documentation_path": {
+      "$ref": "#/$defs/path"
+    },
+    "archived_source": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/archived_source"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
   }
 }

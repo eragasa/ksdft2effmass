@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "task_id": "P9",
+  "title": "P9 — Wannier90 execution and result-adaptation subnet",
+  "status": "blocked",
+  "status_detail": "blocked by accepted P2, P3, and P8",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P2",
+    "P3",
+    "P8"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.\n\n`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/tasks/P9.md"
+  ],
+  "authorized_scope": [
+    "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.",
+    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "completion_criteria": [
+    "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.",
+    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "exclusions": [
+    "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.",
+    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P9.md",
+    "sha256": "b77c4365e49880d2eaa43b4df05a48409bbc5925853326a7a1fa1e0079e3d78e"
+  }
+}

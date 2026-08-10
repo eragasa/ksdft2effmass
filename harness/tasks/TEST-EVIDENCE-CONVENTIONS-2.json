@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+  "title": "TEST-EVIDENCE-CONVENTIONS-2 — Prevent recurring mixed-surface and generated-prose defects in Python test evidence",
+  "status": "human_authorized_pass",
+  "status_detail": "`closed` as human-authorized PASS after final deterministic stabilization",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [
+    "explicit_human_authorization"
+  ],
+  "explicit_activation_required": false,
+  "objective": "The current human instruction activates the remaining reusable controls plus one\nproject-local repository inventory and completion gate. The controlling chain and\nvalidated ownership manifest above supply writer/reviewer separation and mutation\nscope. Implementation is staged: control surfaces and the fail-closed baseline gate\nprecede controlled raw-test migration. The task remains unrelated to production or\nscientific execution and does not activate or accept P2, P3, or another scientific\nworkflow.",
+  "authority_reference_paths": [
+    ".pi/chains/test-evidence-repository-conformance.chain.json",
+    "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-CONVENTIONS-2.md"
+  ],
+  "authorized_scope": [
+    "Completion requires synchronized generic/live skill resources, controlled validator\nfixtures with false-positive guards, an exact repository inventory, a fail-closed local\ncompletion gate, migration of every current maintained module, focused software gates,\none consolidated independent review, and correction of any accepted bounded finding.\nStructural PASS remains separate from semantic review and human acceptance."
+  ],
+  "completion_criteria": [
+    "Completion requires synchronized generic/live skill resources, controlled validator\nfixtures with false-positive guards, an exact repository inventory, a fail-closed local\ncompletion gate, migration of every current maintained module, focused software gates,\none consolidated independent review, and correction of any accepted bounded finding.\nStructural PASS remains separate from semantic review and human acceptance."
+  ],
+  "exclusions": [
+    "The current human instruction activates the remaining reusable controls plus one\nproject-local repository inventory and completion gate. The controlling chain and\nvalidated ownership manifest above supply writer/reviewer separation and mutation\nscope. Implementation is staged: control surfaces and the fail-closed baseline gate\nprecede controlled raw-test migration. The task remains unrelated to production or\nscientific execution and does not activate or accept P2, P3, or another scientific\nworkflow.",
+    "two partitions are semantically or scientifically cohesive;",
+    "an oracle is genuinely independent;",
+    "every relevant invariant has been identified;",
+    "a test is proportionate;",
+    "lifecycle prose is scientifically accurate; or",
+    "a numerical tolerance is adequate."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+    "sha256": "1d33344e5146d967b080b6cac777a5f29aaa608c27aa0f7757061c9c067006a8"
+  }
+}

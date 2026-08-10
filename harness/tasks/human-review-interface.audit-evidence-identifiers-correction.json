@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "task_id": "human-review-interface.audit-evidence-identifiers-correction",
+  "title": "Correct initial AuditEvidenceIdentifiers pilot findings",
+  "status": "completed",
+  "status_detail": "completed; packet ready for renewed direct human review under `.pi/chains/human-review-interface.chain.json`",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "human-review-interface.review-packet-pilot"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Task identity: `human-review-interface.audit-evidence-identifiers-correction`",
+  "authority_reference_paths": [
+    ".pi/chains/human-review-interface.chain.json",
+    ".pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md",
+    "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md",
+    "origin/dev"
+  ],
+  "authorized_scope": [
+    "Task identity: `human-review-interface.audit-evidence-identifiers-correction`"
+  ],
+  "completion_criteria": [
+    "Task identity: `human-review-interface.audit-evidence-identifiers-correction`"
+  ],
+  "exclusions": [
+    "Task identity: `human-review-interface.audit-evidence-identifiers-correction`"
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md",
+    "sha256": "0c6feff3456d5f66abf06710d01d6f010ff4540de0c640d1586a719bbfc7147d"
+  }
+}

@@ -28,5 +28,6 @@
     "Synthetic fixture data is not research evidence."
   ],
   "intake_path": "records/example-child.intake.md",
+  "archived_source": null,
   "documentation_path": "docs/example-child.md"
 }

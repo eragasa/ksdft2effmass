@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "task_id": "H1",
+  "title": "H1 — Harness contract and package boundary",
+  "status": "human_accepted_pass",
+  "status_detail": "human-accepted H1 retained with the bounded version-1 `H2-HC01` Option-A contract/resource correction active under H2; no interface/version expansion",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "H0"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Define the smallest stable generic harness contract and the package/resource boundary required for incubation and later extraction. Existing scripts are requirement evidence, not automatically the public API.",
+  "authority_reference_paths": [
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/evidence/pi-harness-incubation/H1/activation.json",
+    "harness/archive/task-control-v1/tasks/H1.md"
+  ],
+  "authorized_scope": [
+    "immutable record and structured result boundaries;",
+    "stateless validation/loading ActionObjects;",
+    "explicit project-profile semantics;",
+    "resource identity and manifest rules;",
+    "public-contract, profile-schema, resource-manifest, skill, and implementation version layers;",
+    "structured invalid-input versus internal-failure diagnostics;",
+    "path confinement and explicit resource-root behavior;",
+    "exact generic/local/package-extraction boundary;",
+    "clean-revision reproducible validation distinguished from optional",
+    "successor task vocabulary reconciled to the accepted primary evidence kinds"
+  ],
+  "completion_criteria": [
+    "Software-contract review is required. Numerical verification is required only if H1 authorizes an actual numerical algorithm. Scientific validation and UQ are not applicable."
+  ],
+  "exclusions": [
+    "No production Python or textual-resource implementation, source movement, legacy retirement, package publication, P2 work, or scientific execution. H1 must not silently resolve conflicts retained by H0.",
+    "Software-contract review is required. Numerical verification is required only if H1 authorizes an actual numerical algorithm. Scientific validation and UQ are not applicable."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/H1.md",
+    "sha256": "16b178624908a41b2b9c451f2c9eaa4cf7d0e440cef542be6c918d5b1a3bb38f"
+  }
+}

@@ -32,5 +32,6 @@
     "Do not add a production dependency, public Task DataObject or serializer, public Task wire kind, automatic activation, dispatch, or migration of another Task.",
     "Do not perform scientific, protected-execution, publication, release, or successor-activation work."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.docs-json.schema-projection.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.schema-projection.intake.md",
+  "archived_source": null
 }

@@ -12,7 +12,7 @@
   "objective": "After prerequisite work is complete, present eligible harness-simplification successors for a current human selection and record exactly one explicit activation without inferring continuation from documentation, completion, ordering, or agent recommendation.",
   "authority_reference_paths": [
     ".pi/chains/harness-simplification.chain.json",
-    ".pi/tasks/harness.simplification.control.successor-selection.intake.md"
+    "harness/archive/task-control-v1/intake/harness.simplification.control.successor-selection.intake.md"
   ],
   "authorized_scope": [
     "Inspect bounded durable chain and exact Task records to identify prerequisite-eligible inactive harness-simplification candidates.",
@@ -29,5 +29,6 @@
     "Do not expand the selected Task scope, execute its implementation, perform protected work, or treat a reviewer or deterministic check as human acceptance.",
     "Do not activate this Task automatically; a later current human instruction must authorize its activation after prerequisites are satisfied."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.control.successor-selection.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.control.successor-selection.intake.md",
+  "archived_source": null
 }

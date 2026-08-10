@@ -82,6 +82,20 @@ def _text_tuple(
 
 
 @dataclass(frozen=True, slots=True)
+class ArchivedTaskSource:
+    """Identify the exact archived Markdown source of a migrated Task."""
+
+    path: ResourcePath
+    sha256: str
+
+    def __post_init__(self) -> None:
+        _require_path(self.path, "archived_source path")
+        digest = _require_builtin_str(self.sha256, "archived_source sha256")
+        if re.fullmatch(r"[0-9a-f]{64}", digest, re.ASCII) is None:
+            raise ValueError("archived_source sha256 must be 64 lowercase hex digits")
+
+
+@dataclass(frozen=True, slots=True)
 class HarnessTask:
     """Represent one canonical project-local Task.
 
@@ -108,8 +122,11 @@ class HarnessTask:
     intake_path
         Optional accepted resource path for separate non-executable intake. ``None``
         records that no separate intake artifact exists.
+    archived_source
+        Exact archive path and SHA-256 identity for a migrated Markdown Task, or
+        ``None`` for a JSON-native Task.
     documentation_path
-        Accepted resource path for maintained prose.
+        Optional retained compatibility path for maintained prose.
 
     Raises
     ------
@@ -141,7 +158,8 @@ class HarnessTask:
     completion_criteria: tuple[str, ...]
     exclusions: tuple[str, ...]
     intake_path: ResourcePath | None
-    documentation_path: ResourcePath
+    archived_source: ArchivedTaskSource | None = None
+    documentation_path: ResourcePath | None = None
 
     def __post_init__(self) -> None:
         if _require_int(self.schema_version, "schema_version") != 2:
@@ -179,7 +197,13 @@ class HarnessTask:
         exclusions = _text_tuple(self.exclusions, "exclusions")
         if self.intake_path is not None:
             _require_path(self.intake_path, "intake_path")
-        _require_path(self.documentation_path, "documentation_path")
+        if (
+            self.archived_source is not None
+            and type(self.archived_source) is not ArchivedTaskSource
+        ):
+            raise TypeError("archived_source must be ArchivedTaskSource or None")
+        if self.documentation_path is not None:
+            _require_path(self.documentation_path, "documentation_path")
         object.__setattr__(self, "task_prerequisite_ids", task_prerequisites)
         object.__setattr__(self, "external_prerequisite_ids", external_prerequisites)
         object.__setattr__(self, "authority_reference_paths", authority_paths)
@@ -219,7 +243,14 @@ class HarnessTaskSerializer:
         """
         if type(task) is not HarnessTask:
             raise TypeError("task must be HarnessTask")
-        obj = {field.name: getattr(task, field.name) for field in fields(HarnessTask)}
+        obj: dict[str, Any] = {}
+        for field in fields(HarnessTask):
+            value = getattr(task, field.name)
+            if field.name == "documentation_path" and value is None:
+                continue
+            if type(value) is ArchivedTaskSource:
+                value = {"path": value.path, "sha256": value.sha256}
+            obj[field.name] = value
         return (json.dumps(obj, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
 
@@ -274,7 +305,8 @@ class HarnessTaskDeserializer:
         if type(value) is not dict:
             raise TypeError("payload must represent a JSON object")
         expected = tuple(field.name for field in fields(HarnessTask))
-        missing = set(expected) - set(value)
+        required = set(expected) - {"documentation_path"}
+        missing = required - set(value)
         unknown = set(value) - set(expected)
         if missing:
             raise ValueError(f"missing field {sorted(missing)[0]}")
@@ -292,6 +324,11 @@ class HarnessTaskDeserializer:
             if type(value[name]) is not list:
                 raise TypeError(f"{name} must be a JSON array")
             value[name] = tuple(value[name])
+        archived = value["archived_source"]
+        if archived is not None:
+            if type(archived) is not dict or set(archived) != {"path", "sha256"}:
+                raise TypeError("archived_source must be a closed JSON object or null")
+            value["archived_source"] = ArchivedTaskSource(**archived)
         return HarnessTask(**value)
 
 
@@ -352,7 +389,10 @@ class HarnessTaskGraphValidator:
                 issues.append(
                     LocalIssue(
                         "PIHL.TASK.PARENT_MISSING",
-                        task.documentation_path,
+                        task.documentation_path
+                        or (
+                            task.archived_source.path if task.archived_source else None
+                        ),
                         task.parent_task_id,
                     )
                 )
@@ -361,7 +401,12 @@ class HarnessTaskGraphValidator:
                     issues.append(
                         LocalIssue(
                             "PIHL.TASK.PREREQUISITE_MISSING",
-                            task.documentation_path,
+                            task.documentation_path
+                            or (
+                                task.archived_source.path
+                                if task.archived_source
+                                else None
+                            ),
                             dependency,
                         )
                     )

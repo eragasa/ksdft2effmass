@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "task_id": "P10",
+  "title": "P10 — Synthetic composed workflow verification",
+  "status": "blocked",
+  "status_detail": "blocked by accepted P6, P7, P8, P9, and required metrics",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P6",
+    "P7",
+    "P8",
+    "P9"
+  ],
+  "external_prerequisite_ids": [
+    "required_metrics"
+  ],
+  "explicit_activation_required": false,
+  "objective": "Verify composed CPN semantics with synthetic requests/results: multisets, independent fan-out, provenance-compatible joins, pure guards, failure/recovery, explicit retry authorization, repeated convergence iterations, durable marking round trips, terminal failed-attempt history with new-identity retries, recoverable blocked branches, explicitly finalized blocked outcomes, scope-explicit accepted/rejected outcomes, and restart from persisted project state.\n\nThe evidence is software verification and applicable numerical verification only. It does not run QE/Wannier90, establish G02, scientific validation, UQ, or Rust conformance. It contributes to G01b after its own review and acceptance.\n\nCompletion requires tests/evidence, documentation, independent review, parent verification, and human acceptance.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/tasks/P10.md"
+  ],
+  "authorized_scope": [
+    "Verify composed CPN semantics with synthetic requests/results: multisets, independent fan-out, provenance-compatible joins, pure guards, failure/recovery, explicit retry authorization, repeated convergence iterations, durable marking round trips, terminal failed-attempt history with new-identity retries, recoverable blocked branches, explicitly finalized blocked outcomes, scope-explicit accepted/rejected outcomes, and restart from persisted project state.",
+    "The evidence is software verification and applicable numerical verification only. It does not run QE/Wannier90, establish G02, scientific validation, UQ, or Rust conformance. It contributes to G01b after its own review and acceptance.",
+    "Completion requires tests/evidence, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "completion_criteria": [
+    "Verify composed CPN semantics with synthetic requests/results: multisets, independent fan-out, provenance-compatible joins, pure guards, failure/recovery, explicit retry authorization, repeated convergence iterations, durable marking round trips, terminal failed-attempt history with new-identity retries, recoverable blocked branches, explicitly finalized blocked outcomes, scope-explicit accepted/rejected outcomes, and restart from persisted project state.",
+    "The evidence is software verification and applicable numerical verification only. It does not run QE/Wannier90, establish G02, scientific validation, UQ, or Rust conformance. It contributes to G01b after its own review and acceptance.",
+    "Completion requires tests/evidence, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "exclusions": [
+    "Verify composed CPN semantics with synthetic requests/results: multisets, independent fan-out, provenance-compatible joins, pure guards, failure/recovery, explicit retry authorization, repeated convergence iterations, durable marking round trips, terminal failed-attempt history with new-identity retries, recoverable blocked branches, explicitly finalized blocked outcomes, scope-explicit accepted/rejected outcomes, and restart from persisted project state.",
+    "The evidence is software verification and applicable numerical verification only. It does not run QE/Wannier90, establish G02, scientific validation, UQ, or Rust conformance. It contributes to G01b after its own review and acceptance.",
+    "Completion requires tests/evidence, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P10.md",
+    "sha256": "ee17d39876266262d4da6fd684a8ce2bbda51c0f1559ee16fecaf0c71bd0729a"
+  }
+}

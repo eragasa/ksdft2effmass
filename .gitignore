@@ -245,6 +245,9 @@ graphify-out/
 # generated subagent transcripts and run artifacts local.
 .pi-subagents/
 
+# Disposable derived harness indexes
+.pi/cache/
+
 ## LateX
 
 # LaTeX intermediate files

@@ -57,7 +57,7 @@ of them in the capability inventory would make that inventory stale.
 | Skill | Path | Primary CPN suitability | Main current consumers |
 |---|---|---|---|
 | `design-data-action-objects` | `.pi/skills/design-data-action-objects/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project design and implementation agents |
-| `develop-architecture-decision` | `.pi/skills/develop-architecture-decision/SKILL.md` | `HUMAN_DECISION_SUPPORT` | `.pi/tasks/develop-architecture-decision-skill.md` |
+| `develop-architecture-decision` | `.pi/skills/develop-architecture-decision/SKILL.md` | `HUMAN_DECISION_SUPPORT` | `harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json` |
 | `develop-operator-records` | `.pi/skills/develop-operator-records/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | project operator agents and closed operator workflows |
 | `develop-python-test-evidence` | `.pi/skills/develop-python-test-evidence/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | test writers and integration/evidence reviewers |
 | `document-python-research-software` | `.pi/skills/document-python-research-software/SKILL.md` | `COMPOSABLE_AFTER_HARDENING` | documentation and integration-review agents |

@@ -7,7 +7,7 @@
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
-  "architecture_authority": ".pi/tasks/backend-neutral-cpn-workflow-architecture.md",
+  "architecture_authority": "harness/tasks/backend-neutral-cpn-workflow-architecture.json",
   "architecture_documents": [
     "docs/architecture/colored-petri-net-workflows.md",
     "docs/architecture/kohn-sham-dft-quantum-espresso.md",
@@ -15,7 +15,7 @@
   ],
   "production_execution_authorized": false,
   "superseded_sequence": {
-    "authority": ".pi/tasks/backend-neutral-kohn-sham-qe-architecture.md",
+    "authority": "harness/tasks/backend-neutral-kohn-sham-qe-architecture.json",
     "tasks": [
       "A",
       "B",
@@ -31,134 +31,62 @@
   "task_sequence": [
     {
       "id": "P0",
-      "record": ".pi/tasks/backend-neutral-cpn-P0-preflight.md",
-      "prerequisites": [],
-      "status": "human_accepted_conditional_pass"
+      "record": "harness/tasks/P0.json"
     },
     {
       "id": "P0A",
-      "record": ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
-      "prerequisites": [
-        "P0:human_accepted"
-      ],
-      "status": "human_accepted_pass"
+      "record": "harness/tasks/P0A.json"
     },
     {
       "id": "P1",
-      "record": ".pi/tasks/backend-neutral-cpn-P1-contract.md",
-      "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
-      "prerequisites": [
-        "P0A:human_accepted"
-      ],
-      "status": "human_accepted_pass"
+      "record": "harness/tasks/P1.json",
+      "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
     },
     {
       "id": "EVIDENCE-DOC-1",
-      "record": ".pi/tasks/class-owned-evidence-documentation-convention.md",
-      "ownership_manifest": ".pi/evidence/class-owned-evidence-convention/task-ownership.json",
-      "prerequisites": [],
-      "status": "human_accepted_pass"
+      "record": "harness/tasks/EVIDENCE-DOC-1.json",
+      "ownership_manifest": ".pi/evidence/class-owned-evidence-convention/task-ownership.json"
     },
     {
       "id": "P2",
-      "record": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
-      "prerequisites": [
-        "P1:human_accepted",
-        "H4:human_accepted",
-        "explicit_activation:P2"
-      ],
-      "status": "human_accepted_pass",
+      "record": "harness/tasks/P2.json",
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
       "id": "P3",
-      "record": ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md",
-      "prerequisites": [
-        "P1:human_accepted",
-        "P2:human_accepted"
-      ],
-      "status": "prerequisite_eligible_inactive"
+      "record": "harness/tasks/P3.json"
     },
     {
       "id": "P4",
-      "record": ".pi/tasks/backend-neutral-cpn-P4-neutral-dft.md",
-      "prerequisites": [
-        "P1:human_accepted",
-        "P2:human_accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P4.json"
     },
     {
       "id": "P5",
-      "record": ".pi/tasks/backend-neutral-cpn-P5-qe-boundary.md",
-      "prerequisites": [
-        "P2:human_accepted",
-        "P4:human_accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P5.json"
     },
     {
       "id": "P6",
-      "record": ".pi/tasks/backend-neutral-cpn-P6-qe-scf-subnet.md",
-      "prerequisites": [
-        "P3:human_accepted",
-        "P4:human_accepted",
-        "P5:human_accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P6.json"
     },
     {
       "id": "P7",
-      "record": ".pi/tasks/backend-neutral-cpn-P7-direct-tb.md",
-      "prerequisites": [
-        "P3:human_accepted",
-        "P4:human_accepted",
-        "P6:human_accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P7.json"
     },
     {
       "id": "P8",
-      "record": ".pi/tasks/backend-neutral-cpn-P8-wannier-bridge.md",
-      "prerequisites": [
-        "P3:human_accepted",
-        "P4:human_accepted",
-        "P5:human_accepted",
-        "P6:human_accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P8.json"
     },
     {
       "id": "P9",
-      "record": ".pi/tasks/backend-neutral-cpn-P9-wannier-execution.md",
-      "prerequisites": [
-        "P2:human_accepted",
-        "P3:human_accepted",
-        "P8:human_accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P9.json"
     },
     {
       "id": "P10",
-      "record": ".pi/tasks/backend-neutral-cpn-P10-synthetic-workflow.md",
-      "prerequisites": [
-        "P6:human_accepted",
-        "P7:human_accepted",
-        "P8:human_accepted",
-        "P9:human_accepted",
-        "required_metrics:accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P10.json"
     },
     {
       "id": "P11",
-      "record": ".pi/tasks/backend-neutral-cpn-P11-bulk-si-campaign.md",
-      "prerequisites": [
-        "G01a:accepted_marking",
-        "P10:human_accepted",
-        "production_checkpoint:accepted"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/P11.json"
     }
   ],
   "task_ownership_launch_preflight": {
@@ -273,7 +201,7 @@
       "task": "P2",
       "authorized_at": "2026-08-05T15:42:27Z",
       "activated_after": "P1 and H4 human-accepted PASS, zero unresolved checkpoints, maintained local-route consumer PASS, and durable ownership preflight",
-      "authority": "Current human instruction titled P2 \u2014 Activate and implement provenance and external-tool capability records",
+      "authority": "Current human instruction titled P2 — Activate and implement provenance and external-tool capability records",
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     }
   ],
@@ -283,5 +211,6 @@
       "phase": "P2-closed-human-accepted-PASS",
       "message": "P2 is closed as human-accepted PASS; P2-A00 through P2-A11 remain audited_and_cleared and the audit queue is complete. P3 is prerequisite-eligible but inactive. H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive."
     }
-  ]
+  ],
+  "explicitly_activated_task_ids": []
 }

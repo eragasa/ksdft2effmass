@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "task_id": "P1",
+  "title": "P1 — Project-owned CPN contract",
+  "status": "human_accepted_pass",
+  "status_detail": "closed as human-accepted `PASS` through `P1-HC03` on 2026-08-04; no successor launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P0A"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Deliver an executable, backend-neutral, project-owned Colored Petri Net (CPN)\ncontract in production source with focused tests. Define language-neutral\nproject-owned token colors, places, transitions, arcs/inscriptions, pure guards,\nmultiset markings, scope-explicit outcomes/terminal states, structured errors,\nand Rust-translatable persistence fields.\n\nThe contract must encode\n\n$$\n\\mathcal N=(P,T,A,\\Sigma,C,G,E,I),\n$$\n\nmultiple tokens, synchronization, retries, recovery, repeated transition\nexecution and cyclic net execution, authorizations, provenance, and parent-child\nlineage. Repeated execution does not imply automatic `iteration_index`\nadvancement: version 1 performs no arithmetic, and the index is explicitly\nsupplied or copied routing data. It must not expose or\ninherit from SNAKES classes, reduce markings to Booleans, serialize lambdas, or\ncreate a multi-engine framework.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
+    "harness/archive/task-control-v1/tasks/P1.md"
+  ],
+  "authorized_scope": [
+    "production Python source under `python/src/ksdft2effmass/workflows/cpn/`;",
+    "immutable DataObjects/ResultObjects for the neutral contract and explicit",
+    "fixed, deterministic, Rust-translatable public contract fields and enums;",
+    "focused software-verification tests under the maintained VVUQ hierarchy;",
+    "language-neutral schemas and valid/invalid fixtures required to expose the",
+    "Markdown concept/API documentation and Sphinx navigation for implemented",
+    "public package imports, source documentation, read-only review, parent"
+  ],
+  "completion_criteria": [
+    "production contract source is executable and importable without SNAKES;",
+    "markings preserve token multiplicity and deterministic token identity/order;",
+    "transition enablement and firing cover multiple inputs, synchronization,",
+    "retry, failure/recovery, repeated and cyclic firing, authorization, provenance,",
+    "accepted/rejected/failed/blocked outcomes carry explicit scope and terminality;",
+    "invalid definitions, markings, bindings, and firings produce documented",
+    "public Python types, language-neutral schemas, fixtures, tests, documentation,",
+    "no production module imports SNAKES and no SNAKES runtime object enters the",
+    "focused software-verification tests, formatter, linter, type checker, public",
+    "independent architecture, test/documentation, and integration reviews have no",
+    "parent verification confirms scope containment and keeps P2--P11 and",
+    "a new human final-acceptance checkpoint is required to close P1."
+  ],
+  "exclusions": [
+    "a SNAKES engine adapter or any other engine adapter;",
+    "authoritative marking persistence, a persistence repository, or pickle;",
+    "external-tool execution, scheduler/subprocess behavior, QE, ABINIT, or",
+    "a concrete scientific workflow or backend/scientific payload model;",
+    "P2 provenance/tool-capability objects or any P2--P11 task scope;",
+    "untrusted expression evaluation, dynamically supplied Python callables, or"
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P1.md",
+    "sha256": "d9decd2a534053afd79ecae768b92a0a79c8998106c880cbb768283831da822d"
+  }
+}

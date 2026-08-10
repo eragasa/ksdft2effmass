@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "task_id": "backend-neutral-cpn-workflow-architecture",
+  "title": "Backend-neutral Colored Petri Net workflow architecture correction",
+  "status": "legacy_recorded",
+  "status_detail": "Architecture correction closed and human-accepted through `CPN-HC01` on 2026-08-03. The human PI accepted bounded preflight P0 as `CONDITIONAL_PASS` through `P0-HC01`, then accepted and closed P0A as `PASS`. P1 was separately activated after P0A closeout validation and is now blocked at unresolved `P1-HC01`; P2--P11 remain blocked and unauthorized. Production/scientific execution, pseudopotential selection, and QE, ABINIT, or Wannier90 calculations remain unauthorized.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Architecture correction closed and human-accepted through `CPN-HC01` on 2026-08-03. The human PI accepted bounded preflight P0 as `CONDITIONAL_PASS` through `P0-HC01`, then accepted and closed P0A as `PASS`. P1 was separately activated after P0A closeout validation and is now blocked at unresolved `P1-HC01`; P2--P11 remain blocked and unauthorized. Production/scientific execution, pseudopotential selection, and QE, ABINIT, or Wannier90 calculations remain unauthorized.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md"
+  ],
+  "authorized_scope": [
+    "replace scientific-workflow DAG semantics with a project-owned stateful Colored Petri Net;",
+    "retain acyclic static Python import direction where practical;",
+    "record SNAKES as the selected candidate engine;",
+    "define CPN mathematical, token, marking, guard, execution, persistence, fan-out, and provenance-join boundaries;",
+    "record external-tool capability/request/result objects and token colors;",
+    "add Markdown-first architecture, user-guide, dependency-catalog, computational, and research records;",
+    "supersede A–H prospectively with bounded tasks P0–P11;",
+    "request independent read-only architecture and integration reviews.",
+    "production Python or test implementation;",
+    "dependency or lock-file changes;",
+    "SNAKES, MyST, cpnpy, SimPN, PhysKit, or external CPN code installation/copying;",
+    "QE, Wannier90, MPI, scheduler, transfer, Graphviz, or container execution;",
+    "convergence calculations;",
+    "public implementation schemas or live marking persistence;",
+    "launch of P0 or any later task;",
+    "rewriting historical accepted evidence."
+  ],
+  "completion_criteria": [
+    "chain JSON and P0–P11 prerequisite validation;",
+    "static prospective import-direction cycle audit, explicitly separate from workflow semantics;",
+    "CPN place/transition/token/guard/request-result contract scan;",
+    "SNAKES selected-but-not-added scan;",
+    "no implementation/test/dependency/lock changes;",
+    "no external execution or generated Sphinx output;",
+    "checkpoint validation;",
+    "Markdown link/navigation and supplied cpnpy block integrity checks;",
+    "Sphinx warnings-as-errors for currently supported sources;",
+    "stale DAG-as-workflow terminology scan;",
+    "computational/research/paper synchronization review;",
+    "`git diff --check`;",
+    "five independent read-only review lanes and final parent verification.",
+    "the stateful CPN workflow semantics;",
+    "the periodic KS/GKS electronic-structure domain;",
+    "PAW and pseudopotential formalisms as independent capabilities;",
+    "QE as the initial production backend;",
+    "deferred ABINIT VVUQ conformance infrastructure;",
+    "deferred hybrid GKS and broader backend integration;",
+    "Markdown-first documentation;",
+    "the post-dopant launch condition for deferred generalization."
+  ],
+  "exclusions": [
+    "P0 was human-accepted as `CONDITIONAL_PASS` through resolved `P0-HC01` on 2026-08-03 and is closed.",
+    "Bounded P0A packaging/configuration is human-accepted as `PASS` and closed.",
+    "P1 was separately activated after P0A closeout validation and is blocked at unresolved `P1-HC01`; P2--P11 and production/scientific execution remain blocked and unauthorized.",
+    "Pseudopotential selection remains a later human scientific decision.",
+    "A later production checkpoint remains mandatory before any real QE, ABINIT, or Wannier90 execution."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md",
+    "sha256": "c95d832f32ea44ed14019123cb1038c7d18a069ae40d4dd7d510778f1520c248"
+  }
+}

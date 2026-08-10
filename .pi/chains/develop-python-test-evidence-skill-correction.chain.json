@@ -7,11 +7,7 @@
   "task_sequence": [
     {
       "id": "TEST-EVIDENCE-SKILL-1",
-      "record": ".pi/tasks/develop-python-test-evidence-skill-correction.md",
-      "prerequisites": [
-        "explicit_human_authorization"
-      ],
-      "status": "closed_human_accepted_pass",
+      "record": "harness/tasks/TEST-EVIDENCE-SKILL-1.json",
       "ownership_manifest": ".pi/evidence/develop-python-test-evidence-skill-correction/task-ownership.json"
     }
   ],
@@ -21,5 +17,6 @@
       "phase": "closed-human-accepted-pass",
       "message": "TEST-EVIDENCE-SKILL-1 was accepted as PASS and closed only. P2 was unchanged and unaccepted during this closeout. No P3, H5, scientific or external execution, publication, release, or successor was activated."
     }
-  ]
+  ],
+  "explicitly_activated_task_ids": []
 }

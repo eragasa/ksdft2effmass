@@ -16,25 +16,15 @@
   "task_sequence": [
     {
       "id": "human-review-interface.review-packet-pilot",
-      "record": ".pi/tasks/human-review-interface.review-packet-pilot.md",
-      "prerequisites": [],
-      "status": "human_accepted_pass"
+      "record": "harness/tasks/human-review-interface.review-packet-pilot.json"
     },
     {
       "id": "human-review-interface.audit-evidence-identifiers-correction",
-      "record": ".pi/tasks/human-review-interface.audit-evidence-identifiers-correction.md",
-      "prerequisites": [
-        "human-review-interface.review-packet-pilot:completed"
-      ],
-      "status": "completed"
+      "record": "harness/tasks/human-review-interface.audit-evidence-identifiers-correction.json"
     },
     {
       "id": "human-review-interface.human-decision-recording",
-      "record": ".pi/tasks/human-review-interface.human-decision-recording.md",
-      "prerequisites": [
-        "human-review-interface.review-packet-pilot:human_accepted_pass"
-      ],
-      "status": "architecture_corrected_awaiting_human_review"
+      "record": "harness/tasks/human-review-interface.human-decision-recording.json"
     },
     {
       "id": "human-review-interface.persistence-evaluation",
@@ -44,5 +34,6 @@
       ],
       "status": "proposed_inactive"
     }
-  ]
+  ],
+  "explicitly_activated_task_ids": []
 }

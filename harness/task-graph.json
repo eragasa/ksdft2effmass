@@ -1,0 +1,856 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {
+      "task_id": "A"
+    },
+    {
+      "task_id": "ARCHITECTURE-DECISION-SKILL-1"
+    },
+    {
+      "task_id": "B"
+    },
+    {
+      "task_id": "C"
+    },
+    {
+      "task_id": "D"
+    },
+    {
+      "task_id": "E"
+    },
+    {
+      "task_id": "EVIDENCE-DOC-1"
+    },
+    {
+      "task_id": "F"
+    },
+    {
+      "task_id": "G"
+    },
+    {
+      "task_id": "H"
+    },
+    {
+      "task_id": "H0"
+    },
+    {
+      "task_id": "H1"
+    },
+    {
+      "task_id": "H2"
+    },
+    {
+      "task_id": "H3"
+    },
+    {
+      "task_id": "H4"
+    },
+    {
+      "task_id": "H5"
+    },
+    {
+      "task_id": "P0"
+    },
+    {
+      "task_id": "P0A"
+    },
+    {
+      "task_id": "P1"
+    },
+    {
+      "task_id": "P10"
+    },
+    {
+      "task_id": "P11"
+    },
+    {
+      "task_id": "P2"
+    },
+    {
+      "task_id": "P3"
+    },
+    {
+      "task_id": "P4"
+    },
+    {
+      "task_id": "P5"
+    },
+    {
+      "task_id": "P6"
+    },
+    {
+      "task_id": "P7"
+    },
+    {
+      "task_id": "P8"
+    },
+    {
+      "task_id": "P9"
+    },
+    {
+      "task_id": "POLICY-CONSTITUTION-1"
+    },
+    {
+      "task_id": "TEST-EVIDENCE-CONVENTIONS-2"
+    },
+    {
+      "task_id": "TEST-EVIDENCE-SKILL-1"
+    },
+    {
+      "task_id": "backend-neutral-cpn-workflow-architecture"
+    },
+    {
+      "task_id": "backend-neutral-kohn-sham-qe-architecture"
+    },
+    {
+      "task_id": "cpn-skill-capability-audit"
+    },
+    {
+      "task_id": "deferred-harness-current-phase-history"
+    },
+    {
+      "task_id": "evidence-branch-orchestration-profile"
+    },
+    {
+      "task_id": "graphify-integration"
+    },
+    {
+      "task_id": "harness-simplification.agents.executable-tool-placement-contract"
+    },
+    {
+      "task_id": "harness-simplification.agents.live-discovery-cleanup"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-architecture"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-documentation"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-implementation"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-integration-review"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-role-simplification"
+    },
+    {
+      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation"
+    },
+    {
+      "task_id": "harness-simplification.agents.validator-migration-pilot"
+    },
+    {
+      "task_id": "harness-simplification.checkpoints.resolve-checkpoint-decision"
+    },
+    {
+      "task_id": "harness-simplification.docs-json.migration-review-interface"
+    },
+    {
+      "task_id": "harness-simplification.evidence.audit-action-conformance"
+    },
+    {
+      "task_id": "harness-simplification.execution.task-state-inspection-tool"
+    },
+    {
+      "task_id": "harness-simplification.execution.validator-pilot-stabilization"
+    },
+    {
+      "task_id": "harness-simplification.resources.develop-harness-resources"
+    },
+    {
+      "task_id": "harness-simplification.resources.manifest-refresh"
+    },
+    {
+      "task_id": "harness-task-state-symlink-toctou-hardening"
+    },
+    {
+      "task_id": "harness.simplification.agents.delegation-validation"
+    },
+    {
+      "task_id": "harness.simplification.api.action-object-grammar"
+    },
+    {
+      "task_id": "harness.simplification.control.successor-selection"
+    },
+    {
+      "task_id": "harness.simplification.control.task-catalog-reconciliation"
+    },
+    {
+      "task_id": "harness.simplification.docs-json"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.authority-catalog"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.documentation-correction"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.publication"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.publication.hierarchy"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.publication.triage"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.schema-projection"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.task-document-migration"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.task-implementation-hardening"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.task-model-contract"
+    },
+    {
+      "task_id": "harness.simplification.docs-json.task-model-simplification"
+    },
+    {
+      "task_id": "harness.simplification.evidence.naming"
+    },
+    {
+      "task_id": "harness.simplification.resources.h3-validator-retirement"
+    },
+    {
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction"
+    },
+    {
+      "task_id": "human-review-interface.human-decision-recording"
+    },
+    {
+      "task_id": "human-review-interface.review-packet-pilot"
+    },
+    {
+      "task_id": "operator-record-comparison"
+    },
+    {
+      "task_id": "operator-record-refactor"
+    },
+    {
+      "task_id": "operator-record-validation-correction"
+    }
+  ],
+  "edges": [
+    {
+      "source": "EVIDENCE-DOC-1",
+      "target": "P2",
+      "kind": "order"
+    },
+    {
+      "source": "H0",
+      "target": "H1",
+      "kind": "order"
+    },
+    {
+      "source": "H1",
+      "target": "H3",
+      "kind": "order"
+    },
+    {
+      "source": "H2",
+      "target": "H4",
+      "kind": "order"
+    },
+    {
+      "source": "H3",
+      "target": "H2",
+      "kind": "order"
+    },
+    {
+      "source": "H4",
+      "target": "H5",
+      "kind": "order"
+    },
+    {
+      "source": "P0",
+      "target": "P0A",
+      "kind": "order"
+    },
+    {
+      "source": "P0A",
+      "target": "P1",
+      "kind": "order"
+    },
+    {
+      "source": "P1",
+      "target": "EVIDENCE-DOC-1",
+      "kind": "order"
+    },
+    {
+      "source": "P10",
+      "target": "P11",
+      "kind": "order"
+    },
+    {
+      "source": "P2",
+      "target": "P3",
+      "kind": "order"
+    },
+    {
+      "source": "P3",
+      "target": "P4",
+      "kind": "order"
+    },
+    {
+      "source": "P4",
+      "target": "P5",
+      "kind": "order"
+    },
+    {
+      "source": "P5",
+      "target": "P6",
+      "kind": "order"
+    },
+    {
+      "source": "P6",
+      "target": "P7",
+      "kind": "order"
+    },
+    {
+      "source": "P7",
+      "target": "P8",
+      "kind": "order"
+    },
+    {
+      "source": "P8",
+      "target": "P9",
+      "kind": "order"
+    },
+    {
+      "source": "P9",
+      "target": "P10",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.executable-tool-placement-contract",
+      "target": "harness-simplification.agents.validator-migration-pilot",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.project-architecture",
+      "target": "harness-simplification.agents.executable-tool-placement-contract",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.project-documentation",
+      "target": "harness-simplification.agents.project-integration-review",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.project-implementation",
+      "target": "harness-simplification.agents.project-documentation",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.project-integration-review",
+      "target": "harness-simplification.agents.project-architecture",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.project-role-simplification",
+      "target": "harness-simplification.agents.project-implementation",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.agents.validator-migration-pilot",
+      "target": "harness-simplification.execution.validator-pilot-stabilization",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "target": "harness-simplification.resources.develop-harness-resources",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.docs-json.migration-review-interface",
+      "target": "harness.simplification.docs-json.task-model-simplification",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.execution.task-state-inspection-tool",
+      "target": "harness-simplification.resources.manifest-refresh",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.execution.validator-pilot-stabilization",
+      "target": "harness-simplification.execution.task-state-inspection-tool",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.resources.develop-harness-resources",
+      "target": "harness-simplification.evidence.audit-action-conformance",
+      "kind": "order"
+    },
+    {
+      "source": "harness-simplification.resources.manifest-refresh",
+      "target": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.agents.delegation-validation",
+      "target": "harness.simplification.api.action-object-grammar",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.api.action-object-grammar",
+      "target": "harness.simplification.docs-json",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.control.successor-selection",
+      "target": "harness.simplification.evidence.naming",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.control.task-catalog-reconciliation",
+      "target": "harness.simplification.control.successor-selection",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.publication",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.authority-catalog",
+      "target": "harness.simplification.docs-json.documentation-correction",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.documentation-correction",
+      "target": "harness.simplification.docs-json.schema-projection",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication",
+      "target": "harness.simplification.docs-json.publication.triage",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.hierarchy",
+      "target": "harness.simplification.docs-json.authority-catalog",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.triage",
+      "target": "harness.simplification.docs-json.publication.hierarchy",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.schema-projection",
+      "target": "harness.simplification.docs-json.task-model-contract",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-document-migration",
+      "target": "harness.simplification.resources.h3-validator-retirement",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-implementation-hardening",
+      "target": "harness-simplification.docs-json.migration-review-interface",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-contract",
+      "target": "harness.simplification.docs-json.task-implementation-hardening",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-simplification",
+      "target": "harness.simplification.docs-json.task-document-migration",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.resources.h3-validator-retirement",
+      "target": "harness.simplification.control.task-catalog-reconciliation",
+      "kind": "order"
+    },
+    {
+      "source": "human-review-interface.audit-evidence-identifiers-correction",
+      "target": "human-review-interface.human-decision-recording",
+      "kind": "order"
+    },
+    {
+      "source": "human-review-interface.review-packet-pilot",
+      "target": "human-review-interface.audit-evidence-identifiers-correction",
+      "kind": "order"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.authority-catalog",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.documentation-correction",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.publication",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.schema-projection",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.task-document-migration",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.task-implementation-hardening",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.task-model-contract",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.docs-json.task-model-simplification",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication",
+      "target": "harness.simplification.docs-json.publication.hierarchy",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication",
+      "target": "harness.simplification.docs-json.publication.triage",
+      "kind": "parent"
+    },
+    {
+      "source": "H0",
+      "target": "H1",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "H1",
+      "target": "H3",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "H2",
+      "target": "H4",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "H3",
+      "target": "H2",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "H4",
+      "target": "H5",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "H4",
+      "target": "P2",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P0",
+      "target": "P0A",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P0A",
+      "target": "P1",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P1",
+      "target": "H0",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P1",
+      "target": "P2",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P1",
+      "target": "P3",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P1",
+      "target": "P4",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P10",
+      "target": "P11",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P2",
+      "target": "P3",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P2",
+      "target": "P4",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P2",
+      "target": "P5",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P2",
+      "target": "P9",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P3",
+      "target": "P6",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P3",
+      "target": "P7",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P3",
+      "target": "P8",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P3",
+      "target": "P9",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P4",
+      "target": "P5",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P4",
+      "target": "P6",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P4",
+      "target": "P7",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P4",
+      "target": "P8",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P5",
+      "target": "P6",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P5",
+      "target": "P8",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P6",
+      "target": "P10",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P6",
+      "target": "P7",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P6",
+      "target": "P8",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P7",
+      "target": "P10",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P8",
+      "target": "P10",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P8",
+      "target": "P9",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "P9",
+      "target": "P10",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.executable-tool-placement-contract",
+      "target": "harness-simplification.agents.validator-migration-pilot",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.project-architecture",
+      "target": "harness-simplification.agents.executable-tool-placement-contract",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.project-documentation",
+      "target": "harness-simplification.agents.project-integration-review",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.project-implementation",
+      "target": "harness-simplification.agents.project-documentation",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.project-integration-review",
+      "target": "harness-simplification.agents.project-architecture",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.project-role-simplification",
+      "target": "harness-simplification.agents.project-implementation",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.agents.validator-migration-pilot",
+      "target": "harness-simplification.execution.validator-pilot-stabilization",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "target": "harness-simplification.resources.develop-harness-resources",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.evidence.audit-action-conformance",
+      "target": "harness.simplification.api.action-object-grammar",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.execution.task-state-inspection-tool",
+      "target": "harness-simplification.agents.live-discovery-cleanup",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.execution.task-state-inspection-tool",
+      "target": "harness-simplification.resources.manifest-refresh",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.execution.validator-pilot-stabilization",
+      "target": "harness-simplification.execution.task-state-inspection-tool",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.resources.develop-harness-resources",
+      "target": "harness-simplification.agents.resource-phase-routing-reconciliation",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.resources.develop-harness-resources",
+      "target": "harness-simplification.evidence.audit-action-conformance",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness-simplification.resources.manifest-refresh",
+      "target": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.agents.delegation-validation",
+      "target": "harness.simplification.control.task-catalog-reconciliation",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.api.action-object-grammar",
+      "target": "harness.simplification.docs-json",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.api.action-object-grammar",
+      "target": "harness.simplification.docs-json.publication.triage",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.api.action-object-grammar",
+      "target": "harness.simplification.evidence.naming",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.authority-catalog",
+      "target": "harness.simplification.docs-json.documentation-correction",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.documentation-correction",
+      "target": "harness.simplification.docs-json.schema-projection",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.hierarchy",
+      "target": "harness.simplification.docs-json.authority-catalog",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.triage",
+      "target": "harness.simplification.docs-json.publication.hierarchy",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.schema-projection",
+      "target": "harness.simplification.docs-json.task-model-contract",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-implementation-hardening",
+      "target": "harness.simplification.docs-json.task-document-migration",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-contract",
+      "target": "harness.simplification.docs-json.task-implementation-hardening",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-contract",
+      "target": "harness.simplification.docs-json.task-model-simplification",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.simplification.resources.h3-validator-retirement",
+      "target": "harness.simplification.control.successor-selection",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "human-review-interface.review-packet-pilot",
+      "target": "human-review-interface.audit-evidence-identifiers-correction",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "human-review-interface.review-packet-pilot",
+      "target": "human-review-interface.human-decision-recording",
+      "kind": "prerequisite"
+    }
+  ]
+}

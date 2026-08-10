@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "task_id": "D",
+  "title": "Task D — Quantum ESPRESSO mechanical input/output layer",
+  "status": "legacy_recorded",
+  "status_detail": "prospectively superseded for workflow sequencing by P5; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement deterministic QE mechanical records, rendering, and parsing without owning scientific mapping or execution.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/D.md"
+  ],
+  "authorized_scope": [
+    "`QuantumEspressoInputSerializer`: `QuantumEspressoInputRecord → deterministic text`;",
+    "`QuantumEspressoOutputParser`: native output → mechanical parsed record;",
+    "`QuantumEspressoSaveParser`: native save data → mechanical parsed record."
+  ],
+  "completion_criteria": [
+    "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance contributes to E, F, and H; it launches none."
+  ],
+  "exclusions": [
+    "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance contributes to E, F, and H; it launches none."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/D.md",
+    "sha256": "489e1b91d0f68ee5a13e9215260e13a6608a49a3652efc4576031f693bdf0859"
+  }
+}

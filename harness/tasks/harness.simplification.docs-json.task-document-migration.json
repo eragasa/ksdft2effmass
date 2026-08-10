@@ -16,10 +16,10 @@
     ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
     ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
     ".pi/evidence/task-control/task-document-human-mediation-decision.md",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+    "docs/harness/ksdft2effmass.harness.002.001.013.md",
+    "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-document-migration.intake.md",
     "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
-    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
-    "docs/harness/ksdft2effmass.harness.002.001.013.md"
+    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json"
   ],
   "authorized_scope": [
     "The selected source paths remain exactly .pi/tasks/harness.simplification.docs-json.md, .pi/tasks/harness.simplification.docs-json.publication.md, .pi/tasks/harness.simplification.docs-json.publication.triage.md, .pi/tasks/harness.simplification.docs-json.publication.hierarchy.md, .pi/tasks/harness.simplification.docs-json.authority-catalog.md, and .pi/tasks/harness.simplification.docs-json.documentation-correction.md.",
@@ -46,5 +46,6 @@
     "Do not normalize, reflow, reinterpret, or silently drop opaque content, documentation-owned narrative, historical evidence, or unexplained differences.",
     "Do not implement selection state, cut over or delete the chain, migrate Tasks outside the six selected files, add dependencies, change lockfiles, or perform SQLite, telemetry, scientific, publication, external, protected, release, or unrelated harness work."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-document-migration.intake.md",
+  "archived_source": null
 }

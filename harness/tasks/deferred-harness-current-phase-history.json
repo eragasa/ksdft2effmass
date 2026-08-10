@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "deferred-harness-current-phase-history",
+  "title": "Deferred harness improvement — explicit current phase and reconstructable history",
+  "status": "legacy_recorded",
+  "status_detail": "deferred; inactive",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Activation: not authorized",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/deferred-harness-current-phase-history.md"
+  ],
+  "authorized_scope": [
+    "No current chain record, chain schema, validator, runtime consumer, harness Python source, test, documentation navigation, dependency, lockfile, checkpoint, P2 record, H5 state, or P3–P11 state is changed or authorized by this record. No SQLite work, replay, implementation, task activation, or external/scientific execution is authorized.",
+    "Future work requires separate explicit human activation, bounded ownership, compatibility analysis, and applicable validation. This prospective infrastructure improvement makes no numerical-verification, scientific-validation, uncertainty-quantification, physical-correctness, or human-acceptance claim."
+  ],
+  "completion_criteria": [
+    "No current chain record, chain schema, validator, runtime consumer, harness Python source, test, documentation navigation, dependency, lockfile, checkpoint, P2 record, H5 state, or P3–P11 state is changed or authorized by this record. No SQLite work, replay, implementation, task activation, or external/scientific execution is authorized.",
+    "Future work requires separate explicit human activation, bounded ownership, compatibility analysis, and applicable validation. This prospective infrastructure improvement makes no numerical-verification, scientific-validation, uncertainty-quantification, physical-correctness, or human-acceptance claim."
+  ],
+  "exclusions": [
+    "No current chain record, chain schema, validator, runtime consumer, harness Python source, test, documentation navigation, dependency, lockfile, checkpoint, P2 record, H5 state, or P3–P11 state is changed or authorized by this record. No SQLite work, replay, implementation, task activation, or external/scientific execution is authorized.",
+    "Future work requires separate explicit human activation, bounded ownership, compatibility analysis, and applicable validation. This prospective infrastructure improvement makes no numerical-verification, scientific-validation, uncertainty-quantification, physical-correctness, or human-acceptance claim."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/deferred-harness-current-phase-history.md",
+    "sha256": "b556304658664dfaecfd834f18ab15a93178d81acffa82c215c0e4806fc157d7"
+  }
+}

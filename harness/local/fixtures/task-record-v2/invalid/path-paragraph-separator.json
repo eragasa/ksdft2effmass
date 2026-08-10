@@ -22,5 +22,6 @@
     "No activation or migration is authorized."
   ],
   "intake_path": "records/example.intake.md",
-  "documentation_path": "docs/a\u2029b.md"
+  "documentation_path": "docs/a\u2029b.md",
+  "archived_source": null
 }

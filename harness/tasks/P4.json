@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "task_id": "P4",
+  "title": "P4 — Neutral periodic electronic-structure structures, specifications, and datasets",
+  "status": "blocked",
+  "status_detail": "blocked by accepted P1 and P2",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P1",
+    "P2"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement the approved periodic electronic-structure DataObjects and immutable `PeriodicElectronicStructureDataset`/`SCFConvergenceResult` ResultObjects as project-owned CPN payloads without importing workflows.cpn, SNAKES, or a backend.\n\nThe domain is periodic KS/GKS electronic structure for crystalline solids organized in Bloch fibers. Preserve direct/reciprocal lattice, Brillouin-zone, $k$-point, band, unit, reciprocal/Fourier, spin/occupation, energy-reference, convergence, pseudopotential/PAW provenance, downstream-capability, and compact/external-artifact contracts. Keep theory, core treatment, numerical representation, backend, and available-product axes independent. Do not introduce molecular coverage, a universal DFT API, generic operator reconstruction from eigenvalues, a generic wavefunction object, a `PAWCalculator`, hybrid runtime support, or ABINIT implementation. This task preserves A/C content as prospectively corrected by `docs/architecture/periodic-electronic-structure-integration.md`.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "docs/architecture/periodic-electronic-structure-integration.md",
+    "harness/archive/task-control-v1/tasks/P4.md"
+  ],
+  "authorized_scope": [
+    "Implement the approved periodic electronic-structure DataObjects and immutable `PeriodicElectronicStructureDataset`/`SCFConvergenceResult` ResultObjects as project-owned CPN payloads without importing workflows.cpn, SNAKES, or a backend.",
+    "The domain is periodic KS/GKS electronic structure for crystalline solids organized in Bloch fibers. Preserve direct/reciprocal lattice, Brillouin-zone, $k$-point, band, unit, reciprocal/Fourier, spin/occupation, energy-reference, convergence, pseudopotential/PAW provenance, downstream-capability, and compact/external-artifact contracts. Keep theory, core treatment, numerical representation, backend, and available-product axes independent. Do not introduce molecular coverage, a universal DFT API, generic operator reconstruction from eigenvalues, a generic wavefunction object, a `PAWCalculator`, hybrid runtime support, or ABINIT implementation. This task preserves A/C content as prospectively corrected by `docs/architecture/periodic-electronic-structure-integration.md`.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "completion_criteria": [
+    "Implement the approved periodic electronic-structure DataObjects and immutable `PeriodicElectronicStructureDataset`/`SCFConvergenceResult` ResultObjects as project-owned CPN payloads without importing workflows.cpn, SNAKES, or a backend.",
+    "The domain is periodic KS/GKS electronic structure for crystalline solids organized in Bloch fibers. Preserve direct/reciprocal lattice, Brillouin-zone, $k$-point, band, unit, reciprocal/Fourier, spin/occupation, energy-reference, convergence, pseudopotential/PAW provenance, downstream-capability, and compact/external-artifact contracts. Keep theory, core treatment, numerical representation, backend, and available-product axes independent. Do not introduce molecular coverage, a universal DFT API, generic operator reconstruction from eigenvalues, a generic wavefunction object, a `PAWCalculator`, hybrid runtime support, or ABINIT implementation. This task preserves A/C content as prospectively corrected by `docs/architecture/periodic-electronic-structure-integration.md`.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "exclusions": [
+    "Implement the approved periodic electronic-structure DataObjects and immutable `PeriodicElectronicStructureDataset`/`SCFConvergenceResult` ResultObjects as project-owned CPN payloads without importing workflows.cpn, SNAKES, or a backend.",
+    "The domain is periodic KS/GKS electronic structure for crystalline solids organized in Bloch fibers. Preserve direct/reciprocal lattice, Brillouin-zone, $k$-point, band, unit, reciprocal/Fourier, spin/occupation, energy-reference, convergence, pseudopotential/PAW provenance, downstream-capability, and compact/external-artifact contracts. Keep theory, core treatment, numerical representation, backend, and available-product axes independent. Do not introduce molecular coverage, a universal DFT API, generic operator reconstruction from eigenvalues, a generic wavefunction object, a `PAWCalculator`, hybrid runtime support, or ABINIT implementation. This task preserves A/C content as prospectively corrected by `docs/architecture/periodic-electronic-structure-integration.md`.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P4.md",
+    "sha256": "31954815b9b31d8ba79482579d42c2ade4737240b811b3a5e24d05c5e49aee71"
+  }
+}

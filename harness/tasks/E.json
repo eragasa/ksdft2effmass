@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "task_id": "E",
+  "title": "Task E — Quantum ESPRESSO semantic mapping",
+  "status": "legacy_recorded",
+  "status_detail": "prospectively superseded for workflow sequencing by P6; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement two unidirectional semantic ActionObjects at the neutral/QE boundary.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/E.md"
+  ],
+  "authorized_scope": [
+    "```text\nQuantumEspressoInputMapper\n    KohnShamCalculationSpecification\n    + QuantumEspressoNumericalOptions\n    → QuantumEspressoInputRecord",
+    "QuantumEspressoResultAdapter\n    parsed QE output/save records\n    + accepted calculation specification\n    + execution/manifest identity\n    → KohnShamDataset\n```",
+    "No bidirectional adapter or object owning both mappings is permitted. The result adapter owns named source-to-neutral unit/index/convention conversion and retains source conventions. It does not execute QE, decide SCF convergence, align energy zeros across calculations, or claim scientific validation."
+  ],
+  "completion_criteria": [
+    "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance unlocks F and contributes to G and H; it launches none."
+  ],
+  "exclusions": [
+    "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance unlocks F and contributes to G and H; it launches none."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/E.md",
+    "sha256": "5b25f8431e43fb15584a2042ad2e81c2ecda432e70ac578c8934f87b27f0c4ff"
+  }
+}

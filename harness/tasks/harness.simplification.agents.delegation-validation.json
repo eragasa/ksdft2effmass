@@ -13,9 +13,9 @@
   "authority_reference_paths": [
     ".pi/chains/harness-simplification.chain.json",
     ".pi/settings.json",
-    ".pi/tasks/harness.simplification.agents.delegation-validation.intake.md",
     "docs/harness/ksdft2effmass.harness.002.001.003.md",
-    "docs/harness/ksdft2effmass.harness.002.001.009.md"
+    "docs/harness/ksdft2effmass.harness.002.001.009.md",
+    "harness/archive/task-control-v1/intake/harness.simplification.agents.delegation-validation.intake.md"
   ],
   "authorized_scope": [
     "Read the exact durable agent records, project-level disabled-agent configuration, supported runtime agent inventory, and applicable delegation procedure.",
@@ -35,5 +35,6 @@
     "Do not assign production implementation, documentation mutation, test mutation, scientific work, external execution, release work, or another Task through a capability probe.",
     "Do not add dependencies, change lockfiles, implement SQLite or evidence persistence, reopen H0-H4, or activate review-dispatch-idempotency, evidence-and-sqlite, scientific, publication, release, or protected work."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.agents.delegation-validation.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.agents.delegation-validation.intake.md",
+  "archived_source": null
 }

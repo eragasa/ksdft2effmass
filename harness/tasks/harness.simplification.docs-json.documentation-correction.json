@@ -30,5 +30,6 @@
     "Do not change scientific meaning, activate work, resolve checkpoints, create runtime routing, or perform repository-wide rewriting beyond authorized paths."
   ],
   "intake_path": null,
-  "documentation_path": "docs/harness/ksdft2effmass.harness.002.002.005.md"
+  "documentation_path": "docs/harness/ksdft2effmass.harness.002.002.005.md",
+  "archived_source": null
 }

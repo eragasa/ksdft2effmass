@@ -18,7 +18,7 @@
     "docs/harness/ksdft2effmass.harness.001.006.000.md"
   ],
   "authoritative_status_sources": {
-    "tasks": ".pi/tasks/",
+    "tasks": "harness/tasks/",
     "human_decisions": ".pi/checkpoints/",
     "dependencies_and_authorization": ".pi/chains/",
     "retained_evidence": ".pi/evidence/",
@@ -36,55 +36,30 @@
   "task_sequence": [
     {
       "id": "H0",
-      "record": ".pi/tasks/pi-harness-incubation-H0-inventory.md",
-      "prerequisites": [
-        "P1:human_accepted"
-      ],
-      "status": "human_accepted_pass"
+      "record": "harness/tasks/H0.json"
     },
     {
       "id": "H1",
-      "record": ".pi/tasks/pi-harness-incubation-H1-contract.md",
-      "prerequisites": [
-        "H0:human_accepted"
-      ],
-      "status": "human_accepted_pass"
+      "record": "harness/tasks/H1.json"
     },
     {
       "id": "H3",
-      "record": ".pi/tasks/pi-harness-incubation-H3-resources.md",
-      "prerequisites": [
-        "H1:human_accepted"
-      ],
-      "status": "human_accepted_pass",
+      "record": "harness/tasks/H3.json",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H3/task-ownership.json"
     },
     {
       "id": "H2",
-      "record": ".pi/tasks/pi-harness-incubation-H2-python-core.md",
-      "prerequisites": [
-        "H3:human_accepted"
-      ],
-      "status": "human_accepted_pass",
+      "record": "harness/tasks/H2.json",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H2/task-ownership.json"
     },
     {
       "id": "H4",
-      "record": ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
-      "prerequisites": [
-        "H2:human_accepted"
-      ],
-      "status": "human_accepted_pass_local_authoritative",
+      "record": "harness/tasks/H4.json",
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
       "id": "H5",
-      "record": ".pi/tasks/pi-harness-incubation-H5-extraction-readiness.md",
-      "prerequisites": [
-        "H4:human_accepted",
-        "explicit_activation:H5"
-      ],
-      "status": "blocked"
+      "record": "harness/tasks/H5.json"
     }
   ],
   "successor_activation_policy": {
@@ -186,7 +161,7 @@
     {
       "task": "H1",
       "authorized_at": "2026-08-04T13:28:09Z",
-      "authority": "Explicit human instruction titled Activate and execute H1 \u2014 PI Harness contract and package boundary",
+      "authority": "Explicit human instruction titled Activate and execute H1 — PI Harness contract and package boundary",
       "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
     },
     {
@@ -204,7 +179,7 @@
     {
       "task": "H4",
       "authorized_at": "2026-08-05",
-      "authority": "Explicit human instruction titled Activate and execute H4 \u2014 project-local harness cutover and skill-name correction",
+      "authority": "Explicit human instruction titled Activate and execute H4 — project-local harness cutover and skill-name correction",
       "scope": "H4 project-local Python, tests and deterministic parity evidence, canonical two-skill rename and live resource synchronization, stale inventory correction, maintained documentation/control synchronization, independent review, bounded correction, final verification, and one final H4 checkpoint only; no H5/P2/scientific/external/publication/release activation."
     }
   ],
@@ -214,5 +189,6 @@
       "phase": "H4-closed",
       "message": "H4 is human-accepted PASS and maintained local validation routing is authoritative with legacy rollback retained. No H5, P2, scientific/external execution, publication, or release action was activated in this boundary."
     }
-  ]
+  ],
+  "explicitly_activated_task_ids": []
 }

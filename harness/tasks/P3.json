@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "task_id": "P3",
+  "title": "P3 — SNAKES net construction and project-owned persistence",
+  "status": "prerequisite_eligible_inactive",
+  "status_detail": "prerequisite-eligible through accepted P1 and P2; inactive pending separate explicit activation",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P1",
+    "P2"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement the selected SNAKES adapter behind the accepted project CPN contract and deterministic project-owned durable marking persistence.\n\nPersistence records workflow schema/model IDs, multisets of typed token payloads, provenance, parent-child lineage, request/result correlation, and retry/failure history. Live-net pickle, arbitrary Python pickle, serialized lambdas, credentials, external clients, and Graphviz-as-authority are prohibited. Logical subnet composition must not assume an unverified hierarchical SNAKES API.\n\nCompletion requires implementation, tests, Markdown documentation, independent review, parent verification, and human acceptance.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/tasks/P3.md"
+  ],
+  "authorized_scope": [
+    "Implement the selected SNAKES adapter behind the accepted project CPN contract and deterministic project-owned durable marking persistence.",
+    "Persistence records workflow schema/model IDs, multisets of typed token payloads, provenance, parent-child lineage, request/result correlation, and retry/failure history. Live-net pickle, arbitrary Python pickle, serialized lambdas, credentials, external clients, and Graphviz-as-authority are prohibited. Logical subnet composition must not assume an unverified hierarchical SNAKES API.",
+    "Completion requires implementation, tests, Markdown documentation, independent review, parent verification, and human acceptance."
+  ],
+  "completion_criteria": [
+    "Implement the selected SNAKES adapter behind the accepted project CPN contract and deterministic project-owned durable marking persistence.",
+    "Persistence records workflow schema/model IDs, multisets of typed token payloads, provenance, parent-child lineage, request/result correlation, and retry/failure history. Live-net pickle, arbitrary Python pickle, serialized lambdas, credentials, external clients, and Graphviz-as-authority are prohibited. Logical subnet composition must not assume an unverified hierarchical SNAKES API.",
+    "Completion requires implementation, tests, Markdown documentation, independent review, parent verification, and human acceptance."
+  ],
+  "exclusions": [
+    "Implement the selected SNAKES adapter behind the accepted project CPN contract and deterministic project-owned durable marking persistence.",
+    "Persistence records workflow schema/model IDs, multisets of typed token payloads, provenance, parent-child lineage, request/result correlation, and retry/failure history. Live-net pickle, arbitrary Python pickle, serialized lambdas, credentials, external clients, and Graphviz-as-authority are prohibited. Logical subnet composition must not assume an unverified hierarchical SNAKES API.",
+    "Completion requires implementation, tests, Markdown documentation, independent review, parent verification, and human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P3.md",
+    "sha256": "dd90faf6eb79b6583c5d07071ad363bad5e17f2c73e95e1e55dd0c13524e3874"
+  }
+}

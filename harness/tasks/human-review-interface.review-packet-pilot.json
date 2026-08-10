@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "human-review-interface.review-packet-pilot",
+  "title": "Prepare the first human-review packet pilot",
+  "status": "human_accepted_pass",
+  "status_detail": "human_accepted_pass; corrected pilot accepted as software-verification PASS",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Task identity: `human-review-interface.review-packet-pilot`",
+  "authority_reference_paths": [
+    ".pi/chains/human-review-interface.chain.json",
+    ".pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md",
+    "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md",
+    "origin/dev"
+  ],
+  "authorized_scope": [
+    "Task identity: `human-review-interface.review-packet-pilot`"
+  ],
+  "completion_criteria": [
+    "Task identity: `human-review-interface.review-packet-pilot`"
+  ],
+  "exclusions": [
+    "Task identity: `human-review-interface.review-packet-pilot`"
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md",
+    "sha256": "b9edba8642c5acf380ebdef8cb13c3af5e920188a5eafc1f596fbacb7d4646fd"
+  }
+}

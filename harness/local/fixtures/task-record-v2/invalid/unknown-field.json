@@ -23,5 +23,6 @@
   ],
   "intake_path": "records/example.intake.md",
   "documentation_path": "docs/example.md",
-  "unexpected": true
+  "unexpected": true,
+  "archived_source": null
 }

@@ -41,6 +41,7 @@ from .shadow import (
     ShadowSuiteReplayer,
 )
 from .task_model import (
+    ArchivedTaskSource,
     HarnessTask,
     HarnessTaskDeserializer,
     HarnessTaskGraphValidator,
@@ -83,6 +84,7 @@ __all__ = [
     "ShadowReplayResult",
     "LocalRepositoryValidator",
     "ValidationRoute",
+    "ArchivedTaskSource",
     "HarnessTask",
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",

@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "evidence-branch-orchestration-profile",
+  "title": "Optional evidence-branch orchestration profile",
+  "status": "legacy_recorded",
+  "status_detail": null,
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "- Decision ID: `EBOV1-AUTH-2026-08-03`\n- Profile: `evidence-branches-v1`\n- Authority: explicit human authorization in the 2026-08-03 conversation that\n  requested the bounded initial implementation and authorized this single\n  correction cycle after independent review.\n- Status: authorized non-production repository control-plane maintenance.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/evidence-branch-orchestration-profile.md"
+  ],
+  "authorized_scope": [
+    "The authorized scope is the reusable optional ownership-manifest version 2 and\n`evidence-branches-v1` matrix schemas, their fail-closed validator, focused\ncontrol-plane tests and fixtures, and concise corresponding repository guidance.\nOne generic sole writer works in the current shared worktree. That description\nrecords the execution mode without assigning the historical control-plane writer\nto a production implementation, test, or documentation agent role.",
+    "An independent read-only reviewer reviewed the initial implementation. The human\nauthorized exactly one consolidated writer correction cycle for the resulting\nfindings. After its correction review found a context-free authorization check,\nthe human separately authorized one final parent-applied correction; no further\nwriter/reviewer loop is authorized."
+  ],
+  "completion_criteria": [
+    "The correction is validated with focused pytest coverage, the unchanged P1\nversion-1 ownership preflight, Draft 2020-12 schema compilation, Ruff check and\nformat, checkpoint validation, a Sphinx warnings-as-errors build, and a Git diff\nand staging check. These checks establish only control-plane contract behavior;\nthey do not establish production correctness, scientific validity, or human final\nacceptance. Direct tool invocation can technically bypass the preflight and\nremains unauthorized."
+  ],
+  "exclusions": [
+    "This maintenance task does not authorize or modify Python production code,\nscientific schemas or fixtures, P1 test modules, the P1 ownership manifest, the\nP1 test completeness or ownership matrices, scientific execution, a scientific\nWorkflow, a workflow engine, a new skill, or a new scientific-chain task. The\noptional profile does not become mandatory for ordinary version-2 tasks and does\nnot itself execute or orchestrate branches.",
+    "The production-task ownership launch preflight applies prospectively to\nproduction tasks. It does not apply retrospectively to this explicitly authorized\nnon-production control-plane maintenance task, and this record does not invent a\nproduction ownership manifest for work already performed.",
+    "The correction is validated with focused pytest coverage, the unchanged P1\nversion-1 ownership preflight, Draft 2020-12 schema compilation, Ruff check and\nformat, checkpoint validation, a Sphinx warnings-as-errors build, and a Git diff\nand staging check. These checks establish only control-plane contract behavior;\nthey do not establish production correctness, scientific validity, or human final\nacceptance. Direct tool invocation can technically bypass the preflight and\nremains unauthorized."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/evidence-branch-orchestration-profile.md",
+    "sha256": "496cd13a74d8c3a2d64f7a44dfe24fa4f23a2005d0a0e2b9a99350b8bfc5243f"
+  }
+}

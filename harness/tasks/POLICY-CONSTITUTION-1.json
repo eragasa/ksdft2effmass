@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "task_id": "POLICY-CONSTITUTION-1",
+  "title": "POLICY-CONSTITUTION-1 — Stable repository constitution revision",
+  "status": "legacy_recorded",
+  "status_detail": "closed as human-accepted `PASS` through resolved `POLICY-CONSTITUTION-1-HC01`; no successor or execution activated",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "The human instruction dated 2026-08-04 authorizes a policy-documentation-only\nrevision that makes root `AGENTS.md` a stable repository constitution. The\nrevision removes mutable task snapshots and duplicated procedure, defines clear\nauthority precedence and proportional process classes, and preserves scientific,\nmathematical, provenance, execution, branch, release, and human-authority\nsafeguards.",
+  "authority_reference_paths": [
+    ".pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json",
+    "harness/archive/task-control-v1/tasks/POLICY-CONSTITUTION-1.md"
+  ],
+  "authorized_scope": [
+    "The human PI accepted Option A through\n`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.\nDeterministic closeout validation passed, and this policy task is closed as\nhuman-accepted `PASS`. The acceptance closes only this policy revision. It did\nnot activate H3, H2, H4, H5, P2, harness implementation, external or release\nexecution, numerical work, or scientific execution."
+  ],
+  "completion_criteria": [
+    "The human PI accepted Option A through\n`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.\nDeterministic closeout validation passed, and this policy task is closed as\nhuman-accepted `PASS`. The acceptance closes only this policy revision. It did\nnot activate H3, H2, H4, H5, P2, harness implementation, external or release\nexecution, numerical work, or scientific execution."
+  ],
+  "exclusions": [
+    "The human PI accepted Option A through\n`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.\nDeterministic closeout validation passed, and this policy task is closed as\nhuman-accepted `PASS`. The acceptance closes only this policy revision. It did\nnot activate H3, H2, H4, H5, P2, harness implementation, external or release\nexecution, numerical work, or scientific execution."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/POLICY-CONSTITUTION-1.md",
+    "sha256": "5baf7be1a0a258b5a1e95cfc92df5d4806a53a1effdcc884fa3e3c108a12c78c"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "task_id": "operator-record-validation-correction",
+  "title": "Operator-record validation correction",
+  "status": "legacy_recorded",
+  "status_detail": "closed — accepted by human final decision on 2026-08-03",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "This corrective task records explicit human decisions for a repository-wide architecture, implementation, testing, and documentation pass over the maintained `ksdft2effmass` operator-record package. It served as the authoritative record while the correction was active and now provides the accepted closed authority for that completed work; it does not rewrite historical E00/E01 or earlier operator-record task evidence.",
+  "authority_reference_paths": [
+    ".pi/agents",
+    ".pi/chains",
+    ".pi/skills",
+    "docs",
+    "docs/verification/operator-record-residual-analyzer.rst",
+    "docs/verification/testing-and-evidence.rst",
+    "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md",
+    "numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py",
+    "numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
+    "python/src/ksdft2effmass",
+    "python/tests",
+    "python/tests/ksdft2effmass/<package>/test__<ObjectName>.py",
+    "python/tests/numerical_verification/ksdft2effmass/<package>/test__<ObjectName>__<facet>.py",
+    "python/tests/software_verification/ksdft2effmass/<package>/test__<ObjectName>__<facet>.py",
+    "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityIssue.py",
+    "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityMismatchCode.py",
+    "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
+    "software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__contract.py",
+    "specification"
+  ],
+  "authorized_scope": [
+    "Objective: correct and verify the maintained operator-record architecture,\nimplementation, evidence classification, source/Sphinx documentation, public\nschema integration, and control plane without expanding scientific scope.",
+    "Final status: complete and accepted by the human PI on 2026-08-03. The accepted\npublic result is the finite fixed-representation operator-record API with\nexplicit compatibility, represented-difference, residual-analysis, comparison\nWorkflow, Hermiticity, and deterministic version-1 JSON serialization ownership.\nThe public schema and fixture corpus remain version 1.",
+    "Artifacts produced or corrected include the operator package, progressively\nmigrated software- and numerical-verification tests, focused Sphinx verification\npages, optional-development schema verification dependency, two resolved human\ncheckpoint records, and prospective case-study episode `E02`.",
+    "Validation evidence: 921 full-suite and 98 focused serializer/schema/fixture\ncases passed; Ruff format and lint, mypy, Sphinx warnings-as-errors, lock and\nwheel dependency-separation checks, checkpoint validation, `git diff --check`,\nparent verification, and independent reviews passed.",
+    "Known limitations: scientific validation, uncertainty quantification, Rust\nimplementation, and Python/Rust conformance were not performed. No basis,\ngauge, energy-zero, unit, or geometry alignment; physical-equivalence decision;\nimpurity interpretation; release; publication; tag; or external calculation is\npart of this task.",
+    "Unresolved decisions: none. Dependencies satisfied: the active correction and\nboth human checkpoints are closed. Explicitly deferred work remains outside this\ntask and requires a separately selected and approved task. This handoff records\nstate only and does not recommend or launch subsequent work."
+  ],
+  "completion_criteria": [
+    "Python 3.14 version check, package metadata validation, dependency check, Ruff format check, Ruff lint check, mypy, maintained-module inventory, public API versus object-test inventory, targeted record/Hermiticity/compatibility/comparison/serializer tests, integration tests, full pytest, schema and fixture validation, public-import smoke test, JSON round trip, deterministic serialization, source/Sphinx synchronization audit, no-`:undoc-members:` scan, no-dangling-helper scan, no-cross-private-call scan, invalid-state-fabrication scan, stale API and terminology scan, and Sphinx warning-as-error build.",
+    "Objective: correct and verify the maintained operator-record architecture,\nimplementation, evidence classification, source/Sphinx documentation, public\nschema integration, and control plane without expanding scientific scope.",
+    "Final status: complete and accepted by the human PI on 2026-08-03. The accepted\npublic result is the finite fixed-representation operator-record API with\nexplicit compatibility, represented-difference, residual-analysis, comparison\nWorkflow, Hermiticity, and deterministic version-1 JSON serialization ownership.\nThe public schema and fixture corpus remain version 1.",
+    "Artifacts produced or corrected include the operator package, progressively\nmigrated software- and numerical-verification tests, focused Sphinx verification\npages, optional-development schema verification dependency, two resolved human\ncheckpoint records, and prospective case-study episode `E02`.",
+    "Validation evidence: 921 full-suite and 98 focused serializer/schema/fixture\ncases passed; Ruff format and lint, mypy, Sphinx warnings-as-errors, lock and\nwheel dependency-separation checks, checkpoint validation, `git diff --check`,\nparent verification, and independent reviews passed.",
+    "Known limitations: scientific validation, uncertainty quantification, Rust\nimplementation, and Python/Rust conformance were not performed. No basis,\ngauge, energy-zero, unit, or geometry alignment; physical-equivalence decision;\nimpurity interpretation; release; publication; tag; or external calculation is\npart of this task.",
+    "Unresolved decisions: none. Dependencies satisfied: the active correction and\nboth human checkpoints are closed. Explicitly deferred work remains outside this\ntask and requires a separately selected and approved task. This handoff records\nstate only and does not recommend or launch subsequent work."
+  ],
+  "exclusions": [
+    "Objective: correct and verify the maintained operator-record architecture,\nimplementation, evidence classification, source/Sphinx documentation, public\nschema integration, and control plane without expanding scientific scope.",
+    "Final status: complete and accepted by the human PI on 2026-08-03. The accepted\npublic result is the finite fixed-representation operator-record API with\nexplicit compatibility, represented-difference, residual-analysis, comparison\nWorkflow, Hermiticity, and deterministic version-1 JSON serialization ownership.\nThe public schema and fixture corpus remain version 1.",
+    "Artifacts produced or corrected include the operator package, progressively\nmigrated software- and numerical-verification tests, focused Sphinx verification\npages, optional-development schema verification dependency, two resolved human\ncheckpoint records, and prospective case-study episode `E02`.",
+    "Validation evidence: 921 full-suite and 98 focused serializer/schema/fixture\ncases passed; Ruff format and lint, mypy, Sphinx warnings-as-errors, lock and\nwheel dependency-separation checks, checkpoint validation, `git diff --check`,\nparent verification, and independent reviews passed.",
+    "Known limitations: scientific validation, uncertainty quantification, Rust\nimplementation, and Python/Rust conformance were not performed. No basis,\ngauge, energy-zero, unit, or geometry alignment; physical-equivalence decision;\nimpurity interpretation; release; publication; tag; or external calculation is\npart of this task.",
+    "Unresolved decisions: none. Dependencies satisfied: the active correction and\nboth human checkpoints are closed. Explicitly deferred work remains outside this\ntask and requires a separately selected and approved task. This handoff records\nstate only and does not recommend or launch subsequent work."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md",
+    "sha256": "f3c253f93fc3319670eae813858823bde118bac91c30de2a4060f16f3a1f1225"
+  }
+}

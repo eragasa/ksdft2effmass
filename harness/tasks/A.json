@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "A",
+  "title": "Task A — Control-plane and language-neutral specification contract",
+  "status": "legacy_recorded",
+  "status_detail": "prospectively superseded for workflow sequencing by P1/P4; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Turn the approved architecture into versioned language-neutral scientific, numerical, array, error, and serialization contracts before production source implementation. This task may create approved schemas and fixtures only after explicit launch; this architecture-recording turn creates none.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/A.md"
+  ],
+  "authorized_scope": [
+    "1. implementation of the specification artifacts;\n2. software/numerical fixture evidence as applicable;\n3. documentation synchronization;\n4. independent read-only architecture/integration review;\n5. parent verification;\n6. human acceptance.",
+    "Acceptance unlocks B and D. It does not launch either task."
+  ],
+  "completion_criteria": [
+    "1. implementation of the specification artifacts;\n2. software/numerical fixture evidence as applicable;\n3. documentation synchronization;\n4. independent read-only architecture/integration review;\n5. parent verification;\n6. human acceptance.",
+    "Acceptance unlocks B and D. It does not launch either task."
+  ],
+  "exclusions": [
+    "1. implementation of the specification artifacts;\n2. software/numerical fixture evidence as applicable;\n3. documentation synchronization;\n4. independent read-only architecture/integration review;\n5. parent verification;\n6. human acceptance.",
+    "Acceptance unlocks B and D. It does not launch either task."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/A.md",
+    "sha256": "365c11268eef35d35336951cb0fc4b0ad55638e59b445ba7c1891f6506935e48"
+  }
+}

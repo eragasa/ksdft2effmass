@@ -12,10 +12,10 @@
   "objective": "Reconcile every maintained harness-simplification proposal, deferred item, conceptual stage, and existing chain entry to one explicit durable catalog disposition without activating implementation or treating documentation as executable authority.",
   "authority_reference_paths": [
     ".pi/chains/harness-simplification.chain.json",
-    ".pi/tasks/harness.simplification.control.task-catalog-reconciliation.intake.md",
     "docs/harness/ksdft2effmass.harness.002.001.003.md",
     "docs/harness/ksdft2effmass.harness.002.001.008.md",
-    "docs/harness/ksdft2effmass.harness.002.001.009.md"
+    "docs/harness/ksdft2effmass.harness.002.001.009.md",
+    "harness/archive/task-control-v1/intake/harness.simplification.control.task-catalog-reconciliation.intake.md"
   ],
   "authorized_scope": [
     "Inspect the exact harness-simplification chain, its declared Task records, and maintained current or prospective harness pages that enumerate proposed, completed, deferred, rejected, or out-of-scope work.",
@@ -38,5 +38,6 @@
     "Do not rewrite accepted historical Task identities, retained evidence, checkpoints, agent records, or completed decision records, and do not treat the catalog or documentation as human acceptance.",
     "Do not add dependencies, change lockfiles, perform Graphify, launch protected work, or activate review-dispatch-idempotency, evidence-and-sqlite, P3, publication, release, or any automatic successor."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.control.task-catalog-reconciliation.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.control.task-catalog-reconciliation.intake.md",
+  "archived_source": null
 }

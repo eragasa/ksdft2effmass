@@ -23,9 +23,9 @@
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
     ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
-    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.intake.md",
-    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
-    "docs/harness/ksdft2effmass.harness.002.001.012.md"
+    "docs/harness/ksdft2effmass.harness.002.001.012.md",
+    "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-implementation-hardening.intake.md",
+    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json"
   ],
   "authorized_scope": [
     "Implement exactly the accepted 16-field schema-version-2 HarnessTask and the original accepted 19 project-local public interfaces without changing their fields, signatures, ownership boundaries, or wire behavior; add only the explicitly authorized narrow runtime-only HarnessTaskMigrationReviewDocument and HarnessTaskMigrationReviewPacketRenderer correction, for a corrected total of 21 interfaces.",
@@ -51,5 +51,6 @@
     "Do not activate Stage 2B, infer implementation acceptance from tests or review, synchronize the accepted version-1 legacy projection drift unless separately authorized, implement selection state, cut over or delete the chain, or activate a successor.",
     "Do not add dependencies, change lockfiles, or perform SQLite, telemetry, scientific, publication, external, protected, release, or unrelated harness work."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-implementation-hardening.intake.md",
+  "archived_source": null
 }

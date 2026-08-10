@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "task_id": "harness.simplification.docs-json.publication",
+  "title": "Normalize publication documentation",
+  "status": "completed",
+  "status_detail": "completed; both child Tasks completed on 2026-08-09",
+  "parent_task_id": "harness.simplification.docs-json",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Triage publication-preparation files and apply one coherent hierarchy before documentation/control-surface comparison.",
+  "authority_reference_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md"
+  ],
+  "authorized_scope": [
+    "This parent is complete when both Tasks complete, their input/output identities agree, and unresolved publication roles have an explicit disposition. It does not add a separate parent acceptance step unless a material human-owned choice remains."
+  ],
+  "completion_criteria": [
+    "This parent is complete when both Tasks complete, their input/output identities agree, and unresolved publication roles have an explicit disposition. It does not add a separate parent acceptance step unless a material human-owned choice remains."
+  ],
+  "exclusions": [
+    "This parent is complete when both Tasks complete, their input/output identities agree, and unresolved publication roles have an explicit disposition. It does not add a separate parent acceptance step unless a material human-owned choice remains."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md",
+    "sha256": "3066a1cd48479f948cdde307c325af72d790b64ae5ac3b674ba7abd983a4cb20"
+  }
+}

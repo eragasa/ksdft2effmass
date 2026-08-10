@@ -12,8 +12,8 @@
   "objective": "Retain the minimum durable HarnessTask model and compatibility boundaries while removing the unaccepted Stage-2A migration framework.",
   "authority_reference_paths": [
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json",
-    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md",
-    "AGENTS.md"
+    "AGENTS.md",
+    "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-model-simplification.intake.md"
   ],
   "authorized_scope": [
     "Retain HarnessTask, HarnessTaskSerializer, HarnessTaskDeserializer, HarnessTaskGraphValidator, version-2 schema and focused fixtures, mixed Markdown/version-1/version-2 TaskRecordAdapter behavior, and TaskStateInspector compatibility.",
@@ -28,5 +28,6 @@
   "exclusions": [
     "Do not migrate a real Task, generate Markdown from JSON, activate Stage 2B or another successor, add dependencies, change the lockfile, or perform protected scientific, release, or publication execution."
   ],
-  "intake_path": ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md"
+  "intake_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-model-simplification.intake.md",
+  "archived_source": null
 }

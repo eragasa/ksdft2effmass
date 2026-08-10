@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "task_id": "C",
+  "title": "Task C — Backend-neutral DFT DataObjects and ResultObjects",
+  "status": "legacy_recorded",
+  "status_detail": "prospectively superseded for workflow sequencing by P4; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement the neutral scientific records and compact Kohn–Sham calculation ResultObject without importing a backend.",
+  "authority_reference_paths": [
+    "dft/paw.py",
+    "harness/archive/task-control-v1/tasks/C.md"
+  ],
+  "authorized_scope": [
+    "structure, site, species, pseudopotential, sampling, and calculation-specification DataObjects;",
+    "`PseudopotentialFormalism` representation without execution-support claims;",
+    "`KPointSet`, `KohnShamBandStructure`, and `KohnShamArtifactSet` DataObjects;",
+    "immutable `KohnShamDataset` ResultObject."
+  ],
+  "completion_criteria": [
+    "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance unlocks E and contributes to G and H; it launches none."
+  ],
+  "exclusions": [
+    "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance unlocks E and contributes to G and H; it launches none."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/C.md",
+    "sha256": "2c23d6ffe7b3ddf2599b61439982531be4e8be4729b5f5c31f676d6b096fb1d0"
+  }
+}

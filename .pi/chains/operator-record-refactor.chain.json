@@ -9,7 +9,7 @@
     "date": "2026-07-30",
     "evidence": ".pi/tasks/operator-record-refactor.md"
   },
-  "superseded_for_later_corrections_by": ".pi/tasks/operator-record-validation-correction.md",
+  "superseded_for_later_corrections_by": "harness/tasks/operator-record-validation-correction.json",
   "phase_status": {
     "control-plane contract": "completed",
     "public schema and fixtures": "completed",

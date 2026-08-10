@@ -7,9 +7,7 @@
   "task_sequence": [
     {
       "id": "ARCHITECTURE-DECISION-SKILL-1",
-      "record": ".pi/tasks/develop-architecture-decision-skill.md",
-      "prerequisites": ["explicit_human_authorization"],
-      "status": "closed_human_accepted_pass",
+      "record": "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
       "ownership_manifest": ".pi/evidence/develop-architecture-decision-skill/task-ownership.json"
     }
   ],
@@ -27,5 +25,6 @@
       "phase": "closed-human-accepted-pass",
       "message": "ARCHITECTURE-DECISION-SKILL-1 is closed as human-accepted PASS. The skill is active but was not invoked. H6 remains uninitialized and no successor or protected work is active."
     }
-  ]
+  ],
+  "explicitly_activated_task_ids": []
 }

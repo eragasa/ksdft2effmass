@@ -1,0 +1,35 @@
+{
+  "schema_version": 2,
+  "task_id": "harness-simplification.evidence.audit-action-conformance",
+  "title": "Reconcile evidence-ID auditing and retire duplicate AST policy",
+  "status": "completed",
+  "status_detail": "completed under `.pi/chains/harness-simplification.chain.json`",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "harness-simplification.resources.develop-harness-resources"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Task identity: `harness-simplification.evidence.audit-action-conformance`",
+  "authority_reference_paths": [
+    ".pi/chains/harness-simplification.chain.json",
+    ".pi/skills/audit_evidence_identifiers.py",
+    "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md",
+    "origin/dev"
+  ],
+  "authorized_scope": [
+    "The chain `active_task` is `null`. Slice 7 retirement of `inspect-task-state` remains deferred. Telemetry, historical routing reconciliation, and all other successors remain inactive and unauthorized. Structural PASS makes no semantic, numerical, scientific-validation, UQ, provenance, or human-acceptance claim."
+  ],
+  "completion_criteria": [
+    "Focused action grammar tests and CLI artifact tests pass, including API agreement, explicit-root confinement, exact inventory, nonrepository CWD, no discovery, and nonmutation. The current inventory passes. All live command routing and maintained documentation use the new CLI, no current agent or skill routes to the old script, the capability inventory names `AuditEvidenceIdentifiers` as sole deterministic owner, and neither resource manifest identifies the retired file. Therefore `.pi/skills/audit_evidence_identifiers.py` is deleted. Historical evidence, checksums, reports, logs, and prior task records remain unchanged and may continue to name the command actually used.",
+    "The chain `active_task` is `null`. Slice 7 retirement of `inspect-task-state` remains deferred. Telemetry, historical routing reconciliation, and all other successors remain inactive and unauthorized. Structural PASS makes no semantic, numerical, scientific-validation, UQ, provenance, or human-acceptance claim."
+  ],
+  "exclusions": [
+    "The chain `active_task` is `null`. Slice 7 retirement of `inspect-task-state` remains deferred. Telemetry, historical routing reconciliation, and all other successors remain inactive and unauthorized. Structural PASS makes no semantic, numerical, scientific-validation, UQ, provenance, or human-acceptance claim."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md",
+    "sha256": "f07c456b0a7c552be49964311203879ad12e5ceffb935f33a582b9f89ea3bf0b"
+  }
+}

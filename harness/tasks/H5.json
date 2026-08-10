@@ -1,0 +1,35 @@
+{
+  "schema_version": 2,
+  "task_id": "H5",
+  "title": "H5 — Standalone extraction readiness",
+  "status": "blocked",
+  "status_detail": "optional; blocked by accepted H4 and separate explicit H5 activation; inactive",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "H4"
+  ],
+  "external_prerequisite_ids": [
+    "explicit_activation"
+  ],
+  "explicit_activation_required": true,
+  "objective": "Mechanically demonstrate that the accepted generic extraction unit can become a standalone package without publishing it, while the project-local overlay continues to work against the package candidate.",
+  "authority_reference_paths": [
+    ".pi/chains/pi-harness-incubation.chain.json",
+    "harness/archive/task-control-v1/tasks/H5.md"
+  ],
+  "authorized_scope": [
+    "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+  ],
+  "completion_criteria": [
+    "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+  ],
+  "exclusions": [
+    "No PyPI or other publication, release/tag, P2 launch, external/scientific execution, scientific-validation claim, or UQ claim.",
+    "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/H5.md",
+    "sha256": "607f81f138d6f906b8757973ae6db3605f3a58fa4be33198db155265b427e487"
+  }
+}

@@ -1,0 +1,620 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.agents.delegation-validation.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.agents.delegation-validation.intake.md",
+      "byte_count": 770,
+      "sha256": "08543542a5e192171bbcb977dc930bbc14378ca6574f9fde13d5cd6d4107c068"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.control.successor-selection.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.control.successor-selection.intake.md",
+      "byte_count": 676,
+      "sha256": "9f02a987c4e7389a77a9867a43cd858b7a15e05c84d26bcb58c5e81d6092fbf2"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.control.task-catalog-reconciliation.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.control.task-catalog-reconciliation.intake.md",
+      "byte_count": 755,
+      "sha256": "cbaa67cadc8d32ca70df290a812f96f312b28873991cc312ea303d36fad7c7b5"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.schema-projection.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.schema-projection.intake.md",
+      "byte_count": 849,
+      "sha256": "60c16a4ed694c032831865a117323509a6d3ea71742d165b75fe308aa5cbeae9"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-document-migration.intake.md",
+      "byte_count": 1176,
+      "sha256": "866f558111a226eedc667c5ceab3aafc39d1be2f752a14f320f3e28efd4643b3"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-implementation-hardening.intake.md",
+      "byte_count": 1029,
+      "sha256": "3249e401578f7f96b07589966c7c2b4395c15a6196843e4d3bada8a02562f745"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-model-contract.intake.md",
+      "byte_count": 1081,
+      "sha256": "ed9d04d0f197fbb3f789a6aafdf2ae00faf6ac7d94adf0336f374e73a2eac250"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.docs-json.task-model-simplification.intake.md",
+      "byte_count": 638,
+      "sha256": "32599cdfbfef487687c9d232d0b04cba8d9231cc4b0796d9e98c22eba278fa87"
+    },
+    {
+      "kind": "intake",
+      "original_path": ".pi/tasks/harness.simplification.resources.h3-validator-retirement.intake.md",
+      "archive_path": "harness/archive/task-control-v1/intake/harness.simplification.resources.h3-validator-retirement.intake.md",
+      "byte_count": 3319,
+      "sha256": "6b744922ab37d86e4fcf90a2e6e1d54ca7e4ec7a60d470664a9ee3824a15d0b6"
+    },
+    {
+      "kind": "projection",
+      "task_id": "harness.simplification.docs-json.schema-projection",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.schema-projection.md",
+      "archive_path": "harness/archive/task-control-v1/projections/harness.simplification.docs-json.schema-projection.md",
+      "byte_count": 3320,
+      "sha256": "110d929fa3f1821512792a88213b23d7863d6907df2479ab6e224bf6c2ea0b25"
+    },
+    {
+      "kind": "task",
+      "task_id": "POLICY-CONSTITUTION-1",
+      "original_path": ".pi/tasks/POLICY-CONSTITUTION-1-agents-policy-revision.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/POLICY-CONSTITUTION-1.md",
+      "byte_count": 2831,
+      "sha256": "5baf7be1a0a258b5a1e95cfc92df5d4806a53a1effdcc884fa3e3c108a12c78c"
+    },
+    {
+      "kind": "task",
+      "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+      "original_path": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+      "byte_count": 10703,
+      "sha256": "1d33344e5146d967b080b6cac777a5f29aaa608c27aa0f7757061c9c067006a8"
+    },
+    {
+      "kind": "task",
+      "task_id": "P0",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P0-preflight.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P0.md",
+      "byte_count": 9334,
+      "sha256": "840be7a82bc35e5d781227701fe2d767dfce927c8a1c83a0b84e88a56e36907d"
+    },
+    {
+      "kind": "task",
+      "task_id": "P0A",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P0A-packaging-configuration.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P0A.md",
+      "byte_count": 9865,
+      "sha256": "6477dbb4715637c557388f3ce97f5a3772d1a0c003ff2c92b13b515d099c8a5e"
+    },
+    {
+      "kind": "task",
+      "task_id": "P1",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P1.md",
+      "byte_count": 13066,
+      "sha256": "d9decd2a534053afd79ecae768b92a0a79c8998106c880cbb768283831da822d"
+    },
+    {
+      "kind": "task",
+      "task_id": "P10",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P10-synthetic-workflow.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P10.md",
+      "byte_count": 942,
+      "sha256": "ee17d39876266262d4da6fd684a8ce2bbda51c0f1559ee16fecaf0c71bd0729a"
+    },
+    {
+      "kind": "task",
+      "task_id": "P11",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P11-bulk-si-campaign.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P11.md",
+      "byte_count": 881,
+      "sha256": "89c45dad2f746c01a43a767e9697bbdd20adc84848a548886a148b8941160270"
+    },
+    {
+      "kind": "task",
+      "task_id": "P2",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P2-tools-provenance.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P2.md",
+      "byte_count": 18493,
+      "sha256": "beb1cf0064f602a51e64719545dbabd5d2b1e7a1808d235660c7b54331f72316"
+    },
+    {
+      "kind": "task",
+      "task_id": "P3",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P3-snakes-persistence.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P3.md",
+      "byte_count": 842,
+      "sha256": "dd90faf6eb79b6583c5d07071ad363bad5e17f2c73e95e1e55dd0c13524e3874"
+    },
+    {
+      "kind": "task",
+      "task_id": "P4",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P4-neutral-dft.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P4.md",
+      "byte_count": 1282,
+      "sha256": "31954815b9b31d8ba79482579d42c2ade4737240b811b3a5e24d05c5e49aee71"
+    },
+    {
+      "kind": "task",
+      "task_id": "P5",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P5-qe-boundary.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P5.md",
+      "byte_count": 740,
+      "sha256": "53d8d0c5d397fda7206c0bfe50f2f3756d6c594a8912e90205af6cba1653bf34"
+    },
+    {
+      "kind": "task",
+      "task_id": "P6",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P6-qe-scf-subnet.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P6.md",
+      "byte_count": 781,
+      "sha256": "ed40b5158d74a2bc0ab74c1db2c38701955126eafb6bde065139f5d20bb4ebf9"
+    },
+    {
+      "kind": "task",
+      "task_id": "P7",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P7-direct-tb.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P7.md",
+      "byte_count": 687,
+      "sha256": "625220a4c614c9204fe3179fbbab2e00b6d8658d285999d75bfd2209750c7e2f"
+    },
+    {
+      "kind": "task",
+      "task_id": "P8",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P8-wannier-bridge.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P8.md",
+      "byte_count": 681,
+      "sha256": "01aa317987892d831bd8d4a0b95f42aa4aa2b228a664641326f31d361ad4189b"
+    },
+    {
+      "kind": "task",
+      "task_id": "P9",
+      "original_path": ".pi/tasks/backend-neutral-cpn-P9-wannier-execution.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/P9.md",
+      "byte_count": 711,
+      "sha256": "b77c4365e49880d2eaa43b4df05a48409bbc5925853326a7a1fa1e0079e3d78e"
+    },
+    {
+      "kind": "task",
+      "task_id": "backend-neutral-cpn-workflow-architecture",
+      "original_path": ".pi/tasks/backend-neutral-cpn-workflow-architecture.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md",
+      "byte_count": 19066,
+      "sha256": "c95d832f32ea44ed14019123cb1038c7d18a069ae40d4dd7d510778f1520c248"
+    },
+    {
+      "kind": "task",
+      "task_id": "A",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-A-contract.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/A.md",
+      "byte_count": 1589,
+      "sha256": "365c11268eef35d35336951cb0fc4b0ad55638e59b445ba7c1891f6506935e48"
+    },
+    {
+      "kind": "task",
+      "task_id": "B",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-B-provenance.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/B.md",
+      "byte_count": 1199,
+      "sha256": "49c3dd593d56607de9ff2ca88ea9ccebc9fc660e38a4947db8a997f15e57e85b"
+    },
+    {
+      "kind": "task",
+      "task_id": "C",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-C-neutral-dft.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/C.md",
+      "byte_count": 1203,
+      "sha256": "2c23d6ffe7b3ddf2599b61439982531be4e8be4729b5f5c31f676d6b096fb1d0"
+    },
+    {
+      "kind": "task",
+      "task_id": "D",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-D-qe-io.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/D.md",
+      "byte_count": 1178,
+      "sha256": "489e1b91d0f68ee5a13e9215260e13a6608a49a3652efc4576031f693bdf0859"
+    },
+    {
+      "kind": "task",
+      "task_id": "E",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-E-qe-mapping.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/E.md",
+      "byte_count": 1298,
+      "sha256": "5b25f8431e43fb15584a2042ad2e81c2ecda432e70ac578c8934f87b27f0c4ff"
+    },
+    {
+      "kind": "task",
+      "task_id": "F",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-F-execution.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/F.md",
+      "byte_count": 1424,
+      "sha256": "e76394dc83c830fd347177b8663afb68d7ebc9967e03d538c2d8dfc3d5f026a4"
+    },
+    {
+      "kind": "task",
+      "task_id": "G",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-G-direct-tb.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/G.md",
+      "byte_count": 1143,
+      "sha256": "8944817cb30b8caa9025cdebe2e54ff860b12fd9dc769a65aee44dffcf761f98"
+    },
+    {
+      "kind": "task",
+      "task_id": "H",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-H-wannier-bridge.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H.md",
+      "byte_count": 1419,
+      "sha256": "3364fb296c5e7ecc2118f763b2ed24f52de325ba0861fce902c5913ed35d5e82"
+    },
+    {
+      "kind": "task",
+      "task_id": "backend-neutral-kohn-sham-qe-architecture",
+      "original_path": ".pi/tasks/backend-neutral-kohn-sham-qe-architecture.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md",
+      "byte_count": 9964,
+      "sha256": "30252588d5cce5ea14b57aef4e07f990b4cb86881afe5c061387928246da0263"
+    },
+    {
+      "kind": "task",
+      "task_id": "EVIDENCE-DOC-1",
+      "original_path": ".pi/tasks/class-owned-evidence-documentation-convention.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/EVIDENCE-DOC-1.md",
+      "byte_count": 7627,
+      "sha256": "ab8d74c41051f21aeb98aae4a481261a957286791bd309f63657f4d15c097570"
+    },
+    {
+      "kind": "task",
+      "task_id": "cpn-skill-capability-audit",
+      "original_path": ".pi/tasks/cpn-skill-capability-audit.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/cpn-skill-capability-audit.md",
+      "byte_count": 11376,
+      "sha256": "630084d8b2f2cfac8b0fdb8f9af7af2ff01b6c0937fecee54366a815b054fcb0"
+    },
+    {
+      "kind": "task",
+      "task_id": "deferred-harness-current-phase-history",
+      "original_path": ".pi/tasks/deferred-harness-current-phase-history.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/deferred-harness-current-phase-history.md",
+      "byte_count": 3212,
+      "sha256": "b556304658664dfaecfd834f18ab15a93178d81acffa82c215c0e4806fc157d7"
+    },
+    {
+      "kind": "task",
+      "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+      "original_path": ".pi/tasks/develop-architecture-decision-skill.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/ARCHITECTURE-DECISION-SKILL-1.md",
+      "byte_count": 3758,
+      "sha256": "eee17615b5e4b4120ffb64dda283e6b74cd2cb7c985ac56fecd5739b0dee187a"
+    },
+    {
+      "kind": "task",
+      "task_id": "TEST-EVIDENCE-SKILL-1",
+      "original_path": ".pi/tasks/develop-python-test-evidence-skill-correction.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-SKILL-1.md",
+      "byte_count": 3042,
+      "sha256": "a01fdcb70de4aa5cfb2bfcd9b0970ffeee5e71ba8f46c267161228ed19343350"
+    },
+    {
+      "kind": "task",
+      "task_id": "evidence-branch-orchestration-profile",
+      "original_path": ".pi/tasks/evidence-branch-orchestration-profile.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/evidence-branch-orchestration-profile.md",
+      "byte_count": 2660,
+      "sha256": "496cd13a74d8c3a2d64f7a44dfe24fa4f23a2005d0a0e2b9a99350b8bfc5243f"
+    },
+    {
+      "kind": "task",
+      "task_id": "graphify-integration",
+      "original_path": ".pi/tasks/graphify-integration.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/graphify-integration.md",
+      "byte_count": 13911,
+      "sha256": "1329a7d7a4c2e9b5ff0c7202fd55550079b8c449051d49d924146be9aee0ea55"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.executable-tool-placement-contract",
+      "original_path": ".pi/tasks/harness-simplification.agents.executable-tool-placement-contract.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.executable-tool-placement-contract.md",
+      "byte_count": 3246,
+      "sha256": "a5a7e1c39c22c53290a64d2f0ad87ae577c6e9ac50ecf54f832d44d26abc3242"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.live-discovery-cleanup",
+      "original_path": ".pi/tasks/harness-simplification.agents.live-discovery-cleanup.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md",
+      "byte_count": 2246,
+      "sha256": "70d2e307cbd44f2ff76ba492550c15aa066e7ae60a63691692aae94d1d41335a"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.project-architecture",
+      "original_path": ".pi/tasks/harness-simplification.agents.project-architecture.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-architecture.md",
+      "byte_count": 3076,
+      "sha256": "6fa0f0108040347e2a150f59287a4dc561e85c00a95605f33e9e59874b5a905c"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.project-documentation",
+      "original_path": ".pi/tasks/harness-simplification.agents.project-documentation.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-documentation.md",
+      "byte_count": 2761,
+      "sha256": "62d61152c3c442cdadeb8d597c97a69742d2e58a82a54bdafee6de5a0843978c"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.project-implementation",
+      "original_path": ".pi/tasks/harness-simplification.agents.project-implementation.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-implementation.md",
+      "byte_count": 2672,
+      "sha256": "4eb0b16fe1d3707f826be86bf7ea2336544b05214cafcad1bec431a5068cd410"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.project-integration-review",
+      "original_path": ".pi/tasks/harness-simplification.agents.project-integration-review.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-integration-review.md",
+      "byte_count": 3624,
+      "sha256": "9de57bcd51277389356e316ea5585fec181baa88dd53d4525ab50d25e7b94da1"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.project-role-simplification",
+      "original_path": ".pi/tasks/harness-simplification.agents.project-role-simplification.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-role-simplification.md",
+      "byte_count": 2249,
+      "sha256": "e295c989b50c21f699618e9587ff62280a224baa252797a5659a0688d2b2516e"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation",
+      "original_path": ".pi/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md",
+      "byte_count": 2104,
+      "sha256": "2d1549e645aa137cba36b602c9ca4ea4d9a4a30221d390ec7d3ee76bbca316a6"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.agents.validator-migration-pilot",
+      "original_path": ".pi/tasks/harness-simplification.agents.validator-migration-pilot.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.agents.validator-migration-pilot.md",
+      "byte_count": 4354,
+      "sha256": "bc780f2d05dc1442aceff0d3a8bd59112d7b45f51c5ff6ab0931c4dc3259238e"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "original_path": ".pi/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.md",
+      "byte_count": 3961,
+      "sha256": "a93f82ce2dfe793aef5a8ceed864c77823bbb6daea89738d72634912a13124a9"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.docs-json.migration-review-interface",
+      "original_path": ".pi/tasks/harness-simplification.docs-json.migration-review-interface.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.docs-json.migration-review-interface.md",
+      "byte_count": 4165,
+      "sha256": "6f202ac4850706beb6fb1e7c86834b9b2b2a61221c8ca87ff9522b9b4e9e0d30"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.evidence.audit-action-conformance",
+      "original_path": ".pi/tasks/harness-simplification.evidence.audit-action-conformance.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md",
+      "byte_count": 4339,
+      "sha256": "f07c456b0a7c552be49964311203879ad12e5ceffb935f33a582b9f89ea3bf0b"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.execution.task-state-inspection-tool",
+      "original_path": ".pi/tasks/harness-simplification.execution.task-state-inspection-tool.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.execution.task-state-inspection-tool.md",
+      "byte_count": 3148,
+      "sha256": "b28eb94cbb97e8333b8a54cdf2f6fadc4e48db8ec1fa02c8aed4779471cb8b8f"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.execution.validator-pilot-stabilization",
+      "original_path": ".pi/tasks/harness-simplification.execution.validator-pilot-stabilization.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.execution.validator-pilot-stabilization.md",
+      "byte_count": 7342,
+      "sha256": "90bfac35f58623c7d35c373f7abb6162cc7a66d422ccc95a67b898bd8fd2ab6e"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.resources.develop-harness-resources",
+      "original_path": ".pi/tasks/harness-simplification.resources.develop-harness-resources.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.resources.develop-harness-resources.md",
+      "byte_count": 3550,
+      "sha256": "bf905abce9ddd0b31d5cae80668af14c732fa7a8d4c3b89e5d1a92da3aff9636"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-simplification.resources.manifest-refresh",
+      "original_path": ".pi/tasks/harness-simplification.resources.manifest-refresh.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-simplification.resources.manifest-refresh.md",
+      "byte_count": 4402,
+      "sha256": "b177d342593d99aa23c62ec60991d0e3035c4844ef2deca07289d9e966e0e21c"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness-task-state-symlink-toctou-hardening",
+      "original_path": ".pi/tasks/harness-task-state-symlink-toctou-hardening.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness-task-state-symlink-toctou-hardening.md",
+      "byte_count": 2791,
+      "sha256": "d5c4a542aa04b0ac86b2dce634590157a0db59a17caf39f2fc9ea661e0cfb306"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.api.action-object-grammar",
+      "original_path": ".pi/tasks/harness.simplification.api.action-object-grammar.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.api.action-object-grammar.md",
+      "byte_count": 4797,
+      "sha256": "52c82b69dbf76b633c4c8546aa788eab12566195f9c0ad7e203df28b71ada561"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.docs-json.authority-catalog",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.authority-catalog.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.authority-catalog.md",
+      "byte_count": 6327,
+      "sha256": "524aed11214690359af60538f7a34737c378efaf22704e2b9a47a18bd385499a"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.docs-json",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.md",
+      "byte_count": 3734,
+      "sha256": "1aa1601ab692acee446ae35c188edeacee545ad488e5e6a65b31037bedc5fd96"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.docs-json.publication.hierarchy",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.publication.hierarchy.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.hierarchy.md",
+      "byte_count": 2822,
+      "sha256": "4c999a1830c3d97bc8c12864703fc2a0515780ac59e3cb340a050646f0cdcf9e"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.docs-json.publication",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.publication.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md",
+      "byte_count": 923,
+      "sha256": "3066a1cd48479f948cdde307c325af72d790b64ae5ac3b674ba7abd983a4cb20"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.docs-json.publication.triage",
+      "original_path": ".pi/tasks/harness.simplification.docs-json.publication.triage.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.triage.md",
+      "byte_count": 2674,
+      "sha256": "e847693467fbea4a543589e15560f545c6d56ccc1d3a27430e9eeb4a77ff8d2e"
+    },
+    {
+      "kind": "task",
+      "task_id": "harness.simplification.evidence.naming",
+      "original_path": ".pi/tasks/harness.simplification.evidence.naming.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/harness.simplification.evidence.naming.md",
+      "byte_count": 5383,
+      "sha256": "af6dc6343b9bdc71c1ad76e29b52cfcb94528f1794f6cd88d34fa084017a07cf"
+    },
+    {
+      "kind": "task",
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction",
+      "original_path": ".pi/tasks/human-review-interface.audit-evidence-identifiers-correction.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md",
+      "byte_count": 1510,
+      "sha256": "0c6feff3456d5f66abf06710d01d6f010ff4540de0c640d1586a719bbfc7147d"
+    },
+    {
+      "kind": "task",
+      "task_id": "human-review-interface.human-decision-recording",
+      "original_path": ".pi/tasks/human-review-interface.human-decision-recording.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md",
+      "byte_count": 2387,
+      "sha256": "2239ace57b7e01415975dba368483903045fc1fdd7ca137e36983517efb5fbb3"
+    },
+    {
+      "kind": "task",
+      "task_id": "human-review-interface.review-packet-pilot",
+      "original_path": ".pi/tasks/human-review-interface.review-packet-pilot.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md",
+      "byte_count": 2329,
+      "sha256": "b9edba8642c5acf380ebdef8cb13c3af5e920188a5eafc1f596fbacb7d4646fd"
+    },
+    {
+      "kind": "task",
+      "task_id": "operator-record-comparison",
+      "original_path": ".pi/tasks/operator-record-comparison.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/operator-record-comparison.md",
+      "byte_count": 21386,
+      "sha256": "179987712addb439d022abfd050b164d9c190952123760abaa7fd747dc77b177"
+    },
+    {
+      "kind": "task",
+      "task_id": "operator-record-refactor",
+      "original_path": ".pi/tasks/operator-record-refactor.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/operator-record-refactor.md",
+      "byte_count": 35478,
+      "sha256": "ebf51dc2136769f19e739fa0db05e2da11b1fe3fd0971eb80d6e555093117668"
+    },
+    {
+      "kind": "task",
+      "task_id": "operator-record-validation-correction",
+      "original_path": ".pi/tasks/operator-record-validation-correction.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md",
+      "byte_count": 109268,
+      "sha256": "f3c253f93fc3319670eae813858823bde118bac91c30de2a4060f16f3a1f1225"
+    },
+    {
+      "kind": "task",
+      "task_id": "H0",
+      "original_path": ".pi/tasks/pi-harness-incubation-H0-inventory.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H0.md",
+      "byte_count": 4630,
+      "sha256": "f8bedd91bbdc836a84a98d6818e214a46e4b17edd1afe06e9d90aa6a6e3d6db3"
+    },
+    {
+      "kind": "task",
+      "task_id": "H1",
+      "original_path": ".pi/tasks/pi-harness-incubation-H1-contract.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H1.md",
+      "byte_count": 4738,
+      "sha256": "16b178624908a41b2b9c451f2c9eaa4cf7d0e440cef542be6c918d5b1a3bb38f"
+    },
+    {
+      "kind": "task",
+      "task_id": "H2",
+      "original_path": ".pi/tasks/pi-harness-incubation-H2-python-core.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H2.md",
+      "byte_count": 5106,
+      "sha256": "2680f65904a295f5819e825e2e1c15a1df046ed365f99d90e533bbbcc3c8962f"
+    },
+    {
+      "kind": "task",
+      "task_id": "H3",
+      "original_path": ".pi/tasks/pi-harness-incubation-H3-resources.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H3.md",
+      "byte_count": 3674,
+      "sha256": "83fe408b623b3b2a34e20192f9383582e4668583a67bb59bda958f6d502a20ac"
+    },
+    {
+      "kind": "task",
+      "task_id": "H4",
+      "original_path": ".pi/tasks/pi-harness-incubation-H4-local-shadow-cutover.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H4.md",
+      "byte_count": 6840,
+      "sha256": "91c7d44840e714ec3f8f21258fa383db75c7c0cc3cfcdfdf02dc29e69513f696"
+    },
+    {
+      "kind": "task",
+      "task_id": "H5",
+      "original_path": ".pi/tasks/pi-harness-incubation-H5-extraction-readiness.md",
+      "archive_path": "harness/archive/task-control-v1/tasks/H5.md",
+      "byte_count": 1661,
+      "sha256": "607f81f138d6f906b8757973ae6db3605f3a58fa4be33198db155265b427e487"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "task_id": "P5",
+  "title": "P5 — QE mechanical I/O and immutable execution boundary",
+  "status": "blocked",
+  "status_detail": "blocked by accepted P2 and P4",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P2",
+    "P4"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement QE mechanical input/output records, deterministic serialization/parsing, and immutable two-phase execution request/result/failure boundaries.\n\nGuards remain pure. External execution adapters consume authorized requests outside guard evaluation. This task must not combine semantic input mapping/result adaptation, decide convergence, contact a scheduler from a guard, or execute a real calculation without the production checkpoint. Synthetic execution fixtures only. Preserves D and part of F.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
+  "authority_reference_paths": [
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/tasks/P5.md"
+  ],
+  "authorized_scope": [
+    "Implement QE mechanical input/output records, deterministic serialization/parsing, and immutable two-phase execution request/result/failure boundaries.",
+    "Guards remain pure. External execution adapters consume authorized requests outside guard evaluation. This task must not combine semantic input mapping/result adaptation, decide convergence, contact a scheduler from a guard, or execute a real calculation without the production checkpoint. Synthetic execution fixtures only. Preserves D and part of F.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "completion_criteria": [
+    "Implement QE mechanical input/output records, deterministic serialization/parsing, and immutable two-phase execution request/result/failure boundaries.",
+    "Guards remain pure. External execution adapters consume authorized requests outside guard evaluation. This task must not combine semantic input mapping/result adaptation, decide convergence, contact a scheduler from a guard, or execute a real calculation without the production checkpoint. Synthetic execution fixtures only. Preserves D and part of F.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "exclusions": [
+    "Implement QE mechanical input/output records, deterministic serialization/parsing, and immutable two-phase execution request/result/failure boundaries.",
+    "Guards remain pure. External execution adapters consume authorized requests outside guard evaluation. This task must not combine semantic input mapping/result adaptation, decide convergence, contact a scheduler from a guard, or execute a real calculation without the production checkpoint. Synthetic execution fixtures only. Preserves D and part of F.",
+    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/P5.md",
+    "sha256": "53d8d0c5d397fda7206c0bfe50f2f3756d6c594a8912e90205af6cba1653bf34"
+  }
+}

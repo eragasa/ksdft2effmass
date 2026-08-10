@@ -163,7 +163,7 @@
       "content_sha256": "9949a50d4bdf3f072235b0946e797a7242b1712c2609b6332d671383a9f675bd",
       "trigger_description": "A material architecture choice requires exactly three distinct defensible conceptual architectures and a human decision.",
       "current_consumers": [
-        ".pi/tasks/develop-architecture-decision-skill.md",
+        "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
         ".pi/agents/ksdft2effmass-architecture.md",
         ".pi/agents/ksdft2effmass-harness-architecture.md",
         ".pi/skills/develop-operator-records/SKILL.md",
@@ -490,7 +490,7 @@
       ],
       "authoritative_references": [
         "AGENTS.md",
-        ".pi/tasks/harness-simplification.execution.task-state-inspection-tool.md",
+        "harness/tasks/harness-simplification.execution.task-state-inspection-tool.json",
         "docs/harness/ksdft2effmass.harness.002.001.006.md"
       ],
       "inputs": [

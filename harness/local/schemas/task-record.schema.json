@@ -18,33 +18,124 @@
     "authorized_scope",
     "completion_criteria",
     "exclusions",
-    "intake_path"
+    "intake_path",
+    "archived_source"
   ],
   "$defs": {
-    "identifier": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"},
-    "path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)[^\\x00-\\x1f/]+(?:/[^\\x00-\\x1f/]+)*$"},
-    "identifier_array": {"type": "array", "items": {"$ref": "#/$defs/identifier"}, "uniqueItems": true},
-    "text_array": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)[^\\x00-\\x1f/]+(?:/[^\\x00-\\x1f/]+)*$"
+    },
+    "identifier_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "text_array": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "archived_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
   },
   "properties": {
-    "schema_version": {"const": 1},
-    "task_id": {"$ref": "#/$defs/identifier"},
-    "title": {"type": "string", "minLength": 1},
-    "status": {"$ref": "#/$defs/identifier"},
+    "schema_version": {
+      "const": 1
+    },
+    "task_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "$ref": "#/$defs/identifier"
+    },
     "parent_task_id": {
       "oneOf": [
-        {"$ref": "#/$defs/identifier"},
-        {"type": "null"}
+        {
+          "$ref": "#/$defs/identifier"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
-    "task_prerequisite_ids": {"$ref": "#/$defs/identifier_array"},
-    "external_prerequisite_ids": {"$ref": "#/$defs/identifier_array"},
-    "explicit_activation_required": {"type": "boolean"},
-    "objective": {"type": "string", "minLength": 1},
-    "authority_reference_paths": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/path"}, "uniqueItems": true},
-    "authorized_scope": {"$ref": "#/$defs/text_array"},
-    "completion_criteria": {"$ref": "#/$defs/text_array"},
-    "exclusions": {"$ref": "#/$defs/text_array"},
-    "intake_path": {"$ref": "#/$defs/path"}
+    "task_prerequisite_ids": {
+      "$ref": "#/$defs/identifier_array"
+    },
+    "external_prerequisite_ids": {
+      "$ref": "#/$defs/identifier_array"
+    },
+    "explicit_activation_required": {
+      "type": "boolean"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_reference_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/path"
+      },
+      "uniqueItems": true
+    },
+    "authorized_scope": {
+      "$ref": "#/$defs/text_array"
+    },
+    "completion_criteria": {
+      "$ref": "#/$defs/text_array"
+    },
+    "exclusions": {
+      "$ref": "#/$defs/text_array"
+    },
+    "intake_path": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "archived_source": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/archived_source"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
   }
 }

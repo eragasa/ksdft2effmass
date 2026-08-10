@@ -7,9 +7,7 @@
   "task_sequence": [
     {
       "id": "TEST-EVIDENCE-CONVENTIONS-2",
-      "record": ".pi/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
-      "prerequisites": ["explicit_human_authorization"],
-      "status": "human_authorized_pass",
+      "record": "harness/tasks/TEST-EVIDENCE-CONVENTIONS-2.json",
       "ownership_manifest": ".pi/evidence/test-evidence-repository-conformance/task-ownership.json"
     }
   ],
@@ -19,5 +17,6 @@
       "phase": "repository-conformance",
       "message": "The current human instruction activates repository-wide maintained Python test-evidence conformance. Production source, dependencies, scientific meaning, release actions, and protected execution remain unauthorized."
     }
-  ]
+  ],
+  "explicitly_activated_task_ids": []
 }

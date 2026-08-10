@@ -54,6 +54,7 @@ _TASK_V1_FIELDS = frozenset(
         "completion_criteria",
         "exclusions",
         "intake_path",
+        "archived_source",
     }
 )
 _IDENTIFIER = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$")
@@ -118,9 +119,31 @@ def _task_record_values(
     authority_paths = _strict_strings(
         task["authority_reference_paths"], "authority_reference_paths"
     )
-    for path in (*authority_paths, as_str(task["intake_path"], "intake_path")):
+    intake_path = task["intake_path"]
+    paths = (
+        authority_paths
+        if intake_path is None
+        else (*authority_paths, as_str(intake_path, "intake_path"))
+    )
+    for path in paths:
         if _RESOURCE_PATH.fullmatch(path) is None:
             raise ValueError("Task resource paths must be canonical relative paths")
+    archived_source = task["archived_source"]
+    if archived_source is not None:
+        if type(archived_source) is not dict or set(archived_source) != {
+            "path",
+            "sha256",
+        }:
+            raise ValueError("archived_source must be a closed object or null")
+        archive_path = as_str(archived_source["path"], "archived_source path")
+        digest = as_str(archived_source["sha256"], "archived_source sha256")
+        if (
+            _RESOURCE_PATH.fullmatch(archive_path) is None
+            or re.fullmatch(r"[0-9a-f]{64}", digest) is None
+        ):
+            raise ValueError(
+                "archived_source must contain a canonical path and SHA-256"
+            )
     for field in (
         "authorized_scope",
         "completion_criteria",
@@ -309,8 +332,6 @@ class TaskRecordAdapter:
                     )
                     if record_id != task_id:
                         raise ValueError("JSON Task identity differs from chain entry")
-                    if any(dependency not in ids for dependency in task_deps):
-                        raise ValueError("Task prerequisite is not a chain member")
                     if (status == "active") != (chain_active == task_id):
                         raise ValueError(
                             "JSON Task status conflicts with chain active_task"

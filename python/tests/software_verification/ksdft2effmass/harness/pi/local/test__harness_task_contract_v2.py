@@ -38,6 +38,7 @@ from .task_model_examples import make_task
 pytestmark = pytest.mark.software_verification
 
 _RETAINED_PUBLIC_NAMES = (
+    "ArchivedTaskSource",
     "HarnessTask",
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
@@ -45,18 +46,17 @@ _RETAINED_PUBLIC_NAMES = (
 )
 
 
-def test_public_api__task_model__exports_only_four_retained_interfaces() -> None:
+def test_public_api__task_model__exports_five_retained_interfaces() -> None:
     """Evidence ID: SV-HT-020
 
-    Requirement: The Task-model module publicly defines only the four retained core
+    Requirement: The Task-model module publicly defines the five retained core
     interfaces.
 
     Method: Compare package exports and module-owned public classes with a fixed list.
 
-    Oracle: The human-authorized minimum durable Task architecture names the exact
-    four interfaces.
+    Oracle: The bootstrap Task architecture names the exact five interfaces.
 
-    Acceptance: All four names resolve, all are exported, and no other public class is
+    Acceptance: All five names resolve, all are exported, and no other public class is
     defined by ``task_model``.
 
     Interpretation: Failure identifies a missing core interface or an unaccepted
@@ -231,6 +231,7 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
         "completion_criteria": ["Reference is produced."],
         "exclusions": ["No migration."],
         "intake_path": "records/v1.intake.md",
+        "archived_source": None,
     }
     v2 = make_task(task_id="format.v2", status="active")
     chain: dict[str, Any] = {
