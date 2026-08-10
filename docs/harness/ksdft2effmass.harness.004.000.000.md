@@ -50,6 +50,18 @@ harness.telemetry
 └── harness.telemetry.controlled-benchmarks
 ```
 
+| Task ID | Title | Status | Parent | Prerequisites | Explicit activation |
+|---|---|---|---|---|---|
+| `harness.telemetry` | Harness telemetry program | Inactive | — | — | Yes |
+| `harness.telemetry.session-jsonl-inventory` | Inventory selected Pi session JSONL | Inactive | `harness.telemetry` | — | Yes |
+| `harness.telemetry.retrospective-parser` | Implement the retrospective session parser | Inactive | `harness.telemetry` | `harness.telemetry.session-jsonl-inventory` | Yes |
+| `harness.telemetry.normalized-event-contract` | Freeze the normalized telemetry event contract | Inactive | `harness.telemetry` | `harness.telemetry.retrospective-parser` | Yes |
+| `harness.telemetry.sqlite-projection` | Implement the local SQLite telemetry projection | Inactive | `harness.telemetry` | `harness.telemetry.normalized-event-contract` | Yes |
+| `harness.telemetry.baseline` | Measure the pre-simplification baseline | Inactive | `harness.telemetry` | `harness.telemetry.sqlite-projection` | Yes |
+| `harness.telemetry.live-timing-extension` | Add the live timing extension | Inactive | `harness.telemetry` | `harness.telemetry.sqlite-projection` | Yes |
+| `harness.telemetry.effectiveness-evaluation` | Evaluate harness effectiveness | Inactive | `harness.telemetry` | `harness.telemetry.baseline`, `harness.telemetry.live-timing-extension` | Yes |
+| `harness.telemetry.controlled-benchmarks` | Define controlled harness benchmarks | Inactive | `harness.telemetry` | `harness.telemetry.effectiveness-evaluation` | Yes |
+
 Each child has `harness.telemetry` as its explicit parent. Dotted identifiers do
 not imply a relationship independently of the Task records and graph.
 
