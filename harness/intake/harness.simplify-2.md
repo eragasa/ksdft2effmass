@@ -1,6 +1,6 @@
 # Harness simplification round two intake
 
-**Status:** Coordinating parent deferred to R2.3, which is blocked at HC01 pending the routine evidence-profile contract. R2.1 and R2.2 are completed. R2.4–R2.7 are inactive with `explicit_activation_required: false`, and automatic successor activation remains disabled.
+**Status:** Coordinating parent deferred to active R2.3 after HC01 resolved the custom routine evidence-profile contract. R2.1 and R2.2 are completed. R2.4–R2.7 are inactive with `explicit_activation_required: false`, and automatic successor activation remains disabled.
 
 **Task ID:** `harness.simplify-2`
 
@@ -37,7 +37,7 @@ control state.
 | ---: | --- | --- | --- |
 | 1 | `harness.simplify-2.control-decomposition` | R2.1 — control decomposition | completed |
 | 2 | `harness.simplify-2.adapter-retirement` | R2.2 — adapter retirement | completed |
-| 3 | `harness.simplify-2.python-conformance-decomposition` | R2.3 — Python conformance decomposition | blocked at HC01 |
+| 3 | `harness.simplify-2.python-conformance-decomposition` | R2.3 — Python conformance decomposition | active; HC01 resolved |
 | 4 | `harness.simplify-2.resource-decomposition` | R2.4 — resource and routing decomposition | inactive |
 | 5 | `harness.simplify-2.wire-validation-decomposition` | R2.5 — wire validation decomposition | inactive |
 | 6 | `harness.simplify-2.cli-consolidation` | R2.6 — maintained CLI consolidation under `python/src/cli/` | inactive |

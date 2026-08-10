@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.python-conformance-decomposition",
   "title": "Simplify the maintained Python evidence system",
-  "status": "blocked",
-  "status_detail": "activated R2.3 is blocked at HC01 pending the human-owned routine evidence-profile documentation and retained-metadata contract; no successor activated",
+  "status": "active",
+  "status_detail": "active R2.3 resumed after HC01 resolved the custom routine evidence-profile contract; no successor activated",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.adapter-retirement"

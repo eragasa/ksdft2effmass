@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 2,
-  "semantic_database_digest": "acc0ecce37a81ed5f8970f5d3333e8531a1e174eb467b5d54cbb0a882f7ff5b4",
+  "semantic_database_digest": "05a5f92078ef5397b7e84684b350fb395598a4606d7c7900b84a437ae7d27e30",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "48bb99edcba2cab6ae935f598a1688be5bc0a20353120ddabaad1810eed3a1f9",
-    "byte_count": 3585820
+    "sha256": "f5b9e1fb1acb41865fd635d68530297c4c62eef03d3029d44e85a4ccacd24bd2",
+    "byte_count": 3585770
   },
   "projections": [
     {
@@ -613,15 +613,15 @@
     {
       "path": "docs/harness/tasks/harness.simplify-2.md",
       "projection_kind": "task-markdown",
-      "sha256": "2d0108036260f75a425b73c2b94ac0abf1caa574511149b85b062361eef35ca0",
-      "byte_count": 15059,
+      "sha256": "3d24ac3a5818586e10a91d14b8d1c78a2533c6722bcd8858b48e17b41d74d1f3",
+      "byte_count": 15058,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/harness.simplify-2.python-conformance-decomposition.md",
       "projection_kind": "task-markdown",
-      "sha256": "456f8933719dd70a6852ed6a0a6510b03cb6cbfbb27e093a445a0eef8b5740aa",
-      "byte_count": 8562,
+      "sha256": "aa028a067c061313605896971f38f88c73ceab5d0e9bee9a3f635d712741f317",
+      "byte_count": 8518,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -732,8 +732,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "5c1fe0f4dfb9ff8a3d8627b5dedba5423d6c9be62fc2233380441e61de8e7f77",
-      "byte_count": 15859,
+      "sha256": "969876cb55a217d6c739c8014211ac62fd36ff4b868997b930a4f8f1972798be",
+      "byte_count": 15857,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1376,15 +1376,15 @@
     {
       "path": "harness/tasks/harness.simplify-2.json",
       "projection_kind": "task-json",
-      "sha256": "aa95247915a4c6b4cd6d361df7b447f9db0845473abd7b097d5005fcf4c21ed6",
-      "byte_count": 15351,
+      "sha256": "4b82822b09616081d2600c37bc868ae1bbd4972a03934a2c6282b8160a161af4",
+      "byte_count": 15350,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/harness.simplify-2.python-conformance-decomposition.json",
       "projection_kind": "task-json",
-      "sha256": "25f0606e5df9c7576b224c00c197c291e0df2b58ae7247a58f965eb9a7128af2",
-      "byte_count": 8790,
+      "sha256": "a56e30634f83a31305aac11833a807734936c3fc41b0819228fb1e6f09de7898",
+      "byte_count": 8746,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

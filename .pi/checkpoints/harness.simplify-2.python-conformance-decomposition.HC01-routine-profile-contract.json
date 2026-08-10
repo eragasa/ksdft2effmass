@@ -2,7 +2,7 @@
   "checkpoint_id": "harness.simplify-2.python-conformance-decomposition.HC01",
   "task_id": "harness.simplify-2.python-conformance-decomposition",
   "episode_id": "harness.simplify-2.python-conformance-decomposition",
-  "status": "blocked",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-10T16:36:02Z",
   "question": "Which exact documentation and retained-metadata contract should the generic Python test-evidence profile matrix assign to the `routine` software-verification profile?",
@@ -21,6 +21,11 @@
       "id": "C",
       "summary": "Use a minimal routine profile without stable per-test evidence records.",
       "consequence": "Require only module ownership/profile metadata and ordinary executable test names/assertions for routine tests. Per-test evidence IDs and labeled evidence prose become optional. Existing accepted IDs would still be preserved where already present, but new routine tests could not supply the same canonical evidence-row identity without an additional representation rule."
+    },
+    {
+      "id": "D",
+      "summary": "Use the human-specified custom routine evidence contract.",
+      "consequence": "Require exactly Evidence ID, Requirement, and Acceptance per test. Method, Oracle, Interpretation, Limitations, and provenance prose are optional per test. Each module declares its evidence profile and bounded artifact scope, including applicable VVUQ exclusions. Stable evidence IDs remain mandatory, and executable assertions and acceptance behavior are not weakened."
     }
   ],
   "recommendation": "Option A. It preserves stable evidence identities, deterministic acceptance and limitation statements, predecessor traceability, and reconstructible SQLite evidence rows while removing the Method, Oracle, Interpretation, and provenance prose that ordinary exact software-contract tests do not always need. It best matches the authorized statement that `routine` changes documentation and retained metadata without weakening executable behavior.",
@@ -34,10 +39,10 @@
     ".pi/skills/develop-python-test-evidence/SKILL.md",
     ".pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "Resolve HC01 with this human decision:\n\nRoutine evidence requires exactly these per-test fields:\n\n1. Evidence ID\n2. Requirement\n3. Acceptance\n\nMethod, Oracle, Interpretation, Limitations, and provenance prose are optional per test.\n\nThe module must still declare its evidence profile and bounded artifact scope, including applicable VVUQ exclusions. Stable evidence IDs remain mandatory. Executable assertions and acceptance behavior are not weakened.\n\nThis is the contract already authorized in the R2.3 activation instruction. Treat this as a custom correction rather than Options A, B, or C. Resolve HC01, resume R2.3, and do not create another checkpoint for this issue.",
+  "normalized_decision": "D",
+  "resolved_at": "2026-08-10T16:39:26Z",
+  "authorized_scope": "Resume R2.3 using the custom routine evidence contract: require exactly Evidence ID, Requirement, and Acceptance per test; make Method, Oracle, Interpretation, Limitations, and provenance prose optional per test; require each module to declare its evidence profile and bounded artifact scope with applicable VVUQ exclusions; keep stable evidence IDs mandatory; preserve executable assertions and acceptance behavior; and do not create another checkpoint for this issue.",
   "record_paths": [
     ".pi/checkpoints/harness.simplify-2.python-conformance-decomposition.HC01-routine-profile-contract.json",
     ".pi/chains/harness-simplification.chain.json",
@@ -45,5 +50,5 @@
     "harness/tasks/harness.simplify-2.json",
     "harness/intake/harness.simplify-2.md"
   ],
-  "resumption_status": "R2.3 blocked pending human selection of the routine evidence-profile contract; no successor activated"
+  "resumption_status": "R2.3 resumed under custom routine evidence-profile contract D; no successor activated"
 }

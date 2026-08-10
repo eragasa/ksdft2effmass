@@ -5,7 +5,7 @@
 
 ## Status
 
-`blocked`: activated R2.3 is blocked at HC01 pending the human-owned routine evidence-profile documentation and retained-metadata contract; no successor activated
+`active`: active R2.3 resumed after HC01 resolved the custom routine evidence-profile contract; no successor activated
 
 ## Objective
 

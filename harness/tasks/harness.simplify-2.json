@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2",
   "title": "Harness simplification round two",
-  "status": "deferred_to_blocked_child",
-  "status_detail": "coordinating parent deferred to R2.3, which is blocked at HC01 pending the routine evidence-profile contract; R2.1 and R2.2 are completed, the remaining four ordered work packages are inactive, and automatic successor activation remains disabled",
+  "status": "deferred_to_active_child",
+  "status_detail": "coordinating parent deferred to active R2.3 after HC01 resolved the custom routine evidence-profile contract; R2.1 and R2.2 are completed, the remaining four ordered work packages are inactive, and automatic successor activation remains disabled",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.round-2.sqlite-hybrid-cutover"
