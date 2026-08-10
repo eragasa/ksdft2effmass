@@ -28,8 +28,10 @@ from .constants import (
 from .database import _ControlDatabase
 from .encoding import _ControlEncoding
 from .ingestion import _RepositoryControlIngestor
+from .input_files import _ControlInputFileSelector
 from .projections import _ControlProjector
 from .records import HarnessControlMigrationRequest, HarnessControlMigrationResult
+from .resources import _ControlResourceCorpus, _ControlResourceCorpusBuilder
 from .schema import _SCHEMA
 
 
@@ -39,33 +41,17 @@ class HarnessControlMigrator:
     __slots__ = ()
 
     @staticmethod
-    def _repository_file(root: Path, relative: Path) -> Path:
-        """Resolve one explicit regular file without escaping ``root``."""
-        resolved_root = root.resolve()
-        try:
-            resolved = (resolved_root / relative).resolve(strict=True)
-            resolved.relative_to(resolved_root)
-        except (FileNotFoundError, RuntimeError, ValueError) as exc:
-            raise ValueError(
-                f"repository-relative input is not root-confined: {relative}"
-            ) from exc
-        if not resolved.is_file():
-            raise ValueError(
-                f"repository-relative input is not a regular file: {relative}"
-            )
-        return resolved
-
-    @classmethod
     def _canonical_evidence_corpus(
-        cls, request: HarnessControlMigrationRequest
+        request: HarnessControlMigrationRequest,
     ) -> tuple[
         tuple[Mapping[str, Any], ...],
         tuple[PythonTestModuleModel, ...],
         tuple[tuple[str, str], ...],
     ]:
         """Build canonical evidence inputs from source, policy, and migration map."""
+        selector = _ControlInputFileSelector()
         if request.evidence_module_ownership_path is not None:
-            cls._repository_file(
+            selector.file(
                 request.repository_root, request.evidence_module_ownership_path
             )
             raise ValueError(
@@ -75,16 +61,16 @@ class HarnessControlMigrator:
             return (), (), ()
         assert request.evidence_profile_matrix_path is not None
         assert request.evidence_migration_path is not None
-        profile_path = cls._repository_file(
+        profile_path = selector.file(
             request.repository_root, request.evidence_profile_matrix_path
         )
-        migration_path = cls._repository_file(
+        migration_path = selector.file(
             request.repository_root, request.evidence_migration_path
         )
         sources: list[PythonModuleSource] = []
         inputs: list[_PythonTestModuleInput] = []
         for relative in request.evidence_module_paths:
-            path = cls._repository_file(request.repository_root, relative)
+            path = selector.file(request.repository_root, relative)
             payload = path.read_bytes()
             raw_path = relative.as_posix()
             sources.append(PythonModuleSource(raw_path, payload))
@@ -136,6 +122,26 @@ class HarnessControlMigrator:
             tuple(MappingProxyType(item) for item in modules),
             tuple(models),
             predecessors,
+        )
+
+    @staticmethod
+    def _canonical_resource_corpus(
+        request: HarnessControlMigrationRequest,
+    ) -> _ControlResourceCorpus | None:
+        """Build canonical resources only from the request's explicit paths."""
+        if request.resource_profile_path is None:
+            return None
+        assert request.generic_resource_manifest_path is not None
+        assert request.generic_resource_root_path is not None
+        assert request.local_resource_manifest_path is not None
+        assert request.local_resource_root_path is not None
+        return _ControlResourceCorpusBuilder().execute(
+            request.repository_root,
+            request.resource_profile_path,
+            request.generic_resource_manifest_path,
+            request.generic_resource_root_path,
+            request.local_resource_manifest_path,
+            request.local_resource_root_path,
         )
 
     @staticmethod
@@ -233,6 +239,7 @@ class HarnessControlMigrator:
         module_inventory, evidence_models, evidence_predecessors = (
             self._canonical_evidence_corpus(request)
         )
+        resource_corpus = self._canonical_resource_corpus(request)
         database_path = root / request.database_path
         database_path.parent.mkdir(parents=True, exist_ok=True)
         working = database_path.with_suffix(".building.sqlite3")
@@ -268,10 +275,20 @@ class HarnessControlMigrator:
                 module_inventory,
                 evidence_models,
                 evidence_predecessors,
+                resource_corpus,
             )
             ingestor.execute()
             connection.commit()
-            projector = _ControlProjector(connection, ingestor.evidence_profiles)
+            projector = _ControlProjector(
+                connection,
+                ingestor.evidence_profiles,
+                None
+                if resource_corpus is None
+                else (
+                    resource_corpus.generic_manifest,
+                    resource_corpus.local_manifest,
+                ),
+            )
             projections = projector.render_all()
             for path, (kind, payload) in sorted(projections.items()):
                 connection.execute(

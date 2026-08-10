@@ -29,6 +29,11 @@ class HarnessControlMigrationRequest:
     inventories are projections rather than evidence authority. An empty
     evidence corpus preserves bounded noncanonical compatibility for isolated
     migration callers.
+
+    The five resource fields select one explicit project profile, generic and
+    local manifests, and their roots. They are supplied together for canonical
+    maintained construction. An omitted resource corpus preserves bounded
+    noncanonical compatibility without ambient resource discovery.
     """
 
     repository_root: Path
@@ -37,6 +42,11 @@ class HarnessControlMigrationRequest:
     evidence_profile_matrix_path: Path | None = None
     evidence_module_paths: tuple[Path, ...] = ()
     evidence_migration_path: Path | None = None
+    resource_profile_path: Path | None = None
+    generic_resource_manifest_path: Path | None = None
+    generic_resource_root_path: Path | None = None
+    local_resource_manifest_path: Path | None = None
+    local_resource_root_path: Path | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -67,6 +77,21 @@ class HarnessControlMigrationRequest:
         migration_path = self.evidence_migration_path
         if migration_path is not None and not isinstance(migration_path, Path):
             raise TypeError("evidence_migration_path must be a pathlib.Path or None")
+        resource_paths = (
+            self.resource_profile_path,
+            self.generic_resource_manifest_path,
+            self.generic_resource_root_path,
+            self.local_resource_manifest_path,
+            self.local_resource_root_path,
+        )
+        if any(
+            path is not None and not isinstance(path, Path) for path in resource_paths
+        ):
+            raise TypeError("resource inputs must be pathlib.Path values or None")
+        if any(path is not None for path in resource_paths) and any(
+            path is None for path in resource_paths
+        ):
+            raise ValueError("canonical resource inputs must be supplied together")
         if (
             profile_path is not None
             and not self.evidence_module_paths
@@ -86,6 +111,11 @@ class HarnessControlMigrationRequest:
             ("evidence_module_ownership_path", ownership_path),
             ("evidence_profile_matrix_path", profile_path),
             ("evidence_migration_path", migration_path),
+            ("resource_profile_path", self.resource_profile_path),
+            ("generic_resource_manifest_path", self.generic_resource_manifest_path),
+            ("generic_resource_root_path", self.generic_resource_root_path),
+            ("local_resource_manifest_path", self.local_resource_manifest_path),
+            ("local_resource_root_path", self.local_resource_root_path),
             *(("evidence_module_paths", path) for path in self.evidence_module_paths),
         ):
             if path is not None and (

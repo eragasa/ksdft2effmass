@@ -7,6 +7,7 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from ...resources import ResourceManifest
 from .constants import _GENERATOR_ID
 from .encoding import _ControlEncoding
 
@@ -14,15 +15,17 @@ from .encoding import _ControlEncoding
 class _ControlProjector:
     """Own deterministic projections for one control connection."""
 
-    __slots__ = ("connection", "evidence_profiles")
+    __slots__ = ("connection", "evidence_profiles", "resource_manifests")
 
     def __init__(
         self,
         connection: sqlite3.Connection,
         evidence_profiles: Mapping[str, str] | None = None,
+        resource_manifests: tuple[ResourceManifest, ResourceManifest] | None = None,
     ) -> None:
         self.connection = connection
         self.evidence_profiles = dict(evidence_profiles or {})
+        self.resource_manifests = resource_manifests
 
     def _task_payload(self, task_id: str) -> dict[str, Any]:
         connection = self.connection
@@ -217,7 +220,7 @@ class _ControlProjector:
             "task-index-markdown",
             ("\n".join(lines) + "\n").encode(),
         )
-        for layer, path, manifest_id, version, extends in (
+        default_manifests = (
             (
                 "generic",
                 "harness/pi/resource-manifest.json",
@@ -232,20 +235,35 @@ class _ControlProjector:
                 11,
                 "pih.generic.resources",
             ),
-        ):
+        )
+        selected_manifests = self.resource_manifests
+        for index, manifest_defaults in enumerate(default_manifests):
+            layer, path, default_id, default_version, default_extends = (
+                manifest_defaults
+            )
+            selected = None if selected_manifests is None else selected_manifests[index]
+            manifest_id = default_id if selected is None else selected.manifest_id
+            version = default_version if selected is None else selected.manifest_version
+            extends = (
+                default_extends if selected is None else selected.extends_manifest_id
+            )
+            manifest_layer = (
+                ("generic" if layer == "generic" else "local")
+                if selected is None
+                else selected.layer
+            )
+            declared = (
+                {}
+                if selected is None
+                else {resource.resource_id: resource for resource in selected.resources}
+            )
             resources = []
-            for (
-                resource_id,
-                kind,
-                source_path,
-                digest,
-                format_version,
-            ) in connection.execute(
+            rows = connection.execute(
                 "SELECT resource_id,resource_kind,source_path,sha256,format_version "
                 "FROM resource_definition WHERE layer=? ORDER BY resource_id",
                 (layer,),
-            ):
-                prefix = "harness/pi/" if layer == "generic" else "harness/local/"
+            )
+            for resource_id, kind, source_path, digest, format_version in rows:
                 dependencies = [
                     row[0]
                     for row in connection.execute(
@@ -255,6 +273,8 @@ class _ControlProjector:
                         (resource_id,),
                     )
                 ]
+                reference = declared.get(resource_id)
+                prefix = "harness/pi/" if layer == "generic" else "harness/local/"
                 resources.append(
                     {
                         "content_identity": {
@@ -264,7 +284,11 @@ class _ControlProjector:
                         },
                         "dependency_ids": dependencies,
                         "format_version": format_version,
-                        "path": source_path.removeprefix(prefix),
+                        "path": (
+                            source_path.removeprefix(prefix)
+                            if reference is None
+                            else reference.path
+                        ),
                         "resource_id": resource_id,
                         "resource_kind": kind,
                         "schema_version": 1,
@@ -272,7 +296,7 @@ class _ControlProjector:
                 )
             manifest = {
                 "extends_manifest_id": extends,
-                "layer": "generic" if layer == "generic" else "local",
+                "layer": manifest_layer,
                 "manifest_id": manifest_id,
                 "manifest_version": version,
                 "resources": resources,

@@ -18,7 +18,9 @@ This is software verification only; scientific validation and UQ are excluded.
 """
 
 import json
+import shutil
 import sqlite3
+import subprocess
 from pathlib import Path
 from textwrap import dedent
 from typing import Any
@@ -208,6 +210,134 @@ class SyntheticEvidenceFixture:
             *projection_paths,
         )
         return {path: (root / path).read_bytes() for path in paths}
+
+
+def make_canonical_resource_request(tmp_path: Path) -> HarnessControlMigrationRequest:
+    """Evidence ID: Owns no identifier; supports canonical resource migration evidence.
+
+    Requirement: Canonical resource migration tests receive one isolated complete
+    control-input tree without mutating repository-owned state.
+
+    Method: Copy maintained harness control, agent, skill, and checkpoint inputs and
+    construct a request naming every canonical resource path.
+
+    Oracle: The maintained control roots and fixed request fields define the fixture.
+
+    Acceptance: Return one immutable request rooted at the isolated directory.
+
+    Interpretation: Failure indicates invalid fixture setup, not migrator behavior.
+
+    Limitations: The helper owns no evidence identity or product behavior.
+    """
+    repository = Path(__file__).resolve().parents[8]
+    shutil.copytree(repository / "harness", tmp_path / "harness")
+    shutil.copytree(repository / ".pi/agents", tmp_path / ".pi/agents")
+    shutil.copytree(repository / ".pi/checkpoints", tmp_path / ".pi/checkpoints")
+    shutil.copytree(repository / ".pi/skills", tmp_path / ".pi/skills")
+    shutil.copytree(repository / ".agents/skills", tmp_path / ".agents/skills")
+    return HarnessControlMigrationRequest(
+        tmp_path.resolve(),
+        resource_profile_path=Path("harness/local/profiles/ksdft2effmass-v2.json"),
+        generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
+        generic_resource_root_path=Path("harness/pi"),
+        local_resource_manifest_path=Path("harness/local/resource-manifest.json"),
+        local_resource_root_path=Path("harness/local"),
+    )
+
+
+def test_method__execute_canonical_resources__participate_in_full_reconstruction(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migration-action.canonical-resources-participate-in-full-reconstruction
+
+    Requirement: Explicit canonical resources participate in the same complete control
+    reconstruction that ingests Tasks, agents, skills, decisions, and projections.
+
+    Method: Copy a bounded complete repository-control fixture, replace only external
+    pytest collection with an empty successful observation, and execute the public
+    migrator without replacing or narrowing repository ingestion.
+
+    Oracle: The input manifests enumerate 80 resources, while the other copied control
+    catalogs independently require nonempty Task, agent, skill, and decision rows.
+
+    Acceptance: The result and SQLite contain 80 resources and nonempty rows for every
+    other copied control domain, and both projected manifests equal their input bytes.
+
+    Interpretation: Failure indicates resources use a partial or separate construction
+    route rather than the complete full-control migration.
+
+    Limitations: The isolated request intentionally supplies no evidence modules, so
+    external pytest collection is replaced by a deterministic empty observation.
+    """  # noqa: E501
+    request = make_canonical_resource_request(tmp_path)
+    expected_generic = (tmp_path / "harness/pi/resource-manifest.json").read_bytes()
+    expected_local = (tmp_path / "harness/local/resource-manifest.json").read_bytes()
+
+    def collect_empty(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess(args[0], 0, stdout="", stderr="")
+
+    monkeypatch.setattr(
+        "ksdft2effmass.harness.pi.local.dbcontrol.ingestion.subprocess.run",
+        collect_empty,
+    )
+    result = HarnessControlMigrator().execute(request)
+    counts = dict(result.counts)
+    assert counts["resource_definition"] == 80
+    assert counts["task_definition"] > 0
+    assert counts["agent_definition"] > 0
+    assert counts["skill_definition"] > 0
+    assert counts["decision_reference"] > 0
+    assert counts["projection_record"] > 0
+    assert (
+        tmp_path / "harness/pi/resource-manifest.json"
+    ).read_bytes() == expected_generic
+    assert (
+        tmp_path / "harness/local/resource-manifest.json"
+    ).read_bytes() == expected_local
+
+
+def test_method__execute_resource_hash_mismatch__preserves_published_generation(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migration-action.resource-hash-mismatch-preserves-generation
+
+    Requirement: A manifest/source identity mismatch is rejected before any artifact
+    in a complete previously published control generation changes.
+
+    Method: Publish one full isolated generation, snapshot its database, SQL, manifest,
+    and every projection, alter one declared generic source, and migrate again.
+
+    Oracle: The manifest-declared SHA-256 and changed source bytes disagree exactly,
+    while the independent byte snapshot fixes the complete retained generation.
+
+    Acceptance: The second call raises ``ValueError`` naming hash mismatch and every
+    previously published generation artifact remains byte-identical.
+
+    Interpretation: Failure indicates live hash substitution or prevalidation writes.
+
+    Limitations: Filesystem-level failure during publication is covered separately.
+    """  # noqa: E501
+    request = make_canonical_resource_request(tmp_path)
+
+    def collect_empty(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess(args[0], 0, stdout="", stderr="")
+
+    monkeypatch.setattr(
+        "ksdft2effmass.harness.pi.local.dbcontrol.ingestion.subprocess.run",
+        collect_empty,
+    )
+    published = HarnessControlMigrator().execute(request)
+    retained = SyntheticEvidenceFixture.generation_bytes(
+        tmp_path, published.projection_paths
+    )
+    changed = tmp_path / "harness/pi/skills/develop-harness-resources/SKILL.md"
+    changed.write_bytes(changed.read_bytes() + b"\nchanged\n")
+    with pytest.raises(ValueError, match="HASH_MISMATCH"):
+        HarnessControlMigrator().execute(request)
+    assert (
+        SyntheticEvidenceFixture.generation_bytes(tmp_path, published.projection_paths)
+        == retained
+    )
 
 
 def test_method__execute_wrong_request_type__raises_type_error() -> None:

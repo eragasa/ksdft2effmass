@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: activated by current human instruction for bounded R2.4 resource-authority and canonical-input implementation; no successor activated
+`completed`: completed after canonical resource-input reconstruction, focused validation, and one consolidated correction pass; no successor activated
 
 ## Objective
 

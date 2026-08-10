@@ -45,6 +45,11 @@ def main() -> int:
         type=Path,
         help="explicit repository-relative predecessor migration map",
     )
+    parser.add_argument("--resource-profile", type=Path)
+    parser.add_argument("--generic-resource-manifest", type=Path)
+    parser.add_argument("--generic-resource-root", type=Path)
+    parser.add_argument("--local-resource-manifest", type=Path)
+    parser.add_argument("--local-resource-root", type=Path)
     args = parser.parse_args()
     root = args.repository_root.resolve()
     result: HarnessControlMigrationResult | HarnessControlVerificationResult
@@ -56,6 +61,11 @@ def main() -> int:
                 evidence_profile_matrix_path=args.evidence_profile_matrix,
                 evidence_module_paths=tuple(args.evidence_module),
                 evidence_migration_path=args.evidence_migration,
+                resource_profile_path=args.resource_profile,
+                generic_resource_manifest_path=args.generic_resource_manifest,
+                generic_resource_root_path=args.generic_resource_root,
+                local_resource_manifest_path=args.local_resource_manifest,
+                local_resource_root_path=args.local_resource_root,
             )
         )
     else:
@@ -64,8 +74,13 @@ def main() -> int:
             or args.evidence_profile_matrix is not None
             or args.evidence_module
             or args.evidence_migration is not None
+            or args.resource_profile is not None
+            or args.generic_resource_manifest is not None
+            or args.generic_resource_root is not None
+            or args.local_resource_manifest is not None
+            or args.local_resource_root is not None
         ):
-            parser.error("evidence inputs are valid only with migrate")
+            parser.error("evidence and resource inputs are valid only with migrate")
         result = HarnessControlVerifier().execute(root)
     print(
         json.dumps(

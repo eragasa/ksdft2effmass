@@ -14,6 +14,7 @@ from ...evidence.python_conformance.evidence import _PythonEvidenceFactExtractor
 from ...evidence.python_conformance.model import PythonTestModuleModel
 from .constants import _EVIDENCE_CLASSES, _IDENTIFIER
 from .encoding import _ControlEncoding
+from .resources import _ControlResourceCorpus
 
 
 class _RepositoryControlIngestor:
@@ -27,6 +28,7 @@ class _RepositoryControlIngestor:
         "evidence_profiles",
         "evidence_models",
         "evidence_predecessors",
+        "resource_corpus",
     )
 
     def __init__(
@@ -37,6 +39,7 @@ class _RepositoryControlIngestor:
         module_inventory: tuple[Mapping[str, Any], ...] = (),
         evidence_models: tuple[PythonTestModuleModel, ...] = (),
         evidence_predecessors: tuple[tuple[str, str], ...] = (),
+        resource_corpus: _ControlResourceCorpus | None = None,
     ) -> None:
         self.connection = connection
         self.root = root
@@ -45,6 +48,7 @@ class _RepositoryControlIngestor:
         self.evidence_profiles: dict[str, str] = {}
         self.evidence_models = {model.path: model for model in evidence_models}
         self.evidence_predecessors = dict(evidence_predecessors)
+        self.resource_corpus = resource_corpus
 
     def execute(self) -> None:
         """Ingest the complete repository control corpus in dependency order."""
@@ -476,59 +480,40 @@ class _RepositoryControlIngestor:
                     )
 
     def _migrate_resources(self) -> None:
+        corpus = self.resource_corpus
+        if corpus is None:
+            return
         connection = self.connection
-        root = self.root
-        manifests = (
-            (
-                root / "harness/pi/resource-manifest.json",
-                "generic",
-                root / "harness/pi",
-            ),
-            (
-                root / "harness/local/resource-manifest.json",
-                "project_local",
-                root / "harness/local",
-            ),
-        )
-        resources: list[tuple[dict[str, Any], str, Path]] = []
-        for manifest_path, layer, resource_root in manifests:
-            document = json.loads(manifest_path.read_text())
-            for resource in document["resources"]:
-                resources.append((resource, layer, resource_root))
-        ids = {resource["resource_id"] for resource, _, _ in resources}
-        for resource, layer, resource_root in resources:
-            path = resource_root / resource["path"]
-            digest = (
-                _ControlEncoding.sha256(path.read_bytes())
-                if path.is_file()
-                else resource["content_identity"]["digest"]
-            )
+        ids = {item.reference.resource_id for item in corpus.resources}
+        for item in corpus.resources:
+            resource = item.reference
             connection.execute(
                 "INSERT INTO resource_definition VALUES (?,?,?,?,?,?,?)",
                 (
-                    resource["resource_id"],
-                    layer,
-                    resource["resource_kind"],
-                    path.relative_to(root).as_posix(),
-                    digest,
-                    resource["format_version"],
-                    1,
+                    resource.resource_id,
+                    item.layer,
+                    resource.resource_kind,
+                    item.source_path,
+                    resource.content_identity.digest,
+                    resource.format_version,
+                    resource.schema_version,
                 ),
             )
-        for resource, _layer, _resource_root in resources:
-            for dependency in resource["dependency_ids"]:
+        for item in corpus.resources:
+            resource = item.reference
+            for dependency in resource.dependency_ids:
                 if dependency in ids:
                     connection.execute(
                         "INSERT INTO resource_dependency VALUES (?,?)",
-                        (resource["resource_id"], dependency),
+                        (resource.resource_id, dependency),
                     )
-            if resource["resource_kind"] == "profile":
-                for index, dependency in enumerate(resource["dependency_ids"]):
+            if resource.resource_kind == "profile":
+                for index, dependency in enumerate(resource.dependency_ids):
                     if dependency in ids:
                         connection.execute(
                             "INSERT OR IGNORE INTO resource_profile_membership "
                             "VALUES (?,?,?)",
-                            (resource["resource_id"], dependency, index),
+                            (resource.resource_id, dependency, index),
                         )
 
     def _migrate_decisions(self) -> None:

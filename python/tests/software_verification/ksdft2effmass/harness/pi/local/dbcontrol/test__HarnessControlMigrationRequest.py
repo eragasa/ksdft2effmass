@@ -114,6 +114,51 @@ def test_constructor__canonical_evidence_inputs__are_explicit_and_immutable() ->
         )
 
 
+def test_constructor__canonical_resource_inputs__are_explicit_and_complete() -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migration-request.canonical-resource-inputs
+
+    Requirement: Canonical resource construction receives the profile, generic and
+    local manifests, and both resource roots as explicit repository-relative inputs.
+
+    Method: Construct a request with the complete resource selection and then omit one
+    required path and supply one absolute root.
+
+    Oracle: The five immutable paths define one closed canonical resource boundary.
+
+    Acceptance: Complete paths are retained exactly, partial selection raises
+    ``ValueError``, and an absolute resource root raises ``ValueError``.
+
+    Interpretation: Failure indicates ambient resource discovery or an unconfined input.
+
+    Limitations: Manifest and source semantics are validated by the migration Action.
+    """  # noqa: E501
+    root = Path("/repository")
+    request = HarnessControlMigrationRequest(
+        root,
+        resource_profile_path=Path("harness/local/profiles/project.json"),
+        generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
+        generic_resource_root_path=Path("harness/pi"),
+        local_resource_manifest_path=Path("harness/local/resource-manifest.json"),
+        local_resource_root_path=Path("harness/local"),
+    )
+    assert request.generic_resource_root_path == Path("harness/pi")
+    assert request.local_resource_root_path == Path("harness/local")
+    with pytest.raises(ValueError, match="supplied together"):
+        HarnessControlMigrationRequest(
+            root,
+            resource_profile_path=Path("harness/local/profiles/project.json"),
+        )
+    with pytest.raises(ValueError, match="repository-relative"):
+        HarnessControlMigrationRequest(
+            root,
+            resource_profile_path=Path("harness/local/profiles/project.json"),
+            generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
+            generic_resource_root_path=Path("/harness/pi"),
+            local_resource_manifest_path=Path("harness/local/resource-manifest.json"),
+            local_resource_root_path=Path("harness/local"),
+        )
+
+
 def test_constructor__relative_root__raises_value_error() -> None:
     """Evidence ID: software-verification.harness.sqlite-control.migration-request.relative-root-raises-value-error
 

@@ -1,0 +1,47 @@
+"""Explicit repository input selection for control construction."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+
+class _ControlInputFileSelector:
+    """Select root-confined files and directories without repository discovery."""
+
+    __slots__ = ()
+
+    @staticmethod
+    def _resolved(root: Path, relative: Path, message: str) -> Path:
+        resolved_root = root.resolve()
+        try:
+            resolved = (resolved_root / relative).resolve(strict=True)
+            resolved.relative_to(resolved_root)
+        except (FileNotFoundError, RuntimeError, ValueError) as exc:
+            raise ValueError(f"{message}: {relative}") from exc
+        return resolved
+
+    def file(self, root: Path, relative: Path, *, subject: str = "input") -> Path:
+        """Return one explicit regular file confined beneath ``root``."""
+        resolved = self._resolved(
+            root,
+            relative,
+            f"repository-relative {subject} is not root-confined",
+        )
+        if not resolved.is_file():
+            raise ValueError(
+                f"repository-relative {subject} is not a regular file: {relative}"
+            )
+        return resolved
+
+    def directory(self, root: Path, relative: Path) -> Path:
+        """Return one explicit resource root confined beneath ``root``."""
+        resolved = self._resolved(
+            root,
+            relative,
+            "repository-relative resource root is not confined",
+        )
+        if not resolved.is_dir():
+            raise ValueError(
+                f"repository-relative resource root is not a directory: {relative}"
+            )
+        return resolved
