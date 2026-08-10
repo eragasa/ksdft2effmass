@@ -1,15 +1,20 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P5",
   "title": "P5 — QE mechanical I/O and immutable execution boundary",
-  "status": "blocked",
-  "status_detail": "blocked by accepted P2 and P4",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2",
     "P4"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.artifacts.qe.inventory",
+    "bulk-silicon.records.periodic.extraction",
+    "bulk-silicon.simulation.qe.reference"
+  ],
   "explicit_activation_required": false,
   "objective": "Implement QE mechanical input/output records, deterministic serialization/parsing, and immutable two-phase execution request/result/failure boundaries.\n\nGuards remain pure. External execution adapters consume authorized requests outside guard evaluation. This task must not combine semantic input mapping/result adaptation, decide convergence, contact a scheduler from a guard, or execute a real calculation without the production checkpoint. Synthetic execution fixtures only. Preserves D and part of F.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [

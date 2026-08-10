@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.task-implementation-hardening",
   "title": "Implement and harden the accepted HarnessTask contract",
   "status": "superseded_without_architecture_acceptance",
+  "status_detail": null,
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-model-contract"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Historical Stage-2A implementation record superseded by the bounded minimum durable HarnessTask simplification; its 21-interface architecture was not human-accepted.",
   "authority_reference_paths": [

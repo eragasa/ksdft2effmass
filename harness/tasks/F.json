@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "F",
   "title": "Task F — Quantum ESPRESSO execution boundary",
   "status": "superseded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Implement the explicit QE process boundary and synthetic execution infrastructure while preserving the separate states of process completion, SCF convergence, numerical acceptance, and scientific validation.",
   "authority_reference_paths": [

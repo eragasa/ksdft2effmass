@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.tight-binding.direct-spectral.fitting",
+  "title": "Direct spectral tight-binding fitting",
+  "status": "blocked",
+  "status_detail": "Blocked by periodic electronic-structure record extraction and later fitting-contract decisions.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "bulk-silicon.records.periodic.extraction"
+  ],
+  "external_prerequisite_ids": [
+    "direct_tb_fitting_contract"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Construct explicit spectral targets and fit one declared direct tight-binding parameterization.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Define training and withheld target partitions with parent identities.",
+    "Fit only the accepted basis, parameterization, objective, weights, and constraints.",
+    "Retain fitted parameters, model geometry, target identities, and residuals."
+  ],
+  "completion_criteria": [
+    "The fit is reproducible from retained records and settings.",
+    "Training and withheld results are separate.",
+    "Accepted metrics and tolerances are evaluated.",
+    "Spectral-fit limitations and error classes are explicit."
+  ],
+  "exclusions": [
+    "Spectral fitting is not claimed to reconstruct a unique operator.",
+    "Withheld targets are not used during fitting.",
+    "Fitting, parent-model, discretization, and reduction errors are not conflated.",
+    "No scientific validation is claimed without independent reference evidence."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

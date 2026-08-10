@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.simulation.qe.reference",
+  "title": "Bulk-silicon QE tutorial reference simulation",
+  "status": "inactive",
+  "status_detail": "Simulation-first bootstrap entry Task; inactive pending separate explicit tutorial-execution authorization.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P2"
+  ],
+  "external_prerequisite_ids": [
+    "qe_tutorial_execution_authorization",
+    "silicon_tutorial_input_selection"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce a bounded established bulk-silicon Quantum ESPRESSO tutorial calculation before fixing the project extraction and storage architecture.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Prepare and validate the explicitly selected tutorial input.",
+    "Execute only the separately authorized tutorial calculation.",
+    "Retain sanitized input, compact provenance, and external artifact identities.",
+    "Record executable identity, resources, runtime, outputs, and execution state."
+  ],
+  "completion_criteria": [
+    "The selected tutorial calculation has an explicit execution record.",
+    "Sanitized input and compact provenance are retained.",
+    "Produced external artifacts are identified for inventory.",
+    "Failures and convergence observations are reported without scientific acceptance claims."
+  ],
+  "exclusions": [
+    "No execution occurs without separate explicit authorization.",
+    "No unapproved pseudopotential, structure, cutoff, mesh, or convergence change is permitted.",
+    "No tutorial result satisfies the production Stage 02 convergence or acceptance gates.",
+    "Large native calculation artifacts are not committed to Git."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

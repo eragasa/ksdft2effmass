@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.schema-projection",
   "title": "Co-design JSON control schemas and generated documentation",
   "status": "completed",
+  "status_detail": null,
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.documentation-correction"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "For the bounded Task control-family pilot, replace manually synchronized control prose with one authoritative project-local JSON Task record and a deterministic complete non-authoritative Markdown reference page.",
   "authority_reference_paths": [

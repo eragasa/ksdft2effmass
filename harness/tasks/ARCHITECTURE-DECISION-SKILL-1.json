@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "ARCHITECTURE-DECISION-SKILL-1",
   "title": "ARCHITECTURE-DECISION-SKILL-1 — develop-architecture-decision harness resource",
   "status": "closed_human_accepted_pass",
@@ -9,6 +9,7 @@
   "external_prerequisite_ids": [
     "explicit_human_authorization"
   ],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "It creates and activates the read-only `develop-architecture-decision` skill, canonical/reference/descriptor resources, byte-identical live resources, controlled H6-only fixtures and validator, generic/local manifest and profile synchronization, eight-skill inventory/validation, current local replay, selected local route, maintained harness documentation, and task evidence.",
   "authority_reference_paths": [

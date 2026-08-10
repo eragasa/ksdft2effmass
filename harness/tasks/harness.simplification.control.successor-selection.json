@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.control.successor-selection",
   "title": "Select and explicitly activate the next harness-simplification Task",
   "status": "superseded_by_direct_human_selection",
+  "status_detail": null,
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.resources.h3-validator-retirement"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "After prerequisite work is complete, present eligible harness-simplification successors for a current human selection and record exactly one explicit activation without inferring continuation from documentation, completion, ordering, or agent recommendation.",
   "authority_reference_paths": [

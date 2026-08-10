@@ -1,15 +1,18 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P3",
   "title": "P3 — SNAKES net construction and project-owned persistence",
-  "status": "prerequisite_eligible_inactive",
-  "status_detail": "prerequisite-eligible through accepted P1 and P2; inactive pending separate explicit activation",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P1",
     "P2"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "cpn.workflow.persistence"
+  ],
   "explicit_activation_required": true,
   "objective": "Implement the selected SNAKES adapter behind the accepted project CPN contract and deterministic project-owned durable marking persistence.\n\nPersistence records workflow schema/model IDs, multisets of typed token payloads, provenance, parent-child lineage, request/result correlation, and retry/failure history. Live-net pickle, arbitrary Python pickle, serialized lambdas, credentials, external clients, and Graphviz-as-authority are prohibited. Logical subnet composition must not assume an unverified hierarchical SNAKES API.\n\nCompletion requires implementation, tests, Markdown documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [

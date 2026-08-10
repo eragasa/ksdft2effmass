@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.agents.project-integration-review",
   "title": "Simplify the durable project integration-review role",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness-simplification.agents.project-documentation"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Convert the durable project integration-reviewer record from an OperatorRecord/CPN-specific checklist into a concise stable read-only cross-surface review capability while preserving proportional review, independent findings, scientific claim boundaries, and human authority.",
   "authority_reference_paths": [

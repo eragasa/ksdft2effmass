@@ -5,6 +5,13 @@ back_to: [[ksdft2Effmass.computational.00]]
 
 Construct a localized representation of the selected bulk-silicon Kohn--Sham subspace and freeze a validated real-space Wannier Hamiltonian.
 
+## Bootstrap relationship
+
+The Wannier90 tutorial reproductions establish familiarity with the QE--Wannier90
+interface and its native artifacts. They do not select the project's retained
+subspace, projections, disentanglement windows, uniform grid, or accepted
+Wannier operator.
+
 ## Task Registry
 
 | Task | Description | Prerequisites | Output | Initial state |

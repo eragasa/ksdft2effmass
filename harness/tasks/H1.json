@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H1",
   "title": "H1 — Harness contract and package boundary",
   "status": "human_accepted_pass",
@@ -9,6 +9,7 @@
     "H0"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Define the smallest stable generic harness contract and the package/resource boundary required for incubation and later extraction. Existing scripts are requirement evidence, not automatically the public API.",
   "authority_reference_paths": [

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H4",
   "title": "H4 — Project-local integration, shadow replay, and cutover",
   "status": "human_accepted_pass_local_authoritative",
@@ -9,6 +9,7 @@
     "H2"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Integrate the accepted generic H2 Python/resources with the project-local H3 overlay, run retained legacy and new local behavior in shadow mode against identical declared inputs, compare structured outcomes, synchronize the canonical six live skill names, and propose a controlled authoritative cutover with validated rollback.",
   "authority_reference_paths": [

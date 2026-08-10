@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "evidence-branch-orchestration-profile",
   "title": "Optional evidence-branch orchestration profile",
   "status": "legacy_recorded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "- Decision ID: `EBOV1-AUTH-2026-08-03`\n- Profile: `evidence-branches-v1`\n- Authority: explicit human authorization in the 2026-08-03 conversation that\n  requested the bounded initial implementation and authorized this single\n  correction cycle after independent review.\n- Status: authorized non-production repository control-plane maintenance.",
   "authority_reference_paths": [

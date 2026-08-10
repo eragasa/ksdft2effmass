@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.publication.hierarchy",
   "title": "Normalize publication documentation hierarchy",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness.simplification.docs-json.publication.triage"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Use the accepted triage from `harness.simplification.docs-json.publication.triage` to place publication working source, submission snapshots, generated output, external material, provenance, historical artifacts, and direct project documentation in a coherent hierarchy without changing their content or meaning.",
   "authority_reference_paths": [

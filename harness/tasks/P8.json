@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P8",
   "title": "P8 — Wannier specification and QE-to-Wannier90 bridge",
-  "status": "blocked",
-  "status_detail": "blocked by accepted P3, P4, P5, and P6",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P3",
@@ -12,6 +12,9 @@
     "P6"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.tight-binding.wannier.bridge"
+  ],
   "explicit_activation_required": false,
   "objective": "Implement Wannier specification tokens, Stage-03 uniform-grid NSCF child request/result lineage, and the QE-to-Wannier bridge artifact contract.\n\nThe child carries the accepted G02 SCF parent manifest. `.nnkp`, `.amn`, `.mmn`, `.eig`, and approved optional artifacts remain typed external references. QE and Wannier90 remain separate capabilities/backends. No real run occurs without the production checkpoint. Preserves H bridge content.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [

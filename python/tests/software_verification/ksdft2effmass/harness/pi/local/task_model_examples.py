@@ -11,7 +11,7 @@ from ksdft2effmass.harness.pi.local import HarnessTask
 def make_task(**changes: object) -> HarnessTask:
     """Construct one valid synthetic Task with explicit overrides."""
     values: dict[str, object] = {
-        "schema_version": 2,
+        "schema_version": 3,
         "task_id": "example.task",
         "title": "Example Task",
         "status": "proposed",
@@ -19,6 +19,7 @@ def make_task(**changes: object) -> HarnessTask:
         "parent_task_id": None,
         "task_prerequisite_ids": (),
         "external_prerequisite_ids": (),
+        "superseded_by_task_ids": (),
         "explicit_activation_required": True,
         "objective": "Verify the accepted software contract.",
         "authority_reference_paths": ("records/decision.md",),

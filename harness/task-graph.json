@@ -1,5 +1,6 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "generated_from": "harness/state/harness-control.sqlite3",
   "nodes": [
     {
       "task_id": "A"
@@ -104,7 +105,34 @@
       "task_id": "backend-neutral-kohn-sham-qe-architecture"
     },
     {
+      "task_id": "bulk-silicon.artifacts.qe.inventory"
+    },
+    {
+      "task_id": "bulk-silicon.records.periodic.extraction"
+    },
+    {
+      "task_id": "bulk-silicon.simulation.qe.reference"
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.comparison-reduction"
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.direct-spectral.fitting"
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.wannier.bridge"
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.wannier.extraction"
+    },
+    {
+      "task_id": "bulk-silicon.workflow.extracted-model-verification"
+    },
+    {
       "task_id": "cpn-skill-capability-audit"
+    },
+    {
+      "task_id": "cpn.workflow.persistence"
     },
     {
       "task_id": "deferred-harness-current-phase-history"
@@ -218,6 +246,9 @@
       "task_id": "harness.simplification.resources.h3-validator-retirement"
     },
     {
+      "task_id": "harness.simplification.round-2.sqlite-hybrid-cutover"
+    },
+    {
       "task_id": "harness.telemetry"
     },
     {
@@ -265,699 +296,829 @@
   ],
   "edges": [
     {
+      "source": "harness.simplification.docs-json.authority-catalog",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.documentation-correction",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.hierarchy",
+      "target": "harness.simplification.docs-json.publication",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.triage",
+      "target": "harness.simplification.docs-json.publication",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.schema-projection",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-document-migration",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-implementation-hardening",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-contract",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-simplification",
+      "target": "harness.simplification.docs-json",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.baseline",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.controlled-benchmarks",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.effectiveness-evaluation",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.live-timing-extension",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.normalized-event-contract",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.retrospective-parser",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.session-jsonl-inventory",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.telemetry.sqlite-projection",
+      "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "H0",
+      "target": "P1",
+      "kind": "depends_on"
+    },
+    {
+      "source": "H1",
+      "target": "H0",
+      "kind": "depends_on"
+    },
+    {
+      "source": "H2",
+      "target": "H3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "H3",
+      "target": "H1",
+      "kind": "depends_on"
+    },
+    {
+      "source": "H4",
+      "target": "H2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "H5",
+      "target": "H4",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P0A",
+      "target": "P0",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P1",
+      "target": "P0A",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P10",
+      "target": "P6",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P10",
+      "target": "P7",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P10",
+      "target": "P8",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P10",
+      "target": "P9",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P11",
+      "target": "P10",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P2",
+      "target": "H4",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P2",
+      "target": "P1",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P3",
+      "target": "P1",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P3",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P4",
+      "target": "P1",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P4",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P5",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P5",
+      "target": "P4",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P6",
+      "target": "P3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P6",
+      "target": "P4",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P6",
+      "target": "P5",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P7",
+      "target": "P3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P7",
+      "target": "P4",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P7",
+      "target": "P6",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P8",
+      "target": "P3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P8",
+      "target": "P4",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P8",
+      "target": "P5",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P8",
+      "target": "P6",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P9",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P9",
+      "target": "P3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "P9",
+      "target": "P8",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.artifacts.qe.inventory",
+      "target": "bulk-silicon.simulation.qe.reference",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.records.periodic.extraction",
+      "target": "bulk-silicon.artifacts.qe.inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.simulation.qe.reference",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.comparison-reduction",
+      "target": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.comparison-reduction",
+      "target": "bulk-silicon.tight-binding.wannier.extraction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.wannier.bridge",
+      "target": "bulk-silicon.artifacts.qe.inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.wannier.bridge",
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.wannier.extraction",
+      "target": "bulk-silicon.tight-binding.wannier.bridge",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.workflow.extracted-model-verification",
+      "target": "bulk-silicon.tight-binding.comparison-reduction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "cpn.workflow.persistence",
+      "target": "P1",
+      "kind": "depends_on"
+    },
+    {
+      "source": "cpn.workflow.persistence",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "cpn.workflow.persistence",
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "cpn.workflow.persistence",
+      "target": "bulk-silicon.tight-binding.comparison-reduction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.executable-tool-placement-contract",
+      "target": "harness-simplification.agents.project-architecture",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.live-discovery-cleanup",
+      "target": "harness-simplification.execution.task-state-inspection-tool",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.project-architecture",
+      "target": "harness-simplification.agents.project-integration-review",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.project-documentation",
+      "target": "harness-simplification.agents.project-implementation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.project-implementation",
+      "target": "harness-simplification.agents.project-role-simplification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.project-integration-review",
+      "target": "harness-simplification.agents.project-documentation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.resource-phase-routing-reconciliation",
+      "target": "harness-simplification.resources.develop-harness-resources",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.agents.validator-migration-pilot",
+      "target": "harness-simplification.agents.executable-tool-placement-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "target": "harness-simplification.resources.manifest-refresh",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.evidence.audit-action-conformance",
+      "target": "harness-simplification.resources.develop-harness-resources",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.execution.task-state-inspection-tool",
+      "target": "harness-simplification.execution.validator-pilot-stabilization",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.execution.validator-pilot-stabilization",
+      "target": "harness-simplification.agents.validator-migration-pilot",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.resources.develop-harness-resources",
+      "target": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness-simplification.resources.manifest-refresh",
+      "target": "harness-simplification.execution.task-state-inspection-tool",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.api.action-object-grammar",
+      "target": "harness-simplification.evidence.audit-action-conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.control.successor-selection",
+      "target": "harness.simplification.resources.h3-validator-retirement",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.control.task-catalog-reconciliation",
+      "target": "harness.simplification.agents.delegation-validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json",
+      "target": "harness.simplification.api.action-object-grammar",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.authority-catalog",
+      "target": "harness.simplification.docs-json.publication.hierarchy",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.documentation-correction",
+      "target": "harness.simplification.docs-json.authority-catalog",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.hierarchy",
+      "target": "harness.simplification.docs-json.publication.triage",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.publication.triage",
+      "target": "harness.simplification.api.action-object-grammar",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.schema-projection",
+      "target": "harness.simplification.docs-json.documentation-correction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-document-migration",
+      "target": "harness.simplification.docs-json.task-implementation-hardening",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-implementation-hardening",
+      "target": "harness.simplification.docs-json.task-model-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-contract",
+      "target": "harness.simplification.docs-json.schema-projection",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.docs-json.task-model-simplification",
+      "target": "harness.simplification.docs-json.task-model-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.evidence.naming",
+      "target": "harness.simplification.api.action-object-grammar",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplification.round-2.sqlite-hybrid-cutover",
+      "target": "harness.simplification.evidence.naming",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.baseline",
+      "target": "harness.telemetry.sqlite-projection",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.controlled-benchmarks",
+      "target": "harness.telemetry.effectiveness-evaluation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.effectiveness-evaluation",
+      "target": "harness.telemetry.baseline",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.effectiveness-evaluation",
+      "target": "harness.telemetry.live-timing-extension",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.live-timing-extension",
+      "target": "harness.telemetry.sqlite-projection",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.normalized-event-contract",
+      "target": "harness.telemetry.retrospective-parser",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.retrospective-parser",
+      "target": "harness.telemetry.session-jsonl-inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.telemetry.sqlite-projection",
+      "target": "harness.telemetry.normalized-event-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "human-review-interface.audit-evidence-identifiers-correction",
+      "target": "human-review-interface.review-packet-pilot",
+      "kind": "depends_on"
+    },
+    {
+      "source": "human-review-interface.human-decision-recording",
+      "target": "human-review-interface.review-packet-pilot",
+      "kind": "depends_on"
+    },
+    {
       "source": "EVIDENCE-DOC-1",
       "target": "P2",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "H0",
       "target": "H1",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "H1",
       "target": "H3",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "H2",
       "target": "H4",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "H3",
       "target": "H2",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "H4",
       "target": "H5",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P0",
       "target": "P0A",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P0A",
       "target": "P1",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P1",
       "target": "EVIDENCE-DOC-1",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P10",
       "target": "P11",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P2",
       "target": "P3",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P3",
       "target": "P4",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P4",
       "target": "P5",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P5",
       "target": "P6",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P6",
       "target": "P7",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P7",
       "target": "P8",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P8",
       "target": "P9",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "P9",
       "target": "P10",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.executable-tool-placement-contract",
       "target": "harness-simplification.agents.validator-migration-pilot",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.project-architecture",
       "target": "harness-simplification.agents.executable-tool-placement-contract",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.project-documentation",
       "target": "harness-simplification.agents.project-integration-review",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.project-implementation",
       "target": "harness-simplification.agents.project-documentation",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.project-integration-review",
       "target": "harness-simplification.agents.project-architecture",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.project-role-simplification",
       "target": "harness-simplification.agents.project-implementation",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.agents.validator-migration-pilot",
       "target": "harness-simplification.execution.validator-pilot-stabilization",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.checkpoints.resolve-checkpoint-decision",
       "target": "harness-simplification.resources.develop-harness-resources",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.docs-json.migration-review-interface",
       "target": "harness.simplification.docs-json.task-model-simplification",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.execution.task-state-inspection-tool",
       "target": "harness-simplification.resources.manifest-refresh",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.execution.validator-pilot-stabilization",
       "target": "harness-simplification.execution.task-state-inspection-tool",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.resources.develop-harness-resources",
       "target": "harness-simplification.evidence.audit-action-conformance",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness-simplification.resources.manifest-refresh",
       "target": "harness-simplification.checkpoints.resolve-checkpoint-decision",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.agents.delegation-validation",
       "target": "harness.simplification.api.action-object-grammar",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.api.action-object-grammar",
       "target": "harness.simplification.docs-json",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.control.successor-selection",
       "target": "harness.simplification.evidence.naming",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.control.task-catalog-reconciliation",
       "target": "harness.simplification.control.successor-selection",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json",
       "target": "harness.simplification.docs-json.publication",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.authority-catalog",
       "target": "harness.simplification.docs-json.documentation-correction",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.documentation-correction",
       "target": "harness.simplification.docs-json.schema-projection",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.publication",
       "target": "harness.simplification.docs-json.publication.triage",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.publication.hierarchy",
       "target": "harness.simplification.docs-json.authority-catalog",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.publication.triage",
       "target": "harness.simplification.docs-json.publication.hierarchy",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.schema-projection",
       "target": "harness.simplification.docs-json.task-model-contract",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.task-document-migration",
       "target": "harness.simplification.resources.h3-validator-retirement",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.task-implementation-hardening",
       "target": "harness-simplification.docs-json.migration-review-interface",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.task-model-contract",
       "target": "harness.simplification.docs-json.task-implementation-hardening",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.docs-json.task-model-simplification",
       "target": "harness.simplification.docs-json.task-document-migration",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "harness.simplification.resources.h3-validator-retirement",
       "target": "harness.simplification.control.task-catalog-reconciliation",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "human-review-interface.audit-evidence-identifiers-correction",
       "target": "human-review-interface.human-decision-recording",
-      "kind": "order"
+      "kind": "ordered_before"
     },
     {
       "source": "human-review-interface.review-packet-pilot",
       "target": "human-review-interface.audit-evidence-identifiers-correction",
-      "kind": "order"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.authority-catalog",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.documentation-correction",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.publication",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.schema-projection",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.task-document-migration",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.task-implementation-hardening",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.task-model-contract",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json",
-      "target": "harness.simplification.docs-json.task-model-simplification",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json.publication",
-      "target": "harness.simplification.docs-json.publication.hierarchy",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.simplification.docs-json.publication",
-      "target": "harness.simplification.docs-json.publication.triage",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.baseline",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.controlled-benchmarks",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.effectiveness-evaluation",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.live-timing-extension",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.normalized-event-contract",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.retrospective-parser",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.session-jsonl-inventory",
-      "kind": "parent"
-    },
-    {
-      "source": "harness.telemetry",
-      "target": "harness.telemetry.sqlite-projection",
-      "kind": "parent"
-    },
-    {
-      "source": "H0",
-      "target": "H1",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "H1",
-      "target": "H3",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "H2",
-      "target": "H4",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "H3",
-      "target": "H2",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "H4",
-      "target": "H5",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "H4",
-      "target": "P2",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P0",
-      "target": "P0A",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P0A",
-      "target": "P1",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P1",
-      "target": "H0",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P1",
-      "target": "P2",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P1",
-      "target": "P3",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P1",
-      "target": "P4",
-      "kind": "prerequisite"
+      "kind": "ordered_before"
     },
     {
       "source": "P10",
-      "target": "P11",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.workflow.extracted-model-verification",
+      "kind": "superseded_by"
     },
     {
-      "source": "P2",
-      "target": "P3",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P2",
-      "target": "P4",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P2",
-      "target": "P5",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P2",
-      "target": "P9",
-      "kind": "prerequisite"
+      "source": "P11",
+      "target": "bulk-silicon.simulation.qe.reference",
+      "kind": "superseded_by"
     },
     {
       "source": "P3",
-      "target": "P6",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P3",
-      "target": "P7",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P3",
-      "target": "P8",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P3",
-      "target": "P9",
-      "kind": "prerequisite"
+      "target": "cpn.workflow.persistence",
+      "kind": "superseded_by"
     },
     {
       "source": "P4",
-      "target": "P5",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P4",
-      "target": "P6",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P4",
-      "target": "P7",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P4",
-      "target": "P8",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "superseded_by"
     },
     {
       "source": "P5",
-      "target": "P6",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.artifacts.qe.inventory",
+      "kind": "superseded_by"
     },
     {
       "source": "P5",
-      "target": "P8",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "superseded_by"
+    },
+    {
+      "source": "P5",
+      "target": "bulk-silicon.simulation.qe.reference",
+      "kind": "superseded_by"
     },
     {
       "source": "P6",
-      "target": "P10",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P6",
-      "target": "P7",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P6",
-      "target": "P8",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "superseded_by"
     },
     {
       "source": "P7",
-      "target": "P10",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "kind": "superseded_by"
     },
     {
       "source": "P8",
-      "target": "P10",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "P8",
-      "target": "P9",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.tight-binding.wannier.bridge",
+      "kind": "superseded_by"
     },
     {
       "source": "P9",
-      "target": "P10",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.executable-tool-placement-contract",
-      "target": "harness-simplification.agents.validator-migration-pilot",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.project-architecture",
-      "target": "harness-simplification.agents.executable-tool-placement-contract",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.project-documentation",
-      "target": "harness-simplification.agents.project-integration-review",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.project-implementation",
-      "target": "harness-simplification.agents.project-documentation",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.project-integration-review",
-      "target": "harness-simplification.agents.project-architecture",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.project-role-simplification",
-      "target": "harness-simplification.agents.project-implementation",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.agents.validator-migration-pilot",
-      "target": "harness-simplification.execution.validator-pilot-stabilization",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.checkpoints.resolve-checkpoint-decision",
-      "target": "harness-simplification.resources.develop-harness-resources",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.evidence.audit-action-conformance",
-      "target": "harness.simplification.api.action-object-grammar",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.execution.task-state-inspection-tool",
-      "target": "harness-simplification.agents.live-discovery-cleanup",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.execution.task-state-inspection-tool",
-      "target": "harness-simplification.resources.manifest-refresh",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.execution.validator-pilot-stabilization",
-      "target": "harness-simplification.execution.task-state-inspection-tool",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.resources.develop-harness-resources",
-      "target": "harness-simplification.agents.resource-phase-routing-reconciliation",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.resources.develop-harness-resources",
-      "target": "harness-simplification.evidence.audit-action-conformance",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness-simplification.resources.manifest-refresh",
-      "target": "harness-simplification.checkpoints.resolve-checkpoint-decision",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.agents.delegation-validation",
-      "target": "harness.simplification.control.task-catalog-reconciliation",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.api.action-object-grammar",
-      "target": "harness.simplification.docs-json",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.api.action-object-grammar",
-      "target": "harness.simplification.docs-json.publication.triage",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.api.action-object-grammar",
-      "target": "harness.simplification.evidence.naming",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.authority-catalog",
-      "target": "harness.simplification.docs-json.documentation-correction",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.documentation-correction",
-      "target": "harness.simplification.docs-json.schema-projection",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.publication.hierarchy",
-      "target": "harness.simplification.docs-json.authority-catalog",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.publication.triage",
-      "target": "harness.simplification.docs-json.publication.hierarchy",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.schema-projection",
-      "target": "harness.simplification.docs-json.task-model-contract",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.task-implementation-hardening",
-      "target": "harness.simplification.docs-json.task-document-migration",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.task-model-contract",
-      "target": "harness.simplification.docs-json.task-implementation-hardening",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.docs-json.task-model-contract",
-      "target": "harness.simplification.docs-json.task-model-simplification",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.simplification.resources.h3-validator-retirement",
-      "target": "harness.simplification.control.successor-selection",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.baseline",
-      "target": "harness.telemetry.effectiveness-evaluation",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.effectiveness-evaluation",
-      "target": "harness.telemetry.controlled-benchmarks",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.live-timing-extension",
-      "target": "harness.telemetry.effectiveness-evaluation",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.normalized-event-contract",
-      "target": "harness.telemetry.sqlite-projection",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.retrospective-parser",
-      "target": "harness.telemetry.normalized-event-contract",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.session-jsonl-inventory",
-      "target": "harness.telemetry.retrospective-parser",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.sqlite-projection",
-      "target": "harness.telemetry.baseline",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "harness.telemetry.sqlite-projection",
-      "target": "harness.telemetry.live-timing-extension",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "human-review-interface.review-packet-pilot",
-      "target": "human-review-interface.audit-evidence-identifiers-correction",
-      "kind": "prerequisite"
-    },
-    {
-      "source": "human-review-interface.review-packet-pilot",
-      "target": "human-review-interface.human-decision-recording",
-      "kind": "prerequisite"
+      "target": "bulk-silicon.tight-binding.wannier.extraction",
+      "kind": "superseded_by"
     }
   ]
 }

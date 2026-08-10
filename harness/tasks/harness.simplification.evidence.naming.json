@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.evidence.naming",
   "title": "Normalize the evidence package and naming",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness.simplification.api.action-object-grammar"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Replace the visually ambiguous flat production family `evidence.py`, `test_evidence.py`, and `test_evidence_*` with an explicit `evidence` domain subpackage. Reserve `test_*.py`, `test__*.py`, and `test_*` function names for actual pytest collection. Reserve `pytest` in production names for components that directly integrate with pytest.",
   "authority_reference_paths": [

@@ -1,4 +1,4 @@
-r"""Software verification of HarnessTask version-2 cross-surface contract.
+r"""Software verification of HarnessTask version-3 cross-surface contract.
 
 Facet and represented meaning
 
@@ -7,7 +7,7 @@ and selected-state inspection boundaries of the minimum durable Task model.
 
 Intrinsic and cross-object scope
 
-The artifact owner is the HarnessTask version-2 cross-surface contract. Class-owned
+The artifact owner is the HarnessTask version-3 cross-surface contract. Class-owned
 modules separately verify the four retained Task-model interfaces.
 
 VVUQ and scientific exclusions
@@ -137,11 +137,11 @@ def test_artifact__fixture_family__agrees_with_schema_and_runtime() -> None:
 
     Limitations: JSON Schema cannot express every runtime Unicode invariant.
     """
-    root = repository_root() / "harness/local/fixtures/task-record-v2"
+    root = repository_root() / "harness/local/fixtures/task-record-v3"
     index = json.loads((root / "fixture-index.json").read_text())
     schema = json.loads(
         (
-            repository_root() / "harness/local/schemas/task-record-v2.schema.json"
+            repository_root() / "harness/local/schemas/task-record-v3.schema.json"
         ).read_text()
     )
     validator = Draft202012Validator(schema)
@@ -178,12 +178,17 @@ def test_method__graph_findings__use_deterministic_precedence() -> None:
     Limitations: Lifecycle meaning and chain activation are excluded.
     """
     first = make_task(
-        task_id="a", parent_task_id="b", intake_path="same", documentation_path="same"
+        task_id="a",
+        parent_task_id="b",
+        superseded_by_task_ids=("b",),
+        intake_path="same",
+        documentation_path="same",
     )
     second = make_task(
         task_id="b",
         parent_task_id="a",
         task_prerequisite_ids=("missing",),
+        superseded_by_task_ids=("a", "absent"),
         intake_path="same",
         documentation_path="same",
     )
@@ -193,18 +198,78 @@ def test_method__graph_findings__use_deterministic_precedence() -> None:
         ("PIHL.TASK.INTAKE_PATH_DUPLICATE", "same", "a,b"),
         ("PIHL.TASK.PARENT_CYCLE", None, "a,b"),
         ("PIHL.TASK.PREREQUISITE_MISSING", "same", "missing"),
+        ("PIHL.TASK.SUPERSESSION_CYCLE", None, "a,b"),
+        ("PIHL.TASK.SUPERSESSION_MISSING", "same", "absent"),
     )
+
+
+def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() -> None:
+    """Evidence ID: SV-HT-040
+
+    Requirement: Every version-3 repository Task satisfies its runtime contract,
+    retained version-2 telemetry Tasks preserve their schema version, and represented
+    supersession edges exactly match Task replacement fields.
+
+    Method: Load the explicit ``harness/tasks`` directory and task graph, apply the
+    version-3 schema, deserialize every Task, and validate the complete Task tuple.
+
+    Oracle: The accepted version-3 schema and canonical graph independently define
+    wire shape and represented relationships.
+
+    Acceptance: All 88 version-3 Tasks pass schema/runtime validation, nine retained
+    version-2 telemetry Tasks remain represented, graph nodes equal all 97 Task
+    identities, and supersession edges equal replacement fields exactly.
+
+    Interpretation: Failure identifies catalog, schema, runtime, or graph drift.
+
+    Limitations: This establishes structural software agreement only; it does not
+    activate work, authorize execution, or establish scientific validity.
+    """
+    root = repository_root()
+    schema = json.loads(
+        (root / "harness/local/schemas/task-record-v3.schema.json").read_text()
+    )
+    validator = Draft202012Validator(schema)
+    documents = tuple(
+        json.loads(path.read_text())
+        for path in sorted((root / "harness/tasks").glob("*.json"))
+    )
+    payloads = tuple(
+        json.dumps(document, ensure_ascii=False, indent=2).encode() + b"\n"
+        for document in documents
+        if document["schema_version"] == 3
+    )
+    assert all(
+        not tuple(validator.iter_errors(json.loads(payload))) for payload in payloads
+    )
+    tasks = tuple(HarnessTaskDeserializer().execute(payload) for payload in payloads)
+    assert tuple(HarnessTaskSerializer().execute(task) for task in tasks) == payloads
+    assert len(tasks) == 88
+    assert sum(document["schema_version"] == 2 for document in documents) == 9
+    graph = json.loads((root / "harness/task-graph.json").read_text())
+    assert {node["task_id"] for node in graph["nodes"]} == {
+        document["task_id"] for document in documents
+    }
+    assert {
+        (edge["source"], edge["target"])
+        for edge in graph["edges"]
+        if edge["kind"] == "superseded_by"
+    } == {
+        (task.task_id, replacement)
+        for task in tasks
+        for replacement in task.superseded_by_task_ids
+    }
 
 
 def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
     """Evidence ID: SV-HT-031
 
-    Requirement: One chain may select Markdown, version-1 JSON, and version-2 JSON
+    Requirement: One chain may select Markdown, version-1 JSON, and version-3 JSON
     without transferring JSON-owned Task fields into the chain.
 
-    Method: Adapt three synthetic records and then duplicate v2 status in its entry.
+    Method: Adapt three synthetic records and then duplicate v3 status in its entry.
 
-    Oracle: Retained Markdown/v1 behavior and version-2 dispatch define the exact
+    Oracle: Retained Markdown/v1 behavior and version-3 dispatch define the exact
     references and fail-closed duplication rule.
 
     Acceptance: Mixed adaptation passes in Task-ID order; duplicated status fails.
@@ -215,7 +280,7 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
     """
     markdown_path = "records/markdown.md"
     v1_path = "records/version-one.json"
-    v2_path = "records/version-two.json"
+    v3_path = "records/version-three.json"
     v1 = {
         "schema_version": 1,
         "task_id": "format.v1",
@@ -233,11 +298,11 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
         "intake_path": "records/v1.intake.md",
         "archived_source": None,
     }
-    v2 = make_task(task_id="format.v2", status="active")
+    v3 = make_task(task_id="format.v3", status="active")
     chain: dict[str, Any] = {
-        "active_task": v2.task_id,
+        "active_task": v3.task_id,
         "automatic_successor_activation": False,
-        "explicitly_activated_task_ids": [v2.task_id],
+        "explicitly_activated_task_ids": [v3.task_id],
         "task_sequence": [
             {
                 "id": "format.markdown",
@@ -246,20 +311,20 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
                 "prerequisites": [],
             },
             {"id": "format.v1", "record": v1_path},
-            {"id": v2.task_id, "record": v2_path},
+            {"id": v3.task_id, "record": v3_path},
         ],
     }
     documents = (
         (markdown_path, b"# Markdown Task\n\nStatus: completed\n"),
         (v1_path, json.dumps(v1).encode()),
-        (v2_path, HarnessTaskSerializer().execute(v2)),
+        (v3_path, HarnessTaskSerializer().execute(v3)),
     )
     adapted = TaskRecordAdapter().execute(documents, json.dumps(chain).encode(), b"{}")
     assert adapted.validation.status == "PASS"
     assert tuple(item.task_id for item in cast(Any, adapted.value)) == (
         "format.markdown",
         "format.v1",
-        "format.v2",
+        "format.v3",
     )
     chain["task_sequence"][2]["status"] = "active"
     duplicated = TaskRecordAdapter().execute(
@@ -273,7 +338,7 @@ def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
     (
         pytest.param("markdown", id="markdown_record_selected"),
         pytest.param("v1", id="version_one_json_selected"),
-        pytest.param("v2", id="version_two_json_selected"),
+        pytest.param("v3", id="version_three_json_selected"),
     ),
 )
 def test_method__task_state_inspector__preserves_format_selection(
@@ -281,7 +346,7 @@ def test_method__task_state_inspector__preserves_format_selection(
 ) -> None:
     """Evidence ID: SV-HT-032
 
-    Requirement: TaskStateInspector preserves selected Markdown, v1 JSON, and v2 JSON
+    Requirement: TaskStateInspector preserves selected Markdown, v1 JSON, and v3 JSON
     status behavior.
 
     Method: Build and inspect one bounded temporary chain per format.
@@ -321,9 +386,9 @@ def test_method__task_state_inspector__preserves_format_selection(
         )
         expected_status = "v1_status"
     else:
-        task = make_task(task_id=task_id, status="v2_status")
+        task = make_task(task_id=task_id, status="v3_status")
         (tmp_path / record_path).write_bytes(HarnessTaskSerializer().execute(task))
-        expected_status = "v2_status"
+        expected_status = "v3_status"
     result = TaskStateInspector().execute(
         TaskStateInspectionRequest(1, tmp_path, chain_path, task_id)
     )

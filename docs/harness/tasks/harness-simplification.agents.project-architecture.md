@@ -1,0 +1,43 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Simplify the durable project architecture role
+
+[Task index](index.md) · [Previous](./harness-simplification.agents.live-discovery-cleanup.md) · [Next](./harness-simplification.agents.project-documentation.md)
+
+## Status
+
+`completed`: completed incremental refinement under `.pi/chains/harness-simplification.chain.json`
+
+## Objective
+
+Refine `.pi/agents/ksdft2effmass-architecture.md` into a concise durable role. Preserve explicit task authorization, read-only analysis by default, narrow documentation or decision-record writes only under exact task ownership, independence from implementation and human acceptance, proportional inspection, applicable cross-surface boundaries, evidence and claim separation, fail-closed authority behavior, and a concise handoff.
+
+## Parent and prerequisites
+
+- Depends on: `harness-simplification.agents.project-integration-review`
+
+## Authority references
+
+- .pi/agents/ksdft2effmass-architecture.md
+- .pi/chains/harness-simplification.chain.json
+- .pi/task-ownership/harness-simplification.agents.project-architecture.json
+- harness/archive/task-control-v1/tasks/harness-simplification.agents.project-architecture.md
+
+## Authorized scope
+
+- The controlling ownership manifest is `.pi/task-ownership/harness-simplification.agents.project-architecture.json`.
+- `ksdft2effmass-harness-implementation` owns exactly the target agent record, this task record, the ownership manifest, the controlling chain, and the skill-capability inventory. The inventory is an allowed path only for a strictly necessary exact consumer correction; current registration is otherwise preserved.
+- `ksdft2effmass-harness-documentation` separately retains the four exact named harness documentation paths. `ksdft2effmass-harness-integration-reviewer` performs the required independent read-only review. Writer scopes are exact and non-overlapping.
+
+## Completion criteria
+
+- Do not modify documentation, another agent record, a skill, harness implementation, tests, scientific source, schema, fixture, dependency, lockfile, checkpoint, or retained evidence. Preserve unrelated work. Do not activate successors, reopen completed predecessors, or enable automatic successor activation.
+- Completion requires valid ownership for the explicit harness chain, valid JSON and agent front matter, applicable skill-capability validation, whitespace-clean owned diffs, and one independent read-only integration review. During execution only this existing task is active. After accepted completion it may return to completed while every successor remains inactive; no successor or checkpoint is automatically created.
+
+## Exclusions
+
+- Do not modify documentation, another agent record, a skill, harness implementation, tests, scientific source, schema, fixture, dependency, lockfile, checkpoint, or retained evidence. Preserve unrelated work. Do not activate successors, reopen completed predecessors, or enable automatic successor activation.
+- Completion requires valid ownership for the explicit harness chain, valid JSON and agent front matter, applicable skill-capability validation, whitespace-clean owned diffs, and one independent read-only integration review. During execution only this existing task is active. After accepted completion it may return to completed while every successor remains inactive; no successor or checkpoint is automatically created.
+
+## Historical source
+
+`harness/archive/task-control-v1/tasks/harness-simplification.agents.project-architecture.md` (`sha256:6fa0f0108040347e2a150f59287a4dc561e85c00a95605f33e9e59874b5a905c`)

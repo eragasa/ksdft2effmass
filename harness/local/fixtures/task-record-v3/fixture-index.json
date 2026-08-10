@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "schema": "../../schemas/task-record-v3.schema.json",
+  "valid": [
+    "valid/minimal.json",
+    "valid/superseded.json"
+  ],
+  "invalid": {
+    "invalid/missing-superseded-by.json": {
+      "layer": "schema",
+      "expected": [
+        "required"
+      ]
+    },
+    "invalid/self-supersession.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    },
+    "invalid/unsorted-supersession.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    }
+  },
+  "claim_boundary": "Synthetic fixtures establish only schema and runtime software-contract behavior."
+}

@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "HUMAN-AUTHORIZED CPN program. P0 is closed as CONDITIONAL_PASS; P0A, P1, P2, EVIDENCE-DOC-1, harness H0-H4, and TEST-EVIDENCE-SKILL-1 are closed as human-accepted PASS. P2-A00 through P2-A11 remain audited_and_cleared and the P2 audit queue is complete. P3 is prerequisite-eligible but inactive. H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive.",
-  "status": "p2_closed_human_accepted_pass_no_successor_active",
+  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
+  "status": "simulation_first_bootstrap_planned_no_task_active",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -11,7 +11,8 @@
   "architecture_documents": [
     "docs/architecture/colored-petri-net-workflows.md",
     "docs/architecture/kohn-sham-dft-quantum-espresso.md",
-    "docs/architecture/periodic-electronic-structure-integration.md"
+    "docs/architecture/periodic-electronic-structure-integration.md",
+    "docs/computational/ksdft2effmass.computational.bootstrap.md"
   ],
   "production_execution_authorized": false,
   "superseded_sequence": {
@@ -53,40 +54,40 @@
       "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
     },
     {
-      "id": "P3",
-      "record": "harness/tasks/P3.json"
+      "id": "bulk-silicon.simulation.qe.reference",
+      "record": "harness/tasks/bulk-silicon.simulation.qe.reference.json"
     },
     {
-      "id": "P4",
-      "record": "harness/tasks/P4.json"
+      "id": "bulk-silicon.artifacts.qe.inventory",
+      "record": "harness/tasks/bulk-silicon.artifacts.qe.inventory.json"
     },
     {
-      "id": "P5",
-      "record": "harness/tasks/P5.json"
+      "id": "bulk-silicon.records.periodic.extraction",
+      "record": "harness/tasks/bulk-silicon.records.periodic.extraction.json"
     },
     {
-      "id": "P6",
-      "record": "harness/tasks/P6.json"
+      "id": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "record": "harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json"
     },
     {
-      "id": "P7",
-      "record": "harness/tasks/P7.json"
+      "id": "bulk-silicon.tight-binding.wannier.bridge",
+      "record": "harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json"
     },
     {
-      "id": "P8",
-      "record": "harness/tasks/P8.json"
+      "id": "bulk-silicon.tight-binding.wannier.extraction",
+      "record": "harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json"
     },
     {
-      "id": "P9",
-      "record": "harness/tasks/P9.json"
+      "id": "bulk-silicon.tight-binding.comparison-reduction",
+      "record": "harness/tasks/bulk-silicon.tight-binding.comparison-reduction.json"
     },
     {
-      "id": "P10",
-      "record": "harness/tasks/P10.json"
+      "id": "bulk-silicon.workflow.extracted-model-verification",
+      "record": "harness/tasks/bulk-silicon.workflow.extracted-model-verification.json"
     },
     {
-      "id": "P11",
-      "record": "harness/tasks/P11.json"
+      "id": "cpn.workflow.persistence",
+      "record": "harness/tasks/cpn.workflow.persistence.json"
     }
   ],
   "task_ownership_launch_preflight": {
@@ -105,7 +106,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "P2 is closed as human-accepted PASS. P3 is prerequisite-eligible but inactive pending separate explicit activation. H5 and P3-P11 remain inactive and unauthorized. No scientific, external, or protected execution, publication, release, or successor activation is authorized by P2 acceptance.",
+  "launch_policy": "The simulation-first bootstrap is planned but inactive. Every executable Task requires separate explicit activation and applicable execution authorization. The CPN-persistence Task is deferred and nonblocking. No automatic successor activation, scientific/external/protected execution, publication, or release is authorized.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -208,9 +209,24 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "P2-closed-human-accepted-PASS",
-      "message": "P2 is closed as human-accepted PASS; P2-A00 through P2-A11 remain audited_and_cleared and the audit queue is complete. P3 is prerequisite-eligible but inactive. H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive."
+      "phase": "simulation-first-bootstrap-planned",
+      "message": "P2 remains closed as human-accepted PASS. P3-P11 are superseded by eight inactive or blocked simulation-first Tasks and one deferred-inactive CPN-persistence Task. No replacement, scientific/external/protected execution, publication, or release is active."
     }
   ],
-  "explicitly_activated_task_ids": []
+  "explicitly_activated_task_ids": [],
+  "superseded_p_series": {
+    "authority": "harness/reports/simulation-first-task-migration.md",
+    "tasks": [
+      "P3",
+      "P4",
+      "P5",
+      "P6",
+      "P7",
+      "P8",
+      "P9",
+      "P10",
+      "P11"
+    ],
+    "disposition": "Superseded by schema-version-3 Task identity relationships; no replacement is activated."
+  }
 }

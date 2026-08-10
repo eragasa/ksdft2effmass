@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H0",
   "title": "H0 — Harness inventory and ownership classification",
   "status": "human_accepted_pass",
@@ -9,6 +9,7 @@
     "P1"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "`EXTRACTABLE`;\n\n`SPLIT_GENERIC_AND_LOCAL`;\n\n`KEEP_PROJECT_LOCAL`;\n\n`RETIRE_AS_DUPLICATE`;\n\n`DEFER`.",
   "authority_reference_paths": [

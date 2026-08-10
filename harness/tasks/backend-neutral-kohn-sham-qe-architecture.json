@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "backend-neutral-kohn-sham-qe-architecture",
   "title": "Backend-neutral Kohn–Sham DFT and Quantum ESPRESSO architecture",
   "status": "legacy_recorded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Architecture approved and recorded by human decision on 2026-08-03. Its scientific object, adapter, artifact, convention, gate-split, PAW, PhysKit, and execution-checkpoint decisions remain authoritative. Its linear/DAG-like workflow sequencing and A–H task program are prospectively superseded, without historical rewriting, by `.pi/tasks/backend-neutral-cpn-workflow-architecture.md` and the P0–P11 CPN task program. No implementation was launched and no production execution is authorized.",
   "authority_reference_paths": [

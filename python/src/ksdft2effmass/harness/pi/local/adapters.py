@@ -79,7 +79,7 @@ def _task_record_values(
     task: dict[str, Any],
 ) -> tuple[str, tuple[str, ...], tuple[str, ...], str, bool]:
     """Validate one complete project-local JSON Task and return view fields."""
-    if task.get("schema_version") == 2:
+    if task.get("schema_version") in {2, 3}:
         payload = (json.dumps(task, ensure_ascii=False) + "\n").encode("utf-8")
         model = HarnessTaskDeserializer().execute(payload)
         return (
@@ -96,7 +96,7 @@ def _task_record_values(
     if unknown:
         raise ValueError(f"JSON Task has unknown field {sorted(unknown)[0]}")
     if type(task["schema_version"]) is not int or task["schema_version"] != 1:
-        raise ValueError("schema_version must equal integer 1 or 2")
+        raise ValueError("schema_version must equal integer 1, 2, or 3")
 
     task_id = as_str(task["task_id"], "task_id")
     if _IDENTIFIER.fullmatch(task_id) is None:
@@ -321,6 +321,7 @@ class TaskRecordAdapter:
                         "parent_task_id",
                         "task_prerequisite_ids",
                         "external_prerequisite_ids",
+                        "superseded_by_task_ids",
                         "explicit_activation_required",
                     } & set(item)
                     if forbidden:

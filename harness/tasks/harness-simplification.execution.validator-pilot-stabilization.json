@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.execution.validator-pilot-stabilization",
   "title": "Stabilize the validator-migration pilot",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness-simplification.agents.validator-migration-pilot"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.execution.validator-pilot-stabilization`",
   "authority_reference_paths": [

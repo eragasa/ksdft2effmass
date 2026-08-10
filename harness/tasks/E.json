@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "E",
   "title": "Task E — Quantum ESPRESSO semantic mapping",
   "status": "superseded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Implement two unidirectional semantic ActionObjects at the neutral/QE boundary.",
   "authority_reference_paths": [

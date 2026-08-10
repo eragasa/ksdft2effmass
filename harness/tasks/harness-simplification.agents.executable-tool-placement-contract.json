@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.agents.executable-tool-placement-contract",
   "title": "Executable harness-tool placement contract",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness-simplification.agents.project-architecture"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Accept the executable-tool and proportional-execution contract in `docs/harness/ksdft2effmass.harness.010.030.030.md`.",
   "authority_reference_paths": [

@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.task-document-migration",
   "title": "Migrate six Task documents serially after implementation acceptance",
   "status": "deferred_inactive",
+  "status_detail": null,
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-implementation-hardening"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Deferred six-file Task migration. All six Markdown Tasks remain authoritative; no migration framework or file migration is active.",
   "authority_reference_paths": [

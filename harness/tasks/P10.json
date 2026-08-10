@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P10",
   "title": "P10 — Synthetic composed workflow verification",
-  "status": "blocked",
-  "status_detail": "blocked by accepted P6, P7, P8, P9, and required metrics",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P6",
@@ -13,6 +13,9 @@
   ],
   "external_prerequisite_ids": [
     "required_metrics"
+  ],
+  "superseded_by_task_ids": [
+    "bulk-silicon.workflow.extracted-model-verification"
   ],
   "explicit_activation_required": false,
   "objective": "Verify composed CPN semantics with synthetic requests/results: multisets, independent fan-out, provenance-compatible joins, pure guards, failure/recovery, explicit retry authorization, repeated convergence iterations, durable marking round trips, terminal failed-attempt history with new-identity retries, recoverable blocked branches, explicitly finalized blocked outcomes, scope-explicit accepted/rejected outcomes, and restart from persisted project state.\n\nThe evidence is software verification and applicable numerical verification only. It does not run QE/Wannier90, establish G02, scientific validation, UQ, or Rust conformance. It contributes to G01b after its own review and acceptance.\n\nCompletion requires tests/evidence, documentation, independent review, parent verification, and human acceptance.",

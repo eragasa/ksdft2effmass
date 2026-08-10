@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "human-review-interface.audit-evidence-identifiers-correction",
   "title": "Correct initial AuditEvidenceIdentifiers pilot findings",
   "status": "completed",
@@ -9,6 +9,7 @@
     "human-review-interface.review-packet-pilot"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Task identity: `human-review-interface.audit-evidence-identifiers-correction`",
   "authority_reference_paths": [

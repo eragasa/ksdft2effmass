@@ -8,8 +8,8 @@ sphinx: excluded
 # Documentation/control consistency correction
 
 > **Operational authority:**
-> [the version-2 JSON Task record](../../harness/tasks/harness.simplification.docs-json.documentation-correction.json)
-> owns Task identity, lifecycle status, hierarchy, prerequisites, activation policy,
+> [the version-3 JSON Task record](../../harness/tasks/harness.simplification.docs-json.documentation-correction.json)
+> owns Task identity, lifecycle status, hierarchy, prerequisites, supersession, activation policy,
 > scope, completion criteria, exclusions, authority references, intake path, and
 > documentation path. This page is maintained explanation only. The
 > [harness-simplification chain](../../.pi/chains/harness-simplification.chain.json)

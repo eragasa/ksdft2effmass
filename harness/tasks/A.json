@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "A",
   "title": "Task A — Control-plane and language-neutral specification contract",
   "status": "superseded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Turn the approved architecture into versioned language-neutral scientific, numerical, array, error, and serialization contracts before production source implementation. This task may create approved schemas and fixtures only after explicit launch; this architecture-recording turn creates none.",
   "authority_reference_paths": [

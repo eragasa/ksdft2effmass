@@ -17,6 +17,13 @@ from .adapters import (
     TaskRecordAdapter,
 )
 from .context import LocalHarnessContextLoader
+from .control import (
+    HarnessControlMigrationRequest,
+    HarnessControlMigrationResult,
+    HarnessControlMigrator,
+    HarnessControlVerificationResult,
+    HarnessControlVerifier,
+)
 from .models import (
     AdaptationResult,
     EvidenceOwnershipRelation,
@@ -89,4 +96,9 @@ __all__ = [
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
+    "HarnessControlMigrationRequest",
+    "HarnessControlMigrationResult",
+    "HarnessControlMigrator",
+    "HarnessControlVerificationResult",
+    "HarnessControlVerifier",
 ]

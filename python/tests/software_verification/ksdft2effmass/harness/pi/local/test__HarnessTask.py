@@ -49,8 +49,9 @@ def test_constructor__public_stereotype__has_exact_runtime_identity() -> None:
 def test_constructor__intrinsic_fields__reject_invalid_values() -> None:
     """Evidence ID: ``SV-HT-033``.
 
-    Requirement: Intrinsic fields accept absent intake, while rejecting booleans,
-    non-tuples, invalid local identifiers, and invalid non-null intake paths.
+    Requirement: Intrinsic fields accept absent intake and version-3 replacement IDs,
+    while rejecting booleans, non-tuples, invalid identifiers, self-supersession,
+    version-2 supersession, and invalid non-null intake paths.
 
     Method: Exercise independently invalid partitions against explicit synthetic input.
 
@@ -65,11 +66,18 @@ def test_constructor__intrinsic_fields__reject_invalid_values() -> None:
     Limitations: Software verification does not authorize migration or human acceptance.
     """
     assert make_task(intake_path=None).intake_path is None
+    assert make_task(
+        superseded_by_task_ids=("replacement",)
+    ).superseded_by_task_ids == ("replacement",)
     with pytest.raises(TypeError):
         make_task(schema_version=True)
     with pytest.raises(TypeError):
         make_task(authorized_scope=["not a tuple"])
     with pytest.raises(ValueError):
         make_task(status="invalid/status")
+    with pytest.raises(ValueError, match="supersede itself"):
+        make_task(superseded_by_task_ids=("example.task",))
+    with pytest.raises(ValueError, match="version-2"):
+        make_task(schema_version=2, superseded_by_task_ids=("replacement",))
     with pytest.raises(ValueError):
         make_task(intake_path="../invalid-intake.md")

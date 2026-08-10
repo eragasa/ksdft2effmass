@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H3",
   "title": "H3 — Skills and textual-resource extraction",
   "status": "human_accepted_pass",
@@ -9,6 +9,7 @@
     "H1"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Create accepted generic operational skills and textual resources under `harness/pi/`, with project profiles/extensions under `harness/local/`, without copying project-specific task IDs, evidence prefixes, scientific semantics, or repository paths into the generic layer.",
   "authority_reference_paths": [

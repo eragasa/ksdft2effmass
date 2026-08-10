@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
   "title": "TEST-EVIDENCE-CONVENTIONS-2 — Prevent recurring mixed-surface and generated-prose defects in Python test evidence",
   "status": "human_authorized_pass",
@@ -9,6 +9,7 @@
   "external_prerequisite_ids": [
     "explicit_human_authorization"
   ],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "The current human instruction activates the remaining reusable controls plus one\nproject-local repository inventory and completion gate. The controlling chain and\nvalidated ownership manifest above supply writer/reviewer separation and mutation\nscope. Implementation is staged: control surfaces and the fail-closed baseline gate\nprecede controlled raw-test migration. The task remains unrelated to production or\nscientific execution and does not activate or accept P2, P3, or another scientific\nworkflow.",
   "authority_reference_paths": [

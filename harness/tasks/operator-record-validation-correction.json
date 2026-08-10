@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "operator-record-validation-correction",
   "title": "Operator-record validation correction",
   "status": "human_accepted",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "correct and verify the maintained operator-record architecture, implementation, evidence classification, source/Sphinx documentation, public schema integration, and control plane without expanding scientific scope.",
   "authority_reference_paths": [

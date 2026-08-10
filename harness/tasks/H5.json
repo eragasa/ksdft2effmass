@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H5",
   "title": "H5 — Standalone extraction readiness",
   "status": "blocked",
@@ -11,6 +11,7 @@
   "external_prerequisite_ids": [
     "explicit_activation"
   ],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Mechanically demonstrate that the accepted generic extraction unit can become a standalone package without publishing it, while the project-local overlay continues to work against the package candidate.",
   "authority_reference_paths": [

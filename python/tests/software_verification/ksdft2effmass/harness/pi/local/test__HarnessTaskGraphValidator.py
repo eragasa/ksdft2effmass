@@ -69,15 +69,17 @@ def test_method__execute__rejects_empty_graph() -> None:
         SUT().execute([])  # type: ignore[arg-type]
 
 
-def test_method__execute__permits_multiple_absent_intake_paths() -> None:
+def test_method__execute__accepts_valid_supersession_and_absent_intake_paths() -> None:
     """Evidence ID: ``SV-HT-039``.
 
-    Requirement: Absence of separate intake is not a duplicate graph resource path.
+    Requirement: A replacement reference may identify another supplied Task, and
+    absent intake paths do not collide.
 
-    Method: Validate two Tasks with null intake and distinct identities and
-    documentation paths.
+    Method: Validate one superseded Task and its replacement with null intake and
+    distinct documentation paths.
 
-    Oracle: ``None`` represents no resource and therefore cannot collide by path.
+    Oracle: The version-3 graph contract treats supersession as a checked identity
+    relation and ``None`` as no resource.
 
     Acceptance: Graph validation returns exact PASS with no issues.
 
@@ -85,7 +87,12 @@ def test_method__execute__permits_multiple_absent_intake_paths() -> None:
 
     Limitations: The synthetic graph establishes no lifecycle or repository claims.
     """
-    first = make_task(task_id="a", intake_path=None, documentation_path="docs/a.md")
+    first = make_task(
+        task_id="a",
+        superseded_by_task_ids=("b",),
+        intake_path=None,
+        documentation_path="docs/a.md",
+    )
     second = make_task(task_id="b", intake_path=None, documentation_path="docs/b.md")
     result = SUT().execute((first, second))
     assert result.status == "PASS"

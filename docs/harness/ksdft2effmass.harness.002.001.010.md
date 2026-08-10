@@ -757,11 +757,14 @@ interfaces are the runtime-only immutable
 `HarnessTaskMigrationReviewPacketPreparer`. Reused classes in the earlier table
 do not count as newly proposed interfaces.
 
-The request does not become a serialized record. Only project-local
-`HarnessTask` schema version 2 has a proposed wire, owned by
-`harness/local/schemas/task-record-v2.schema.json`; the version-1 pilot schema
-remains supported and no generic `HarnessWireRecord` member is added. No
-implementation or serialized record is added by this contract stage.
+The request does not become a serialized record. The current project-local
+`HarnessTask` wire is schema version 3, owned by
+`harness/local/schemas/task-record-v3.schema.json`; it adds the required
+`superseded_by_task_ids` identity relationship. Version 2 remains readable for
+compatibility, the version-1 pilot adapter remains supported, and no generic
+`HarnessWireRecord` member is added. Supersession records identity succession
+only: it grants no activation, prerequisite, parent, completion, or acceptance
+authority.
 
 `HarnessTaskMigrationReviewPacket` remains the immutable ResultObject produced
 by the preparer. `HumanReviewDecisionRecorder` remains the sole owner of the

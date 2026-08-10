@@ -4,6 +4,8 @@
 
 The human PI granted final acceptance to the corrected project-owned Colored Petri Net (CPN) architecture through `CPN-HC01` on 2026-08-03. SNAKES is the selected candidate Python execution engine, subject to bounded compatibility, packaging, and license preflight. This document records architecture only. It does not add SNAKES, implement workflow code, execute an external tool, or authorize a calculation.
 
+The former `P3`--`P11` implementation sequence is superseded by the simulation-first bootstrap described in `docs/computational/ksdft2effmass.computational.bootstrap.md`. The mathematical CPN contract remains accepted, while `cpn.workflow.persistence` is deferred, inactive, and nonblocking. Supersession does not authorize execution or activate a replacement.
+
 Static Python imports and scientific workflow semantics are different structures:
 
 ```text

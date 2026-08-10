@@ -45,5 +45,6 @@
       "TASK_RENDER_LIVE_DRIFT"
     ]
   },
-  "task_record_v2": "task-record-v2/fixture-index.json"
+  "task_record_v2": "task-record-v2/fixture-index.json",
+  "task_record_v3": "task-record-v3/fixture-index.json"
 }

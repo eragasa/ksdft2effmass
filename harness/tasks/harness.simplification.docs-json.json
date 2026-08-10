@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json",
   "title": "Migrate documentation and the JSON control surface",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness.simplification.api.action-object-grammar"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Correct the synchronization and authority delta between human-readable `docs/`, transitional Task records, and the selected JSON control surface. Preserve human-authored intake and documentation-owned subject matter while moving operational control fields to JSON-backed generated reference pages.",
   "authority_reference_paths": [

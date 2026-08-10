@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.agents.project-role-simplification",
   "title": "Simplify durable project roles",
   "status": "completed",
@@ -9,6 +9,7 @@
   "external_prerequisite_ids": [
     "harness-simplification.agents.durable-roles"
   ],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Replace the task- and subsystem-specific instructions embedded in the durable project test-agent record with one concise stable capability definition, while preserving ownership, evidence-classification, scientific-integrity, and human-authority boundaries.",
   "authority_reference_paths": [

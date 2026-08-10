@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "D",
   "title": "Task D — Quantum ESPRESSO mechanical input/output layer",
   "status": "superseded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Implement deterministic QE mechanical records, rendering, and parsing without owning scientific mapping or execution.",
   "authority_reference_paths": [

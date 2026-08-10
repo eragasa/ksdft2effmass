@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P7",
   "title": "P7 — Direct spectral/TB fan-out subnet",
-  "status": "blocked",
-  "status_detail": "blocked by accepted P3, P4, and P6",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P3",
@@ -11,6 +11,9 @@
     "P6"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.tight-binding.direct-spectral.fitting"
+  ],
   "explicit_activation_required": false,
   "objective": "Implement the CPN fan-out from an accepted neutral `PeriodicElectronicStructureDataset` parent to direct spectral/TB request and result tokens, with explicit training/withheld data, provenance, failure, retry, and acceptance states.\n\nThe route remains direct spectral DFT-to-TB fitting, not operator fitting. It never parses QE or reconstructs an operator from eigenvalues. Comparison eligibility retains parent/specification/representation metadata. Preserves G.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [

@@ -67,24 +67,29 @@ def test_method__execute__rejects_non_task_input() -> None:
         SUT().execute(object())  # type: ignore[arg-type]
 
 
-def test_method__execute__serializes_absent_intake_as_canonical_null() -> None:
+def test_method__execute__serializes_version_specific_fields_canonically() -> None:
     """Evidence ID: ``SV-HT-037``.
 
-    Requirement: A Task without a separate intake artifact serializes
-    ``intake_path`` as canonical JSON null.
+    Requirement: Version 3 serializes replacement IDs and null intake, while retained
+    version 2 omits the version-3 field.
 
-    Method: Serialize a valid synthetic Task whose intake path is absent.
+    Method: Serialize valid synthetic version-3 and version-2 Tasks.
 
-    Oracle: The corrected version-2 wire contract requires the retained field in
-    constructor order with a null value.
+    Oracle: The accepted versioned wire contracts define exact field presence.
 
-    Acceptance: Output contains the exact indented null member and one final LF.
+    Acceptance: Version 3 contains the replacement array and null intake; version 2
+    omits the replacement field; both end in one LF.
 
     Interpretation: Failure identifies serializer or corrected wire-contract drift.
 
     Limitations: This does not establish repository artifact existence or migration
     acceptance.
     """
-    payload = SUT().execute(make_task(intake_path=None))
+    payload = SUT().execute(
+        make_task(intake_path=None, superseded_by_task_ids=("replacement",))
+    )
+    assert b'  "superseded_by_task_ids": [\n    "replacement"\n  ],\n' in payload
     assert b'  "intake_path": null,\n' in payload
     assert payload.endswith(b"\n") and not payload.endswith(b"\n\n")
+    retained = SUT().execute(make_task(schema_version=2))
+    assert b'"superseded_by_task_ids"' not in retained

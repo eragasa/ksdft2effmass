@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H2",
   "title": "H2 — Generic Python harness implementation",
   "status": "human_accepted_pass",
@@ -9,6 +9,7 @@
     "H3"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Implement only the accepted generic Python harness contract under `python/src/ksdft2effmass/harness/pi/`. H2 creates no project-specific Python under `python/src/ksdft2effmass/harness/pi/local/`; H4 owns that entire local Python boundary.",
   "authority_reference_paths": [

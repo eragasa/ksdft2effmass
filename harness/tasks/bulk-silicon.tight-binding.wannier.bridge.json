@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.tight-binding.wannier.bridge",
+  "title": "QE–Wannier90 tutorial bridge",
+  "status": "blocked",
+  "status_detail": "Blocked by QE artifact inventory, periodic record extraction, and explicit tutorial interface choices.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "bulk-silicon.artifacts.qe.inventory",
+    "bulk-silicon.records.periodic.extraction"
+  ],
+  "external_prerequisite_ids": [
+    "wannier_tutorial_interface_selection"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define the tutorial QE–Wannier90 input and artifact bridge from observed QE artifacts.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Identify the parent calculation and required child sampling.",
+    "Represent `.nnkp`, `.amn`, `.mmn`, `.eig`, and accepted optional artifacts as typed external references.",
+    "Retain bands, windows, projections, grid, and parent-child lineage as explicit inputs."
+  ],
+  "completion_criteria": [
+    "Required and optional bridge artifacts are distinguished.",
+    "The exact parent and child lineage is retained.",
+    "Bands, projections, windows, and grids have explicit dispositions.",
+    "The bridge contract is reproducible without executing Wannier90."
+  ],
+  "exclusions": [
+    "This Task does not execute Wannier90 or implement localization.",
+    "It does not treat `projwfc.x` output as `.amn`.",
+    "It does not silently select projections, windows, bands, or grids.",
+    "Backend filenames do not become neutral periodic-record fields."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.artifacts.qe.inventory",
+  "title": "QE tutorial artifact inventory",
+  "status": "blocked",
+  "status_detail": "Blocked by the inactive QE tutorial reference simulation.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "bulk-silicon.simulation.qe.reference"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Inventory and classify the actual artifacts produced by the selected QE tutorial before fixing extraction records.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Inventory retained native inputs, outputs, restart data, and interface artifacts.",
+    "Record explicit paths, sizes, checksums, formats, roles, producer identities, and retention classes.",
+    "Identify compact, large, optional, partial, scratch, and disposable artifacts."
+  ],
+  "completion_criteria": [
+    "Every retained tutorial artifact has an explicit disposition.",
+    "Missing, partial, and optional outputs remain visible.",
+    "Candidate inputs to periodic record extraction are identified with provenance."
+  ],
+  "exclusions": [
+    "Calculation data are not deleted, relocated, or committed to Git by this Task.",
+    "Absence in one tutorial is not treated as universal backend absence.",
+    "Artifact inventory does not establish scientific validity or a final public schema."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

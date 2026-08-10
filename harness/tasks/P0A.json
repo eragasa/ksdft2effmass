@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P0A",
   "title": "P0A — SNAKES/MyST packaging and documentation configuration",
   "status": "human_accepted_pass",
@@ -9,6 +9,7 @@
     "P0"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Adopt only the accepted dependency declarations and documentation configuration,\nretain exact lock artifacts and hashes, add an accurate third-party notice, and\nverify installation and maintained documentation behavior without implementing\nthe production CPN runtime.",
   "authority_reference_paths": [

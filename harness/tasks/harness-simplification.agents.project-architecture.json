@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.agents.project-architecture",
   "title": "Simplify the durable project architecture role",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness-simplification.agents.project-integration-review"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Refine `.pi/agents/ksdft2effmass-architecture.md` into a concise durable role. Preserve explicit task authorization, read-only analysis by default, narrow documentation or decision-record writes only under exact task ownership, independence from implementation and human acceptance, proportional inspection, applicable cross-surface boundaries, evidence and claim separation, fail-closed authority behavior, and a concise handoff.",
   "authority_reference_paths": [

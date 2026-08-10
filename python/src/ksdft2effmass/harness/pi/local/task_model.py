@@ -1,9 +1,10 @@
 """Minimum durable project-local Task model.
 
 ``HarnessTask`` owns intrinsic Task state, its serializer and deserializer own the
-version-2 JSON wire format, and ``HarnessTaskGraphValidator`` owns structural graph
-checks. The module performs no repository discovery, persistence, activation,
-Markdown rendering, migration workflow, scientific interpretation, or human review.
+version-3 JSON wire format and retained version-2 reading compatibility, and
+``HarnessTaskGraphValidator`` owns structural graph checks. The module performs no
+repository discovery, persistence, activation, Markdown rendering, migration
+workflow, scientific interpretation, or human review.
 """
 
 from __future__ import annotations
@@ -102,7 +103,9 @@ class HarnessTask:
     Parameters
     ----------
     schema_version
-        Built-in integer equal to 2.
+        Built-in integer equal to 2 or 3. Version 3 adds the required
+        ``superseded_by_task_ids`` relationship; version 2 is retained for reading
+        compatibility and requires that tuple to be empty.
     task_id, status
         Project-local identifiers. ``status`` is opaque lifecycle text.
     title, objective
@@ -113,6 +116,10 @@ class HarnessTask:
         Optional identifier distinct from ``task_id``.
     task_prerequisite_ids, external_prerequisite_ids
         Sorted unique identifier tuples. Both exclude ``task_id`` and are disjoint.
+    superseded_by_task_ids
+        Sorted unique replacement Task identifiers. The tuple excludes ``task_id``.
+        It records identity succession only and grants no activation, prerequisite,
+        parent, completion, or acceptance authority.
     explicit_activation_required
         Exact built-in Boolean; it records policy but does not activate work.
     authority_reference_paths
@@ -151,6 +158,7 @@ class HarnessTask:
     parent_task_id: Identifier | None
     task_prerequisite_ids: tuple[Identifier, ...]
     external_prerequisite_ids: tuple[Identifier, ...]
+    superseded_by_task_ids: tuple[Identifier, ...]
     explicit_activation_required: bool
     objective: str
     authority_reference_paths: tuple[ResourcePath, ...]
@@ -162,8 +170,9 @@ class HarnessTask:
     documentation_path: ResourcePath | None = None
 
     def __post_init__(self) -> None:
-        if _require_int(self.schema_version, "schema_version") != 2:
-            raise ValueError("schema_version must equal 2")
+        version = _require_int(self.schema_version, "schema_version")
+        if version not in {2, 3}:
+            raise ValueError("schema_version must equal 2 or 3")
         _require_local_identifier(self.task_id, "task_id")
         _require_builtin_str(self.title, "title")
         _require_local_identifier(self.status, "status")
@@ -179,8 +188,15 @@ class HarnessTask:
         external_prerequisites = _identifier_tuple(
             self.external_prerequisite_ids, "external_prerequisite_ids"
         )
+        superseded_by = _identifier_tuple(
+            self.superseded_by_task_ids, "superseded_by_task_ids"
+        )
         if self.task_id in task_prerequisites or self.task_id in external_prerequisites:
             raise ValueError("a Task may not require itself")
+        if self.task_id in superseded_by:
+            raise ValueError("a Task may not supersede itself")
+        if version == 2 and superseded_by:
+            raise ValueError("schema-version-2 Tasks cannot represent supersession")
         if set(task_prerequisites) & set(external_prerequisites):
             raise ValueError("Task and external prerequisites must be disjoint")
         _require_bool(self.explicit_activation_required, "explicit_activation_required")
@@ -206,6 +222,7 @@ class HarnessTask:
             _require_path(self.documentation_path, "documentation_path")
         object.__setattr__(self, "task_prerequisite_ids", task_prerequisites)
         object.__setattr__(self, "external_prerequisite_ids", external_prerequisites)
+        object.__setattr__(self, "superseded_by_task_ids", superseded_by)
         object.__setattr__(self, "authority_reference_paths", authority_paths)
         object.__setattr__(self, "authorized_scope", authorized_scope)
         object.__setattr__(self, "completion_criteria", completion_criteria)
@@ -215,10 +232,11 @@ class HarnessTask:
 class HarnessTaskSerializer:
     """Serialize one :class:`HarnessTask` to canonical UTF-8 JSON bytes.
 
-    The ActionObject is fieldless and performs no discovery or I/O. It preserves
-    the accepted 16-field order, emits tuples as arrays and optional absence as
-    ``null``, uses two-space indentation with literal Unicode, and appends exactly
-    one LF without a BOM.
+    The ActionObject is fieldless and performs no discovery or I/O. It emits the
+    version-3 field set, or omits ``superseded_by_task_ids`` for a retained
+    version-2 value, emits tuples as arrays and optional absence as ``null``, uses
+    two-space indentation with literal Unicode, and appends exactly one LF without
+    a BOM.
     """
 
     __slots__ = ()
@@ -246,6 +264,8 @@ class HarnessTaskSerializer:
         obj: dict[str, Any] = {}
         for field in fields(HarnessTask):
             value = getattr(task, field.name)
+            if field.name == "superseded_by_task_ids" and task.schema_version == 2:
+                continue
             if field.name == "documentation_path" and value is None:
                 continue
             if type(value) is ArchivedTaskSource:
@@ -255,9 +275,11 @@ class HarnessTaskSerializer:
 
 
 class HarnessTaskDeserializer:
-    """Deserialize strict schema-version-2 Task JSON from explicit bytes.
+    """Deserialize strict schema-version-3 or retained version-2 Task JSON.
 
-    Noncanonical whitespace and object-key order are accepted. BOMs, invalid UTF-8,
+    Noncanonical whitespace and object-key order are accepted. Version 3 requires
+    ``superseded_by_task_ids``; version 2 rejects it and receives an empty tuple in
+    memory. BOMs, invalid UTF-8,
     duplicate, missing, or unknown keys, wrong JSON types, invalid lexical values,
     and unsupported versions are rejected. The action performs no file I/O or graph,
     authority, documentation, or activation validation.
@@ -304,17 +326,26 @@ class HarnessTaskDeserializer:
             raise ValueError("payload must be one UTF-8 JSON value") from exc
         if type(value) is not dict:
             raise TypeError("payload must represent a JSON object")
-        expected = tuple(field.name for field in fields(HarnessTask))
-        required = set(expected) - {"documentation_path"}
+        version = value.get("schema_version")
+        if type(version) is not int or version not in {2, 3}:
+            raise ValueError("schema_version must equal integer 2 or 3")
+        model_fields = tuple(field.name for field in fields(HarnessTask))
+        expected = set(model_fields)
+        if version == 2:
+            expected.remove("superseded_by_task_ids")
+        required = expected - {"documentation_path"}
         missing = required - set(value)
-        unknown = set(value) - set(expected)
+        unknown = set(value) - expected
         if missing:
             raise ValueError(f"missing field {sorted(missing)[0]}")
         if unknown:
             raise ValueError(f"unknown field {sorted(unknown)[0]}")
+        if version == 2:
+            value["superseded_by_task_ids"] = []
         tuple_fields = {
             "task_prerequisite_ids",
             "external_prerequisite_ids",
+            "superseded_by_task_ids",
             "authority_reference_paths",
             "authorized_scope",
             "completion_criteria",
@@ -356,7 +387,8 @@ class HarnessTaskGraphValidator:
         LocalValidationResult
             ``PASS`` or lexically ordered issues using ``PIHL.TASK.DUPLICATE_ID``,
             ``PARENT_MISSING``, ``PARENT_CYCLE``, ``PREREQUISITE_MISSING``,
-            ``PREREQUISITE_CYCLE``, ``INTAKE_PATH_DUPLICATE``, and
+            ``PREREQUISITE_CYCLE``, ``SUPERSESSION_MISSING``,
+            ``SUPERSESSION_CYCLE``, ``INTAKE_PATH_DUPLICATE``, and
             ``DOCUMENTATION_PATH_DUPLICATE`` under the ``PIHL.TASK`` namespace.
 
         Raises
@@ -396,18 +428,25 @@ class HarnessTaskGraphValidator:
                         task.parent_task_id,
                     )
                 )
+            task_path = task.documentation_path or (
+                task.archived_source.path if task.archived_source else None
+            )
             for dependency in task.task_prerequisite_ids:
                 if dependency not in by_id:
                     issues.append(
                         LocalIssue(
                             "PIHL.TASK.PREREQUISITE_MISSING",
-                            task.documentation_path
-                            or (
-                                task.archived_source.path
-                                if task.archived_source
-                                else None
-                            ),
+                            task_path,
                             dependency,
+                        )
+                    )
+            for replacement in task.superseded_by_task_ids:
+                if replacement not in by_id:
+                    issues.append(
+                        LocalIssue(
+                            "PIHL.TASK.SUPERSESSION_MISSING",
+                            task_path,
+                            replacement,
                         )
                     )
         for attribute, code in (
@@ -425,8 +464,9 @@ class HarnessTaskGraphValidator:
                     )
                 else:
                     seen[path] = task.task_id
-        issues.extend(self._cycle_issues(by_id, parent=True))
-        issues.extend(self._cycle_issues(by_id, parent=False))
+        issues.extend(self._cycle_issues(by_id, relation="parent"))
+        issues.extend(self._cycle_issues(by_id, relation="prerequisite"))
+        issues.extend(self._cycle_issues(by_id, relation="supersession"))
         ordered = tuple(
             sorted(set(issues), key=lambda x: (x.code, x.path or "", x.detail))
         )
@@ -434,19 +474,23 @@ class HarnessTaskGraphValidator:
 
     @staticmethod
     def _cycle_issues(
-        by_id: dict[str, HarnessTask], *, parent: bool
+        by_id: dict[str, HarnessTask], *, relation: str
     ) -> list[LocalIssue]:
-        code = "PIHL.TASK.PARENT_CYCLE" if parent else "PIHL.TASK.PREREQUISITE_CYCLE"
-        graph = {
-            task_id: (
-                (task.parent_task_id,)
-                if parent and task.parent_task_id in by_id
-                else ()
-            )
-            if parent
-            else tuple(x for x in task.task_prerequisite_ids if x in by_id)
-            for task_id, task in by_id.items()
-        }
+        code = {
+            "parent": "PIHL.TASK.PARENT_CYCLE",
+            "prerequisite": "PIHL.TASK.PREREQUISITE_CYCLE",
+            "supersession": "PIHL.TASK.SUPERSESSION_CYCLE",
+        }[relation]
+        graph = {}
+        for task_id, task in by_id.items():
+            targets: tuple[str, ...]
+            if relation == "parent":
+                targets = (task.parent_task_id,) if task.parent_task_id in by_id else ()
+            elif relation == "prerequisite":
+                targets = tuple(x for x in task.task_prerequisite_ids if x in by_id)
+            else:
+                targets = tuple(x for x in task.superseded_by_task_ids if x in by_id)
+            graph[task_id] = targets
         cycles: set[tuple[str, ...]] = set()
         completed: set[str] = set()
         for root in sorted(graph):

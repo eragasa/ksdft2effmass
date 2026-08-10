@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "H",
   "title": "Task H — Wannier specification and QE–Wannier bridge",
   "status": "superseded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Implement neutral Wannier input specifications and the explicit QE-to-Wannier bridge without collapsing QE and Wannier90 into one backend.",
   "authority_reference_paths": [

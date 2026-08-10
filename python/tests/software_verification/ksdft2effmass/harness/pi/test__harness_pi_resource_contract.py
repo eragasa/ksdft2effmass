@@ -472,6 +472,7 @@ def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() 
                 "extensions",
                 "fixtures/oracle-index.json",
                 "fixtures/task-record-v2",
+                "fixtures/task-record-v3",
                 "profiles",
                 "projections",
                 "schemas",

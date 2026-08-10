@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.records.periodic.extraction",
+  "title": "Periodic electronic-structure record extraction",
+  "status": "blocked",
+  "status_detail": "Blocked by the QE tutorial artifact inventory.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "bulk-silicon.artifacts.qe.inventory"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Determine and implement the minimal periodic electronic-structure records supported by observed QE tutorial artifacts and accepted scientific conventions.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Define immutable compact records for observed structure, sampling, spectra, occupations, energy reference, convergence observations, and artifact references.",
+    "Keep mechanical parsing separate from semantic adaptation.",
+    "Make units, indexing, source conventions, and provenance explicit.",
+    "Retain large native data as external artifact references."
+  ],
+  "completion_criteria": [
+    "Every extracted field has an identified source, unit, convention, and provenance.",
+    "Parsing and semantic adaptation have focused software-verification evidence.",
+    "Unsupported and unavailable information remains explicit.",
+    "Any public record contract has synchronized schema, fixture, runtime, and documentation surfaces."
+  ],
+  "exclusions": [
+    "No universal DFT API or unsupported backend-neutral field is introduced.",
+    "Kohn–Sham eigenvalues are not treated as a unique represented operator or complete many-body spectrum.",
+    "No hidden unit, basis, gauge, geometry, or energy-zero transformation is permitted.",
+    "Software verification does not establish scientific validation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

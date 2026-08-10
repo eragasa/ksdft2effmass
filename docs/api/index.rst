@@ -10,6 +10,7 @@ public compatibility contract.
    operators
    workflows-cpn
    harness-task
+   harness-control
 
 Provenance and external-tool records
 ------------------------------------

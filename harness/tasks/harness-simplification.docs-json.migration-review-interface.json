@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.docs-json.migration-review-interface",
   "title": "Serial HarnessTask migration-review operational interface",
   "status": "completed",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.docs-json.migration-review-interface`",
   "authority_reference_paths": [

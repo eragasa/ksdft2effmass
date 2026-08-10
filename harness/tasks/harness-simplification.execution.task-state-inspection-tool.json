@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.execution.task-state-inspection-tool",
   "title": "Implement bounded task-state inspection",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness-simplification.execution.validator-pilot-stabilization"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.execution.task-state-inspection-tool`",
   "authority_reference_paths": [

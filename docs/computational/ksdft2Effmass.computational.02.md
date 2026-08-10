@@ -5,6 +5,13 @@ back_to: [[ksdft2Effmass.computational.00]]
 
 Construct one converged and frozen Kohn--Sham reference for bulk silicon from which all Wannier, tight-binding, impurity, and continuum parameters are derived.
 
+## Bootstrap relationship
+
+Production Stage 02 begins only after the simulation bootstrap has demonstrated
+the required execution, artifact, and extraction boundaries using non-production
+tutorial calculations. The bootstrap does not satisfy the Stage 02 convergence
+or production-authorization gates.
+
 ## Task Registry
 
 | Task | Description | Prerequisites | Output | Initial state |

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "C",
   "title": "Task C — Backend-neutral DFT DataObjects and ResultObjects",
   "status": "superseded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Implement the neutral scientific records and compact Kohn–Sham calculation ResultObject without importing a backend.",
   "authority_reference_paths": [

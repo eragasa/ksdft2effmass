@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.authority-catalog",
   "title": "Build a temporary documentation/control comparison baseline",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness.simplification.docs-json.publication.hierarchy"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "After publication hierarchy normalization, compare human-readable material under `docs/` with the selected JSON control surface and explicitly selected transitional control records. Apply repository precedence to identify deterministic documentation corrections and isolate only genuinely unresolved authority questions.\n\nThe catalog set is a temporary migration aid, not authority, a runtime registry, or permanent architecture.",
   "authority_reference_paths": [

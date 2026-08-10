@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "operator-record-comparison",
   "title": "Compatible OperatorRecord Comparison Task",
   "status": "legacy_recorded",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Define and implement comparison of already-compatible finite `OperatorRecord`\nrepresentations.\n\nThis task establishes comparison semantics before basis alignment, energy\nalignment, impurity extraction, DFT/Wannier import, or Rust implementation.",
   "authority_reference_paths": [

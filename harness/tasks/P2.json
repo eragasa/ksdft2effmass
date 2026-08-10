@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P2",
   "title": "P2 — Provenance and external-tool capability records",
   "status": "human_accepted_pass",
@@ -12,6 +12,7 @@
   "external_prerequisite_ids": [
     "explicit_activation"
   ],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Implement project-owned artifact/manifest records and narrowly shared external-tool lifecycle records for identity, specification, capability, installation, verification, immutable request/result, and structured failure.\n\nPreserve `ArtifactReference`/`ArtifactLocation` separation. Durable tokens retain stable IDs and immutable payloads, never credentials, subprocess or scheduler handles, open files, mutable clients, closures, or SNAKES objects. QE/Wannier semantics remain concrete adapters; no plugin framework is authorized.\n\nCompletion requires implementation, tests, Markdown documentation, independent review, parent verification, one bounded ordinary replay, and human acceptance.",
   "authority_reference_paths": [

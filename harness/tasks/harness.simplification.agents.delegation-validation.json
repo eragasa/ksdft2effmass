@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.agents.delegation-validation",
   "title": "Validate delegation to the durable agent set",
   "status": "completed",
+  "status_detail": null,
   "parent_task_id": null,
-  "task_prerequisite_ids": [
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [
     "harness-simplification.agents.historical-retirement"
   ],
-  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Verify that the currently selectable durable project and harness agents can receive bounded nonmutating delegation through the supported runtime while disabled historical phase agents remain unavailable, without treating discoverability or a successful probe as Task authority, implementation correctness, or acceptance.",
   "authority_reference_paths": [

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P0",
   "title": "P0 — SNAKES and documentation-tooling preflight",
   "status": "human_accepted_conditional_pass",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Verify before dependency adoption that SNAKES is technically, legally, and operationally usable with the repository's supported Python and tooling. Also verify the exact MyST dependency/configuration needed to collect Markdown-first documentation in Sphinx.",
   "authority_reference_paths": [

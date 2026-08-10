@@ -15,6 +15,8 @@ from .task_state import (
 )
 from .validation import _issue, _result
 
+_CONTROL_DATABASE_PATH = "harness/state/harness-control.sqlite3"
+
 
 def _record_status(paths: tuple[str, ...], missing: set[str]) -> str:
     if not paths:
@@ -110,11 +112,52 @@ def _inspect_task_state(
         for path in tuple(sorted(set((*artifact_paths, *run_paths, *handoff_paths)))):
             files.inspect(path)
 
+    control_database = request.repository_root / _CONTROL_DATABASE_PATH
+    if control_database.is_file() and not control_database.is_symlink():
+        from ._task_control_state import _load_task_state
+
+        files.inspect(_CONTROL_DATABASE_PATH)
+        database_state = _load_task_state(control_database, request.task_id)
+        if database_state is None:
+            files.issues.append(
+                _issue(
+                    "PIH.TASK_STATE.REFERENCE_INVALID",
+                    "The authoritative control database does not contain the "
+                    "selected Task.",
+                    request.task_id,
+                    _CONTROL_DATABASE_PATH,
+                )
+            )
+        else:
+            database_status, database_active = database_state
+            if task_status is not None and task_status != database_status:
+                files.issues.append(
+                    _issue(
+                        "PIH.TASK_STATE.REFERENCE_INVALID",
+                        "Projected Task status disagrees with authoritative "
+                        "SQLite state.",
+                        request.task_id,
+                        task_record_path,
+                    )
+                )
+            task_status = database_status
+            if database_active:
+                active_task = request.task_id
+            elif active_task == request.task_id:
+                files.issues.append(
+                    _issue(
+                        "PIH.TASK_STATE.REFERENCE_INVALID",
+                        "Chain activation disagrees with authoritative SQLite state.",
+                        request.task_id,
+                        request.chain_path,
+                    )
+                )
+
     limitations = {
         "Interactive runtime execution and reviewer-launch counts are outside "
         "declared repository state and were not inspected.",
-        "Only the chain and exact durable paths declared by the selected task "
-        "and ownership manifest were inspected.",
+        "Only the authoritative control database, chain, and exact durable paths "
+        "declared by the selected task and ownership manifest were inspected.",
     }
     if selected_task is not None and task_record_path is None:
         limitations.add("No task record is declared by the selected chain entry.")

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-task-state-symlink-toctou-hardening",
   "title": "Harden task-state file inspection against symlink TOCTOU races",
   "status": "inactive",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "When separately activated, determine and implement a portable filesystem access strategy that preserves the existing explicit-root and exact-declared-path contract while preventing symlink substitution between validation and file opening. Evaluate descriptor-relative traversal and no-follow facilities such as `openat` and `O_NOFOLLOW`, including Python and supported-platform behavior.",
   "authority_reference_paths": [

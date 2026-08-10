@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P9",
   "title": "P9 — Wannier90 execution and result-adaptation subnet",
-  "status": "blocked",
-  "status_detail": "blocked by accepted P2, P3, and P8",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2",
@@ -11,6 +11,9 @@
     "P8"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.tight-binding.wannier.extraction"
+  ],
   "explicit_activation_required": false,
   "objective": "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.\n\n`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [

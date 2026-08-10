@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.tight-binding.comparison-reduction",
+  "title": "Tight-binding comparison and reduction",
+  "status": "blocked",
+  "status_detail": "Blocked by both direct-spectral fitting and Wannier Hamiltonian extraction.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "bulk-silicon.tight-binding.direct-spectral.fitting",
+    "bulk-silicon.tight-binding.wannier.extraction"
+  ],
+  "external_prerequisite_ids": [
+    "tight_binding_comparison_contract"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Compare the direct-spectral and Wannier-mediated tight-binding models and evaluate explicitly declared reductions.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Compare common spectral observables.",
+    "Compare represented operators only after compatibility and alignment prerequisites succeed.",
+    "Evaluate accepted range, shell, orbital, or block reductions.",
+    "Report parent-model, fitting, Wannierization, numerical, and reduction errors separately."
+  ],
+  "completion_criteria": [
+    "Every comparison identifies its state spaces, bases, geometry, units, energy references, parent identities, and truncation state.",
+    "Compatibility failures are explicit.",
+    "Observable and represented-operator comparisons remain distinct.",
+    "Accepted metrics and reduction tolerances are evaluated."
+  ],
+  "exclusions": [
+    "Unidentified or unaligned operators are not subtracted.",
+    "Metadata similarity alone does not establish physical equivalence.",
+    "Incompatible error definitions are not combined.",
+    "No scientific validation or impurity interpretation is inferred."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

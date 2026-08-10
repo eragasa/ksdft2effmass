@@ -1,0 +1,63 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Migrate the Python test-evidence validator
+
+[Task index](index.md) · [Previous](./harness-simplification.agents.resource-phase-routing-reconciliation.md) · [Next](./harness-simplification.checkpoints.resolve-checkpoint-decision.md)
+
+## Status
+
+`completed`: completed under `.pi/chains/harness-simplification.chain.json`
+
+## Objective
+
+Migrate the reusable semantics of `harness/pi/validation/validate_python_test_evidence.py` into the generic `ksdft2effmass.harness.pi` package as immutable concrete request and result DataObjects plus one fieldless stateless ActionObject with public `execute`. The generic algorithm receives only explicit bytes and metadata and performs no file, Git, subprocess, root, or current-directory discovery. Keep the existing script as a thin compatibility wrapper and preserve its controlled command behavior.
+
+The current working tree contains pre-existing, completed test-evidence-conformance changes in the compatibility script and its tests. They are authoritative pilot inputs, are not owned by another active chain, and must be preserved while the assigned writers migrate and test the resulting behavior. All other pre-existing working-tree changes are unrelated and must remain untouched.
+
+The validated ownership manifest is `.pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json`. The implementation writer owns only generic production exports/module code and the compatibility wrapper. The test writer owns only the existing wrapper tests and new generic package tests. The documentation writer owns only the accepted executable-tool placement page. The parent root agent owns this task record, chain state, ownership record, integration, commit, push, and final report. The intended policy assigned one read-only integration review and permitted at most one bounded correction pass for material deterministic findings.
+
+Observed execution did not reliably enforce that policy. The interactive interface displayed four completed assignments with identical review text and reviewer identity. Local durable mission artifacts identify one completed pilot review run (`233ade96`), but the repository contains no committed run-identity ledger that can reconcile those artifacts with every displayed assignment. The exact execution count therefore cannot be established durably. Duplicate dispatch is an orchestration defect; duplicate results are not independent evidence and must not be merged or voted.
+
+## Parent and prerequisites
+
+- Depends on: `harness-simplification.agents.executable-tool-placement-contract`
+
+## Authority references
+
+- .pi/chains/harness-simplification.chain.json
+- .pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json
+- harness/archive/task-control-v1/tasks/harness-simplification.agents.validator-migration-pilot.md
+- harness/pi/validation/validate_python_test_evidence.py
+
+## Authorized scope
+
+- Migrate the reusable semantics of `harness/pi/validation/validate_python_test_evidence.py` into the generic `ksdft2effmass.harness.pi` package as immutable concrete request and result DataObjects plus one fieldless stateless ActionObject with public `execute`. The generic algorithm receives only explicit bytes and metadata and performs no file, Git, subprocess, root, or current-directory discovery. Keep the existing script as a thin compatibility wrapper and preserve its controlled command behavior.
+
+## Completion criteria
+
+- The maintained completion runner named by the ownership manifest is pytest. The direct focused completion invocation is:
+- ```text
+python/.venv/bin/python -m pytest -q \
+  harness/pi/validation/test_validate_python_test_evidence.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceSource.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceRequest.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceFinding.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestEvidenceValidationResult.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__ValidatePythonTestEvidence.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__python_test_evidence_wrapper_api_agreement.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_generic_local_dependency_direction.py \
+  python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py
+```
+- The task record owns this command specification; it does not own a validation algorithm or subprocess driver. Ruff, mypy, public-import, route, documentation, dependency, lockfile, ownership, task-state, and diff checks are parent verification rather than task-local orchestration.
+- Completion marks only this pilot completed, returns `active_task` to `null`, preserves automatic successor activation as disabled, and leaves every successor inactive.
+
+## Exclusions
+
+- Migrate the reusable semantics of `harness/pi/validation/validate_python_test_evidence.py` into the generic `ksdft2effmass.harness.pi` package as immutable concrete request and result DataObjects plus one fieldless stateless ActionObject with public `execute`. The generic algorithm receives only explicit bytes and metadata and performs no file, Git, subprocess, root, or current-directory discovery. Keep the existing script as a thin compatibility wrapper and preserve its controlled command behavior.
+- The current working tree contains pre-existing, completed test-evidence-conformance changes in the compatibility script and its tests. They are authoritative pilot inputs, are not owned by another active chain, and must be preserved while the assigned writers migrate and test the resulting behavior. All other pre-existing working-tree changes are unrelated and must remain untouched.
+- The validated ownership manifest is `.pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json`. The implementation writer owns only generic production exports/module code and the compatibility wrapper. The test writer owns only the existing wrapper tests and new generic package tests. The documentation writer owns only the accepted executable-tool placement page. The parent root agent owns this task record, chain state, ownership record, integration, commit, push, and final report. The intended policy assigned one read-only integration review and permitted at most one bounded correction pass for material deterministic findings.
+- Observed execution did not reliably enforce that policy. The interactive interface displayed four completed assignments with identical review text and reviewer identity. Local durable mission artifacts identify one completed pilot review run (`233ade96`), but the repository contains no committed run-identity ledger that can reconcile those artifacts with every displayed assignment. The exact execution count therefore cannot be established durably. Duplicate dispatch is an orchestration defect; duplicate results are not independent evidence and must not be merged or voted.
+
+## Historical source
+
+`harness/archive/task-control-v1/tasks/harness-simplification.agents.validator-migration-pilot.md` (`sha256:bc780f2d05dc1442aceff0d3a8bd59112d7b45f51c5ff6ab0931c4dc3259238e`)

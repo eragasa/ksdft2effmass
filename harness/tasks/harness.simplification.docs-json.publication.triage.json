@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.publication.triage",
   "title": "Triage publication documentation",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness.simplification.api.action-object-grammar"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Inventory `docs/conferences/` and `docs/papers/`, apply deterministic classifications where repository evidence permits only one reasonable result, and send only genuinely ambiguous files for human classification before hierarchy changes.\n\nAdditional roots require current human authorization. Bind the inventory to one Git revision or accepted worktree state. For tracked files, path and Git object identity are sufficient; hash only content not identified by Git. Record symlinks without following them outside the selected roots.",
   "authority_reference_paths": [

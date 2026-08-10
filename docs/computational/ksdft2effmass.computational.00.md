@@ -4,9 +4,17 @@ back_to: [[ksdft2effmass.00]]
 
 ## Purpose
 
-This document is the computational control plane for the research program. It decomposes the mathematical structure in [[ksdft2Effmass.01]]--[[ksdft2Effmass.10]] into executable tasks, explicit prerequisites, persistent computational artifacts, and validation gates.
+This document is the maintained human-readable map of the computational research program. Canonical Task contracts and dependency state are maintained under `harness/tasks/` and `harness/task-graph.json`.
 
-The scientific and computational workflow is a stateful Colored Petri Net (CPN). Static task prerequisites below remain a planning and eligibility projection, not the authoritative runtime workflow state. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes accepted computational evidence.
+The scientific and computational workflow may use a stateful Colored Petri Net (CPN) after its deferred persistence Task is separately activated. Static prerequisites below explain scientific and computational relationships; they do not activate work. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes accepted computational evidence.
+
+## Program Bootstrap
+
+| Program | Purpose | Relationship |
+|---|---|---|
+| [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
+
+The bootstrap is represented by canonical descriptive Task IDs rather than new leaf pages in the existing `SS.WW.TT` hierarchy. Its deferred CPN-persistence Task does not block the tutorial-to-model path. The bootstrap page is explanatory; Task status, scope, completion criteria, exclusions, supersession, and dependencies remain in canonical JSON.
 
 ## Numbering Convention
 
@@ -61,33 +69,19 @@ A task is complete only when its acceptance criteria pass and its outputs have b
 | [[ksdft2Effmass.computational.09]] | Continuum operators and crossover radii                              | `G09-P`, `G09-B` | Solver branch may begin after `G01a`; physical results require the corresponding `G08` gate |
 | [[ksdft2Effmass.computational.10]] | Cross-path, gauge, and composition consistency tests                 | `G10`            | Depends on the paths being compared                                                         |
 
-## Prospective CPN implementation task registry
+## Historical P-series implementation registry
 
-The accepted operator-record foundation remains complete. The never-launched
-A–H workflow sequence is preserved historically and superseded prospectively by:
+The accepted operator-record and P0--P2 foundations remain preserved. The
+never-launched `P3`--`P11` decomposition is superseded by the descriptive
+simulation-first bootstrap Tasks linked from
+[[ksdft2effmass.computational.bootstrap]]. The exact one-to-many identity mapping
+is maintained in
+[`harness/reports/simulation-first-task-migration.md`](../../harness/reports/simulation-first-task-migration.md).
 
-| Task | Scope | State |
-|---|---|---|
-| P0 | SNAKES Python/packaging/license/capability and MyST tooling preflight | Closed; human-accepted `CONDITIONAL_PASS` |
-| P0A | Bounded SNAKES/MyST packaging, notice, and documentation configuration | Closed; human-accepted `PASS` |
-| P1 | Project-owned CPN token/place/transition/marking contract | Closed as human-accepted `PASS` through `P1-HC03` Option A on 2026-08-04, after reviews and parent verification |
-| P2 | Provenance and external-tool capability records | Blocked by P1 |
-| P3 | SNAKES adapter and project-owned marking persistence | Blocked by P1/P2 |
-| P4 | Neutral periodic electronic-structure structures, specifications, and datasets | Blocked by P1/P2 |
-| P5 | QE mechanical I/O and immutable execution boundary | Blocked by P2/P4 |
-| P6 | QE semantic adapter and SCF-validation subnet | Blocked by P3/P4/P5 |
-| P7 | Direct spectral/TB fan-out subnet | Blocked by P3/P4/P6 |
-| P8 | Wannier specification and QE-to-Wannier90 bridge | Blocked by P3/P4/P5/P6 |
-| P9 | Wannier90 execution and result-adaptation subnet | Blocked by P2/P3/P8 |
-| P10 | Synthetic composed workflow verification | Blocked by P6/P7/P8/P9/metrics |
-| P11 | Human-authorized bulk-Si campaign | Blocked by accepted G01a marking, human-accepted P10, and accepted production checkpoint |
-
-These task prerequisites are launch controls and a static projection only. The
-future scientific workflow state is the durable CPN marking. `P1-HC01` Option A
-and `P1-HC02` Option B are resolved. Final P1 acceptance was granted as Option A
-through `P1-HC03` on 2026-08-04, after reviews and parent verification; P1 is
-closed as human-accepted `PASS`. No successor was selected or launched, and
-P2--P11 and production or scientific execution remain blocked and unauthorized.
+Supersession records identity succession only. It does not activate a replacement,
+satisfy a prerequisite, authorize execution, or establish completion. Canonical
+current status and dependency state must be read from `harness/tasks/` and
+`harness/task-graph.json`, not inferred from this historical registry.
 
 ## Static prerequisite projection
 
@@ -232,14 +226,12 @@ spectral/TB and Wannier routes. A later join requires the same accepted parent
 manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
-The project-owned CPN architecture and P0–P11 task sequence are recorded in
-`harness/tasks/backend-neutral-cpn-workflow-architecture.json` and
-`docs/architecture/colored-petri-net-workflows.md`. SNAKES is declared only as
-an optional `workflow` dependency. `P1-HC01` Option A and `P1-HC02` Option B are
-resolved. Final P1 acceptance was granted as Option A through `P1-HC03` on
-2026-08-04, after reviews and parent verification; P1 is closed as
-human-accepted `PASS`. No successor was selected or launched, and P2--P11 and
-production or scientific execution remain blocked and unauthorized.
+The accepted project-owned CPN contract remains recorded in
+`docs/architecture/colored-petri-net-workflows.md`. Its former `P3`--`P11`
+implementation sequence is superseded by the simulation-first bootstrap. SNAKES
+remains an optional `workflow` dependency, and
+`cpn.workflow.persistence` remains deferred and inactive. No
+production or scientific execution is authorized by this planning map.
 
 ## Gate markings
 
@@ -385,23 +377,16 @@ Every branch must consume and produce versioned artifacts rather than undocument
 
 No downstream task may depend only on a figure, manually copied parameter, or undocumented notebook state. A dependency is satisfied only by a versioned artifact and a passing validation record.
 
-## Current Task Selection
+## Task Authority
 
-The periodic KS/GKS scientific object and adapter architecture remains approved as prospectively corrected by `docs/architecture/periodic-electronic-structure-integration.md`.
-Its never-launched A–H linear workflow sequence is prospectively superseded by
-the project-owned CPN architecture and P0–P11 task program in
-`harness/tasks/backend-neutral-cpn-workflow-architecture.json`. The human PI granted
-final acceptance through `CPN-HC01` on 2026-08-03, and the architecture task is
-closed. The human PI accepted bounded P0 as `CONDITIONAL_PASS` through resolved
-`P0-HC01` on 2026-08-03 and P0A as `PASS` through resolved `P0A-HC01` on the
-same date; both tasks are closed. P0A declares SNAKES only in the optional
-`workflow` extra and MyST/Sphinx only in the optional `docs` extra. `P1-HC01`
-Option A and `P1-HC02` Option B are resolved. Final P1 acceptance was granted as
-Option A through `P1-HC03` on 2026-08-04, after reviews and parent verification;
-P1 is closed as human-accepted `PASS`. No successor was selected or launched,
-and P2--P11 and production or scientific execution remain blocked and
-unauthorized. An explicit unitary basis/state-space alignment implementation
-contributes to G01b but is not active.
+This page does not select, activate, complete, or accept a Task. Canonical current
+Task state is maintained under `harness/tasks/`; canonical parent, prerequisite,
+order, and supersession relationships are maintained in
+`harness/task-graph.json`. The SQLite index is derived and non-authoritative.
+
+The simulation-first bootstrap and the deferred CPN-persistence Task are inactive.
+No Quantum ESPRESSO, Wannier90, external, scientific, or protected execution is
+authorized by this documentation.
 
 ## Relationship to the Mathematical Program
 

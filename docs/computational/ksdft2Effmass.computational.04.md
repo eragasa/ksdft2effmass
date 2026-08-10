@@ -5,6 +5,13 @@ back_to: [[ksdft2Effmass.computational.00]]
 
 Construct direct DFT-to-tight-binding and Wannier-to-tight-binding reductions within the same prescribed model class and compare them on common validation data.
 
+## Bootstrap relationship
+
+The bootstrap develops the observed record and artifact boundaries used by the
+direct spectral and Wannier-mediated tight-binding branches. Tutorial fitting
+and extraction do not satisfy the Stage 04 model-selection, withheld-validation,
+operator-compatibility, reduction, or acceptance gates.
+
 ## Task Registry
 
 | Task | Description | Prerequisites | Output | Initial state |

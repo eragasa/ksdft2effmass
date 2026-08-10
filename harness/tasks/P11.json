@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P11",
   "title": "P11 — Human-authorized bulk-Si computational campaign",
-  "status": "blocked",
-  "status_detail": "blocked; not authorized",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P10"
@@ -11,6 +11,9 @@
   "external_prerequisite_ids": [
     "G01a",
     "production_checkpoint"
+  ],
+  "superseded_by_task_ids": [
+    "bulk-silicon.simulation.qe.reference"
   ],
   "explicit_activation_required": false,
   "objective": "Execute the first real bulk-Si campaign only after the accepted G01a marking, human acceptance of P10, and a separate accepted human production checkpoint.\n\nThe checkpoint must record machine/cluster, exact QE/Wannier identities, pseudopotential artifact/formalism/XC/relativity/Wannier suitability, resources, working/artifact roots, runtime estimate, retained outputs, and data-transfer policy. Campaign gates are accepted CPN markings with typed manifests, results, convergence, and validation evidence. Meeting notes or unmanifested historical calculations cannot satisfy G02.\n\nThis architecture pass does not launch or authorize P11. Future completion requires execution evidence, validation, documentation, independent review, parent verification, and human acceptance.",

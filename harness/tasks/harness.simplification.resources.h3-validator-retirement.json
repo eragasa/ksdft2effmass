@@ -1,11 +1,13 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.resources.h3-validator-retirement",
   "title": "Retire the H3 operational validator without losing current resource-contract coverage",
   "status": "completed",
+  "status_detail": null,
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Retire the historical H3 completion validator as a live operational dependency while assigning every still-valid resource requirement to a maintained DataObject, ResultObject, ActionObject, focused test, or thin composed CLI and preserving historical H3 evidence unchanged.",
   "authority_reference_paths": [

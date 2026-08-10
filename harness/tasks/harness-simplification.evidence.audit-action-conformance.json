@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness-simplification.evidence.audit-action-conformance",
   "title": "Reconcile evidence-ID auditing and retire duplicate AST policy",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness-simplification.resources.develop-harness-resources"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.evidence.audit-action-conformance`",
   "authority_reference_paths": [

@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "cpn.workflow.persistence",
+  "title": "Deferred CPN workflow persistence",
+  "status": "deferred_inactive",
+  "status_detail": "Deferred until artifact, record, model, and comparison contracts are stable and the Task is separately activated.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P1",
+    "P2",
+    "bulk-silicon.records.periodic.extraction",
+    "bulk-silicon.tight-binding.comparison-reduction"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement the SNAKES adapter and durable project-owned workflow-marking persistence after the simulation-first contracts stabilize.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "harness/reports/simulation-first-task-migration.md"
+  ],
+  "authorized_scope": [
+    "Represent typed token payloads for accepted artifact, record, model, request, result, and failure identities.",
+    "Persist project-owned markings, lineage, correlations, retry history, and terminal failure history.",
+    "Support deterministic restart from persisted project state."
+  ],
+  "completion_criteria": [
+    "Durable marking round trips are deterministic.",
+    "Typed tokens preserve accepted identities and immutable payloads.",
+    "Retry and restart behavior have focused software-verification evidence.",
+    "Independent review and human acceptance occur when separately activated."
+  ],
+  "exclusions": [
+    "This deferred Task does not block the simulation-first path.",
+    "No live-net or arbitrary-object pickle, serialized lambda, credential, open file, process handle, scheduler handle, or mutable client is stored.",
+    "No unverified hierarchical SNAKES API is assumed.",
+    "No work is activated by this Task record."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

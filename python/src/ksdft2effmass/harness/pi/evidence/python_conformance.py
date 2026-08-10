@@ -54,7 +54,11 @@ SURFACES = (
 NAME_RE = re.compile(
     r"^test_(" + "|".join(SURFACES) + r")__[a-z][a-z0-9_]*__[a-z][a-z0-9_]*$"
 )
-ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}\b")
+ID_RE = re.compile(
+    r"\b(?:(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}|"
+    r"(?:software-verification|numerical-verification|scientific-validation|"
+    r"uncertainty-quantification)(?:\.[a-z0-9]+(?:-[a-z0-9]+)*){3,})\b"
+)
 SEMANTIC_PARAM_RE = re.compile(
     r"^(?:[a-z][a-z0-9]*(?:_[a-z0-9]+)*|(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}-[a-z][a-z0-9]*(?:[-_][a-z0-9]+)*)$"
 )

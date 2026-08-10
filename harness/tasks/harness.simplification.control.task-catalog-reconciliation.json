@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.control.task-catalog-reconciliation",
   "title": "Reconcile the harness-simplification Task catalog",
   "status": "superseded_by_task_graph_selection_state_decision",
+  "status_detail": null,
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.agents.delegation-validation"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Reconcile every maintained harness-simplification proposal, deferred item, conceptual stage, and existing chain entry to one explicit durable catalog disposition without activating implementation or treating documentation as executable authority.",
   "authority_reference_paths": [

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P1",
   "title": "P1 — Project-owned CPN contract",
   "status": "human_accepted_pass",
@@ -9,6 +9,7 @@
     "P0A"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Deliver an executable, backend-neutral, project-owned Colored Petri Net (CPN)\ncontract in production source with focused tests. Define language-neutral\nproject-owned token colors, places, transitions, arcs/inscriptions, pure guards,\nmultiset markings, scope-explicit outcomes/terminal states, structured errors,\nand Rust-translatable persistence fields.\n\nThe contract must encode\n\n$$\n\\mathcal N=(P,T,A,\\Sigma,C,G,E,I),\n$$\n\nmultiple tokens, synchronization, retries, recovery, repeated transition\nexecution and cyclic net execution, authorizations, provenance, and parent-child\nlineage. Repeated execution does not imply automatic `iteration_index`\nadvancement: version 1 performs no arithmetic, and the index is explicitly\nsupplied or copied routing data. It must not expose or\ninherit from SNAKES classes, reduce markings to Booleans, serialize lambdas, or\ncreate a multi-engine framework.",
   "authority_reference_paths": [

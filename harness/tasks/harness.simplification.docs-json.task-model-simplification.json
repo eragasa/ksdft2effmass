@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.task-model-simplification",
   "title": "Simplify the durable HarnessTask architecture",
   "status": "completed",
+  "status_detail": null,
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.task-model-contract"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Retain the minimum durable HarnessTask model and compatibility boundaries while removing the unaccepted Stage-2A migration framework.",
   "authority_reference_paths": [

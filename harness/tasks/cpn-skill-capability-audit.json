@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "cpn-skill-capability-audit",
   "title": "CPN skill-capability audit and bounded hardening",
   "status": "human_accepted",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Inventory every repository-local skill, classify its CPN suitability, map existing skills and deterministic tools to prospective testing/review blocks, harden unambiguous existing contracts, document one prospective testing subnet, and determine whether a genuine new-skill gap exists.",
   "authority_reference_paths": [

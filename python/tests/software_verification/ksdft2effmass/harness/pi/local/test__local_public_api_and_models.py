@@ -2,7 +2,7 @@ r"""Software verification of local public api and models.
 
 Facet and represented meaning
 
-Software verification of the 34-name local public import surface and immutable
+Software verification of the 40-name local public import surface and immutable
 routing/data records.
 
 Intrinsic and cross-object scope
@@ -72,17 +72,23 @@ EXPECTED = (
     "ShadowReplayResult",
     "LocalRepositoryValidator",
     "ValidationRoute",
+    "ArchivedTaskSource",
     "HarnessTask",
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
+    "HarnessControlMigrationRequest",
+    "HarnessControlMigrationResult",
+    "HarnessControlMigrator",
+    "HarnessControlVerificationResult",
+    "HarnessControlVerifier",
 )
 
 
-def test_public_api__exports__contains_exact_34_names() -> None:
+def test_public_api__exports__contains_exact_40_names() -> None:
     """Evidence ID: SV-HL-001
 
-    Requirement: The project-local package exposes exactly the retained 34 public
+    Requirement: The project-local package exposes exactly the retained 40 public
     names.
 
     Method: Compare the package ``__all__`` and runtime attributes to a fixed
@@ -92,7 +98,7 @@ def test_public_api__exports__contains_exact_34_names() -> None:
     Oracle: The accepted H4 inventory and corrected HarnessTask inventory supply the
     exact local boundary.
 
-    Acceptance: The ordered tuple is exact, has length 34, and every name resolves.
+    Acceptance: The ordered tuple is exact, has length 40, and every name resolves.
 
     Interpretation: Failure identifies packaging drift or an incorrect inventory.
 
@@ -101,7 +107,7 @@ def test_public_api__exports__contains_exact_34_names() -> None:
     portability.
     """
     assert tuple(local.__all__) == EXPECTED
-    assert len(EXPECTED) == 34
+    assert len(EXPECTED) == 40
     assert all(getattr(local, name) is not None for name in EXPECTED)
 
 
@@ -134,6 +140,8 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
         "Selector",
         "Serializer",
         "Validator",
+        "Migrator",
+        "Verifier",
     )
     actions = (
         name

@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.task-model-contract",
   "title": "Freeze the HarnessTask information and rendering contract",
   "status": "completed",
+  "status_detail": null,
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [
     "harness.simplification.docs-json.schema-projection"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Complete source-span mappings for all six selected Task documents, derive one complete proposed HarnessTask and documentation-rendering contract from those mappings, and return the frozen field, wire, rendering-input, comparison, review-packet, and public-API design for explicit human acceptance without replacing source authority or implementing migration behavior.",
   "authority_reference_paths": [

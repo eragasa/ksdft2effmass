@@ -26,6 +26,5 @@
     "This layout does not authorize telemetry implementation, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
   ],
   "intake_path": null,
-  "archived_source": null,
-  "documentation_path": "docs/harness/ksdft2effmass.harness.004.000.000.md"
+  "archived_source": null
 }

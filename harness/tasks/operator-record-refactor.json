@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "operator-record-refactor",
   "title": "Operator-Record DataObject/ActionObject Refactor Task",
   "status": "human_accepted",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Refactor finite operator records so represented data, Hermiticity analysis, and serialization follow the repository DataObject/ActionObject architecture without unrelated cleanup.",
   "authority_reference_paths": [

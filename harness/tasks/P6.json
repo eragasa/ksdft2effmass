@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "P6",
   "title": "P6 — QE semantic adapter and SCF-validation subnet",
-  "status": "blocked",
-  "status_detail": "blocked by accepted P3, P4, and P5",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-approved simulation-first bootstrap; replacement Tasks remain inactive and grant no execution authority.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P3",
@@ -11,6 +11,9 @@
     "P5"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.records.periodic.extraction"
+  ],
   "explicit_activation_required": false,
   "objective": "Implement separate `QuantumEspressoInputMapper` and `QuantumEspressoResultAdapter` ownership plus the CPN places/transitions for capability verification, authorization, request/result recording, parsing/adaptation to `PeriodicElectronicStructureDataset`, SCF convergence, and accepted periodic parent construction.\n\nProcess completion, parsing, convergence, numerical acceptance, and scientific validation remain distinct tokens. Failure and retry require structured failure and explicit retry authorization. Preserves E and remaining F content.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [

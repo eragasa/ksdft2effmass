@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.documentation-correction",
   "title": "Correct documentation/control inconsistencies",
   "status": "completed",
@@ -9,6 +9,7 @@
     "harness.simplification.docs-json.authority-catalog"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Consume harness.simplification.docs-json.authority-catalog and correct stale, duplicated, badly named, or misleading documentation when accepted authority determines one compatible correction. Preserve human intake and documentation-owned subject matter.",
   "authority_reference_paths": [
@@ -30,6 +31,5 @@
     "Do not change scientific meaning, activate work, resolve checkpoints, create runtime routing, or perform repository-wide rewriting beyond authorized paths."
   ],
   "intake_path": null,
-  "documentation_path": "docs/harness/ksdft2effmass.harness.002.002.005.md",
   "archived_source": null
 }

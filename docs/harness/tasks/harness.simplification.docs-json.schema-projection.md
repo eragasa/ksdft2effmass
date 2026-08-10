@@ -1,0 +1,47 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Co-design JSON control schemas and generated documentation
+
+[Task index](index.md) · [Previous](./harness.simplification.docs-json.publication.triage.md) · [Next](./harness.simplification.docs-json.task-document-migration.md)
+
+## Status
+
+`completed`
+
+## Objective
+
+For the bounded Task control-family pilot, replace manually synchronized control prose with one authoritative project-local JSON Task record and a deterministic complete non-authoritative Markdown reference page.
+
+## Parent and prerequisites
+
+- Parent: `harness.simplification.docs-json`
+- Depends on: `harness.simplification.docs-json.documentation-correction`
+
+## Authority references
+
+- .pi/chains/harness-simplification.chain.json
+- .pi/checkpoints/harness.simplification.docs-json.schema-projection.task-json-authority.json
+- .pi/evidence/docs-json/task-json-authority-architecture.md
+
+## Authorized scope
+
+- Define the smallest closed project-local Task schema, fixtures, projection profile, and fail-closed cross-record validation for this one live Task.
+- Provide generic project-neutral explicit-input schema validation, deterministic rendering, and byte drift mechanics as textual harness resources.
+- Adapt existing TaskRecordAdapter and TaskStateInspector internals for the exact chain-referenced JSON record while preserving Markdown bootstrap Tasks and existing public result shapes.
+- Synchronize only directly applicable manifests, profiles, routes, documentation, docstrings, and focused software-verification evidence.
+
+## Completion criteria
+
+- The authoritative Task JSON and project-local projection profile pass schema and relational validation.
+- Focused invalid fixtures produce their indexed deterministic diagnostics.
+- The generated Markdown page, expected-byte fixture, and renderer output are byte-identical and the page is never an authority or control input.
+- Existing Markdown-backed Task adaptation and inspection remain supported, focused maintained tests pass, and the JSON-backed Task remains exactly inspectable after completion.
+
+## Exclusions
+
+- Do not implement SQLite, tables, repositories, migrations, event logs, timestamps, or persistence APIs.
+- Do not add a production dependency, public Task DataObject or serializer, public Task wire kind, automatic activation, dispatch, or migration of another Task.
+- Do not perform scientific, protected-execution, publication, release, or successor-activation work.
+
+## Historical source
+
+No archived source.

@@ -1,0 +1,30 @@
+{
+  "schema_version": 3,
+  "task_id": "example.task",
+  "title": "Example Task",
+  "status": "inactive",
+  "status_detail": null,
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "z.task",
+    "a.task"
+  ],
+  "explicit_activation_required": true,
+  "objective": "Verify the version-3 Task contract.",
+  "authority_reference_paths": [
+    "records/decision.md"
+  ],
+  "authorized_scope": [
+    "Use synthetic data."
+  ],
+  "completion_criteria": [
+    "Exact checks pass."
+  ],
+  "exclusions": [
+    "No work is activated."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

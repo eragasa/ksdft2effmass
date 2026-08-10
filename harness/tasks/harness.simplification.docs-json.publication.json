@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.simplification.docs-json.publication",
   "title": "Normalize publication documentation",
   "status": "completed",
@@ -7,6 +7,7 @@
   "parent_task_id": "harness.simplification.docs-json",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": false,
   "objective": "Triage publication-preparation files and apply one coherent hierarchy before documentation/control-surface comparison.",
   "authority_reference_paths": [
