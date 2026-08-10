@@ -12,8 +12,9 @@ This report contains structural observations from direct SQL queries over the di
 - Duplicate edges: 0
 - Directed cycle components: 0
 - Tasks with no graph relationships: 22
-- Tasks with migration issues: 58
+- Tasks with migration issues: 20
 - Archived-source coverage: 68 of 78
 - Intake coverage: 9 of 78
 - Repeated exact titles: 0 groups
 - Repeated exact objective text: 0 groups
+- Boundary validation: Exclusions constrain authorized actions. Completion criteria grant no authority and may reference external verification or human decisions. No completion criterion requires the Task actor to perform an action prohibited by the Task’s exclusions.

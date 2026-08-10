@@ -19,18 +19,15 @@
   ],
   "authorized_scope": [
     "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.",
-    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.",
-    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities.",
+    "Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison."
   ],
   "completion_criteria": [
-    "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.",
-    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.",
     "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
   ],
   "exclusions": [
-    "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.",
-    "`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.",
-    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+    "Guards perform no execution or I/O.",
+    "No real execution without the production checkpoint."
   ],
   "intake_path": null,
   "archived_source": {

@@ -18,13 +18,13 @@
     "origin/dev"
   ],
   "authorized_scope": [
-    "Task identity: `human-review-interface.human-decision-recording`"
+    "This bounded slice adds the immutable public `HumanReviewDecision` ResultObject and fieldless `HumanReviewDecisionRecorder` ActionObject. Following the human-requested architecture correction, the decision stores the exact immutable packet itself, exact human response, caller-supplied normalized disposition, and contract-compatible explicit scope. Recording reconstructs the canonical `HumanReviewPreparer` result and rejects a packet whose relationships, ordering, or derived status differ. Recording performs no natural-language interpretation, authority inference, persistence, filesystem or Git action, checkpoint mutation, or successor activation."
   ],
   "completion_criteria": [
-    "Task identity: `human-review-interface.human-decision-recording`"
+    "Focused software-verification evidence, public imports, maintained structural evidence validation, Ruff, mypy, deterministic repeated construction, exact response preservation, packet nonmutation, profile/resource identity, documentation links, control-plane parsing, dependency identity, and diff checks are required before handoff."
   ],
   "exclusions": [
-    "Task identity: `human-review-interface.human-decision-recording`"
+    "This task does not authorize JSON serialization, schemas, SQLite, checkpoints, reviewer spawning, successor activation, scientific work, or protected work."
   ],
   "intake_path": null,
   "archived_source": {

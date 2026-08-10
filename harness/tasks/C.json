@@ -23,7 +23,7 @@
     "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance unlocks E and contributes to G and H; it launches none."
   ],
   "exclusions": [
-    "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance unlocks E and contributes to G and H; it launches none."
+    "No `dft/paw.py`, generic operator/projector payload, QE import, file parsing, unit conversion policy, serializer method on a DataObject, or large embedded production payload is permitted."
   ],
   "intake_path": null,
   "archived_source": {

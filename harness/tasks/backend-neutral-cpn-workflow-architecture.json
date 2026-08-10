@@ -55,11 +55,14 @@
     "the post-dopant launch condition for deferred generalization."
   ],
   "exclusions": [
-    "P0 was human-accepted as `CONDITIONAL_PASS` through resolved `P0-HC01` on 2026-08-03 and is closed.",
-    "Bounded P0A packaging/configuration is human-accepted as `PASS` and closed.",
-    "P1 was separately activated after P0A closeout validation and is blocked at unresolved `P1-HC01`; P2--P11 and production/scientific execution remain blocked and unauthorized.",
-    "Pseudopotential selection remains a later human scientific decision.",
-    "A later production checkpoint remains mandatory before any real QE, ABINIT, or Wannier90 execution."
+    "production Python or test implementation;",
+    "dependency or lock-file changes;",
+    "SNAKES, MyST, cpnpy, SimPN, PhysKit, or external CPN code installation/copying;",
+    "QE, Wannier90, MPI, scheduler, transfer, Graphviz, or container execution;",
+    "convergence calculations;",
+    "public implementation schemas or live marking persistence;",
+    "launch of P0 or any later task;",
+    "rewriting historical accepted evidence."
   ],
   "intake_path": null,
   "archived_source": {

@@ -14,13 +14,17 @@
     "harness/archive/task-control-v1/tasks/POLICY-CONSTITUTION-1.md"
   ],
   "authorized_scope": [
-    "The human PI accepted Option A through\n`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.\nDeterministic closeout validation passed, and this policy task is closed as\nhuman-accepted `PASS`. The acceptance closes only this policy revision. It did\nnot activate H3, H2, H4, H5, P2, harness implementation, external or release\nexecution, numerical work, or scientific execution."
+    "The human instruction dated 2026-08-04 authorizes a policy-documentation-only revision that makes root `AGENTS.md` a stable repository constitution. The revision removes mutable task snapshots and duplicated procedure, defines clear authority precedence and proportional process classes, and preserves scientific, mathematical, provenance, execution, branch, release, and human-authority safeguards.",
+    "`AGENTS.md`",
+    "directly conflicting maintained control-plane or skill documentation",
+    "this bounded task record",
+    "`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json`"
   ],
   "completion_criteria": [
     "The human PI accepted Option A through\n`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.\nDeterministic closeout validation passed, and this policy task is closed as\nhuman-accepted `PASS`. The acceptance closes only this policy revision. It did\nnot activate H3, H2, H4, H5, P2, harness implementation, external or release\nexecution, numerical work, or scientific execution."
   ],
   "exclusions": [
-    "The human PI accepted Option A through\n`.pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json` on 2026-08-04.\nDeterministic closeout validation passed, and this policy task is closed as\nhuman-accepted `PASS`. The acceptance closes only this policy revision. It did\nnot activate H3, H2, H4, H5, P2, harness implementation, external or release\nexecution, numerical work, or scientific execution."
+    "Historical evidence, closed H0/H1 artifacts, P1 evidence, harness implementation, scientific source and tests, schemas, fixtures, dependencies, and lock files are excluded."
   ],
   "intake_path": null,
   "archived_source": {

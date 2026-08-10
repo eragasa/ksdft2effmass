@@ -16,7 +16,8 @@
     "harness/archive/task-control-v1/tasks/harness.simplification.api.action-object-grammar.md"
   ],
   "authorized_scope": [
-    "This Task does not authorize unrelated API redesign, add dependencies, introduce SQLite, perform protected execution, or activate successors."
+    "Establish and migrate the repository-wide public ActionObject naming grammar:",
+    "Human decision: this is pre-release software with no public API consumers requiring compatibility preservation. Apply hard renames with no compatibility aliases or deprecation period. Preserve already conforming suffix-style names and migrate only the accepted nonconforming inventory. Use old/new mappings only where an owning maintained-evidence contract requires node-identity migration; do not create API-compatibility ceremony. Synchronize source, tests, documentation, skills, wrappers, schemas, fixtures, manifests, and public exports. The evidence-subpackage API must follow the accepted grammar."
   ],
   "completion_criteria": [
     "Completion requires the accepted convention in every owning surface, complete affected-object inventory, deterministic naming checks, only contract-required maintained-evidence node mappings, synchronized public surfaces, relevant tests and documentation checks, one consolidated review, and final human acceptance when required."

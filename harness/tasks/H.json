@@ -23,7 +23,7 @@
     "Implementation, tests, documentation, independent read-only review, parent verification, and human acceptance are required. Real execution additionally requires the production authorization checkpoint."
   ],
   "exclusions": [
-    "Implementation, tests, documentation, independent read-only review, parent verification, and human acceptance are required. Real execution additionally requires the production authorization checkpoint."
+    "Wannier90 execution remains a separate backend. This task does not implement localization, run QE/Wannier90 without authorization, treat `projwfc.x` output as `.amn`, or place bridge filenames in the neutral Kohn–Sham core."
   ],
   "intake_path": null,
   "archived_source": {

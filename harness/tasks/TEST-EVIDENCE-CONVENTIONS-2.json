@@ -16,7 +16,7 @@
     "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-CONVENTIONS-2.md"
   ],
   "authorized_scope": [
-    "Completion requires synchronized generic/live skill resources, controlled validator\nfixtures with false-positive guards, an exact repository inventory, a fail-closed local\ncompletion gate, migration of every current maintained module, focused software gates,\none consolidated independent review, and correction of any accepted bounded finding.\nStructural PASS remains separate from semantic review and human acceptance."
+    "The current human instruction activates the remaining reusable controls plus one project-local repository inventory and completion gate. The controlling chain and validated ownership manifest above supply writer/reviewer separation and mutation scope. Implementation is staged: control surfaces and the fail-closed baseline gate precede controlled raw-test migration. The task remains unrelated to production or scientific execution and does not activate or accept P2, P3, or another scientific workflow."
   ],
   "completion_criteria": [
     "Completion requires synchronized generic/live skill resources, controlled validator\nfixtures with false-positive guards, an exact repository inventory, a fail-closed local\ncompletion gate, migration of every current maintained module, focused software gates,\none consolidated independent review, and correction of any accepted bounded finding.\nStructural PASS remains separate from semantic review and human acceptance."

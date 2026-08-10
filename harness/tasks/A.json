@@ -13,16 +13,19 @@
     "harness/archive/task-control-v1/tasks/A.md"
   ],
   "authorized_scope": [
-    "1. implementation of the specification artifacts;\n2. software/numerical fixture evidence as applicable;\n3. documentation synchronization;\n4. independent read-only architecture/integration review;\n5. parent verification;\n6. human acceptance.",
-    "Acceptance unlocks B and D. It does not launch either task."
+    "approved units, reciprocal/Fourier conventions, axis ordering, spin/occupation metadata, and compact-versus-external boundary;",
+    "DataObject/ResultObject/ActionObject inventory;",
+    "fixed field names and Rust-translatable tagged states;",
+    "public structured errors;",
+    "valid/invalid and numerical fixture design;",
+    "G01a/G01b supersession cross-references."
   ],
   "completion_criteria": [
     "1. implementation of the specification artifacts;\n2. software/numerical fixture evidence as applicable;\n3. documentation synchronization;\n4. independent read-only architecture/integration review;\n5. parent verification;\n6. human acceptance.",
     "Acceptance unlocks B and D. It does not launch either task."
   ],
   "exclusions": [
-    "1. implementation of the specification artifacts;\n2. software/numerical fixture evidence as applicable;\n3. documentation synchronization;\n4. independent read-only architecture/integration review;\n5. parent verification;\n6. human acceptance.",
-    "Acceptance unlocks B and D. It does not launch either task."
+    "It must not select a pseudopotential or production environment, implement Python production modules, copy PhysKit, or run QE."
   ],
   "intake_path": null,
   "archived_source": {

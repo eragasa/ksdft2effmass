@@ -14,7 +14,7 @@
     "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md"
   ],
   "authorized_scope": [
-    "This parent is complete when both Tasks complete, their input/output identities agree, and unresolved publication roles have an explicit disposition. It does not add a separate parent acceptance step unless a material human-owned choice remains."
+    "Triage publication-preparation files and apply one coherent hierarchy before documentation/control-surface comparison."
   ],
   "completion_criteria": [
     "This parent is complete when both Tasks complete, their input/output identities agree, and unresolved publication roles have an explicit disposition. It does not add a separate parent acceptance step unless a material human-owned choice remains."

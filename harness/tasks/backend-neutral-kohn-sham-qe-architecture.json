@@ -38,10 +38,28 @@
     "scientific validation or uncertainty quantification."
   ],
   "completion_criteria": [
-    "Production execution environment and pseudopotential selection are unresolved. A real QE run remains prohibited until the separate authorization checkpoint described in the architecture document is recorded and approved."
+    "architecture task and chain agree;",
+    "G01a/G01b, G02, and Stage 03 are acyclic and consistent;",
+    "the prospective static import direction is feasible and has no provenance/DFT cycle;",
+    "neutral packages do not import QE;",
+    "input and result adaptation remain separate;",
+    "`logical_path_or_uri` and `dft/paw.py` are absent from the approved contract;",
+    "no PhysKit dependency or copied code is introduced;",
+    "no production run is authorized;",
+    "historical records are preserved;",
+    "Sphinx/control-plane references agree;",
+    "independent architecture and integration reviews report no unresolved administrative inconsistency."
   ],
   "exclusions": [
-    "Production execution environment and pseudopotential selection are unresolved. A real QE run remains prohibited until the separate authorization checkpoint described in the architecture document is recorded and approved."
+    "production source or test implementation;",
+    "public wire schemas or fixtures;",
+    "copied or adapted PhysKit code;",
+    "dependency changes;",
+    "pseudopotential selection;",
+    "QE/Wannier execution;",
+    "manifests for a real calculation;",
+    "convergence acceptance;",
+    "scientific validation or uncertainty quantification."
   ],
   "intake_path": null,
   "archived_source": {

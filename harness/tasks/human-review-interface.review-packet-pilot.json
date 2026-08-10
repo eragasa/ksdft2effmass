@@ -16,13 +16,13 @@
     "origin/dev"
   ],
   "authorized_scope": [
-    "Task identity: `human-review-interface.review-packet-pilot`"
+    "This bounded slice introduces the immutable public `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding`, and `HumanReviewPacket` records plus the fieldless `PrepareHumanReviewPacket` ActionObject. The API consumes explicit values, validates packet relationships, and returns deterministic ordering without repository discovery or external effects."
   ],
   "completion_criteria": [
     "Task identity: `human-review-interface.review-packet-pilot`"
   ],
   "exclusions": [
-    "Task identity: `human-review-interface.review-packet-pilot`"
+    "This acceptance does not authorize SQLite, automatic review acceptance, successor activation, scientific execution, or protected work."
   ],
   "intake_path": null,
   "archived_source": {

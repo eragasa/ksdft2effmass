@@ -22,7 +22,7 @@
     "ordinary trusted-repository behavior and packaging compatibility."
   ],
   "completion_criteria": [
-    "This proposal authorizes no source, test, dependency, platform-support, or public-contract change. It requires separate human activation and any ownership or review records applicable at that time. It does not justify elevated execution, external computation, dependency additions, or changes to completed H2 evidence."
+    "Verification should include controlled tests for intermediate and final symlinks, component replacement where deterministic orchestration is feasible, regular-file behavior, missing and non-file paths, root confinement, and supported-platform fallback or fail-closed behavior. The activated task must explicitly define its platform contract before implementation."
   ],
   "exclusions": [
     "This proposal authorizes no source, test, dependency, platform-support, or public-contract change. It requires separate human activation and any ownership or review records applicable at that time. It does not justify elevated execution, external computation, dependency additions, or changes to completed H2 evidence."

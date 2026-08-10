@@ -24,7 +24,7 @@
     "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are all required. Acceptance contributes to G01a and unlocks C, E, F, and H according to their remaining prerequisites; it launches none."
   ],
   "exclusions": [
-    "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are all required. Acceptance contributes to G01a and unlocks C, E, F, and H according to their remaining prerequisites; it launches none."
+    "No `logical_path_or_uri` field is permitted. Storage technology, deletion, unrestricted environment capture, production manifests, and real execution are excluded."
   ],
   "intake_path": null,
   "archived_source": {

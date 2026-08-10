@@ -17,12 +17,20 @@
     "harness/archive/task-control-v1/tasks/graphify-integration.md"
   ],
   "authorized_scope": [
-    "Date: 2026-07-30 for E01-F01 and E01-F02.",
-    "Human final decision already recorded: E01-F01 and E01-F02 are accepted as\ncorrected. The shared project Graphify skill, intentional project-over-global\nprecedence, removal of the redundant `use-graphify` skill, updated Graphify\ncontrol-plane policies, documentation, case-study evidence, and verification\nresults were accepted.",
-    "Current closeout acceptance: E01-F03 process correction and final E01 closeout\naccepted on 2026-07-30.",
-    "Final state:",
-    "```text\nE01-F01: accepted as corrected\nE01-F02: resolved and accepted\nE01-F03: accepted as corrected\nimplementation_status: complete\nverification_status: passed\nhuman_final_acceptance: accepted\nscientific_validation: not_applicable\n```",
-    "No next task was launched."
+    "manually install Graphify 0.9.2 project skill under `.agents/skills/graphify/`;",
+    "do not run `graphify install --project --platform codex`;",
+    "do not create `.codex/hooks.json`;",
+    "do not install any hooks;",
+    "do not enable Gemini, OpenAI API, or any external semantic-processing backend;",
+    "do not configure or store API keys;",
+    "add a narrow Graphify policy to `AGENTS.md`;",
+    "update `.pi/skills/choose-next-task/SKILL.md` so Graphify is optional supporting evidence;",
+    "use `.agents/skills/graphify/` as the shared repository-local Graphify skill when fresh-session discovery demonstrates pi can discover it;",
+    "add `graphify-out/` to `.gitignore`;",
+    "treat generated Graphify artifacts as locally persistent but untracked;",
+    "require separate human review before committing a curated `GRAPH_REPORT.md`;",
+    "treat Graphify integration as prospective case-study episode `E01`;",
+    "treat the completed operator-record refactor as retrospective pilot episode `E00`."
   ],
   "completion_criteria": [
     "Human response preserved verbatim: “resolve the skill collision”.",
@@ -39,12 +47,19 @@
     "E01 record updated with implementation status, validation status, and human-final-acceptance state."
   ],
   "exclusions": [
-    "Date: 2026-07-30 for E01-F01 and E01-F02.",
-    "Human final decision already recorded: E01-F01 and E01-F02 are accepted as\ncorrected. The shared project Graphify skill, intentional project-over-global\nprecedence, removal of the redundant `use-graphify` skill, updated Graphify\ncontrol-plane policies, documentation, case-study evidence, and verification\nresults were accepted.",
-    "Current closeout acceptance: E01-F03 process correction and final E01 closeout\naccepted on 2026-07-30.",
-    "Final state:",
-    "```text\nE01-F01: accepted as corrected\nE01-F02: resolved and accepted\nE01-F03: accepted as corrected\nimplementation_status: complete\nverification_status: passed\nhuman_final_acceptance: accepted\nscientific_validation: not_applicable\n```",
-    "No next task was launched."
+    "run `graphify install --project --platform codex`;",
+    "create or modify `.codex/hooks.json`;",
+    "install git hooks or Codex hooks;",
+    "enable Gemini, OpenAI, Google, or another remote semantic-processing backend;",
+    "configure or store API keys;",
+    "modify global Codex, pi, or Graphify configuration;",
+    "modify the global pi Graphify skill;",
+    "install another Graphify version;",
+    "transmit unpublished repository content externally;",
+    "commit generated graph artifacts without separate human approval;",
+    "modify production code, tests, scientific specifications, fixtures, scientific algorithms, or research results;",
+    "treat Graphify output as scientific validation or architectural approval;",
+    "create or launch the next scientific/software task."
   ],
   "intake_path": null,
   "archived_source": {

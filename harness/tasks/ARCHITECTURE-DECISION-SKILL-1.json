@@ -17,9 +17,7 @@
     "harness/archive/task-control-v1/tasks/ARCHITECTURE-DECISION-SKILL-1.md"
   ],
   "authorized_scope": [
-    "Run ownership preflight with the task-specific chain:",
-    "```text\npython .pi/task-ownership/validate_task_ownership.py --task ARCHITECTURE-DECISION-SKILL-1 --chain .pi/chains/develop-architecture-decision-skill.chain.json\n```",
-    "Then run task completion, current H3 resource validation, eight-skill capability validation, selected local route, controlled architecture cases, JSON/link checks, and diff/protected-nonmutation checks. Reviewer gate is required after deterministic completion. One consolidated correction pass is permitted after that review. Final output is one pending skill-acceptance checkpoint; acceptance must not invoke the skill, initialize H6, or activate a successor."
+    "It creates and activates the read-only `develop-architecture-decision` skill, canonical/reference/descriptor resources, byte-identical live resources, controlled H6-only fixtures and validator, generic/local manifest and profile synchronization, eight-skill inventory/validation, current local replay, selected local route, maintained harness documentation, and task evidence."
   ],
   "completion_criteria": [
     "Run ownership preflight with the task-specific chain:",

@@ -19,12 +19,9 @@
   ],
   "authorized_scope": [
     "Implement separate `QuantumEspressoInputMapper` and `QuantumEspressoResultAdapter` ownership plus the CPN places/transitions for capability verification, authorization, request/result recording, parsing/adaptation to `PeriodicElectronicStructureDataset`, SCF convergence, and accepted periodic parent construction.",
-    "Process completion, parsing, convergence, numerical acceptance, and scientific validation remain distinct tokens. Failure and retry require structured failure and explicit retry authorization. Preserves E and remaining F content.",
-    "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
+    "Process completion, parsing, convergence, numerical acceptance, and scientific validation remain distinct tokens. Failure and retry require structured failure and explicit retry authorization. Preserves E and remaining F content."
   ],
   "completion_criteria": [
-    "Implement separate `QuantumEspressoInputMapper` and `QuantumEspressoResultAdapter` ownership plus the CPN places/transitions for capability verification, authorization, request/result recording, parsing/adaptation to `PeriodicElectronicStructureDataset`, SCF convergence, and accepted periodic parent construction.",
-    "Process completion, parsing, convergence, numerical acceptance, and scientific validation remain distinct tokens. Failure and retry require structured failure and explicit retry authorization. Preserves E and remaining F content.",
     "Completion requires implementation, tests, documentation, independent review, parent verification, and human acceptance."
   ],
   "exclusions": [

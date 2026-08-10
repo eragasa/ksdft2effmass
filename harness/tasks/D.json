@@ -21,7 +21,7 @@
     "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance contributes to E, F, and H; it launches none."
   ],
   "exclusions": [
-    "Implementation, software-verification tests, documentation, independent read-only review, parent verification, and human acceptance are required. Acceptance contributes to E, F, and H; it launches none."
+    "The layer must not import backend-neutral DFT for semantic adaptation, select scientific options, perform neutral unit conversion, run an executable, judge convergence, or construct `KohnShamDataset`. Tests use synthetic fixtures and do not launch QE."
   ],
   "intake_path": null,
   "archived_source": {

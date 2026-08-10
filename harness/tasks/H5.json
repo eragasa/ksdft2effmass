@@ -18,7 +18,8 @@
     "harness/archive/task-control-v1/tasks/H5.md"
   ],
   "authorized_scope": [
-    "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+    "Construct a disposable isolated source tree and verify build/install, public imports, any accepted CLI, schemas, skill/resource discovery, manifest/validator execution, generic tests without local state, wheel/sdist contents, dependency metadata, and absence of project-relative paths/domain imports. Then verify the project-local overlay against the extracted candidate.",
+    "H5 may propose distribution/import/CLI names, initial version, Python/dependency policy, package data, license/notices, and compatibility policy for human decision. It must not publish a package."
   ],
   "completion_criteria": [
     "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."

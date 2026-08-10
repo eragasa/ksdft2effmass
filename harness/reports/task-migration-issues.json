@@ -2,1012 +2,310 @@
   "schema_version": 1,
   "issues": [
     {
-      "task_id": "operator-record-refactor",
+      "candidate_value": null,
       "field": "authority_reference_paths",
+      "issue": "A source-relative traversal path was not representable as a canonical repository-relative authority path and was omitted.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/operator-record-refactor.md"
       ],
-      "issue": "A source-relative traversal path was not representable as a canonical repository-relative authority path and was omitted.",
-      "candidate_value": null
+      "task_id": "operator-record-refactor"
     },
     {
-      "task_id": "A",
+      "candidate_value": null,
       "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/A.md"
-      ],
       "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "ARCHITECTURE-DECISION-SKILL-1",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/ARCHITECTURE-DECISION-SKILL-1.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "H5",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/H5.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P0",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P0.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P10",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P10.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P11",
-      "field": "authorized_scope",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/P11.md"
       ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "P11"
     },
     {
-      "task_id": "P2",
+      "candidate_value": null,
       "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P2.md"
-      ],
       "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P3",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P3.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P4",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P4.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P5",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P5.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P6",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P6.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P7",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P7.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P8",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P8.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P9",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P9.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "POLICY-CONSTITUTION-1",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/POLICY-CONSTITUTION-1.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-CONVENTIONS-2.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "graphify-integration",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/graphify-integration.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.live-discovery-cleanup",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.project-role-simplification",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-role-simplification.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation",
-      "field": "authorized_scope",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md"
       ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation"
     },
     {
-      "task_id": "harness-simplification.agents.validator-migration-pilot",
+      "candidate_value": null,
       "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.agents.validator-migration-pilot.md"
-      ],
       "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.checkpoints.resolve-checkpoint-decision",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.evidence.audit-action-conformance",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.execution.validator-pilot-stabilization",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.execution.validator-pilot-stabilization.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.api.action-object-grammar",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.api.action-object-grammar.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.authority-catalog",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.authority-catalog.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.publication",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.publication.hierarchy",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.hierarchy.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.publication.triage",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.triage.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.evidence.naming",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.evidence.naming.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.audit-evidence-identifiers-correction",
-      "field": "authorized_scope",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md"
       ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction"
     },
     {
-      "task_id": "human-review-interface.human-decision-recording",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.review-packet-pilot",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "operator-record-refactor",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/operator-record-refactor.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "operator-record-validation-correction",
-      "field": "authorized_scope",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md"
-      ],
-      "issue": "No explicit scope section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "H1",
+      "candidate_value": null,
       "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/H1.md"
-      ],
       "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "H2",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/H2.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "H3",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/H3.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "H4",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/H4.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P10",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P10.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P11",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P11.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P3",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P3.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P4",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P4.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P5",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P5.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P6",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P6.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P7",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P7.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P8",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P8.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P9",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P9.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "backend-neutral-kohn-sham-qe-architecture",
-      "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md"
-      ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "deferred-harness-current-phase-history",
-      "field": "completion_criteria",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/deferred-harness-current-phase-history.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "deferred-harness-current-phase-history"
     },
     {
-      "task_id": "evidence-branch-orchestration-profile",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/evidence-branch-orchestration-profile.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "evidence-branch-orchestration-profile"
     },
     {
-      "task_id": "harness-simplification.agents.executable-tool-placement-contract",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.executable-tool-placement-contract.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.executable-tool-placement-contract"
     },
     {
-      "task_id": "harness-simplification.agents.live-discovery-cleanup",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.live-discovery-cleanup"
     },
     {
-      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation"
     },
     {
-      "task_id": "harness-simplification.docs-json.migration-review-interface",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.docs-json.migration-review-interface.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.docs-json.migration-review-interface"
     },
     {
-      "task_id": "harness-simplification.execution.task-state-inspection-tool",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.execution.task-state-inspection-tool.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.execution.task-state-inspection-tool"
     },
     {
-      "task_id": "harness-simplification.execution.validator-pilot-stabilization",
+      "candidate_value": null,
       "field": "completion_criteria",
+      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.execution.validator-pilot-stabilization.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.execution.validator-pilot-stabilization"
     },
     {
-      "task_id": "harness-task-state-symlink-toctou-hardening",
+      "candidate_value": null,
       "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-task-state-symlink-toctou-hardening.md"
-      ],
       "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.audit-evidence-identifiers-correction",
-      "field": "completion_criteria",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction"
     },
     {
-      "task_id": "human-review-interface.human-decision-recording",
+      "candidate_value": null,
       "field": "completion_criteria",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md"
-      ],
       "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.review-packet-pilot",
-      "field": "completion_criteria",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md"
       ],
-      "issue": "No explicit completion section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "human-review-interface.review-packet-pilot"
     },
     {
-      "task_id": "A",
+      "candidate_value": null,
       "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/A.md"
-      ],
       "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "B",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/B.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "C",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/C.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "D",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/D.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "E",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/E.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "F",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/F.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "G",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/G.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "H",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/H.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P10",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P10.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P11",
-      "field": "exclusions",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/P11.md"
       ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "P11"
     },
     {
-      "task_id": "P3",
+      "candidate_value": null,
       "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P3.md"
-      ],
       "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P4",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P4.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P5",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P5.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P6",
-      "field": "exclusions",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/P6.md"
       ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "P6"
     },
     {
-      "task_id": "P7",
+      "candidate_value": null,
       "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P7.md"
-      ],
       "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P8",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P8.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "P9",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/P9.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "POLICY-CONSTITUTION-1",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/POLICY-CONSTITUTION-1.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "backend-neutral-cpn-workflow-architecture",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "backend-neutral-kohn-sham-qe-architecture",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "graphify-integration",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/graphify-integration.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.live-discovery-cleanup",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation",
-      "field": "exclusions",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md"
       ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation"
     },
     {
-      "task_id": "harness-simplification.evidence.audit-action-conformance",
+      "candidate_value": null,
       "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md"
-      ],
       "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.execution.validator-pilot-stabilization",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.execution.validator-pilot-stabilization.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.authority-catalog",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.authority-catalog.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.publication",
-      "field": "exclusions",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md"
       ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "harness.simplification.docs-json.publication"
     },
     {
-      "task_id": "harness.simplification.docs-json.publication.hierarchy",
+      "candidate_value": null,
       "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.hierarchy.md"
-      ],
       "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness.simplification.docs-json.publication.triage",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.triage.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.audit-evidence-identifiers-correction",
-      "field": "exclusions",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md"
       ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction"
     },
     {
-      "task_id": "human-review-interface.human-decision-recording",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.review-packet-pilot",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "operator-record-refactor",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/operator-record-refactor.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "operator-record-validation-correction",
-      "field": "exclusions",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md"
-      ],
-      "issue": "No explicit exclusions section was found; final source section retained without reinterpretation.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "backend-neutral-kohn-sham-qe-architecture",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "backend-neutral-kohn-sham-qe-architecture"
     },
     {
-      "task_id": "evidence-branch-orchestration-profile",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/evidence-branch-orchestration-profile.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "evidence-branch-orchestration-profile"
     },
     {
-      "task_id": "harness-simplification.agents.live-discovery-cleanup",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.live-discovery-cleanup"
     },
     {
-      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.agents.resource-phase-routing-reconciliation"
     },
     {
-      "task_id": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.checkpoints.resolve-checkpoint-decision"
     },
     {
-      "task_id": "harness-simplification.docs-json.migration-review-interface",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.docs-json.migration-review-interface.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.docs-json.migration-review-interface"
     },
     {
-      "task_id": "harness-simplification.evidence.audit-action-conformance",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.evidence.audit-action-conformance"
     },
     {
-      "task_id": "harness-simplification.execution.task-state-inspection-tool",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.execution.task-state-inspection-tool.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.execution.task-state-inspection-tool"
     },
     {
-      "task_id": "harness-simplification.execution.validator-pilot-stabilization",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.execution.validator-pilot-stabilization.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.execution.validator-pilot-stabilization"
     },
     {
-      "task_id": "harness-simplification.resources.develop-harness-resources",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.resources.develop-harness-resources.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.resources.develop-harness-resources"
     },
     {
-      "task_id": "harness-simplification.resources.manifest-refresh",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.resources.manifest-refresh.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "harness-simplification.resources.manifest-refresh"
     },
     {
-      "task_id": "human-review-interface.audit-evidence-identifiers-correction",
+      "candidate_value": null,
       "field": "objective",
+      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md"
       ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction"
     },
     {
-      "task_id": "backend-neutral-kohn-sham-qe-architecture",
+      "candidate_value": null,
       "field": "status",
+      "issue": "Legacy lifecycle prose has no unambiguous canonical identifier; retained verbatim in status_detail.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md"
       ],
-      "issue": "Legacy lifecycle prose has no unambiguous canonical identifier; retained verbatim in status_detail.",
-      "candidate_value": null
+      "task_id": "backend-neutral-kohn-sham-qe-architecture"
     },
     {
-      "task_id": "evidence-branch-orchestration-profile",
+      "candidate_value": null,
       "field": "status",
+      "issue": "Legacy lifecycle prose has no unambiguous canonical identifier; retained verbatim in status_detail.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/evidence-branch-orchestration-profile.md"
       ],
-      "issue": "Legacy lifecycle prose has no unambiguous canonical identifier; retained verbatim in status_detail.",
-      "candidate_value": null
+      "task_id": "evidence-branch-orchestration-profile"
     },
     {
-      "task_id": "operator-record-comparison",
+      "candidate_value": null,
       "field": "status",
+      "issue": "Legacy lifecycle prose has no unambiguous canonical identifier; retained verbatim in status_detail.",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/operator-record-comparison.md"
       ],
-      "issue": "Legacy lifecycle prose has no unambiguous canonical identifier; retained verbatim in status_detail.",
-      "candidate_value": null
+      "task_id": "operator-record-comparison"
     }
   ]
 }
