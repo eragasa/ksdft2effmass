@@ -8,7 +8,7 @@
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": false,
-  "objective": "This corrective task records explicit human decisions for a repository-wide architecture, implementation, testing, and documentation pass over the maintained `ksdft2effmass` operator-record package. It served as the authoritative record while the correction was active and now provides the accepted closed authority for that completed work; it does not rewrite historical E00/E01 or earlier operator-record task evidence.",
+  "objective": "correct and verify the maintained operator-record architecture, implementation, evidence classification, source/Sphinx documentation, public schema integration, and control plane without expanding scientific scope.",
   "authority_reference_paths": [
     ".pi/agents",
     ".pi/chains",

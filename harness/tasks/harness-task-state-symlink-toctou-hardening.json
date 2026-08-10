@@ -8,7 +8,7 @@
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": false,
-  "objective": "Task identity: `harness.task-state-symlink-toctou-hardening`",
+  "objective": "When separately activated, determine and implement a portable filesystem access strategy that preserves the existing explicit-root and exact-declared-path contract while preventing symlink substitution between validation and file opening. Evaluate descriptor-relative traversal and no-follow facilities such as `openat` and `O_NOFOLLOW`, including Python and supported-platform behavior.",
   "authority_reference_paths": [
     ".pi/evidence/pi-harness-incubation/H2/review-integration-initial.md",
     "harness/archive/task-control-v1/tasks/harness-task-state-symlink-toctou-hardening.md",

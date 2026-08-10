@@ -875,46 +875,10 @@
       "candidate_value": null
     },
     {
-      "task_id": "ARCHITECTURE-DECISION-SKILL-1",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/ARCHITECTURE-DECISION-SKILL-1.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "TEST-EVIDENCE-SKILL-1",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-SKILL-1.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "backend-neutral-cpn-workflow-architecture",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
       "task_id": "backend-neutral-kohn-sham-qe-architecture",
       "field": "objective",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "deferred-harness-current-phase-history",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/deferred-harness-current-phase-history.md"
       ],
       "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "candidate_value": null
@@ -929,37 +893,10 @@
       "candidate_value": null
     },
     {
-      "task_id": "graphify-integration",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/graphify-integration.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.executable-tool-placement-contract",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.agents.executable-tool-placement-contract.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
       "task_id": "harness-simplification.agents.live-discovery-cleanup",
       "field": "objective",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "harness-simplification.agents.project-architecture",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-architecture.md"
       ],
       "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "candidate_value": null
@@ -1037,46 +974,10 @@
       "candidate_value": null
     },
     {
-      "task_id": "harness-task-state-symlink-toctou-hardening",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/harness-task-state-symlink-toctou-hardening.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
       "task_id": "human-review-interface.audit-evidence-identifiers-correction",
       "field": "objective",
       "source_paths": [
         "harness/archive/task-control-v1/tasks/human-review-interface.audit-evidence-identifiers-correction.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.human-decision-recording",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "human-review-interface.review-packet-pilot",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md"
-      ],
-      "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
-      "candidate_value": null
-    },
-    {
-      "task_id": "operator-record-validation-correction",
-      "field": "objective",
-      "source_paths": [
-        "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md"
       ],
       "issue": "No explicit Objective or Purpose section was found; first substantive source paragraph retained.",
       "candidate_value": null

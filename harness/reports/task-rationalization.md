@@ -12,7 +12,7 @@ This report contains structural observations from direct SQL queries over the di
 - Duplicate edges: 0
 - Directed cycle components: 0
 - Tasks with no graph relationships: 22
-- Tasks with migration issues: 60
+- Tasks with migration issues: 58
 - Archived-source coverage: 68 of 78
 - Intake coverage: 9 of 78
 - Repeated exact titles: 0 groups

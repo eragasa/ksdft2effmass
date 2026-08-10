@@ -10,7 +10,7 @@
     "explicit_human_authorization"
   ],
   "explicit_activation_required": false,
-  "objective": "The current human instruction authorizes this bounded one-writer harness resource task. It creates and activates the read-only `develop-architecture-decision` skill, canonical/reference/descriptor resources, byte-identical live resources, controlled H6-only fixtures and validator, generic/local manifest and profile synchronization, eight-skill inventory/validation, current local replay, selected local route, maintained harness documentation, and task evidence.",
+  "objective": "It creates and activates the read-only `develop-architecture-decision` skill, canonical/reference/descriptor resources, byte-identical live resources, controlled H6-only fixtures and validator, generic/local manifest and profile synchronization, eight-skill inventory/validation, current local replay, selected local route, maintained harness documentation, and task evidence.",
   "authority_reference_paths": [
     ".pi/agents",
     ".pi/chains/develop-architecture-decision-skill.chain.json",

@@ -10,7 +10,7 @@
   ],
   "external_prerequisite_ids": [],
   "explicit_activation_required": false,
-  "objective": "Task identity: `harness-simplification.agents.executable-tool-placement-contract`",
+  "objective": "Accept the executable-tool and proportional-execution contract in `docs/harness/ksdft2effmass.harness.010.030.030.md`.",
   "authority_reference_paths": [
     ".pi/agents/ksdft2effmass-tests.md",
     ".pi/chains/harness-simplification.chain.json",

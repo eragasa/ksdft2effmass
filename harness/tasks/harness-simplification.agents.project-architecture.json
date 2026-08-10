@@ -10,7 +10,7 @@
   ],
   "external_prerequisite_ids": [],
   "explicit_activation_required": false,
-  "objective": "Task identity: `harness-simplification.agents.project-architecture`",
+  "objective": "Refine `.pi/agents/ksdft2effmass-architecture.md` into a concise durable role. Preserve explicit task authorization, read-only analysis by default, narrow documentation or decision-record writes only under exact task ownership, independence from implementation and human acceptance, proportional inspection, applicable cross-surface boundaries, evidence and claim separation, fail-closed authority behavior, and a concise handoff.",
   "authority_reference_paths": [
     ".pi/agents/ksdft2effmass-architecture.md",
     ".pi/chains/harness-simplification.chain.json",

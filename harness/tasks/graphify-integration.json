@@ -8,7 +8,7 @@
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": false,
-  "objective": "Implementation complete for Graphify integration and the E01 control-plane closeout correction. E01-F01, E01-F02, and E01-F03 were accepted on 2026-07-30. A bounded post-closeout trigger-collision correction was directed on 2026-08-07; it changes routing policy but does not reopen E01 or launch another task. E01 remains closed as accepted. Scientific validation is not applicable to this control-plane/developer-tooling task.",
+  "objective": "Manually integrate Graphify 0.9.2 as an optional, read-only repository-analysis tool for Codex and pi without running the Graphify project installer.",
   "authority_reference_paths": [
     ".agents/skills/graphify",
     ".codex/hooks.json",

@@ -8,7 +8,7 @@
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": true,
-  "objective": "Activation: not authorized",
+  "objective": "The preferred investigation is a deterministic timeline-reconstruction action that derives ordered history from authoritative durable task, checkpoint, activation, decision, evidence, and—where necessary—Git records.",
   "authority_reference_paths": [
     "harness/archive/task-control-v1/tasks/deferred-harness-current-phase-history.md"
   ],

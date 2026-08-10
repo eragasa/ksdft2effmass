@@ -8,7 +8,7 @@
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "explicit_activation_required": false,
-  "objective": "Architecture correction closed and human-accepted through `CPN-HC01` on 2026-08-03. The human PI accepted bounded preflight P0 as `CONDITIONAL_PASS` through `P0-HC01`, then accepted and closed P0A as `PASS`. P1 was separately activated after P0A closeout validation and is now blocked at unresolved `P1-HC01`; P2--P11 remain blocked and unauthorized. Production/scientific execution, pseudopotential selection, and QE, ABINIT, or Wannier90 calculations remain unauthorized.",
+  "objective": "This record prospectively corrects the workflow semantics in `.pi/tasks/backend-neutral-kohn-sham-qe-architecture.md` and `.pi/chains/backend-neutral-kohn-sham-qe.chain.json` without erasing their accepted scientific object, adapter, artifact, unit, gate-split, PAW, PhysKit, or execution-checkpoint decisions.",
   "authority_reference_paths": [
     ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md"
