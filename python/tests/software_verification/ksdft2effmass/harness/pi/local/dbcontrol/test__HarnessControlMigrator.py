@@ -553,3 +553,55 @@ def test_method__execute_explicit_ownership_mode_change__reconciles_owner_kind(
         SyntheticEvidenceFixture.projected_modules(tmp_path)[0]["artifact"]
         == "demo artifact"
     )
+
+
+def test_method__execute_canonical_corpus__reads_and_parses_each_source_once(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migrator.single-corpus
+
+    Requirement: One migration operation reads each evidence source exactly once,
+    parses it exactly once, and reuses its immutable bytes and extracted facts during
+    ingestion.
+
+    Method: Count reads of one synthetic source and calls to the parser AST boundary
+    while executing the canonical evidence-only migration path.
+
+    Oracle: The bounded R2.3 corpus contract fixes both counts at exactly one.
+
+    Acceptance: Migration succeeds and both observed counts equal one.
+
+    Interpretation: Failure identifies a duplicate corpus build, source reread, or
+    duplicate AST parse.
+
+    Limitations: Profile and predecessor-map reads are separate explicit inputs.
+    """
+    path = "python/tests/test__demo_artifact.py"
+    SyntheticEvidenceFixture.write_conforming_module(
+        tmp_path, path, artifact_owned=True
+    )
+    entries = [SyntheticEvidenceFixture.inventory_entry(path, artifact_owned=True)]
+    source_path = (tmp_path / path).resolve()
+    original_read = Path.read_bytes
+    reads = 0
+
+    def counted_read(candidate: Path) -> bytes:
+        nonlocal reads
+        if candidate.resolve() == source_path:
+            reads += 1
+        return original_read(candidate)
+
+    from ksdft2effmass.harness.pi.evidence.python_conformance import parser
+
+    original_parse = parser.ast.parse
+    parses = 0
+
+    def counted_parse(*args: Any, **kwargs: Any) -> Any:
+        nonlocal parses
+        parses += 1
+        return original_parse(*args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", counted_read)
+    monkeypatch.setattr(parser.ast, "parse", counted_parse)
+    SyntheticEvidenceFixture.migrate_evidence_only(monkeypatch, tmp_path, entries)
+    assert (reads, parses) == (1, 1)

@@ -13,107 +13,40 @@ scientific validity, uncertainty quantification, or human acceptance.
 
 from __future__ import annotations
 
-import ast
-import json
-import re
 from dataclasses import dataclass
 from typing import Any
 
 from ...identity import _require_builtin_str, _require_tuple
-from .documentation import validate_profile_declaration
-from .migration import has_complete_predecessor_pairs
-from .model import PythonTestModuleModel, _module_syntax
-from .naming import validate_test_name
-from .ownership import validate_owner_profile
-from .parameterization import parameterized_functions as parameterized_function_models
-from .parser import parse_module
-from .profile import EvidenceProfileMatrix, load_profile_matrix
-from .repository import function_counts
-
-HEADINGS = (
-    "Facet and represented meaning",
-    "Intrinsic and cross-object scope",
-    "VVUQ and scientific exclusions",
+from .corpus import _PythonTestModuleCorpusBuilder, _PythonTestModuleInput
+from .documentation import _PythonDocumentationRule
+from .evidence import _PythonEvidenceIdentifierRule
+from .migration import _PythonEvidencePredecessorRule
+from .model import PythonTestModuleModel, _PythonTestModuleCorpus
+from .naming import _PythonNamingRule
+from .ownership import _PythonOwnershipInputLoader, _PythonOwnershipRule
+from .parameterization import (
+    _PythonParameterizationRule,
+    _PythonParameterizationRuleResult,
 )
-SUPERSEDED_HEADINGS = (
-    "Evidence class and represented meaning",
-    "Owned contract, oracle, and scope",
+from .profile import (
+    EvidenceProfileMatrix,
+    _EvidenceProfileCombinationRule,
+    _EvidenceProfileMatrixLoader,
 )
-FIELDS = (
-    "Evidence ID",
-    "Requirement",
-    "Method",
-    "Oracle",
-    "Acceptance",
-    "Interpretation",
-    "Limitations",
-    "Provenance",
-)
-LEGACY_REQUIRED_FIELDS = FIELDS[:-1]
-ID_RE = re.compile(
-    r"\b(?:(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}|"
-    r"(?:software-verification|numerical-verification|scientific-validation|"
-    r"uncertainty-quantification)(?:\.[a-z0-9]+(?:-[a-z0-9]+)*){3,})\b"
-)
-SEMANTIC_PARAM_RE = re.compile(
-    r"^(?:[a-z][a-z0-9]*(?:_[a-z0-9]+)*|(?:[A-Z][A-Z0-9]*-)+[0-9]{3,}-[a-z][a-z0-9]*(?:[-_][a-z0-9]+)*)$"
-)
-EVIDENCE_OPENINGS = {
-    "software_verification": "Software verification",
-    "numerical_verification": "Numerical verification",
-    "scientific_validation": "Scientific validation",
-    "uncertainty_quantification": "Uncertainty quantification",
-}
-UNKNOWN_VALUE_ID_WORDS = {"unknown", "unsupported", "unrecognized"}
-WRONG_TYPE_ID_WORDS = {
-    "boolean",
-    "bytes",
-    "float",
-    "integer",
-    "none",
-    "string",
-    "wrong_type",
-}
-COMPLETENESS_WORDS = re.compile(r"\b(?:all|complete|entire|every|field-complete)\b")
-STATE_WORDS = re.compile(
-    r"\b(?:dataclass state|public state|represented state|fields?)\b"
-)
-EQUALITY_WORDS = re.compile(
-    r"\b(?:equality|compares?|distinguishes?|equal exactly|makes? them unequal)\b"
-)
-FROZEN_WORDS = re.compile(
-    r"\b(?:frozen|immutable|rejects? post-construction assignment|"
-    r"assignments? raise)\b"
+from .repository import (
+    _PythonRepositoryConformanceRule,
+    _PythonRepositoryConformanceRuleResult,
+    _PythonRepositoryUniquenessRule,
 )
 
-
-def claims_complete_equality(function_name: str, requirement: str) -> bool:
-    """Recognize complete equality claims without matching unrelated prose."""
-    equality_context = "__eq__" in function_name or EQUALITY_WORDS.search(requirement)
-    return bool(
-        equality_context
-        and COMPLETENESS_WORDS.search(requirement)
-        and STATE_WORDS.search(requirement)
-    )
-
-
-def claims_complete_frozen(function_name: str, requirement: str) -> bool:
-    """Recognize complete frozen-state claims without matching ordinary immutability."""
-    frozen_context = (
-        "frozen" in function_name
-        or "immutable" in function_name
-        or bool(
-            FROZEN_WORDS.search(requirement)
-            and re.search(
-                r"\b(?:assignment|reassignment|mutation|frozen)\b", requirement
-            )
-        )
-    )
-    return bool(
-        frozen_context
-        and COMPLETENESS_WORDS.search(requirement)
-        and STATE_WORDS.search(requirement)
-    )
+EVIDENCE_OPENINGS = frozenset(
+    {
+        "software_verification",
+        "numerical_verification",
+        "scientific_validation",
+        "uncertainty_quantification",
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -251,11 +184,16 @@ class PythonConformanceRequest:
             type(model) is not PythonTestModuleModel for model in self._parsed_models
         ):
             raise TypeError("_parsed_models must contain PythonTestModuleModel values")
-        if self._parsed_models and tuple(
-            model.path for model in self._parsed_models
-        ) != tuple(source.path for source in self.sources):
+        if self._parsed_models and (
+            tuple(model.path for model in self._parsed_models)
+            != tuple(source.path for source in self.sources)
+            or any(
+                model.source_bytes != source.payload
+                for model, source in zip(self._parsed_models, self.sources, strict=True)
+            )
+        ):
             raise ValueError(
-                "_parsed_models must exactly cover sources in request order"
+                "_parsed_models must exactly cover source paths and bytes in request order"  # noqa: E501
             )
         if self.profile_path is None:
             if self.profile_payload is not None or self.profile_read_error is not None:
@@ -320,1145 +258,11 @@ class PythonConformanceFinding:
                 raise ValueError("line must be positive")
 
 
-def finding(
+def _finding(
     code: str, path: str, message: str, line: int | None = None
 ) -> PythonConformanceFinding:
+    """Construct one public finding from an independent rule result."""
     return PythonConformanceFinding(code, path, message, "error", line)
-
-
-def sections(doc: str | None, labels: tuple[str, ...]) -> tuple[bool, str]:
-    if not doc:
-        return False, "docstring is missing"
-    positions: list[int] = []
-    matches_by_label: list[re.Match[str]] = []
-    inline_fields = bool(labels) and all(label in FIELDS for label in labels)
-    for label in labels:
-        pattern = (
-            rf"(?m)^[ \t]*{re.escape(label)}:[ \t]+\S.*$"
-            if inline_fields
-            else rf"(?m)^[ \t]*{re.escape(label)}[ \t]*$"
-        )
-        matches = list(re.finditer(pattern, doc))
-        if len(matches) != 1:
-            style = "one 'Label: value' paragraph" if inline_fields else "exactly once"
-            return False, f"{label!r} must occur as {style}"
-        positions.append(matches[0].start())
-        matches_by_label.append(matches[0])
-    if positions != sorted(positions):
-        return False, "required sections are out of order"
-    if inline_fields:
-        for current, following in zip(
-            matches_by_label, matches_by_label[1:], strict=False
-        ):
-            between = doc[current.end() : following.start()]
-            if not re.search(r"(?<!\n)\n\n\Z", between):
-                return False, "evidence paragraphs must be separated by one blank line"
-        return True, ""
-    for index, match in enumerate(matches_by_label):
-        next_start = (
-            matches_by_label[index + 1].start()
-            if index + 1 < len(matches_by_label)
-            else len(doc)
-        )
-        body = doc[match.end() : next_start]
-        if not re.match(r"\n\n(?!\n)", body):
-            return False, "module sections must begin after one blank line"
-        if index + 1 < len(matches_by_label) and not re.search(r"(?<!\n)\n\n\Z", body):
-            return False, "module sections must be separated by one blank line"
-        if not body.strip():
-            return False, f"{labels[index]!r} has an empty body"
-    return True, ""
-
-
-@dataclass(frozen=True)
-class ParameterCaseInventory:
-    """Statically resolved parameter cases and inventory-specific findings."""
-
-    elements: tuple[ast.expr, ...] | None
-    findings: tuple[tuple[str, str], ...]
-    named: bool
-
-
-def assigned_names(target: ast.expr) -> set[str]:
-    """Return simple names stored anywhere in one assignment target."""
-    if isinstance(target, ast.Name):
-        return {target.id}
-    if isinstance(target, (ast.List, ast.Tuple)):
-        return {name for element in target.elts for name in assigned_names(element)}
-    return set()
-
-
-def module_scope_statements(tree: ast.Module) -> tuple[ast.stmt, ...]:
-    """Return statements executed at module scope, including compound bodies."""
-    statements: list[ast.stmt] = []
-
-    def visit(node: ast.AST) -> None:
-        for child in ast.iter_child_nodes(node):
-            if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-                statements.append(child)
-                continue
-            if isinstance(child, ast.stmt):
-                statements.append(child)
-            visit(child)
-
-    visit(tree)
-    return tuple(statements)
-
-
-def imported_module_names(tree: ast.Module) -> set[str]:
-    """Return names introduced by imports in module-executed statements."""
-    names: set[str] = set()
-    for statement in module_scope_statements(tree):
-        if isinstance(statement, ast.Import):
-            names.update(
-                alias.asname or alias.name.split(".", 1)[0] for alias in statement.names
-            )
-        elif isinstance(statement, ast.ImportFrom):
-            names.update(alias.asname or alias.name for alias in statement.names)
-    return names
-
-
-def module_assignments(tree: ast.Module, name: str) -> list[ast.Assign | ast.AnnAssign]:
-    """Return module-level ordinary assignments that store one requested name."""
-    assignments: list[ast.Assign | ast.AnnAssign] = []
-    for statement in tree.body:
-        if isinstance(statement, ast.Assign) and any(
-            name in assigned_names(target) for target in statement.targets
-        ):
-            assignments.append(statement)
-        elif isinstance(statement, ast.AnnAssign) and name in assigned_names(
-            statement.target
-        ):
-            assignments.append(statement)
-    return assignments
-
-
-def inventory_mutation_findings(
-    tree: ast.Module,
-    name: str,
-    assignment: ast.Assign | ast.AnnAssign,
-) -> list[tuple[str, str]]:
-    """Reject module-level reassignment and statically visible inventory mutation."""
-    findings: list[tuple[str, str]] = []
-    for statement in module_scope_statements(tree):
-        if statement is assignment:
-            continue
-        if isinstance(statement, ast.Assign) and any(
-            name in assigned_names(target) for target in statement.targets
-        ):
-            findings.append(
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} is reassigned",
-                )
-            )
-        elif isinstance(statement, ast.AnnAssign) and name in assigned_names(
-            statement.target
-        ):
-            findings.append(
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} is reassigned",
-                )
-            )
-        elif isinstance(statement, ast.AugAssign) and (
-            isinstance(statement.target, ast.Name) and statement.target.id == name
-        ):
-            findings.append(
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} uses augmented assignment",
-                )
-            )
-    mutating_methods = {"append", "clear", "extend", "insert", "reverse", "sort"}
-    for node in ast.walk(tree):
-        if (
-            isinstance(node, ast.Call)
-            and isinstance(node.func, ast.Attribute)
-            and isinstance(node.func.value, ast.Name)
-            and node.func.value.id == name
-            and node.func.attr in mutating_methods
-        ):
-            findings.append(
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} is mutated with "
-                    f"{node.func.attr}()",
-                )
-            )
-        if isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign)):
-            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-            if any(
-                isinstance(target, ast.Subscript)
-                and isinstance(target.value, ast.Name)
-                and target.value.id == name
-                for target in targets
-            ):
-                findings.append(
-                    (
-                        "TE.PARAMETER_INVENTORY",
-                        f"named parameter inventory {name!r} is mutated by "
-                        "subscript assignment",
-                    )
-                )
-    return findings
-
-
-def resolve_parameter_case_inventory(
-    tree: ast.Module, decorator: ast.Call
-) -> ParameterCaseInventory:
-    """Resolve inline cases or one restricted module-local named literal inventory."""
-    values = decorator.args[1] if len(decorator.args) > 1 else None
-    if isinstance(values, (ast.List, ast.Tuple)):
-        return ParameterCaseInventory(tuple(values.elts), (), False)
-    if not isinstance(values, ast.Name):
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_ID",
-                    "parameterization requires a literal case list and explicit IDs",
-                ),
-            ),
-            False,
-        )
-    name = values.id
-    if name in imported_module_names(tree):
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} must not be imported",
-                ),
-            ),
-            True,
-        )
-    assignments = module_assignments(tree, name)
-    if not assignments:
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} is unresolved in this module",
-                ),
-            ),
-            True,
-        )
-    if len(assignments) != 1:
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} must have exactly one "
-                    "module-level assignment",
-                ),
-            ),
-            True,
-        )
-    assignment = assignments[0]
-    targets = (
-        assignment.targets
-        if isinstance(assignment, ast.Assign)
-        else [assignment.target]
-    )
-    if len(targets) != 1 or not isinstance(targets[0], ast.Name):
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} requires one "
-                    "simple-name assignment",
-                ),
-            ),
-            True,
-        )
-    if assignment.lineno >= decorator.lineno:
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} must be assigned before "
-                    "its consuming decorator",
-                ),
-            ),
-            True,
-        )
-    value = assignment.value
-    if not isinstance(value, (ast.List, ast.Tuple)):
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} must be assigned directly "
-                    "to a literal tuple or list",
-                ),
-            ),
-            True,
-        )
-    if any(isinstance(element, ast.Starred) for element in value.elts):
-        return ParameterCaseInventory(
-            None,
-            (
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    f"named parameter inventory {name!r} must not contain "
-                    "starred expansion",
-                ),
-            ),
-            True,
-        )
-    findings = inventory_mutation_findings(tree, name, assignment)
-    return ParameterCaseInventory(tuple(value.elts), tuple(findings), True)
-
-
-def semantic_parameter_id_problem(value: str) -> str | None:
-    """Return the existing semantic-ID finding text for one static string."""
-    unstable = (
-        not SEMANTIC_PARAM_RE.fullmatch(value)
-        or bool(re.fullmatch(r"(?:case[_-]?)?[0-9]+", value, re.IGNORECASE))
-        or "::" in value
-        or "/" in value
-        or "\\" in value
-        or bool(re.search(r"0x[0-9a-f]+", value, re.IGNORECASE))
-        or any(0xD800 <= ord(char) <= 0xDFFF or char.isspace() for char in value)
-    )
-    if unstable:
-        return f"pathological, ordinal, raw, or nonsemantic parameter ID {value!r}"
-    return None
-
-
-def decorator_parameter_findings(
-    node: ast.FunctionDef | ast.AsyncFunctionDef, tree: ast.Module
-) -> list[tuple[str, str]]:
-    """Validate inline and named parameter case IDs without executing test code."""
-    findings: list[tuple[str, str]] = []
-    for dec in node.decorator_list:
-        call = dec if isinstance(dec, ast.Call) else None
-        if call is None or not (
-            isinstance(call.func, ast.Attribute) and call.func.attr == "parametrize"
-        ):
-            continue
-        ids = next((kw.value for kw in call.keywords if kw.arg == "ids"), None)
-        resolution = resolve_parameter_case_inventory(tree, call)
-        findings.extend(resolution.findings)
-        if resolution.elements is None:
-            continue
-        explicit: list[str] = []
-        if isinstance(ids, (ast.List, ast.Tuple)) and not resolution.named:
-            explicit = [
-                item.value
-                for item in ids.elts
-                if isinstance(item, ast.Constant) and isinstance(item.value, str)
-            ]
-            if len(explicit) != len(ids.elts):
-                findings.append(
-                    ("TE.PARAMETER_ID", "parameter IDs must be literal strings")
-                )
-        elif ids is None:
-            for item in resolution.elements:
-                valid_call = (
-                    isinstance(item, ast.Call)
-                    and isinstance(item.func, ast.Attribute)
-                    and item.func.attr == "param"
-                    and (
-                        not resolution.named
-                        or (
-                            isinstance(item.func.value, ast.Name)
-                            and item.func.value.id == "pytest"
-                        )
-                    )
-                )
-                if not valid_call:
-                    message = (
-                        "named parameter inventory elements must be direct "
-                        "pytest.param(...) calls"
-                        if resolution.named
-                        else "parameterization requires explicit ids=... or "
-                        "pytest.param(id=...)"
-                    )
-                    findings.append(
-                        (
-                            "TE.PARAMETER_INVENTORY"
-                            if resolution.named
-                            else "TE.PARAMETER_ID",
-                            message,
-                        )
-                    )
-                    continue
-                assert isinstance(item, ast.Call)
-                id_keywords = [kw.value for kw in item.keywords if kw.arg == "id"]
-                if len(id_keywords) != 1:
-                    findings.append(
-                        (
-                            "TE.PARAMETER_ID",
-                            "every pytest.param case requires exactly one id=...",
-                        )
-                    )
-                elif not (
-                    isinstance(id_keywords[0], ast.Constant)
-                    and isinstance(id_keywords[0].value, str)
-                ):
-                    findings.append(
-                        (
-                            "TE.PARAMETER_ID",
-                            "every pytest.param id=... must be a static string literal",
-                        )
-                    )
-                else:
-                    explicit.append(id_keywords[0].value)
-        elif resolution.named:
-            findings.append(
-                (
-                    "TE.PARAMETER_INVENTORY",
-                    "named parameter inventories own their explicit pytest.param "
-                    "IDs and cannot use decorator ids=",
-                )
-            )
-        else:
-            findings.append(
-                (
-                    "TE.PARAMETER_ID",
-                    "parameterization requires a literal case list and explicit IDs",
-                )
-            )
-        if resolution.named and len(explicit) != len(set(explicit)):
-            findings.append(
-                ("TE.PARAMETER_ID", "named parameter inventory IDs must be unique")
-            )
-        for value in explicit:
-            problem = semantic_parameter_id_problem(value)
-            if problem is not None:
-                findings.append(("TE.PARAMETER_ID", problem))
-    return findings
-
-
-def section_body(doc: str, label: str) -> str:
-    """Return one exact evidence-field body, or an empty string when absent."""
-    field_pattern = "|".join(map(re.escape, FIELDS))
-    match = re.search(
-        rf"(?ms)^[ \t]*{re.escape(label)}:[ \t]+(?P<first>\S.*?)[ \t]*$"
-        rf"(?P<rest>.*?)(?=^[ \t]*(?:{field_pattern}):[ \t]+\S.*$|\Z)",
-        doc,
-    )
-    if match is None:
-        return ""
-    return f"{match.group('first')}\n{match.group('rest')}".strip()
-
-
-def literal_string_inventory(tree: ast.Module, name: str) -> tuple[str, ...] | None:
-    """Resolve one module-level literal tuple/list of unique nonempty strings."""
-    assignments = module_assignments(tree, name)
-    if len(assignments) != 1:
-        return None
-    value = assignments[0].value
-    if not isinstance(value, (ast.Tuple, ast.List)):
-        return None
-    strings = tuple(
-        element.value
-        for element in value.elts
-        if isinstance(element, ast.Constant) and isinstance(element.value, str)
-    )
-    if (
-        len(strings) != len(value.elts)
-        or any(not item for item in strings)
-        or len(strings) != len(set(strings))
-    ):
-        return None
-    return strings
-
-
-def parameter_case_ids(
-    node: ast.FunctionDef | ast.AsyncFunctionDef, tree: ast.Module
-) -> set[str]:
-    """Return statically declared semantic case IDs for one test function."""
-    ids: set[str] = set()
-    for decorator in node.decorator_list:
-        if not (
-            isinstance(decorator, ast.Call)
-            and isinstance(decorator.func, ast.Attribute)
-            and decorator.func.attr == "parametrize"
-        ):
-            continue
-        resolution = resolve_parameter_case_inventory(tree, decorator)
-        if resolution.elements is None:
-            continue
-        for element in resolution.elements:
-            if not isinstance(element, ast.Call):
-                continue
-            for keyword in element.keywords:
-                if (
-                    keyword.arg == "id"
-                    and isinstance(keyword.value, ast.Constant)
-                    and isinstance(keyword.value.value, str)
-                ):
-                    ids.add(keyword.value.value)
-    return ids
-
-
-def validate_file(
-    model: PythonTestModuleModel,
-    owner: dict[str, Any],
-    seen_ids: dict[str, str],
-    profile_matrix: EvidenceProfileMatrix | None,
-) -> list[PythonConformanceFinding]:
-    """Apply independent rules to one already parsed module model."""
-    path = model.path
-    source = model.source
-    tree, functions = _module_syntax(model)
-    module_doc = model.module_doc
-    out: list[PythonConformanceFinding] = []
-    first_line = (module_doc or "").splitlines()[0].strip() if module_doc else ""
-    if re.search(r"(?m)^#\s*ruff:\s*noqa:\s*E501\s*$", source):
-        out.append(
-            finding(
-                "TE.BLANKET_SUPPRESSION",
-                path,
-                "file-level E501 suppression is prohibited; use ordinary formatting "
-                "or one targeted justified suppression",
-            )
-        )
-    mode, sut = owner.get("mode"), owner.get("sut")
-    evidence_class = owner.get("evidence_class")
-    opening_label = (
-        EVIDENCE_OPENINGS.get(evidence_class)
-        if isinstance(evidence_class, str)
-        else None
-    )
-    artifact = owner.get("artifact")
-    if opening_label is None:
-        out.append(
-            finding(
-                "TE.EVIDENCE_CLASS",
-                path,
-                "evidence_class must be software_verification, "
-                "numerical_verification, scientific_validation, or "
-                "uncertainty_quantification",
-            )
-        )
-        expected_opening = None
-    elif mode == "class_owned" and isinstance(sut, str) and sut:
-        expected_opening = f"{opening_label} of ``{sut}``."
-    elif mode == "artifact_owned" and isinstance(artifact, str) and artifact.strip():
-        expected_opening = f"{opening_label} of {artifact}."
-    else:
-        expected_opening = None
-    if (
-        not source.startswith('r"""')
-        or expected_opening is None
-        or first_line != expected_opening
-    ):
-        out.append(
-            finding(
-                "TE.MODULE_OPENING",
-                path,
-                "raw module opening must exactly match structured ownership; "
-                f"expected {expected_opening!r}",
-            )
-        )
-    ok, detail = sections(module_doc, HEADINGS)
-    if not ok:
-        out.append(finding("TE.MODULE_DOC", path, detail))
-    evidence_profile = owner.get("evidence_profile")
-    if evidence_profile is not None:
-        if profile_matrix is None or evidence_profile not in profile_matrix.profiles:
-            out.append(
-                finding(
-                    "TE.EVIDENCE_PROFILE",
-                    path,
-                    "declared evidence_profile requires a valid supplied "
-                    "profile matrix",
-                )
-            )
-        else:
-            out.extend(
-                finding(code, path, message)
-                for code, message in validate_profile_declaration(
-                    module_doc, evidence_profile
-                )
-            )
-    for heading in SUPERSEDED_HEADINGS:
-        if module_doc and re.search(rf"(?m)^\s*{re.escape(heading)}\s*$", module_doc):
-            out.append(
-                finding(
-                    "TE.SUPERSEDED_HEADING",
-                    path,
-                    f"superseded heading is prohibited: {heading}",
-                )
-            )
-    if mode not in {"class_owned", "artifact_owned"}:
-        out.append(
-            finding("TE.OWNERSHIP", path, "mode must be class_owned or artifact_owned")
-        )
-    if mode == "class_owned":
-        expected = re.compile(
-            rf"^test__{re.escape(str(sut))}(?:__[a-z][a-z0-9_]*)?\.py$"
-        )
-        if (
-            not isinstance(sut, str)
-            or not sut
-            or not expected.fullmatch(path.rsplit("/", 1)[-1])
-        ):
-            out.append(
-                finding(
-                    "TE.SUT_FILENAME",
-                    path,
-                    "class-owned filename must agree with the supplied SUT",
-                )
-            )
-        assignment = next(
-            (
-                n
-                for n in tree.body
-                if isinstance(n, (ast.Assign, ast.AnnAssign))
-                and any(
-                    isinstance(t, ast.Name) and t.id == "SUT"
-                    for t in (n.targets if isinstance(n, ast.Assign) else [n.target])
-                )
-            ),
-            None,
-        )
-        value = assignment.value if assignment else None
-        if not isinstance(value, ast.Name) or value.id != sut:
-            out.append(
-                finding(
-                    "TE.SUT_ASSIGNMENT",
-                    path,
-                    "SUT assignment must name the supplied public class",
-                )
-            )
-        imported = {
-            alias.asname or alias.name
-            for node in tree.body
-            if isinstance(node, ast.ImportFrom)
-            for alias in node.names
-        }
-        if sut not in imported:
-            out.append(
-                finding(
-                    "TE.SUT_IMPORT",
-                    path,
-                    "supplied SUT must be imported through an explicit public import",
-                )
-            )
-    elif mode == "artifact_owned":
-        if not isinstance(artifact, str) or not artifact.strip():
-            out.append(
-                finding(
-                    "TE.ARTIFACT_OWNER",
-                    path,
-                    "artifact_owned input must name one concrete artifact",
-                )
-            )
-        if not re.fullmatch(r"test__[a-z][a-z0-9_]*\.py", path.rsplit("/", 1)[-1]):
-            out.append(
-                finding(
-                    "TE.ARTIFACT_FILENAME",
-                    path,
-                    "artifact-owned filename must be descriptive lowercase snake case",
-                )
-            )
-    for node in functions:
-        is_test = node.name.startswith("test_")
-        name_problem = validate_test_name(node.name) if is_test else None
-        if name_problem is not None:
-            code, message = name_problem
-            out.append(finding(code, path, message, node.lineno))
-        if is_test:
-            calls_sut = any(
-                isinstance(child, ast.Call)
-                and isinstance(child.func, ast.Name)
-                and child.func.id == "SUT"
-                for child in ast.walk(node)
-            )
-            indexes_sut = any(
-                isinstance(child, ast.Subscript)
-                and isinstance(child.value, ast.Name)
-                and child.value.id == "SUT"
-                for child in ast.walk(node)
-            )
-            if calls_sut and indexes_sut:
-                out.append(
-                    finding(
-                        "TE.MIXED_ENUM_LOOKUP",
-                        path,
-                        "one owner combines EnumType(value) construction with "
-                        "EnumType[name] lookup",
-                        node.lineno,
-                    )
-                )
-            circular_member = any(
-                isinstance(child, ast.Subscript)
-                and isinstance(child.value, ast.Attribute)
-                and isinstance(child.value.value, ast.Name)
-                and child.value.value.id == "SUT"
-                and child.value.attr == "__members__"
-                for child in ast.walk(node)
-            )
-            if circular_member and indexes_sut:
-                out.append(
-                    finding(
-                        "TE.CIRCULAR_ENUM_ORACLE",
-                        path,
-                        "successful name lookup must not derive its sole expected "
-                        "member from SUT.__members__",
-                        node.lineno,
-                    )
-                )
-            case_ids = parameter_case_ids(node, tree)
-            id_words = {word for case_id in case_ids for word in case_id.split("_")}
-            has_unknown = bool(id_words & UNKNOWN_VALUE_ID_WORDS)
-            has_wrong_type = any(
-                word in case_id for case_id in case_ids for word in WRONG_TYPE_ID_WORDS
-            )
-            if has_unknown and has_wrong_type:
-                out.append(
-                    finding(
-                        "TE.MIXED_INVALID_PARTITION",
-                        path,
-                        "one parameter family combines unknown accepted-type values "
-                        "with wrong-semantic-type values",
-                        node.lineno,
-                    )
-                )
-        if not is_test and node.name.startswith("_"):
-            out.append(
-                finding(
-                    "TE.HELPER_PRIVATE",
-                    path,
-                    "evidence helper must have a nonprivate semantic name",
-                    node.lineno,
-                )
-            )
-        if not is_test and (
-            node.name in {"helper", "setup", "check"}
-            or re.search(r"_[0-9]+$", node.name)
-        ):
-            out.append(
-                finding(
-                    "TE.HELPER_NAME", path, "helper name is not semantic", node.lineno
-                )
-            )
-        if any(
-            isinstance(child, (ast.For, ast.AsyncFor, ast.While))
-            for child in ast.walk(node)
-        ):
-            out.append(
-                finding(
-                    "TE.HIDDEN_LOOP",
-                    path,
-                    "test/helper contains a loop that hides collected case identity",
-                    node.lineno,
-                )
-            )
-        for code, param_detail in decorator_parameter_findings(node, tree):
-            out.append(finding(code, path, param_detail, node.lineno))
-        required_fields: tuple[str, ...] = LEGACY_REQUIRED_FIELDS
-        if (
-            evidence_profile is not None
-            and profile_matrix is not None
-            and evidence_profile in profile_matrix.profiles
-        ):
-            policy = profile_matrix.profiles[evidence_profile]
-            policy_fields = policy.required_test_fields
-            required_fields = tuple(field for field in FIELDS if field in policy_fields)
-        doc = ast.get_docstring(node, clean=False) or ""
-        ok, detail = sections(doc, required_fields)
-        if not ok:
-            out.append(finding("TE.FUNCTION_DOC", path, detail, node.lineno))
-            continue
-        if evidence_profile is not None and profile_matrix is not None:
-            policy = profile_matrix.profiles[evidence_profile]
-            allowed_fields = set(
-                policy.required_test_fields + policy.optional_test_fields
-            )
-            positions: list[int] = []
-            field_problem = ""
-            for field in FIELDS:
-                matches = list(
-                    re.finditer(rf"(?m)^[ \t]*{re.escape(field)}:[ \t]+\S.*$", doc)
-                )
-                if field in policy.forbidden_test_fields and matches:
-                    field_problem = f"forbidden evidence field is present: {field}"
-                    break
-                if field not in allowed_fields and matches:
-                    field_problem = f"undeclared evidence field is present: {field}"
-                    break
-                if len(matches) > 1:
-                    field_problem = (
-                        f"{field!r} must occur as one 'Label: value' paragraph"
-                    )
-                    break
-                if matches:
-                    positions.append(matches[0].start())
-            if not field_problem and positions != sorted(positions):
-                field_problem = "evidence fields are out of canonical order"
-            if field_problem:
-                out.append(finding("TE.FUNCTION_DOC", path, field_problem, node.lineno))
-                continue
-        if re.search(r"(?:!!|\?\?|(?<!\.)\.\.(?!\.))", doc):
-            out.append(
-                finding(
-                    "TE.PROSE_PUNCTUATION",
-                    path,
-                    "evidence prose contains doubled terminal punctuation",
-                    node.lineno,
-                )
-            )
-        if re.search(r"(?i)(?:\bTODO\b|\bTBD\b|<placeholder>)", doc):
-            out.append(
-                finding(
-                    "TE.PLACEHOLDER_PROSE",
-                    path,
-                    "evidence prose contains placeholder language",
-                    node.lineno,
-                )
-            )
-        requirement = section_body(doc, "Requirement").lower()
-        if (
-            claims_complete_equality(node.name, requirement)
-            and literal_string_inventory(tree, "EQUALITY_FIELDS") is None
-        ):
-            out.append(
-                finding(
-                    "TE.EQUALITY_FIELD_INVENTORY",
-                    path,
-                    "complete-equality claims require one literal EQUALITY_FIELDS "
-                    "inventory",
-                    node.lineno,
-                )
-            )
-        if (
-            claims_complete_frozen(node.name, requirement)
-            and literal_string_inventory(tree, "FROZEN_FIELDS") is None
-        ):
-            out.append(
-                finding(
-                    "TE.FROZEN_FIELD_INVENTORY",
-                    path,
-                    "all-fields-frozen claims require one literal FROZEN_FIELDS "
-                    "inventory",
-                    node.lineno,
-                )
-            )
-        ids = ID_RE.findall(doc.split("Requirement", 1)[0])
-        if is_test:
-            if len(ids) != 1:
-                out.append(
-                    finding(
-                        "TE.EVIDENCE_ID",
-                        path,
-                        "test must declare exactly one evidence ID",
-                        node.lineno,
-                    )
-                )
-            for eid in ids:
-                if eid in seen_ids:
-                    out.append(
-                        finding(
-                            "TE.DUPLICATE_ID",
-                            path,
-                            f"{eid} already occurs at {seen_ids[eid]}",
-                            node.lineno,
-                        )
-                    )
-                else:
-                    seen_ids[eid] = f"{path}:{node.lineno}"
-        elif "owns no identifier" not in doc.split("Requirement", 1)[0].lower():
-            out.append(
-                finding(
-                    "TE.HELPER_ID",
-                    path,
-                    "helper must say it owns no identifier; referenced supported "
-                    "IDs are not owned",
-                    node.lineno,
-                )
-            )
-    return out
-
-
-def static_parameter_case_count(
-    node: ast.FunctionDef | ast.AsyncFunctionDef,
-    tree: ast.Module,
-) -> int | None:
-    """Return the static collected case product, or None when not derivable."""
-    counts: list[int] = []
-    for dec in node.decorator_list:
-        if not (
-            isinstance(dec, ast.Call)
-            and isinstance(dec.func, ast.Attribute)
-            and dec.func.attr == "parametrize"
-        ):
-            continue
-        resolution = resolve_parameter_case_inventory(tree, dec)
-        if resolution.elements is None or resolution.findings:
-            return None
-        counts.append(len(resolution.elements))
-    if not counts:
-        return 0
-    result = 1
-    for count in counts:
-        result *= count
-    return result
-
-
-def load_ownership(
-    path: str,
-    payload: bytes | None,
-    read_error: str | None,
-    supplied: list[str],
-) -> tuple[
-    list[dict[str, Any]],
-    dict[str, dict[str, Any]],
-    list[PythonConformanceFinding],
-]:
-    """Load closed structured ownership without raising on malformed input."""
-    out: list[PythonConformanceFinding] = []
-    if read_error is not None:
-        return [], {}, [finding("TE.OWNERSHIP_INPUT", path, read_error)]
-    assert payload is not None
-    try:
-        value = json.loads(payload.decode("utf-8"))
-    except (UnicodeError, json.JSONDecodeError) as exc:
-        return [], {}, [finding("TE.OWNERSHIP_INPUT", path, str(exc))]
-    minimal_keys = {"modules", "schema_version"}
-    projection_keys = minimal_keys | {
-        "baseline_collected_node_count",
-        "baseline_module_count",
-        "baseline_revision",
-        "expected_collected_node_count",
-        "expected_module_count",
-        "test_root",
-    }
-    if (
-        not isinstance(value, dict)
-        or frozenset(value)
-        not in {
-            frozenset(minimal_keys),
-            frozenset(projection_keys),
-        }
-        or value.get("schema_version") != 1
-        or not isinstance(value.get("modules"), list)
-    ):
-        return (
-            [],
-            {},
-            [
-                finding(
-                    "TE.OWNERSHIP_INPUT",
-                    path,
-                    "ownership must be a closed schema-version-1 object with "
-                    "modules list",
-                )
-            ],
-        )
-    seen_paths: set[str] = set()
-    by_path: dict[str, dict[str, Any]] = {}
-    for index, item in enumerate(value["modules"]):
-        entry_issue_start = len(out)
-        if not isinstance(item, dict):
-            out.append(
-                finding(
-                    "TE.OWNERSHIP_ENTRY", path, f"modules[{index}] must be an object"
-                )
-            )
-            continue
-        projection_entry_keys = {"conformance_status", "content_sha256"}
-        allowed = {
-            "path",
-            "mode",
-            "evidence_class",
-            "evidence_profile",
-            "sut",
-            "artifact",
-        } | projection_entry_keys
-        if not set(item) <= allowed:
-            out.append(
-                finding(
-                    "TE.OWNERSHIP_KEYS", path, f"modules[{index}] has unexpected keys"
-                )
-            )
-        raw_path = item.get("path")
-        if not isinstance(raw_path, str) or not raw_path:
-            out.append(
-                finding(
-                    "TE.OWNERSHIP_PATH",
-                    path,
-                    f"modules[{index}].path must be a nonempty string",
-                )
-            )
-            continue
-        if raw_path in seen_paths:
-            out.append(
-                finding(
-                    "TE.DUPLICATE_OWNERSHIP_PATH",
-                    path,
-                    f"duplicate ownership path {raw_path!r}",
-                )
-            )
-            continue
-        seen_paths.add(raw_path)
-        mode = item.get("mode")
-        if mode not in {"class_owned", "artifact_owned"}:
-            out.append(
-                finding("TE.OWNERSHIP_MODE", path, f"modules[{index}].mode is invalid")
-            )
-        if item.get("evidence_class") not in EVIDENCE_OPENINGS:
-            out.append(
-                finding(
-                    "TE.EVIDENCE_CLASS",
-                    path,
-                    f"modules[{index}].evidence_class is invalid",
-                )
-            )
-        evidence_profile = item.get("evidence_profile")
-        subject = item.get("sut") if mode == "class_owned" else item.get("artifact")
-        owner_problem = validate_owner_profile(mode, subject, evidence_profile)
-        if owner_problem is not None:
-            code, message = owner_problem
-            out.append(finding(code, path, f"modules[{index}]: {message}"))
-        profile_keys = {"evidence_profile"} if evidence_profile is not None else set()
-        semantic_keys = set(item) - projection_entry_keys
-        if mode == "class_owned":
-            if (
-                semantic_keys
-                != {"path", "mode", "evidence_class", "sut"} | profile_keys
-                or not isinstance(item.get("sut"), str)
-                or not item["sut"]
-            ):
-                out.append(
-                    finding(
-                        "TE.OWNERSHIP_SUT",
-                        path,
-                        f"modules[{index}] requires only a nonempty string sut",
-                    )
-                )
-        elif mode == "artifact_owned" and (
-            semantic_keys
-            != {"path", "mode", "evidence_class", "artifact"} | profile_keys
-            or not isinstance(item.get("artifact"), str)
-            or not item["artifact"].strip()
-        ):
-            out.append(
-                finding(
-                    "TE.OWNERSHIP_ARTIFACT",
-                    path,
-                    f"modules[{index}] requires only a concrete nonempty artifact",
-                )
-            )
-        if len(out) == entry_issue_start:
-            by_path[raw_path] = item
-    if set(by_path) != set(supplied):
-        out.append(
-            finding(
-                "TE.OWNERSHIP_COVERAGE",
-                path,
-                "ownership paths must exactly equal explicitly supplied paths",
-            )
-        )
-    return value["modules"], by_path, out
-
-
-def validate_migration(
-    path: str, payload: bytes | None, read_error: str | None
-) -> list[PythonConformanceFinding]:
-    """Validate a closed, complete one-to-one old/new node inventory and map."""
-    out: list[PythonConformanceFinding] = []
-    if read_error is not None:
-        return [finding("TE.MIGRATION_INPUT", path, read_error)]
-    assert payload is not None
-    try:
-        value = json.loads(payload.decode("utf-8"))
-    except (UnicodeError, json.JSONDecodeError) as exc:
-        return [finding("TE.MIGRATION_INPUT", path, str(exc))]
-    required = {
-        "schema_version",
-        "expected_old_node_ids",
-        "expected_new_node_ids",
-        "mappings",
-    }
-    if (
-        not isinstance(value, dict)
-        or set(value) != required
-        or value.get("schema_version") != 1
-    ):
-        return [
-            finding(
-                "TE.MIGRATION_INPUT",
-                path,
-                "migration input must have the exact schema-version-1 keys",
-            )
-        ]
-    old_expected, new_expected, mappings = (
-        value.get("expected_old_node_ids"),
-        value.get("expected_new_node_ids"),
-        value.get("mappings"),
-    )
-    for label, inventory in (("old", old_expected), ("new", new_expected)):
-        if (
-            not isinstance(inventory, list)
-            or any(not isinstance(item, str) or not item for item in inventory)
-            or len(inventory) != len(set(inventory))
-        ):
-            out.append(
-                finding(
-                    "TE.MIGRATION_INVENTORY",
-                    path,
-                    f"expected {label} inventory must contain unique nonempty strings",
-                )
-            )
-    if not isinstance(mappings, list):
-        out.append(finding("TE.MIGRATION_INPUT", path, "mappings must be a list"))
-        return out
-    pairs: list[tuple[str, str]] = []
-    for index, item in enumerate(mappings):
-        if (
-            not isinstance(item, dict)
-            or set(item) != {"old_node_id", "new_node_id"}
-            or not isinstance(item.get("old_node_id"), str)
-            or not item.get("old_node_id")
-            or not isinstance(item.get("new_node_id"), str)
-            or not item.get("new_node_id")
-        ):
-            out.append(
-                finding(
-                    "TE.MIGRATION_ENTRY",
-                    path,
-                    f"mappings[{index}] must be one exact nonempty old/new pair",
-                )
-            )
-            continue
-        pairs.append((item["old_node_id"], item["new_node_id"]))
-    old_actual = [item[0] for item in pairs]
-    new_actual = [item[1] for item in pairs]
-    if len(old_actual) != len(set(old_actual)) or len(new_actual) != len(
-        set(new_actual)
-    ):
-        out.append(
-            finding(
-                "TE.MIGRATION_ONE_TO_ONE", path, "mapping sides must both be unique"
-            )
-        )
-    if (
-        isinstance(old_expected, list)
-        and isinstance(new_expected, list)
-        and not has_complete_predecessor_pairs(
-            tuple(old_expected), tuple(new_expected), tuple(pairs)
-        )
-    ):
-        out.append(
-            finding(
-                "TE.MIGRATION_INCOMPLETE",
-                path,
-                "mapping must exactly cover both expected node inventories",
-            )
-        )
-    return out
 
 
 @dataclass(frozen=True, slots=True)
@@ -1570,34 +374,55 @@ class PythonConformanceResult:
 
 
 class PythonConformanceValidator:
-    """Validate explicit Python source and metadata bytes without performing I/O.
-
-    The fieldless action owns all relational and static-analysis policy.  It has
-    no configuration, retained state, mutation, or environmental dependency.
-    """
+    """Validate explicit Python source and metadata bytes without performing I/O."""
 
     __slots__ = ()
 
+    @staticmethod
+    def _module_findings(
+        model: PythonTestModuleModel,
+        owner: dict[str, Any],
+        seen: dict[str, str],
+        profile_matrix: EvidenceProfileMatrix | None,
+    ) -> tuple[
+        tuple[PythonConformanceFinding, ...],
+        _PythonParameterizationRuleResult,
+        _PythonRepositoryConformanceRuleResult,
+    ]:
+        """Orchestrate independent named rule owners in compatibility order."""
+        profile = owner.get("evidence_profile")
+        documentation = _PythonDocumentationRule().execute(
+            model, profile, profile_matrix
+        )
+        parameterization = _PythonParameterizationRule().execute(model)
+        repository = _PythonRepositoryConformanceRule().execute(model)
+        raw = (
+            *_PythonOwnershipRule().execute(model, owner),
+            *documentation.module_findings,
+            *_PythonNamingRule().execute(model),
+            *parameterization.findings,
+            *documentation.function_findings,
+            *_PythonEvidenceIdentifierRule().execute(model, seen),
+            *repository.findings,
+        )
+        return (
+            tuple(
+                _finding(code, model.path, message, line) for code, message, line in raw
+            ),
+            parameterization,
+            repository,
+        )
+
     def execute(self, request: PythonConformanceRequest) -> PythonConformanceResult:
-        """Validate one closed request.
+        """Validate one closed request while preserving the public signature."""
+        return self._execute(request)
 
-        Parameters
-        ----------
-        request
-            Explicit module, ownership, optional migration-map, and optional
-            generic profile-matrix inputs.
-
-        Returns
-        -------
-        PythonConformanceResult
-            Immutable findings and compatibility-complete inventory counts.
-            Malformed supplied evidence is represented as findings, not raised.
-
-        Raises
-        ------
-        TypeError
-            If ``request`` is not exactly :class:`PythonConformanceRequest`.
-        """
+    def _execute(
+        self,
+        request: PythonConformanceRequest,
+        corpus: _PythonTestModuleCorpus | None = None,
+    ) -> PythonConformanceResult:
+        """Validate with an optional internally prebuilt immutable corpus."""
         if type(request) is not PythonConformanceRequest:
             raise TypeError("request must be PythonConformanceRequest")
         findings: list[PythonConformanceFinding] = []
@@ -1605,7 +430,7 @@ class PythonConformanceValidator:
         if request.profile_path is not None:
             if request.profile_read_error is not None:
                 findings.append(
-                    finding(
+                    _finding(
                         "TE.PROFILE_INPUT",
                         request.profile_path,
                         request.profile_read_error,
@@ -1613,56 +438,58 @@ class PythonConformanceValidator:
                 )
             else:
                 assert request.profile_payload is not None
-                profile_matrix, profile_problem = load_profile_matrix(
-                    request.profile_payload
+                profile_matrix, profile_problem = (
+                    _EvidenceProfileMatrixLoader().execute(request.profile_payload)
                 )
                 if profile_problem is not None:
                     findings.append(
-                        finding(
+                        _finding(
                             "TE.PROFILE_INPUT",
                             request.profile_path,
                             profile_problem,
                         )
                     )
-        supplied = [source.path for source in request.sources]
-        if len(supplied) != len(set(supplied)):
-            findings.append(
-                finding(
-                    "TE.DUPLICATE_PATH",
-                    request.ownership_path,
-                    "supplied paths must be unique",
-                )
-            )
-        entries, by_path, ownership_findings = load_ownership(
+        supplied = tuple(source.path for source in request.sources)
+        findings.extend(
+            _finding(code, request.ownership_path, message)
+            for code, message in _PythonRepositoryUniquenessRule().execute(supplied)
+        )
+        entries, by_path, ownership_findings = _PythonOwnershipInputLoader().execute(
             request.ownership_path,
             request.ownership_payload,
             request.ownership_read_error,
             supplied,
         )
-        findings.extend(ownership_findings)
+        findings.extend(
+            _finding(code, path, message, line)
+            for code, path, message, line in ownership_findings
+        )
         if profile_matrix is not None:
-            for entry in entries:
-                evidence_profile = entry.get("evidence_profile")
-                if (
-                    evidence_profile is not None
-                    and (entry.get("evidence_class"), evidence_profile)
-                    not in profile_matrix.combinations
-                ):
-                    findings.append(
-                        finding(
-                            "TE.PROFILE_COMBINATION",
-                            request.ownership_path,
-                            "evidence_class/evidence_profile combination is "
-                            "unsupported",
-                        )
-                    )
+            findings.extend(
+                _finding(code, request.ownership_path, message)
+                for code, message in _EvidenceProfileCombinationRule().execute(
+                    entries, profile_matrix
+                )
+            )
+        selected = tuple(
+            _PythonTestModuleInput(source.path, source.payload)
+            for source in request.sources
+            if source.path in by_path
+            and source.is_regular_file
+            and source.payload is not None
+        )
+        if corpus is None and request._parsed_models:
+            corpus = _PythonTestModuleCorpus(tuple(request._parsed_models), ())
+        built = _PythonTestModuleCorpusBuilder().execute(selected, prebuilt=corpus)
         seen: dict[str, str] = {}
         models: list[PythonTestModuleModel] = []
-        supplied_models = {model.path: model for model in request._parsed_models}
+        parameter_results: list[_PythonParameterizationRuleResult] = []
+        repository_results: list[_PythonRepositoryConformanceRuleResult] = []
+        failures = {failure.path: failure.message for failure in built.failures}
         for source in request.sources:
             if not source.is_regular_file:
                 findings.append(
-                    finding(
+                    _finding(
                         "TE.EXPLICIT_PATH",
                         source.path,
                         "supplied path must be a regular file",
@@ -1673,45 +500,45 @@ class PythonConformanceValidator:
             if owner is None:
                 continue
             if source.read_error is not None:
-                findings.append(finding("TE.PARSE", source.path, source.read_error))
+                findings.append(_finding("TE.PARSE", source.path, source.read_error))
                 continue
-            assert source.payload is not None
-            try:
-                model = supplied_models.get(source.path) or parse_module(
-                    source.path, source.payload
+            if source.path in failures:
+                findings.append(
+                    _finding("TE.PARSE", source.path, failures[source.path])
                 )
-            except (UnicodeError, SyntaxError) as exc:
-                findings.append(finding("TE.PARSE", source.path, str(exc)))
                 continue
+            model = built.model_for(source.path)
+            assert model is not None
             models.append(model)
-            findings.extend(validate_file(model, owner, seen, profile_matrix))
-        if request.migration_path is not None:
-            findings.extend(
-                validate_migration(
-                    request.migration_path,
-                    request.migration_payload,
-                    request.migration_read_error,
-                )
+            module_findings, parameterization, repository = self._module_findings(
+                model, owner, seen, profile_matrix
             )
-        tests = helpers = parameterized = 0
-        static_parameter_cases = 0
-        static_parameter_cases_known = True
-        for model in models:
-            model_tests, model_helpers = function_counts(model)
-            tests += model_tests
-            helpers += model_helpers
-            parameterized_names = {
-                node.name for node in parameterized_function_models(model)
-            }
-            tree, functions = _module_syntax(model)
-            for node in functions:
-                count = static_parameter_case_count(node, tree)
-                if count is None:
-                    static_parameter_cases_known = False
-                elif count:
-                    if node.name in parameterized_names:
-                        parameterized += 1
-                    static_parameter_cases += count
+            findings.extend(module_findings)
+            parameter_results.append(parameterization)
+            repository_results.append(repository)
+        if request.migration_path is not None:
+            predecessor = _PythonEvidencePredecessorRule().execute(
+                request.migration_path,
+                request.migration_payload,
+                request.migration_read_error,
+            )
+            findings.extend(
+                _finding(code, path, message, line)
+                for code, path, message, line in predecessor.findings
+            )
+        tests = sum(result.test_functions for result in repository_results)
+        helpers = sum(result.helper_functions for result in repository_results)
+        parameterized = sum(
+            result.parameterized_functions for result in parameter_results
+        )
+        static_known = all(
+            result.static_case_count is not None for result in parameter_results
+        )
+        static_cases = (
+            sum(result.static_case_count or 0 for result in parameter_results)
+            if static_known
+            else None
+        )
         findings_by_code: dict[str, int] = {}
         for item in findings:
             findings_by_code[item.code] = findings_by_code.get(item.code, 0) + 1
@@ -1742,7 +569,7 @@ class PythonConformanceValidator:
                 "uncertainty quantification",
                 "human acceptance",
             ),
-            tuple(supplied),
+            supplied,
             tuple(findings),
             ownership_counts["artifact_owned"],
             ownership_counts["class_owned"],
@@ -1751,7 +578,7 @@ class PythonConformanceValidator:
             helpers,
             len(request.sources),
             parameterized,
-            static_parameter_cases if static_parameter_cases_known else None,
+            static_cases,
             tests,
             len(seen),
         )

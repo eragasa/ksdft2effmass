@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import sqlite3
 from collections.abc import Mapping
 from pathlib import Path
@@ -14,8 +13,12 @@ from ...evidence.python_conformance import (
     PythonConformanceValidator,
     PythonModuleSource,
 )
+from ...evidence.python_conformance.corpus import (
+    _PythonTestModuleCorpusBuilder,
+    _PythonTestModuleInput,
+)
+from ...evidence.python_conformance.migration import _PythonEvidencePredecessorRule
 from ...evidence.python_conformance.model import PythonTestModuleModel
-from ...evidence.python_conformance.parser import parse_module
 from .constants import (
     _GENERATOR_ID,
     CONTROL_SCHEMA_VERSION,
@@ -79,15 +82,20 @@ class HarnessControlMigrator:
             request.repository_root, request.evidence_migration_path
         )
         sources: list[PythonModuleSource] = []
-        models: list[PythonTestModuleModel] = []
-        modules: list[dict[str, Any]] = []
+        inputs: list[_PythonTestModuleInput] = []
         for relative in request.evidence_module_paths:
             path = cls._repository_file(request.repository_root, relative)
             payload = path.read_bytes()
             raw_path = relative.as_posix()
-            model = parse_module(raw_path, payload)
             sources.append(PythonModuleSource(raw_path, payload))
-            models.append(model)
+            inputs.append(_PythonTestModuleInput(raw_path, payload))
+        corpus = _PythonTestModuleCorpusBuilder().execute(tuple(inputs))
+        if corpus.failures:
+            raise SyntaxError(corpus.failures[0].message)
+        models = list(corpus.models)
+        modules: list[dict[str, Any]] = []
+        for model in models:
+            raw_path = model.path
             entry: dict[str, Any] = {
                 "path": raw_path,
                 "mode": model.ownership_kind,
@@ -102,24 +110,27 @@ class HarnessControlMigrator:
             {"schema_version": 1, "modules": modules}
         )
         migration_payload = migration_path.read_bytes()
-        result = PythonConformanceValidator().execute(
-            PythonConformanceRequest(
-                tuple(sources),
-                "<source-embedded-module-declarations>",
-                ownership_payload,
-                migration_path=request.evidence_migration_path.as_posix(),
-                migration_payload=migration_payload,
-                profile_path=request.evidence_profile_matrix_path.as_posix(),
-                profile_payload=profile_path.read_bytes(),
-                _parsed_models=tuple(models),
-            )
+        profile_payload = profile_path.read_bytes()
+        validation_request = PythonConformanceRequest(
+            tuple(sources),
+            "<source-embedded-module-declarations>",
+            ownership_payload,
+            migration_path=request.evidence_migration_path.as_posix(),
+            migration_payload=migration_payload,
+            profile_path=request.evidence_profile_matrix_path.as_posix(),
+            profile_payload=profile_payload,
+            _parsed_models=tuple(models),
         )
+        result = PythonConformanceValidator()._execute(validation_request, corpus)
         if result.status != "PASS":
             codes = ", ".join(sorted({item.code for item in result.findings}))
             raise ValueError(f"canonical evidence inputs are nonconforming: {codes}")
-        document = json.loads(migration_payload)
-        predecessors = tuple(
-            (item["new_node_id"], item["old_node_id"]) for item in document["mappings"]
+        predecessors = (
+            _PythonEvidencePredecessorRule()
+            .execute(
+                request.evidence_migration_path.as_posix(), migration_payload, None
+            )
+            .pairs
         )
         return (
             tuple(MappingProxyType(item) for item in modules),

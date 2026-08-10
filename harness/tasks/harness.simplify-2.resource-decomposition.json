@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2.resource-decomposition",
   "title": "Decompose resource resolution and routing ownership",
   "status": "inactive",
-  "status_detail": "inactive R2.4 resource-authority and canonical-input work package",
+  "status_detail": "prerequisite-eligible but inactive R2.4 resource-authority and canonical-input work package",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.python-conformance-decomposition"

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import ast
 import json
 import re
 import sqlite3
@@ -11,8 +10,9 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
-from ...evidence.python_conformance.model import PythonTestModuleModel, _module_syntax
-from .constants import _EVIDENCE_CLASSES, _EVIDENCE_ID, _IDENTIFIER
+from ...evidence.python_conformance.evidence import _PythonEvidenceFactExtractor
+from ...evidence.python_conformance.model import PythonTestModuleModel
+from .constants import _EVIDENCE_CLASSES, _IDENTIFIER
 from .encoding import _ControlEncoding
 
 
@@ -261,18 +261,11 @@ class _RepositoryControlIngestor:
         unresolved = self.unresolved
         for module in self._module_inventory():
             path = root / module["path"]
-            if not path.is_file():
+            model = self.evidence_models.get(str(module["path"]))
+            if model is None:
                 unresolved.append(f"unresolved test module: {module['path']}")
                 continue
-            source = path.read_bytes()
-            model = self.evidence_models[str(module["path"])]
-            tree, _functions = _module_syntax(model)
-            module_doc = model.module_doc or ""
-            profile_match = re.search(
-                r"(?m)^Evidence profile: (routine|claim_bearing)\s*$", module_doc
-            )
-            if profile_match is not None:
-                self.evidence_profiles[str(module["path"])] = profile_match.group(1)
+            self.evidence_profiles[str(module["path"])] = model.evidence_profile
             module_id = "test-module." + _ControlEncoding.slug(
                 path.relative_to(root / "python/tests").with_suffix("").as_posix()
             ).replace("-", ".")
@@ -286,32 +279,28 @@ class _RepositoryControlIngestor:
                 (
                     module_id,
                     module["path"],
-                    _ControlEncoding.sha256(source),
+                    model.source_sha256,
                     module["mode"],
                     subject,
                     _EVIDENCE_CLASSES[module["evidence_class"]],
                     module["evidence_profile"],
                 ),
             )
-            for node in ast.walk(tree):
-                if not isinstance(
-                    node, (ast.FunctionDef, ast.AsyncFunctionDef)
-                ) or not node.name.startswith("test_"):
-                    continue
-                doc = ast.get_docstring(node, clean=False) or ""
-                match = _EVIDENCE_ID.search(doc)
-                owner_node = f"{module['path']}::{node.name}"
-                old_id = match.group(1) if match is not None else None
+            for function_name, extracted_id in _PythonEvidenceFactExtractor().execute(
+                model
+            ):
+                owner_node = f"{module['path']}::{function_name}"
+                old_id = extracted_id or None
                 canonical = (
                     old_id
                     if old_id is not None
                     and _IDENTIFIER.fullmatch(old_id)
                     and old_id.split(".", 1)[0] in _EVIDENCE_CLASSES.values()
-                    else self._canonical_evidence_id(module, node.name)
+                    else self._canonical_evidence_id(module, function_name)
                 )
                 naming = "semantic"
                 claim_summary = (
-                    node.name.removeprefix("test_")
+                    function_name.removeprefix("test_")
                     .replace("__", ": ")
                     .replace("_", " ")
                 )

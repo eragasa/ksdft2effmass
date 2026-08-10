@@ -21,8 +21,9 @@ cohesion, numerical verification, scientific validation, UQ, or human acceptance
 
 from __future__ import annotations
 
+import ast
 import json
-from dataclasses import FrozenInstanceError
+from dataclasses import FrozenInstanceError, fields, is_dataclass
 from pathlib import Path
 from typing import Any
 
@@ -34,7 +35,29 @@ from ksdft2effmass.harness.pi.evidence import (
     PythonConformanceValidator,
     PythonModuleSource,
 )
+from ksdft2effmass.harness.pi.evidence.python_conformance.corpus import (
+    _PythonTestModuleCorpusBuilder,
+    _PythonTestModuleInput,
+)
+from ksdft2effmass.harness.pi.evidence.python_conformance.documentation import (
+    _PythonDocumentationRule,
+)
+from ksdft2effmass.harness.pi.evidence.python_conformance.evidence import (
+    _PythonEvidenceIdentifierRule,
+)
+from ksdft2effmass.harness.pi.evidence.python_conformance.naming import (
+    _PythonNamingRule,
+)
+from ksdft2effmass.harness.pi.evidence.python_conformance.ownership import (
+    _PythonOwnershipRule,
+)
+from ksdft2effmass.harness.pi.evidence.python_conformance.parameterization import (
+    _PythonParameterizationRule,
+)
 from ksdft2effmass.harness.pi.evidence.python_conformance.parser import parse_module
+from ksdft2effmass.harness.pi.evidence.python_conformance.repository import (
+    _PythonRepositoryConformanceRule,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = PythonConformanceValidator
@@ -434,11 +457,17 @@ def test_artifact__parsed_module_model__is_deeply_immutable_at_rule_boundary() -
     model = parse_module(PATH, ROUTINE_SOURCE)
     assert model.function_names == ("test_artifact__literal_value__equals_itself",)
     assert not hasattr(model, "tree")
-    assert not hasattr(model, "functions")
+    assert isinstance(model.functions, tuple)
+    assert all(type(value).__module__ != "ast" for value in model.functions)
+    assert model.source_bytes == ROUTINE_SOURCE
+    assert model.source_byte_count == len(ROUTINE_SOURCE)
+    assert len(model.source_sha256) == 64
     assert not hasattr(model, "_tree")
     assert not hasattr(model, "_functions")
     with pytest.raises(FrozenInstanceError):
         model.path = "changed.py"  # type: ignore[misc]
+    with pytest.raises(FrozenInstanceError):
+        model.functions[0].name = "changed"  # type: ignore[misc]
 
 
 def test_method__execute_routine_profile__accepts_exact_required_fields() -> None:
@@ -639,3 +668,206 @@ def test_method__execute_private_class_owner__reports_ownership_finding() -> Non
         )
     )
     assert "TE.PRIVATE_CLASS_OWNER" in tuple(item.code for item in result.findings)
+
+
+@pytest.mark.parametrize(
+    ("label", "defect"),
+    (
+        pytest.param("Method", "valid", id="method_valid"),
+        pytest.param("Oracle", "valid", id="oracle_valid"),
+        pytest.param("Interpretation", "valid", id="interpretation_valid"),
+        pytest.param("Limitations", "valid", id="limitations_valid"),
+        pytest.param("Method", "empty", id="method_empty"),
+        pytest.param("Oracle", "wrong_order", id="oracle_wrong_order"),
+        pytest.param("Oracle", "duplicate", id="oracle_duplicate"),
+        pytest.param("Method", "zero_spacing", id="method_zero_spacing"),
+        pytest.param(
+            "Interpretation", "excess_spacing", id="interpretation_excess_spacing"
+        ),
+        pytest.param("Limitations", "absorption", id="limitations_absorption"),
+    ),
+)
+def test_method__execute_optional_paragraphs__enforces_exact_present_grammar(
+    label: str, defect: str
+) -> None:
+    """Evidence ID: software-verification.harness.python-conformance.optional-paragraphs
+
+    Requirement: Method, Oracle, Interpretation, and Limitations remain optional for
+    routine evidence, while every present optional field uses the exact paragraph
+    grammar, canonical order, nonempty content, uniqueness, and one blank separator.
+
+    Method: Insert one valid optional field or one isolated malformed present-field
+    partition into the accepted routine source and execute structural validation.
+
+    Oracle: The routine profile and exact Label-value paragraph grammar fix every
+    accepted and rejected semantic partition.
+
+    Acceptance: Valid partitions pass; empty, misordered, duplicate, zero-spacing,
+    excess-spacing, and following-field absorption partitions each yield exactly one
+    function-document finding.
+
+    Interpretation: Failure identifies optionality being confused with lax grammar.
+
+    Limitations: Prose truth and semantic oracle independence remain separate.
+    """
+    before = label in {"Method", "Oracle"}
+    anchor = b"    Acceptance: Equality is exactly true." if before else b'    """'
+    paragraph = f"    {label}: Controlled optional detail.".encode()
+    if defect == "valid":
+        replacement = paragraph + b"\n\n" + anchor
+    elif defect == "empty":
+        replacement = f"    {label}:\n\n".encode() + anchor
+    elif defect == "wrong_order":
+        anchor = b'    """'
+        replacement = paragraph + b"\n\n" + anchor
+    elif defect == "duplicate":
+        replacement = paragraph + b"\n\n" + paragraph + b"\n\n" + anchor
+    elif defect == "zero_spacing":
+        replacement = paragraph + b"\n" + anchor
+    elif defect == "excess_spacing":
+        replacement = (
+            paragraph
+            + b"\n\n\n    Limitations: Following optional detail.\n\n"
+            + anchor
+        )
+    else:
+        replacement = (
+            paragraph + b"\n    Provenance: Following optional detail.\n\n" + anchor
+        )
+    if anchor == b'    """':
+        prefix, separator, suffix = ROUTINE_SOURCE.rpartition(anchor)
+        assert separator == anchor
+        source = prefix + b"\n" + replacement + suffix
+    else:
+        source = ROUTINE_SOURCE.replace(anchor, replacement, 1)
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, source),),
+            "ownership.json",
+            ROUTINE_OWNERSHIP,
+            profile_path=PROFILE_PATH,
+            profile_payload=PROFILE_PAYLOAD,
+        )
+    )
+    function_docs = tuple(
+        item for item in result.findings if item.code == "TE.FUNCTION_DOC"
+    )
+    if defect == "valid":
+        assert result.status == "PASS"
+        assert function_docs == ()
+    else:
+        assert len(function_docs) == 1
+
+
+def test_artifact__immutable_corpus__contains_only_deeply_immutable_ast_free_facts(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: software-verification.harness.python-conformance.corpus.immutable
+
+    Requirement: The corpus and every recursively contained or accessor-returned fact
+    are frozen, AST-free, and free of mutable containers.
+
+    Method: Build one corpus, recursively inspect all dataclass fields and accessors,
+    then attempt nested assignment.
+
+    Oracle: Frozen dataclasses, enums, scalars, bytes, and tuples are the complete
+    accepted fact vocabulary.
+
+    Acceptance: Recursive inspection finds no AST or mutable container and nested
+    assignment raises FrozenInstanceError.
+
+    Interpretation: Failure identifies mutable or parser-owned state crossing corpus.
+
+    Limitations: Deliberate low-level object introspection is excluded.
+    """
+    corpus = _PythonTestModuleCorpusBuilder().execute(
+        (_PythonTestModuleInput(PATH, ROUTINE_SOURCE),)
+    )
+
+    def inspect(value: object) -> object:
+        assert not isinstance(value, ast.AST)
+        assert not isinstance(value, (list, dict, set, bytearray))
+        if is_dataclass(value) and not isinstance(value, type):
+            assert all(
+                (inspect(getattr(value, field.name)), True)[1]
+                for field in fields(value)
+            )
+        elif isinstance(value, tuple):
+            assert all((inspect(item), True)[1] for item in value)
+        return None
+
+    inspect(corpus)
+    inspect(corpus.models[0].function_names)
+    inspect(corpus.models[0].functions[0].is_test)
+    inspect(corpus.model_for(PATH))
+    with pytest.raises(FrozenInstanceError):
+        corpus.models[0].functions[0].name = "changed"  # type: ignore[misc]
+
+
+def test_artifact__rule_owners__reuse_corpus_without_parse_or_filesystem_read(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: software-verification.harness.python-conformance.rules.no-reparse
+
+    Requirement: Every named rule owner consumes the immutable corpus model without
+    parsing source or reading a filesystem.
+
+    Method: Build one model, prohibit AST parsing and Path reads, then execute naming,
+    documentation, ownership, parameterization, evidence, and repository rule owners.
+
+    Oracle: Rule owners accept only explicit immutable facts and policy inputs.
+
+    Acceptance: Every owner completes after both prohibited boundaries are installed.
+
+    Interpretation: Failure identifies duplicated syntax or ambient filesystem work.
+
+    Limitations: Initial corpus construction intentionally performs its one AST parse.
+    """
+    corpus = _PythonTestModuleCorpusBuilder().execute(
+        (_PythonTestModuleInput(PATH, ROUTINE_SOURCE),)
+    )
+    model = corpus.models[0]
+
+    def prohibited(*args: Any, **kwargs: Any) -> Any:
+        raise AssertionError("rule owner crossed parser or filesystem boundary")
+
+    monkeypatch.setattr(
+        "ksdft2effmass.harness.pi.evidence.python_conformance.parser.ast.parse",
+        prohibited,
+    )
+    monkeypatch.setattr(Path, "read_bytes", prohibited)
+    owner = json.loads(ROUTINE_OWNERSHIP)["modules"][0]
+    assert _PythonNamingRule().execute(model) == ()
+    docs = _PythonDocumentationRule().execute(model, "routine", None)
+    assert docs.module_findings == ()
+    assert _PythonOwnershipRule().execute(model, owner) == ()
+    assert _PythonParameterizationRule().execute(model).findings == ()
+    assert _PythonEvidenceIdentifierRule().execute(model, {}) == ()
+    assert _PythonRepositoryConformanceRule().execute(model).findings == ()
+
+
+def test_artifact__corpus_builder__defensively_owns_caller_source_inventory() -> None:
+    """Evidence ID: software-verification.harness.python-conformance.corpus.defensive
+
+    Requirement: Mutating a caller-owned source inventory after construction cannot
+    alter a built corpus or its source identity facts.
+
+    Method: Build from a caller list, replace and clear that list, and inspect corpus
+    bytes, digest, byte count, and model inventory.
+
+    Oracle: The builder snapshots inputs into frozen dataclasses and tuples.
+
+    Acceptance: Corpus state remains exactly equal to the original source snapshot.
+
+    Interpretation: Failure identifies aliasing across the corpus boundary.
+
+    Limitations: Bytes are intrinsically immutable under Python semantics.
+    """
+    caller_inputs = [_PythonTestModuleInput(PATH, ROUTINE_SOURCE)]
+    corpus = _PythonTestModuleCorpusBuilder().execute(caller_inputs)  # type: ignore[arg-type]
+    caller_inputs[0] = _PythonTestModuleInput("changed.py", b"pass\n")
+    caller_inputs.clear()
+    assert tuple(model.path for model in corpus.models) == (PATH,)
+    assert corpus.models[0].source_bytes == ROUTINE_SOURCE
+    assert corpus.models[0].source_byte_count == len(ROUTINE_SOURCE)
+    assert len(corpus.models[0].source_sha256) == 64

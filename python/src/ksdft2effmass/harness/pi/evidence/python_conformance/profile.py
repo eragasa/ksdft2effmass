@@ -88,7 +88,7 @@ def _string_array(value: Any, allowed: frozenset[str]) -> tuple[str, ...] | None
     return tuple(value)
 
 
-def load_profile_matrix(
+def _load_profile_matrix(
     payload: bytes,
 ) -> tuple[EvidenceProfileMatrix | None, str | None]:
     """Load the exact closed behavior-version-one policy resource.
@@ -218,3 +218,38 @@ def load_profile_matrix(
         EvidenceProfileMatrix(MappingProxyType(profiles), frozenset(combinations)),
         None,
     )
+
+
+class _EvidenceProfileMatrixLoader:
+    """Own closed generic evidence-profile matrix loading."""
+
+    __slots__ = ()
+
+    def execute(
+        self, payload: bytes
+    ) -> tuple[EvidenceProfileMatrix | None, str | None]:
+        """Load one explicit profile matrix without filesystem access."""
+        return _load_profile_matrix(payload)
+
+
+class _EvidenceProfileCombinationRule:
+    """Own evidence-class/profile combination compatibility."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        entries: tuple[dict[str, Any], ...],
+        matrix: EvidenceProfileMatrix,
+    ) -> tuple[tuple[str, str], ...]:
+        """Return one deterministic finding per unsupported declaration."""
+        return tuple(
+            (
+                "TE.PROFILE_COMBINATION",
+                "evidence_class/evidence_profile combination is unsupported",
+            )
+            for entry in entries
+            if entry.get("evidence_profile") is not None
+            and (entry.get("evidence_class"), entry.get("evidence_profile"))
+            not in matrix.combinations
+        )

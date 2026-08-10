@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2924,
+  "expected_collected_node_count": 2938,
   "expected_module_count": 245,
   "modules": [
     {
@@ -151,7 +151,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c0f071f4c6adcb6ad9c772b974cb92d1b310362c5a28f05251d5bdc2639b14a1",
+      "content_sha256": "419456a7fac29d661b90efe29533104e1921afc6cd584dbb49df3434856ecc1b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlMigrator.py",
@@ -799,7 +799,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "77179693f6e543887d4d3979c0a307318954330c884148e875803963837cdd8a",
+      "content_sha256": "e5ce5b5da602ca5f623f196a31e9384c0d55f926bdd77273ed6ecb3feece7a10",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",

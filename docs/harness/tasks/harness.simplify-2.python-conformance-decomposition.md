@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: active R2.3 resumed after HC01 resolved the custom routine evidence-profile contract; no successor activated
+`completed`: completed after the authorized final documentation correction; no successor activated
 
 ## Objective
 

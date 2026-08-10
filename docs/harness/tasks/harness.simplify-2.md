@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred_to_active_child`: coordinating parent deferred to active R2.3 after HC01 resolved the custom routine evidence-profile contract; R2.1 and R2.2 are completed, the remaining four ordered work packages are inactive, and automatic successor activation remains disabled
+`active`: coordinating parent restored after R2.3 completed; R2.4 is prerequisite-eligible but inactive, R2.5 through R2.7 remain inactive, and automatic successor activation remains disabled
 
 ## Objective
 

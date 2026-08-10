@@ -12,11 +12,23 @@ from .constants import CONTROL_DATABASE_PATH
 class HarnessControlMigrationRequest:
     """Explicit inputs for one control-state migration.
 
-    ``evidence_module_ownership_path`` optionally selects a repository-relative
-    Python-conformance ownership document.  ``evidence_profile_matrix_path``
-    optionally supplies its generic versioned profile policy.  When ownership
-    is omitted, migration preserves the compatibility behavior of reading the
-    generated module inventory.
+    During migration, authoritative Python test sources and canonical evidence
+    declarations are observed once into an immutable in-memory corpus.
+    Validation and ingestion reuse that corpus and its source identities.
+
+    The maintained SQLite database, deterministic SQL recovery export,
+    projection manifest, generated module inventory, and other generated files
+    are corpus-derived projections. The generated module inventory is not the
+    primary evidence authority.
+
+    ``evidence_module_paths`` selects the authoritative Python sources.
+    ``evidence_profile_matrix_path`` and ``evidence_migration_path`` select the
+    canonical profile policy and predecessor declarations. The retained
+    ``evidence_module_ownership_path`` compatibility field is rejected by
+    canonical corpus construction because generated or external ownership
+    inventories are projections rather than evidence authority. An empty
+    evidence corpus preserves bounded noncanonical compatibility for isolated
+    migration callers.
     """
 
     repository_root: Path
