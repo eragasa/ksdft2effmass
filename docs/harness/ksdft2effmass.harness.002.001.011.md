@@ -135,12 +135,20 @@ resource/wire integration, graph lifecycle policy, and six-record compatibility.
 The original failed result remains unchanged, no material contract finding
 remains unresolved, and no repeated review was performed.
 
-The final contract-text clarification changes no mapping, `HarnessTask` field,
-interface count, or prior review disposition. It assigns graph findings to
-project-local `LocalValidationResult`, makes `template_bytes` the sole profile
-template representation, limits comparator claims to exact structural evidence,
-and reuses the accepted `ResourcePath` contract. Exact codes, parsing,
-algorithms, exhaustive cases, and hardening tests remain Stage-2 work.
+The final Stage-1 contract-text clarification changed no mapping, `HarnessTask`
+field, interface count, or prior review disposition. It assigned graph findings
+to project-local `LocalValidationResult`, made `template_bytes` the sole profile
+template representation, limited comparator claims to exact structural evidence,
+and reused the accepted `ResourcePath` contract. Exact codes, parsing, algorithms,
+exhaustive cases, and hardening tests remained Stage-2 work.
+
+A later one-file migration pilot exposed one deterministic representational defect
+in the retained core: a mandatory `intake_path` could not faithfully represent a
+legacy Task with no separate intake artifact. The corrected schema-version-2
+contract keeps the same 16 fields and represents that case as `intake_path: null`;
+a non-null value still satisfies the accepted `ResourcePath` contract. This
+correction changes no interface count and does not restore the deferred migration
+subsystem.
 
 The human accepted the existing version-1 projection validator's
 `TASK_RENDER_EXPECTED_DRIFT` and `TASK_RENDER_LIVE_DRIFT` as a separate legacy

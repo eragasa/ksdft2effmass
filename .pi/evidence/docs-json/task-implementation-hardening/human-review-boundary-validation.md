@@ -94,7 +94,7 @@ The retained representative review document is `python/tests/software_verificati
 - `.pi/evidence/docs-json/task-implementation-hardening/test-node-migration.json`
 - `.pi/evidence/docs-json/task-implementation-hardening/test-ownership.json`
 - `.pi/evidence/python-conformance/module-inventory.json`
-- `.pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json`
+- `harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json`
 - `docs/api/harness-task.rst`
 - `docs/harness/ksdft2effmass.harness.002.001.012.md`
 - `python/src/ksdft2effmass/harness/pi/local/__init__.py`

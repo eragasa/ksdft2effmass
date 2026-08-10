@@ -28,8 +28,8 @@
   "safe_scope": "Human review of the maintained review pages, frozen contract, final clarification, inventory, mappings, prior review and corrections, validation record, active Task, and this checkpoint. Deterministic validation and persistence of this pending decision boundary are permitted.",
   "authoritative_files": [
     "AGENTS.md",
-    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md",
     ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
@@ -53,8 +53,8 @@
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/validation.md",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
-    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-contract.json",
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md"
   ],

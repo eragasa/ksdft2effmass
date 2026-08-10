@@ -19,6 +19,8 @@ import pytest
 
 from ksdft2effmass.harness.pi.local import HarnessTaskSerializer
 
+from .task_model_examples import make_task
+
 pytestmark = pytest.mark.software_verification
 SUT = HarnessTaskSerializer
 
@@ -63,3 +65,26 @@ def test_method__execute__rejects_non_task_input() -> None:
     """
     with pytest.raises(TypeError, match="HarnessTask"):
         SUT().execute(object())  # type: ignore[arg-type]
+
+
+def test_method__execute__serializes_absent_intake_as_canonical_null() -> None:
+    """Evidence ID: ``SV-HT-037``.
+
+    Requirement: A Task without a separate intake artifact serializes
+    ``intake_path`` as canonical JSON null.
+
+    Method: Serialize a valid synthetic Task whose intake path is absent.
+
+    Oracle: The corrected version-2 wire contract requires the retained field in
+    constructor order with a null value.
+
+    Acceptance: Output contains the exact indented null member and one final LF.
+
+    Interpretation: Failure identifies serializer or corrected wire-contract drift.
+
+    Limitations: This does not establish repository artifact existence or migration
+    acceptance.
+    """
+    payload = SUT().execute(make_task(intake_path=None))
+    assert b'  "intake_path": null,\n' in payload
+    assert payload.endswith(b"\n") and not payload.endswith(b"\n\n")

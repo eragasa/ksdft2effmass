@@ -24,7 +24,7 @@
     ".pi/evidence/docs-json/task-model-contract/source-inventory.json",
     ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
     ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.intake.md",
-    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
     "docs/harness/ksdft2effmass.harness.002.001.012.md"
   ],
   "authorized_scope": [

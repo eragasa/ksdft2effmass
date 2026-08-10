@@ -28,9 +28,9 @@
   "safe_scope": "Human review of the proposed Stage-1 and Stage-2 Task JSON and intake records, maintained review pages 002.001.010 and 002.001.011, resolved Option-B checkpoint, renewed checkpoint, existing authority catalogs, and accepted architecture decisions. Deterministic validation and persistence of this renewed pending boundary are permitted.",
   "authoritative_files": [
     "AGENTS.md",
-    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-contract.json",
     ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md",
@@ -46,9 +46,9 @@
   "authorized_scope": "Activate only harness.simplification.docs-json.task-model-contract. Complete current-revision six-file mappings and proposed contract design, then return for explicit human acceptance. Perform no implementation, source-authority replacement, file packet, migration, selection-state work, or Stage-2 activation.",
   "record_paths": [
     ".pi/checkpoints/harness.simplification.docs-json.task-model-contract.activation-review.json",
-    ".pi/tasks/harness.simplification.docs-json.task-model-contract.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-contract.json",
     ".pi/tasks/harness.simplification.docs-json.task-model-contract.intake.md",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
     "docs/harness/ksdft2effmass.harness.002.001.010.md",
     "docs/harness/ksdft2effmass.harness.002.001.011.md",
     ".pi/chains/harness-simplification.chain.json"

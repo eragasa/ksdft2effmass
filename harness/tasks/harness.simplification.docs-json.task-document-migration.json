@@ -17,8 +17,8 @@
     ".pi/evidence/docs-json/task-model-contract/source-mappings.json",
     ".pi/evidence/task-control/task-document-human-mediation-decision.md",
     ".pi/tasks/harness.simplification.docs-json.task-document-migration.intake.md",
-    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
-    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
+    "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
     "docs/harness/ksdft2effmass.harness.002.001.013.md"
   ],
   "authorized_scope": [

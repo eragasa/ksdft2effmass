@@ -19,6 +19,8 @@ import pytest
 
 from ksdft2effmass.harness.pi.local import HarnessTaskGraphValidator
 
+from .task_model_examples import make_task
+
 pytestmark = pytest.mark.software_verification
 SUT = HarnessTaskGraphValidator
 
@@ -65,3 +67,26 @@ def test_method__execute__rejects_empty_graph() -> None:
         SUT().execute(())
     with pytest.raises(TypeError):
         SUT().execute([])  # type: ignore[arg-type]
+
+
+def test_method__execute__permits_multiple_absent_intake_paths() -> None:
+    """Evidence ID: ``SV-HT-039``.
+
+    Requirement: Absence of separate intake is not a duplicate graph resource path.
+
+    Method: Validate two Tasks with null intake and distinct identities and
+    documentation paths.
+
+    Oracle: ``None`` represents no resource and therefore cannot collide by path.
+
+    Acceptance: Graph validation returns exact PASS with no issues.
+
+    Interpretation: Failure identifies optional-intake graph handling drift.
+
+    Limitations: The synthetic graph establishes no lifecycle or repository claims.
+    """
+    first = make_task(task_id="a", intake_path=None, documentation_path="docs/a.md")
+    second = make_task(task_id="b", intake_path=None, documentation_path="docs/b.md")
+    result = SUT().execute((first, second))
+    assert result.status == "PASS"
+    assert result.issues == ()

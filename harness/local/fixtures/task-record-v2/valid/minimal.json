@@ -21,6 +21,6 @@
   "exclusions": [
     "No activation or migration is authorized."
   ],
-  "intake_path": "records/example.intake.md",
+  "intake_path": null,
   "documentation_path": "docs/example.md"
 }

@@ -49,8 +49,8 @@ def test_constructor__public_stereotype__has_exact_runtime_identity() -> None:
 def test_constructor__intrinsic_fields__reject_invalid_values() -> None:
     """Evidence ID: ``SV-HT-033``.
 
-    Requirement: Intrinsic fields reject booleans, non-tuples, and invalid local
-    identifiers.
+    Requirement: Intrinsic fields accept absent intake, while rejecting booleans,
+    non-tuples, invalid local identifiers, and invalid non-null intake paths.
 
     Method: Exercise independently invalid partitions against explicit synthetic input.
 
@@ -64,9 +64,12 @@ def test_constructor__intrinsic_fields__reject_invalid_values() -> None:
 
     Limitations: Software verification does not authorize migration or human acceptance.
     """
+    assert make_task(intake_path=None).intake_path is None
     with pytest.raises(TypeError):
         make_task(schema_version=True)
     with pytest.raises(TypeError):
         make_task(authorized_scope=["not a tuple"])
     with pytest.raises(ValueError):
         make_task(status="invalid/status")
+    with pytest.raises(ValueError):
+        make_task(intake_path="../invalid-intake.md")

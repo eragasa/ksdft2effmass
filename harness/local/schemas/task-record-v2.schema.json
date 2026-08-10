@@ -73,7 +73,12 @@
     "authorized_scope": {"$ref": "#/$defs/text_array"},
     "completion_criteria": {"$ref": "#/$defs/text_array"},
     "exclusions": {"$ref": "#/$defs/text_array"},
-    "intake_path": {"$ref": "#/$defs/path"},
+    "intake_path": {
+      "oneOf": [
+        {"$ref": "#/$defs/path"},
+        {"type": "null"}
+      ]
+    },
     "documentation_path": {"$ref": "#/$defs/path"}
   }
 }

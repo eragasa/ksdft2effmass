@@ -66,7 +66,7 @@ The source remains `40ada86450912593bb5554de6b6536011eadce13eaa103ecfe4754846d08
 - `.pi/evidence/docs-json/task-implementation-hardening/representative-example/source-to-rendered.diff`
 - `.pi/evidence/docs-json/task-implementation-hardening/representative-example/task.json`
 - `.pi/evidence/python-conformance/module-inventory.json`
-- `.pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json`
+- `harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json`
 - `docs/api/harness-task.rst`
 - `docs/harness/ksdft2effmass.harness.002.001.012.md`
 - `python/src/ksdft2effmass/harness/pi/evidence/identifiers.py`

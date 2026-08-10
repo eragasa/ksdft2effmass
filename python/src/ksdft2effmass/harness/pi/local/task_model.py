@@ -105,8 +105,11 @@ class HarnessTask:
         Nonempty sorted unique accepted resource paths.
     authorized_scope, completion_criteria, exclusions
         Nonempty ordered tuples of unique nonempty text.
-    intake_path, documentation_path
-        Accepted resource paths for non-executable intake and maintained prose.
+    intake_path
+        Optional accepted resource path for separate non-executable intake. ``None``
+        records that no separate intake artifact exists.
+    documentation_path
+        Accepted resource path for maintained prose.
 
     Raises
     ------
@@ -137,7 +140,7 @@ class HarnessTask:
     authorized_scope: tuple[str, ...]
     completion_criteria: tuple[str, ...]
     exclusions: tuple[str, ...]
-    intake_path: ResourcePath
+    intake_path: ResourcePath | None
     documentation_path: ResourcePath
 
     def __post_init__(self) -> None:
@@ -174,7 +177,8 @@ class HarnessTask:
             self.completion_criteria, "completion_criteria"
         )
         exclusions = _text_tuple(self.exclusions, "exclusions")
-        _require_path(self.intake_path, "intake_path")
+        if self.intake_path is not None:
+            _require_path(self.intake_path, "intake_path")
         _require_path(self.documentation_path, "documentation_path")
         object.__setattr__(self, "task_prerequisite_ids", task_prerequisites)
         object.__setattr__(self, "external_prerequisite_ids", external_prerequisites)
@@ -368,6 +372,8 @@ class HarnessTaskGraphValidator:
             seen: dict[str, str] = {}
             for task in tasks:
                 path = getattr(task, attribute)
+                if path is None:
+                    continue
                 if path in seen:
                     issues.append(
                         LocalIssue(code, path, f"{seen[path]},{task.task_id}")

@@ -76,3 +76,30 @@ def test_method__strict_wire__rejects_bom_utf8_and_key_closure() -> None:
         SUT().execute(payload.replace(b"{", b'{"unknown": 1,', 1))
     with pytest.raises(ValueError, match="missing field"):
         SUT().execute(payload.replace(b'  "title": "Example Task",\n', b"", 1))
+
+
+def test_method__execute__accepts_null_and_rejects_invalid_non_null_intake() -> None:
+    """Evidence ID: ``SV-HT-038``.
+
+    Requirement: Deserialization accepts null intake and applies the existing
+    ResourcePath contract to every non-null intake value.
+
+    Method: Deserialize canonical null intake, then replace only that member with a
+    parent-traversal path.
+
+    Oracle: The corrected version-2 contract distinguishes absent intake from an
+    invalid represented path.
+
+    Acceptance: Null returns ``None`` and the invalid non-null value raises
+    ``ValueError``.
+
+    Interpretation: Failure identifies deserializer or intrinsic path-validation
+    drift.
+
+    Limitations: Filesystem existence and Task authority are outside deserialization.
+    """
+    payload = HarnessTaskSerializer().execute(make_task(intake_path=None))
+    assert SUT().execute(payload).intake_path is None
+    invalid = payload.replace(b'"intake_path": null', b'"intake_path": "../bad"')
+    with pytest.raises(ValueError, match="intake_path"):
+        SUT().execute(invalid)

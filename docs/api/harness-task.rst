@@ -41,9 +41,11 @@ Canonical Task JSON
 
 Canonical JSON has the 16 fields in constructor order, UTF-8 without a BOM,
 two-space indentation, literal Unicode, arrays for tuples, ``null`` for optional
-absence, and exactly one final LF. Deserialization accepts noncanonical whitespace
-and key order but rejects duplicate, missing, and unknown keys, unsupported
-versions, invalid UTF-8, BOMs, and invalid intrinsic values.
+absence, and exactly one final LF. ``intake_path`` is ``null`` when no separate
+non-executable intake artifact exists; a non-null intake path satisfies the same
+``ResourcePath`` contract as other represented paths. Deserialization accepts
+noncanonical whitespace and key order but rejects duplicate, missing, and unknown
+keys, unsupported versions, invalid UTF-8, BOMs, and invalid intrinsic values.
 
 ``HarnessTaskGraphValidator`` returns ``LocalValidationResult`` with findings in
 lexical ``(code, path-or-empty, detail)`` order. It defines duplicate-ID,

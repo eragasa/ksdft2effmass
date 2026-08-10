@@ -28,8 +28,8 @@
   "safe_scope": "Human review of the renewed implementation-acceptance packet, corrected 21-interface public implementation, representative exact human-review document, maintained evidence and documentation, clean committed-tree validation, unchanged six source identities, active durable Task state, chain state, and this checkpoint. Deterministic validation and persistence of this pending boundary are permitted.",
   "authoritative_files": [
     "AGENTS.md",
-    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
     ".pi/evidence/docs-json/task-model-contract/harness-task-contract.md",
     ".pi/evidence/docs-json/task-model-contract/final-contract-clarification.md",
     ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
@@ -49,10 +49,10 @@
     ".pi/checkpoints/harness.simplification.docs-json.task-implementation-hardening.human-review-boundary-acceptance.json",
     ".pi/evidence/docs-json/task-implementation-hardening/human-review-boundary-validation.md",
     ".pi/evidence/docs-json/task-implementation-hardening/implementation-acceptance-packet.md",
-    ".pi/tasks/harness.simplification.docs-json.task-document-migration.json",
-    ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
+    "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
+    "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
     ".pi/tasks/harness.simplification.docs-json.task-model-simplification.intake.md",
-    ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
+    "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
     "docs/harness/ksdft2effmass.harness.002.001.012.md"
   ],
   "resumption_status": "option_C_resolved; stage_2a_deferred_and_superseded; bounded_task_model_simplification_completed; stage_2b_deferred_inactive"

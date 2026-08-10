@@ -167,7 +167,7 @@
     },
     {
       "id": "harness.simplification.agents.delegation-validation",
-      "record": ".pi/tasks/harness.simplification.agents.delegation-validation.json",
+      "record": "harness/tasks/harness.simplification.agents.delegation-validation.json",
       "prerequisites": [
         "harness-simplification.agents.historical-retirement:completed"
       ]
@@ -219,23 +219,19 @@
     },
     {
       "id": "harness.simplification.docs-json.documentation-correction",
-      "record": ".pi/tasks/harness.simplification.docs-json.documentation-correction.md",
-      "prerequisites": [
-        "harness.simplification.docs-json.authority-catalog:completed"
-      ],
-      "status": "completed"
+      "record": "harness/tasks/harness.simplification.docs-json.documentation-correction.json"
     },
     {
       "id": "harness.simplification.docs-json.schema-projection",
-      "record": ".pi/tasks/harness.simplification.docs-json.schema-projection.json"
+      "record": "harness/tasks/harness.simplification.docs-json.schema-projection.json"
     },
     {
       "id": "harness.simplification.docs-json.task-model-contract",
-      "record": ".pi/tasks/harness.simplification.docs-json.task-model-contract.json"
+      "record": "harness/tasks/harness.simplification.docs-json.task-model-contract.json"
     },
     {
       "id": "harness.simplification.docs-json.task-implementation-hardening",
-      "record": ".pi/tasks/harness.simplification.docs-json.task-implementation-hardening.json"
+      "record": "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json"
     },
     {
       "id": "harness-simplification.docs-json.migration-review-interface",
@@ -245,26 +241,26 @@
     },
     {
       "id": "harness.simplification.docs-json.task-model-simplification",
-      "record": ".pi/tasks/harness.simplification.docs-json.task-model-simplification.json",
+      "record": "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
       "prerequisites": [
         "harness.simplification.docs-json.task-model-contract:completed"
       ]
     },
     {
       "id": "harness.simplification.docs-json.task-document-migration",
-      "record": ".pi/tasks/harness.simplification.docs-json.task-document-migration.json"
+      "record": "harness/tasks/harness.simplification.docs-json.task-document-migration.json"
     },
     {
       "id": "harness.simplification.resources.h3-validator-retirement",
-      "record": ".pi/tasks/harness.simplification.resources.h3-validator-retirement.json"
+      "record": "harness/tasks/harness.simplification.resources.h3-validator-retirement.json"
     },
     {
       "id": "harness.simplification.control.task-catalog-reconciliation",
-      "record": ".pi/tasks/harness.simplification.control.task-catalog-reconciliation.json"
+      "record": "harness/tasks/harness.simplification.control.task-catalog-reconciliation.json"
     },
     {
       "id": "harness.simplification.control.successor-selection",
-      "record": ".pi/tasks/harness.simplification.control.successor-selection.json"
+      "record": "harness/tasks/harness.simplification.control.successor-selection.json"
     },
     {
       "id": "harness.simplification.evidence.naming",
