@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: inactive R2.3 evidence-authority and canonical-input work package
+`blocked`: activated R2.3 is blocked at HC01 pending the human-owned routine evidence-profile documentation and retained-metadata contract; no successor activated
 
 ## Objective
 

@@ -1,0 +1,49 @@
+{
+  "checkpoint_id": "harness.simplify-2.python-conformance-decomposition.HC01",
+  "task_id": "harness.simplify-2.python-conformance-decomposition",
+  "episode_id": "harness.simplify-2.python-conformance-decomposition",
+  "status": "blocked",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-10T16:36:02Z",
+  "question": "Which exact documentation and retained-metadata contract should the generic Python test-evidence profile matrix assign to the `routine` software-verification profile?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Use a concise identified routine profile.",
+      "consequence": "Require module ownership, evidence class/profile, a stable Evidence ID, Requirement, Acceptance, and Limitations. Method, Oracle, Interpretation, and separate provenance prose are optional rather than required; explicit predecessor metadata remains required when a predecessor exists. Claim-bearing profiles retain the full seven labeled function paragraphs and the task-defined mathematical, physical-reference, validation-protocol, or uncertainty-protocol requirements. Existing evidence IDs remain unchanged."
+    },
+    {
+      "id": "B",
+      "summary": "Keep the full current seven-paragraph function documentation for routine tests.",
+      "consequence": "Routine and claim-bearing software verification both require Evidence ID, Requirement, Method, Oracle, Acceptance, Interpretation, and Limitations; the profiles differ only in additional retained provenance and protocol metadata. This maximizes current structural compatibility but gives routine tests most claim-bearing prose."
+    },
+    {
+      "id": "C",
+      "summary": "Use a minimal routine profile without stable per-test evidence records.",
+      "consequence": "Require only module ownership/profile metadata and ordinary executable test names/assertions for routine tests. Per-test evidence IDs and labeled evidence prose become optional. Existing accepted IDs would still be preserved where already present, but new routine tests could not supply the same canonical evidence-row identity without an additional representation rule."
+    }
+  ],
+  "recommendation": "Option A. It preserves stable evidence identities, deterministic acceptance and limitation statements, predecessor traceability, and reconstructible SQLite evidence rows while removing the Method, Oracle, Interpretation, and provenance prose that ordinary exact software-contract tests do not always need. It best matches the authorized statement that `routine` changes documentation and retained metadata without weakening executable behavior.",
+  "blocked_scope": "R2.3 profile-resource authoring, Python conformance behavior changes, ownership migration of the 13 private implementation-class modules, evidence persistence/schema changes, and full R2.3 implementation and completion.",
+  "safe_scope": "Read-only inspection, checkpoint validation, durable checkpoint synchronization, and reporting this public evidence-contract decision.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "harness/tasks/harness.simplify-2.python-conformance-decomposition.json",
+    "harness/tasks/harness.simplify-2.json",
+    "harness/intake/harness.simplify-2.md",
+    ".pi/skills/develop-python-test-evidence/SKILL.md",
+    ".pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/harness.simplify-2.python-conformance-decomposition.HC01-routine-profile-contract.json",
+    ".pi/chains/harness-simplification.chain.json",
+    "harness/tasks/harness.simplify-2.python-conformance-decomposition.json",
+    "harness/tasks/harness.simplify-2.json",
+    "harness/intake/harness.simplify-2.md"
+  ],
+  "resumption_status": "R2.3 blocked pending human selection of the routine evidence-profile contract; no successor activated"
+}

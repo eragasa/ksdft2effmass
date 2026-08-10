@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: active coordinating parent; R2.1 control decomposition and R2.2 adapter audit and decomposition are completed, the remaining five ordered work packages are inactive, and automatic successor activation remains disabled
+`deferred_to_blocked_child`: coordinating parent deferred to R2.3, which is blocked at HC01 pending the routine evidence-profile contract; R2.1 and R2.2 are completed, the remaining four ordered work packages are inactive, and automatic successor activation remains disabled
 
 ## Objective
 
