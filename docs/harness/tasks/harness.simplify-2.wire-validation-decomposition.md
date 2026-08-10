@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: inactive R2.5 wire-codec decomposition with unchanged persistence ownership
+`active`: activated by current human instruction for bounded R2.5 wire-codec decomposition with unchanged persistence ownership; no successor activated
 
 ## Objective
 

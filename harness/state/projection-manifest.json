@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "e4676ed2360697f3fb1b139c00733f3cf71fa0a48c89f2ed64cdd0d7052f5262",
+  "semantic_database_digest": "5898e16e9341c79171e113bb7e5b15f589a0264f4f7308ce854ee4c63f21eba7",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "cdc791a2c049148cc06400f0adebdca1c9f1d90b2ea70e162bbb3ebeef433382",
-    "byte_count": 3637175
+    "sha256": "ed7a163c2f6c39db4de4dcc723bf868168ee889f000f6dced48b5757a5ebf74f",
+    "byte_count": 3637274
   },
   "projections": [
     {
@@ -613,8 +613,8 @@
     {
       "path": "docs/harness/tasks/harness.simplify-2.md",
       "projection_kind": "task-markdown",
-      "sha256": "f4ac6f839ec21da4b55d1ebd9fd62d4f8f3d0aac8f74b7e4f4d2cdc09e754d89",
-      "byte_count": 14972,
+      "sha256": "a8e5a7b5ff18d9cc88bd518575b62e8cf3ee2df50800ba47ea8395c6281020c2",
+      "byte_count": 14991,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -641,8 +641,8 @@
     {
       "path": "docs/harness/tasks/harness.simplify-2.wire-validation-decomposition.md",
       "projection_kind": "task-markdown",
-      "sha256": "94977c59835033d124b3f2aba35615b252b938f66cfb31e89465b77c497382ba",
-      "byte_count": 3053,
+      "sha256": "be536aa8457091e534f9922ee676eea7b2ecd791622a50ccf28d78d3eedcf8b6",
+      "byte_count": 3117,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -732,8 +732,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "c878e99e6fbcf8c782b9b8be4a3ea2e1a6f701e8f63bff88eab8799ed1470b58",
-      "byte_count": 15843,
+      "sha256": "dc8d1564b5c9a4fd063f206c05a808d0a7b15914fe2f6f1db156678e23ef4a60",
+      "byte_count": 15859,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1376,8 +1376,8 @@
     {
       "path": "harness/tasks/harness.simplify-2.json",
       "projection_kind": "task-json",
-      "sha256": "22cc0aa432645f18f241b2390d90e6969658bbb5abf3ef59c5f426aa444777d5",
-      "byte_count": 15264,
+      "sha256": "5a9b75d11cecad9a5c9625939967168f8be0f3f99b1caf8ab409947f4a170372",
+      "byte_count": 15283,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1404,8 +1404,8 @@
     {
       "path": "harness/tasks/harness.simplify-2.wire-validation-decomposition.json",
       "projection_kind": "task-json",
-      "sha256": "8de043c5318bbea20eee0ec866b03f4b3e1166eb8a11e4f1ae2e92b0acb42603",
-      "byte_count": 3232,
+      "sha256": "09d21ea82bdde0716a8bbd4d516966ed6b9042064fb520c70a73f5ca573f9f0c",
+      "byte_count": 3296,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
