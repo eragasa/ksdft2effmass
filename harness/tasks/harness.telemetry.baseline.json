@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "task_id": "harness.telemetry.baseline",
+  "title": "Measure the pre-simplification baseline",
+  "status": "inactive",
+  "status_detail": "proposed inactive; separate explicit human activation required and no automatic successor activation",
+  "parent_task_id": "harness.telemetry",
+  "task_prerequisite_ids": [
+    "harness.telemetry.sqlite-projection"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Measure representative pre-simplification runs only after the parser, normalized event contract, and SQLite projection are available.",
+  "authority_reference_paths": [
+    "docs/harness/ksdft2effmass.harness.004.000.000.md",
+    "docs/research/agentic-development-case-study/agenticdevelopment_casestudy.00.md"
+  ],
+  "authorized_scope": [
+    "Classify historical observations by completeness as contemporaneous, reconstructed, partial, or unavailable where applicable.",
+    "Do not estimate unavailable runtime facts or equate reconstructed observations with contemporaneous telemetry."
+  ],
+  "completion_criteria": [
+    "Representative baseline summaries preserve completeness classifications and report unavailable facts without estimates."
+  ],
+  "exclusions": [
+    "The Task remains inactive, requires separate explicit human activation, performs no work merely by existing, and activates no successor automatically.",
+    "This layout does not authorize telemetry implementation, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

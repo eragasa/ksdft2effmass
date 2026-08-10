@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "harness.telemetry.effectiveness-evaluation",
+  "title": "Evaluate harness effectiveness",
+  "status": "inactive",
+  "status_detail": "proposed inactive; separate explicit human activation required and no automatic successor activation",
+  "parent_task_id": "harness.telemetry",
+  "task_prerequisite_ids": [
+    "harness.telemetry.baseline",
+    "harness.telemetry.live-timing-extension"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Join operational telemetry with Task contracts, Git changes, validation observations, review findings, and human decisions while distinguishing observations from evaluations.",
+  "authority_reference_paths": [
+    "docs/harness/ksdft2effmass.harness.004.000.000.md",
+    "docs/research/agentic-development-case-study/agenticdevelopment_casestudy.00.md"
+  ],
+  "authorized_scope": [
+    "Treat repeated tool calls, duplicate dispatch, and control-file changes as observations; judge necessity, harm, or disproportionate ceremony only as Task-class-dependent evaluations supported by repository evidence.",
+    "Keep software verification, scientific validation, human acceptance, and general superiority claims outside conclusions established by operational efficiency alone."
+  ],
+  "completion_criteria": [
+    "Evaluation outputs identify their repository evidence, distinguish observation from judgment, and state missing or noncomparable evidence explicitly."
+  ],
+  "exclusions": [
+    "The Task remains inactive, requires separate explicit human activation, performs no work merely by existing, and activates no successor automatically.",
+    "This layout does not authorize telemetry implementation, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

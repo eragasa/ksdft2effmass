@@ -218,6 +218,33 @@
       "task_id": "harness.simplification.resources.h3-validator-retirement"
     },
     {
+      "task_id": "harness.telemetry"
+    },
+    {
+      "task_id": "harness.telemetry.baseline"
+    },
+    {
+      "task_id": "harness.telemetry.controlled-benchmarks"
+    },
+    {
+      "task_id": "harness.telemetry.effectiveness-evaluation"
+    },
+    {
+      "task_id": "harness.telemetry.live-timing-extension"
+    },
+    {
+      "task_id": "harness.telemetry.normalized-event-contract"
+    },
+    {
+      "task_id": "harness.telemetry.retrospective-parser"
+    },
+    {
+      "task_id": "harness.telemetry.session-jsonl-inventory"
+    },
+    {
+      "task_id": "harness.telemetry.sqlite-projection"
+    },
+    {
       "task_id": "human-review-interface.audit-evidence-identifiers-correction"
     },
     {
@@ -533,6 +560,46 @@
       "kind": "parent"
     },
     {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.baseline",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.controlled-benchmarks",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.effectiveness-evaluation",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.live-timing-extension",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.normalized-event-contract",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.retrospective-parser",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.session-jsonl-inventory",
+      "kind": "parent"
+    },
+    {
+      "source": "harness.telemetry",
+      "target": "harness.telemetry.sqlite-projection",
+      "kind": "parent"
+    },
+    {
       "source": "H0",
       "target": "H1",
       "kind": "prerequisite"
@@ -840,6 +907,46 @@
     {
       "source": "harness.simplification.resources.h3-validator-retirement",
       "target": "harness.simplification.control.successor-selection",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.baseline",
+      "target": "harness.telemetry.effectiveness-evaluation",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.effectiveness-evaluation",
+      "target": "harness.telemetry.controlled-benchmarks",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.live-timing-extension",
+      "target": "harness.telemetry.effectiveness-evaluation",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.normalized-event-contract",
+      "target": "harness.telemetry.sqlite-projection",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.retrospective-parser",
+      "target": "harness.telemetry.normalized-event-contract",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.session-jsonl-inventory",
+      "target": "harness.telemetry.retrospective-parser",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.sqlite-projection",
+      "target": "harness.telemetry.baseline",
+      "kind": "prerequisite"
+    },
+    {
+      "source": "harness.telemetry.sqlite-projection",
+      "target": "harness.telemetry.live-timing-extension",
       "kind": "prerequisite"
     },
     {

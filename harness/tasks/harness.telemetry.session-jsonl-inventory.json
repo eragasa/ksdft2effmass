@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "task_id": "harness.telemetry.session-jsonl-inventory",
+  "title": "Inventory selected Pi session JSONL",
+  "status": "inactive",
+  "status_detail": "proposed inactive; separate explicit human activation required and no automatic successor activation",
+  "parent_task_id": "harness.telemetry",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Inspect only explicitly selected Pi session JSONL artifacts to establish the persisted metadata vocabulary and privacy boundary needed by later telemetry work.",
+  "authority_reference_paths": [
+    "docs/harness/ksdft2effmass.harness.004.000.000.md",
+    "docs/research/agentic-development-case-study/agenticdevelopment_casestudy.00.md"
+  ],
+  "authorized_scope": [
+    "Determine persisted event kinds; session, branch, turn, agent-run, and tool-call identities; timestamp and ordering behavior; parent-child relationships; token, cache, context, and cost observations; tool outcomes, retries, compactions, errors, stop reasons, and version-dependent variants.",
+    "Identify sensitive fields that must not be retained; perform no recursive session discovery and store no prompt, response, command, argument, result, header, credential, environment, or unpublished scientific content."
+  ],
+  "completion_criteria": [
+    "A bounded inventory identifies supported, variant, unknown, unavailable, and prohibited fields from explicitly selected artifacts without retaining sensitive content."
+  ],
+  "exclusions": [
+    "The Task remains inactive, requires separate explicit human activation, performs no work merely by existing, and activates no successor automatically.",
+    "This layout does not authorize telemetry implementation, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "task_id": "harness.telemetry.normalized-event-contract",
+  "title": "Freeze the normalized telemetry event contract",
+  "status": "inactive",
+  "status_detail": "proposed inactive; separate explicit human activation required and no automatic successor activation",
+  "parent_task_id": "harness.telemetry",
+  "task_prerequisite_ids": [
+    "harness.telemetry.retrospective-parser"
+  ],
+  "external_prerequisite_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Freeze the normalized event model only after the retrospective parser has been exercised against controlled representative Pi session variants.",
+  "authority_reference_paths": [
+    "docs/harness/ksdft2effmass.harness.004.000.000.md",
+    "docs/research/agentic-development-case-study/agenticdevelopment_casestudy.00.md"
+  ],
+  "authorized_scope": [
+    "Exercise ordinary turns, tool success and failure, retries, compaction, model or reasoning-level changes, branching, subagent dispatch, and incomplete or aborted sessions before freezing the contract.",
+    "Represent the intended nullable correlation hierarchy experiment, session, task, agent run, turn, and tool call; relationships absent from source artifacts remain nullable."
+  ],
+  "completion_criteria": [
+    "The normalized contract is explicit, metadata-only, versioned, deterministic, and justified by controlled parser examples covering every listed variant."
+  ],
+  "exclusions": [
+    "The Task remains inactive, requires separate explicit human activation, performs no work merely by existing, and activates no successor automatically.",
+    "This layout does not authorize telemetry implementation, public telemetry interfaces, Pi extensions, session parsing, arbitrary historical-session discovery, SQLite creation, live instrumentation, runtime hooks, benchmarks, dashboards, remote export, external data transmission, sensitive payload retention, scientific work, dependency changes, lockfile changes, or changes to Pi."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

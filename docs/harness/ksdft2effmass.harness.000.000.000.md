@@ -50,6 +50,7 @@ implement an interface or activate work. Historical pages preserve prior context
 | [harness.003.000.000](ksdft2effmass.harness.003.000.000.md) | — | Human review interface | Pilot packet ready; broader program inactive | Excluded |
 | [harness.003.001.000](ksdft2effmass.harness.003.001.000.md) | `human-review-interface.review-packet-pilot` | Initial human-review interface round | Pilot packet ready | Excluded |
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | — | Human Review Packet and Decision Workflow | `proposed_inactive` | Excluded |
+| [harness.004.000.000](ksdft2effmass.harness.004.000.000.md) | `harness.telemetry` | Harness telemetry | Proposed inactive | Excluded |
 | [harness.090.000.000](ksdft2effmass.harness.090.000.000.md) | `harness-history` | Historical documentation index | Historical | Excluded |
 
 ## Program boundaries
@@ -61,6 +62,8 @@ implement an interface or activate work. Historical pages preserve prior context
 - [harness.003](ksdft2effmass.harness.003.000.000.md) implements bounded
   human-review packet preparation while decision recording, persistence, and the
   broader workflow remain inactive proposals.
+- [harness.004](ksdft2effmass.harness.004.000.000.md) indexes the inactive
+  operational telemetry implementation and evaluation sequence.
 - [harness.090](ksdft2effmass.harness.090.000.000.md) indexes historical material.
 
 Maintained documentation explains architecture and contributor practice. Mutable
