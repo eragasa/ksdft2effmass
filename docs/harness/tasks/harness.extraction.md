@@ -1,11 +1,11 @@
 <!-- Generated from SQLite control state; do not edit. -->
-# H5 — Standalone extraction readiness
+# Harness extraction — Standalone extraction readiness
 
-[Task index](index.md) · [Previous](./H4.md) · [Next](./P0.md)
+[Task index](index.md) · [Previous](./harness-task-state-symlink-toctou-hardening.md) · [Next](./harness.simplification.agents.delegation-validation.md)
 
 ## Status
 
-`blocked`: optional; blocked by accepted H4 and separate explicit H5 activation; inactive
+`blocked`: optional; blocked by accepted H4 and separate explicit harness.extraction activation; inactive
 
 ## Objective
 
@@ -24,11 +24,11 @@ Mechanically demonstrate that the accepted generic extraction unit can become a 
 ## Authorized scope
 
 - Construct a disposable isolated source tree and verify build/install, public imports, any accepted CLI, schemas, skill/resource discovery, manifest/validator execution, generic tests without local state, wheel/sdist contents, dependency metadata, and absence of project-relative paths/domain imports. Then verify the project-local overlay against the extracted candidate.
-- H5 may propose distribution/import/CLI names, initial version, Python/dependency policy, package data, license/notices, and compatibility policy for human decision. It must not publish a package.
+- harness.extraction may propose distribution/import/CLI names, initial version, Python/dependency policy, package data, license/notices, and compatibility policy for human decision. It must not publish a package.
 
 ## Completion criteria
 
-- H5 concludes at human acceptance of standalone extraction readiness. It remains
+- harness.extraction concludes at human acceptance of standalone extraction readiness. It remains
 optional work after H4, does not publish a package, is not a P2 prerequisite,
 and activates neither P2 nor any other task. P2 has its own separate gate after
 accepted H4.
@@ -36,7 +36,7 @@ accepted H4.
 ## Exclusions
 
 - No PyPI or other publication, release/tag, P2 launch, external/scientific execution, scientific-validation claim, or UQ claim.
-- H5 concludes at human acceptance of standalone extraction readiness. It remains
+- harness.extraction concludes at human acceptance of standalone extraction readiness. It remains
 optional work after H4, does not publish a package, is not a P2 prerequisite,
 and activates neither P2 nor any other task. P2 has its own separate gate after
 accepted H4.

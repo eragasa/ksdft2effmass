@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
-  "task_id": "H5",
-  "title": "H5 — Standalone extraction readiness",
+  "task_id": "harness.extraction",
+  "title": "Harness extraction — Standalone extraction readiness",
   "status": "blocked",
-  "status_detail": "optional; blocked by accepted H4 and separate explicit H5 activation; inactive",
+  "status_detail": "optional; blocked by accepted H4 and separate explicit harness.extraction activation; inactive",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "H4"
@@ -20,14 +20,14 @@
   ],
   "authorized_scope": [
     "Construct a disposable isolated source tree and verify build/install, public imports, any accepted CLI, schemas, skill/resource discovery, manifest/validator execution, generic tests without local state, wheel/sdist contents, dependency metadata, and absence of project-relative paths/domain imports. Then verify the project-local overlay against the extracted candidate.",
-    "H5 may propose distribution/import/CLI names, initial version, Python/dependency policy, package data, license/notices, and compatibility policy for human decision. It must not publish a package."
+    "harness.extraction may propose distribution/import/CLI names, initial version, Python/dependency policy, package data, license/notices, and compatibility policy for human decision. It must not publish a package."
   ],
   "completion_criteria": [
-    "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+    "harness.extraction concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
   ],
   "exclusions": [
     "No PyPI or other publication, release/tag, P2 launch, external/scientific execution, scientific-validation claim, or UQ claim.",
-    "H5 concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+    "harness.extraction concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
   ],
   "intake_path": null,
   "archived_source": {

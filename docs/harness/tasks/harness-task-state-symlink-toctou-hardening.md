@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Harden task-state file inspection against symlink TOCTOU races
 
-[Task index](index.md) · [Previous](./harness-simplification.resources.manifest-refresh.md) · [Next](./harness.simplification.agents.delegation-validation.md)
+[Task index](index.md) · [Previous](./harness-simplification.resources.manifest-refresh.md) · [Next](./harness.extraction.md)
 
 ## Status
 

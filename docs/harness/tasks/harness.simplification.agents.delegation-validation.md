@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Validate delegation to the durable agent set
 
-[Task index](index.md) · [Previous](./harness-task-state-symlink-toctou-hardening.md) · [Next](./harness.simplification.api.action-object-grammar.md)
+[Task index](index.md) · [Previous](./harness.extraction.md) · [Next](./harness.simplification.api.action-object-grammar.md)
 
 ## Status
 

@@ -2,7 +2,7 @@
   "name": "pi-harness-incubation",
   "package": "ksdft2effmass",
   "project_name": "PI Harness Incubation and Extraction Readiness",
-  "description": "Separate harness-incubation project. H0, H1, H3, H2, and H4 are closed as human-accepted PASS. H4 local routing is authoritative after corrected R5/E5 validation and rollback proof. H5 remains optional and inactive. No successor or protected work is active.",
+  "description": "Separate harness-incubation project. H0, H1, H3, H2, and H4 are closed as human-accepted PASS. H4 local routing is authoritative after corrected R5/E5 validation and rollback proof. harness.extraction remains optional and inactive. No successor or protected work is active.",
   "status": "H4_closed_human_accepted_PASS_local_authoritative",
   "active_task": null,
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
@@ -58,8 +58,8 @@
       "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
     },
     {
-      "id": "H5",
-      "record": "harness/tasks/H5.json"
+      "id": "harness.extraction",
+      "record": "harness/tasks/harness.extraction.json"
     }
   ],
   "successor_activation_policy": {

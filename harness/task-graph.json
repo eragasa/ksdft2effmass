@@ -48,9 +48,6 @@
       "task_id": "H4"
     },
     {
-      "task_id": "H5"
-    },
-    {
       "task_id": "P0"
     },
     {
@@ -193,6 +190,9 @@
     },
     {
       "task_id": "harness-task-state-symlink-toctou-hardening"
+    },
+    {
+      "task_id": "harness.extraction"
     },
     {
       "task_id": "harness.simplification.agents.delegation-validation"
@@ -408,11 +408,6 @@
     {
       "source": "H4",
       "target": "H2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "H5",
-      "target": "H4",
       "kind": "depends_on"
     },
     {
@@ -696,6 +691,11 @@
       "kind": "depends_on"
     },
     {
+      "source": "harness.extraction",
+      "target": "H4",
+      "kind": "depends_on"
+    },
+    {
       "source": "harness.simplification.api.action-object-grammar",
       "target": "harness-simplification.evidence.audit-action-conformance",
       "kind": "depends_on"
@@ -847,7 +847,7 @@
     },
     {
       "source": "H4",
-      "target": "H5",
+      "target": "harness.extraction",
       "kind": "ordered_before"
     },
     {

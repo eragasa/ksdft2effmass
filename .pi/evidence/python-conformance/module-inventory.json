@@ -175,7 +175,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c92772e932763f44e969f479ed1702fccd44361ca853f1acf835e4f9ed260a1f",
+      "content_sha256": "983741bbb2cb6941f274102af8c967fc39b2c9e82d79cdef5042185f5907b963",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__TaskRecordAdapter.py",

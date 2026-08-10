@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-CONTROL_SCHEMA_VERSION = 1
+CONTROL_SCHEMA_VERSION = 2
 CONTROL_DATABASE_PATH = Path("harness/state/harness-control.sqlite3")
 CONTROL_SQL_PATH = Path("harness/state/harness-control.sql")
 PROJECTION_MANIFEST_PATH = Path("harness/state/projection-manifest.json")
@@ -52,6 +52,11 @@ CREATE TABLE task_definition (
   intake_path TEXT,
   archive_path TEXT,
   archive_sha256 TEXT CHECK(archive_sha256 IS NULL OR length(archive_sha256)=64)
+) WITHOUT ROWID;
+CREATE TABLE task_alias (
+  alias_id TEXT PRIMARY KEY,
+  task_id TEXT NOT NULL REFERENCES task_definition(task_id),
+  alias_kind TEXT NOT NULL CHECK(alias_kind='historical')
 ) WITHOUT ROWID;
 CREATE TABLE task_relationship (
   source_task_id TEXT NOT NULL REFERENCES task_definition(task_id),
@@ -181,6 +186,7 @@ CREATE TABLE projection_record (
 _TABLE_ORDER = (
     "harness_metadata",
     "task_definition",
+    "task_alias",
     "task_relationship",
     "task_external_prerequisite",
     "task_text",
@@ -739,6 +745,11 @@ class HarnessControlMigrator:
             destination = root / path
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_bytes(payload)
+        for obsolete in (
+            root / "harness/tasks/H5.json",
+            root / "docs/harness/tasks/H5.md",
+        ):
+            obsolete.unlink(missing_ok=True)
         manifest = {
             "schema_version": 1,
             "control_schema_version": CONTROL_SCHEMA_VERSION,
@@ -769,6 +780,7 @@ class HarnessControlMigrator:
                 )
                 for table in (
                     "task_definition",
+                    "task_alias",
                     "task_relationship",
                     "evidence_claim",
                     "evidence_alias",
@@ -799,6 +811,32 @@ class HarnessControlMigrator:
         for path in task_paths:
             task = json.loads(path.read_text())
             tasks[task["task_id"]] = task
+        extraction_id = "harness.extraction"
+        legacy_extraction = tasks.pop("H5", None)
+        if legacy_extraction is not None:
+            legacy_extraction["task_id"] = extraction_id
+            legacy_extraction["title"] = (
+                "Harness extraction — Standalone extraction readiness"
+            )
+            legacy_extraction["status_detail"] = (
+                "optional; blocked by accepted H4 and separate explicit "
+                "harness.extraction activation; inactive"
+            )
+            for field in ("authorized_scope", "completion_criteria", "exclusions"):
+                legacy_extraction[field] = [
+                    value.replace("H5", extraction_id)
+                    for value in legacy_extraction[field]
+                ]
+            tasks[extraction_id] = legacy_extraction
+        for task in tasks.values():
+            if task.get("parent_task_id") == "H5":
+                task["parent_task_id"] = extraction_id
+            for field in ("task_prerequisite_ids", "superseded_by_task_ids"):
+                if field in task:
+                    task[field] = [
+                        extraction_id if value == "H5" else value
+                        for value in task[field]
+                    ]
         migration_id = "harness.simplification.round-2.sqlite-hybrid-cutover"
         tasks[migration_id] = {
             "schema_version": 3,
@@ -886,6 +924,11 @@ class HarnessControlMigrator:
                         "INSERT INTO task_text VALUES (?,?,?,?)",
                         (task_id, kind, index, value),
                     )
+        if extraction_id in ids:
+            connection.execute(
+                "INSERT INTO task_alias VALUES (?,?,?)",
+                ("H5", extraction_id, "historical"),
+            )
         for task_id, task in sorted(tasks.items()):
             if task.get("parent_task_id") in ids:
                 connection.execute(
@@ -911,14 +954,16 @@ class HarnessControlMigrator:
                     )
         graph = json.loads((root / "harness/task-graph.json").read_text())
         for edge in graph["edges"]:
+            source = extraction_id if edge["source"] == "H5" else edge["source"]
+            target = extraction_id if edge["target"] == "H5" else edge["target"]
             if (
                 edge["kind"] in {"order", "ordered_before"}
-                and edge["source"] in ids
-                and edge["target"] in ids
+                and source in ids
+                and target in ids
             ):
                 connection.execute(
                     "INSERT OR IGNORE INTO task_relationship VALUES (?,?,?)",
-                    (edge["source"], edge["target"], "ordered_before"),
+                    (source, target, "ordered_before"),
                 )
 
     @staticmethod

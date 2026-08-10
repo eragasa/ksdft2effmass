@@ -63,7 +63,8 @@ def test_method__execute__sorts_selected_tasks_and_fails_closed_when_missing() -
 
     Method: Adapt the current reversed H4 selection, then omit H3 and adapt again.
 
-    Oracle: The supplied chain selects H0 through H5 and requires every selected record.
+    Oracle: The supplied chain selects H0 through H4 plus ``harness.extraction`` and
+    requires every selected record.
 
     Acceptance: The complete result passes in lexical Task order; the incomplete result
     fails with
@@ -83,7 +84,7 @@ def test_method__execute__sorts_selected_tasks_and_fails_closed_when_missing() -
         "H2",
         "H3",
         "H4",
-        "H5",
+        "harness.extraction",
     ]
     selected_chain = json.loads(chain_bytes)
     h3_path = next(
