@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "POLICY-CONSTITUTION-1",
   "title": "POLICY-CONSTITUTION-1 — Stable repository constitution revision",
-  "status": "legacy_recorded",
+  "status": "human_accepted",
   "status_detail": "closed as human-accepted `PASS` through resolved `POLICY-CONSTITUTION-1-HC01`; no successor or execution activated",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

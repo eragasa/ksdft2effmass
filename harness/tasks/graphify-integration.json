@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "graphify-integration",
   "title": "Graphify Codex/pi Integration Task",
-  "status": "legacy_recorded",
+  "status": "human_accepted",
   "status_detail": "corrected and accepted by human final decision on 2026-07-30.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

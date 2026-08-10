@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "operator-record-refactor",
   "title": "Operator-Record DataObject/ActionObject Refactor Task",
-  "status": "legacy_recorded",
+  "status": "human_accepted",
   "status_detail": "Closed and accepted. Human final acceptance was approved on 2026-07-30 after parent verification. Later operator-record corrections are recorded prospectively in `.pi/tasks/operator-record-validation-correction.md`, accepted on 2026-08-03; they do not erase this task's original chronology or accepted historical evidence. Scientific validation has not been performed and remains outside both tasks.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

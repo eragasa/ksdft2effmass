@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "cpn-skill-capability-audit",
   "title": "CPN skill-capability audit and bounded hardening",
-  "status": "legacy_recorded",
+  "status": "human_accepted",
   "status_detail": "Closed and human-accepted on 2026-08-03 at 07:45:55 UTC. Six focused correction re-review lanes and final validator/integration spot-checks passed after deterministic corrections. On 2026-08-07, the human directive “resolve the skill collision” superseded only the accepted automatic Graphify-consumer overlap: Graphify now requires an explicit human request and `recommend-next-task` no longer invokes it. The audit remains closed; P0 remains unlaunched. No production implementation, scientific test/fixture change, dependency change, external scientific execution, or successor-task launch is authorized by either boundary.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "E",
   "title": "Task E — Quantum ESPRESSO semantic mapping",
-  "status": "legacy_recorded",
+  "status": "superseded",
   "status_detail": "prospectively superseded for workflow sequencing by P6; never launched",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "backend-neutral-cpn-workflow-architecture",
   "title": "Backend-neutral Colored Petri Net workflow architecture correction",
-  "status": "legacy_recorded",
+  "status": "human_accepted",
   "status_detail": "Architecture correction closed and human-accepted through `CPN-HC01` on 2026-08-03. The human PI accepted bounded preflight P0 as `CONDITIONAL_PASS` through `P0-HC01`, then accepted and closed P0A as `PASS`. P1 was separately activated after P0A closeout validation and is now blocked at unresolved `P1-HC01`; P2--P11 remain blocked and unauthorized. Production/scientific execution, pseudopotential selection, and QE, ABINIT, or Wannier90 calculations remain unauthorized.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

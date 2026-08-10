@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "deferred-harness-current-phase-history",
   "title": "Deferred harness improvement — explicit current phase and reconstructable history",
-  "status": "legacy_recorded",
+  "status": "deferred",
   "status_detail": "deferred; inactive",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

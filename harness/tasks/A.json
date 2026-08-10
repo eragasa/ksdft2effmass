@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "A",
   "title": "Task A — Control-plane and language-neutral specification contract",
-  "status": "legacy_recorded",
+  "status": "superseded",
   "status_detail": "prospectively superseded for workflow sequencing by P1/P4; never launched",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

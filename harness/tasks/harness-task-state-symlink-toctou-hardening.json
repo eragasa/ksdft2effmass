@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "harness-task-state-symlink-toctou-hardening",
   "title": "Harden task-state file inspection against symlink TOCTOU races",
-  "status": "legacy_recorded",
+  "status": "inactive",
   "status_detail": "proposed backlog candidate; inactive and not authorized for implementation",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

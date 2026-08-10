@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "operator-record-validation-correction",
   "title": "Operator-record validation correction",
-  "status": "legacy_recorded",
+  "status": "human_accepted",
   "status_detail": "closed — accepted by human final decision on 2026-08-03",
   "parent_task_id": null,
   "task_prerequisite_ids": [],

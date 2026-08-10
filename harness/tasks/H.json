@@ -2,7 +2,7 @@
   "schema_version": 2,
   "task_id": "H",
   "title": "Task H — Wannier specification and QE–Wannier bridge",
-  "status": "legacy_recorded",
+  "status": "superseded",
   "status_detail": "prospectively superseded for workflow sequencing by P8/P9; never launched",
   "parent_task_id": null,
   "task_prerequisite_ids": [],
