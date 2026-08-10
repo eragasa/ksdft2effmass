@@ -1,6 +1,6 @@
 # Harness simplification round two intake
 
-**Status:** Active coordinating parent. Seven ordered work packages are decomposed and inactive; implementation has not started and automatic successor activation remains disabled.
+**Status:** Active coordinating parent. R2.1 and R2.2 are completed. R2.3–R2.7 are inactive with `explicit_activation_required: false`, and automatic successor activation remains disabled.
 
 **Task ID:** `harness.simplify-2`
 
@@ -28,26 +28,35 @@ Round two must preserve that accepted baseline rather than create another shadow
 
 ## Ordered Task decomposition
 
-The active parent coordinates seven separately activated child Tasks. During the
-hybrid migration, the existing harness-simplification chain retains compatible
-selection state while SQLite owns the new structured control state. Decomposition
-does not activate the first child, and child completion does not activate its
-successor automatically.
+The active parent authorizes serial deterministic progression through the seven
+child Tasks. During the hybrid migration, the existing harness-simplification
+chain retains compatible selection state while SQLite owns the new structured
+control state.
 
-| Order | Task | Work package |
-| ---: | --- | --- |
-| 1 | `harness.simplify-2.control-decomposition` | R2.1 — control decomposition |
-| 2 | `harness.simplify-2.adapter-retirement` | R2.2 — adapter retirement |
-| 3 | `harness.simplify-2.python-conformance-decomposition` | R2.3 — Python conformance decomposition |
-| 4 | `harness.simplify-2.resource-decomposition` | R2.4 — resource and routing decomposition |
-| 5 | `harness.simplify-2.wire-validation-decomposition` | R2.5 — wire validation decomposition |
-| 6 | `harness.simplify-2.cli-consolidation` | R2.6 — maintained CLI consolidation under `python/src/cli/` |
-| 7 | `harness.simplify-2.validation-retirement` | R2.7 — validation consolidation and replay retirement |
+| Order | Task | Work package | Status |
+| ---: | --- | --- | --- |
+| 1 | `harness.simplify-2.control-decomposition` | R2.1 — control decomposition | completed |
+| 2 | `harness.simplify-2.adapter-retirement` | R2.2 — adapter retirement | completed |
+| 3 | `harness.simplify-2.python-conformance-decomposition` | R2.3 — Python conformance decomposition | inactive |
+| 4 | `harness.simplify-2.resource-decomposition` | R2.4 — resource and routing decomposition | inactive |
+| 5 | `harness.simplify-2.wire-validation-decomposition` | R2.5 — wire validation decomposition | inactive |
+| 6 | `harness.simplify-2.cli-consolidation` | R2.6 — maintained CLI consolidation under `python/src/cli/` | inactive |
+| 7 | `harness.simplify-2.validation-retirement` | R2.7 — validation consolidation and replay retirement | inactive |
 
-Each child has `explicit_activation_required: true`. The parent retains shared
-contract-preservation requirements, exclusions, final integration review, and
-explicit human acceptance; the children own only their bounded implementation
-packages.
+R2.3–R2.7 have `explicit_activation_required: false`. After the preceding
+prerequisite is completed, the parent agent may explicitly transition to the
+next child when no unresolved checkpoint, human-owned material choice, protected
+action, or unresolved material finding exists. Only one child may be active at a time.
+Background activation is prohibited, and
+`automatic_successor_activation` remains `false`. Actual ambiguity or a
+human-owned or protected boundary stops progression for human disposition.
+Final parent acceptance remains a human decision.
+
+Each child performs a complete vertical cutover of its owned subsystem: accepted
+end-state contract, implementation in isolation, complete affected-data
+migration, controlled parity, one cutover, and removal of the obsolete live path.
+Old and new operational authorities do not remain live after cutover; temporary
+compatibility is retained only when an accepted public contract requires it.
 
 ## Highest-leverage outcomes
 
@@ -63,6 +72,39 @@ packages.
 | 8 | Replay and H3 validation | Replace nested replay routes with one composable validation Action returning structured results. |
 | 9 | Control versus observations | Keep tracked control SQLite separate from ignored observations SQLite. |
 | 10 | Python environment | Use `python/.venv/bin/python` for maintained commands. |
+
+## Maintained control generation
+
+Maintained synchronization and verification use the same control-generation
+logic:
+
+```text
+authoritative repository inputs
+→ one private control-generation builder
+→ complete candidate SQLite, SQL, manifest, and projection artifacts
+```
+
+This is a private build/publish separation inside the existing control subsystem,
+not a framework or new public interface. `HarnessControlMigrator` uses the
+builder, validates the candidate, and remains the sole publisher.
+`HarnessControlVerifier` uses the same builder, compares the candidate with
+maintained artifacts, reports differences, and performs no maintained writes.
+Verification therefore detects authoritative-source drift even when maintained
+SQLite and maintained SQL agree with each other. Temporary verification artifacts
+are removed after success or failure. There is no migrator check mode, second
+construction algorithm, public builder Action, incremental updater, watcher,
+daemon, event-log authority, or second database writer. Existing public imports
+and execute signatures remain unchanged.
+
+R2.3 establishes canonical evidence inputs, R2.4 establishes canonical resource
+inputs, and existing canonical Task and graph inputs remain part of maintained
+control construction. R2.6's synchronization command supplies those canonical
+maintained inputs. R2.7 makes the verifier derive the same canonical input set
+from repository-owned configuration. The verifier's source-aware guarantee is
+limited to maintained canonical control state; it does not promise reproduction
+of arbitrary noncanonical migration requests or alternate output locations.
+Existing bounded compatibility for nondefault `HarnessControlMigrationRequest`
+inputs remains unchanged unless separately authorized.
 
 ## Maintained command surface
 
@@ -123,8 +165,8 @@ explicitly; neither tree replaces the other.
 
 | Priority | Module | Disposition |
 | ---: | --- | --- |
-| 1 | `python/src/ksdft2effmass/harness/pi/local/control.py` | Decompose immediately. |
-| 2 | `python/src/ksdft2effmass/harness/pi/local/adapters.py` | Retire unused adapters, then split survivors. |
+| 1 | `python/src/ksdft2effmass/harness/pi/local/control.py` | Completed R2.1 decomposition into cohesive control owners. |
+| 2 | `python/src/ksdft2effmass/harness/pi/local/adapters.py` | Completed R2.2 audit and relocation of all nine adapters into five contract-specific modules. |
 | 3 | `python/src/ksdft2effmass/harness/pi/evidence/python_conformance.py` | Decompose around one parsed test-module model. |
 | 4 | `python/src/ksdft2effmass/harness/pi/resources.py` | Separate records, manifests, resolution, refresh, and skill closure. |
 | 5 | `python/src/ksdft2effmass/harness/pi/validation.py` | Replace centralized wire dispatch with domain codecs. |
@@ -134,8 +176,9 @@ explicitly; neither tree replaces the other.
 
 ### R2.1 — Control decomposition
 
-Target internal ownership separates project-neutral read-only SQLite Task-state
-inspection from repository-specific control construction:
+R2.1 is completed. Its resulting internal ownership separates project-neutral
+read-only SQLite Task-state inspection from repository-specific control
+construction:
 
 ```text
 python/src/ksdft2effmass/harness/pi/dbcontrol/
@@ -186,26 +229,12 @@ Also preserve the existing public verification exports
 migration surface does not authorize removing or privatizing those verification
 contracts. Do not turn every internal step into a public ActionObject.
 
-### R2.2 — Adapter retirement
+### R2.2 — Adapter audit and decomposition
 
-Before moving code, identify live consumers. Retire adapters that:
-
-- have no live consumer;
-- translate only between two generated projections; or
-- preserve compatibility no archived input still needs.
-
-Potential survivor ownership:
-
-```text
-python/src/ksdft2effmass/harness/pi/local/adapters/
-├── __init__.py
-├── tasks.py
-├── ownership.py
-├── resources.py
-└── legacy_markdown.py
-```
-
-Deletion has priority over rearrangement. Do not introduce a generic adapter framework.
+R2.2 is completed. It audited all nine public adapters, relocated all nine
+implementations into five contract-specific modules, retained the compatibility
+facade, and preserved all nine public imports and execute signatures. It removed
+no adapter and introduced no generic adapter framework.
 
 ### R2.3 — Python conformance decomposition
 
@@ -300,7 +329,11 @@ discovery.
 
 ### R2.7 — Replay and H3 retirement
 
-Retire `replay_current_validators.py`, H3-era resource gates, and nested validation routes where live-consumer analysis proves them obsolete. Replace them with:
+Extract the narrow private control-generation builder described above, make the
+verifier derive the canonical maintained inputs from repository-owned
+configuration, and retire `replay_current_validators.py`, H3-era resource gates,
+and nested validation routes where live-consumer analysis proves them obsolete.
+Replace the repository-wide validation surface with:
 
 ```python
 ValidateHarness.execute(request) -> HarnessValidationResult

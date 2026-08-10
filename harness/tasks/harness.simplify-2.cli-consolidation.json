@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2.cli-consolidation",
   "title": "Consolidate maintained CLI scripts under python/src/cli",
   "status": "inactive",
-  "status_detail": "corrected inactive R2.6 final CLI placement and full-control-synchronization command work package; parent-authorized deterministic transition only, currently not activated, and no automatic successor activation",
+  "status_detail": "inactive R2.6 final CLI placement and control-synchronization work package",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.wire-validation-decomposition"
@@ -27,10 +27,8 @@
     "Expose maintained behavior equivalent to `harness control sync` and `harness control check` without freezing those exact command spellings during planning. The synchronization command accepts explicit inputs and invokes the existing full deterministic `HarnessControlMigrator`; it does not own database mechanics.",
     "Define synchronization as an explicit post-edit operation: the authorized agent or human invokes it after an authorized repository edit. Filesystem timing, watcher state, current-directory discovery, and ambient events provide no authority.",
     "Preserve the full migration flow through staged complete SQLite reconstruction, schema, relationship, and projection validation, and failure-safe publication of SQLite and generated projections; do not add incremental SQL updates or another writing path.",
-    "Do not activate validation retirement automatically; produce a durable R2.7 handoff listing the final CLI inventory, retired paths, retained historical scripts, command/API agreement evidence, and unresolved compatibility risks.",
-    "Use the existing `HarnessControlMigrator` throughout R2.6 and route the maintained check surface to the existing public `HarnessControlVerifier`; neither Action currently has nor is assumed to have a migrator check mode. Private compiler extraction and full source-aware verifier integration belong only to R2.7.",
-    "Implement R2.6 as a complete vertical replacement of its owned CLI subsystem: accepted end-state contract, isolated implementation, complete affected-command migration, controlled parity, one cutover, and removal of obsolete live wrappers. Do not retain old and new operational CLI authorities after cutover except for temporary compatibility required by an accepted public contract.",
-    "Because the active parent authorizes the full round, R2.6 requires no separate human activation cycle once R2.5 is complete and the parent agent explicitly transitions to it with no unresolved checkpoint, human-owned material choice, protected action, or unresolved material review finding. Keep one active child, prohibit background activation, and keep automatic successor activation false."
+    "Produce a durable R2.7 handoff listing the final CLI inventory, retired paths, retained historical scripts, command/API agreement evidence, and unresolved compatibility risks.",
+    "Make the synchronization command supply the canonical maintained evidence, resource, Task, and graph inputs to the existing `HarnessControlMigrator`; route the maintained check surface to the existing public `HarnessControlVerifier`, and introduce no other control-construction or publication path."
   ],
   "completion_criteria": [
     "A reviewed inventory classifies every discovered Python CLI or entry point as migrated maintained command, retired obsolete wrapper, or retained historical script with its live consumers and replacement disposition.",
@@ -39,8 +37,7 @@
     "All maintained command references use `python/.venv/bin/python python/src/cli/<command>.py`; generated shell and inline-Python command fragments are absent from live routing.",
     "One maintained synchronization command delegates complete database construction and publication to `HarnessControlMigrator`, and one maintained check surface reports deterministic control agreement; exact user-facing spellings are selected during implementation without creating another persistence owner.",
     "Historical `.pi` evidence, exact prior command records, and historical scripts remain unchanged and are not treated as maintained live CLI implementations.",
-    "Focused CLI and command/API agreement tests establish explicit arguments, full-migration delegation, output, exit status, nonmutation or authorized-publication boundaries, documentation and resource agreement, and dependency-lock nonmutation.",
-    "The work package completes without self-activating R2.7 or another successor. A prerequisite-satisfied R2.7 transition is performed explicitly by the parent agent under the parent-authorized deterministic rule, not by an automatic successor mechanism."
+    "Focused CLI and command/API agreement tests establish explicit arguments, full-migration delegation, output, exit status, nonmutation or authorized-publication boundaries, documentation and resource agreement, and dependency-lock nonmutation."
   ],
   "exclusions": [
     "Do not move reusable ActionObject, DataObject, ResultObject, validation, persistence, parsing, serialization, or scientific behavior into `python/src/cli/`; CLI scripts remain thin adapters and renderers.",

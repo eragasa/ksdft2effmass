@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: corrected inactive R2.3 evidence-authority and reconstruction-input work package; parent-authorized deterministic transition only, currently not activated, and no automatic successor activation
+`inactive`: inactive R2.3 evidence-authority and canonical-input work package
 
 ## Objective
 
@@ -29,27 +29,26 @@ Make Python evidence authority and profile semantics explicit, derive one immuta
 - Keep `evidence_class` independent from `evidence_profile`: the class is one of `software_verification`, `numerical_verification`, `scientific_validation`, or `uncertainty_quantification`, while the profile is `routine` or `claim_bearing`. The exact allowed combinations are `software_verification` with `routine` or `claim_bearing`; `numerical_verification`, `scientific_validation`, and `uncertainty_quantification` with `claim_bearing` only.
 - The canonical future authority is exactly `harness/pi/evidence/python-test-evidence-profile-matrix-v1.json`, one declarative versioned resource owned by the generic evidence subsystem. When implemented it is registered through `harness/pi/resource-manifest.json`, remains independent of project-local Task state, and is consumable without importing project-local code. This R2.3 planning correction creates no resource, schema, descriptor, or manifest entry.
 - That canonical profile resource owns profile identities and versions; allowed evidence-class/profile combinations; required and forbidden module metadata; required and forbidden test-function documentation fields; identifier requirements; and oracle, acceptance, limitation, provenance, and migration requirements. The maintained `develop-python-test-evidence` skill and its reference may explain application but must not duplicate those normative requirements or combinations.
+- When implemented, validate the profile resource deterministically as a closed structure. Reject unsupported schema or behavior versions, unknown fields, missing evidence classes or profiles, duplicate class/profile combinations, unsupported combinations, and malformed requirement declarations.
 - The `routine` profile changes documentation and retained-metadata requirements only. It does not weaken executable assertions, expected values, type behavior, or deterministic software contracts, and a routine software test does not inherit claim-bearing prose merely because it is executable.
 - Numerical verification requires an identified mathematical reference or convergence argument; scientific validation requires an independent physical reference and declared validation protocol; uncertainty quantification requires an uncertainty model or declared uncertainty protocol. These three evidence classes cannot use `routine`, and passing structural conformance establishes none of those scientific claims.
 - Parse each selected Python test module once into one immutable internal `PythonTestModuleModel`, and give naming, documentation, parameterization, ownership, migration, and repository-conformance rules independent explicit owners without duplicated AST or filesystem work.
-- Prepare explicit evidence-domain inputs for the existing full deterministic `HarnessControlMigrator`; make the evidence inventory and SQLite evidence rows reconstructible derived projections without adding another database-construction or publication path.
+- Establish canonical evidence-domain inputs for maintained control construction and supply them to the existing full deterministic `HarnessControlMigrator`; make the evidence inventory and SQLite evidence rows reconstructible derived projections without adding another database-construction or publication path.
 - Correct the 13 private implementation classes currently represented as public `class_owned` owners. Use `class_owned` only when one public class is the sole system under test; represent private implementation tests through cohesive `artifact_owned` evidence or the routine profile.
 - Preserve meaningful evidence identifiers, evidence classes, oracle meaning, and predecessor relationships. Ownership migration must not delete or renumber existing evidence IDs, and intentional consolidation must retain explicit predecessor relationships.
 - Provide evidence-specific compatibility and reconstruction validation over one immutable corpus, including deterministic findings and agreement of retained semantic identities and unchanged projection bytes.
-- Use the existing `HarnessControlMigrator` throughout R2.3; private compiler extraction and full source-aware verifier integration belong only to R2.7.
-- Implement R2.3 as a complete vertical replacement of its owned evidence subsystem: accepted end-state contract, isolated implementation, complete affected-data migration, controlled parity, one cutover, and removal of the obsolete live path. Do not retain old and new operational evidence authorities after cutover except for temporary compatibility required by an accepted public contract.
-- Because the active parent authorizes the full round, R2.3 requires no separate human activation cycle once its prerequisite is complete and the parent agent explicitly transitions to it with no unresolved checkpoint, human-owned material choice, protected action, or unresolved material review finding. Keep one active child, prohibit background activation, and keep automatic successor activation false.
+- Preserve the existing `HarnessControlMigrator` and introduce no other control-construction or publication path.
 
 ## Completion criteria
 
 - The evidence authority and projection flow is explicit, and no inventory, count, hash, SQLite evidence row, SQL export, or generated evidence documentation is maintained as separately edited authority.
-- The future generic resource at exactly `harness/pi/evidence/python-test-evidence-profile-matrix-v1.json` is the sole normative profile matrix, with `software_verification` allowing `routine` or `claim_bearing` and the other three classes allowing `claim_bearing` only; no skill or project-local Task duplicates its field requirements or combinations.
+- The future generic resource at exactly `harness/pi/evidence/python-test-evidence-profile-matrix-v1.json` is the sole normative profile matrix, with `software_verification` allowing `routine` or `claim_bearing` and the other three classes allowing `claim_bearing` only; no skill or project-local Task duplicates its field requirements or combinations, and deterministic closed-structure validation rejects unsupported versions, unknown or missing fields, duplicate or unsupported combinations, and malformed requirements.
 - One AST parse supplies one immutable `PythonTestModuleModel` to independent naming, documentation, parameterization, ownership, migration, and repository-conformance rule owners; no rule reparses source or owns another rule domain.
 - All 13 private implementation-class ownership declarations are corrected without deleting or renumbering evidence IDs; `class_owned` remains limited to one public class as the sole system under test, and every intentional consolidation records explicit predecessors.
 - Evidence-specific inputs reconstruct through the existing full `HarnessControlMigrator`, and generated inventory and SQLite evidence rows agree with source declarations, policy or profile requirements, and explicit migration relationships.
 - Meaningful accepted evidence identifiers, evidence classes, oracles, predecessor relationships, public imports, and supported execute signatures remain stable unless separately authorized.
 - Focused evidence tests, evidence conformance, deterministic full reconstruction and projection agreement, documentation validation, and dependency-lock nonmutation checks pass.
-- The work package completes without relocating repository-wide CLIs or retiring general validation routes. A prerequisite-satisfied R2.4 transition is performed explicitly by the parent agent under the parent-authorized deterministic rule, not by this child or an automatic successor mechanism.
+- The work package does not relocate repository-wide CLIs or retire general validation routes.
 
 ## Exclusions
 

@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: corrected inactive R2.5 wire-codec decomposition with unchanged persistence ownership; parent-authorized deterministic transition only, currently not activated, and no automatic successor activation
+`inactive`: inactive R2.5 wire-codec decomposition with unchanged persistence ownership
 
 ## Objective
 
@@ -28,10 +28,7 @@ Decompose `python/src/ksdft2effmass/harness/pi/validation.py` into canonical JSO
 - Keep domain field mappings and construction in their domain codec; keep dispatch limited to explicit wire-kind routing.
 - Avoid magical registration, implicit discovery, and unnecessary public exposure of internal codecs.
 - Preserve existing supported public wire contracts, canonical bytes, imports, ActionObject names, and execute signatures unless a separately resolved human decision authorizes a change.
-- Keep persistence ownership unchanged: wire codecs may prepare or decode explicit records but do not construct, mutate, publish, or synchronize SQLite and do not duplicate the full `HarnessControlMigrator`.
-- Use the existing `HarnessControlMigrator` throughout R2.5; private compiler extraction and full source-aware verifier integration belong only to R2.7.
-- Implement R2.5 as a complete vertical replacement of its owned wire-codec subsystem: accepted end-state contract, isolated implementation, complete affected-data migration, controlled parity, one cutover, and removal of the obsolete live path. Do not retain old and new operational codec authorities after cutover except for temporary compatibility required by an accepted public contract.
-- Because the active parent authorizes the full round, R2.5 requires no separate human activation cycle once R2.4 is complete and the parent agent explicitly transitions to it with no unresolved checkpoint, human-owned material choice, protected action, or unresolved material review finding. Keep one active child, prohibit background activation, and keep automatic successor activation false.
+- Keep persistence ownership unchanged: wire codecs may prepare or decode explicit records but do not construct, mutate, publish, or synchronize SQLite; preserve the existing `HarnessControlMigrator` and introduce no other control-construction or publication path.
 
 ## Completion criteria
 
@@ -39,7 +36,6 @@ Decompose `python/src/ksdft2effmass/harness/pi/validation.py` into canonical JSO
 - All supported wire kinds retain accepted structural and runtime behavior, canonical serialization, deterministic diagnostics, public imports, and compatibility behavior.
 - No wire codec or dispatch path writes SQLite, performs synchronization, or creates a second database-construction path; `HarnessControlMigrator` remains the sole maintained construction and publication Action.
 - Focused codec and canonical-vector tests, complete wire-contract tests, documentation validation, and dependency-lock nonmutation checks pass.
-- The work package completes without self-activating its successor. A prerequisite-satisfied R2.6 transition is performed explicitly by the parent agent under the parent-authorized deterministic rule, not by an automatic successor mechanism.
 
 ## Exclusions
 
