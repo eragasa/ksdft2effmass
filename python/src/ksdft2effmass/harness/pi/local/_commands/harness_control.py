@@ -16,6 +16,17 @@ from ksdft2effmass.harness.pi.local import (
 )
 
 
+def _verification_passed(result: HarnessControlVerificationResult) -> bool:
+    """Return whether every represented control verification check agrees."""
+    return (
+        result.integrity_check == "ok"
+        and result.foreign_key_issue_count == 0
+        and result.semantic_digest == result.reconstructed_semantic_digest
+        and result.raw_database_sha256 == result.reconstructed_database_sha256
+        and result.projections_identical
+    )
+
+
 def run(argv: Sequence[str] | None = None) -> int:
     """Synchronize or check one explicitly selected repository root."""
     parser = argparse.ArgumentParser()
@@ -93,4 +104,6 @@ def run(argv: Sequence[str] | None = None) -> int:
             indent=2,
         )
     )
+    if isinstance(result, HarnessControlVerificationResult):
+        return 0 if _verification_passed(result) else 1
     return 0

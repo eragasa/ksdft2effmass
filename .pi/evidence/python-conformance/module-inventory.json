@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2990,
+  "expected_collected_node_count": 2995,
   "expected_module_count": 256,
   "modules": [
     {
@@ -178,7 +178,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f11c9b8456478c5ad96c9cb8757f69e63965b9a3bfc8c6da43378246696c0cdd",
+      "content_sha256": "bd90d809394dcc53e044c3ce6186da0d66d961ff78ca42bae11614fbc974063e",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_command_api_agreement.py",

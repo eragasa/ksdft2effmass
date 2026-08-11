@@ -21,6 +21,7 @@ This is software verification only; scientific validation and UQ are excluded.
 import importlib.util
 import json
 import sys
+from dataclasses import asdict
 from pathlib import Path
 from types import ModuleType
 
@@ -206,7 +207,7 @@ def test_artifact__verify_command__agrees_with_public_result(
 
     Limitations: SQLite reconstruction is owned by verifier evidence and is not repeated.
     """  # noqa: E501
-    expected = HarnessControlVerificationResult("ok", 0, "a", "b", "c", "d", True)
+    expected = HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", True)
     monkeypatch.setattr(HarnessControlVerifier, "execute", lambda self, root: expected)
     monkeypatch.setattr(
         sys,
@@ -218,8 +219,69 @@ def test_artifact__verify_command__agrees_with_public_result(
         "integrity_check": "ok",
         "foreign_key_issue_count": 0,
         "semantic_digest": "a",
-        "reconstructed_semantic_digest": "b",
+        "reconstructed_semantic_digest": "a",
         "raw_database_sha256": "c",
-        "reconstructed_database_sha256": "d",
+        "reconstructed_database_sha256": "c",
         "projections_identical": True,
     }
+
+
+@pytest.mark.parametrize(
+    "expected",
+    [
+        pytest.param(
+            HarnessControlVerificationResult("corrupt", 0, "a", "a", "c", "c", True),
+            id="integrity_failure",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult("ok", 1, "a", "a", "c", "c", True),
+            id="foreign_key_failure",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult("ok", 0, "a", "b", "c", "c", True),
+            id="semantic_digest_mismatch",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult("ok", 0, "a", "a", "c", "d", True),
+            id="raw_database_mismatch",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", False),
+            id="projection_or_source_drift",
+        ),
+    ],
+)
+def test_artifact__verify_command__returns_failure_for_reported_drift(
+    expected: HarnessControlVerificationResult,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.command.verify-drift-exit-status
+
+    Requirement: The maintained check command returns a failing process status when any
+    verifier result field reports integrity, foreign-key, identity, or projection drift.
+
+    Method: Supply one immutable literal result for each independent failure partition,
+    invoke the maintained command with an explicit root, and parse its JSON output.
+
+    Oracle: The verifier result contract defines agreement as successful integrity, zero
+    foreign-key findings, equal semantic and raw identities, and projection agreement.
+
+    Acceptance: Every drift partition returns status one while preserving the complete
+    structured verifier result in stdout.
+
+    Interpretation: Failure allows automation to mistake reported control drift for a
+    successful check or indicates that failure rendering lost result information.
+
+    Limitations: Verifier reconstruction and drift detection remain covered by their
+    owning evidence; this test covers command exit and rendering behavior only.
+    """  # noqa: E501
+    monkeypatch.setattr(HarnessControlVerifier, "execute", lambda self, root: expected)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
+    )
+    assert control_cli.main() == 1
+    assert json.loads(capsys.readouterr().out) == asdict(expected)
