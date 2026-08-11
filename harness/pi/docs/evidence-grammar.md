@@ -55,17 +55,17 @@ Scientific validation and uncertainty quantification are separate claim classes.
 
 Project profiles supply marker vocabulary, evidence namespaces and ranges, scope-to-marker rules, and protected migration debt. Generic resources contain no project prefixes or repository-specific paths. Classification data control which identifiers are structurally valid; they do not prove that the documented oracle is independent or that the asserted scientific interpretation is sound.
 
-## Deterministic owners and maintained audit command
+## Deterministic owners and maintained conformance command
 
 | Capability | Owner |
 |---|---|
-| Evidence-ID and executable-marker audit | `IdentifierAuditor` |
-| Complete test-module structural convention | `PythonConformanceValidator` |
+| Complete repository Python evidence structure | `PythonConformanceValidator` |
+| Bounded legacy identifier inspection | `IdentifierAuditor` (non-authoritative compatibility) |
 | Semantic test design and review | `develop-python-test-evidence` |
 
-`IdentifierAuditor` accepts only supplied module bytes and an explicit project profile. A project-local wrapper may read one explicitly selected maintained inventory and only its listed modules beneath an explicit absolute root. Generic documentation does not select a project package, profile path, inventory path, or runtime-state root; the project-local command documentation owns those arguments.
+`PythonConformanceValidator` accepts explicit module bytes, the versioned profile matrix, and an optional explicit predecessor map. The project-local repository validator derives those inputs from maintained source authority without using the generated module inventory as authority.
 
-The production ActionObject is the sole evidence-ID parser and policy owner. The former standalone AST script is retired; historical evidence may continue to name the command that produced it.
+`IdentifierAuditor` remains public for callers that require the older explicit-profile identifier inspection contract. Its repository-wide CLI is retired, and it no longer participates in maintained repository validation. Historical evidence may continue to name commands that were actually used.
 
 ## Validation claim boundary
 

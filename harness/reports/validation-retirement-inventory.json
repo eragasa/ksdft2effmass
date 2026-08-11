@@ -3,6 +3,7 @@
   "task_id": "harness.simplify-2.validation-retirement.inventory",
   "baseline_revision": "3e5d69a74563d3ba7e58437411287344fa3a34b4",
   "scope": "Maintained validation, compatibility, historical routing, canonical control inputs, and publisher-owned outputs for R2.7.",
+  "child_5_retirement_status": "The identifier-audit CLI and its private command owner are retired; PythonConformanceValidator is the sole maintained repository-wide Python evidence gate. Public route, shadow, LocalRepositoryValidator, and IdentifierAuditor compatibility surfaces are retained and explicitly non-authoritative or deprecated.",
   "scan": {
     "maintained_roots": [
       "python/src/cli",
@@ -59,8 +60,8 @@
       "defining_path": "python/src/ksdft2effmass/harness/pi/evidence/identifiers.py",
       "identity": "IdentifierAuditor, IdentifierAuditResult, IdentifierOccurrence",
       "classification": "public_api",
-      "maintained_operational_consumers": ["identifier-audit CLI", "LocalRepositoryValidator optional evidence branch"],
-      "compatibility_consumers": ["ksdft2effmass.harness.pi.evidence public exports", "bounded public API tests", "current evidence grammar documentation"],
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": ["LocalRepositoryValidator optional legacy evidence branch", "ksdft2effmass.harness.pi.evidence public exports", "bounded public API tests", "current evidence grammar documentation"],
       "historical_references": [".pi/evidence", "resolved Tasks and checkpoints"],
       "disposition": "public_retained_non_authoritative",
       "evidence": "The generic evidence package exports these public identities; R2.7 authority removes only repository-wide authority in favor of PythonConformanceValidator."
@@ -69,21 +70,23 @@
       "defining_path": "python/src/cli/audit_evidence_identifiers.py",
       "identity": "stable identifier-audit CLI",
       "classification": "stable_cli",
-      "maintained_operational_consumers": [".pi/skills/skill-capability-inventory.json", "docs/architecture/cpn-skill-capability-audit.md"],
-      "compatibility_consumers": ["test__identifier_audit_command_api_agreement.py"],
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": [],
       "historical_references": [".pi/evidence", "resolved Tasks and checkpoints"],
-      "disposition": "public_deprecated",
-      "evidence": "The R2.6 inventory declares it maintained; R2.7 explicitly authorizes removal after live routing is migrated to PythonConformanceValidator."
+      "disposition": "replaced_repository_composition",
+      "retirement_status": "retired_live_path",
+      "evidence": "The R2.6 inventory remains historical. R2.7 removed this live CLI after skill and documentation routing migrated to PythonConformanceValidator."
     },
     {
       "defining_path": "python/src/ksdft2effmass/harness/pi/local/_commands/audit_evidence_identifiers.py",
       "identity": "identifier-audit command owner",
       "classification": "private_command_owner",
-      "maintained_operational_consumers": ["python/src/cli/audit_evidence_identifiers.py"],
-      "compatibility_consumers": ["command/API agreement test"],
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": [],
       "historical_references": [],
       "disposition": "private_obsolete",
-      "evidence": "Its sole maintained operation is the explicitly retired CLI."
+      "retirement_status": "deleted",
+      "evidence": "Its sole maintained operation was the explicitly retired CLI; exact repeated consumer inspection found no other live caller."
     },
     {
       "defining_path": "python/src/ksdft2effmass/harness/pi/local/routing.py",
@@ -93,7 +96,8 @@
       "compatibility_consumers": ["local package exports", "focused public behavior tests", "versioned current harness documentation"],
       "historical_references": [".pi/evidence", "resolved H4 records"],
       "disposition": "public_deprecated",
-      "evidence": "No live route resource, command, skill, agent, or workflow imports these actions; public export prevents deletion based only on internal non-use."
+      "retirement_status": "retained_public_compatibility",
+      "evidence": "Repeated Child 5 inspection found no live route resource, command, skill, agent, or workflow import; documented public export blocks breaking deletion under current authority."
     },
     {
       "defining_path": "python/src/ksdft2effmass/harness/pi/local/shadow.py",
@@ -103,7 +107,8 @@
       "compatibility_consumers": ["local package exports", "focused public behavior tests", "versioned current harness documentation"],
       "historical_references": [".pi/evidence", "resolved H4 records"],
       "disposition": "public_deprecated",
-      "evidence": "No live replay command, route resource, skill, agent, or workflow consumes these identities; public compatibility remains unapproved for breaking removal."
+      "retirement_status": "retained_public_compatibility",
+      "evidence": "Repeated Child 5 inspection found no live replay command, route resource, skill, agent, or workflow consumer; public compatibility remains unapproved for breaking removal."
     },
     {
       "defining_path": "python/src/ksdft2effmass/harness/pi/local/models.py",
@@ -113,7 +118,8 @@
       "compatibility_consumers": ["routing and local package exports", "public model tests"],
       "historical_references": [".pi/evidence", "resolved H4 records"],
       "disposition": "public_deprecated",
-      "evidence": "The records support only the retained public routing compatibility surface."
+      "retirement_status": "retained_public_compatibility",
+      "evidence": "The records support only the retained public routing compatibility surface and cannot be removed under current nonbreaking authority."
     },
     {
       "defining_path": "python/src/ksdft2effmass/harness/pi/local/validation.py",
@@ -123,7 +129,28 @@
       "compatibility_consumers": ["local package exports", "focused public behavior tests", "current harness documentation"],
       "historical_references": ["resolved H2/H4 records"],
       "disposition": "replaced_repository_composition",
-      "evidence": "The action composes explicit adapted records and the obsolete identifier audit; no maintained repository command invokes it. R2.7 replaces repository composition but does not authorize silent breaking deletion."
+      "retirement_status": "retained_public_compatibility",
+      "evidence": "HarnessValidator owns maintained composition. This documented public Action has no operational consumer but retains its accepted execute contract because R2.7 does not authorize silent breaking deletion."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/local/validation.py",
+      "identity": "HarnessValidationRequest, HarnessValidationCheck, HarnessValidationResult, HarnessValidator",
+      "classification": "project_local_public_api",
+      "maintained_operational_consumers": ["python/src/cli/validate_harness.py", "direct repository structural validation"],
+      "compatibility_consumers": ["command/API and public import tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "R2.7 maintained repository composition invokes domain owners directly, uses stable ordered checks and findings without durations, and states external claim boundaries."
+    },
+    {
+      "defining_path": "python/src/cli/validate_harness.py",
+      "identity": "maintained repository-validation CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["R2.7 final structural validation gate"],
+      "compatibility_consumers": ["repository-validation command/API agreement tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Thin renderer over HarnessValidator with exact exit statuses zero through three and no nested CLI execution."
     },
     {
       "defining_path": "python/src/ksdft2effmass/harness/pi/evidence/python_conformance/__init__.py",

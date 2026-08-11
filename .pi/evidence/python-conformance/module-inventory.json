@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3020,
-  "expected_module_count": 259,
+  "expected_collected_node_count": 3012,
+  "expected_module_count": 258,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -412,7 +412,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "96ba09e87830cbf9ae8c9b91a91272b64f5b411137dc948ff6ac11cbd6796c39",
+      "content_sha256": "269910e40d0b6318fc2e87bc18915deec6127853d2e1e4af1c93e626ceddb80f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__cli_inventory.py",
@@ -444,15 +444,6 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py",
       "artifact": "Harness repository-validation command/API agreement",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "a81749318fe53854cb7492047d006a69585bd7bfcf52a33421f9448baa8e05e7",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py",
-      "artifact": "identifier audit command API agreement",
       "evidence_profile": "claim_bearing"
     },
     {

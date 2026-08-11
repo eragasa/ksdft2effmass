@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly selected after repository-validation completion; automatic successor activation remains disabled
+`completed`: completed after the obsolete identifier-audit CLI and private owner were removed, current skill and documentation routing moved to PythonConformanceValidator, nested evidence CLI execution was eliminated, public compatibility surfaces were retained and deprecated, historical records were preserved, and focused validation passed
 
 ## Objective
 

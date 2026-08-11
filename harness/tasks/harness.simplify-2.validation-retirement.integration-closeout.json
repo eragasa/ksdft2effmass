@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.integration-closeout",
   "title": "Integrate and close R2.7",
-  "status": "inactive",
-  "status_detail": "serial R2.7 child; eligible only after legacy-route retirement completion and explicit coordinator selection",
+  "status": "active",
+  "status_detail": "explicitly selected after legacy-route retirement completion; automatic successor activation remains disabled",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.legacy-route-retirement"

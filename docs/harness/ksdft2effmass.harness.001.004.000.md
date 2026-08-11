@@ -19,18 +19,18 @@ checkpoint sets, chains, checksums, skill descriptors, and evidence identifiers.
 Issues use stable codes and deterministic ordering. A failed prerequisite stage
 returns no partially trusted primary result.
 
-`IdentifierAuditor` currently parses caller-supplied Python module bytes
-and applies explicit profile marker, scope, namespace, range, and protected-gap
-rules. It is an evidence-identifier audit, not a general evidence repository or
-semantic test reviewer.
+`PythonConformanceValidator` owns maintained repository-wide Python evidence
+structure over explicit source, profile-matrix, and predecessor-map inputs.
+`IdentifierAuditor` retains its caller-supplied legacy-profile contract as a bounded,
+non-authoritative compatibility API; its repository-wide CLI is retired.
 
 ## Local composition
 
-`LocalRepositoryValidator` invokes applicable generic validators over an explicit
-local context and explicitly adapted records. It preserves generic severity and
-returns ordered named results. Local replay scripts run selected maintained
-validators and require both successful execution and the expected structured
-pass observation.
+`HarnessValidator` is the maintained project-local repository composition Action. It
+invokes existing domain owners directly, preserves stable check and finding ordering,
+and states external development-tool and claim boundaries. `LocalRepositoryValidator`
+remains a deprecated public compatibility API for caller-adapted records. Historical
+replay records remain retained, but no maintained replay route executes them.
 
 ## Focused validation and full reconciliation
 

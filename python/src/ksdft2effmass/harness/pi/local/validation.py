@@ -78,7 +78,11 @@ class RepositoryValidationResult:
 
 
 class LocalRepositoryValidator:
-    """Compose generic validators over explicit project-local selections."""
+    """Retain the superseded explicit-record composition compatibility API.
+
+    Maintained repository-wide validation belongs to :class:`HarnessValidator`.
+    This public Action remains importable and preserves its accepted execute contract.
+    """
 
     __slots__ = ()
 

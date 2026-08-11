@@ -32,13 +32,13 @@ Compose evidence, resource, Task, wire, and other repository validation results 
 - Limit the source-aware guarantee to maintained canonical control state. Do not claim that `HarnessControlVerifier.execute(repository_root)` reproduces arbitrary noncanonical migration requests or alternate output locations, and preserve bounded compatibility for nondefault `HarnessControlMigrationRequest` inputs unless separately authorized.
 - Remove temporary candidate SQLite, SQL, manifest, projection, sidecar, and staging artifacts after verification on success or failure. Compose the verifier's structured source-aware result without invoking a CLI or parsing output.
 - Prove live-consumer obsolescence before retiring `replay_current_validators.py`, H3-era resource gates, nested CLI validation, or duplicated cross-domain validation paths.
-- Provide one composable maintained validation Action returning structured named checks, statuses, findings, and durations, with one project-local renderer and no CLI-output parsing.
+- Provide one composable maintained validation Action returning deterministic structured named checks, statuses, and findings without durations, with one project-local renderer and no CLI-output parsing.
 - Consume the completed R2.6 CLI inventory and command/API agreement without reopening CLI placement or reintroducing maintained wrappers outside `python/src/cli/`; expose integrated validation without parsing another CLI's output.
 - Perform cross-package integration validation and synchronize directly affected documentation.
 
 ## Completion criteria
 
-- One maintained validation Action produces structured named checks, statuses, findings, and durations; one renderer exposes the result and no validator invokes another CLI and parses its output.
+- One maintained validation Action produces deterministic structured named checks, statuses, and findings without durations; one renderer exposes the result and no validator invokes another CLI or parses CLI output.
 - Retired replay, H3-era, nested, and duplicated routes have no remaining live consumers; required historical records and compatibility remain preserved.
 - The completed R2.6 command surface remains intact: every maintained live CLI script and entry point resides under `python/src/cli/`, no maintained executable wrapper elsewhere under `python/src/`, `harness/`, or `.pi/` becomes live again, and integrated validation requires no generated shell, inline-Python fragment, or nested CLI-output parsing.
 - Exactly one private builder constructs complete candidate SQLite, SQL, manifest, and projection artifacts from canonical maintained inputs. `HarnessControlMigrator` validates and is the sole publisher; `HarnessControlVerifier` derives the canonical inputs, compares without maintained writes, detects authoritative-source drift, and removes temporary artifacts. No migrator check mode, second construction path, incremental mutation, public builder Action, or duplicated publication logic exists.

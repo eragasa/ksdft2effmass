@@ -51,9 +51,10 @@ R2_6_COMMANDS = {
     "validate_task_ownership.py",
     "validate_task_schema_projection.py",
 }
-EXPECTED_COMMANDS = R2_6_COMMANDS | {"validate_harness.py"}
+EXPECTED_COMMANDS = (R2_6_COMMANDS - {"audit_evidence_identifiers.py"}) | {
+    "validate_harness.py"
+}
 HELP_CASES = (
-    pytest.param("audit_evidence_identifiers.py", id="audit_evidence_identifiers"),
     pytest.param("harness_control.py", id="harness_control"),
     pytest.param("inspect_task_state.py", id="inspect_task_state"),
     pytest.param("refresh_resource_manifest.py", id="refresh_resource_manifest"),
@@ -125,9 +126,10 @@ def test_artifact__inventory__classifies_exact_maintained_and_historical_command
     Oracle: The Task-authorized final CLI root and tracked historical evidence boundary
     define the exact two path partitions.
 
-    Acceptance: The thirteen completed R2.6 names remain exact, the current CLI adds
-    only ``validate_harness.py``, every old path is distinct, and every retained
-    historical command stays under ``.pi/evidence``.
+    Acceptance: The thirteen completed R2.6 names remain historically exact, the
+    current CLI replaces the retired identifier audit with ``validate_harness.py``,
+    every other implementation owner remains live, and retained historical commands
+    stay under ``.pi/evidence``.
 
     Interpretation: Failure indicates incomplete inventory, misplaced live commands,
     or accidental historical migration.
@@ -148,7 +150,15 @@ def test_artifact__inventory__classifies_exact_maintained_and_historical_command
     ]
     assert {Path(item["path"]).name for item in migrated} == R2_6_COMMANDS
     assert len({item["old_path"] for item in migrated}) == len(migrated) == 13
-    assert all((ROOT / item["implementation_owner"]).is_file() for item in migrated)
+    assert all(
+        (ROOT / item["implementation_owner"]).is_file()
+        for item in migrated
+        if Path(item["path"]).name != "audit_evidence_identifiers.py"
+    )
+    assert not (
+        ROOT / "python/src/ksdft2effmass/harness/pi/local/_commands/"
+        "audit_evidence_identifiers.py"
+    ).exists()
     assert retained
     retained_paths = {item["path"] for item in retained}
     discovered_historical = {
@@ -158,6 +168,18 @@ def test_artifact__inventory__classifies_exact_maintained_and_historical_command
     }
     assert retained_paths == discovered_historical
     assert {path.name for path in CLI_ROOT.glob("*.py")} == EXPECTED_COMMANDS
+    assert (
+        "audit_evidence_identifiers.py"
+        not in (ROOT / ".pi/skills/skill-capability-inventory.json").read_text()
+    )
+    assert (
+        "python/src/cli/audit_evidence_identifiers.py"
+        not in (ROOT / "docs/architecture/cpn-skill-capability-audit.md").read_text()
+    )
+    assert any(
+        item.get("path") == "python/src/cli/audit_evidence_identifiers.py"
+        for item in payload["entries"]
+    )
 
 
 def test_artifact__placement__leaves_no_maintained_command_outside_cli() -> None:

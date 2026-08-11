@@ -1,8 +1,8 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "harness_simplify_2_r2_7_legacy_retirement_active",
-  "active_task": "harness.simplify-2.validation-retirement.legacy-route-retirement",
+  "status": "harness_simplify_2_r2_7_integration_closeout_active",
+  "active_task": "harness.simplify-2.validation-retirement.integration-closeout",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
     "harness.simplification.agents.delegation-validation",
@@ -24,7 +24,8 @@
     "harness.simplify-2.validation-retirement.generation-builder",
     "harness.simplify-2.validation-retirement.source-aware-verification",
     "harness.simplify-2.validation-retirement.repository-validation",
-    "harness.simplify-2.validation-retirement.legacy-route-retirement"
+    "harness.simplify-2.validation-retirement.legacy-route-retirement",
+    "harness.simplify-2.validation-retirement.integration-closeout"
   ],
   "chain": [],
   "task_sequence": [

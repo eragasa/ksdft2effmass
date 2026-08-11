@@ -189,7 +189,7 @@ agent's interpretation.
 | `JsonSchemaValidationBlock` | focused schema/fixture pytest using Draft 2020-12 validation |
 | `ChecksumValidationBlock` | SHA-256 command with expected digest and artifact identity |
 | `GitDiffCheckBlock` | `git diff --check` |
-| `EvidenceIdentifierAuditBlock` | production `IdentifierAuditor` through `python/src/cli/audit_evidence_identifiers.py` |
+| `EvidenceIdentifierAuditBlock` | production `PythonConformanceValidator` through `python/src/cli/validate_python_conformance.py` |
 | `CheckpointSchemaValidationBlock` | `python/src/cli/validate_checkpoints.py --repository-root <absolute-repository-root> --include-fixtures --dry-run` |
 | `StaticDependencyDirectionToolBlock` | focused operator comparison dependency-direction pytest |
 | `SkillCapabilityInventoryValidationBlock` | `python/src/cli/validate_skill_capabilities.py --repository-root <absolute-repository-root>` |
@@ -198,29 +198,30 @@ Ruff, mypy, pytest, and Sphinx already have established configuration. The schem
 fixture, and operator dependency-direction tests already own their narrow
 executable evidence. A general AI skill must not replace them.
 
-## Evidence-identifier deterministic finding
+## Python evidence deterministic finding
 
-`IdentifierAuditor` is the sole deterministic owner of evidence-ID grammar,
-namespace/scope policy, executable markers, owner uniqueness, ranges, and protected
-gaps. The thin project-local command reads one explicit profile and maintained
-inventory, reads only the inventoried modules beneath an explicit absolute root, and
-projects the ActionObject result as deterministic JSON:
+`PythonConformanceValidator` is the sole maintained repository-wide owner of Python
+evidence structure, including current identifier, documentation, ownership,
+parameterization, and migration rules. Its thin command receives the exact profile
+matrix, predecessor map, and explicit test modules and renders the structured result
+directly:
 
 ```text
-python/.venv/bin/python python/src/cli/audit_evidence_identifiers.py \
-  --root <absolute-repository-root> \
-  --profile harness/local/profiles/ksdft2effmass-v2.json \
-  --inventory .pi/evidence/python-conformance/module-inventory.json
+python/.venv/bin/python python/src/cli/validate_python_conformance.py \
+  --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json \
+  --migration-map .pi/evidence/python-conformance/r2.3-private-owner-migration.json \
+  <explicit-test-modules>
 ```
 
-The maintained inventory audit currently passes with 201 modules, 1,102 executable
-owner occurrences, 1,102 unique evidence IDs, and no issues. The retired standalone
-AST script is retained only in historical evidence that records its actual prior use.
+The previous repository-wide identifier-audit CLI is retired. `IdentifierAuditor`
+remains a bounded public compatibility Action for caller-supplied legacy profile
+checks, but it is non-authoritative for current repository conformance. Historical
+evidence continues to record the commands actually used.
 
 | Capability | Owner |
 |---|---|
-| Evidence-ID and executable-marker audit | `IdentifierAuditor` |
-| Complete test-module structural convention | `PythonConformanceValidator` |
+| Complete repository Python evidence structure | `PythonConformanceValidator` |
+| Bounded legacy identifier inspection | `IdentifierAuditor` (non-authoritative compatibility) |
 | Semantic test design and review | `develop-python-test-evidence` |
 
 These structural owners do not establish semantic correctness, numerical correctness,

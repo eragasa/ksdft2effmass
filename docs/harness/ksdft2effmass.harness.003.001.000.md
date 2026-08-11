@@ -13,11 +13,12 @@ sphinx: excluded
 > explicit human decisions without persistence, checkpoint mutation, or successor
 > activation.
 
-The first slice formalizes the preparation boundary for the existing
+The first slice formalized the preparation boundary for the then-existing
 one-module-at-a-time human audit process. Its immutable explicit-input API prepares
-observations without replacing human judgment. The pilot packet reviews
-`IdentifierAuditor` and its maintained CLI/API software-verification surface.
-It is retained at
+observations without replacing human judgment. The historical pilot packet reviewed
+`IdentifierAuditor` and the CLI/API surface maintained at that time; R2.7 later retired
+the repository-wide CLI while retaining the bounded public Action API. The packet is
+retained at
 [`.pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md`](../../.pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md).
 
 ## Decomposition

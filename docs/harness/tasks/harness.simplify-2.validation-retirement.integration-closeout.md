@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: serial R2.7 child; eligible only after legacy-route retirement completion and explicit coordinator selection
+`active`: explicitly selected after legacy-route retirement completion; automatic successor activation remains disabled
 
 ## Objective
 

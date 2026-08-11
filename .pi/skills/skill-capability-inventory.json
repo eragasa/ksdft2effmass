@@ -781,10 +781,10 @@
     },
     {
       "block": "EvidenceIdentifierAuditBlock",
-      "command": "python/.venv/bin/python python/src/cli/audit_evidence_identifiers.py --root <absolute-repository-root> --profile harness/local/profiles/ksdft2effmass-v2.json --inventory .pi/evidence/python-conformance/module-inventory.json",
-      "evidence_owner": "IdentifierAuditor",
-      "classification": "software evidence-identifier and executable-marker verification",
-      "current_status": "The production ActionObject is the sole parser and deterministic policy owner; the project-local CLI reads only explicit profile, inventory, and inventoried module inputs and projects structural results without repository discovery."
+      "command": "python/.venv/bin/python python/src/cli/validate_python_conformance.py --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json --migration-map .pi/evidence/python-conformance/r2.3-private-owner-migration.json <explicit-test-modules>",
+      "evidence_owner": "PythonConformanceValidator",
+      "classification": "software Python evidence structural conformance",
+      "current_status": "PythonConformanceValidator is the sole maintained repository-wide Python evidence gate; the public IdentifierAuditor remains bounded compatibility API and is non-authoritative for repository conformance."
     },
     {
       "block": "CheckpointSchemaValidationBlock",

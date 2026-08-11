@@ -220,9 +220,15 @@ def _declaration(doc: str) -> _EvidenceDeclaration:
 class IdentifierAuditor:
     """Audit supplied module bytes against explicit profile namespace policy.
 
-    The fieldless action performs no file discovery or I/O. It owns marker,
-    namespace, identifier-range, ownership, and duplicate detection for the
-    exact module bytes and profile supplied to :meth:`execute`.
+    The fieldless action performs no file discovery or I/O. It retains marker,
+    namespace, identifier-range, ownership, and duplicate detection for the exact
+    module bytes and legacy project profile supplied to :meth:`execute`.
+
+    Notes
+    -----
+    This is a bounded compatibility Action and is not authoritative for maintained
+    repository-wide Python evidence conformance. That responsibility belongs to
+    :class:`PythonConformanceValidator`.
     """
 
     __slots__ = ()

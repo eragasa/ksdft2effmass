@@ -45,12 +45,13 @@ conformance task they remain explicit migration inputs, not waivers.
 
 ## Repository-wide completion policy
 
-The maintained inventory at
-`.pi/evidence/python-conformance/module-inventory.json`
-explicitly classifies every current Python test module, retains baseline and current
-collection counts, and records content identities. The local completion command is
-`python/.venv/bin/python python/src/cli/validate_evidence_repository_conformance.py --repository-root <absolute-repository-root>`. It fails
-closed on missing/stale/duplicate modules, identity drift, a nonconforming status,
-collection drift, or any generic structural finding. Its PASS establishes only those
-structural and inventory conditions; independent review still owns semantic cohesion,
-oracle independence, completeness, scientific meaning, and human acceptance.
+Configured Python test sources and embedded declarations, the generic profile matrix,
+and the explicit predecessor map are authoritative. The maintained inventory at
+`.pi/evidence/python-conformance/module-inventory.json` is a synchronized comparison
+projection that retains baseline and current source-derived node counts and content
+identities. The local completion command is
+`python/.venv/bin/python python/src/cli/validate_evidence_repository_conformance.py --repository-root <absolute-repository-root>`.
+It invokes maintained Python conformance directly without pytest, nested CLI execution,
+or generated-input authority. Its PASS establishes only structural source and
+projection agreement; independent review still owns semantic cohesion, oracle
+independence, completeness, scientific meaning, and human acceptance.

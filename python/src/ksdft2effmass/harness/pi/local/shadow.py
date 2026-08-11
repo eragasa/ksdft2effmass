@@ -1,4 +1,8 @@
-"""Pure shadow observations, deterministic comparison, and suite aggregation."""
+"""Deprecated public compatibility for historical shadow comparison.
+
+No maintained repository replay route consumes these records or actions. They remain
+importable because R2.7 does not authorize breaking public API removal.
+"""
 
 from __future__ import annotations
 

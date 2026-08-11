@@ -1,4 +1,8 @@
-"""Explicit controlled route selection and rollback."""
+"""Deprecated public compatibility for historical validation route selection.
+
+No maintained repository command or workflow consumes these records or actions. They
+remain importable because R2.7 does not authorize breaking public API removal.
+"""
 
 from __future__ import annotations
 

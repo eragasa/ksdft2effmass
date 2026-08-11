@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.legacy-route-retirement",
   "title": "Retire obsolete live validation routes",
-  "status": "active",
-  "status_detail": "explicitly selected after repository-validation completion; automatic successor activation remains disabled",
+  "status": "completed",
+  "status_detail": "completed after the obsolete identifier-audit CLI and private owner were removed, current skill and documentation routing moved to PythonConformanceValidator, nested evidence CLI execution was eliminated, public compatibility surfaces were retained and deprecated, historical records were preserved, and focused validation passed",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.repository-validation"
