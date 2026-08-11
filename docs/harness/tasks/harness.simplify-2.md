@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: coordinating parent restored after R2.5 completed; R2.6 is prerequisite-eligible but inactive, R2.7 remains inactive, and automatic successor activation remains disabled
+`deferred_to_active_child`: coordinating parent deferred to active R2.6 CLI consolidation after R2.5 completed; R2.7 remains inactive, and automatic successor activation remains disabled
 
 ## Objective
 

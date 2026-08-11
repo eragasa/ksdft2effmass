@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.cli-consolidation",
   "title": "Consolidate maintained CLI scripts under python/src/cli",
-  "status": "inactive",
-  "status_detail": "inactive R2.6 final CLI placement and control-synchronization work package",
+  "status": "active",
+  "status_detail": "activated by current human instruction for bounded R2.6 final CLI placement and control-synchronization work; R2.7 and automatic successor activation remain disabled",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.wire-validation-decomposition"

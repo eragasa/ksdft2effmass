@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: inactive R2.6 final CLI placement and control-synchronization work package
+`active`: activated by current human instruction for bounded R2.6 final CLI placement and control-synchronization work; R2.7 and automatic successor activation remain disabled
 
 ## Objective
 

@@ -1,8 +1,8 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "harness_simplify_2_parent_active_r2_5_completed",
-  "active_task": "harness.simplify-2",
+  "status": "harness_simplify_2_r2_6_active",
+  "active_task": "harness.simplify-2.cli-consolidation",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
     "harness.simplification.agents.delegation-validation",
@@ -17,7 +17,8 @@
     "harness.simplify-2.control-decomposition",
     "harness.simplify-2.python-conformance-decomposition",
     "harness.simplify-2.resource-decomposition",
-    "harness.simplify-2.wire-validation-decomposition"
+    "harness.simplify-2.wire-validation-decomposition",
+    "harness.simplify-2.cli-consolidation"
   ],
   "chain": [],
   "task_sequence": [
