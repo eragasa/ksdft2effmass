@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement",
   "title": "Consolidate validation and retire replay machinery",
-  "status": "completed",
-  "status_detail": "completed through six serial child Tasks with one implementation writer, one independent integration review, one bounded correction pass, complete final gates, no successor activation, and no human-acceptance claim",
+  "status": "deferred_to_active_child",
+  "status_detail": "R2.7 coordinating Task deferred to the explicitly reactivated integration-closeout child for the single bounded post-review correction",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.cli-consolidation"

@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "f4fd3dfda15b9eac58d043d8cce4beed31731dbce93a0ce64ee5b3448d7cd1de",
+  "semantic_database_digest": "360ab8c04192b91a6ad467c5dd6d61903bf8dc8e8b45eefe700216de74afed56",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "d471ae0fcb59933879f75a6d549bb5e145aef3cdb0c09cb5219f0e058de5c6c7",
-    "byte_count": 3729799
+    "sha256": "fdf8ad8223b85603bfcd2d9e6335e36a44b36104b031f30bc182c9d942b5bbfe",
+    "byte_count": 3729588
   },
   "projections": [
     {
@@ -613,8 +613,8 @@
     {
       "path": "docs/harness/tasks/harness.simplify-2.md",
       "projection_kind": "task-markdown",
-      "sha256": "ceb49213ea220c3fbb46463b14276f621043837469ccdc59453cb7ab5782979f",
-      "byte_count": 14983,
+      "sha256": "b60df2b4b3b59240c0022cd74ebf1f29d322eaa4dc2ad01b8115bd2661ae71c9",
+      "byte_count": 14969,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -641,8 +641,8 @@
     {
       "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.integration-closeout.md",
       "projection_kind": "task-markdown",
-      "sha256": "696b83b6c5c2c79190a6ed47d013317c08349537b975c128995bc6aff81e38fa",
-      "byte_count": 2393,
+      "sha256": "d51496a78ab3e8d2f5c0d901c000a41e7badeba9a5f73cc190f63180ea04ed61",
+      "byte_count": 2233,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -662,8 +662,8 @@
     {
       "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.md",
       "projection_kind": "task-markdown",
-      "sha256": "6fba258c21ee0ab89810823ca837271165dbd5b6c9c2383f8f121f78307561f2",
-      "byte_count": 6542,
+      "sha256": "f2aaeb3ccb76fba7d7bd90f80f67e3756d222076ba934e62b2212efe179af55b",
+      "byte_count": 6477,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -774,8 +774,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "95735e7e759362d9340b50eebe9bb59c17e43a2ef2f49d9fdbf64c77a1a1821b",
-      "byte_count": 17001,
+      "sha256": "a535e7879eb1d7cca48f4a5f5c8c86df5e53ca73b49aa735676d6673d1f6007c",
+      "byte_count": 17031,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1418,8 +1418,8 @@
     {
       "path": "harness/tasks/harness.simplify-2.json",
       "projection_kind": "task-json",
-      "sha256": "6b814b23622b275eca9601f02bcc5e6d709ee79469ff8b353dc06b665372be01",
-      "byte_count": 15275,
+      "sha256": "248705a09a388131e79b80803a4c23bebf3237059cab991df3908811899848ca",
+      "byte_count": 15261,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1446,8 +1446,8 @@
     {
       "path": "harness/tasks/harness.simplify-2.validation-retirement.integration-closeout.json",
       "projection_kind": "task-json",
-      "sha256": "ef588ccbb10fb4aa7382fc79a5bd41563ad37e5e05611dea3343f70c777e1582",
-      "byte_count": 2508,
+      "sha256": "0bf299f4bd0a6955df188880cbd3fe31026b2dc1b0906802d3f3f12173c2f7a3",
+      "byte_count": 2348,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1460,8 +1460,8 @@
     {
       "path": "harness/tasks/harness.simplify-2.validation-retirement.json",
       "projection_kind": "task-json",
-      "sha256": "341da2d513168288b0123d1bd9e43cd4c9cbf6b394c0a99263ade652526d35ce",
-      "byte_count": 6705,
+      "sha256": "16144b6233bc8cc5b6ac9158d0e8e986316cbe0d631c926d81d72d6214ea6352",
+      "byte_count": 6640,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

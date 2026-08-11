@@ -5,7 +5,7 @@
 
 ## Status
 
-`completed`: completed through six serial child Tasks with one implementation writer, one independent integration review, one bounded correction pass, complete final gates, no successor activation, and no human-acceptance claim
+`deferred_to_active_child`: R2.7 coordinating Task deferred to the explicitly reactivated integration-closeout child for the single bounded post-review correction
 
 ## Objective
 

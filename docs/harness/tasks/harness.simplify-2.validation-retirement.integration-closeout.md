@@ -5,7 +5,7 @@
 
 ## Status
 
-`completed`: completed after all required integration gates passed, one independent read-only review reported three findings, and the single bounded correction pass corrected path confinement, reconciled the baseline ownership-field contract, documented the public-facade dependency exception, and passed affected final verification
+`active`: explicitly reactivated by the human for the single bounded post-review R2.7 correction; no successor is active and automatic successor activation remains disabled
 
 ## Objective
 
