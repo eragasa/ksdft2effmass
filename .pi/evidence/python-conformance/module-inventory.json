@@ -151,7 +151,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f40eb70804092a24781e9bfb43e8ca43af013b480188c3cd9e93fed7ac0ed336",
+      "content_sha256": "91048d7ee8a81fb8e71ec5c91c6fe743afaaca6db804490ba04caff84a4a0856",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlMigrator.py",

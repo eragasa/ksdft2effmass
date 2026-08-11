@@ -257,11 +257,13 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     pytest collection with an empty successful observation, and execute the public
     migrator without replacing or narrowing repository ingestion.
 
-    Oracle: The input manifests enumerate 80 resources, while the other copied control
-    catalogs independently require nonempty Task, agent, skill, and decision rows.
+    Oracle: The input manifests enumerate the expected resources, while the other
+    copied control catalogs independently require nonempty Task, agent, skill, and
+    decision rows.
 
-    Acceptance: The result and SQLite contain 80 resources and nonempty rows for every
-    other copied control domain, and both projected manifests equal their input bytes.
+    Acceptance: The result and SQLite contain exactly the resources enumerated by the
+    two disjoint input manifests and nonempty rows for every other copied control
+    domain, and both projected manifests equal their input bytes.
 
     Interpretation: Failure indicates resources use a partial or separate construction
     route rather than the complete full-control migration.
@@ -272,6 +274,12 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     request = make_canonical_resource_request(tmp_path)
     expected_generic = (tmp_path / "harness/pi/resource-manifest.json").read_bytes()
     expected_local = (tmp_path / "harness/local/resource-manifest.json").read_bytes()
+    generic_resources = json.loads(expected_generic)["resources"]
+    local_resources = json.loads(expected_local)["resources"]
+    generic_resource_ids = {resource["resource_id"] for resource in generic_resources}
+    local_resource_ids = {resource["resource_id"] for resource in local_resources}
+    assert generic_resource_ids.isdisjoint(local_resource_ids)
+    expected_resource_count = len(generic_resources) + len(local_resources)
 
     def collect_empty(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
         return subprocess.CompletedProcess(args[0], 0, stdout="", stderr="")
@@ -282,7 +290,7 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     )
     result = HarnessControlMigrator().execute(request)
     counts = dict(result.counts)
-    assert counts["resource_definition"] == 80
+    assert counts["resource_definition"] == expected_resource_count
     assert counts["task_definition"] > 0
     assert counts["agent_definition"] > 0
     assert counts["skill_definition"] > 0
