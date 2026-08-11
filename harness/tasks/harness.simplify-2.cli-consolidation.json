@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2.cli-consolidation",
   "title": "Consolidate maintained CLI scripts under python/src/cli",
   "status": "completed",
-  "status_detail": "completed after maintained CLI consolidation, command/API verification, one consolidated independent review and correction pass, and final parent verification; no successor activated",
+  "status_detail": "completed and human-accepted after maintained CLI consolidation, command/API verification, one consolidated independent review and correction pass, final parent verification, and bounded post-review resource-count, parameter-ID, and drift-sensitive check-exit stabilization; R2.7 was activated separately before this acceptance",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.wire-validation-decomposition"

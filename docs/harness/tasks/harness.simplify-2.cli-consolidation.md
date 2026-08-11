@@ -5,7 +5,7 @@
 
 ## Status
 
-`completed`: completed after maintained CLI consolidation, command/API verification, one consolidated independent review and correction pass, and final parent verification; no successor activated
+`completed`: completed and human-accepted after maintained CLI consolidation, command/API verification, one consolidated independent review and correction pass, final parent verification, and bounded post-review resource-count, parameter-ID, and drift-sensitive check-exit stabilization; R2.7 was activated separately before this acceptance
 
 ## Objective
 
