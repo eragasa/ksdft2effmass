@@ -17,6 +17,12 @@ foundations
 → model-class expressiveness
 ```
 
+## Architecture and mechanization
+
+- [Multi-prover mechanized-proof architecture](../../architecture/mechanized-proof-system.md)
+- [PRF-05 prover-neutral theorem catalog](../../../formal/theorem-catalog/PRF-05.md)
+- [PRF-05 mechanized operator lemmas](status/proof.05-mechanized-lemmas.md)
+
 ## Foundations
 
 - [State-space assumptions](foundations/state-space-assumptions.md)
@@ -57,7 +63,7 @@ foundations
 - [Physics proof program](programs/physics-proof-program.md)
 - [Agentic-workflow proof program](programs/agentic-workflow-proof-program.md)
 - [Claims register](claims-register.md)
-- [Proof status](proof-status.md)
+- [Proof-package registry, precedence, decomposition, and status](proof-status.md)
 
 ## References
 

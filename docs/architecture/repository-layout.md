@@ -16,6 +16,11 @@ ksdft2effmass/
 ├── specification/
 │   └── operator-record/v1/            # public schema and validation fixtures
 ├── fixtures/
+├── formal/                              # theorem contracts and approved prospective multi-prover proof sources
+│   ├── theorem-catalog/                 # active cross-backend theorem identities and assumption contracts
+│   ├── lean/                            # prospective Lean 4/mathlib backend
+│   ├── isabelle/                        # prospective Isabelle/HOL backend
+│   └── rocq/                            # prospective Rocq backend
 ├── calculations/
 ├── workflows/                        # future executable/reproduction workflows
 ├── .agents/skills/                  # shared repository-local agent skills
@@ -35,6 +40,8 @@ ksdft2effmass/
 ├── CITATION.cff
 └── LICENSE
 ```
+
+The `formal/` surface is governed by `docs/architecture/mechanized-proof-system.md`. Its maintained Markdown theorem catalog is active. Independent Lean, Isabelle, and Rocq source trees are approved prospective ownership surfaces, but no prover source, toolchain, dependency, build, or execution is active. Formal backends must not become Python runtime dependencies or silently mutate proof status, specifications, research assumptions, manuscript claims, or scientific acceptance records.
 
 The `ksdft2effmass.operators` package is the supported public import path for finite operator records. The supported public import path for provenance objects is exactly `ksdft2effmass.provenance`; internal provenance filenames are ownership boundaries, not supported direct-import paths. In particular, no supported `ksdft2effmass.provenance.tools` contract existed before `tools.py` was removed.
 

@@ -77,38 +77,53 @@ $$
 
 The fixed-rank fiber condition is also the structure used in disentanglement procedures to construct a smooth active subspace across the sampled Brillouin zone [@souzamarzarivanderbilt2001; @mostofietal2008; @wannier90docs]. For doped systems, band shifts and impurity-derived subbands can alter which states intersect a fixed energy window, so this rank correspondence must be enforced by the retained-subspace construction rather than assumed from the energy window alone [@mazzolaetal2020; @mahan1983].
 
-Under the fiberwise correspondence, the pullback of the doped retained Hamiltonian decomposes as
+Under the fiberwise correspondence, transport of the pristine retained Hamiltonian into the doped retained space decomposes as
 
 $$
-\hat U_d^\dagger
-\hat H_d^{(P)}
 \hat U_d
+\hat H_b^{(P)}
+\hat U_d^\dagger
 =
 \bigoplus_{\mathbf k\in\mathcal K_L}
-\hat U_d(\mathbf k)^\dagger
-\hat H_d^{(P)}(\mathbf k)
-\hat U_d(\mathbf k).
+\hat U_d(\mathbf k)
+\hat H_b^{(P)}(\mathbf k)
+\hat U_d(\mathbf k)^\dagger.
 $$
 
-It follows that the aligned impurity operator in Definition 2 is equivalent to the family of fiberwise differences
+It follows that the doped-space aligned difference decomposes as
 
 $$
-\Delta\hat H_d^{(P)}
+\Delta\hat H_{b\rightarrow d}^{(P)}
 =
 \bigoplus_{\mathbf k\in\mathcal K_L}
-\Delta\hat H_d^{(P)}(\mathbf k),
+\Delta\hat H_{b\rightarrow d}^{(P)}(\mathbf k),
 $$
 
 with
 
 $$
-\Delta\hat H_d^{(P)}(\mathbf k)
+\Delta\hat H_{b\rightarrow d}^{(P)}(\mathbf k)
 =
+\hat H_d^{(P)}(\mathbf k)
+-
+\hat U_d(\mathbf k)
+\hat H_b^{(P)}(\mathbf k)
+\hat U_d(\mathbf k)^\dagger.
+$$
+
+The pristine-space dual decomposes as
+
+$$
+\Delta\hat H_{d\rightarrow b}^{(P)}
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\left[
 \hat U_d(\mathbf k)^\dagger
 \hat H_d^{(P)}(\mathbf k)
 \hat U_d(\mathbf k)
 -
-\hat H_b^{(P)}(\mathbf k).
+\hat H_b^{(P)}(\mathbf k)
+\right].
 $$
 
-The global and fiberwise formulations therefore describe the same aligned operator: the global formulation acts on the full retained space, while the fiberwise formulation resolves that action independently at each Bloch wavevector. Pulling both Hamiltonians into a common retained representation is the operator-level correspondence underlying downfolding and common-subspace comparisons [@georgesetal1996; @kunes2011].
+Because every $\hat U_d(\mathbf k)$ is unitary, the two fiberwise families are unitarily equivalent representations of the same aligned operator difference. The global and fiberwise formulations therefore describe the same aligned operator: each global formulation acts on its declared retained space, while the fiberwise formulation resolves that action independently at each Bloch wavevector. Transporting both Hamiltonians into a common retained representation is the operator-level correspondence underlying downfolding and common-subspace comparisons [@georgesetal1996; @kunes2011].

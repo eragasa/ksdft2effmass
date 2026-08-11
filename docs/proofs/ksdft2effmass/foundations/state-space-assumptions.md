@@ -251,30 +251,48 @@ $$\begin{gather}
 \hat U_d\hat U_d^\dagger = \hat I_{\mathcal H_d^{(P)}}
 \end{gather}$$
 
-The doped Hamiltonian pulled back to the pristine retained space is
+The pristine Hamiltonian transported to the doped retained space is
 $$
-\hat H_{d\rightarrow b}^{(P)}
+\hat H_{b\rightarrow d}^{(P)}
 =
-\hat U_d^\dagger
-\hat H_d^{(P)}
-\hat U_d.
+\hat U_d
+\hat H_b^{(P)}
+\hat U_d^\dagger.
 $$
 
 Both
 
 $$
-\hat H_{d\rightarrow b}^{(P)}
+\hat H_d^{(P)}
 \qquad\text{and}\qquad
-\hat H_b^{(P)}
+\hat H_{b\rightarrow d}^{(P)}
 $$
 
-then act on the common state space $\mathcal H_b^{(P)}$.
+then act on the common state space $\mathcal H_d^{(P)}$.
 
-The aligned impurity operator is therefore
+The aligned difference in the doped retained space is therefore
 
 $$
 \boxed{
-\Delta\hat H_d^{(P)}
+\Delta\hat H_{b\rightarrow d}^{(P)}
+=
+\hat H_d^{(P)}
+-
+\hat U_d
+\hat H_b^{(P)}
+\hat U_d^\dagger
+}
+:
+\mathcal H_d^{(P)}
+\rightarrow
+\mathcal H_d^{(P)}.
+$$
+
+The dual common-space representation pulls the doped Hamiltonian into the pristine retained space:
+
+$$
+\boxed{
+\Delta\hat H_{d\rightarrow b}^{(P)}
 =
 \hat U_d^\dagger
 \hat H_d^{(P)}
@@ -288,7 +306,7 @@ $$
 \mathcal H_b^{(P)}.
 $$
 
-If $M_b\neq M_d$, the map cannot be unitary. A partial isometry or common lower-dimensional comparison space would then have to be defined explicitly.
+When $\hat U_d$ is unitary, these two differences are related by unitary transport and represent the same aligned operator difference. If $M_b\neq M_d$, the map cannot be unitary. A partial isometry or common lower-dimensional comparison space would then have to be defined explicitly.
 
 #### Localized Wannier-Coordinate Space
 
@@ -468,21 +486,35 @@ $$
 \hat W_d.
 $$
 
-The aligned doped matrix in pristine coordinates is
+The aligned pristine matrix in doped coordinates is
 
 $$
-\mathbf H_{W,d\rightarrow b}
+\mathbf H_{W,b\rightarrow d}
 =
-\mathbf A_d^\dagger
-\mathbf H_{W,d}
-\mathbf A_d.
+\mathbf A_d
+\mathbf H_{W,b}
+\mathbf A_d^\dagger.
 $$
 
-The impurity matrix in the shared coordinate space is therefore
+The aligned difference in doped Wannier coordinates is therefore
 
 $$
 \boxed{
-\Delta\mathbf H_{W,d}
+\Delta\mathbf H_{W,b\rightarrow d}
+=
+\mathbf H_{W,d}
+-
+\mathbf A_d
+\mathbf H_{W,b}
+\mathbf A_d^\dagger
+}.
+$$
+
+The dual difference in pristine Wannier coordinates is
+
+$$
+\boxed{
+\Delta\mathbf H_{W,d\rightarrow b}
 =
 \mathbf A_d^\dagger
 \mathbf H_{W,d}
@@ -492,7 +524,7 @@ $$
 }.
 $$
 
-This subtraction is meaningful because both matrices now act on the same coordinate space $\mathbb C^M$ with the same orbital, site, spin, and lattice ordering.
+Each subtraction is meaningful because its operands act on one common coordinate space $\mathbb C^M$ with the same orbital, site, spin, and lattice ordering. Since $\mathbf A_d$ is unitary, the two displayed matrices are unitarily equivalent.
 
 #### Continuum Envelope-Function Space
 
@@ -879,10 +911,20 @@ $$
 \mathcal H_d^{(P)}.
 $$
 
-Define the aligned impurity operator:
+Define the aligned difference on the doped retained space and its dual representation on the pristine retained space:
 
 $$
-\Delta\hat H_d
+\Delta\hat H_{b\rightarrow d}
+=
+\hat H_d
+-
+\hat U_d
+\hat H_b
+\hat U_d^\dagger,
+$$
+
+$$
+\Delta\hat H_{d\rightarrow b}
 =
 \hat U_d^\dagger
 \hat H_d
@@ -890,6 +932,8 @@ $$
 -
 \hat H_b.
 $$
+
+When $\hat U_d$ is unitary, the two are unitarily equivalent representations of the same aligned operator difference.
 
 ### 2.3 Localized representation
 

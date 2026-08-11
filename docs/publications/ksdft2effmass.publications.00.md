@@ -28,8 +28,10 @@ applicable checkpoint for protected external or production execution.
   gauge-equivariant operator-framework narrative with a reserved LaTeX source
   folder; P01 remains `Waiting`.
 - [P04 manuscript package](papers/ksdft2effmass.P04/manuscript.md): provisional
-  cross-paper impurity-reduction narrative with a reserved LaTeX source folder;
-  publication-scope separation remains pending.
+  cross-paper impurity-reduction narrative covering dual common-space alignment,
+  the standard-mathematics boundary for `PRF-05`, and the prospective
+  multi-prover layer, with a reserved LaTeX source folder; publication-scope
+  separation remains pending.
 - [P91 manuscript package](papers/ksdft2effmass.P91/README.md): pre-results
   manuscript source, generated working output, and vendored journal support.
 - [Agentic-development case study](papers/agentic-development-case-study/README.md):

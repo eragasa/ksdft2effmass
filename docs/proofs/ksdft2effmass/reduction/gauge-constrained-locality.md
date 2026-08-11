@@ -102,7 +102,7 @@ The most coherent continuation is:
 
 ### Proposition 1 — Gauge equivariance of aligned subtraction
 
-Prove that projection, identification, pullback, and subtraction yield a covariant impurity operator.
+Prove that projection, identification pullback or pushforward, and subtraction yield a covariant impurity operator.
 
 ### Proposition 2 — Gauge invariance of the path residual
 

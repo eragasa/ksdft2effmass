@@ -13,6 +13,11 @@ Repository layout
    ├── rust/
    ├── specification/
    ├── fixtures/
+   ├── formal/                            # theorem contracts and approved prospective multi-prover proof sources
+   │   ├── theorem-catalog/               # active cross-backend theorem identities and assumption contracts
+   │   ├── lean/                          # prospective Lean 4/mathlib backend
+   │   ├── isabelle/                      # prospective Isabelle/HOL backend
+   │   └── rocq/                          # prospective Rocq backend
    ├── calculations/
    ├── workflows/
    ├── docs/
@@ -23,6 +28,14 @@ Repository layout
    ├── README.md
    ├── CITATION.cff
    └── LICENSE
+
+The ``formal/`` surface is governed by
+``docs/architecture/mechanized-proof-system.md``. Its maintained Markdown theorem
+catalog is active. Independent Lean, Isabelle, and Rocq source trees are approved
+prospective ownership surfaces, but no prover source, toolchain, dependency,
+build, or execution is active. Formal backends must not become Python runtime dependencies
+or silently mutate proof status, specifications, research assumptions,
+manuscript claims, or scientific acceptance records.
 
 The ``ksdft2effmass.operators`` package is the supported public import path for
 finite operator records.  Its versioned JSON text serialization format

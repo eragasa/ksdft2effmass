@@ -100,4 +100,5 @@ as source files:
 * :download:`Colored Petri Net workflow architecture <architecture/colored-petri-net-workflows.md>`
 * :download:`Periodic KS/GKS and QE architecture <architecture/kohn-sham-dft-quantum-espresso.md>`
 * :download:`Periodic electronic-structure integration <architecture/periodic-electronic-structure-integration.md>`
+* :download:`Multi-prover mechanized-proof architecture <architecture/mechanized-proof-system.md>`
 * :download:`CPN skill-capability audit <architecture/cpn-skill-capability-audit.md>`
