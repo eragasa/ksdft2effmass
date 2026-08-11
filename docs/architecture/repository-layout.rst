@@ -13,9 +13,9 @@ Repository layout
    ├── rust/
    ├── specification/
    ├── fixtures/
-   ├── formal/                            # theorem contracts and approved prospective multi-prover proof sources
+   ├── formal/                            # theorem contracts and isolated multi-prover proof sources
    │   ├── theorem-catalog/               # active cross-backend theorem identities and assumption contracts
-   │   ├── lean/                          # prospective Lean 4/mathlib backend
+   │   ├── lean/                          # active bounded Lean 4/mathlib backend for PRF-05.01
    │   ├── isabelle/                      # prospective Isabelle/HOL backend
    │   └── rocq/                          # prospective Rocq backend
    ├── calculations/
@@ -31,9 +31,9 @@ Repository layout
 
 The ``formal/`` surface is governed by
 ``docs/architecture/mechanized-proof-system.md``. Its maintained Markdown theorem
-catalog is active. Independent Lean, Isabelle, and Rocq source trees are approved
-prospective ownership surfaces, but no prover source, toolchain, dependency,
-build, or execution is active. Formal backends must not become Python runtime dependencies
+catalog is active. The bounded Lean 4/mathlib ``v4.33.0`` backend checks
+``PRF-05.01``; every other Lean target and the approved prospective Isabelle and
+Rocq source trees remain inactive. Formal backends must not become Python runtime dependencies
 or silently mutate proof status, specifications, research assumptions,
 manuscript claims, or scientific acceptance records.
 

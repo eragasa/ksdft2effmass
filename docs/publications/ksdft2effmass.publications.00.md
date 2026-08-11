@@ -29,8 +29,9 @@ applicable checkpoint for protected external or production execution.
   folder; P01 remains `Waiting`.
 - [P04 manuscript package](papers/ksdft2effmass.P04/manuscript.md): provisional
   cross-paper impurity-reduction narrative covering dual common-space alignment,
-  the standard-mathematics boundary for `PRF-05`, and the prospective
-  multi-prover layer, with a reserved LaTeX source folder; publication-scope
+  the standard-mathematics boundary for `PRF-05`, the bounded Lean check of
+  `PRF-05.01`, and the prospective remaining multi-prover layer, with a reserved
+  LaTeX source folder; publication-scope
   separation remains pending.
 - [P91 manuscript package](papers/ksdft2effmass.P91/README.md): pre-results
   manuscript source, generated working output, and vendored journal support.

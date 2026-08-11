@@ -4,7 +4,7 @@
 
 ## Status
 
-`proposed`: the multi-prover architecture is defined and nine prover-neutral contracts from `PRF-05.01` through `PRF-05.08`, including `PRF-05.05a` and `PRF-05.05b`, are frozen following conditional review, correction, and explicit human confirmation. Freezing establishes the current common theorem targets only. No theorem is encoded or checked in Lean, Isabelle, or Rocq, and backend implementation remains inactive.
+`proposed`: the multi-prover architecture is defined and nine prover-neutral contracts from `PRF-05.01` through `PRF-05.08`, including `PRF-05.05a` and `PRF-05.05b`, are frozen. The bounded Lean trial authorized by `PRF-05-HC01` checked `PRF-05.01` with Lean 4 and mathlib `v4.33.0`. The remaining Lean targets and every Isabelle and Rocq target are unencoded; no contract is cross-checked.
 
 ## Objective
 
@@ -23,7 +23,7 @@ Independently mechanize the elementary finite-dimensional algebra supporting gau
 
 | ID | Obligation | Status | Prerequisites | Prose owner |
 |---|---|---|---|---|
-| `PRF-05.01` | Frame rotation leaves the retained-space projector invariant. | `proposed` | `PRF-00.01` | [Gauge equivariance](../operator-alignment/gauge-equivariance.md) |
+| `PRF-05.01` | Frame rotation leaves the retained-space projector invariant. | `in development` | `PRF-00.01` | [Gauge equivariance](../operator-alignment/gauge-equivariance.md) |
 | `PRF-05.02` | Represented operators transform covariantly under unitary coordinate changes. | `proposed` | `PRF-00.01`, `PRF-00.03` | [Representation maps](../foundations/representation-maps.md) |
 | `PRF-05.03` | Identification pullback is covariant under compatible source and target gauges. | `proposed` | `PRF-00.03` | [Aligned impurity operator](../operator-alignment/aligned-impurity-operator.md) |
 | `PRF-05.04` | Pristine-space and doped-space aligned differences are covariant and, for unitary identification, equivalent. | `proposed` | `PRF-05.02`, `PRF-05.03`; both common spaces | [Aligned impurity operator](../operator-alignment/aligned-impurity-operator.md) |
@@ -33,7 +33,18 @@ Independently mechanize the elementary finite-dimensional algebra supporting gau
 | `PRF-05.07` | A two-point counterexample shows that gauge and real-space truncation need not commute. | `proposed` | `PRF-00.02`, `PRF-00.03` | [Gauge-constrained locality](../reduction/gauge-constrained-locality.md) |
 | `PRF-05.08` | Shell Frobenius diagnostics are invariant under declared lattice-local constant unitary rotations. | `proposed` | `PRF-05.02`; shell decomposition | [Gauge-constrained locality](../reduction/gauge-constrained-locality.md) |
 
-Each obligation is eventually tracked independently as `unencoded`, `encoded`, or `checked` in each backend. `cross-checked` requires all three checked encodings plus semantic conformance review.
+Each obligation is tracked independently as `unencoded`, `encoded`, or `checked` in each backend. `cross-checked` requires all three checked encodings plus semantic conformance review.
+
+## Bounded Lean trial evidence
+
+- Authority: resolved checkpoint [`PRF-05-HC01`](../../../../.pi/checkpoints/PRF-05-HC01-lean-trial-toolchain.json).
+- Contract: frozen `PRF-05.01` in the [theorem catalog](../../../../formal/theorem-catalog/PRF-05.md#prf-0501-projector-invariance-under-unitary-frame-rotation).
+- Source: [`formal/lean/Ksdft2Effmass/Gauge.lean`](../../../../formal/lean/Ksdft2Effmass/Gauge.lean).
+- Toolchain: Lean 4 `v4.33.0`; mathlib input revision `v4.33.0`, resolved in `lake-manifest.json`.
+- Check: `cd formal/lean && ~/.elan/bin/lake build` completed without warnings or errors. The explicit path is required because the installer could not modify the local shell profile.
+- Admission check: no `sorry` or `admit` occurs in the project-owned Lean source. Lean reports only the standard foundational dependencies `propext`, `Classical.choice`, and `Quot.sound` for the exported theorem.
+
+This establishes only that the pinned Lean checker accepts the `PRF-05.01` encoding. It does not establish cross-backend conformance, numerical verification, or scientific validation.
 
 ## Completion criteria
 

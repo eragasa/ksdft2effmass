@@ -6,7 +6,7 @@
 
 | Identity     | Contract                                                             | Contract status | Lean        | Isabelle    | Rocq        |
 | ------------ | -------------------------------------------------------------------- | --------------- | ----------- | ----------- | ----------- |
-| `PRF-05.01`  | Projector invariance under unitary frame rotation                    | `frozen`        | `unencoded` | `unencoded` | `unencoded` |
+| `PRF-05.01`  | Projector invariance under unitary frame rotation                    | `frozen`        | `checked`   | `unencoded` | `unencoded` |
 | `PRF-05.02`  | Covariance of a compressed operator representation                   | `frozen`        | `unencoded` | `unencoded` | `unencoded` |
 | `PRF-05.03`  | Covariance of identification pullback                                | `frozen`        | `unencoded` | `unencoded` | `unencoded` |
 | `PRF-05.04`  | Covariance and unitary equivalence of aligned subtraction            | `frozen`        | `unencoded` | `unencoded` | `unencoded` |
@@ -16,7 +16,7 @@
 | `PRF-05.07`  | Two-point counterexample to gauge–truncation commutation             | `frozen`        | `unencoded` | `unencoded` | `unencoded` |
 | `PRF-05.08`  | Shell-Frobenius invariance under constant local rotations            | `frozen`        | `unencoded` | `unencoded` | `unencoded` |
 
-All nine contracts in this file are frozen as the current common backend targets. None is encoded, checked, cross-checked, numerically verified, or scientifically validated.
+All nine contracts in this file are frozen as the current common backend targets. `PRF-05.01` is checked in Lean 4 under the pinned trial toolchain; every other Lean target and all Isabelle and Rocq targets remain unencoded. No contract is cross-checked, numerically verified, or scientifically validated.
 
 **Human review disposition:** The package received `CONDITIONAL_PASS`; the requested revisions were applied, and subsequent explicit human confirmation authorized freezing the revised contracts. `PRF-05.04` retains both common-space orientations and their unitary equivalence, the former combined `PRF-05.05` is split into `PRF-05.05a` and `PRF-05.05b`, `PRF-05.06` names both norm dependencies, and `PRF-05.07` is explicitly titled as a counterexample. Freezing fixes the current theorem targets but does not authorize prover implementation or establish any proof.
 
@@ -853,4 +853,4 @@ $$
 
 ## Contract review boundary
 
-All nine `PRF-05` contracts are frozen following conditional review, correction, and explicit human confirmation. The two norm constructions are tracked as `PRF-05.05a` and `PRF-05.05b`, and `PRF-05.04` retains both common-space orientations. No backend source exists, and freezing does not authorize toolchain installation or implementation.
+All nine `PRF-05` contracts are frozen following conditional review, correction, and explicit human confirmation. The two norm constructions are tracked as `PRF-05.05a` and `PRF-05.05b`, and `PRF-05.04` retains both common-space orientations. The separately authorized bounded Lean trial checked only `PRF-05.01`; no other backend target is encoded, and no cross-backend conformance claim is established.

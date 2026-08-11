@@ -16,9 +16,9 @@ ksdft2effmass/
 ├── specification/
 │   └── operator-record/v1/            # public schema and validation fixtures
 ├── fixtures/
-├── formal/                              # theorem contracts and approved prospective multi-prover proof sources
+├── formal/                              # theorem contracts and isolated multi-prover proof sources
 │   ├── theorem-catalog/                 # active cross-backend theorem identities and assumption contracts
-│   ├── lean/                            # prospective Lean 4/mathlib backend
+│   ├── lean/                            # active bounded Lean 4/mathlib backend for PRF-05.01
 │   ├── isabelle/                        # prospective Isabelle/HOL backend
 │   └── rocq/                            # prospective Rocq backend
 ├── calculations/
@@ -41,7 +41,7 @@ ksdft2effmass/
 └── LICENSE
 ```
 
-The `formal/` surface is governed by `docs/architecture/mechanized-proof-system.md`. Its maintained Markdown theorem catalog is active. Independent Lean, Isabelle, and Rocq source trees are approved prospective ownership surfaces, but no prover source, toolchain, dependency, build, or execution is active. Formal backends must not become Python runtime dependencies or silently mutate proof status, specifications, research assumptions, manuscript claims, or scientific acceptance records.
+The `formal/` surface is governed by `docs/architecture/mechanized-proof-system.md`. Its maintained Markdown theorem catalog is active. The bounded Lean 4/mathlib `v4.33.0` backend checks `PRF-05.01`; every other Lean target and the approved prospective Isabelle and Rocq source trees remain inactive. Formal backends must not become Python runtime dependencies or silently mutate proof status, specifications, research assumptions, manuscript claims, or scientific acceptance records.
 
 The `ksdft2effmass.operators` package is the supported public import path for finite operator records. The supported public import path for provenance objects is exactly `ksdft2effmass.provenance`; internal provenance filenames are ownership boundaries, not supported direct-import paths. In particular, no supported `ksdft2effmass.provenance.tools` contract existed before `tools.py` was removed.
 

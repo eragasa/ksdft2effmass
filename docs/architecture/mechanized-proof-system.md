@@ -2,7 +2,7 @@
 
 ## Status
 
-Approved conceptual architecture. The nine initial `PRF-05` prover-neutral contracts are frozen as common backend targets; executable backend implementation is inactive.
+Approved conceptual architecture with a bounded active Lean backend. The nine initial `PRF-05` prover-neutral contracts are frozen as common backend targets. `PRF-05.01` is checked in Lean 4 with the pinned `v4.33.0` Lean/mathlib toolchain; all other Lean targets and the Isabelle and Rocq backends remain inactive.
 
 This document authorizes the repository structure and dependency direction for a future mechanized-proof system using Lean 4, Isabelle/HOL, and Rocq. It authorizes maintained prover-neutral theorem contracts under `formal/theorem-catalog/`. It does not authorize installing toolchains, adding dependencies, creating executable prover projects, running external services, or representing any theorem as machine checked.
 
@@ -101,7 +101,7 @@ The three backends must not generate one another's theorem statements or proofs.
 
 ## Repository layout
 
-The theorem catalog is an active maintained documentation surface. Lean, Isabelle, and Rocq paths remain prospective and are not created by this architecture phase.
+The theorem catalog is an active maintained documentation surface. The bounded `formal/lean/` backend now owns the checked `PRF-05.01` encoding. Isabelle and Rocq paths remain prospective and are not created.
 
 ```text
 formal/
@@ -109,16 +109,13 @@ formal/
 │   ├── README.md
 │   └── PRF-05.md
 ├── lean/
+│   ├── README.md
 │   ├── lakefile.toml
 │   ├── lake-manifest.json
 │   ├── lean-toolchain
+│   ├── Ksdft2Effmass.lean
 │   └── Ksdft2Effmass/
-│       ├── Spaces.lean
-│       ├── Gauge.lean
-│       ├── Alignment.lean
-│       ├── Residuals.lean
-│       ├── Truncation.lean
-│       └── PathConsistency.lean
+│       └── Gauge.lean
 ├── isabelle/
 │   ├── ROOT
 │   ├── ROOTS
@@ -147,7 +144,7 @@ Generated build products, caches, downloaded package stores, compiled proof arti
 
 ### Theorem catalog
 
-The prospective `formal/theorem-catalog/` surface owns cross-backend theorem identity, not mathematical derivations. Each entry must identify:
+The active `formal/theorem-catalog/` surface owns cross-backend theorem identity, not mathematical derivations. Each entry must identify:
 
 - the `PRF-*` proof obligation;
 - the prose proof owner;
@@ -163,7 +160,7 @@ The catalog must not duplicate full proofs or redefine scientific assumptions.
 
 ### Lean backend
 
-The prospective `formal/lean/` surface owns Lean definitions and proofs. It depends on the theorem catalog and a pinned Lean 4/mathlib toolchain. It does not own Python behavior or scientific assumptions.
+The active bounded `formal/lean/` surface owns Lean definitions and proofs authorized by `PRF-05-HC01`. It depends on the theorem catalog and pins Lean 4 and mathlib `v4.33.0`. Its current scope is only `PRF-05.01`; it does not own Python behavior or scientific assumptions.
 
 Official Lean learning and reference material:
 
@@ -175,7 +172,7 @@ Official Lean learning and reference material:
 - [Lean FAQ](https://lean-lang.org/faq)
 - [Mathlib API reference](https://leanprover-community.github.io/mathlib4_docs/) — searchable Lean core, standard-library, and mathlib declarations
 
-These links identify documentation resources only. Exact toolchain and mathlib versions remain deferred until the dependency decision is resolved; version-specific local documentation should accompany any future pinned environment.
+These links identify documentation resources. The bounded trial pins Lean 4 and mathlib `v4.33.0`; version-specific local documentation accompanies the project under `formal/lean/`. Any upgrade or broader Lean scope requires a new dependency decision.
 
 ### Isabelle backend
 
@@ -258,7 +255,7 @@ Each backend must pin its toolchain and formal-library versions using its native
 
 The three prover ecosystems are development and verification toolchains, not Python runtime dependencies. They must not be added to `python/pyproject.toml` or `python/uv.lock`.
 
-Selecting exact versions, package managers, library subsets, CI images, and installation methods is deferred to an explicitly authorized implementation task and applicable dependency checkpoint.
+The bounded Lean trial selects the official `elan`/Lake path and matching Lean 4/mathlib `v4.33.0` releases. Lean upgrades, broader library use, CI, and every Isabelle or Rocq toolchain decision remain deferred to an explicitly authorized implementation task and applicable dependency checkpoint.
 
 ## Migration sequence
 
@@ -299,9 +296,10 @@ Removing one backend changes an all-three `cross-checked` claim and therefore re
 
 This architecture does not select:
 
-- exact prover or library versions;
-- installation or package-management methods;
-- CI providers or images;
+- exact Isabelle and Rocq versions or libraries;
+- Isabelle and Rocq installation or package-management methods;
+- CI providers or images for any backend;
+- any Lean or mathlib upgrade beyond the bounded `v4.33.0` trial;
 - automated theorem-catalog parsers;
 - generated documentation tooling;
 - formal-to-Python fixture formats;
