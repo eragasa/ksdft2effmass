@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement",
   "title": "Consolidate validation and retire replay machinery",
-  "status": "inactive",
-  "status_detail": "inactive R2.7 repository validation, private control-generation builder, and legacy-route retirement work package",
+  "status": "active",
+  "status_detail": "activated by current human instruction for bounded R2.7 repository validation composition, private control-generation builder extraction, and proven-obsolete legacy-route retirement",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.cli-consolidation"

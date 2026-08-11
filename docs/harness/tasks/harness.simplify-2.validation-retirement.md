@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: inactive R2.7 repository validation, private control-generation builder, and legacy-route retirement work package
+`active`: activated by current human instruction for bounded R2.7 repository validation composition, private control-generation builder extraction, and proven-obsolete legacy-route retirement
 
 ## Objective
 

@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: coordinating parent restored after R2.6 completed; R2.7 is prerequisite-eligible but inactive, and automatic successor activation remains disabled
+`deferred_to_active_child`: coordinating parent deferred to active R2.7 validation consolidation and retirement after R2.6 completed; automatic successor activation remains disabled
 
 ## Objective
 
