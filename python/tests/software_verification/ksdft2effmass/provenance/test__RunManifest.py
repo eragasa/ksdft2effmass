@@ -170,18 +170,30 @@ def test_field__frozen_assignment__rejects_every_public_field(
 
 
 @pytest.mark.parametrize(
-    "field_name",
+    ("field_name", "invalid"),
     [
-        pytest.param("input_artifact_ids", id="input_identifiers"),
-        pytest.param("output_artifact_ids", id="output_identifiers"),
-        pytest.param("dependency_manifest_ids", id="dependency_identifiers"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param(("b", "a"), id="unsorted_tuple"),
-        pytest.param(("a", "a"), id="duplicate_tuple"),
+        pytest.param(
+            "input_artifact_ids", ("b", "a"), id="unsorted_tuple_input_identifiers"
+        ),
+        pytest.param(
+            "output_artifact_ids", ("b", "a"), id="unsorted_tuple_output_identifiers"
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            ("b", "a"),
+            id="unsorted_tuple_dependency_identifiers",
+        ),
+        pytest.param(
+            "input_artifact_ids", ("a", "a"), id="duplicate_tuple_input_identifiers"
+        ),
+        pytest.param(
+            "output_artifact_ids", ("a", "a"), id="duplicate_tuple_output_identifiers"
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            ("a", "a"),
+            id="duplicate_tuple_dependency_identifiers",
+        ),
     ],
 )
 def test_constructor__canonical_identifier_tuple_values__reject_noncanonical_order(
@@ -491,20 +503,40 @@ def test_constructor__declared_output_ids__preserves_preallocation() -> None:
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "invalid"),
     [
-        pytest.param("manifest_id", id="manifest_identifier"),
-        pytest.param("specification_id", id="specification_identifier"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param("", id="empty_identifier"),
-        pytest.param("bad id", id="embedded_space"),
-        pytest.param("e\u0301", id="non_nfc_identifier"),
-        pytest.param("\ud800", id="unicode_surrogate"),
-        pytest.param("a" * 129, id="overlength_identifier"),
+        pytest.param("manifest_id", "", id="empty_identifier_manifest_identifier"),
+        pytest.param(
+            "specification_id", "", id="empty_identifier_specification_identifier"
+        ),
+        pytest.param("manifest_id", "bad id", id="embedded_space_manifest_identifier"),
+        pytest.param(
+            "specification_id", "bad id", id="embedded_space_specification_identifier"
+        ),
+        pytest.param(
+            "manifest_id", "e\u0301", id="non_nfc_identifier_manifest_identifier"
+        ),
+        pytest.param(
+            "specification_id",
+            "e\u0301",
+            id="non_nfc_identifier_specification_identifier",
+        ),
+        pytest.param(
+            "manifest_id", "\ud800", id="unicode_surrogate_manifest_identifier"
+        ),
+        pytest.param(
+            "specification_id",
+            "\ud800",
+            id="unicode_surrogate_specification_identifier",
+        ),
+        pytest.param(
+            "manifest_id", "a" * 129, id="overlength_identifier_manifest_identifier"
+        ),
+        pytest.param(
+            "specification_id",
+            "a" * 129,
+            id="overlength_identifier_specification_identifier",
+        ),
     ],
 )
 def test_field__manifest_scalar_identifier_values__reject_nonportable_text(
@@ -561,21 +593,79 @@ def test_field__manifest_scalar_identifier_semantic_types__reject_bytes(
 
 
 @pytest.mark.parametrize(
-    "field_name",
+    ("field_name", "invalid"),
     [
-        pytest.param("input_artifact_ids", id="input_artifact_identifiers"),
-        pytest.param("output_artifact_ids", id="output_artifact_identifiers"),
-        pytest.param("dependency_manifest_ids", id="dependency_manifest_identifiers"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param("", id="empty_identifier"),
-        pytest.param("bad id", id="embedded_space"),
-        pytest.param("e\u0301", id="non_nfc_identifier"),
-        pytest.param("\ud800", id="unicode_surrogate"),
-        pytest.param("a" * 129, id="overlength_identifier"),
+        pytest.param(
+            "input_artifact_ids", "", id="empty_identifier_input_artifact_identifiers"
+        ),
+        pytest.param(
+            "output_artifact_ids", "", id="empty_identifier_output_artifact_identifiers"
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            "",
+            id="empty_identifier_dependency_manifest_identifiers",
+        ),
+        pytest.param(
+            "input_artifact_ids",
+            "bad id",
+            id="embedded_space_input_artifact_identifiers",
+        ),
+        pytest.param(
+            "output_artifact_ids",
+            "bad id",
+            id="embedded_space_output_artifact_identifiers",
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            "bad id",
+            id="embedded_space_dependency_manifest_identifiers",
+        ),
+        pytest.param(
+            "input_artifact_ids",
+            "e\u0301",
+            id="non_nfc_identifier_input_artifact_identifiers",
+        ),
+        pytest.param(
+            "output_artifact_ids",
+            "e\u0301",
+            id="non_nfc_identifier_output_artifact_identifiers",
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            "e\u0301",
+            id="non_nfc_identifier_dependency_manifest_identifiers",
+        ),
+        pytest.param(
+            "input_artifact_ids",
+            "\ud800",
+            id="unicode_surrogate_input_artifact_identifiers",
+        ),
+        pytest.param(
+            "output_artifact_ids",
+            "\ud800",
+            id="unicode_surrogate_output_artifact_identifiers",
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            "\ud800",
+            id="unicode_surrogate_dependency_manifest_identifiers",
+        ),
+        pytest.param(
+            "input_artifact_ids",
+            "a" * 129,
+            id="overlength_identifier_input_artifact_identifiers",
+        ),
+        pytest.param(
+            "output_artifact_ids",
+            "a" * 129,
+            id="overlength_identifier_output_artifact_identifiers",
+        ),
+        pytest.param(
+            "dependency_manifest_ids",
+            "a" * 129,
+            id="overlength_identifier_dependency_manifest_identifiers",
+        ),
     ],
 )
 def test_field__identifier_tuple_member_values__reject_nonportable_text(

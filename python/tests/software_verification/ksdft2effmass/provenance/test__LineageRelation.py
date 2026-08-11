@@ -106,22 +106,44 @@ def test_constructor__kind_semantic_type__rejects_string_lookalike() -> None:
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "invalid"),
     [
-        pytest.param("lineage_id", id="lineage_identifier"),
-        pytest.param("parent_id", id="parent_identifier"),
-        pytest.param("child_id", id="child_identifier"),
-        pytest.param("provenance_id", id="provenance_identifier"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param("", id="empty_identifier"),
-        pytest.param("bad id", id="embedded_space"),
-        pytest.param("e\u0301", id="non_nfc_identifier"),
-        pytest.param("\ud800", id="unicode_surrogate"),
-        pytest.param("a" * 129, id="overlength_identifier"),
+        pytest.param("lineage_id", "", id="empty_identifier_lineage_identifier"),
+        pytest.param("parent_id", "", id="empty_identifier_parent_identifier"),
+        pytest.param("child_id", "", id="empty_identifier_child_identifier"),
+        pytest.param("provenance_id", "", id="empty_identifier_provenance_identifier"),
+        pytest.param("lineage_id", "bad id", id="embedded_space_lineage_identifier"),
+        pytest.param("parent_id", "bad id", id="embedded_space_parent_identifier"),
+        pytest.param("child_id", "bad id", id="embedded_space_child_identifier"),
+        pytest.param(
+            "provenance_id", "bad id", id="embedded_space_provenance_identifier"
+        ),
+        pytest.param(
+            "lineage_id", "e\u0301", id="non_nfc_identifier_lineage_identifier"
+        ),
+        pytest.param("parent_id", "e\u0301", id="non_nfc_identifier_parent_identifier"),
+        pytest.param("child_id", "e\u0301", id="non_nfc_identifier_child_identifier"),
+        pytest.param(
+            "provenance_id", "e\u0301", id="non_nfc_identifier_provenance_identifier"
+        ),
+        pytest.param("lineage_id", "\ud800", id="unicode_surrogate_lineage_identifier"),
+        pytest.param("parent_id", "\ud800", id="unicode_surrogate_parent_identifier"),
+        pytest.param("child_id", "\ud800", id="unicode_surrogate_child_identifier"),
+        pytest.param(
+            "provenance_id", "\ud800", id="unicode_surrogate_provenance_identifier"
+        ),
+        pytest.param(
+            "lineage_id", "a" * 129, id="overlength_identifier_lineage_identifier"
+        ),
+        pytest.param(
+            "parent_id", "a" * 129, id="overlength_identifier_parent_identifier"
+        ),
+        pytest.param(
+            "child_id", "a" * 129, id="overlength_identifier_child_identifier"
+        ),
+        pytest.param(
+            "provenance_id", "a" * 129, id="overlength_identifier_provenance_identifier"
+        ),
     ],
 )
 def test_field__lineage_identifier_values__reject_nonportable_text(

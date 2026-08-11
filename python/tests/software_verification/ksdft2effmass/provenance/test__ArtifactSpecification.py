@@ -173,21 +173,53 @@ def test_field__logical_path_semantic_type__rejects_non_string_values() -> None:
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "invalid"),
     [
-        pytest.param("format", id="format_identifier"),
-        pytest.param("semantic_role", id="semantic_role_identifier"),
-        pytest.param("retention_policy", id="retention_policy_identifier"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param("", id="empty_identifier"),
-        pytest.param("bad id", id="embedded_space"),
-        pytest.param("e\u0301", id="non_nfc_identifier"),
-        pytest.param("\ud800", id="unicode_surrogate"),
-        pytest.param("a" * 129, id="overlength_identifier"),
+        pytest.param("format", "", id="empty_identifier_format_identifier"),
+        pytest.param(
+            "semantic_role", "", id="empty_identifier_semantic_role_identifier"
+        ),
+        pytest.param(
+            "retention_policy", "", id="empty_identifier_retention_policy_identifier"
+        ),
+        pytest.param("format", "bad id", id="embedded_space_format_identifier"),
+        pytest.param(
+            "semantic_role", "bad id", id="embedded_space_semantic_role_identifier"
+        ),
+        pytest.param(
+            "retention_policy",
+            "bad id",
+            id="embedded_space_retention_policy_identifier",
+        ),
+        pytest.param("format", "e\u0301", id="non_nfc_identifier_format_identifier"),
+        pytest.param(
+            "semantic_role", "e\u0301", id="non_nfc_identifier_semantic_role_identifier"
+        ),
+        pytest.param(
+            "retention_policy",
+            "e\u0301",
+            id="non_nfc_identifier_retention_policy_identifier",
+        ),
+        pytest.param("format", "\ud800", id="unicode_surrogate_format_identifier"),
+        pytest.param(
+            "semantic_role", "\ud800", id="unicode_surrogate_semantic_role_identifier"
+        ),
+        pytest.param(
+            "retention_policy",
+            "\ud800",
+            id="unicode_surrogate_retention_policy_identifier",
+        ),
+        pytest.param("format", "a" * 129, id="overlength_identifier_format_identifier"),
+        pytest.param(
+            "semantic_role",
+            "a" * 129,
+            id="overlength_identifier_semantic_role_identifier",
+        ),
+        pytest.param(
+            "retention_policy",
+            "a" * 129,
+            id="overlength_identifier_retention_policy_identifier",
+        ),
     ],
 )
 def test_field__metadata_identifier_values__reject_nonportable_text(

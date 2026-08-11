@@ -157,20 +157,32 @@ def test_field__operational_immutability__rejects_reassignment() -> None:
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "invalid"),
     [
-        pytest.param("provenance_id", id="provenance_identifier"),
-        pytest.param("manifest_id", id="manifest_identifier"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param("", id="empty_identifier"),
-        pytest.param("bad id", id="embedded_space"),
-        pytest.param("e\u0301", id="non_nfc_identifier"),
-        pytest.param("\ud800", id="unicode_surrogate"),
-        pytest.param("a" * 129, id="overlength_identifier"),
+        pytest.param("provenance_id", "", id="empty_identifier_provenance_identifier"),
+        pytest.param("manifest_id", "", id="empty_identifier_manifest_identifier"),
+        pytest.param(
+            "provenance_id", "bad id", id="embedded_space_provenance_identifier"
+        ),
+        pytest.param("manifest_id", "bad id", id="embedded_space_manifest_identifier"),
+        pytest.param(
+            "provenance_id", "e\u0301", id="non_nfc_identifier_provenance_identifier"
+        ),
+        pytest.param(
+            "manifest_id", "e\u0301", id="non_nfc_identifier_manifest_identifier"
+        ),
+        pytest.param(
+            "provenance_id", "\ud800", id="unicode_surrogate_provenance_identifier"
+        ),
+        pytest.param(
+            "manifest_id", "\ud800", id="unicode_surrogate_manifest_identifier"
+        ),
+        pytest.param(
+            "provenance_id", "a" * 129, id="overlength_identifier_provenance_identifier"
+        ),
+        pytest.param(
+            "manifest_id", "a" * 129, id="overlength_identifier_manifest_identifier"
+        ),
     ],
 )
 def test_field__scalar_identifier_values__reject_nonportable_text(
@@ -237,22 +249,62 @@ def test_field__scalar_identifier_semantic_types__reject_bytes(field: str) -> No
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "invalid_tuple"),
     [
-        pytest.param("parent_provenance_ids", id="parent_provenance_identifiers"),
-        pytest.param("artifact_ids", id="artifact_identifiers"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid_tuple",
-    [
-        pytest.param(("b", "a"), id="unsorted_tuple"),
-        pytest.param(("a", "a"), id="duplicate_tuple"),
-        pytest.param(("",), id="empty_member"),
-        pytest.param(("bad id",), id="embedded_space"),
-        pytest.param(("e\u0301",), id="non_nfc_member"),
-        pytest.param(("\ud800",), id="unicode_surrogate"),
-        pytest.param(("a" * 129,), id="overlength_member"),
+        pytest.param(
+            "parent_provenance_ids",
+            ("b", "a"),
+            id="unsorted_tuple_parent_provenance_identifiers",
+        ),
+        pytest.param(
+            "artifact_ids", ("b", "a"), id="unsorted_tuple_artifact_identifiers"
+        ),
+        pytest.param(
+            "parent_provenance_ids",
+            ("a", "a"),
+            id="duplicate_tuple_parent_provenance_identifiers",
+        ),
+        pytest.param(
+            "artifact_ids", ("a", "a"), id="duplicate_tuple_artifact_identifiers"
+        ),
+        pytest.param(
+            "parent_provenance_ids",
+            ("",),
+            id="empty_member_parent_provenance_identifiers",
+        ),
+        pytest.param("artifact_ids", ("",), id="empty_member_artifact_identifiers"),
+        pytest.param(
+            "parent_provenance_ids",
+            ("bad id",),
+            id="embedded_space_parent_provenance_identifiers",
+        ),
+        pytest.param(
+            "artifact_ids", ("bad id",), id="embedded_space_artifact_identifiers"
+        ),
+        pytest.param(
+            "parent_provenance_ids",
+            ("e\u0301",),
+            id="non_nfc_member_parent_provenance_identifiers",
+        ),
+        pytest.param(
+            "artifact_ids", ("e\u0301",), id="non_nfc_member_artifact_identifiers"
+        ),
+        pytest.param(
+            "parent_provenance_ids",
+            ("\ud800",),
+            id="unicode_surrogate_parent_provenance_identifiers",
+        ),
+        pytest.param(
+            "artifact_ids", ("\ud800",), id="unicode_surrogate_artifact_identifiers"
+        ),
+        pytest.param(
+            "parent_provenance_ids",
+            ("a" * 129,),
+            id="overlength_member_parent_provenance_identifiers",
+        ),
+        pytest.param(
+            "artifact_ids", ("a" * 129,), id="overlength_member_artifact_identifiers"
+        ),
     ],
 )
 def test_field__identifier_collection_values__reject_noncanonical_tuples(

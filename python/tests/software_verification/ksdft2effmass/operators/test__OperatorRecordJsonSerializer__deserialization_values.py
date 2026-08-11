@@ -214,18 +214,18 @@ def test_method__deserialize__numeric_strings_are_not_numbers(
 
 
 @pytest.mark.parametrize(
-    "path",
+    ("path", "sign"),
     [
-        pytest.param(("matrix", 0, 0, 0), id="matrix_real"),
-        pytest.param(("matrix", 0, 0, 1), id="matrix_imaginary"),
-        pytest.param(("geometry", "cell", 0, 0), id="cell_component"),
-    ],
-)
-@pytest.mark.parametrize(
-    "sign",
-    [
-        pytest.param("positive", id="positive"),
-        pytest.param("negative", id="negative"),
+        pytest.param(("matrix", 0, 0, 0), "positive", id="positive_matrix_real"),
+        pytest.param(("matrix", 0, 0, 1), "positive", id="positive_matrix_imaginary"),
+        pytest.param(
+            ("geometry", "cell", 0, 0), "positive", id="positive_cell_component"
+        ),
+        pytest.param(("matrix", 0, 0, 0), "negative", id="negative_matrix_real"),
+        pytest.param(("matrix", 0, 0, 1), "negative", id="negative_matrix_imaginary"),
+        pytest.param(
+            ("geometry", "cell", 0, 0), "negative", id="negative_cell_component"
+        ),
     ],
 )
 def test_constructor__numeric_overflow_maps_to_finite_value_error__is_enforced(

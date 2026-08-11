@@ -187,20 +187,24 @@ def test_field__frozen_assignment__rejects_reassignment() -> None:
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "invalid"),
     [
-        pytest.param("artifact_id", id="artifact_identifier"),
-        pytest.param("root_id", id="root_identifier"),
-    ],
-)
-@pytest.mark.parametrize(
-    "invalid",
-    [
-        pytest.param("", id="empty_identifier"),
-        pytest.param("bad id", id="embedded_space"),
-        pytest.param("e\u0301", id="non_nfc_identifier"),
-        pytest.param("\ud800", id="unicode_surrogate"),
-        pytest.param("a" * 129, id="overlength_identifier"),
+        pytest.param("artifact_id", "", id="empty_identifier_artifact_identifier"),
+        pytest.param("root_id", "", id="empty_identifier_root_identifier"),
+        pytest.param("artifact_id", "bad id", id="embedded_space_artifact_identifier"),
+        pytest.param("root_id", "bad id", id="embedded_space_root_identifier"),
+        pytest.param(
+            "artifact_id", "e\u0301", id="non_nfc_identifier_artifact_identifier"
+        ),
+        pytest.param("root_id", "e\u0301", id="non_nfc_identifier_root_identifier"),
+        pytest.param(
+            "artifact_id", "\ud800", id="unicode_surrogate_artifact_identifier"
+        ),
+        pytest.param("root_id", "\ud800", id="unicode_surrogate_root_identifier"),
+        pytest.param(
+            "artifact_id", "a" * 129, id="overlength_identifier_artifact_identifier"
+        ),
+        pytest.param("root_id", "a" * 129, id="overlength_identifier_root_identifier"),
     ],
 )
 def test_field__root_location_identifier_values__reject_nonportable_text(

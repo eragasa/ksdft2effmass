@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "bb08bdfd1d917ee910c66f71a6c40cd53119abe0de0f4a3bf14844b6ca1a5e08",
+  "semantic_database_digest": "467d7e23363f51a4541632adbd5a0f039b6c5e24762b4793a1cb943dbfa738a7",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "c910c83e68828a10369527f410fbc725b6b374d6225f6b5598afe2c09f0017ef",
-    "byte_count": 3683943
+    "sha256": "1a8fd99384972b8de26dd1e527d28647c5c10ada85f9a39ad739fea1d6429fd7",
+    "byte_count": 3687798
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "e268cf91732ee02549b668411cd7df300180b58cd2ad815875d9bbfca0efe3ae",
+      "sha256": "364b0534b40d3e182dd9b55123ef21e989605f67d9e033957e8b5503ab555bae",
       "byte_count": 109230,
       "generating_action": "harness.control.projection-generator.v1"
     },
@@ -1514,7 +1514,5 @@
       "generating_action": "harness.control.projection-generator.v1"
     }
   ],
-  "unresolved_naming_issues": [
-    "96 collected composite parameter IDs use non-snake-case pytest composition and require normalization"
-  ]
+  "unresolved_naming_issues": []
 }
