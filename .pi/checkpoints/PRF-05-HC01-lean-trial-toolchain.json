@@ -1,0 +1,48 @@
+{
+  "checkpoint_id": "PRF-05-HC01",
+  "task_id": "PRF-05",
+  "episode_id": null,
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-11T06:35:19Z",
+  "question": "Does the human PI approve the proposed bounded Lean trial: install the official elan toolchain manager into ~/.elan; pin Lean 4 and mathlib to matching v4.33.0 releases; accept their Apache-2.0 licenses for this project use; create formal/lean/; encode and check only PRF-05.01; make no CI, cloud-execution, or Python-dependency changes; and retain the existing prohibition on generated build output?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Approve the proposed bounded Lean trial.",
+      "consequence": "Authorize the official elan installation, matching Lean 4/mathlib v4.33.0 toolchain, project-local formal/lean source and native manifests, and implementation/checking of PRF-05.01 only. No other theorem, backend, CI integration, cloud execution, Python dependency, or generated output is authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Defer the Lean trial.",
+      "consequence": "Keep executable Lean implementation inactive; retain only the frozen prover-neutral contracts and conceptual architecture."
+    },
+    {
+      "id": "C",
+      "summary": "Require a different Lean version, installation method, dependency boundary, or trial scope.",
+      "consequence": "Keep implementation blocked until the human specifies and accepts the replacement dependency and execution decision."
+    }
+  ],
+  "recommendation": "Option A: use the official elan installer, pin matching Lean 4 and mathlib v4.33.0 releases, implement only PRF-05.01, and keep CI, cloud execution, Python dependencies, all other PRF-05 contracts, Isabelle, and Rocq outside this trial.",
+  "blocked_scope": "Lean installation; creation of formal/lean/ executable infrastructure; addition of Lean or mathlib dependencies; execution of Lean or Lake; implementation or checking of any PRF-05 theorem.",
+  "safe_scope": "Read-only inspection of official Lean, mathlib, installation, release, and license information; inspection of the frozen theorem catalog and repository architecture.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/mechanized-proof-system.md",
+    "docs/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md",
+    "formal/theorem-catalog/README.md",
+    "formal/theorem-catalog/PRF-05.md"
+  ],
+  "human_response": "approve the proposed Lean trial",
+  "normalized_decision": "Option A accepted: authorize the bounded local Lean trial using the official elan installer, matching Lean 4 and mathlib v4.33.0 releases under their Apache-2.0 licenses, project-local formal/lean source and native manifests, and implementation and checking of PRF-05.01 only.",
+  "resolved_at": "2026-08-11T06:35:19Z",
+  "authorized_scope": "Install elan into ~/.elan; obtain and execute the pinned Lean 4 v4.33.0 toolchain and matching mathlib v4.33.0 dependency; create formal/lean/ with native Lean/Lake manifests and source needed for PRF-05.01; download official dependency artifacts and mathlib caches; encode, build, and check PRF-05.01 locally. Do not implement PRF-05.02 through PRF-05.08, create Isabelle or Rocq sources, configure CI or cloud execution, change Python dependencies or lockfiles, run scientific calculations, commit generated build/cache output, or broaden dependency and licensing scope.",
+  "record_paths": [
+    ".pi/checkpoints/PRF-05-HC01-lean-trial-toolchain.json",
+    "docs/architecture/mechanized-proof-system.md",
+    "docs/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md",
+    "formal/theorem-catalog/README.md",
+    "formal/theorem-catalog/PRF-05.md"
+  ],
+  "resumption_status": "prf05_lean_trial_authorized_decision_boundary_commit_required_before_installation"
+}
