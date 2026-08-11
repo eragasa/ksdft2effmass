@@ -3,7 +3,7 @@
   "task_id": "harness.simplify-2.resource-decomposition",
   "title": "Decompose resource resolution and routing ownership",
   "status": "completed",
-  "status_detail": "completed after canonical resource-input reconstruction, focused validation, and one consolidated correction pass; no successor activated",
+  "status_detail": "completed and human-accepted after canonical resource-input reconstruction, focused validation, one consolidated correction pass, and bounded post-review resource-alias typing stabilization; no successor activated by acceptance",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.python-conformance-decomposition"

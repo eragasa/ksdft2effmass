@@ -5,7 +5,7 @@
 
 ## Status
 
-`completed`: completed after canonical resource-input reconstruction, focused validation, and one consolidated correction pass; no successor activated
+`completed`: completed and human-accepted after canonical resource-input reconstruction, focused validation, one consolidated correction pass, and bounded post-review resource-alias typing stabilization; no successor activated by acceptance
 
 ## Objective
 

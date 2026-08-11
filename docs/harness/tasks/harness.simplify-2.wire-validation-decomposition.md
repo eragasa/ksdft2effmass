@@ -5,7 +5,7 @@
 
 ## Status
 
-`completed`: completed after deterministic wire-codec decomposition, routine artifact-owned evidence integration, and control-projection verification; no successor activated
+`completed`: completed and human-accepted after deterministic wire-codec decomposition, routine artifact-owned evidence integration, control-projection verification, and bounded post-review typing stabilization; no successor activated by acceptance
 
 ## Objective
 
