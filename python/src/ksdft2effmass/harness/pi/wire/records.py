@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import Any, cast
 
 from ..identity import ArtifactIdentity
@@ -25,7 +26,7 @@ class _WireValueDecoder:
         return value
 
     def require_fields(
-        self, obj: dict[str, object], expected: tuple[str, ...]
+        self, obj: Mapping[str, object], expected: tuple[str, ...]
     ) -> None:
         """Require exactly the accepted fields for one wire record."""
         unknown = set(obj) - set(expected)

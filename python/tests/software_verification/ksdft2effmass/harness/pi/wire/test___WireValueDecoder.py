@@ -96,7 +96,7 @@ def test_artifact__dependency__wire_helpers_have_explicit_class_owners() -> None
     whether unchanged validation helpers have appropriate historical ownership.
     """
     package = ROOT / "python/src/ksdft2effmass/harness/pi/wire"
-    module_functions = {
+    wire_package_module_functions = {
         path.name: tuple(
             node.name
             for node in ast.parse(path.read_text(encoding="utf-8")).body
@@ -104,7 +104,7 @@ def test_artifact__dependency__wire_helpers_have_explicit_class_owners() -> None
         )
         for path in package.glob("*.py")
     }
-    assert module_functions == {
+    assert wire_package_module_functions == {
         "__init__.py": (),
         "canonical_json.py": (),
         "checkpoints.py": (),
@@ -117,9 +117,7 @@ def test_artifact__dependency__wire_helpers_have_explicit_class_owners() -> None
 
     validation_path = ROOT / "python/src/ksdft2effmass/harness/pi/validation.py"
     validation_tree = ast.parse(validation_path.read_text(encoding="utf-8"))
-    module_functions = {
-        node.name
-        for node in validation_tree.body
-        if isinstance(node, ast.FunctionDef)
+    validation_function_names = {
+        node.name for node in validation_tree.body if isinstance(node, ast.FunctionDef)
     }
-    assert "_is_wire_record" not in module_functions
+    assert "_is_wire_record" not in validation_function_names

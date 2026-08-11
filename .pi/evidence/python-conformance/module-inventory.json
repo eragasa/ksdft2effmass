@@ -1105,7 +1105,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5b6cf2ae51ffdb16be46120181db924c3790814c65b6380303816ca9615879fb",
+      "content_sha256": "2ab9d618713d04974a583e9b99097a20ebc17c533405095dbda63c3ba2c37e28",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___WireValueDecoder.py",
