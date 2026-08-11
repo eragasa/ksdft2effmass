@@ -21,6 +21,7 @@ numerical verification, scientific validation, uncertainty quantification, prote
 execution, or human acceptance.
 """
 
+import json
 import sqlite3
 from pathlib import Path
 
@@ -232,3 +233,89 @@ def test_artifact__publication__candidate_validation_precedes_publisher(
         )
     assert published is False
     assert tuple(repository.rglob("*")) == ()
+
+
+def test_artifact__generation__projection_path_escape_fails_before_external_write(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.generation-boundary.projection-path-confinement
+
+    Requirement: Every generated artifact path is confined to the caller-owned
+    workspace before its parent directory is created or its bytes are written.
+
+    Method: Replace bounded ingestion with no records and supply one projector output
+    whose repository-relative path traverses above the workspace.
+
+    Oracle: A leading parent-segment path resolves outside the explicit workspace.
+
+    Acceptance: Generation raises ``ValueError`` and no escaped file is created.
+
+    Interpretation: Failure identifies prevalidation writes outside candidate ownership.
+
+    Limitations: Valid candidate publication is covered separately.
+    """  # noqa: E501
+    repository = tmp_path / "repository"
+    workspace = tmp_path / "workspace"
+    repository.mkdir()
+    workspace.mkdir()
+    monkeypatch.setattr(_RepositoryControlIngestor, "execute", lambda self: None)
+    monkeypatch.setattr(
+        _ControlProjector,
+        "render_all",
+        lambda self: {"../escaped.txt": ("task-json", b"escaped\n")},
+    )
+    with pytest.raises(ValueError, match="candidate output path is not confined"):
+        _HarnessControlGenerationBuilder().execute(
+            HarnessControlMigrationRequest(repository.resolve()), workspace.resolve()
+        )
+    assert (tmp_path / "escaped.txt").exists() is False
+
+
+def test_artifact__generation__task_identity_must_equal_source_filename(
+    tmp_path: Path,
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.generation-boundary.task-filename-agreement
+
+    Requirement: Authoritative Task identity must equal its direct source filename
+    before that identity can participate in generated projection paths.
+
+    Method: Supply one complete version-3 Task document at ``wrong.json`` whose
+    ``task_id`` is ``different`` and invoke isolated candidate generation.
+
+    Oracle: The accepted Task catalog contract binds ``task_id`` to the filename stem.
+
+    Acceptance: Generation raises ``ValueError`` naming source filename agreement.
+
+    Interpretation: Failure permits unvalidated source identity to select output paths.
+
+    Limitations: Full Task schema and graph behavior have separate focused evidence.
+    """  # noqa: E501
+    repository = tmp_path / "repository"
+    workspace = tmp_path / "workspace"
+    tasks = repository / "harness/tasks"
+    tasks.mkdir(parents=True)
+    workspace.mkdir()
+    document = {
+        "schema_version": 3,
+        "task_id": "different",
+        "title": "Synthetic mismatch",
+        "status": "inactive",
+        "status_detail": "synthetic",
+        "parent_task_id": None,
+        "task_prerequisite_ids": [],
+        "external_prerequisite_ids": [],
+        "superseded_by_task_ids": [],
+        "explicit_activation_required": False,
+        "objective": "Exercise filename confinement.",
+        "authority_reference_paths": ["AGENTS.md"],
+        "authorized_scope": ["Synthetic software verification."],
+        "completion_criteria": ["Mismatch is rejected."],
+        "exclusions": ["No maintained publication."],
+        "intake_path": None,
+        "archived_source": None,
+    }
+    (tasks / "wrong.json").write_text(json.dumps(document))
+    with pytest.raises(ValueError, match="identity must equal its source filename"):
+        _HarnessControlGenerationBuilder().execute(
+            HarnessControlMigrationRequest(repository.resolve()), workspace.resolve()
+        )

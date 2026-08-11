@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly selected after legacy-route retirement completion; automatic successor activation remains disabled
+`completed`: completed after all required integration gates passed, one independent read-only review reported three findings, and the single bounded correction pass corrected path confinement, reconciled the baseline ownership-field contract, documented the public-facade dependency exception, and passed affected final verification
 
 ## Objective
 

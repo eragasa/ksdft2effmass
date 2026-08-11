@@ -102,7 +102,13 @@ class _RepositoryControlIngestor:
         tasks: dict[str, dict[str, Any]] = {}
         for path in task_paths:
             task = json.loads(path.read_text())
-            tasks[task["task_id"]] = task
+            task_id = task["task_id"]
+            if type(task_id) is not str or task_id != path.stem:
+                raise ValueError(
+                    "authoritative Task identity must equal its source filename: "
+                    f"{path.name}"
+                )
+            tasks[task_id] = task
         extraction_id = "harness.extraction"
         legacy_extraction = tasks.pop("H5", None)
         if legacy_extraction is not None:

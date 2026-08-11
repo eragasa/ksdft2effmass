@@ -4,6 +4,31 @@
   "baseline_revision": "3e5d69a74563d3ba7e58437411287344fa3a34b4",
   "scope": "Maintained validation, compatibility, historical routing, canonical control inputs, and publisher-owned outputs for R2.7.",
   "child_5_retirement_status": "The identifier-audit CLI and its private command owner are retired; PythonConformanceValidator is the sole maintained repository-wide Python evidence gate. Public route, shadow, LocalRepositoryValidator, and IdentifierAuditor compatibility surfaces are retained and explicitly non-authoritative or deprecated.",
+  "integration_review": {
+    "review_run": "f23ce39c",
+    "reviewer": "ksdft2effmass-harness-integration-reviewer",
+    "correction_pass": 1,
+    "findings": [
+      {
+        "severity": "high",
+        "subject": "generated path confinement",
+        "disposition": "corrected",
+        "evidence": "Candidate output paths are root-confined before directory creation or write, and authoritative Task identity must equal its source filename; focused escape and mismatch tests were added."
+      },
+      {
+        "severity": "high",
+        "subject": "evidence_module_ownership_path compatibility",
+        "disposition": "review premise rejected; stale documentation corrected",
+        "evidence": "At starting revision 3e5d69a migration.py already rejected every non-None field value as projection-only and focused migrator tests required that rejection. R2.7 preserves record construction and runtime behavior while prohibiting generated-input authority."
+      },
+      {
+        "severity": "medium",
+        "subject": "control and dbcontrol dependency direction",
+        "disposition": "authority reconciliation documented",
+        "evidence": "Persistence mechanics remain dependencies of local/control and do not import orchestration. Only the two preserved public defining facade modules delegate to local/control, as specifically authorized by the current human instruction."
+      }
+    ]
+  },
   "scan": {
     "maintained_roots": [
       "python/src/cli",

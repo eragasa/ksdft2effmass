@@ -205,21 +205,36 @@ not invoke Graphify unless the human explicitly requests a separate Graphify
 operation. Any conclusion taken from an existing graph artifact must be verified
 against authoritative files before it affects a recommendation.
 
-H4 local harness routing
-------------------------
+Project-local harness control and validation
+--------------------------------------------
 
 The project-local public package is
-``ksdft2effmass.harness.pi.local``. Its 40-name ``__all__`` exposes explicit-root
-context composition, adapters for selected live records and retained evidence,
-local validation, pure route selection and rollback, deterministic shadow
-comparison records/actions, the project-local Task model, and SQLite control
-migration and verification. The nine adapter ActionObjects remain public
-compatibility APIs, but their behavior is owned by Task, control-record,
-ownership, resource, and evidence modules; ``local.adapters`` is only a
-compatibility re-export facade. Callers supply the repository root, generic
-``harness/pi/`` root, local ``harness/local/`` root, exact manifest/profile bytes
-and identities, and externally collected legacy/local observations. The package
-has no ambient repository discovery and does not execute a legacy command.
+``ksdft2effmass.harness.pi.local``. Its 45-name ``__all__`` includes explicit-root
+context composition, compatibility adapters, the project-local Task model, source-
+aware control migration and verification, and deterministic repository validation.
+The nine adapter ActionObjects remain public compatibility APIs, but their behavior
+is owned by Task, control-record, ownership, resource, and evidence modules;
+``local.adapters`` is only a compatibility re-export facade.
+
+``HarnessControlMigrator`` delegates complete candidate construction to one private
+``local.control`` builder, validates the candidate, and remains the sole maintained
+publisher. ``HarnessControlVerifier`` resolves canonical source inputs, generates the
+same candidate in a temporary workspace, compares SQLite by integrity, foreign keys,
+schema, and normalized table content, and compares canonical SQL, the projection
+manifest, and owned projections exactly. Raw SQLite hashes are diagnostic only.
+Neither verification nor ``HarnessValidator`` publishes or executes another CLI.
+
+``HarnessValidator`` returns eight stably ordered structural checks with structured
+findings and explicit claim boundaries. It contains no duration or telemetry data and
+does not execute pytest, Ruff, mypy, or Sphinx. The maintained renderer is
+``python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_REPOSITORY_ROOT>``.
+Exit statuses are zero for PASS or WARN, one for expected FAIL, two for invalid request
+construction, and three for an unexpected command-boundary exception.
+
+Historical route, shadow, and ``LocalRepositoryValidator`` APIs remain importable but
+are deprecated and non-operational. ``IdentifierAuditor`` remains a bounded,
+non-authoritative public compatibility Action; ``PythonConformanceValidator`` is the
+sole maintained repository-wide Python evidence gate.
 
 The selected resource pair and ``ksdft2effmass.profile.v2`` bind exact generic
 and local manifest identities and versions. Accepted phase-era checksum evidence

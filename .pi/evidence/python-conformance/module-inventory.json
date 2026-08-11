@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3012,
+  "expected_collected_node_count": 3014,
   "expected_module_count": 258,
   "modules": [
     {
@@ -214,7 +214,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "8e37ccae672743b54bc0228139be8245e958ed6760d9de7c791c12a084e4c941",
+      "content_sha256": "8cb167e12a5b5f2d8345b9e8ad2102c15340ecec1c49fd1f84bcd07f74f4fdb1",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_generation_boundary.py",

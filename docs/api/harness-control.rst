@@ -4,43 +4,91 @@ SQLite-hybrid harness control
 ``harness/state/harness-control.sqlite3`` is the authoritative structured
 control store for Tasks, evidence and maintained tests, agents and routed
 skills, harness resources, and durable decision references. Source code, test
-bodies, prompts, skill instructions, schemas, fixtures, narrative documentation,
-and exact human responses remain authoritative ordinary files.
+bodies, Task records, prompts, skill instructions, schemas, fixtures, narrative
+documentation, and exact human responses remain authoritative ordinary files.
 
 The tracked database excludes mutable test-run history, tool events, timing,
 token usage, sessions, and telemetry. The reserved
 ``.pi/cache/harness-observations.sqlite3`` path remains deferred and inactive.
 
-The migration boundary accepts an explicit absolute repository root and writes
-through ``HarnessControlMigrator.execute``. By default it preserves the existing
-module-inventory ingestion behavior. Callers may instead supply
-``HarnessControlMigrationRequest.evidence_module_ownership_path`` as a
-root-confined repository-relative path to a closed schema-version-1 ownership
-input. The input uses the ``PythonConformanceValidator`` ownership contract
-(``path``, ``mode``, ``evidence_class``, and exactly one ``sut`` or ``artifact``
-owner), is validated with the explicitly named module bytes, and represents the
-complete desired module set. A successful migration therefore supports module
-addition, removal or move, and ownership-kind changes while rebuilding
-authoritative SQLite and regenerating deterministic SQL and projections.
+Migration and publication
+-------------------------
 
-The migrator stages and verifies the authoritative database, deterministic SQL,
-every projection, and the projection manifest before publication. Publication
-uses same-directory atomic replacement for each file and retains the complete
-prior generation as backups until every replacement succeeds. If an individual
-replacement fails, the migrator rolls back all replacements before reporting the
-failure, leaving the previously published generation mutually consistent. This
-is a process-level failure-atomic rollback guarantee; it is not filesystem-level
-multi-file atomicity across a process crash, power loss, or storage failure.
+``HarnessControlMigrator.execute`` accepts one explicit
+``HarnessControlMigrationRequest``. Canonical maintained requests supply Python
+evidence source modules, the profile matrix, the predecessor map, and generic
+and local resource configuration explicitly. Noncanonical explicit requests
+remain supported. The retained ``evidence_module_ownership_path`` field preserves
+record construction compatibility but, since the accepted R2.3 authority correction,
+non-``None`` values are rejected because generated or external ownership inventories
+are projection-only rather than migration authority.
 
-The thin control command exposes the same input as
-``migrate --evidence-module-ownership PATH``; the option is invalid for
-``verify``.
+One private project-local builder constructs the complete candidate database,
+deterministic SQL, projection manifest, and every projection in a caller-owned
+temporary workspace. ``local.control`` depends on domain owners and the persistence
+mechanics in ``local.dbcontrol``. The two public compatibility facade modules
+``local.dbcontrol.migration`` and ``local.dbcontrol.verification`` are the narrow
+explicit exception: they preserve their accepted import and defining-module identities
+while delegating to private control orchestration. Database, schema, encoding,
+ingestion, resource, projection, record, and input-selection mechanics do not depend on
+``local.control``.
 
-``HarnessControlVerifier`` checks
-SQLite integrity and foreign keys, reconstructs a database from the deterministic
-SQL export, compares ordered semantic digests and raw database identities, and
-regenerates projections for exact comparison. Passing these checks establishes
-software-contract consistency only.
+The migrator validates that complete candidate and remains the sole maintained
+publisher through
+``HarnessControlMigrator._publish_generation``. Publication stages each output,
+verifies the staged database, and retains backups until all replacements
+succeed. A replacement failure restores the prior complete generation. This is
+a process-level rollback guarantee, not filesystem-wide atomicity across a
+crash, power loss, or storage failure.
+
+The maintained control command is:
+
+.. code-block:: text
+
+   python/.venv/bin/python python/src/cli/harness_control.py sync --repository-root <ABSOLUTE_ROOT> <EXPLICIT_CANONICAL_INPUTS>
+   python/.venv/bin/python python/src/cli/harness_control.py check --repository-root <ABSOLUTE_ROOT>
+
+Verification
+------------
+
+``HarnessControlVerifier.execute`` derives canonical maintained inputs from
+repository-owned source configuration and uses the same private builder in an
+isolated temporary workspace. It publishes nothing. Verification establishes:
+
+* SQLite ``integrity_check`` and foreign-key integrity;
+* schema and control-schema-version agreement;
+* normalized ordered logical table agreement;
+* exact canonical SQL agreement;
+* exact projection-manifest agreement; and
+* exact agreement for every publisher-owned projection, including missing,
+  changed, and unexpected owned-artifact detection.
+
+SQLite database files are not canonical byte representations. Raw SHA-256
+values are reported diagnostically, but raw-byte inequality alone is not drift.
+Candidate workspaces are removed after success and failure. Verification never
+searches for or deletes repository-wide sidecar, staging, backup, WAL, or SHM
+files.
+
+Repository validation
+---------------------
+
+``HarnessValidator.execute`` composes existing structural domain owners and the
+source-aware verifier into stably ordered ``HarnessValidationCheck`` records.
+The result has no elapsed-duration or telemetry field. The Action invokes no
+CLI, parses no CLI output, and executes none of pytest, Ruff, mypy, or Sphinx.
+Those tools remain separate final gates.
+
+The maintained renderer is:
+
+.. code-block:: text
+
+   python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_ROOT>
+
+It returns zero when no check is ``FAIL`` (``WARN`` is permitted), one for an
+expected failing check, two for invalid command input or request construction,
+and three for an unexpected command-boundary exception. Structural repository
+validation does not establish numerical verification, scientific validation,
+uncertainty quantification, protected execution, or human acceptance.
 
 .. currentmodule:: ksdft2effmass.harness.pi.local
 
@@ -48,6 +96,12 @@ software-contract consistency only.
 .. autoclass:: HarnessControlMigrationResult
 .. autoclass:: HarnessControlMigrator
    :members:
+.. autoclass:: HarnessControlVerificationFinding
 .. autoclass:: HarnessControlVerificationResult
 .. autoclass:: HarnessControlVerifier
+   :members:
+.. autoclass:: HarnessValidationRequest
+.. autoclass:: HarnessValidationCheck
+.. autoclass:: HarnessValidationResult
+.. autoclass:: HarnessValidator
    :members:

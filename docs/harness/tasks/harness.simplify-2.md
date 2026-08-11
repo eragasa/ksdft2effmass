@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred_to_active_child`: coordinating parent deferred to active R2.7 validation consolidation and retirement after R2.6 completed; automatic successor activation remains disabled
+`active`: selected coordinating parent after R2.7 completion; all authorized R2.1 through R2.7 children are complete and the parent remains pending explicit human acceptance with no successor active
 
 ## Objective
 

@@ -72,6 +72,21 @@ class _HarnessControlGenerationBuilder:
     __slots__ = ()
 
     @staticmethod
+    def _candidate_path(workspace_root: Path, relative: Path) -> Path:
+        """Confine one candidate output before directory creation or writing."""
+        if relative.is_absolute() or relative == Path(".") or ".." in relative.parts:
+            raise ValueError(f"candidate output path is not confined: {relative}")
+        resolved_workspace = workspace_root.resolve(strict=True)
+        try:
+            candidate = (resolved_workspace / relative).resolve(strict=False)
+            candidate.relative_to(resolved_workspace)
+        except (OSError, RuntimeError, ValueError) as exc:
+            raise ValueError(
+                f"candidate output path is not confined: {relative}"
+            ) from exc
+        return candidate
+
+    @staticmethod
     def _canonical_evidence_corpus(
         request: HarnessControlMigrationRequest,
     ) -> tuple[
@@ -190,7 +205,7 @@ class _HarnessControlGenerationBuilder:
             self._canonical_evidence_corpus(request)
         )
         resource_corpus = self._canonical_resource_corpus(request)
-        candidate_database = workspace_root / request.database_path
+        candidate_database = self._candidate_path(workspace_root, request.database_path)
         candidate_database.parent.mkdir(parents=True, exist_ok=True)
         _ControlDatabase.reconstruct(candidate_database, (_SCHEMA + "\n").encode())
         connection = sqlite3.connect(candidate_database)
@@ -292,11 +307,15 @@ class _HarnessControlGenerationBuilder:
                 for path, (_kind, payload) in sorted(projections.items())
             },
         }
+        confined_candidates = {
+            relative: self._candidate_path(workspace_root, relative)
+            for relative in payloads
+        }
         artifacts: list[tuple[Path, Path]] = []
         for relative, payload in sorted(
             payloads.items(), key=lambda item: item[0].as_posix()
         ):
-            candidate = workspace_root / relative
+            candidate = confined_candidates[relative]
             candidate.parent.mkdir(parents=True, exist_ok=True)
             if candidate != candidate_database:
                 candidate.write_bytes(payload)
@@ -327,8 +346,7 @@ class _HarnessControlGenerationBuilder:
             integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
             foreign_keys = tuple(connection.execute("PRAGMA foreign_key_check"))
             schema_version = connection.execute(
-                "SELECT value FROM harness_metadata "
-                "WHERE key='control_schema_version'"
+                "SELECT value FROM harness_metadata WHERE key='control_schema_version'"
             ).fetchone()
             stored_digest = connection.execute(
                 "SELECT value FROM harness_metadata WHERE key='semantic_digest'"

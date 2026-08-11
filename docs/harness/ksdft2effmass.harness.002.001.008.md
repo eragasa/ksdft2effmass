@@ -435,6 +435,13 @@ it does not create or activate that skill and does not alter this sequence.
     resource-phase agents remain disabled and unchanged; reusable judgment routes
     to maintained skills and durable agents, deterministic mechanics route to
     maintained Actions, and no historical agent was revived or deleted.
+11. **Completed in R2.7 — consolidate repository validation:** one private
+    ``local.control`` builder now constructs complete candidates for the sole
+    publisher and source-aware verifier. ``HarnessValidator`` composes maintained
+    structural owners without nested CLI or development-tool execution. The
+    repository-wide identifier-audit CLI introduced in item 9 is retired;
+    ``IdentifierAuditor`` remains a non-authoritative compatibility API and
+    ``PythonConformanceValidator`` owns current repository Python evidence.
 
 ## Explicit deferred items
 

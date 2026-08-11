@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2",
   "title": "Harness simplification round two",
-  "status": "deferred_to_active_child",
-  "status_detail": "coordinating parent deferred to active R2.7 validation consolidation and retirement after R2.6 completed; automatic successor activation remains disabled",
+  "status": "active",
+  "status_detail": "selected coordinating parent after R2.7 completion; all authorized R2.1 through R2.7 children are complete and the parent remains pending explicit human acceptance with no successor active",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.round-2.sqlite-hybrid-cutover"

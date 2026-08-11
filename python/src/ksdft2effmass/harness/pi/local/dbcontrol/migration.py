@@ -114,9 +114,7 @@ class HarnessControlMigrator:
             builder.validate(generation)
             outputs = generation.publication_outputs(request.repository_root)
             database_path = request.repository_root / request.database_path
-            self._publish_generation(
-                outputs, database_path, generation.semantic_digest
-            )
+            self._publish_generation(outputs, database_path, generation.semantic_digest)
             return HarnessControlMigrationResult(
                 generation.schema_version,
                 generation.semantic_digest,
