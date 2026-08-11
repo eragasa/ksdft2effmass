@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplify-2.validation-retirement.inventory",
+  "baseline_revision": "3e5d69a74563d3ba7e58437411287344fa3a34b4",
+  "scope": "Maintained validation, compatibility, historical routing, canonical control inputs, and publisher-owned outputs for R2.7.",
+  "scan": {
+    "maintained_roots": [
+      "python/src/cli",
+      "python/src/ksdft2effmass/harness/pi",
+      "python/tests",
+      ".pi/skills",
+      ".pi/agents",
+      ".pi/task-ownership",
+      "harness/pi",
+      "harness/local",
+      "harness/tasks",
+      "docs"
+    ],
+    "historical_roots": [
+      ".pi/evidence",
+      ".pi/checkpoints",
+      "harness/archive"
+    ],
+    "consumer_rule": "Imports, command invocations, durable routing records, and maintained operational prose are consumers. Tests that only exercise a compatibility object and historical references are not operational consumers.",
+    "entry_point_result": "python/pyproject.toml defines no installed console script or project script; maintained repository CLIs are direct scripts under python/src/cli."
+  },
+  "surfaces": [
+    {
+      "defining_path": ".pi/evidence/pi-harness-incubation/H4/replay_selected_validators.py",
+      "identity": "replay_current_validators.py and replay_selected_validators.py historical replay family",
+      "classification": "historical_script",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": [],
+      "historical_references": [".pi/evidence/pi-harness-incubation/H4"],
+      "disposition": "preserved_historical_evidence",
+      "evidence": "No tracked maintained replay_current_validators.py exists; replay implementations occur only in retained evidence."
+    },
+    {
+      "defining_path": null,
+      "identity": "previous validate_harness.py surfaces",
+      "classification": "absent_historical_cli",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": [],
+      "historical_references": [".pi/evidence", ".pi/checkpoints", "harness/archive"],
+      "disposition": "preserved_historical_evidence",
+      "evidence": "No maintained python/src/cli/validate_harness.py or nested live equivalent exists at the baseline."
+    },
+    {
+      "defining_path": ".pi/evidence/pi-harness-incubation/H4/validation-route.json",
+      "identity": "legacy/shadow/local route configuration resources",
+      "classification": "historical_resource",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": ["local ValidationRoute and RouteConfiguration public objects"],
+      "historical_references": [".pi/evidence/pi-harness-incubation/H4", ".pi/checkpoints", "harness/archive"],
+      "disposition": "preserved_historical_evidence",
+      "evidence": "No route configuration resource is present in either maintained resource manifest."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/evidence/identifiers.py",
+      "identity": "IdentifierAuditor, IdentifierAuditResult, IdentifierOccurrence",
+      "classification": "public_api",
+      "maintained_operational_consumers": ["identifier-audit CLI", "LocalRepositoryValidator optional evidence branch"],
+      "compatibility_consumers": ["ksdft2effmass.harness.pi.evidence public exports", "bounded public API tests", "current evidence grammar documentation"],
+      "historical_references": [".pi/evidence", "resolved Tasks and checkpoints"],
+      "disposition": "public_retained_non_authoritative",
+      "evidence": "The generic evidence package exports these public identities; R2.7 authority removes only repository-wide authority in favor of PythonConformanceValidator."
+    },
+    {
+      "defining_path": "python/src/cli/audit_evidence_identifiers.py",
+      "identity": "stable identifier-audit CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": [".pi/skills/skill-capability-inventory.json", "docs/architecture/cpn-skill-capability-audit.md"],
+      "compatibility_consumers": ["test__identifier_audit_command_api_agreement.py"],
+      "historical_references": [".pi/evidence", "resolved Tasks and checkpoints"],
+      "disposition": "public_deprecated",
+      "evidence": "The R2.6 inventory declares it maintained; R2.7 explicitly authorizes removal after live routing is migrated to PythonConformanceValidator."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/local/_commands/audit_evidence_identifiers.py",
+      "identity": "identifier-audit command owner",
+      "classification": "private_command_owner",
+      "maintained_operational_consumers": ["python/src/cli/audit_evidence_identifiers.py"],
+      "compatibility_consumers": ["command/API agreement test"],
+      "historical_references": [],
+      "disposition": "private_obsolete",
+      "evidence": "Its sole maintained operation is the explicitly retired CLI."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/local/routing.py",
+      "identity": "ValidationRouteSelector and LegacyRouteConfigurationPreparer",
+      "classification": "documented_project_local_public_api",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": ["local package exports", "focused public behavior tests", "versioned current harness documentation"],
+      "historical_references": [".pi/evidence", "resolved H4 records"],
+      "disposition": "public_deprecated",
+      "evidence": "No live route resource, command, skill, agent, or workflow imports these actions; public export prevents deletion based only on internal non-use."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/local/shadow.py",
+      "identity": "ShadowPairComparator, ShadowSuiteReplayer, and shadow records",
+      "classification": "documented_project_local_public_api",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": ["local package exports", "focused public behavior tests", "versioned current harness documentation"],
+      "historical_references": [".pi/evidence", "resolved H4 records"],
+      "disposition": "public_deprecated",
+      "evidence": "No live replay command, route resource, skill, agent, or workflow consumes these identities; public compatibility remains unapproved for breaking removal."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/local/models.py",
+      "identity": "ValidationRoute and RouteConfiguration",
+      "classification": "project_local_public_records",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": ["routing and local package exports", "public model tests"],
+      "historical_references": [".pi/evidence", "resolved H4 records"],
+      "disposition": "public_deprecated",
+      "evidence": "The records support only the retained public routing compatibility surface."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/local/validation.py",
+      "identity": "LocalRepositoryValidator, AdaptedRepositoryRecords, RepositoryValidationResult",
+      "classification": "documented_project_local_public_api",
+      "maintained_operational_consumers": [],
+      "compatibility_consumers": ["local package exports", "focused public behavior tests", "current harness documentation"],
+      "historical_references": ["resolved H2/H4 records"],
+      "disposition": "replaced_repository_composition",
+      "evidence": "The action composes explicit adapted records and the obsolete identifier audit; no maintained repository command invokes it. R2.7 replaces repository composition but does not authorize silent breaking deletion."
+    },
+    {
+      "defining_path": "python/src/ksdft2effmass/harness/pi/evidence/python_conformance/__init__.py",
+      "identity": "PythonConformanceValidator",
+      "classification": "public_domain_action",
+      "maintained_operational_consumers": ["validate_python_conformance CLI", "evidence repository-conformance command", "HarnessControlMigrator"],
+      "compatibility_consumers": ["generic evidence public export", "maintained evidence-development skill", "public software-verification tests"],
+      "historical_references": ["R2.3 retained evidence"],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Accepted source/profile/migration authority and sole future repository-wide Python evidence gate."
+    },
+    {
+      "defining_path": "python/src/cli/validate_python_conformance.py",
+      "identity": "Python conformance CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["develop-python-test-evidence skill", "direct final gates"],
+      "compatibility_consumers": ["command/API agreement tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Direct domain renderer remains useful and is not a nested repository-validation route."
+    },
+    {
+      "defining_path": "python/src/cli/validate_evidence_repository_conformance.py",
+      "identity": "evidence repository-conformance CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["harness/local/extensions/evidence-documentation.md", "harness/local/docs/project-profile.md"],
+      "compatibility_consumers": ["harness/pi/validation/test_validate_evidence_repository_conformance.py"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct domain gate; repository composition must invoke its extracted domain owner rather than this CLI."
+    },
+    {
+      "defining_path": "python/src/cli/validate_local_harness_resources.py",
+      "identity": "local resource and skill-closure CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["docs/development/agent-control-plane.rst", ".pi/skills/skill-capability-inventory.json"],
+      "compatibility_consumers": ["command/API agreement tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct resource gate; repository composition must invoke domain actions rather than this CLI."
+    },
+    {
+      "defining_path": "python/src/cli/validate_checkpoints.py",
+      "identity": "checkpoint validation CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["skill capability inventory", "agent-control procedures"],
+      "compatibility_consumers": ["command/API tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct domain gate."
+    },
+    {
+      "defining_path": "python/src/cli/validate_task_ownership.py",
+      "identity": "Task ownership validation CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["AGENTS.md", "docs/development/agent-control-plane.rst"],
+      "compatibility_consumers": [".pi/task-ownership/tests/test_validate_task_ownership.py"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct domain gate; selected Tasks without manifests produce no fabricated ownership claim."
+    },
+    {
+      "defining_path": "python/src/cli/validate_task_schema_projection.py",
+      "identity": "Task schema/projection CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["harness/local/docs/project-profile.md"],
+      "compatibility_consumers": ["command/API tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct Task contract gate."
+    },
+    {
+      "defining_path": "python/src/cli/validate_documentation_projection.py",
+      "identity": "documentation projection CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["harness/pi/validation/test_validate_documentation_projection.py"],
+      "compatibility_consumers": ["command/API tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct domain gate when its reusable owner can be invoked without CLI parsing."
+    },
+    {
+      "defining_path": "python/src/cli/validate_skill_capabilities.py",
+      "identity": "skill-capability validation CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["skill capability inventory", "docs/architecture/cpn-skill-capability-audit.md"],
+      "compatibility_consumers": ["command/API tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "Retained direct skill closure gate."
+    },
+    {
+      "defining_path": "python/src/cli/harness_control.py",
+      "identity": "harness control sync/check CLI",
+      "classification": "stable_cli",
+      "maintained_operational_consumers": ["explicit post-edit synchronization and conformance checking"],
+      "compatibility_consumers": ["control command/API agreement tests"],
+      "historical_references": [],
+      "disposition": "retained_domain_action_or_cli",
+      "evidence": "The command preserves sole-publisher sync and nonmutating check responsibilities."
+    }
+  ],
+  "canonical_inputs": [
+    {
+      "domain": "python_evidence_sources",
+      "authoritative_source": "python/pyproject.toml field tool.pytest.ini_options.testpaths, currently ['tests'], and source-embedded module/test declarations beneath python/tests",
+      "discovery_rule": "Resolve each configured test root relative to python/, select regular non-symlink Python files with basename test*.py recursively, and sort repository-relative POSIX paths.",
+      "allowed_root": "python/tests",
+      "exclusions": ["__pycache__", "generated .pi/evidence/python-conformance/module-inventory.json", "historical evidence fixtures outside configured test roots"],
+      "expected_consumer": "private control input resolver, PythonConformanceValidator, and control-generation builder",
+      "authority_reason": "Accepted R2.3 authority assigns executable tests and embedded evidence declarations to Python source; pyproject owns the configured maintained test root."
+    },
+    {
+      "domain": "evidence_profile_matrix",
+      "authoritative_source": "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json",
+      "discovery_rule": "Select exactly this generic resource through its declared manifest identity.",
+      "allowed_root": "harness/pi",
+      "exclusions": ["generated inventory metadata", "duplicated prose summaries"],
+      "expected_consumer": "PythonConformanceValidator and control-generation builder",
+      "authority_reason": "Accepted R2.3 identifies this exact versioned resource as normative policy."
+    },
+    {
+      "domain": "evidence_migration_map",
+      "authoritative_source": ".pi/evidence/python-conformance/r2.3-private-owner-migration.json",
+      "discovery_rule": "Select exactly this retained predecessor map; do not scan other historical migration files.",
+      "allowed_root": ".pi/evidence/python-conformance",
+      "exclusions": ["unrelated historical node migrations", "generated inventory predecessor summaries"],
+      "expected_consumer": "PythonConformanceValidator and control-generation builder",
+      "authority_reason": "This accepted R2.3 map is the maintained explicit predecessor relationship input used by current synchronization."
+    },
+    {
+      "domain": "generic_resources",
+      "authoritative_source": "harness/pi/resource-manifest.json with resource files rooted at harness/pi",
+      "discovery_rule": "Resolve exactly the manifest entries by resource_id and declared relative path; no directory scan supplies membership.",
+      "allowed_root": "harness/pi",
+      "exclusions": ["unlisted files", "candidate or generated manifest content"],
+      "expected_consumer": "ResourceManifestValidator, ResourceResolver, skill closure, and control-generation builder",
+      "authority_reason": "The accepted generic resource manifest owns generic resource membership and identities."
+    },
+    {
+      "domain": "local_resources",
+      "authoritative_source": "harness/local/resource-manifest.json and harness/local/profiles/ksdft2effmass-v2.json with files rooted at harness/local",
+      "discovery_rule": "Resolve exactly the local manifest entries under the explicit local root and validate the overlay against the exact project profile.",
+      "allowed_root": "harness/local",
+      "exclusions": ["unlisted files", "candidate or generated manifest content"],
+      "expected_consumer": "project-local resource and skill validators and control-generation builder",
+      "authority_reason": "The accepted project profile and local manifest own overlay policy and local resource membership."
+    },
+    {
+      "domain": "tasks",
+      "authoritative_source": "harness/tasks/*.json",
+      "discovery_rule": "Select every regular non-symlink .json file directly under harness/tasks, sort by filename, require task_id/path agreement, and validate against the selected v3-compatible Task schema.",
+      "allowed_root": "harness/tasks",
+      "exclusions": ["docs/harness/tasks generated Markdown", "harness/state", "archived Task records"],
+      "expected_consumer": "Task model/graph validation and control-generation builder",
+      "authority_reason": "AGENTS.md and accepted Task persistence authority identify versioned harness/tasks JSON as authoritative Task records."
+    },
+    {
+      "domain": "task_graph",
+      "authoritative_source": "parent_task_id, task_prerequisite_ids, external_prerequisite_ids, and superseded_by_task_ids fields in authoritative harness/tasks/*.json",
+      "discovery_rule": "Derive sorted graph nodes and typed relationships from the selected Task records; validate references and acyclicity with HarnessTaskGraphValidator.",
+      "allowed_root": "harness/tasks",
+      "exclusions": ["harness/task-graph.json because it is a generated comparison target", "docs/harness/tasks", "chain prose"],
+      "expected_consumer": "Task graph validation, control-generation builder, and task-graph projection",
+      "authority_reason": "Relationship fields are part of the accepted Task wire contract; the graph JSON is generated from control state and is nonauthoritative."
+    },
+    {
+      "domain": "selected_chain_state",
+      "authoritative_source": ".pi/chains/harness-simplification.chain.json fields active_task, automatic_successor_activation, explicitly_activated_task_ids, and task_sequence records",
+      "discovery_rule": "Select this exact controlling chain named by the active R2.7 authority and resolve only its declared Task record paths.",
+      "allowed_root": ".pi/chains",
+      "exclusions": ["other chains", "session state", "generated task graph"],
+      "expected_consumer": "repository validation and task-state inspection; not SQLite candidate ingestion",
+      "authority_reason": "The active human instruction and AGENTS.md identify the controlling chain as durable selection state."
+    },
+    {
+      "domain": "agents",
+      "authoritative_source": ".pi/agents/*.md front matter and complete file bytes",
+      "discovery_rule": "Select regular .md files directly under .pi/agents, sort by filename, parse declared identity/access/skills, and hash exact bytes.",
+      "allowed_root": ".pi/agents",
+      "exclusions": ["global user agents", "historical evidence copies", "generated SQL rows"],
+      "expected_consumer": "skill routing validation and control-generation builder",
+      "authority_reason": "Project durable agent definitions own current project roles and routes."
+    },
+    {
+      "domain": "skills",
+      "authoritative_source": ".pi/skills/*/SKILL.md and .agents/skills/*/SKILL.md, with harness/pi/skills descriptors used only when explicitly paired to the selected skill",
+      "discovery_rule": "Select one-level SKILL.md files under both project skill roots, sort repository-relative paths, parse front matter, and resolve duplicate identities deterministically as current ingestion does.",
+      "allowed_root": ".pi/skills and .agents/skills",
+      "exclusions": ["global user skills", "historical evidence copies", "unselected package-installed skills"],
+      "expected_consumer": "skill capability/closure validation and control-generation builder",
+      "authority_reason": "Project-local skill files are the current durable procedure definitions; descriptors constrain registered generic capabilities."
+    },
+    {
+      "domain": "checkpoints_and_decisions",
+      "authoritative_source": ".pi/checkpoints/*.json except files ending schema.json",
+      "discovery_rule": "Select regular checkpoint JSON records directly under .pi/checkpoints, sort by filename, validate records, and derive resolved/unresolved decision state from accepted status fields.",
+      "allowed_root": ".pi/checkpoints",
+      "exclusions": ["checkpoint schemas", "session messages", "generated SQL decision rows"],
+      "expected_consumer": "CheckpointSetValidator, repository validation, and control-generation builder",
+      "authority_reason": "AGENTS.md assigns durable human decisions and unresolved boundaries to checkpoint records."
+    },
+    {
+      "domain": "task_ownership",
+      "authoritative_source": "the active Task entry's optional ownership_manifest field in the controlling chain, resolved to one explicit .pi/task-ownership/*.json manifest and its versioned schema",
+      "discovery_rule": "Validate only the exactly declared manifest; when absent, report ownership as not declared and do not infer one by filename or recency.",
+      "allowed_root": ".pi/task-ownership",
+      "exclusions": ["unreferenced historical manifests", "ownership tests", "generated SQL evidence_owner rows"],
+      "expected_consumer": "repository ownership validation; current R2.7 children deliberately declare no ownership manifest",
+      "authority_reason": "AGENTS.md and .pi/task-ownership/README.md make chain-declared ownership authoritative only when required."
+    },
+    {
+      "domain": "evidence_ownership",
+      "authoritative_source": "ownership_kind and owner_subject declarations embedded in each selected Python evidence module plus the explicit evidence migration map",
+      "discovery_rule": "Parse each selected module once and derive evidence owner relations from its declarations and top-level tests.",
+      "allowed_root": "python/tests",
+      "exclusions": ["generated module inventory", "SQLite evidence_owner rows"],
+      "expected_consumer": "PythonConformanceValidator and control-generation builder",
+      "authority_reason": "Accepted evidence authority places current ownership in source declarations and predecessor identity in the explicit migration map."
+    },
+    {
+      "domain": "documentation_and_schema_projection_inputs",
+      "authoritative_source": "authoritative Task JSON, resource files selected by both manifests, harness/local/schemas/task-record-v3.schema.json, harness/pi/schemas/documentation-projection-profile.schema.json, and current maintained source/doc records named by those profiles",
+      "discovery_rule": "Use only paths declared by authoritative Tasks, manifests, schemas, and profiles; compare generated Task Markdown/index and documented resource projections as outputs.",
+      "allowed_root": "harness/tasks, harness/pi, harness/local, python/src/ksdft2effmass/harness/pi, and docs paths explicitly selected by a profile",
+      "exclusions": ["generated docs/harness/tasks as inputs", "Sphinx build output", "historical evidence prose"],
+      "expected_consumer": "existing Task-schema and documentation-projection validators and repository validation",
+      "authority_reason": "Accepted schema/profile contracts own structural projection requirements; generated pages are comparison targets only."
+    },
+    {
+      "domain": "wire_contracts",
+      "authoritative_source": "versioned schemas and resource kinds selected by harness/pi/resource-manifest.json and harness/local/resource-manifest.json plus defining serializers under python/src/ksdft2effmass/harness/pi/wire",
+      "discovery_rule": "Validate only registered schema/resource combinations through existing wire serializers and validators; test-only cross-contract assertions remain external final gates.",
+      "allowed_root": "harness/pi, harness/local, and python/src/ksdft2effmass/harness/pi/wire",
+      "exclusions": ["new wire kinds", "generated candidate bytes as authority"],
+      "expected_consumer": "existing wire/resource owners and repository validation where an executable production owner exists",
+      "authority_reason": "Accepted wire decomposition assigns representations to versioned schemas and defining serializers."
+    }
+  ],
+  "generated_output_ownership": {
+    "publisher": "HarnessControlMigrator._publish_generation",
+    "comparison_targets": [
+      "harness/state/harness-control.sqlite3",
+      "harness/state/harness-control.sql",
+      "harness/state/projection-manifest.json",
+      "harness/task-graph.json",
+      "harness/pi/resource-manifest.json",
+      "harness/local/resource-manifest.json",
+      ".pi/evidence/python-conformance/module-inventory.json"
+    ],
+    "owned_generated_roots": [
+      {
+        "path": "docs/harness/tasks",
+        "included_files": "all direct .md Task pages and index.md rendered by _ControlProjector",
+        "neighbor_policy": "Any other regular file under this exact root is unexpected."
+      },
+      {
+        "path": "harness/tasks",
+        "included_files": "all direct .json authoritative Task records normalized by _ControlProjector",
+        "neighbor_policy": "A selected authoritative Task JSON is a candidate projection; non-.json neighboring files are outside publisher ownership."
+      }
+    ],
+    "manifest_projection_rule": "The candidate projection paths plus the explicit maintained manifest paths plus regular files matching the owned-root policies form the complete unexpected-artifact inspection domain.",
+    "excluded_neighbor_examples": [
+      "harness/reports/**",
+      "docs/harness/*.md outside docs/harness/tasks",
+      ".pi/evidence/** except the exact generated module inventory",
+      "harness/state files other than the three explicit maintained control artifacts"
+    ],
+    "sqlite_equivalence": "SQLite bytes are diagnostic only. Agreement requires integrity_check, zero foreign-key findings, schema/version agreement, normalized semantic/table agreement, exact canonical SQL, exact projection manifest, and exact owned projection bytes."
+  },
+  "non_circularity": [
+    "The maintained SQLite, SQL, projection manifest, generated Task Markdown, task-graph JSON, generated evidence inventory, candidate outputs, and historical evidence never select canonical source inputs.",
+    "Task JSON and resource manifests are human-authoritative inputs that are normalized back to their maintained paths by the sole publisher; the resolver reads their source state before candidate construction and never reads candidate copies.",
+    "The generated task graph is derived only from authoritative Task relationship fields."
+  ],
+  "child_1_conclusion": "Every required canonical domain has an existing authoritative source. No Child 1 authority blocker was found."
+}

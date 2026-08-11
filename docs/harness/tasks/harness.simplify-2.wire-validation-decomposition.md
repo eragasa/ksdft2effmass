@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Decompose canonical JSON and domain wire codecs
 
-[Task index](index.md) · [Previous](./harness.simplify-2.validation-retirement.md) · [Next](./harness.telemetry.md)
+[Task index](index.md) · [Previous](./harness.simplify-2.validation-retirement.source-aware-verification.md) · [Next](./harness.telemetry.md)
 
 ## Status
 

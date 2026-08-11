@@ -412,7 +412,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "45bb05efd3dd38e6a8365b1949b77789d38741d48c72d6ba3b8017c691653899",
+      "content_sha256": "48dfc3c702c7001643f97249ed659dea530d44c89077a6279a862c006242362d",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v3.py",

@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.simplify-2.validation-retirement.source-aware-verification",
+  "title": "Implement source-aware control verification",
+  "status": "inactive",
+  "status_detail": "serial R2.7 child; eligible only after generation-builder completion and explicit coordinator selection",
+  "parent_task_id": "harness.simplify-2.validation-retirement",
+  "task_prerequisite_ids": [
+    "harness.simplify-2.validation-retirement.generation-builder"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Resolve the frozen canonical source inputs, generate an isolated candidate with the shared builder, and compare maintained control state semantically and projection-exactly without publication.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/validation-retirement-inventory.json",
+    "harness/tasks/harness.simplify-2.validation-retirement.json"
+  ],
+  "authorized_scope": [
+    "Implement private canonical-input resolution and source-aware comparison under `python/src/ksdft2effmass/harness/pi/local/control/`.",
+    "Preserve `HarnessControlVerifier` identity and execute signature while reporting deterministic structured source, SQL, manifest, projection, integrity, foreign-key, schema, and semantic findings.",
+    "Confine unexpected-artifact inspection to frozen publisher-owned paths and clean only verifier-owned temporary workspaces."
+  ],
+  "completion_criteria": [
+    "Verification detects source drift, jointly modified SQLite and SQL, missing, changed, and unexpected owned projections while ignoring raw SQLite byte inequality and unrelated files.",
+    "Verifier publishes nothing, cleans its temporary workspace after success and failure, and `harness_control check` returns one on drift.",
+    "Control synchronization and affected deterministic validation pass."
+  ],
+  "exclusions": [
+    "Do not derive authority from maintained generated artifacts, search for or delete repository-wide temporary files, or claim arbitrary noncanonical request reconstruction.",
+    "Do not add dependencies, a second database or publisher, telemetry, public wire kinds, or protected work."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

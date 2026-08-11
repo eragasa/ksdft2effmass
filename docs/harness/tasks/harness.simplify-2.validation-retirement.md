@@ -1,11 +1,11 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Consolidate validation and retire replay machinery
 
-[Task index](index.md) · [Previous](./harness.simplify-2.resource-decomposition.md) · [Next](./harness.simplify-2.wire-validation-decomposition.md)
+[Task index](index.md) · [Previous](./harness.simplify-2.resource-decomposition.md) · [Next](./harness.simplify-2.validation-retirement.generation-builder.md)
 
 ## Status
 
-`active`: activated by current human instruction for bounded R2.7 repository validation composition, private control-generation builder extraction, and proven-obsolete legacy-route retirement
+`deferred_to_active_child`: coordinating R2.7 parent deferred to active inventory child; automatic successor activation remains disabled
 
 ## Objective
 

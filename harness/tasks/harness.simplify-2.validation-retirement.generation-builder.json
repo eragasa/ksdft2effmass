@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.simplify-2.validation-retirement.generation-builder",
+  "title": "Extract the private control-generation builder",
+  "status": "active",
+  "status_detail": "explicitly selected after inventory completion; automatic successor activation remains disabled",
+  "parent_task_id": "harness.simplify-2.validation-retirement",
+  "task_prerequisite_ids": [
+    "harness.simplify-2.validation-retirement.inventory"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Extract complete candidate control generation into one private local/control builder while preserving the migrator as sole publisher and all accepted public migration behavior.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/validation-retirement-inventory.json",
+    "harness/tasks/harness.simplify-2.validation-retirement.json"
+  ],
+  "authorized_scope": [
+    "Implement `_HarnessControlGenerationBuilder` and `_HarnessControlGeneration` under `python/src/ksdft2effmass/harness/pi/local/control/generation.py` using domain owners and local/dbcontrol persistence mechanics.",
+    "Make `HarnessControlMigrator` perform candidate build, candidate validation, and sole publication through its retained `_publish_generation()` owner.",
+    "Preserve noncanonical explicit requests, public identities and execute signature, schema, semantic content, SQL, and projection bytes."
+  ],
+  "completion_criteria": [
+    "Exactly one private builder constructs the complete candidate without publishing maintained files.",
+    "Semantic database, canonical SQL, and projection equivalence, noncanonical compatibility, validation-before-publication, and failure-safe publication tests pass.",
+    "Control synchronization and affected deterministic validation pass."
+  ],
+  "exclusions": [
+    "Do not expose a public generation Action, create a second publisher, reverse the control-to-dbcontrol dependency, or add persistence machinery.",
+    "Do not change dependencies, lockfiles, public wire kinds, scientific code, or historical records."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

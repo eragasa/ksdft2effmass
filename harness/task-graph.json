@@ -270,6 +270,24 @@
       "task_id": "harness.simplify-2.validation-retirement"
     },
     {
+      "task_id": "harness.simplify-2.validation-retirement.generation-builder"
+    },
+    {
+      "task_id": "harness.simplify-2.validation-retirement.integration-closeout"
+    },
+    {
+      "task_id": "harness.simplify-2.validation-retirement.inventory"
+    },
+    {
+      "task_id": "harness.simplify-2.validation-retirement.legacy-route-retirement"
+    },
+    {
+      "task_id": "harness.simplify-2.validation-retirement.repository-validation"
+    },
+    {
+      "task_id": "harness.simplify-2.validation-retirement.source-aware-verification"
+    },
+    {
       "task_id": "harness.simplify-2.wire-validation-decomposition"
     },
     {
@@ -397,6 +415,36 @@
     {
       "source": "harness.simplify-2.validation-retirement",
       "target": "harness.simplify-2",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.generation-builder",
+      "target": "harness.simplify-2.validation-retirement",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.integration-closeout",
+      "target": "harness.simplify-2.validation-retirement",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.inventory",
+      "target": "harness.simplify-2.validation-retirement",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.legacy-route-retirement",
+      "target": "harness.simplify-2.validation-retirement",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.repository-validation",
+      "target": "harness.simplify-2.validation-retirement",
+      "kind": "child_of"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.source-aware-verification",
+      "target": "harness.simplify-2.validation-retirement",
       "kind": "child_of"
     },
     {
@@ -862,6 +910,31 @@
     {
       "source": "harness.simplify-2.validation-retirement",
       "target": "harness.simplify-2.cli-consolidation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.generation-builder",
+      "target": "harness.simplify-2.validation-retirement.inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.integration-closeout",
+      "target": "harness.simplify-2.validation-retirement.legacy-route-retirement",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.legacy-route-retirement",
+      "target": "harness.simplify-2.validation-retirement.repository-validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.repository-validation",
+      "target": "harness.simplify-2.validation-retirement.source-aware-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "harness.simplify-2.validation-retirement.source-aware-verification",
+      "target": "harness.simplify-2.validation-retirement.generation-builder",
       "kind": "depends_on"
     },
     {
