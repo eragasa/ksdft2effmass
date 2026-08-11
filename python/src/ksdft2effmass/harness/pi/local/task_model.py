@@ -1,8 +1,8 @@
 """Minimum durable project-local Task model.
 
 ``HarnessTask`` owns intrinsic Task state, its serializer and deserializer own the
-version-3 JSON wire format and retained version-2 reading compatibility, and
-``HarnessTaskGraphValidator`` owns structural graph checks. The module performs no
+version-3 JSON wire format, and ``HarnessTaskGraphValidator`` owns structural graph
+checks. The module performs no
 repository discovery, persistence, activation, Markdown rendering, migration
 workflow, scientific interpretation, or human review.
 """
@@ -103,9 +103,7 @@ class HarnessTask:
     Parameters
     ----------
     schema_version
-        Built-in integer equal to 2 or 3. Version 3 adds the required
-        ``superseded_by_task_ids`` relationship; version 2 is retained for reading
-        compatibility and requires that tuple to be empty.
+        Built-in integer equal to 3.
     task_id, status
         Project-local identifiers. ``status`` is opaque lifecycle text.
     title, objective
@@ -171,8 +169,8 @@ class HarnessTask:
 
     def __post_init__(self) -> None:
         version = _require_int(self.schema_version, "schema_version")
-        if version not in {2, 3}:
-            raise ValueError("schema_version must equal 2 or 3")
+        if version != 3:
+            raise ValueError("schema_version must equal 3")
         _require_local_identifier(self.task_id, "task_id")
         _require_builtin_str(self.title, "title")
         _require_local_identifier(self.status, "status")
@@ -195,8 +193,6 @@ class HarnessTask:
             raise ValueError("a Task may not require itself")
         if self.task_id in superseded_by:
             raise ValueError("a Task may not supersede itself")
-        if version == 2 and superseded_by:
-            raise ValueError("schema-version-2 Tasks cannot represent supersession")
         if set(task_prerequisites) & set(external_prerequisites):
             raise ValueError("Task and external prerequisites must be disjoint")
         _require_bool(self.explicit_activation_required, "explicit_activation_required")
@@ -233,8 +229,7 @@ class HarnessTaskSerializer:
     """Serialize one :class:`HarnessTask` to canonical UTF-8 JSON bytes.
 
     The ActionObject is fieldless and performs no discovery or I/O. It emits the
-    version-3 field set, or omits ``superseded_by_task_ids`` for a retained
-    version-2 value, emits tuples as arrays and optional absence as ``null``, uses
+    version-3 field set, tuples as arrays and optional absence as ``null``, uses
     two-space indentation with literal Unicode, and appends exactly one LF without
     a BOM.
     """
@@ -264,8 +259,6 @@ class HarnessTaskSerializer:
         obj: dict[str, Any] = {}
         for field in fields(HarnessTask):
             value = getattr(task, field.name)
-            if field.name == "superseded_by_task_ids" and task.schema_version == 2:
-                continue
             if field.name == "documentation_path" and value is None:
                 continue
             if type(value) is ArchivedTaskSource:
@@ -275,14 +268,13 @@ class HarnessTaskSerializer:
 
 
 class HarnessTaskDeserializer:
-    """Deserialize strict schema-version-3 or retained version-2 Task JSON.
+    """Deserialize strict schema-version-3 Task JSON.
 
     Noncanonical whitespace and object-key order are accepted. Version 3 requires
-    ``superseded_by_task_ids``; version 2 rejects it and receives an empty tuple in
-    memory. BOMs, invalid UTF-8,
-    duplicate, missing, or unknown keys, wrong JSON types, invalid lexical values,
-    and unsupported versions are rejected. The action performs no file I/O or graph,
-    authority, documentation, or activation validation.
+    ``superseded_by_task_ids``. BOMs, invalid UTF-8, duplicate, missing, or unknown
+    keys, wrong JSON types, invalid lexical values, and unsupported versions are
+    rejected. The action performs no file I/O or graph, authority, documentation,
+    or activation validation.
     """
 
     __slots__ = ()
@@ -327,12 +319,10 @@ class HarnessTaskDeserializer:
         if type(value) is not dict:
             raise TypeError("payload must represent a JSON object")
         version = value.get("schema_version")
-        if type(version) is not int or version not in {2, 3}:
-            raise ValueError("schema_version must equal integer 2 or 3")
+        if type(version) is not int or version != 3:
+            raise ValueError("schema_version must equal integer 3")
         model_fields = tuple(field.name for field in fields(HarnessTask))
         expected = set(model_fields)
-        if version == 2:
-            expected.remove("superseded_by_task_ids")
         required = expected - {"documentation_path"}
         missing = required - set(value)
         unknown = set(value) - expected
@@ -340,8 +330,6 @@ class HarnessTaskDeserializer:
             raise ValueError(f"missing field {sorted(missing)[0]}")
         if unknown:
             raise ValueError(f"unknown field {sorted(unknown)[0]}")
-        if version == 2:
-            value["superseded_by_task_ids"] = []
         tuple_fields = {
             "task_prerequisite_ids",
             "external_prerequisite_ids",

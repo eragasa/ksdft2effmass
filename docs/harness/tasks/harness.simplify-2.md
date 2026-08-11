@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred_to_active_child`: coordinating parent deferred to the explicitly reactivated R2.7 integration-closeout correction; no successor is active and human acceptance remains pending
+`active`: selected coordinating parent after corrected R2.7 completion; all authorized R2.1 through R2.7 work is complete and the parent remains pending explicit human acceptance with no successor active
 
 ## Objective
 

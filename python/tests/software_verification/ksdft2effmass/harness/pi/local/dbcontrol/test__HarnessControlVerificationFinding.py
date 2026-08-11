@@ -6,67 +6,89 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-The module owns the intrinsic immutable structured disagreement record.
+The module owns one immutable structured control disagreement.
 
 Intrinsic and cross-object scope
 
-Construction and closed-code validation are exercised with literal inputs only.
+Closed code, optional path, nonempty message, equality, and immutability are intrinsic;
+aggregation belongs to the verification result.
 
 VVUQ and scientific exclusions
 
-This is structural software verification only; scientific validation and uncertainty
-quantification are excluded.
+This is structural software verification only; scientific validation and UQ are
+excluded.
 """
+
+from dataclasses import FrozenInstanceError
 
 import pytest
 
 from ksdft2effmass.harness.pi.local import HarnessControlVerificationFinding
 
 SUT = HarnessControlVerificationFinding
-
 pytestmark = pytest.mark.software_verification
 
 
-def test_constructor__fields__preserves_structured_disagreement() -> None:
+def test_constructor__fields__preserve_value_semantics_and_immutability() -> None:
     """Evidence ID: software-verification.harness.sqlite-control.verification-finding.structured-fields
 
-    Requirement: A control disagreement preserves its closed code, optional path, and
-    stable explanatory message as immutable public state.
+    Requirement: A finding preserves exact closed code, optional path, and message with
+    immutable value semantics.
 
-    Method: Construct one exact changed-artifact finding.
+    Method: Construct two equal literal findings and attempt field assignment.
 
-    Oracle: The supplied literal values independently define the expected fields.
+    Oracle: Literal values and frozen dataclass semantics define expected behavior.
 
-    Acceptance: All three fields remain exactly equal to their inputs.
+    Acceptance: Values and equality are exact and mutation raises
+    ``FrozenInstanceError``.
 
-    Interpretation: Failure identifies loss of structured verification information.
+    Interpretation: Failure identifies lost or mutable disagreement information.
 
-    Limitations: Finding aggregation is covered by verifier evidence.
+    Limitations: Finding aggregation belongs to verification-result evidence.
     """  # noqa: E501
-    finding = HarnessControlVerificationFinding(
+    expected = SUT("changed_artifact", "harness/task-graph.json", "candidate differs")
+    assert expected == SUT(
         "changed_artifact", "harness/task-graph.json", "candidate differs"
     )
-    assert (finding.code, finding.path, finding.message) == (
+    assert (expected.code, expected.path, expected.message) == (
         "changed_artifact",
         "harness/task-graph.json",
         "candidate differs",
     )
+    with pytest.raises(FrozenInstanceError):
+        expected.message = "changed"  # type: ignore[misc]
 
 
-def test_constructor__unsupported_code__raises_value_error() -> None:
-    """Evidence ID: software-verification.harness.sqlite-control.verification-finding.unsupported-code
+@pytest.mark.parametrize(
+    ("code", "path", "message", "error"),
+    (
+        pytest.param(1, None, "message", TypeError, id="wrong_code_type"),
+        pytest.param("", None, "message", ValueError, id="empty_code"),
+        pytest.param("unknown", None, "message", ValueError, id="unsupported_code"),
+        pytest.param("changed_artifact", 1, "message", TypeError, id="wrong_path_type"),
+        pytest.param("changed_artifact", "", "message", ValueError, id="empty_path"),
+        pytest.param("changed_artifact", None, 1, TypeError, id="wrong_message_type"),
+        pytest.param("changed_artifact", None, "", ValueError, id="empty_message"),
+    ),
+)
+def test_constructor__fields__reject_invalid_type_and_value_partitions(
+    code: object, path: object, message: object, error: type[Exception]
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.verification-finding.invalid-fields
 
-    Requirement: Verification findings reject unregistered structural identities.
+    Requirement: Wrong semantic types raise ``TypeError`` and correctly typed invalid
+    values raise ``ValueError`` for every finding field.
 
-    Method: Construct a finding with one unsupported literal code.
+    Method: Construct one finding for each independent invalid partition.
 
-    Oracle: The documented closed verification vocabulary excludes ``unknown``.
+    Oracle: The closed finding vocabulary and nonempty field contract define exact
+    exception categories.
 
-    Acceptance: Construction raises exactly ``ValueError``.
+    Acceptance: Every partition raises its expected error type.
 
-    Interpretation: Failure indicates an open or nondeterministic finding vocabulary.
+    Interpretation: Failure weakens finding structure or exception taxonomy.
 
-    Limitations: Supported code semantics are exercised by verifier evidence.
+    Limitations: Supported-code meanings are exercised by verifier evidence.
     """  # noqa: E501
-    with pytest.raises(ValueError):
-        HarnessControlVerificationFinding("unknown", None, "unsupported")
+    with pytest.raises(error):
+        SUT(code, path, message)  # type: ignore[arg-type]

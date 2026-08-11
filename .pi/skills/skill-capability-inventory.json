@@ -784,12 +784,12 @@
       "command": "python/.venv/bin/python python/src/cli/validate_python_conformance.py --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json --migration-map .pi/evidence/python-conformance/r2.3-private-owner-migration.json <explicit-test-modules>",
       "evidence_owner": "PythonConformanceValidator",
       "classification": "software Python evidence structural conformance",
-      "current_status": "PythonConformanceValidator is the sole maintained repository-wide Python evidence gate; the public IdentifierAuditor remains bounded compatibility API and is non-authoritative for repository conformance."
+      "current_status": "PythonConformanceValidator is the sole maintained repository-wide Python evidence gate; no legacy identifier-audit API remains live."
     },
     {
       "block": "CheckpointSchemaValidationBlock",
       "command": "python/.venv/bin/python python/src/cli/validate_checkpoints.py --repository-root <absolute-repository-root> --include-fixtures --dry-run",
-      "evidence_owner": "Draft 2020-12 jsonschema validator plus checkpoint control script",
+      "evidence_owner": "_CheckpointRepositoryValidator with a thin checkpoint command renderer",
       "classification": "control-plane software verification",
       "current_status": "full-schema validation hardened and executed by this audit"
     },

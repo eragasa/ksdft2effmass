@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.controlled-benchmarks",
   "title": "Define controlled harness benchmarks",
   "status": "inactive",
@@ -9,6 +9,7 @@
     "harness.telemetry.effectiveness-evaluation"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Define later controlled or matched Task comparisons only after telemetry completeness and instrumentation overhead are known.",
   "authority_reference_paths": [

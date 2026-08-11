@@ -2,187 +2,16 @@
 
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
-
-from .. import (
-    AgentDescriptorView,
-    ChainStateEvaluator,
-    ChainView,
-    CheckpointRecord,
-    CheckpointSetValidator,
-    ChecksumManifest,
-    ChecksumManifestValidator,
-    OwnershipManifestValidator,
-    OwnershipManifestView,
-    ResourceManifestValidator,
-    ResourceResolver,
-    SkillDescriptor,
-    SkillResourceValidator,
-    ValidationResult,
-)
-from ..evidence import IdentifierAuditor
+from .. import ResourceResolver, SkillResourceValidator
+from .checkpoint_validation import _CheckpointRepositoryValidator
 from .context import LocalHarnessContextLoader
 from .dbcontrol import HarnessControlVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
 from .task_model import HarnessTaskDeserializer, HarnessTaskGraphValidator
-
-
-@dataclass(frozen=True, slots=True)
-class AdaptedRepositoryRecords:
-    """Explicit selected records consumed by local validation composition.
-
-    Empty optional selections skip the corresponding generic action; they do
-    not cause repository discovery.
-    """
-
-    chain: ChainView
-    checkpoints: tuple[CheckpointRecord, ...]
-    known_external_prerequisite_ids: tuple[str, ...]
-    satisfied_external_prerequisite_ids: tuple[str, ...]
-    agents: tuple[AgentDescriptorView, ...] = ()
-    ownership: OwnershipManifestView | None = None
-    checksum_root: Path | None = None
-    checksums: ChecksumManifest | None = None
-    skills: tuple[SkillDescriptor, ...] = ()
-    evidence_modules: tuple[tuple[str, bytes], ...] = ()
-
-
-@dataclass(frozen=True, slots=True)
-class RepositoryValidationResult:
-    """Ordered generic results with no local severity downgrade."""
-
-    status: str
-    results: tuple[tuple[str, ValidationResult], ...]
-
-    def __post_init__(self) -> None:
-        if self.status not in {"PASS", "WARN", "FAIL"}:
-            raise ValueError("invalid status")
-        if type(self.results) is not tuple or self.results != tuple(
-            sorted(self.results)
-        ):
-            raise ValueError("results must be name sorted")
-        actual = (
-            "FAIL"
-            if any(x.status == "FAIL" for _, x in self.results)
-            else "WARN"
-            if any(x.status == "WARN" for _, x in self.results)
-            else "PASS"
-        )
-        if self.status != actual:
-            raise ValueError("status does not agree with generic results")
-
-
-class LocalRepositoryValidator:
-    """Retain the superseded explicit-record composition compatibility API.
-
-    Maintained repository-wide validation belongs to :class:`HarnessValidator`.
-    This public Action remains importable and preserves its accepted execute contract.
-    """
-
-    __slots__ = ()
-
-    def execute(
-        self, context: LocalHarnessContext, adapted_records: AdaptedRepositoryRecords
-    ) -> RepositoryValidationResult:
-        """Run applicable generic actions without weakening their diagnostics."""
-        if (
-            type(context) is not LocalHarnessContext
-            or type(adapted_records) is not AdaptedRepositoryRecords
-        ):
-            raise TypeError("context/records have wrong type")
-        profile = context.profile
-        values: list[tuple[str, ValidationResult]] = []
-        values.append(
-            (
-                "resources",
-                ResourceManifestValidator().execute(
-                    context.generic_manifest,
-                    context.generic_manifest_identity,
-                    context.local_manifest,
-                    context.local_manifest_identity,
-                    profile,
-                ),
-            )
-        )
-        values.append(
-            (
-                "checkpoints",
-                CheckpointSetValidator().execute(
-                    adapted_records.checkpoints,
-                    tuple(x.task_id for x in adapted_records.chain.tasks),
-                    profile,
-                ),
-            )
-        )
-        chain_result = ChainStateEvaluator().execute(
-            adapted_records.chain,
-            adapted_records.checkpoints,
-            adapted_records.known_external_prerequisite_ids,
-            adapted_records.satisfied_external_prerequisite_ids,
-            profile,
-        )
-        values.append(("chain", chain_result.validation))
-        if adapted_records.ownership is not None:
-            values.append(
-                (
-                    "ownership",
-                    OwnershipManifestValidator().execute(
-                        adapted_records.ownership,
-                        adapted_records.chain,
-                        adapted_records.agents,
-                        profile,
-                    ),
-                )
-            )
-        if adapted_records.checksums is not None:
-            if adapted_records.checksum_root is None:
-                raise ValueError("checksum_root is required with checksums")
-            values.append(
-                (
-                    "checksums",
-                    ChecksumManifestValidator().execute(
-                        adapted_records.checksum_root, adapted_records.checksums
-                    ),
-                )
-            )
-        if adapted_records.skills:
-            values.append(
-                (
-                    "skills",
-                    SkillResourceValidator().execute(
-                        adapted_records.skills,
-                        context.generic_manifest,
-                        context.generic_manifest_identity,
-                        context.local_manifest,
-                        context.local_manifest_identity,
-                        profile,
-                    ),
-                )
-            )
-        if adapted_records.evidence_modules:
-            values.append(
-                (
-                    "evidence",
-                    IdentifierAuditor()
-                    .execute(adapted_records.evidence_modules, profile)
-                    .validation,
-                )
-            )
-        ordered = tuple(sorted(values))
-        status = (
-            "FAIL"
-            if any(x.status == "FAIL" for _, x in ordered)
-            else "WARN"
-            if any(x.status == "WARN" for _, x in ordered)
-            else "PASS"
-        )
-        return RepositoryValidationResult(status, ordered)
-
 
 _HARNESS_CHECK_ORDER = (
     "python_evidence",
@@ -190,7 +19,6 @@ _HARNESS_CHECK_ORDER = (
     "task_graph",
     "checkpoints",
     "skills",
-    "ownership",
     "control_state",
     "external_gates",
 )
@@ -242,9 +70,13 @@ class HarnessValidationCheck:
     findings: tuple[tuple[str, str | None, str], ...]
 
     def __post_init__(self) -> None:
-        if type(self.name) is not str or self.name not in _HARNESS_CHECK_ORDER:
+        if type(self.name) is not str:
+            raise TypeError("harness validation check name must be str")
+        if self.name not in _HARNESS_CHECK_ORDER:
             raise ValueError("unsupported harness validation check name")
-        if type(self.status) is not str or self.status not in {"PASS", "WARN", "FAIL"}:
+        if type(self.status) is not str:
+            raise TypeError("harness validation check status must be str")
+        if self.status not in {"PASS", "WARN", "FAIL"}:
             raise ValueError("invalid harness validation check status")
         if type(self.findings) is not tuple:
             raise TypeError("findings must be a tuple")
@@ -280,7 +112,9 @@ class HarnessValidationResult:
     claim_boundaries: tuple[str, ...] = _HARNESS_CLAIM_BOUNDARIES
 
     def __post_init__(self) -> None:
-        if type(self.status) is not str or self.status not in {"PASS", "WARN", "FAIL"}:
+        if type(self.status) is not str:
+            raise TypeError("harness validation result status must be str")
+        if self.status not in {"PASS", "WARN", "FAIL"}:
             raise ValueError("invalid harness validation result status")
         if type(self.checks) is not tuple or any(
             type(check) is not HarnessValidationCheck for check in self.checks
@@ -297,6 +131,10 @@ class HarnessValidationResult:
         )
         if self.status != actual:
             raise ValueError("result status does not agree with checks")
+        if type(self.claim_boundaries) is not tuple or any(
+            type(boundary) is not str for boundary in self.claim_boundaries
+        ):
+            raise TypeError("claim boundaries must be a tuple of strings")
         if self.claim_boundaries != _HARNESS_CLAIM_BOUNDARIES:
             raise ValueError("claim boundaries must use the complete stable contract")
 
@@ -340,7 +178,6 @@ class HarnessValidator:
         task_check = self._task_check(root)
         checkpoint_check = self._checkpoint_check(root)
         skill_check = self._skill_check(root, context)
-        ownership_check = self._ownership_check(root)
         control_result = HarnessControlVerifier().execute(root)
         control_findings = tuple(
             sorted(
@@ -415,7 +252,6 @@ class HarnessValidator:
             task_check,
             checkpoint_check,
             skill_check,
-            ownership_check,
             control_check,
             external_check,
         )
@@ -478,16 +314,8 @@ class HarnessValidator:
         findings: list[tuple[str, str | None, str]] = []
         for path in sorted((root / "harness/tasks").glob("*.json")):
             try:
-                document = json.loads(path.read_text())
-                if document.get("schema_version") == 3:
-                    tasks.append(HarnessTaskDeserializer().execute(path.read_bytes()))
-            except (
-                OSError,
-                UnicodeError,
-                json.JSONDecodeError,
-                TypeError,
-                ValueError,
-            ) as exc:
+                tasks.append(HarnessTaskDeserializer().execute(path.read_bytes()))
+            except (OSError, TypeError, ValueError) as exc:
                 findings.append(
                     (
                         "task.invalid_record",
@@ -495,7 +323,7 @@ class HarnessValidator:
                         str(exc),
                     )
                 )
-        if not findings:
+        if tasks:
             graph = HarnessTaskGraphValidator().execute(tuple(tasks))
             findings.extend(
                 (issue.code, issue.path, issue.detail) for issue in graph.issues
@@ -507,26 +335,8 @@ class HarnessValidator:
         return check
 
     def _checkpoint_check(self, root: Path) -> HarnessValidationCheck:
-        from ._commands import validate_checkpoints as owner
-
-        checkpoint_root = root / ".pi/checkpoints"
-        schema = owner.load_json(checkpoint_root / "checkpoint.schema.json")
-        Draft202012Validator.check_schema(schema)
-        validator = Draft202012Validator(schema)
-        errors: list[str] = []
-        for path in owner.checkpoint_paths(checkpoint_root, False):
-            errors.extend(owner.validate_schema(owner.load_json(path), path, validator))
-        errors.extend(owner.scan_duplicate_decisions(checkpoint_root))
-        findings = tuple(
-            sorted(
-                (
-                    "checkpoint.invalid",
-                    None,
-                    error,
-                )
-                for error in errors
-            )
-        )
+        result = _CheckpointRepositoryValidator().execute(root)
+        findings = tuple(("checkpoint.invalid", None, error) for error in result.errors)
         return HarnessValidationCheck(
             "checkpoints", "FAIL" if findings else "PASS", findings
         )
@@ -576,55 +386,4 @@ class HarnessValidator:
         )
         return HarnessValidationCheck(
             "skills", "FAIL" if findings else "PASS", findings
-        )
-
-    def _ownership_check(self, root: Path) -> HarnessValidationCheck:
-        chain = json.loads(
-            (root / ".pi/chains/harness-simplification.chain.json").read_text()
-        )
-        active = chain.get("active_task")
-        entry = next(
-            (
-                item
-                for item in chain.get("task_sequence", [])
-                if item.get("id") == active
-            ),
-            None,
-        )
-        if entry is None:
-            return HarnessValidationCheck(
-                "ownership",
-                "FAIL",
-                (
-                    (
-                        "ownership.active_task_missing",
-                        None,
-                        "active Task is absent from chain",
-                    ),
-                ),
-            )
-        manifest = entry.get("ownership_manifest")
-        if manifest is None:
-            return HarnessValidationCheck(
-                "ownership",
-                "WARN",
-                (
-                    (
-                        "ownership.not_declared",
-                        None,
-                        "active Task declares no ownership manifest",
-                    ),
-                ),
-            )
-        return HarnessValidationCheck(
-            "ownership",
-            "WARN",
-            (
-                (
-                    "ownership.external_gate",
-                    str(manifest),
-                    "declared ownership remains validated by the maintained "
-                    "ownership gate",
-                ),
-            ),
         )

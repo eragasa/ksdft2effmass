@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly reactivated by the human for the single bounded post-review R2.7 correction; no successor is active and automatic successor activation remains disabled
+`completed`: completed after the single human-authorized post-review correction removed obsolete live compatibility closures, collapsed live Tasks to schema version 3, corrected validation ownership and dependency boundaries, strengthened intrinsic evidence, and passed all required final gates
 
 ## Objective
 

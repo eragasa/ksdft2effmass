@@ -213,15 +213,12 @@ python/.venv/bin/python python/src/cli/validate_python_conformance.py \
   <explicit-test-modules>
 ```
 
-The previous repository-wide identifier-audit CLI is retired. `IdentifierAuditor`
-remains a bounded public compatibility Action for caller-supplied legacy profile
-checks, but it is non-authoritative for current repository conformance. Historical
-evidence continues to record the commands actually used.
+The previous repository-wide identifier-audit CLI and compatibility API are retired.
+Historical evidence continues to record the commands actually used.
 
 | Capability | Owner |
 |---|---|
 | Complete repository Python evidence structure | `PythonConformanceValidator` |
-| Bounded legacy identifier inspection | `IdentifierAuditor` (non-authoritative compatibility) |
 | Semantic test design and review | `develop-python-test-evidence` |
 
 These structural owners do not establish semantic correctness, numerical correctness,

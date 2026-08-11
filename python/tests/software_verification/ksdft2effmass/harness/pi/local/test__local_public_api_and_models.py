@@ -1,72 +1,49 @@
-r"""Software verification of local public api and models.
+r"""Software verification of the local public API and common records.
 
 Evidence profile: claim_bearing
 
-Bounded artifact scope: the module's declared evidence owner.
+Bounded artifact scope: project-local public imports and adapter facade.
 
 Facet and represented meaning
 
-Software verification of the 40-name local public import surface and immutable
-routing/data records.
+The module owns the exact maintained local import surface and adapter identities.
 
 Intrinsic and cross-object scope
 
-The artifact owner is ``ksdft2effmass.harness.pi.local``; exact exports, constructors,
-sorting, and rollback are checked against the accepted H4 task and public source
-contract.
+Record-specific invariants remain with their class-owned modules; this artifact checks
+only package and facade agreement plus common immutable adaptation records.
 
 VVUQ and scientific exclusions
 
 Passing establishes software representation behavior only, not numerical verification,
-scientific validation, UQ, physical correctness, or cross-language conformance.
+scientific validation, UQ, physical correctness, or human acceptance.
 """
 
 from inspect import signature
 from pathlib import Path
-from typing import Any
 
 import pytest
 
 import ksdft2effmass.harness.pi.local as local
 import ksdft2effmass.harness.pi.local.adapters as adapter_facade
-from ksdft2effmass.harness.pi import ValidationIssue, ValidationResult
 from ksdft2effmass.harness.pi.local import (
     AdaptationResult,
-    EvidenceOwnershipRelation,
-    LegacyInvocation,
     LocalIssue,
     LocalValidationResult,
     RepositoryRoots,
-    RepositoryValidationResult,
-    RouteConfiguration,
-    RouteSelection,
-    ShadowObservation,
-    ShadowPairResult,
-    ValidationRoute,
 )
 
 pytestmark = pytest.mark.software_verification
 
 ADAPTER_EXECUTE_PARAMETERS = {
     "AgentRecordAdapter": ("self", "agent_documents"),
-    "ChainRecordAdapter": (
-        "self",
-        "chain_bytes",
-        "task_records",
-        "activation_bytes",
-    ),
+    "ChainRecordAdapter": ("self", "chain_bytes", "task_records", "activation_bytes"),
     "CheckpointRecordAdapter": ("self", "checkpoint_documents"),
     "ChecksumCatalogAdapter": ("self", "catalog_bytes"),
     "EvidenceModuleSelector": ("self", "module_payloads", "profile"),
-    "EvidenceOwnershipManifestAdapter": ("self", "manifest_bytes"),
     "OwnershipManifestAdapter": ("self", "manifest_bytes"),
     "SkillInventoryAdapter": ("self", "inventory_bytes", "descriptor_bytes"),
-    "TaskRecordAdapter": (
-        "self",
-        "task_documents",
-        "chain_bytes",
-        "activation_bytes",
-    ),
+    "TaskRecordAdapter": ("self", "task_documents", "chain_bytes", "activation_bytes"),
 }
 
 EXPECTED = (
@@ -74,36 +51,20 @@ EXPECTED = (
     "ChainRecordAdapter",
     "CheckpointRecordAdapter",
     "ChecksumCatalogAdapter",
-    "EvidenceOwnershipManifestAdapter",
     "OwnershipManifestAdapter",
     "SkillInventoryAdapter",
     "TaskRecordAdapter",
     "AdaptationResult",
-    "AdaptedRepositoryRecords",
-    "ShadowPairComparator",
-    "EvidenceOwnershipRelation",
-    "LegacyInvocation",
     "LocalHarnessContextLoader",
     "LocalHarnessContext",
     "LocalIssue",
     "LocalValidationResult",
-    "ShadowSuiteReplayer",
     "RepositoryRoots",
-    "RepositoryValidationResult",
-    "LegacyRouteConfigurationPreparer",
-    "RouteConfiguration",
-    "RouteSelection",
     "EvidenceModuleSelector",
-    "ValidationRouteSelector",
-    "ShadowObservation",
-    "ShadowPairResult",
-    "ShadowReplayResult",
-    "LocalRepositoryValidator",
     "HarnessValidationRequest",
     "HarnessValidationCheck",
     "HarnessValidationResult",
     "HarnessValidator",
-    "ValidationRoute",
     "ArchivedTaskSource",
     "HarnessTask",
     "HarnessTaskSerializer",
@@ -118,32 +79,26 @@ EXPECTED = (
 )
 
 
-def test_public_api__exports__contains_exact_45_names() -> None:
+def test_public_api__exports__contains_exact_maintained_names() -> None:
     """Evidence ID: SV-HL-001
 
-    Requirement: The project-local package exposes exactly the retained 45 public
-    names, and the former adapter module preserves all nine adapter names and execute
-    signatures after contract-owned relocation.
+    Requirement: The project-local package exposes exactly the maintained names, and
+    the adapter facade preserves the eight operational adapter identities.
 
-    Method: Compare the package and adapter-facade exports, runtime identities, and
-    execute parameter names to fixed independent inventories.
+    Method: Compare exports, runtime identities, and execute parameter names with fixed
+    independent inventories.
 
-    Oracle: The accepted H4 inventory, corrected HarnessTask inventory, and active R2.2
-    compatibility contract supply the exact local boundary and adapter signatures.
+    Oracle: The post-retirement local boundary and accepted adapter signatures are
+    literal expectations.
 
-    Acceptance: The ordered package tuple is exact and has length 45; every name
-    resolves; all nine facade classes are identical to the package exports; and every
-    execute parameter tuple is exact.
+    Acceptance: Package and facade exports, identities, and signatures agree exactly.
 
-    Interpretation: Failure identifies packaging drift or an incorrect inventory.
+    Interpretation: Failure identifies stale compatibility or packaging drift.
 
-    Limitations: This does not establish behavior of each export, numerical results,
-    science, UQ, or
-    portability.
+    Limitations: Import agreement does not establish behavior or scientific claims.
     """
     assert tuple(local.__all__) == EXPECTED
-    assert len(EXPECTED) == 45
-    assert all(getattr(local, name) is not None for name in EXPECTED)
+    assert len(EXPECTED) == 29
     assert tuple(adapter_facade.__all__) == tuple(ADAPTER_EXECUTE_PARAMETERS)
     assert all(
         getattr(adapter_facade, name) is getattr(local, name)
@@ -161,26 +116,20 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
     Requirement: Every project-local public ActionObject uses target-first Actionizer
     grammar.
 
-    Method: Select exported classes exposing ``execute`` and inspect their exact names.
+    Method: Select exported classes exposing ``execute`` and inspect exact names.
 
-    Oracle: The accepted suffixes describe adapter, comparator, deserializer, loader,
-    preparer, recorder, renderer, replayer, selector, serializer, and validator owners.
+    Oracle: Accepted suffixes describe every remaining operational Action owner.
 
-    Acceptance: Every selected public class ends with one accepted Actionizer suffix.
+    Acceptance: Every selected class ends with an accepted Actionizer suffix.
 
-    Interpretation: Failure indicates project-local public naming drift.
+    Interpretation: Failure identifies project-local public naming drift.
 
-    Limitations: Naming does not establish behavior, scientific validity, or UQ.
+    Limitations: Naming does not establish behavior or scientific validity.
     """
     suffixes = (
         "Adapter",
-        "Comparator",
         "Deserializer",
         "Loader",
-        "Preparer",
-        "Recorder",
-        "Renderer",
-        "Replayer",
         "Selector",
         "Serializer",
         "Validator",
@@ -196,93 +145,42 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
     assert all(name.endswith(suffixes) for name in actions)
 
 
-def test_constructor__local_records__enforces_invariants_and_value_semantics(
+def test_constructor__common_local_records__enforce_immutable_values(
     tmp_path: Path,
 ) -> None:
     """Evidence ID: SV-HL-002
 
-    Requirement: Local records reject invalid types/order/status and retain immutable
-    exact values.
+    Requirement: Common local records reject invalid roots, status disagreement, and
+    mutable adaptation values while preserving exact immutable state.
 
-    Method: Construct representative valid and invalid RepositoryRoots, LocalIssue,
-    LocalValidationResult, AdaptationResult, LegacyInvocation, ShadowObservation,
-    RouteConfiguration, RouteSelection, and RepositoryValidationResult values.
+    Method: Construct representative literal valid and invalid values.
 
-    Oracle: Dataclass and enum invariants documented by the public constructors define
-    exact
-    outcomes.
+    Oracle: Public constructor contracts and exact dataclass equality define outcomes.
 
-    Acceptance: Valid values compare exactly; invalid roots, namespaces, order, failed
-    values, and
-    rollback targets raise TypeError or ValueError.
+    Acceptance: Valid state compares exactly and each invalid partition raises the
+    documented exception category.
 
-    Interpretation: Failure indicates a constructor-contract defect or stale test
-    transcription.
+    Interpretation: Failure identifies a common record contract defect.
 
-    Limitations: Filesystem lifetime, subprocess execution, numerical verification,
-    science, UQ, and
-    cross-language behavior are excluded.
+    Limitations: Class-specific records and filesystem lifetime are covered elsewhere.
     """
-    repo = tmp_path.resolve()
-    (repo / "g").mkdir()
-    (repo / "l").mkdir()
-    roots = RepositoryRoots(repo, repo / "g", repo / "l")
-    relation = EvidenceOwnershipRelation(
-        "tests/evidence.py",
-        ("SV-HL-002",),
-        "artifact_owned",
-        "left <-> right",
-        "agreement",
-        "left",
-        "right",
-        "none",
-    )
-    assert relation.direction == "none"
+    repository = tmp_path.resolve()
+    (repository / "generic").mkdir()
+    (repository / "local").mkdir()
+    roots = RepositoryRoots(repository, repository / "generic", repository / "local")
+    assert roots.repository_root == repository
     issue = LocalIssue("PIHL.TEST", "a", "detail")
     failed = LocalValidationResult("FAIL", (issue,))
-    assert AdaptationResult(None, failed).value is None
-    invocation = LegacyInvocation("p", ("python",), ("input",), None)
-    observation = ShadowObservation("legacy", "PASS", (), (), (), 0, None)
-    selection = RouteSelection(True, False, ValidationRoute.LEGACY)
-    assert (roots.repository_root, invocation.pair_id, observation.exit_status) == (
-        repo,
-        "p",
-        0,
-    )
-    assert selection.authoritative_route is ValidationRoute.LEGACY
-    passing = ValidationResult(1, "PASS", ())
-    warning_issue = ValidationIssue(
-        1, "PIH.EVIDENCE.PROTECTED_GAP", "WARNING", None, None, (), "gap"
-    )
-    warning = ValidationResult(1, "WARN", (warning_issue,))
-    assert (
-        RepositoryValidationResult("WARN", (("a", passing), ("b", warning))).status
-        == "WARN"
-    )
-    with pytest.raises(ValueError):
-        RepositoryValidationResult("PASS", (("a", warning),))
+    assert AdaptationResult(None, failed) == AdaptationResult(None, failed)
     with pytest.raises(ValueError):
         LocalIssue("BAD", None, "x")
     with pytest.raises(ValueError):
         LocalValidationResult("PASS", (issue,))
     with pytest.raises(TypeError):
-        AdaptationResult(object(), failed)
-    mutable_cases: tuple[object, ...] = ({"nested": []}, [()], ([],))
-
-    def exercise_mutable_case_148_1(mutable: Any) -> Any:
-        with pytest.raises(TypeError):
-            AdaptationResult(mutable, LocalValidationResult("PASS", ()))
-
-    _ = [exercise_mutable_case_148_1(mutable) for mutable in (mutable_cases)]
+        AdaptationResult({"mutable": []}, LocalValidationResult("PASS", ()))
     with pytest.raises(ValueError, match="parent traversal"):
-        RepositoryRoots(repo, repo / "g" / ".." / "g", repo / "l")
-    with pytest.raises(ValueError):
-        RouteConfiguration(ValidationRoute.LOCAL, ValidationRoute.LOCAL)
-    with pytest.raises(ValueError):
-        RouteSelection(False, False, ValidationRoute.LEGACY)
-    with pytest.raises(TypeError):
-        ShadowObservation("x", "PASS", (), (), (), True, None)
-    with pytest.raises(ValueError):
-        ShadowPairResult(
-            "bad", observation, observation, "intentional", (), "x", ("authority",)
+        RepositoryRoots(
+            repository,
+            repository / "generic" / ".." / "generic",
+            repository / "local",
         )

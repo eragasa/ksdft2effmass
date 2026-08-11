@@ -1,8 +1,8 @@
-"""Project-local PI harness composition and compatibility boundary.
+"""Project-local PI harness composition boundary.
 
-The package has no ambient repository discovery or execution side effects.
-Callers explicitly provide roots, bytes, records, routes, and observations.
-All generic policy is consumed through :mod:`ksdft2effmass.harness.pi`.
+The package has no ambient repository discovery or execution side effects. Callers
+explicitly provide roots, bytes, and records. Generic policy is consumed through
+:mod:`ksdft2effmass.harness.pi`.
 """
 
 from .adapters import (
@@ -11,7 +11,6 @@ from .adapters import (
     CheckpointRecordAdapter,
     ChecksumCatalogAdapter,
     EvidenceModuleSelector,
-    EvidenceOwnershipManifestAdapter,
     OwnershipManifestAdapter,
     SkillInventoryAdapter,
     TaskRecordAdapter,
@@ -27,26 +26,10 @@ from .dbcontrol import (
 )
 from .models import (
     AdaptationResult,
-    EvidenceOwnershipRelation,
     LocalHarnessContext,
     LocalIssue,
     LocalValidationResult,
     RepositoryRoots,
-    RouteConfiguration,
-    ValidationRoute,
-)
-from .routing import (
-    LegacyRouteConfigurationPreparer,
-    RouteSelection,
-    ValidationRouteSelector,
-)
-from .shadow import (
-    LegacyInvocation,
-    ShadowObservation,
-    ShadowPairComparator,
-    ShadowPairResult,
-    ShadowReplayResult,
-    ShadowSuiteReplayer,
 )
 from .task_model import (
     ArchivedTaskSource,
@@ -56,13 +39,10 @@ from .task_model import (
     HarnessTaskSerializer,
 )
 from .validation import (
-    AdaptedRepositoryRecords,
     HarnessValidationCheck,
     HarnessValidationRequest,
     HarnessValidationResult,
     HarnessValidator,
-    LocalRepositoryValidator,
-    RepositoryValidationResult,
 )
 
 __all__ = [
@@ -70,36 +50,20 @@ __all__ = [
     "ChainRecordAdapter",
     "CheckpointRecordAdapter",
     "ChecksumCatalogAdapter",
-    "EvidenceOwnershipManifestAdapter",
     "OwnershipManifestAdapter",
     "SkillInventoryAdapter",
     "TaskRecordAdapter",
     "AdaptationResult",
-    "AdaptedRepositoryRecords",
-    "ShadowPairComparator",
-    "EvidenceOwnershipRelation",
-    "LegacyInvocation",
     "LocalHarnessContextLoader",
     "LocalHarnessContext",
     "LocalIssue",
     "LocalValidationResult",
-    "ShadowSuiteReplayer",
     "RepositoryRoots",
-    "RepositoryValidationResult",
-    "LegacyRouteConfigurationPreparer",
-    "RouteConfiguration",
-    "RouteSelection",
     "EvidenceModuleSelector",
-    "ValidationRouteSelector",
-    "ShadowObservation",
-    "ShadowPairResult",
-    "ShadowReplayResult",
-    "LocalRepositoryValidator",
     "HarnessValidationRequest",
     "HarnessValidationCheck",
     "HarnessValidationResult",
     "HarnessValidator",
-    "ValidationRoute",
     "ArchivedTaskSource",
     "HarnessTask",
     "HarnessTaskSerializer",

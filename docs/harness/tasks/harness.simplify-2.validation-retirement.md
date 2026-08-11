@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred_to_active_child`: R2.7 coordinating Task deferred to the explicitly reactivated integration-closeout child for the single bounded post-review correction
+`completed`: completed after the single bounded post-review correction with one live Task schema, one Python evidence route, one repository validator, no live shadow or routing compatibility, and no human-acceptance claim
 
 ## Objective
 

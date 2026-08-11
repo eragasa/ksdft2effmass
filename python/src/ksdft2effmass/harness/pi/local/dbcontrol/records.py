@@ -23,12 +23,8 @@ class HarnessControlMigrationRequest:
 
     ``evidence_module_paths`` selects the authoritative Python sources.
     ``evidence_profile_matrix_path`` and ``evidence_migration_path`` select the
-    canonical profile policy and predecessor declarations. The retained
-    ``evidence_module_ownership_path`` compatibility field is rejected by
-    canonical corpus construction because generated or external ownership
-    inventories are projections rather than evidence authority. An empty
-    evidence corpus preserves bounded noncanonical compatibility for isolated
-    migration callers.
+    canonical profile policy and predecessor declarations. An empty evidence corpus
+    preserves bounded noncanonical behavior for isolated migration callers.
 
     The five resource fields select one explicit project profile, generic and
     local manifests, and their roots. They are supplied together for canonical
@@ -38,7 +34,6 @@ class HarnessControlMigrationRequest:
 
     repository_root: Path
     database_path: Path = CONTROL_DATABASE_PATH
-    evidence_module_ownership_path: Path | None = None
     evidence_profile_matrix_path: Path | None = None
     evidence_module_paths: tuple[Path, ...] = ()
     evidence_migration_path: Path | None = None
@@ -56,11 +51,6 @@ class HarnessControlMigrationRequest:
             raise ValueError("repository_root must be an absolute pathlib.Path")
         if not isinstance(self.database_path, Path) or self.database_path.is_absolute():
             raise ValueError("database_path must be repository-relative")
-        ownership_path = self.evidence_module_ownership_path
-        if ownership_path is not None and not isinstance(ownership_path, Path):
-            raise TypeError(
-                "evidence_module_ownership_path must be a pathlib.Path or None"
-            )
         profile_path = self.evidence_profile_matrix_path
         if profile_path is not None and not isinstance(profile_path, Path):
             raise TypeError(
@@ -92,11 +82,7 @@ class HarnessControlMigrationRequest:
             path is None for path in resource_paths
         ):
             raise ValueError("canonical resource inputs must be supplied together")
-        if (
-            profile_path is not None
-            and not self.evidence_module_paths
-            and ownership_path is None
-        ):
+        if profile_path is not None and not self.evidence_module_paths:
             raise ValueError(
                 "evidence_profile_matrix_path requires evidence_module_paths"
             )
@@ -108,7 +94,6 @@ class HarnessControlMigrationRequest:
             )
         for name, path in (
             ("database_path", self.database_path),
-            ("evidence_module_ownership_path", ownership_path),
             ("evidence_profile_matrix_path", profile_path),
             ("evidence_migration_path", migration_path),
             ("resource_profile_path", self.resource_profile_path),
@@ -168,12 +153,18 @@ class HarnessControlVerificationFinding:
     message: str
 
     def __post_init__(self) -> None:
-        if type(self.code) is not str or self.code not in _VERIFICATION_FINDING_CODES:
+        if type(self.code) is not str:
+            raise TypeError("finding code must be str")
+        if not self.code or self.code not in _VERIFICATION_FINDING_CODES:
             raise ValueError("unsupported control verification finding code")
-        if self.path is not None and (type(self.path) is not str or not self.path):
-            raise TypeError("finding path must be a nonempty str or None")
-        if type(self.message) is not str or not self.message:
-            raise TypeError("finding message must be a nonempty str")
+        if self.path is not None and type(self.path) is not str:
+            raise TypeError("finding path must be str or None")
+        if self.path == "":
+            raise ValueError("finding path must be nonempty when present")
+        if type(self.message) is not str:
+            raise TypeError("finding message must be str")
+        if not self.message:
+            raise ValueError("finding message must be nonempty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -198,8 +189,19 @@ class HarnessControlVerificationResult:
     findings: tuple[HarnessControlVerificationFinding, ...] = ()
 
     def __post_init__(self) -> None:
+        for name in (
+            "integrity_check",
+            "semantic_digest",
+            "reconstructed_semantic_digest",
+            "raw_database_sha256",
+            "reconstructed_database_sha256",
+        ):
+            if type(getattr(self, name)) is not str:
+                raise TypeError(f"{name} must be str")
         if type(self.foreign_key_issue_count) is not int:
             raise TypeError("foreign_key_issue_count must be int")
+        if self.foreign_key_issue_count < 0:
+            raise ValueError("foreign_key_issue_count must be nonnegative")
         for name in (
             "projections_identical",
             "schema_version_agrees",
@@ -216,3 +218,14 @@ class HarnessControlVerificationResult:
         key = lambda item: (item.code, item.path or "", item.message)  # noqa: E731
         if self.findings != tuple(sorted(set(self.findings), key=key)):
             raise ValueError("findings must be unique and deterministically sorted")
+        represented_agreement = (
+            self.integrity_check == "ok"
+            and self.foreign_key_issue_count == 0
+            and self.semantic_digest == self.reconstructed_semantic_digest
+            and self.projections_identical
+            and self.schema_version_agrees
+            and self.sql_identical
+            and self.manifest_identical
+        )
+        if represented_agreement != (not self.findings):
+            raise ValueError("findings must agree with represented verification state")

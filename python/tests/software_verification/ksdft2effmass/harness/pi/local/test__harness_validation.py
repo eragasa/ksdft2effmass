@@ -23,18 +23,25 @@ acceptance claims.
 
 import json
 import subprocess
+from copy import deepcopy
 from operator import attrgetter
 from pathlib import Path
+from typing import cast
 
 import pytest
 
 from ksdft2effmass.harness.pi.local import (
+    HarnessTaskDeserializer,
+    HarnessTaskGraphValidator,
+    HarnessTaskSerializer,
     HarnessValidationCheck,
     HarnessValidationRequest,
     HarnessValidationResult,
     HarnessValidator,
 )
 from ksdft2effmass.harness.pi.local._commands import validate_harness
+
+from .task_model_examples import make_task
 
 pytestmark = pytest.mark.software_verification
 
@@ -44,29 +51,72 @@ _PASS_CHECKS = (
     HarnessValidationCheck("task_graph", "PASS", ()),
     HarnessValidationCheck("checkpoints", "PASS", ()),
     HarnessValidationCheck("skills", "PASS", ()),
-    HarnessValidationCheck("ownership", "PASS", ()),
     HarnessValidationCheck("control_state", "PASS", ()),
     HarnessValidationCheck("external_gates", "PASS", ()),
 )
 _WARN_CHECKS = (
-    *_PASS_CHECKS[:5],
+    *_PASS_CHECKS[:-1],
     HarnessValidationCheck(
-        "ownership", "WARN", (("ownership.not_declared", None, "not declared"),)
+        "external_gates",
+        "WARN",
+        (("external.development_tools", None, "separate final gates"),),
     ),
-    *_PASS_CHECKS[6:],
 )
 _FAIL_CHECKS = (
-    *_PASS_CHECKS[:6],
+    *_PASS_CHECKS[:5],
     HarnessValidationCheck(
         "control_state", "FAIL", (("control.changed", None, "drift"),)
     ),
-    _PASS_CHECKS[7],
+    _PASS_CHECKS[6],
 )
 _COMMAND_CASES = (
     pytest.param(HarnessValidationResult("PASS", _PASS_CHECKS), 0, id="pass_exit_zero"),
     pytest.param(HarnessValidationResult("WARN", _WARN_CHECKS), 0, id="warn_exit_zero"),
     pytest.param(HarnessValidationResult("FAIL", _FAIL_CHECKS), 1, id="fail_exit_one"),
 )
+_BOUNDARIES = [
+    "does not execute or establish pytest success",
+    "does not execute or establish Ruff conformance",
+    "does not execute or establish mypy conformance",
+    "does not execute or establish Sphinx conformance",
+    "does not establish numerical verification",
+    "does not establish scientific validation",
+    "does not establish uncertainty quantification",
+    "does not authorize protected execution",
+    "does not establish human acceptance",
+]
+_PASS_PAYLOAD: dict[str, object] = {
+    "status": "PASS",
+    "checks": [
+        {"name": "python_evidence", "status": "PASS", "findings": []},
+        {"name": "resources", "status": "PASS", "findings": []},
+        {"name": "task_graph", "status": "PASS", "findings": []},
+        {"name": "checkpoints", "status": "PASS", "findings": []},
+        {"name": "skills", "status": "PASS", "findings": []},
+        {"name": "control_state", "status": "PASS", "findings": []},
+        {"name": "external_gates", "status": "PASS", "findings": []},
+    ],
+    "claim_boundaries": _BOUNDARIES,
+}
+_WARN_PAYLOAD = deepcopy(_PASS_PAYLOAD)
+_WARN_PAYLOAD["status"] = "WARN"
+cast(list[dict[str, object]], _WARN_PAYLOAD["checks"])[-1] = {
+    "name": "external_gates",
+    "status": "WARN",
+    "findings": [["external.development_tools", None, "separate final gates"]],
+}
+_FAIL_PAYLOAD = deepcopy(_PASS_PAYLOAD)
+_FAIL_PAYLOAD["status"] = "FAIL"
+cast(list[dict[str, object]], _FAIL_PAYLOAD["checks"])[-2] = {
+    "name": "control_state",
+    "status": "FAIL",
+    "findings": [["control.changed", None, "drift"]],
+}
+_EXPECTED_PAYLOADS = {
+    "PASS": _PASS_PAYLOAD,
+    "WARN": _WARN_PAYLOAD,
+    "FAIL": _FAIL_PAYLOAD,
+}
 
 
 def test_method__execute_maintained_repository__returns_stable_structural_checks(
@@ -109,12 +159,49 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
         "task_graph",
         "checkpoints",
         "skills",
-        "ownership",
         "control_state",
         "external_gates",
     )
+    assert tuple(
+        (check.name, check.status, check.findings) for check in result.checks
+    ) == (
+        ("python_evidence", "PASS", ()),
+        ("resources", "PASS", ()),
+        ("task_graph", "PASS", ()),
+        ("checkpoints", "PASS", ()),
+        ("skills", "PASS", ()),
+        ("control_state", "PASS", ()),
+        (
+            "external_gates",
+            "WARN",
+            (
+                (
+                    "external.development_tools",
+                    None,
+                    "pytest, Ruff, mypy, and Sphinx remain separately executed "
+                    "final gates",
+                ),
+                (
+                    "external.documentation_and_wire",
+                    None,
+                    "documentation projection and test-only wire checks remain "
+                    "external final gates",
+                ),
+            ),
+        ),
+    )
+    assert result.claim_boundaries == (
+        "does not execute or establish pytest success",
+        "does not execute or establish Ruff conformance",
+        "does not execute or establish mypy conformance",
+        "does not execute or establish Sphinx conformance",
+        "does not establish numerical verification",
+        "does not establish scientific validation",
+        "does not establish uncertainty quantification",
+        "does not authorize protected execution",
+        "does not establish human acceptance",
+    )
     assert "duration" not in repr(result).lower()
-    assert result.claim_boundaries[-1] == "does not establish human acceptance"
 
 
 @pytest.mark.parametrize(("result", "expected_exit"), _COMMAND_CASES)
@@ -146,10 +233,7 @@ def test_artifact__command__expected_results_preserve_output_and_exit_status(
     exit_status = validate_harness.run(["--repository-root", str(tmp_path.resolve())])
     payload = json.loads(capsys.readouterr().out)
     assert exit_status == expected_exit
-    assert payload["status"] == result.status
-    assert tuple(map(lambda check: check["name"], payload["checks"])) == tuple(
-        map(attrgetter("name"), result.checks)
-    )
+    assert payload == _EXPECTED_PAYLOADS[result.status]
     assert "duration" not in json.dumps(payload).lower()
 
 
@@ -202,3 +286,104 @@ def test_artifact__command__unexpected_exception_returns_exit_three(
     monkeypatch.setattr(HarnessValidator, "execute", fail)
     assert validate_harness.run(["--repository-root", str(tmp_path.resolve())]) == 3
     assert json.loads(capsys.readouterr().out)["status"] == "INTERNAL_ERROR"
+
+
+def test_artifact__task_check__deserializes_complete_discovered_catalog(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.repository-validation.task-check.complete-catalog
+
+    Requirement: Every discovered live Task is passed through the maintained
+    deserializer and every successfully deserialized Task reaches graph validation.
+
+    Method: Write two independent version-3 Tasks and observe public collaborator calls
+    while invoking the repository Task check.
+
+    Oracle: The two literal Task IDs define both complete expected call sets.
+
+    Acceptance: Deserializer and graph observations both equal ``alpha,beta`` and the
+    check passes.
+
+    Interpretation: Failure identifies a silently skipped Task or incomplete graph.
+
+    Limitations: Repository discovery is isolated from other HarnessValidator checks.
+    """  # noqa: E501
+    task_root = tmp_path / "harness/tasks"
+    task_root.mkdir(parents=True)
+    serializer = HarnessTaskSerializer()
+    (task_root / "alpha.json").write_bytes(
+        serializer.execute(
+            make_task(
+                task_id="alpha",
+                intake_path="harness/intake/alpha.md",
+                documentation_path="docs/harness/tasks/alpha.md",
+            )
+        )
+    )
+    (task_root / "beta.json").write_bytes(
+        serializer.execute(
+            make_task(
+                task_id="beta",
+                intake_path="harness/intake/beta.md",
+                documentation_path="docs/harness/tasks/beta.md",
+            )
+        )
+    )
+    deserialized: list[str] = []
+    graphed: list[tuple[str, ...]] = []
+    deserialize = HarnessTaskDeserializer.execute
+    graph = HarnessTaskGraphValidator.execute
+
+    def observe_deserialization(self: object, payload: bytes) -> object:
+        task = deserialize(self, payload)  # type: ignore[arg-type]
+        deserialized.append(task.task_id)
+        return task
+
+    def observe_graph(self: object, tasks: tuple[object, ...]) -> object:
+        graphed.append(tuple(task.task_id for task in tasks))  # type: ignore[attr-defined]
+        return graph(self, tasks)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(HarnessTaskDeserializer, "execute", observe_deserialization)
+    monkeypatch.setattr(HarnessTaskGraphValidator, "execute", observe_graph)
+    result = HarnessValidator()._task_check(tmp_path.resolve())
+    assert result == HarnessValidationCheck("task_graph", "PASS", ())
+    assert deserialized == ["alpha", "beta"]
+    assert graphed == [("alpha", "beta")]
+
+
+def test_artifact__task_check__unsupported_version_reports_invalid_record(
+    tmp_path: Path,
+) -> None:
+    """Evidence ID: software-verification.harness.repository-validation.task-check.unsupported-version
+
+    Requirement: An unsupported live Task version produces ``task.invalid_record``
+    rather than disappearing from repository validation.
+
+    Method: Write one otherwise valid Task with schema version 2 and invoke the bounded
+    Task check.
+
+    Oracle: ``HarnessTaskDeserializer`` accepts exactly schema version 3.
+
+    Acceptance: The result fails with one exact invalid-record finding naming the Task.
+
+    Interpretation: Failure identifies silent version filtering.
+
+    Limitations: Version-3 graph behavior is covered by the complete-catalog partition.
+    """  # noqa: E501
+    task_root = tmp_path / "harness/tasks"
+    task_root.mkdir(parents=True)
+    payload = (
+        HarnessTaskSerializer()
+        .execute(make_task())
+        .replace(b'"schema_version": 3', b'"schema_version": 2')
+    )
+    (task_root / "example.task.json").write_bytes(payload)
+    result = HarnessValidator()._task_check(tmp_path.resolve())
+    assert result.status == "FAIL"
+    assert result.findings == (
+        (
+            "task.invalid_record",
+            "harness/tasks/example.task.json",
+            "schema_version must equal integer 3",
+        ),
+    )

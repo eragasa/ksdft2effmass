@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.normalized-event-contract",
   "title": "Freeze the normalized telemetry event contract",
   "status": "inactive",
@@ -9,6 +9,7 @@
     "harness.telemetry.retrospective-parser"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Freeze the normalized event model only after the retrospective parser has been exercised against controlled representative Pi session variants.",
   "authority_reference_paths": [

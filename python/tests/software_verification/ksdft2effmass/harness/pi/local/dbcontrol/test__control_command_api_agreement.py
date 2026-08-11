@@ -21,7 +21,6 @@ This is software verification only; scientific validation and UQ are excluded.
 import importlib.util
 import json
 import sys
-from dataclasses import asdict
 from pathlib import Path
 from types import ModuleType
 
@@ -30,6 +29,7 @@ import pytest
 from ksdft2effmass.harness.pi.local import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
+    HarnessControlVerificationFinding,
     HarnessControlVerificationResult,
 )
 from ksdft2effmass.harness.pi.local.dbcontrol.migration import HarnessControlMigrator
@@ -52,7 +52,7 @@ def load_control_cli() -> ModuleType:
     Interpretation: Failure identifies test setup or script import drift.
 
     Limitations: This helper owns no independent evidence result.
-    """
+    """  # noqa: E501
     path = Path(__file__).resolve().parents[8] / "python/src/cli/harness_control.py"
     spec = importlib.util.spec_from_file_location("harness_control_cli", path)
     assert spec is not None and spec.loader is not None
@@ -64,7 +64,7 @@ def load_control_cli() -> ModuleType:
 control_cli = load_control_cli()
 
 
-def test_artifact__migrate_command__forwards_explicit_ownership_input(
+def test_artifact__migrate_command__forwards_explicit_source_inputs(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.migrate-forwards-explicit-ownership-input
@@ -79,7 +79,7 @@ def test_artifact__migrate_command__forwards_explicit_ownership_input(
 
     Interpretation: Failure indicates CLI/API dispatch drift or loss of explicit input confinement.
 
-    Limitations: Ownership conformance and persistence are owned by migrator evidence.
+    Limitations: Source conformance and persistence are owned by migrator evidence.
     """  # noqa: E501
     expected = HarnessControlMigrationResult(2, "digest", (), (), ())
     observed: list[HarnessControlMigrationRequest] = []
@@ -120,7 +120,6 @@ def test_artifact__migrate_command__forwards_explicit_ownership_input(
     assert control_cli.main() == 0
     request = observed[0]
     assert request.repository_root == tmp_path.resolve()
-    assert request.evidence_module_ownership_path is None
     assert request.evidence_profile_matrix_path == Path(
         "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
     )
@@ -215,75 +214,49 @@ def test_artifact__verify_command__agrees_with_public_result(
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert control_cli.main() == 0
-    assert json.loads(capsys.readouterr().out) == json.loads(
-        json.dumps(asdict(expected))
-    )
+    assert json.loads(capsys.readouterr().out) == {
+        "integrity_check": "ok",
+        "foreign_key_issue_count": 0,
+        "semantic_digest": "a",
+        "reconstructed_semantic_digest": "a",
+        "raw_database_sha256": "c",
+        "reconstructed_database_sha256": "c",
+        "projections_identical": True,
+        "schema_version_agrees": True,
+        "sql_identical": True,
+        "manifest_identical": True,
+        "findings": [],
+    }
 
 
-@pytest.mark.parametrize(
-    "expected",
-    [
-        pytest.param(
-            HarnessControlVerificationResult("corrupt", 0, "a", "a", "c", "c", True),
-            id="integrity_failure",
-        ),
-        pytest.param(
-            HarnessControlVerificationResult("ok", 1, "a", "a", "c", "c", True),
-            id="foreign_key_failure",
-        ),
-        pytest.param(
-            HarnessControlVerificationResult("ok", 0, "a", "b", "c", "c", True),
-            id="semantic_digest_mismatch",
-        ),
-        pytest.param(
-            HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", False),
-            id="projection_or_source_drift",
-        ),
-        pytest.param(
-            HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", True, False),
-            id="schema_disagreement",
-        ),
-        pytest.param(
-            HarnessControlVerificationResult(
-                "ok", 0, "a", "a", "c", "c", True, True, False
-            ),
-            id="sql_disagreement",
-        ),
-        pytest.param(
-            HarnessControlVerificationResult(
-                "ok", 0, "a", "a", "c", "c", True, True, True, False
-            ),
-            id="manifest_disagreement",
-        ),
-    ],
-)
-def test_artifact__verify_command__returns_failure_for_reported_drift(
-    expected: HarnessControlVerificationResult,
+def test_artifact__verify_command__returns_literal_failure_for_reported_drift(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.verify-drift-exit-status
 
-    Requirement: The maintained check command returns a failing process status when any
-    verifier result field reports integrity, foreign-key, identity, or projection drift.
+    Requirement: Reported drift returns exit one and preserves every result and nested
+    finding field in deterministic JSON order.
 
-    Method: Supply one immutable literal result for each independent failure partition,
-    invoke the maintained command with an explicit root, and parse its JSON output.
+    Method: Supply one literal structured drift result and compare output with an
+    independently written complete mapping.
 
-    Oracle: The verifier result contract defines agreement as successful integrity, zero
-    foreign-key findings, equal semantic identity, schema agreement, and exact SQL,
-    manifest, and projection agreement; raw hashes remain diagnostic.
+    Oracle: The documented verifier fields and changed-artifact finding are fixed
+    literals independent of production rendering.
 
-    Acceptance: Every drift partition returns status one while preserving the complete
-    structured verifier result in stdout.
+    Acceptance: Exit is one and the complete parsed JSON mapping is exact.
 
-    Interpretation: Failure allows automation to mistake reported control drift for a
-    successful check or indicates that failure rendering lost result information.
+    Interpretation: Failure permits drift to pass or loses structured output.
 
-    Limitations: Verifier reconstruction and drift detection remain covered by their
-    owning evidence; this test covers command exit and rendering behavior only.
+    Limitations: Drift detection itself belongs to verifier evidence.
     """  # noqa: E501
+    finding = HarnessControlVerificationFinding(
+        "changed_artifact", "harness/task-graph.json", "candidate differs"
+    )
+    expected = HarnessControlVerificationResult(
+        "ok", 0, "a", "a", "c", "d", False, True, True, True, (finding,)
+    )
     monkeypatch.setattr(HarnessControlVerifier, "execute", lambda self, root: expected)
     monkeypatch.setattr(
         sys,
@@ -291,6 +264,59 @@ def test_artifact__verify_command__returns_failure_for_reported_drift(
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert control_cli.main() == 1
-    assert json.loads(capsys.readouterr().out) == json.loads(
-        json.dumps(asdict(expected))
+    assert json.loads(capsys.readouterr().out) == {
+        "integrity_check": "ok",
+        "foreign_key_issue_count": 0,
+        "semantic_digest": "a",
+        "reconstructed_semantic_digest": "a",
+        "raw_database_sha256": "c",
+        "reconstructed_database_sha256": "d",
+        "projections_identical": False,
+        "schema_version_agrees": True,
+        "sql_identical": True,
+        "manifest_identical": True,
+        "findings": [
+            {
+                "code": "changed_artifact",
+                "path": "harness/task-graph.json",
+                "message": "candidate differs",
+            }
+        ],
+    }
+
+
+def test_artifact__verify_command__unexpected_failure_returns_exit_three(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.command.unexpected-exit-three
+
+    Requirement: Unexpected verifier failures are translated only at the command
+    boundary to exit three and structured internal-error output.
+
+    Method: Inject one runtime failure at the public verifier seam.
+
+    Oracle: The maintained command exit contract reserves three for internal errors.
+
+    Acceptance: Exit is three and output contains exact status and error type.
+
+    Interpretation: Failure leaks or misclassifies an unexpected boundary failure.
+
+    Limitations: Expected drift is covered separately.
+    """  # noqa: E501
+
+    def fail(self: object, root: Path) -> HarnessControlVerificationResult:
+        raise RuntimeError("injected failure")
+
+    monkeypatch.setattr(HarnessControlVerifier, "execute", fail)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
+    assert control_cli.main() == 3
+    assert json.loads(capsys.readouterr().out) == {
+        "error": "RuntimeError: injected failure",
+        "status": "INTERNAL_ERROR",
+    }

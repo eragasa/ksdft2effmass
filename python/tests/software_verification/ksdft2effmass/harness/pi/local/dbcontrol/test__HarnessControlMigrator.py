@@ -115,17 +115,8 @@ class SyntheticEvidenceFixture:
         destination.write_text(source)
 
     @staticmethod
-    def write_ownership(root: Path, entries: list[dict[str, str]]) -> Path:
-        """Write one closed explicit ownership snapshot and return its relative path."""
-        relative = Path("updates/evidence-modules.json")
-        destination = root / relative
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(json.dumps({"schema_version": 1, "modules": entries}))
-        return relative
-
-    @staticmethod
-    def inventory_entry(path: str, *, artifact_owned: bool = False) -> dict[str, str]:
-        """Return one minimal ownership entry accepted by Python conformance."""
+    def expected_module(path: str, *, artifact_owned: bool = False) -> dict[str, str]:
+        """Return one minimal expected module accepted by Python conformance."""
         entry = {
             "path": path,
             "mode": "artifact_owned" if artifact_owned else "class_owned",
@@ -138,7 +129,9 @@ class SyntheticEvidenceFixture:
 
     @staticmethod
     def migrate_evidence_only(
-        monkeypatch: pytest.MonkeyPatch, root: Path, entries: list[dict[str, str]]
+        monkeypatch: pytest.MonkeyPatch,
+        root: Path,
+        expected_modules: list[dict[str, str]],
     ) -> HarnessControlMigrationResult:
         """Execute public migration while limiting synthetic ingestion to evidence."""
 
@@ -171,7 +164,10 @@ class SyntheticEvidenceFixture:
             HarnessControlMigrationRequest(
                 root.resolve(),
                 evidence_profile_matrix_path=profile,
-                evidence_module_paths=tuple(Path(entry["path"]) for entry in entries),
+                evidence_module_paths=tuple(
+                    Path(expected_module["path"])
+                    for expected_module in expected_modules
+                ),
                 evidence_migration_path=migration,
             )
         )
@@ -395,101 +391,16 @@ def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
     )
 
 
-def test_method__execute_ownership_symlink_escape__preserves_published_generation(
-    tmp_path: Path,
-) -> None:
-    """Evidence ID: software-verification.harness.sqlite-control.migration-action.ownership-symlink-escape-preserves-published-generation
-
-    Requirement: An ownership input whose repository-relative symlink resolves outside the explicit root is rejected before authoritative outputs change.
-
-    Method: Retain literal authoritative SQL bytes, create an in-root ownership symlink to a sibling file, and invoke the public migration Action.
-
-    Oracle: Resolved-path containment excludes the sibling target from the repository root.
-
-    Acceptance: The call raises ``ValueError`` and the retained authoritative bytes remain exact.
-
-    Interpretation: Failure indicates a root-confinement or pre-publication validation regression.
-
-    Limitations: Platforms without symlink support are not represented by this POSIX repository environment.
-    """  # noqa: E501
-    authoritative = tmp_path / "harness/state/harness-control.sql"
-    authoritative.parent.mkdir(parents=True)
-    authoritative.write_bytes(b"previous-generation\n")
-    external = tmp_path.parent / f"{tmp_path.name}-external-ownership.json"
-    external.write_text('{"schema_version":1,"modules":[]}')
-    link = tmp_path / "updates/modules.json"
-    link.parent.mkdir(parents=True)
-    link.symlink_to(external)
-    with pytest.raises(ValueError, match="not root-confined"):
-        HarnessControlMigrator().execute(
-            HarnessControlMigrationRequest(
-                tmp_path.resolve(),
-                evidence_module_ownership_path=Path("updates/modules.json"),
-            )
-        )
-    assert authoritative.read_bytes() == b"previous-generation\n"
-
-
-def test_method__execute_invalid_ownership_snapshots__preserve_published_generation(
-    tmp_path: Path,
-) -> None:
-    """Evidence ID: software-verification.harness.sqlite-control.migration-action.invalid-ownership-snapshots-preserve-published-generation
-
-    Requirement: Malformed JSON and structurally nonconforming explicit ownership snapshots are rejected before authoritative outputs change.
-
-    Method: Invoke the public migration first with malformed JSON and then with a closed ownership document whose named module violates Python conformance.
-
-    Oracle: JSON decoding and ``PythonConformanceValidator`` independently reject the two explicit inputs.
-
-    Acceptance: Both calls raise ``ValueError`` and retained authoritative SQL bytes remain exact after each rejection.
-
-    Interpretation: Failure indicates validation after publication or weakened ownership metadata enforcement.
-
-    Limitations: Valid reconciliation behavior is covered separately.
-    """  # noqa: E501
-    authoritative = tmp_path / "harness/state/harness-control.sql"
-    authoritative.parent.mkdir(parents=True)
-    authoritative.write_bytes(b"previous-generation\n")
-    ownership = tmp_path / "updates/modules.json"
-    ownership.parent.mkdir(parents=True)
-    ownership.write_text("{malformed")
-    request = HarnessControlMigrationRequest(
-        tmp_path.resolve(), evidence_module_ownership_path=Path("updates/modules.json")
-    )
-    with pytest.raises(ValueError, match="projection-only"):
-        HarnessControlMigrator().execute(request)
-    assert authoritative.read_bytes() == b"previous-generation\n"
-    module_path = "python/tests/test__invalid_snapshot.py"
-    module = tmp_path / module_path
-    module.parent.mkdir(parents=True)
-    module.write_text("def test_artifact__snapshot__is_invalid(): pass\n")
-    ownership.write_text(
-        json.dumps(
-            {
-                "schema_version": 1,
-                "modules": [
-                    SyntheticEvidenceFixture.inventory_entry(
-                        module_path, artifact_owned=True
-                    )
-                ],
-            }
-        )
-    )
-    with pytest.raises(ValueError, match="projection-only"):
-        HarnessControlMigrator().execute(request)
-    assert authoritative.read_bytes() == b"previous-generation\n"
-
-
-def test_method__execute_explicit_ownership_addition__updates_authority_and_projection(
+def test_method__execute_source_corpus_addition__updates_authority_and_projection(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.migration-action.explicit-ownership-addition-updates-authority-and-projection
 
-    Requirement: An explicit validated ownership snapshot can add maintained evidence modules transactionally and regenerate SQLite, deterministic SQL, and the inventory projection.
+    Requirement: Source-declared ownership can add maintained evidence modules transactionally and regenerate SQLite, deterministic SQL, and the inventory projection.
 
-    Method: Migrate a synthetic root from an explicit two-module ownership snapshot while bounded ingestion processes only those modules.
+    Method: Migrate a synthetic root from two source modules with embedded ownership declarations while bounded ingestion processes only those modules.
 
-    Oracle: The caller-supplied closed snapshot names exactly two artifact-owned paths and owners.
+    Oracle: The two source modules independently declare exact artifact-owned paths and owners.
 
     Acceptance: Authoritative SQLite and the generated projection contain exactly both entries, and deterministic SQL names both paths.
 
@@ -508,7 +419,7 @@ def test_method__execute_explicit_ownership_addition__updates_authority_and_proj
         monkeypatch,
         tmp_path,
         [
-            SyntheticEvidenceFixture.inventory_entry(path, artifact_owned=True)
+            SyntheticEvidenceFixture.expected_module(path, artifact_owned=True)
             for path in paths
         ],
     )
@@ -550,7 +461,7 @@ def test_method__execute_publish_failure__restores_complete_previous_generation(
     result = SyntheticEvidenceFixture.migrate_evidence_only(
         monkeypatch,
         tmp_path,
-        [SyntheticEvidenceFixture.inventory_entry(alpha, artifact_owned=True)],
+        [SyntheticEvidenceFixture.expected_module(alpha, artifact_owned=True)],
     )
     projection_paths = result.projection_paths
     previous = SyntheticEvidenceFixture.generation_bytes(tmp_path, projection_paths)
@@ -571,8 +482,8 @@ def test_method__execute_publish_failure__restores_complete_previous_generation(
             monkeypatch,
             tmp_path,
             [
-                SyntheticEvidenceFixture.inventory_entry(alpha, artifact_owned=True),
-                SyntheticEvidenceFixture.inventory_entry(beta, artifact_owned=True),
+                SyntheticEvidenceFixture.expected_module(alpha, artifact_owned=True),
+                SyntheticEvidenceFixture.expected_module(beta, artifact_owned=True),
             ],
         )
     assert (
@@ -581,22 +492,22 @@ def test_method__execute_publish_failure__restores_complete_previous_generation(
     )
 
 
-def test_method__execute_explicit_ownership_removal_and_move__reconciles_snapshot(
+def test_method__execute_source_corpus_removal_and_move__reconciles_snapshot(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.migration-action.explicit-ownership-removal-and-move-reconciles-snapshot
 
-    Requirement: Replacing the explicit ownership snapshot can remove one module and move another without direct SQLite transactions.
+    Requirement: Replacing the source corpus can remove one module and move another without direct SQLite transactions.
 
     Method: Migrate an initial two-module snapshot, then migrate a snapshot containing only the moved path.
 
-    Oracle: A closed ownership snapshot defines the complete desired maintained-module set rather than an append-only patch.
+    Oracle: The explicit source corpus defines the complete desired maintained-module set rather than an append-only patch.
 
     Acceptance: SQLite, SQL, and projection contain only the moved path after the second public migration.
 
     Interpretation: Failure indicates stale module retention or a nontransactional reconciliation boundary.
 
-    Limitations: Evidence-identity migration maps are outside this ownership-inventory test.
+    Limitations: Evidence-identity migration maps are outside this source-corpus test.
     """  # noqa: E501
     removed = "python/tests/test__removed.py"
     old = "python/tests/test__before_move.py"
@@ -612,14 +523,14 @@ def test_method__execute_explicit_ownership_removal_and_move__reconciles_snapsho
         monkeypatch,
         tmp_path,
         [
-            SyntheticEvidenceFixture.inventory_entry(removed, artifact_owned=True),
-            SyntheticEvidenceFixture.inventory_entry(old, artifact_owned=True),
+            SyntheticEvidenceFixture.expected_module(removed, artifact_owned=True),
+            SyntheticEvidenceFixture.expected_module(old, artifact_owned=True),
         ],
     )
     SyntheticEvidenceFixture.migrate_evidence_only(
         monkeypatch,
         tmp_path,
-        [SyntheticEvidenceFixture.inventory_entry(moved, artifact_owned=True)],
+        [SyntheticEvidenceFixture.expected_module(moved, artifact_owned=True)],
     )
     assert SyntheticEvidenceFixture.authoritative_modules(tmp_path) == [
         (moved, "artifact_owned", "demo artifact")
@@ -633,16 +544,16 @@ def test_method__execute_explicit_ownership_removal_and_move__reconciles_snapsho
     assert old not in sql
 
 
-def test_method__execute_explicit_ownership_mode_change__reconciles_owner_kind(
+def test_method__execute_source_declared_ownership_kind_change__reconciles_owner_kind(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.migration-action.explicit-ownership-mode-change-reconciles-owner-kind
 
-    Requirement: An explicit ownership snapshot can replace class ownership with artifact ownership for an existing module path.
+    Requirement: An source corpus can replace class ownership with artifact ownership for an existing module path.
 
-    Method: Migrate the path as class-owned, replace its source with an artifact-owned conforming module, and migrate the new ownership snapshot.
+    Method: Migrate the path as class-owned, replace its source with an artifact-owned conforming module, and migrate the new source corpus.
 
-    Oracle: The second closed snapshot declares ``artifact_owned`` and the concrete owner ``demo artifact``.
+    Oracle: The second source declaration specifies ``artifact_owned`` and the concrete owner ``demo artifact``.
 
     Acceptance: SQLite and the generated projection contain exactly the artifact ownership kind and subject after migration.
 
@@ -655,7 +566,7 @@ def test_method__execute_explicit_ownership_mode_change__reconciles_owner_kind(
         tmp_path, path, artifact_owned=False
     )
     SyntheticEvidenceFixture.migrate_evidence_only(
-        monkeypatch, tmp_path, [SyntheticEvidenceFixture.inventory_entry(path)]
+        monkeypatch, tmp_path, [SyntheticEvidenceFixture.expected_module(path)]
     )
     SyntheticEvidenceFixture.write_conforming_module(
         tmp_path, path, artifact_owned=True
@@ -663,7 +574,7 @@ def test_method__execute_explicit_ownership_mode_change__reconciles_owner_kind(
     SyntheticEvidenceFixture.migrate_evidence_only(
         monkeypatch,
         tmp_path,
-        [SyntheticEvidenceFixture.inventory_entry(path, artifact_owned=True)],
+        [SyntheticEvidenceFixture.expected_module(path, artifact_owned=True)],
     )
     assert SyntheticEvidenceFixture.authoritative_modules(tmp_path) == [
         (path, "artifact_owned", "demo artifact")
@@ -703,7 +614,9 @@ def test_method__execute_canonical_corpus__reads_and_parses_each_source_once(
     SyntheticEvidenceFixture.write_conforming_module(
         tmp_path, path, artifact_owned=True
     )
-    entries = [SyntheticEvidenceFixture.inventory_entry(path, artifact_owned=True)]
+    expected_modules = [
+        SyntheticEvidenceFixture.expected_module(path, artifact_owned=True)
+    ]
     source_path = (tmp_path / path).resolve()
     original_read = Path.read_bytes
     reads = 0
@@ -726,5 +639,7 @@ def test_method__execute_canonical_corpus__reads_and_parses_each_source_once(
 
     monkeypatch.setattr(Path, "read_bytes", counted_read)
     monkeypatch.setattr(parser.ast, "parse", counted_parse)
-    SyntheticEvidenceFixture.migrate_evidence_only(monkeypatch, tmp_path, entries)
+    SyntheticEvidenceFixture.migrate_evidence_only(
+        monkeypatch, tmp_path, expected_modules
+    )
     assert (reads, parses) == (1, 1)

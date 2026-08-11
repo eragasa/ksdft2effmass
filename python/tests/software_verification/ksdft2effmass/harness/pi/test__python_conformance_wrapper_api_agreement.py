@@ -32,9 +32,6 @@ import pytest
 import ksdft2effmass.harness.pi as root_api
 import ksdft2effmass.harness.pi.evidence as api
 from ksdft2effmass.harness.pi.evidence import (
-    IdentifierAuditor,
-    IdentifierAuditResult,
-    IdentifierOccurrence,
     PythonConformanceFinding,
     PythonConformanceRequest,
     PythonConformanceResult,
@@ -46,13 +43,10 @@ pytestmark = pytest.mark.software_verification
 ROOT = Path(__file__).resolve().parents[6]
 WRAPPER = ROOT / "python/src/cli/validate_python_conformance.py"
 PUBLIC_NAMES = (
-    "IdentifierOccurrence",
-    "IdentifierAuditResult",
     "PythonModuleSource",
     "PythonConformanceRequest",
     "PythonConformanceFinding",
     "PythonConformanceResult",
-    "IdentifierAuditor",
     "PythonConformanceValidator",
 )
 VALID_SOURCE = b'''r"""Software verification of wrapper agreement artifact.
@@ -103,13 +97,13 @@ INCOMPLETE_MIGRATION = json.dumps(
 def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> None:
     """Evidence ID: SV-TEV-023
 
-    Requirement: The evidence subpackage exports exactly its eight records, results,
-    and actions from the two owning modules.
+    Requirement: The evidence subpackage exports exactly its five source-conformance
+    records, results, and Action from their owning module.
 
     Method: Compare direct imports, package attributes, ``__all__``, and ``__module__``.
 
-    Oracle: The accepted evidence-package contract fixes the eight names and their two
-    exact generic defining modules.
+    Oracle: The accepted source-based evidence contract fixes the five names and their
+    exact generic defining module.
 
     Acceptance: ``__all__`` is exact, direct imports and defining modules agree, and
     old flat-module and object aliases are absent.
@@ -119,26 +113,21 @@ def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> N
     Limitations: Import agreement does not establish behavior or release compatibility.
     """
     imported = (
-        IdentifierOccurrence,
-        IdentifierAuditResult,
         PythonModuleSource,
         PythonConformanceRequest,
         PythonConformanceFinding,
         PythonConformanceResult,
-        IdentifierAuditor,
         PythonConformanceValidator,
     )
     assert api.__all__ == PUBLIC_NAMES
     assert imported == tuple(getattr(api, name) for name in PUBLIC_NAMES)
     assert {value.__module__ for value in imported} == {
-        "ksdft2effmass.harness.pi.evidence.identifiers",
-        "ksdft2effmass.harness.pi.evidence.python_conformance",
+        "ksdft2effmass.harness.pi.evidence.python_conformance"
     }
     assert importlib.util.find_spec("ksdft2effmass.harness.pi.test_evidence") is None
     old_names = {
         "AuditEvidenceIdentifiers",
         "EvidenceAuditResult",
-        "EvidenceIdentifierOccurrence",
         "PythonTestEvidenceFinding",
         "PythonTestEvidenceRequest",
         "PythonTestEvidenceSource",

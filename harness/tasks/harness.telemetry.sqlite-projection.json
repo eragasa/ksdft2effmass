@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.sqlite-projection",
   "title": "Implement the local SQLite telemetry projection",
   "status": "inactive",
@@ -9,6 +9,7 @@
     "harness.telemetry.normalized-event-contract"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Implement a local query projection over normalized telemetry that supports deterministic report reconstruction without becoming repository authority.",
   "authority_reference_paths": [

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from pathlib import Path
 
 from .. import (
@@ -118,69 +117,6 @@ class LocalValidationResult:
             raise ValueError("status must agree with issues")
 
 
-@dataclass(frozen=True, slots=True)
-class EvidenceOwnershipRelation:
-    """Normalized ownership of one retained Python evidence module.
-
-    Parameters
-    ----------
-    module_path
-        Repository-relative path preserved from the retained manifest.
-    evidence_ids
-        Sorted evidence identifiers declared by the module.
-    ownership_kind
-        Accepted primary kind: ``class_owned`` or ``artifact_owned``.
-    owner_id
-        Preserved class or artifact owner identity.
-    relation_kind
-        Optional artifact relation kind. The P1 boundary adapter uses
-        ``agreement``; ordinary class/artifact ownership has no relation.
-    left_side_id, right_side_id
-        Optional ordered identities participating in an artifact relation.
-    direction
-        Optional relation direction. The P1 agreement is nondirectional.
-    """
-
-    module_path: str
-    evidence_ids: tuple[str, ...]
-    ownership_kind: str
-    owner_id: str
-    relation_kind: str | None = None
-    left_side_id: str | None = None
-    right_side_id: str | None = None
-    direction: str | None = None
-
-    def __post_init__(self) -> None:
-        for name in ("module_path", "owner_id"):
-            value = getattr(self, name)
-            if type(value) is not str or not value:
-                raise TypeError(f"{name} must be a nonempty built-in str")
-        if self.module_path.startswith("/") or self.module_path.endswith("/"):
-            raise ValueError("module_path must be a relative file path")
-        if type(self.evidence_ids) is not tuple or any(
-            type(value) is not str or not value for value in self.evidence_ids
-        ):
-            raise TypeError("evidence_ids must be a tuple of nonempty strings")
-        if self.evidence_ids != tuple(sorted(set(self.evidence_ids))):
-            raise ValueError("evidence_ids must be unique and sorted")
-        if self.ownership_kind not in {"class_owned", "artifact_owned"}:
-            raise ValueError("ownership_kind must be class_owned or artifact_owned")
-        relation_values = (
-            self.relation_kind,
-            self.left_side_id,
-            self.right_side_id,
-            self.direction,
-        )
-        if all(value is None for value in relation_values):
-            return
-        if any(type(value) is not str or not value for value in relation_values):
-            raise ValueError("artifact relation fields must be jointly present")
-        if self.ownership_kind != "artifact_owned":
-            raise ValueError("only artifact_owned evidence may declare a relation")
-        if self.relation_kind != "agreement" or self.direction != "none":
-            raise ValueError("unsupported local artifact relation")
-
-
 _CLOSED_ADAPTER_VALUE_TYPES = (
     AgentDescriptorView,
     ArtifactIdentity,
@@ -202,10 +138,7 @@ def _is_closed_adapter_value(value: object) -> bool:
         return True
     if type(value) is tuple:
         return all(_is_closed_adapter_value(item) for item in value)
-    return (
-        type(value) in _CLOSED_ADAPTER_VALUE_TYPES
-        or type(value) is EvidenceOwnershipRelation
-    )
+    return type(value) in _CLOSED_ADAPTER_VALUE_TYPES
 
 
 @dataclass(frozen=True, slots=True)
@@ -229,28 +162,3 @@ class AdaptationResult:
             raise ValueError("failed adaptation must not contain a value")
         if self.validation.status == "PASS" and self.value is None:
             raise ValueError("successful adaptation must contain a value")
-
-
-class ValidationRoute(StrEnum):
-    """Explicit validation implementation route."""
-
-    LEGACY = "legacy"
-    SHADOW = "shadow"
-    LOCAL = "local"
-
-
-@dataclass(frozen=True, slots=True)
-class RouteConfiguration:
-    """Caller-owned route and its explicit rollback target."""
-
-    route: ValidationRoute
-    rollback_route: ValidationRoute = ValidationRoute.LEGACY
-
-    def __post_init__(self) -> None:
-        if (
-            type(self.route) is not ValidationRoute
-            or type(self.rollback_route) is not ValidationRoute
-        ):
-            raise TypeError("routes must be ValidationRoute")
-        if self.rollback_route is not ValidationRoute.LEGACY:
-            raise ValueError("rollback_route must be legacy")

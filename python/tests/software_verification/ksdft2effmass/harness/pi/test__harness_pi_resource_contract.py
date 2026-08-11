@@ -58,7 +58,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     byte
     strings, and digests.
 
-    Acceptance: All seventeen payloads produce PASS, byte-for-byte equality, and the
+    Acceptance: All sixteen payloads produce PASS, byte-for-byte equality, and the
     exact
     indexed lowercase SHA-256 digest.
 
@@ -70,7 +70,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     """
     index_path = ROOT / "harness/pi/fixtures/canonical/canonical-json-vectors.json"
     vectors = json.loads(index_path.read_text(encoding="utf-8"))["vectors"]
-    assert len(vectors) == 17
+    assert len(vectors) == 16
 
     def exercise_vector_case_63_8(vector: Any) -> Any:
         payload = (
@@ -141,18 +141,8 @@ def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> 
 
     def exercise_stem_case_123_7(stem: Any) -> Any:
         schema = schemas[stem]
-        if stem == "identifier-occurrence":
-            valid_path = (
-                ROOT / "harness/pi/fixtures/evidence/valid/identifier-occurrence.json"
-            )
-            invalid_path = (
-                ROOT
-                / "harness/pi/fixtures/evidence/invalid/schema"
-                / "identifier-occurrence.json"
-            )
-        else:
-            valid_path = ROOT / f"harness/pi/fixtures/valid/{stem}.json"
-            invalid_path = ROOT / f"harness/pi/fixtures/invalid/schema/{stem}.json"
+        valid_path = ROOT / f"harness/pi/fixtures/valid/{stem}.json"
+        invalid_path = ROOT / f"harness/pi/fixtures/invalid/schema/{stem}.json"
         valid = json.loads(valid_path.read_text())
         invalid = json.loads(invalid_path.read_text())
         validator = Draft202012Validator(schema, registry=registry)
@@ -475,7 +465,6 @@ def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() 
             (
                 "extensions",
                 "fixtures/oracle-index.json",
-                "fixtures/task-record-v2",
                 "fixtures/task-record-v3",
                 "profiles",
                 "projections",

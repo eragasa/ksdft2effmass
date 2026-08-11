@@ -60,12 +60,11 @@ Project profiles supply marker vocabulary, evidence namespaces and ranges, scope
 | Capability | Owner |
 |---|---|
 | Complete repository Python evidence structure | `PythonConformanceValidator` |
-| Bounded legacy identifier inspection | `IdentifierAuditor` (non-authoritative compatibility) |
 | Semantic test design and review | `develop-python-test-evidence` |
 
 `PythonConformanceValidator` accepts explicit module bytes, the versioned profile matrix, and an optional explicit predecessor map. The project-local repository validator derives those inputs from maintained source authority without using the generated module inventory as authority.
 
-`IdentifierAuditor` remains public for callers that require the older explicit-profile identifier inspection contract. Its repository-wide CLI is retired, and it no longer participates in maintained repository validation. Historical evidence may continue to name commands that were actually used.
+Historical evidence may continue to name retired identifier-audit commands that were actually used, but no live identifier-audit API or route remains.
 
 ## Validation claim boundary
 

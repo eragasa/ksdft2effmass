@@ -7,7 +7,7 @@ adapter behavior or introducing a generic adapter framework.
 """
 
 from .control_record_adapters import AgentRecordAdapter, CheckpointRecordAdapter
-from .evidence_adapters import EvidenceModuleSelector, EvidenceOwnershipManifestAdapter
+from .evidence_adapters import EvidenceModuleSelector
 from .ownership_adapters import OwnershipManifestAdapter
 from .resource_adapters import ChecksumCatalogAdapter, SkillInventoryAdapter
 from .task_adapters import ChainRecordAdapter, TaskRecordAdapter
@@ -18,7 +18,6 @@ __all__ = [
     "CheckpointRecordAdapter",
     "ChecksumCatalogAdapter",
     "EvidenceModuleSelector",
-    "EvidenceOwnershipManifestAdapter",
     "OwnershipManifestAdapter",
     "SkillInventoryAdapter",
     "TaskRecordAdapter",

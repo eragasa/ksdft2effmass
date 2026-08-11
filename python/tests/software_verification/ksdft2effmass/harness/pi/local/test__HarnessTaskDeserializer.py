@@ -82,19 +82,19 @@ def test_method__strict_wire__rejects_bom_utf8_and_key_closure() -> None:
         SUT().execute(payload.replace(b'  "title": "Example Task",\n', b"", 1))
 
 
-def test_method__execute__applies_versioned_fields_and_intake_validation() -> None:
+def test_method__execute__applies_version_three_fields_and_intake_validation() -> None:
     """Evidence ID: ``SV-HT-038``.
 
-    Requirement: Deserialization requires replacement IDs in version 3, supplies an
-    empty tuple for retained version 2, and validates every non-null intake path.
+    Requirement: Deserialization requires version-3 replacement IDs, rejects
+    unsupported versions, and validates every non-null intake path.
 
-    Method: Deserialize canonical values, remove the version-3 field, deserialize a
-    retained version-2 value, and inject an invalid intake path.
+    Method: Deserialize a canonical value, remove the required field, replace the
+    schema version with 2, and inject an invalid intake path.
 
-    Oracle: The accepted versioned contracts define field closure and path validity.
+    Oracle: The accepted version-3 contract defines field closure and path validity.
 
-    Acceptance: Version 3 preserves replacement IDs, omission fails, version 2 returns
-    an empty replacement tuple, and invalid intake raises ``ValueError``.
+    Acceptance: Replacement IDs are preserved, omission and version 2 fail, and an
+    invalid intake raises ``ValueError``.
 
     Interpretation: Failure identifies deserializer or intrinsic path-validation
     drift.
@@ -112,10 +112,9 @@ def test_method__execute__applies_versioned_fields_and_intake_validation() -> No
     )
     with pytest.raises(ValueError, match="missing field superseded_by_task_ids"):
         SUT().execute(missing)
-    retained = SUT().execute(
-        HarnessTaskSerializer().execute(make_task(schema_version=2))
-    )
-    assert retained.superseded_by_task_ids == ()
+    unsupported = payload.replace(b'"schema_version": 3', b'"schema_version": 2')
+    with pytest.raises(ValueError, match="schema_version must equal integer 3"):
+        SUT().execute(unsupported)
     invalid = payload.replace(b'"intake_path": null', b'"intake_path": "../bad"')
     with pytest.raises(ValueError, match="intake_path"):
         SUT().execute(invalid)

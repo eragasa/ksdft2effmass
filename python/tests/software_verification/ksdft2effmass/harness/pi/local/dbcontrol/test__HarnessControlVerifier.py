@@ -33,14 +33,12 @@ from typing import Any
 import pytest
 
 from ksdft2effmass.harness.pi.local import (
+    HarnessControlMigrationRequest,
     HarnessControlMigrator,
     HarnessControlVerifier,
 )
 from ksdft2effmass.harness.pi.local.control.generation import (
     _HarnessControlGenerationBuilder,
-)
-from ksdft2effmass.harness.pi.local.control.inputs import (
-    _HarnessControlInputResolver,
 )
 
 SUT = HarnessControlVerifier
@@ -141,6 +139,43 @@ def mutate_source(root: Path, kind: str) -> None:
         )
     else:
         raise ValueError(kind)
+
+
+def canonical_migration_request(root: Path) -> HarnessControlMigrationRequest:
+    """Evidence ID: Owns no identifier; supports stale-source verifier evidence.
+
+    Requirement: The stale-source partition needs explicit public migration inputs.
+
+    Method: Select test modules and fixed maintained profile, migration, and resource
+    paths from the isolated fixture root.
+
+    Oracle: The canonical input map fixes these independently named public inputs.
+
+    Acceptance: Return one complete public migration request.
+
+    Interpretation: Failure indicates fixture input drift.
+
+    Limitations: This helper establishes no independent verifier claim.
+    """  # noqa: E501
+    modules = tuple(
+        path.relative_to(root)
+        for path in sorted((root / "python/tests").rglob("test*.py"))
+    )
+    return HarnessControlMigrationRequest(
+        root,
+        evidence_profile_matrix_path=Path(
+            "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
+        ),
+        evidence_module_paths=modules,
+        evidence_migration_path=Path(
+            ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
+        ),
+        resource_profile_path=Path("harness/local/profiles/ksdft2effmass-v2.json"),
+        generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
+        generic_resource_root_path=Path("harness/pi"),
+        local_resource_manifest_path=Path("harness/local/resource-manifest.json"),
+        local_resource_root_path=Path("harness/local"),
+    )
 
 
 def generation_snapshot(root: Path) -> tuple[bytes, bytes, bytes, bytes]:
@@ -284,8 +319,7 @@ def test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources(
     source = control_root / "python/tests/test__import.py"
     original = source.read_bytes()
     mutate_source(control_root, "evidence")
-    request = _HarnessControlInputResolver().execute(control_root).request
-    HarnessControlMigrator().execute(request)
+    HarnessControlMigrator().execute(canonical_migration_request(control_root))
     source.write_bytes(original)
     result = HarnessControlVerifier().execute(control_root)
     assert "semantic_disagreement" in {item.code for item in result.findings}

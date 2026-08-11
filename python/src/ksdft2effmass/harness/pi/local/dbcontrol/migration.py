@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import sqlite3
-from collections.abc import Mapping
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from ..control.generation import _HarnessControlGenerationBuilder
+from ..control.generation import (
+    _HarnessControlGeneration,
+    _HarnessControlGenerationBuilder,
+)
 from .records import HarnessControlMigrationRequest, HarnessControlMigrationResult
 
 
@@ -23,15 +25,29 @@ class HarnessControlMigrator:
 
     @staticmethod
     def _publish_generation(
-        outputs: Mapping[Path, bytes], database_path: Path, semantic_digest: str
+        generation: _HarnessControlGeneration, repository_root: Path
     ) -> None:
-        """Stage, verify, and publish one generation with rollback on failure.
+        """Prepare, stage, verify, and publish one validated candidate generation.
 
-        Publication uses same-directory atomic replacements for individual files.
+        Publication reads candidate bytes and maps them to their maintained
+        repository destinations exclusively inside this sole publishing boundary.
+        It uses same-directory atomic replacements for individual files.
         It does not claim filesystem-level multi-file atomicity: if one replacement
         fails, retained backups restore every previously published output before the
         error is returned.
         """
+        if type(generation) is not _HarnessControlGeneration:
+            raise TypeError("generation must be _HarnessControlGeneration")
+        outputs = {
+            repository_root / relative: candidate.read_bytes()
+            for relative, candidate in generation.artifacts
+        }
+        database_path = next(
+            repository_root / relative
+            for relative, candidate in generation.artifacts
+            if candidate == generation.database_path
+        )
+        semantic_digest = generation.semantic_digest
         destinations = tuple(sorted(outputs, key=lambda path: path.as_posix()))
         staged = {
             destination: destination.with_name(
@@ -112,9 +128,7 @@ class HarnessControlMigrator:
         with TemporaryDirectory(prefix="harness-control-migration-") as raw_workspace:
             generation = builder.execute(request, Path(raw_workspace).resolve())
             builder.validate(generation)
-            outputs = generation.publication_outputs(request.repository_root)
-            database_path = request.repository_root / request.database_path
-            self._publish_generation(outputs, database_path, generation.semantic_digest)
+            self._publish_generation(generation, request.repository_root)
             return HarnessControlMigrationResult(
                 generation.schema_version,
                 generation.semantic_digest,

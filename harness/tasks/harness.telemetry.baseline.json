@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.baseline",
   "title": "Measure the pre-simplification baseline",
   "status": "inactive",
@@ -9,6 +9,7 @@
     "harness.telemetry.sqlite-projection"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Measure representative pre-simplification runs only after the parser, normalized event contract, and SQLite projection are available.",
   "authority_reference_paths": [

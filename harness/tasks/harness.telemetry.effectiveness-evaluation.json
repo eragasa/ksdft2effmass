@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.effectiveness-evaluation",
   "title": "Evaluate harness effectiveness",
   "status": "inactive",
@@ -10,6 +10,7 @@
     "harness.telemetry.live-timing-extension"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Join operational telemetry with Task contracts, Git changes, validation observations, review findings, and human decisions while distinguishing observations from evaluations.",
   "authority_reference_paths": [

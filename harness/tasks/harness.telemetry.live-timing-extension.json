@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.live-timing-extension",
   "title": "Add the live timing extension",
   "status": "inactive",
@@ -9,6 +9,7 @@
     "harness.telemetry.sqlite-projection"
   ],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Add live instrumentation only for timing and concurrency observations that persisted Pi session JSONL cannot establish precisely.",
   "authority_reference_paths": [

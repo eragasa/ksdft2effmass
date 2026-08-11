@@ -26,7 +26,6 @@ if TYPE_CHECKING:
     from .chains import ChainView, TaskReference
     from .checkpoints import CheckpointRecord
     from .checksums import ChecksumEntry, ChecksumManifest
-    from .evidence import IdentifierOccurrence
     from .ownership import AgentDescriptorView, OwnershipManifestView, OwnershipScope
     from .profiles import ProjectProfile
     from .resources import ResourceManifest, ResourceReference, SkillDescriptor
@@ -164,7 +163,6 @@ if TYPE_CHECKING:
         | ChainView
         | ChecksumEntry
         | ChecksumManifest
-        | IdentifierOccurrence
         | ValidationIssue
         | ValidationResult
     )
@@ -292,7 +290,6 @@ class WireRecordKind(str, Enum):  # noqa: UP042 - accepted API specifies Enum
     ChainView = "ChainView"
     ChecksumEntry = "ChecksumEntry"
     ChecksumManifest = "ChecksumManifest"
-    IdentifierOccurrence = "IdentifierOccurrence"
     ValidationIssue = "ValidationIssue"
     ValidationResult = "ValidationResult"
 

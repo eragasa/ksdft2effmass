@@ -53,7 +53,6 @@ class _CommonWireRecordSerializer:
 
     def encode(self, record: object) -> dict[str, object]:
         from ..checksums import ChecksumEntry, ChecksumManifest
-        from ..evidence import IdentifierOccurrence
         from ..validation import ValidationIssue, ValidationResult
 
         if type(record) is ArtifactIdentity:
@@ -70,13 +69,6 @@ class _CommonWireRecordSerializer:
             return {
                 "schema_version": record.schema_version,
                 "entries": [self.encode(value) for value in record.entries],
-            }
-        if type(record) is IdentifierOccurrence:
-            return {
-                "schema_version": record.schema_version,
-                "evidence_id": record.evidence_id,
-                "path": record.path,
-                "line": record.line,
             }
         if type(record) is ValidationIssue:
             return self._encode_validation_issue(record)
@@ -118,7 +110,6 @@ class _CommonWireRecordSerializer:
 
     def decode(self, kind_name: str, obj: dict[str, Any]) -> object:
         from ..checksums import ChecksumEntry, ChecksumManifest
-        from ..evidence import IdentifierOccurrence
         from ..validation import ValidationIssue, ValidationResult
 
         if kind_name == "ArtifactIdentity":
@@ -141,13 +132,6 @@ class _CommonWireRecordSerializer:
                 ),
             )
             return ChecksumManifest(obj["schema_version"], entries)
-        if kind_name == "IdentifierOccurrence":
-            self._values.require_fields(
-                obj, ("schema_version", "evidence_id", "path", "line")
-            )
-            return IdentifierOccurrence(
-                obj["schema_version"], obj["evidence_id"], obj["path"], obj["line"]
-            )
         if kind_name == "ValidationIssue":
             expected = (
                 "schema_version",

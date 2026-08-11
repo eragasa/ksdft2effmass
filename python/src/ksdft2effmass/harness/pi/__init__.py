@@ -20,7 +20,6 @@ from .checkpoints import (
     CheckpointSetValidator,
 )
 from .checksums import ChecksumEntry, ChecksumManifest, ChecksumManifestValidator
-from .evidence import IdentifierOccurrence as _IdentifierOccurrence
 from .human_review import (
     HumanReviewDecision,
     HumanReviewDecisionRecorder,
@@ -87,7 +86,6 @@ HarnessWireRecord: TypeAlias = (  # noqa: UP040 - public typing union on 3.11+
     | ChainView
     | ChecksumEntry
     | ChecksumManifest
-    | _IdentifierOccurrence
     | ValidationIssue
     | ValidationResult
 )

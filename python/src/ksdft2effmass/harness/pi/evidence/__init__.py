@@ -6,7 +6,6 @@ scientific acceptance. Project-local wrappers own repository and command
 integration.
 """
 
-from .identifiers import IdentifierAuditor, IdentifierAuditResult, IdentifierOccurrence
 from .python_conformance import (
     PythonConformanceFinding,
     PythonConformanceRequest,
@@ -16,12 +15,9 @@ from .python_conformance import (
 )
 
 __all__ = (
-    "IdentifierOccurrence",
-    "IdentifierAuditResult",
     "PythonModuleSource",
     "PythonConformanceRequest",
     "PythonConformanceFinding",
     "PythonConformanceResult",
-    "IdentifierAuditor",
     "PythonConformanceValidator",
 )

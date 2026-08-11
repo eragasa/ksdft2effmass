@@ -63,7 +63,6 @@ def test_constructor__closed_values__equal_public_json_record_names() -> None:
         "ChainView",
         "ChecksumEntry",
         "ChecksumManifest",
-        "IdentifierOccurrence",
         "ValidationIssue",
         "ValidationResult",
     )

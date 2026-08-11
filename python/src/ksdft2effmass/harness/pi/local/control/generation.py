@@ -58,13 +58,6 @@ class _HarnessControlGeneration:
     unresolved_naming_issues: tuple[str, ...]
     projection_paths: tuple[str, ...]
 
-    def publication_outputs(self, repository_root: Path) -> dict[Path, bytes]:
-        """Read candidate bytes keyed by their maintained destinations."""
-        return {
-            repository_root / relative: candidate.read_bytes()
-            for relative, candidate in self.artifacts
-        }
-
 
 class _HarnessControlGenerationBuilder:
     """Construct and validate one complete nonauthoritative control candidate."""
@@ -96,13 +89,6 @@ class _HarnessControlGenerationBuilder:
     ]:
         """Build canonical evidence inputs from source, policy, and migration map."""
         selector = _ControlInputFileSelector()
-        if request.evidence_module_ownership_path is not None:
-            selector.file(
-                request.repository_root, request.evidence_module_ownership_path
-            )
-            raise ValueError(
-                "generated or external module inventories are projection-only"
-            )
         if not request.evidence_module_paths:
             return (), (), ()
         assert request.evidence_profile_matrix_path is not None

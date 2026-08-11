@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.integration-closeout",
   "title": "Integrate and close R2.7",
-  "status": "active",
-  "status_detail": "explicitly reactivated by the human for the single bounded post-review R2.7 correction; no successor is active and automatic successor activation remains disabled",
+  "status": "completed",
+  "status_detail": "completed after the single human-authorized post-review correction removed obsolete live compatibility closures, collapsed live Tasks to schema version 3, corrected validation ownership and dependency boundaries, strengthened intrinsic evidence, and passed all required final gates",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.legacy-route-retirement"

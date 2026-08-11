@@ -210,9 +210,8 @@ def test_method__graph_findings__use_deterministic_precedence() -> None:
 def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() -> None:
     """Evidence ID: SV-HT-040
 
-    Requirement: Every version-3 repository Task satisfies its runtime contract,
-    retained version-2 telemetry Tasks preserve their schema version, and represented
-    supersession edges exactly match Task replacement fields.
+    Requirement: Every live repository Task uses schema version 3, satisfies its
+    runtime contract, and represents supersession edges exactly in the Task graph.
 
     Method: Load the explicit ``harness/tasks`` directory and task graph, apply the
     version-3 schema, deserialize every Task, and validate the complete Task tuple.
@@ -220,9 +219,9 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     Oracle: The accepted version-3 schema and canonical graph independently define
     wire shape and represented relationships.
 
-    Acceptance: All 102 version-3 Tasks pass schema/runtime validation, nine retained
-    version-2 telemetry Tasks remain represented, graph nodes equal all 111 Task
-    identities, and supersession edges equal replacement fields exactly.
+    Acceptance: All 111 live Tasks are version 3, pass schema/runtime validation,
+    serialize canonically, equal the graph node catalog, and represent exact
+    supersession edges.
 
     Interpretation: Failure identifies catalog, schema, runtime, or graph drift.
 
@@ -238,18 +237,17 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
         json.loads(path.read_text())
         for path in sorted((root / "harness/tasks").glob("*.json"))
     )
+    assert {document["schema_version"] for document in documents} == {3}
     payloads = tuple(
         json.dumps(document, ensure_ascii=False, indent=2).encode() + b"\n"
         for document in documents
-        if document["schema_version"] == 3
     )
     assert all(
         not tuple(validator.iter_errors(json.loads(payload))) for payload in payloads
     )
     tasks = tuple(HarnessTaskDeserializer().execute(payload) for payload in payloads)
     assert tuple(HarnessTaskSerializer().execute(task) for task in tasks) == payloads
-    assert len(tasks) == 102
-    assert sum(document["schema_version"] == 2 for document in documents) == 9
+    assert len(tasks) == 111
     graph = json.loads((root / "harness/task-graph.json").read_text())
     assert {node["task_id"] for node in graph["nodes"]} == {
         document["task_id"] for document in documents

@@ -28,7 +28,7 @@ Minimum object ownership
    * - ``HarnessTaskSerializer``
      - Emit canonical UTF-8 JSON for ``HarnessTask``.
    * - ``HarnessTaskDeserializer``
-     - Strictly decode explicit version-3 or retained version-2 JSON bytes.
+     - Strictly decode explicit version-3 JSON bytes.
    * - ``HarnessTaskGraphValidator``
      - Validate one complete, explicitly supplied structural Task graph.
 
@@ -51,8 +51,7 @@ prerequisite, parent, completion, or acceptance authority. ``intake_path`` is
 path satisfies the same ``ResourcePath`` contract as other represented paths.
 Deserialization accepts noncanonical whitespace and key order but rejects
 duplicate, missing, and unknown keys, unsupported versions, invalid UTF-8, BOMs,
-and invalid intrinsic values. Retained version 2 omits the supersession field and
-is represented in memory with an empty tuple.
+and invalid intrinsic values. Live Task schema versions other than 3 are rejected.
 
 ``HarnessTaskGraphValidator`` returns ``LocalValidationResult`` with findings in
 lexical ``(code, path-or-empty, detail)`` order. It defines duplicate-ID,

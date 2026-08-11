@@ -60,6 +60,24 @@ def run(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--local-resource-root", type=Path)
     args = parser.parse_args(argv)
     root = args.repository_root.resolve()
+    try:
+        return _execute(args, parser, root)
+    except (TypeError, ValueError) as exc:
+        print(json.dumps({"error": str(exc), "status": "INVALID_INPUT"}))
+        return 2
+    except Exception as exc:  # noqa: BLE001 - exact command-boundary translation
+        print(
+            json.dumps(
+                {"error": f"{type(exc).__name__}: {exc}", "status": "INTERNAL_ERROR"}
+            )
+        )
+        return 3
+
+
+def _execute(
+    args: argparse.Namespace, parser: argparse.ArgumentParser, root: Path
+) -> int:
+    """Execute parsed control arguments and render the complete public result."""
     result: HarnessControlMigrationResult | HarnessControlVerificationResult
     if args.action == "sync":
         required = {

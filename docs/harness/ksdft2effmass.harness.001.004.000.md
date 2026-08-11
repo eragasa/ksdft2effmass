@@ -15,22 +15,20 @@ a successful process exit alone does not make a nested observation pass.
 ## Generic validators
 
 The generic package validates supplied resource manifests, ownership records,
-checkpoint sets, chains, checksums, skill descriptors, and evidence identifiers.
+checkpoint sets, chains, checksums, skill descriptors, and Python evidence structure.
 Issues use stable codes and deterministic ordering. A failed prerequisite stage
 returns no partially trusted primary result.
 
 `PythonConformanceValidator` owns maintained repository-wide Python evidence
 structure over explicit source, profile-matrix, and predecessor-map inputs.
-`IdentifierAuditor` retains its caller-supplied legacy-profile contract as a bounded,
-non-authoritative compatibility API; its repository-wide CLI is retired.
+The former identifier-audit API and repository-wide CLI are retired.
 
 ## Local composition
 
 `HarnessValidator` is the maintained project-local repository composition Action. It
 invokes existing domain owners directly, preserves stable check and finding ordering,
-and states external development-tool and claim boundaries. `LocalRepositoryValidator`
-remains a deprecated public compatibility API for caller-adapted records. Historical
-replay records remain retained, but no maintained replay route executes them.
+and states external development-tool and claim boundaries. Historical replay records
+remain retained, but no live replay, shadow, or routing API executes them.
 
 ## Focused validation and full reconciliation
 

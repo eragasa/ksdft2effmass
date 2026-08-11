@@ -17,11 +17,9 @@ Migration and publication
 ``HarnessControlMigrator.execute`` accepts one explicit
 ``HarnessControlMigrationRequest``. Canonical maintained requests supply Python
 evidence source modules, the profile matrix, the predecessor map, and generic
-and local resource configuration explicitly. Noncanonical explicit requests
-remain supported. The retained ``evidence_module_ownership_path`` field preserves
-record construction compatibility but, since the accepted R2.3 authority correction,
-non-``None`` values are rejected because generated or external ownership inventories
-are projection-only rather than migration authority.
+and local resource configuration explicitly. Noncanonical explicit requests with an
+empty evidence corpus remain supported. Generated evidence inventories are projections
+and are never accepted as migration inputs.
 
 One private project-local builder constructs the complete candidate database,
 deterministic SQL, projection manifest, and every projection in a caller-owned
@@ -33,9 +31,10 @@ while delegating to private control orchestration. Database, schema, encoding,
 ingestion, resource, projection, record, and input-selection mechanics do not depend on
 ``local.control``.
 
-The migrator validates that complete candidate and remains the sole maintained
-publisher through
-``HarnessControlMigrator._publish_generation``. Publication stages each output,
+The generation result is an immutable data-only descriptor. The migrator validates
+that complete candidate and remains the sole maintained publisher through
+``HarnessControlMigrator._publish_generation``, which exclusively reads candidate
+bytes and prepares maintained destinations. Publication stages each output,
 verifies the staged database, and retains backups until all replacements
 succeed. A replacement failure restores the prior complete generation. This is
 a process-level rollback guarantee, not filesystem-wide atomicity across a
@@ -73,7 +72,7 @@ Repository validation
 ---------------------
 
 ``HarnessValidator.execute`` composes existing structural domain owners and the
-source-aware verifier into stably ordered ``HarnessValidationCheck`` records.
+source-aware verifier into seven stably ordered ``HarnessValidationCheck`` records.
 The result has no elapsed-duration or telemetry field. The Action invokes no
 CLI, parses no CLI output, and executes none of pytest, Ruff, mypy, or Sphinx.
 Those tools remain separate final gates.

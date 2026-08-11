@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry.session-jsonl-inventory",
   "title": "Inventory selected Pi session JSONL",
   "status": "completed",
@@ -7,6 +7,7 @@
   "parent_task_id": "harness.telemetry",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Inspect only explicitly selected Pi session JSONL artifacts to establish the persisted metadata vocabulary and privacy boundary needed by later telemetry work.",
   "authority_reference_paths": [

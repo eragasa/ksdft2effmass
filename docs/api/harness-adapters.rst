@@ -110,15 +110,6 @@ The exact completed disposition is:
      - Retained capability inventories and descriptors
      - Exported class, exact signature, descriptor selection, and ordering contract
      - Relocated to ``resource_adapters``; facade retained; not removed
-   * - ``EvidenceOwnershipManifestAdapter``
-     - ``manifest_bytes``
-     - None found
-     - None found
-     - Package import and ``local.adapters`` facade
-     - Version-3 P1 evidence-ownership manifest shape
-     - Retained P1 evidence-ownership manifest
-     - Exported class, exact signature, and P1 ownership mapping contract
-     - Relocated to ``evidence_adapters``; facade retained; not removed
    * - ``EvidenceModuleSelector``
      - ``module_payloads, profile``
      - None found
@@ -130,8 +121,8 @@ The exact completed disposition is:
      - Relocated to ``evidence_adapters``; facade retained; not removed
 
 R2.2 decomposed the adapter monolith into five contract-specific modules and
-retained a compatibility facade. It did not reduce the nine-name public adapter
-surface.
+retained a compatibility facade. R2.7 subsequently removed the unused
+``EvidenceOwnershipManifestAdapter`` closure; eight operational adapters remain.
 
 The relocation preserves compatibility adapter version 1 because behavior,
 public imports, and signatures did not change.  The SQLite ``dbcontrol`` package
@@ -155,8 +146,6 @@ API reference
 .. autoclass:: ChecksumCatalogAdapter
    :members:
 .. autoclass:: SkillInventoryAdapter
-   :members:
-.. autoclass:: EvidenceOwnershipManifestAdapter
    :members:
 .. autoclass:: EvidenceModuleSelector
    :members:

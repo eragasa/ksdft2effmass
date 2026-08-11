@@ -201,7 +201,7 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
 
     Acceptance: Every migrated name ends in an accepted suffix and the only temporary
     exceptions
-    are ``IdentifierAuditor`` and ``PythonConformanceValidator``.
+    contain only the maintained ``PythonConformanceValidator`` evidence Action.
 
     Interpretation: Failure indicates naming drift or an undocumented migration
     exception.
@@ -230,4 +230,5 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
         and callable(getattr(value, "execute", None))
     }
     assert all(name.endswith(suffixes) for name in action_names)
-    assert {"IdentifierAuditor", "PythonConformanceValidator"} <= action_names
+    assert "PythonConformanceValidator" in action_names
+    assert "IdentifierAuditor" not in action_names

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "task_id": "harness.telemetry",
   "title": "Harness telemetry program",
   "status": "inactive",
@@ -7,6 +7,7 @@
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Own the complete operational implementation and evaluation sequence for harness telemetry while preserving the distinction between operational telemetry and harness-effectiveness evaluation.",
   "authority_reference_paths": [
