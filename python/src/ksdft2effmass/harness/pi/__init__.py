@@ -97,11 +97,9 @@ HarnessWireRecord: TypeAlias = (  # noqa: UP040 - public typing union on 3.11+
 from . import chains as _chains_module  # noqa: E402
 from . import checkpoints as _checkpoints_module  # noqa: E402
 from . import ownership as _ownership_module  # noqa: E402
-from . import resources as _resources_module  # noqa: E402
 from . import validation as _validation_module  # noqa: E402
 
 _validation_module.HarnessWireRecord = HarnessWireRecord
-_resources_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 _ownership_module.ChainView = ChainView  # type: ignore[misc]
 _ownership_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 _checkpoints_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
