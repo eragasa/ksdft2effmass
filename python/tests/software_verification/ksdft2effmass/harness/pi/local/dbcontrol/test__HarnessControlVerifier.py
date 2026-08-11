@@ -26,7 +26,6 @@ import hashlib
 import json
 import shutil
 import sqlite3
-import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
@@ -50,17 +49,17 @@ pytestmark = pytest.mark.software_verification
 
 
 @pytest.fixture
-def control_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+def control_root(tmp_path: Path) -> Path:
     """Evidence ID: Owns no identifier; supplies an isolated canonical repository.
 
     Requirement: Verifier tests must not mutate the maintained checkout.
 
-    Method: Copy each frozen source and comparison-target root and replace external
-    collection with the exact isolated database's ordered node identities.
+    Method: Copy each frozen source and comparison-target root; node identities remain
+    deterministically projected from the copied parsed Python evidence models.
 
     Oracle: The R2.7 frozen authority and generated-root maps enumerate these roots.
 
-    Acceptance: Return one absolute isolated root with deterministic collection input.
+    Acceptance: Return one absolute isolated root with every canonical source input.
 
     Interpretation: Failure indicates fixture construction drift.
 
@@ -81,23 +80,6 @@ def control_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         root / ".pi/evidence/python-conformance",
     )
     shutil.copytree(repository / ".agents/skills", root / ".agents/skills")
-    with sqlite3.connect(
-        root / "harness/state/harness-control.sqlite3"
-    ) as connection:
-        collected = "\n".join(
-            node_id.removeprefix("python/")
-            for (node_id,) in connection.execute(
-                "SELECT node_id FROM test_node ORDER BY node_id"
-            )
-        )
-
-    def collect_existing(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
-        return subprocess.CompletedProcess(args[0], 0, collected, "")
-
-    monkeypatch.setattr(
-        "ksdft2effmass.harness.pi.local.dbcontrol.ingestion.subprocess.run",
-        collect_existing,
-    )
     return root.resolve()
 
 

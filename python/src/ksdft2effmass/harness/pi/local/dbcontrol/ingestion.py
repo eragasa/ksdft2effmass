@@ -3,15 +3,14 @@
 from __future__ import annotations
 
 import json
-import re
 import sqlite3
-import subprocess
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
 from ...evidence.python_conformance.evidence import _PythonEvidenceFactExtractor
 from ...evidence.python_conformance.model import PythonTestModuleModel
+from ...evidence.python_conformance.nodes import _PythonTestNodeProjector
 from .constants import _EVIDENCE_CLASSES, _IDENTIFIER
 from .encoding import _ControlEncoding
 from .resources import _ControlResourceCorpus
@@ -337,16 +336,9 @@ class _RepositoryControlIngestor:
                         unresolved.append(f"duplicate historical alias: {old_id}")
 
     def _migrate_collected_nodes(self) -> None:
+        """Project canonical node identities from the parsed evidence corpus."""
         connection = self.connection
-        root = self.root
         unresolved = self.unresolved
-        completed = subprocess.run(
-            [str(root / "python/.venv/bin/pytest"), "--collect-only", "-q"],
-            cwd=root / "python",
-            check=True,
-            text=True,
-            capture_output=True,
-        )
         modules = {
             path: module_id
             for module_id, path in connection.execute(
@@ -359,39 +351,25 @@ class _RepositoryControlIngestor:
                 "SELECT evidence_id,module_id,owner_node_id FROM evidence_owner"
             )
         }
-        invalid_parameters: set[str] = set()
-        for line in completed.stdout.splitlines():
-            if not line.startswith("tests/") or "::" not in line:
-                continue
-            node_id = "python/" + line
-            module_path, *parts = node_id.split("::")
-            module_id = modules.get(module_path)
+        models = tuple(
+            self.evidence_models[path] for path in sorted(self.evidence_models)
+        )
+        for fact in _PythonTestNodeProjector().execute(models):
+            module_id = modules.get(fact.module_path)
             if module_id is None:
-                unresolved.append(f"unresolved collected test module: {module_path}")
-                continue
-            final = parts[-1]
-            function_name = final.split("[", 1)[0]
-            evidence_id = owners.get((module_id, function_name))
-            if evidence_id is None:
                 unresolved.append(
-                    f"missing evidence owner for collected node: {node_id}"
+                    f"unresolved collected test module: {fact.module_path}"
                 )
                 continue
-            parameter_id = None
-            if "[" in final and final.endswith("]"):
-                candidate = final.split("[", 1)[1][:-1]
-                if re.fullmatch(r"[a-z0-9]+(?:_[a-z0-9]+)*", candidate):
-                    parameter_id = candidate
-                else:
-                    invalid_parameters.add(candidate)
+            evidence_id = owners.get((module_id, fact.function_name))
+            if evidence_id is None:
+                unresolved.append(
+                    f"missing evidence owner for collected node: {fact.node_id}"
+                )
+                continue
             connection.execute(
                 "INSERT INTO test_node VALUES (?,?,?,?)",
-                (node_id, module_id, evidence_id, parameter_id),
-            )
-        if invalid_parameters:
-            unresolved.append(
-                f"{len(invalid_parameters)} collected composite parameter IDs use "
-                "non-snake-case pytest composition and require normalization"
+                (fact.node_id, module_id, evidence_id, fact.parameter_id),
             )
 
     def _migrate_agents_and_skills(self) -> None:

@@ -144,6 +144,7 @@ _VERIFICATION_FINDING_CODES = {
     "missing_artifact",
     "schema_disagreement",
     "semantic_disagreement",
+    "source_input_failure",
     "unexpected_artifact",
 }
 

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.repository-validation",
   "title": "Compose deterministic repository validation",
-  "status": "active",
-  "status_detail": "explicitly selected after source-aware verification completion; automatic successor activation remains disabled",
+  "status": "completed",
+  "status_detail": "completed after deterministic domain composition, static evidence-node projection, stable check and finding ordering, claim boundaries, exact CLI exits, no subprocess or nested CLI execution, focused tests, typing, lint, and control synchronization passed",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.source-aware-verification"

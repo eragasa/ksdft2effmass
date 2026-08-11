@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: serial R2.7 child; eligible only after repository-validation completion and explicit coordinator selection
+`active`: explicitly selected after repository-validation completion; automatic successor activation remains disabled
 
 ## Objective
 

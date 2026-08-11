@@ -36,7 +36,7 @@ pytestmark = pytest.mark.software_verification
 ROOT = Path(__file__).resolve().parents[7]
 CLI_ROOT = ROOT / "python/src/cli"
 INVENTORY = ROOT / ".pi/evidence/harness-simplify-2/r2.6-cli-inventory.json"
-EXPECTED_COMMANDS = {
+R2_6_COMMANDS = {
     "audit_evidence_identifiers.py",
     "harness_control.py",
     "inspect_task_state.py",
@@ -51,6 +51,7 @@ EXPECTED_COMMANDS = {
     "validate_task_ownership.py",
     "validate_task_schema_projection.py",
 }
+EXPECTED_COMMANDS = R2_6_COMMANDS | {"validate_harness.py"}
 HELP_CASES = (
     pytest.param("audit_evidence_identifiers.py", id="audit_evidence_identifiers"),
     pytest.param("harness_control.py", id="harness_control"),
@@ -61,6 +62,7 @@ HELP_CASES = (
         id="validate_architecture_decision_cases",
     ),
     pytest.param("validate_checkpoints.py", id="validate_checkpoints"),
+    pytest.param("validate_harness.py", id="validate_harness"),
     pytest.param(
         "validate_documentation_projection.py", id="validate_documentation_projection"
     ),
@@ -123,8 +125,9 @@ def test_artifact__inventory__classifies_exact_maintained_and_historical_command
     Oracle: The Task-authorized final CLI root and tracked historical evidence boundary
     define the exact two path partitions.
 
-    Acceptance: Thirteen maintained names agree exactly, every old path is distinct,
-    and every retained historical command stays under ``.pi/evidence``.
+    Acceptance: The thirteen completed R2.6 names remain exact, the current CLI adds
+    only ``validate_harness.py``, every old path is distinct, and every retained
+    historical command stays under ``.pi/evidence``.
 
     Interpretation: Failure indicates incomplete inventory, misplaced live commands,
     or accidental historical migration.
@@ -143,7 +146,7 @@ def test_artifact__inventory__classifies_exact_maintained_and_historical_command
         for item in payload["entries"]
         if item["classification"] == "retained_historical_reproduction"
     ]
-    assert {Path(item["path"]).name for item in migrated} == EXPECTED_COMMANDS
+    assert {Path(item["path"]).name for item in migrated} == R2_6_COMMANDS
     assert len({item["old_path"] for item in migrated}) == len(migrated) == 13
     assert all((ROOT / item["implementation_owner"]).is_file() for item in migrated)
     assert retained

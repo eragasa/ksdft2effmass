@@ -20,7 +20,6 @@ This is software verification only; scientific validation and UQ are excluded.
 import json
 import shutil
 import sqlite3
-import subprocess
 from pathlib import Path
 from textwrap import dedent
 from typing import Any
@@ -246,7 +245,7 @@ def make_canonical_resource_request(tmp_path: Path) -> HarnessControlMigrationRe
 
 
 def test_method__execute_canonical_resources__participate_in_full_reconstruction(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    tmp_path: Path,
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.migration-action.canonical-resources-participate-in-full-reconstruction
 
@@ -269,7 +268,7 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     route rather than the complete full-control migration.
 
     Limitations: The isolated request intentionally supplies no evidence modules, so
-    external pytest collection is replaced by a deterministic empty observation.
+    the source-derived node projection is empty.
     """  # noqa: E501
     request = make_canonical_resource_request(tmp_path)
     expected_generic = (tmp_path / "harness/pi/resource-manifest.json").read_bytes()
@@ -281,13 +280,6 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     assert generic_resource_ids.isdisjoint(local_resource_ids)
     expected_resource_count = len(generic_resources) + len(local_resources)
 
-    def collect_empty(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
-        return subprocess.CompletedProcess(args[0], 0, stdout="", stderr="")
-
-    monkeypatch.setattr(
-        "ksdft2effmass.harness.pi.local.dbcontrol.ingestion.subprocess.run",
-        collect_empty,
-    )
     result = HarnessControlMigrator().execute(request)
     counts = dict(result.counts)
     assert counts["resource_definition"] == expected_resource_count
@@ -305,7 +297,7 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
 
 
 def test_method__execute_resource_hash_mismatch__preserves_published_generation(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    tmp_path: Path,
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.migration-action.resource-hash-mismatch-preserves-generation
 
@@ -327,13 +319,6 @@ def test_method__execute_resource_hash_mismatch__preserves_published_generation(
     """  # noqa: E501
     request = make_canonical_resource_request(tmp_path)
 
-    def collect_empty(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
-        return subprocess.CompletedProcess(args[0], 0, stdout="", stderr="")
-
-    monkeypatch.setattr(
-        "ksdft2effmass.harness.pi.local.dbcontrol.ingestion.subprocess.run",
-        collect_empty,
-    )
     published = HarnessControlMigrator().execute(request)
     retained = SyntheticEvidenceFixture.generation_bytes(
         tmp_path, published.projection_paths

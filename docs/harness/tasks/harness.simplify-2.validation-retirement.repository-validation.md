@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly selected after source-aware verification completion; automatic successor activation remains disabled
+`completed`: completed after deterministic domain composition, static evidence-node projection, stable check and finding ordering, claim boundaries, exact CLI exits, no subprocess or nested CLI execution, focused tests, typing, lint, and control synchronization passed
 
 ## Objective
 

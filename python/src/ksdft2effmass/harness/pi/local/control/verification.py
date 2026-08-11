@@ -70,8 +70,34 @@ class _HarnessControlSourceVerifier:
         root = inputs.request.repository_root
         builder = _HarnessControlGenerationBuilder()
         with TemporaryDirectory(prefix="harness-control-verification-") as workspace:
-            generation = builder.execute(inputs.request, Path(workspace).resolve())
-            builder.validate(generation)
+            try:
+                generation = builder.execute(inputs.request, Path(workspace).resolve())
+                builder.validate(generation)
+            except (SyntaxError, ValueError) as exc:
+                database_path = root / CONTROL_DATABASE_PATH
+                raw_source = (
+                    _ControlEncoding.sha256(database_path.read_bytes())
+                    if database_path.is_file()
+                    else ""
+                )
+                finding = self._finding(
+                    "source_input_failure",
+                    None,
+                    f"canonical source input is nonconforming: {exc}",
+                )
+                return HarnessControlVerificationResult(
+                    "not_checked",
+                    0,
+                    "",
+                    "",
+                    raw_source,
+                    "",
+                    False,
+                    False,
+                    False,
+                    False,
+                    (finding,),
+                )
             candidate = dict(generation.artifacts)
             candidate_paths = frozenset(candidate)
             findings: list[HarnessControlVerificationFinding] = []

@@ -57,6 +57,10 @@ from .task_model import (
 )
 from .validation import (
     AdaptedRepositoryRecords,
+    HarnessValidationCheck,
+    HarnessValidationRequest,
+    HarnessValidationResult,
+    HarnessValidator,
     LocalRepositoryValidator,
     RepositoryValidationResult,
 )
@@ -91,6 +95,10 @@ __all__ = [
     "ShadowPairResult",
     "ShadowReplayResult",
     "LocalRepositoryValidator",
+    "HarnessValidationRequest",
+    "HarnessValidationCheck",
+    "HarnessValidationResult",
+    "HarnessValidator",
     "ValidationRoute",
     "ArchivedTaskSource",
     "HarnessTask",
