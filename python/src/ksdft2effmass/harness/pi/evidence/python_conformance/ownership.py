@@ -113,13 +113,24 @@ def _validate_ownership(
                     None,
                 )
             )
-        if not re.fullmatch(
-            r"test__[a-z][a-z0-9_]*\.py", model.path.rsplit("/", 1)[-1]
+        filename = model.path.rsplit("/", 1)[-1]
+        private_target = model.sut_assignment_name
+        private_target_filename = (
+            model.evidence_profile == "routine"
+            and isinstance(private_target, str)
+            and private_target.startswith("_")
+            and filename == f"test__{private_target}.py"
+            and private_target in model.imported_names
+        )
+        if not private_target_filename and not re.fullmatch(
+            r"test__[a-z][a-z0-9_]*\.py", filename
         ):
             findings.append(
                 (
                     "TE.ARTIFACT_FILENAME",
-                    "artifact-owned filename must be descriptive lowercase snake case",
+                    "artifact-owned filename must be descriptive lowercase snake "
+                    "case or exactly name an imported private target in a routine "
+                    "module",
                     None,
                 )
             )

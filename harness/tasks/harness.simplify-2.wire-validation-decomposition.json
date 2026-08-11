@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.wire-validation-decomposition",
   "title": "Decompose canonical JSON and domain wire codecs",
-  "status": "active",
-  "status_detail": "activated by current human instruction for bounded R2.5 wire-codec decomposition with unchanged persistence ownership; no successor activated",
+  "status": "completed",
+  "status_detail": "completed after deterministic wire-codec decomposition, routine artifact-owned evidence integration, and control-projection verification; no successor activated",
   "parent_task_id": "harness.simplify-2",
   "task_prerequisite_ids": [
     "harness.simplify-2.resource-decomposition"

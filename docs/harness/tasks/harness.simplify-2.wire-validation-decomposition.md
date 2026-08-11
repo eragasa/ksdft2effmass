@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: activated by current human instruction for bounded R2.5 wire-codec decomposition with unchanged persistence ownership; no successor activated
+`completed`: completed after deterministic wire-codec decomposition, routine artifact-owned evidence integration, and control-projection verification; no successor activated
 
 ## Objective
 

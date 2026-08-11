@@ -1,6 +1,6 @@
 # Harness simplification round two intake
 
-**Status:** Coordinating parent deferred to active R2.5 after R2.4 completed. R2.1–R2.4 are completed. R2.6 and R2.7 are inactive with `explicit_activation_required: false`, and automatic successor activation remains disabled.
+**Status:** Coordinating parent restored after R2.5 completed. R2.1–R2.5 are completed. R2.6 is prerequisite-eligible but inactive, R2.7 is inactive, both retain `explicit_activation_required: false`, and automatic successor activation remains disabled.
 
 **Task ID:** `harness.simplify-2`
 
@@ -39,8 +39,8 @@ control state.
 | 2 | `harness.simplify-2.adapter-retirement` | R2.2 — adapter retirement | completed |
 | 3 | `harness.simplify-2.python-conformance-decomposition` | R2.3 — Python conformance decomposition | completed; HC01 resolved |
 | 4 | `harness.simplify-2.resource-decomposition` | R2.4 — resource and routing decomposition | completed |
-| 5 | `harness.simplify-2.wire-validation-decomposition` | R2.5 — wire validation decomposition | active |
-| 6 | `harness.simplify-2.cli-consolidation` | R2.6 — maintained CLI consolidation under `python/src/cli/` | inactive |
+| 5 | `harness.simplify-2.wire-validation-decomposition` | R2.5 — wire validation decomposition | completed |
+| 6 | `harness.simplify-2.cli-consolidation` | R2.6 — maintained CLI consolidation under `python/src/cli/` | prerequisite-eligible but inactive |
 | 7 | `harness.simplify-2.validation-retirement` | R2.7 — validation consolidation and replay retirement | inactive |
 
 R2.3–R2.7 have `explicit_activation_required: false`. After the preceding

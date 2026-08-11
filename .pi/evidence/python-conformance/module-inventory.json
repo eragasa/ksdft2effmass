@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2942,
-  "expected_module_count": 245,
+  "expected_collected_node_count": 2957,
+  "expected_module_count": 254,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -799,7 +799,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "e5ce5b5da602ca5f623f196a31e9384c0d55f926bdd77273ed6ecb3feece7a10",
+      "content_sha256": "ef82ba4840a1dd943dafb787936987de98a81a4347a02097672ae19184ada7fa",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",
@@ -1012,6 +1012,87 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py",
       "artifact": "Python conformance wrapper/API agreement",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f01dd9229bb2fd8f693d1eaf32b8cf47d4389cd4e66e25b93c8e10f24e30a703",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___CanonicalJsonSerializer.py",
+      "artifact": "private canonical JSON serializer implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "519be344fb49c8abb3d759c609984275aef5d851fcc80e307d97773f39b93833",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___CheckpointRecordSerializer.py",
+      "artifact": "private checkpoint-record serializer implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2c5bb806a99a50df118a8f1732eb0b28b349f86d8af0e59ac7d6ce5fc0ee001e",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___CommonWireRecordSerializer.py",
+      "artifact": "private common wire-record serializer implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "24328481559c18f9b8d279610e5a4835b9e41a966249af101bb753ee5ccddb1c",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___DuplicateKey.py",
+      "artifact": "private duplicate-key result implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8a10fefb744c69d6f1d538e42e04a3934fcb7d4e02ee2aaabb27f44d4f353b94",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___ResourceWireSerializer.py",
+      "artifact": "private resource wire serializer implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c3fea636bf8c7361c6757e6258f7ce06aa0aa835158b5e2e7241549290c08aba",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___ReviewOwnershipWireSerializer.py",
+      "artifact": "private review-ownership wire serializer implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "67ee315d14729b44722cb1ccf49f2acefbe7ed2ed3b0367c3fa52fb2bed87055",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___TaskWireSerializer.py",
+      "artifact": "private Task wire serializer implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7431cd7475451dceff6e27890d41f0e76a3a2faa840bf281c348933edc7748c3",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___WireRecordDispatcher.py",
+      "artifact": "private wire-record dispatcher implementation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5b6cf2ae51ffdb16be46120181db924c3790814c65b6380303816ca9615879fb",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/wire/test___WireValueDecoder.py",
+      "artifact": "private decoded-wire value implementation",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",

@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred_to_active_child`: coordinating parent deferred to active R2.5 wire-validation decomposition after R2.4 completed; R2.6 and R2.7 remain inactive, and automatic successor activation remains disabled
+`active`: coordinating parent restored after R2.5 completed; R2.6 is prerequisite-eligible but inactive, R2.7 remains inactive, and automatic successor activation remains disabled
 
 ## Objective
 

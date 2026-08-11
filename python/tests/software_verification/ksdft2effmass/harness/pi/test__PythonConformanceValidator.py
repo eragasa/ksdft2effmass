@@ -175,6 +175,94 @@ def test_method__execute_valid_source__returns_exact_inventory() -> None:
     assert result.unique_evidence_owners == 1
 
 
+def test_method__execute_private_target__retains_artifact_ownership() -> None:
+    """Evidence ID: software-verification.harness.python-conformance.private-target
+
+    Requirement: A routine artifact-owned module may directly test one imported private
+    implementation class through the exact ``test___ClassName.py`` filename while the
+    evidence owner remains the represented subsystem artifact.
+
+    Method: Supply a literal routine module whose private SUT assignment, explicit
+    import, filename, and artifact ownership declaration agree exactly.
+
+    Oracle: The accepted private-target/artifact-owner distinction fixes the exact
+    filename and retains ``artifact_owned`` rather than ``class_owned`` ownership.
+
+    Acceptance: Validation passes with one artifact-owned module and no class-owned
+    module.
+
+    Interpretation: Failure identifies private-target filename or ownership-mode drift.
+
+    Limitations: The private target is implementation access only and is not a public
+    API or class-owned evidence owner.
+    """
+    path = "test___PrivateCodec.py"
+    source = b'''r"""Software verification of private codec subsystem artifact.
+
+Evidence profile: routine
+
+Bounded artifact scope: the module's declared evidence owner.
+
+Facet and represented meaning
+
+Routine verification of one private codec target.
+
+Intrinsic and cross-object scope
+
+The subsystem artifact is primary.
+
+VVUQ and scientific exclusions
+
+Passing establishes software structure only, not validation or UQ.
+"""
+
+from demo import _PrivateCodec
+
+SUT = _PrivateCodec
+
+
+def test_artifact__codec__retains_literal_contract():
+    """Evidence ID: software-verification.fixture.private-codec.literal-contract
+
+    Requirement: The controlled private codec fixture retains exact construction.
+
+    Method: Construct the controlled fixture through its private target alias.
+
+    Oracle: Exact Python class construction supplies the result.
+
+    Acceptance: Construction returns one private codec instance.
+
+    Interpretation: Failure identifies controlled fixture drift.
+
+    Limitations: This fixture makes no public API or scientific claim.
+    """
+    assert type(SUT()) is SUT
+'''
+    ownership = json.dumps(
+        {
+            "schema_version": 1,
+            "modules": [
+                {
+                    "path": path,
+                    "mode": "artifact_owned",
+                    "evidence_class": "software_verification",
+                    "evidence_profile": "routine",
+                    "artifact": "private codec subsystem artifact",
+                }
+            ],
+        },
+        separators=(",", ":"),
+    ).encode()
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(path, source),), "ownership.json", ownership
+        )
+    )
+    assert result.status == "PASS"
+    assert result.artifact_owned_modules == 1
+    assert result.class_owned_modules == 0
+
+
 def test_method__execute_invalid_source__retains_multiple_finding_order() -> None:
     """Evidence ID: SV-TEV-019
 
