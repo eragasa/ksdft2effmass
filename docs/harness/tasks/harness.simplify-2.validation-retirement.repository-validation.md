@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: serial R2.7 child; eligible only after source-aware verification completion and explicit coordinator selection
+`active`: explicitly selected after source-aware verification completion; automatic successor activation remains disabled
 
 ## Objective
 

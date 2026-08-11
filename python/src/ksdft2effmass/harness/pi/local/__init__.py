@@ -21,6 +21,7 @@ from .dbcontrol import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
     HarnessControlMigrator,
+    HarnessControlVerificationFinding,
     HarnessControlVerificationResult,
     HarnessControlVerifier,
 )
@@ -99,6 +100,7 @@ __all__ = [
     "HarnessControlMigrationRequest",
     "HarnessControlMigrationResult",
     "HarnessControlMigrator",
+    "HarnessControlVerificationFinding",
     "HarnessControlVerificationResult",
     "HarnessControlVerifier",
 ]

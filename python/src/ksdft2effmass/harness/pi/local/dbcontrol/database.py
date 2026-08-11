@@ -93,18 +93,30 @@ class _ControlDatabase:
         return "\n".join(lines).encode()
 
     def normalized_semantic_digest(self) -> str:
-        current = self.connection.execute(
-            "SELECT value FROM harness_metadata WHERE key='semantic_digest'"
-        ).fetchone()
-        self.connection.execute(
-            "UPDATE harness_metadata SET value='' WHERE key='semantic_digest'"
+        """Hash logical table content with the self-referential digest normalized.
+
+        Normalization is performed in memory so verification can use an immutable
+        read-only SQLite connection without creating WAL or shared-memory sidecars.
+        """
+        tables = [
+            row[0]
+            for row in self.connection.execute(
+                "SELECT name FROM sqlite_schema WHERE type='table' "
+                "AND name NOT LIKE 'sqlite_%' ORDER BY name"
+            )
+        ]
+        payload: list[tuple[str, list[tuple[Any, ...]]]] = []
+        for table in tables:
+            rows = self.ordered_rows(table)
+            if table == "harness_metadata":
+                rows = [
+                    (key, "" if key == "semantic_digest" else value)
+                    for key, value in rows
+                ]
+            payload.append((table, rows))
+        return _ControlEncoding.sha256(
+            json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode()
         )
-        digest = self.semantic_digest()
-        self.connection.execute(
-            "UPDATE harness_metadata SET value=? WHERE key='semantic_digest'",
-            (current[0] if current else "",),
-        )
-        return digest
 
     def catalog_counts(self) -> tuple[tuple[str, int], ...]:
         """Return deterministic migration-result catalog counts."""

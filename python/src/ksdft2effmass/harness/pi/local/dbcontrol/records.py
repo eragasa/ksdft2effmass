@@ -137,9 +137,52 @@ class HarnessControlMigrationResult:
     projection_paths: tuple[str, ...]
 
 
+_VERIFICATION_FINDING_CODES = {
+    "changed_artifact",
+    "foreign_key_failure",
+    "integrity_failure",
+    "missing_artifact",
+    "schema_disagreement",
+    "semantic_disagreement",
+    "unexpected_artifact",
+}
+
+
+@dataclass(frozen=True, slots=True)
+class HarnessControlVerificationFinding:
+    """One deterministic maintained-control disagreement.
+
+    Parameters
+    ----------
+    code
+        Closed structural disagreement identity.
+    path
+        Repository-relative affected path, or ``None`` for database-wide facts.
+    message
+        Stable human-readable explanation without runtime or timing data.
+    """
+
+    code: str
+    path: str | None
+    message: str
+
+    def __post_init__(self) -> None:
+        if type(self.code) is not str or self.code not in _VERIFICATION_FINDING_CODES:
+            raise ValueError("unsupported control verification finding code")
+        if self.path is not None and (type(self.path) is not str or not self.path):
+            raise TypeError("finding path must be a nonempty str or None")
+        if type(self.message) is not str or not self.message:
+            raise TypeError("finding message must be a nonempty str")
+
+
 @dataclass(frozen=True, slots=True)
 class HarnessControlVerificationResult:
-    """Immutable deterministic reconstruction and integrity result."""
+    """Immutable deterministic source-aware control verification result.
+
+    Raw SQLite hashes are diagnostic only. Conformance is determined from integrity,
+    foreign keys, schema version, normalized logical table content, canonical SQL,
+    and exact publisher-owned projections.
+    """
 
     integrity_check: str
     foreign_key_issue_count: int
@@ -148,3 +191,27 @@ class HarnessControlVerificationResult:
     raw_database_sha256: str
     reconstructed_database_sha256: str
     projections_identical: bool
+    schema_version_agrees: bool = True
+    sql_identical: bool = True
+    manifest_identical: bool = True
+    findings: tuple[HarnessControlVerificationFinding, ...] = ()
+
+    def __post_init__(self) -> None:
+        if type(self.foreign_key_issue_count) is not int:
+            raise TypeError("foreign_key_issue_count must be int")
+        for name in (
+            "projections_identical",
+            "schema_version_agrees",
+            "sql_identical",
+            "manifest_identical",
+        ):
+            if type(getattr(self, name)) is not bool:
+                raise TypeError(f"{name} must be bool")
+        if type(self.findings) is not tuple or any(
+            type(item) is not HarnessControlVerificationFinding
+            for item in self.findings
+        ):
+            raise TypeError("findings must contain verification findings")
+        key = lambda item: (item.code, item.path or "", item.message)  # noqa: E731
+        if self.findings != tuple(sorted(set(self.findings), key=key)):
+            raise ValueError("findings must be unique and deterministically sorted")

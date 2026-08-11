@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly selected after generation-builder completion; automatic successor activation remains disabled
+`completed`: completed after canonical source resolution, non-circular graph derivation, semantic SQLite and exact artifact comparison, drift and cleanup evidence, command status agreement, typing, lint, and control synchronization passed
 
 ## Objective
 

@@ -4,6 +4,7 @@ from .migration import HarnessControlMigrator
 from .records import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
+    HarnessControlVerificationFinding,
     HarnessControlVerificationResult,
 )
 from .verification import HarnessControlVerifier
@@ -12,6 +13,7 @@ __all__ = [
     "HarnessControlMigrationRequest",
     "HarnessControlMigrationResult",
     "HarnessControlMigrator",
+    "HarnessControlVerificationFinding",
     "HarnessControlVerificationResult",
     "HarnessControlVerifier",
 ]

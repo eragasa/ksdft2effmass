@@ -284,7 +284,7 @@
     {
       "domain": "task_graph",
       "authoritative_source": "parent_task_id, task_prerequisite_ids, external_prerequisite_ids, and superseded_by_task_ids fields in authoritative harness/tasks/*.json",
-      "discovery_rule": "Derive sorted graph nodes and typed relationships from the selected Task records; validate references and acyclicity with HarnessTaskGraphValidator.",
+      "discovery_rule": "Derive sorted graph nodes and only child_of, depends_on, and superseded_by relationships from the selected Task fields; validate references and acyclicity with HarnessTaskGraphValidator. Do not re-ingest generated ordered_before edges from harness/task-graph.json.",
       "allowed_root": "harness/tasks",
       "exclusions": ["harness/task-graph.json because it is a generated comparison target", "docs/harness/tasks", "chain prose"],
       "expected_consumer": "Task graph validation, control-generation builder, and task-graph projection",
@@ -398,7 +398,7 @@
   "non_circularity": [
     "The maintained SQLite, SQL, projection manifest, generated Task Markdown, task-graph JSON, generated evidence inventory, candidate outputs, and historical evidence never select canonical source inputs.",
     "Task JSON and resource manifests are human-authoritative inputs that are normalized back to their maintained paths by the sole publisher; the resolver reads their source state before candidate construction and never reads candidate copies.",
-    "The generated task graph is derived only from authoritative Task relationship fields."
+    "The generated task graph is derived only from authoritative Task relationship fields; stale ordered_before rows formerly re-ingested from the generated graph are excluded."
   ],
   "child_1_conclusion": "Every required canonical domain has an existing authoritative source. No Child 1 authority blocker was found."
 }

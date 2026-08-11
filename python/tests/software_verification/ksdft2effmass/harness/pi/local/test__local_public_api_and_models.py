@@ -108,15 +108,16 @@ EXPECTED = (
     "HarnessControlMigrationRequest",
     "HarnessControlMigrationResult",
     "HarnessControlMigrator",
+    "HarnessControlVerificationFinding",
     "HarnessControlVerificationResult",
     "HarnessControlVerifier",
 )
 
 
-def test_public_api__exports__contains_exact_40_names() -> None:
+def test_public_api__exports__contains_exact_41_names() -> None:
     """Evidence ID: SV-HL-001
 
-    Requirement: The project-local package exposes exactly the retained 40 public
+    Requirement: The project-local package exposes exactly the retained 41 public
     names, and the former adapter module preserves all nine adapter names and execute
     signatures after contract-owned relocation.
 
@@ -126,7 +127,7 @@ def test_public_api__exports__contains_exact_40_names() -> None:
     Oracle: The accepted H4 inventory, corrected HarnessTask inventory, and active R2.2
     compatibility contract supply the exact local boundary and adapter signatures.
 
-    Acceptance: The ordered package tuple is exact and has length 40; every name
+    Acceptance: The ordered package tuple is exact and has length 41; every name
     resolves; all nine facade classes are identical to the package exports; and every
     execute parameter tuple is exact.
 
@@ -137,7 +138,7 @@ def test_public_api__exports__contains_exact_40_names() -> None:
     portability.
     """
     assert tuple(local.__all__) == EXPECTED
-    assert len(EXPECTED) == 40
+    assert len(EXPECTED) == 41
     assert all(getattr(local, name) is not None for name in EXPECTED)
     assert tuple(adapter_facade.__all__) == tuple(ADAPTER_EXECUTE_PARAMETERS)
     assert all(

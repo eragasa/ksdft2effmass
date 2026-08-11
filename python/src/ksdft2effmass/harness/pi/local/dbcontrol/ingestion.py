@@ -245,19 +245,6 @@ class _RepositoryControlIngestor:
                         "INSERT INTO task_relationship VALUES (?,?,?)",
                         (task_id, replacement, "superseded_by"),
                     )
-        graph = json.loads((root / "harness/task-graph.json").read_text())
-        for edge in graph["edges"]:
-            source = extraction_id if edge["source"] == "H5" else edge["source"]
-            target = extraction_id if edge["target"] == "H5" else edge["target"]
-            if (
-                edge["kind"] in {"order", "ordered_before"}
-                and source in ids
-                and target in ids
-            ):
-                connection.execute(
-                    "INSERT OR IGNORE INTO task_relationship VALUES (?,?,?)",
-                    (source, target, "ordered_before"),
-                )
 
     def _migrate_evidence(self) -> None:
         connection = self.connection

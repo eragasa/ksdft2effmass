@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections.abc import Sequence
+from dataclasses import asdict
 from pathlib import Path
 
 from ksdft2effmass.harness.pi.local import (
@@ -22,8 +23,11 @@ def _verification_passed(result: HarnessControlVerificationResult) -> bool:
         result.integrity_check == "ok"
         and result.foreign_key_issue_count == 0
         and result.semantic_digest == result.reconstructed_semantic_digest
-        and result.raw_database_sha256 == result.reconstructed_database_sha256
         and result.projections_identical
+        and result.schema_version_agrees
+        and result.sql_identical
+        and result.manifest_identical
+        and not result.findings
     )
 
 
@@ -98,12 +102,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         ):
             parser.error("evidence and resource inputs are valid only with sync")
         result = HarnessControlVerifier().execute(root)
-    print(
-        json.dumps(
-            {name: getattr(result, name) for name in result.__dataclass_fields__},
-            indent=2,
-        )
-    )
+    print(json.dumps(asdict(result), indent=2))
     if isinstance(result, HarnessControlVerificationResult):
         return 0 if _verification_passed(result) else 1
     return 0

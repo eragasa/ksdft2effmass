@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.source-aware-verification",
   "title": "Implement source-aware control verification",
-  "status": "active",
-  "status_detail": "explicitly selected after generation-builder completion; automatic successor activation remains disabled",
+  "status": "completed",
+  "status_detail": "completed after canonical source resolution, non-circular graph derivation, semantic SQLite and exact artifact comparison, drift and cleanup evidence, command status agreement, typing, lint, and control synchronization passed",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.generation-builder"

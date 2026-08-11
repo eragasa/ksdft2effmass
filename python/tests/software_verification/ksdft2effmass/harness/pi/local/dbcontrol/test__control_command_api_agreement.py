@@ -199,7 +199,7 @@ def test_artifact__verify_command__agrees_with_public_result(
     Method: Supply one immutable literal verifier result, invoke the maintained command
     with an explicit absolute root, and parse its JSON output independently.
 
-    Oracle: The seven literal dataclass field values define the public API result.
+    Oracle: The literal dataclass field values define the public API result.
 
     Acceptance: Exit status is zero and rendered JSON equals the exact literal mapping.
 
@@ -215,15 +215,9 @@ def test_artifact__verify_command__agrees_with_public_result(
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert control_cli.main() == 0
-    assert json.loads(capsys.readouterr().out) == {
-        "integrity_check": "ok",
-        "foreign_key_issue_count": 0,
-        "semantic_digest": "a",
-        "reconstructed_semantic_digest": "a",
-        "raw_database_sha256": "c",
-        "reconstructed_database_sha256": "c",
-        "projections_identical": True,
-    }
+    assert json.loads(capsys.readouterr().out) == json.loads(
+        json.dumps(asdict(expected))
+    )
 
 
 @pytest.mark.parametrize(
@@ -242,12 +236,24 @@ def test_artifact__verify_command__agrees_with_public_result(
             id="semantic_digest_mismatch",
         ),
         pytest.param(
-            HarnessControlVerificationResult("ok", 0, "a", "a", "c", "d", True),
-            id="raw_database_mismatch",
-        ),
-        pytest.param(
             HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", False),
             id="projection_or_source_drift",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", True, False),
+            id="schema_disagreement",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult(
+                "ok", 0, "a", "a", "c", "c", True, True, False
+            ),
+            id="sql_disagreement",
+        ),
+        pytest.param(
+            HarnessControlVerificationResult(
+                "ok", 0, "a", "a", "c", "c", True, True, True, False
+            ),
+            id="manifest_disagreement",
         ),
     ],
 )
@@ -266,7 +272,8 @@ def test_artifact__verify_command__returns_failure_for_reported_drift(
     invoke the maintained command with an explicit root, and parse its JSON output.
 
     Oracle: The verifier result contract defines agreement as successful integrity, zero
-    foreign-key findings, equal semantic and raw identities, and projection agreement.
+    foreign-key findings, equal semantic identity, schema agreement, and exact SQL,
+    manifest, and projection agreement; raw hashes remain diagnostic.
 
     Acceptance: Every drift partition returns status one while preserving the complete
     structured verifier result in stdout.
@@ -284,4 +291,6 @@ def test_artifact__verify_command__returns_failure_for_reported_drift(
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert control_cli.main() == 1
-    assert json.loads(capsys.readouterr().out) == asdict(expected)
+    assert json.loads(capsys.readouterr().out) == json.loads(
+        json.dumps(asdict(expected))
+    )

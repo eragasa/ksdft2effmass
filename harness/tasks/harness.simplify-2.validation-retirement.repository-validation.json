@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.repository-validation",
   "title": "Compose deterministic repository validation",
-  "status": "inactive",
-  "status_detail": "serial R2.7 child; eligible only after source-aware verification completion and explicit coordinator selection",
+  "status": "active",
+  "status_detail": "explicitly selected after source-aware verification completion; automatic successor activation remains disabled",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.source-aware-verification"
