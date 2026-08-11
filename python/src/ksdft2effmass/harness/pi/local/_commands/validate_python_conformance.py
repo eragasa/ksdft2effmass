@@ -1,4 +1,3 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Validate structural conventions on explicitly supplied Python test paths.
 
 This compatibility wrapper performs explicit command-line file reads only.  The
@@ -11,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections.abc import Sequence
 from importlib import import_module
 from pathlib import Path
 from typing import Any
@@ -76,7 +76,7 @@ def _result_object(result: Any) -> dict[str, object]:
     }
 
 
-def main() -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "paths",
@@ -99,7 +99,7 @@ def main() -> int:
         type=Path,
         help="explicit versioned Python evidence-profile matrix JSON",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     parsed_models: tuple[Any, ...] = ()
     source_inputs: tuple[Any, ...]
     if args.ownership is not None:
@@ -168,7 +168,3 @@ def main() -> int:
         )
     )
     return 0 if result.status == "PASS" else 1
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

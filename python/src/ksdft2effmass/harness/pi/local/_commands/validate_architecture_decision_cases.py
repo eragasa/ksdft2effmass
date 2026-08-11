@@ -1,19 +1,13 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Validate controlled phase-six-only architecture-decision skill cases."""
 
 from __future__ import annotations
 
+import argparse
 import json
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-PI = Path(__file__).resolve().parents[1]
-CASES = PI / "fixtures/architecture-decision/cases.json"
-SKILL = PI / "skills/develop-architecture-decision/SKILL.md"
-REFERENCE = (
-    PI
-    / "skills/develop-architecture-decision/references/architecture-decision-conventions.md"
-)
 APPLICABLE = {
     "live-agent-registry-versus-historical-ownership",
     "persistence-backend",
@@ -59,10 +53,21 @@ def fail(message: str, issues: list[str]) -> None:
     issues.append(message)
 
 
-def main() -> int:
+def run(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repository-root", required=True, type=Path)
+    args = parser.parse_args(argv)
+    root = args.repository_root.resolve(strict=True)
+    pi_root = root / "harness/pi"
+    cases_path = pi_root / "fixtures/architecture-decision/cases.json"
+    skill_path = pi_root / "skills/develop-architecture-decision/SKILL.md"
+    reference_path = (
+        pi_root / "skills/develop-architecture-decision/references/"
+        "architecture-decision-conventions.md"
+    )
     issues: list[str] = []
     try:
-        payload: Any = json.loads(CASES.read_text(encoding="utf-8"))
+        payload: Any = json.loads(cases_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         payload = {}
         fail(f"cases unreadable: {error}", issues)
@@ -116,7 +121,8 @@ def main() -> int:
             )
         ):
             fail(
-                f"{case_id}: facts/inferences/choices/implementation/deferred separation is incomplete",
+                f"{case_id}: facts/inferences/choices/implementation/deferred "
+                "separation is incomplete",
                 issues,
             )
         if case.get("stop_before_implementation") is not True:
@@ -158,8 +164,10 @@ def main() -> int:
         if case.get("unsupported_vvuq_claims") != []:
             fail(f"{case_id}: unsupported VVUQ claims must be empty", issues)
 
-    skill = SKILL.read_text(encoding="utf-8") if SKILL.is_file() else ""
-    reference = REFERENCE.read_text(encoding="utf-8") if REFERENCE.is_file() else ""
+    skill = skill_path.read_text(encoding="utf-8") if skill_path.is_file() else ""
+    reference = (
+        reference_path.read_text(encoding="utf-8") if reference_path.is_file() else ""
+    )
     for heading in HEADINGS:
         if reference.count(f"## {heading}") != 1:
             fail(f"reference heading must occur exactly once: {heading}", issues)
@@ -201,7 +209,3 @@ def main() -> int:
     }
     print(json.dumps(result, ensure_ascii=True, separators=(",", ":"), sort_keys=True))
     return 0 if not issues else 1
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2957,
-  "expected_module_count": 254,
+  "expected_collected_node_count": 2990,
+  "expected_module_count": 256,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -178,7 +178,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4977e2bea33fe98dd7e58b4c9bc16cbc7a548787150351950f69bdc91383250b",
+      "content_sha256": "f11c9b8456478c5ad96c9cb8757f69e63965b9a3bfc8c6da43378246696c0cdd",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_command_api_agreement.py",
@@ -394,6 +394,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "b74ff44fab37e4b06a87987645cb9db871069b64123a085a2cf1b18f4ae2e4b4",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__cli_inventory.py",
+      "artifact": "the maintained harness CLI inventory",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "7e445e29c986af0c13f85505968f8918c8186625acc6108663c909daaad85256",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -412,7 +421,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2ea7164758762b0604de968165c2baac46433e0a1987d43b5af0f64fb673bff0",
+      "content_sha256": "a81749318fe53854cb7492047d006a69585bd7bfcf52a33421f9448baa8e05e7",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__identifier_audit_command_api_agreement.py",
@@ -421,7 +430,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "992084810ae09e8b05aec3bd8aed216af84fe3d80d4adca04c0765f42e71725b",
+      "content_sha256": "b67a5a74891e5bf28d3b748a69c19b3385a58ec15cbbfff29bf3f82cb18bcf09",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__inspect_task_state_command_api_agreement.py",
@@ -448,7 +457,16 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "88d84f43f3ee1671eb1f457be77cbf0dcdea5873cc8f8161b63a09b60a18863e",
+      "content_sha256": "b9f6b959f1ad024664c5830dc221f31fe83c4304130ff8b0e829ed4772b55b4c",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__migrated_validation_command_api_agreement.py",
+      "artifact": "migrated validation command/API agreement",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b684fc4883f142c8ef3b2700c3a59218ee491dd854b1c8fbda3bbcecaefdf084",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__refresh_resource_manifest_command_api_agreement.py",
@@ -457,7 +475,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "fdac19daf7d4f6743f11f63bfaee7cf419b80c2ceaa9f5e136ee4bda5b70ce53",
+      "content_sha256": "fb865d574903f122668a3d9bfd6dd2d617bccfc87470f8f08db9e06aca5d6fed",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__validate_local_harness_resources_command_api_agreement.py",
@@ -1006,7 +1024,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "30a2d2d20d6a5af7065ddeb704dba818ca08b5630dbba8efe3c79c82eac9bdda",
+      "content_sha256": "1d0e525b30e216005479121e696aa66621b9ee37474cfbb32be0ba24eb64c408",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py",

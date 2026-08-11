@@ -94,7 +94,7 @@
     "fail_closed": true,
     "required_before": "implementation",
     "manifest_schema": ".pi/task-ownership/ownership.schema.json",
-    "command_template": "python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>",
+    "command_template": "python/.venv/bin/python python/src/cli/validate_task_ownership.py --repository-root <ABSOLUTE_REPOSITORY_ROOT> --task <TASK_ID>",
     "policy": "Every production task must name task-specific implementation, test, documentation, and independent review owners. A missing or invalid manifest blocks launch. The declared test completion validator must pass before independent review."
   },
   "per_task_completion_gates": [

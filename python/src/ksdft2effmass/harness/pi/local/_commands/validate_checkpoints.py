@@ -1,4 +1,3 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Validate checkpoint records and run control-plane dry runs.
 
 This script is repository control-plane tooling. It does not validate scientific
@@ -10,15 +9,12 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections.abc import Sequence
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from jsonschema import Draft202012Validator
-
-ROOT = Path(__file__).resolve().parents[2]
-CHECKPOINT_DIR = ROOT / ".pi" / "checkpoints"
-SCHEMA_PATH = CHECKPOINT_DIR / "checkpoint.schema.json"
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
 
 def load_json(path: Path) -> Any:
@@ -45,24 +41,24 @@ def validate_schema(
     return errors
 
 
-def checkpoint_paths(include_fixtures: bool) -> list[Path]:
-    paths = sorted(CHECKPOINT_DIR.glob("*.json"))
+def checkpoint_paths(checkpoint_dir: Path, include_fixtures: bool) -> list[Path]:
+    paths = sorted(checkpoint_dir.glob("*.json"))
     paths = [p for p in paths if p.name != "checkpoint.schema.json"]
     if include_fixtures:
-        paths.extend(sorted((CHECKPOINT_DIR / "fixtures").glob("*.json")))
+        paths.extend(sorted((checkpoint_dir / "fixtures").glob("*.json")))
     return paths
 
 
-def scan_unresolved() -> list[Path]:
+def scan_unresolved(checkpoint_dir: Path) -> list[Path]:
     unresolved = []
-    for path in checkpoint_paths(include_fixtures=False):
+    for path in checkpoint_paths(checkpoint_dir, include_fixtures=False):
         record = load_json(path)
         if record.get("status") in {"pending", "blocked"}:
             unresolved.append(path)
     return unresolved
 
 
-def scan_duplicate_decisions() -> list[str]:
+def scan_duplicate_decisions(checkpoint_dir: Path) -> list[str]:
     """Return duplicate resolutions of the same checkpoint identity and option.
 
     Different checkpoints for one task may legitimately use the same local option
@@ -72,7 +68,7 @@ def scan_duplicate_decisions() -> list[str]:
 
     seen: dict[tuple[str | None, str | None], Path] = {}
     duplicates: list[str] = []
-    for path in checkpoint_paths(include_fixtures=False):
+    for path in checkpoint_paths(checkpoint_dir, include_fixtures=False):
         record = load_json(path)
         if record.get("status") != "resolved":
             continue
@@ -116,33 +112,36 @@ def resolve_synthetic(record: dict[str, Any], response: str) -> dict[str, Any]:
     return resolved
 
 
-def main() -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--repository-root", required=True, type=Path)
     parser.add_argument("--include-fixtures", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    checkpoint_dir = args.repository_root.resolve(strict=True) / ".pi/checkpoints"
 
     all_errors: list[str] = []
-    schema = load_json(SCHEMA_PATH)
+    schema = load_json(checkpoint_dir / "checkpoint.schema.json")
     Draft202012Validator.check_schema(schema)
     validator = Draft202012Validator(schema)
-    for path in checkpoint_paths(include_fixtures=args.include_fixtures):
+    for path in checkpoint_paths(checkpoint_dir, args.include_fixtures):
         all_errors.extend(validate_schema(load_json(path), path, validator))
 
-    unresolved = scan_unresolved()
-    duplicates = scan_duplicate_decisions()
+    unresolved = scan_unresolved(checkpoint_dir)
+    duplicates = scan_duplicate_decisions(checkpoint_dir)
     all_errors.extend(duplicates)
 
     if args.dry_run:
         stage_errors: dict[str, int] = {}
-        pending = load_json(CHECKPOINT_DIR / "fixtures" / "pending-checkpoint.json")
-        expected = load_json(CHECKPOINT_DIR / "fixtures" / "resolved-checkpoint.json")
+        pending = load_json(checkpoint_dir / "fixtures" / "pending-checkpoint.json")
+        expected = load_json(checkpoint_dir / "fixtures" / "resolved-checkpoint.json")
 
         start = len(all_errors)
         actual = resolve_synthetic(pending, "SYNTHETIC DRY RUN: Approve Option B.")
         if actual != expected:
             all_errors.append(
-                "fresh-session checkpoint-resolution dry run did not match expected resolved fixture"
+                "fresh-session checkpoint-resolution dry run did not match "
+                "expected resolved fixture"
             )
         for contradictory in (
             "I do not approve Option B.",
@@ -205,9 +204,8 @@ def main() -> int:
             status = "passed" if stage_errors[stage] == 0 else "failed"
             print(f"dry_run_{stage}={status}")
 
-    print(
-        f"checkpoint_records_validated={len(checkpoint_paths(include_fixtures=args.include_fixtures))}"
-    )
+    validated_count = len(checkpoint_paths(checkpoint_dir, args.include_fixtures))
+    print(f"checkpoint_records_validated={validated_count}")
     print(f"unresolved_checkpoints={len(unresolved)}")
     print(f"duplicate_resolved_decisions={len(duplicates)}")
     if all_errors:
@@ -215,7 +213,3 @@ def main() -> int:
             print(f"ERROR: {error}")
         return 1
     return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

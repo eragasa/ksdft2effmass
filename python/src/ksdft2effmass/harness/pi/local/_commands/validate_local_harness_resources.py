@@ -1,10 +1,10 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Validate explicitly supplied current harness resource composition."""
 
 from __future__ import annotations
 
 import argparse
 import json
+from collections.abc import Sequence
 from pathlib import Path
 
 from ksdft2effmass.harness.pi import ResourceResolver, ValidationIssue
@@ -58,7 +58,7 @@ def _read_file(path: Path, root: Path, label: str) -> bytes:
     return path.read_bytes()
 
 
-def main(argv: list[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         for value, label in (
@@ -163,7 +163,3 @@ def main(argv: list[str] | None = None) -> int:
             }
         )
         return 3
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

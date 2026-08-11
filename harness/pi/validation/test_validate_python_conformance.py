@@ -11,7 +11,7 @@ from typing import Any
 import pytest
 
 ROOT = Path(__file__).resolve().parents[3]
-VALIDATOR = ROOT / "harness/pi/validation/validate_python_conformance.py"
+VALIDATOR = ROOT / "python/src/cli/validate_python_conformance.py"
 CASES_PATH = (
     ROOT
     / "harness/pi/fixtures/evidence/python-conformance/named-parameter-inventories/cases.json"

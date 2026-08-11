@@ -235,7 +235,7 @@ project-local compatibility input. The local adapter emits generic
 preserved participant identities. This does not add a generic ownership kind.
 
 The current resource command is
-``harness/local/validation/validate_local_harness_resources.py``. Callers supply
+``python/src/cli/validate_local_harness_resources.py``. Callers supply
 absolute repository, generic-resource, local-resource, profile, and manifest
 paths. The command invokes maintained context-loading and resource-resolution
 Actions, emits deterministic structured results, propagates nested failures,
@@ -269,7 +269,7 @@ concurrently, protected source and independent verification must be separated,
 or conflicting or high-risk path ownership exists. Ordinary bounded work may
 use one writer for source, tests, and documentation. When the control applies,
 the controlling record names the manifest and runs
-``python/.venv/bin/python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>``
+``python/.venv/bin/python python/src/cli/validate_task_ownership.py --repository-root <ABSOLUTE_REPOSITORY_ROOT> --task <TASK_ID>``
 from the repository root before covered work starts. If the canonical
 interpreter is missing, synchronize it with
 ``cd python && uv sync --locked --all-extras`` rather than selecting an

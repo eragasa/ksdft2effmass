@@ -22,7 +22,7 @@ If the controlling chain or task identity is unknown or conflicting, stop and re
 From the repository environment, run:
 
 ```bash
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.inspect_task_state \
+python/.venv/bin/python python/src/cli/inspect_task_state.py \
   --root /absolute/path/to/repository \
   --chain .pi/chains/example.chain.json \
   --task-id exact.task.identity

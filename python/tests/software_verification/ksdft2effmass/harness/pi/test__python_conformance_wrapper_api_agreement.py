@@ -44,7 +44,7 @@ from ksdft2effmass.harness.pi.evidence import (
 
 pytestmark = pytest.mark.software_verification
 ROOT = Path(__file__).resolve().parents[6]
-WRAPPER = ROOT / "harness/pi/validation/validate_python_conformance.py"
+WRAPPER = ROOT / "python/src/cli/validate_python_conformance.py"
 PUBLIC_NAMES = (
     "IdentifierOccurrence",
     "IdentifierAuditResult",

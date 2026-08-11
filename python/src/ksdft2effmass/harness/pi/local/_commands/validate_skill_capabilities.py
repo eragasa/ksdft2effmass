@@ -1,4 +1,3 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Validate the repository-local skill capability inventory.
 
 This control-plane validator checks filesystem inventory, skill frontmatter
@@ -14,12 +13,10 @@ import argparse
 import hashlib
 import json
 import re
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[2]
-INVENTORY_PATH = ROOT / ".pi" / "skills" / "skill-capability-inventory.json"
-SKILL_ROOTS = (ROOT / ".pi" / "skills", ROOT / ".agents" / "skills")
 CLASSIFICATIONS = {
     "DIRECTLY_COMPOSABLE",
     "COMPOSABLE_AFTER_HARDENING",
@@ -213,13 +210,17 @@ def frontmatter_name(path: Path) -> str | None:
     return None
 
 
-def actual_skill_paths() -> set[str]:
+def actual_skill_paths(repository_root: Path) -> set[str]:
     """Return every repository-local SKILL.md path relative to repository root."""
 
     paths: set[str] = set()
-    for root in SKILL_ROOTS:
-        for path in root.rglob("SKILL.md"):
-            paths.add(str(path.relative_to(ROOT)))
+    skill_roots = (
+        repository_root / ".pi/skills",
+        repository_root / ".agents/skills",
+    )
+    for skill_root in skill_roots:
+        for path in skill_root.rglob("SKILL.md"):
+            paths.add(str(path.relative_to(repository_root)))
     return paths
 
 
@@ -235,22 +236,25 @@ def require_nonempty_list(
         or any(not isinstance(item, str) or not item for item in value)
     ):
         errors.append(
-            f"{record.get('skill_name', '<unknown>')}: {field} must be a nonempty string list"
+            f"{record.get('skill_name', '<unknown>')}: {field} must be a "
+            "nonempty string list"
         )
 
 
-def main() -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Validate all deterministic skill-capability inventory invariants."""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--inventory",
-        type=Path,
-        default=INVENTORY_PATH,
-        help="inventory JSON to validate; defaults to the repository artifact",
+    parser.add_argument("--repository-root", required=True, type=Path)
+    parser.add_argument("--inventory", type=Path)
+    args = parser.parse_args(argv)
+    root = args.repository_root.resolve(strict=True)
+    inventory_path = args.inventory or (
+        root / ".pi/skills/skill-capability-inventory.json"
     )
-    args = parser.parse_args()
-    inventory = load_json(args.inventory)
+    if not inventory_path.is_absolute():
+        inventory_path = root / inventory_path
+    inventory = load_json(inventory_path)
     errors: list[str] = []
 
     if inventory.get("schema_version") != 1:
@@ -312,7 +316,8 @@ def main() -> int:
         missing_fields = REQUIRED_SKILL_FIELDS - set(record)
         if missing_fields:
             errors.append(
-                f"{record.get('skill_name', '<unknown>')}: missing fields {sorted(missing_fields)}"
+                f"{record.get('skill_name', '<unknown>')}: missing fields "
+                f"{sorted(missing_fields)}"
             )
         name = record.get("skill_name")
         relative = record.get("path")
@@ -333,7 +338,7 @@ def main() -> int:
         if relative in inventory_paths:
             errors.append(f"duplicate skill path: {relative}")
         inventory_paths.add(relative)
-        path = ROOT / relative
+        path = root / relative
         if not path.is_file():
             errors.append(f"{name}: missing skill file {relative}")
             continue
@@ -350,7 +355,8 @@ def main() -> int:
         actual_hash = sha256(path)
         if expected_hash != actual_hash:
             errors.append(
-                f"{name}: content hash mismatch: inventory={expected_hash} actual={actual_hash}"
+                f"{name}: content hash mismatch: inventory={expected_hash} "
+                f"actual={actual_hash}"
             )
         for field in (
             "current_consumers",
@@ -364,7 +370,7 @@ def main() -> int:
         ):
             require_nonempty_list(record, field, errors)
         for consumer in record.get("current_consumers", []):
-            consumer_path = ROOT / consumer
+            consumer_path = root / consumer
             if not isinstance(consumer, str) or not consumer_path.exists():
                 errors.append(f"{name}: missing concrete consumer path {consumer!r}")
                 continue
@@ -375,7 +381,7 @@ def main() -> int:
                     f"{name}: consumer path does not reference skill: {consumer}"
                 )
         for reference in record.get("authoritative_references", []):
-            if not isinstance(reference, str) or not (ROOT / reference).exists():
+            if not isinstance(reference, str) or not (root / reference).exists():
                 errors.append(f"{name}: missing authoritative reference {reference!r}")
         for field in (
             "trigger_description",
@@ -396,7 +402,7 @@ def main() -> int:
             f"missing={sorted(EXPECTED_SKILL_NAMES - inventory_names)} "
             f"unexpected={sorted(inventory_names - EXPECTED_SKILL_NAMES)}"
         )
-    actual_paths = actual_skill_paths()
+    actual_paths = actual_skill_paths(root)
     if inventory_paths != actual_paths:
         errors.append(
             "skill path inventory mismatch: "
@@ -406,7 +412,9 @@ def main() -> int:
 
     review_blocks = inventory.get("cpn_review_blocks", [])
     review_name_list = [
-        item.get("block") for item in review_blocks if isinstance(item, dict)
+        item["block"]
+        for item in review_blocks
+        if isinstance(item, dict) and isinstance(item.get("block"), str)
     ]
     review_names = set(review_name_list)
     if len(review_name_list) != len(review_names):
@@ -444,7 +452,9 @@ def main() -> int:
 
     tool_blocks = inventory.get("deterministic_tool_blocks", [])
     tool_name_list = [
-        item.get("block") for item in tool_blocks if isinstance(item, dict)
+        item["block"]
+        for item in tool_blocks
+        if isinstance(item, dict) and isinstance(item.get("block"), str)
     ]
     tool_names = set(tool_name_list)
     if len(tool_name_list) != len(tool_names):
@@ -488,7 +498,3 @@ def main() -> int:
     for error in errors:
         print(f"ERROR: {error}")
     return 1 if errors else 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

@@ -57,7 +57,7 @@ Scripts under `harness/pi/validation/` and `harness/local/validation/` may remai
 The maintained command form is:
 
 ```text
-python/.venv/bin/python harness/pi/validation/validate_python_conformance.py \
+python/.venv/bin/python python/src/cli/validate_python_conformance.py \
   --ownership OWNERSHIP.json [--migration-map MIGRATION.json] TEST_MODULE.py [...]
 ```
 
@@ -113,7 +113,7 @@ The current durable-agent loader has no repository-defined include mechanism for
 The project-local command wrapper is:
 
 ```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.inspect_task_state \
+python/.venv/bin/python python/src/cli/inspect_task_state.py \
   --root . \
   --chain .pi/chains/harness-simplification.chain.json \
   --task-id harness-simplification.agents.validator-migration-pilot
@@ -135,7 +135,7 @@ Under the completed task `harness-simplification.agents.validator-migration-pilo
 - `PythonConformanceResult`, an immutable result containing status, findings, paths, compatibility counts, and explicit claim boundaries; and
 - `PythonConformanceValidator`, a fieldless stateless ActionObject whose `execute(request)` method returns the validation result.
 
-The package boundary is pure with respect to external state: it parses and validates only the bytes and metadata supplied in the request. It performs no filesystem reads, root or current-working-directory discovery, Git inspection, subprocess execution, or mutation. `harness/pi/validation/validate_python_conformance.py` is the thin command wrapper. It parses explicit arguments, reads only those named paths, constructs the public request, invokes `PythonConformanceValidator.execute`, renders deterministic JSON, and maps `PASS` to exit status 0 and `FAIL` to exit status 1. Focused software-verification tests cover the public objects and action, generic dependency direction, and controlled wrapper/API agreement.
+The package boundary is pure with respect to external state: it parses and validates only the bytes and metadata supplied in the request. It performs no filesystem reads, root or current-working-directory discovery, Git inspection, subprocess execution, or mutation. `python/src/cli/validate_python_conformance.py` is the thin command wrapper. It parses explicit arguments, reads only those named paths, constructs the public request, invokes `PythonConformanceValidator.execute`, renders deterministic JSON, and maps `PASS` to exit status 0 and `FAIL` to exit status 1. Focused software-verification tests cover the public objects and action, generic dependency direction, and controlled wrapper/API agreement.
 
 The pilot intended one final integration review, but observed execution did not reliably enforce that policy. The interface displayed four completed assignments with identical review text and reviewer identity. Local durable mission artifacts identify one pilot review run, while the committed repository lacks enough run identity to reconstruct the exact execution count. Duplicate dispatch is therefore an orchestration defect. Duplicate outputs are not independent review evidence and are neither merged nor voted.
 

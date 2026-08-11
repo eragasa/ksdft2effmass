@@ -225,14 +225,14 @@ class _ControlProjector:
                 "generic",
                 "harness/pi/resource-manifest.json",
                 "pih.generic.resources",
-                5,
+                6,
                 None,
             ),
             (
                 "project_local",
                 "harness/local/resource-manifest.json",
                 "ksdft2effmass.local.resources",
-                11,
+                12,
                 "pih.generic.resources",
             ),
         )

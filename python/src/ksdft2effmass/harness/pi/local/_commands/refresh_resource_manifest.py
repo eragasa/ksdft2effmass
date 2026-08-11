@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from .. import (
+from ksdft2effmass.harness.pi import (
     JsonRecordDeserializer,
     JsonRecordSerializer,
     ResourceManifest,
@@ -60,7 +59,7 @@ def _failure_object(validation: ValidationResult) -> dict[str, object]:
     }
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Parse explicit inputs, invoke the ActionObject, and emit canonical JSON.
 
     Exit status ``0`` reports a proposal, ``1`` reports structured validation
@@ -107,19 +106,3 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     )
     return exit_status
-
-
-if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except Exception as exc:  # pragma: no cover - last-resort command boundary
-        print(
-            json.dumps(
-                {"error": str(exc), "schema_version": 1, "status": "ERROR"},
-                ensure_ascii=True,
-                separators=(",", ":"),
-                sort_keys=True,
-            ),
-            file=sys.stderr,
-        )
-        raise SystemExit(3) from exc

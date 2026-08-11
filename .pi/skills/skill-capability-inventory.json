@@ -113,7 +113,6 @@
       "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit DataObject, ResultObject, ActionObject, serializer, Workflow, or free-function owner.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
-        ".pi/agents/ksdft2effmass-harness-implementation.md",
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/skills/develop-python-test-evidence/SKILL.md",
         ".pi/skills/recommend-next-task/SKILL.md"
@@ -165,7 +164,6 @@
       "current_consumers": [
         "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
         ".pi/agents/ksdft2effmass-architecture.md",
-        ".pi/agents/ksdft2effmass-harness-architecture.md",
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/skills/develop-python-test-evidence/SKILL.md",
         ".pi/skills/recommend-next-task/SKILL.md"
@@ -191,7 +189,7 @@
         "repository read/search and deterministic read-only commands"
       ],
       "deterministic_scripts_used": [
-        "harness/pi/validation/validate_architecture_decision_cases.py"
+        "python/src/cli/validate_architecture_decision_cases.py"
       ],
       "authorization_requirements": "Human authority is required for architecture selection, checkpoint persistence, implementation, and acceptance.",
       "failure_behavior": "Conflicting accepted identities or fewer than three defensible architectures returns conflict, deterministic, underspecified, or unsuitable and stops without checkpoint.",
@@ -312,7 +310,7 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "eb5a35754ec6e704ab1111d2e1139bb453131b547ad40a688a1e9cd0bb42c999",
+      "content_sha256": "814feb6598bdb23e6939c67fcfb73cff01573716d41a024bb1af370d3a05cc14",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
@@ -321,8 +319,6 @@
         ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
         ".pi/agents/ksdft2effmass-harness-python-evidence-vvuq-reviewer.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md",
-        ".pi/agents/ksdft2effmass-harness-tests.md",
-        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md",
         ".pi/skills/recommend-next-task/SKILL.md"
       ],
       "authoritative_references": [
@@ -347,7 +343,7 @@
         "none required by the skill; focused test execution is task-selected"
       ],
       "deterministic_scripts_used": [
-        "harness/pi/validation/validate_python_conformance.py"
+        "python/src/cli/validate_python_conformance.py"
       ],
       "authorization_requirements": "Scientific validation and UQ require separate protocols; mutation authority and paths come from the controlling task, not this skill.",
       "failure_behavior": "Stop when evidence class, primary owner, contract, oracle, acceptance rule, or required validation/UQ protocol is missing or conflicting.",
@@ -374,9 +370,6 @@
         ".pi/agents/ksdft2effmass-documentation.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md",
         "harness/pi/skills/document-python-research-software/descriptor.json",
-        ".pi/agents/ksdft2effmass-harness-implementation.md",
-        ".pi/agents/ksdft2effmass-harness-documentation.md",
-        ".pi/agents/ksdft2effmass-harness-integration-reviewer.md",
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/skills/develop-python-test-evidence/SKILL.md"
       ],
@@ -482,7 +475,7 @@
     {
       "skill_name": "inspect-task-state",
       "path": ".pi/skills/inspect-task-state/SKILL.md",
-      "content_sha256": "2544ec3890d733d76671fd949c7c6a9c503f26c18bb5131b983bd6b288d0d054",
+      "content_sha256": "31577f257bb4fd4e9c93dd33b54f4781b077c0e112aeb589c66a97d60e6f91ce",
       "trigger_description": "One exact task selected by a known chain path and task identity requires bounded inspection of its declared durable repository state.",
       "current_consumers": [
         "AGENTS.md",
@@ -510,7 +503,7 @@
         "project Python environment and ksdft2effmass task-state command"
       ],
       "deterministic_scripts_used": [
-        "python -m ksdft2effmass.harness.pi.local.inspect_task_state"
+        "python/src/cli/inspect_task_state.py"
       ],
       "authorization_requirements": "The caller must already have authority to inspect the repository and must supply the controlling chain path and exact task identity; the skill cannot discover, activate, or authorize work.",
       "failure_behavior": "Invalid declared state returns structured findings; invalid inputs or unexpected command failures are reported and stop without fallback discovery.",
@@ -539,7 +532,7 @@
       "authoritative_references": [
         "AGENTS.md",
         ".pi/chains",
-        ".pi/tasks",
+        "harness/tasks",
         ".pi/checkpoints",
         ".pi/skills/inspect-task-state/SKILL.md",
         ".agents/skills/resolve-human-checkpoint/SKILL.md"
@@ -781,21 +774,21 @@
     },
     {
       "block": "LocalHarnessResourceValidationBlock",
-      "command": "python/.venv/bin/python harness/local/validation/validate_local_harness_resources.py --repository-root <absolute-repository-root> --generic-resource-root <absolute-generic-resource-root> --local-resource-root <absolute-local-resource-root> --profile <absolute-profile-path> --generic-manifest <absolute-generic-manifest-path> --local-manifest <absolute-local-manifest-path>",
+      "command": "python/.venv/bin/python python/src/cli/validate_local_harness_resources.py --repository-root <absolute-repository-root> --generic-resource-root <absolute-generic-resource-root> --local-resource-root <absolute-local-resource-root> --profile <absolute-profile-path> --generic-manifest <absolute-generic-manifest-path> --local-manifest <absolute-local-manifest-path>",
       "evidence_owner": "LocalHarnessContextLoader, ResourceResolver, and the thin project-local command",
       "classification": "explicit-input current harness resource validation",
       "current_status": "maintained current interface with structured nested-failure propagation; phase-era routing and replay are retired"
     },
     {
       "block": "EvidenceIdentifierAuditBlock",
-      "command": "python/.venv/bin/python -m ksdft2effmass.harness.pi.local.identifier_audit --root <absolute-repository-root> --profile harness/local/profiles/ksdft2effmass-v2.json --inventory .pi/evidence/python-conformance/module-inventory.json",
+      "command": "python/.venv/bin/python python/src/cli/audit_evidence_identifiers.py --root <absolute-repository-root> --profile harness/local/profiles/ksdft2effmass-v2.json --inventory .pi/evidence/python-conformance/module-inventory.json",
       "evidence_owner": "IdentifierAuditor",
       "classification": "software evidence-identifier and executable-marker verification",
       "current_status": "The production ActionObject is the sole parser and deterministic policy owner; the project-local CLI reads only explicit profile, inventory, and inventoried module inputs and projects structural results without repository discovery."
     },
     {
       "block": "CheckpointSchemaValidationBlock",
-      "command": "python/.venv/bin/python .pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run",
+      "command": "python/.venv/bin/python python/src/cli/validate_checkpoints.py --repository-root <absolute-repository-root> --include-fixtures --dry-run",
       "evidence_owner": "Draft 2020-12 jsonschema validator plus checkpoint control script",
       "classification": "control-plane software verification",
       "current_status": "full-schema validation hardened and executed by this audit"
@@ -809,8 +802,8 @@
     },
     {
       "block": "SkillCapabilityInventoryValidationBlock",
-      "command": "python/.venv/bin/python .pi/skills/validate_skill_capabilities.py",
-      "evidence_owner": ".pi/skills/validate_skill_capabilities.py",
+      "command": "python/.venv/bin/python python/src/cli/validate_skill_capabilities.py --repository-root <absolute-repository-root>",
+      "evidence_owner": "python/src/cli/validate_skill_capabilities.py",
       "classification": "control-plane software verification",
       "current_status": "added and executed by this audit"
     }

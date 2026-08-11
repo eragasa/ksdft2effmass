@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
 """Generic explicit-input JSON-schema, Markdown projection, and drift mechanics."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import sys
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
@@ -40,7 +39,9 @@ def schema_diagnostics(
     Draft202012Validator.check_schema(schema)
     errors = Draft202012Validator(schema).iter_errors(instance)
     return tuple(
-        f"SCHEMA:{'/'.join(str(part) for part in error.absolute_path) or '$'}:{error.validator}"
+        "SCHEMA:"
+        f"{'/'.join(str(part) for part in error.absolute_path) or '$'}:"
+        f"{error.validator}"
         for error in sorted(
             errors,
             key=lambda item: (
@@ -71,6 +72,8 @@ def render(context: dict[str, Any], profile: dict[str, Any]) -> bytes:
             label = item["label"]
             form = item["format"]
             if form == "list":
+                if not isinstance(value, list):
+                    raise TypeError("list projection value must be a list")
                 lines.extend(("", f"**{label}:**"))
                 lines.extend(f"- {_markdown(entry)}" for entry in value)
                 if not value:
@@ -89,7 +92,7 @@ def render(context: dict[str, Any], profile: dict[str, Any]) -> bytes:
     return text.encode("utf-8")
 
 
-def main(argv: list[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Validate explicit files, render explicit context, and check exact bytes."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--schema", type=Path, required=True)
@@ -140,7 +143,3 @@ def main(argv: list[str] | None = None) -> int:
     }
     print(json.dumps(payload, separators=(",", ":"), sort_keys=True))
     return 0 if not diagnostics else 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())

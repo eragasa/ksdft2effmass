@@ -12,5 +12,6 @@
   "authorized_scope": ["Validate this synthetic structural fixture."],
   "completion_criteria": ["All declared structural checks pass."],
   "exclusions": ["No execution or activation is authorized."],
-  "intake_path": "records/intake.md"
+  "intake_path": "records/intake.md",
+  "archived_source": null
 }

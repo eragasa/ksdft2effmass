@@ -16,7 +16,7 @@ ABINIT, or Wannier90.
 The machine-readable authority for the inventory and block mapping is
 [`.pi/skills/skill-capability-inventory.json`](../../.pi/skills/skill-capability-inventory.json).
 The deterministic validator is
-[`.pi/skills/validate_skill_capabilities.py`](../../.pi/skills/validate_skill_capabilities.py).
+[`python/src/cli/validate_skill_capabilities.py`](../../python/src/cli/validate_skill_capabilities.py).
 This page explains the results without duplicating complete `SKILL.md` content.
 
 ## Execution boundary
@@ -132,7 +132,7 @@ unambiguous current human answer are required. Expected-state comparison,
 idempotent replay, conflict handling, partial-write reporting, and separate
 resumption authority are explicit.
 
-`.pi/checkpoints/validate_checkpoints.py` now executes the complete declared
+`python/src/cli/validate_checkpoints.py` now executes the complete declared
 Draft 2020-12 JSON Schema through `jsonschema`, including
 `additionalProperties`, option structure, types, enums, and resolved-record
 conditional constraints. Its dry run includes negative additional-property,
@@ -189,10 +189,10 @@ agent's interpretation.
 | `JsonSchemaValidationBlock` | focused schema/fixture pytest using Draft 2020-12 validation |
 | `ChecksumValidationBlock` | SHA-256 command with expected digest and artifact identity |
 | `GitDiffCheckBlock` | `git diff --check` |
-| `EvidenceIdentifierAuditBlock` | production `IdentifierAuditor` through `python -m ksdft2effmass.harness.pi.local.identifier_audit` |
-| `CheckpointSchemaValidationBlock` | `.pi/checkpoints/validate_checkpoints.py --include-fixtures --dry-run` |
+| `EvidenceIdentifierAuditBlock` | production `IdentifierAuditor` through `python/src/cli/audit_evidence_identifiers.py` |
+| `CheckpointSchemaValidationBlock` | `python/src/cli/validate_checkpoints.py --repository-root <absolute-repository-root> --include-fixtures --dry-run` |
 | `StaticDependencyDirectionToolBlock` | focused operator comparison dependency-direction pytest |
-| `SkillCapabilityInventoryValidationBlock` | `.pi/skills/validate_skill_capabilities.py` |
+| `SkillCapabilityInventoryValidationBlock` | `python/src/cli/validate_skill_capabilities.py --repository-root <absolute-repository-root>` |
 
 Ruff, mypy, pytest, and Sphinx already have established configuration. The schema,
 fixture, and operator dependency-direction tests already own their narrow
@@ -207,7 +207,7 @@ inventory, reads only the inventoried modules beneath an explicit absolute root,
 projects the ActionObject result as deterministic JSON:
 
 ```text
-python/.venv/bin/python -m ksdft2effmass.harness.pi.local.identifier_audit \
+python/.venv/bin/python python/src/cli/audit_evidence_identifiers.py \
   --root <absolute-repository-root> \
   --profile harness/local/profiles/ksdft2effmass-v2.json \
   --inventory .pi/evidence/python-conformance/module-inventory.json

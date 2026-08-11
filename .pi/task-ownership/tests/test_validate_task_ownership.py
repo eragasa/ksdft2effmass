@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import shutil
 import subprocess
@@ -10,27 +9,17 @@ import sys
 from collections.abc import Callable
 from copy import deepcopy
 from pathlib import Path
-from types import ModuleType
 from typing import Any
 
 import pytest
+from ksdft2effmass.harness.pi.local._commands import (
+    validate_task_ownership as VALIDATOR,
+)
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 CONTROL_ROOT = REPOSITORY_ROOT / ".pi/task-ownership"
+VALIDATOR_PATH = REPOSITORY_ROOT / "python/src/cli/validate_task_ownership.py"
 FIXTURES = Path(__file__).parent / "fixtures"
-
-
-def _load_validator() -> ModuleType:
-    spec = importlib.util.spec_from_file_location(
-        "task_ownership_validator", CONTROL_ROOT / "validate_task_ownership.py"
-    )
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-VALIDATOR = _load_validator()
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -254,17 +243,17 @@ def test_authorization_record_must_be_the_durable_task_record(
         ),
         (
             '<!-- evidence-branch-authorization {"profile":"other-profile",'
-            '"decision_id":"TASK-AUTH-001","authorized":true} -->\n',
+            + '"decision_id":"TASK-AUTH-001","authorized":true} -->\n',
             "does not affirm the declared profile and decision",
         ),
         (
             '<!-- evidence-branch-authorization {"profile":"evidence-branches-v1",'
-            '"decision_id":"OTHER","authorized":true} -->\n',
+            + '"decision_id":"OTHER","authorized":true} -->\n',
             "does not affirm the declared profile and decision",
         ),
         (
             '<!-- evidence-branch-authorization {"profile":"evidence-branches-v1",'
-            '"decision_id":"TASK-AUTH-001","authorized":false} -->\n',
+            + '"decision_id":"TASK-AUTH-001","authorized":false} -->\n',
             "does not affirm the declared profile and decision",
         ),
     ],
@@ -505,7 +494,9 @@ def test_cli_chain_success_missing_task_and_malformed_input(tmp_path: Path) -> N
     )
     command = [
         sys.executable,
-        str(CONTROL_ROOT / "validate_task_ownership.py"),
+        str(VALIDATOR_PATH),
+        "--repository-root",
+        str(REPOSITORY_ROOT),
         "--chain",
         str(chain_path),
     ]
@@ -538,7 +529,9 @@ def test_cli_chain_success_missing_task_and_malformed_input(tmp_path: Path) -> N
     malformed = subprocess.run(
         [
             sys.executable,
-            str(CONTROL_ROOT / "validate_task_ownership.py"),
+            str(VALIDATOR_PATH),
+            "--repository-root",
+            str(REPOSITORY_ROOT),
             "--chain",
             str(malformed_path),
             "--task",

@@ -21,7 +21,6 @@ harness correctness, numerical verification, scientific validation, or UQ.
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import shutil
 import subprocess
@@ -30,6 +29,10 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+
+from ksdft2effmass.harness.pi.local._commands import (
+    validate_local_harness_resources as command_owner,
+)
 
 from .conftest import repository_root
 
@@ -55,8 +58,8 @@ def command(root: Path, script_root: Path | None = None) -> list[str]:
     return [
         sys.executable,
         str(
-            (script_root or root)
-            / "harness/local/validation/validate_local_harness_resources.py"
+            (script_root or repository_root())
+            / "python/src/cli/validate_local_harness_resources.py"
         ),
         "--repository-root",
         str(root),
@@ -227,18 +230,13 @@ def test_artifact__command__distinguishes_unexpected_internal_failure(
     Limitations: The synthetic exception does not claim a production resolver defect.
     """
     root = repository_root()
-    path = root / "harness/local/validation/validate_local_harness_resources.py"
-    spec = importlib.util.spec_from_file_location("local_harness_command", path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
 
     class ExplodingResolver:
         def execute(self, *_: Any) -> None:
             raise RuntimeError("controlled internal failure")
 
-    monkeypatch.setattr(module, "ResourceResolver", ExplodingResolver)
-    result = module.main(command(root)[2:])
+    monkeypatch.setattr(command_owner, "ResourceResolver", ExplodingResolver)
+    result = command_owner.run(command(root)[2:])
     payload = json.loads(capsys.readouterr().out)
     assert result == 3
     assert payload == {

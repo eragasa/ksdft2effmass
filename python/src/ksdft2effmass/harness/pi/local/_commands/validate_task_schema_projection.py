@@ -1,24 +1,23 @@
-#!/usr/bin/env python3
 """Validate the project-local one-Task JSON cutover and documentation projection."""
 
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
-import sys
+from collections.abc import Sequence
 from pathlib import Path
 from types import ModuleType
 from typing import Any
 
+from . import validate_documentation_projection
+
 
 def _generic(path: Path) -> ModuleType:
-    spec = importlib.util.spec_from_file_location("documentation_projection", path)
-    if spec is None or spec.loader is None:
-        raise ValueError("generic validator module cannot be loaded")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    if path.is_symlink() or not path.is_file():
+        raise ValueError("generic validator must name a regular nonsymlink file")
+    if path.name != "validate_documentation_projection.py":
+        raise ValueError("generic validator has the wrong maintained identity")
+    return validate_documentation_projection
 
 
 def _schema_codes(diagnostics: tuple[str, ...]) -> tuple[str, ...]:
@@ -104,7 +103,7 @@ def relation_codes(
     return ()
 
 
-def main(argv: list[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     for name in (
         "generic-validator",
@@ -206,7 +205,3 @@ def main(argv: list[str] | None = None) -> int:
     }
     print(json.dumps(result, separators=(",", ":"), sort_keys=True))
     return 0 if not diagnostics else 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())

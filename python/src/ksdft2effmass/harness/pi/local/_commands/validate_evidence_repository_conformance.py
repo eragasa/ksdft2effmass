@@ -1,4 +1,3 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Fail closed unless every maintained Python test module conforms.
 
 This local completion gate binds the generic structural validator to the explicit
@@ -9,20 +8,18 @@ acceptance.
 
 from __future__ import annotations
 
+import argparse
 import ast
 import hashlib
 import json
 import subprocess
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
-ROOT = Path(__file__).resolve().parents[3]
-INVENTORY = ROOT / ".pi/evidence/python-conformance/module-inventory.json"
-SCHEMA = ROOT / "harness/pi/schemas/evidence/module-inventory.schema.json"
-VALIDATOR = ROOT / "harness/pi/validation/validate_python_conformance.py"
 CLAIM_BOUNDARY = [
     "semantic cohesion",
     "oracle independence",
@@ -60,11 +57,11 @@ def maintained_modules(test_root: Path) -> list[Path]:
     return modules
 
 
-def collected_node_count() -> tuple[int | None, str]:
+def collected_node_count(repository_root: Path) -> tuple[int | None, str]:
     """Collect the maintained pytest tree and return its exact expanded node count."""
     completed = subprocess.run(
         [sys.executable, "-m", "pytest", "--collect-only", "-q"],
-        cwd=ROOT / "python",
+        cwd=repository_root / "python",
         check=False,
         capture_output=True,
         text=True,
@@ -77,14 +74,23 @@ def collected_node_count() -> tuple[int | None, str]:
     return len(lines), output[-4000:]
 
 
-def main() -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Validate inventory closure, identities, structural rules, and collection."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repository-root", required=True, type=Path)
+    args = parser.parse_args(argv)
+    root = args.repository_root.resolve(strict=True)
+    inventory_path = root / ".pi/evidence/python-conformance/module-inventory.json"
+    schema_path = root / "harness/pi/schemas/evidence/module-inventory.schema.json"
+    validator_path = root / "python/src/cli/validate_python_conformance.py"
     findings: list[dict[str, Any]] = []
     try:
-        schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
-        inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as error:
-        findings.append(issue("TE.REPOSITORY_INPUT", INVENTORY.as_posix(), str(error)))
+        findings.append(
+            issue("TE.REPOSITORY_INPUT", inventory_path.as_posix(), str(error))
+        )
         inventory = None
         schema = None
     if isinstance(schema, dict) and isinstance(inventory, dict):
@@ -92,12 +98,12 @@ def main() -> int:
             findings.append(
                 issue(
                     "TE.REPOSITORY_SCHEMA",
-                    INVENTORY.relative_to(ROOT).as_posix(),
+                    inventory_path.relative_to(root).as_posix(),
                     f"{list(schema_error.absolute_path)}: {schema_error.message}",
                 )
             )
-    modules = maintained_modules(ROOT / "python/tests")
-    relative_modules = [path.relative_to(ROOT).as_posix() for path in modules]
+    modules = maintained_modules(root / "python/tests")
+    relative_modules = [path.relative_to(root).as_posix() for path in modules]
     entries: list[dict[str, Any]] = []
     if isinstance(inventory, dict) and isinstance(inventory.get("modules"), list):
         entries = [entry for entry in inventory["modules"] if isinstance(entry, dict)]
@@ -108,7 +114,7 @@ def main() -> int:
             findings.append(
                 issue(
                     "TE.REPOSITORY_DUPLICATE_PATH",
-                    INVENTORY.as_posix(),
+                    inventory_path.as_posix(),
                     "inventory paths must be unique",
                 )
             )
@@ -118,7 +124,7 @@ def main() -> int:
             findings.append(
                 issue(
                     "TE.REPOSITORY_COVERAGE",
-                    INVENTORY.relative_to(ROOT).as_posix(),
+                    inventory_path.relative_to(root).as_posix(),
                     "inventory must exactly cover maintained modules; "
                     f"missing={missing}, stale={stale}",
                 )
@@ -127,7 +133,7 @@ def main() -> int:
             findings.append(
                 issue(
                     "TE.REPOSITORY_MODULE_COUNT",
-                    INVENTORY.relative_to(ROOT).as_posix(),
+                    inventory_path.relative_to(root).as_posix(),
                     f"expected {inventory.get('expected_module_count')} modules "
                     f"but discovered {len(relative_modules)}",
                 )
@@ -136,7 +142,7 @@ def main() -> int:
             raw_path = entry.get("path")
             if not isinstance(raw_path, str):
                 continue
-            path = ROOT / raw_path
+            path = root / raw_path
             if path.is_file():
                 digest = hashlib.sha256(path.read_bytes()).hexdigest()
                 if entry.get("content_sha256") != digest:
@@ -155,7 +161,7 @@ def main() -> int:
                         "module is not recorded as conforming",
                     )
                 )
-    collection_count, collection_output = collected_node_count()
+    collection_count, collection_output = collected_node_count(root)
     if collection_count is None:
         findings.append(
             issue(
@@ -170,7 +176,7 @@ def main() -> int:
         findings.append(
             issue(
                 "TE.REPOSITORY_COLLECTION_COUNT",
-                INVENTORY.relative_to(ROOT).as_posix(),
+                inventory_path.relative_to(root).as_posix(),
                 "expected "
                 f"{inventory.get('expected_collected_node_count')} collected nodes "
                 f"but collected {collection_count}",
@@ -181,14 +187,14 @@ def main() -> int:
         completed = subprocess.run(
             [
                 sys.executable,
-                str(VALIDATOR),
+                str(validator_path),
                 "--profile-matrix",
                 "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json",
                 "--migration-map",
                 ".pi/evidence/python-conformance/r2.3-private-owner-migration.json",
                 *relative_modules,
             ],
-            cwd=ROOT,
+            cwd=root,
             check=False,
             capture_output=True,
             text=True,
@@ -200,7 +206,7 @@ def main() -> int:
             findings.append(
                 issue(
                     "TE.REPOSITORY_STRUCTURAL",
-                    VALIDATOR.relative_to(ROOT).as_posix(),
+                    validator_path.relative_to(root).as_posix(),
                     completed.stdout[-4000:] or completed.stderr[-4000:],
                 )
             )
@@ -226,7 +232,3 @@ def main() -> int:
     }
     print(json.dumps(result, ensure_ascii=True, separators=(",", ":"), sort_keys=True))
     return 0 if not findings else 1
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

@@ -5,14 +5,17 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import sys
 from collections import Counter
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from .. import ProjectProfile, ProjectProfileLoader, ValidationIssue
-from ..evidence import IdentifierAuditor, IdentifierAuditResult
+from ksdft2effmass.harness.pi import (
+    ProjectProfile,
+    ProjectProfileLoader,
+    ValidationIssue,
+)
+from ksdft2effmass.harness.pi.evidence import IdentifierAuditor, IdentifierAuditResult
 
 
 def _explicit_file(root: Path, supplied: Path, label: str) -> Path:
@@ -96,7 +99,7 @@ def _command_object(
     }
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Audit only explicitly inventoried modules beneath an explicit root.
 
     Exit status ``0`` means structural PASS or WARN, ``1`` means audit FAIL,
@@ -139,19 +142,3 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     )
     return exit_status
-
-
-if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except Exception as exc:  # pragma: no cover - last-resort command boundary
-        print(
-            json.dumps(
-                {"error": str(exc), "schema_version": 1, "status": "ERROR"},
-                ensure_ascii=True,
-                separators=(",", ":"),
-                sort_keys=True,
-            ),
-            file=sys.stderr,
-        )
-        raise SystemExit(3) from exc

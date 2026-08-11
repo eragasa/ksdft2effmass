@@ -182,18 +182,27 @@ package exports 15 Actions.
 
 ### Maintained wrappers and validators
 
+All maintained commands are invoked as `python/.venv/bin/python python/src/cli/<command>.py ...`; `python/src/cli` is not an importable package and supplies no installed entry point.
+
 | Tool | Disposition |
 |---|---|
-| `python/.../local/inspect_task_state.py` | Keep as the thin `TaskStateInspector` CLI |
-| `python/.../local/refresh_resource_manifest.py` | Keep as the thin read-only `ResourceManifestRefresher` proposal CLI |
-| `python/.../local/identifier_audit.py` | Keep as the thin explicit-root and explicit-inventory `IdentifierAuditor` CLI |
-| `harness/pi/validation/validate_python_conformance.py` | Keep as the thin `PythonConformanceValidator` CLI |
-| `harness/local/validation/validate_evidence_repository_conformance.py` | Keep as the project-local inventory/collection completion gate; it is not a new generic Action |
-| `.pi/skills/validate_skill_capabilities.py` | Keep as the current fixed repository capability-inventory validator |
+| `python/src/cli/harness_control.py` | `sync` delegates complete publication to `HarnessControlMigrator`; `check` delegates to `HarnessControlVerifier` |
+| `python/src/cli/inspect_task_state.py` | Thin `TaskStateInspector` CLI |
+| `python/src/cli/refresh_resource_manifest.py` | Thin read-only `ResourceManifestRefresher` proposal CLI |
+| `python/src/cli/audit_evidence_identifiers.py` | Thin explicit-root and explicit-inventory `IdentifierAuditor` CLI |
+| `python/src/cli/validate_python_conformance.py` | Thin `PythonConformanceValidator` CLI |
+| `python/src/cli/validate_documentation_projection.py` | Explicit-input documentation-projection validator |
+| `python/src/cli/validate_architecture_decision_cases.py` | Deterministic architecture-decision skill cases |
+| `python/src/cli/validate_evidence_repository_conformance.py` | Project-local inventory/collection completion gate |
+| `python/src/cli/validate_local_harness_resources.py` | Explicit-root local resource-composition validator |
+| `python/src/cli/validate_task_schema_projection.py` | Explicit-input Task schema/projection validator |
+| `python/src/cli/validate_checkpoints.py` | Checkpoint schema and controlled dry-run validator |
+| `python/src/cli/validate_skill_capabilities.py` | Fixed repository skill-capability inventory validator |
+| `python/src/cli/validate_task_ownership.py` | Explicit chain/Task ownership preflight |
+| `.pi/evidence/**/*.py` | Retained historical or one-time reproduction commands; not live CLI implementations |
 | `.pi/skills/validate_harness.py` | Retired from current operation with the phase-era route; historical evidence references remain unchanged |
 | `harness/local/validation/replay_current_validators.py` | Retired from current operation rather than renamed into another replay system |
 | `harness/pi/validation/validate_h3_resources.py` | Retired after its current gates received explicit Action, focused-test, historical-only, or obsolete dispositions |
-| `harness/pi/validation/validate_architecture_decision_cases.py` | Keep as deterministic cases for the architecture-decision skill contract |
 | `.pi/skills/identifier_audit.py` | Retired in Slice 9 after controlled and maintained-inventory replacement gates passed; historical command records remain unchanged |
 
 ## Capability-to-owner matrix
@@ -231,7 +240,7 @@ secondary consumers do not share ownership.
 | Validation route selection and rollback facts | `ACTION_EXISTING` | `ValidationRouteSelector` / `LegacyRouteConfigurationPreparer` | Retained compatibility inputs; no current operational route |
 | Normalized parity comparison and aggregation | `ACTION_EXISTING` | `ShadowPairComparator` / `ShadowSuiteReplayer` | Retained compatibility and historical comparison |
 | Project-local validator composition | `ACTION_EXISTING` | `LocalRepositoryValidator` | Explicit current validation clients |
-| Fixed repository skill-capability inventory validation | `ACTION_EXISTING` | `.pi/skills/validate_skill_capabilities.py` | Root verification |
+| Fixed repository skill-capability inventory validation | `ACTION_EXISTING` | `python/src/cli/validate_skill_capabilities.py` | Root verification |
 | Current harness resource validation | `ACTION_EXISTING` | `LocalHarnessContextLoader`, `ResourceResolver`, and `validate_local_harness_resources.py` | Root verification |
 | Repository maintained-test conformance gate | `ACTION_EXISTING` | `validate_evidence_repository_conformance.py` | Authorized test-conformance tasks |
 | Writer/reviewer authority, independence, and handoff | `DURABLE_AGENT` | 10 durable agent records | Task assignments |

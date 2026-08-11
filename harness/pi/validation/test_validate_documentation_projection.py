@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-import importlib.util
 import json
 from pathlib import Path
 
 import pytest
+from ksdft2effmass.harness.pi.local._commands import (
+    validate_documentation_projection as MODULE,
+)
 
-MODULE_PATH = Path(__file__).with_name("validate_documentation_projection.py")
-SPEC = importlib.util.spec_from_file_location("documentation_projection", MODULE_PATH)
-assert SPEC is not None and SPEC.loader is not None
-MODULE = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(MODULE)
+ROOT = Path(__file__).resolve().parents[3]
 
 
 def test_render_uses_profile_order_links_and_final_lf() -> None:
@@ -46,9 +44,7 @@ def test_render_uses_profile_order_links_and_final_lf() -> None:
         "final_lf": True,
     }
     profile_schema = MODULE.load_json(
-        MODULE_PATH.parent.parent
-        / "schemas"
-        / "documentation-projection-profile.schema.json"
+        ROOT / "harness/pi/schemas/documentation-projection-profile.schema.json"
     )
     assert MODULE.schema_diagnostics(profile, profile_schema) == ()
     rendered = MODULE.render(context, profile)
@@ -124,7 +120,7 @@ def test_schema_diagnostics_and_drift_are_exact(
                 ),
             )
         )
-    assert MODULE.main(arguments) == 1
+    assert MODULE.run(arguments) == 1
     result = json.loads(capsys.readouterr().out)
     assert result["diagnostics"] == ["DRIFT:generated"]
 

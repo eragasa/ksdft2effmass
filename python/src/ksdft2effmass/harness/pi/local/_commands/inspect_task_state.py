@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from .. import (
+from ksdft2effmass.harness.pi import (
     TaskStateInspectionRequest,
     TaskStateInspectionResult,
     TaskStateInspector,
@@ -55,7 +54,7 @@ def result_object(result: TaskStateInspectionResult) -> dict[str, object]:
     }
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Parse explicit inputs, invoke the ActionObject, and render canonical JSON."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", required=True, type=Path)
@@ -89,19 +88,3 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     )
     return exit_status
-
-
-if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except Exception as exc:  # pragma: no cover - last-resort command boundary
-        print(
-            json.dumps(
-                {"error": str(exc), "schema_version": 1, "status": "ERROR"},
-                ensure_ascii=True,
-                separators=(",", ":"),
-                sort_keys=True,
-            ),
-            file=sys.stderr,
-        )
-        raise SystemExit(3) from exc

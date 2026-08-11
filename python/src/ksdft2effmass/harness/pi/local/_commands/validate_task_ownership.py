@@ -1,4 +1,3 @@
-#!/usr/bin/env -S python/.venv/bin/python
 """Fail closed when a chain task lacks explicit implementation/test ownership."""
 
 from __future__ import annotations
@@ -8,13 +7,14 @@ import json
 import posixpath
 import re
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
-ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CHAIN = ROOT / ".pi/chains/backend-neutral-kohn-sham-qe.chain.json"
+ROOT = Path(__file__).resolve().parents[7]
+DEFAULT_CHAIN = Path(".pi/chains/backend-neutral-kohn-sham-qe.chain.json")
 AGENT_NAME = re.compile(r"^name:\s*(\S+)\s*$", re.MULTILINE)
 ACCEPTANCE_ROLE = re.compile(r"^acceptanceRole:\s*(\S+)\s*$", re.MULTILINE)
 PYTHON_COMMAND = re.compile(r"^(?:python|python3|python3\.\d+)$")
@@ -44,22 +44,22 @@ def _schema_errors(
     schema = _load_json(schema_path)
     try:
         Draft202012Validator.check_schema(schema)
-    except Exception as error:
+    except Exception as schema_error:
         raise OwnershipValidationError(
-            f"{field} schema is invalid: {schema_path}: {error}"
-        ) from error
+            f"{field} schema is invalid: {schema_path}: {schema_error}"
+        ) from schema_error
     validator = Draft202012Validator(schema)
     errors: list[str] = []
-    for error in sorted(
+    for validation_error in sorted(
         validator.iter_errors(instance),
         key=lambda item: (list(item.absolute_path), item.message),
     ):
-        location = ".".join(str(part) for part in error.absolute_path)
-        if error.validator == "additionalProperties" and isinstance(
-            error.instance, dict
+        location = ".".join(str(part) for part in validation_error.absolute_path)
+        if validation_error.validator == "additionalProperties" and isinstance(
+            validation_error.instance, dict
         ):
-            declared = error.schema.get("properties", {})
-            extras = sorted(set(error.instance) - set(declared))
+            declared = validation_error.schema.get("properties", {})
+            extras = sorted(set(validation_error.instance) - set(declared))
             errors.extend(
                 f"{field}.{'.'.join(filter(None, (location, extra)))}: "
                 "additional property is not allowed"
@@ -67,7 +67,7 @@ def _schema_errors(
             )
             continue
         location = location or "<root>"
-        errors.append(f"{field}.{location}: {error.message}")
+        errors.append(f"{field}.{location}: {validation_error.message}")
     return errors
 
 
@@ -111,7 +111,13 @@ def _repo_path(
     return path
 
 
-def _validate_agent_v1(role: str, value: object, root: Path) -> tuple[str, set[str]]:
+def _validate_agent_v1(
+    role: str,
+    value: object,
+    root: Path,
+    *,
+    require_declared_paths: bool = True,
+) -> tuple[str, set[str]]:
     if not isinstance(value, dict):
         raise OwnershipValidationError(f"owners.{role} must be an object")
     agent = value.get("agent")
@@ -134,7 +140,7 @@ def _validate_agent_v1(role: str, value: object, root: Path) -> tuple[str, set[s
         for index, path in enumerate(paths_value)
     }
     undeclared_paths = [path for path in paths_value if path not in record_text]
-    if undeclared_paths:
+    if undeclared_paths and require_declared_paths:
         raise OwnershipValidationError(
             f"owners.{role} paths are absent from the agent record: {undeclared_paths}"
         )
@@ -155,23 +161,68 @@ def _paths_overlap(left: set[str], right: set[str]) -> bool:
 def _validate_v1(
     manifest: dict[str, Any], task: dict[str, Any], task_id: str, root: Path
 ) -> None:
+    """Validate version 1, including its bounded Task-JSON cutover rule.
+
+    An absent legacy ``.pi/tasks/*.md`` binding remains valid only when the chain
+    retains that exact binding or selects an existing ``harness/tasks/*.json`` record
+    with the same Task identity. In that legacy-only case, manifest-owned path scope
+    remains authoritative even when simplified current agent prose omits old paths.
+    """
     if manifest.get("schema_version") != 1 or manifest.get("task_id") != task_id:
         raise OwnershipValidationError(
             "ownership manifest version/task identity mismatch"
         )
-    task_record = _repo_path(manifest.get("task_record"), "manifest.task_record", root)
-    if task_record != _repo_path(task.get("record"), "task.record", root):
-        raise OwnershipValidationError("manifest task_record does not match the chain")
+    task_record = _repo_path(
+        manifest.get("task_record"),
+        "manifest.task_record",
+        root,
+        must_exist=False,
+    )
+    chain_task_record = _repo_path(
+        task.get("record"), "task.record", root, must_exist=False
+    )
+    legacy_relative = task_record.relative_to(root).as_posix()
+    legacy_compatibility = (
+        legacy_relative.startswith(".pi/tasks/")
+        and legacy_relative.endswith(".md")
+        and not task_record.exists()
+    )
+    if task_record != chain_task_record:
+        current_relative = chain_task_record.relative_to(root).as_posix()
+        current_task = (
+            _load_json(chain_task_record) if chain_task_record.is_file() else {}
+        )
+        compatible_cutover = (
+            legacy_compatibility
+            and current_relative.startswith("harness/tasks/")
+            and current_relative.endswith(".json")
+            and current_task.get("task_id") == task_id
+        )
+        if not compatible_cutover:
+            raise OwnershipValidationError(
+                "manifest task_record does not match the chain"
+            )
 
     owners = manifest.get("owners")
     if not isinstance(owners, dict):
         raise OwnershipValidationError("manifest.owners must be an object")
     implementation, implementation_paths = _validate_agent_v1(
-        "implementation", owners.get("implementation"), root
+        "implementation",
+        owners.get("implementation"),
+        root,
+        require_declared_paths=not legacy_compatibility,
     )
-    tests, test_paths = _validate_agent_v1("tests", owners.get("tests"), root)
+    tests, test_paths = _validate_agent_v1(
+        "tests",
+        owners.get("tests"),
+        root,
+        require_declared_paths=not legacy_compatibility,
+    )
     documentation, documentation_paths = _validate_agent_v1(
-        "documentation", owners.get("documentation"), root
+        "documentation",
+        owners.get("documentation"),
+        root,
+        require_declared_paths=not legacy_compatibility,
     )
     if len({implementation, tests, documentation}) != 3:
         raise OwnershipValidationError(
@@ -727,23 +778,21 @@ def validate(chain_path: Path, task_id: str, *, root: Path = ROOT) -> Path:
     return manifest_path
 
 
-def main() -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Run the command-line ownership preflight."""
     parser = argparse.ArgumentParser()
+    parser.add_argument("--repository-root", required=True, type=Path)
     parser.add_argument("--task", required=True)
     parser.add_argument("--chain", type=Path, default=DEFAULT_CHAIN)
-    arguments = parser.parse_args()
+    arguments = parser.parse_args(argv)
+    root = arguments.repository_root.resolve(strict=True)
     chain_path = (
-        arguments.chain if arguments.chain.is_absolute() else ROOT / arguments.chain
+        arguments.chain if arguments.chain.is_absolute() else root / arguments.chain
     )
     try:
-        manifest_path = validate(chain_path, arguments.task)
+        manifest_path = validate(chain_path, arguments.task, root=root)
     except OwnershipValidationError as error:
         print(f"task ownership preflight failed: {error}", file=sys.stderr)
         return 1
-    print(f"task ownership preflight passed: {manifest_path.relative_to(ROOT)}")
+    print(f"task ownership preflight passed: {manifest_path.relative_to(root)}")
     return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

@@ -9,7 +9,9 @@ declaration is a fail-closed launch prerequisite, not retrospective review
 evidence. The controlling record names an `ownership_manifest`. Run:
 
 ```bash
-python/.venv/bin/python .pi/task-ownership/validate_task_ownership.py --task <TASK_ID>
+python/.venv/bin/python python/src/cli/validate_task_ownership.py \
+  --repository-root <ABSOLUTE_REPOSITORY_ROOT> \
+  --task <TASK_ID>
 ```
 
 Run the command from the repository root. If the canonical interpreter is

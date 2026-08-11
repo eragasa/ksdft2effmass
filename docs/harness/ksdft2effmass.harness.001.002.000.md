@@ -51,7 +51,7 @@ software contract only; fixtures are not scientific results.
 
 ## Current resource validation
 
-`harness/local/validation/validate_local_harness_resources.py` accepts explicit
+`python/src/cli/validate_local_harness_resources.py` accepts explicit
 repository, generic-resource, local-resource, profile, and manifest paths. It
 uses maintained context-loading and resource-resolution Actions, emits a
 structured deterministic result, propagates nested failures, and distinguishes
