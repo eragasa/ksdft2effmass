@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 2995,
-  "expected_module_count": 256,
+  "expected_collected_node_count": 2998,
+  "expected_module_count": 257,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -202,6 +202,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_encoding_implementation.py",
       "artifact": "project-local dbcontrol control-encoding implementation artifact",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8e37ccae672743b54bc0228139be8245e958ed6760d9de7c791c12a084e4c941",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_generation_boundary.py",
+      "artifact": "private generation and public sole-publication agreement",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",

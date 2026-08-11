@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: serial R2.7 child; eligible only after generation-builder completion and explicit coordinator selection
+`active`: explicitly selected after generation-builder completion; automatic successor activation remains disabled
 
 ## Objective
 

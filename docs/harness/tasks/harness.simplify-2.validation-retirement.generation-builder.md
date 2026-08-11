@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: explicitly selected after inventory completion; automatic successor activation remains disabled
+`completed`: completed after private complete candidate generation, validation-before-publication, noncanonical compatibility, sole-publisher, focused tests, typing, lint, and control synchronization passed
 
 ## Objective
 

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2.validation-retirement.generation-builder",
   "title": "Extract the private control-generation builder",
-  "status": "active",
-  "status_detail": "explicitly selected after inventory completion; automatic successor activation remains disabled",
+  "status": "completed",
+  "status_detail": "completed after private complete candidate generation, validation-before-publication, noncanonical compatibility, sole-publisher, focused tests, typing, lint, and control synchronization passed",
   "parent_task_id": "harness.simplify-2.validation-retirement",
   "task_prerequisite_ids": [
     "harness.simplify-2.validation-retirement.inventory"
