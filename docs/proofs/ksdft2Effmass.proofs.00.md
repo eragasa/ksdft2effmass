@@ -165,65 +165,182 @@ Our main contributions are:
 - excluded-space correction estimates;
 - a framework for fitting continuum corrections with identifiability diagnostics.
 
-## 2. Mathematical setting
+## Bloch-fiber correspondence
 
-Let $s\in\{b,d\}$, where $b$ denotes the pristine bulk-Si reference and $d$ the doped system. For each wavevector $\mathbf k\in\mathcal K_L$, let \(\mathcal H_s^{\mathrm{num}}(\mathbf k)\cong \mathbb C^{D_s(\mathbf k)}\) be the ambient numerical Bloch-fiber space, and let
-
-$
-\hat P_s(\mathbf k):\mathcal H_s^{\mathrm{num}}(\mathbf k)\to \mathcal H_s^{\mathrm{num}}(\mathbf k)
-$
-
-be the orthogonal projector onto the retained subspace. Define
-
-\[
-\mathcal H_s^{(P)}(\mathbf k)=\operatorname{Ran}\hat P_s(\mathbf k),\qquad
-\mathcal H_s^{(P)}=\bigoplus_{\mathbf k\in\mathcal K_L}\mathcal H_s^{(P)}(\mathbf k).
-\]
-
-Assume the pristine and doped retained spaces have equal total dimension \(M_b=M_d=M\). This equality is necessary for a unitary identification between the two retained spaces.
-
-### Definition 1.
-The retained Hamiltonian is
+Under the direct-sum structure introduced in the mathematical setting, the global operators in Definitions 1 and 2 have equivalent fiberwise representations. Assuming that $\hat H_s$ and $\hat P_s$ preserve the Bloch-fiber decomposition associated with the common translation group,
 
 $$
-\hat H_s^{(P)}=\left.\hat P_s\hat H_s\hat P_s\right|_{\mathcal H_s^{(P)}}:\mathcal H_s^{(P)}\to \mathcal H_s^{(P)}.
+\hat H_s
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\hat H_s(\mathbf k),
+\qquad
+\hat P_s
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\hat P_s(\mathbf k).
 $$
 
-### Definition 2.
-A unitary identification map is a unitary operator
+The retained Hamiltonian therefore decomposes as
 
-\[
-\hat U_d:\mathcal H_b^{(P)}\to \mathcal H_d^{(P)}.
-\]
+$$
+\hat H_s^{(P)}
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\hat H_s^{(P)}(\mathbf k),
+$$
 
-The aligned impurity operator is then
+where
 
-\[
-\Delta \hat H_d^{(P)}=\hat U_d^\dagger \hat H_d^{(P)}\hat U_d-\hat H_b^{(P)}.
-\]
+$$
+\hat H_s^{(P)}(\mathbf k)
+=
+\left.
+\hat P_s(\mathbf k)
+\hat H_s(\mathbf k)
+\hat P_s(\mathbf k)
+\right|_{\mathcal H_s^{(P)}(\mathbf k)}.
+$$
+
+Thus, the global retained Hamiltonian $\hat H_s^{(P)}$ is uniquely determined by the family
+
+$$
+\left\{
+\hat H_s^{(P)}(\mathbf k)
+\right\}_{\mathbf k\in\mathcal K_L},
+$$
+
+and conversely this family defines the global operator through the direct sum. This correspondence is the Bloch-fiber form of the standard compression of a self-adjoint operator to a retained subspace [@kato1995; @reedsimon1980]. In Wannier-based model construction, the retained fiber operators are represented in a smooth Bloch gauge and subsequently transformed into a localized basis [@marzarivanderbilt1997; @souzamarzarivanderbilt2001; @mostofietal2008; @wannier90docs].
+
+If the identification map is required to preserve the Bloch-fiber decomposition, it has the form
+
+$$
+\hat U_d
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\hat U_d(\mathbf k),
+$$
+
+where
+
+$$
+\hat U_d(\mathbf k):
+\mathcal H_b^{(P)}(\mathbf k)
+\longrightarrow
+\mathcal H_d^{(P)}(\mathbf k)
+$$
+
+is unitary for every $\mathbf k$. Such a fiberwise unitary correspondence exists if and only if
+
+$$
+M_b(\mathbf k)=M_d(\mathbf k)
+\qquad
+\text{for every }\mathbf k\in\mathcal K_L.
+$$
+
+The fixed-rank fiber condition is also the structure used in disentanglement procedures to construct a smooth active subspace across the sampled Brillouin zone [@souzamarzarivanderbilt2001; @mostofietal2008; @wannier90docs]. For doped systems, band shifts and impurity-derived subbands can alter which states intersect a fixed energy window, so this rank correspondence must be enforced by the retained-subspace construction rather than assumed from the energy window alone [@mazzolaetal2020; @mahan1983].
+
+Under the fiberwise correspondence, the pullback of the doped retained Hamiltonian decomposes as
+
+$$
+\hat U_d^\dagger
+\hat H_d^{(P)}
+\hat U_d
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\hat U_d(\mathbf k)^\dagger
+\hat H_d^{(P)}(\mathbf k)
+\hat U_d(\mathbf k).
+$$
+
+It follows that the aligned impurity operator in Definition 2 is equivalent to the family of fiberwise differences
+
+$$
+\Delta\hat H_d^{(P)}
+=
+\bigoplus_{\mathbf k\in\mathcal K_L}
+\Delta\hat H_d^{(P)}(\mathbf k),
+$$
+
+with
+
+$$
+\Delta\hat H_d^{(P)}(\mathbf k)
+=
+\hat U_d(\mathbf k)^\dagger
+\hat H_d^{(P)}(\mathbf k)
+\hat U_d(\mathbf k)
+-
+\hat H_b^{(P)}(\mathbf k).
+$$
+
+The global and fiberwise formulations therefore describe the same aligned operator: the global formulation acts on the full retained space, while the fiberwise formulation resolves that action independently at each Bloch wavevector. Pulling both Hamiltonians into a common retained representation is the operator-level correspondence underlying downfolding and common-subspace comparisons [@georgesetal1996; @kunes2011].
+
 
 ## 3. Gauge covariance and TB anchoring
 
 Let $\mathbf{X}_{s}(\mathbf k)$ denote fixed TB reference orbitals with consistent orbital labeling. Define the projected reference orbitals
-
 $$
 \mathbf Y_s(\mathbf k)=\hat P_s(\mathbf k)\mathbf X_s(\mathbf k).
 $$
+Assume $\mathbf Y_s(\mathbf k)$ has full column rank, so that the Löwdin-orthonormalized frames
+$$
+\widetilde{\mathbf V}_s(\mathbf k) =\mathbf Y_s(\mathbf k)\left[\mathbf Y_s^\dagger(\mathbf k)\mathbf Y_s(\mathbf k)\right]^{-1/2}
+$$
+are well defined. This construction is the standard "projection + Löwdin orthonormalization" procedure used to generate an initial gauge for Wannier-function calculations: localized trial orbitals are projected onto the Bloch subspace at each $\mathbf k$, then orthonormalized to produce a smooth, gauge-fixed Bloch-like frame [^MarzariVanderbilt1997][^SouzaMarzariVanderbilt2001][^PizziEtAl2020].
 
-Assume \(\mathbf Y_s(\mathbf k)\) has full column rank, so that the Löwdin-orthonormalized frames
+Under a $\mathbf k$-dependent unitary gauge transformation of the underlying Bloch basis, $\mathbf X_s(\mathbf k)\mapsto \mathbf X_s(\mathbf k)\mathbf W_s(\mathbf k)$ with $\mathbf W_s(\mathbf k)$ unitary, the projected orbitals transform as
+$$
+\mathbf Y_s(\mathbf k)\mapsto \hat P_s(\mathbf k)\mathbf X_s(\mathbf k)\mathbf W_s(\mathbf k)=\mathbf Y_s(\mathbf k)\mathbf W_s(\mathbf k),
+$$
+and the overlap matrix transforms covariantly:
+$$
+\mathbf Y_s^\dagger(\mathbf k)\mathbf Y_s(\mathbf k)\mapsto \mathbf W_s^\dagger(\mathbf k)\left[\mathbf Y_s^\dagger(\mathbf k)\mathbf Y_s(\mathbf k)\right]\mathbf W_s(\mathbf k).
+$$
+Consequently,
+$$
+\left[\mathbf Y_s^\dagger(\mathbf k)\mathbf Y_s(\mathbf k)\right]^{-1/2}
+\mapsto
+\mathbf W_s^\dagger(\mathbf k)\left[\mathbf Y_s^\dagger(\mathbf k)\mathbf Y_s(\mathbf k)\right]^{-1/2}\mathbf W_s(\mathbf k),
+$$
+and the orthonormalized frame transforms as
+$$
+\widetilde{\mathbf V}_s(\mathbf k)\mapsto \widetilde{\mathbf V}_s(\mathbf k)\mathbf W_s(\mathbf k).
+$$
+Thus $\widetilde{\mathbf V}_s(\mathbf k)$ is gauge-covariant: it tracks the gauge of the reference orbitals while remaining orthonormal by construction. This property ensures that any Hamiltonian representation built in the $\widetilde{\mathbf V}_s(\mathbf k)$ basis inherits a well-defined gauge behavior, which is essential for comparing pristine and doped systems on an equal footing [^Kunes2011][^MostofiEtAl2008].
 
-\[
-\widetilde{\mathbf V}_s(\mathbf k)=\mathbf Y_s(\mathbf k)\left[\mathbf Y_s^\dagger(\mathbf k)\mathbf Y_s(\mathbf k)\right]^{-1/2}
-\]
+The frames $\widetilde{\mathbf V}_s(\mathbf k)$ provide a natural tight-binding anchoring: they define a common, orthonormal, gauge-covariant basis in which to express the retained Hamiltonians $\hat H_s^{(P)}(\mathbf k)$ and, subsequently, the aligned impurity operator $\Delta\hat H_d^{(P)}(\mathbf k)$. In practice, this is analogous to choosing a set of symmetry-adapted Wannier-like orbitals as the reference basis for downfolding, ensuring that the impurity perturbation is represented in a physically transparent, orbital-resolved form [^Kunes2011][^PizziEtAl2020].
 
-are well defined.
+## References
+
+[^MarzariVanderbilt1997]: N. Marzari and D. Vanderbilt, "Maximally localized generalized Wannier functions for composite energy bands," *Phys. Rev. B* **56**, 12847 (1997).
+
+[^SouzaMarzariVanderbilt2001]: I. Souza, N. Marzari, and D. Vanderbilt, "Maximally localized Wannier functions for entangled energy bands," *Phys. Rev. B* **65**, 035109 (2001).
+
+[^Kato1995]: T. Kato, *Perturbation Theory for Linear Operators*, Springer (1995).
+
+[^ReedSimon1980]: M. Reed and B. Simon, *Methods of Modern Mathematical Physics, Vol. I: Functional Analysis*, Academic Press (1980).
+
+[^Kunes2011]: A. Kuneš, "Wannier Functions and Construction of Model Hamiltonians," in *Correlated Electrons: From Models to Materials*, Forschungszentrum Jülich (2011).
+
+[^MostofiEtAl2008]: A. A. Mostofi *et al.*, "wannier90: A tool for obtaining maximally-localised Wannier functions," *Comput. Phys. Commun.* **178**, 685–699 (2008).
+
+[^GeorgesEtAl1996]: A. Georges, G. Kotliar, W. Krauth, and M. J. Rozenberg, "Dynamical mean-field theory of the Mott transition," *Rev. Mod. Phys.* **68**, 13 (1996).
+
+[^Wannier90Docs]: Wannier90 collaboration, "Wannier90 User Guide and Documentation," https://wannier.org (accessed 2026).
+
+[^MazzolaEtAl2020]: F. Mazzola *et al.*, "The sub-band structure of atomically sharp dopant profiles in silicon," *npj Quantum Mater.* **5**, 34 (2020).
+
+[^Mahan1983]: G. D. Mahan, "Band-gap narrowing in heavily doped silicon," *Phys. Rev. B* **28**, 2286 (1983).
+
+[^PizziEtAl2020]: G. Pizzi *et al.*, "Wannier90 as a community code: new features and applications," *J. Phys.: Condens. Matter* **32**, 165902 (2020).
 
 ### Theorem 1. Gauge covariance of impurity extraction.
 If the pristine and doped retained subspaces are transformed by a common unitary gauge \(\hat G\), then the aligned impurity operator transforms covariantly:
 
-\[
+$$
 \Delta\hat H_d^{(P)}\mapsto \hat G^\dagger \Delta\hat H_d^{(P)}\hat G.
-\]
+$$
 
 ### Corollary 1.
 Any unitarily invariant norm of \(\Delta\hat H_d^{(P)}\) is gauge invariant.
@@ -231,9 +348,9 @@ Any unitarily invariant norm of \(\Delta\hat H_d^{(P)}\) is gauge invariant.
 ### Proposition 1. TB-anchored identification.
 If \(\widetilde{\mathbf V}_b(\mathbf k)\) and \(\widetilde{\mathbf V}_d(\mathbf k)\) are orthonormal bases of equal dimension, then
 
-\[
+$$
 \hat U_d(\mathbf k)=\widetilde{\mathbf V}_d(\mathbf k)\widetilde{\mathbf V}_b^\dagger(\mathbf k)
-\]
+$$
 
 defines a unitary identification between the corresponding retained subspaces.
 
@@ -241,44 +358,35 @@ defines a unitary identification between the corresponding retained subspaces.
 
 Let \(\hat P_{>R}\) denote an exterior projector associated with radius \(R\). Define the atomistic-minus-continuum discrepancy
 
-\[
+$$
 \hat D_d=\Delta\hat H_d-\hat V_{\mathrm{cont},d}.
-\]
+$$
 
 The exterior tail error is
 
-\[
+$$
 \eta_d(R)=\left\|\hat P_{>R}\hat D_d\hat P_{>R}\right\|.
-\]
+$$
 
 ### Lemma 1. Monotonicity.
-If \(R_2\ge R_1\), then
-
-\[
-\eta_d(R_2)\le \eta_d(R_1).
-\]
+If $R_2\ge R_1$, then  $\eta_d(R_2)\le \eta_d(R_1).$
 
 ### Assumption 1. Asymptotic locality.
-\[
+$$
 \lim_{R\to\infty}\eta_d(R)=0.
-\]
+$$
 
 ### Theorem 2. Existence of crossover radius.
-For any tolerance \(\tau_H>0\), define
+For any tolerance $\tau_H>0$, define
 
-\[
+$$
 r_{c,d}(\tau_H)=\inf\{R:\eta_d(R)\le \tau_H\}.
-\]
-
-Under asymptotic locality, \(r_{c,d}(\tau_H)\) exists.
+$$
+Under asymptotic locality, $r_{c,d}(\tau_H)$ exists.
 
 ## 5. Error propagation to observables
 
-Write
-
-\[
-\hat H_{\mathrm{atom}}=\hat H_{\mathrm{red}}+\hat E.
-\]
+Write $\hat H_{\mathrm{atom}}=\hat H_{\mathrm{red}}+\hat E$.
 
 ### Theorem 3. Spectral stability.
 For self-adjoint operators,
@@ -310,19 +418,45 @@ For normalized nondegenerate states,
 
 ## 6. Excluded-space corrections
 
-Let \(\hat P+\hat Q=\hat I\). Then the exact Feshbach effective operator is
+## 4. Feshbach effective operator and relation to retained Hamiltonians
 
-\[
-\hat H_{\mathrm{eff}}(E)=\hat P\hat H\hat P+\hat P\hat H\hat Q(E-\hat Q\hat H\hat Q)^{-1}\hat Q\hat H\hat P.
-\]
+Let $\hat P+\hat Q=\hat I$ with $\hat P^2=\hat P$, $\hat Q^2=\hat Q$, and $\hat P\hat Q=\hat Q\hat P=0$. Then the exact Feshbach effective operator in the $\hat P$-space is
+$$
+\hat H_{\mathrm{eff}}(E)=\hat P\hat H\hat P+\hat P\hat H\hat Q\,(E-\hat Q\hat H\hat Q)^{-1}\,\hat Q\hat H\hat P.
+$$
+
+This expression is obtained by eliminating the $\hat Q$-component of the Schrödinger equation $(E-\hat H)|\Psi\rangle=0$ and yields an energy-dependent, non-Hermitian operator whose poles determine resonance positions and widths [^Feshbach1958][^Feshbach1962][^Rotter2009]. In the notation $\hat H_{PP}=\hat P\hat H\hat P$, $\hat H_{PQ}=\hat P\hat H\hat Q$, etc., one writes
+$$
+\hat H_{\mathrm{eff}}(E)=\hat H_{PP}+\hat H_{PQ}\,(E-\hat H_{QQ})^{-1}\,\hat H_{QP},
+$$
+which is the standard form used in nuclear, atomic, and mesoscopic physics to describe open quantum systems and resonance phenomena [^Rotter2009][^Mielnik2014][^HyodoNotes].
+
+The first term, $\hat P\hat H\hat P$, coincides with the retained (compressed) Hamiltonian introduced earlier when $\hat P$ is identified with the projector onto the retained subspace. The second term encodes the dynamical feedback from the eliminated $\hat Q$-space and is responsible for level shifts, widths, and non-Hermiticity [^Feshbach1958][^Rotter2009]. In the limit where the coupling $\hat P\hat H\hat Q$ is neglected or the energy denominator is approximated by a constant, $\hat H_{\mathrm{eff}}(E)$ reduces to an energy-independent effective Hamiltonian in the $\hat P$-space, which is often used as a starting point for downfolding and model-Hamiltonian constructions [^Kunes2011][^GeorgesEtAl1996].
+
+In the Bloch-fiber setting, one may define fiber-wise projectors $\hat P(\mathbf k)$ and $\hat Q(\mathbf k)=\hat I(\mathbf k)-\hat P(\mathbf k)$ and construct
+$$
+\hat H_{\mathrm{eff}}(\mathbf k;E)=\hat P(\mathbf k)\hat H(\mathbf k)\hat P(\mathbf k)
++\hat P(\mathbf k)\hat H(\mathbf k)\hat Q(\mathbf k)\,[E-\hat Q(\mathbf k)\hat H(\mathbf k)\hat Q(\mathbf k)]^{-1}\,\hat Q(\mathbf k)\hat H(\mathbf k)\hat P(\mathbf k),
+$$
+which provides an exact, energy-dependent effective band structure in the retained subspace. This formalism underlies rigorous treatments of impurity resonances, embedding methods, and self-energy corrections in periodic systems [^Feshbach1958][^Rotter2009][^Kunes2011].
+
+[^Feshbach1958]: H. Feshbach, "Unified theory of nuclear reactions," *Ann. Phys.* **5**, 357 (1958).
+
+[^Feshbach1962]: H. Feshbach, "Unified theory of nuclear reactions. II," *Ann. Phys.* **19**, 287 (1962).
+
+[^Rotter2009]: I. Rotter, "A non-Hermitian Hamilton operator and the physics of open quantum systems," *J. Phys. A: Math. Theor.* **42**, 153001 (2009).
+
+[^Mielnik2014]: M. Mielnik et al., "Computing resonance widths using square integrable basis," *Acta Phys. Pol. B* **45**, 113 (2014).
+
+[^HyodoNotes]: H. Hyodo, "Theory of Feshbach resonances," lecture notes, RCNP Osaka University (2020), https://www.rcnp.osaka-u.ac.jp/~hyodo/class/2020/Tokuron/Tokuron_Note_e3.pdf.
 
 ### Theorem 5. Excluded-space bound.
 If \(\Delta_Q=\operatorname{dist}(E,\sigma(\hat Q\hat H\hat Q))\), then
 
-\[
+$$
 \left\|\hat P\hat H\hat Q(E-\hat Q\hat H\hat Q)^{-1}\hat Q\hat H\hat P\right\|
 \le \frac{\|\hat P\hat H\hat Q\|^2}{\Delta_Q}.
-\]
+$$
 
 This gives a criterion for when single-band reduction is sufficient and when multivalley or valence-band mixing must be retained.
 
@@ -330,9 +464,9 @@ This gives a criterion for when single-band reduction is sufficient and when mul
 
 Assume \(a/L\ll 1\), where \(a\) is the lattice spacing and \(L\) the envelope scale. Near a band extremum \(\mathbf k_0\),
 
-\[
+$$
 E_n(\mathbf k_0+\mathbf q)=E_n(\mathbf k_0)+\frac{\hbar^2}{2}\mathbf q^{\mathsf T}\mathbf m_n^{*-1}\mathbf q+O(|\mathbf q|^3).
-\]
+$$
 
 ### Theorem 6. Effective-mass consistency.
 Replacing the atomistic host operator by the quadratic effective-mass operator incurs an error controlled by higher-order terms in \(a/L\), with the leading residual entering at the order dictated by the first neglected band-expansion term.
@@ -341,19 +475,18 @@ For silicon, the proof must retain multivalley conduction structure, valence-ban
 
 ## 8. Continuum fitting and identifiability
 
-Let \(\hat V_{\mathrm{cont}}(\boldsymbol\theta)\) be a parameterized continuum correction. Define
+Let $\hat V_{\mathrm{cont}}(\boldsymbol\theta)$ be a parameterized continuum correction. Define
 
-\[
+$$
 J_R(\boldsymbol\theta)=\left\|\hat P_{>R}\bigl[\Delta\hat H_d-\hat V_{\mathrm{cont}}(\boldsymbol\theta)\bigr]\hat P_{>R}\right\|.
-\]
+$$
 
 ### Theorem 7. Existence of best-fit continuum parameters.
-If \(\Theta\) is compact and \(J_R\) is continuous, then
+If $\Theta$ is compact and $J_R$ is continuous, then for $\boldsymbol{\theta}_R^* \in \Theta$,
 
-\[
+$$
 \boldsymbol\theta_R^*\in\arg\min_{\boldsymbol\theta\in\Theta}J_R(\boldsymbol\theta)
-\]
-
+$$
 exists.
 
 Uniqueness is a separate identifiability question and should be assessed with sensitivity analysis, covariance estimates, and profile likelihoods.
