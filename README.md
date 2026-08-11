@@ -79,6 +79,35 @@ versioned releases. Intermediate commits, development branches, automated
 builds, and continuous-integration artifacts are not designated as reviewed
 scientific outputs.
 
+### A note from the author
+
+I am primarily a systems designer and computational materials scientist—not a
+computer scientist, mathematician, or theoretical physicist, despite this
+repository's occasional attempts to impersonate all three. Some of the territory
+covered here is new to me, and the project is consequently broad, exploratory,
+and deliberately explicit about its assumptions and uncertainties.
+
+This is also my first sustained professional experience using an AI-agent
+harness adapted to scientific-computing workflows and scientific analytical
+requirements. AI is used not only to generate code or edit prose, but also to
+help externalize context, examine assumptions, organize proof obligations,
+coordinate verification, and maintain links between scientific claims and their
+computational evidence.
+
+In that sense, the repository contains two experiments. The first is the stated
+scientific program: reducing first-principles semiconductor Hamiltonians to
+controlled lattice and continuum models. The second is an experiment in whether
+an AI-assisted development harness can help one researcher work responsibly
+across unusually broad disciplinary boundaries without concealing uncertainty,
+discarding provenance, or confusing generated material with validated results.
+
+The experiment is ongoing. AI assistance does not make me an instant expert in
+the fields the project touches, and a large volume of structured output is not a
+substitute for understanding. Development material should therefore be read as
+provisional until its assumptions, derivations, implementation, and scientific
+claims have received the review and validation appropriate to a signed release
+or publication.
+
 This disclosure does not modify the warranty and liability terms of the
 [Apache License 2.0](LICENSE).
 
