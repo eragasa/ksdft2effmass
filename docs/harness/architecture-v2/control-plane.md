@@ -79,12 +79,34 @@ Passing one question does not answer another. A public action need not be
 available to a scientific operator. An available action may still reject a
 request. A valid transition does not prove operating-system confinement.
 
+## Execution-context contract
+
+Repository execution context would be validated around each operation rather
+than inserted into $K$ as one globally frozen session digest. A
+`RepositoryContextRequirement` would state only the preconditions needed by the
+requested Action. `ObserveRepositoryContext` would observe an explicit absolute
+root, and `ValidateRepositoryContext` would compare that observation with the
+requirement before repository-state conclusions or effects are produced.
+
+Postconditions are likewise operation-specific. Read-only inspection can require
+an unchanged exact revision; source modification can intentionally dirty a clean
+starting worktree; synchronization can intentionally replace projections; and
+scientific execution can bind executable and input identities. A scientific
+parser would not acquire a control-state dependency merely because the control
+plane can compute a digest.
+
+Maintained paths would be confined beneath the supplied root and Git operations
+would be root-qualified. Ambient `cwd` and invocation directory are not
+repository authority. The same validation must work without a receipt or
+telemetry store.
+
 ## Authority isolation
 
 - Evidence may support a claim but would not activate a Task.
-- Telemetry may observe a transition but would not authorize or validate it.
-- A receipt may document an attempted action but would not replace successor
-  state.
+- Telemetry may consume a transition outcome but would not authorize it,
+  validate its execution context, or replace deterministic preconditions.
+- A receipt may document an attempted action and retain existing findings but
+  would not replace successor state or define a competing defect hierarchy.
 - Generated state may be checked against authority but would not become source
   authority.
 - Git history may recover prior state but would not automatically resume it.
@@ -94,6 +116,9 @@ request. A valid transition does not prove operating-system confinement.
 ## Current active scientific work
 
 This proposal does not pause, modify, or absorb
-`bulk-silicon.records.periodic.extraction`. No Architecture v2 action may be
+`bulk-silicon.records.periodic.extraction`. Harness governance of a later
+scientific execution would not make periodic scientific records depend on
+repository-context observations or harness telemetry. This proposal has no
+dependency on the active QEXSD implementation. No Architecture v2 action may be
 executed merely because its name appears here, and no successor activation is
 proposed.

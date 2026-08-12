@@ -7,9 +7,69 @@ is created by this plan. Every slice would require separate authority, exact
 path ownership, proportional verification, and a stop decision before the next
 slice.
 
+## Repository-context and observation sequence
+
+The first new implementation work would be one bounded repository-context
+validation slice before any session-telemetry implementation slice. The seven
+lines below are an ordered planning sequence, not seven Tasks:
+
+```text
+1. inspect existing Pi session records
+2. implement explicit RepositoryContext observation
+3. implement operation-specific context validation
+4. integrate explicit-root validation at selected maintained boundaries
+5. observe real operation outcomes
+6. decide whether additional local persistence is justified
+7. add retrospective recurrence analysis only if useful
+```
+
+The initial Pi-record inspection is a retrospective inventory needed to avoid
+inventing duplicate events; it is not permission to add telemetry. The bounded
+repository-context slice comprises explicit observation, operation-specific
+validation, and selected maintained-boundary integration. It must establish
+correctness without a telemetry store before real outcomes are observed.
+Receipt persistence, if any, remains a later separate decision.
+
+## Current-to-target context dispositions
+
+| Current behavior | Target behavior | Status |
+|---|---|---|
+| Ambient working-directory dependence | Explicit repository-root ownership | Proposed |
+| Ad hoc Git-context checks | `ObserveRepositoryContext` | Proposed |
+| Prompt-only context assertions | `ValidateRepositoryContext` | Proposed |
+| Result logs without a common envelope | Optional `HarnessOperationReceipt` | Deferred |
+| Unexamined Pi session data | Retrospective inventory | Deferred |
+| No recurrence analysis | Evidence-driven later design | Deferred |
+
+No disposition introduces repository-context or telemetry fields into periodic
+scientific records, and none depends on the active QEXSD implementation.
+
 ## Proposed slices
 
-### 1. Immutable source and normalized-state boundaries
+### 1. Explicit repository-context validation
+
+- **Objective:** Make selected repository-sensitive Actions validate explicit
+  repository ownership before producing conclusions or effects.
+- **Current owner:** Ambient command context, prompts, and ad hoc Git checks.
+- **Target owner:** `RepositoryContext`, `RepositoryContextRequirement`,
+  `ObserveRepositoryContext`, and `ValidateRepositoryContext` returning
+  `LocalValidationResult` with existing structured findings.
+- **Retained public behavior:** Existing valid operations and finding vocabulary.
+- **Allowed changes:** Explicit-root observation, operation-specific
+  requirements, canonical path confinement, and selected maintained-boundary
+  integration.
+- **Prohibited expansion:** No receipt store, JSONL, SQLite, middleware, hooks,
+  scientific-record dependency, global context digest, or ambient repository
+  discovery.
+- **Verification:** Clean isolated-worktree acceptance, dirty-policy cases,
+  exact starting-revision cases, path escape rejection, and the required
+  `HARNESS.CONTEXT.WORKTREE_MISMATCH` case before repository conclusions.
+- **Rollback boundary:** Remove selected integrations while retaining current
+  operation routes; no telemetry migration is involved.
+- **Stopping condition:** Stop if safety depends on telemetry or one global
+  context shape must contain conditions irrelevant to an operation.
+
+### 2. Immutable source and normalized-state boundaries
 
 - **Objective:** Introduce explicit source artifacts, one closed source snapshot,
   and a minimal normalized state without changing outputs.
@@ -28,7 +88,7 @@ slice.
 - **Stopping condition:** Stop if one immutable snapshot cannot represent current
   source authority without importing generated projections.
 
-### 2. Compilation separate from projection
+### 3. Compilation separate from projection
 
 - **Objective:** Make normalized compilation independent of artifact formats.
 - **Current owner:** Private complete candidate generation builder.
@@ -42,7 +102,7 @@ slice.
 - **Stopping condition:** Stop on hidden repository reads or SQLite table rules
   required by compilation.
 
-### 3. SQLite candidate, publication, and verification lifecycle
+### 4. SQLite candidate, publication, and verification lifecycle
 
 - **Objective:** Enforce temporary mutable construction and immutable maintained
   projection.
@@ -59,7 +119,7 @@ slice.
 - **Stopping condition:** Stop if any maintained command needs write access to the
   tracked database.
 
-### 4. Domain validators separate from composition
+### 5. Domain validators separate from composition
 
 - **Objective:** Keep Task, graph, resource, evidence, checkpoint, capability,
   and artifact rules with their domains.
@@ -74,7 +134,7 @@ slice.
 - **Rollback boundary:** Retain current aggregate validator until parity passes.
 - **Stopping condition:** Stop if composition must duplicate domain rules.
 
-### 5. Projectors separate from synchronization
+### 6. Projectors separate from synchronization
 
 - **Objective:** Make every projection side-effect-free with respect to maintained
   paths and centralize publication.
@@ -91,7 +151,7 @@ slice.
 - **Rollback boundary:** One complete prior artifact set.
 - **Stopping condition:** Stop if a projector publishes or synchronizer recompiles.
 
-### 6. Reduce live control state
+### 7. Reduce live control state
 
 - **Objective:** Represent only $K=(P,T,G,Q,A,U,C)$ as live authority.
 - **Current owner:** Task/chain/checkpoint catalogs plus authoritative SQLite
@@ -110,7 +170,7 @@ slice.
 - **Stopping condition:** Stop on unresolved operational consumers or loss of an
   accepted prerequisite/decision.
 
-### 7. Typed semantic control transitions
+### 8. Typed semantic control transitions
 
 - **Objective:** Introduce deterministic $K'=F_a(K,q)$ actions.
 - **Current owner:** Manual record edits, prompts, validators, and current CLIs.
@@ -129,7 +189,7 @@ slice.
 - **Stopping condition:** Stop if action availability and transition authority
   cannot be separated.
 
-### 8. Restricted Pi action exposure
+### 9. Restricted Pi action exposure
 
 - **Objective:** Expose a fixed action catalog per operator profile.
 - **Current owner:** Prompts, agent tool lists, and unrestricted tool execution.
@@ -146,7 +206,7 @@ slice.
   altering core actions.
 - **Stopping condition:** Stop if allowlists are presented as a security boundary.
 
-### 9. One real scientific vertical slice
+### 10. One real scientific vertical slice
 
 - **Objective:** Exercise authorization → execution → provenance → inventory →
   extraction → human review through v2.
@@ -165,7 +225,7 @@ slice.
 - **Stopping condition:** Stop on any scientific-byte/meaning drift or greater
   ceremony without justified control benefit.
 
-### 10. Delete superseded v1 behavior after parity
+### 11. Delete superseded v1 behavior after parity
 
 - **Objective:** Remove only v1 behavior proven superseded and unused.
 - **Current owner:** v1 modules, facades, CLIs, projections, tests, and docs.

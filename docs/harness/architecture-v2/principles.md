@@ -57,6 +57,77 @@ registries, dependency-injection frameworks, abstract bases without multiple
 real implementations, compatibility layers for pre-alpha code, or public
 wrappers around helper logic.
 
+## Explicit repository ownership
+
+Repository-sensitive Actions would receive an explicit absolute repository root.
+Maintained paths would never be resolved from ambient `cwd`, and Git operations
+would use the supplied root, for example:
+
+```bash
+git -C <absolute-repository-root> ...
+```
+
+Canonical paths would be confined beneath that root. The invocation directory
+may be observed as diagnostic information, but it would not establish repository
+authority or select a worktree.
+
+## Context-specific preconditions
+
+Execution context would be an operation-specific precondition and postcondition
+contract, not one globally frozen session state. An Action would state only the
+conditions relevant to its actual inputs and effects:
+
+- read-only inspection may require an exact revision;
+- source modification validates its starting revision but intentionally changes
+  working-tree state;
+- control synchronization validates authoritative inputs and intentionally
+  changes projections;
+- scientific execution binds executable and input identities; and
+- a scientific parser would not depend on a control-state digest unless control
+  state is genuinely one of its inputs.
+
+Architecture v2 would not require every Action to carry an irrelevant global
+context digest. Dirty state may be diagnostic or an explicit operation
+constraint; it is not automatically a universal failure.
+
+## Correctness before telemetry
+
+Deterministic execution-context validation and session observation are distinct:
+
+```text
+deterministic execution-context validation
+≠
+session observation and telemetry
+```
+
+The intended sequence is:
+
+```text
+explicit request
+→ context validation
+→ confined Action execution
+→ ResultObject
+→ optional operation observation
+```
+
+Telemetry consumes outcomes. It does not authorize an operation, replace
+precondition validation, or make an otherwise unsafe repository-sensitive
+Action safe. Correctness therefore must not depend on telemetry, and such an
+Action must remain safe when no telemetry store exists.
+
+Existing structured findings and validation results remain the defect
+vocabulary. Architecture v2 would not introduce a competing
+`HarnessFailureObservation` finding hierarchy. A later receipt may retain
+existing findings without redefining them.
+
+## Architecture boundary
+
+The harness governs scientific execution, including applicable repository and
+protected-execution preconditions. Scientific records do not depend on harness
+telemetry. Repository-context and telemetry objects would not be introduced into
+periodic scientific records, and this proposal does not depend on the active
+QEXSD implementation.
+
 ## Scientific fast path as acceptance scenario
 
 The primary future architecture acceptance scenario would be the completed QE

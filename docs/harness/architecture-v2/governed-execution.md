@@ -9,13 +9,16 @@ action code, profiles, schemas, or process isolation.
 
 ```text
 restricted Pi operator
-→ typed request
+→ explicit typed request and repository root
+→ operation-specific context requirement
+→ repository-context observation
+→ context validation
 → action authorization
-→ deterministic ActionObject
-→ candidate transition
-→ successor-state validation
-→ synchronization
-→ non-authoritative receipt
+→ confined deterministic ActionObject
+→ ResultObject or candidate transition
+→ successor-state validation when applicable
+→ synchronization when applicable
+→ optional operation observation
 ```
 
 ```mermaid
@@ -23,20 +26,31 @@ sequenceDiagram
   participant O as Restricted Pi operator
   participant D as Action dispatcher
   participant Z as Authorizer
-  participant A as Deterministic action
+  participant C as Context observer and validator
+  participant A as Confined deterministic action
   participant V as State validator
   participant S as Synchronizer
-  O->>D: typed request q
+  participant T as Optional observer
+  O->>D: typed request q + explicit root
+  D->>C: requirement + explicit root
+  C-->>D: RepositoryContext + LocalValidationResult
   D->>Z: descriptor + profile + current K
   Z-->>D: authorized action a or rejection
-  D->>A: F_a(K,q)
-  A-->>D: candidate K'
-  D->>V: validate K'
+  D->>A: validated context + explicit inputs
+  A-->>D: ResultObject or candidate K'
+  D->>V: validate K' when applicable
   V-->>D: validation result
-  D->>S: validated candidate artifacts
+  D->>S: validated candidate artifacts when applicable
   S-->>D: synchronization result
-  D-->>O: non-authoritative receipt
+  D-->>T: optional outcome observation
+  D-->>O: operation result
 ```
+
+Context validation is a correctness boundary; optional observation is not. A
+repository-sensitive Action would remain safe if participant `T` and every
+telemetry store were absent. Maintained paths would be derived from and confined
+beneath the explicit root, never ambient `cwd`, with root-qualified Git commands
+such as `git -C <absolute-repository-root> ...`.
 
 The proposed transition is
 
@@ -57,10 +71,14 @@ The following names are planning candidates, not exact public or wire contracts:
 |---|---|
 | `HarnessActionDescriptor` | Stable action identity, input/result kinds, effect class, and required capabilities |
 | `HarnessActionCatalog` | Immutable available descriptors for one operator profile |
-| `HarnessActionContext` | Explicit current state, roots, and bounded effect dependencies |
+| `HarnessActionContext` | Explicit current state, repository root, and bounded effect dependencies |
+| `RepositoryContext` | Immutable observation of one explicitly supplied repository root |
+| `RepositoryContextRequirement` | Only the repository conditions required by one operation |
+| `ObserveRepositoryContext` | Read-only explicit-root observation; no ambient repository discovery |
+| `ValidateRepositoryContext` | Read-only requirement/context validation returning `LocalValidationResult` with existing structured findings |
 | `HarnessActionDispatcher` | Route a typed request only to a catalog action |
 | `HarnessActionAuthorizer` | Decide whether current authority and profile permit the request |
-| `HarnessActionReceipt` | Non-authoritative observation of request identity, result identity, and synchronization outcome |
+| `HarnessOperationReceipt` | Deferred optional observation joining an Action result with starting and ending contexts |
 
 The running operator would not register, replace, or enable actions dynamically.
 Project-specific catalogs could compose generic actions, but generic actions
@@ -98,11 +116,42 @@ A later implementation would need to distinguish:
 
 The proposal does not claim that deterministic actions make external execution
 deterministic. External execution would remain a separately authorized effect
-boundary producing correlated immutable result/failure records.
+boundary producing correlated immutable result/failure records. Harness
+governance would not make scientific records depend on harness telemetry.
+
+## Demonstrated worktree-mismatch acceptance case
+
+The first required behavioral example comes from the recent failure:
+
+```text
+expected context: clean isolated worktree
+actual commands: dirty primary checkout
+reported conclusion: false control-state contradiction
+```
+
+Before any repository-state conclusion is produced, the proposed guard must
+compare the expected canonical root or worktree-specific Git directory with the
+observed `RepositoryContext` and return an existing structured validation result
+containing a stable finding such as
+`HARNESS.CONTEXT.WORKTREE_MISMATCH`. The invocation directory may explain the
+mistake diagnostically but cannot authorize the actual repository. This is a
+required proposed behavior, not an implemented guard.
 
 ## Receipt boundary
 
-A receipt would be useful for traceability but would not:
+A later `HarnessOperationReceipt` could be formed from:
+
+```text
+Action ResultObject
++ starting RepositoryContext
++ ending RepositoryContext
+→ HarnessOperationReceipt
+```
+
+It may eventually contain an opaque operation ID, optional session correlation
+ID, Action identity, both contexts, outcome, existing structured findings,
+diagnostic monotonic duration, and implementation version. A receipt would be
+useful for traceability but would not:
 
 - authorize the action;
 - prove the action was correct;
@@ -111,4 +160,9 @@ A receipt would be useful for traceability but would not:
 - provide human acceptance; or
 - become fallback authority after synchronization failure.
 
-No receipt schema is frozen here.
+No receipt schema or persistence is frozen here. Session-event inventory,
+correlation, format, query projection, retention, privacy, recurrence analysis,
+and any failure-pattern catalog remain deferred until Pi's actual session
+records are inspected in a separately authorized slice. No closed taxonomy,
+occurrence counters, most-recent timestamps, automatic promotion, checkpoint or
+Task creation, or second authoritative database is proposed.

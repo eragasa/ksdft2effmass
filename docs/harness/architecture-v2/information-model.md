@@ -55,6 +55,48 @@ temporary workspace mechanics, and maintained publication to the synchronizer.
 The compiler and validators would not discover files. The comparator would never
 call the synchronizer.
 
+## Repository execution context
+
+The following proposed public concepts make repository ownership explicit. They
+are candidate contracts only and are not implemented.
+
+| Candidate concept | Meaningful proposed ownership |
+|---|---|
+| `RepositoryContext` | Immutable observation of repository execution context for one explicit root |
+| `RepositoryContextRequirement` | Immutable statement of only the context conditions required by one operation |
+| `ObserveRepositoryContext` | Read-only ActionObject that observes context from an explicit repository root |
+| `ValidateRepositoryContext` | Read-only ActionObject applying one requirement to one observed context and returning `LocalValidationResult` |
+
+Candidate `RepositoryContext` semantics include the canonical repository root,
+worktree-specific Git directory, Git common directory, HEAD revision, invocation
+directory as diagnostic information, and dirty state as diagnostic information
+or an explicitly requested constraint. The contract would not freeze a field
+until a demonstrated operation justifies it.
+
+Candidate `RepositoryContextRequirement` conditions include an expected
+canonical root, expected worktree Git directory, expected starting revision,
+permitted dirty-state policy, exact authoritative input identities, and an
+optional control digest only when control state is genuinely an input. It would
+not become a global session digest or collect conditions irrelevant to an
+operation.
+
+`ObserveRepositoryContext` would receive an explicit root, canonically resolve
+and confine repository paths beneath it, and use root-qualified Git operations.
+It would not discover a repository from ambient `cwd`; the invocation directory
+could be retained only as a diagnostic observation.
+
+`ValidateRepositoryContext` would implement:
+
+```text
+RepositoryContextRequirement
++ RepositoryContext
+→ LocalValidationResult
+```
+
+It would use existing structured findings, including the proposed stable finding
+`HARNESS.CONTEXT.WORKTREE_MISMATCH`. No new ResultObject is proposed because
+`LocalValidationResult` has not been shown to be insufficient.
+
 ## Proposed state relationships
 
 ```text
@@ -95,10 +137,41 @@ Planning intentionally does not freeze:
 - serialization or wire formats;
 - whether Task/evidence/resource catalogs share small private collection
   mechanics;
-- validation finding codes and severity vocabulary;
-- synchronization receipt shape;
+- validation finding codes and severity vocabulary beyond the demonstrated
+  `HARNESS.CONTEXT.WORKTREE_MISMATCH` proposal;
+- exact fields or serialization for repository-context concepts;
 - protocol use for validators or projectors; or
 - compatibility policy for any current pre-alpha public harness object.
 
 Those decisions require evidence from extraction or a separately activated
 implementation slice, not speculation in this planning Task.
+
+## Deferred operation observation
+
+A later, explicitly deferred concept may compose existing outcomes without
+participating in correctness:
+
+```text
+Action ResultObject
++ starting RepositoryContext
++ ending RepositoryContext
+→ HarnessOperationReceipt
+```
+
+A candidate receipt may eventually retain an opaque operation ID, optional
+session correlation ID, Action identity, starting and ending contexts, outcome,
+existing structured findings, diagnostic monotonic duration, and implementation
+version. It would not grant authority, replace validation, redefine findings, or
+be required for safe Action execution.
+
+Receipt and persistence design remains unresolved pending inspection of Pi's
+actual session records: which relevant events Pi already stores; whether extra
+harness events are needed; session and subagent correlation; JSONL versus one
+JSON file per operation; usefulness of a local SQLite query projection;
+retention and deletion policy; a privacy allowlist; recurrence queries; and
+whether any tracked failure-pattern catalog is justified.
+
+The proposal does not prematurely specify a closed failure taxonomy, tracked
+occurrence counts, tracked “most recent” timestamps, automatic failure
+promotion, automatic checkpoint or Task creation, or a second authoritative
+database.
