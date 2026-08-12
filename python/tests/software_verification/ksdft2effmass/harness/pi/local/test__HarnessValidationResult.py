@@ -37,7 +37,6 @@ _NAMES = (
     "checkpoints",
     "skills",
     "control_state",
-    "external_gates",
 )
 _BOUNDARIES = (
     "does not execute or establish pytest success",
@@ -57,8 +56,8 @@ def checks(*, warning: bool = False) -> tuple[HarnessValidationCheck, ...]:
 
     Requirement: Result tests require one complete stable check family.
 
-    Method: Construct all seven literal checks and optionally replace the external
-    gate with one warning.
+    Method: Construct all six literal checks and optionally replace the resource check
+    with one real-domain warning.
 
     Oracle: The fixed check-name tuple and literal warning define support state.
 
@@ -67,11 +66,11 @@ def checks(*, warning: bool = False) -> tuple[HarnessValidationCheck, ...]:
     Interpretation: Failure indicates fixture construction drift.
 
     Limitations: This helper establishes no independent result claim.
-    """  # noqa: E501
+    """
     values = [HarnessValidationCheck(name, "PASS", ()) for name in _NAMES]
     if warning:
-        values[-1] = HarnessValidationCheck(
-            "external_gates", "WARN", (("external.gate", None, "separate"),)
+        values[1] = HarnessValidationCheck(
+            "resources", "WARN", (("resource.warning", None, "real warning"),)
         )
     return tuple(values)
 
@@ -97,7 +96,7 @@ def test_constructor__complete_result__preserves_findings_boundaries_and_equalit
     result = SUT("WARN", checks(warning=True))
     assert result == SUT("WARN", checks(warning=True))
     assert tuple(check.name for check in result.checks) == _NAMES
-    assert result.checks[-1].findings == (("external.gate", None, "separate"),)
+    assert result.checks[1].findings == (("resource.warning", None, "real warning"),)
     assert result.claim_boundaries == _BOUNDARIES
 
 

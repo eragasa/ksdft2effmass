@@ -2,12 +2,23 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
 from .. import ResourceResolver, SkillResourceValidator
+from ..evidence.python_conformance import (
+    PythonConformanceRequest,
+    PythonConformanceValidator,
+    PythonModuleSource,
+)
+from ..evidence.python_conformance.corpus import (
+    _PythonTestModuleCorpusBuilder,
+    _PythonTestModuleInput,
+)
 from .checkpoint_validation import _CheckpointRepositoryValidator
 from .context import LocalHarnessContextLoader
+from .control.inputs import _HarnessControlInputResolver
 from .dbcontrol import HarnessControlVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
@@ -20,7 +31,6 @@ _HARNESS_CHECK_ORDER = (
     "checkpoints",
     "skills",
     "control_state",
-    "external_gates",
 )
 _HARNESS_CLAIM_BOUNDARIES = (
     "does not execute or establish pytest success",
@@ -139,6 +149,74 @@ class HarnessValidationResult:
             raise ValueError("claim boundaries must use the complete stable contract")
 
 
+class _PythonEvidenceRepositoryValidator:
+    """Invoke the Python evidence domain owner from canonical source inputs."""
+
+    __slots__ = ()
+
+    def execute(self, root: Path) -> HarnessValidationCheck:
+        """Return direct Python-conformance findings for one repository root."""
+        request = _HarnessControlInputResolver().execute(root).request
+        assert request.evidence_profile_matrix_path is not None
+        assert request.evidence_migration_path is not None
+        sources: list[PythonModuleSource] = []
+        inputs: list[_PythonTestModuleInput] = []
+        for relative in request.evidence_module_paths:
+            payload = (root / relative).read_bytes()
+            path = relative.as_posix()
+            sources.append(PythonModuleSource(path, payload))
+            inputs.append(_PythonTestModuleInput(path, payload))
+        corpus = _PythonTestModuleCorpusBuilder().execute(tuple(inputs))
+        models = corpus.models
+        ownership_entries: list[dict[str, object]] = []
+        for model in models:
+            entry: dict[str, object] = {
+                "path": model.path,
+                "mode": model.ownership_kind,
+                "evidence_class": model.evidence_class,
+                "evidence_profile": model.evidence_profile,
+            }
+            entry["sut" if model.ownership_kind == "class_owned" else "artifact"] = (
+                model.owner_subject
+            )
+            ownership_entries.append(entry)
+        if corpus.failures:
+            first = corpus.failures[0]
+            return HarnessValidationCheck(
+                "python_evidence",
+                "FAIL",
+                (("TE.PARSE", first.path, first.message),),
+            )
+        conformance = PythonConformanceValidator().execute(
+            PythonConformanceRequest(
+                tuple(sources),
+                "<source-embedded-module-declarations>",
+                json.dumps(
+                    {"schema_version": 1, "modules": ownership_entries},
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode(),
+                migration_path=request.evidence_migration_path.as_posix(),
+                migration_payload=(root / request.evidence_migration_path).read_bytes(),
+                profile_path=request.evidence_profile_matrix_path.as_posix(),
+                profile_payload=(
+                    root / request.evidence_profile_matrix_path
+                ).read_bytes(),
+                _parsed_models=models,
+            )
+        )
+        findings = tuple(
+            sorted(
+                (finding.code, finding.path, finding.message)
+                for finding in conformance.findings
+            )
+        )
+        return HarnessValidationCheck(
+            "python_evidence", "FAIL" if findings else "PASS", findings
+        )
+
+
 class HarnessValidator:
     """Compose existing domain owners into structural repository validation.
 
@@ -174,6 +252,7 @@ class HarnessValidator:
         if type(request) is not HarnessValidationRequest:
             raise TypeError("request must be HarnessValidationRequest")
         root = request.repository_root.resolve(strict=True)
+        evidence_check = _PythonEvidenceRepositoryValidator().execute(root)
         context, resource_check = self._resource_check(root)
         task_check = self._task_check(root)
         checkpoint_check = self._checkpoint_check(root)
@@ -216,36 +295,6 @@ class HarnessValidator:
             if control_failed
             else (),
         )
-        evidence_findings = tuple(
-            finding
-            for finding in control_findings
-            if finding[1] is None
-            or finding[1].startswith("python/tests")
-            or "python-conformance" in finding[1]
-        )
-        evidence_check = HarnessValidationCheck(
-            "python_evidence",
-            "FAIL" if evidence_findings else "PASS",
-            evidence_findings,
-        )
-        external_check = HarnessValidationCheck(
-            "external_gates",
-            "WARN",
-            (
-                (
-                    "external.development_tools",
-                    None,
-                    "pytest, Ruff, mypy, and Sphinx remain separately executed "
-                    "final gates",
-                ),
-                (
-                    "external.documentation_and_wire",
-                    None,
-                    "documentation projection and test-only wire checks remain "
-                    "external final gates",
-                ),
-            ),
-        )
         checks = (
             evidence_check,
             resource_check,
@@ -253,7 +302,6 @@ class HarnessValidator:
             checkpoint_check,
             skill_check,
             control_check,
-            external_check,
         )
         status = (
             "FAIL"

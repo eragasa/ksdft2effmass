@@ -144,9 +144,7 @@ class _ResourceWireSerializer:
             resources = cast(
                 tuple[ResourceReference, ...],
                 tuple(
-                    self.decode(
-                        "ResourceReference", self._values.record_object(value)
-                    )
+                    self.decode("ResourceReference", self._values.record_object(value))
                     for value in self._values.array(obj["resources"], "resources")
                 ),
             )

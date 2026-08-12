@@ -58,9 +58,7 @@ class _ReviewOwnershipWireSerializer:
         )
 
         if kind_name == "OwnershipScope":
-            self._values.require_fields(
-                obj, ("schema_version", "path", "scope_kind")
-            )
+            self._values.require_fields(obj, ("schema_version", "path", "scope_kind"))
             return OwnershipScope(obj["schema_version"], obj["path"], obj["scope_kind"])
         if kind_name == "AgentDescriptorView":
             self._values.require_fields(
@@ -89,9 +87,7 @@ class _ReviewOwnershipWireSerializer:
                 scopes = cast(
                     tuple[OwnershipScope, ...],
                     tuple(
-                        self.decode(
-                            "OwnershipScope", self._values.record_object(value)
-                        )
+                        self.decode("OwnershipScope", self._values.record_object(value))
                         for value in self._values.array(writer[2], "owned_scopes")
                     ),
                 )

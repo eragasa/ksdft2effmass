@@ -224,9 +224,13 @@ schema, and normalized table content, and compares canonical SQL, the projection
 manifest, and owned projections exactly. Raw SQLite hashes are diagnostic only.
 Neither verification nor ``HarnessValidator`` publishes or executes another CLI.
 
-``HarnessValidator`` returns seven stably ordered structural checks with structured
-findings and explicit claim boundaries. It contains no duration or telemetry data and
-does not execute pytest, Ruff, mypy, or Sphinx. The maintained renderer is
+``HarnessValidator`` returns six stably ordered real structural checks:
+``python_evidence``, ``resources``, ``task_graph``, ``checkpoints``, ``skills``, and
+``control_state``. It invokes ``PythonConformanceValidator`` directly over canonical
+source evidence and keeps that result independent of ``HarnessControlVerifier``
+control drift. Structured findings and explicit claim boundaries are retained. The
+result contains no duration or telemetry data and does not execute pytest, Ruff,
+mypy, or Sphinx. The maintained renderer is
 ``python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_REPOSITORY_ROOT>``.
 Exit statuses are zero for PASS or WARN, one for expected FAIL, two for invalid request
 construction, and three for an unexpected command-boundary exception.

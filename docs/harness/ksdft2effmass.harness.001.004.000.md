@@ -25,7 +25,9 @@ The former identifier-audit API and repository-wide CLI are retired.
 
 ## Local composition
 
-`HarnessValidator` is the maintained project-local repository composition Action. It
+`HarnessValidator` is the maintained project-local repository composition Action. Its
+six real checks keep direct Python-conformance evidence separate from source-aware
+control-state verification. It
 invokes existing domain owners directly, preserves stable check and finding ordering,
 and states external development-tool and claim boundaries. Historical replay records
 remain retained, but no live replay, shadow, or routing API executes them.

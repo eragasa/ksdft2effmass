@@ -71,11 +71,15 @@ files.
 Repository validation
 ---------------------
 
-``HarnessValidator.execute`` composes existing structural domain owners and the
-source-aware verifier into seven stably ordered ``HarnessValidationCheck`` records.
-The result has no elapsed-duration or telemetry field. The Action invokes no
-CLI, parses no CLI output, and executes none of pytest, Ruff, mypy, or Sphinx.
-Those tools remain separate final gates.
+``HarnessValidator.execute`` composes existing structural domain owners into six
+stably ordered real ``HarnessValidationCheck`` records: ``python_evidence``,
+``resources``, ``task_graph``, ``checkpoints``, ``skills``, and ``control_state``.
+Canonical Python evidence inputs flow directly through
+``PythonConformanceValidator`` to ``python_evidence``; canonical repository control
+inputs separately flow through ``HarnessControlVerifier`` to ``control_state``.
+The result has no elapsed-duration or telemetry field. The Action invokes no CLI,
+parses no CLI output, and executes none of pytest, Ruff, mypy, or Sphinx. Those
+limitations remain explicit claim boundaries rather than placeholder checks.
 
 The maintained renderer is:
 

@@ -30,6 +30,7 @@ from typing import cast
 
 import pytest
 
+from ksdft2effmass.harness.pi.evidence import PythonConformanceValidator
 from ksdft2effmass.harness.pi.local import (
     HarnessTaskDeserializer,
     HarnessTaskGraphValidator,
@@ -40,6 +41,11 @@ from ksdft2effmass.harness.pi.local import (
     HarnessValidator,
 )
 from ksdft2effmass.harness.pi.local._commands import validate_harness
+from ksdft2effmass.harness.pi.local.dbcontrol import (
+    HarnessControlVerificationFinding,
+    HarnessControlVerificationResult,
+    HarnessControlVerifier,
+)
 
 from .task_model_examples import make_task
 
@@ -52,22 +58,19 @@ _PASS_CHECKS = (
     HarnessValidationCheck("checkpoints", "PASS", ()),
     HarnessValidationCheck("skills", "PASS", ()),
     HarnessValidationCheck("control_state", "PASS", ()),
-    HarnessValidationCheck("external_gates", "PASS", ()),
 )
 _WARN_CHECKS = (
-    *_PASS_CHECKS[:-1],
+    _PASS_CHECKS[0],
     HarnessValidationCheck(
-        "external_gates",
-        "WARN",
-        (("external.development_tools", None, "separate final gates"),),
+        "resources", "WARN", (("resource.warning", None, "real warning"),)
     ),
+    *_PASS_CHECKS[2:],
 )
 _FAIL_CHECKS = (
     *_PASS_CHECKS[:5],
     HarnessValidationCheck(
         "control_state", "FAIL", (("control.changed", None, "drift"),)
     ),
-    _PASS_CHECKS[6],
 )
 _COMMAND_CASES = (
     pytest.param(HarnessValidationResult("PASS", _PASS_CHECKS), 0, id="pass_exit_zero"),
@@ -94,20 +97,19 @@ _PASS_PAYLOAD: dict[str, object] = {
         {"name": "checkpoints", "status": "PASS", "findings": []},
         {"name": "skills", "status": "PASS", "findings": []},
         {"name": "control_state", "status": "PASS", "findings": []},
-        {"name": "external_gates", "status": "PASS", "findings": []},
     ],
     "claim_boundaries": _BOUNDARIES,
 }
 _WARN_PAYLOAD = deepcopy(_PASS_PAYLOAD)
 _WARN_PAYLOAD["status"] = "WARN"
-cast(list[dict[str, object]], _WARN_PAYLOAD["checks"])[-1] = {
-    "name": "external_gates",
+cast(list[dict[str, object]], _WARN_PAYLOAD["checks"])[1] = {
+    "name": "resources",
     "status": "WARN",
-    "findings": [["external.development_tools", None, "separate final gates"]],
+    "findings": [["resource.warning", None, "real warning"]],
 }
 _FAIL_PAYLOAD = deepcopy(_PASS_PAYLOAD)
 _FAIL_PAYLOAD["status"] = "FAIL"
-cast(list[dict[str, object]], _FAIL_PAYLOAD["checks"])[-2] = {
+cast(list[dict[str, object]], _FAIL_PAYLOAD["checks"])[-1] = {
     "name": "control_state",
     "status": "FAIL",
     "findings": [["control.changed", None, "drift"]],
@@ -132,9 +134,9 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
     maintained repository root after synchronized control state.
 
     Oracle: The accepted R2.7 check order and claim-boundary contract are fixed literals;
-    current ownership and external final gates are expected warnings.
+    the synchronized maintained repository is expected to conform.
 
-    Acceptance: Status is WARN, check names are exact, no check or result contains a
+    Acceptance: Status is PASS, check names are exact, no check or result contains a
     duration field, claim boundaries are complete, and no subprocess is invoked.
 
     Interpretation: Failure identifies nested tool execution, unstable composition, or
@@ -152,7 +154,7 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
 
     monkeypatch.setattr(subprocess, "run", reject_subprocess)
     result = HarnessValidator().execute(HarnessValidationRequest(repository))
-    assert result.status == "WARN"
+    assert result.status == "PASS"
     assert tuple(map(attrgetter("name"), result.checks)) == (
         "python_evidence",
         "resources",
@@ -160,7 +162,6 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
         "checkpoints",
         "skills",
         "control_state",
-        "external_gates",
     )
     assert tuple(
         (check.name, check.status, check.findings) for check in result.checks
@@ -171,24 +172,6 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
         ("checkpoints", "PASS", ()),
         ("skills", "PASS", ()),
         ("control_state", "PASS", ()),
-        (
-            "external_gates",
-            "WARN",
-            (
-                (
-                    "external.development_tools",
-                    None,
-                    "pytest, Ruff, mypy, and Sphinx remain separately executed "
-                    "final gates",
-                ),
-                (
-                    "external.documentation_and_wire",
-                    None,
-                    "documentation projection and test-only wire checks remain "
-                    "external final gates",
-                ),
-            ),
-        ),
     )
     assert result.claim_boundaries == (
         "does not execute or establish pytest success",
@@ -385,5 +368,125 @@ def test_artifact__task_check__unsupported_version_reports_invalid_record(
             "task.invalid_record",
             "harness/tasks/example.task.json",
             "schema_version must equal integer 3",
+        ),
+    )
+
+
+def test_artifact__python_evidence__direct_owner_preserves_controlled_finding(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Evidence ID: SV-HRV-PE-001
+
+    Requirement: Python evidence is obtained directly from PythonConformanceValidator
+    and preserves its exact code, path, and message.
+
+    Method: Copy the maintained repository, introduce one invalid evidence name, wrap
+    the Python owner to capture its result, and make the control verifier conform.
+
+    Oracle: The captured Python-conformance finding is independent of control state.
+
+    Acceptance: The evidence check and aggregate fail with the exact captured triple.
+
+    Interpretation: Failure identifies indirect evidence ownership or lossy mapping.
+
+    Limitations: The mutation is synthetic software-verification data.
+    """
+    repository = Path(__file__).resolve().parents[7]
+    import shutil
+
+    root = tmp_path / "repository"
+    shutil.copytree(repository, root)
+    module = (
+        root
+        / "python/tests/software_verification/ksdft2effmass/harness/pi/local"
+        / "test__HarnessValidationRequest.py"
+    )
+    module.write_text(module.read_text().replace("test_constructor__", "test_bad__", 1))
+    captured: list[tuple[tuple[str, str, str], ...]] = []
+    execute = PythonConformanceValidator.execute
+
+    def observe(self: object, request: object) -> object:
+        result = execute(self, request)  # type: ignore[arg-type]
+        captured.append(
+            tuple((item.code, item.path, item.message) for item in result.findings)
+        )
+        return result
+
+    monkeypatch.setattr(PythonConformanceValidator, "execute", observe)
+    monkeypatch.setattr(
+        HarnessControlVerifier,
+        "execute",
+        lambda self, repository_root: HarnessControlVerificationResult(
+            "ok", 0, "digest", "digest", "raw", "candidate", True
+        ),
+    )
+    result = HarnessValidator().execute(HarnessValidationRequest(root.resolve()))
+    assert captured and captured[0]
+    assert result.status == "FAIL"
+    expected = tuple(sorted(captured[0]))
+    assert result.checks[0] == HarnessValidationCheck(
+        "python_evidence", "FAIL", expected
+    )
+    assert validate_harness.run(["--repository-root", str(root.resolve())]) == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "FAIL"
+    assert payload["checks"][0] == {
+        "name": "python_evidence",
+        "status": "FAIL",
+        "findings": [list(finding) for finding in expected],
+    }
+
+
+def test_artifact__control_state__does_not_contaminate_python_evidence(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: SV-HRV-CS-001
+
+    Requirement: Control-only disagreement, including a finding without a path, does
+    not become Python evidence.
+
+    Method: Verify the maintained conforming evidence corpus while replacing only the
+    control verifier result with one pathless source-input failure.
+
+    Oracle: PythonConformanceValidator owns evidence; HarnessControlVerifier owns drift.
+
+    Acceptance: Evidence passes, control fails with its exact finding, aggregate fails.
+
+    Interpretation: Failure identifies path-based cross-domain inference.
+
+    Limitations: The injected control result represents no maintained drift claim.
+    """
+    repository = Path(__file__).resolve().parents[7]
+    finding = HarnessControlVerificationFinding(
+        "source_input_failure", None, "controlled control-only disagreement"
+    )
+    monkeypatch.setattr(
+        HarnessControlVerifier,
+        "execute",
+        lambda self, repository_root: HarnessControlVerificationResult(
+            "not_checked",
+            0,
+            "",
+            "",
+            "raw",
+            "",
+            False,
+            False,
+            False,
+            False,
+            (finding,),
+        ),
+    )
+    result = HarnessValidator().execute(HarnessValidationRequest(repository))
+    assert result.status == "FAIL"
+    assert result.checks[0] == HarnessValidationCheck("python_evidence", "PASS", ())
+    assert result.checks[-1].status == "FAIL"
+    assert result.checks[-1].findings == (
+        (
+            "control.source_input_failure",
+            None,
+            "controlled control-only disagreement",
         ),
     )
