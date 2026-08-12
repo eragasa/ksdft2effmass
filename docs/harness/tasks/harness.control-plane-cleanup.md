@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Explicitly activated at a clean durable Git boundary after separate human acceptance and closure of harness.simplify-2. Automatic successor activation remains disabled, no other successor is active, and Slice A has not begun.
+`active`: Slice A completed observationally with exact tracked-path coverage, an evidence-backed directed reachability graph, explicit operational roots, fail-closed unresolved clusters, and no deletion or runtime redesign. The Task remains active at the Slice B pending boundary; Slice B has not begun, automatic successor activation remains disabled, and no other successor is active.
 
 ## Objective
 
