@@ -7,28 +7,30 @@ is created by this plan. Every slice would require separate authority, exact
 path ownership, proportional verification, and a stop decision before the next
 slice.
 
-## Repository-context and observation sequence
+## Governed-operation lifecycle sequence
 
-The first new implementation work would be one bounded repository-context
-validation slice before any session-telemetry implementation slice. The seven
-lines below are an ordered planning sequence, not seven Tasks:
+The first bounded slice would formalize the proposed
+[operation lifecycle](operation-lifecycle.md) and incorporate explicit
+repository-context validation into operation-specific preflight before any
+telemetry implementation. The eight lines below are an ordered planning
+sequence, not eight Tasks:
 
 ```text
-1. inspect existing Pi session records
-2. implement explicit RepositoryContext observation
-3. implement operation-specific context validation
-4. integrate explicit-root validation at selected maintained boundaries
-5. observe real operation outcomes
-6. decide whether additional local persistence is justified
-7. add retrospective recurrence analysis only if useful
+1. freeze operation-state semantics
+2. reuse or define minimum request/result boundaries
+3. implement repository-context preflight
+4. implement policy-selected lifecycle transitions
+5. add receipts for actual governed operations
+6. integrate optional read-only review
+7. inspect Pi session events
+8. design telemetry only from observed needs
 ```
 
-The initial Pi-record inspection is a retrospective inventory needed to avoid
-inventing duplicate events; it is not permission to add telemetry. The bounded
-repository-context slice comprises explicit observation, operation-specific
-validation, and selected maintained-boundary integration. It must establish
-correctness without a telemetry store before real outcomes are observed.
-Receipt persistence, if any, remains a later separate decision.
+Correctness must be established without a telemetry store. Pi-event inspection
+is deferred until governed operations produce demonstrated observation needs;
+it is not permission to add telemetry. Receipt persistence, event formats,
+querying, retention, privacy, correlation, recurrence analysis, and failure
+catalogs remain later separate decisions.
 
 ## Current-to-target context dispositions
 
@@ -46,28 +48,36 @@ scientific records, and none depends on the active QEXSD implementation.
 
 ## Proposed slices
 
-### 1. Explicit repository-context validation
+### 1. Governed-operation lifecycle and repository-context preflight
 
-- **Objective:** Make selected repository-sensitive Actions validate explicit
-  repository ownership before producing conclusions or effects.
-- **Current owner:** Ambient command context, prompts, and ad hoc Git checks.
-- **Target owner:** `RepositoryContext`, `RepositoryContextRequirement`,
-  `ObserveRepositoryContext`, and `ValidateRepositoryContext` returning
-  `LocalValidationResult` with existing structured findings.
-- **Retained public behavior:** Existing valid operations and finding vocabulary.
-- **Allowed changes:** Explicit-root observation, operation-specific
-  requirements, canonical path confinement, and selected maintained-boundary
-  integration.
-- **Prohibited expansion:** No receipt store, JSONL, SQLite, middleware, hooks,
-  scientific-record dependency, global context digest, or ambient repository
-  discovery.
-- **Verification:** Clean isolated-worktree acceptance, dirty-policy cases,
-  exact starting-revision cases, path escape rejection, and the required
-  `HARNESS.CONTEXT.WORKTREE_MISMATCH` case before repository conclusions.
+- **Objective:** Establish distinct preflight, implementation, verification,
+  conditional read-only review, and conditional human-acceptance semantics, then
+  make selected repository-sensitive operations validate explicit repository
+  ownership during applicable preflight.
+- **Current owner:** Ambient command context, prompts, ad hoc Git checks, and
+  operation-specific procedural routing.
+- **Target owner:** Minimum operation request/result boundaries, policy-selected
+  lifecycle transitions, `RepositoryContext`, `RepositoryContextRequirement`,
+  `ObserveRepositoryContext`, and `ValidateRepositoryContext` using existing
+  structured findings and ResultObjects where sufficient.
+- **Retained public behavior:** Existing valid operations, authority boundaries,
+  finding vocabulary, conditional review, and human decision ownership.
+- **Allowed changes:** Freeze operation-state semantics; reuse or define minimum
+  request/result boundaries; add explicit-root, operation-specific preflight;
+  implement policy-selected transitions; add receipts only for actual governed
+  operations; and integrate optional read-only review.
+- **Prohibited expansion:** No class per lifecycle state, universal replay of all
+  validators, telemetry store, JSONL, SQLite observation projection, middleware,
+  hooks, scientific-record dependency, global context digest, ambient repository
+  discovery, or automatic Task/checkpoint creation.
+- **Verification:** Route accounting; clean isolated-worktree acceptance;
+  dirty-policy, exact starting-revision, delegation-policy, and path-escape cases;
+  and `HARNESS.CONTEXT.WORKTREE_MISMATCH` before repository conclusions.
 - **Rollback boundary:** Remove selected integrations while retaining current
   operation routes; no telemetry migration is involved.
-- **Stopping condition:** Stop if safety depends on telemetry or one global
-  context shape must contain conditions irrelevant to an operation.
+- **Stopping condition:** Stop if stages are forced into Tasks or classes, safety
+  depends on telemetry, or one global context shape must contain conditions
+  irrelevant to an operation.
 
 ### 2. Immutable source and normalized-state boundaries
 

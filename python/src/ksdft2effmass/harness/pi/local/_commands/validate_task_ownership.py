@@ -745,8 +745,8 @@ def _validate_v2(
     )
 
 
-def validate(chain_path: Path, task_id: str, *, root: Path = ROOT) -> Path:
-    """Validate one task and return its ownership-manifest path."""
+def validate(chain_path: Path, task_id: str, *, root: Path = ROOT) -> Path | None:
+    """Validate one task's applicable delegated-ownership preflight."""
     root = root.resolve()
     chain = _load_json(chain_path)
     tasks = chain.get("task_sequence")
@@ -758,8 +758,16 @@ def validate(chain_path: Path, task_id: str, *, root: Path = ROOT) -> Path:
     if len(matches) != 1:
         raise OwnershipValidationError(f"expected exactly one chain task {task_id!r}")
     task = matches[0]
+    declared_manifest = task.get("ownership_manifest")
+    if declared_manifest is None:
+        if task.get("mutating_delegation_authorized") is False:
+            return None
+        raise OwnershipValidationError(
+            "task without an ownership manifest must explicitly prohibit "
+            "mutating delegation"
+        )
     manifest_path = _repo_path(
-        task.get("ownership_manifest"), "task.ownership_manifest", root
+        declared_manifest, "task.ownership_manifest", root
     )
     manifest = _load_json(manifest_path)
     schema_version = manifest.get("schema_version")
@@ -794,5 +802,11 @@ def run(argv: Sequence[str] | None = None) -> int:
     except OwnershipValidationError as error:
         print(f"task ownership preflight failed: {error}", file=sys.stderr)
         return 1
-    print(f"task ownership preflight passed: {manifest_path.relative_to(root)}")
+    if manifest_path is None:
+        print(
+            "task ownership preflight passed: mutating delegation explicitly "
+            "unauthorized; no ownership manifest required"
+        )
+    else:
+        print(f"task ownership preflight passed: {manifest_path.relative_to(root)}")
     return 0

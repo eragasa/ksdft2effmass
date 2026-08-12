@@ -63,7 +63,10 @@
     },
     {
       "id": "bulk-silicon.records.periodic.extraction",
-      "record": "harness/tasks/bulk-silicon.records.periodic.extraction.json"
+      "record": "harness/tasks/bulk-silicon.records.periodic.extraction.json",
+      "execution_policy": "single_writer",
+      "mutating_delegation_authorized": false,
+      "ownership_manifest_required": false
     },
     {
       "id": "bulk-silicon.tight-binding.direct-spectral.fitting",
@@ -92,13 +95,13 @@
   ],
   "task_ownership_launch_preflight": {
     "fail_closed": true,
-    "required_before": "implementation",
+    "required_before": "concurrent mutation or mutating delegation",
     "manifest_schema": ".pi/task-ownership/ownership.schema.json",
     "command_template": "python/.venv/bin/python python/src/cli/validate_task_ownership.py --repository-root <ABSOLUTE_REPOSITORY_ROOT> --task <TASK_ID>",
-    "policy": "Every production task must name task-specific implementation, test, documentation, and independent review owners. A missing or invalid manifest blocks launch. The declared test completion validator must pass before independent review."
+    "policy": "A task-specific ownership manifest is required before concurrent mutation or mutating delegation. A bounded single-writer Task with delegation explicitly unauthorized requires no ownership manifest. Any declared manifest remains fail-closed. Independent read-only review is assigned after implementation when required and is not an implementation owner or launch prerequisite."
   },
   "per_task_completion_gates": [
-    "task_ownership_launch_preflight",
+    "task_ownership_launch_preflight_when_applicable",
     "implementation_or_preflight_evidence_as_scoped",
     "tests_or_verification_evidence",
     "documentation",

@@ -90,6 +90,20 @@ Architecture v2 would not require every Action to carry an irrelevant global
 context digest. Dirty state may be diagnostic or an explicit operation
 constraint; it is not automatically a universal failure.
 
+## Policy-selected operation lifecycle
+
+Preflight, implementation, verification, read-only review, and human acceptance
+are distinct stages. Policy selects only the stages applicable to an operation's
+risk and claim boundary; a stage does not automatically imply a separate Task,
+agent, checkpoint, commit, or human decision. The complete proposed semantics
+and routes are defined in [operation lifecycle](operation-lifecycle.md).
+
+Current v1 may declare mutating delegation unauthorized, but only later
+restricted dispatch could strongly enforce one mutating identity. Ownership
+manifests represent actual concurrent or delegated mutation; read-only review is
+conditional post-implementation activity outside mutating ownership. This
+execution-topology work remains proposed and deferred.
+
 ## Correctness before telemetry
 
 Deterministic execution-context validation and session observation are distinct:
@@ -110,10 +124,12 @@ explicit request
 → optional operation observation
 ```
 
-Telemetry consumes outcomes. It does not authorize an operation, replace
-precondition validation, or make an otherwise unsafe repository-sensitive
-Action safe. Correctness therefore must not depend on telemetry, and such an
-Action must remain safe when no telemetry store exists.
+Telemetry consumes operation transitions and ResultObjects, optionally through
+operation receipts. It does not authorize an operation, replace precondition
+validation, or make an otherwise unsafe repository-sensitive Action safe.
+Correctness therefore must not depend on telemetry, and such an Action must
+remain safe when no telemetry store exists. Telemetry also does not create a
+competing finding hierarchy or automatically create Tasks or checkpoints.
 
 Existing structured findings and validation results remain the defect
 vocabulary. Architecture v2 would not introduce a competing

@@ -26,13 +26,15 @@ None.
 
 - Document an inactive compiler-style harness architecture separating control, compilation, validation, projection, synchronization, execution, evidence, telemetry, and Git-history planes.
 - Map current origin/dev responsibilities to proposed target owners and dispositions without changing current source, schemas, CLIs, SQLite behavior, agents, skills, or scientific workflows.
-- Propose a bounded eleven-slice migration beginning with explicit repository-context validation before any telemetry implementation, plus governed action execution, an immutable SQLite projection lifecycle, extension boundaries, and effectiveness criteria using the completed QE tutorial as the primary acceptance scenario.
-- Distinguish deterministic operation-specific execution-context validation from optional session observation; propose RepositoryContext, RepositoryContextRequirement, ObserveRepositoryContext, ValidateRepositoryContext, and a deferred HarnessOperationReceipt without implementing them.
+- Propose a bounded eleven-slice migration beginning with a governed-operation lifecycle and explicit repository-context preflight before any telemetry implementation, plus governed action execution, an immutable SQLite projection lifecycle, extension boundaries, and effectiveness criteria using the completed QE tutorial as the primary acceptance scenario.
+- Distinguish deterministic operation-specific execution-context validation from optional session observation; propose RepositoryContext, RepositoryContextRequirement, ObserveRepositoryContext, ValidateRepositoryContext, and deferred operation receipts without implementing them.
+- Formalize policy-selected preflight, implementation, verification, conditional read-only review, and conditional human-acceptance stages; minimum request/result responsibilities; current single-writer limitations; deferred restricted-dispatch enforcement; and the non-authoritative relationship from operation transitions through optional receipts to later telemetry.
 
 ## Completion criteria
 
-- All eight Architecture v2 Markdown pages exist, agree, and identify themselves as proposed, inactive, not implemented, and not accepted.
-- Current authority and proposed target state are distinct; current responsibilities and migration slices are mapped; extension, SQLite, governed-execution, explicit-root repository-context, optional-observation, and scientific-fast-path boundaries are explicit.
+- All nine Architecture v2 Markdown pages exist, agree, and identify themselves as proposed, inactive, not implemented, and not accepted.
+- Current authority and proposed target state are distinct; current responsibilities and migration slices are mapped; operation lifecycle, extension, SQLite, governed-execution, explicit-root repository-context, optional-observation, and scientific-fast-path boundaries are explicit.
+- Lifecycle documentation preserves the required state diagram and distinguishes preflight, implementation, verification, conditional read-only review, and conditional human acceptance without making stages automatic Tasks, agents, checkpoints, commits, or human decisions.
 - The generated Task page and maintained harness-index link exist; current control synchronization, source-aware validation, documentation links, applicable Sphinx build, dependency immutability, and git diff checks pass.
 - No implementation occurs, no child implementation Task is created, bulk-silicon.records.periodic.extraction remains active and unchanged, no successor is activated, and automatic successor activation remains disabled.
 

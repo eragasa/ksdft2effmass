@@ -105,7 +105,7 @@ flowchart LR
 | Validation plane | Evaluate domain and cross-domain invariants |
 | Projection plane | Produce SQLite, SQL, Markdown, and manifests |
 | Synchronization plane | Atomically publish validated projections |
-| Execution plane | Perform explicitly authorized work |
+| Execution plane | Route preflight, implementation, verification, conditional review, and conditional acceptance according to operation policy |
 | Evidence plane | Support software, numerical, and scientific claims without becoming authority |
 | Telemetry plane | Observe execution without becoming authority or evidence by itself |
 | Git history | Preserve prior states and accepted decision boundaries |
@@ -121,6 +121,7 @@ history would not silently restore obsolete live control state.
 - [Information model](information-model.md)
 - [Control plane](control-plane.md)
 - [Compilation and projection](compilation-and-projection.md)
+- [Operation lifecycle](operation-lifecycle.md)
 - [Governed execution](governed-execution.md)
 - [SQLite lifecycle](sqlite-lifecycle.md)
 - [Migration plan](migration-plan.md)

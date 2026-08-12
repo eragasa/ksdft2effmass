@@ -109,7 +109,7 @@ def _make_repository(
     return root, chain_path
 
 
-def _validate(root: Path, chain_path: Path) -> Path:
+def _validate(root: Path, chain_path: Path) -> Path | None:
     return VALIDATOR.validate(chain_path, "TASK", root=root)
 
 
@@ -140,6 +140,45 @@ def test_current_version_1_p1_manifest_remains_valid() -> None:
         REPOSITORY_ROOT
         / ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
     )
+
+
+def test_single_writer_without_mutating_delegation_needs_no_manifest(
+    tmp_path: Path,
+) -> None:
+    """Explicitly nondelegated mutation has no delegated ownership to validate."""
+    root, chain_path = _make_repository(tmp_path, profile=False)
+    chain = _read_json(chain_path)
+    task = chain["task_sequence"][0]
+    task.pop("ownership_manifest")
+    task["mutating_delegation_authorized"] = False
+    _write_json(chain_path, chain)
+
+    assert _validate(root, chain_path) is None
+
+
+def test_mutating_delegation_without_manifest_fails(tmp_path: Path) -> None:
+    """Authorized mutating delegation remains fail-closed without a manifest."""
+    root, chain_path = _make_repository(tmp_path, profile=False)
+    chain = _read_json(chain_path)
+    task = chain["task_sequence"][0]
+    task.pop("ownership_manifest")
+    task["mutating_delegation_authorized"] = True
+    _write_json(chain_path, chain)
+
+    _expect_failure(root, chain_path, "must explicitly prohibit mutating delegation")
+
+
+def test_declared_manifest_remains_fail_closed(tmp_path: Path) -> None:
+    """Declaring a manifest retains all existing fail-closed validation."""
+
+    def mutate(manifest: dict[str, Any]) -> None:
+        manifest["schema_version"] = 99
+
+    root, chain_path = _make_repository(
+        tmp_path, profile=False, manifest_mutator=mutate
+    )
+
+    _expect_failure(root, chain_path, "must select supported version 1 or 2")
 
 
 def test_version_2_without_optional_profile_is_valid(tmp_path: Path) -> None:

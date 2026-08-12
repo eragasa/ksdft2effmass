@@ -79,6 +79,21 @@ Passing one question does not answer another. A public action need not be
 available to a scientific operator. An available action may still reject a
 request. A valid transition does not prove operating-system confinement.
 
+## Operation lifecycle policy
+
+The proposed [operation lifecycle](operation-lifecycle.md) distinguishes
+preflight, implementation, verification, conditional read-only review, and
+conditional human acceptance. Applicable policy selects a route from operation
+risk and claim boundaries. Lifecycle stages do not themselves create Tasks,
+agents, checkpoints, commits, or human decisions.
+
+Current v1 can declare mutating delegation unauthorized but does not strongly
+enforce one mutating identity through restricted dispatch. A later v2 boundary
+may distinguish `single_writer` from `delegated`; restricted dispatch, not an
+ownership manifest alone, would enforce mutating identity. Manifests remain for
+actual concurrent or delegated mutation, while read-only review remains outside
+mutating ownership. This enforcement design is proposed and deferred.
+
 ## Execution-context contract
 
 Repository execution context would be validated around each operation rather
@@ -103,8 +118,10 @@ telemetry store.
 ## Authority isolation
 
 - Evidence may support a claim but would not activate a Task.
-- Telemetry may consume a transition outcome but would not authorize it,
-  validate its execution context, or replace deterministic preconditions.
+- Telemetry may consume operation transitions and ResultObjects, optionally
+  through receipts, but would not authorize transitions, validate execution
+  context, replace deterministic preconditions, create a competing finding
+  hierarchy, or automatically create Tasks or checkpoints.
 - A receipt may document an attempted action and retain existing findings but
   would not replace successor state or define a competing defect hierarchy.
 - Generated state may be checked against authority but would not become source

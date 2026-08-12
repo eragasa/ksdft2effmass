@@ -3,7 +3,10 @@
 > **Proposed architecture; inactive; not implemented; not accepted.**
 
 This page describes an eventual operating model. It does not add Pi tools,
-action code, profiles, schemas, or process isolation.
+action code, profiles, schemas, or process isolation. The policy-selected stage
+semantics and routes are defined in the proposed
+[operation lifecycle](operation-lifecycle.md); the request path below describes
+how one authorized execution route might operate.
 
 ## Proposed request path
 
@@ -78,6 +81,7 @@ The following names are planning candidates, not exact public or wire contracts:
 | `ValidateRepositoryContext` | Read-only requirement/context validation returning `LocalValidationResult` with existing structured findings |
 | `HarnessActionDispatcher` | Route a typed request only to a catalog action |
 | `HarnessActionAuthorizer` | Decide whether current authority and profile permit the request |
+| Operation request and stage results | Minimum request, preflight, implementation, verification, review, and decision boundaries described by the operation lifecycle; reuse existing objects where sufficient |
 | `HarnessOperationReceipt` | Deferred optional observation joining an Action result with starting and ending contexts |
 
 The running operator would not register, replace, or enable actions dynamically.
@@ -139,7 +143,10 @@ required proposed behavior, not an implemented guard.
 
 ## Receipt boundary
 
-A later `HarnessOperationReceipt` could be formed from:
+An `ImplementationReceipt` in the proposed lifecycle records governed execution
+without claiming verification or acceptance. A later optional
+`HarnessOperationReceipt` could project operation transitions and existing
+ResultObjects for observation. It could be formed from:
 
 ```text
 Action ResultObject

@@ -38,6 +38,22 @@ invariants rather than mirror individual files or SQLite tables.
 ResultObjects would be semantic DataObjects. Nominal `ResultObject` inheritance
 would not be required.
 
+## Governed-operation responsibilities
+
+The proposed [operation lifecycle](operation-lifecycle.md) needs responsibilities
+for an operation request, repository and execution context, preflight result,
+implementation receipt, verification result, review request/result, human
+decision, and operation lifecycle state. These are information boundaries, not
+a frozen list of public classes. Existing DataObjects, `LocalValidationResult`,
+`ValidationResult`, and other ResultObjects should be reused where sufficient;
+Architecture v2 must not manufacture one class for every lifecycle state.
+
+The lifecycle keeps execution recording separate from correctness and
+acceptance. An implementation receipt records candidate changes or outputs. A
+verification result evaluates declared deterministic requirements. A read-only
+review result is conditional and grants no mutation authority. A human decision
+is represented only when the operation's declared claim boundary requires it.
+
 ## Actions
 
 | Candidate action | Proposed responsibility |
@@ -148,8 +164,9 @@ implementation slice, not speculation in this planning Task.
 
 ## Deferred operation observation
 
-A later, explicitly deferred concept may compose existing outcomes without
-participating in correctness:
+Operation transitions and ResultObjects may feed optional operation receipts and
+only later a telemetry projection. A later, explicitly deferred concept may
+compose existing outcomes without participating in correctness:
 
 ```text
 Action ResultObject
@@ -168,8 +185,10 @@ Receipt and persistence design remains unresolved pending inspection of Pi's
 actual session records: which relevant events Pi already stores; whether extra
 harness events are needed; session and subagent correlation; JSONL versus one
 JSON file per operation; usefulness of a local SQLite query projection;
-retention and deletion policy; a privacy allowlist; recurrence queries; and
-whether any tracked failure-pattern catalog is justified.
+retention and deletion policy; a privacy allowlist; recurrence analysis; and
+whether any tracked failure-pattern catalog is justified. Telemetry would
+observe execution only; it would not authorize transitions, replace validation,
+or automatically create Tasks or checkpoints.
 
 The proposal does not prematurely specify a closed failure taxonomy, tracked
 occurrence counts, tracked “most recent” timestamps, automatic failure
