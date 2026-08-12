@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Reduce repository control-plane authority
 
-[Task index](index.md) · [Previous](./harness-task-state-symlink-toctou-hardening.md) · [Next](./harness.extraction.md)
+[Task index](index.md) · [Previous](./harness.architecture-v2.plan.md) · [Next](./harness.extraction.md)
 
 ## Status
 

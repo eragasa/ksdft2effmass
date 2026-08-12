@@ -192,6 +192,9 @@
       "task_id": "harness-task-state-symlink-toctou-hardening"
     },
     {
+      "task_id": "harness.architecture-v2.plan"
+    },
+    {
       "task_id": "harness.control-plane-cleanup"
     },
     {

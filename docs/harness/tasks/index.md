@@ -64,6 +64,7 @@
 - [`harness-simplification.resources.develop-harness-resources`](harness-simplification.resources.develop-harness-resources.md) — Create develop-harness-resources (`completed`)
 - [`harness-simplification.resources.manifest-refresh`](harness-simplification.resources.manifest-refresh.md) — Deterministic resource-manifest refresh (`completed`)
 - [`harness-task-state-symlink-toctou-hardening`](harness-task-state-symlink-toctou-hardening.md) — Harden task-state file inspection against symlink TOCTOU races (`inactive`)
+- [`harness.architecture-v2.plan`](harness.architecture-v2.plan.md) — Plan harness Architecture v2 (`inactive`)
 - [`harness.control-plane-cleanup`](harness.control-plane-cleanup.md) — Reduce repository control-plane authority (`closed_human_accepted_pass`)
 - [`harness.extraction`](harness.extraction.md) — Harness extraction — Standalone extraction readiness (`blocked`)
 - [`harness.simplification.agents.delegation-validation`](harness.simplification.agents.delegation-validation.md) — Validate delegation to the durable agent set (`completed`)
