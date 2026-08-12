@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3025,
-  "expected_module_count": 252,
+  "expected_collected_node_count": 2985,
+  "expected_module_count": 250,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -241,7 +241,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "e8ab74186cba230cc0fd368132c8119c925da87cbd712842731fb6fe4cda52cc",
+      "content_sha256": "cb4bdfee934349e5e55ab285e614a0ea1ad677f45ca4c60b652490aa6f0f7413",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__AgentRecordAdapter.py",
@@ -381,24 +381,6 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__TaskRecordAdapter.py",
       "sut": "TaskRecordAdapter",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "269910e40d0b6318fc2e87bc18915deec6127853d2e1e4af1c93e626ceddb80f",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__cli_inventory.py",
-      "artifact": "the maintained harness CLI inventory",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "7e445e29c986af0c13f85505968f8918c8186625acc6108663c909daaad85256",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__h4_replay_and_completion_evidence.py",
-      "artifact": "h4 replay and completion evidence",
       "evidence_profile": "claim_bearing"
     },
     {

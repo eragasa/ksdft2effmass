@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "953108077889dbeb64d08e6d31ea80971c203c386b9b5204bc6bc83de3b044dc",
+  "semantic_database_digest": "7b332f2daedf9eed6b1cb04d7dbc79002bf50c2bc3088f95fa03b93fdf77a1d7",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "f66c3cf2a80e42916d1bda632e78280587d5e3483084ac1f76cc802d25c590ab",
-    "byte_count": 3712544
+    "sha256": "9b7bcdfa6589d82e58c48ed6d5137639469e05dcd32c68a14c90f30bbf61ffb7",
+    "byte_count": 3655910
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "1b5af20f7cfbbc6dec55e38261435f27f321065eafb4777a6aaeacce77665946",
-      "byte_count": 107644,
+      "sha256": "a8295755ae4b2682773f25494576918a98e25c0a5740cee1b9c623f4f46c4cc6",
+      "byte_count": 106759,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -25,8 +25,8 @@
     {
       "path": "docs/harness/tasks/ARCHITECTURE-DECISION-SKILL-1.md",
       "projection_kind": "task-markdown",
-      "sha256": "dda86a53b14de8faf48f7b29f5d2e29dc4bcc3e5f5676c93a1f4858efcfed24e",
-      "byte_count": 3387,
+      "sha256": "1e633f9f951be995d3555fa1b9c8506a4aa07a549c1dc06f4be15ee092374a31",
+      "byte_count": 3366,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -459,8 +459,8 @@
     {
       "path": "docs/harness/tasks/harness.control-plane-cleanup.md",
       "projection_kind": "task-markdown",
-      "sha256": "38184c550b2ab2d2677d73b41a33148c883161dfc559a930fe38cbf8e7760416",
-      "byte_count": 9083,
+      "sha256": "2a46bcabb7df9895c1bfe990055b37d8bcd2eefdf9523eaca35dbd01ef9b2111",
+      "byte_count": 9123,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -781,8 +781,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "8d52c5645896cd8080d2e86b6a7ffd0c6ea0d879d2d5621b29c546a8f86df8df",
-      "byte_count": 17148,
+      "sha256": "4c65ecd0e48378957bed5337ad86986be9f9e02a1d2caacaa5e4572167c6eb93",
+      "byte_count": 17167,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -837,8 +837,8 @@
     {
       "path": "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
       "projection_kind": "task-json",
-      "sha256": "73abb7f7b8a5e1443e3c4286f0a67160dedf169273b4b49e573c27a424d61f8c",
-      "byte_count": 3617,
+      "sha256": "223da2d89746dea318a5b98ac4074705158c29998368c1da46c65c7cb14fe6f5",
+      "byte_count": 3596,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1271,8 +1271,8 @@
     {
       "path": "harness/tasks/harness.control-plane-cleanup.json",
       "projection_kind": "task-json",
-      "sha256": "899e005702b146f0bdfda7bd87a822a81293771c1362dd76411f26f7ad5ef968",
-      "byte_count": 9353,
+      "sha256": "1955fc5e1c40f3693a49ff90c9be88cb8aba144d7943ecd5d1ff44dc4cddec3d",
+      "byte_count": 9393,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

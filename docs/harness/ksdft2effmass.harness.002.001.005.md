@@ -93,7 +93,7 @@ structural checks do not establish scientific validity or human acceptance.
 Rollback of the final bounded slice restores the prior
 `ksdft2effmass-architecture` record and any required capability registration,
 then restores this page and the
-[harness.001.005.000](./ksdft2effmass.harness.001.005.000.md) descriptions. It
+the retired agent-inventory descriptions. It
 does not undo the completed test, implementation, documentation, or
 integration-review simplifications, rewrite historical agents or retained
 evidence, or authorize any proposed successor.

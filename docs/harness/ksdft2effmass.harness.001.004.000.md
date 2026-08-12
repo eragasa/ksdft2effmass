@@ -72,4 +72,4 @@ explicit parameter IDs, and independently reviewable oracles.
 - **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
 - **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
 - **Previous:** [Python implementation](ksdft2effmass.harness.001.003.000.md)
-- **Next:** <a href="ksdft2effmass.harness.001.005.000.md">Agent and ownership inventory</a>
+- **Next:** [Operational profile](ksdft2effmass.harness.001.006.000.md)

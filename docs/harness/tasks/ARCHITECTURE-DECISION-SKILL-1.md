@@ -36,7 +36,7 @@ python .pi/task-ownership/validate_task_ownership.py --task ARCHITECTURE-DECISIO
 ## Exclusions
 
 - The current human instruction authorizes this bounded one-writer harness resource task. It creates and activates the read-only `develop-architecture-decision` skill, canonical/reference/descriptor resources, byte-identical live resources, controlled H6-only fixtures and validator, generic/local manifest and profile synchronization, eight-skill inventory/validation, current local replay, selected local route, maintained harness documentation, and task evidence.
-- Writer: `ksdft2effmass-harness-skill-resource-cutover-writer`. Sole independent reviewer: `ksdft2effmass-harness-cutover-skill-resource-reviewer`.
+- Historical implementation and review assignments are retained only in Git; current work routes through durable harness roles.
 - No `.pi/agents/`, real H6 work, dispatch, ownership semantics, P2/P3/H5 surfaces, production/project tests or schemas, dependencies, locks, SQLite, replay redesign, execution/release, historical catalogs, final checkpoint, commit, or push may be changed. Canonical generic resources remain authoritative; local depends on generic and live resources are synchronized from canonical. The selected route remains `local`.
 
 ## Historical source

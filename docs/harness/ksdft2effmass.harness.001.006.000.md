@@ -77,5 +77,5 @@ separate accepted architecture and implementation task.
 
 - **Index:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
 - **Parent:** [Current harness architecture](ksdft2effmass.harness.001.000.000.md)
-- **Previous:** <a href="ksdft2effmass.harness.001.005.000.md">Agent and ownership inventory</a>
-- **Next:** <a href="ksdft2effmass.harness.002.000.000.md">Harness simplification plan</a>
+- **Previous:** [Validation and evidence](ksdft2effmass.harness.001.004.000.md)
+- **Next:** none

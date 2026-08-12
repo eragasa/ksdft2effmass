@@ -47,8 +47,8 @@ def test_method__execute__sorts_explicit_agent_records_by_identity() -> None:
     """
     root = repository_root()
     paths = (
-        ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
-        ".pi/agents/ksdft2effmass-harness-local-python-writer.md",
+        ".pi/agents/ksdft2effmass-harness-tests.md",
+        ".pi/agents/ksdft2effmass-harness-implementation.md",
     )
     result = AgentRecordAdapter().execute(
         tuple((path, (root / path).read_bytes()) for path in reversed(paths))

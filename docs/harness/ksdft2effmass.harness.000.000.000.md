@@ -29,7 +29,6 @@ implement an interface or activate work. Historical pages preserve prior context
 | [harness.001.002.000](ksdft2effmass.harness.001.002.000.md) | `harness-current.resources` | Resources, profiles, and skills | Current | Included |
 | [harness.001.003.000](ksdft2effmass.harness.001.003.000.md) | `harness-current.python` | Python implementation | Current | Included |
 | [harness.001.004.000](ksdft2effmass.harness.001.004.000.md) | `harness-current.evidence` | Validation and evidence | Current | Included |
-| [harness.001.005.000](ksdft2effmass.harness.001.005.000.md) | `harness-current.agents` | Agent and ownership inventory | Current | Excluded |
 | [harness.001.006.000](ksdft2effmass.harness.001.006.000.md) | `harness-current.status` | Current status and limitations | Current | Included |
 | [harness.002.000.000](ksdft2effmass.harness.002.000.000.md) | `harness-simplification` | Harness simplification plan | Proposed | Excluded |
 | [harness.002.001.000](ksdft2effmass.harness.002.001.000.md) | — | First harness simplification round | Current index | Excluded |

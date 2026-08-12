@@ -55,7 +55,6 @@ release readiness, or human acceptance.
 | [harness.001.002.000](./ksdft2effmass.harness.001.002.000.md) | Resources, profiles, and skills |
 | [harness.001.003.000](./ksdft2effmass.harness.001.003.000.md) | Python implementation |
 | [harness.001.004.000](./ksdft2effmass.harness.001.004.000.md) | Validation and evidence |
-| <a href="ksdft2effmass.harness.001.005.000.md">harness.001.005.000</a> | Agent and ownership inventory |
 | [harness.001.006.000](ksdft2effmass.harness.001.006.000.md) | Status and limitations |
 
 ## Navigation
@@ -64,4 +63,4 @@ release readiness, or human acceptance.
 - **Parent:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
 - **Previous:** <a href="ksdft2effmass.harness.000.000.000.md">Harness documentation</a>
 - **Next:** [Generic and project-local boundaries](ksdft2effmass.harness.001.001.000.md)
-- **Children:** [001](ksdft2effmass.harness.001.001.000.md), [002](ksdft2effmass.harness.001.002.000.md), [003](ksdft2effmass.harness.001.003.000.md), [004](ksdft2effmass.harness.001.004.000.md), <a href="ksdft2effmass.harness.001.005.000.md">005</a>, and [006](ksdft2effmass.harness.001.006.000.md)
+- **Children:** [001](ksdft2effmass.harness.001.001.000.md), [002](ksdft2effmass.harness.001.002.000.md), [003](ksdft2effmass.harness.001.003.000.md), [004](ksdft2effmass.harness.001.004.000.md), and [006](ksdft2effmass.harness.001.006.000.md)

@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "harness_control_plane_cleanup_active_slice_c_pending",
+  "status": "harness_control_plane_cleanup_awaiting_human_acceptance",
   "active_task": "harness.control-plane-cleanup",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
@@ -44,6 +44,10 @@
     {
       "phase": "control-plane-cleanup-slice-b-completed",
       "message": "Slice B considered 635 Slice A history/projection/cache delete candidates. It deleted 388 history surfaces and retained 247 where an inbound retained reference, test/fixture rule, or another deletion precondition failed. No unresolved or Slice C runtime/compatibility surface was deleted. Slice C remains pending and has not begun."
+    },
+    {
+      "phase": "control-plane-cleanup-slice-c-completed-awaiting-human-acceptance",
+      "message": "The single permitted correction pass exhaustively classified all 613 required deduplicated surfaces to 503 retain and 110 delete with zero unresolved, reconsidered Slice B history, closed stale references, and resolved all consolidated-review findings. All final gates pass, including the complete configured suite with 2,985 tests. The cleanup Task awaits human acceptance; automatic successor activation remains disabled and no successor is active."
     }
   ],
   "task_sequence": [

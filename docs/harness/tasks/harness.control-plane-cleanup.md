@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Slice B completed as one bounded history-only deletion: 635 Slice A candidates were considered, 388 historical records were deleted, and 247 were retained because a deletion precondition or Slice B ineligible-category rule failed. No unresolved, runtime, compatibility, scientific, dependency, or lockfile surface was deleted. The Task remains active at the Slice C pending boundary; Slice C has not begun.
+`awaiting_human_acceptance`: Slice C and its single consolidated review are complete: 613 deduplicated required surfaces are classified to 503 retain and 110 delete with zero unresolved, all review findings were resolved in the permitted bounded correction pass, and all final gates pass, including the complete configured suite (2,985 tests). The Task awaits human acceptance; automatic successor activation remains disabled and no successor is activated.
 
 ## Objective
 
