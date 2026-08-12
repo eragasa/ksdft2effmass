@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Explicitly activated by current human instruction after separate human acceptance and closure of harness.simplify-2. Automatic successor activation remains disabled and no other successor is active. Implementation has not begun; the corrected Task and generated documentation must first agree.
+`active`: Explicitly activated at a clean durable Git boundary after separate human acceptance and closure of harness.simplify-2. Automatic successor activation remains disabled, no other successor is active, and Slice A has not begun.
 
 ## Objective
 

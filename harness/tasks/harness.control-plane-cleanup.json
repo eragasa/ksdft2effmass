@@ -3,7 +3,7 @@
   "task_id": "harness.control-plane-cleanup",
   "title": "Reduce repository control-plane authority",
   "status": "active",
-  "status_detail": "Explicitly activated by current human instruction after separate human acceptance and closure of harness.simplify-2. Automatic successor activation remains disabled and no other successor is active. Implementation has not begun; the corrected Task and generated documentation must first agree.",
+  "status_detail": "Explicitly activated at a clean durable Git boundary after separate human acceptance and closure of harness.simplify-2. Automatic successor activation remains disabled, no other successor is active, and Slice A has not begun.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplify-2"

@@ -5,7 +5,7 @@
 
 ## Status
 
-`human_accepted_pass`: human-accepted and closed after corrected R2.7 completion, complete required validation, synchronized maintained state, and explicit human instruction to accept and close harness.simplify-2; no successor was activated by this acceptance boundary
+`closed_human_accepted_pass`: human-accepted and closed after corrected R2.7 completion, complete required validation, synchronized maintained state, and explicit human instruction to accept and close harness.simplify-2; no successor was activated automatically by this acceptance boundary
 
 ## Objective
 
