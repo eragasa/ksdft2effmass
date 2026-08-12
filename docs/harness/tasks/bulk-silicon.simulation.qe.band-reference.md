@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: Planned tutorial-first successor to the accepted silicon SCF state. Inactive pending explicit activation, an isolated-copy preservation preflight, local execution resource authorization, and separate authorization for exactly one QE bands execution.
+`active`: Activated by the current human instruction. Protected-execution preflight is complete; the Task is active and awaiting explicit authorization for exactly the prepared one-process QE tutorial bands command. Quantum ESPRESSO has not been invoked, automatic successor activation remains disabled, and no downstream Task is active.
 
 ## Objective
 

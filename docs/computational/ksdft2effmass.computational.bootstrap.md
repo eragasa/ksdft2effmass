@@ -51,7 +51,7 @@ observe real calculations
 
 ## Bootstrap Program
 
-The canonical contracts are the nine linked Task JSON records. Eight Tasks form
+The canonical contracts are the ten linked Task JSON records. Nine Tasks form
 the main tutorial-to-model path. `cpn.workflow.persistence` is a
 deferred, nonblocking infrastructure Task. Canonical identity succession,
 prerequisites, scope, exclusions, completion criteria, and status remain in the

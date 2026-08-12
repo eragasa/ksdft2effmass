@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. The next tutorial-first silicon band Task is planned but inactive, downstream model Tasks remain blocked, and the deferred CPN-persistence Task remains inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_records_periodic_extraction_closed_human_accepted_pass_no_task_active",
-  "active_task": null,
+  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Exactly the tutorial-first silicon band-reference Task is active with a complete isolated protected-execution preflight and awaits explicit execution authorization. Downstream model Tasks remain blocked; scientific validation, publication, and release execution remain unauthorized.",
+  "status": "bulk_silicon_band_reference_active_awaiting_explicit_execution_authorization",
+  "active_task": "bulk-silicon.simulation.qe.band-reference",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -114,7 +114,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "No Task is active. Production execution remains unauthorized. Automatic successor activation is disabled; no successor is active.",
+  "launch_policy": "Exactly bulk-silicon.simulation.qe.band-reference is active. Its isolated one-process QE 7.2 bands preflight is complete, but pw.x execution remains unauthorized pending a new explicit human decision. Automatic successor activation is disabled; no successor is active.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -226,6 +226,13 @@
       "activated_after": "bounded producer-attribution and canonical-path correction passed focused validation and bulk-silicon.artifacts.qe.inventory was human-accepted PASS",
       "authority": "Current human instruction accepting bulk-silicon.artifacts.qe.inventory subject to one bounded provenance correction and explicitly activating bulk-silicon.records.periodic.extraction",
       "scope": "Present, but do not yet implement, the minimal record boundary for only the observed silicon.save/data-file-schema.xml QEXSD source. The first implementation may extract only lattice and reciprocal-lattice vectors with units, atomic species and positions, k-points and weights, Kohn-Sham eigenvalues and occupations, total energy, FFT-grid metadata, exit status, creator and QEXSD version, and source-artifact identity, with mechanical parsing separate from semantic record construction and unavailable conventions left unavailable."
+    },
+    {
+      "task": "bulk-silicon.simulation.qe.band-reference",
+      "authorized_at": "2026-08-12T22:32:46Z",
+      "activated_after": "accepted planning branch integration, exact ancestry and diff checks, zero active Tasks, zero unresolved checkpoints, prerequisite eligibility, and isolated protected-execution preflight",
+      "authority": "Current human instruction to integrate the accepted band-reference plan, activate exactly bulk-silicon.simulation.qe.band-reference, and complete preflight without invoking pw.x",
+      "scope": "Activate exactly the QE 7.2 example01 silicon Davidson bands tutorial Task; prepare an identity-verified isolated copy of only required accepted restart artifacts, exact input, executable and pseudopotential identities, comparison target, one-process command, and human authorization packet. Do not invoke pw.x, run run_example, activate a successor, or create a checkpoint."
     }
   ],
   "pending_checkpoints": [],
@@ -265,11 +272,16 @@
     {
       "phase": "bulk-silicon-band-reference-planned-inactive",
       "message": "The next tutorial-first vertical slice is planned as bulk-silicon.simulation.qe.band-reference. It will, only after separate activation and protected-execution authorization, run the QE 7.2 PW example01 silicon Davidson bands input against an identity-verified isolated copy of the accepted SCF state, inventory the observed band artifacts, and propose the minimum band-record extension. The Task is inactive; no calculation checkpoint exists; no QE or Wannier90 execution, parser, record implementation, downstream activation, production setting, or scientific validation is authorized."
+    },
+    {
+      "phase": "bulk-silicon-band-reference-active-preflight-complete-awaiting-execution-authorization",
+      "message": "The accepted band-reference plan was fast-forward integrated. Exactly bulk-silicon.simulation.qe.band-reference is active. A new external run root contains an identity-verified isolated copy of the accepted density/QEXSD restart subset, the accepted pseudopotential, and the exact 28-point QE 7.2 Davidson bands input with only filesystem paths rewritten. The executable was identity-checked without execution. pw.x remains uninvoked and requires a new explicit human A decision. Automatic successor activation remains disabled; no downstream Task is active."
     }
   ],
   "explicitly_activated_task_ids": [
     "bulk-silicon.artifacts.qe.inventory",
     "bulk-silicon.records.periodic.extraction",
+    "bulk-silicon.simulation.qe.band-reference",
     "bulk-silicon.simulation.qe.reference"
   ],
   "superseded_p_series": {
