@@ -12,7 +12,8 @@
     "docs/architecture/colored-petri-net-workflows.md",
     "docs/architecture/kohn-sham-dft-quantum-espresso.md",
     "docs/architecture/periodic-electronic-structure-integration.md",
-    "docs/computational/ksdft2effmass.computational.bootstrap.md"
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "docs/computational/ksdft-pw-record-architecture.md"
   ],
   "production_execution_authorized": false,
   "superseded_sequence": {
@@ -251,7 +252,7 @@
     },
     {
       "phase": "bulk-silicon-periodic-qexsd-extraction-completed-awaiting-human-review",
-      "message": "The current human instruction authorized and the single writer completed the bounded QEXSD 23.03.10 extraction implementation. Explicit verified XML bytes flow through separate mechanical parsing and semantic construction into an immutable version-1 periodic calculation record and canonical retained JSON. Focused software verification and deterministic validation pass. The Task remains active awaiting human review; no QE or Wannier90 execution, Architecture v2 implementation, dependency change, checkpoint, reviewer, delegation, or successor activation occurred."
+      "message": "The current human instruction authorized a bounded correction of the provisional QEXSD extraction architecture. QEXSD I/O, backend-neutral periodic geometry, representation-neutral Kohn-Sham semantics, and plane-wave calculation records now have separate package owners. Explicit verified XML bytes flow through mechanical parsing and QEXSD-owned semantic construction into a closed version-1 Kohn-Sham plane-wave record with quantity-specific units and explicit reciprocal and k-point scales. The Task remains active awaiting renewed human review; no QE or Wannier90 execution, dependency change, checkpoint, or successor activation occurred."
     }
   ],
   "explicitly_activated_task_ids": [

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/specification/ksdft-plane-wave-calculation-record/v1/ksdft-plane-wave-calculation-record.schema.json",
+  "title": "Kohn-Sham plane-wave calculation record version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "structure", "reciprocal_lattice", "k_point_sampling", "spectrum", "total_energy", "plane_wave", "provenance", "exit_status"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "structure": {"$ref": "#/$defs/structure"},
+    "reciprocal_lattice": {"$ref": "#/$defs/reciprocal"},
+    "k_point_sampling": {"$ref": "#/$defs/kpoints"},
+    "spectrum": {"$ref": "#/$defs/spectrum"},
+    "total_energy": {"$ref": "#/$defs/energy"},
+    "plane_wave": {"$ref": "#/$defs/planeWave"},
+    "provenance": {"$ref": "#/$defs/provenance"},
+    "exit_status": {"type": "integer", "minimum": 0, "maximum": 255}
+  },
+  "$defs": {
+    "vector": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "vectors": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/vector"}},
+    "threeVectors": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/vector"}},
+    "grid": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "integer", "minimum": 1}},
+    "availability": {"enum": ["not_represented", "no_spin_resolved_arrays"]},
+    "pwAvailability": {"enum": ["not_represented", "no_retained_subspace"]},
+    "direct": {
+      "type": "object", "additionalProperties": false,
+      "required": ["vectors", "unit_system", "dimension", "unit", "coordinate_convention", "vector_order"],
+      "properties": {"vectors": {"$ref": "#/$defs/threeVectors"}, "unit_system": {"const": "hartree_atomic"}, "dimension": {"const": "length"}, "unit": {"const": "bohr"}, "coordinate_convention": {"const": "cartesian"}, "vector_order": {"const": "source_order_a1_a2_a3"}}
+    },
+    "species": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "mass", "mass_dimension", "mass_unit", "pseudopotential_label"],
+      "properties": {"name": {"type": "string", "minLength": 1}, "mass": {"type": "number", "exclusiveMinimum": 0}, "mass_dimension": {"const": "mass"}, "mass_unit": {"const": "unified_atomic_mass_unit"}, "pseudopotential_label": {"type": "string", "minLength": 1}}
+    },
+    "site": {
+      "type": "object", "additionalProperties": false,
+      "required": ["index", "species_name", "coordinates", "coordinate_convention", "coordinate_dimension", "coordinate_unit"],
+      "properties": {"index": {"type": "integer", "minimum": 1}, "species_name": {"type": "string", "minLength": 1}, "coordinates": {"$ref": "#/$defs/vector"}, "coordinate_convention": {"const": "cartesian"}, "coordinate_dimension": {"const": "length"}, "coordinate_unit": {"const": "bohr"}}
+    },
+    "structure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["direct_lattice", "species", "sites"],
+      "properties": {"direct_lattice": {"$ref": "#/$defs/direct"}, "species": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/species"}}, "sites": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/site"}}}
+    },
+    "reciprocal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["raw_coefficients", "raw_dimension", "raw_coordinate_convention", "scale_convention", "scale_alat", "scale_alat_unit", "incorporates_two_pi", "physical_vectors", "physical_dimension", "physical_unit", "physical_coordinate_convention", "duality_absolute_tolerance"],
+      "properties": {"raw_coefficients": {"$ref": "#/$defs/threeVectors"}, "raw_dimension": {"const": "dimensionless"}, "raw_coordinate_convention": {"const": "cartesian"}, "scale_convention": {"const": "2pi_over_alat"}, "scale_alat": {"type": "number", "exclusiveMinimum": 0}, "scale_alat_unit": {"const": "bohr"}, "incorporates_two_pi": {"const": true}, "physical_vectors": {"$ref": "#/$defs/threeVectors"}, "physical_dimension": {"const": "inverse_length"}, "physical_unit": {"const": "bohr^-1"}, "physical_coordinate_convention": {"const": "cartesian"}, "duality_absolute_tolerance": {"type": "number", "exclusiveMinimum": 0}}
+    },
+    "kpoints": {
+      "type": "object", "additionalProperties": false,
+      "required": ["raw_coordinates", "raw_dimension", "coordinate_convention", "scale_convention", "scale_alat", "scale_alat_unit", "incorporates_two_pi", "physical_coordinates", "physical_dimension", "physical_unit", "weights", "weight_normalization"],
+      "properties": {"raw_coordinates": {"$ref": "#/$defs/vectors"}, "raw_dimension": {"const": "dimensionless"}, "coordinate_convention": {"const": "cartesian"}, "scale_convention": {"const": "2pi_over_alat"}, "scale_alat": {"type": "number", "exclusiveMinimum": 0}, "scale_alat_unit": {"const": "bohr"}, "incorporates_two_pi": {"const": true}, "physical_coordinates": {"$ref": "#/$defs/vectors"}, "physical_dimension": {"const": "inverse_length"}, "physical_unit": {"const": "bohr^-1"}, "weights": {"type": "array", "minItems": 1, "items": {"type": "number", "minimum": 0}}, "weight_normalization": {"enum": ["sum_to_two", "unavailable"]}}
+    },
+    "spectrumRows": {"type": "array", "minItems": 1, "items": {"type": "array", "minItems": 1, "items": {"type": "number"}}},
+    "spectrum": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eigenvalues", "eigenvalue_unit", "occupations", "band_count", "spin_channel_availability", "energy_reference_availability"],
+      "properties": {"eigenvalues": {"$ref": "#/$defs/spectrumRows"}, "eigenvalue_unit": {"const": "hartree"}, "occupations": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/spectrumRows"}]}, "band_count": {"type": "integer", "minimum": 1}, "spin_channel_availability": {"const": "no_spin_resolved_arrays"}, "energy_reference_availability": {"const": "not_represented"}}
+    },
+    "energy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["value", "unit", "reference_availability"],
+      "properties": {"value": {"type": "number"}, "unit": {"const": "hartree"}, "reference_availability": {"const": "not_represented"}}
+    },
+    "planeWave": {
+      "type": "object", "additionalProperties": false,
+      "required": ["representation", "fft_grid", "fft_smooth", "fft_box", "basis_identity", "retained_subspace", "gauge", "phase_convention"],
+      "properties": {"representation": {"const": "plane_wave"}, "fft_grid": {"$ref": "#/$defs/grid"}, "fft_smooth": {"$ref": "#/$defs/grid"}, "fft_box": {"$ref": "#/$defs/grid"}, "basis_identity": {"const": "not_represented"}, "retained_subspace": {"const": "no_retained_subspace"}, "gauge": {"const": "not_represented"}, "phase_convention": {"const": "not_represented"}}
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_path", "source_sha256", "source_byte_count", "source_format", "source_format_version", "producing_application", "producing_application_version", "transformation"],
+      "properties": {"source_path": {"type": "string", "pattern": "^/(?!/)(?!.*//)(?!.*(?:^|/)\\.{1,2}(?:/|$)).+"}, "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "source_byte_count": {"type": "integer", "minimum": 0}, "source_format": {"const": "QEXSD"}, "source_format_version": {"type": "string", "minLength": 1}, "producing_application": {"type": "string", "minLength": 1}, "producing_application_version": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]}, "transformation": {"type": "string", "minLength": 1}}
+    }
+  }
+}

@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3037,
-  "expected_module_count": 258,
+  "expected_collected_node_count": 3026,
+  "expected_module_count": 256,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1186,6 +1186,60 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "24a94d45846c378f261a5e9d38e86b98e4f019bf3c128deeb13e287ec3c4f088",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__ConstructQexsdKohnShamPlaneWaveRecord.py",
+      "sut": "ConstructQexsdKohnShamPlaneWaveRecord",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "69a7891e4975acf265c9e7e34885f6c77b069c82047967dd1e89a6b249c9b774",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__ParseQexsdDocument.py",
+      "sut": "ParseQexsdDocument",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2fd37e677abe8ebdbcb02ccd4a57313c12a2c262dc790567730114640100209d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QexsdDocument.py",
+      "sut": "QexsdDocument",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "072666688c158a47dcd8a3e73e4622ba882d06b648756f177abcb4453b23bb3f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QexsdSource.py",
+      "sut": "QexsdSource",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ff419bfb3bd315445383cf43ece6228101b18f08217e70e6f7b1ffaf54f56a9b",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__actual_qexsd_extraction.py",
+      "artifact": "the retained QEXSD extraction artifact",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "06e53c285321518fa6260531ea99661061176d517ce551ff4c7d0f32ab3afe64",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__plane_wave_record_rejection.py",
+      "artifact": "strict plane-wave record rejection",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "3559e7bbc8624176a580208b9903520b934b4ae25af9f33560fcde3412e0d9ad",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1650,78 +1704,6 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",
       "sut": "StateSpace",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "41e32c6e48049c9e7a4c1bd81f637b6b26d2ebe83b1341be5defcc497db6a4f8",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__ConstructPeriodicCalculationRecord.py",
-      "sut": "ConstructPeriodicCalculationRecord",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "a17ce88ea6791c40afd15fed659fb6bd8d91c99ec83aa8a947acfd08571ddecf",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__ParseQexsdDocument.py",
-      "sut": "ParseQexsdDocument",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "12b16a7891d33ebedb9892d961d357dcdc7a2a0ad254460f2ed82cbff7b490bb",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicCalculationRecord.py",
-      "sut": "PeriodicCalculationRecord",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "dbc012eb829b519136df5a2aef5a65cf7452d4d16931e684a8e934519c90534d",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicCalculationRecordJsonSerializer.py",
-      "sut": "PeriodicCalculationRecordJsonSerializer",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "1eb90c784a70d6685876cea1e68288d3e1265877e0b24711451deab35602c2b9",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__QexsdDocument.py",
-      "sut": "QexsdDocument",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "62a1c886858b75ed63b7dc6937afa4da329f6df8f3a000b7286be410e782ed03",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__QexsdSource.py",
-      "sut": "QexsdSource",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "3263682755afcb741512d8f87e8544c8411f8b4877943a89fc6d5e5b7e08ef2a",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__UnavailableReason.py",
-      "sut": "UnavailableReason",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "136cd94e55dc0c49480abc84784e911c78ada6143e67eabb5fc2819ea50ed2e2",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__actual_qexsd_extraction.py",
-      "artifact": "actual QEXSD extraction",
       "evidence_profile": "claim_bearing"
     },
     {

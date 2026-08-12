@@ -109,6 +109,12 @@ class ParseQexsdDocument:
         declared_atom_count = self._positive_int_attribute(
             structure, "nat", "atomic_structure"
         )
+        atomic_structure_alat = self._finite_float(
+            self._attribute(structure, "alat", "atomic_structure"),
+            "atomic_structure.alat",
+        )
+        if atomic_structure_alat <= 0:
+            raise ValueError("atomic_structure.alat must be positive")
         positions = self._single(structure, "atomic_positions")
         atoms: list[tuple[int, str, Vector3]] = []
         for atom in self._children(positions, "atom"):
@@ -189,33 +195,28 @@ class ParseQexsdDocument:
             qexsd_version=qexsd_version,
             producing_application=producer,
             producing_application_version=producer_version,
-            declared_units=declared_units,
+            declared_unit_system_label=declared_units,
+            atomic_structure_alat=atomic_structure_alat,
             direct_lattice_vectors=direct,
-            direct_lattice_unit=declared_units,
-            direct_lattice_convention="QEXSD cell vectors a1,a2,a3 in source order",
-            reciprocal_lattice_vectors=reciprocal_vectors,
-            reciprocal_lattice_unit=declared_units,
-            reciprocal_lattice_convention=(
-                "QEXSD reciprocal_lattice vectors b1,b2,b3 in source order"
+            direct_lattice_source_label="output/atomic_structure/cell/a1,a2,a3",
+            reciprocal_lattice_coefficients=reciprocal_vectors,
+            reciprocal_lattice_source_label=(
+                "output/basis_set/reciprocal_lattice/b1,b2,b3"
             ),
             species=tuple(species),
             atoms=tuple(atoms),
             declared_atom_count=declared_atom_count,
-            position_unit=declared_units,
-            position_convention="QEXSD atomic_positions coordinates in source order",
+            atomic_positions_source_label="output/atomic_structure/atomic_positions",
             k_points=tuple(k_points),
             k_point_weights=tuple(weights),
             sampled_k_point_count=sampled_count,
-            k_point_convention=(
-                "QEXSD band_structure ks_energies k_point coordinates in source order"
-            ),
+            k_point_source_label="output/band_structure/ks_energies/k_point",
             eigenvalues=tuple(eigenvalues),
             occupations=occupations,
-            energy_unit=declared_units,
+            eigenvalue_source_label="output/band_structure/ks_energies/eigenvalues",
             band_count=band_count,
-            spin_channels=None,
             total_energy=total_energy,
-            total_energy_unit=declared_units,
+            total_energy_source_label="output/total_energy/etot",
             fft_grid=fft_grid,
             fft_smooth=fft_smooth,
             fft_box=fft_box,

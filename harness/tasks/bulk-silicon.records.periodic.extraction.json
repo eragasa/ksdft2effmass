@@ -3,7 +3,7 @@
   "task_id": "bulk-silicon.records.periodic.extraction",
   "title": "Periodic electronic-structure record extraction",
   "status": "active",
-  "status_detail": "Periodic QEXSD extraction implementation is complete and awaiting human review. Explicit source bytes and identity flow through separate mechanical ParseQexsdDocument and semantic ConstructPeriodicCalculationRecord ActionObjects into an immutable version-1 record and canonical retained JSON. Focused software verification, actual-artifact extraction, strict serialization/schema agreement, Ruff, mypy, and Sphinx checks pass. The accepted external XML remains unchanged; QE and Wannier90 were not run. Automatic successor activation remains disabled; no other Task is active.",
+  "status_detail": "Periodic QEXSD extraction architecture is corrected and remains active awaiting renewed human review. QEXSD I/O, generic periodic geometry, representation-neutral Kohn-Sham semantics, and the plane-wave calculation record now have separate owners. Explicit source bytes flow through ParseQexsdDocument and ConstructQexsdKohnShamPlaneWaveRecord into the closed version-1 plane-wave record with quantity-specific units and explicit reciprocal and k-point scales. Automatic successor activation remains disabled; no other Task is active.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "bulk-silicon.artifacts.qe.inventory"
@@ -11,7 +11,7 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Determine and implement the minimal periodic electronic-structure records supported by observed QE tutorial artifacts and accepted scientific conventions.",
+  "objective": "Determine and implement the minimal plane-wave Kohn-Sham calculation record supported by the observed QE tutorial QEXSD artifact, with QEXSD I/O, periodic geometry, representation-neutral Kohn-Sham semantics, and plane-wave ownership separated.",
   "authority_reference_paths": [
     "calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.json",
     "calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.md",
@@ -22,13 +22,16 @@
     "Use only the observed compact QEXSD source silicon.save/data-file-schema.xml for the first bounded implementation.",
     "Extract lattice vectors and units; reciprocal-lattice vectors and units; atomic species and positions; k-points and weights; Kohn-Sham eigenvalues and occupations; total energy; FFT-grid metadata; exit status; creator and QEXSD version; and source-artifact identity.",
     "Keep mechanical QEXSD parsing separate from immutable semantic record construction.",
-    "Make units, indexing, source conventions, and provenance explicit; represent absent energy reference, spin convention, gauge information, basis information, and physical interpretation as unavailable rather than inferred."
+    "Make unit system, physical dimension, concrete unit, coordinate convention, scale convention, indexing, source conventions, and provenance explicit; represent absent energy reference, spin convention, gauge information, basis information, and physical interpretation as unavailable rather than inferred.",
+    "Implement the dependency direction io.quantum_espresso.qexsd -> ksdft.pw -> {ksdft, periodic}, with no Quantum ESPRESSO or QEXSD imports from domain packages."
   ],
   "completion_criteria": [
     "Every extracted field has an identified source, unit, convention, and provenance.",
     "Parsing and semantic adaptation have focused software-verification evidence.",
     "Unsupported and unavailable information remains explicit.",
-    "Any public record contract has synchronized schema, fixture, runtime, and documentation surfaces."
+    "Any public record contract has synchronized schema, fixture, runtime, and documentation surfaces.",
+    "Direct and physical reciprocal lattices satisfy A B^T = 2*pi I under the documented deterministic floating-point criterion.",
+    "Old pre-acceptance periodic record imports and compatibility aliases are absent."
   ],
   "exclusions": [
     "Do not parse wfc*.dat, charge-density.dat, stdout iteration history, band-calculation outputs, HDF5, Wannier90 artifacts, another backend, or any artifact other than the observed data-file-schema.xml in the first bounded implementation.",

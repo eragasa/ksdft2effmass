@@ -1,53 +1,35 @@
-Periodic calculation records from QEXSD
-=======================================
+Plane-wave Kohn--Sham calculation records from QEXSD
+====================================================
 
-The bounded extraction path for the accepted Quantum ESPRESSO tutorial artifact
-is:
+The bounded extraction path is:
 
 .. code-block:: text
 
    explicit QEXSD bytes and source identity
    -> ParseQexsdDocument
-   -> immutable QexsdDocument
-   -> ConstructPeriodicCalculationRecord
-   -> immutable PeriodicCalculationRecord
+   -> mechanically faithful QexsdDocument
+   -> ConstructQexsdKohnShamPlaneWaveRecord
+   -> immutable KohnShamPlaneWaveCalculationRecord
    -> canonical retained JSON
 
-The two transformations are intentionally distinct:
+QEXSD parsing preserves raw source observations; QEXSD-owned construction maps
+backend conventions into composed domain objects. Generic periodic geometry,
+representation-neutral Kohn--Sham observations, plane-wave metadata, and
+canonical serialization have separate owners. See the maintained
+:download:`computational architecture <../computational/ksdft-pw-record-architecture.md>`.
 
-.. code-block:: text
+Direct vectors and Cartesian atomic positions use bohr. Raw reciprocal vectors
+and raw Cartesian k points are dimensionless coefficients with scale
+``2pi_over_alat``; their physical values use bohr :sup:`-1`. For the retained
+artifact, ``alat = 10.2 bohr`` and
+:math:`A B_{\mathrm{physical}}^{\mathsf T}=2\pi I` under an absolute
+componentwise residual bound of :math:`10^{-12}`. Eigenvalues and total energy
+use hartree. Weights are explicitly marked as summing to two.
 
-   QEXSD parsing
-   !=
-   semantic periodic-record construction
+Spin-resolved arrays, energy reference, basis identity, retained subspace,
+gauge, and phase convention remain unavailable. The record does not establish
+convergence, numerical verification, scientific validation, UQ, or human
+acceptance.
 
-``ParseQexsdDocument`` owns namespace, root, QEXSD-version, native-value,
-source-order, declared-unit, and XML-structure handling. It receives
-``QexsdSource`` bytes explicitly and performs no path discovery or file opening.
-``ConstructPeriodicCalculationRecord`` contains no XML behavior. It maps the
-native document to the minimal backend-neutral observation while preserving
-native units and provenance and recording unavailable interpretation with typed
-reasons.
-
-The version-1 record stores ordered lattice and reciprocal-lattice vectors,
-species and atoms, sampled k points and unnormalized weights, Kohn--Sham
-eigenvalues and occupations, total energy, FFT grids, exit status, and exact
-external source identity. The arrays are immutable nested tuples in Python and
-ordered arrays on the wire. Kohn--Sham eigenvalues are not treated as a complete
-many-body spectrum or a uniquely identified basis-independent operator.
-
-Absolute energy reference, Fermi alignment, retained subspace, gauge, phase,
-basis identity, and spin convention are unavailable for this source. The parser
-does not infer them. A valid record does not establish convergence sufficiency,
-numerical verification, scientific validation, uncertainty quantification, or
-human acceptance.
-
-Current retained evidence and later workflow
---------------------------------------------
-
-* :download:`calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.json <../../calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.json>`
-* :download:`calculations/bulk-silicon/qe-example01-si-scf-davidson/periodic-calculation-record.json <../../calculations/bulk-silicon/qe-example01-si-scf-davidson/periodic-calculation-record.json>`
-* :download:`docs/computational/wannier/wannier-tutorial-catalog.md <../computational/wannier/wannier-tutorial-catalog.md>`
-
-The Wannier catalog describes proposed later work only. This extraction does not
-run or implement Wannier90.
+* :download:`Retained record <../../calculations/bulk-silicon/qe-example01-si-scf-davidson/ksdft-plane-wave-calculation-record.json>`
+* :download:`Version-1 schema <../../specification/ksdft-plane-wave-calculation-record/v1/ksdft-plane-wave-calculation-record.schema.json>`

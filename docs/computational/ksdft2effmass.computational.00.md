@@ -234,6 +234,13 @@ remains an optional `workflow` dependency, and
 `cpn.workflow.persistence` remains deferred and inactive. No
 production or scientific execution is authorized by this planning map.
 
+## Maintained plane-wave record architecture
+
+The implemented QEXSD, periodic-geometry, representation-neutral Kohn--Sham,
+and plane-wave-record package boundaries are documented in
+[`ksdft-pw-record-architecture.md`](ksdft-pw-record-architecture.md). The active
+extraction Task remains provisional and awaiting human review.
+
 ## Gate markings
 
 ### Historical `G01` and prospective gates `G01a`/`G01b`

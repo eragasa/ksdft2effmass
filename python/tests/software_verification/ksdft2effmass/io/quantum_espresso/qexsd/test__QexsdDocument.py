@@ -22,7 +22,11 @@ from dataclasses import FrozenInstanceError, replace
 import pytest
 from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
 
-from ksdft2effmass.periodic import ParseQexsdDocument, QexsdDocument, QexsdSource
+from ksdft2effmass.io.quantum_espresso.qexsd import (
+    ParseQexsdDocument,
+    QexsdDocument,
+    QexsdSource,
+)
 
 SUT = QexsdDocument
 pytestmark = pytest.mark.software_verification

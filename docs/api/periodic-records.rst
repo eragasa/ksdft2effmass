@@ -1,13 +1,16 @@
-QEXSD and periodic calculation records
-======================================
+QEXSD, periodic geometry, and plane-wave Kohn--Sham records
+===========================================================
 
-Use the public ``ksdft2effmass.periodic`` import path. QEXSD parsing is not
-semantic periodic-record construction.
+The public interfaces are separated by ownership. Quantum ESPRESSO parsing and
+translation use ``ksdft2effmass.io.quantum_espresso.qexsd``; generic geometry
+uses ``ksdft2effmass.periodic``; representation-neutral Kohn--Sham observations
+use ``ksdft2effmass.ksdft``; and plane-wave records and serialization use
+``ksdft2effmass.ksdft.pw``.
 
-.. currentmodule:: ksdft2effmass.periodic
+QEXSD source and translation
+----------------------------
 
-Native source and parsing
--------------------------
+.. currentmodule:: ksdft2effmass.io.quantum_espresso.qexsd
 
 .. autoclass:: QexsdSource
    :members:
@@ -18,17 +21,29 @@ Native source and parsing
 .. autoclass:: ParseQexsdDocument
    :members:
 
-Semantic record and serialization
+.. autoclass:: ConstructQexsdKohnShamPlaneWaveRecord
+   :members:
+
+Periodic geometry
+-----------------
+
+.. currentmodule:: ksdft2effmass.periodic
+
+.. autoclass:: DirectLattice
+.. autoclass:: ReciprocalLattice
+.. autoclass:: PeriodicStructure
+.. autoclass:: KPointSampling
+
+Kohn--Sham and plane-wave records
 ---------------------------------
 
-.. autoclass:: UnavailableReason
-   :members:
+.. currentmodule:: ksdft2effmass.ksdft
 
-.. autoclass:: PeriodicCalculationRecord
-   :members:
+.. autoclass:: KohnShamSpectralObservations
+.. autoclass:: TotalEnergyObservation
 
-.. autoclass:: ConstructPeriodicCalculationRecord
-   :members:
+.. currentmodule:: ksdft2effmass.ksdft.pw
 
-.. autoclass:: PeriodicCalculationRecordJsonSerializer
+.. autoclass:: KohnShamPlaneWaveCalculationRecord
+.. autoclass:: KohnShamPlaneWaveCalculationRecordJsonSerializer
    :members:

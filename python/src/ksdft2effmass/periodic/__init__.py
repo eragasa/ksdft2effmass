@@ -1,26 +1,38 @@
-"""Public QEXSD extraction and periodic-calculation record API.
+"""Backend-neutral immutable periodic geometry public API.
 
-QEXSD parsing is distinct from semantic periodic-record construction.  The
-public boundary performs no filesystem discovery, Quantum ESPRESSO execution,
-Wannier execution, unit conversion, energy alignment, or scientific acceptance.
+This package owns lattices, structures, coordinates, k points, and their direct--
+reciprocal consistency.  It intentionally exports no QEXSD, Quantum ESPRESSO,
+Kohn--Sham spectrum, FFT-grid, calculation-record, or serializer classes.
 """
 
-from .construction import ConstructPeriodicCalculationRecord
-from .qexsd import ParseQexsdDocument
-from .records import (
-    PeriodicCalculationRecord,
-    QexsdDocument,
-    QexsdSource,
-    UnavailableReason,
+from .models import (
+    AtomicSpecies,
+    CoordinateConvention,
+    DirectLattice,
+    InverseLengthUnit,
+    KPointSampling,
+    KPointWeightNormalization,
+    LengthUnit,
+    PeriodicSite,
+    PeriodicStructure,
+    PhysicalDimension,
+    ReciprocalLattice,
+    ReciprocalScaleConvention,
+    UnitSystem,
 )
-from .serialization import PeriodicCalculationRecordJsonSerializer
 
 __all__ = [
-    "ConstructPeriodicCalculationRecord",
-    "ParseQexsdDocument",
-    "PeriodicCalculationRecord",
-    "PeriodicCalculationRecordJsonSerializer",
-    "QexsdDocument",
-    "QexsdSource",
-    "UnavailableReason",
+    "AtomicSpecies",
+    "CoordinateConvention",
+    "DirectLattice",
+    "InverseLengthUnit",
+    "KPointSampling",
+    "KPointWeightNormalization",
+    "LengthUnit",
+    "PeriodicSite",
+    "PeriodicStructure",
+    "PhysicalDimension",
+    "ReciprocalLattice",
+    "ReciprocalScaleConvention",
+    "UnitSystem",
 ]

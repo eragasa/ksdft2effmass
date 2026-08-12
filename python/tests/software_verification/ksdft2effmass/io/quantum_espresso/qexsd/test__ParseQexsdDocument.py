@@ -22,7 +22,7 @@ import builtins
 import pytest
 from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
 
-from ksdft2effmass.periodic import ParseQexsdDocument, QexsdSource
+from ksdft2effmass.io.quantum_espresso.qexsd import ParseQexsdDocument, QexsdSource
 
 SUT = ParseQexsdDocument
 pytestmark = pytest.mark.software_verification
