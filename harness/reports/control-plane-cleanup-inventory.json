@@ -2,7 +2,7 @@
   "schema_version": 2,
   "inventory_id": "harness.control-plane-cleanup.inventory.slice-a",
   "task_id": "harness.control-plane-cleanup",
-  "status": "slice_a_complete",
+  "status": "slice_b_complete_slice_c_pending",
   "inventory_base_revision": "2027ebedae9427b4b82237d3a3429e2e308b234a",
   "claim_boundary": "Observational Slice A inventory; dispositions are provisional conclusions and authorize no deletion. Unresolved surfaces and connected clusters remain fail-closed.",
   "graph_report": "harness/reports/control-plane-reachability.json",
@@ -3927,5 +3927,24 @@
     "Repository-local static evidence cannot prove absence of external consumers for public Python, skill, agent, extension, or CLI contracts.",
     "Dynamic Python reflection and untracked user-global Pi configuration are outside repository evidence and leave connected public/declarative clusters fail-closed unresolved where no explicit root establishes retention.",
     "A Slice A delete disposition is a proposal only and authorizes no deletion."
-  ]
+  ],
+  "slice_b": {
+    "deletion_manifest": "harness/reports/control-plane-cleanup-slice-b-deletions.json",
+    "summary": "harness/reports/control-plane-cleanup-slice-b.md",
+    "base_revision": "684e9f61cfc3a2c727d50f30c7469e58ff7b1483",
+    "considered": 635,
+    "deleted": 388,
+    "retained": 247,
+    "unresolved": 0,
+    "remaining_counts_before_projection_regeneration": {
+      "live_tasks": 112,
+      "chains": 7,
+      "checkpoints": 51,
+      "evidence_records": 100,
+      "archives": 77,
+      "generated_task_pages": 112
+    },
+    "slice_a_report_preserved": "harness/reports/control-plane-reachability.json",
+    "claim_boundary": "Slice B removed only history-role candidates authorized by Slice A and satisfying all deletion preconditions. Slice A unresolved surfaces and Slice C runtime/compatibility surfaces were not deleted."
+  }
 }

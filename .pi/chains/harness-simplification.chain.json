@@ -1,7 +1,7 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "harness_control_plane_cleanup_active_slice_b_pending",
+  "status": "harness_control_plane_cleanup_active_slice_c_pending",
   "active_task": "harness.control-plane-cleanup",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
@@ -40,6 +40,10 @@
     {
       "phase": "control-plane-cleanup-slice-a-completed",
       "message": "Slice A completed observationally from revision 2027ebedae9427b4b82237d3a3429e2e308b234a with exact tracked in-scope path accounting, an evidence-backed directed reachability graph, explicit operational roots, and fail-closed unresolved clusters. No surface was deleted, relocated, renamed, merged, replaced, or redesigned. Slice B remains pending and has not begun."
+    },
+    {
+      "phase": "control-plane-cleanup-slice-b-completed",
+      "message": "Slice B considered 635 Slice A history/projection/cache delete candidates. It deleted 388 history surfaces and retained 247 where an inbound retained reference, test/fixture rule, or another deletion precondition failed. No unresolved or Slice C runtime/compatibility surface was deleted. Slice C remains pending and has not begun."
     }
   ],
   "task_sequence": [

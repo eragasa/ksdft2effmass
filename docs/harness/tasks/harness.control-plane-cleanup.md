@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Slice A completed observationally with exact tracked-path coverage, an evidence-backed directed reachability graph, explicit operational roots, fail-closed unresolved clusters, and no deletion or runtime redesign. The Task remains active at the Slice B pending boundary; Slice B has not begun, automatic successor activation remains disabled, and no other successor is active.
+`active`: Slice B completed as one bounded history-only deletion: 635 Slice A candidates were considered, 388 historical records were deleted, and 247 were retained because a deletion precondition or Slice B ineligible-category rule failed. No unresolved, runtime, compatibility, scientific, dependency, or lockfile surface was deleted. The Task remains active at the Slice C pending boundary; Slice C has not begun.
 
 ## Objective
 
