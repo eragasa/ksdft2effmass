@@ -27,7 +27,12 @@
     "harness.simplify-2.validation-retirement.legacy-route-retirement",
     "harness.simplify-2.validation-retirement.integration-closeout"
   ],
-  "chain": [],
+  "chain": [
+    {
+      "phase": "control-plane-cleanup-planned",
+      "message": "The human selected harness.control-plane-cleanup as the immediate priority after disposition of harness.simplify-2. It remains inactive, automatic successor activation remains disabled, and the proposal targets minimum operational authority rather than file-count reduction."
+    }
+  ],
   "task_sequence": [
     {
       "id": "harness-simplification.agents.durable-roles",
@@ -262,6 +267,10 @@
     {
       "id": "harness.simplify-2.validation-retirement.integration-closeout",
       "record": "harness/tasks/harness.simplify-2.validation-retirement.integration-closeout.json"
+    },
+    {
+      "id": "harness.control-plane-cleanup",
+      "record": "harness/tasks/harness.control-plane-cleanup.json"
     }
   ]
 }

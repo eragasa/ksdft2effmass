@@ -219,7 +219,7 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     Oracle: The accepted version-3 schema and canonical graph independently define
     wire shape and represented relationships.
 
-    Acceptance: All 111 live Tasks are version 3, pass schema/runtime validation,
+    Acceptance: All 112 live Tasks are version 3, pass schema/runtime validation,
     serialize canonically, equal the graph node catalog, and represent exact
     supersession edges.
 
@@ -247,7 +247,7 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     )
     tasks = tuple(HarnessTaskDeserializer().execute(payload) for payload in payloads)
     assert tuple(HarnessTaskSerializer().execute(task) for task in tasks) == payloads
-    assert len(tasks) == 111
+    assert len(tasks) == 112
     graph = json.loads((root / "harness/task-graph.json").read_text())
     assert {node["task_id"] for node in graph["nodes"]} == {
         document["task_id"] for document in documents

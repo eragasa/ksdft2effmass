@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Harness extraction — Standalone extraction readiness
 
-[Task index](index.md) · [Previous](./harness-task-state-symlink-toctou-hardening.md) · [Next](./harness.simplification.agents.delegation-validation.md)
+[Task index](index.md) · [Previous](./harness.control-plane-cleanup.md) · [Next](./harness.simplification.agents.delegation-validation.md)
 
 ## Status
 

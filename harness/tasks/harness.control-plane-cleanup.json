@@ -1,0 +1,53 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.control-plane-cleanup",
+  "title": "Reduce repository control-plane authority",
+  "status": "inactive",
+  "status_detail": "Human-selected immediate priority after disposition of the active harness.simplify-2 boundary; deliberately inactive, with automatic successor activation disabled. The inventory is planning evidence only.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "harness.simplify-2"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reduce the live repository control plane to the minimum operational authority required for current and prospective work. Because the repository is pre-alpha, Git history is sufficient historical retention: unused compatibility, deprecated aliases, archived copies, resolved control records, and historical ceremony need not remain tracked merely to preserve old interfaces.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/development/agent-control-plane.rst",
+    "harness/reports/control-plane-cleanup-inventory.json"
+  ],
+  "authorized_scope": [
+    "Inspect and rationalize AGENTS.md; live agent records and skills; prompt and template resources; Tasks and graph relationships; chains; checkpoints; ownership records; .pi/evidence/**; harness/archive/**; intake and reports; schemas, fixtures, profiles, extensions, and resource manifests; generated SQLite, SQL, manifests, and documentation; harness Python modules and CLI commands; harness tests; and tracked cache or temporary artifacts.",
+    "Classify every inventoried surface as exactly one of live_authority, live_runtime, generated_projection, current_documentation, removable_history, obsolete_compatibility, cache_or_temporary, or unresolved, while distinguishing source authority, generated state, runtime implementation, tests, current operational documentation, historical material, and cache contamination.",
+    "Map each retained surface to its current consumer, distinct capability or maintained user operation, source of authority, and synchronization path; counts are descriptive only and are not acceptance targets.",
+    "When separately activated, remove authority-free historical ceremony, obsolete compatibility, archived duplicates, resolved live control records, and tracked temporary artifacts directly from the current tree without creating another archival layer; rely on Git for history.",
+    "When separately activated, retain one synchronization command, one source-aware validation command, and additional CLIs only for distinct maintained user operations; remove CLIs retained solely as wrappers and prohibit command-output parsing between maintained commands.",
+    "When separately activated, evaluate production harness modules and tests by ownership and behavior rather than numerical line, module, command, or file-count targets, then synchronize through the maintained publisher and complete proportionate verification and one consolidated independent review."
+  ],
+  "completion_criteria": [
+    "Only durable, operational agent roles remain live.",
+    "Only operational current or future Tasks and relationships remain in the live Task catalog; completed or superseded Task history does not remain live merely as ceremony.",
+    "Only currently operational chains remain live, and resolved checkpoints do not remain tracked as live control state.",
+    "Historical evidence and archived duplicates may be deleted from the current tree because Git preserves their history; the cleanup creates no replacement archival layer.",
+    "Current generated evidence projections remain only when reproducible by the maintained publisher.",
+    "No tracked cache, temporary database, journal, staging, backup, or replay output remains.",
+    "Every retained skill has a current consumer and distinct capability; every retained CLI has a current user story not already covered by another command; and every retained resource has a current resolver or profile consumer.",
+    "Aliases, adapters, compatibility wrappers, schemas, fixtures, profiles, extensions, and documentation without a live consumer are removed.",
+    "Each control domain has one explicit source of authority, and generated state has one maintained synchronization path.",
+    "The maintained CLI surface contains one synchronization command, one source-aware validation command, and only additional commands that provide distinct maintained user operations; no CLI remains solely as a wrapper around another CLI and maintained commands do not parse one another's output.",
+    "Production harness modules and tests are evaluated by ownership and behavior rather than reduced to meet numerical line, module, command, or file-count targets.",
+    "Scientific production code, scientific evidence, and research documentation remain outside cleanup unless they are direct control-plane artifacts.",
+    "The final classified inventory and consumer map account for every retained or removed control-plane surface, and focused plus repository-level software verification, deterministic synchronization, exact projection agreement, and one consolidated independent review pass without unsupported scientific or human-acceptance claims."
+  ],
+  "exclusions": [
+    "This Task remains inactive. This proposal and inventory do not authorize cleanup implementation, deletion, mutation of audited surfaces, Task activation, parent acceptance, or successor activation.",
+    "Do not create another archival layer before deleting the existing one when cleanup is separately activated.",
+    "Do not implement scientific or numerical behavior, execute simulations, implement telemetry, introduce a new persistence architecture, add or change dependencies or lockfiles, perform release work, or perform protected operations.",
+    "Do not change scientific specifications, mathematical conventions, physical settings, scientific production code, scientific evidence, or research documentation unless a direct control-plane artifact is involved and separately authorized.",
+    "Do not activate harness.control-plane-cleanup, mark harness.simplify-2 human-accepted, activate any successor, or enable automatic successor activation.",
+    "Do not treat structural simplification, reduced counts, passing tests, or reviewer agreement as scientific validation or human acceptance."
+  ],
+  "intake_path": "harness/intake/harness.control-plane-cleanup.md",
+  "archived_source": null
+}

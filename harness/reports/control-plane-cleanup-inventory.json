@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "inventory_id": "harness.control-plane-cleanup.inventory.v1",
+  "task_id": "harness.control-plane-cleanup",
+  "status": "initial_classified_inventory",
+  "inventory_base_revision": "dac340fcbebe2a86452746582da7311f0878b25a",
+  "inventory_includes_cleanup_task": true,
+  "inventory_excludes_uncommitted_primary_workspace_changes": true,
+  "working_tree_basis": "clean isolated checkout plus only the inactive cleanup proposal and maintained publisher outputs",
+  "claim_boundary": "This inventory classifies current-tree control-plane surfaces for an inactive authority-reduction proposal. Counts are descriptive only and are not acceptance targets. Classification does not activate cleanup, authorize deletion, establish non-use, or provide human acceptance.",
+  "classification_vocabulary": [
+    "live_authority",
+    "live_runtime",
+    "generated_projection",
+    "current_documentation",
+    "removable_history",
+    "obsolete_compatibility",
+    "cache_or_temporary",
+    "unresolved"
+  ],
+  "scope": {
+    "included": [
+      "AGENTS.md",
+      "live agent records and skills",
+      "prompt and template resources",
+      "Tasks, graph relationships, chains, checkpoints, and ownership records",
+      ".pi/evidence/** and harness/archive/**",
+      "intake and reports",
+      "schemas, fixtures, profiles, extensions, and resource manifests",
+      "generated SQLite, SQL, manifests, Task graph, evidence inventory, and documentation",
+      "harness Python modules, CLI commands, and tests",
+      "tracked or observed cache and temporary artifacts"
+    ],
+    "excluded": [
+      "scientific production code, scientific evidence, and research documentation that are not direct control-plane artifacts",
+      "third-party virtual environments and packages",
+      "Pi user-global packages and configuration outside the repository",
+      "simulation execution and scientific datasets",
+      "implementation, deletion, activation, dependency, release, and protected operations"
+    ]
+  },
+  "controlling_state": {
+    "chain": ".pi/chains/harness-simplification.chain.json",
+    "chain_status": "harness_simplify_2_complete_pending_human_acceptance",
+    "active_task": "harness.simplify-2",
+    "active_task_human_accepted": false,
+    "automatic_successor_activation": false,
+    "planned_cleanup_task_active": false,
+    "successor_active": false,
+    "unresolved_top_level_checkpoint_count": 0
+  },
+  "surfaces": [
+    {
+      "surface_id": "source-authority.repository-policy",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": ["AGENTS.md"],
+      "file_count": 1,
+      "observation": "The root policy is the only AGENTS.md in the clean isolated tree; its retained operational authority and procedural routing require consumer and duplication review."
+    },
+    {
+      "surface_id": "runtime.agent-roles",
+      "classification": "live_runtime",
+      "kind": "runtime_implementation",
+      "paths": [".pi/agents/*.md"],
+      "file_count": 34,
+      "observation": "Each retained role must be durable, operational, and distinct; phase-specific or unconsumed roles are cleanup candidates."
+    },
+    {
+      "surface_id": "runtime.live-skills",
+      "classification": "live_runtime",
+      "kind": "runtime_implementation",
+      "paths": [".pi/skills/*/SKILL.md", ".agents/skills/*/SKILL.md"],
+      "file_count": 10,
+      "pi_skill_count": 8,
+      "agents_skill_count": 2,
+      "observation": "Each retained skill must have a current consumer and distinct capability."
+    },
+    {
+      "surface_id": "authority.skill-and-template-resources",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": ["harness/pi/skills/**", "docs/computational/ksdft2Effmass.computational.task-template.md"],
+      "generic_skill_descriptor_count": 4,
+      "template_count": 1,
+      "observation": "Canonical skill resources and the maintained project template require resolver or operational consumers; synchronized live skill copies are runtime projections of retained authority."
+    },
+    {
+      "surface_id": "authority.operational-task-catalog",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": ["harness/tasks/*.json"],
+      "selection_rule": "active, architecture_corrected_awaiting_human_review, blocked, deferred, deferred_inactive, or inactive",
+      "file_count": 24,
+      "status_counts": {
+        "active": 1,
+        "architecture_corrected_awaiting_human_review": 1,
+        "blocked": 8,
+        "deferred": 1,
+        "deferred_inactive": 2,
+        "inactive": 11
+      },
+      "observation": "This count includes the inactive cleanup Task. Retention still requires a current or prospective operation and relationship; status alone does not prove necessity."
+    },
+    {
+      "surface_id": "history.completed-or-superseded-task-catalog",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": ["harness/tasks/*.json"],
+      "selection_rule": "completed, accepted, authorized-pass, legacy-recorded, closed, or superseded statuses",
+      "file_count": 88,
+      "status_counts": {
+        "closed_human_accepted_pass": 2,
+        "completed": 45,
+        "human_accepted": 6,
+        "human_accepted_conditional_pass": 1,
+        "human_accepted_pass": 9,
+        "human_accepted_pass_local_authoritative": 1,
+        "human_authorized_pass": 1,
+        "legacy_recorded": 3,
+        "superseded": 17,
+        "superseded_by_direct_human_selection": 1,
+        "superseded_by_task_graph_selection_state_decision": 1,
+        "superseded_without_architecture_acceptance": 1
+      },
+      "observation": "Completed and superseded records are cleanup candidates because Git preserves their history; they need not remain live merely as ceremony."
+    },
+    {
+      "surface_id": "authority.operational-chains",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": [".pi/chains/*.json"],
+      "file_count": 3,
+      "members": [
+        "backend-neutral-kohn-sham-qe.chain.json",
+        "harness-simplification.chain.json",
+        "human-review-interface.chain.json"
+      ],
+      "observation": "The count includes planned, active-pending-acceptance, and awaiting-human-review chains; each must still prove current operational necessity."
+    },
+    {
+      "surface_id": "history.closed-chains",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": [".pi/chains/*.json"],
+      "file_count": 6,
+      "observation": "Closed chains are candidates for removal from live control state because Git retains their history."
+    },
+    {
+      "surface_id": "history.resolved-checkpoints",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": [".pi/checkpoints/*.json"],
+      "file_count_excluding_schema": 48,
+      "resolved_count": 44,
+      "superseded_count": 4,
+      "unresolved_count": 0,
+      "observation": "No unresolved checkpoint exists. Resolved and superseded checkpoints need not remain tracked as live control state."
+    },
+    {
+      "surface_id": "authority.ownership-schemas",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": [".pi/task-ownership/*.schema.json", ".pi/task-ownership/README.md"],
+      "schema_count": 3,
+      "documentation_count": 1,
+      "observation": "Retain only if current ownership validation consumes these contracts."
+    },
+    {
+      "surface_id": "history.completed-task-ownership-records",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": [".pi/task-ownership/harness-*.json"],
+      "file_count": 6,
+      "tracked_tree_file_count_including_schemas_tests_and_docs": 25,
+      "observation": "The six task-specific manifests describe completed work and are candidates for removal from the current tree."
+    },
+    {
+      "surface_id": "projection.python-evidence-inventory",
+      "classification": "generated_projection",
+      "kind": "generated_state",
+      "paths": [".pi/evidence/python-conformance/module-inventory.json"],
+      "file_count": 1,
+      "observation": "Retain only while it is reproducible by the maintained publisher and consumed as a projection rather than authority."
+    },
+    {
+      "surface_id": "history.retained-evidence",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": [".pi/evidence/**"],
+      "file_count_excluding_current_generated_projection": 483,
+      "observation": "Historical evidence may be deleted from the current tree because Git preserves it; any current consumer must be identified before removal."
+    },
+    {
+      "surface_id": "authority.generic-resources",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": ["harness/pi/**"],
+      "manifest_id": "pih.generic.resources",
+      "manifest_version": 6,
+      "declared_resource_count": 33,
+      "tracked_tree_file_count": 167,
+      "schema_file_count": 21,
+      "fixture_file_count": 128,
+      "observation": "Every retained resource, schema, profile, fixture, and descriptor requires a current resolver or profile consumer."
+    },
+    {
+      "surface_id": "authority.project-local-resources",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": ["harness/local/**"],
+      "manifest_id": "ksdft2effmass.local.resources",
+      "manifest_version": 12,
+      "declared_resource_count": 13,
+      "tracked_tree_file_count": 33,
+      "schema_file_count": 2,
+      "fixture_file_count": 25,
+      "extension_file_count": 2,
+      "observation": "Aliases, adapters, compatibility extensions, schemas, fixtures, profiles, and manifests without live consumers are removal candidates."
+    },
+    {
+      "surface_id": "projection.control-state",
+      "classification": "generated_projection",
+      "kind": "generated_state",
+      "paths": [
+        "harness/state/harness-control.sqlite3",
+        "harness/state/harness-control.sql",
+        "harness/state/projection-manifest.json",
+        "harness/task-graph.json",
+        "docs/harness/tasks/*.md"
+      ],
+      "state_file_count": 3,
+      "task_graph_file_count": 1,
+      "generated_task_page_count_excluding_index_after_cleanup_publication": 112,
+      "observation": "Generated state must have one maintained synchronization path and remain exact with canonical sources."
+    },
+    {
+      "surface_id": "history.archived-copies",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": ["harness/archive/**"],
+      "tracked_file_count": 79,
+      "observation": "Archived duplicates may be deleted without creating another archival layer because Git preserves history."
+    },
+    {
+      "surface_id": "authority.current-intake",
+      "classification": "live_authority",
+      "kind": "source_authority",
+      "paths": ["harness/intake/**"],
+      "file_count": 2,
+      "members": ["harness.simplify-2.md", "harness.control-plane-cleanup.md"],
+      "observation": "These inputs govern the active parent and its inactive proposed successor."
+    },
+    {
+      "surface_id": "documentation.cleanup-inventory",
+      "classification": "current_documentation",
+      "kind": "current_operational_documentation",
+      "paths": ["harness/reports/control-plane-cleanup-inventory.json"],
+      "file_count": 1,
+      "observation": "This is current planning documentation, not generated authority or activation."
+    },
+    {
+      "surface_id": "history.other-reports",
+      "classification": "removable_history",
+      "kind": "historical_material",
+      "paths": ["harness/reports/**"],
+      "tracked_file_count_excluding_cleanup_inventory": 7,
+      "observation": "Existing reports require consumer review; historical or superseded reports need not remain tracked merely for ceremony."
+    },
+    {
+      "surface_id": "runtime.harness-python",
+      "classification": "live_runtime",
+      "kind": "runtime_implementation",
+      "paths": ["python/src/ksdft2effmass/harness/**"],
+      "python_module_count": 87,
+      "observation": "Production modules are evaluated by domain ownership and behavior, never against numerical line or module targets."
+    },
+    {
+      "surface_id": "runtime.harness-cli",
+      "classification": "live_runtime",
+      "kind": "runtime_implementation",
+      "paths": ["python/src/cli/*.py"],
+      "python_file_count": 13,
+      "members": [
+        "harness_control.py",
+        "inspect_task_state.py",
+        "refresh_resource_manifest.py",
+        "validate_architecture_decision_cases.py",
+        "validate_checkpoints.py",
+        "validate_documentation_projection.py",
+        "validate_evidence_repository_conformance.py",
+        "validate_harness.py",
+        "validate_local_harness_resources.py",
+        "validate_python_conformance.py",
+        "validate_skill_capabilities.py",
+        "validate_task_ownership.py",
+        "validate_task_schema_projection.py"
+      ],
+      "target": "One synchronization command, one source-aware validation command, and additional CLIs only for distinct maintained user operations; no wrapper-only CLI and no command-output parsing between maintained commands."
+    },
+    {
+      "surface_id": "runtime.harness-tests",
+      "classification": "live_runtime",
+      "kind": "tests",
+      "paths": [
+        "python/tests/software_verification/ksdft2effmass/harness/**",
+        ".pi/task-ownership/tests/**",
+        "harness/pi/validation/test_*.py"
+      ],
+      "primary_harness_python_test_file_count": 118,
+      "task_ownership_test_file_count": 15,
+      "resource_validation_test_file_count": 3,
+      "observation": "Tests are evaluated by represented behavior and evidence ownership, not reduced to meet a numerical target."
+    },
+    {
+      "surface_id": "documentation.current-control-plane",
+      "classification": "current_documentation",
+      "kind": "current_operational_documentation",
+      "paths": [
+        "docs/harness/**",
+        "docs/development/**",
+        "docs/api/harness-*.rst",
+        "harness/pi/docs/**",
+        "harness/local/docs/**",
+        "harness/local/extensions/**"
+      ],
+      "tracked_docs_harness_file_count_before_cleanup_projection": 142,
+      "tracked_docs_development_file_count": 4,
+      "harness_api_page_count": 3,
+      "generic_resource_doc_count": 2,
+      "local_resource_doc_count": 1,
+      "local_extension_file_count": 2,
+      "observation": "Generated Task pages are projections; authored operational documentation must have a current consumer and must not duplicate authority."
+    },
+    {
+      "surface_id": "compatibility.unverified-live-candidates",
+      "classification": "obsolete_compatibility",
+      "kind": "compatibility_surface",
+      "paths": [
+        "python/src/ksdft2effmass/harness/**",
+        "harness/pi/**",
+        "harness/local/**"
+      ],
+      "confirmed_file_count": 0,
+      "observation": "The initial structural inventory confirms no individual compatibility file as removable without consumer analysis; the activated audit must identify aliases, adapters, wrappers, schemas, fixtures, profiles, extensions, and documentation with no live consumer."
+    },
+    {
+      "surface_id": "temporary.cache-and-staging",
+      "classification": "cache_or_temporary",
+      "kind": "cache_contamination",
+      "paths": [
+        ".pi/**/__pycache__",
+        "harness/**/__pycache__",
+        "**/*.pyc",
+        "**/*-wal",
+        "**/*-shm",
+        "**/*.journal",
+        "**/*.tmp",
+        "**/*.bak"
+      ],
+      "observed_directory_count_outside_virtual_environment": 0,
+      "tracked_temporary_artifact_count": 0,
+      "observation": "No copied cache or temporary state exists in the clean isolated inventory. The target invariant is that none remains tracked."
+    },
+    {
+      "surface_id": "classification.unresolved",
+      "classification": "unresolved",
+      "kind": "audit_disposition",
+      "paths": [],
+      "file_count": 0,
+      "observation": "No whole structural surface lacks an initial classification; individual consumer and disposition decisions remain for the inactive audit."
+    }
+  ],
+  "target_invariants": [
+    "Only durable, operational agent roles remain live.",
+    "Only operational current or future Tasks and relationships remain in the live Task catalog; completed or superseded Task history does not remain live merely as ceremony.",
+    "Only currently operational chains remain live.",
+    "Resolved checkpoints do not remain tracked as live control state.",
+    "Historical evidence and archived duplicates may be deleted from the current tree because Git preserves their history.",
+    "Current generated evidence projections remain only when reproducible by the maintained publisher.",
+    "No tracked cache, temporary database, journal, staging, backup, or replay output remains.",
+    "Every retained skill has a current consumer and distinct capability.",
+    "Every retained CLI has a current user story not already covered by another command.",
+    "Every retained resource has a current resolver or profile consumer.",
+    "Aliases, adapters, compatibility wrappers, schemas, fixtures, profiles, extensions, and documentation without a live consumer are removed.",
+    "Each control domain has one explicit source of authority.",
+    "Generated state has one maintained synchronization path.",
+    "Production harness modules and tests are evaluated by ownership and behavior, not reduced to meet numerical line or module targets.",
+    "Scientific production code, scientific evidence, and research documentation remain outside cleanup unless they are direct control-plane artifacts."
+  ],
+  "inventory_limitations": [
+    "The inventory was recomputed from the clean isolated base after adding only harness.control-plane-cleanup; it excludes every uncommitted primary-workspace change.",
+    "A structural status or path classification does not itself prove that an individual file has or lacks a live consumer.",
+    "No retention, deletion, compatibility, dependency, scientific, activation, protected-operation, or human-acceptance decision is executed by this report.",
+    "Git history is the proposed historical retention mechanism, but deletion remains unavailable until the Task is explicitly activated."
+  ]
+}
