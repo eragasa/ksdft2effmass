@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Exactly the tutorial-first silicon band-reference Task is active with a complete isolated protected-execution preflight and awaits explicit execution authorization. Downstream model Tasks remain blocked; scientific validation, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_band_reference_active_awaiting_explicit_execution_authorization",
+  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Exactly the tutorial-first silicon band-reference Task is active after one authorized isolated QE 7.2 bands execution and awaits human review. Downstream model Tasks remain blocked; scientific validation, publication, and release execution remain unauthorized.",
+  "status": "bulk_silicon_band_reference_executed_awaiting_human_review",
   "active_task": "bulk-silicon.simulation.qe.band-reference",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -114,7 +114,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "Exactly bulk-silicon.simulation.qe.band-reference is active. Its isolated one-process QE 7.2 bands preflight is complete, but pw.x execution remains unauthorized pending a new explicit human decision. Automatic successor activation is disabled; no successor is active.",
+  "launch_policy": "Exactly bulk-silicon.simulation.qe.band-reference remains active awaiting human review after its one authorized QE 7.2 bands invocation. No repeat execution is authorized. Automatic successor activation is disabled; no successor is active.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -276,6 +276,10 @@
     {
       "phase": "bulk-silicon-band-reference-active-preflight-complete-awaiting-execution-authorization",
       "message": "The accepted band-reference plan was fast-forward integrated. Exactly bulk-silicon.simulation.qe.band-reference is active. A new external run root contains an identity-verified isolated copy of the accepted density/QEXSD restart subset, the accepted pseudopotential, and the exact 28-point QE 7.2 Davidson bands input with only filesystem paths rewritten. The executable was identity-checked without execution. pw.x remains uninvoked and requires a new explicit human A decision. Automatic successor activation remains disabled; no downstream Task is active."
+    },
+    {
+      "phase": "bulk-silicon-band-reference-executed-awaiting-human-review",
+      "message": "Exactly one authorized local single-process QE 7.2 example01 silicon Davidson bands invocation ran in the prepared isolated workspace. It exited 0, emitted End of band structure calculation and JOB DONE., reported 0.17 s CPU and 0.21 s wall time, and produced 28 k-point blocks with eight bands. The exact IEEE floating-point exception warning recurred and remains unresolved without harmless-or-fatal classification. Complete compact provenance and artifact inventory are retained; native outputs remain external. The accepted SCF source manifest remained exactly unchanged. Observational legacy comparison has no accepted numerical tolerance. The Task remains active awaiting human review; no repeat or successor is authorized."
     }
   ],
   "explicitly_activated_task_ids": [

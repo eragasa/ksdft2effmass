@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Activated by the current human instruction. Protected-execution preflight is complete; the Task is active and awaiting explicit authorization for exactly the prepared one-process QE tutorial bands command. Quantum ESPRESSO has not been invoked, automatic successor activation remains disabled, and no downstream Task is active.
+`active`: Exactly one authorized local single-process QE 7.2 tutorial bands invocation completed with exit status 0, End of band structure calculation, and JOB DONE. Compact provenance, complete artifact inventory, accepted-source nonmutation evidence, warnings, and an observational legacy comparison are retained. The Task remains active awaiting human review; automatic successor activation is disabled and no downstream Task is active.
 
 ## Objective
 
