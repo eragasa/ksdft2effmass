@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "c72328419b6d331db3348c7e41f0b1e1b6a41a47e998b7754220f1bc706a99a3",
+  "semantic_database_digest": "70694ce23529109f1878c526680d96e6fa1a19e15eeb3795082d537b71a4fe13",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "1f8eff68ea34496a63c848d0991645ae47bba716fb432bd5f69ee09e7ec14b0a",
-    "byte_count": 3719756
+    "sha256": "f85a7cc192ce0b3199c7c2d3f455185bebd18c60bb43881a0c14c741b277d1d7",
+    "byte_count": 3720543
   },
   "projections": [
     {
@@ -263,8 +263,8 @@
     {
       "path": "docs/harness/tasks/bulk-silicon.simulation.qe.band-reference.md",
       "projection_kind": "task-markdown",
-      "sha256": "b78446221db2dc2e7ae22fafa601a56b24beac14756281d1e10bfba107e9d369",
-      "byte_count": 4493,
+      "sha256": "22f0932e5a2df688260b635502082997990ad47ee59ca5ade577e1c2d7d545ea",
+      "byte_count": 5260,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -795,8 +795,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "6b25164979e734e3bcfdda602e11824a5a100e646ef3ec19e1055e08452ec395",
-      "byte_count": 17491,
+      "sha256": "5bae469732b74c9afc5b8bf898f4824c806145fa6a67549caaf06f8660635bc2",
+      "byte_count": 17511,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1089,8 +1089,8 @@
     {
       "path": "harness/tasks/bulk-silicon.simulation.qe.band-reference.json",
       "projection_kind": "task-json",
-      "sha256": "1405b35e8d20eb25a2133d12c6088f8508e4e9760ea18875b5a49c7723f7f32b",
-      "byte_count": 4634,
+      "sha256": "ff05e7a1931312b49ce03500cbf22c8193ecbfab599e4d541553738e30985d0d",
+      "byte_count": 5403,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

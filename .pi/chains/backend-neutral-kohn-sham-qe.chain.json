@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Exactly the tutorial-first silicon band-reference Task is active after one authorized isolated QE 7.2 bands execution and awaits human review. Downstream model Tasks remain blocked; scientific validation, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_band_reference_executed_awaiting_human_review",
-  "active_task": "bulk-silicon.simulation.qe.band-reference",
+  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. The tutorial-first silicon band-reference Task is closed as human-accepted PASS. No Task is active; downstream model Tasks remain blocked, and scientific validation, publication, and release execution remain unauthorized.",
+  "status": "bulk_silicon_band_reference_closed_human_accepted_pass_no_task_active",
+  "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -114,7 +114,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "Exactly bulk-silicon.simulation.qe.band-reference remains active awaiting human review after its one authorized QE 7.2 bands invocation. No repeat execution is authorized. Automatic successor activation is disabled; no successor is active.",
+  "launch_policy": "No Task is active. No repeat QE execution is authorized. Automatic successor activation is disabled; no successor is active.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -280,6 +280,10 @@
     {
       "phase": "bulk-silicon-band-reference-executed-awaiting-human-review",
       "message": "Exactly one authorized local single-process QE 7.2 example01 silicon Davidson bands invocation ran in the prepared isolated workspace. It exited 0, emitted End of band structure calculation and JOB DONE., reported 0.17 s CPU and 0.21 s wall time, and produced 28 k-point blocks with eight bands. The exact IEEE floating-point exception warning recurred and remains unresolved without harmless-or-fatal classification. Complete compact provenance and artifact inventory are retained; native outputs remain external. The accepted SCF source manifest remained exactly unchanged. Observational legacy comparison has no accepted numerical tolerance. The Task remains active awaiting human review; no repeat or successor is authorized."
+    },
+    {
+      "phase": "bulk-silicon-band-reference-human-accepted",
+      "message": "The human accepted bulk-silicon.simulation.qe.band-reference as closed_human_accepted_pass. Accepted claim: The exact prepared QE 7.2 silicon Davidson tutorial bands calculation reused an isolated, identity-verified copy of the accepted SCF state, executed once with exit status 0, reported completion and `JOB DONE.`, produced 28 ordered $k$ points with eight bands each, retained complete compact provenance and artifact inventory, and left the accepted SCF source unchanged. Of 224 printed eigenvalues compared with the bundled legacy reference, 166 were identical at printed precision and the largest printed difference was approximately $0.0001\\ \\mathrm{eV}$; no numerical acceptance tolerance or pass/fail comparison was established. The IEEE floating-point exception report remains unresolved and unclassified. Acceptance does not establish production cutoff or $k$-point convergence, a canonical modern silicon symmetry path, numerical or physical validation, indirect-gap accuracy, valley location or curvature accuracy, effective-mass validity, Wannierization suitability, tight-binding fitting suitability, or uncertainty quantification. No successor is active and automatic successor activation remains disabled."
     }
   ],
   "explicitly_activated_task_ids": [

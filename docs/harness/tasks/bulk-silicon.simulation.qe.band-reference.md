@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Exactly one authorized local single-process QE 7.2 tutorial bands invocation completed with exit status 0, End of band structure calculation, and JOB DONE. Compact provenance, complete artifact inventory, accepted-source nonmutation evidence, warnings, and an observational legacy comparison are retained. The Task remains active awaiting human review; automatic successor activation is disabled and no downstream Task is active.
+`closed_human_accepted_pass`: Human-accepted PASS. Accepted claim: The exact prepared QE 7.2 silicon Davidson tutorial bands calculation reused an isolated, identity-verified copy of the accepted SCF state, executed once with exit status 0, reported completion and `JOB DONE.`, produced 28 ordered $k$ points with eight bands each, retained complete compact provenance and artifact inventory, and left the accepted SCF source unchanged. Retained observations: 224 printed eigenvalues were compared with the bundled legacy reference; 166 were identical at printed precision; the largest printed difference was approximately $0.0001\ \mathrm{eV}$; no numerical acceptance tolerance or pass/fail comparison was established; and the IEEE floating-point exception report remains unresolved and unclassified. Acceptance does not establish production cutoff or $k$-point convergence, a canonical modern silicon symmetry path, numerical or physical validation, indirect-gap accuracy, valley location or curvature accuracy, effective-mass validity, Wannierization suitability, tight-binding fitting suitability, or uncertainty quantification. Automatic successor activation remains disabled; no successor is active.
 
 ## Objective
 
