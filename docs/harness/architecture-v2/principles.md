@@ -3,7 +3,7 @@
 > **Proposed architecture; inactive; not implemented; not accepted.**
 
 These principles are planning criteria. They do not alter the current harness or
-the active `bulk-silicon.records.periodic.extraction` Task.
+the accepted `bulk-silicon.records.periodic.extraction` implementation.
 
 ## Authority before representation
 
@@ -141,7 +141,7 @@ existing findings without redefining them.
 The harness governs scientific execution, including applicable repository and
 protected-execution preconditions. Scientific records do not depend on harness
 telemetry. Repository-context and telemetry objects would not be introduced into
-periodic scientific records, and this proposal does not depend on the active
+periodic scientific records, and this proposal does not depend on the current
 QEXSD implementation.
 
 ## Scientific fast path as acceptance scenario

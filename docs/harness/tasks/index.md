@@ -35,7 +35,7 @@
 - [`backend-neutral-cpn-workflow-architecture`](backend-neutral-cpn-workflow-architecture.md) — Backend-neutral Colored Petri Net workflow architecture correction (`human_accepted`)
 - [`backend-neutral-kohn-sham-qe-architecture`](backend-neutral-kohn-sham-qe-architecture.md) — Backend-neutral Kohn–Sham DFT and Quantum ESPRESSO architecture (`legacy_recorded`)
 - [`bulk-silicon.artifacts.qe.inventory`](bulk-silicon.artifacts.qe.inventory.md) — QE tutorial artifact inventory (`closed_human_accepted_pass`)
-- [`bulk-silicon.records.periodic.extraction`](bulk-silicon.records.periodic.extraction.md) — Periodic electronic-structure record extraction (`active`)
+- [`bulk-silicon.records.periodic.extraction`](bulk-silicon.records.periodic.extraction.md) — Periodic electronic-structure record extraction (`closed_human_accepted_pass`)
 - [`bulk-silicon.simulation.qe.reference`](bulk-silicon.simulation.qe.reference.md) — Bulk-silicon QE tutorial reference simulation (`closed_human_accepted_pass`)
 - [`bulk-silicon.tight-binding.comparison-reduction`](bulk-silicon.tight-binding.comparison-reduction.md) — Tight-binding comparison and reduction (`blocked`)
 - [`bulk-silicon.tight-binding.direct-spectral.fitting`](bulk-silicon.tight-binding.direct-spectral.fitting.md) — Direct spectral tight-binding fitting (`blocked`)

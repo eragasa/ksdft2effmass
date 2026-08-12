@@ -44,7 +44,7 @@ catalogs remain later separate decisions.
 | No recurrence analysis | Evidence-driven later design | Deferred |
 
 No disposition introduces repository-context or telemetry fields into periodic
-scientific records, and none depends on the active QEXSD implementation.
+scientific records, and none depends on the current QEXSD implementation.
 
 ## Proposed slices
 

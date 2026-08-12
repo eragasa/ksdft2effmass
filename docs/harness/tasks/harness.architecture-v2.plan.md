@@ -9,7 +9,7 @@
 
 ## Objective
 
-Plan a second-generation harness architecture from observed repository operation while leaving the active periodic-extraction Task and all current implementation unchanged.
+Plan a second-generation harness architecture from observed repository operation while leaving the accepted periodic-extraction implementation unchanged.
 
 ## Parent and prerequisites
 
@@ -36,7 +36,7 @@ None.
 - Current authority and proposed target state are distinct; current responsibilities and migration slices are mapped; operation lifecycle, extension, SQLite, governed-execution, explicit-root repository-context, optional-observation, and scientific-fast-path boundaries are explicit.
 - Lifecycle documentation preserves the required state diagram and distinguishes preflight, implementation, verification, conditional read-only review, and conditional human acceptance without making stages automatic Tasks, agents, checkpoints, commits, or human decisions.
 - The generated Task page and maintained harness-index link exist; current control synchronization, source-aware validation, documentation links, applicable Sphinx build, dependency immutability, and git diff checks pass.
-- No implementation occurs, no child implementation Task is created, bulk-silicon.records.periodic.extraction remains active and unchanged, no successor is activated, and automatic successor activation remains disabled.
+- No implementation occurs, no child implementation Task is created, the accepted bulk-silicon.records.periodic.extraction implementation remains unchanged, no successor is activated, and automatic successor activation remains disabled.
 
 ## Exclusions
 

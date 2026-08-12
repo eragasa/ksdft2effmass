@@ -136,6 +136,6 @@ This proposal does not pause, modify, or absorb
 `bulk-silicon.records.periodic.extraction`. Harness governance of a later
 scientific execution would not make periodic scientific records depend on
 repository-context observations or harness telemetry. This proposal has no
-dependency on the active QEXSD implementation. No Architecture v2 action may be
+dependency on the current QEXSD implementation. No Architecture v2 action may be
 executed merely because its name appears here, and no successor activation is
 proposed.

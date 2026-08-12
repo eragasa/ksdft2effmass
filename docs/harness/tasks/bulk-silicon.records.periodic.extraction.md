@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Periodic QEXSD extraction architecture is corrected and remains active awaiting renewed human review. QEXSD I/O, generic periodic geometry, representation-neutral Kohn-Sham semantics, and the plane-wave calculation record now have separate owners. Explicit source bytes flow through ParseQexsdDocument and ConstructQexsdKohnShamPlaneWaveRecord into the closed version-1 plane-wave record with quantity-specific units and explicit reciprocal and k-point scales. Automatic successor activation remains disabled; no other Task is active.
+`closed_human_accepted_pass`: Human-accepted PASS for the limited claim that the observed QE 7.2 QEXSD artifact was faithfully transformed through separated Quantum ESPRESSO I/O, periodic-geometry, Kohn–Sham, and plane-wave-record domains with explicit units, coordinate conventions, reciprocal scaling, provenance, and unavailable metadata. Acceptance does not establish numerical convergence beyond the retained tutorial observation, physical validation, transferability to other QE calculations, completeness of the plane-wave basis description, suitability for Wannier or effective-mass analysis, or scientific acceptance of downstream results. Automatic successor activation remains disabled; no successor is active.
 
 ## Objective
 

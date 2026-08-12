@@ -2,8 +2,8 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_records_periodic_extraction_completed_awaiting_human_review",
-  "active_task": "bulk-silicon.records.periodic.extraction",
+  "status": "bulk_silicon_records_periodic_extraction_closed_human_accepted_pass_no_task_active",
+  "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -110,7 +110,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "bulk-silicon.simulation.qe.reference alone is explicitly active for one bounded local Quantum ESPRESSO example01 silicon Davidson SCF smoke test. Production execution remains unauthorized. Automatic successor activation is disabled; no successor is active.",
+  "launch_policy": "No Task is active. Production execution remains unauthorized. Automatic successor activation is disabled; no successor is active.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -253,6 +253,10 @@
     {
       "phase": "bulk-silicon-periodic-qexsd-extraction-completed-awaiting-human-review",
       "message": "The current human instruction authorized a bounded correction of the provisional QEXSD extraction architecture. QEXSD I/O, backend-neutral periodic geometry, representation-neutral Kohn-Sham semantics, and plane-wave calculation records now have separate package owners. Explicit verified XML bytes flow through mechanical parsing and QEXSD-owned semantic construction into a closed version-1 Kohn-Sham plane-wave record with quantity-specific units and explicit reciprocal and k-point scales. The Task remains active awaiting renewed human review; no QE or Wannier90 execution, dependency change, checkpoint, or successor activation occurred."
+    },
+    {
+      "phase": "bulk-silicon-periodic-qexsd-extraction-human-accepted",
+      "message": "The human accepted as PASS the limited claim that the observed QE 7.2 QEXSD artifact was faithfully transformed through separated Quantum ESPRESSO I/O, periodic-geometry, Kohn–Sham, and plane-wave-record domains with explicit units, coordinate conventions, reciprocal scaling, provenance, and unavailable metadata. Acceptance does not establish numerical convergence beyond the retained tutorial observation, physical validation, transferability to other QE calculations, completeness of the plane-wave basis description, suitability for Wannier or effective-mass analysis, or scientific acceptance of downstream results. bulk-silicon.records.periodic.extraction is closed_human_accepted_pass. No successor is active and automatic successor activation remains disabled."
     }
   ],
   "explicitly_activated_task_ids": [
