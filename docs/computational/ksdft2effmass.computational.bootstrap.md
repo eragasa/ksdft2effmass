@@ -13,6 +13,9 @@ task_program:
 - [Extracted-model workflow verification](../../harness/tasks/bulk-silicon.workflow.extracted-model-verification.json)
 - [Deferred CPN persistence](../../harness/tasks/cpn.workflow.persistence.json)
 
+policy:
+- [Pseudopotential library strategy](pseudopotential-library-strategy.md)
+
 downstream:
 - [[ksdft2Effmass.computational.02]]
 - [[ksdft2Effmass.computational.03]]
