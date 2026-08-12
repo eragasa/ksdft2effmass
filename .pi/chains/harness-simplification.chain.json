@@ -1,8 +1,8 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "harness_simplify_2_complete_pending_human_acceptance",
-  "active_task": "harness.simplify-2",
+  "status": "control_plane_cleanup_active_after_harness_simplify_2_human_acceptance",
+  "active_task": "harness.control-plane-cleanup",
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
     "harness.simplification.agents.delegation-validation",
@@ -25,12 +25,17 @@
     "harness.simplify-2.validation-retirement.source-aware-verification",
     "harness.simplify-2.validation-retirement.repository-validation",
     "harness.simplify-2.validation-retirement.legacy-route-retirement",
-    "harness.simplify-2.validation-retirement.integration-closeout"
+    "harness.simplify-2.validation-retirement.integration-closeout",
+    "harness.control-plane-cleanup"
   ],
   "chain": [
     {
-      "phase": "control-plane-cleanup-planned",
-      "message": "The human selected harness.control-plane-cleanup as the immediate priority after disposition of harness.simplify-2. It remains inactive, automatic successor activation remains disabled, and the proposal targets minimum operational authority rather than file-count reduction."
+      "phase": "harness-simplify-2-human-accepted-and-closed",
+      "message": "The human explicitly accepted and closed harness.simplify-2 after the corrected R2.7 boundary and requested review of the cleanup proposal before activation. Acceptance activated no successor automatically."
+    },
+    {
+      "phase": "control-plane-cleanup-revised-and-explicitly-activated",
+      "message": "The human revised harness.control-plane-cleanup to use independent role and disposition fields, operational-root reachability, three bounded slice commits, strict architecture and scientific boundaries, one consolidated review, and at most one correction pass, then explicitly required separate activation. Automatic successor activation remains disabled and no other successor is active."
     }
   ],
   "task_sequence": [

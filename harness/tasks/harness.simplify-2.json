@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.simplify-2",
   "title": "Harness simplification round two",
-  "status": "active",
-  "status_detail": "selected coordinating parent after corrected R2.7 completion; all authorized R2.1 through R2.7 work is complete and the parent remains pending explicit human acceptance with no successor active",
+  "status": "human_accepted_pass",
+  "status_detail": "human-accepted and closed after corrected R2.7 completion, complete required validation, synchronized maintained state, and explicit human instruction to accept and close harness.simplify-2; no successor was activated by this acceptance boundary",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplification.round-2.sqlite-hybrid-cutover"

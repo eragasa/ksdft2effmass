@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.control-plane-cleanup",
   "title": "Reduce repository control-plane authority",
-  "status": "inactive",
-  "status_detail": "Human-selected immediate priority after disposition of the active harness.simplify-2 boundary; deliberately inactive, with automatic successor activation disabled. The inventory is planning evidence only.",
+  "status": "active",
+  "status_detail": "Explicitly activated by current human instruction after separate human acceptance and closure of harness.simplify-2. Automatic successor activation remains disabled and no other successor is active. Implementation has not begun; the corrected Task and generated documentation must first agree.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplify-2"
@@ -18,35 +18,34 @@
     "harness/reports/control-plane-cleanup-inventory.json"
   ],
   "authorized_scope": [
-    "Inspect and rationalize AGENTS.md; live agent records and skills; prompt and template resources; Tasks and graph relationships; chains; checkpoints; ownership records; .pi/evidence/**; harness/archive/**; intake and reports; schemas, fixtures, profiles, extensions, and resource manifests; generated SQLite, SQL, manifests, and documentation; harness Python modules and CLI commands; harness tests; and tracked cache or temporary artifacts.",
-    "Classify every inventoried surface as exactly one of live_authority, live_runtime, generated_projection, current_documentation, removable_history, obsolete_compatibility, cache_or_temporary, or unresolved, while distinguishing source authority, generated state, runtime implementation, tests, current operational documentation, historical material, and cache contamination.",
-    "Map each retained surface to its current consumer, distinct capability or maintained user operation, source of authority, and synchronization path; counts are descriptive only and are not acceptance targets.",
-    "When separately activated, remove authority-free historical ceremony, obsolete compatibility, archived duplicates, resolved live control records, and tracked temporary artifacts directly from the current tree without creating another archival layer; rely on Git for history.",
-    "When separately activated, retain one synchronization command, one source-aware validation command, and additional CLIs only for distinct maintained user operations; remove CLIs retained solely as wrappers and prohibit command-output parsing between maintained commands.",
-    "When separately activated, evaluate production harness modules and tests by ownership and behavior rather than numerical line, module, command, or file-count targets, then synchronize through the maintained publisher and complete proportionate verification and one consolidated independent review."
+    "For every inspected surface, assign exactly one role from authority, runtime, projection, documentation, history, or cache and exactly one disposition from retain, delete, or unresolved. Unresolved is fail-closed: retain and report the surface, exclude it from deletion, and treat its presence as preventing final completion without manufacturing a human checkpoint unless an actual human-owned decision remains.",
+    "Determine retention by reachability from explicit operational roots: applicable AGENTS.md; durable operational agents; retained skills; current and explicitly prospective Tasks; operational chains and current selection state; maintained user-facing commands; canonical resource profiles and manifests; authoritative schemas; current evidence authority; the control synchronization command; and the source-aware validation command.",
+    "Analyze consumers through Python imports, public exports, CLI registrations, schema references, manifests and profiles, Task and chain references, documentation navigation, tests, declarative resource resolution, and generated-state inputs. A surface consumed only by obsolete, historical, or removable surfaces is not operational.",
+    "Slice A — Authority and reachability: create the complete operational-root and reachability inventory without deleting files. Identify canonical authority sources, generated projections, historical-only records, obsolete compatibility clusters, unresolved dynamic or declarative consumers, and independently maintained duplicate representations.",
+    "Slice B — Control-history removal: delete only completed or superseded control history; resolved or superseded checkpoints; closed historical chains; archived duplicates; historical ceremony retained only for old operation; reproducible generated duplicates; tracked caches; and temporary, replay, journal, staging, or backup artifacts proven deletable by Slice A. Do not create a replacement archive; Git history is the historical record.",
+    "Slice C — Runtime and compatibility pruning: evaluate agents, skills, resources, schemas, fixtures, extensions, CLIs, harness modules, tests, and current documentation. Delete a runtime or compatibility surface only when it is unreachable from every operational root, has no supported public extension contract, is not dynamically or declaratively resolved, leaves no retained owner incomplete, migrates or removes associated tests and documentation with it, and focused plus repository-wide validation pass. Tests follow their retained behavioral owner and are not an independent numerical cleanup target.",
+    "Retain one synchronization command, one source-aware validation command, and additional CLIs only for distinct maintained user operations; remove CLIs retained solely as wrappers and prohibit command-output parsing between maintained commands.",
+    "Use one commit per completed slice. After all slices, regenerate through the sole synchronization command, run source-aware validation and all required focused and repository gates, obtain one consolidated read-only integration review, permit at most one bounded correction pass, and present one final human-acceptance decision."
   ],
   "completion_criteria": [
-    "Only durable, operational agent roles remain live.",
-    "Only operational current or future Tasks and relationships remain in the live Task catalog; completed or superseded Task history does not remain live merely as ceremony.",
-    "Only currently operational chains remain live, and resolved checkpoints do not remain tracked as live control state.",
-    "Historical evidence and archived duplicates may be deleted from the current tree because Git preserves their history; the cleanup creates no replacement archival layer.",
-    "Current generated evidence projections remain only when reproducible by the maintained publisher.",
-    "No tracked cache, temporary database, journal, staging, backup, or replay output remains.",
-    "Every retained skill has a current consumer and distinct capability; every retained CLI has a current user story not already covered by another command; and every retained resource has a current resolver or profile consumer.",
-    "Aliases, adapters, compatibility wrappers, schemas, fixtures, profiles, extensions, and documentation without a live consumer are removed.",
-    "Each control domain has one explicit source of authority, and generated state has one maintained synchronization path.",
-    "The maintained CLI surface contains one synchronization command, one source-aware validation command, and only additional commands that provide distinct maintained user operations; no CLI remains solely as a wrapper around another CLI and maintained commands do not parse one another's output.",
-    "Production harness modules and tests are evaluated by ownership and behavior rather than reduced to meet numerical line, module, command, or file-count targets.",
-    "Scientific production code, scientific evidence, and research documentation remain outside cleanup unless they are direct control-plane artifacts.",
-    "The final classified inventory and consumer map account for every retained or removed control-plane surface, and focused plus repository-level software verification, deterministic synchronization, exact projection agreement, and one consolidated independent review pass without unsupported scientific or human-acceptance claims."
+    "Slice A is committed with a complete operational-root and reachability inventory; every inspected surface has exactly one role and one disposition; no file deletion occurred in that slice; and all unresolved surfaces are retained, reported, excluded from deletion, and cleared before final completion.",
+    "Only durable operational agent roles, retained skills with distinct operational capabilities, operational current or explicitly prospective Tasks and relationships, operational chains, and current selection state remain live.",
+    "Slice B is committed after deleting only proven completed or superseded control history, resolved or superseded checkpoints, closed historical chains, archived duplicates, obsolete historical ceremony, reproducible generated duplicates, tracked caches, and temporary or replay artifacts; no replacement archive exists because Git preserves history.",
+    "Current generated evidence projections remain only when reproducible by the maintained publisher, no tracked cache or temporary database, journal, staging, backup, or replay output remains, each control domain has one explicit authority source, and generated state has one maintained synchronization path.",
+    "Slice C is committed after every deleted runtime or compatibility surface satisfies all six deletion conditions, every retained skill and resource has an operational-root-reachable consumer, every retained CLI provides a distinct maintained user operation, and associated tests and documentation follow their retained behavioral owner.",
+    "Aliases, adapters, compatibility wrappers, schemas, fixtures, profiles, extensions, and control-plane documentation without an operational-root-reachable consumer or supported contract are removed, while unresolved dynamic and declarative consumers remain retained until resolved.",
+    "Production harness modules and tests are evaluated by ownership, reachability, supported contracts, and behavior rather than numerical line, module, command, test, or file-count targets.",
+    "Obsolete architecture may be deleted, but no replacement object architecture, framework, persistence model, plugin system, abstraction layer, public/private API redesign, behavioral rewrite, telemetry, or speculative extraction interface is introduced; later architectural candidates are recorded without implementation.",
+    "Scientific production code, numerical-verification evidence, scientific-validation evidence, UQ evidence, simulation inputs or outputs, computational protocols, scientific schemas or fixtures, research documentation, and publication artifacts remain unchanged; stale control-plane references may be corrected without modifying those artifacts.",
+    "After all three slice commits, maintained state is regenerated through the sole synchronization command; source-aware validation, affected tests, the complete configured suite, Ruff, mypy, Sphinx warnings-as-errors, resources, evidence conformance, Task and graph validation, and git diff --check pass; one consolidated read-only integration review completes; and at most one bounded correction pass is used before final human acceptance."
   ],
   "exclusions": [
-    "This Task remains inactive. This proposal and inventory do not authorize cleanup implementation, deletion, mutation of audited surfaces, Task activation, parent acceptance, or successor activation.",
-    "Do not create another archival layer before deleting the existing one when cleanup is separately activated.",
-    "Do not implement scientific or numerical behavior, execute simulations, implement telemetry, introduce a new persistence architecture, add or change dependencies or lockfiles, perform release work, or perform protected operations.",
-    "Do not change scientific specifications, mathematical conventions, physical settings, scientific production code, scientific evidence, or research documentation unless a direct control-plane artifact is involved and separately authorized.",
-    "Do not activate harness.control-plane-cleanup, mark harness.simplify-2 human-accepted, activate any successor, or enable automatic successor activation.",
-    "Do not treat structural simplification, reduced counts, passing tests, or reviewer agreement as scientific validation or human acceptance."
+    "Do not create another archival layer before deleting the existing one; Git history is the historical retention boundary for this pre-alpha repository.",
+    "Do not design or implement a replacement object architecture, new architectural framework, public/private API redesign, new persistence model, plugin system, new abstraction layer, telemetry, behavioral rewrite of retained components, or speculative extraction interface. Record discovered architectural improvements only as later candidates.",
+    "Do not modify or delete scientific production code, numerical-verification evidence, scientific-validation evidence, UQ evidence, simulation inputs or outputs, computational protocols, scientific schemas or fixtures, research documentation, or publication artifacts. A control-plane reference does not bring the referenced scientific artifact into scope.",
+    "Do not implement scientific or numerical behavior, execute simulations, add or change dependencies or lockfiles, perform release work, perform protected or external operations, or change scientific specifications, mathematical conventions, or physical settings.",
+    "Do not create per-slice checkpoints or independent review loops, perform more than one consolidated correction pass, activate any other successor, or enable automatic successor activation.",
+    "Do not treat structural simplification, reduced counts, passing tests, or reviewer agreement as scientific validation or final human acceptance."
   ],
   "intake_path": "harness/intake/harness.control-plane-cleanup.md",
   "archived_source": null
