@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Explicitly activated after human acceptance and completion of bulk-silicon.simulation.qe.reference. Authorized only to inspect and classify existing tutorial artifacts under the declared external and compact roots without rerunning QE, changing artifacts, defining extraction records, or activating a successor.
+`active`: Inventory implementation complete and awaiting human review. Twenty-nine observed or explicitly missing/optional artifact records classify the actual QE tutorial input, stdout/stderr, selected pseudopotential, QEXSD metadata, native charge density, all ten k-point wavefunction files, save-directory pseudopotential copy, compact records, execution sidecars, and relevant absent optional outputs. Exact paths, sizes, SHA-256 identities, formats, structural facts, roles, completeness, retention classes, and extraction candidacy are retained under calculations/bulk-silicon/qe-example01-si-scf-davidson/. QE was not rerun; native artifacts remain external and unchanged; no successor is activated.
 
 ## Objective
 
@@ -17,6 +17,8 @@ Inventory and classify the actual artifacts produced by the selected QE tutorial
 
 ## Authority references
 
+- calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.json
+- calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.md
 - docs/computational/ksdft2effmass.computational.bootstrap.md
 - harness/reports/simulation-first-task-migration.md
 

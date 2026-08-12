@@ -2,7 +2,7 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_artifacts_qe_inventory_active",
+  "status": "bulk_silicon_artifacts_qe_inventory_awaiting_human_review",
   "active_task": "bulk-silicon.artifacts.qe.inventory",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -230,6 +230,10 @@
     {
       "phase": "bulk-silicon-simulation-accepted-artifact-inventory-activated",
       "message": "The human accepted bulk-silicon.simulation.qe.reference as a successful tutorial smoke-test reproduction under the exact limited claim and exclusions recorded with its compact provenance. The IEEE flags remain an observed unresolved runtime warning with exact text and deferred diagnosis. The simulation Task is closed human-accepted. Exactly bulk-silicon.artifacts.qe.inventory is active to observe existing files without rerunning QE. Automatic successor activation remains disabled; no other Task is active."
+    },
+    {
+      "phase": "bulk-silicon-artifact-inventory-completed-awaiting-human-review",
+      "message": "The active artifact-inventory Task observed the existing tutorial results and scratch roots without rerunning QE. Twenty-nine records classify every observed calculation file and relevant missing/optional output with exact identities, structural facts, roles, completeness, retention, and extraction candidacy. Native files remain external and unchanged. The Task remains active awaiting human review; bulk-silicon.records.periodic.extraction and every other successor remain inactive."
     }
   ],
   "explicitly_activated_task_ids": [

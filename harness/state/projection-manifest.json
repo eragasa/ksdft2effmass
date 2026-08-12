@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "2172f82ea75850206d3f1389329f3da139428ccd266fd726f93aad10ffdf407d",
+  "semantic_database_digest": "77dc91e04da8d66acd3e675d69f5a91caec7817442eeaa718b52ea6219792fab",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "e61739206e80113dd8f6582eb4cffa76049259f16be19840baaf931e6fc2bd09",
-    "byte_count": 3657368
+    "sha256": "b43268034251df48421e4976c137d6442aaadfd3411eb28cda3f785fe8ac9ff4",
+    "byte_count": 3658190
   },
   "projections": [
     {
@@ -249,8 +249,8 @@
     {
       "path": "docs/harness/tasks/bulk-silicon.artifacts.qe.inventory.md",
       "projection_kind": "task-markdown",
-      "sha256": "bc65650f07b93bdfc254d5d85b8fa0f731811a5bf72c90373bf494e2bfe4215b",
-      "byte_count": 1737,
+      "sha256": "efaa6dfc28d8413afa938b74f8d0f47e7be28c95207a12f5c1e23b4af0eba0c6",
+      "byte_count": 2283,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1061,8 +1061,8 @@
     {
       "path": "harness/tasks/bulk-silicon.artifacts.qe.inventory.json",
       "projection_kind": "task-json",
-      "sha256": "3d327a670acdb778b4bf4b6c317b5c5aa4866cd3f892b0e419213631c36fa4cc",
-      "byte_count": 1868,
+      "sha256": "aaeb09cf8f932844b9f9d8afdea3f20042b15a42bfe570ca9e496452aacbef3d",
+      "byte_count": 2424,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
