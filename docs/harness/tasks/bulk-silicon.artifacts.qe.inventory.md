@@ -5,7 +5,7 @@
 
 ## Status
 
-`blocked`: Blocked by the inactive QE tutorial reference simulation.
+`active`: Explicitly activated after human acceptance and completion of bulk-silicon.simulation.qe.reference. Authorized only to inspect and classify existing tutorial artifacts under the declared external and compact roots without rerunning QE, changing artifacts, defining extraction records, or activating a successor.
 
 ## Objective
 

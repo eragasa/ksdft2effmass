@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "bulk-silicon.artifacts.qe.inventory",
   "title": "QE tutorial artifact inventory",
-  "status": "blocked",
-  "status_detail": "Blocked by the inactive QE tutorial reference simulation.",
+  "status": "active",
+  "status_detail": "Explicitly activated after human acceptance and completion of bulk-silicon.simulation.qe.reference. Authorized only to inspect and classify existing tutorial artifacts under the declared external and compact roots without rerunning QE, changing artifacts, defining extraction records, or activating a successor.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "bulk-silicon.simulation.qe.reference"

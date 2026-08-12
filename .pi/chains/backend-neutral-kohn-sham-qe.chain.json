@@ -2,8 +2,8 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_simulation_qe_reference_executed_awaiting_human_review",
-  "active_task": "bulk-silicon.simulation.qe.reference",
+  "status": "bulk_silicon_artifacts_qe_inventory_active",
+  "active_task": "bulk-silicon.artifacts.qe.inventory",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -226,10 +226,15 @@
     {
       "phase": "bulk-silicon-simulation-qe-reference-executed-awaiting-human-review",
       "message": "The one authorized local single-process QE 7.2 PW example01 silicon SCF Davidson calculation executed exactly once with the verified official downloaded Si.pz-vbc.UPF. It exited 0, emitted JOB DONE, and reported convergence in 6 iterations at -15.84452726 Ry, equal to the bundled reference at printed precision. Compact records are retained; raw outputs and scratch remain external. The Task stays active for human review. No successor, production Stage 02, extraction, band, Wannier90, dependency, schema, validator, SQLite, or CPN work is active."
+    },
+    {
+      "phase": "bulk-silicon-simulation-accepted-artifact-inventory-activated",
+      "message": "The human accepted bulk-silicon.simulation.qe.reference as a successful tutorial smoke-test reproduction under the exact limited claim and exclusions recorded with its compact provenance. The IEEE flags remain an observed unresolved runtime warning with exact text and deferred diagnosis. The simulation Task is closed human-accepted. Exactly bulk-silicon.artifacts.qe.inventory is active to observe existing files without rerunning QE. Automatic successor activation remains disabled; no other Task is active."
     }
   ],
   "explicitly_activated_task_ids": [
-    "bulk-silicon.simulation.qe.reference"
+    "bulk-silicon.simulation.qe.reference",
+    "bulk-silicon.artifacts.qe.inventory"
   ],
   "superseded_p_series": {
     "authority": "harness/reports/simulation-first-task-migration.md",
@@ -245,5 +250,6 @@
       "P11"
     ],
     "disposition": "Superseded by schema-version-3 Task identity relationships; no replacement is activated."
-  }
+  },
+  "automatic_successor_activation": false
 }

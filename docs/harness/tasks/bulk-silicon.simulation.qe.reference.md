@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: The one authorized local single-process QE 7.2 example01 silicon SCF Davidson smoke test executed exactly once and exited 0 with JOB DONE. SCF convergence was reported in 6 iterations at -15.84452726 Ry, matching the bundled tutorial reference at printed precision. Compact input, provenance, artifact identities, and result note are retained under calculations/bulk-silicon/qe-example01-si-scf-davidson/. The Task remains active pending human review; this is not production convergence, numerical validation, scientific acceptance, or successor authorization.
+`closed_human_accepted_pass`: Human-accepted and completed as a successful tutorial smoke-test reproduction. Accepted claim: Quantum ESPRESSO 7.2 reproduced the selected official example01 silicon Davidson SCF result using the identified legacy pseudopotential, with retained compact provenance and externally retained native artifacts. Recorded observations: total energy -15.84452726 Ry; 6 SCF iterations; bundled-reference difference 0.00000000 Ry at printed precision; exit status 0; JOB DONE present; pseudopotential SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217; executable SHA-256 6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca. The exact IEEE warning remains observed and unresolved. No production, validation, UQ, Stage 02, suitability, or transferability claim is accepted.
 
 ## Objective
 

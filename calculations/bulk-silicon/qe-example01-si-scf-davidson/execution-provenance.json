@@ -1,5 +1,5 @@
 {
-  "record_status": "calculated observation; tutorial smoke test; not production validation",
+  "record_status": "human-accepted successful tutorial smoke-test reproduction; not production or scientific validation",
   "task_id": "bulk-silicon.simulation.qe.reference",
   "authorization": {
     "tutorial_selection": "Quantum ESPRESSO PW example01 silicon SCF calculation, Davidson diagonalization only",
@@ -88,7 +88,7 @@
     "total_energy_ry": -15.84452726,
     "job_done_marker": true,
     "warnings": [
-      "stderr reported signalling IEEE_INVALID_FLAG, IEEE_DIVIDE_BY_ZERO, IEEE_OVERFLOW_FLAG, and IEEE_UNDERFLOW_FLAG after otherwise successful completion"
+      "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
     ],
     "errors": []
   },
@@ -195,5 +195,28 @@
     "large_native_scratch_committed": false,
     "external_artifact_root": "/Users/eugene/projects/q-e-qe-7.2",
     "raw_stdout_stderr_committed": false
+  },
+  "human_acceptance": {
+    "accepted_claim": "Quantum ESPRESSO 7.2 reproduced the selected official example01 silicon Davidson SCF result using the identified legacy pseudopotential, with retained compact provenance and externally retained native artifacts.",
+    "accepted_observations": {
+      "total_energy_ry": -15.84452726,
+      "scf_iterations": 6,
+      "bundled_reference_difference_ry_at_printed_precision": 0.0,
+      "exit_status": 0,
+      "job_done_present": true,
+      "pseudopotential_sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "executable_sha256": "6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca",
+      "unresolved_runtime_warning_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    "claim_exclusions": [
+      "production convergence",
+      "pseudopotential suitability for production",
+      "numerical verification",
+      "scientific validation",
+      "uncertainty quantification",
+      "Stage 02 acceptance",
+      "transferability beyond the selected tutorial"
+    ],
+    "warning_disposition": "Observed unresolved runtime warning. Do not describe as harmless or as a calculation failure; diagnosis is deferred unless the flags recur in later calculations."
   }
 }
