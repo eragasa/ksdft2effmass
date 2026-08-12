@@ -36,7 +36,7 @@
 - [`backend-neutral-kohn-sham-qe-architecture`](backend-neutral-kohn-sham-qe-architecture.md) — Backend-neutral Kohn–Sham DFT and Quantum ESPRESSO architecture (`legacy_recorded`)
 - [`bulk-silicon.artifacts.qe.inventory`](bulk-silicon.artifacts.qe.inventory.md) — QE tutorial artifact inventory (`blocked`)
 - [`bulk-silicon.records.periodic.extraction`](bulk-silicon.records.periodic.extraction.md) — Periodic electronic-structure record extraction (`blocked`)
-- [`bulk-silicon.simulation.qe.reference`](bulk-silicon.simulation.qe.reference.md) — Bulk-silicon QE tutorial reference simulation (`inactive`)
+- [`bulk-silicon.simulation.qe.reference`](bulk-silicon.simulation.qe.reference.md) — Bulk-silicon QE tutorial reference simulation (`active`)
 - [`bulk-silicon.tight-binding.comparison-reduction`](bulk-silicon.tight-binding.comparison-reduction.md) — Tight-binding comparison and reduction (`blocked`)
 - [`bulk-silicon.tight-binding.direct-spectral.fitting`](bulk-silicon.tight-binding.direct-spectral.fitting.md) — Direct spectral tight-binding fitting (`blocked`)
 - [`bulk-silicon.tight-binding.wannier.bridge`](bulk-silicon.tight-binding.wannier.bridge.md) — QE–Wannier90 tutorial bridge (`blocked`)

@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: Simulation-first bootstrap entry Task; inactive pending separate explicit tutorial-execution authorization.
+`active`: Explicitly activated for one bounded local smoke-test execution of the official Quantum ESPRESSO 7.2 PW example01 silicon SCF calculation with Davidson diagonalization. Human decisions silicon_tutorial_input_selection and qe_tutorial_execution_authorization are resolved by the current instruction. Only /Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x, the unmodified bundled Davidson SCF input, and the verified downloaded official Si.pz-vbc.UPF bytes are authorized. No successor is activated.
 
 ## Objective
 

@@ -2,8 +2,8 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "simulation_first_bootstrap_planned_no_task_active",
-  "active_task": null,
+  "status": "bulk_silicon_simulation_qe_reference_active",
+  "active_task": "bulk-silicon.simulation.qe.reference",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -106,7 +106,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "The simulation-first bootstrap is planned but inactive. Every executable Task requires separate explicit activation and applicable execution authorization. The CPN-persistence Task is deferred and nonblocking. No automatic successor activation, scientific/external/protected execution, publication, or release is authorized.",
+  "launch_policy": "bulk-silicon.simulation.qe.reference alone is explicitly active for one bounded local Quantum ESPRESSO example01 silicon Davidson SCF smoke test. Production execution remains unauthorized. Automatic successor activation is disabled; no successor is active.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -204,6 +204,13 @@
       "activated_after": "P1 and H4 human-accepted PASS, zero unresolved checkpoints, maintained local-route consumer PASS, and durable ownership preflight",
       "authority": "Current human instruction titled P2 — Activate and implement provenance and external-tool capability records",
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
+    },
+    {
+      "task": "bulk-silicon.simulation.qe.reference",
+      "authorized_at": "2026-08-12T23:11:39Z",
+      "activated_after": "origin/dev agreement, zero active Tasks, zero unresolved checkpoints, P2 human_accepted_pass, prerequisite eligibility, and verified official tutorial pseudopotential acquisition",
+      "authority": "Current human instructions resolving silicon_tutorial_input_selection and qe_tutorial_execution_authorization and authorizing controlled acquisition of https://pseudopotentials.quantum-espresso.org/upf_files/Si.pz-vbc.UPF",
+      "scope": "Exactly one local single-process execution of the unmodified QE 7.2 PW example01 silicon SCF Davidson input using /Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x and downloaded Si.pz-vbc.UPF bytes with SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217. No band, CG, PPCG, Al, Cu, Ni, Wannier90, production Stage 02, successor, dependency, schema, validator, SQLite, CPN, or generalized extraction work."
     }
   ],
   "pending_checkpoints": [],
@@ -211,9 +218,15 @@
     {
       "phase": "simulation-first-bootstrap-planned",
       "message": "P2 remains closed as human-accepted PASS. P3-P11 are superseded by eight inactive or blocked simulation-first Tasks and one deferred-inactive CPN-persistence Task. No replacement, scientific/external/protected execution, publication, or release is active."
+    },
+    {
+      "phase": "bulk-silicon-simulation-qe-reference-activated",
+      "message": "The human selected official QE PW example01 silicon SCF with Davidson diagonalization, authorized acquisition of exactly the official Si.pz-vbc.UPF URL, and authorized exactly one local single-process smoke-test execution with the fixed QE 7.2 pw.x. Pseudopotential acquisition and preflight passed. No successor or production execution is active."
     }
   ],
-  "explicitly_activated_task_ids": [],
+  "explicitly_activated_task_ids": [
+    "bulk-silicon.simulation.qe.reference"
+  ],
   "superseded_p_series": {
     "authority": "harness/reports/simulation-first-task-migration.md",
     "tasks": [
