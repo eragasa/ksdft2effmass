@@ -3,7 +3,7 @@
   "task_id": "bulk-silicon.simulation.qe.reference",
   "title": "Bulk-silicon QE tutorial reference simulation",
   "status": "active",
-  "status_detail": "Explicitly activated for one bounded local smoke-test execution of the official Quantum ESPRESSO 7.2 PW example01 silicon SCF calculation with Davidson diagonalization. Human decisions silicon_tutorial_input_selection and qe_tutorial_execution_authorization are resolved by the current instruction. Only /Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x, the unmodified bundled Davidson SCF input, and the verified downloaded official Si.pz-vbc.UPF bytes are authorized. No successor is activated.",
+  "status_detail": "The one authorized local single-process QE 7.2 example01 silicon SCF Davidson smoke test executed exactly once and exited 0 with JOB DONE. SCF convergence was reported in 6 iterations at -15.84452726 Ry, matching the bundled tutorial reference at printed precision. Compact input, provenance, artifact identities, and result note are retained under calculations/bulk-silicon/qe-example01-si-scf-davidson/. The Task remains active pending human review; this is not production convergence, numerical validation, scientific acceptance, or successor authorization.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2"
@@ -16,6 +16,8 @@
   "explicit_activation_required": true,
   "objective": "Reproduce a bounded established bulk-silicon Quantum ESPRESSO tutorial calculation before fixing the project extraction and storage architecture.",
   "authority_reference_paths": [
+    "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
+    "calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md",
     "docs/computational/ksdft2effmass.computational.bootstrap.md",
     "harness/reports/simulation-first-task-migration.md"
   ],

@@ -1,0 +1,199 @@
+{
+  "record_status": "calculated observation; tutorial smoke test; not production validation",
+  "task_id": "bulk-silicon.simulation.qe.reference",
+  "authorization": {
+    "tutorial_selection": "Quantum ESPRESSO PW example01 silicon SCF calculation, Davidson diagonalization only",
+    "resolved_external_prerequisites": [
+      "silicon_tutorial_input_selection",
+      "qe_tutorial_execution_authorization"
+    ],
+    "authorized_upstream_source": "https://gitlab.com/QEF/q-e/-/tree/master/PW/examples/example01",
+    "execution_count": 1
+  },
+  "pseudopotential_acquisition": {
+    "source_url": "https://pseudopotentials.quantum-espresso.org/upf_files/Si.pz-vbc.UPF",
+    "acquired_at_utc": "2026-08-12T15:11:39Z",
+    "https_status": 200,
+    "final_path": "/Users/eugene/projects/q-e-qe-7.2/pseudo/Si.pz-vbc.UPF",
+    "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+    "byte_count": 74552,
+    "upf_identity": {
+      "upf_version": "2.0.1",
+      "element": "Si",
+      "pseudo_type": "norm-conserving (NC)",
+      "functional": "Perdew-Zunger LDA (SLA PZ NOGX NOGC)",
+      "relativistic_treatment": "nonrelativistic"
+    },
+    "same_named_local_comparison": [
+      {
+        "path": "/Users/eugene/projects/q-e-qe-7.2/atomic/examples/pseudo-LDA-0.5/Si.pz-vbc.UPF",
+        "sha256": "1d1d6a6c0d2c68879303d4cfb360275195e60391590b376e6e514c4af3dca0b5",
+        "byte_identical": false
+      },
+      {
+        "path": "/Users/eugene/projects/q-e-qe-7.2/EPW/examples/sic/pp/Si.pz-vbc.UPF",
+        "sha256": "d75dd6b0be0aa10587fc95900cfd6ba7314d461a8276a81df34f009d0bfc075d",
+        "byte_identical": false
+      },
+      {
+        "path": "/Users/eugene/projects/q-e-qe-7.2/external/wannier90/pseudo/Si.pz-vbc.UPF",
+        "sha256": "6ab22ac0f3309ea597fc4a0c634d11b9c81e1c3a99d9d504eebee2b79a5d699b",
+        "byte_identical": false
+      }
+    ]
+  },
+  "executable": {
+    "path": "/Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x",
+    "sha256": "6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca",
+    "byte_count": 9889576,
+    "version": "Quantum ESPRESSO PWSCF 7.2",
+    "format": "Mach-O 64-bit arm64",
+    "parallel_build": "MPI",
+    "build_identity": {
+      "source_distribution_path": "/Users/eugene/projects/q-e-qe-7.2",
+      "source_git_revision": null,
+      "cmake_cache": {
+        "path": "/Users/eugene/projects/q-e-qe-7.2/build/CMakeCache.txt",
+        "sha256": "325c7ac672f199592ceb87dea66ee09c0c6821e1eb98bfe9a186ed1e570dff95",
+        "byte_count": 30343
+      }
+    }
+  },
+  "input": {
+    "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.in",
+    "sha256": "a29cf7c3e523c56e8894307e825bb5c9eea5668614e59837c743dd051523f9d9",
+    "byte_count": 984,
+    "retained_copy": "calculations/bulk-silicon/qe-example01-si-scf-davidson/si.scf.david.in",
+    "generated_from": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/run_example",
+      "sha256": "4391ed2962a49525f86ffa16ec246412a7007da602c9eef3ae597933e6f9af28",
+      "byte_count": 15535
+    },
+    "source_lines": "81-116, diago=david, bundled absolute PSEUDO_DIR and TMP_DIR expansion"
+  },
+  "execution": {
+    "invocation": "/Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x < /Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.in > /Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.out 2> /Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.err",
+    "working_path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results",
+    "scratch_path": "/Users/eugene/projects/q-e-qe-7.2/tempdir",
+    "processor_count": 1,
+    "start_utc": "2026-08-12T15:13:29Z",
+    "end_utc": "2026-08-12T15:13:29Z",
+    "shell_wall_seconds_resolution_1s": 0,
+    "pwscf_reported_wall_seconds": 0.11,
+    "exit_status": 0
+  },
+  "observations": {
+    "scf_converged": true,
+    "iteration_count": 6,
+    "total_energy_ry": -15.84452726,
+    "job_done_marker": true,
+    "warnings": [
+      "stderr reported signalling IEEE_INVALID_FLAG, IEEE_DIVIDE_BY_ZERO, IEEE_OVERFLOW_FLAG, and IEEE_UNDERFLOW_FLAG after otherwise successful completion"
+    ],
+    "errors": []
+  },
+  "external_outputs": {
+    "stdout": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.out",
+      "sha256": "1177db903fbc97e7dac57119af90304fc974de43203dbbb493f29af5950650d3",
+      "byte_count": 12275
+    },
+    "stderr": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+      "byte_count": 139
+    },
+    "scratch_post_run_kib": 544,
+    "peak_scratch_use": "not measured"
+  },
+  "scratch_artifacts": [
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/Si.pz-vbc.UPF",
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "byte_count": 74552
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/charge-density.dat",
+      "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8",
+      "byte_count": 76640
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/data-file-schema.xml",
+      "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9",
+      "byte_count": 55068
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc1.dat",
+      "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1",
+      "byte_count": 25656
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc10.dat",
+      "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529",
+      "byte_count": 26264
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc2.dat",
+      "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451",
+      "byte_count": 25884
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc3.dat",
+      "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907",
+      "byte_count": 25808
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc4.dat",
+      "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e",
+      "byte_count": 26264
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc5.dat",
+      "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66",
+      "byte_count": 26112
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc6.dat",
+      "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5",
+      "byte_count": 26036
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc7.dat",
+      "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76",
+      "byte_count": 26568
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc8.dat",
+      "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f",
+      "byte_count": 26340
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc9.dat",
+      "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808",
+      "byte_count": 26796
+    },
+    {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.xml",
+      "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9",
+      "byte_count": 55068
+    }
+  ],
+  "bundled_reference_comparison": {
+    "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/reference/si.scf.david.out",
+    "sha256": "b25d7e24f3978dba84913c121b8075651c361d83d6ed4e6955a2903c3becea24",
+    "byte_count": 11555,
+    "reference_qe_version": "PWSCF 6.0 (svn rev. 13188)",
+    "reference_total_energy_ry": -15.84452726,
+    "calculated_total_energy_ry": -15.84452726,
+    "energy_difference_ry": 0.0,
+    "reference_iteration_count": 6,
+    "calculated_iteration_count": 6,
+    "byte_equality_not_required": true,
+    "interpretation": "The reported energy and iteration count match the bundled tutorial reference at printed precision. This is a tutorial comparison, not production convergence, numerical validation, or scientific acceptance."
+  },
+  "retention": {
+    "large_native_scratch_committed": false,
+    "external_artifact_root": "/Users/eugene/projects/q-e-qe-7.2",
+    "raw_stdout_stderr_committed": false
+  }
+}

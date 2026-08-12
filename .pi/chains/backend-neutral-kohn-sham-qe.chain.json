@@ -2,7 +2,7 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_simulation_qe_reference_active",
+  "status": "bulk_silicon_simulation_qe_reference_executed_awaiting_human_review",
   "active_task": "bulk-silicon.simulation.qe.reference",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -222,6 +222,10 @@
     {
       "phase": "bulk-silicon-simulation-qe-reference-activated",
       "message": "The human selected official QE PW example01 silicon SCF with Davidson diagonalization, authorized acquisition of exactly the official Si.pz-vbc.UPF URL, and authorized exactly one local single-process smoke-test execution with the fixed QE 7.2 pw.x. Pseudopotential acquisition and preflight passed. No successor or production execution is active."
+    },
+    {
+      "phase": "bulk-silicon-simulation-qe-reference-executed-awaiting-human-review",
+      "message": "The one authorized local single-process QE 7.2 PW example01 silicon SCF Davidson calculation executed exactly once with the verified official downloaded Si.pz-vbc.UPF. It exited 0, emitted JOB DONE, and reported convergence in 6 iterations at -15.84452726 Ry, equal to the bundled reference at printed precision. Compact records are retained; raw outputs and scratch remain external. The Task stays active for human review. No successor, production Stage 02, extraction, band, Wannier90, dependency, schema, validator, SQLite, or CPN work is active."
     }
   ],
   "explicitly_activated_task_ids": [
