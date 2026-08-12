@@ -28,7 +28,11 @@ G02 owns only the path, valley, effective-mass, and other diagnostic children
 needed for bulk validation. Stage 03 separately chooses the retained bands,
 projections, windows, and uniform NSCF mesh needed by Wannier90. Each child must
 identify the same accepted SCF parent manifest while retaining its own mesh,
-band count, purpose, convergence evidence, and energy-reference convention.
+band count, purpose, convergence evidence, and energy-reference convention. The
+maintained [bulk-silicon downstream sampling plan](bulk-silicon-downstream-sampling-plan.md)
+distinguishes these children from the Stage 03 uniform Wannier NSCF mesh and
+Stage 04 fitting and withheld-validation datasets; it is planning guidance and
+does not activate work.
 
 ## Task Registry
 

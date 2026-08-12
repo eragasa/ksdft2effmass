@@ -108,6 +108,9 @@
       "task_id": "bulk-silicon.records.periodic.extraction"
     },
     {
+      "task_id": "bulk-silicon.simulation.qe.band-reference"
+    },
+    {
       "task_id": "bulk-silicon.simulation.qe.reference"
     },
     {
@@ -671,6 +674,21 @@
     {
       "source": "bulk-silicon.records.periodic.extraction",
       "target": "bulk-silicon.artifacts.qe.inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.simulation.qe.band-reference",
+      "target": "bulk-silicon.artifacts.qe.inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.simulation.qe.band-reference",
+      "target": "bulk-silicon.records.periodic.extraction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.simulation.qe.band-reference",
+      "target": "bulk-silicon.simulation.qe.reference",
       "kind": "depends_on"
     },
     {

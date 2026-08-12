@@ -6,6 +6,7 @@ task_program:
 - [QE reference simulation](../../harness/tasks/bulk-silicon.simulation.qe.reference.json)
 - [QE artifact inventory](../../harness/tasks/bulk-silicon.artifacts.qe.inventory.json)
 - [Periodic record extraction](../../harness/tasks/bulk-silicon.records.periodic.extraction.json)
+- [Symmetry-path band tutorial](../../harness/tasks/bulk-silicon.simulation.qe.band-reference.json)
 - [Direct spectral TB fitting](../../harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json)
 - [QE–Wannier90 bridge](../../harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json)
 - [Wannier Hamiltonian extraction](../../harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json)
@@ -15,6 +16,7 @@ task_program:
 
 policy:
 - [Pseudopotential library strategy](pseudopotential-library-strategy.md)
+- [Bulk-silicon downstream sampling plan](bulk-silicon-downstream-sampling-plan.md)
 
 downstream:
 - [[ksdft2Effmass.computational.02]]
@@ -128,6 +130,10 @@ artifacts, provenance capture, and semantic extraction through one bounded
 calculation. Its ten sampled wavevectors and four bands were adequate for that
 software-verification purpose, not for an indirect gap, valley curvature,
 effective mass, Wannier subspace, or tight-binding fit.
+
+The purpose-specific children and the proposed first bands tutorial are detailed
+in the [bulk-silicon downstream sampling plan](bulk-silicon-downstream-sampling-plan.md).
+That plan does not activate a Task or authorize execution.
 
 The resulting boundary is
 

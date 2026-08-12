@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Bulk-silicon QE tutorial reference simulation
 
-[Task index](index.md) · [Previous](./bulk-silicon.records.periodic.extraction.md) · [Next](./bulk-silicon.tight-binding.comparison-reduction.md)
+[Task index](index.md) · [Previous](./bulk-silicon.simulation.qe.band-reference.md) · [Next](./bulk-silicon.tight-binding.comparison-reduction.md)
 
 ## Status
 

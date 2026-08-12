@@ -1,7 +1,7 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
+  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. The next tutorial-first silicon band Task is planned but inactive, downstream model Tasks remain blocked, and the deferred CPN-persistence Task remains inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
   "status": "bulk_silicon_records_periodic_extraction_closed_human_accepted_pass_no_task_active",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
@@ -68,6 +68,10 @@
       "execution_policy": "single_writer",
       "mutating_delegation_authorized": false,
       "ownership_manifest_required": false
+    },
+    {
+      "id": "bulk-silicon.simulation.qe.band-reference",
+      "record": "harness/tasks/bulk-silicon.simulation.qe.band-reference.json"
     },
     {
       "id": "bulk-silicon.tight-binding.direct-spectral.fitting",
@@ -257,6 +261,10 @@
     {
       "phase": "bulk-silicon-periodic-qexsd-extraction-human-accepted",
       "message": "The human accepted as PASS the limited claim that the observed QE 7.2 QEXSD artifact was faithfully transformed through separated Quantum ESPRESSO I/O, periodic-geometry, Kohn–Sham, and plane-wave-record domains with explicit units, coordinate conventions, reciprocal scaling, provenance, and unavailable metadata. Acceptance does not establish numerical convergence beyond the retained tutorial observation, physical validation, transferability to other QE calculations, completeness of the plane-wave basis description, suitability for Wannier or effective-mass analysis, or scientific acceptance of downstream results. bulk-silicon.records.periodic.extraction is closed_human_accepted_pass. No successor is active and automatic successor activation remains disabled."
+    },
+    {
+      "phase": "bulk-silicon-band-reference-planned-inactive",
+      "message": "The next tutorial-first vertical slice is planned as bulk-silicon.simulation.qe.band-reference. It will, only after separate activation and protected-execution authorization, run the QE 7.2 PW example01 silicon Davidson bands input against an identity-verified isolated copy of the accepted SCF state, inventory the observed band artifacts, and propose the minimum band-record extension. The Task is inactive; no calculation checkpoint exists; no QE or Wannier90 execution, parser, record implementation, downstream activation, production setting, or scientific validation is authorized."
     }
   ],
   "explicitly_activated_task_ids": [

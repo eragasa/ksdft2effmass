@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Periodic electronic-structure record extraction
 
-[Task index](index.md) · [Previous](./bulk-silicon.artifacts.qe.inventory.md) · [Next](./bulk-silicon.simulation.qe.reference.md)
+[Task index](index.md) · [Previous](./bulk-silicon.artifacts.qe.inventory.md) · [Next](./bulk-silicon.simulation.qe.band-reference.md)
 
 ## Status
 
