@@ -1,8 +1,8 @@
 {
   "name": "harness-simplification",
   "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
-  "status": "harness_control_plane_cleanup_awaiting_human_acceptance",
-  "active_task": "harness.control-plane-cleanup",
+  "status": "harness_control_plane_cleanup_closed_human_accepted_pass",
+  "active_task": null,
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
     "harness.simplification.agents.delegation-validation",
@@ -48,6 +48,10 @@
     {
       "phase": "control-plane-cleanup-slice-c-completed-awaiting-human-acceptance",
       "message": "The single permitted correction pass exhaustively classified all 613 required deduplicated surfaces to 503 retain and 110 delete with zero unresolved, reconsidered Slice B history, closed stale references, and resolved all consolidated-review findings. All final gates pass, including the complete configured suite with 2,985 tests. The cleanup Task awaits human acceptance; automatic successor activation remains disabled and no successor is active."
+    },
+    {
+      "phase": "control-plane-cleanup-human-accepted-and-closed",
+      "message": "The human accepted and closed harness.control-plane-cleanup with documented architectural limitations. Accepted claim: The bounded control-plane cleanup removed repository surfaces proven obsolete under the current architecture, eliminated unresolved dispositions, preserved operational behavior, and retained complete validation agreement. No minimal-control-plane claim is made. Further reduction requires a separately authorized later architectural change. Automatic successor activation remains disabled and no successor is active. The next separately authorized project activity should be a simulation-first scientific vertical slice: tutorial input → smoke-test execution → raw artifact retention → manual inspection → minimal extraction → deterministic replay."
     }
   ],
   "task_sequence": [

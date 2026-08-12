@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "harness.control-plane-cleanup",
   "title": "Reduce repository control-plane authority",
-  "status": "awaiting_human_acceptance",
-  "status_detail": "Slice C and its single consolidated review are complete: 613 deduplicated required surfaces are classified to 503 retain and 110 delete with zero unresolved, all review findings were resolved in the permitted bounded correction pass, and all final gates pass, including the complete configured suite (2,985 tests). The Task awaits human acceptance; automatic successor activation remains disabled and no successor is activated.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human-accepted and closed with documented architectural limitations. Accepted claim: The bounded control-plane cleanup removed repository surfaces proven obsolete under the current architecture, eliminated unresolved dispositions, preserved operational behavior, and retained complete validation agreement. The repository is not claimed to have a minimal control plane. Further reduction requires a separately authorized later architectural change; no successor is activated.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "harness.simplify-2"

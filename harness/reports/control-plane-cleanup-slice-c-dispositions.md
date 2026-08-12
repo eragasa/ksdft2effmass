@@ -17,3 +17,22 @@ Affected deterministic gates pass. The complete configured suite passes all 2,98
 ## Architecture candidates (advisory only)
 
 Later work may evaluate compiler-style repository loading with normalized state, public validator composition, explicit projector ownership, synchronizer/comparator separation, restricted Pi action interfaces, typed action requests, and capability-constrained operator profiles. These are non-authoritative candidates only; Slice C implements none of them and creates no Task, checkpoint, API, or runtime surface for them.
+
+## Human acceptance and closeout
+
+Accepted claim:
+
+> The bounded control-plane cleanup removed repository surfaces proven obsolete under the current architecture, eliminated unresolved dispositions, preserved operational behavior, and retained complete validation agreement.
+
+This acceptance does **not** claim that the repository now has a minimal control plane. The accepted residual architectural limitations are:
+
+- 112 Task records and 112 generated Task pages remain.
+- 85 completed Tasks remain operationally referenced.
+- 77 archive files remain.
+- 13 CLIs remain.
+- 87 harness Python modules remain.
+- 316 of the original 322 unresolved surfaces were retained.
+- Current authority, historical relationships, runtime validation, and generated projections remain structurally coupled.
+- Further reduction requires a later architectural change rather than another cleanup correction.
+
+The previously recorded architecture candidates remain non-authoritative proposals and were not activated, implemented, or elaborated during closeout. No successor is active. The next separately authorized project activity should be a simulation-first scientific vertical slice: `tutorial input → smoke-test execution → raw artifact retention → manual inspection → minimal extraction → deterministic replay`.

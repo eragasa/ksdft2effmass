@@ -5,7 +5,7 @@
 
 ## Status
 
-`awaiting_human_acceptance`: Slice C and its single consolidated review are complete: 613 deduplicated required surfaces are classified to 503 retain and 110 delete with zero unresolved, all review findings were resolved in the permitted bounded correction pass, and all final gates pass, including the complete configured suite (2,985 tests). The Task awaits human acceptance; automatic successor activation remains disabled and no successor is activated.
+`closed_human_accepted_pass`: Human-accepted and closed with documented architectural limitations. Accepted claim: The bounded control-plane cleanup removed repository surfaces proven obsolete under the current architecture, eliminated unresolved dispositions, preserved operational behavior, and retained complete validation agreement. The repository is not claimed to have a minimal control plane. Further reduction requires a separately authorized later architectural change; no successor is activated.
 
 ## Objective
 
