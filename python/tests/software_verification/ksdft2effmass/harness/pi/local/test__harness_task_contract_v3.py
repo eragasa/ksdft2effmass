@@ -21,6 +21,8 @@ activate work, validate science, or provide human acceptance.
 """
 
 import json
+import sqlite3
+from collections import Counter
 from pathlib import Path
 from typing import Any, cast
 
@@ -30,6 +32,7 @@ from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 import ksdft2effmass.harness.pi.local as local_api
 from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 from ksdft2effmass.harness.pi.local import (
+    HarnessTask,
     HarnessTaskDeserializer,
     HarnessTaskGraphValidator,
     HarnessTaskSerializer,
@@ -210,48 +213,279 @@ def test_method__graph_findings__use_deterministic_precedence() -> None:
 def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() -> None:
     """Evidence ID: SV-HT-040
 
-    Requirement: Every live repository Task uses schema version 3, satisfies its
-    runtime contract, and represents supersession edges exactly in the Task graph.
+    Requirement: Every regular source Task uses schema version 3, satisfies its
+    runtime contract, and agrees structurally with every maintained projection.
 
-    Method: Load the explicit ``harness/tasks`` directory and task graph, apply the
-    version-3 schema, deserialize every Task, and validate the complete Task tuple.
+    Method: Discover the explicit ``harness/tasks`` source catalog, apply the version-3
+    schema and deserializer, then compare source identities with the graph, immutable
+    SQLite state, projection manifest, and generated Task documentation under the same
+    explicit repository root.
 
-    Oracle: The accepted version-3 schema and canonical graph independently define
-    wire shape and represented relationships.
+    Oracle: Regular ``harness/tasks/*.json`` files determine Task identity and
+    cardinality; the accepted schema determines wire shape independently of generated
+    projections.
 
-    Acceptance: All 112 live Tasks are version 3, pass schema/runtime validation,
-    serialize canonically, equal the graph node catalog, and represent exact
-    supersession edges.
+    Acceptance: Every source file is discovered exactly once, parses as one canonical
+    HarnessTask, and has a unique nonempty identity; source identities equal the graph,
+    SQLite, manifest, and generated-document identities with no missing, unexpected, or
+    duplicate projection, independent of source discovery order.
 
-    Interpretation: Failure identifies catalog, schema, runtime, or graph drift.
+    Interpretation: Failure identifies exact source, schema, runtime, root-resolution,
+    or generated-projection drift.
 
     Limitations: This establishes structural software agreement only; it does not
     activate work, authorize execution, or establish scientific validity.
     """
     root = repository_root()
-    schema = json.loads(
-        (root / "harness/local/schemas/task-record-v3.schema.json").read_text()
+    relative_artifacts = (
+        Path("harness/tasks"),
+        Path("harness/local/schemas/task-record-v3.schema.json"),
+        Path("harness/task-graph.json"),
+        Path("harness/state/harness-control.sqlite3"),
+        Path("harness/state/projection-manifest.json"),
+        Path("docs/harness/tasks"),
     )
-    validator = Draft202012Validator(schema)
-    documents = tuple(
-        json.loads(path.read_text())
-        for path in sorted((root / "harness/tasks").glob("*.json"))
-    )
-    assert {document["schema_version"] for document in documents} == {3}
-    payloads = tuple(
-        json.dumps(document, ensure_ascii=False, indent=2).encode() + b"\n"
-        for document in documents
-    )
-    assert all(
-        not tuple(validator.iter_errors(json.loads(payload))) for payload in payloads
-    )
-    tasks = tuple(HarnessTaskDeserializer().execute(payload) for payload in payloads)
-    assert tuple(HarnessTaskSerializer().execute(task) for task in tasks) == payloads
-    assert len(tasks) == 112
-    graph = json.loads((root / "harness/task-graph.json").read_text())
-    assert {node["task_id"] for node in graph["nodes"]} == {
-        document["task_id"] for document in documents
+    artifacts = tuple(root / relative for relative in relative_artifacts)
+    resolved_root = root.resolve(strict=True)
+    resolved_artifacts = tuple(path.resolve(strict=True) for path in artifacts)
+    assert not any(path.is_symlink() for path in artifacts), {
+        "repository_root": resolved_root.as_posix(),
+        "symlinked_artifacts": sorted(
+            path.relative_to(root).as_posix() for path in artifacts if path.is_symlink()
+        ),
     }
+    assert all(path.is_relative_to(resolved_root) for path in resolved_artifacts), {
+        "repository_root": resolved_root.as_posix(),
+        "artifacts_outside_root": sorted(
+            path.as_posix()
+            for path in resolved_artifacts
+            if not path.is_relative_to(resolved_root)
+        ),
+    }
+    task_directory, schema_path, graph_path, database_path, manifest_path, docs_path = (
+        artifacts
+    )
+
+    regular_source_paths = frozenset(
+        path
+        for path in task_directory.iterdir()
+        if path.is_file() and path.suffix == ".json"
+    )
+    discovered_paths = tuple(
+        path for path in task_directory.glob("*.json") if path.is_file()
+    )
+    source_path_counts = Counter(discovered_paths)
+    duplicate_source_paths = sorted(
+        path.relative_to(root).as_posix()
+        for path, count in source_path_counts.items()
+        if count != 1
+    )
+    symlinked_source_paths = sorted(
+        path.relative_to(root).as_posix()
+        for path in discovered_paths
+        if path.is_symlink()
+    )
+    escaped_source_paths = sorted(
+        path.relative_to(root).as_posix()
+        for path in discovered_paths
+        if not path.resolve(strict=True).is_relative_to(resolved_root)
+    )
+    assert not duplicate_source_paths, {
+        "duplicate_source_paths": duplicate_source_paths
+    }
+    assert not symlinked_source_paths, {
+        "symlinked_source_paths": symlinked_source_paths
+    }
+    assert not escaped_source_paths, {"escaped_source_paths": escaped_source_paths}
+    discovered_source_paths = frozenset(discovered_paths)
+    assert discovered_source_paths == regular_source_paths, {
+        "missing_source_paths": sorted(
+            path.relative_to(root).as_posix()
+            for path in regular_source_paths - discovered_source_paths
+        ),
+        "unexpected_source_paths": sorted(
+            path.relative_to(root).as_posix()
+            for path in discovered_source_paths - regular_source_paths
+        ),
+    }
+
+    schema = json.loads(schema_path.read_text())
+    validator = Draft202012Validator(schema)
+    payloads = tuple(path.read_bytes() for path in discovered_paths)
+    documents = tuple(json.loads(payload) for payload in payloads)
+    assert {document["schema_version"] for document in documents} == {3}
+    assert all(not tuple(validator.iter_errors(document)) for document in documents)
+    tasks = tuple(HarnessTaskDeserializer().execute(payload) for payload in payloads)
+    assert all(type(task) is HarnessTask for task in tasks)
+    assert tuple(HarnessTaskSerializer().execute(task) for task in tasks) == payloads
+
+    task_id_counts = Counter(task.task_id for task in tasks)
+    duplicate_task_ids = sorted(
+        task_id for task_id, count in task_id_counts.items() if count != 1
+    )
+    empty_task_source_paths = sorted(
+        path.relative_to(root).as_posix()
+        for path, task in zip(discovered_paths, tasks, strict=True)
+        if not task.task_id
+    )
+    assert not duplicate_task_ids, {"duplicate_task_ids": duplicate_task_ids}
+    assert not empty_task_source_paths, {
+        "empty_task_id_source_paths": empty_task_source_paths
+    }
+    expected_task_ids = frozenset(task.task_id for task in tasks)
+    reordered_task_ids = frozenset(task.task_id for task in reversed(tasks))
+    assert reordered_task_ids == expected_task_ids
+
+    graph = json.loads(graph_path.read_text())
+    graph_id_counts = Counter(node["task_id"] for node in graph["nodes"])
+    duplicate_graph_task_ids = sorted(
+        task_id for task_id, count in graph_id_counts.items() if count != 1
+    )
+    graph_task_ids = frozenset(graph_id_counts)
+    assert not duplicate_graph_task_ids, {
+        "duplicate_graph_task_ids": duplicate_graph_task_ids
+    }
+    assert graph_task_ids == expected_task_ids, {
+        "missing_task_ids": sorted(expected_task_ids - graph_task_ids),
+        "unexpected_task_ids": sorted(graph_task_ids - expected_task_ids),
+        "projection": graph_path.relative_to(root).as_posix(),
+    }
+
+    with sqlite3.connect(
+        database_path.resolve().as_uri() + "?mode=ro&immutable=1", uri=True
+    ) as connection:
+        sqlite_rows = tuple(
+            connection.execute(
+                "SELECT task_id,source_path FROM task_definition ORDER BY task_id"
+            )
+        )
+    sqlite_task_ids = frozenset(row[0] for row in sqlite_rows)
+    sqlite_source_paths = frozenset(row[1] for row in sqlite_rows)
+    expected_task_sources = frozenset(
+        (task.task_id, path.relative_to(root).as_posix())
+        for path, task in zip(discovered_paths, tasks, strict=True)
+    )
+    expected_source_paths = frozenset(path for _, path in expected_task_sources)
+    assert sqlite_task_ids == expected_task_ids, {
+        "missing_task_ids": sorted(expected_task_ids - sqlite_task_ids),
+        "unexpected_task_ids": sorted(sqlite_task_ids - expected_task_ids),
+        "projection": database_path.relative_to(root).as_posix(),
+    }
+    assert sqlite_source_paths == expected_source_paths, {
+        "missing_source_paths": sorted(expected_source_paths - sqlite_source_paths),
+        "unexpected_source_paths": sorted(sqlite_source_paths - expected_source_paths),
+        "projection": database_path.relative_to(root).as_posix(),
+    }
+    sqlite_task_sources = frozenset(sqlite_rows)
+    assert sqlite_task_sources == expected_task_sources, {
+        "missing_task_sources": sorted(expected_task_sources - sqlite_task_sources),
+        "unexpected_task_sources": sorted(sqlite_task_sources - expected_task_sources),
+        "projection": database_path.relative_to(root).as_posix(),
+    }
+
+    manifest = json.loads(manifest_path.read_text())
+    projection_entries = tuple(manifest["projections"])
+    task_json_projection_sequence = tuple(
+        entry["path"]
+        for entry in projection_entries
+        if entry["projection_kind"] == "task-json"
+    )
+    task_document_projection_sequence = tuple(
+        entry["path"]
+        for entry in projection_entries
+        if entry["projection_kind"] == "task-markdown"
+    )
+    index_projection_sequence = tuple(
+        entry["path"]
+        for entry in projection_entries
+        if entry["projection_kind"] == "task-index-markdown"
+    )
+    duplicate_task_json_projections = sorted(
+        path
+        for path, count in Counter(task_json_projection_sequence).items()
+        if count != 1
+    )
+    duplicate_task_document_projections = sorted(
+        path
+        for path, count in Counter(task_document_projection_sequence).items()
+        if count != 1
+    )
+    duplicate_index_projections = sorted(
+        path for path, count in Counter(index_projection_sequence).items() if count != 1
+    )
+    assert not duplicate_task_json_projections, {
+        "duplicate_task_projections": duplicate_task_json_projections
+    }
+    assert not duplicate_task_document_projections, {
+        "duplicate_generated_pages": duplicate_task_document_projections
+    }
+    assert not duplicate_index_projections, {
+        "duplicate_task_indexes": duplicate_index_projections
+    }
+    task_json_projection_paths = frozenset(task_json_projection_sequence)
+    task_document_projection_paths = frozenset(task_document_projection_sequence)
+    index_projection_paths = frozenset(index_projection_sequence)
+    expected_document_paths = frozenset(
+        f"docs/harness/tasks/{task_id}.md" for task_id in expected_task_ids
+    )
+    assert task_json_projection_paths == expected_source_paths, {
+        "missing_task_projections": sorted(
+            expected_source_paths - task_json_projection_paths
+        ),
+        "unexpected_task_projections": sorted(
+            task_json_projection_paths - expected_source_paths
+        ),
+    }
+    assert task_document_projection_paths == expected_document_paths, {
+        "missing_generated_pages": sorted(
+            expected_document_paths - task_document_projection_paths
+        ),
+        "unexpected_generated_pages": sorted(
+            task_document_projection_paths - expected_document_paths
+        ),
+    }
+    assert index_projection_paths == frozenset({"docs/harness/tasks/index.md"}), {
+        "missing_task_index": sorted(
+            {"docs/harness/tasks/index.md"} - index_projection_paths
+        ),
+        "unexpected_task_indexes": sorted(
+            index_projection_paths - {"docs/harness/tasks/index.md"}
+        ),
+    }
+
+    observed_document_files = tuple(
+        path for path in docs_path.glob("*.md") if path.is_file()
+    )
+    escaped_document_paths = sorted(
+        path.relative_to(root).as_posix()
+        for path in observed_document_files
+        if path.is_symlink()
+        or not path.resolve(strict=True).is_relative_to(resolved_root)
+    )
+    assert not escaped_document_paths, {
+        "symlinked_or_escaped_generated_pages": escaped_document_paths
+    }
+    observed_document_paths = frozenset(
+        path.relative_to(root).as_posix() for path in observed_document_files
+    )
+    observed_task_document_paths = observed_document_paths - index_projection_paths
+    assert observed_task_document_paths == expected_document_paths, {
+        "missing_generated_pages": sorted(
+            expected_document_paths - observed_task_document_paths
+        ),
+        "unexpected_generated_pages": sorted(
+            observed_task_document_paths - expected_document_paths
+        ),
+    }
+    projected_document_task_ids = frozenset(
+        Path(path).stem for path in observed_task_document_paths
+    )
+    assert projected_document_task_ids == expected_task_ids, {
+        "missing_task_ids": sorted(expected_task_ids - projected_document_task_ids),
+        "unexpected_task_ids": sorted(projected_document_task_ids - expected_task_ids),
+        "projection": docs_path.relative_to(root).as_posix(),
+    }
+
     assert {
         (edge["source"], edge["target"])
         for edge in graph["edges"]
