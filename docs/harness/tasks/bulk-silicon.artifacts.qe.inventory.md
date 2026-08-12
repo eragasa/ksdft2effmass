@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Inventory implementation complete and awaiting human review. Twenty-nine observed or explicitly missing/optional artifact records classify the actual QE tutorial input, stdout/stderr, selected pseudopotential, QEXSD metadata, native charge density, all ten k-point wavefunction files, save-directory pseudopotential copy, compact records, execution sidecars, and relevant absent optional outputs. Exact paths, sizes, SHA-256 identities, formats, structural facts, roles, completeness, retention classes, and extraction candidacy are retained under calculations/bulk-silicon/qe-example01-si-scf-davidson/. QE was not rerun; native artifacts remain external and unchanged; no successor is activated.
+`closed_human_accepted_pass`: Human-accepted PASS after the bounded producer-attribution and canonical repository-relative path correction. The accepted inventory retains all substantive findings, checksums, sizes, QEXSD findings, retention dispositions, missing/optional findings, wavefunction coverage, candidate extraction inputs, and the unresolved IEEE warning unchanged. QE was not rerun and external artifacts were not changed.
 
 ## Objective
 

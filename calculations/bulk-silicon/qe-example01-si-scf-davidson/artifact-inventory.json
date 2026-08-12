@@ -19,7 +19,7 @@
       "aggregate_size_bytes": 523056
     },
     {
-      "path": "/Users/eugene/repos/ksdft2effmass-slice-c/calculations/bulk-silicon/qe-example01-si-scf-davidson",
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson",
       "file_count_before_inventory": 3,
       "aggregate_size_bytes_before_inventory": 12813
     }
@@ -27,10 +27,10 @@
   "artifacts": [
     {
       "artifact_id": "compact.execution-provenance-json",
-      "path": "/Users/eugene/repos/ksdft2effmass-slice-c/calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
       "relative_location": "compact/execution-provenance.json",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "ksdft2effmass tutorial-capture workflow",
+      "producer_version": "repository revision c6ed673686c9ddd6a756bf47e080af4ffbff4520",
       "artifact_role": "compact execution/provenance record",
       "format": "JSON",
       "media_type": "application/json",
@@ -45,10 +45,10 @@
     },
     {
       "artifact_id": "compact.result-md",
-      "path": "/Users/eugene/repos/ksdft2effmass-slice-c/calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md",
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md",
       "relative_location": "compact/result.md",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "ksdft2effmass tutorial-capture workflow",
+      "producer_version": "repository revision c6ed673686c9ddd6a756bf47e080af4ffbff4520",
       "artifact_role": "concise human-readable result note",
       "format": "Markdown",
       "media_type": "text/markdown",
@@ -83,8 +83,8 @@
       "artifact_id": "execution.end-utc",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.end-utc",
       "relative_location": "results/si.scf.david.end-utc",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "Authorized execution wrapper",
+      "producer_version": null,
       "artifact_role": "captured end time",
       "format": "UTF-8 text",
       "media_type": "text/plain",
@@ -101,8 +101,8 @@
       "artifact_id": "execution.exit-status",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.exit-status",
       "relative_location": "results/si.scf.david.exit-status",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "Authorized execution wrapper",
+      "producer_version": null,
       "artifact_role": "captured process exit status",
       "format": "UTF-8 text",
       "media_type": "text/plain",
@@ -119,8 +119,8 @@
       "artifact_id": "execution.start-utc",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.start-utc",
       "relative_location": "results/si.scf.david.start-utc",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "Authorized execution wrapper",
+      "producer_version": null,
       "artifact_role": "captured start time",
       "format": "UTF-8 text",
       "media_type": "text/plain",
@@ -137,8 +137,8 @@
       "artifact_id": "execution.wall-seconds",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.wall-seconds",
       "relative_location": "results/si.scf.david.wall-seconds",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "Authorized execution wrapper",
+      "producer_version": null,
       "artifact_role": "shell wall time at one-second resolution",
       "format": "UTF-8 text",
       "media_type": "text/plain",
@@ -155,8 +155,8 @@
       "artifact_id": "input.pseudopotential.selected",
       "path": "/Users/eugene/projects/q-e-qe-7.2/pseudo/Si.pz-vbc.UPF",
       "relative_location": "pseudo/Si.pz-vbc.UPF",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "Quantum ESPRESSO original pseudopotential library",
+      "producer_version": null,
       "artifact_role": "selected ionic pseudopotential",
       "format": "UPF 2.0.1 XML",
       "media_type": "application/xml",
@@ -167,14 +167,14 @@
       "complete_partial_or_missing": "complete",
       "retention_class": "retain_external",
       "candidate_extraction_input": true,
-      "notes": "Si; norm-conserving; Perdew-Zunger LDA; nonrelativistic; exact downloaded tutorial dependency."
+      "notes": "Si; norm-conserving; Perdew-Zunger LDA; nonrelativistic; exact downloaded tutorial dependency. The available provenance does not identify a pseudopotential author or generation version."
     },
     {
       "artifact_id": "input.sanitized.scf",
-      "path": "/Users/eugene/repos/ksdft2effmass-slice-c/calculations/bulk-silicon/qe-example01-si-scf-davidson/si.scf.david.in",
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson/si.scf.david.in",
       "relative_location": "compact/si.scf.david.in",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "QE 7.2 PW/examples/example01/run_example",
+      "producer_version": "Quantum ESPRESSO 7.2",
       "artifact_role": "SCF input and scientific settings",
       "format": "Quantum ESPRESSO pw.x text input",
       "media_type": "text/plain",
@@ -227,8 +227,8 @@
       "artifact_id": "optional.band-input",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.band.david.in",
       "relative_location": "results/si.band.david.in",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": null,
+      "producer_version": null,
       "artifact_role": "band-calculation input",
       "format": "QE text input",
       "media_type": "text/plain",
@@ -239,14 +239,14 @@
       "complete_partial_or_missing": "missing",
       "retention_class": "optional_not_produced",
       "candidate_extraction_input": false,
-      "notes": "Not generated because only SCF Davidson was authorized."
+      "notes": "Not generated because only SCF Davidson was authorized. Expected producer if generated: QE 7.2 PW/examples/example01/run_example."
     },
     {
       "artifact_id": "optional.band-output",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.band.david.out",
       "relative_location": "results/si.band.david.out",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": null,
+      "producer_version": null,
       "artifact_role": "band-calculation stdout",
       "format": "QE text output",
       "media_type": "text/plain",
@@ -257,14 +257,14 @@
       "complete_partial_or_missing": "missing",
       "retention_class": "optional_not_produced",
       "candidate_extraction_input": true,
-      "notes": "Not produced because band execution was prohibited; absence here does not imply QE cannot produce it."
+      "notes": "Not produced because band execution was prohibited; absence here does not imply QE cannot produce it. Expected producer if produced: Quantum ESPRESSO PWSCF."
     },
     {
       "artifact_id": "optional.density-cube",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.charge.cube",
       "relative_location": "results/si.charge.cube",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": null,
+      "producer_version": null,
       "artifact_role": "exported human-portable charge density",
       "format": "Gaussian cube or other post-processing output",
       "media_type": "application/octet-stream",
@@ -275,14 +275,14 @@
       "complete_partial_or_missing": "missing",
       "retention_class": "optional_not_produced",
       "candidate_extraction_input": true,
-      "notes": "No pp.x post-processing ran; native charge-density.dat is present instead."
+      "notes": "No pp.x post-processing ran; native charge-density.dat is present instead. Expected producer if produced: Quantum ESPRESSO pp.x post-processing."
     },
     {
       "artifact_id": "optional.eigenvalue-sidecar",
       "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/eigenval.xml",
       "relative_location": "tempdir/silicon.save/eigenval.xml",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": null,
+      "producer_version": null,
       "artifact_role": "separate eigenvalue sidecar",
       "format": "XML",
       "media_type": "application/xml",
@@ -293,14 +293,14 @@
       "complete_partial_or_missing": "missing",
       "retention_class": "optional_not_produced",
       "candidate_extraction_input": true,
-      "notes": "No separate eigenvalue file observed; eigenvalues and occupations are embedded in data-file-schema.xml for this QE 7.2 run."
+      "notes": "No separate eigenvalue file observed; eigenvalues and occupations are embedded in data-file-schema.xml for this QE 7.2 run. Expected producer if produced: Quantum ESPRESSO PWSCF."
     },
     {
       "artifact_id": "optional.wavefunction-hdf5",
       "path": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/wfc1.hdf5",
       "relative_location": "tempdir/silicon.save/wfc1.hdf5",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": null,
+      "producer_version": null,
       "artifact_role": "HDF5 wavefunction coefficients",
       "format": "HDF5",
       "media_type": "application/x-hdf5",
@@ -311,14 +311,14 @@
       "complete_partial_or_missing": "missing",
       "retention_class": "optional_not_produced",
       "candidate_extraction_input": true,
-      "notes": "This build produced native wfc*.dat files, not HDF5 wavefunction files."
+      "notes": "This build produced native wfc*.dat files, not HDF5 wavefunction files. Expected producer if produced: Quantum ESPRESSO PWSCF."
     },
     {
       "artifact_id": "output.stderr",
       "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/results/si.scf.david.err",
       "relative_location": "results/si.scf.david.err",
-      "producer": "Quantum ESPRESSO PWSCF",
-      "producer_version": "7.2",
+      "producer": "Executed PWSCF process and linked numerical runtime",
+      "producer_version": null,
       "artifact_role": "standard error and runtime warnings",
       "format": "UTF-8 text",
       "media_type": "text/plain",
@@ -329,7 +329,7 @@
       "complete_partial_or_missing": "complete",
       "retention_class": "retain_external",
       "candidate_extraction_input": false,
-      "notes": "Contains the observed unresolved warning exactly: Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG. Diagnosis deferred unless it recurs."
+      "notes": "Contains the observed unresolved warning exactly: Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG. The text is attributed only to the executed PWSCF process and linked numerical runtime; no narrower source is established. Diagnosis deferred unless it recurs."
     },
     {
       "artifact_id": "output.stdout",

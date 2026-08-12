@@ -2,8 +2,8 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_artifacts_qe_inventory_awaiting_human_review",
-  "active_task": "bulk-silicon.artifacts.qe.inventory",
+  "status": "bulk_silicon_records_periodic_extraction_active_boundary_pending",
+  "active_task": "bulk-silicon.records.periodic.extraction",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -211,6 +211,13 @@
       "activated_after": "origin/dev agreement, zero active Tasks, zero unresolved checkpoints, P2 human_accepted_pass, prerequisite eligibility, and verified official tutorial pseudopotential acquisition",
       "authority": "Current human instructions resolving silicon_tutorial_input_selection and qe_tutorial_execution_authorization and authorizing controlled acquisition of https://pseudopotentials.quantum-espresso.org/upf_files/Si.pz-vbc.UPF",
       "scope": "Exactly one local single-process execution of the unmodified QE 7.2 PW example01 silicon SCF Davidson input using /Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x and downloaded Si.pz-vbc.UPF bytes with SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217. No band, CG, PPCG, Al, Cu, Ni, Wannier90, production Stage 02, successor, dependency, schema, validator, SQLite, CPN, or generalized extraction work."
+    },
+    {
+      "task": "bulk-silicon.records.periodic.extraction",
+      "authorized_at": "2026-08-12T23:41:05Z",
+      "activated_after": "bounded producer-attribution and canonical-path correction passed focused validation and bulk-silicon.artifacts.qe.inventory was human-accepted PASS",
+      "authority": "Current human instruction accepting bulk-silicon.artifacts.qe.inventory subject to one bounded provenance correction and explicitly activating bulk-silicon.records.periodic.extraction",
+      "scope": "Present, but do not yet implement, the minimal record boundary for only the observed silicon.save/data-file-schema.xml QEXSD source. The first implementation may extract only lattice and reciprocal-lattice vectors with units, atomic species and positions, k-points and weights, Kohn-Sham eigenvalues and occupations, total energy, FFT-grid metadata, exit status, creator and QEXSD version, and source-artifact identity, with mechanical parsing separate from semantic record construction and unavailable conventions left unavailable."
     }
   ],
   "pending_checkpoints": [],
@@ -234,11 +241,16 @@
     {
       "phase": "bulk-silicon-artifact-inventory-completed-awaiting-human-review",
       "message": "The active artifact-inventory Task observed the existing tutorial results and scratch roots without rerunning QE. Twenty-nine records classify every observed calculation file and relevant missing/optional output with exact identities, structural facts, roles, completeness, retention, and extraction candidacy. Native files remain external and unchanged. The Task remains active awaiting human review; bulk-silicon.records.periodic.extraction and every other successor remain inactive."
+    },
+    {
+      "phase": "bulk-silicon-artifact-inventory-accepted-periodic-extraction-activated",
+      "message": "The human accepted the substantive artifact-inventory findings after one bounded producer-attribution and canonical-path correction passed focused validation. bulk-silicon.artifacts.qe.inventory is closed_human_accepted_pass. Exactly bulk-silicon.records.periodic.extraction is active, initially limited to proposing the minimal record boundary for the observed silicon.save/data-file-schema.xml source before implementation. Automatic successor activation remains disabled; no other Task is active."
     }
   ],
   "explicitly_activated_task_ids": [
-    "bulk-silicon.simulation.qe.reference",
-    "bulk-silicon.artifacts.qe.inventory"
+    "bulk-silicon.artifacts.qe.inventory",
+    "bulk-silicon.records.periodic.extraction",
+    "bulk-silicon.simulation.qe.reference"
   ],
   "superseded_p_series": {
     "authority": "harness/reports/simulation-first-task-migration.md",
