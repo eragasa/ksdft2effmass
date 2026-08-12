@@ -157,7 +157,16 @@ n_{\mathrm{in}}
 	\longmapsto
 	n_{\mathrm{out}}
 $$
-denote the density map defined by constructing $\hat H_{\mathrm{KS}}[n_{\mathrm{in}}]$, solving its occupied eigenstates, and reconstructing the output density. The self-consistent density is a fixed point:
+denote the density map defined by constructing $\hat H_{\mathrm{KS}}[n_{\mathrm{in}}]$, solving its occupied eigenstates, and reconstructing the unmixed output density. A numerical SCF algorithm may form the next input through a mixing map,
+$$
+n_{\mathrm{in}}^{(i+1)}
+=
+\mathcal M_i\!\left(
+n_{\mathrm{in}}^{(i)},
+n_{\mathrm{out}}^{(i)}
+\right),
+$$
+so the reconstructed output density and the next mixed input density are not generally identical. Mixing is numerical solver behavior; it does not change the physical fixed point. The self-consistent density is a fixed point:
 $$
 \boxed{
 	n_0
@@ -165,16 +174,16 @@ $$
 \mathcal F_{\mathrm{KS}}[n_0].
 }
 $$
-In a numerical calculation, self-consistency is accepted when an explicitly defined residual satisfies
+In a numerical calculation, the code applies its declared SCF convergence criterion to an implementation-specific residual or energy estimate. A density-residual criterion may, for example, take the form
 $$
 \left\|
 	n_{\mathrm{out}}
 	- n_{\mathrm{in}}
 \right\|
 \leq
-\tau_{\mathrm{SCF}}.
+\tau_{\mathrm{SCF}},
 $$
-The converged parent operator is consequently $\hat{H}_{\mathrm{KS}}[n_0],$ together with the exchange-correlation approximation, electron–ion representation, crystal geometry, boundary conditions, basis or discretization, Brillouin-zone sampling, and self-consistency tolerance used to construct it.
+but this expression is illustrative unless the selected backend and retained provenance establish that exact norm and tolerance. Satisfaction of an iterative SCF criterion is also distinct from convergence with respect to basis cutoffs, Brillouin-zone sampling, retained bands, geometry, or a downstream observable. The converged parent operator is consequently $\hat{H}_{\mathrm{KS}}[n_0],$ together with the exchange-correlation approximation, electron–ion representation, crystal geometry, boundary conditions, basis or discretization, Brillouin-zone sampling, and self-consistency criterion used to construct it.
 ## Interpretation of the Parent Operator
 With the exact density functional, ground-state density-functional theory yields the exact ground-state density and energy. Practical calculations use approximate exchange-correlation functionals, so functional error enters before the subsequent projection and model-reduction steps.
 

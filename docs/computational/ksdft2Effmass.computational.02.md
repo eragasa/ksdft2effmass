@@ -12,6 +12,24 @@ the required execution, artifact, and extraction boundaries using non-production
 tutorial calculations. The bootstrap does not satisfy the Stage 02 convergence
 or production-authorization gates.
 
+## SCF parent and sampled child calculations
+
+The production SCF calculation determines the accepted parent density
+$n_{\mathrm{SCF}}(\mathbf r)$ and corresponding effective Kohn--Sham operator
+$\hat H_{\mathrm{KS}}[n_{\mathrm{SCF}}]$. Its mesh is selected to converge the
+density, total energy, and every parent quantity required by the numerical
+specification. Subsequent NSCF and band calculations reuse that fixed parent but
+sample different wavevector sets: uniform or targeted meshes for integration and
+state extraction, symmetry paths for dispersion, and valley-resolved points for
+curvature and effective masses. Sharing the parent potential does not make these
+children interchangeable.
+
+G02 owns only the path, valley, effective-mass, and other diagnostic children
+needed for bulk validation. Stage 03 separately chooses the retained bands,
+projections, windows, and uniform NSCF mesh needed by Wannier90. Each child must
+identify the same accepted SCF parent manifest while retaining its own mesh,
+band count, purpose, convergence evidence, and energy-reference convention.
+
 ## Task Registry
 
 | Task | Description | Prerequisites | Output | Initial state |
@@ -38,7 +56,7 @@ $$
 \text{production electronic structure}.
 $$
 
-Each convergence study must evaluate the quantities used later, rather than total energy alone.
+Each convergence study must evaluate the quantities used later, rather than total energy alone. SCF convergence of the code-specific iterative criterion is distinct from convergence with respect to cutoffs, wavevector sampling, bands, geometry, and the downstream observable.
 
 ## Accepted marking `G02`
 

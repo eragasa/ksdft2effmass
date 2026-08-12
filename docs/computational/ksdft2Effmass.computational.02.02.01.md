@@ -25,10 +25,13 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 ## Procedure
 
 1. Construct the required Quantum ESPRESSO inputs from the frozen specifications.
-2. Execute the calculation or convergence series with one controlled variable changed at a time.
-3. Extract total-energy, band-edge, valley, and effective-mass quantities where applicable.
-4. Evaluate convergence against the stated tolerances.
-5. Store inputs, outputs, manifests, and the validation decision.
+2. Run the SCF parent until the code-specific self-consistency criterion is satisfied, then test the accepted parent density, total energy, and required parent quantities against the separately declared cutoff, mesh, geometry, and reproducibility tolerances.
+3. Freeze the SCF parent manifest, including density/potential lineage, pseudopotential, exchange-correlation approximation, geometry, cutoffs, wavevector mesh, occupations, software identity, and convergence settings.
+4. Construct separate NSCF or band children that reference the frozen parent: a symmetry path for dispersion, targeted valley sampling for extrema and curvature, and only the additional meshes required by the G02 observables.
+5. Select and converge each child's wavevectors and retained bands for its stated observable; do not infer adequacy from SCF convergence or reuse a path calculation as a Brillouin-zone integration dataset.
+6. Extract total-energy, band-edge, valley, and effective-mass quantities where applicable.
+7. Evaluate every result against the stated software, numerical, and scientific acceptance rule without combining those evidence classes.
+8. Store inputs, outputs, parent--child manifests, and the validation decision.
 
 ## Outputs
 
@@ -41,6 +44,8 @@ The output must be accompanied by its input manifest, software and environment r
 ## Acceptance Criteria
 
 - all calculations are reproducible from stored manifests;
+- the SCF parent satisfies both the recorded code-specific iterative criterion and the declared discretization/convergence protocol;
+- each NSCF or band child records its purpose, parent identity, wavevector sampling, band count, and observable-specific convergence evidence;
 - the relevant bulk observables satisfy their convergence tolerances;
 - the accepted parameters do not depend on an undocumented software default;
 - the declared output exists and can be reconstructed from the stored inputs;

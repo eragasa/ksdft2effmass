@@ -3,10 +3,15 @@
 ## Status and scope
 
 This maintained computational architecture records the selected implementation
-for the active, not-human-accepted
+for the human-accepted
 [`bulk-silicon.records.periodic.extraction`](../../harness/tasks/bulk-silicon.records.periodic.extraction.json)
-Task. It covers only the retained QE 7.2 QEXSD 23.03.10 silicon artifact and does
-not establish numerical or scientific validation.
+Task, now closed as `closed_human_accepted_pass`. The accepted claim is limited
+to faithful semantic extraction of the retained QE 7.2 QEXSD 23.03.10 silicon
+artifact through the documented ownership boundaries. The resulting plane-wave
+Kohn--Sham record remains retained software-verification evidence; this status
+does not establish production convergence, numerical verification, scientific
+validation, uncertainty quantification, or acceptance as a production silicon
+dataset.
 
 ## Former ownership problem
 

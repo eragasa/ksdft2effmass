@@ -117,6 +117,37 @@ The Mermaid view is explanatory. The canonical edge set is
 The exact executable, input, pseudopotential, settings, resources, outputs, and
 runtime must be reported and authorized before an executable tutorial Task runs.
 
+## Why the bootstrap starts with SCF
+
+An SCF calculation determines a density-dependent Kohn--Sham potential and
+operator. Later NSCF or band calculations hold that converged parent fixed while
+solving on a mesh or symmetry path chosen for a particular observable. The
+selected QE 7.2 silicon tutorial was therefore useful first because it exercised
+`pw.x`, the identified legacy tutorial pseudopotential, restart and QEXSD
+artifacts, provenance capture, and semantic extraction through one bounded
+calculation. Its ten sampled wavevectors and four bands were adequate for that
+software-verification purpose, not for an indirect gap, valley curvature,
+effective mass, Wannier subspace, or tight-binding fit.
+
+The resulting boundary is
+
+```text
+tutorial SCF
+→ observed QE artifacts
+→ artifact inventory
+→ QEXSD semantic extraction
+→ human-accepted extraction
+→ retained plane-wave KS record
+→ separately designed NSCF/band calculations
+```
+
+The retained tutorial energy, $-15.84452726\ \mathrm{Ry}$ after six reported SCF
+iterations, agrees with the bundled reference at printed precision. This is a
+reproduced tutorial observation, not production convergence, numerical
+verification, scientific validation, or uncertainty quantification. See the
+[calculation record](../../calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md)
+and [plane-wave record architecture](ksdft-pw-record-architecture.md).
+
 ## Reference Architectures
 
 [DCore](https://issp-center-dev.github.io/DCore/master/index.html) demonstrates a
