@@ -6,6 +6,7 @@
 \usepackage{bm}
 \usepackage{booktabs}
 \usepackage{mathtools}
+\usepackage{url}
 
 \setlength{\emergencystretch}{2em}
 
@@ -106,6 +107,105 @@ meshes, and the number of bands will be converged against the indirect gap,
 conduction-valley position, and longitudinal and transverse electron effective
 masses.
 \end{sloppypar}
+
+\subsection{Self-consistent ground-state calculation}
+\label{sec:scf-ground-state}
+
+The physical purpose of the initial self-consistent-field (SCF) calculation is
+to determine the ground-state electron density and hence the effective
+one-electron Kohn--Sham operator~\cite{kohn1965}. Mathematically, this is a
+nonlinear fixed-point problem because the operator depends on the density
+constructed from its eigenstates. At iteration $i$, the cycle is
+\begin{equation}
+ n^{(i)}(\bm{r})
+ \longrightarrow V_{\mathrm{KS}}[n^{(i)}](\bm{r})
+ \longrightarrow \hat{H}_{\mathrm{KS}}[n^{(i)}]
+ \longrightarrow
+ \left\{\epsilon_{n\bm{k}}^{(i)},\psi_{n\bm{k}}^{(i)}\right\}
+ \longrightarrow n^{(i+1)}(\bm{r}),
+\label{eq:scf-cycle}
+\end{equation}
+where $n^{(i)}(\bm{r})$ is the density, $V_{\mathrm{KS}}[n^{(i)}](\bm{r})$
+is the corresponding effective Kohn--Sham potential,
+$\hat{H}_{\mathrm{KS}}[n^{(i)}]$ is the density-dependent Kohn--Sham operator,
+and $\psi_{n\bm{k}}^{(i)}$ and $\epsilon_{n\bm{k}}^{(i)}$ are the orbital
+and eigenvalue for band $n$ and wavevector $\bm{k}$. Here
+$n^{(i+1)}(\bm{r})$ denotes the next input density after reconstructing an
+output density from the occupied orbitals and applying the selected mixing; it
+is not generally the unmixed reconstructed density. Numerically, the cycle uses
+iterative diagonalization, occupations, density reconstruction, and mixing
+until the code-specific SCF convergence criterion is satisfied. The converged
+quantities are denoted
+\begin{equation}
+ n_{\mathrm{SCF}}(\bm{r})
+ \quad\text{and}\quad
+ V_{\mathrm{KS}}[n_{\mathrm{SCF}}](\bm{r}).
+\label{eq:scf-density-potential}
+\end{equation}
+No particular density norm is assumed here.
+
+The principal downstream role of the SCF calculation is therefore to fix the
+effective operator. A non-self-consistent-field (NSCF) or band calculation
+holds the converged density and potential fixed while solving
+\begin{equation}
+ \hat{H}_{\mathrm{KS}}[n_{\mathrm{SCF}}]\psi_{n\bm{k}}
+ =
+ \epsilon_{n\bm{k}}\psi_{n\bm{k}}
+\label{eq:nscf-kohn-sham}
+\end{equation}
+on a wavevector set chosen for the observable. SCF sampling is selected to
+converge the density and total energy; an NSCF mesh may instead support
+Brillouin-zone integration or state extraction, whereas a symmetry path is
+selected for dispersion visualization and symmetry-resolved analysis.
+Effective-mass, valley, Wannier, and tight-binding calculations can consequently
+require different meshes, retained bands, and convergence studies. These
+calculations are not interchangeable merely because they use the same
+converged potential.
+
+Before production dataset design, a single-process Quantum ESPRESSO 7.2
+\texttt{pw.x} silicon tutorial SCF calculation was used as a bounded
+computational bootstrap~\cite{giannozzi2009}. Its identified legacy tutorial
+pseudopotential is distinct from the planned PBE/PseudoDojo production parent
+described above. The bootstrap established the executable and pseudopotential
+identities, successful invocation, input/output provenance,
+reproduction of the distributed tutorial observation, and creation and
+inspection of restart and QEXSD artifacts. It also established which metadata
+were actually available from the backend and supported the separation of QEXSD
+input/output mechanics, periodic geometry, Kohn--Sham semantics, and plane-wave
+record ownership, with explicit units, coordinate conventions, reciprocal
+scaling, and unavailable metadata. The retained observation was
+\begin{equation}
+ E_{\mathrm{SCF}}=-15.84452726\ \mathrm{Ry},
+\label{eq:tutorial-scf-energy}
+\end{equation}
+with convergence reported after six iterations and agreement with the bundled
+reference at printed precision. This is execution and extraction evidence, not
+numerical or physical validation. The limited extraction claim was
+human-accepted, while the resulting record remains software-verification
+evidence rather than a human-accepted scientific dataset. The corresponding
+compact provenance and record architecture are retained with the repository
+calculation record and computational documentation.\footnote{Repository paths:
+\path{calculations/bulk-silicon/qe-example01-si-scf-davidson/} and
+\path{docs/computational/ksdft-pw-record-architecture.md}.}
+
+The tutorial calculation is not the production silicon dataset. Its ten
+sampled wavevectors and four retained bands were sufficient for execution and
+extraction verification, but not for production convergence, determination of
+the indirect gap, conduction-valley location or curvature, effective-mass
+extraction, Wannierization, tight-binding fitting, physical validation, or
+uncertainty quantification. The workflow boundary is therefore
+\begin{align*}
+ \text{tutorial SCF}
+ &\longrightarrow \text{observed QE artifacts}\\
+ &\longrightarrow \text{artifact inventory}
+ \longrightarrow \text{QEXSD semantic extraction}\\
+ &\longrightarrow \text{human-accepted extraction}\\
+ &\longrightarrow \text{retained plane-wave KS record}\\
+ &\longrightarrow \text{separately designed NSCF/band calculations}.
+\end{align*}
+The bootstrap verifies implementation and provenance boundaries; the later
+SCF, NSCF, band, Wannier, and fitting calculations must be designed and
+converged for their separate scientific purposes.
 
 \subsection{Wannier representation}
 \label{sec:wannier-representation}

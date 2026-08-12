@@ -84,4 +84,10 @@ M.~J. van Setten, M.~Giantomassi, E.~Bousquet, M.~J. Verstraete, D.~R. Hamann,
 \newblock \href {https://doi.org/10.1016/j.cpc.2018.01.012}
   {\path{doi:10.1016/j.cpc.2018.01.012}}.
 
+\bibitem{kohn1965}
+W.~Kohn, L.~J. Sham, Self-consistent equations including exchange and
+  correlation effects, Physical Review 140~(4A) (1965) A1133--A1138.
+\newblock \href {https://doi.org/10.1103/PhysRev.140.A1133}
+  {\path{doi:10.1103/PhysRev.140.A1133}}.
+
 \end{thebibliography}
