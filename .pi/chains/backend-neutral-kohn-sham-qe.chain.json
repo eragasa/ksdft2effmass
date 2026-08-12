@@ -2,7 +2,7 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. Eight main bootstrap Tasks and one deferred CPN-persistence Task remain inactive. Scientific, external, protected, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_records_periodic_extraction_active_boundary_pending",
+  "status": "bulk_silicon_records_periodic_extraction_completed_awaiting_human_review",
   "active_task": "bulk-silicon.records.periodic.extraction",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -248,6 +248,10 @@
     {
       "phase": "bulk-silicon-artifact-inventory-accepted-periodic-extraction-activated",
       "message": "The human accepted the substantive artifact-inventory findings after one bounded producer-attribution and canonical-path correction passed focused validation. bulk-silicon.artifacts.qe.inventory is closed_human_accepted_pass. Exactly bulk-silicon.records.periodic.extraction is active, initially limited to proposing the minimal record boundary for the observed silicon.save/data-file-schema.xml source before implementation. Automatic successor activation remains disabled; no other Task is active."
+    },
+    {
+      "phase": "bulk-silicon-periodic-qexsd-extraction-completed-awaiting-human-review",
+      "message": "The current human instruction authorized and the single writer completed the bounded QEXSD 23.03.10 extraction implementation. Explicit verified XML bytes flow through separate mechanical parsing and semantic construction into an immutable version-1 periodic calculation record and canonical retained JSON. Focused software verification and deterministic validation pass. The Task remains active awaiting human review; no QE or Wannier90 execution, Architecture v2 implementation, dependency change, checkpoint, reviewer, delegation, or successor activation occurred."
     }
   ],
   "explicitly_activated_task_ids": [

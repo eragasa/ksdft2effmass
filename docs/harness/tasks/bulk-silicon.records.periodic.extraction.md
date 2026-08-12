@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Explicitly activated after human acceptance of bulk-silicon.artifacts.qe.inventory. The first bounded implementation is limited to the observed compact QEXSD source silicon.save/data-file-schema.xml and must present a proposed minimal record boundary before implementation. Automatic successor activation remains disabled; no other Task is active.
+`active`: Periodic QEXSD extraction implementation is complete and awaiting human review. Explicit source bytes and identity flow through separate mechanical ParseQexsdDocument and semantic ConstructPeriodicCalculationRecord ActionObjects into an immutable version-1 record and canonical retained JSON. Focused software verification, actual-artifact extraction, strict serialization/schema agreement, Ruff, mypy, and Sphinx checks pass. The accepted external XML remains unchanged; QE and Wannier90 were not run. Automatic successor activation remains disabled; no other Task is active.
 
 ## Objective
 

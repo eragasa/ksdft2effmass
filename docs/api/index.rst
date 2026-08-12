@@ -8,6 +8,7 @@ public compatibility contract.
    :maxdepth: 1
 
    operators
+   periodic-records
    workflows-cpn
    harness-task
    harness-adapters
