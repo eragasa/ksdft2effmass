@@ -13,6 +13,7 @@ The scientific and computational workflow may use a stateful Colored Petri Net (
 | Program | Purpose | Relationship |
 |---|---|---|
 | [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
+| [Wannier tutorial catalog](wannier/wannier-tutorial-catalog.md) | Pinned inventory and project relevance of upstream Wannier tutorial events, sessions, and exercises | Documentation and research inventory only; recommends but does not activate work |
 
 The bootstrap is represented by canonical descriptive Task IDs rather than new leaf pages in the existing `SS.WW.TT` hierarchy. Its deferred CPN-persistence Task does not block the tutorial-to-model path. The bootstrap page is explanatory; Task status, scope, completion criteria, exclusions, supersession, and dependencies remain in canonical JSON.
 
