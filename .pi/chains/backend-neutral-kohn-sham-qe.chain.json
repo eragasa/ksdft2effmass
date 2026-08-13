@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a bulk-silicon production program. Accepted tutorial Tasks remain closed under their bounded claims. Exactly the production convergence Task is active with revised candidate inputs prepared and awaiting protected execution authorization; no scientific executable, successor, publication, or release is authorized.",
-  "status": "bulk_silicon_production_convergence_awaiting_execution_authorization",
+  "description": "Simulation-first computational bootstrap followed by a bulk-silicon production program. Accepted tutorial Tasks remain closed under their bounded claims. Exactly the production convergence Task is active awaiting human review after its one authorized committed 18-invocation primary campaign; no retry, follow-on scientific execution, successor, publication, or release is authorized.",
+  "status": "bulk_silicon_production_convergence_awaiting_human_review",
   "active_task": "bulk-silicon.production-reference.convergence",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -377,6 +377,10 @@
     {
       "phase": "bulk-silicon-production-convergence-committed-boundary-preparation",
       "message": "Human Option B selected a bounded durable-installation and committed-execution-boundary correction. The exact PseudoDojo bytes were atomically published under the portable user_opt store with final identities verified; the obsolete production-input location contained no unrelated files and was removed. Git-tracked paths are portable, run-local pseudopotential bytes are identified only as a verified copy, the exact 18-invocation campaign and scientific criteria are unchanged, and the runner now requires an exact committed clean HEAD/origin-dev boundary and stops after the first failed invocation. No pw.x invocation, checkpoint, successor activation, dependency change, or scientific result occurred."
+    },
+    {
+      "phase": "bulk-silicon-production-convergence-executed-awaiting-human-review",
+      "message": "The human selected Option A for boundary commit 64de888ad54c1385941a0485433974342380094d and token A-EXECUTE-COMMITTED-PRIMARY. The committed one-process campaign executed exactly once: all 9 SCFs and all 9 linked three-point NSCF diagnostics exited zero and emitted JOB DONE., no retry occurred, and resource ceilings were not exceeded. Raw outputs and restart trees remain external; compact identities, observations, finite-setting comparisons, and claim limits are retained. C42-to-C48 and later cutoff comparisons and every mesh comparison met the predefined finite-setting criteria at retained output precision, but no final E_* or K_* is selected, no infinite-basis or effective-mass convergence is claimed, and no four-corner case ran. The identical IEEE floating-point exception report recurred on all 18 invocations and remains unresolved and unclassified. The Task stays active awaiting human review; automatic successor activation remains false."
     }
   ],
   "explicitly_activated_task_ids": [

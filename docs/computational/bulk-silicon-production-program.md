@@ -1,13 +1,12 @@
 # Bulk-Silicon Production, Visualization, and Semiconductor-Property Program
 
-**Status:** Planning with exactly
-`bulk-silicon.production-reference.convergence` active in phase
-`awaiting_execution_authorization`. Human Option B revised its finite candidate
-design; exact pseudopotential acquisition and atomic `user_opt` publication, static
-identity/metadata verification, executable identity inspection, and primary input
-preparation are complete. This page authorizes no Quantum ESPRESSO, Wannier90,
-post-processing, DFPT, phonon, or scientific execution and selects no final
-production parameter.
+**Status:** Exactly `bulk-silicon.production-reference.convergence` is active in
+phase `awaiting_human_review`. Human Option A authorized the committed primary
+campaign: 9 SCFs and 9 linked NSCFs executed once without retry, all exited zero
+and emitted `JOB DONE.`, and compact finite-setting evidence is retained. No
+final production parameter is selected. No retry, four-corner follow-on,
+Wannier90, post-processing, DFPT, phonon, successor, or other scientific
+execution is authorized.
 
 ## Scientific objective
 
@@ -126,8 +125,9 @@ Current identities are reconciled as follows:
 | `bulk-silicon.workflow.extracted-model-verification` | Retained blocked as tutorial workflow verification | Its software-workflow claim remains distinct from G02--G04 scientific acceptance. |
 
 All new records require explicit activation. Exactly the convergence record is
-active awaiting protected execution authorization; no scientific executable has
-run. No static graph edge implies automatic activation.
+active awaiting human review after its one authorized primary campaign. No
+retry or follow-on execution is authorized. No static graph edge implies
+automatic activation.
 
 ## Catalog A — production calculations and analyses
 
@@ -634,7 +634,7 @@ from a plot or from passing software tests.
 
 ## Completion boundary of this plan
 
-The corrected plan has exactly the convergence Task active awaiting protected
-execution authorization. It does not pass G02, G03, or G04; freeze
+The corrected plan has exactly the convergence Task active awaiting human review
+after the bounded primary campaign. It does not pass G02, G03, or G04; freeze
 `BulkSiReference-v1`, `BulkSiWannier-v1`, or a semiconductor-property result;
 activate a successor; create a checkpoint; or authorize scientific execution.

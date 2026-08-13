@@ -1,11 +1,13 @@
 # Bulk-Silicon Production Convergence Design
 
-**Status:** Proposed scientific work. Task
+**Status:** Calculated finite-setting results awaiting human review. Task
 [`bulk-silicon.production-reference.convergence`](../../harness/tasks/bulk-silicon.production-reference.convergence.json)
-is active in phase `awaiting_execution_authorization`. Human Option B revised the
-candidate design; it did not accept a final cutoff, mesh, lattice parameter, or
-scientific result. No scientific executable was run. Automatic successor
-activation is false.
+is active in phase `awaiting_human_review`. Human Option A authorized exactly the
+committed 9-SCF and 9-NSCF primary campaign; all 18 invocations exited zero and
+emitted `JOB DONE.` without retry. This does not accept a final cutoff, mesh,
+lattice parameter, infinite-basis result, effective mass, or scientific
+validation. Automatic successor activation is false. See the compact
+[execution result](../../calculations/bulk-silicon/production-convergence-preflight/execution-result.md).
 
 The prepared record is
 [`execution-preflight.json`](../../calculations/bulk-silicon/production-convergence-preflight/execution-preflight.json).
@@ -302,11 +304,8 @@ records peak RSS for every future invocation.
 
 ## Ending boundary and human decision
 
-No pseudopotential is redistributed, no `pw.x` invocation occurred, no final
-parameter or scientific result is accepted, no checkpoint is created, and no
-successor is activated. The Task remains active with automatic successor
-activation false.
-
-- **A — Execute exactly the prepared primary cutoff and mesh convergence campaign.**
-- **B — Revise specified inputs, criteria, or resource limits.**
-- **C — Defer execution.**
+No pseudopotential is redistributed, no final parameter or scientific result is
+accepted, no checkpoint is created, and no successor is activated. The one
+committed primary campaign has executed; no retry or follow-on calculation is
+authorized. The Task remains active awaiting human review with automatic
+successor activation false.

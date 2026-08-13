@@ -3,7 +3,7 @@
   "task_id": "bulk-silicon.production-reference.convergence",
   "title": "Plane-wave and Brillouin-zone convergence",
   "status": "active",
-  "status_detail": "awaiting_execution_authorization: Human Option B revised the candidate design; exact pseudopotential acquisition, byte and metadata verification, executable identity inspection, and primary input preparation are complete. No scientific executable has run, no final numerical setting is accepted, and execution requires an exact human A decision.",
+  "status_detail": "awaiting_human_review: The exact human-authorized committed primary campaign executed once: 9 SCFs and 9 linked NSCFs each exited zero and emitted JOB DONE. Compact finite-setting observations and external artifact identities are retained. No retry, final cutoff or mesh selection, four-corner execution, successor activation, or scientific-validation claim occurred; the IEEE floating-point exception report recurred on all 18 invocations and remains unresolved and unclassified.",
   "parent_task_id": "bulk-silicon.production-reference",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [
@@ -33,8 +33,8 @@
     "The human explicitly accepts or rejects the bounded provisional settings before lattice/EOS refinement; production lattice acceptance, production SCF, path, valley, Wannier, and physical-validation work remain outside this Task."
   ],
   "exclusions": [
-    "The current awaiting_execution_authorization phase runs no Quantum ESPRESSO, Wannier90, or other scientific executable. The exact authorized pseudopotential acquisition and atomic user_opt publication are complete; repository commit and redistribution of those bytes remain prohibited.",
-    "No final cutoff, mesh, lattice constant, or numerical result is selected. The prepared finite primary campaign and conservative operational reservations remain proposed until the human responds A, B, or C.",
+    "The completed protected-execution authorization covered exactly the committed 9-SCF and 9-NSCF primary campaign. No retry, input revision, Wannier90 execution, four-corner follow-on, or other scientific executable is authorized; pseudopotential commit and redistribution remain prohibited.",
+    "No final cutoff, mesh, or lattice constant is selected. The completed primary campaign supplies calculated finite-setting observations only; their human disposition remains pending.",
     "No production lattice/EOS acceptance, production SCF execution, symmetry-path bands, valley effective masses, Wannierization, plotting implementation, production scientific Python, physical validation, or uncertainty quantification is owned here.",
     "Successful execution, agreement with the finest retained setting, or a diagnostic plot does not establish scientific validation or agreement with the infinite-basis limit."
   ],

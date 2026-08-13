@@ -1,0 +1,157 @@
+{
+  "record_version": 1,
+  "status": "finite_setting_analysis_awaiting_human_disposition",
+  "source": "execution-provenance.json",
+  "criteria": {
+    "energy_ry_atom": 1e-05,
+    "pressure_and_max_stress_component_kbar": 0.05,
+    "fixed_point_band_and_gap_mev": 1.0
+  },
+  "comparisons": {
+    "cutoff": [
+      {
+        "from": "C30",
+        "to": "C36",
+        "energy_change_ry_atom": 9.900000000051534e-05,
+        "pressure_change_kbar": 0.3100000000000023,
+        "maximum_stress_component_change_kbar": 0.3100000000000023,
+        "maximum_aligned_band_4_5_change_mev": 1.000000000000334,
+        "maximum_gap_probe_change_mev": 1.200000000000312,
+        "criteria": {
+          "energy_pass": false,
+          "pressure_pass": false,
+          "stress_pass": false,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": false
+        }
+      },
+      {
+        "from": "C36",
+        "to": "C42",
+        "energy_change_ry_atom": 1.8535000000596824e-05,
+        "pressure_change_kbar": 0.18999999999999773,
+        "maximum_stress_component_change_kbar": 0.18999999999999773,
+        "maximum_aligned_band_4_5_change_mev": 0.19999999999997797,
+        "maximum_gap_probe_change_mev": 0.19999999999997797,
+        "criteria": {
+          "energy_pass": false,
+          "pressure_pass": false,
+          "stress_pass": false,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C42",
+        "to": "C48",
+        "energy_change_ry_atom": 2.835000000089849e-06,
+        "pressure_change_kbar": 0.00999999999999801,
+        "maximum_stress_component_change_kbar": 0.00999999999999801,
+        "maximum_aligned_band_4_5_change_mev": 0.0,
+        "maximum_gap_probe_change_mev": 0.0,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C48",
+        "to": "C54",
+        "energy_change_ry_atom": 4.43499999924768e-06,
+        "pressure_change_kbar": 0.00999999999999801,
+        "maximum_stress_component_change_kbar": 0.00999999999999801,
+        "maximum_aligned_band_4_5_change_mev": 0.0,
+        "maximum_gap_probe_change_mev": 0.0,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C54",
+        "to": "C60",
+        "energy_change_ry_atom": 2.1100000004992125e-06,
+        "pressure_change_kbar": 0.01999999999999602,
+        "maximum_stress_component_change_kbar": 0.01999999999999602,
+        "maximum_aligned_band_4_5_change_mev": 0.10000000000021103,
+        "maximum_gap_probe_change_mev": 0.10000000000021103,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      }
+    ],
+    "mesh": [
+      {
+        "from": "K6",
+        "to": "C48",
+        "energy_change_ry_atom": 2.9800000014290617e-06,
+        "pressure_change_kbar": 0.00999999999999801,
+        "maximum_stress_component_change_kbar": 0.00999999999999801,
+        "maximum_aligned_band_4_5_change_mev": 0.10000000000021103,
+        "maximum_gap_probe_change_mev": 0.10000000000021103,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C48",
+        "to": "K10",
+        "energy_change_ry_atom": 1.1499999885700163e-07,
+        "pressure_change_kbar": 0.0,
+        "maximum_stress_component_change_kbar": 0.0,
+        "maximum_aligned_band_4_5_change_mev": 0.0,
+        "maximum_gap_probe_change_mev": 0.0,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "K10",
+        "to": "K12",
+        "energy_change_ry_atom": 0.0,
+        "pressure_change_kbar": 0.0,
+        "maximum_stress_component_change_kbar": 0.0,
+        "maximum_aligned_band_4_5_change_mev": 0.10000000000021103,
+        "maximum_gap_probe_change_mev": 0.10000000000021103,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      }
+    ]
+  },
+  "observations": {
+    "cutoff": "C42\u2192C48, C48\u2192C54, and C54\u2192C60 meet all predefined finite-setting criteria at retained output precision. Earlier pairs do not all meet them. This is observed stability only.",
+    "mesh": "K6\u2192K8(C48), K8(C48)\u2192K10, and K10\u2192K12 meet all predefined finite-setting criteria at retained output precision. This is observed stability only.",
+    "selection": "No E_* or K_* is selected by this record; human disposition is required before parameterized four-corner execution can be prepared or authorized.",
+    "ieee_warning": "The identical IEEE exception report occurred for every SCF and NSCF and remains unresolved and unclassified."
+  },
+  "excluded_conclusions": [
+    "infinite-basis convergence",
+    "effective-mass convergence",
+    "EOS lattice acceptance",
+    "physical validation",
+    "automatic final cutoff or mesh selection"
+  ]
+}

@@ -1,0 +1,1772 @@
+{
+  "record_version": 1,
+  "record_status": "campaign_executed_awaiting_human_review",
+  "task_id": "bulk-silicon.production-reference.convergence",
+  "boundary_commit": "64de888ad54c1385941a0485433974342380094d",
+  "authorization": {
+    "human_decision": "A \u2014 Execute exactly the committed 18-invocation primary convergence campaign.",
+    "token": "A-EXECUTE-COMMITTED-PRIMARY",
+    "scope": "9 SCF and 9 linked NSCF invocations; one process; no retry or successor activation"
+  },
+  "execution": {
+    "start_utc": "2026-08-13T13:14:44Z",
+    "end_utc": "2026-08-13T13:15:30Z",
+    "runner_exit_status": 0,
+    "expected_invocations": 18,
+    "observed_scf_invocations": 9,
+    "observed_nscf_invocations": 9,
+    "all_job_done": true,
+    "retry_count": 0,
+    "processor_count": 1
+  },
+  "identities": {
+    "runner": {
+      "path": "${campaign_root}/run-primary.sh",
+      "sha256": "5a193e4f1d93ffc309b7bdf3f9727372da436633a3f2fd262ebb6bf4692dde37",
+      "byte_count": 4292
+    },
+    "ordered_inputs": {
+      "path": "${campaign_root}/INPUTS.sha256",
+      "sha256": "cdb6a41cf266034dc7e7b3ed5f48006bbd7caef3ca815849919f1732934407be",
+      "byte_count": 1732
+    },
+    "pseudopotential_execution_copy": {
+      "path": "${campaign_root}/pseudo/Si.upf",
+      "sha256": "39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282",
+      "byte_count": 225602
+    },
+    "executable": {
+      "path": "~/projects/q-e-qe-7.2/build/bin/pw.x",
+      "sha256": "6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca"
+    },
+    "run_root_descriptor": "ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z",
+    "run_root_identity": "9d84848b4abb0db89e70fa8f6af2dc5f94b122d9574397e60398986638b91bb5"
+  },
+  "resources": {
+    "campaign_elapsed_seconds_from_utc": 46,
+    "sum_invocation_wall_seconds": 45.39,
+    "peak_maximum_resident_set_size_bytes": 81936384,
+    "final_campaign_disk_kib": 161744,
+    "ceilings": {
+      "per_scf_seconds": 600,
+      "per_nscf_seconds": 300,
+      "campaign_seconds": 8100,
+      "peak_rss_bytes": 2147483648,
+      "storage_bytes": 2147483648
+    },
+    "ceilings_observed_exceeded": false
+  },
+  "cases": [
+    {
+      "case": "C30",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/C30.scf.out",
+          "sha256": "beea377403441fb3991da8bb43a8f11b4ceb0dfcb2f06169ac98413f4fcdf516",
+          "byte_count": 20719
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92369694,
+        "total_energy_ry_atom": -8.46184847,
+        "pressure_kbar": 37.33,
+        "stress_tensor_kbar": [
+          [
+            37.33,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            37.33,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            37.33
+          ]
+        ],
+        "iterations": 8,
+        "final_estimated_accuracy_ry": 1.8e-12,
+        "wall_seconds": 3.44,
+        "maximum_resident_set_size_bytes": 41975808
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/C30.diagnostic.nscf.out",
+          "sha256": "38cc66df4ade533892efe656fbb521f7b7883c9f05e2291f9570079af02bb965",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6683,
+            6.4239,
+            6.4239,
+            6.4239,
+            8.9878,
+            8.9878,
+            8.9878,
+            9.9766
+          ],
+          [
+            -1.459,
+            -1.459,
+            3.5192,
+            3.5192,
+            7.0969,
+            7.0969,
+            16.6728,
+            16.6728
+          ],
+          [
+            -2.5737,
+            -0.2257,
+            3.6092,
+            3.6092,
+            6.9608,
+            7.5023,
+            15.5099,
+            15.5099
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.0922,
+            0.0,
+            0.0,
+            0.0,
+            2.5639,
+            2.5639,
+            2.5639,
+            3.5527
+          ],
+          [
+            -7.8829,
+            -7.8829,
+            -2.9047,
+            -2.9047,
+            0.673,
+            0.673,
+            10.2489,
+            10.2489
+          ],
+          [
+            -8.9976,
+            -6.6496,
+            -2.8147,
+            -2.8147,
+            0.5369,
+            1.0784,
+            9.086,
+            9.086
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5639,
+          3.5777,
+          3.3516
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.673,
+          "Gamma_to_Delta_0.85": 0.5369
+        },
+        "wall_seconds": 0.36,
+        "maximum_resident_set_size_bytes": 42516480
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "C36",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/C36.scf.out",
+          "sha256": "d2ef0d6c8de145426fa038fff828e2014a8cc780bf0b9ebef66bb77baad47ce0",
+          "byte_count": 20719
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92389494,
+        "total_energy_ry_atom": -8.46194747,
+        "pressure_kbar": 37.64,
+        "stress_tensor_kbar": [
+          [
+            37.64,
+            -0.0,
+            -0.0
+          ],
+          [
+            -0.0,
+            37.64,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            37.64
+          ]
+        ],
+        "iterations": 8,
+        "final_estimated_accuracy_ry": 1.4e-12,
+        "wall_seconds": 2.95,
+        "maximum_resident_set_size_bytes": 48889856
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/C36.diagnostic.nscf.out",
+          "sha256": "4a4df35f7f1149b3e9a4e860906fcb8b6f8e96fb79120a05856002e7a847086c",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6682,
+            6.423,
+            6.423,
+            6.423,
+            8.9864,
+            8.9864,
+            8.9864,
+            9.9745
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0957,
+            7.0957,
+            16.6693,
+            16.6693
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9597,
+            7.501,
+            15.5059,
+            15.5059
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.0912,
+            0.0,
+            0.0,
+            0.0,
+            2.5634,
+            2.5634,
+            2.5634,
+            3.5515
+          ],
+          [
+            -7.8819,
+            -7.8819,
+            -2.9038,
+            -2.9038,
+            0.6727,
+            0.6727,
+            10.2463,
+            10.2463
+          ],
+          [
+            -8.9966,
+            -6.6487,
+            -2.8137,
+            -2.8137,
+            0.5367,
+            1.078,
+            9.0829,
+            9.0829
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5634,
+          3.5765,
+          3.3504
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6727,
+          "Gamma_to_Delta_0.85": 0.5367
+        },
+        "wall_seconds": 0.34,
+        "maximum_resident_set_size_bytes": 43958272
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "C42",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/C42.scf.out",
+          "sha256": "1919944412bbf2070bc52a5419190d8af86b318cea5e7b86a4d1680b574a6ad3",
+          "byte_count": 20404
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92393201,
+        "total_energy_ry_atom": -8.461966005,
+        "pressure_kbar": 37.83,
+        "stress_tensor_kbar": [
+          [
+            37.83,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            37.83,
+            0.0
+          ],
+          [
+            -0.0,
+            -0.0,
+            37.83
+          ]
+        ],
+        "iterations": 7,
+        "final_estimated_accuracy_ry": 5.7e-11,
+        "wall_seconds": 3.06,
+        "maximum_resident_set_size_bytes": 57737216
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/C42.diagnostic.nscf.out",
+          "sha256": "fb80b3cbbdc3ac7c5e3a26c6e66f8cd5d1cb5ae3177d4b20f2a17dd7b06f1c25",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6681,
+            6.4228,
+            6.4228,
+            6.4228,
+            8.9862,
+            8.9862,
+            8.9862,
+            9.9735
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6685,
+            16.6685
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.5051,
+            15.5051
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.0909,
+            0.0,
+            0.0,
+            0.0,
+            2.5634,
+            2.5634,
+            2.5634,
+            3.5507
+          ],
+          [
+            -7.8817,
+            -7.8817,
+            -2.9036,
+            -2.9036,
+            0.6727,
+            0.6727,
+            10.2457,
+            10.2457
+          ],
+          [
+            -8.9964,
+            -6.6485,
+            -2.8135,
+            -2.8135,
+            0.5367,
+            1.078,
+            9.0823,
+            9.0823
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5634,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6727,
+          "Gamma_to_Delta_0.85": 0.5367
+        },
+        "wall_seconds": 0.34,
+        "maximum_resident_set_size_bytes": 43892736
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "C48",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/C48.scf.out",
+          "sha256": "994c555388403256752b68b9f320dcf7ffb9917e7dcb7cb6e93d9a06153f65df",
+          "byte_count": 20719
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92393768,
+        "total_energy_ry_atom": -8.46196884,
+        "pressure_kbar": 37.82,
+        "stress_tensor_kbar": [
+          [
+            37.82,
+            -0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            37.82,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            37.82
+          ]
+        ],
+        "iterations": 8,
+        "final_estimated_accuracy_ry": 3.6e-13,
+        "wall_seconds": 3.58,
+        "maximum_resident_set_size_bytes": 65437696
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/C48.diagnostic.nscf.out",
+          "sha256": "8c421ec24e43ed8eaf2244f2fa599163b1aacf70d92a648b024135e0abba7228",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6681,
+            6.4228,
+            6.4228,
+            6.4228,
+            8.9862,
+            8.9862,
+            8.9862,
+            9.9733
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6683,
+            16.6683
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.5049,
+            15.5049
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.0909,
+            0.0,
+            0.0,
+            0.0,
+            2.5634,
+            2.5634,
+            2.5634,
+            3.5505
+          ],
+          [
+            -7.8817,
+            -7.8817,
+            -2.9036,
+            -2.9036,
+            0.6727,
+            0.6727,
+            10.2455,
+            10.2455
+          ],
+          [
+            -8.9964,
+            -6.6485,
+            -2.8135,
+            -2.8135,
+            0.5367,
+            1.078,
+            9.0821,
+            9.0821
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5634,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6727,
+          "Gamma_to_Delta_0.85": 0.5367
+        },
+        "wall_seconds": 0.36,
+        "maximum_resident_set_size_bytes": 44171264
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "C54",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/C54.scf.out",
+          "sha256": "18a8a902232958e38d08d8ef341d121408ee1128d86b4454d9e90f63e8c2b258",
+          "byte_count": 20719
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92394655,
+        "total_energy_ry_atom": -8.461973275,
+        "pressure_kbar": 37.81,
+        "stress_tensor_kbar": [
+          [
+            37.81,
+            -0.0,
+            -0.0
+          ],
+          [
+            -0.0,
+            37.81,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            37.81
+          ]
+        ],
+        "iterations": 8,
+        "final_estimated_accuracy_ry": 5.1e-13,
+        "wall_seconds": 4.4,
+        "maximum_resident_set_size_bytes": 67649536
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/C54.diagnostic.nscf.out",
+          "sha256": "ffe5115e2b5293835c7a299f9cc5ba1572af50663143e24366162eae4bd1396c",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6682,
+            6.4228,
+            6.4228,
+            6.4228,
+            8.9862,
+            8.9862,
+            8.9862,
+            9.9733
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6683,
+            16.6683
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.5049,
+            15.5049
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.091,
+            0.0,
+            0.0,
+            0.0,
+            2.5634,
+            2.5634,
+            2.5634,
+            3.5505
+          ],
+          [
+            -7.8817,
+            -7.8817,
+            -2.9036,
+            -2.9036,
+            0.6727,
+            0.6727,
+            10.2455,
+            10.2455
+          ],
+          [
+            -8.9964,
+            -6.6485,
+            -2.8135,
+            -2.8135,
+            0.5367,
+            1.078,
+            9.0821,
+            9.0821
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5634,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6727,
+          "Gamma_to_Delta_0.85": 0.5367
+        },
+        "wall_seconds": 0.43,
+        "maximum_resident_set_size_bytes": 49938432
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "C60",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/C60.scf.out",
+          "sha256": "e00838526c557ff45a21a95b8e2c7579a4bafadeccf0657978d7c4fbc746d570",
+          "byte_count": 20719
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92395077,
+        "total_energy_ry_atom": -8.461975385,
+        "pressure_kbar": 37.83,
+        "stress_tensor_kbar": [
+          [
+            37.83,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            37.83,
+            -0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            37.83
+          ]
+        ],
+        "iterations": 8,
+        "final_estimated_accuracy_ry": 1.3e-13,
+        "wall_seconds": 4.7,
+        "maximum_resident_set_size_bytes": 81936384
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/C60.diagnostic.nscf.out",
+          "sha256": "dfd49924642e80e271eef0219a6f89e2d4aa02d966bbeea6c9df600d3cdaac54",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6682,
+            6.4228,
+            6.4228,
+            6.4228,
+            8.9861,
+            8.9861,
+            8.9861,
+            9.9733
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6683,
+            16.6683
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.5049,
+            15.5049
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.091,
+            0.0,
+            0.0,
+            0.0,
+            2.5633,
+            2.5633,
+            2.5633,
+            3.5505
+          ],
+          [
+            -7.8817,
+            -7.8817,
+            -2.9036,
+            -2.9036,
+            0.6727,
+            0.6727,
+            10.2455,
+            10.2455
+          ],
+          [
+            -8.9964,
+            -6.6485,
+            -2.8135,
+            -2.8135,
+            0.5367,
+            1.078,
+            9.0821,
+            9.0821
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5633,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6727,
+          "Gamma_to_Delta_0.85": 0.5367
+        },
+        "wall_seconds": 0.44,
+        "maximum_resident_set_size_bytes": 51511296
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "K6",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/K6.scf.out",
+          "sha256": "8d6aa55e564e469ca4e1d67bd82970f06595fc202800b498c2a1dab951d4316b",
+          "byte_count": 14989
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92393172,
+        "total_energy_ry_atom": -8.46196586,
+        "pressure_kbar": 37.81,
+        "stress_tensor_kbar": [
+          [
+            37.81,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            37.81,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            37.81
+          ]
+        ],
+        "iterations": 8,
+        "final_estimated_accuracy_ry": 4.3e-12,
+        "wall_seconds": 2.16,
+        "maximum_resident_set_size_bytes": 61014016
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/K6.diagnostic.nscf.out",
+          "sha256": "5fcc5d57bb41cc514fb145387511eb00696baf27fae74f290a22ec9c04f60eb3",
+          "byte_count": 6996
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6681,
+            6.4229,
+            6.4229,
+            6.4229,
+            8.9862,
+            8.9862,
+            8.9862,
+            9.9733
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6683,
+            16.6683
+          ],
+          [
+            -2.5735,
+            -0.2256,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.505,
+            15.505
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.091,
+            0.0,
+            0.0,
+            0.0,
+            2.5633,
+            2.5633,
+            2.5633,
+            3.5504
+          ],
+          [
+            -7.8818,
+            -7.8818,
+            -2.9037,
+            -2.9037,
+            0.6726,
+            0.6726,
+            10.2454,
+            10.2454
+          ],
+          [
+            -8.9964,
+            -6.6485,
+            -2.8136,
+            -2.8136,
+            0.5366,
+            1.0779,
+            9.0821,
+            9.0821
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5633,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6726,
+          "Gamma_to_Delta_0.85": 0.5366
+        },
+        "wall_seconds": 0.37,
+        "maximum_resident_set_size_bytes": 45957120
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "K10",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/K10.scf.out",
+          "sha256": "9eb6d0d5693c3e1055bcc3feb376a07330fe23c0abdc4fb09760ec61d8a53920",
+          "byte_count": 9753
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92393791,
+        "total_energy_ry_atom": -8.461968955,
+        "pressure_kbar": 37.82,
+        "stress_tensor_kbar": [
+          [
+            37.82,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            37.82,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            37.82
+          ]
+        ],
+        "iterations": 7,
+        "final_estimated_accuracy_ry": 6.3e-11,
+        "wall_seconds": 6.96,
+        "maximum_resident_set_size_bytes": 60358656
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/K10.diagnostic.nscf.out",
+          "sha256": "f9350586d99c1022a892abb4733a00787cce9ebba1f0fee1e9525ab0ffbdca5b",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6681,
+            6.4228,
+            6.4228,
+            6.4228,
+            8.9862,
+            8.9862,
+            8.9862,
+            9.9733
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6683,
+            16.6683
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.5049,
+            15.5049
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.0909,
+            0.0,
+            0.0,
+            0.0,
+            2.5634,
+            2.5634,
+            2.5634,
+            3.5505
+          ],
+          [
+            -7.8817,
+            -7.8817,
+            -2.9036,
+            -2.9036,
+            0.6727,
+            0.6727,
+            10.2455,
+            10.2455
+          ],
+          [
+            -8.9964,
+            -6.6485,
+            -2.8135,
+            -2.8135,
+            0.5367,
+            1.078,
+            9.0821,
+            9.0821
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5634,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6727,
+          "Gamma_to_Delta_0.85": 0.5367
+        },
+        "wall_seconds": 0.39,
+        "maximum_resident_set_size_bytes": 45858816
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    },
+    {
+      "case": "K12",
+      "scf": {
+        "output": {
+          "path": "${campaign_root}/output/K12.scf.out",
+          "sha256": "72a024a0a625b4781e303a7a9b941aeafddd02a7ba281ea36418d1e399e5fd78",
+          "byte_count": 9438
+        },
+        "job_done": true,
+        "total_energy_ry_cell": -16.92393791,
+        "total_energy_ry_atom": -8.461968955,
+        "pressure_kbar": 37.82,
+        "stress_tensor_kbar": [
+          [
+            37.82,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            37.82,
+            -0.0
+          ],
+          [
+            -0.0,
+            -0.0,
+            37.82
+          ]
+        ],
+        "iterations": 6,
+        "final_estimated_accuracy_ry": 6.6e-11,
+        "wall_seconds": 10.67,
+        "maximum_resident_set_size_bytes": 66273280
+      },
+      "diagnostic_nscf": {
+        "output": {
+          "path": "${campaign_root}/output/K12.diagnostic.nscf.out",
+          "sha256": "9aaaec778dcad5acfa64f8655dc7cf22a083477eb1b1a0e0b38dee2556cd2e98",
+          "byte_count": 7002
+        },
+        "job_done": true,
+        "k_points_tpiba": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0.85,
+            0
+          ]
+        ],
+        "bands_ev": [
+          [
+            -5.6681,
+            6.4229,
+            6.4229,
+            6.4229,
+            8.9862,
+            8.9862,
+            8.9862,
+            9.9733
+          ],
+          [
+            -1.4589,
+            -1.4589,
+            3.5192,
+            3.5192,
+            7.0955,
+            7.0955,
+            16.6683,
+            16.6683
+          ],
+          [
+            -2.5736,
+            -0.2257,
+            3.6093,
+            3.6093,
+            6.9595,
+            7.5008,
+            15.5049,
+            15.5049
+          ]
+        ],
+        "alignment_reference": "band 4 at Gamma within the same calculation",
+        "aligned_bands_ev": [
+          [
+            -12.091,
+            0.0,
+            0.0,
+            0.0,
+            2.5633,
+            2.5633,
+            2.5633,
+            3.5504
+          ],
+          [
+            -7.8818,
+            -7.8818,
+            -2.9037,
+            -2.9037,
+            0.6726,
+            0.6726,
+            10.2454,
+            10.2454
+          ],
+          [
+            -8.9965,
+            -6.6486,
+            -2.8136,
+            -2.8136,
+            0.5366,
+            1.0779,
+            9.082,
+            9.082
+          ]
+        ],
+        "direct_gaps_ev": [
+          2.5633,
+          3.5763,
+          3.3502
+        ],
+        "indirect_gap_probes_ev": {
+          "Gamma_to_X": 0.6726,
+          "Gamma_to_Delta_0.85": 0.5366
+        },
+        "wall_seconds": 0.44,
+        "maximum_resident_set_size_bytes": 46219264
+      },
+      "warnings": [
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      ]
+    }
+  ],
+  "finite_setting_comparisons": {
+    "cutoff": [
+      {
+        "from": "C30",
+        "to": "C36",
+        "energy_change_ry_atom": 9.900000000051534e-05,
+        "pressure_change_kbar": 0.3100000000000023,
+        "maximum_stress_component_change_kbar": 0.3100000000000023,
+        "maximum_aligned_band_4_5_change_mev": 1.000000000000334,
+        "maximum_gap_probe_change_mev": 1.200000000000312,
+        "criteria": {
+          "energy_pass": false,
+          "pressure_pass": false,
+          "stress_pass": false,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": false
+        }
+      },
+      {
+        "from": "C36",
+        "to": "C42",
+        "energy_change_ry_atom": 1.8535000000596824e-05,
+        "pressure_change_kbar": 0.18999999999999773,
+        "maximum_stress_component_change_kbar": 0.18999999999999773,
+        "maximum_aligned_band_4_5_change_mev": 0.19999999999997797,
+        "maximum_gap_probe_change_mev": 0.19999999999997797,
+        "criteria": {
+          "energy_pass": false,
+          "pressure_pass": false,
+          "stress_pass": false,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C42",
+        "to": "C48",
+        "energy_change_ry_atom": 2.835000000089849e-06,
+        "pressure_change_kbar": 0.00999999999999801,
+        "maximum_stress_component_change_kbar": 0.00999999999999801,
+        "maximum_aligned_band_4_5_change_mev": 0.0,
+        "maximum_gap_probe_change_mev": 0.0,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C48",
+        "to": "C54",
+        "energy_change_ry_atom": 4.43499999924768e-06,
+        "pressure_change_kbar": 0.00999999999999801,
+        "maximum_stress_component_change_kbar": 0.00999999999999801,
+        "maximum_aligned_band_4_5_change_mev": 0.0,
+        "maximum_gap_probe_change_mev": 0.0,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C54",
+        "to": "C60",
+        "energy_change_ry_atom": 2.1100000004992125e-06,
+        "pressure_change_kbar": 0.01999999999999602,
+        "maximum_stress_component_change_kbar": 0.01999999999999602,
+        "maximum_aligned_band_4_5_change_mev": 0.10000000000021103,
+        "maximum_gap_probe_change_mev": 0.10000000000021103,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      }
+    ],
+    "mesh": [
+      {
+        "from": "K6",
+        "to": "C48",
+        "energy_change_ry_atom": 2.9800000014290617e-06,
+        "pressure_change_kbar": 0.00999999999999801,
+        "maximum_stress_component_change_kbar": 0.00999999999999801,
+        "maximum_aligned_band_4_5_change_mev": 0.10000000000021103,
+        "maximum_gap_probe_change_mev": 0.10000000000021103,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "C48",
+        "to": "K10",
+        "energy_change_ry_atom": 1.1499999885700163e-07,
+        "pressure_change_kbar": 0.0,
+        "maximum_stress_component_change_kbar": 0.0,
+        "maximum_aligned_band_4_5_change_mev": 0.0,
+        "maximum_gap_probe_change_mev": 0.0,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      },
+      {
+        "from": "K10",
+        "to": "K12",
+        "energy_change_ry_atom": 0.0,
+        "pressure_change_kbar": 0.0,
+        "maximum_stress_component_change_kbar": 0.0,
+        "maximum_aligned_band_4_5_change_mev": 0.10000000000021103,
+        "maximum_gap_probe_change_mev": 0.10000000000021103,
+        "criteria": {
+          "energy_pass": true,
+          "pressure_pass": true,
+          "stress_pass": true,
+          "fixed_point_band_pass_at_printed_precision": true,
+          "fixed_point_gap_pass_at_printed_precision": true
+        }
+      }
+    ]
+  },
+  "external_artifacts": {
+    "output_files": [
+      {
+        "path": "${campaign_root}/output/C30.diagnostic.nscf.out",
+        "sha256": "38cc66df4ade533892efe656fbb521f7b7883c9f05e2291f9570079af02bb965",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/C30.diagnostic.nscf.time-and-stderr",
+        "sha256": "ae590a8cacc65d8af81c64b481c7531f8e075d3e12d6d82d88c2fbb68acabe0f",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C30.scf.out",
+        "sha256": "beea377403441fb3991da8bb43a8f11b4ceb0dfcb2f06169ac98413f4fcdf516",
+        "byte_count": 20719
+      },
+      {
+        "path": "${campaign_root}/output/C30.scf.time-and-stderr",
+        "sha256": "69888448f0ee7c2b63a25c4d8a8826b3e8d73b54ce03801142db3064254bd56c",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C36.diagnostic.nscf.out",
+        "sha256": "4a4df35f7f1149b3e9a4e860906fcb8b6f8e96fb79120a05856002e7a847086c",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/C36.diagnostic.nscf.time-and-stderr",
+        "sha256": "adeb1bb94dd2b6cc6bb7ccb434b5dd6deb7af34146e3666e1ec3ae59b8665358",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C36.scf.out",
+        "sha256": "d2ef0d6c8de145426fa038fff828e2014a8cc780bf0b9ebef66bb77baad47ce0",
+        "byte_count": 20719
+      },
+      {
+        "path": "${campaign_root}/output/C36.scf.time-and-stderr",
+        "sha256": "64e90b8903e901edc1a0bf7fd9296837565430c5ebcae34a26a7e6ad981df4cb",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C42.diagnostic.nscf.out",
+        "sha256": "fb80b3cbbdc3ac7c5e3a26c6e66f8cd5d1cb5ae3177d4b20f2a17dd7b06f1c25",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/C42.diagnostic.nscf.time-and-stderr",
+        "sha256": "e7174bffcbc134fddca8d66752db7c52a5de0f89695a76659811bd811573046f",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C42.scf.out",
+        "sha256": "1919944412bbf2070bc52a5419190d8af86b318cea5e7b86a4d1680b574a6ad3",
+        "byte_count": 20404
+      },
+      {
+        "path": "${campaign_root}/output/C42.scf.time-and-stderr",
+        "sha256": "7bcafd445ea19d861f0b33954d5cd4b28af71fba38014987a1f78bb9adfaf8af",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C48.diagnostic.nscf.out",
+        "sha256": "8c421ec24e43ed8eaf2244f2fa599163b1aacf70d92a648b024135e0abba7228",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/C48.diagnostic.nscf.time-and-stderr",
+        "sha256": "73db33fb37bf1c863cca646131826ad7b3c02ab1f3e87bb5dfba972bdd41bea9",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C48.scf.out",
+        "sha256": "994c555388403256752b68b9f320dcf7ffb9917e7dcb7cb6e93d9a06153f65df",
+        "byte_count": 20719
+      },
+      {
+        "path": "${campaign_root}/output/C48.scf.time-and-stderr",
+        "sha256": "f510f144d1cfd4823e5240cadabd029ee0925ac506b43ccd349a94ba347bb103",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C54.diagnostic.nscf.out",
+        "sha256": "ffe5115e2b5293835c7a299f9cc5ba1572af50663143e24366162eae4bd1396c",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/C54.diagnostic.nscf.time-and-stderr",
+        "sha256": "65cecbfd5caaf2faa7cfb73b29e61fe955a14460f89a64cbadf01fe275641ab2",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C54.scf.out",
+        "sha256": "18a8a902232958e38d08d8ef341d121408ee1128d86b4454d9e90f63e8c2b258",
+        "byte_count": 20719
+      },
+      {
+        "path": "${campaign_root}/output/C54.scf.time-and-stderr",
+        "sha256": "70fe5f7eab013955f698f1562faacc94c593f6bb3773f9d364916d7c5580f313",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C60.diagnostic.nscf.out",
+        "sha256": "dfd49924642e80e271eef0219a6f89e2d4aa02d966bbeea6c9df600d3cdaac54",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/C60.diagnostic.nscf.time-and-stderr",
+        "sha256": "a11c8da8f1b5099314376c7a31d1f98b5b291dd7ab58a0dc942d9a09bebf23e6",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/C60.scf.out",
+        "sha256": "e00838526c557ff45a21a95b8e2c7579a4bafadeccf0657978d7c4fbc746d570",
+        "byte_count": 20719
+      },
+      {
+        "path": "${campaign_root}/output/C60.scf.time-and-stderr",
+        "sha256": "005095da7c5e1a29672fa5c089395f03486372a6294e8ace3b7eb26ed4265768",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/K10.diagnostic.nscf.out",
+        "sha256": "f9350586d99c1022a892abb4733a00787cce9ebba1f0fee1e9525ab0ffbdca5b",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/K10.diagnostic.nscf.time-and-stderr",
+        "sha256": "1f06c9c789481eed2fb7d2c726e0cd35885fbb16be4cf28e418c4878a7212b67",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/K10.scf.out",
+        "sha256": "9eb6d0d5693c3e1055bcc3feb376a07330fe23c0abdc4fb09760ec61d8a53920",
+        "byte_count": 9753
+      },
+      {
+        "path": "${campaign_root}/output/K10.scf.time-and-stderr",
+        "sha256": "6973b30ceb55ca166efc95af45547824cdb37b34c74c4cf8dbb1d66d7976adad",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/K12.diagnostic.nscf.out",
+        "sha256": "9aaaec778dcad5acfa64f8655dc7cf22a083477eb1b1a0e0b38dee2556cd2e98",
+        "byte_count": 7002
+      },
+      {
+        "path": "${campaign_root}/output/K12.diagnostic.nscf.time-and-stderr",
+        "sha256": "3ec1ba245b993239ad13e324c3fc2456c45f92c55463755bafabf077ff233e3a",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/K12.scf.out",
+        "sha256": "72a024a0a625b4781e303a7a9b941aeafddd02a7ba281ea36418d1e399e5fd78",
+        "byte_count": 9438
+      },
+      {
+        "path": "${campaign_root}/output/K12.scf.time-and-stderr",
+        "sha256": "29d30108a1545853dc229abd8946396e1e8723272ee1180d023d15cb76e0520a",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/K6.diagnostic.nscf.out",
+        "sha256": "5fcc5d57bb41cc514fb145387511eb00696baf27fae74f290a22ec9c04f60eb3",
+        "byte_count": 6996
+      },
+      {
+        "path": "${campaign_root}/output/K6.diagnostic.nscf.time-and-stderr",
+        "sha256": "38f666df4fae532c0f6eff7540ffc7af3a0bbc983f25c730cbed70ea4226efd5",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/K6.scf.out",
+        "sha256": "8d6aa55e564e469ca4e1d67bd82970f06595fc202800b498c2a1dab951d4316b",
+        "byte_count": 14989
+      },
+      {
+        "path": "${campaign_root}/output/K6.scf.time-and-stderr",
+        "sha256": "93e759c662502487bd6eee95b1985b84834dd8ac6e4794a1ab3e1e27207f8c5a",
+        "byte_count": 916
+      },
+      {
+        "path": "${campaign_root}/output/campaign.end-utc.txt",
+        "sha256": "00a0d23a7620da0613bc455cc9ac0a94c9d9885a6293d30ff1f2c0492d1ea206",
+        "byte_count": 21
+      },
+      {
+        "path": "${campaign_root}/output/campaign.exit-status.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "byte_count": 2
+      },
+      {
+        "path": "${campaign_root}/output/campaign.runner.err",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byte_count": 0
+      },
+      {
+        "path": "${campaign_root}/output/campaign.runner.out",
+        "sha256": "eaa29f706ea7b27124789d1d5a0afd11f0a61f647206442004db51fa39271179",
+        "byte_count": 598
+      },
+      {
+        "path": "${campaign_root}/output/campaign.start-utc.txt",
+        "sha256": "0e7afd053ee55d23c046fc05e7afd7f0f0e0e5b58d63d067659b5876eb023c01",
+        "byte_count": 21
+      }
+    ],
+    "scratch_trees": {
+      "C30": {
+        "regular_file_count": 64,
+        "byte_count": 3918036,
+        "manifest_sha256": "d36ba77e6b65c039cd02aa424c956094be2791c6e625c58b18ecb9b8ef5c237b"
+      },
+      "C30-diagnostic": {
+        "regular_file_count": 64,
+        "byte_count": 4000968,
+        "manifest_sha256": "500244ac29253cf50c8785ceaf6b707dcb518cf21eb8ba9b5a4a8d3acdd91488"
+      },
+      "C36": {
+        "regular_file_count": 64,
+        "byte_count": 5020352,
+        "manifest_sha256": "6db6ba5a4ed7f3e3867b39b4459896dfa68d0b93011cc8e30b33d8a10ec13e62"
+      },
+      "C36-diagnostic": {
+        "regular_file_count": 64,
+        "byte_count": 5150776,
+        "manifest_sha256": "4d77a857e3ed79e169c9b33151e9009a7fdbddb6e498f7a43cbf47033d6ac9c5"
+      },
+      "C42": {
+        "regular_file_count": 64,
+        "byte_count": 6228954,
+        "manifest_sha256": "ce154d0d97f1cb0f97c8e1872de3c15e676e84a86a5ecaf833a03ae61b0de413"
+      },
+      "C42-diagnostic": {
+        "regular_file_count": 64,
+        "byte_count": 6407072,
+        "manifest_sha256": "b0141b7d6d6e0c95cbe516ab0be0f1d44e5599c344ed7c7ad9bcff26e55ecd54"
+      },
+      "C48": {
+        "regular_file_count": 64,
+        "byte_count": 7515618,
+        "manifest_sha256": "65a622b8fcda552eb8412a3b1b832cd83930fa6c43e5f24df496c359c7dd9c55"
+      },
+      "C48-diagnostic": {
+        "regular_file_count": 64,
+        "byte_count": 7746788,
+        "manifest_sha256": "39e4c25f5f5bf3ad552a37708268e480fb92501f076710c507994c1bda4f6b20"
+      },
+      "C54": {
+        "regular_file_count": 64,
+        "byte_count": 8900986,
+        "manifest_sha256": "1c1324919a70091280e42287b05c86b99ef42907de92a53b4203ccab0b15240b"
+      },
+      "C54-diagnostic": {
+        "regular_file_count": 64,
+        "byte_count": 9178048,
+        "manifest_sha256": "dd3cd5cec3d0d45a881d963ba0abd3a081964bd8c208c23940a5fc954469e26a"
+      },
+      "C60": {
+        "regular_file_count": 64,
+        "byte_count": 10348890,
+        "manifest_sha256": "dbe8535392e0feb85075eaa05f6f71a4d377e5842f05787c22ba4264319c9491"
+      },
+      "C60-diagnostic": {
+        "regular_file_count": 64,
+        "byte_count": 10693792,
+        "manifest_sha256": "e9f5ecc421826a70f3e0cb8d42b421ce8e755727b1161656001bd36791296495"
+      },
+      "K10": {
+        "regular_file_count": 114,
+        "byte_count": 13232566,
+        "manifest_sha256": "b56a392427be15db81689a21b0daa11a19bc9a8684b6a535fa8ba2c9ebbc29b8"
+      },
+      "K10-diagnostic": {
+        "regular_file_count": 114,
+        "byte_count": 13413724,
+        "manifest_sha256": "7232933e30ad4370a90439eb7d2a6af06f695cf5cab53ab7c76b4353d1896b38"
+      },
+      "K12": {
+        "regular_file_count": 186,
+        "byte_count": 21468222,
+        "manifest_sha256": "8a53b54d142ce0fa8183eab5b901d2df885a0c680592dfdde1b0510f430de905"
+      },
+      "K12-diagnostic": {
+        "regular_file_count": 186,
+        "byte_count": 21576100,
+        "manifest_sha256": "633e4627e5055a4017c931d0b83b6e92cdc27728253eada990887cf48455e2a1"
+      },
+      "K6": {
+        "regular_file_count": 32,
+        "byte_count": 3853096,
+        "manifest_sha256": "91eff6b9a16e57c926c8f4a020a94338eea39d90b602e10a0220b714fdd7de4b"
+      },
+      "K6-diagnostic": {
+        "regular_file_count": 32,
+        "byte_count": 4116828,
+        "manifest_sha256": "5f14b3bcbae08ea4aadddcf74aa354083c1f05e96b13a727bb478835326f2891"
+      }
+    },
+    "raw_outputs_retained_externally": true
+  },
+  "warnings": {
+    "ieee_floating_point_exception_report": {
+      "observed_invocation_count": 18,
+      "exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+      "classification": "unresolved and unclassified; successful completion does not establish harmlessness"
+    }
+  },
+  "claim_limits": [
+    "Finite-setting comparisons do not bound an infinite-basis limit.",
+    "Band/gap comparisons use QE values printed to 0.0001 eV and cannot resolve changes below that printed precision.",
+    "The fixed-point diagnostics do not establish valley position or effective-mass convergence.",
+    "No four-corner interaction calculation was executed because E_* and K_* have not been human-selected.",
+    "The provisional 10.20-bohr geometry is not an accepted PBE equilibrium lattice.",
+    "Exit status zero and JOB DONE. do not establish numerical convergence or scientific validation."
+  ]
+}
