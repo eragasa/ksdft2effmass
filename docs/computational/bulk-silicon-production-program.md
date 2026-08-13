@@ -1,10 +1,13 @@
 # Bulk-Silicon Production, Visualization, and Semiconductor-Property Program
 
 **Status:** Planning with exactly
-`bulk-silicon.production-reference.convergence` active for design in phase
-`awaiting_human_parameter_selection`. This page authorizes no Quantum ESPRESSO,
-Wannier90, post-processing, DFPT, phonon, external, or scientific execution and
-selects no final production parameter or acceptance tolerance.
+`bulk-silicon.production-reference.convergence` active in phase
+`awaiting_execution_authorization`. Human Option B revised its finite candidate
+design; exact pseudopotential acquisition and atomic `user_opt` publication, static
+identity/metadata verification, executable identity inspection, and primary input
+preparation are complete. This page authorizes no Quantum ESPRESSO, Wannier90,
+post-processing, DFPT, phonon, or scientific execution and selects no final
+production parameter.
 
 ## Scientific objective
 
@@ -123,8 +126,8 @@ Current identities are reconciled as follows:
 | `bulk-silicon.workflow.extracted-model-verification` | Retained blocked as tutorial workflow verification | Its software-workflow claim remains distinct from G02--G04 scientific acceptance. |
 
 All new records require explicit activation. Exactly the convergence record is
-active for design; protected execution still requires a separate exact
-authorization. No static graph edge implies automatic activation.
+active awaiting protected execution authorization; no scientific executable has
+run. No static graph edge implies automatic activation.
 
 ## Catalog A — production calculations and analyses
 
@@ -136,10 +139,12 @@ external under checksummed manifests.
 
 - **Task:** `bulk-silicon.production-reference.convergence`
 - **Kind / priority:** calculation series plus numerical verification; essential.
-- **Preflight:** verify local availability, both frozen SHA-256 identities,
-  declared XC/type/relativity/valence metadata, license evidence, QE readability,
-  and later QE--Wannier90 interface expectations. Missing or discrepant evidence
-  stops execution; no artifact is downloaded or selected here.
+- **Preflight:** exact-URL acquisition, atomic `user_opt` publication, both frozen
+  SHA-256 identities, declared XC/type/relativity/valence metadata, ambiguous
+  license evidence, and selected `pw.x` identity are complete. Runtime QE
+  readability remains untested and later QE--Wannier90 interface compatibility
+  remains out of scope. Any discrepancy stops execution; the bytes are neither
+  committed nor authorized for redistribution.
 - **Inputs:** accepted physical branch, provisional fixed geometry, exact frozen
   pseudopotential authority, frozen numerical protocols, environment, and
   declared metrics. See the active
@@ -629,7 +634,7 @@ from a plot or from passing software tests.
 
 ## Completion boundary of this plan
 
-The corrected plan has exactly the convergence Task active for design and human
-parameter selection. It does not pass G02, G03, or G04; freeze
+The corrected plan has exactly the convergence Task active awaiting protected
+execution authorization. It does not pass G02, G03, or G04; freeze
 `BulkSiReference-v1`, `BulkSiWannier-v1`, or a semiconductor-property result;
 activate a successor; create a checkpoint; or authorize scientific execution.

@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: awaiting_human_parameter_selection: Design is active, but pseudopotential-byte verification and every scientific execution remain blocked pending explicit human disposition and later protected-execution authorization.
+`active`: awaiting_execution_authorization: Human Option B revised the candidate design; exact pseudopotential acquisition, byte and metadata verification, executable identity inspection, and primary input preparation are complete. No scientific executable has run, no final numerical setting is accepted, and execution requires an exact human A decision.
 
 ## Objective
 
@@ -26,23 +26,23 @@ Verify the frozen production pseudopotential identity and compatibility, then de
 ## Authorized scope
 
 - Task kind: calculation series plus numerical verification; the current phase authorizes design only.
-- Preflight owns exact comparison of the supplied local Si pseudopotential bytes and metadata with the frozen PseudoDojo PBE standard-table ONCV scalar-relativistic authority, plus QE and later QE--Wannier90 interface compatibility checks; missing bytes are reported and are not downloaded under the current authority.
-- Cutoff execution, when separately authorized, varies E_cut^psi over the accepted ordered sequence with explicit E_cut^rho while holding the provisional structure, pseudopotential, SCF mesh, occupations, diagonalization, mixing, SCF threshold, symmetry, and processor count fixed.
-- SCF-mesh execution, when separately authorized, varies only the accepted uniform Monkhorst--Pack dimensions and shifts at the provisionally selected cutoff, followed by a bounded four-corner check at the selected and next-higher cutoff and mesh rather than a full Cartesian grid unless coupling is material.
+- Preflight owns controlled acquisition from only the frozen exact PseudoDojo URL, atomic publication to the portable user_opt installation without repository redistribution, exact compressed and decompressed byte and metadata verification, license/citation recording, selected pw.x identity inspection without invocation, and later QE--Wannier90 interface compatibility checks. Acquisition and static verification are complete; pw.x readability remains an execution-time check and pw2wannier90.x remains later scope.
+- Cutoff execution, when separately authorized, varies E_cut^psi over the finite conventional candidate sequence 30, 36, 42, 48, 54, and 60 Ry with E_cut^rho=4 E_cut^psi while holding the provisional structure, exact pseudopotential, shifted 8^3 SCF mesh, occupations, diagonalization, mixing, SCF threshold, symmetry, and one-process execution fixed.
+- SCF-mesh execution, when separately authorized, varies the systematically refined but non-nested shifted-even Monkhorst--Pack candidates 6^3, 8^3, 10^3, and 12^3 at the provisional 48 Ry PseudoDojo high-hint setting, with the 48 Ry/8^3 case deterministically reused from the cutoff scan. Later four-corner inputs remain parameterized until E_*, K_*, E_+, and K_+ are known.
 - Retain total energy per atom, pressure or stress, SCF iteration count, final code-reported convergence estimate, wall time, observable disk use, warnings, and explicitly limited fixed-point band-edge diagnostics; retain identities, tables, residuals, rejected settings, cross-checks, and diagnostic plot data.
 - One bounded human acceptance may select provisional cutoff and SCF-mesh settings for later EOS work; a material EOS geometry change can require a bounded recheck.
 
 ## Completion criteria
 
-- Frozen authority metadata, local availability, byte-identity verification, executable/interface compatibility, and scientific validation remain separately classified; any identity or compatibility discrepancy stops execution.
-- Each primary table changes one controlled variable, uses the accepted observable-specific criteria, and retains the highest-resolution comparison without claiming an infinite-basis limit.
+- Frozen authority metadata, local availability, byte-identity verification, executable identity, runtime UPF readability, later interface compatibility, numerical convergence, and scientific validation remain separately classified. Static byte/metadata and executable identity checks pass; any later readability, identity, or compatibility discrepancy stops execution.
+- Each primary table changes one controlled variable, applies the revised 0.05 kbar stress criterion and the 1 meV criterion only to fixed-point energies and gaps, and retains finite-setting comparisons without claiming an infinite-basis limit or effective-mass convergence.
 - The accepted provisional cutoff and SCF mesh pass the staged studies, both required one-axis guards, the mixed higher-cutoff/denser-mesh corner, and the observable-specific mixed-difference rule, or unresolved coupling is reported for a separately approved expanded design.
 - The human explicitly accepts or rejects the bounded provisional settings before lattice/EOS refinement; production lattice acceptance, production SCF, path, valley, Wannier, and physical-validation work remain outside this Task.
 
 ## Exclusions
 
-- The current awaiting_human_parameter_selection phase runs no Quantum ESPRESSO, Wannier90, or other scientific executable and downloads no pseudopotential.
-- No final cutoff, mesh, lattice constant, resource campaign, or numerical result is selected before the human responds.
+- The current awaiting_execution_authorization phase runs no Quantum ESPRESSO, Wannier90, or other scientific executable. The exact authorized pseudopotential acquisition and atomic user_opt publication are complete; repository commit and redistribution of those bytes remain prohibited.
+- No final cutoff, mesh, lattice constant, or numerical result is selected. The prepared finite primary campaign and conservative operational reservations remain proposed until the human responds A, B, or C.
 - No production lattice/EOS acceptance, production SCF execution, symmetry-path bands, valley effective masses, Wannierization, plotting implementation, production scientific Python, physical validation, or uncertainty quantification is owned here.
 - Successful execution, agreement with the finest retained setting, or a diagnostic plot does not establish scientific validation or agreement with the infinite-basis limit.
 

@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a bulk-silicon production program. Accepted tutorial Tasks remain closed under their bounded claims. Exactly the production convergence Task is active for human parameter-selection design; scientific/external/protected execution, publication, and release remain unauthorized.",
-  "status": "bulk_silicon_production_convergence_awaiting_human_parameter_selection",
+  "description": "Simulation-first computational bootstrap followed by a bulk-silicon production program. Accepted tutorial Tasks remain closed under their bounded claims. Exactly the production convergence Task is active with revised candidate inputs prepared and awaiting protected execution authorization; no scientific executable, successor, publication, or release is authorized.",
+  "status": "bulk_silicon_production_convergence_awaiting_execution_authorization",
   "active_task": "bulk-silicon.production-reference.convergence",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -295,7 +295,7 @@
       "authorized_at": "2026-08-12T23:11:39Z",
       "activated_after": "origin/dev agreement, zero active Tasks, zero unresolved checkpoints, P2 human_accepted_pass, prerequisite eligibility, and verified official tutorial pseudopotential acquisition",
       "authority": "Current human instructions resolving silicon_tutorial_input_selection and qe_tutorial_execution_authorization and authorizing controlled acquisition of https://pseudopotentials.quantum-espresso.org/upf_files/Si.pz-vbc.UPF",
-      "scope": "Exactly one local single-process execution of the unmodified QE 7.2 PW example01 silicon SCF Davidson input using /Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x and downloaded Si.pz-vbc.UPF bytes with SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217. No band, CG, PPCG, Al, Cu, Ni, Wannier90, production Stage 02, successor, dependency, schema, validator, SQLite, CPN, or generalized extraction work."
+      "scope": "Exactly one local single-process execution of the unmodified QE 7.2 PW example01 silicon SCF Davidson input using ~/projects/q-e-qe-7.2/build/bin/pw.x and downloaded Si.pz-vbc.UPF bytes with SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217. No band, CG, PPCG, Al, Cu, Ni, Wannier90, production Stage 02, successor, dependency, schema, validator, SQLite, CPN, or generalized extraction work."
     },
     {
       "task": "bulk-silicon.records.periodic.extraction",
@@ -369,6 +369,14 @@
     {
       "phase": "bulk-silicon-production-convergence-awaiting-human-parameter-selection",
       "message": "The never-activated standalone pseudopotential-selection planning Task was removed because NumericalSpecification-v1 already freezes the exact Si authority. Identity, license, byte, and QE/interface compatibility checks are now convergence preflight. Exactly bulk-silicon.production-reference.convergence is active for design in awaiting_human_parameter_selection; automatic successor activation remains false. No checkpoint was created, no pseudopotential was downloaded, and no scientific executable or successor was run or activated."
+    },
+    {
+      "phase": "bulk-silicon-production-convergence-awaiting-execution-authorization",
+      "message": "Human Option B directly revised the active Task's candidate design. The exact frozen PseudoDojo Si artifact was acquired from its canonical URL, transferred to an external production-input cache, and verified by compressed/decompressed SHA-256 and metadata; its embedded GNU GPL statement has no exact version and redistribution remains unauthorized. The exact QE 7.2 pw.x identity was inspected without invocation. Nine unique SCF and nine linked fixed-point NSCF inputs plus non-runnable four-corner templates are prepared externally and retained compactly. The Task remains active awaiting an exact A, B, or C execution decision; automatic successor activation remains false, no checkpoint exists, and no scientific executable or successor ran or activated."
+    },
+    {
+      "phase": "bulk-silicon-production-convergence-committed-boundary-preparation",
+      "message": "Human Option B selected a bounded durable-installation and committed-execution-boundary correction. The exact PseudoDojo bytes were atomically published under the portable user_opt store with final identities verified; the obsolete production-input location contained no unrelated files and was removed. Git-tracked paths are portable, run-local pseudopotential bytes are identified only as a verified copy, the exact 18-invocation campaign and scientific criteria are unchanged, and the runner now requires an exact committed clean HEAD/origin-dev boundary and stops after the first failed invocation. No pw.x invocation, checkpoint, successor activation, dependency change, or scientific result occurred."
     }
   ],
   "explicitly_activated_task_ids": [

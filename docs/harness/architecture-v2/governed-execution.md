@@ -53,7 +53,12 @@ Context validation is a correctness boundary; optional observation is not. A
 repository-sensitive Action would remain safe if participant `T` and every
 telemetry store were absent. Maintained paths would be derived from and confined
 beneath the explicit root, never ambient `cwd`, with root-qualified Git commands
-such as `git -C <absolute-repository-root> ...`.
+such as `git -C <absolute-repository-root> ...`. Non-repository scientific
+artifacts use portable logical stores defined by
+[`external-system-integration.md`](../../architecture/external-system-integration.md).
+For `user_opt`, `~/opt` is explicitly expanded and canonicalized; normalized
+relative paths are resolved beneath it and traversal or symlink escape is
+rejected. Run-local copies are verified derived inputs, not authority.
 
 The proposed transition is
 

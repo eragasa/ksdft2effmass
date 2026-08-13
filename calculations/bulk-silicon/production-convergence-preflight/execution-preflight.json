@@ -1,0 +1,364 @@
+{
+  "record_version": 1,
+  "record_status": "preflight_complete_awaiting_execution_authorization",
+  "task_id": "bulk-silicon.production-reference.convergence",
+  "prepared_at_utc": "2026-08-13T02:11:28Z",
+  "authority": {
+    "repository_revision": "7f2342ac07037549eb4351241ae1f5070a1d6b2c",
+    "human_revision": "Option B bounded durable-installation and committed-execution-boundary correction",
+    "execution_authorized": false,
+    "automatic_successor_activation": false,
+    "boundary_commit": null,
+    "boundary_commit_status": "to be recorded in the renewed report after commit and push; runner requires the supplied commit to equal clean HEAD and origin/dev"
+  },
+  "pseudopotential": {
+    "canonical_url": "https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/Si.upf.gz",
+    "execution_copy": {
+      "sha256": "39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282",
+      "byte_count": 225602,
+      "path": "${campaign_root}/pseudo/Si.upf",
+      "role": "verified execution copy; not authority"
+    },
+    "metadata": {
+      "format": "UPF 2.0.1",
+      "generator": "ONCVPSP 3.3.0",
+      "functional": "PBE",
+      "type": "norm-conserving",
+      "relativity": "scalar-relativistic",
+      "valence_electrons": 4
+    },
+    "license": {
+      "embedded_exact_text": "While it is not required under the terms of the GNU GPL, it is\nsuggested that you cite D. R. Hamann, Phys. Rev. B 88, 085117 (2013)\nin any publication using these pseudopotentials.",
+      "embedded_short_statement": "GNU GPL",
+      "exact_version_or_spdx": null,
+      "repository_level_license_declaration_found": false,
+      "execution_use_prepared": true,
+      "redistribution_authorized": false
+    },
+    "citations": [
+      "10.1016/j.cpc.2018.01.012",
+      "10.1103/PhysRevB.88.085117"
+    ],
+    "qe_readability": "not tested; first pw.x invocation remains protected execution",
+    "pw2wannier90_compatibility": "later Task scope",
+    "installed_reference": {
+      "store": "user_opt",
+      "relative_path": "pseudodojo/1.0/pbe/nc-sr-04-standard/Si/Si.upf",
+      "version": "1.0",
+      "sha256": "39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282"
+    },
+    "installed_compressed": {
+      "sha256": "bfbd01ccd4b67584dcf19a490a76e9b688c25026775ce2f4a4b6a13f900dad81",
+      "byte_count": 61592,
+      "path": "${user_opt}/pseudodojo/1.0/pbe/nc-sr-04-standard/Si/Si.upf.gz"
+    },
+    "installed_decompressed": {
+      "sha256": "39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282",
+      "byte_count": 225602,
+      "path": "${user_opt}/pseudodojo/1.0/pbe/nc-sr-04-standard/Si/Si.upf"
+    },
+    "installed_manifest": {
+      "sha256": "e99e2eaddb5bf9d65e1c80d0bfffb62cd4c9de51e37b7e8f4f303d201c1330c0",
+      "byte_count": 1020,
+      "path": "${user_opt}/pseudodojo/1.0/pbe/nc-sr-04-standard/Si/manifest.json"
+    },
+    "store_resolution": {
+      "user_opt": "~/opt",
+      "rules": [
+        "expand current user home",
+        "reject symlink at ~/opt",
+        "canonicalize root and existing candidate",
+        "reject empty, dot, dot-dot, traversal, and symlink escape",
+        "require strict containment beneath canonical user_opt",
+        "require regular-file SHA-256 identity"
+      ]
+    },
+    "old_production_input_location": {
+      "status": "removed after final installed identity verification",
+      "unrelated_files_found": false
+    }
+  },
+  "executable": {
+    "path": "~/projects/q-e-qe-7.2/build/bin/pw.x",
+    "sha256": "6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca",
+    "byte_count": 9889576,
+    "previously_accepted_version": "Quantum ESPRESSO PWSCF 7.2",
+    "architecture": "Mach-O 64-bit executable arm64",
+    "invoked_during_preflight": false
+  },
+  "workspace": {
+    "portable_descriptor": "ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z",
+    "descriptor_sha256": "9d84848b4abb0db89e70fa8f6af2dc5f94b122d9574397e60398986638b91bb5",
+    "resolution": "caller supplies campaign root; runner canonicalizes it and verifies basename(parent)/basename(root) descriptor identity",
+    "input_root": "${campaign_root}/input",
+    "pseudo_root": "${campaign_root}/pseudo",
+    "scratch_root": "${campaign_root}/scratch",
+    "output_root": "${campaign_root}/output",
+    "outside_repository": true,
+    "ordered_input_manifest": {
+      "sha256": "cdb6a41cf266034dc7e7b3ed5f48006bbd7caef3ca815849919f1732934407be",
+      "byte_count": 1732,
+      "path": "calculations/bulk-silicon/production-convergence-preflight/INPUTS.sha256"
+    }
+  },
+  "inputs": [
+    {
+      "ordinal": 1,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C30.scf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C30.scf.in",
+      "sha256": "7521611b6045015b72e34b2cc6749084c69b31beb4e74a32caa1db893d5f1120",
+      "byte_count": 756,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 2,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C30.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C30.diagnostic.nscf.in",
+      "sha256": "062f8226454c49c616bb7b99ed4834706923a27d2a09987abe83421890bc03a4",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 3,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C36.scf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C36.scf.in",
+      "sha256": "3f62f2b8b3b43dbfd592779e1ebf60c3b200cef994b216b1a858dde83ee6b0ba",
+      "byte_count": 756,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 4,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C36.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C36.diagnostic.nscf.in",
+      "sha256": "3d1f9a942409b5fe39aac4eb0771f64e9d44d42d6ef981d21ac98955387ea0a0",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 5,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C42.scf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C42.scf.in",
+      "sha256": "bdfdac7397283db99a8679d92d653e7611f43bd86e685d0219328d416e720ff2",
+      "byte_count": 756,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 6,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C42.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C42.diagnostic.nscf.in",
+      "sha256": "8967efb8c6b9ebfe182a18e3c9bb53360d193d1da3fef6b8f9d6ad807f4dd093",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 7,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C48.scf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C48.scf.in",
+      "sha256": "cadb2a3024f39858f91b23bd1c1c22e2b2d0f161f2960c39ea1abf48cf00ee17",
+      "byte_count": 756,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 8,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C48.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C48.diagnostic.nscf.in",
+      "sha256": "5f6fde9bcc5e0823982f97a4815c66d8d0af48e86bcf89cab5bab953cd47e69f",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 9,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C54.scf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C54.scf.in",
+      "sha256": "56b68d3dce5cae17911b53f135b139d07c4b9dea2b3206af634fee1c110fa8ff",
+      "byte_count": 756,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 10,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C54.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C54.diagnostic.nscf.in",
+      "sha256": "317a0aae10b9109ed57f0bb57a400972af40e236ffc8146fcc71afa93d697717",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 11,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C60.scf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C60.scf.in",
+      "sha256": "7462e94ffce991202abc9ff7e9d0267d337239f79f3bfd6912aad3a81c95c3e8",
+      "byte_count": 756,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 12,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C60.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/cutoff/C60.diagnostic.nscf.in",
+      "sha256": "43a5634cef3ee39224fcbc58ce0dddf309af335bc88e078fbdc5adcd5ea2210a",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 13,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/mesh/K6.scf.in",
+      "execution_path": "${campaign_root}/input/mesh/K6.scf.in",
+      "sha256": "8fdffca94147b040e5148dffa766b4db5d9df1e4231702e92ccb853ad485ccda",
+      "byte_count": 753,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 14,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/mesh/K6.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/mesh/K6.diagnostic.nscf.in",
+      "sha256": "544857dfb28cc70f238649bf9f9d01abfcd756cd67c8e27937de550c13732210",
+      "byte_count": 782,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 15,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/mesh/K10.scf.in",
+      "execution_path": "${campaign_root}/input/mesh/K10.scf.in",
+      "sha256": "608b1bf4d90184fba1a7ea779518dc7024af176811d620b37b8d757c7a50f43a",
+      "byte_count": 759,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 16,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/mesh/K10.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/mesh/K10.diagnostic.nscf.in",
+      "sha256": "3a38bb93e77ec08f2dc966041799c4d025bbe3444f2a67578856edaf6f6e1e08",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 17,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/mesh/K12.scf.in",
+      "execution_path": "${campaign_root}/input/mesh/K12.scf.in",
+      "sha256": "0db0e43ecba028c6b5ef0ed2a74f13393e117eb7f0138eb211039792989d23c0",
+      "byte_count": 759,
+      "execution_copy_agrees": true
+    },
+    {
+      "ordinal": 18,
+      "repository_path": "calculations/bulk-silicon/production-convergence-preflight/inputs/mesh/K12.diagnostic.nscf.in",
+      "execution_path": "${campaign_root}/input/mesh/K12.diagnostic.nscf.in",
+      "sha256": "97063529f58a053099e1a8cf809096e8e039a52d3c02b3db3aa5bf91a6d7f145",
+      "byte_count": 785,
+      "execution_copy_agrees": true
+    }
+  ],
+  "matrix": {
+    "cutoff_scf_cases": [
+      "C30",
+      "C36",
+      "C42",
+      "C48",
+      "C54",
+      "C60"
+    ],
+    "cutoff_diagnostics": [
+      "C30",
+      "C36",
+      "C42",
+      "C48",
+      "C54",
+      "C60"
+    ],
+    "mesh_scf_cases": [
+      "K6",
+      "K10",
+      "K12"
+    ],
+    "mesh_diagnostics": [
+      "K6",
+      "K10",
+      "K12"
+    ],
+    "reuse": {
+      "K8_at_48_Ry": "C48"
+    },
+    "unique_scf_invocations": 9,
+    "unique_nscf_invocations": 9,
+    "total_pw_invocations": 18,
+    "four_corner": "parameterized templates only; not executable until E*, K*, E+, and K+ are known"
+  },
+  "proposed_command": "KSD_PRODUCTION_CONVERGENCE_AUTHORIZATION='A-EXECUTE-COMMITTED-PRIMARY' KSD_BOUNDARY_COMMIT='<reported boundary commit>' KSD_REPOSITORY_ROOT='<clean checkout>' KSD_PRODUCTION_CONVERGENCE_ROOT='$HOME/projects/ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z' KSD_QE_PW_X='$HOME/projects/q-e-qe-7.2/build/bin/pw.x' '$KSD_PRODUCTION_CONVERGENCE_ROOT/run-primary.sh'",
+  "resource_estimate": {
+    "host": "Apple M4 MacBook Air; 10 cores; 24 GB RAM",
+    "processor_count": 1,
+    "retained_baseline": "QE 7.2 tutorial Si LDA, 18 Ry, shifted 4^3-equivalent 10-point irreducible list: 0.11 s PW wall; 544 KiB post-run scratch; 6 SCF iterations",
+    "largest_case_scaling": "(60/18)^(3/2) * (12/4)^3 = approximately 164 times the baseline plane-wave-by-full-grid scale; this is an upper planning proxy, not a timing law",
+    "per_scf_wall": "planning estimate 0.5-2 minutes for the largest cases; reserve 10 minutes per SCF stop boundary",
+    "per_nscf_wall": "planning estimate below 1 minute; reserve 5 minutes per diagnostic",
+    "campaign_wall": "planning estimate below 30 minutes; protected reservation 2.25 hours for 9 SCF and 9 NSCF invocations",
+    "memory": "peak RSS was not retained for the baseline; reserve 2 GiB and record /usr/bin/time -l maximum resident set size for every invocation",
+    "storage": "baseline scaling gives about 90 MiB for a largest four-band SCF state; reserve 2 GiB total for nine SCF trees, nine isolated NSCF copies, diagnostics, and streams",
+    "limitations": [
+      "PBE/ONCV, tighter SCF threshold, symmetry reduction, FFT grids, and iteration counts can change scaling",
+      "runtime, peak RSS, and peak scratch are not measurements for these proposed inputs"
+    ]
+  },
+  "validation": {
+    "input_execution_copy_identity": true,
+    "shell_syntax_check": "PASS: bash -n run-primary.sh",
+    "scientific_executable_invoked": false,
+    "installed_path_containment": "PASS",
+    "installed_symlink_escape": "PASS",
+    "old_authority_removed": true,
+    "dependency_and_lockfile_nonmutation": "pending final validation",
+    "temporary_and_sqlite_sidecars": "pending final validation",
+    "boundary_commit_clean_and_pushed": "pending commit and push"
+  },
+  "decision": {
+    "A": "Execute exactly the committed 18-invocation primary convergence campaign.",
+    "B": "Request a specific correction.",
+    "C": "Defer execution."
+  },
+  "criteria": {
+    "energy_per_atom": {
+      "threshold": "1e-5 Ry/atom",
+      "meaning": "adjacent finite-setting and retained-guard stability only; no infinite-basis bound"
+    },
+    "pressure_and_stress": {
+      "threshold": "0.05 kbar",
+      "meaning": "provisional planning criterion for hydrostatic pressure difference and maximum absolute stress-component difference; analysis-stage rule, not an SCF input parameter"
+    },
+    "fixed_point_band_energy_and_gap": {
+      "threshold": "1 meV",
+      "domain": [
+        "Gamma",
+        "X",
+        "nominal Delta_0.85"
+      ],
+      "meaning": "aligned fixed-point band-energy and gap sensitivity only; not valley-location or effective-mass convergence"
+    },
+    "scf": {
+      "threshold": "conv_thr=1e-10 Ry",
+      "meaning": "inner QE estimated-energy criterion; exhausting electron_maxstep=100 is failure"
+    },
+    "four_corner": {
+      "rule": "I_q=|q(E+,K+)-q(E+,K*)-q(E*,K+)+q(E*,K*)|",
+      "meaning": "finite interaction inside one tested rectangle; not global separability"
+    }
+  },
+  "authorization_guard": {
+    "environment_variable": "KSD_PRODUCTION_CONVERGENCE_AUTHORIZATION",
+    "required_exact_value": "A-EXECUTE-COMMITTED-PRIMARY",
+    "unauthorized_exit_status": 77,
+    "current_value_recorded": null,
+    "purpose": "fail closed before path resolution, Git inspection, manifest validation, or pw.x invocation; parent may supply only after exact human Option A",
+    "additional_boundary_inputs": [
+      "KSD_BOUNDARY_COMMIT",
+      "KSD_REPOSITORY_ROOT",
+      "KSD_PRODUCTION_CONVERGENCE_ROOT",
+      "KSD_QE_PW_X"
+    ]
+  },
+  "runner": {
+    "sha256": "5a193e4f1d93ffc309b7bdf3f9727372da436633a3f2fd262ebb6bf4692dde37",
+    "byte_count": 4292,
+    "path": "calculations/bulk-silicon/production-convergence-preflight/run-primary.sh",
+    "execution_copy_agrees": true
+  },
+  "stopping_behavior": "The ordered campaign stops at the first pw.x nonzero exit or missing JOB DONE. marker and attempts no later invocation; pre-invocation identity or boundary failure also stops before pw.x."
+}

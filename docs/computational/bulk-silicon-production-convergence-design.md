@@ -1,291 +1,312 @@
 # Bulk-Silicon Production Convergence Design
 
-**Status:** Proposed work; Task
+**Status:** Proposed scientific work. Task
 [`bulk-silicon.production-reference.convergence`](../../harness/tasks/bulk-silicon.production-reference.convergence.json)
-is active in phase `awaiting_human_parameter_selection`. This page selects no
-numerical parameter and authorizes no calculation. The governing program is the
-[bulk-silicon production program](bulk-silicon-production-program.md).
+is active in phase `awaiting_execution_authorization`. Human Option B revised the
+candidate design; it did not accept a final cutoff, mesh, lattice parameter, or
+scientific result. No scientific executable was run. Automatic successor
+activation is false.
 
-## Frozen pseudopotential authority and preflight
+The prepared record is
+[`execution-preflight.json`](../../calculations/bulk-silicon/production-convergence-preflight/execution-preflight.json).
+All web sources below were accessed on **2026-08-13**. Literature values and
+mathematical estimates are planning evidence, not project calculations.
 
-The maintained
-[`NumericalSpecification-v1`](../../specification/ksdft2Effmass.numerical-specification.v1.md)
-freezes the following production identity; this Task does not select a family.
+## Authoritative context and artifact acquisition
 
-| Field | Frozen or observed value |
+The design starts at `origin/dev` revision
+`7f2342ac07037549eb4351241ae1f5070a1d6b2c`. The frozen production artifact is
+not the closed LDA tutorial artifact.
+
+| Field | Verified production value |
 |---|---|
-| Family / table | PseudoDojo PBE standard table, `nc-sr-04_pbe_standard` |
-| Exchange--correlation | PBE GGA |
-| Element | Si |
-| Type | Optimized norm-conserving Vanderbilt; NC |
-| Relativistic treatment | Scalar relativistic; production bulk branch is non-SOC |
-| Valence | 4 electrons, Si $3s^2 3p^2$, frozen core |
-| Upstream release | PseudoDojo `1.0` |
-| Canonical source | `https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/Si.upf.gz` |
-| Canonical files | distributed `Si.upf.gz`; decompressed QE input `Si.upf` |
-| Expected SHA-256 | compressed: `bfbd01ccd4b67584dcf19a490a76e9b688c25026775ce2f4a4b6a13f900dad81`; decompressed: `39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282` |
-| Authoritative cutoff hints | normal 18 Ha = 36 Ry; high 24 Ha = 48 Ry for `ecutwfc` |
-| License | Not recorded in the maintained v1 specification; exact upstream grant and attribution must be verified during preflight before use or redistribution |
-| QE expectation | Decompressed UPF must be readable by the selected `pw.x`; its declared element, XC, NC form, valence, and scalar-relativistic metadata must agree with this table |
-| Wannier90 expectation | Wannier90 does not consume the UPF directly. Compatibility is inherited through outputs from the same accepted QE installation; `pw.x` and `pw2wannier90.x` must share an installation and a later interface smoke test must pass. |
-| Local availability | Neither canonical filename was found in the repository or the bounded standard project/data/cache locations inspected for this design; no production bytes were identity-verified |
+| URL | `https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/Si.upf.gz` |
+| Installed location | `~/opt/pseudodojo/1.0/pbe/nc-sr-04-standard/Si/` through the `user_opt` store |
+| Compressed identity | `Si.upf.gz`, 61,592 bytes, SHA-256 `bfbd01ccd4b67584dcf19a490a76e9b688c25026775ce2f4a4b6a13f900dad81` |
+| Decompressed identity | `Si.upf`, 225,602 bytes, SHA-256 `39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282` |
+| Metadata | UPF 2.0.1; ONCVPSP 3.3.0; PBE; norm-conserving; scalar-relativistic; four valence electrons |
+| PseudoDojo hints | low/normal/high = 14/18/24 Ha = 28/36/48 Ry |
 
-The preflight order is: observe an explicitly supplied local path without
-changing it; compute compressed and, after controlled decompression, decompressed
-SHA-256; compare both exact digests; parse the UPF metadata; record file size and
-license/citation evidence; identify `pw.x` and `pw2wannier90.x`; then check format
-compatibility without starting a scientific calculation. A missing file,
-license record, digest match, or metadata match stops preflight. No same-named
-file supplies authority.
+Both identities were recomputed after same-filesystem staged atomic publication.
+The installed portable authority is:
 
-These categories are not interchangeable:
-
-```text
-authority metadata
-≠ local availability
-≠ byte-identity verification
-≠ scientific validation
+```json
+{
+  "store": "user_opt",
+  "relative_path": "pseudodojo/1.0/pbe/nc-sr-04-standard/Si/Si.upf",
+  "version": "1.0",
+  "sha256": "39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282"
+}
 ```
 
-The exact expected SHA-256 values are frozen, so there is no digest-authority
-defect. The missing maintained license statement is a provenance/compatibility
-item to resolve from identified upstream evidence, not permission to replace the
-artifact. The legacy tutorial `Si.pz-vbc.UPF` is LDA, nonrelativistic, and
-ineligible for production.
+`user_opt` resolves explicitly to canonical `~/opt`; traversal and symlink
+escape are rejected as specified by
+[`external-system-integration.md`](../architecture/external-system-integration.md).
+The old production-input location was removed after verifying that it contained
+no unrelated files. The campaign's `pseudo/Si.upf` has the same decompressed
+identity but is a verified execution copy, not authority. No pseudopotential
+bytes are committed.
 
-## Preliminary fixed structure
+The exact embedded text is:
 
-The only exact reusable silicon geometry retained by the repository is the QE
-example01 tutorial structure. The recommendation is to reuse its geometry only
-as a **provisional fixed structure**, while replacing its LDA pseudopotential and
-numerical settings with the frozen production branch:
+```text
+While it is not required under the terms of the GNU GPL, it is
+suggested that you cite D. R. Hamann, Phys. Rev. B 88, 085117 (2013)
+in any publication using these pseudopotentials.
+```
 
-- conventional cubic lattice parameter $a_0=10.20$ bohr;
-- two-atom fcc primitive vectors, in Cartesian bohr,
+The embedded statement identifies `GNU GPL` but gives no exact version or SPDX
+identifier. No repository-level license declaration was found for the separate
+PseudoDojo data repository inspected during preflight. This record makes no
+legal conclusion: local execution use is prepared, while redistribution remains
+unauthorized. Cite PseudoDojo, DOI `10.1016/j.cpc.2018.01.012`, and ONCVPSP, DOI
+`10.1103/PhysRevB.88.085117`.
 
-  $$
-  \mathbf a_1=(-a_0/2,0,a_0/2),\quad
-  \mathbf a_2=(0,a_0/2,a_0/2),\quad
-  \mathbf a_3=(-a_0/2,a_0/2,0);
-  $$
+Static UPF inspection establishes metadata and byte identity, not readability by
+`pw.x`. The first authorized SCF invocation is the readability test.
+`pw2wannier90.x` compatibility remains later scope.
 
-- Si sites at $(0,0,0)$ and $(a_0/4,a_0/4,a_0/4)$ in the same Cartesian
-  convention; and
-- fixed cell and fixed ionic positions for every cutoff and mesh case.
+## Executable and workspace
 
-This value is tutorial geometry, not an experimental authority and not a
-preliminary PBE calculation. It is not the accepted equilibrium production
-lattice. The later zero-pressure PBE EOS Task owns that value.
+The executable was inspected without invocation:
 
-## Staged study
+| Field | Value |
+|---|---|
+| Portable path | `~/projects/q-e-qe-7.2/build/bin/pw.x` |
+| SHA-256 | `6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca` |
+| Accepted version | Quantum ESPRESSO PWSCF 7.2 |
+| File architecture | Mach-O 64-bit executable arm64 |
 
-### Stage 1 — controlled preliminary context
+QE 7.2's retained `PW/Doc/INPUT_PW.html` has SHA-256
+`766eed605095f9ff97d5a6ceaeed3daa4d691f22cf4b388883fa3ff02b1ade52`.
+The external run-root descriptor is
+`ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z`, with
+SHA-256 `9d84848b4abb0db89e70fa8f6af2dc5f94b122d9574397e60398986638b91bb5`
+over that exact UTF-8 descriptor. At execution it is supplied explicitly,
+canonicalized, and checked against that descriptor identity. Inputs,
+pseudopotential copy, outputs, and one scratch tree per unique SCF case are
+separated below that root.
 
-For all primary cases, hold fixed: the provisional structure; exact verified
-pseudopotential; non-spin-polarized, non-SOC PBE branch; `occupations='fixed'`
-with no smearing; `diagonalization='david'`; `mixing_mode='plain'`;
-`mixing_beta=0.7`; `electron_maxstep=100`; `conv_thr=1e-10 Ry`; symmetry and
-time-reversal enabled (`nosym=.false.`, `noinv=.false.`); one local process; and
-identical explicit FFT-related policy except for grids deterministically induced
-by the cutoffs. QE version, command, environment, and processor count are part
-of every identity.
+## Claim-to-evidence map
 
-### Stage 2 — wavefunction-cutoff scan
-
-The proposed source-backed sequence is the exact v1 example that brackets and
-extends the 36 Ry normal and 48 Ry high PseudoDojo hints:
-
-| Case | $E_{\mathrm{cut}}^\psi$ (Ry) | $E_{\mathrm{cut}}^\rho$ (Ry) | Ratio | SCF mesh |
-|---|---:|---:|---:|---|
-| C30 | 30 | 120 | 4 | $8\times8\times8$, shift $(1,1,1)$ |
-| C36 | 36 | 144 | 4 | $8\times8\times8$, shift $(1,1,1)$ |
-| C42 | 42 | 168 | 4 | $8\times8\times8$, shift $(1,1,1)$ |
-| C48 | 48 | 192 | 4 | $8\times8\times8$, shift $(1,1,1)$ |
-| C54 | 54 | 216 | 4 | $8\times8\times8$, shift $(1,1,1)$ |
-| C60 | 60 | 240 | 4 | $8\times8\times8$, shift $(1,1,1)$ |
-
-The $4:1$ rule is explicit and follows the frozen NC protocol. If density
-sensitivity controls acceptance, a later bounded refinement at fixed selected
-$E_{\mathrm{cut}}^\psi$ compares ratios 4, 6, and 8; it is not part of the
-initial six-case scan.
-
-### Stage 3 — SCF mesh scan
-
-After provisional cutoff selection, vary only the mesh:
-
-| Case | Dimensions | QE shifts | Symmetry | Irreducible count | High-symmetry content |
+| Decision | Candidate value | Evidence type | Source or derivation | Applicability | Limitation |
 |---|---|---|---|---|---|
-| K6 | $6\times6\times6$ | $(1,1,1)$ | space-group and time-reversal enabled | Record from exact QE reduction; not asserted before input/executable preflight | Shifted integration mesh; does not contain $\Gamma$ and is not a path or valley set |
-| K8 | $8\times8\times8$ | $(1,1,1)$ | same | same | same |
-| K10 | $10\times10\times10$ | $(1,1,1)$ | same | same | same |
-| K12 | $12\times12\times12$ | $(1,1,1)$ | same | same | same |
+| Production functional | PBE | Primary literature and frozen specification | Perdew, Burke, Ernzerhof, DOI `10.1103/PhysRevLett.77.3865`; PBE definition | Defines the approximate XC parent used consistently with the UPF | Does not establish agreement with experiment |
+| Pseudopotential method | PseudoDojo ONCV, exact identities above | Upstream metadata and primary literature | PseudoDojo FAQ/Si report; van Setten et al., DOI `10.1016/j.cpc.2018.01.012`; Hamann, DOI `10.1103/PhysRevB.88.085117` | Supports exact family metadata, ONCV construction, citations, and file-specific hints | Transferability and convergence for these observables remain to be tested |
+| Cutoff sequence | 30, 36, 42, 48, 54, 60 Ry | Upstream hint plus conventional finite bracketing | PseudoDojo FAQ says low is a starting point, normal a safe quick guess, and high a convergence-testing setting; exact Si hints are 28/36/48 Ry | Brackets and extends normal/high hints with 6 Ry spacing | No source proves either endpoint converged; sequence is finite and conventional |
+| Charge-density cutoff | `ecutrho=4*ecutwfc` | QE documentation | QE 7.2 `INPUT_PW`: default 4:1 and norm-conserving users should retain it; higher ratios may be tested for stress noise | Exact NC UPF and fixed-ratio primary scan | A later 4/6/8 ratio study is required if density/stress sensitivity controls |
+| SCF meshes | shifted even $6^3,8^3,10^3,12^3$ | Primary method and QE semantics | Monkhorst--Pack, DOI `10.1103/PhysRevB.13.5188`; QE `K_POINTS automatic` documentation | Systematic refinement of one consistent quadrature family | The exact sizes are conventional candidates; shifted even sets are not literally nested |
+| Preliminary mesh cutoff | 48 Ry | Upstream hint plus bounded reuse design | PseudoDojo high hint is 48 Ry; C48/K8 is reused | Gives an exact primary mesh series without claiming a final cutoff | Results may require repeating the mesh series at another selected cutoff |
+| Provisional geometry | `ibrav=2`, `celldm(1)=10.20` bohr, two Si at 0 and $(1/4,1/4,1/4)$ | Retained local execution input and QE lattice semantics | Accepted QE tutorial input; QE `ibrav=2` definition | Holds a reproducible diamond primitive geometry fixed during candidate scans | Illustrative provisional geometry, not a PBE equilibrium estimate |
+| Fixed occupations | no smearing | QE behavior and semiconductor context | QE `occupations='fixed'`; silicon band-edge sources Cardona--Pollak, DOI `10.1103/PhysRev.142.530`, and Jacoboni--Reggiani, DOI `10.1103/RevModPhys.55.645` | Closed-shell, non-spin-polarized primitive Si candidate | A calculation must still confirm insulating occupation behavior |
+| Davidson | `diagonalization='david'` | QE documentation | QE 7.2 `INPUT_PW`: Davidson iterative diagonalization | Numerical eigensolver held fixed | Algorithm choice, not scientific evidence; observed stability controls suitability |
+| Plain mixing | `mixing_mode='plain'` | QE documentation | QE 7.2 `INPUT_PW` mixing behavior | Numerical algorithm held fixed | Must be replaced or revised if observed SCF behavior is unstable |
+| Mixing amplitude | `mixing_beta=0.7` | QE documented default/convention | QE 7.2 `INPUT_PW` default for ordinary SCF | Conventional candidate matching retained tutorial practice | Default status is not production justification; observed stability is required |
+| Iteration ceiling | `electron_maxstep=100` | QE documentation | QE 7.2 `INPUT_PW` meaning | Failure ceiling preventing unbounded SCF iteration | Reaching it is failure, not convergence |
+| Inner criterion | `conv_thr=1e-10 Ry` | Mathematical allocation and QE semantics | QE defines estimated-energy convergence threshold; $10^{-10}$ Ry is far below $10^{-5}$ Ry/atom outer energy change for a two-atom cell | Candidate inner-solver numerical criterion | QE's reported estimate is code-specific; passing it does not prove outer convergence |
+| Processor count | one process | Operational reproducibility | Same executable/host retained tutorial measured one-process execution | Removes parallel decomposition as a campaign variable | Does not imply best performance |
+| Stress criterion | 0.05 kbar | Linear-elastic derivation and literature planning bracket | $|\delta a|/a\simeq|\delta P|/(3B)$; silicon $B=85$--105 GPa planning range from Haas et al., DOI `10.1103/PhysRevB.79.085104`, and McSkimin--Andreatch, DOI `10.1063/1.1702821` | Provisional pressure/stress planning criterion for later EOS sensitivity | Literature bracket is not the project PBE curvature; replace it with fitted $B$ |
+| Energy criterion | $10^{-5}$ Ry/atom | Internal contract plus finite-setting interpretation | `NumericalSpecification-v1`; compare adjacent retained settings and guards | Stability of the stated energy observable over tested candidates | Does not bound the infinite-basis error |
+| Fixed-point band/gap criterion | 1 meV | Internal downstream scale plus difference-error logic | Aligned fixed-point energies and shift-invariant gaps; $|\delta(E_c-E_v)|\le|\delta E_c|+|\delta E_v|$ | Sensitivity at $\Gamma$, X, and nominal $\Delta_{0.85}$ only | Does not locate the valley, establish the true indirect gap, or converge an effective mass |
+| Nominal $\Delta$ probe | `(0,0.85,0)` in `tpiba` | Silicon literature and QE coordinates | Cardona--Pollak; Jacoboni--Reggiani; QE `tpiba` definition | Reproducible sensitivity probe because `celldm(1)` is the conventional cubic $a$ and axes use QE fcc convention | Not a minimum search or curvature stencil |
+| Four-corner interaction | mixed absolute difference $I_q$ below | Factorial contrast | NIST/SEMATECH two-factor interaction definition, stable URL below | Detects finite cutoff--mesh interaction in one tested rectangle | Small interaction does not prove global separability |
+| EOS locator | $10^{-4}$ Å refinement target | Numerical-analysis boundary and EOS literature | Birch, DOI `10.1103/PhysRev.71.809`; Lejaeghere et al., DOI `10.1126/science.aad3000` | Later locator/grid refinement scale | Reported uncertainty must be no smaller than fit and numerical uncertainty |
+| Resource reservation | 10 min/SCF, 5 min/NSCF, 2 GiB RAM, 2 GiB disk | Retained local measurement plus transparent scaling | Accepted QE 7.2 tutorial: 0.11 s wall, 544 KiB post-run scratch, 18 Ry, shifted $4^3$-equivalent list; planning proxy $(60/18)^{3/2}(12/4)^3\approx164$ | Conservative one-process local reservation; `/usr/bin/time -l` records RSS | Not a measurement of proposed PBE/ONCV cases; symmetry, FFTs, iteration count, and eight-band NSCF alter scaling |
 
-All use fixed occupations and no smearing because the parent is an insulator.
-The shifts preserve a consistent even-grid Monkhorst--Pack family. Exact
-irreducible counts depend on the final cell representation and QE symmetry
-analysis and will be retained rather than guessed. The K8 case reuses the
-byte-identical selected-cutoff/K8 calculation from Stage 2; it is not rerun.
-The tutorial ten-point list is not reused.
+## Mathematical interpretation of criteria
 
-### Limited fixed-point band diagnostics
+### Pressure and EOS resolution
 
-Total energy is not sufficient for a program that depends on band edges. Each
-primary SCF case therefore has one lightweight, separately identified fixed-point
-NSCF diagnostic using its converged density at conventional reciprocal
-coordinates (units $2\pi/a_0$): $\Gamma=(0,0,0)$,
-$X=(0,1,0)$, and $\Delta_{0.85}=(0,0.85,0)$. Use `nbnd=8`; for this
-non-spin-polarized eight-valence-electron cell, ordered bands 1--4 are occupied
-and bands 5--8 are unoccupied. Retain bands 4 and 5 at all three points and align
-individual eigenvalues within each calculation as
-$\widetilde\epsilon_{n\mathbf k}=\epsilon_{n\mathbf k}-\epsilon_{4\Gamma}$.
-Retain direct probes $g_{\mathbf k}=\epsilon_{5\mathbf k}-\epsilon_{4\mathbf k}$
-at all three points and indirect probes
-$g_{\Gamma X}=\epsilon_{5X}-\epsilon_{4\Gamma}$ and
-$g_{\Gamma\Delta}=\epsilon_{5\Delta_{0.85}}-\epsilon_{4\Gamma}$. Record any
-ordering change or unresolved degeneracy as a warning rather than silently
-relabeling bands. $\Delta_{0.85}$ is only a reproducible sensitivity probe, not
-an accepted valley location. These three points are not a symmetry path, valley
-search, curvature stencil, or physical validation.
+For cubic hydrostatic strain, $V\propto a^3$ and
+$B=-V\,\partial P/\partial V$, so to first order
 
-### Stage 4 — coupling cross-check
+$$
+\frac{|\delta a|}{a}\approx\frac{|\delta P|}{3B}.
+$$
 
-After sequential provisional selections $(E_*,K_*)$, evaluate this bounded
-four-corner set when separately authorized:
+With $a\approx5.40$ Å from the provisional 10.20-bohr geometry and the planning
+range $B=85$--105 GPa, 0.1 kbar = 0.01 GPa gives
 
-1. baseline $(E_*,K_*)$;
-2. denser-mesh guard $(E_*,K_+)$;
-3. higher-cutoff guard $(E_+,K_*)$; and
-4. mixed corner $(E_+,K_+)$.
+$$
+|\delta a|\approx 5.40\ \text{Å}\frac{0.01}{3(85\text{--}105)}
+=(1.7\text{--}2.1)\times10^{-4}\ \text{Å}.
+$$
 
-The interaction diagnostic for each scalar observable $q$ is
+That is inconsistent with a nominal $10^{-4}$ Å EOS locator target. The revised
+0.05-kbar criterion gives approximately $(0.86$--$1.06)\times10^{-4}$ Å and is
+therefore a provisional planning criterion. The later EOS fit replaces the
+literature $B$ bracket with its fitted PBE curvature.
+
+The $10^{-4}$ Å value is only an EOS refinement target. Any lattice claim must
+use
+
+$$
+\max\!\left(10^{-4}\ \text{Å},\sigma_{a,\mathrm{fit}},
+\sigma_{a,\mathrm{numerical}}\right)
+$$
+
+or a more conservative explicitly justified combined uncertainty. Dense output
+or optimizer precision does not establish physical or numerical knowledge at
+that scale.
+
+### Finite-setting stability
+
+For any retained observable,
+
+$$
+|q_j-q_{j+1}|\le\tau
+$$
+
+demonstrates stability only between two finite settings. It does not bound
+
+$$
+|q_j-q_\infty|
+$$
+
+without an asymptotic error model, monotonicity result, variational argument, or
+higher-resolution evidence. Results must therefore be phrased as observed
+stability over the tested domain. Even shifted Monkhorst--Pack meshes are
+systematically refined but are not literally nested point sets, so nonmonotone
+quadrature changes remain possible.
+
+### Fixed-point energies versus effective mass
+
+The 1-meV criterion is retained only for aligned fixed-point band energies and
+fixed-point gaps. It does not establish effective-mass convergence. For
+
+$$
+\frac{\partial^2E}{\partial k_i^2}\approx
+\frac{E(\mathbf k_0+h\hat{\mathbf e}_i)-2E(\mathbf k_0)+
+E(\mathbf k_0-h\hat{\mathbf e}_i)}{h^2},
+\qquad
+(m^{-1})_{ii}=\frac{1}{\hbar^2}\frac{\partial^2E}{\partial k_i^2},
+$$
+
+pointwise errors bounded by $\varepsilon_E$ imply the worst-case amplification
+
+$$
+|\delta E''|\lesssim\frac{4\varepsilon_E}{h^2}.
+$$
+
+Mass convergence therefore requires joint selection of $h$, stencil or fit,
+energy-error scale, fit window, and conditioning assessment. Task
+`bulk-silicon.band-edge-characterization.effective-mass-analysis` owns that
+later decision.
+
+### Cutoff--mesh interaction
+
+After $E_*$ and $K_*$ are known, define next-higher guards $E_+$ and $K_+$ and
 
 $$
 I_q=\left|q(E_+,K_+)-q(E_+,K_*)-q(E_*,K_+)+q(E_*,K_*)\right|.
 $$
 
-If a selected value is already the highest primary candidate, propose one
-explicitly higher guard before execution rather than extrapolating. Any corner
-that is byte-identical to a retained primary case is reused, not rerun. Both
-one-axis changes at the higher opposite-axis setting must meet the applicable
-observable criterion, and $I_q$ must not exceed that same absolute criterion.
-A material failure triggers a human-reviewed expanded design; it does not
-automatically trigger a full cutoff-by-mesh grid.
+This is the finite two-factor interaction within the tested rectangle. It must
+be evaluated for each consequential observable. A small $I_q$ does not establish
+global separability or an infinite-setting bound. Only parameterized templates
+are prepared now; no four-corner runnable input exists before the four settings
+are determined.
 
-### Stage 5 — EOS feedback
+## Prepared primary matrix
 
-```text
-provisional structure
-→ convergence settings
-→ EOS/lattice refinement
-→ convergence recheck if material
+All cases use the provisional 10.20-bohr geometry, exact Si UPF, PBE,
+`ecutrho=4*ecutwfc`, fixed occupations, one process, Davidson, plain mixing,
+`mixing_beta=0.7`, `electron_maxstep=100`, `conv_thr=1e-10 Ry`, and QE symmetry
+and time reversal. Every primary SCF has a linked three-point, eight-band NSCF
+at $\Gamma$, X, and nominal $\Delta_{0.85}$.
+
+| Series | Cases | Fixed setting | Reuse |
+|---|---|---|---|
+| Cutoff | C30, C36, C42, C48, C54, C60 | shifted $8^3$ mesh | none within series |
+| Mesh | K6, K8, K10, K12 | 48 Ry wavefunction cutoff | K8 is exactly C48 and is not rerun |
+
+The prepared campaign therefore has **9 unique SCFs + 9 unique NSCFs = 18
+`pw.x` invocations**, rather than 10 + 10. The finite sequences establish no
+result until run and analyzed. If the cutoff evidence does not support using 48
+Ry for the mesh study, execution must stop and return to Option B rather than
+silently changing inputs.
+
+Prepared repository paths are under
+`calculations/bulk-silicon/production-convergence-preflight/inputs/`.
+`K8.reuse.txt` records deterministic reuse. Parameterized, non-runnable later
+four-corner templates are under `templates/`.
+
+## Commands, outputs, and resources
+
+The exact proposed command is:
+
+```bash
+KSD_PRODUCTION_CONVERGENCE_AUTHORIZATION='A-EXECUTE-COMMITTED-PRIMARY' \
+KSD_BOUNDARY_COMMIT='<reported boundary commit>' \
+KSD_REPOSITORY_ROOT='<clean checkout at that commit>' \
+KSD_PRODUCTION_CONVERGENCE_ROOT="$HOME/projects/ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z" \
+KSD_QE_PW_X="$HOME/projects/q-e-qe-7.2/build/bin/pw.x" \
+  "$KSD_PRODUCTION_CONVERGENCE_ROOT/run-primary.sh"
 ```
 
-The EOS Task uses settings at least as strict as those provisionally accepted
-for energy and stress. If its finalized lattice constant differs from the
-provisional value by more than $10^{-4}$ Å, it repeats the selected case and the
-three nonbaseline corners at the finalized geometry; this prospective trigger
-uses the frozen lattice-refinement scale and does not wait for a convergence
-failure to be observed. The EOS Task must also bound setting-induced equilibrium-
-lattice sensitivity to $10^{-4}$ Å or the larger fitted uncertainty, using guard
-EOS fits or a documented pressure-to-lattice bound based on the fitted curvature.
-Cutoff, mesh, and lattice convergence are coupled numerical questions, not
-independent certificates.
+The script first fails with exit 77 unless the exact authorization token shown
+above is supplied after a human Option A. It then requires the reported boundary
+commit at both `HEAD` and `origin/dev`, a clean checkout, byte equality between
+the executing runner and committed runner, canonical portable paths, installed
+and run-copy pseudopotential identities, executable identity without a version
+probe, run-root identity, and the ordered input manifest. It invokes the explicit
+executable once per unique SCF and once per linked NSCF, preserves each SCF
+native state, copies only that case's `.save` tree to an isolated `-diagnostic`
+scratch directory before NSCF mutation, captures stdout separately, captures
+`/usr/bin/time -l` plus stderr, and requires `JOB DONE.`. On the first nonzero
+invocation or missing `JOB DONE.`, it exits immediately and attempts no later
+invocation. It performs no four-corner calculation. The script has passed
+`bash -n`; it has not been run.
 
-## Monitored observables and records
+Expected outputs per case are stdout, time/stderr, QEXSD, charge density, and
+wavefunctions/restart state under the case-specific external scratch directory.
+Compact post-execution records must retain iteration count, final QE estimated
+accuracy, total energy/atom, full stress and pressure convention, fixed-point
+bands/gaps, warnings, elapsed time, peak RSS, and disk use.
 
-For every SCF candidate retain calculation identity; total energy per atom;
-difference from the highest-resolution retained candidate; hydrostatic pressure
-$P=-\operatorname{tr}(\boldsymbol\sigma)/3$ and maximum absolute stress-component
-difference; SCF iteration count; final code-reported estimated SCF accuracy and
-its exact QE definition/unit; wall time; peak or final disk use when observable;
-all warnings; and the fixed-point diagnostic eigenvalues/gaps above. Retain raw
-stress tensor and sign convention so pressure is reproducible.
-
-The diagnostic NSCF is linked to its source density and records eigenvalue unit,
-spin convention, coordinates, reciprocal basis, band labels, and energy
-alignment. No full path or valley calculation is embedded in the scan.
-
-## Proposed convergence criteria
-
-For an observable $q_j$ and retained highest-resolution reference
-$q_{\mathrm{ref}}$,
+Retained local baseline evidence is the accepted one-process QE 7.2 tutorial
+SCF: 0.11 s code-reported wall, six iterations, and 544 KiB post-run scratch at
+18 Ry with a shifted $4^3$-equivalent ten-point irreducible list. A transparent
+largest-case proxy is
 
 $$
-\Delta q_j=|q_j-q_{\mathrm{ref}}|.
+(60/18)^{3/2}(12/4)^3\approx164,
 $$
 
-This is a finite internal diagnostic, not evidence of the infinite-basis limit.
-The primary frozen energy and band rules compare a candidate with the next finer
-retained setting; the highest retained candidate acts as a guard.
+using plane-wave count $\propto E_\mathrm{cut}^{3/2}$ and full-grid count
+$\propto N^3$. It is not a benchmark law. Plan 0.5--2 minutes for a largest SCF,
+below 1 minute for a diagnostic, and below 30 minutes for the campaign; reserve
+10 minutes per SCF, 5 minutes per NSCF, 2.25 hours total, 2 GiB peak RSS, and
+2 GiB total external storage. Peak baseline RSS was not retained, so 2 GiB is a
+conservative operational reservation, not a measured prediction. The script
+records peak RSS for every future invocation.
 
-| Observable | Mathematical rule and units | Reference and type | Scope / rationale |
+## Bibliography and exact claim boundary
+
+| Source | Stable identity | Supported claim | Limitation |
 |---|---|---|---|
-| Energy per atom | $|E_j/N_{\rm Si}-E_{j+1}/N_{\rm Si}|\le10^{-5}$ Ry/atom and the selected case agrees with the retained guard at the same absolute tolerance | Next finer setting; absolute | Frozen `NumericalSpecification-v1`; numerical stability only |
-| Pressure / stress | $|P_j-P_{\rm ref}|\le0.1$ kbar and $\max_{ab}|\sigma_{ab,j}-\sigma_{ab,\rm ref}|\le0.1$ kbar | Highest retained setting; absolute | Proposed engineering criterion aligned with later stress-sensitive EOS work; not a pressure-accuracy validation claim |
-| Fixed diagnostic eigenvalue | for $n\in\{4,5\}$ and the three declared points, $\max|\widetilde\epsilon_{n\mathbf k,j}-\widetilde\epsilon_{n\mathbf k,\rm ref}|\le1$ meV | Highest retained setting; absolute after per-calculation $\epsilon_{4\Gamma}$ alignment | Proposed use of the specification's 1 meV band-energy scale for limited probes; not a full-band criterion |
-| Fixed diagnostic gap | $|g_j-g_{\rm ref}|\le1$ meV for each of $g_\Gamma,g_X,g_{\Delta_{0.85}},g_{\Gamma X},g_{\Gamma\Delta}$ | Highest retained setting; absolute; gaps are shift-invariant | Consistent with the frozen indirect-gap numerical scale but does not establish the true indirect gap |
-| SCF residual | final QE-reported estimated SCF accuracy $\le10^{-10}$ Ry and `conv_thr=1e-10 Ry` reached without exhausting `electron_maxstep` | Fixed zero target; absolute | Inner-solver error is kept well below outer energy and meV diagnostics; exact code quantity is retained |
-| Any retained band-edge quantity | absolute change $\le1$ meV for energies; no valley position or effective mass is accepted in this Task | Highest retained setting; absolute | Prevents total-energy-only acceptance without converting later gap/mass targets into cutoff tolerances |
+| PseudoDojo FAQ | `https://www.pseudo-dojo.org/faq.html` | Hint units and qualitative low/normal/high meanings; required citations | Hints are not calculation-specific convergence |
+| PseudoDojo Si report | `https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/Si.html` | Exact Si generator input/report context | HTML report does not establish QE 7.2 readability |
+| PseudoDojo paper | DOI `10.1016/j.cpc.2018.01.012` | Library methodology, grading, citation | Library validation is not project-observable convergence |
+| Hamann (2013) | DOI `10.1103/PhysRevB.88.085117` | ONCV construction and plane-wave optimization method | Does not select this campaign's final cutoff |
+| QE input documentation | `https://www.quantum-espresso.org/Doc/INPUT_PW.html`; pinned local QE 7.2 copy identified above | Input semantics, defaults, algorithms, units | Online page is currently 7.5; pinned 7.2 local copy controls executable-specific semantics |
+| Giannozzi et al. | DOI `10.1088/0953-8984/21/39/395502`; DOI `10.1088/1361-648X/aad1d0` | QE method and software context | Papers do not justify project-specific convergence settings |
+| Monkhorst--Pack (1976) | DOI `10.1103/PhysRevB.13.5188` | Uniform special-point construction | Does not endorse $6^3$--$12^3$ for this case |
+| Haas et al. (2009) | DOI `10.1103/PhysRevB.79.085104` | PBE solid structural/bulk-modulus scale | Different computational details; planning bracket only |
+| McSkimin--Andreatch (1964) | DOI `10.1063/1.1702821` | Experimental silicon elastic scale | Experiment is not fitted PBE EOS curvature |
+| Cardona--Pollak (1966) | DOI `10.1103/PhysRev.142.530` | Silicon $\Delta$ conduction-valley context | Conventional valley location is not a PBE result |
+| Jacoboni--Reggiani (1983) | DOI `10.1103/RevModPhys.55.645` | Six-valley silicon band-edge context | Transport review does not define this numerical scan |
+| Birch (1947) | DOI `10.1103/PhysRev.71.809` | Finite-strain/EOS relations | EOS form is not an uncertainty estimate |
+| Lejaeghere et al. (2016) | DOI `10.1126/science.aad3000` | Whole-EOS numerical reproducibility context | Code-comparison protocol is not a $10^{-4}$ Å accuracy guarantee |
+| NIST/SEMATECH factorial design | `https://www.itl.nist.gov/div898/handbook/pri/section3/pri333.htm` | Two-factor interaction contrast | One rectangle cannot prove global separability |
 
-All criteria must pass for both cross-checks. Relative criteria are not used
-where a quantity may cross zero. Project effective-mass, valley-position, and
-parent-model gap targets remain separate and are not silently converted into
-cutoff tolerances.
+## Ending boundary and human decision
 
-## Planned diagnostic outputs
+No pseudopotential is redistributed, no `pw.x` invocation occurred, no final
+parameter or scientific result is accepted, no checkpoint is created, and no
+successor is activated. The Task remains active with automatic successor
+activation false.
 
-The Task will later produce, but does not now implement:
-
-1. total-energy difference per atom versus $E_{\mathrm{cut}}^\psi$;
-2. pressure and stress summary versus $E_{\mathrm{cut}}^\psi$;
-3. fixed diagnostic eigenvalue differences versus cutoff;
-4. total-energy difference per atom versus SCF mesh density ($n^3$ and dimensions stated);
-5. pressure and stress summary versus mesh density;
-6. fixed diagnostic eigenvalue differences versus mesh density;
-7. SCF iterations and wall time versus numerical resolution; and
-8. a compact table marking provisional settings and cross-checks.
-
-Every plot identifies source calculations, axes and units, comparison reference,
-and accepted criterion when one exists. Captions state “numerical convergence
-diagnostic” and make no physical-validation claim.
-
-## Human decision table
-
-No row is normalized until the human responds.
-
-| Decision | Candidate values | Recommendation | Consequence |
-|---|---|---|---|
-| Frozen pseudopotential identity | Exact maintained authority table above; no alternative family | Use only that identity if both digests, metadata, license evidence, and compatibility preflight are complete; otherwise stop | Determines all production calculations |
-| Preliminary lattice | Repository-supported tutorial diamond geometry: $a_0=10.20$ bohr; or a separately identified human-supplied preliminary PBE value | Tutorial geometry, explicitly provisional | Fixed cell/ions during convergence; not final EOS acceptance |
-| $E_{\mathrm{cut}}^\psi$ trial set | `30, 36, 42, 48, 54, 60 Ry`; revise only with source-backed reason | Use the six-value ordered set | Six primary cutoff SCFs plus diagnostics |
-| $E_{\mathrm{cut}}^\rho$ rule | ratios 4; or 4, 6, 8 refinement if density sensitivity controls | Start at 4 explicitly | Six primary values; optional bounded ratio refinement only if triggered |
-| Preliminary SCF mesh | $8\times8\times8$ shift $(1,1,1)$; alternatives from the mesh sequence | $8\times8\times8$ shift $(1,1,1)$ | Held fixed during cutoff scan |
-| SCF mesh sequence | $6^3,8^3,10^3,12^3$, all shift $(1,1,1)$; revised explicitly shifted or Gamma-centered family | Use the four shifted meshes | Three additional mesh SCFs plus diagnostics; reuse the Stage-2 K8 case |
-| Occupation policy | fixed occupations/no smearing; or a separately justified smearing branch | Fixed occupations/no smearing | Insulating parent; avoids an added smearing axis |
-| SCF threshold | `1e-10 Ry` or `1e-12 Ry` with the same max-step rule | `1e-10 Ry` | Inner-solver cost and residual floor |
-| Monitored observables | Full list above; or human-specified additions without embedding path/valley studies | Full list including three fixed-point probes | Defines retained convergence evidence |
-| Convergence criteria | Per-observable table above; human may revise named values/rationale | Use the proposed table | Numerical acceptance boundary only |
-| Cross-check cases | Four corners $(E_*,K_*)$, $(E_*,K_+)$, $(E_+,K_*)$, $(E_+,K_+)$; expanded grid only after material coupling | Use the bounded four-corner check and mixed-difference diagnostic | Zero to two additional SCFs plus diagnostics after exact-case reuse |
-| Resource ceiling | One local process; at most 2 GiB peak RSS; at most 30 min and 0.25 GiB new disk per SCF, 10 min and 0.05 GiB per diagnostic; at most 8 process-hours and 2 GiB retained scratch for at most 11 unique SCF/diagnostic pairs; stop before exceeding | Use this conservative primitive-cell ceiling, subject to executable-preflight timing/memory estimate and scratch-retention confirmation | Protected execution limit; no execution is authorized by accepting design |
-
-## Execution exclusions and claim limits
-
-This design runs no QE or Wannier90 executable, downloads no pseudopotential,
-modifies no external artifact, and implements no plotting or analysis code. It
-selects no final parameter, accepts no EOS lattice, activates no SCF successor,
-and creates no checkpoint. Human acceptance of the design authorizes only the
-explicit preflight option below; calculation execution still requires a new
-exact protected-execution authorization after executable, inputs, scale,
-outputs, runtime, and resources are reported.
-
-The possible response is:
-
-- **A — Accept the recommended convergence design and authorize execution preflight only.**
-- **B — Revise specified parameters or criteria.**
-- **C — Defer production convergence.**
-
-Agreement among retained calculations would establish only numerical stability
-for the stated PBE Kohn--Sham parent, provisional geometry, observables, and
-finite tested domain. It would not establish an infinite-basis result,
-scientific validation, experimental agreement, valley curvature, effective
-masses, Wannier fidelity, or reduction accuracy.
+- **A — Execute exactly the prepared primary cutoff and mesh convergence campaign.**
+- **B — Revise specified inputs, criteria, or resource limits.**
+- **C — Defer execution.**

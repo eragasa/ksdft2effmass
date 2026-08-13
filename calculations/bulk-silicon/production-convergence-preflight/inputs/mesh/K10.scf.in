@@ -1,0 +1,41 @@
+&CONTROL
+  calculation = 'scf'
+  title = 'candidate bulk Si PBE ONCV convergence K10'
+  restart_mode = 'from_scratch'
+  prefix = 'si_K10'
+  pseudo_dir = './pseudo/'
+  outdir = './scratch/K10/'
+  disk_io = 'low'
+  tstress = .true.
+  tprnfor = .false.
+/
+&SYSTEM
+  ibrav = 2
+  celldm(1) = 10.20
+  nat = 2
+  ntyp = 1
+  nbnd = 4
+  ecutwfc = 48.0
+  ecutrho = 192.0
+  occupations = 'fixed'
+  input_dft = 'PBE'
+  nspin = 1
+  noncolin = .false.
+  lspinorb = .false.
+  nosym = .false.
+  noinv = .false.
+/
+&ELECTRONS
+  electron_maxstep = 100
+  conv_thr = 1.0d-10
+  mixing_mode = 'plain'
+  mixing_beta = 0.7
+  diagonalization = 'david'
+/
+ATOMIC_SPECIES
+  Si 28.0855 Si.upf
+ATOMIC_POSITIONS alat
+  Si 0.00 0.00 0.00
+  Si 0.25 0.25 0.25
+K_POINTS automatic
+  10 10 10 1 1 1
