@@ -33,9 +33,10 @@ accepted tutorial SCF state
 → inactive production design
 ```
 
-The production program now owns the separate pseudopotential, convergence,
-lattice, SCF, modern-path, local-valley, uniform-Wannier, DOS, analysis,
-visualization, and acceptance boundaries.
+The production program now owns convergence with pseudopotential identity and
+compatibility preflight, followed by separate lattice, SCF, modern-path,
+local-valley, uniform-Wannier, DOS, analysis, visualization, and acceptance
+boundaries.
 
 ## Information flow
 

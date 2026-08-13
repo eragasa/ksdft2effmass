@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a complete inactive bulk-silicon production-reference, band-edge, Wannier, visualization, and semiconductor-property plan. Accepted tutorial Tasks remain closed under their bounded claims. No Task is active; scientific/external/protected execution, publication, and release remain unauthorized.",
-  "status": "bulk_silicon_production_program_planned_no_task_active",
-  "active_task": null,
+  "description": "Simulation-first computational bootstrap followed by a bulk-silicon production program. Accepted tutorial Tasks remain closed under their bounded claims. Exactly the production convergence Task is active for human parameter-selection design; scientific/external/protected execution, publication, and release remain unauthorized.",
+  "status": "bulk_silicon_production_convergence_awaiting_human_parameter_selection",
+  "active_task": "bulk-silicon.production-reference.convergence",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -77,10 +77,6 @@
     {
       "id": "bulk-silicon.production-reference",
       "record": "harness/tasks/bulk-silicon.production-reference.json"
-    },
-    {
-      "id": "bulk-silicon.production-reference.pseudopotential-selection",
-      "record": "harness/tasks/bulk-silicon.production-reference.pseudopotential-selection.json"
     },
     {
       "id": "bulk-silicon.production-reference.convergence",
@@ -369,10 +365,15 @@
     {
       "phase": "bulk-silicon-production-program-planned-inactive",
       "message": "The accepted tutorial SCF, artifact-inventory, QEXSD-extraction, and band-reference Tasks remain closed under their bounded claims. Four cohesive production parents and sixteen scientifically meaningful children now plan the production reference, band-edge characterization, Wannier reference, visualizations, and semiconductor properties. Tutorial Wannier bridge/extraction identities are superseded; direct fitting and comparison identities are corrected to production prerequisites. All new work is inactive or blocked, active_task is null, automatic successor activation is false, and no calculation, checkpoint, successor, or protected action is authorized."
+    },
+    {
+      "phase": "bulk-silicon-production-convergence-awaiting-human-parameter-selection",
+      "message": "The never-activated standalone pseudopotential-selection planning Task was removed because NumericalSpecification-v1 already freezes the exact Si authority. Identity, license, byte, and QE/interface compatibility checks are now convergence preflight. Exactly bulk-silicon.production-reference.convergence is active for design in awaiting_human_parameter_selection; automatic successor activation remains false. No checkpoint was created, no pseudopotential was downloaded, and no scientific executable or successor was run or activated."
     }
   ],
   "explicitly_activated_task_ids": [
     "bulk-silicon.artifacts.qe.inventory",
+    "bulk-silicon.production-reference.convergence",
     "bulk-silicon.records.periodic.extraction",
     "bulk-silicon.simulation.qe.band-reference",
     "bulk-silicon.simulation.qe.reference"

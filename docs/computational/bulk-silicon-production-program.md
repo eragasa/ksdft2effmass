@@ -1,9 +1,10 @@
 # Bulk-Silicon Production, Visualization, and Semiconductor-Property Program
 
-**Status:** Planning only. Every Task in this program is inactive or blocked.
-This page authorizes no Quantum ESPRESSO, Wannier90, post-processing, DFPT,
-phonon, external, or scientific execution and selects no new production
-parameter or acceptance tolerance.
+**Status:** Planning with exactly
+`bulk-silicon.production-reference.convergence` active for design in phase
+`awaiting_human_parameter_selection`. This page authorizes no Quantum ESPRESSO,
+Wannier90, post-processing, DFPT, phonon, external, or scientific execution and
+selects no final production parameter or acceptance tolerance.
 
 ## Scientific objective
 
@@ -38,10 +39,10 @@ PBE-relaxed lattice convention, and numerical protocols and tolerances. This
 planning page does not revise those contracts. The older
 [pseudopotential-library strategy](pseudopotential-library-strategy.md) names
 SSSP as a preferred candidate; that recommendation is non-authoritative. The
-production pseudopotential Task deterministically confirms the frozen v1
-artifact and provenance. A no-download candidate-family metadata comparison may
-only identify whether a separately authorized specification revision should be
-considered; it cannot silently override or replace the frozen artifact.
+active convergence Task begins with deterministic identity, license,
+byte-identity, and compatibility preflight against that frozen artifact. No
+family-selection lifecycle boundary remains, and contrary preflight evidence
+stops production rather than selecting or substituting another artifact.
 
 Four canonical Tasks are closed as `closed_human_accepted_pass`:
 
@@ -87,8 +88,7 @@ Visualizations remain deliverables of calculation or analysis Tasks.
 
 ```text
 bulk-silicon.production-reference
-├── pseudopotential-selection
-├── convergence
+├── convergence (pseudopotential preflight, cutoff, and SCF mesh)
 ├── lattice-reference
 └── scf
 
@@ -122,9 +122,9 @@ Current identities are reconciled as follows:
 | `bulk-silicon.tight-binding.wannier.extraction` | Superseded by `bulk-silicon.wannier-reference.localization` | The old identity reproduces a tutorial; the production Task constructs candidates from the accepted parent. |
 | `bulk-silicon.workflow.extracted-model-verification` | Retained blocked as tutorial workflow verification | Its software-workflow claim remains distinct from G02--G04 scientific acceptance. |
 
-All new records require explicit activation. Protected calculation records also
-require a separate exact execution authorization. No static graph edge implies
-automatic activation.
+All new records require explicit activation. Exactly the convergence record is
+active for design; protected execution still requires a separate exact
+authorization. No static graph edge implies automatic activation.
 
 ## Catalog A — production calculations and analyses
 
@@ -132,55 +132,35 @@ Each Task below has a canonical JSON record under `harness/tasks/`. “Compact
 record” excludes large wavefunctions, densities, and restart trees, which remain
 external under checksummed manifests.
 
-### A1. Production pseudopotential authority confirmation
-
-- **Task:** `bulk-silicon.production-reference.pseudopotential-selection`
-- **Kind / priority:** deterministic analysis; essential.
-- **Question and objective:** do the exact artifact, provenance, license, and
-  compatibility evidence agree with the PBE/PseudoDojo ONCV Si authority
-  already frozen by the accepted v1 specifications?
-- **Prerequisites and inputs:** accepted physical/numerical specifications,
-  tutorial pseudopotential provenance, strategy note, P91 methodology, and any
-  identified candidate-family metadata supplied under separate authority.
-- **Controlled confirmation:** XC compatibility; ONCV norm-conserving form;
-  scalar-relativistic treatment; valence; nonlinear-core-correction status;
-  cutoff guidance; provenance; license/citation; QE/Wannier compatibility; and
-  later dopant-family requirements.
-- **Non-authoritative comparison:** without downloading or selecting anything,
-  candidate metadata may record differences among NC, ultrasoft, PAW,
-  scalar-relativistic, and fully relativistic families only to determine
-  whether a separately authorized specification-revision decision is needed.
-- **External artifacts:** none in planning; a later activated confirmation uses
-  the already identified v1 artifact and explicitly supplied metadata.
-- **Compact/deterministic outputs:** exact identity/license/citation record,
-  compatibility matrix, discrepancy report, and confirmation rationale.
-- **Human decision:** accept or reject confirmation against v1. Contrary
-  evidence stops production; it does not select an alternative inside this
-  Task. The legacy `Si.pz-vbc.UPF` remains tutorial-only.
-- **Completion:** exact v1 authority is confirmed and accepted, or production
-  remains blocked with the discrepancy recorded.
-- **Exclusions and claim limits:** no download, installation, substitution,
-  family selection/ranking as validation, or inference of P/B choices.
-
-### A2--A3. Plane-wave and Brillouin-zone convergence
+### A1--A3. Pseudopotential preflight and plane-wave/Brillouin-zone convergence
 
 - **Task:** `bulk-silicon.production-reference.convergence`
 - **Kind / priority:** calculation series plus numerical verification; essential.
-- **Prerequisite:** accepted production pseudopotential authority.
-- **Inputs:** accepted physical branch, trial geometry, exact pseudopotential,
-  frozen numerical protocols, environment, and declared metrics.
+- **Preflight:** verify local availability, both frozen SHA-256 identities,
+  declared XC/type/relativity/valence metadata, license evidence, QE readability,
+  and later QE--Wannier90 interface expectations. Missing or discrepant evidence
+  stops execution; no artifact is downloaded or selected here.
+- **Inputs:** accepted physical branch, provisional fixed geometry, exact frozen
+  pseudopotential authority, frozen numerical protocols, environment, and
+  declared metrics. See the active
+  [convergence design](bulk-silicon-production-convergence-design.md).
 - **Controls:** $E_{\mathrm{cut}}^{\psi}$; when applicable
   $E_{\mathrm{cut}}^{\rho}$ and their ratio; uniform Monkhorst--Pack size,
   offset, occupation, and fixed one-variable-at-a-time context.
-- **Monitored quantities:** total energy per atom, stress/pressure, lattice
-  response, indirect Kohn--Sham gap, valley position, selected band-edge
-  eigenvalues, and electron masses where required by the accepted protocol.
+- **Monitored quantities:** total energy per atom, stress/pressure, SCF
+  convergence/cost, and explicitly limited fixed-point eigenvalue and gap
+  diagnostics. Later path, valley, and mass Tasks own their sampling and must
+  feed any cutoff/mesh sensitivity failure back before final parent acceptance.
 - **Artifacts and records:** per-setting QEXSD/native outputs and restart trees;
   compact manifests, convergence tables, rejected settings, guard calculations,
   residuals, and cutoff/mesh figures.
 - **Human decisions:** any revision to the frozen sequences, observables,
   tolerances, or setting disposition.
-- **Completion:** every relevant observable passes its accepted numerical rule;
+- **Completion:** every declared provisional energy, stress, SCF, and fixed-point
+  diagnostic plus the bounded four-corner cutoff--mesh check passes its accepted
+  numerical rule; one bounded human acceptance selects provisional settings.
+  Final production-reference acceptance additionally requires later target gap,
+  valley, and mass Tasks to return any material sensitivity for bounded recheck;
   cutoff, SCF mesh, path, local, DOS, and Wannier sampling remain distinct.
 - **Claim limit:** convergence is relative to the selected PBE Kohn--Sham parent,
   not physical validation.
@@ -527,62 +507,34 @@ and quasiparticle claims need a separately qualified many-body method.
 
 ```mermaid
 flowchart TD
-    PP["Production pseudopotential decision"]
-    CONV["Cutoff and k-mesh convergence"]
-    LAT["Lattice reference / EOS"]
-    SCF["Production SCF state"]
-    PATH["Production symmetry-path bands"]
-    VALLEY["Local conduction-valley sampling"]
-    VB["Local valence-band sampling"]
-    NSCF["Uniform NSCF mesh"]
-    DOS["DOS-oriented NSCF"]
-    W90["Wannier90 construction"]
-    TB["Direct and Wannier-derived TB models"]
-    EMT["Effective-mass parameters"]
-    STATS["Intrinsic carrier statistics"]
-    DFPT["Conditional DFPT dielectric response"]
-    STRAIN["Conditional strained calculations"]
-    IMP["Later impurity EMT model"]
+    AUTH["Accepted production pseudopotential authority"]
+    PREFLIGHT["Identity and compatibility preflight"]
+    CUTOFF["Plane-wave cutoff convergence"]
+    KMESH["SCF k-mesh convergence"]
+    EOS["Lattice / EOS refinement"]
+    RECHECK["Bounded convergence recheck"]
+    SCF["Production SCF"]
 
-    PP --> CONV
-    CONV --> LAT
-    LAT --> SCF
-
-    SCF --> PATH
-    SCF --> VALLEY
-    SCF --> VB
-    SCF --> NSCF
-    SCF --> DOS
-
-    NSCF --> W90
-    PATH --> TB
-    VALLEY --> TB
-    W90 --> TB
-
-    VALLEY --> EMT
-    VB --> EMT
-    DOS --> STATS
-    EMT --> STATS
-
-    SCF --> DFPT
-    SCF --> STRAIN
-
-    EMT --> IMP
-    DFPT --> IMP
+    AUTH --> PREFLIGHT
+    PREFLIGHT --> CUTOFF
+    CUTOFF --> KMESH
+    KMESH --> EOS
+    EOS --> RECHECK
+    RECHECK --> SCF
 ```
 
-The graph is a static scientific-prerequisite view, not an executable workflow.
-The local valley calculation can begin directly from the accepted SCF after its
-initial-location decision; the path is useful evidence, not a mathematical
-substitute for local sampling. The regular Wannier mesh and DOS mesh are
-independent children unless DOS-specific verification supports reuse.
+The graph is a static production-parent prerequisite view, not an executable
+workflow. Downstream path, valley, Wannier, DOS, response, and reduction branches
+remain as cataloged below and require their own activation after an accepted
+production SCF. The local valley path estimate is useful evidence, not a
+mathematical substitute for local sampling; regular Wannier and DOS meshes remain
+independent unless purpose-specific verification supports reuse.
 
 ## Production calculation matrix
 
 | Task | Essential/conditional | Parent state | Main convergence axis | External artifacts | Compact record | Human decision |
 |---|---|---|---|---|---|---|
-| Pseudopotential confirmation | Essential | Accepted v1 specifications; tutorial evidence only | Exact authority/provenance confirmation; alternatives are non-authoritative metadata only | Already identified v1 artifact; no planning download | Identity/license/compatibility/discrepancy record | Accept or reject confirmation; revision is separate |
-| Cutoff and SCF-mesh convergence | Essential | No production parent yet | $E_{\mathrm{cut}}^{\psi}$, applicable $E_{\mathrm{cut}}^{\rho}$, MP mesh | QEXSD, outputs, restart trees | Convergence tables/manifests | Setting and any protocol revision |
+| Pseudopotential preflight, cutoff, and SCF-mesh convergence | Essential | Accepted exact v1 pseudopotential authority; no production parent yet | Exact identity/compatibility, $E_{\mathrm{cut}}^{\psi}$, explicit $E_{\mathrm{cut}}^{\rho}$, MP mesh, and bounded four-corner coupling check | Supplied local pseudopotential bytes plus later QEXSD, outputs, restart trees; no design-stage download | Identity/license/compatibility record and convergence tables/manifests | Parameter design now; provisional setting acceptance only after execution |
 | Lattice reference/EOS | Essential | Converged numerical context | lattice/volume grid and fit refinement | Per-geometry outputs | EOS table, residuals, uncertainty | Primary branch already frozen; comparator disposition |
 | Production SCF | Essential | Frozen geometry/settings | iterative SCF plus reproducibility | density/potential/restart/QEXSD | Parent manifest and diagnostics | warning and parent acceptance |
 | Symmetry-path bands | Essential diagnostic | Accepted SCF | segment density and bands | path wavefunctions/QEXSD/output | ordered band table | sourced path/labels/count |
@@ -600,10 +552,11 @@ independent children unless DOS-specific verification supports reuse.
 The shortest scientifically credible electron band-edge sequence is
 
 ```text
-production pseudopotential authority confirmation
+accepted production pseudopotential authority
+→ identity and compatibility preflight
 → cutoff convergence
 → SCF k-mesh convergence
-↔ lattice-reference / EOS refinement
+↔ lattice-reference / EOS refinement and bounded recheck
 → production SCF
 → production symmetry path
 → local Δ-valley sampling
@@ -629,11 +582,11 @@ operator.
 
 The following decisions are not made by this plan:
 
-1. human acceptance or rejection of deterministic confirmation that the exact
-   PBE/PseudoDojo v1 artifact, license, provenance, and compatibility evidence
-   agree with the frozen specifications; any alternative-family or
-   specification-revision decision is a separate future boundary;
-2. any revision of already frozen numerical tolerances or protocols;
+1. the preliminary lattice, cutoff cases, explicit charge-density rule,
+   preliminary mesh, mesh sequence, occupation and SCF controls, monitored
+   observables, criteria, coupling guards, and resource ceiling listed in the
+   active [convergence design](bulk-silicon-production-convergence-design.md);
+2. any later revision of frozen numerical tolerances or protocols;
 3. the modern path source, labels, coordinate convention, density, and band
    count;
 4. local-valley geometry, radius, spacing, fit order/window, tracking,
@@ -656,8 +609,9 @@ The following decisions are not made by this plan:
 12. every protected-execution resource, external artifact root, transfer policy,
     and exact one-run/campaign authorization.
 
-No checkpoint is created by this planning task. These decisions are recorded as
-future human boundaries in the owning inactive Tasks.
+No checkpoint is created for parameter selection. The first decision is pending
+on the active convergence Task; later decisions remain with their owning
+inactive Tasks.
 
 ## Evidence classes and acceptance
 
@@ -675,8 +629,7 @@ from a plot or from passing software tests.
 
 ## Completion boundary of this plan
 
-This planning program is complete when the canonical inactive Task hierarchy,
-static graph, generated projections, this page, computational navigation, and
-sampling-plan link agree. It does not pass G02, G03, or G04; freeze
+The corrected plan has exactly the convergence Task active for design and human
+parameter selection. It does not pass G02, G03, or G04; freeze
 `BulkSiReference-v1`, `BulkSiWannier-v1`, or a semiconductor-property result;
-activate a Task; create a checkpoint; or authorize execution.
+activate a successor; create a checkpoint; or authorize scientific execution.

@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: Planning-only G02 acceptance boundary. Essential children are defined but inactive; no production execution or automatic successor activation is authorized.
+`inactive`: Planning-only G02 acceptance boundary coordinating one active design-phase convergence child. No production execution or automatic successor activation is authorized.
 
 ## Objective
 
@@ -26,7 +26,7 @@ None.
 ## Authorized scope
 
 - Task kind: physical validation.
-- Bind the production pseudopotential authority, convergence, lattice-reference, and SCF children to one compatible physical and numerical specification.
+- Bind the frozen production pseudopotential authority and convergence preflight, lattice-reference, and SCF children to one compatible physical and numerical specification.
 - Retain parent-model, numerical/discretization, and validation errors separately and publish the stage visualizations as child deliverables.
 - Require a human acceptance decision before freezing BulkSiReference-v1; the parent itself performs no scientific executable.
 
@@ -38,7 +38,7 @@ None.
 
 ## Exclusions
 
-- This Task does not execute calculations, choose unresolved alternatives, combine error classes, or imply experimental agreement.
+- This Task does not execute calculations, select final numerical parameters, combine error classes, or imply experimental agreement.
 - Closing the parent does not activate band-edge, Wannier, tight-binding, impurity, publication, or release work.
 
 ## Historical source

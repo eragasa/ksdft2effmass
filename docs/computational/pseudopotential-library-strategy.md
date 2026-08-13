@@ -28,11 +28,11 @@ The compact acquisition and execution provenance is recorded with the
 
 **Status:** the accepted v1 physical and numerical specifications freeze the
 PBE/PseudoDojo standard-table ONCV bulk-Si branch and exact Si artifact
-metadata. The complete authority/provenance confirmation boundary is planned by
-[`bulk-silicon.production-reference.pseudopotential-selection`](../../harness/tasks/bulk-silicon.production-reference.pseudopotential-selection.json)
-and documented in the
-[bulk-silicon production program](bulk-silicon-production-program.md). That Task
-is blocked under its inactive parent.
+metadata. Identity, license, local-byte, and compatibility checks are the
+preflight stage of the active
+[`bulk-silicon.production-reference.convergence`](../../harness/tasks/bulk-silicon.production-reference.convergence.json)
+Task and its [design](bulk-silicon-production-convergence-design.md). They are
+not a separate family-selection lifecycle boundary.
 
 The earlier preference recorded here for evaluating SSSP Efficiency and
 Precision is not current production authority and does not override
@@ -63,11 +63,11 @@ changes the represented Hamiltonian and may change total energies, band
 energies, equilibrium geometry, cutoff requirements, convergence behavior, and
 scientifically meaningful comparison boundaries.
 
-Authority/provenance confirmation must complete before production convergence
-studies, bulk-silicon reference calculations, or doped-system comparisons. The
-planned Task creates no checkpoint, is blocked under an inactive parent, and
-authorizes no download, installation, comparison calculation, selection, or
-substitution.
+Identity and compatibility preflight must complete before production convergence
+execution, bulk-silicon reference calculations, or doped-system comparisons.
+The active convergence design creates no checkpoint and authorizes no download,
+installation, comparison calculation, selection, substitution, or scientific
+execution.
 
 ## External storage and repository provenance
 

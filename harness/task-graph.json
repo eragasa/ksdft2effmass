@@ -129,9 +129,6 @@
       "task_id": "bulk-silicon.production-reference.lattice-reference"
     },
     {
-      "task_id": "bulk-silicon.production-reference.pseudopotential-selection"
-    },
-    {
       "task_id": "bulk-silicon.production-reference.scf"
     },
     {
@@ -433,11 +430,6 @@
     },
     {
       "source": "bulk-silicon.production-reference.lattice-reference",
-      "target": "bulk-silicon.production-reference",
-      "kind": "child_of"
-    },
-    {
-      "source": "bulk-silicon.production-reference.pseudopotential-selection",
       "target": "bulk-silicon.production-reference",
       "kind": "child_of"
     },
@@ -829,11 +821,6 @@
     {
       "source": "bulk-silicon.band-edge-characterization.valence-edge",
       "target": "bulk-silicon.production-reference.scf",
-      "kind": "depends_on"
-    },
-    {
-      "source": "bulk-silicon.production-reference.convergence",
-      "target": "bulk-silicon.production-reference.pseudopotential-selection",
       "kind": "depends_on"
     },
     {

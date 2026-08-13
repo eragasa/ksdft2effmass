@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Production bulk-silicon SCF parent
 
-[Task index](index.md) · [Previous](./bulk-silicon.production-reference.pseudopotential-selection.md) · [Next](./bulk-silicon.records.periodic.extraction.md)
+[Task index](index.md) · [Previous](./bulk-silicon.production-reference.lattice-reference.md) · [Next](./bulk-silicon.records.periodic.extraction.md)
 
 ## Status
 
