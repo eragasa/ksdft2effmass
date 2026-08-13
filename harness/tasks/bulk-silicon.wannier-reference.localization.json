@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.wannier-reference.localization",
+  "title": "Production Wannier construction and localization",
+  "status": "blocked",
+  "status_detail": "Essential protected Wannier90 calculation/analysis Task; blocked by complete interface artifacts and approved projection/window decisions.",
+  "parent_task_id": "bulk-silicon.wannier-reference",
+  "task_prerequisite_ids": [
+    "bulk-silicon.wannier-reference.interface"
+  ],
+  "external_prerequisite_ids": [
+    "wannier90_execution_authorization"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Construct candidate localized valence-plus-low-conduction Wannier representations and assess convergence and sensitivity without hiding gauge or disentanglement choices.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: calculation.",
+    "Inputs are complete interface artifacts, target rank, projections, frozen/outer windows, iteration/convergence settings, symmetry policy, and candidate sensitivity design.",
+    "Retain .wout/.chk, centers, spreads, unitary/subspace data where available, real-space Hamiltonian, hopping decay, candidate identities, warnings/failures, and localization/window diagnostics.",
+    "The human owns projections, windows, rank, symmetry/gauge constraints, localization and disentanglement acceptance, and candidate selection."
+  ],
+  "completion_criteria": [
+    "Candidate constructions are reproducible and sensitivity to projections/windows/grid is quantified.",
+    "Centers, spreads, disentanglement behavior, and hopping decay are retained without hidden truncation.",
+    "One candidate may proceed only after the human-owned scientific decisions are explicit."
+  ],
+  "exclusions": [
+    "Planning does not activate this Task or authorize any external or scientific execution.",
+    "No production parameter or tolerance may be changed outside the owning accepted specification or an explicit human scientific decision.",
+    "Successful execution alone does not establish numerical verification or physical validation.",
+    "Small spread is not sufficient evidence of band-edge fidelity or physical validation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

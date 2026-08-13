@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Bulk-silicon QE symmetry-path band tutorial
 
-[Task index](index.md) · [Previous](./bulk-silicon.records.periodic.extraction.md) · [Next](./bulk-silicon.simulation.qe.reference.md)
+[Task index](index.md) · [Previous](./bulk-silicon.semiconductor-properties.intrinsic-statistics.md) · [Next](./bulk-silicon.simulation.qe.reference.md)
 
 ## Status
 

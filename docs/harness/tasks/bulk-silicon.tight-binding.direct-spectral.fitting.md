@@ -5,21 +5,24 @@
 
 ## Status
 
-`blocked`: Blocked by periodic electronic-structure record extraction and later fitting-contract decisions.
+`blocked`: Blocked by the inactive production symmetry-path, local-valley, and effective-mass Tasks and by human-owned fitting-contract decisions. Tutorial path/extraction evidence is not a production fitting dataset.
 
 ## Objective
 
-Construct explicit spectral targets and fit one declared direct tight-binding parameterization.
+Construct pre-frozen production spectral training and withheld-validation targets and fit one declared direct tight-binding parameterization without data leakage.
 
 ## Parent and prerequisites
 
-- Depends on: `bulk-silicon.records.periodic.extraction`
+- Depends on: `bulk-silicon.band-edge-characterization.conduction-valley`
+- Depends on: `bulk-silicon.band-edge-characterization.effective-mass-analysis`
+- Depends on: `bulk-silicon.band-edge-characterization.symmetry-path`
 - External prerequisite: `direct_tb_fitting_contract`
 
 ## Authority references
 
-- docs/computational/ksdft2effmass.computational.bootstrap.md
-- harness/reports/simulation-first-task-migration.md
+- docs/computational/bulk-silicon-production-program.md
+- docs/computational/ksdft2Effmass.computational.04.md
+- docs/publications/papers/ksdft2effmass.P91/manuscript.tex
 
 ## Authorized scope
 

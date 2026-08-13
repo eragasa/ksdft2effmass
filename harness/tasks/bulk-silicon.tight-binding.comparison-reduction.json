@@ -3,11 +3,11 @@
   "task_id": "bulk-silicon.tight-binding.comparison-reduction",
   "title": "Tight-binding comparison and reduction",
   "status": "blocked",
-  "status_detail": "Blocked by both direct-spectral fitting and Wannier Hamiltonian extraction.",
+  "status_detail": "Blocked by the production direct-spectral fit and production Wannier interpolation verification. The final join also requires human-owned model, alignment, metric, truncation, and compatibility decisions.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "bulk-silicon.tight-binding.direct-spectral.fitting",
-    "bulk-silicon.tight-binding.wannier.extraction"
+    "bulk-silicon.wannier-reference.interpolation-verification"
   ],
   "external_prerequisite_ids": [
     "tight_binding_comparison_contract"
@@ -16,8 +16,9 @@
   "explicit_activation_required": true,
   "objective": "Compare the direct-spectral and Wannier-mediated tight-binding models and evaluate explicitly declared reductions.",
   "authority_reference_paths": [
-    "docs/computational/ksdft2effmass.computational.bootstrap.md",
-    "harness/reports/simulation-first-task-migration.md"
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/computational/ksdft2Effmass.computational.04.md",
+    "docs/publications/papers/ksdft2effmass.P91/manuscript.tex"
   ],
   "authorized_scope": [
     "Compare common spectral observables.",

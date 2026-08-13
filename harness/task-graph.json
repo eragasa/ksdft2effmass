@@ -105,7 +105,52 @@
       "task_id": "bulk-silicon.artifacts.qe.inventory"
     },
     {
+      "task_id": "bulk-silicon.band-edge-characterization"
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.conduction-valley"
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.effective-mass-analysis"
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.symmetry-path"
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.valence-edge"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.convergence"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.lattice-reference"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.pseudopotential-selection"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.scf"
+    },
+    {
       "task_id": "bulk-silicon.records.periodic.extraction"
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties"
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.deformation-potentials"
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.density-of-states"
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.dielectric-screening"
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.intrinsic-statistics"
     },
     {
       "task_id": "bulk-silicon.simulation.qe.band-reference"
@@ -124,6 +169,21 @@
     },
     {
       "task_id": "bulk-silicon.tight-binding.wannier.extraction"
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference"
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.interface"
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.interpolation-verification"
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.localization"
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.uniform-nscf"
     },
     {
       "task_id": "bulk-silicon.workflow.extracted-model-verification"
@@ -346,6 +406,86 @@
     }
   ],
   "edges": [
+    {
+      "source": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "target": "bulk-silicon.band-edge-characterization",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "target": "bulk-silicon.band-edge-characterization",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.band-edge-characterization.symmetry-path",
+      "target": "bulk-silicon.band-edge-characterization",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.band-edge-characterization.valence-edge",
+      "target": "bulk-silicon.band-edge-characterization",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.production-reference.convergence",
+      "target": "bulk-silicon.production-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.production-reference.lattice-reference",
+      "target": "bulk-silicon.production-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.production-reference.pseudopotential-selection",
+      "target": "bulk-silicon.production-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.production-reference.scf",
+      "target": "bulk-silicon.production-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "target": "bulk-silicon.semiconductor-properties",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.density-of-states",
+      "target": "bulk-silicon.semiconductor-properties",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.dielectric-screening",
+      "target": "bulk-silicon.semiconductor-properties",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "target": "bulk-silicon.semiconductor-properties",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.interface",
+      "target": "bulk-silicon.wannier-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.interpolation-verification",
+      "target": "bulk-silicon.wannier-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.localization",
+      "target": "bulk-silicon.wannier-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.uniform-nscf",
+      "target": "bulk-silicon.wannier-reference",
+      "kind": "child_of"
+    },
     {
       "source": "harness.simplification.docs-json.authority-catalog",
       "target": "harness.simplification.docs-json",
@@ -672,8 +812,88 @@
       "kind": "depends_on"
     },
     {
+      "source": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "target": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.band-edge-characterization.symmetry-path",
+      "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.band-edge-characterization.valence-edge",
+      "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.production-reference.convergence",
+      "target": "bulk-silicon.production-reference.pseudopotential-selection",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.production-reference.lattice-reference",
+      "target": "bulk-silicon.production-reference.convergence",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.production-reference.scf",
+      "target": "bulk-silicon.production-reference.convergence",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.production-reference.scf",
+      "target": "bulk-silicon.production-reference.lattice-reference",
+      "kind": "depends_on"
+    },
+    {
       "source": "bulk-silicon.records.periodic.extraction",
       "target": "bulk-silicon.artifacts.qe.inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "target": "bulk-silicon.production-reference.convergence",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "target": "bulk-silicon.production-reference.lattice-reference",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.density-of-states",
+      "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.dielectric-screening",
+      "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "target": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "target": "bulk-silicon.band-edge-characterization.valence-edge",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "target": "bulk-silicon.semiconductor-properties.density-of-states",
       "kind": "depends_on"
     },
     {
@@ -703,12 +923,22 @@
     },
     {
       "source": "bulk-silicon.tight-binding.comparison-reduction",
-      "target": "bulk-silicon.tight-binding.wannier.extraction",
+      "target": "bulk-silicon.wannier-reference.interpolation-verification",
       "kind": "depends_on"
     },
     {
       "source": "bulk-silicon.tight-binding.direct-spectral.fitting",
-      "target": "bulk-silicon.records.periodic.extraction",
+      "target": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "target": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "target": "bulk-silicon.band-edge-characterization.symmetry-path",
       "kind": "depends_on"
     },
     {
@@ -724,6 +954,36 @@
     {
       "source": "bulk-silicon.tight-binding.wannier.extraction",
       "target": "bulk-silicon.tight-binding.wannier.bridge",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.interface",
+      "target": "bulk-silicon.wannier-reference.uniform-nscf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.interpolation-verification",
+      "target": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.interpolation-verification",
+      "target": "bulk-silicon.band-edge-characterization.symmetry-path",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.interpolation-verification",
+      "target": "bulk-silicon.wannier-reference.localization",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.localization",
+      "target": "bulk-silicon.wannier-reference.interface",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference.uniform-nscf",
+      "target": "bulk-silicon.production-reference.scf",
       "kind": "depends_on"
     },
     {
@@ -1074,6 +1334,16 @@
     {
       "source": "P9",
       "target": "bulk-silicon.tight-binding.wannier.extraction",
+      "kind": "superseded_by"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.wannier.bridge",
+      "target": "bulk-silicon.wannier-reference.interface",
+      "kind": "superseded_by"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.wannier.extraction",
+      "target": "bulk-silicon.wannier-reference.localization",
       "kind": "superseded_by"
     }
   ]

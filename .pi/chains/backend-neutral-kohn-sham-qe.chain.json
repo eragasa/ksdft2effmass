@@ -1,8 +1,8 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap. P0--P2 and retained foundations remain accepted; P3--P11 are superseded. The tutorial-first silicon band-reference Task is closed as human-accepted PASS. No Task is active; downstream model Tasks remain blocked, and scientific validation, publication, and release execution remain unauthorized.",
-  "status": "bulk_silicon_band_reference_closed_human_accepted_pass_no_task_active",
+  "description": "Simulation-first computational bootstrap followed by a complete inactive bulk-silicon production-reference, band-edge, Wannier, visualization, and semiconductor-property plan. Accepted tutorial Tasks remain closed under their bounded claims. No Task is active; scientific/external/protected execution, publication, and release remain unauthorized.",
+  "status": "bulk_silicon_production_program_planned_no_task_active",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
@@ -13,7 +13,8 @@
     "docs/architecture/kohn-sham-dft-quantum-espresso.md",
     "docs/architecture/periodic-electronic-structure-integration.md",
     "docs/computational/ksdft2effmass.computational.bootstrap.md",
-    "docs/computational/ksdft-pw-record-architecture.md"
+    "docs/computational/ksdft-pw-record-architecture.md",
+    "docs/computational/bulk-silicon-production-program.md"
   ],
   "production_execution_authorized": false,
   "superseded_sequence": {
@@ -74,6 +75,86 @@
       "record": "harness/tasks/bulk-silicon.simulation.qe.band-reference.json"
     },
     {
+      "id": "bulk-silicon.production-reference",
+      "record": "harness/tasks/bulk-silicon.production-reference.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.pseudopotential-selection",
+      "record": "harness/tasks/bulk-silicon.production-reference.pseudopotential-selection.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.convergence",
+      "record": "harness/tasks/bulk-silicon.production-reference.convergence.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.lattice-reference",
+      "record": "harness/tasks/bulk-silicon.production-reference.lattice-reference.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.scf",
+      "record": "harness/tasks/bulk-silicon.production-reference.scf.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.symmetry-path",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.symmetry-path.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.conduction-valley.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.valence-edge",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.valence-edge.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.effective-mass-analysis.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.uniform-nscf",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.uniform-nscf.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.interface",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.interface.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.localization",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.localization.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.interpolation-verification",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.interpolation-verification.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.density-of-states",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.density-of-states.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.intrinsic-statistics.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.dielectric-screening",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.dielectric-screening.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.deformation-potentials.json"
+    },
+    {
       "id": "bulk-silicon.tight-binding.direct-spectral.fitting",
       "record": "harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json"
     },
@@ -114,7 +195,7 @@
     "parent_verification",
     "human_acceptance"
   ],
-  "launch_policy": "No Task is active. No repeat QE execution is authorized. Automatic successor activation is disabled; no successor is active.",
+  "launch_policy": "The complete bulk-silicon production program is planned but inactive. Every calculation or external-interface Task requires separate explicit activation and the applicable exact protected-execution authorization. Human-owned scientific decisions remain unresolved in their owning Tasks. No automatic successor activation, repeat tutorial execution, production execution, publication, or release is authorized.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
   "production_checkpoint": {
@@ -284,6 +365,10 @@
     {
       "phase": "bulk-silicon-band-reference-human-accepted",
       "message": "The human accepted bulk-silicon.simulation.qe.band-reference as closed_human_accepted_pass. Accepted claim: The exact prepared QE 7.2 silicon Davidson tutorial bands calculation reused an isolated, identity-verified copy of the accepted SCF state, executed once with exit status 0, reported completion and `JOB DONE.`, produced 28 ordered $k$ points with eight bands each, retained complete compact provenance and artifact inventory, and left the accepted SCF source unchanged. Of 224 printed eigenvalues compared with the bundled legacy reference, 166 were identical at printed precision and the largest printed difference was approximately $0.0001\\ \\mathrm{eV}$; no numerical acceptance tolerance or pass/fail comparison was established. The IEEE floating-point exception report remains unresolved and unclassified. Acceptance does not establish production cutoff or $k$-point convergence, a canonical modern silicon symmetry path, numerical or physical validation, indirect-gap accuracy, valley location or curvature accuracy, effective-mass validity, Wannierization suitability, tight-binding fitting suitability, or uncertainty quantification. No successor is active and automatic successor activation remains disabled."
+    },
+    {
+      "phase": "bulk-silicon-production-program-planned-inactive",
+      "message": "The accepted tutorial SCF, artifact-inventory, QEXSD-extraction, and band-reference Tasks remain closed under their bounded claims. Four cohesive production parents and sixteen scientifically meaningful children now plan the production reference, band-edge characterization, Wannier reference, visualizations, and semiconductor properties. Tutorial Wannier bridge/extraction identities are superseded; direct fitting and comparison identities are corrected to production prerequisites. All new work is inactive or blocked, active_task is null, automatic successor activation is false, and no calculation, checkpoint, successor, or protected action is authorized."
     }
   ],
   "explicitly_activated_task_ids": [

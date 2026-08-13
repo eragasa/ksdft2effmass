@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "70694ce23529109f1878c526680d96e6fa1a19e15eeb3795082d537b71a4fe13",
+  "semantic_database_digest": "0d82cb686ba0e7b34c2d9c09df0dba8ee566044ae9bd9a61e124bf50e17e8e00",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "f85a7cc192ce0b3199c7c2d3f455185bebd18c60bb43881a0c14c741b277d1d7",
-    "byte_count": 3720543
+    "sha256": "c2b6880bbb0e2be6b67777c72d5c58dc196f68c3d5d15c8baa1b35147d696c1d",
+    "byte_count": 3838546
   },
   "projections": [
     {
@@ -249,22 +249,127 @@
     {
       "path": "docs/harness/tasks/bulk-silicon.artifacts.qe.inventory.md",
       "projection_kind": "task-markdown",
-      "sha256": "7a7b1bac797c4b47db72db452f07941e2beaae6cafd45458a86e6f4780f3e1b0",
-      "byte_count": 2010,
+      "sha256": "c89b8c24c1140b89571bd79a6081eefeeb9f3aec9ac771edbc4bf5aee26b5318",
+      "byte_count": 2009,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.conduction-valley.md",
+      "projection_kind": "task-markdown",
+      "sha256": "ef53e529653a8ca8a4fbcadb4ba7d8a58bc33e6828ee677ba90f92b400c597a3",
+      "byte_count": 2489,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.effective-mass-analysis.md",
+      "projection_kind": "task-markdown",
+      "sha256": "b497ce93a36e11984fb5089199bf3e173827c6fb9724e778f69289ecf94e4b64",
+      "byte_count": 2332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.md",
+      "projection_kind": "task-markdown",
+      "sha256": "5f81f242692972a1cfb5b9b4afeb5756b9c8aa5024a1c08e4ac25c7a61c9e70a",
+      "byte_count": 2054,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.symmetry-path.md",
+      "projection_kind": "task-markdown",
+      "sha256": "43e10e1deba5b5eac453e25b745461921791f49d2cc3a89eb37cc9cca6336fc1",
+      "byte_count": 2399,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.valence-edge.md",
+      "projection_kind": "task-markdown",
+      "sha256": "d37ce63c6cd371e6bbb403b514012c8d9f1b3b69c19454a5f4bfa219613c1512",
+      "byte_count": 2461,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.convergence.md",
+      "projection_kind": "task-markdown",
+      "sha256": "d217d0ed9b3b7ec7d6ee28a26278cceba551734f78ae4fd70fa10754388fe7d1",
+      "byte_count": 2570,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.lattice-reference.md",
+      "projection_kind": "task-markdown",
+      "sha256": "1f0cf254b1579089ba1b4c36215d424ba124d6820e6d808c40232839138bb799",
+      "byte_count": 2628,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.md",
+      "projection_kind": "task-markdown",
+      "sha256": "68bf18c1ddcd1f595398d5575e4bf835ed70417ad31342409fcb1982fbc7aa4e",
+      "byte_count": 2280,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.pseudopotential-selection.md",
+      "projection_kind": "task-markdown",
+      "sha256": "b5237c437e5e13ffdeec062640c6a122fed9f32f6a621abdd034c76b70768480",
+      "byte_count": 3097,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.scf.md",
+      "projection_kind": "task-markdown",
+      "sha256": "b125f0683ceb8414a02fc179c9b4ffd44785fcb18ec01ca064a1658f6673370f",
+      "byte_count": 2688,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/bulk-silicon.records.periodic.extraction.md",
       "projection_kind": "task-markdown",
-      "sha256": "2febacb2ecbaacc0142e526204c8e01728a5a2f15cfb574b58b571173eb48680",
-      "byte_count": 3807,
+      "sha256": "08852cc4474112a73e7332321da1d61827283e97dddc3fe834e8dc13ade684f2",
+      "byte_count": 3805,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.deformation-potentials.md",
+      "projection_kind": "task-markdown",
+      "sha256": "d0f6796daf130a4944c0739c9115a980626cdcf66a9b3ec2b2ab0c66fe605093",
+      "byte_count": 2435,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.density-of-states.md",
+      "projection_kind": "task-markdown",
+      "sha256": "bceda2589a62d0ba2ee029b248b242d217a761df97ca700acd7692bd7ebcf039",
+      "byte_count": 2376,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.dielectric-screening.md",
+      "projection_kind": "task-markdown",
+      "sha256": "e78a254232a9ec6f6ef424ca3aab01233aba352725a231d4f340abdadc3b9303",
+      "byte_count": 2026,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.intrinsic-statistics.md",
+      "projection_kind": "task-markdown",
+      "sha256": "2abcb0170f98a4871fb067a4530df383e99866825d03e3d549e3e38e7ac0e081",
+      "byte_count": 2135,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.md",
+      "projection_kind": "task-markdown",
+      "sha256": "81fd364477d13796297c86f09f27582832fac0353486bb7d58e44cbd9b404d0f",
+      "byte_count": 2074,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/bulk-silicon.simulation.qe.band-reference.md",
       "projection_kind": "task-markdown",
-      "sha256": "22f0932e5a2df688260b635502082997990ad47ee59ca5ade577e1c2d7d545ea",
-      "byte_count": 5260,
+      "sha256": "91818c41f62a4b1c5f6bd5b7bc29adabe7d193125d27ffbd2ab6a54b9218bf60",
+      "byte_count": 5278,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -277,36 +382,71 @@
     {
       "path": "docs/harness/tasks/bulk-silicon.tight-binding.comparison-reduction.md",
       "projection_kind": "task-markdown",
-      "sha256": "9d611c1a33ba416688d5cc561847e1628fe83715b8fc04cc4251c14be77480cc",
-      "byte_count": 1775,
+      "sha256": "cd088bac0e5ae2e213278f05f064ca6d4b249504309bdac269a869a35de24877",
+      "byte_count": 1972,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.md",
       "projection_kind": "task-markdown",
-      "sha256": "a64fc43a5b76efafe6ad912a7c60c31ae219f07ccfc37fac91af6afb8af9f928",
-      "byte_count": 1596,
+      "sha256": "46d049f9e39ebae412431b06c776c52b99c9e8d17b11c25eb1cd6b459c559469",
+      "byte_count": 1996,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/bulk-silicon.tight-binding.wannier.bridge.md",
       "projection_kind": "task-markdown",
-      "sha256": "5daaec55c619d8f3cceac476d1f1e83d1a9f75edb11f2e552c15aa39dffa13f9",
-      "byte_count": 1685,
+      "sha256": "3dcf8c54e50f59141c56003e01b78f6fbf65be4358e824085c6547241396d07d",
+      "byte_count": 1871,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/bulk-silicon.tight-binding.wannier.extraction.md",
       "projection_kind": "task-markdown",
-      "sha256": "4d8cf58fab67eb8022397faddd8d85932600e2a4b50d61b1abb5747afa99cbba",
-      "byte_count": 1650,
+      "sha256": "e23c779c370e7565b3a68f22e71aaa7eda94ad966f3b8bd8e5ec04e9092e0928",
+      "byte_count": 1850,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.interface.md",
+      "projection_kind": "task-markdown",
+      "sha256": "f2fc712b42fb3d7926f40b56bc51a1e50572473db53f0ffb19ee41bcb2af8ffb",
+      "byte_count": 2309,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.interpolation-verification.md",
+      "projection_kind": "task-markdown",
+      "sha256": "f265e102b006477378d8c2b56009e6a974a028e89652e6d76c5a1cfc56f52e60",
+      "byte_count": 2097,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.localization.md",
+      "projection_kind": "task-markdown",
+      "sha256": "d90423301958f06f2b917e96a9beda4b2343b91b8ee79476a0d7821e8fd47dd9",
+      "byte_count": 2362,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.md",
+      "projection_kind": "task-markdown",
+      "sha256": "fc2ad69be960ad6f520b468e18bbf442f306ef0f48b0fa222cbe9375dac4c76c",
+      "byte_count": 1957,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.uniform-nscf.md",
+      "projection_kind": "task-markdown",
+      "sha256": "556eae786106925c2220a9786951eaeb9fd586fe42637778a63fb5dd49ec44c3",
+      "byte_count": 2286,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/bulk-silicon.workflow.extracted-model-verification.md",
       "projection_kind": "task-markdown",
-      "sha256": "d3beed6b0a8b9f65c53e9bc6efc3ef23487d99db090afe6ceec3f7bd8ecc3be9",
-      "byte_count": 1689,
+      "sha256": "c4d23994e4ab30b75e8aad5bc5f0259748270402aeada100eda050ab1c4a81c5",
+      "byte_count": 1687,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -795,8 +935,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "5bae469732b74c9afc5b8bf898f4824c806145fa6a67549caaf06f8660635bc2",
-      "byte_count": 17511,
+      "sha256": "48de4336e6db821e30541f75727e6e6ee846dfbdeebff7b3f3d7c6058e4c1f1b",
+      "byte_count": 20881,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -837,8 +977,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "3d777ed17e5d6e352ec402d03dcc674d129ba62871b55b76bb178c3f7d799f35",
-      "byte_count": 28911,
+      "sha256": "155f4f5387daf87e7a6fb526a4a6aa66c07b03ccc46091cb106a0926e4bc490e",
+      "byte_count": 37853,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1080,10 +1220,115 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "harness/tasks/bulk-silicon.band-edge-characterization.conduction-valley.json",
+      "projection_kind": "task-json",
+      "sha256": "be6e2c601b2564c6b5d4b6caa78c7bce496bea880b0d5bde4edbe82eac986c8a",
+      "byte_count": 2563,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.band-edge-characterization.effective-mass-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "7d71ba6ce619e29347f7ffbcde484f09c763d8054a2f69a4d498b39a1a37f929",
+      "byte_count": 2452,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.band-edge-characterization.json",
+      "projection_kind": "task-json",
+      "sha256": "1b9c39ad6eb9703cb0ccc34dd88718d5b79f5ac95e3ae29b52a68a74e9e46696",
+      "byte_count": 2194,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.band-edge-characterization.symmetry-path.json",
+      "projection_kind": "task-json",
+      "sha256": "85bbfa5a58a1fc5040e82ea70b43dc0591c771cd6a152219ce5403041639ce53",
+      "byte_count": 2476,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.band-edge-characterization.valence-edge.json",
+      "projection_kind": "task-json",
+      "sha256": "c7f997e4322d719e9875afaf77a85dfe060cad0529ae31af4d44366e50f2b884",
+      "byte_count": 2551,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.production-reference.convergence.json",
+      "projection_kind": "task-json",
+      "sha256": "35e501875d63f8864976b30bb58b489da12b2ef426ebd1502df68710939585ef",
+      "byte_count": 2695,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.production-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "52ebcd74bf6abacd9262caed840dc3cf82b5f6dac401f6da47a5fe63a328e3ed",
+      "byte_count": 2409,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.production-reference.lattice-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "b3e51ee51857d18de55fbd7c4b30bf00d87d6f2a5b2c1a8748240a92dd6809f5",
+      "byte_count": 2739,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.production-reference.pseudopotential-selection.json",
+      "projection_kind": "task-json",
+      "sha256": "cb9a4aa82d3a35dae13bb8c03ce3077cf5112cbd609c25348b072deebb00dba5",
+      "byte_count": 3262,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.production-reference.scf.json",
+      "projection_kind": "task-json",
+      "sha256": "d970516b6c94951a3707d1f23ed0e8797bcb1acf4bd7df0ad3fa2e450ff65325",
+      "byte_count": 2791,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "harness/tasks/bulk-silicon.records.periodic.extraction.json",
       "projection_kind": "task-json",
       "sha256": "5053d2274cd2bcccdb66fc451e4bf58284cc4850cb9c69dd02225e51a13826cf",
       "byte_count": 3993,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.semiconductor-properties.deformation-potentials.json",
+      "projection_kind": "task-json",
+      "sha256": "29ffee25288cd497e25bd5fb2bcdcf2ee51e13309faa8f0c1a9242c32facee9d",
+      "byte_count": 2544,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.semiconductor-properties.density-of-states.json",
+      "projection_kind": "task-json",
+      "sha256": "f6ba8ecacf4d75d490cb2e5587fec8fe67056bc4a95752f47aab72a5c09b786f",
+      "byte_count": 2472,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.semiconductor-properties.dielectric-screening.json",
+      "projection_kind": "task-json",
+      "sha256": "8f5626da0a127863b94b90a862f90473660d7869354a1d14a3dbc19e0ae25a94",
+      "byte_count": 2120,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.semiconductor-properties.intrinsic-statistics.json",
+      "projection_kind": "task-json",
+      "sha256": "8dad24ba95fd4e82b5179819358370a473dd64b7d87185ef9d0aae68a412aeb5",
+      "byte_count": 2243,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.semiconductor-properties.json",
+      "projection_kind": "task-json",
+      "sha256": "39062cb0a882782aaae5210a284527c2ddddb3998d7b93e9366dd3b9e8b6fa65",
+      "byte_count": 2194,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1103,29 +1348,64 @@
     {
       "path": "harness/tasks/bulk-silicon.tight-binding.comparison-reduction.json",
       "projection_kind": "task-json",
-      "sha256": "267b587e7a039b1e7507d29189ef38b3592f8e55bdb26d533b047757ec307d9b",
-      "byte_count": 1901,
+      "sha256": "b05653e092bd8999547febd7e88a7100f0d44a0f977c1daef5194b0fcd994ea8",
+      "byte_count": 2103,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json",
       "projection_kind": "task-json",
-      "sha256": "27f98e2d593fadff3dc1c860f18043abfd34ea841e9d4856d9e04363c8fd6073",
-      "byte_count": 1727,
+      "sha256": "0c47b25347466543f32cf650448b39813e7c7cf1b3e0830cf7cc28dae2aeb502",
+      "byte_count": 2114,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json",
       "projection_kind": "task-json",
-      "sha256": "c67ad9ff8c4766a3bbac103f8808877fb5c0b0542dfa387c0ffb3ac467aa3695",
-      "byte_count": 1791,
+      "sha256": "9f7ab0ac913e618fb4aeaf69205bf6f4422ca7caaf62b7714b224a43f499dd31",
+      "byte_count": 1967,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json",
       "projection_kind": "task-json",
-      "sha256": "803f1cdf75a15fe95d6822709b1f86246e908939d3b48104feb27b7291e50bd0",
-      "byte_count": 1773,
+      "sha256": "344871d9a1a62a5e83ee7f1ee1c853831e252252b7d99e4f6ddc436e16a755be",
+      "byte_count": 1983,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.wannier-reference.interface.json",
+      "projection_kind": "task-json",
+      "sha256": "7779336ec467ed29e4c41564534d65e106bd4bcce82457db7d489ef4875d83ac",
+      "byte_count": 2421,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.wannier-reference.interpolation-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "7632b61629b9f61671d2af0b754f7cec3cf2818779e0d576a105abbad184dfa7",
+      "byte_count": 2215,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.wannier-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "816699cc3fc18b82b6df0e9f049581a5ec86a6a7eb126995ff68ecb7bdc87299",
+      "byte_count": 2095,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.wannier-reference.localization.json",
+      "projection_kind": "task-json",
+      "sha256": "de689d33c7c13703e5c1bae06381090962eb55efebf9259988242323c8fa93b9",
+      "byte_count": 2464,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/bulk-silicon.wannier-reference.uniform-nscf.json",
+      "projection_kind": "task-json",
+      "sha256": "85fe12f0d3fa4e5f8501c6dd07e72e2898d89b75d8f89ebdc43573abb2a1aac7",
+      "byte_count": 2395,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

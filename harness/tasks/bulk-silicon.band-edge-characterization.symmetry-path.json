@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.band-edge-characterization.symmetry-path",
+  "title": "Production silicon symmetry-path bands",
+  "status": "blocked",
+  "status_detail": "Essential calculation for dispersion inspection; blocked by an accepted production SCF parent and a human-approved sourced path specification.",
+  "parent_task_id": "bulk-silicon.band-edge-characterization",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.scf"
+  ],
+  "external_prerequisite_ids": [
+    "production_execution_authorization",
+    "symmetry_path_design_approval"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Evaluate production Kohn–Sham bands on a modern, explicitly sourced silicon high-symmetry path for dispersion and band-order inspection.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: calculation.",
+    "Inputs are the accepted SCF parent, sourced path, reciprocal-coordinate convention, segment labels, interpolation density, retained band count, and VBM-reference rule.",
+    "Retain input, parent identity, ordered k-point and eigenvalue record, path distances/labels, band correspondence metadata, streams, artifact inventory, direct/indirect gap observations, and publication band figure.",
+    "The human owns the path source, density, band count, symmetry labeling, and any physical-validation comparator."
+  ],
+  "completion_criteria": [
+    "The production and legacy tutorial paths are explicitly distinct.",
+    "Every coordinate, label, energy, unit, reference, repeated endpoint, and band index is reproducible.",
+    "Path-density and retained-band adequacy are numerically checked for the claimed dispersion only."
+  ],
+  "exclusions": [
+    "Planning does not activate this Task or authorize any external or scientific execution.",
+    "No production parameter or tolerance may be changed outside the owning accepted specification or an explicit human scientific decision.",
+    "Successful execution alone does not establish numerical verification or physical validation.",
+    "This path is not used as the sole effective-mass fit, Wannier grid, DOS mesh, or complete TB training/validation set."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

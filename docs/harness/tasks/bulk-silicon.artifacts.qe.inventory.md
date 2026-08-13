@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # QE tutorial artifact inventory
 
-[Task index](index.md) · [Previous](./backend-neutral-kohn-sham-qe-architecture.md) · [Next](./bulk-silicon.records.periodic.extraction.md)
+[Task index](index.md) · [Previous](./backend-neutral-kohn-sham-qe-architecture.md) · [Next](./bulk-silicon.band-edge-characterization.md)
 
 ## Status
 

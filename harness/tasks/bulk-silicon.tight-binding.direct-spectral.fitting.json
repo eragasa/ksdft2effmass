@@ -3,20 +3,23 @@
   "task_id": "bulk-silicon.tight-binding.direct-spectral.fitting",
   "title": "Direct spectral tight-binding fitting",
   "status": "blocked",
-  "status_detail": "Blocked by periodic electronic-structure record extraction and later fitting-contract decisions.",
+  "status_detail": "Blocked by the inactive production symmetry-path, local-valley, and effective-mass Tasks and by human-owned fitting-contract decisions. Tutorial path/extraction evidence is not a production fitting dataset.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
-    "bulk-silicon.records.periodic.extraction"
+    "bulk-silicon.band-edge-characterization.conduction-valley",
+    "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+    "bulk-silicon.band-edge-characterization.symmetry-path"
   ],
   "external_prerequisite_ids": [
     "direct_tb_fitting_contract"
   ],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Construct explicit spectral targets and fit one declared direct tight-binding parameterization.",
+  "objective": "Construct pre-frozen production spectral training and withheld-validation targets and fit one declared direct tight-binding parameterization without data leakage.",
   "authority_reference_paths": [
-    "docs/computational/ksdft2effmass.computational.bootstrap.md",
-    "harness/reports/simulation-first-task-migration.md"
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/computational/ksdft2Effmass.computational.04.md",
+    "docs/publications/papers/ksdft2effmass.P91/manuscript.tex"
   ],
   "authorized_scope": [
     "Define training and withheld target partitions with parent identities.",

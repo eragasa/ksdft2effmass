@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "bulk-silicon.tight-binding.wannier.bridge",
   "title": "QE–Wannier90 tutorial bridge",
-  "status": "blocked",
-  "status_detail": "Blocked by QE artifact inventory, periodic record extraction, and explicit tutorial interface choices.",
+  "status": "superseded",
+  "status_detail": "Never-launched tutorial-only QE–Wannier90 bridge identity, superseded by the inactive production Stage 03 Task bulk-silicon.wannier-reference.interface. Supersession does not activate the replacement or authorize execution.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "bulk-silicon.artifacts.qe.inventory",
@@ -12,7 +12,9 @@
   "external_prerequisite_ids": [
     "wannier_tutorial_interface_selection"
   ],
-  "superseded_by_task_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.wannier-reference.interface"
+  ],
   "explicit_activation_required": true,
   "objective": "Define the tutorial QE–Wannier90 input and artifact bridge from observed QE artifacts.",
   "authority_reference_paths": [

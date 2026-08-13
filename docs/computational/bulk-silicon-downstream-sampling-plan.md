@@ -1,10 +1,14 @@
 # Bulk-Silicon Downstream Sampling Plan
 
-**Status:** Proposed tutorial-first calculation plan. It does not activate a
-Task, authorize execution, select production parameters, or establish numerical
-verification or scientific validation.
+**Status:** Accepted tutorial-to-production handoff. The SCF and matching bands
+Tasks are closed as human-accepted tutorial reproductions under bounded claims.
+This page does not activate a Task, authorize execution, select production
+parameters, or establish numerical verification or scientific validation.
 
-## Accepted parent and immediate recommendation
+The complete inactive production program is maintained in the
+[bulk-silicon production program](bulk-silicon-production-program.md).
+
+## Accepted tutorial parent and completed band child
 
 The accepted tutorial parent is the Quantum ESPRESSO 7.2 `pw.x` silicon SCF
 state documented in
@@ -13,22 +17,25 @@ It fixed the tutorial density and potential using the identified legacy
 `Si.pz-vbc.UPF` pseudopotential. Its ten irreducible wavevectors and four bands
 were adequate for execution, artifact, and extraction verification only.
 
-The immediate next calculation should be the matching silicon Davidson bands
-stage from bundled QE 7.2 `PW/examples/example01`. It is the smallest tutorial
-that consumes the same SCF state while teaching the repository how QE represents
-band-oriented outputs. The current bounded Task is
-[`bulk-silicon.simulation.qe.band-reference`](../../harness/tasks/bulk-silicon.simulation.qe.band-reference.json).
-It remains inactive.
+The matching bounded silicon Davidson bands Task,
+[`bulk-silicon.simulation.qe.band-reference`](../../harness/tasks/bulk-silicon.simulation.qe.band-reference.json),
+is also closed as `closed_human_accepted_pass`. It consumed an isolated,
+identity-verified copy of the accepted SCF state exactly once, retained 28
+ordered tutorial points with eight bands each, complete compact provenance and
+artifact inventory, and left the accepted SCF source unchanged. No numerical
+comparison tolerance, production path, effective-mass validity, Wannier
+suitability, or tight-binding suitability was accepted.
 
 ```text
-accepted SCF state
-→ QE silicon symmetry-path band calculation
-→ band-output artifact inspection
-→ minimal band-record extension
+accepted tutorial SCF state
+→ accepted tutorial symmetry-path band calculation
+→ retained band-output artifact inspection
+→ inactive production design
 ```
 
-The last step means determining requirements from observed artifacts, not
-implementing a parser or public record in the tutorial Task.
+The production program now owns the separate pseudopotential, convergence,
+lattice, SCF, modern-path, local-valley, uniform-Wannier, DOS, analysis,
+visualization, and acceptance boundaries.
 
 ## Information flow
 
@@ -120,9 +127,10 @@ spectral and Wannier-derived datasets may later be developed as separate
 branches from compatible accepted parent evidence and joined only after their
 lineage, energy, basis, geometry, and validation conditions agree.
 
-## Proposed immediate QE tutorial execution
+## Retained tutorial execution design
 
-No command in this section is authorized for execution by this plan.
+This section records the design that preceded the accepted one-shot tutorial
+execution. It authorizes no repeat execution.
 
 | Item | Planned value or disposition |
 |---|---|
@@ -169,16 +177,18 @@ committed to Git.
 
 ## Later sequence and independence
 
-The tutorial-first order is
+The tutorial-to-production learning order was
 
 ```text
-symmetry-path tutorial
-→ local valley sampling
-→ uniform Wannier NSCF mesh
-→ direct and Wannier-derived fitting/validation datasets
+accepted symmetry-path tutorial
+→ production local valley sampling
+→ production uniform Wannier NSCF mesh
+→ production direct and Wannier-derived fitting/validation datasets
 ```
 
-This is a learning and evidence sequence. Once their separate scientific inputs
+The detailed production order and conditional branches are now maintained in
+the [bulk-silicon production program](bulk-silicon-production-program.md).
+This remains a learning and evidence sequence. Once their separate scientific inputs
 are accepted, local-valley and uniform-Wannier calculations can independently
 consume a compatible accepted SCF parent. Direct fitting may consume accepted
 band/valley datasets without waiting for Wannierization; Wannier-derived fitting
@@ -186,20 +196,29 @@ waits for an accepted Wannier representation. Their later comparison is the
 join, not proof that every earlier sampling calculation depends mathematically
 on every preceding one.
 
-The following downstream Tasks remain blocked and inactive:
+The production direct-fitting and comparison Tasks remain blocked and inactive:
 
 - `bulk-silicon.tight-binding.direct-spectral.fitting`;
-- `bulk-silicon.tight-binding.wannier.bridge`;
-- `bulk-silicon.tight-binding.wannier.extraction`;
 - `bulk-silicon.tight-binding.comparison-reduction`; and
-- `bulk-silicon.workflow.extracted-model-verification`.
+- `bulk-silicon.workflow.extracted-model-verification` remains a blocked tutorial-workflow verification boundary.
+
+The never-launched tutorial-only `bulk-silicon.tight-binding.wannier.bridge` and
+`bulk-silicon.tight-binding.wannier.extraction` identities are superseded by the
+inactive production Stage 03 Tasks `bulk-silicon.wannier-reference.interface`
+and `bulk-silicon.wannier-reference.localization`, respectively. Supersession
+activates nothing.
 
 ## Unresolved scientific and execution choices
 
-This plan deliberately does not select:
+This tutorial plan did not select production settings. The later accepted
+physical and numerical specifications now freeze the v1 PBE/PseudoDojo ONCV,
+diamond-structure, non-SOC pilot branch and numerical protocols/tolerances; the
+production program must reconcile those authorities rather than treat this
+historical unresolved list as current authority. Still unresolved here are:
 
-- production exchange-correlation, pseudopotential, crystal structure, cutoffs,
-  SCF or child meshes, band count, convergence tolerances, or symmetry path;
+- final converged cutoffs and SCF or child meshes, retained band counts, the
+  sourced production symmetry path, and any explicitly authorized revision of
+  the frozen physical or numerical specifications;
 - a local valley neighborhood, spacing, valley-location method, band-tracking
   rule, Hessian model, fitting window, uncertainty method, or mass convergence
   criterion;

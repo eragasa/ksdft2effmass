@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Extracted-model workflow verification
 
-[Task index](index.md) · [Previous](./bulk-silicon.tight-binding.wannier.extraction.md) · [Next](./cpn-skill-capability-audit.md)
+[Task index](index.md) · [Previous](./bulk-silicon.wannier-reference.uniform-nscf.md) · [Next](./cpn-skill-capability-audit.md)
 
 ## Status
 

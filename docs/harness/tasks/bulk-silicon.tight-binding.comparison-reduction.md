@@ -5,7 +5,7 @@
 
 ## Status
 
-`blocked`: Blocked by both direct-spectral fitting and Wannier Hamiltonian extraction.
+`blocked`: Blocked by the production direct-spectral fit and production Wannier interpolation verification. The final join also requires human-owned model, alignment, metric, truncation, and compatibility decisions.
 
 ## Objective
 
@@ -14,13 +14,14 @@ Compare the direct-spectral and Wannier-mediated tight-binding models and evalua
 ## Parent and prerequisites
 
 - Depends on: `bulk-silicon.tight-binding.direct-spectral.fitting`
-- Depends on: `bulk-silicon.tight-binding.wannier.extraction`
+- Depends on: `bulk-silicon.wannier-reference.interpolation-verification`
 - External prerequisite: `tight_binding_comparison_contract`
 
 ## Authority references
 
-- docs/computational/ksdft2effmass.computational.bootstrap.md
-- harness/reports/simulation-first-task-migration.md
+- docs/computational/bulk-silicon-production-program.md
+- docs/computational/ksdft2Effmass.computational.04.md
+- docs/publications/papers/ksdft2effmass.P91/manuscript.tex
 
 ## Authorized scope
 

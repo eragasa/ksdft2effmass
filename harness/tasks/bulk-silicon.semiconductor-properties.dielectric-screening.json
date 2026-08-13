@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.semiconductor-properties.dielectric-screening",
+  "title": "Conditional dielectric-screening reference",
+  "status": "blocked",
+  "status_detail": "Conditional DFPT/physical-validation Task; justified only by impurity EMT screening or another approved response-property claim.",
+  "parent_task_id": "bulk-silicon.semiconductor-properties",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.scf"
+  ],
+  "external_prerequisite_ids": [
+    "dfpt_execution_authorization"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Obtain or adopt separately authoritative electronic and static dielectric tensors and map them to explicitly declared EMT screening constants.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: physical validation.",
+    "Inputs may be an authorized compatible DFPT calculation, identified experiment, or another accepted source; distinguish ε_infinity, ε_0, tensor/scalar conventions, temperature, and frequency.",
+    "Retain DFPT requests/artifacts when executed, compact tensors, convergence records, literature/experimental identities, comparisons, and model-screening disposition.",
+    "The human owns calculation versus literature authority, ionic contribution, scalar reduction, validation reference, and EMT screening convention."
+  ],
+  "completion_criteria": [
+    "Electronic, ionic/static, and model dielectric quantities are never conflated.",
+    "Any calculated tensor has separate basis, k/q mesh, cutoff, response convergence, units, and physical-validation evidence.",
+    "The selected EMT constant has an explicit provenance and domain."
+  ],
+  "exclusions": [
+    "No DFPT or response executable is authorized by this plan.",
+    "Ordinary SCF/band data do not supply ε_infinity or ε_0."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

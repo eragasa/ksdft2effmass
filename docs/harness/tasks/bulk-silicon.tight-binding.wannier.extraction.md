@@ -1,11 +1,11 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Wannier tutorial Hamiltonian extraction
 
-[Task index](index.md) · [Previous](./bulk-silicon.tight-binding.wannier.bridge.md) · [Next](./bulk-silicon.workflow.extracted-model-verification.md)
+[Task index](index.md) · [Previous](./bulk-silicon.tight-binding.wannier.bridge.md) · [Next](./bulk-silicon.wannier-reference.md)
 
 ## Status
 
-`blocked`: Blocked by the QE–Wannier90 tutorial bridge and separate execution authorization.
+`superseded`: Never-launched tutorial-reproduction Hamiltonian-extraction identity, superseded by the inactive production Stage 03 Task bulk-silicon.wannier-reference.localization. Supersession does not activate the replacement or authorize execution.
 
 ## Objective
 
@@ -15,6 +15,7 @@ Reproduce an authorized Wannier90 silicon tutorial and extract its represented W
 
 - Depends on: `bulk-silicon.tight-binding.wannier.bridge`
 - External prerequisite: `wannier_tutorial_execution_authorization`
+- Superseded by: `bulk-silicon.wannier-reference.localization`
 
 ## Authority references
 

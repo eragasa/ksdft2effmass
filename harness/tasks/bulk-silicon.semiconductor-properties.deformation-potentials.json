@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.semiconductor-properties.deformation-potentials",
+  "title": "Conditional silicon deformation potentials",
+  "status": "blocked",
+  "status_detail": "Conditional strained-calculation and analysis Task; justified only by approved strain, phonon-coupling, or impurity-EMT claims.",
+  "parent_task_id": "bulk-silicon.semiconductor-properties",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.convergence",
+    "bulk-silicon.production-reference.lattice-reference",
+    "bulk-silicon.production-reference.scf"
+  ],
+  "external_prerequisite_ids": [
+    "strained_production_execution_authorization"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Determine hydrostatic and shear band-edge deformation potentials from controlled strained-cell branches with compatible numerical settings.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: calculation.",
+    "Inputs are the accepted unstrained parent, strain tensor families/amplitudes, internal-relaxation convention, compatible SCF and band-edge sampling, fit forms, and withheld strains.",
+    "Retain strained structures, run manifests, aligned band edges, stress/energy records, linear/nonlinear fits, residuals, strain-range sensitivity, and deformation-potential figures.",
+    "The human owns strain modes/range, relaxation convention, band-edge alignment, fit order, symmetry constraints, and validation comparator."
+  ],
+  "completion_criteria": [
+    "Positive/negative strains, linear regime, symmetry relations, and withheld checks are explicit.",
+    "Numerical convergence is demonstrated under strain and separated from fit/model and physical-validation errors.",
+    "Hydrostatic and shear constants are reported with exact conventions."
+  ],
+  "exclusions": [
+    "Planning does not activate this Task or authorize any external or scientific execution.",
+    "No production parameter or tolerance may be changed outside the owning accepted specification or an explicit human scientific decision.",
+    "Successful execution alone does not establish numerical verification or physical validation.",
+    "No phonon, electron–phonon, mobility, or piezoresistive claim follows automatically."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

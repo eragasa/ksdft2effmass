@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "bulk-silicon.tight-binding.wannier.extraction",
   "title": "Wannier tutorial Hamiltonian extraction",
-  "status": "blocked",
-  "status_detail": "Blocked by the QE–Wannier90 tutorial bridge and separate execution authorization.",
+  "status": "superseded",
+  "status_detail": "Never-launched tutorial-reproduction Hamiltonian-extraction identity, superseded by the inactive production Stage 03 Task bulk-silicon.wannier-reference.localization. Supersession does not activate the replacement or authorize execution.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "bulk-silicon.tight-binding.wannier.bridge"
@@ -11,7 +11,9 @@
   "external_prerequisite_ids": [
     "wannier_tutorial_execution_authorization"
   ],
-  "superseded_by_task_ids": [],
+  "superseded_by_task_ids": [
+    "bulk-silicon.wannier-reference.localization"
+  ],
   "explicit_activation_required": true,
   "objective": "Reproduce an authorized Wannier90 silicon tutorial and extract its represented Wannier-basis Hamiltonian.",
   "authority_reference_paths": [

@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.wannier-reference",
+  "title": "Bulk-silicon production Wannier reference",
+  "status": "inactive",
+  "status_detail": "Planning-only G03 acceptance boundary. All children are blocked by G02 and human-owned subspace/window/projection decisions; no Wannier execution is authorized.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate the production uniform NSCF child, QE–Wannier90 interface, Wannier construction, localization assessment, and independent interpolation verification.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/computational/ksdft2Effmass.computational.03.md",
+    "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: numerical verification.",
+    "Bind the Wannier branch to the accepted production SCF parent and explicit target subspace.",
+    "Separate interface generation, localization/disentanglement, convergence/sensitivity, interpolation verification, and final operator acceptance.",
+    "Require a human acceptance decision before freezing BulkSiWannier-v1."
+  ],
+  "completion_criteria": [
+    "Uniform-grid, interface, localization, and interpolation-verification records are complete and mutually compatible.",
+    "Centers, spreads, hopping decay, band-edge interpolation, and withheld-grid residuals pass accepted rules.",
+    "Gauge, windows, projections, truncation, parent lineage, and limitations are explicit."
+  ],
+  "exclusions": [
+    "A successful interface or low spread alone does not validate interpolation or scientific suitability.",
+    "Wannierization is not described as a low-rank approximation and does not automatically define the final TB model."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

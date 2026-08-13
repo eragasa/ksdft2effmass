@@ -26,26 +26,36 @@ The compact acquisition and execution provenance is recorded with the
 
 ## Production calculations
 
-**Status:** deferred pending tutorial completion and a separate
-scientific/numerical decision.
+**Status:** the accepted v1 physical and numerical specifications freeze the
+PBE/PseudoDojo standard-table ONCV bulk-Si branch and exact Si artifact
+metadata. The complete authority/provenance confirmation boundary is planned by
+[`bulk-silicon.production-reference.pseudopotential-selection`](../../harness/tasks/bulk-silicon.production-reference.pseudopotential-selection.json)
+and documented in the
+[bulk-silicon production program](bulk-silicon-production-program.md). That Task
+is blocked under its inactive parent.
 
-Production bulk-silicon and impurity calculations must later select one
-coherent, pinned pseudopotential family. The preferred candidate for evaluation
-is a specific release of the Standard Solid-State Pseudopotentials (SSSP)
-library, comparing at least SSSP Efficiency and SSSP Precision.
+The earlier preference recorded here for evaluating SSSP Efficiency and
+Precision is not current production authority and does not override
+[`PhysicalSpecification-v1`](../../specification/ksdft2Effmass.physical-specification.v1.md)
+or
+[`NumericalSpecification-v1`](../../specification/ksdft2Effmass.numerical-specification.v1.md).
+A no-download candidate-family metadata comparison is non-authoritative and may
+only identify whether a separately authorized revision of those owning
+specifications should be considered. It cannot select, substitute, or override
+the frozen pseudopotential.
 
-Before production use, a human decision must fix:
+Before production use, the authoritative branch must explicitly fix or confirm:
 
-- the SSSP release and version;
-- the Efficiency or Precision protocol;
-- the exchange-correlation functional;
-- the Si, P, and B pseudopotential identities;
-- recommended wavefunction and charge-density cutoffs;
-- relativistic treatment;
-- source URLs, file sizes, and SHA-256 identities;
-- licensing and citation metadata;
-- compatibility with the selected Quantum ESPRESSO version; and
-- any convergence study required before production use.
+- the exchange-correlation functional and pseudopotential family/release;
+- NC, ultrasoft, or PAW form and applicable charge-density cutoff behavior;
+- scalar-relativistic or fully relativistic treatment;
+- Si valence configuration and nonlinear-core-correction status;
+- exact source URL, filename, size, SHA-256 identity, license, and citations;
+- compatibility with the selected Quantum ESPRESSO and Wannier90 interface;
+- later compatible P and B family requirements without silently selecting their
+  branch-specific artifacts; and
+- the production convergence studies required by the accepted numerical
+  specification.
 
 Tutorial results obtained with `Si.pz-vbc.UPF` must not be assumed comparable
 with results obtained from an SSSP pseudopotential. Changing a pseudopotential
@@ -53,10 +63,11 @@ changes the represented Hamiltonian and may change total energies, band
 energies, equilibrium geometry, cutoff requirements, convergence behavior, and
 scientifically meaningful comparison boundaries.
 
-Selection must occur before production convergence studies, bulk-silicon
-reference calculations, or doped-system comparisons. A future Task should be
-created only when production pseudopotential evaluation is ready to begin; this
-note creates neither a Task nor a checkpoint.
+Authority/provenance confirmation must complete before production convergence
+studies, bulk-silicon reference calculations, or doped-system comparisons. The
+planned Task creates no checkpoint, is blocked under an inactive parent, and
+authorizes no download, installation, comparison calculation, selection, or
+substitution.
 
 ## External storage and repository provenance
 

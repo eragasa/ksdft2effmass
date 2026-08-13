@@ -5,7 +5,7 @@
 
 ## Status
 
-`blocked`: Blocked by QE artifact inventory, periodic record extraction, and explicit tutorial interface choices.
+`superseded`: Never-launched tutorial-only QE–Wannier90 bridge identity, superseded by the inactive production Stage 03 Task bulk-silicon.wannier-reference.interface. Supersession does not activate the replacement or authorize execution.
 
 ## Objective
 
@@ -16,6 +16,7 @@ Define the tutorial QE–Wannier90 input and artifact bridge from observed QE ar
 - Depends on: `bulk-silicon.artifacts.qe.inventory`
 - Depends on: `bulk-silicon.records.periodic.extraction`
 - External prerequisite: `wannier_tutorial_interface_selection`
+- Superseded by: `bulk-silicon.wannier-reference.interface`
 
 ## Authority references
 

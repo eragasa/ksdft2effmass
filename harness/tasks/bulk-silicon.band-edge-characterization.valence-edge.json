@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.band-edge-characterization.valence-edge",
+  "title": "Local valence-band-edge characterization",
+  "status": "blocked",
+  "status_detail": "Conditional calculation/analysis branch for hole, acceptor, or multiband claims; the non-SOC pilot alone cannot establish final silicon hole parameters.",
+  "parent_task_id": "bulk-silicon.band-edge-characterization",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.scf"
+  ],
+  "external_prerequisite_ids": [
+    "production_execution_authorization",
+    "valence_sampling_design_approval",
+    "valence_symmetry_evidence"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Sample and analyze the valence-band maximum sufficiently to choose among directional curvature masses, scalar approximations, and a multiband Luttinger–Kohn description.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: calculation.",
+    "Inputs are a compatible scalar-relativistic or fully relativistic SCF parent, local directions/samples, degeneracy tracking, gauge/subspace convention, fit model, and withheld data.",
+    "Retain directional dispersions, curvature tensors or multiband fit records, anisotropy/residual plots, and split-off energy only for a compatible SOC branch.",
+    "The human owns whether the use case requires scalar masses, directional masses, or Luttinger parameters and whether SOC is mandatory for the claim."
+  ],
+  "completion_criteria": [
+    "Degenerate-band handling and direction conventions are explicit.",
+    "Heavy-hole, light-hole, and split-off labels are used only with supporting symmetry/SOC evidence.",
+    "Fit sensitivity and limitations of scalar parabolic models are retained."
+  ],
+  "exclusions": [
+    "Planning does not activate this Task or authorize any external or scientific execution.",
+    "No production parameter or tolerance may be changed outside the owning accepted specification or an explicit human scientific decision.",
+    "Successful execution alone does not establish numerical verification or physical validation.",
+    "A single scalar valence mass is not treated as a complete silicon valence-band model.",
+    "Non-SOC data cannot support final SOC acceptor claims."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
