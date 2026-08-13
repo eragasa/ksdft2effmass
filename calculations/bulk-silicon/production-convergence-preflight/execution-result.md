@@ -1,11 +1,16 @@
-# Bulk-Silicon Primary Convergence Campaign Result
+# Bulk-Silicon Direct Bootstrap Execution Observations
 
-**Evidence status:** Calculated numerical results for the identified finite
-settings and provisional geometry. This is not an infinite-basis result,
-effective-mass convergence, EOS acceptance, or scientific validation.
+**Evidence status:** Bootstrap scientific-harness development evidence containing
+calculated observations for identified finite settings and provisional geometry.
+This is not a canonical scientific `CampaignRun`, accepted production
+convergence evidence, numerical-verification acceptance, an infinite-basis
+result, effective-mass convergence, EOS acceptance, or scientific validation.
+See the maintained [bootstrap disposition](bootstrap-execution-disposition.md).
 
 The human authorized Option A only at boundary commit
-`64de888ad54c1385941a0485433974342380094d`. The committed runner executed once
+`64de888ad54c1385941a0485433974342380094d`. The direct bootstrap runner,
+governed by the development harness before the deterministic scientific
+Campaign architecture existed, executed once
 from 2026-08-13 13:14:44 UTC through 13:15:30 UTC. All 9 SCFs and 9 linked NSCFs
 returned zero and emitted one `JOB DONE.` marker. No retry occurred.
 

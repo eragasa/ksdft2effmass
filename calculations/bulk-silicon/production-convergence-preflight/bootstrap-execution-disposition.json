@@ -1,0 +1,80 @@
+{
+  "record_version": 1,
+  "record_status": "bootstrap_scientific_harness_development_evidence",
+  "task_id": "bulk-silicon.production-reference.convergence",
+  "execution_fact": {
+    "boundary_commit": "64de888ad54c1385941a0485433974342380094d",
+    "observation_commit": "e9c6a1453a6a9dfac8c13256d7d146f6b6ec1716",
+    "pw_x_invocation_count": 18,
+    "mechanism": "direct bootstrap runner governed by the development harness",
+    "canonical_scientific_campaign_run": null,
+    "additional_execution_authorized": false
+  },
+  "classification": {
+    "evidence_class": "bootstrap scientific-harness development evidence",
+    "production_scientific_result_claimed": false,
+    "numerical_verification_accepted": false,
+    "scientific_validation_accepted": false,
+    "scientific_disposition": "not accepted",
+    "canonical_scientific_harness_execution": "deferred"
+  },
+  "retained_records": {
+    "execution_preflight": "execution-preflight.json",
+    "execution_provenance": "execution-provenance.json",
+    "ordered_inputs": "INPUTS.sha256",
+    "runner": "run-primary.sh",
+    "finite_setting_analysis": "finite-setting-analysis.json",
+    "result_summary": "execution-result.md",
+    "checksum_manifest": "SHA256SUMS"
+  },
+  "retained_identity_coverage": [
+    "repository boundary",
+    "executable identity",
+    "pseudopotential identity",
+    "ordered input identities",
+    "runner identity",
+    "exit statuses and completion markers",
+    "raw-output identities and external locations",
+    "resource observations",
+    "warnings"
+  ],
+  "permitted_fixture_uses": [
+    "QE input reconstruction",
+    "output parsing",
+    "execution-receipt construction",
+    "artifact-manifest handling",
+    "convergence-analysis development",
+    "direct-versus-CPN-controlled execution comparison"
+  ],
+  "artifact_dispositions": [
+    {
+      "artifact_family": "tracked inputs, runner, and compact retained records",
+      "classification": [
+        "bootstrap_fixture",
+        "retained_for_architecture_testing"
+      ],
+      "authority": "exact retained development evidence"
+    },
+    {
+      "artifact_family": "identity-addressed raw stdout and stderr under the external run root",
+      "classification": [
+        "bootstrap_fixture",
+        "retained_for_architecture_testing"
+      ],
+      "authority": "external observations referenced by compact identities; permanence is not required for every native byte"
+    },
+    {
+      "artifact_family": "wavefunctions, charge density, .save directories, and restart material",
+      "classification": [
+        "reconstructible_scratch"
+      ],
+      "authority": "not canonical authority; selected existing bytes may remain retained for architecture testing"
+    }
+  ],
+  "limitations": [
+    "These direct executions are retained as bootstrap observations produced while developing the scientific harness. They are not a canonical scientific CampaignRun, do not establish deterministic scientific-harness execution, and do not constitute accepted production convergence evidence.",
+    "The calculations predate the deterministic scientific Campaign architecture and were not retrospectively reclassified as having run through it.",
+    "No final cutoff, mesh, production parameter, numerical-verification acceptance, scientific-validation acceptance, or production scientific result follows from this disposition.",
+    "No additional scientific execution is authorized."
+  ]
+}

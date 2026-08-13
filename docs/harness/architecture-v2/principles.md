@@ -1,9 +1,10 @@
 # Architecture v2 principles
 
-> **Proposed architecture; inactive; not implemented; not accepted.**
+> **Selected control-plane separation; remaining compiler-harness principles are proposed.**
 
-These principles are planning criteria. They do not alter the current harness or
-the accepted `bulk-silicon.records.periodic.extraction` implementation.
+The [development and scientific control-plane boundary](development-and-scientific-control-planes.md)
+is selected authority for the active simulation-execution Task. Other principles
+on this page remain planning criteria unless that Task explicitly adopts them.
 
 ## Authority before representation
 
@@ -138,11 +139,16 @@ existing findings without redefining them.
 
 ## Architecture boundary
 
-The harness governs scientific execution, including applicable repository and
-protected-execution preconditions. Scientific records do not depend on harness
-telemetry. Repository-context and telemetry objects would not be introduced into
-periodic scientific records, and this proposal does not depend on the current
-QEXSD implementation.
+The development harness governs repository and software change. The scientific
+harness defines scientific Campaigns as CPNs and owns CampaignRun state. External
+calculator executors perform bounded numerical side effects requested by that
+scientific harness. Development Task state must not substitute for Campaign
+state, and Campaign state must not be represented by development Task phases or
+`.pi` checkpoints.
+
+Scientific records do not depend on harness telemetry. Repository-context and
+telemetry objects would not be introduced into periodic scientific records, and
+this proposal does not depend on the current QEXSD implementation.
 
 ## Scientific fast path as acceptance scenario
 

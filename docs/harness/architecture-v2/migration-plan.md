@@ -1,11 +1,16 @@
 # Architecture v2 migration plan
 
-> **Proposed architecture; inactive; not implemented; not accepted.**
+> **One simulation-execution implementation Task is active; the compiler-harness migration remains proposed.**
 
-This is a bounded sequence proposal, not a set of activated Tasks. No child Task
-is created by this plan. Every slice would require separate authority, exact
-path ownership, proportional verification, and a stop decision before the next
-slice.
+The selected [development and scientific control-plane boundary](development-and-scientific-control-planes.md)
+activates exactly `harness.architecture-v2.simulation-execution` with three
+serial slices: simulation and package architecture, direct accepted QE tutorial
+baselines under replay, and calculator-independent CPN solutions for the same
+tutorials. These are slices under one Task, not automatically activated child
+Tasks. Scientific execution remains unauthorized.
+
+The eleven compiler-harness slices below remain a bounded sequence proposal.
+They are not activated by the simulation-execution Task.
 
 ## Governed-operation lifecycle sequence
 
@@ -252,6 +257,11 @@ scientific records, and none depends on the current QEXSD implementation.
 - **Stopping condition:** Stop on any unresolved consumer or parity failure.
 
 ## Sequence rules
+
+The three active simulation-execution slices are serial under one Task and use
+one commit per completed slice. They require no intermediate checkpoint unless
+a genuine material ambiguity or protected boundary arises. The eleven proposed
+compiler-harness slices are separate and inactive.
 
 Slices are serial and bounded. A slice cannot infer activation of the next.
 No big-bang branch may combine live-state reduction, action exposure, SQLite

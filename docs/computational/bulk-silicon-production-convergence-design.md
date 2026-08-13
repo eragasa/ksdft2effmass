@@ -1,13 +1,17 @@
 # Bulk-Silicon Production Convergence Design
 
-**Status:** Calculated finite-setting results awaiting human review. Task
+**Status:** Direct bootstrap execution retained; canonical scientific-harness
+execution deferred. Task
 [`bulk-silicon.production-reference.convergence`](../../harness/tasks/bulk-silicon.production-reference.convergence.json)
-is active in phase `awaiting_human_review`. Human Option A authorized exactly the
-committed 9-SCF and 9-NSCF primary campaign; all 18 invocations exited zero and
-emitted `JOB DONE.` without retry. This does not accept a final cutoff, mesh,
-lattice parameter, infinite-basis result, effective mass, or scientific
-validation. Automatic successor activation is false. See the compact
-[execution result](../../calculations/bulk-silicon/production-convergence-preflight/execution-result.md).
+is deferred in phase `awaiting_scientific_harness_reimplementation`. Human
+Option A authorized the committed direct runner, and all 9 SCF and 9 linked NSCF
+invocations exited zero and emitted `JOB DONE.` without retry. These are
+bootstrap scientific-harness development observations, not a canonical
+scientific `CampaignRun` or accepted production convergence evidence. No final
+cutoff, mesh, lattice parameter, numerical-verification acceptance, infinite-
+basis result, effective mass, or scientific validation is accepted. Additional
+execution is unauthorized and automatic successor activation is false. See the
+maintained [bootstrap disposition](../../calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.md).
 
 The prepared record is
 [`execution-preflight.json`](../../calculations/bulk-silicon/production-convergence-preflight/execution-preflight.json).
@@ -64,8 +68,9 @@ legal conclusion: local execution use is prepared, while redistribution remains
 unauthorized. Cite PseudoDojo, DOI `10.1016/j.cpc.2018.01.012`, and ONCVPSP, DOI
 `10.1103/PhysRevB.88.085117`.
 
-Static UPF inspection establishes metadata and byte identity, not readability by
-`pw.x`. The first authorized SCF invocation is the readability test.
+Static UPF inspection established metadata and byte identity. The direct
+bootstrap SCF observations established readability for that identified
+execution only; they do not establish future scientific-harness behavior.
 `pw2wannier90.x` compatibility remains later scope.
 
 ## Executable and workspace
@@ -305,7 +310,8 @@ records peak RSS for every future invocation.
 ## Ending boundary and human decision
 
 No pseudopotential is redistributed, no final parameter or scientific result is
-accepted, no checkpoint is created, and no successor is activated. The one
-committed primary campaign has executed; no retry or follow-on calculation is
-authorized. The Task remains active awaiting human review with automatic
-successor activation false.
+accepted, no checkpoint is created, and no successor is activated. The committed
+direct bootstrap runner executed 18 invocations; no retry or follow-on
+calculation is authorized. The Task is deferred awaiting scientific-harness
+reimplementation, with no canonical `CampaignRun`, scientific acceptance, or
+automatic successor activation.

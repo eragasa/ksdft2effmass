@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Plan harness Architecture v2
 
-[Task index](index.md) · [Previous](./harness-task-state-symlink-toctou-hardening.md) · [Next](./harness.control-plane-cleanup.md)
+[Task index](index.md) · [Previous](./harness-task-state-symlink-toctou-hardening.md) · [Next](./harness.architecture-v2.simulation-execution.md)
 
 ## Status
 

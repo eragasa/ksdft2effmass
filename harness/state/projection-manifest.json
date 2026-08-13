@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "1b9325ecd62402faf14a2822817b894cf0d87fed11382fdfe506890a40de0480",
+  "semantic_database_digest": "f627c0ea584fa467a19fde4c1fc9d507a725cea97aa92e44f2573b18390b80de",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "44e5d5464b9a9e0f059d2d4d15e602d0b1546bbe9ab400f3fad574cdd1a05dee",
-    "byte_count": 3834800
+    "sha256": "7f6fa895d500dd6c488e0b4f39ed1bcec49c42f404666119b445cba8d5641e3e",
+    "byte_count": 3845356
   },
   "projections": [
     {
@@ -291,8 +291,8 @@
     {
       "path": "docs/harness/tasks/bulk-silicon.production-reference.convergence.md",
       "projection_kind": "task-markdown",
-      "sha256": "d3cc458f2ff4bcca96fcbec4551525e4c2d5bd45d387cbc3e1ddc57d1e46914f",
-      "byte_count": 5403,
+      "sha256": "74ced6059a131cd816b057a0aaa86626758060048ab0ec1742c7afd3c6f68f71",
+      "byte_count": 5992,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -599,15 +599,22 @@
     {
       "path": "docs/harness/tasks/harness.architecture-v2.plan.md",
       "projection_kind": "task-markdown",
-      "sha256": "90209c1d0aeeeec7adf835ee8596e1f7a966a99121ce9223041d48fecf156a62",
-      "byte_count": 4152,
+      "sha256": "da45bdeed29a9848b59324b469d81c3dc491b0a099e3d8cc5b53ac04408a31f9",
+      "byte_count": 4167,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/harness.architecture-v2.simulation-execution.md",
+      "projection_kind": "task-markdown",
+      "sha256": "1c3a4abf76bda7f67dadc16102ab87e5884bb3a67a30487956556cee868b498b",
+      "byte_count": 5051,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/harness.control-plane-cleanup.md",
       "projection_kind": "task-markdown",
-      "sha256": "7bb63d4b77ffdaf7b10cf8ee17fe827475bdfc3dc372f5eaf4cbb90314b33108",
-      "byte_count": 9157,
+      "sha256": "76b8ec38047c16426a70cb1bb1aa6d830491b67137c41651d22531528991e71d",
+      "byte_count": 9173,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -928,8 +935,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "e214742464b4fc7cc49e8290682f30ebbfb16dda0f7bc2ca651da3eaf17d7a4a",
-      "byte_count": 20684,
+      "sha256": "87ab898c1ac16ffde92019f276f4ed7da43fab4c7cfca86fd8426c0e0982d278",
+      "byte_count": 20877,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -970,8 +977,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "4f8a00c531d3c97d13386afd9f98e62eb5e29de1a9b3ac8400fc8f37685c666e",
-      "byte_count": 37407,
+      "sha256": "fe8148478d9cd6b636aa098c5cb1821eb1556e46be4efe625d5115166e33d2a7",
+      "byte_count": 37484,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1250,8 +1257,8 @@
     {
       "path": "harness/tasks/bulk-silicon.production-reference.convergence.json",
       "projection_kind": "task-json",
-      "sha256": "a80dfa87f2b6c98d5651108e6a07997530be76853488ed3d6a4f4986262dfdf8",
-      "byte_count": 5550,
+      "sha256": "566ff9e41d938ebba811ee66c1888126fca04447ce949f70700f1d292ec9555f",
+      "byte_count": 6154,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1560,6 +1567,13 @@
       "projection_kind": "task-json",
       "sha256": "dab834a030ed72578b2a7a4e52c2fcc09e0b5d597c57ff4ff733ecff41ccc86d",
       "byte_count": 4316,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/harness.architecture-v2.simulation-execution.json",
+      "projection_kind": "task-json",
+      "sha256": "a20e01f56d83cbe7366bcad40da3ab2c4df72bd445636a243fefcc9e97944e99",
+      "byte_count": 5281,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

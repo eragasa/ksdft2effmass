@@ -1,12 +1,15 @@
 # Architecture v2 governed execution
 
-> **Proposed architecture; inactive; not implemented; not accepted.**
+> **Scientific execution remains unauthorized; implementation has not begun.**
 
-This page describes an eventual operating model. It does not add Pi tools,
-action code, profiles, schemas, or process isolation. The policy-selected stage
+The selected [development and scientific control-plane boundary](development-and-scientific-control-planes.md)
+assigns repository/software change to the development harness, scientific CPN
+Campaign state to the scientific harness, and bounded numerical side effects to
+calculator-specific executors. This page otherwise describes an eventual
+operating model. It does not add Pi tools, action code, profiles, schemas,
+process isolation, or scientific execution authority. The policy-selected stage
 semantics and routes are defined in the proposed
-[operation lifecycle](operation-lifecycle.md); the request path below describes
-how one authorized execution route might operate.
+[operation lifecycle](operation-lifecycle.md).
 
 ## Proposed request path
 

@@ -1,9 +1,11 @@
 # Architecture v2 control plane
 
-> **Proposed architecture; inactive; not implemented; not accepted.**
+> **Selected development/scientific separation; minimal live-state reduction remains proposed.**
 
-Architecture v2 proposes a minimal live control state while preserving current
-v1 authority until a later migration is separately activated and verified.
+The selected [development and scientific control-plane boundary](development-and-scientific-control-planes.md)
+keeps HarnessTask development lifecycle separate from scientific Campaign and
+CampaignRun state. Architecture v2's minimal development-control-state reduction
+remains proposed until separately implemented and verified.
 
 ## Proposed live state
 
@@ -130,12 +132,15 @@ telemetry store.
 - A capability catalog would be fixed for one running operator; an operator
   could not mutate its own available actions.
 
-## Current active scientific work
+## Current active development work
 
-This proposal does not pause, modify, or absorb
-`bulk-silicon.records.periodic.extraction`. Harness governance of a later
-scientific execution would not make periodic scientific records depend on
-repository-context observations or harness telemetry. This proposal has no
-dependency on the current QEXSD implementation. No Architecture v2 action may be
-executed merely because its name appears here, and no successor activation is
-proposed.
+Exactly `harness.architecture-v2.simulation-execution` is the active development
+Task. `bulk-silicon.production-reference.convergence` is deferred awaiting
+scientific-harness reimplementation; its 18 direct invocations are bootstrap
+development evidence and do not form a canonical CampaignRun. The planning-only
+`harness.architecture-v2.plan` Task remains inactive, automatic successor
+activation is disabled, and no scientific execution is authorized.
+
+Scientific records do not thereby depend on repository-context observations or
+harness telemetry. No other Architecture v2 action may be executed merely
+because its name appears here.

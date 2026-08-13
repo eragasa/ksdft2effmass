@@ -41,10 +41,12 @@ PBE-relaxed lattice convention, and numerical protocols and tolerances. This
 planning page does not revise those contracts. The older
 [pseudopotential-library strategy](pseudopotential-library-strategy.md) names
 SSSP as a preferred candidate; that recommendation is non-authoritative. The
-active convergence Task begins with deterministic identity, license,
-byte-identity, and compatibility preflight against that frozen artifact. No
-family-selection lifecycle boundary remains, and contrary preflight evidence
-stops production rather than selecting or substituting another artifact.
+deferred convergence Task retains deterministic identity, license,
+byte-identity, compatibility preflight, and direct bootstrap observations
+against that frozen artifact. Its canonical scientific-harness execution awaits
+reimplementation and separate authorization. No family-selection lifecycle
+boundary remains, and contrary preflight evidence stops future execution rather
+than selecting or substituting another artifact.
 
 Four canonical Tasks are closed as `closed_human_accepted_pass`:
 
@@ -590,7 +592,7 @@ The following decisions are not made by this plan:
 1. the preliminary lattice, cutoff cases, explicit charge-density rule,
    preliminary mesh, mesh sequence, occupation and SCF controls, monitored
    observables, criteria, coupling guards, and resource ceiling listed in the
-   active [convergence design](bulk-silicon-production-convergence-design.md);
+   deferred [convergence design](bulk-silicon-production-convergence-design.md);
 2. any later revision of frozen numerical tolerances or protocols;
 3. the modern path source, labels, coordinate convention, density, and band
    count;
@@ -614,9 +616,9 @@ The following decisions are not made by this plan:
 12. every protected-execution resource, external artifact root, transfer policy,
     and exact one-run/campaign authorization.
 
-No checkpoint is created for parameter selection. The first decision is pending
-on the active convergence Task; later decisions remain with their owning
-inactive Tasks.
+No checkpoint is created for parameter selection. The first decision is deferred
+until canonical scientific-harness reimplementation and separately authorized
+execution; later decisions remain with their owning inactive Tasks.
 
 ## Evidence classes and acceptance
 
@@ -634,7 +636,11 @@ from a plot or from passing software tests.
 
 ## Completion boundary of this plan
 
-The corrected plan has exactly the convergence Task active awaiting human review
-after the bounded primary campaign. It does not pass G02, G03, or G04; freeze
-`BulkSiReference-v1`, `BulkSiWannier-v1`, or a semiconductor-property result;
-activate a successor; create a checkpoint; or authorize scientific execution.
+The convergence Task is deferred awaiting scientific-harness reimplementation.
+Its 18 direct invocations are retained as bootstrap scientific-harness
+development evidence, not a canonical scientific `CampaignRun` or accepted
+production convergence evidence. Exactly
+`harness.architecture-v2.simulation-execution` is the active development Task.
+The plan does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,
+`BulkSiWannier-v1`, or a semiconductor-property result; activate a successor;
+create a checkpoint; or authorize scientific execution.

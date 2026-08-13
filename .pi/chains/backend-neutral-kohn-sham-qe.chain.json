@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a bulk-silicon production program. Accepted tutorial Tasks remain closed under their bounded claims. Exactly the production convergence Task is active awaiting human review after its one authorized committed 18-invocation primary campaign; no retry, follow-on scientific execution, successor, publication, or release is authorized.",
-  "status": "bulk_silicon_production_convergence_awaiting_human_review",
-  "active_task": "bulk-silicon.production-reference.convergence",
+  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and Campaign architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific CampaignRun or accepted production convergence evidence. Production convergence is deferred awaiting scientific-harness reimplementation. Exactly harness.architecture-v2.simulation-execution is active; no scientific execution, automatic successor, publication, or release is authorized.",
+  "status": "architecture_v2_simulation_execution_active",
+  "active_task": "harness.architecture-v2.simulation-execution",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -81,6 +81,10 @@
     {
       "id": "bulk-silicon.production-reference.convergence",
       "record": "harness/tasks/bulk-silicon.production-reference.convergence.json"
+    },
+    {
+      "id": "harness.architecture-v2.simulation-execution",
+      "record": "harness/tasks/harness.architecture-v2.simulation-execution.json"
     },
     {
       "id": "bulk-silicon.production-reference.lattice-reference",
@@ -310,6 +314,13 @@
       "activated_after": "accepted planning branch integration, exact ancestry and diff checks, zero active Tasks, zero unresolved checkpoints, prerequisite eligibility, and isolated protected-execution preflight",
       "authority": "Current human instruction to integrate the accepted band-reference plan, activate exactly bulk-silicon.simulation.qe.band-reference, and complete preflight without invoking pw.x",
       "scope": "Activate exactly the QE 7.2 example01 silicon Davidson bands tutorial Task; prepare an identity-verified isolated copy of only required accepted restart artifacts, exact input, executable and pseudopotential identities, comparison target, one-process command, and human authorization packet. Do not invoke pw.x, run run_example, activate a successor, or create a checkpoint."
+    },
+    {
+      "task": "harness.architecture-v2.simulation-execution",
+      "authorized_at": "2026-08-13T14:36:04Z",
+      "activated_after": "human classification of the 18 direct executions as bootstrap scientific-harness development evidence and deferral of canonical production convergence execution",
+      "authority": "Current human instruction to correct the durable lifecycle, separate development and scientific harnesses, and activate exactly one Architecture v2 simulation-execution implementation Task",
+      "scope": "Three serial implementation slices under one Task: simulation and package architecture, direct accepted QE tutorial baselines under replay, and calculator-independent CPN solutions for the same tutorials. No scientific executable, production convergence execution, automatic successor, checkpoint, ADR, or implementation during the lifecycle-correction boundary."
     }
   ],
   "pending_checkpoints": [],
@@ -381,11 +392,16 @@
     {
       "phase": "bulk-silicon-production-convergence-executed-awaiting-human-review",
       "message": "The human selected Option A for boundary commit 64de888ad54c1385941a0485433974342380094d and token A-EXECUTE-COMMITTED-PRIMARY. The committed one-process campaign executed exactly once: all 9 SCFs and all 9 linked three-point NSCF diagnostics exited zero and emitted JOB DONE., no retry occurred, and resource ceilings were not exceeded. Raw outputs and restart trees remain external; compact identities, observations, finite-setting comparisons, and claim limits are retained. C42-to-C48 and later cutoff comparisons and every mesh comparison met the predefined finite-setting criteria at retained output precision, but no final E_* or K_* is selected, no infinite-basis or effective-mass convergence is claimed, and no four-corner case ran. The identical IEEE floating-point exception report recurred on all 18 invocations and remains unresolved and unclassified. The Task stays active awaiting human review; automatic successor activation remains false."
+    },
+    {
+      "phase": "architecture-v2-simulation-execution-active",
+      "message": "The human classified the 18 direct pw.x invocations as bootstrap scientific-harness development evidence produced by a direct runner governed by the development harness. No canonical scientific CampaignRun or accepted production, numerical-verification, or scientific-validation conclusion exists. bulk-silicon.production-reference.convergence is deferred in awaiting_scientific_harness_reimplementation, additional execution is unauthorized, and exactly harness.architecture-v2.simulation-execution is active to implement three serial architecture and tutorial-replay slices. harness.architecture-v2.plan remains planning-only and inactive; automatic successor activation remains false."
     }
   ],
   "explicitly_activated_task_ids": [
     "bulk-silicon.artifacts.qe.inventory",
     "bulk-silicon.production-reference.convergence",
+    "harness.architecture-v2.simulation-execution",
     "bulk-silicon.records.periodic.extraction",
     "bulk-silicon.simulation.qe.band-reference",
     "bulk-silicon.simulation.qe.reference"

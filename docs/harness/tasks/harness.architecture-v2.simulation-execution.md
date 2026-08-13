@@ -1,0 +1,56 @@
+<!-- Generated from SQLite control state; do not edit. -->
+# Implement the deterministic scientific simulation and campaign architecture
+
+[Task index](index.md) · [Previous](./harness.architecture-v2.plan.md) · [Next](./harness.control-plane-cleanup.md)
+
+## Status
+
+`active`: Active as the sole development Task. Architecture authority and lifecycle classification are established; implementation has not begun. Work proceeds only through three serial slices with automatic successor activation disabled and no scientific executable authorized.
+
+## Objective
+
+Implement the project-owned scientific operations layer consisting of calculator-specific simulation specifications, calculator executors, calculator-independent CPN Campaigns, CampaignRuns, execution results, artifact identities, and deterministic scientific-analysis boundaries.
+
+## Parent and prerequisites
+
+None.
+
+## Authority references
+
+- calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json
+- docs/harness/architecture-v2/control-plane.md
+- docs/harness/architecture-v2/development-and-scientific-control-planes.md
+- docs/harness/architecture-v2/governed-execution.md
+- docs/harness/architecture-v2/index.md
+- docs/harness/architecture-v2/migration-plan.md
+- docs/harness/architecture-v2/principles.md
+
+## Authorized scope
+
+- Slice 1, simulation and package architecture: establish calculator-independent simulation contracts, calculator-specific Quantum ESPRESSO simulation specifications and executors, artifact identities, scientific-analysis boundaries, Campaign, CampaignRun, and execution-result ownership without creating a second workflow graph beside the maintained CPN contract.
+- Slice 2, direct accepted QE tutorial baselines: represent the accepted silicon Davidson SCF and bands tutorials with exact retained inputs and identities, and verify direct execution behavior only through deterministic replay or fake-process evidence without invoking a scientific executable.
+- Slice 3, calculator-independent CPN solutions: represent the same tutorial simulations as CPN Campaigns, reuse the same simulation definitions and executor contract, and verify ordering, authorization, dependency, terminal-state, failure, and direct-versus-CPN replay equivalence behavior.
+- Keep the development HarnessTask lifecycle, scientific Campaign and CampaignRun state, calculator execution observations, deterministic scientific analysis, and explicit ScientificDisposition separate.
+- Use typed model features with derived tags where calculator capability classification is required; do not encode scientific parameters in Campaign records.
+- Preserve optional future adapter compatibility without adding integration dependencies on AiiDA, Airflow, or pymatgen.
+
+## Completion criteria
+
+- The direct tutorial execution model represents the accepted QE SCF and bands tutorial definitions and their immutable unexecuted-to-completed lifecycle under deterministic replay.
+- Calculator-independent CPN Campaigns represent the same tutorials using maintained CPN enablement and firing semantics rather than another dependency graph or shell-loop workflow authority.
+- Direct and CPN-controlled replay agree on simulation identities, input identities, executor contract, completed output identities, and injected-failure results; CPN behavior adds only ordering, authorization, dependency, failure, and terminal-state semantics.
+- Campaign and workflows.cpn packages import no calculator-specific Quantum ESPRESSO modules, and scientific-domain packages do not import Campaign orchestration.
+- Simulation specification and SimulationExecutionResult are explicit separate public boundaries, with mechanical observations distinct from ScientificAnalysis and ScientificDisposition.
+- Typed model features have derived tags where required, no AiiDA, Airflow, or pymatgen integration dependency is added, and future adapters remain optional compatibility work only.
+- Focused tests, maintained CPN tests, QE and QEXSD tests, dependency-direction checks, evidence conformance, typing, lint, documentation, control synchronization, source-aware verification, and required final review gates pass without scientific execution.
+
+## Exclusions
+
+- Do not invoke pw.x or any other scientific executable, reactivate production convergence, select production cutoff or mesh values, or claim numerical verification, scientific validation, or a canonical scientific CampaignRun from the retained bootstrap executions.
+- Do not modify harness.architecture-v2.plan from its planning-only inactive lifecycle or use development Task status as scientific Campaign state.
+- Do not add a campaign dependency graph beside the CPN, a universal calculator abstraction, a generic backend registry, AiiDA, Airflow, pymatgen, Wannier90, ph.x, projwfc.x, telemetry, dashboards, or production convergence implementation.
+- Do not automatically activate a successor, create an ADR, publish, release, or perform another protected action.
+
+## Historical source
+
+No archived source.

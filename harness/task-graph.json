@@ -255,6 +255,9 @@
       "task_id": "harness.architecture-v2.plan"
     },
     {
+      "task_id": "harness.architecture-v2.simulation-execution"
+    },
+    {
       "task_id": "harness.control-plane-cleanup"
     },
     {

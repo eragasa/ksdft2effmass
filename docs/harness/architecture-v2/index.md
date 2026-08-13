@@ -1,13 +1,13 @@
-# Harness Architecture v2 planning proposal
+# Harness Architecture v2
 
-> **Proposed architecture; inactive; not implemented; not accepted.**
+> **Selected development/scientific control-plane boundary; implementation not yet begun.**
 
-This inactive proposal plans a second-generation harness architecture from
-observed repository operation. It neither changes current authority nor
-implements the objects, paths, commands, schemas, or tools discussed here.
-`harness.architecture-v2.plan` requires separate explicit activation before any
-implementation Task may be created. The active scientific Task
-`bulk-silicon.records.periodic.extraction` remains unchanged.
+The planning-only `harness.architecture-v2.plan` Task remains inactive. The
+human-selected [development and scientific control-plane boundary](development-and-scientific-control-planes.md)
+and exactly one implementation Task,
+`harness.architecture-v2.simulation-execution`, are now active authority. The
+remaining compiler-model material on these pages is still a proposal unless the
+selected boundary or active Task explicitly owns it.
 
 ## Why a second architecture is proposed
 
@@ -117,6 +117,7 @@ history would not silently restore obsolete live control state.
 
 ## Pages
 
+- [Development and scientific control planes](development-and-scientific-control-planes.md)
 - [Principles](principles.md)
 - [Information model](information-model.md)
 - [Control plane](control-plane.md)
@@ -128,8 +129,7 @@ history would not silently restore obsolete live control state.
 
 ## Planning boundary
 
-This proposal creates no ADR, implementation child Task, public API, schema,
-plugin, action catalog, operator profile, migration, telemetry, or scientific
-execution. The names used in these pages are candidates only. Human acceptance
-of this planning document, if later granted, would still not activate
-implementation.
+The active simulation-execution Task creates no ADR and authorizes no scientific
+execution. It owns three serial implementation slices after this lifecycle
+boundary. Other candidate names and compiler-model proposals on these pages do
+not become implementation authority merely by appearing here.
