@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "docs.human-readable.generated-view-separation",
+  "title": "Move generated harness views outside docs",
+  "status": "inactive",
+  "status_detail": "Planned second child; blocked on the accepted contract and inventory, separate explicit activation required, and no automatic successor activation.",
+  "parent_task_id": "docs.human-readable",
+  "task_prerequisite_ids": [
+    "docs.human-readable.contract-and-inventory"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Ensure no harness generator writes beneath docs/ by relocating or retiring generated Task Markdown views and updating deterministic projection contracts.",
+  "authority_reference_paths": [
+    "docs/conf.py",
+    "harness/state/projection-manifest.json"
+  ],
+  "authorized_scope": [
+    "Change the harness projector, manifest, tests, and links so generated Task Markdown is emitted under harness/generated/task-markdown/ or retired when authoritative Task JSON and bounded inspection fully replace it.",
+    "Remove generated docs/harness/tasks/ pages only after every maintained inbound reference has an explicit replacement.",
+    "Synchronize and verify generated control state after the relocation and document the generated directory as non-authoritative inspection output."
+  ],
+  "completion_criteria": [
+    "No projection-manifest entry or generator destination targets docs/, and no generated Task Markdown remains under docs/harness/tasks/.",
+    "Task JSON remains authoritative, all retained links resolve, projector and verifier tests pass, and synchronized SQLite, SQL, graph, manifest, and generated views agree.",
+    "Sphinx passes with warnings as errors and ordinary docs-only edits no longer require control synchronization."
+  ],
+  "exclusions": [
+    "Do not redesign Task semantics, selection state, SQLite authority, scientific workflows, or unrelated harness resources.",
+    "Do not delete generated views until replacement links and inspection access are verified; do not activate a successor automatically."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

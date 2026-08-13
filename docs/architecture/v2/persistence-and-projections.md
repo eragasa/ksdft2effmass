@@ -36,36 +36,22 @@ inspection, documentation, and recovery. Projection formats may include SQLite,
 deterministic SQL, generated Task Markdown, indexes, graphs, and manifests. A
 projection is never loaded as fallback authority when its source disagrees.
 
-## Candidate and publication lifecycle
+The loader, compiler, validation, projector, synchronization, and comparison
+boundaries are defined by the [compiler architecture](compiler-architecture.md).
+Persistence owns representation and storage contracts; it does not reinterpret
+a normalized development state or create an alternate compilation path.
 
-```text
-authoritative inputs
-→ temporary candidate representation
-→ validation
-→ close mutable resources
-→ complete immutable artifact set
-→ bounded publication
-```
+## Publication storage boundary
 
-Projectors produce candidate bytes without writing maintained destinations.
-Publication accepts only a complete validated set, applies a defined rollback
-boundary, and removes temporary state. Maintained SQLite is an immutable
-projection. Write-capable connections, WAL, SHM, and journals belong only to
-temporary or disposable runtime copies.
+Publication accepts only a complete validated artifact set, applies a defined
+rollback boundary, and removes temporary state. Maintained SQLite is an
+immutable projection. Write-capable connections, WAL, SHM, and journals belong
+only to temporary or disposable runtime copies.
 
-## Verification
-
-Verification reconstructs a candidate from authoritative inputs and compares:
-
-- integrity and foreign keys;
-- schema and version identities;
-- normalized semantic content;
-- deterministic SQL where supported;
-- projection manifest closure; and
-- exact bytes for formats with a canonical-byte contract.
-
-Raw SQLite byte inequality alone is not semantic drift unless canonical bytes are
-explicitly contracted.
+Persistence verification covers integrity, foreign keys, schema and version
+identities, projection-manifest closure, and applicable canonical-format rules.
+Raw SQLite byte inequality alone is not semantic drift unless canonical bytes
+are explicitly contracted.
 
 ## Scientific views
 

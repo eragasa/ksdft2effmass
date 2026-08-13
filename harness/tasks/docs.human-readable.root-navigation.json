@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "docs.human-readable.root-navigation",
+  "title": "Create human-oriented documentation navigation",
+  "status": "inactive",
+  "status_detail": "Planned third child; blocked on generated-view separation, separate explicit activation required, and no automatic successor activation.",
+  "parent_task_id": "docs.human-readable",
+  "task_prerequisite_ids": [
+    "docs.human-readable.generated-view-separation"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Provide one obvious documentation landing page and index-driven navigation for every first-level maintained section.",
+  "authority_reference_paths": [
+    "docs/conf.py",
+    "docs/index.rst"
+  ],
+  "authorized_scope": [
+    "Create or revise the root landing page around human tasks: start here, architecture, user guide, concepts, computational work, research, API reference, verification, development, publications, and history.",
+    "Add an index.md or index.rst to every first-level maintained documentation section and make explicit navigation the primary discovery mechanism.",
+    "Simplify Sphinx collection and hidden navigation without broadening publication scope for restricted or intentionally uncollected records."
+  ],
+  "completion_criteria": [
+    "A reader can reach every current first-level documentation section from the root page without knowing repository-specific numeric filenames.",
+    "Every first-level maintained section has an index, no current page relies solely on hidden toctree discovery, and all maintained links resolve.",
+    "Sphinx passes with warnings as errors and no harness synchronization is needed for the navigation-only result."
+  ],
+  "exclusions": [
+    "Do not perform bulk filename normalization, rewrite scientific or publication content, expose private material, or activate a successor automatically.",
+    "Do not retain duplicate root pages with conflicting navigation authority."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

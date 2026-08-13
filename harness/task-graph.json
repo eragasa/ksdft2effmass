@@ -195,6 +195,30 @@
       "task_id": "deferred-harness-current-phase-history"
     },
     {
+      "task_id": "docs.human-readable"
+    },
+    {
+      "task_id": "docs.human-readable.architecture-development"
+    },
+    {
+      "task_id": "docs.human-readable.computational-names"
+    },
+    {
+      "task_id": "docs.human-readable.contract-and-inventory"
+    },
+    {
+      "task_id": "docs.human-readable.cutover"
+    },
+    {
+      "task_id": "docs.human-readable.generated-view-separation"
+    },
+    {
+      "task_id": "docs.human-readable.history-separation"
+    },
+    {
+      "task_id": "docs.human-readable.root-navigation"
+    },
+    {
       "task_id": "evidence-branch-orchestration-profile"
     },
     {
@@ -479,6 +503,41 @@
     {
       "source": "bulk-silicon.wannier-reference.uniform-nscf",
       "target": "bulk-silicon.wannier-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.architecture-development",
+      "target": "docs.human-readable",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.computational-names",
+      "target": "docs.human-readable",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.contract-and-inventory",
+      "target": "docs.human-readable",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.cutover",
+      "target": "docs.human-readable",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.generated-view-separation",
+      "target": "docs.human-readable",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.history-separation",
+      "target": "docs.human-readable",
+      "kind": "child_of"
+    },
+    {
+      "source": "docs.human-readable.root-navigation",
+      "target": "docs.human-readable",
       "kind": "child_of"
     },
     {
@@ -999,6 +1058,36 @@
     {
       "source": "cpn.workflow.persistence",
       "target": "bulk-silicon.tight-binding.comparison-reduction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "docs.human-readable.architecture-development",
+      "target": "docs.human-readable.root-navigation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "docs.human-readable.computational-names",
+      "target": "docs.human-readable.architecture-development",
+      "kind": "depends_on"
+    },
+    {
+      "source": "docs.human-readable.cutover",
+      "target": "docs.human-readable.history-separation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "docs.human-readable.generated-view-separation",
+      "target": "docs.human-readable.contract-and-inventory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "docs.human-readable.history-separation",
+      "target": "docs.human-readable.computational-names",
+      "kind": "depends_on"
+    },
+    {
+      "source": "docs.human-readable.root-navigation",
+      "target": "docs.human-readable.generated-view-separation",
       "kind": "depends_on"
     },
     {

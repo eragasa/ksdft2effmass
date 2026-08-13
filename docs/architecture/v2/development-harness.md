@@ -40,7 +40,8 @@ The development harness may:
 - validate operation-specific repository preconditions;
 - authorize bounded source and documentation changes;
 - run software-verification and repository-conformance checks;
-- project development control state; and
+- project development control state through the deterministic [compiler
+  architecture](compiler-architecture.md); and
 - record development review and acceptance.
 
 It may not execute a scientific `Campaign`, advance a `CampaignRun`, classify a

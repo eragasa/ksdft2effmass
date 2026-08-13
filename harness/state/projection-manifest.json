@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "a6326e5e91075b7a40a3e9bc985d8d09c7a72d862c853df6de71bd8948616c5c",
+  "semantic_database_digest": "a61c1901f20c5b2d4ca0dd822cded06ad8b660a91873fae47400f9507992d899",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "084cb5a792991a61c26e52fb43f7d09a37cf05c9d9e035f0c86cebac97d9cf0e",
-    "byte_count": 3844602
+    "sha256": "1f8414b2648196dd3822c6b0771221dd2f41c6cacd06a93741282b96de959512",
+    "byte_count": 3882212
   },
   "projections": [
     {
@@ -459,15 +459,71 @@
     {
       "path": "docs/harness/tasks/deferred-harness-current-phase-history.md",
       "projection_kind": "task-markdown",
-      "sha256": "eab2e5f5f729affceda9d449c43c5c0c26d888dc9719e60058a6c6173bfe6a4a",
-      "byte_count": 2885,
+      "sha256": "dcc699939a2d59e4796dc092916718dca04f1038776e69d6021657a4899ca002",
+      "byte_count": 2867,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.architecture-development.md",
+      "projection_kind": "task-markdown",
+      "sha256": "a58a4e64f1580ccd626994620aa7abc85a80e9e4eb2d1bc601716aaab490416f",
+      "byte_count": 1992,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.computational-names.md",
+      "projection_kind": "task-markdown",
+      "sha256": "e179437c92569a675d92e7ef4ed993cfe05180c62671e41ebd71000c9a41d0c4",
+      "byte_count": 2096,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.contract-and-inventory.md",
+      "projection_kind": "task-markdown",
+      "sha256": "37310f87c8f394118d43dd369514c72da2b33b9a842e972e76eeb95c1e8856ad",
+      "byte_count": 1966,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.cutover.md",
+      "projection_kind": "task-markdown",
+      "sha256": "8e383a96d741aa88fd590d91cd154a0f2cc452826659ad6cb0def343ea8a31ee",
+      "byte_count": 2231,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.generated-view-separation.md",
+      "projection_kind": "task-markdown",
+      "sha256": "4039293dfb440b0ef2e68e43969e372cebbd6fd2efd5d2be5eb5bc6b8d22f39e",
+      "byte_count": 2043,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.history-separation.md",
+      "projection_kind": "task-markdown",
+      "sha256": "39b6373db3d764ba677633b4177543f26f711d6b25caa7782b2e661d8e5d9a97",
+      "byte_count": 2041,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.md",
+      "projection_kind": "task-markdown",
+      "sha256": "1305b64e8c8ce37de79f40cfea63e1ef978510132ce03e4e3f505d61d9629a75",
+      "byte_count": 2586,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.root-navigation.md",
+      "projection_kind": "task-markdown",
+      "sha256": "a9c0de706601e2f99b43a42ba8d26048d588a77bd69388a826b7a9ca8f1602ab",
+      "byte_count": 1953,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/evidence-branch-orchestration-profile.md",
       "projection_kind": "task-markdown",
-      "sha256": "7a2c8129147b788dad04d23c43be0129fe01cb926338704fde88396db5e0c795",
-      "byte_count": 3555,
+      "sha256": "0dda50fbd0ecff49494a271676eeac12c4b4718149ecc54c8856bc6909e84f6a",
+      "byte_count": 3552,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -599,8 +655,8 @@
     {
       "path": "docs/harness/tasks/harness.architecture-v2.plan.md",
       "projection_kind": "task-markdown",
-      "sha256": "77a2af4eb93984161a0d1c4230738656d362628da435dc019f540549c54c5766",
-      "byte_count": 3541,
+      "sha256": "7a82cd55e3a45014e0075aea9824f1a15de9899da95f85f9b3660b9b2a66539a",
+      "byte_count": 3599,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -935,8 +991,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "87ab898c1ac16ffde92019f276f4ed7da43fab4c7cfca86fd8426c0e0982d278",
-      "byte_count": 20877,
+      "sha256": "7593df7b463211134bcdff7e0a63ef3b13dbdddb9087ba3bb592c43763eb44e2",
+      "byte_count": 22124,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -977,8 +1033,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "fe8148478d9cd6b636aa098c5cb1821eb1556e46be4efe625d5115166e33d2a7",
-      "byte_count": 37484,
+      "sha256": "85d8ec50771d9eadb2b70d0b9d1744b78dc92de1fb6a88239263ad5148fd00c3",
+      "byte_count": 39937,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1430,6 +1486,62 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "harness/tasks/docs.human-readable.architecture-development.json",
+      "projection_kind": "task-json",
+      "sha256": "2a47795d6c1e118ef05b7abd5d320e939aa3c85a705486831778eb63428be572",
+      "byte_count": 2135,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.computational-names.json",
+      "projection_kind": "task-json",
+      "sha256": "376f80035b368b6d0684030fed920355428836d509b266a0e71c8adbb3933b01",
+      "byte_count": 2206,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.contract-and-inventory.json",
+      "projection_kind": "task-json",
+      "sha256": "20b8e7776b5d48f491e1efebf1f88fe235019a969189c173d8d9ef78b0b52e8b",
+      "byte_count": 2111,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.cutover.json",
+      "projection_kind": "task-json",
+      "sha256": "8810d2181f976d9d7708a614774440eb176d2fff84b8c3cf1324aaaf37968f2c",
+      "byte_count": 2328,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.generated-view-separation.json",
+      "projection_kind": "task-json",
+      "sha256": "0faddbb0291b09009525c6d9b01d70e80730ac257db25e8cbe05a93b700c6399",
+      "byte_count": 2180,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.history-separation.json",
+      "projection_kind": "task-json",
+      "sha256": "801838afdf7f03bccfb2f4e2378c242225d44a5b9ff714af4296a7346cd6c80a",
+      "byte_count": 2156,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.json",
+      "projection_kind": "task-json",
+      "sha256": "c29be27feb9c527b69db9ba6e4b237fbbdcc096bcc154052030be1db2ebb5f65",
+      "byte_count": 2701,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/docs.human-readable.root-navigation.json",
+      "projection_kind": "task-json",
+      "sha256": "33c37b24c140424111e07f6cc9eb747cdda176b2f110ec23c770b25651eb22e8",
+      "byte_count": 2070,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "harness/tasks/evidence-branch-orchestration-profile.json",
       "projection_kind": "task-json",
       "sha256": "72742d1897cf6f3cfc080587181a13cbf5979ceb1a51a269d848e2ccdb8cbdcd",
@@ -1565,8 +1677,8 @@
     {
       "path": "harness/tasks/harness.architecture-v2.plan.json",
       "projection_kind": "task-json",
-      "sha256": "d8a3326536668b2cfa02550a5b00371b06d08e784727b3b645fef8f88bedd29f",
-      "byte_count": 3690,
+      "sha256": "f62afa14247a9d44c236f3cf0a163683cecc00a1a68ac85414dea1e7e8f8ce0f",
+      "byte_count": 3753,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

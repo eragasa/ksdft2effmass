@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "docs.human-readable.computational-names",
+  "title": "Replace opaque computational documentation filenames",
+  "status": "inactive",
+  "status_detail": "Planned fifth child; blocked on architecture and development normalization, separate explicit activation required, and no automatic successor activation.",
+  "parent_task_id": "docs.human-readable",
+  "task_prerequisite_ids": [
+    "docs.human-readable.architecture-development"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Replace opaque numbered computational-document paths with descriptive topic-based paths while preserving scientific meaning, status, and Git history.",
+  "authority_reference_paths": [
+    "docs/computational/ksdft2effmass.computational.00.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Use the accepted inventory to rename and group computational pages in bounded topic families, preserving exact scientific content unless deterministic link or status corrections are required.",
+    "Create a computational index organized by physical system, workflow stage, and evidence status rather than numeric filename codes.",
+    "Update all maintained links and retain explicit mappings from former paths when needed for historical traceability."
+  ],
+  "completion_criteria": [
+    "Current computational pages have descriptive lowercase kebab-case paths, the computational index explains their scientific and evidentiary status, and no current navigation depends on opaque numeric codes.",
+    "Every renamed page preserves its applicable specification authority, scientific assumptions, provenance references, and Git history.",
+    "All maintained links resolve and Sphinx passes with warnings as errors."
+  ],
+  "exclusions": [
+    "Do not change scientific settings, values, classifications, acceptance claims, calculation inputs or outputs, specifications, or execute scientific software.",
+    "Do not rename the entire family in one unreviewable change or activate a successor automatically."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

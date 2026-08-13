@@ -1,0 +1,43 @@
+{
+  "name": "docs-human-readable",
+  "description": "Make docs/ an ordinary human-authored, human-readable, human-editable documentation tree and relocate generated harness views outside it without changing scientific meaning or protected state.",
+  "status": "planned_inactive",
+  "active_task": null,
+  "automatic_successor_activation": false,
+  "explicitly_activated_task_ids": [],
+  "chain": [],
+  "task_sequence": [
+    {
+      "id": "docs.human-readable",
+      "record": "harness/tasks/docs.human-readable.json"
+    },
+    {
+      "id": "docs.human-readable.contract-and-inventory",
+      "record": "harness/tasks/docs.human-readable.contract-and-inventory.json"
+    },
+    {
+      "id": "docs.human-readable.generated-view-separation",
+      "record": "harness/tasks/docs.human-readable.generated-view-separation.json"
+    },
+    {
+      "id": "docs.human-readable.root-navigation",
+      "record": "harness/tasks/docs.human-readable.root-navigation.json"
+    },
+    {
+      "id": "docs.human-readable.architecture-development",
+      "record": "harness/tasks/docs.human-readable.architecture-development.json"
+    },
+    {
+      "id": "docs.human-readable.computational-names",
+      "record": "harness/tasks/docs.human-readable.computational-names.json"
+    },
+    {
+      "id": "docs.human-readable.history-separation",
+      "record": "harness/tasks/docs.human-readable.history-separation.json"
+    },
+    {
+      "id": "docs.human-readable.cutover",
+      "record": "harness/tasks/docs.human-readable.cutover.json"
+    }
+  ]
+}

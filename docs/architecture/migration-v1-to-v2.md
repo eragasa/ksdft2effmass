@@ -68,7 +68,7 @@ content was classified paragraph by paragraph and disposed as follows:
 | Former content | Classification | Maintained destination |
 |---|---|---|
 | Current Task, chain, control, SQLite, CLI, validation, and execution descriptions | v1 implemented description | `architecture/v1/index.md` |
-| Two-harness, simulation, Campaign/CPN, artifact, control, persistence, and package responsibilities | v2 normative target | subject pages under `architecture/v2/` |
+| Two-harness, simulation, Campaign/CPN, artifact, control, compiler, persistence, and package responsibilities | v2 normative target | subject pages under `architecture/v2/` |
 | Current-to-target maps, proposed slice chronology, bootstrap-execution comparison, and cutover conditions | cross-version migration material | this page |
 | Repeated status banners, duplicate candidate inventories, and obsolete per-file planning narration | obsolete duplicate | deleted; Git history retained |
 

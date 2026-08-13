@@ -37,6 +37,7 @@ have separate authorities and lifecycles.
 - [Campaign and CPN model](campaign-and-cpn-model.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)
 - [Control plane](control-plane.md)
+- [Compiler architecture](compiler-architecture.md)
 - [Persistence and projections](persistence-and-projections.md)
 - [Repository layout](repository-layout.md)
 

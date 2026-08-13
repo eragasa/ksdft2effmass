@@ -1,0 +1,34 @@
+{
+  "schema_version": 3,
+  "task_id": "docs.human-readable.contract-and-inventory",
+  "title": "Define the documentation contract and classify the current tree",
+  "status": "inactive",
+  "status_detail": "Planned first child; separate explicit activation required and no automatic successor activation.",
+  "parent_task_id": "docs.human-readable",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define docs/ as human-authored source and produce a complete bounded disposition inventory before moving or deleting documentation.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/conf.py",
+    "docs/index.rst"
+  ],
+  "authorized_scope": [
+    "Create docs/README.md as the concise docs/ authoring contract covering source ownership, prohibited generated content, index and filename conventions, Markdown versus reStructuredText use, validation commands, review, commit, and push expectations.",
+    "Inventory every tracked docs/ file and assign exactly one retain, rename, move, merge, historical, generated, or delete disposition with a proposed destination and reason.",
+    "Update repository documentation policy only as needed to make ordinary prose edits independent of harness-state synchronization."
+  ],
+  "completion_criteria": [
+    "docs/README.md exists and unambiguously states that maintained docs/ files are human-authored and that generated artifacts are prohibited there.",
+    "The inventory covers every tracked docs/ file, identifies generated Task Markdown and opaque version-numbered families, and has no unresolved disposition.",
+    "Documentation links and the warnings-as-errors Sphinx build pass; no file is moved or deleted in this Task."
+  ],
+  "exclusions": [
+    "Do not modify harness projection behavior, move or delete documentation, change scientific content, add dependencies, or activate a successor.",
+    "Do not infer that generated, historical, or opaque naming alone makes content deletable."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

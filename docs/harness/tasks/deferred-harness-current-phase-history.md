@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Deferred harness improvement — explicit current phase and reconstructable history
 
-[Task index](index.md) · [Previous](./cpn.workflow.persistence.md) · [Next](./evidence-branch-orchestration-profile.md)
+[Task index](index.md) · [Previous](./cpn.workflow.persistence.md) · [Next](./docs.human-readable.md)
 
 ## Status
 

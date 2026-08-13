@@ -66,6 +66,7 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/campaign-and-cpn-model
    architecture/v2/artifact-and-provenance-model
    architecture/v2/control-plane
+   architecture/v2/compiler-architecture
    architecture/v2/persistence-and-projections
    architecture/v2/repository-layout
    architecture/migration-v1-to-v2

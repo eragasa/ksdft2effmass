@@ -1,7 +1,7 @@
 <!-- Generated from SQLite control state; do not edit. -->
 # Optional evidence-branch orchestration profile
 
-[Task index](index.md) · [Previous](./deferred-harness-current-phase-history.md) · [Next](./graphify-integration.md)
+[Task index](index.md) · [Previous](./docs.human-readable.root-navigation.md) · [Next](./graphify-integration.md)
 
 ## Status
 
