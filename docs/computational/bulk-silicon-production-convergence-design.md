@@ -47,7 +47,7 @@ The installed portable authority is:
 
 `user_opt` resolves explicitly to canonical `~/opt`; traversal and symlink
 escape are rejected as specified by
-[`external-system-integration.md`](../architecture/external-system-integration.md).
+the external-artifact boundary in [Architecture v1](../architecture/v1/index.md#calculator-invocation-and-artifact-handling).
 The old production-input location was removed after verifying that it contained
 no unrelated files. The campaign's `pseudo/Si.upf` has the same decompressed
 identity but is a verified execution copy, not authority. No pseudopotential

@@ -41,4 +41,4 @@ The same element, XC functional, or broad PAW/norm-conserving label does not
 establish identity. No pseudopotential family is selected by the current
 architecture pass. Selection remains a later human scientific decision.
 
-See the authoritative [periodic integration architecture](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/architecture/periodic-electronic-structure-integration.md).
+See the authoritative [implemented Architecture v1 snapshot](../architecture/v1/index.md).

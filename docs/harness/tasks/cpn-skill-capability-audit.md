@@ -28,7 +28,7 @@ None.
 - .pi/skills/document-research-python/SKILL.md
 - .pi/skills/skill-capability-inventory.json
 - .pi/skills/validate_skill_capabilities.py
-- docs/architecture/cpn-skill-capability-audit.md
+- docs/architecture/v1/index.md
 - harness/archive/task-control-v1/tasks/cpn-skill-capability-audit.md
 
 ## Authorized scope

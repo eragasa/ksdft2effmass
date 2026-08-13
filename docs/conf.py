@@ -1,6 +1,8 @@
 import os
 import sys
 
+from pygments.lexers.special import TextLexer
+
 sys.path.insert(0, os.path.abspath("../python/src"))
 
 project = "ksdft2effmass"
@@ -12,13 +14,16 @@ source_suffix = {
     ".md": "markdown",
 }
 
-# Keep every maintained RST page and collect only the bounded Markdown user
-# guide, CPN pages, and explicitly selected current harness pages. The complete
-# harness hierarchy remains available for repository/Obsidian navigation, while
-# proposals, migration plans, alternatives, and history stay outside Sphinx.
+# Keep every maintained RST page and collect the version-isolated architecture,
+# bounded Markdown user guide, CPN pages, and explicitly selected current harness
+# pages. The complete harness hierarchy remains available for repository/Obsidian
+# navigation.
 include_patterns = [
     "*.rst",
     "**/*.rst",
+    "architecture/*.md",
+    "architecture/v1/*.md",
+    "architecture/v2/*.md",
     "user-guide/*.md",
     "concepts/cpn-contract.md",
     "api/workflows-cpn.md",
@@ -32,6 +37,14 @@ include_patterns = [
 
 myst_enable_extensions = ["dollarmath"]
 myst_heading_anchors = 3
+
+
+def setup(app):
+    """Register Mermaid fences as literal text for warning-free source builds."""
+    from sphinx.highlighting import lexers
+
+    lexers["mermaid"] = TextLexer()
+
 
 autodoc_typehints = "none"
 napoleon_google_docstring = False

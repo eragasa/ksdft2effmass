@@ -52,4 +52,4 @@ Architecture designed for several backends is not demonstrated backend
 neutrality. A public demonstrated-neutrality claim requires future ABINIT
 conformance evidence.
 
-See the authoritative [periodic integration architecture](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/architecture/periodic-electronic-structure-integration.md), [Quantum ESPRESSO](quantum-espresso.md), [ABINIT](abinit.md), and [cross-backend verification](cross-backend-verification.md).
+See the authoritative [implemented Architecture v1 snapshot](../architecture/v1/index.md), [Quantum ESPRESSO](quantum-espresso.md), [ABINIT](abinit.md), and [cross-backend verification](cross-backend-verification.md).

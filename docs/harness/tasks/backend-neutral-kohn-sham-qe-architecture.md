@@ -20,7 +20,7 @@ None.
 - .pi-subagents/artifacts/18b37c02_ksdft2effmass.ksdft2effmass-integration-reviewer_0_output.md
 - .pi/chains/backend-neutral-kohn-sham-qe.chain.json
 - dft/paw.py
-- docs/architecture/periodic-electronic-structure-integration.md
+- docs/architecture/migration-v1-to-v2.md
 - docs/publications/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md
 - harness/archive/task-control-v1/tasks/backend-neutral-kohn-sham-qe-architecture.md
 

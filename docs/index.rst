@@ -41,7 +41,7 @@ The Markdown-first provenance concept page is available as a
    :maxdepth: 1
    :caption: Project documentation
 
-   architecture/repository-layout
+   architecture/index
    development/ai-assisted-development
    development/agent-control-plane
    development/source-documentation
@@ -56,6 +56,19 @@ The Markdown-first provenance concept page is available as a
 .. toctree::
    :hidden:
 
+   architecture/v1/index
+   architecture/v2/index
+   architecture/v2/principles
+   architecture/v2/separation-of-harnesses
+   architecture/v2/development-harness
+   architecture/v2/scientific-execution-harness
+   architecture/v2/simulation-model
+   architecture/v2/campaign-and-cpn-model
+   architecture/v2/artifact-and-provenance-model
+   architecture/v2/control-plane
+   architecture/v2/persistence-and-projections
+   architecture/v2/repository-layout
+   architecture/migration-v1-to-v2
    harness/ksdft2effmass.harness.001.001.000
    harness/ksdft2effmass.harness.001.002.000
    harness/ksdft2effmass.harness.001.003.000
@@ -92,14 +105,11 @@ policy; Sphinx does not broadly collect other Markdown trees.
 Uncollected Markdown records
 ----------------------------
 
-Architecture, computational, research, conference, paper, and meeting Markdown
-remain authoritative repository/Obsidian sources. Harness proposals, migration
-plans, alternatives, history, and the repository root harness index are also
-excluded until deliberately promoted. Architecture overviews remain available
-as source files:
+Computational, research, conference, paper, and meeting Markdown remain
+repository/Obsidian sources unless explicitly collected. Architecture is
+version-isolated and begins at :doc:`architecture/index`. Its primary maintained
+sources are:
 
-* :download:`Colored Petri Net workflow architecture <architecture/colored-petri-net-workflows.md>`
-* :download:`Periodic KS/GKS and QE architecture <architecture/kohn-sham-dft-quantum-espresso.md>`
-* :download:`Periodic electronic-structure integration <architecture/periodic-electronic-structure-integration.md>`
-* :download:`Multi-prover mechanized-proof architecture <architecture/mechanized-proof-system.md>`
-* :download:`CPN skill-capability audit <architecture/cpn-skill-capability-audit.md>`
+* :download:`Architecture v1 <architecture/v1/index.md>`
+* :download:`Architecture v2 <architecture/v2/index.md>`
+* :download:`Migration from v1 to v2 <architecture/migration-v1-to-v2.md>`

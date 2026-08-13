@@ -9,9 +9,9 @@
   "engine_dependency_added": true,
   "architecture_authority": "harness/tasks/backend-neutral-cpn-workflow-architecture.json",
   "architecture_documents": [
-    "docs/architecture/colored-petri-net-workflows.md",
-    "docs/architecture/kohn-sham-dft-quantum-espresso.md",
-    "docs/architecture/periodic-electronic-structure-integration.md",
+    "docs/architecture/migration-v1-to-v2.md",
+    "docs/architecture/v1/index.md",
+    "docs/architecture/v2/index.md",
     "docs/computational/ksdft2effmass.computational.bootstrap.md",
     "docs/computational/ksdft-pw-record-architecture.md",
     "docs/computational/bulk-silicon-production-program.md"

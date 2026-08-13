@@ -1,6 +1,6 @@
 # PRF-05 Mechanized Operator Lemma Contracts
 
-[Catalog conventions](README.md) · [Proof package](../../docs/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md) · [Architecture](../../docs/architecture/mechanized-proof-system.md)
+[Catalog conventions](README.md) · [Proof package](../../docs/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md) · [Architecture v1](../../docs/architecture/v1/index.md)
 
 ## Contract registry
 

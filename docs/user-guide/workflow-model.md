@@ -18,4 +18,4 @@ immutable authorized request
 
 Guards are pure and may inspect immutable token fields only. The accepted periodic electronic-structure dataset remains the provenance-aware common parent of the direct-TB and Wannier branches. A deferred paired QE–ABINIT conformance subnet is separate from the prospective QE production path.
 
-See [Colored Petri Nets](colored-petri-nets.md), the authoritative [CPN architecture](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/architecture/colored-petri-net-workflows.md), and the [periodic integration boundary](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/architecture/periodic-electronic-structure-integration.md).
+See [Colored Petri Nets](colored-petri-nets.md), the [implemented Architecture v1 snapshot](../architecture/v1/index.md), and the [Architecture v2 target](../architecture/v2/index.md).

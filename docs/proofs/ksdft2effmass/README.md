@@ -19,7 +19,7 @@ foundations
 
 ## Architecture and mechanization
 
-- [Multi-prover mechanized-proof architecture](../../architecture/mechanized-proof-system.md)
+- [Architecture v1](../../architecture/v1/index.md)
 - [PRF-05 prover-neutral theorem catalog](../../../formal/theorem-catalog/PRF-05.md)
 - [PRF-05 mechanized operator lemmas](status/proof.05-mechanized-lemmas.md)
 

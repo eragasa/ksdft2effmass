@@ -236,7 +236,7 @@ manifests, or commits.
 
 ## Software architecture
 
-Follow `docs/architecture/repository-layout.md` and use the current or approved
+Follow `docs/architecture/v1/index.md` and use the current or approved
 prospective ownership surfaces:
 
 | Surface | Location and role |

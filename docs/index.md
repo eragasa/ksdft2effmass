@@ -19,11 +19,13 @@ indexed in
 
 ## Architecture
 
-Software, repository, data, and provenance decisions are documented in
-[`architecture/repository-layout.md`](architecture/repository-layout.md). The approved prospective periodic KS/GKS electronic-structure and Quantum ESPRESSO
-architecture is recorded in
-[`architecture/kohn-sham-dft-quantum-espresso.md`](architecture/kohn-sham-dft-quantum-espresso.md). The periodic KS/GKS domain and backend-extension seams are recorded in [`architecture/periodic-electronic-structure-integration.md`](architecture/periodic-electronic-structure-integration.md). The project-owned workflow semantics are recorded in
-[`architecture/colored-petri-net-workflows.md`](architecture/colored-petri-net-workflows.md). The bounded skill-capability and prospective CPN testing-block audit is recorded in [`architecture/cpn-skill-capability-audit.md`](architecture/cpn-skill-capability-audit.md). The maintained PI harness documentation begins at [`harness/ksdft2effmass.harness.000.000.000.md`](harness/ksdft2effmass.harness.000.000.000.md); live harness task state remains under `.pi/`.
+The version-isolated architecture index is
+[`architecture/index.md`](architecture/index.md). It links the single
+implemented Architecture v1 snapshot, the normative Architecture v2 target, the
+sole cross-version migration page, and current generated Task status. The
+maintained PI harness documentation begins at
+[`harness/ksdft2effmass.harness.000.000.000.md`](harness/ksdft2effmass.harness.000.000.000.md);
+live development-harness state remains under `.pi/` and `harness/`.
 
 ## User guide
 

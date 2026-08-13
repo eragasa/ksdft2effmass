@@ -12,12 +12,12 @@
   "objective": "Implement the project-owned scientific operations layer consisting of calculator-specific simulation specifications, calculator executors, calculator-independent CPN Campaigns, CampaignRuns, execution results, artifact identities, and deterministic scientific-analysis boundaries.",
   "authority_reference_paths": [
     "calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json",
-    "docs/harness/architecture-v2/control-plane.md",
-    "docs/harness/architecture-v2/development-and-scientific-control-planes.md",
-    "docs/harness/architecture-v2/governed-execution.md",
-    "docs/harness/architecture-v2/index.md",
-    "docs/harness/architecture-v2/migration-plan.md",
-    "docs/harness/architecture-v2/principles.md"
+    "docs/architecture/migration-v1-to-v2.md",
+    "docs/architecture/v2/artifact-and-provenance-model.md",
+    "docs/architecture/v2/campaign-and-cpn-model.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/separation-of-harnesses.md",
+    "docs/architecture/v2/simulation-model.md"
   ],
   "authorized_scope": [
     "Slice 1, simulation and package architecture: establish calculator-independent simulation contracts, calculator-specific Quantum ESPRESSO simulation specifications and executors, artifact identities, scientific-analysis boundaries, Campaign, CampaignRun, and execution-result ownership without creating a second workflow graph beside the maintained CPN contract.",

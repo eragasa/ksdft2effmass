@@ -18,12 +18,12 @@ None.
 ## Authority references
 
 - calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json
-- docs/harness/architecture-v2/control-plane.md
-- docs/harness/architecture-v2/development-and-scientific-control-planes.md
-- docs/harness/architecture-v2/governed-execution.md
-- docs/harness/architecture-v2/index.md
-- docs/harness/architecture-v2/migration-plan.md
-- docs/harness/architecture-v2/principles.md
+- docs/architecture/migration-v1-to-v2.md
+- docs/architecture/v2/artifact-and-provenance-model.md
+- docs/architecture/v2/campaign-and-cpn-model.md
+- docs/architecture/v2/index.md
+- docs/architecture/v2/separation-of-harnesses.md
+- docs/architecture/v2/simulation-model.md
 
 ## Authorized scope
 

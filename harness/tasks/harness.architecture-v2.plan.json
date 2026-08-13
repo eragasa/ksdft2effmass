@@ -3,37 +3,37 @@
   "task_id": "harness.architecture-v2.plan",
   "title": "Plan harness Architecture v2",
   "status": "inactive",
-  "status_detail": "Proposed architecture; inactive; not implemented; not accepted. Separate explicit human activation is required before any implementation Task may be created or executed.",
+  "status_detail": "Planning-only and inactive. Architecture documentation is version-isolated: v1 is one implemented-system snapshot, v2 contains normative target architecture only, and the migration page contains all cross-version comparison. This Task authorizes no implementation or scientific execution.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Plan a second-generation harness architecture from observed repository operation while leaving the accepted periodic-extraction implementation unchanged.",
+  "objective": "Maintain strict version isolation between the self-contained implemented Architecture v1 snapshot, the normative Architecture v2 target, and the explicit v1-to-v2 migration crosswalk without authorizing implementation.",
   "authority_reference_paths": [
-    "docs/harness/architecture-v2/index.md",
-    "harness/reports/control-plane-cleanup-slice-b.md",
-    "harness/reports/control-plane-cleanup-slice-c-dispositions.md",
-    "harness/tasks/harness.control-plane-cleanup.json"
+    "docs/architecture/index.md",
+    "docs/architecture/migration-v1-to-v2.md",
+    "docs/architecture/v1/index.md",
+    "docs/architecture/v2/index.md"
   ],
   "authorized_scope": [
-    "Document an inactive compiler-style harness architecture separating control, compilation, validation, projection, synchronization, execution, evidence, telemetry, and Git-history planes.",
-    "Map current origin/dev responsibilities to proposed target owners and dispositions without changing current source, schemas, CLIs, SQLite behavior, agents, skills, or scientific workflows.",
-    "Propose a bounded eleven-slice migration beginning with a governed-operation lifecycle and explicit repository-context preflight before any telemetry implementation, plus governed action execution, an immutable SQLite projection lifecycle, extension boundaries, and effectiveness criteria using the completed QE tutorial as the primary acceptance scenario.",
-    "Distinguish deterministic operation-specific execution-context validation from optional session observation; propose RepositoryContext, RepositoryContextRequirement, ObserveRepositoryContext, ValidateRepositoryContext, and deferred operation receipts without implementing them.",
-    "Formalize policy-selected preflight, implementation, verification, conditional read-only review, and conditional human-acceptance stages; minimum request/result responsibilities; current single-writer limitations; deferred restricted-dispatch enforcement; and the non-authoritative relationship from operation transitions through optional receipts to later telemetry."
+    "Maintain exactly one self-contained v1 architecture page describing implemented behavior, generated state, documented intention, known limitations, and historical execution without importing v2 objects into the implemented description.",
+    "Maintain normative v2 pages containing only the selected development-harness, scientific-execution-harness, simulation, Campaign/CPN, artifact, control, persistence, and package target responsibilities.",
+    "Maintain all current-to-target responsibility maps, implementation status, cutover conditions, migration order, and unresolved extraction/import decisions only in the v1-to-v2 migration page.",
+    "Keep ProjectKoios Bootstrap and Workflows as conceptual target ownership boundaries without claiming current package integration.",
+    "Repair maintained architecture navigation and remove duplicate unversioned or harness-local Architecture v2 authority without creating an archive or ADR."
   ],
   "completion_criteria": [
-    "All nine Architecture v2 Markdown pages exist, agree, and identify themselves as proposed, inactive, not implemented, and not accepted.",
-    "Current authority and proposed target state are distinct; current responsibilities and migration slices are mapped; operation lifecycle, extension, SQLite, governed-execution, explicit-root repository-context, optional-observation, and scientific-fast-path boundaries are explicit.",
-    "Lifecycle documentation preserves the required state diagram and distinguishes preflight, implementation, verification, conditional read-only review, and conditional human acceptance without making stages automatic Tasks, agents, checkpoints, commits, or human decisions.",
-    "The generated Task page and maintained harness-index link exist; current control synchronization, source-aware validation, documentation links, applicable Sphinx build, dependency immutability, and git diff checks pass.",
-    "No implementation occurs, no child implementation Task is created, the accepted bulk-silicon.records.periodic.extraction implementation remains unchanged, no successor is activated, and automatic successor activation remains disabled."
+    "docs/architecture has the selected index, exactly one v1 page, exactly eleven normative v2 pages, and one migration page; docs/harness/architecture-v2 no longer exists.",
+    "The v1 page is self-contained and accurately records implemented repository, harness, CPN, scientific-record, validation, calculator-execution, historical-execution, and limitation boundaries.",
+    "V2 pages use target terminology and contain no v1 implementation narrative or cross-version chronology; the required two-harness and lifecycle diagrams are preserved.",
+    "The migration page contains the complete responsibility crosswalk, ProjectKoios ownership status, ordered cutover, direct-execution fixture disposition, and unresolved target import/package decisions.",
+    "Maintained links, Mermaid blocks, Task/graph state, synchronized control projections, source-aware verification, SQLite integrity, dependency immutability, and git diff checks pass without implementation or scientific execution."
   ],
   "exclusions": [
-    "Do not implement Architecture v2, repository-context objects, receipts, telemetry stores, failure catalogs, source or test refactors, SQLite schemas or lifecycle, control migration, CLIs, Pi extension code, agents or skills, CPN behavior, or dependencies.",
-    "Do not modify periodic-record extraction, simulations, pseudopotentials, scientific settings, dependency or lock files, publication or release state, or any protected execution boundary.",
-    "Do not create ADRs, child implementation Tasks, plugin frameworks, service locators, mutable global registries, speculative abstract bases, pre-alpha compatibility layers, or successor activations."
+    "Do not implement Architecture v2, change Python source or tests, alter CPN behavior, integrate ProjectKoios packages, add dependencies, or begin a simulation-execution slice.",
+    "Do not modify scientific results, calculation inputs, pseudopotentials, external artifacts, scientific settings, publication or release state, or any protected execution boundary.",
+    "Do not create ADRs, compatibility documentation trees, archive copies of removed architecture pages, additional Tasks, checkpoints, successor activations, plugin frameworks, or mutable registries."
   ],
   "intake_path": null,
   "archived_source": null

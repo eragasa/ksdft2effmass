@@ -1,6 +1,6 @@
 # Mechanized Theorem Catalog
 
-This catalog states prover-neutral mathematical contracts before they are encoded in Lean, Isabelle, or Rocq. It is governed by [`docs/architecture/mechanized-proof-system.md`](../../docs/architecture/mechanized-proof-system.md).
+This catalog states prover-neutral mathematical contracts before they are encoded in Lean, Isabelle, or Rocq. It is governed by the implemented architecture snapshot at [`docs/architecture/v1/index.md`](../../docs/architecture/v1/index.md).
 
 The catalog is maintained Markdown, not executable proof software. A contract records the proposition that all three backends are intended to encode. It does not prove the proposition, establish that backend encodings are equivalent, or validate the scientific assumptions from which the proposition was derived.
 

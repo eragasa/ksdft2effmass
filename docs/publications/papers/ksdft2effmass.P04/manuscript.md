@@ -20,7 +20,7 @@ This Markdown manuscript is a living projection of the scientific, mathematical,
 | Numerical protocols and provenance requirements | [Numerical specification](../../../../specification/ksdft2Effmass.numerical-specification.v1.md) | Existing authoritative contract |
 | Pristine–doped alignment | [Alignment research](../../../research/ksdft2Effmass.04.md) and [alignment proof units](../../../proofs/ksdft2effmass/operator-alignment/) | Existing research owner plus proposed proofs |
 | Impurity-operator extraction | [Extraction research](../../../research/ksdft2Effmass.06.md) and [aligned impurity proof](../../../proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md) | Existing research owner plus proposed proof |
-| Mechanized finite-dimensional lemma layer | [Mechanized-proof architecture](../../../architecture/mechanized-proof-system.md), [PRF-05 status](../../../proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md), [theorem catalog](../../../../formal/theorem-catalog/PRF-05.md), and [Lean backend](../../../../formal/lean/README.md) | Nine contracts are frozen; `PRF-05.01` is Lean checked under the pinned bounded trial, while all other backend targets remain unencoded |
+| Mechanized finite-dimensional lemma layer | [Architecture v1](../../../architecture/v1/index.md), [PRF-05 status](../../../proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md), [theorem catalog](../../../../formal/theorem-catalog/PRF-05.md), and [Lean backend](../../../../formal/lean/README.md) | Nine contracts are frozen; `PRF-05.01` is Lean checked under the pinned bounded trial, while all other backend targets remain unencoded |
 | Local and nonlocal impurity reduction | [Impurity reduction research](../../../research/ksdft2Effmass.07.md) | Existing research owner |
 | Atomistic-to-continuum reduction | [Continuum research](../../../research/ksdft2Effmass.08.md) and [continuum proof unit](../../../proofs/ksdft2effmass/reduction/atomistic-to-continuum.md) | Existing research owner plus proposed proof |
 | Crossover and observable-error bounds | [Crossover proof](../../../proofs/ksdft2effmass/bounds/spatial-residual-and-crossover.md) and [observable-error proof](../../../proofs/ksdft2effmass/bounds/operator-to-observable-errors.md) | Proposed proof development |
@@ -60,7 +60,7 @@ The result statements below remain a manuscript-level summary. Detailed argument
 - [TB-anchored identification](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md); and
 - [gauge equivariance](../../../proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md);
 - [the PRF-05 theorem catalog](../../../../formal/theorem-catalog/PRF-05.md); and
-- [the multi-prover architecture](../../../architecture/mechanized-proof-system.md).
+- [Architecture v1](../../../architecture/v1/index.md).
 
 ### 2.1 Mathematical novelty and mechanization boundary
 

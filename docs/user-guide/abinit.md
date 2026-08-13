@@ -31,4 +31,4 @@ authorized by the current architecture correction. A production QE run does not
 require a simultaneous ABINIT run.
 
 See [cross-backend verification](cross-backend-verification.md) and the
-[periodic integration architecture](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/architecture/periodic-electronic-structure-integration.md).
+[implemented Architecture v1 snapshot](../architecture/v1/index.md).

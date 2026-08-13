@@ -1,6 +1,6 @@
 # PRF-05: Mechanized Operator Lemmas
 
-[Proof registry](../proof-status.md) · Depends on [PRF-00](proof.00-foundations.md) · Precedes applicable parts of [PRF-10](proof.10-operator-alignment.md), [PRF-20](proof.20-reduction.md), and [PRF-40](proof.40-compatibility.md) · Governed by the [mechanized-proof architecture](../../../architecture/mechanized-proof-system.md)
+[Proof registry](../proof-status.md) · Depends on [PRF-00](proof.00-foundations.md) · Precedes applicable parts of [PRF-10](proof.10-operator-alignment.md), [PRF-20](proof.20-reduction.md), and [PRF-40](proof.40-compatibility.md) · Governed by the [Architecture v1](../../../architecture/v1/index.md)
 
 ## Status
 
@@ -15,7 +15,7 @@ Independently mechanize the elementary finite-dimensional algebra supporting gau
 - `PRF-00.01` state spaces.
 - `PRF-00.02` Bloch-fiber definitions where wavevector-indexed families are used.
 - `PRF-00.03` representation maps and gauge actions.
-- [Multi-prover mechanized-proof architecture](../../../architecture/mechanized-proof-system.md).
+- [Architecture v1](../../../architecture/v1/index.md).
 - [PRF-05 theorem catalog](../../../../formal/theorem-catalog/PRF-05.md).
 - Exact theorem contracts must be reconciled with applicable specifications and research conventions before encoding.
 

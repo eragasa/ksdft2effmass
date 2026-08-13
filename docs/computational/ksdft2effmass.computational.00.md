@@ -231,7 +231,7 @@ manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
 The accepted project-owned CPN contract remains recorded in
-`docs/architecture/colored-petri-net-workflows.md`. Its former `P3`--`P11`
+`docs/architecture/v1/index.md`. Its former `P3`--`P11`
 implementation sequence is superseded by the simulation-first bootstrap. SNAKES
 remains an optional `workflow` dependency, and
 `cpn.workflow.persistence` remains deferred and inactive. No
