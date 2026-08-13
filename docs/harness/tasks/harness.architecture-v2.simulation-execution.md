@@ -19,11 +19,12 @@ None.
 
 - calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json
 - docs/architecture/migration-v1-to-v2.md
-- docs/architecture/v2/artifact-and-provenance-model.md
-- docs/architecture/v2/campaign-and-cpn-model.md
+- docs/architecture/v2/calculators/quantum-espresso.md
 - docs/architecture/v2/index.md
-- docs/architecture/v2/separation-of-harnesses.md
-- docs/architecture/v2/simulation-model.md
+- docs/architecture/v2/separation-of-harness-and-workflow.md
+- docs/architecture/v2/workflow/artifact-and-provenance-model.md
+- docs/architecture/v2/workflow/campaign-and-cpn-model.md
+- docs/architecture/v2/workflow/simulation-model.md
 
 ## Authorized scope
 

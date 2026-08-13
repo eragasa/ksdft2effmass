@@ -1,9 +1,11 @@
-# Separation of harnesses
+# Separation of harness and workflow
+
+The development component is defined by the [harness architecture](harness/index.md), and the scientific component is defined by the [workflow architecture](workflow/index.md). This page focuses on their authority and lifecycle separation.
 
 The normative boundary is:
 
-> The development harness governs changes to the scientific harness. The
-> scientific harness governs scientific Campaigns. Development Tasks,
+> The development harness governs changes to the scientific workflow. The
+> scientific workflow governs scientific Campaigns. Development Tasks,
 > Campaigns, CampaignRuns, simulations, execution results, analyses, and
 > scientific dispositions have separate authorities and lifecycles.
 
@@ -11,7 +13,7 @@ The normative boundary is:
 flowchart TB
     HUMAN["Human operator"]
 
-    subgraph BOOTSTRAP["Development harness — ProjectKoios Bootstrap"]
+    subgraph BOOTSTRAP["Development harness — ksdft2effmass.harness"]
         DTASK["HarnessTask"]
         IMPLEMENT["Software implementation"]
         VERIFY["Software verification"]
@@ -22,7 +24,7 @@ flowchart TB
         VERIFY --> REVIEW
     end
 
-    subgraph WORKFLOWS["Scientific execution harness — ProjectKoios Workflows"]
+    subgraph WORKFLOWS["Scientific workflow — ksdft2effmass.workflows"]
         SERVICE["Scientific service"]
         CAMPAIGN["Campaign<br/>CPN definition"]
         RUN["CampaignRun<br/>CPN marking"]
@@ -54,11 +56,7 @@ flowchart TB
     EXECUTOR --> RESULT
 ```
 
-`ScientificService` is the authorized scientific entry point. It selects or
-constructs a `Campaign`, creates a `CampaignRun`, resolves requested
-`Simulation` objects, delegates bounded effects through `SimulationExecutor`,
-and routes returned `SimulationExecutionResult` objects back into the CPN. It
-does not mutate development state.
+`ScientificService` is the authorized scientific entry point. It selects or constructs a `Campaign`, creates a `CampaignRun`, resolves requested `Simulation` objects, delegates bounded effects through `SimulationExecutor`, and routes returned `SimulationExecutionResult` objects back into the CPN. It does not mutate development state.
 
 ```mermaid
 flowchart LR
@@ -86,8 +84,12 @@ flowchart LR
     end
 ```
 
-The two lifecycles may reference each other's immutable identities when required,
-but neither stores the other's state. Development completion may make a
-scientific service available; it does not create or advance a `CampaignRun`.
-Scientific completion may provide evidence for later development; it does not
-close a `HarnessTask`.
+The two lifecycles may reference each other's immutable identities when required, but neither stores the other's state. Development completion may make a scientific service available; it does not create or advance a `CampaignRun`. Scientific completion may provide evidence for later development; it does not close a `HarnessTask`.
+
+## Unresolved issues
+
+- Exact immutable implementation identity referenced by a `CampaignRun`.
+- How a scientific finding creates a new development intent without activating a Task automatically.
+- Cross-component access-control rules for restricted artifacts and evidence.
+- Whether one application process may host both components or they require separate services.
+- Shared observability vocabulary that does not merge state authority.

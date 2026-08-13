@@ -57,18 +57,48 @@ The Markdown-first provenance concept page is available as a
    :hidden:
 
    architecture/v1/index
+   architecture/v1/principles
+   architecture/v1/repository-layout
+   architecture/v1/separation-of-harness-and-workflow
+   architecture/v1/harness/index
+   architecture/v1/harness/development-harness
+   architecture/v1/harness/compiler-architecture
+   architecture/v1/harness/control-plane
+   architecture/v1/harness/persistence
+   architecture/v1/harness/projections
+   architecture/v1/workflow/index
+   architecture/v1/workflow/simulation-model
+   architecture/v1/workflow/campaign-and-cpn-model
+   architecture/v1/workflow/artifact-and-provenance-model
+   architecture/v1/calculators/index
+   architecture/v1/calculators/quantum-espresso
    architecture/v2/index
    architecture/v2/principles
-   architecture/v2/separation-of-harnesses
-   architecture/v2/development-harness
-   architecture/v2/scientific-execution-harness
-   architecture/v2/simulation-model
-   architecture/v2/campaign-and-cpn-model
-   architecture/v2/artifact-and-provenance-model
-   architecture/v2/control-plane
-   architecture/v2/compiler-architecture
-   architecture/v2/persistence-and-projections
    architecture/v2/repository-layout
+   architecture/v2/separation-of-harness-and-workflow
+   architecture/v2/composition-root
+   architecture/v2/identity-version-and-failure-contracts
+   architecture/v2/harness/index
+   architecture/v2/harness/object-model
+   architecture/v2/harness/development-harness
+   architecture/v2/harness/compiler-architecture
+   architecture/v2/harness/validation
+   architecture/v2/harness/control-plane
+   architecture/v2/harness/persistence
+   architecture/v2/harness/projections
+   architecture/v2/workflow/index
+   architecture/v2/workflow/service-model
+   architecture/v2/workflow/simulation-model
+   architecture/v2/workflow/campaign-and-cpn-model
+   architecture/v2/workflow/campaign-run
+   architecture/v2/workflow/control-plane
+   architecture/v2/workflow/persistence
+   architecture/v2/workflow/artifact-and-provenance-model
+   architecture/v2/workflow/read-models
+   architecture/v2/calculators/index
+   architecture/v2/calculators/quantum-espresso
+   architecture/v2/analysis/index
+   architecture/v2/analysis/analysis-and-disposition
    architecture/migration-v1-to-v2
    harness/ksdft2effmass.harness.001.001.000
    harness/ksdft2effmass.harness.001.002.000
