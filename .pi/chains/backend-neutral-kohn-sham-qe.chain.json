@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence is deferred awaiting scientific-harness reimplementation. Exactly harness.architecture-v2.simulation-execution is active; no scientific execution, automatic successor, publication, or release is authorized.",
-  "status": "architecture_v2_simulation_execution_active",
-  "active_task": "harness.architecture-v2.simulation-execution",
+  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence and Architecture v2 implementation are deferred while the explicitly prioritized human-readable documentation migration proceeds. No scientific execution, automatic successor, publication, or release is authorized.",
+  "status": "architecture_v2_simulation_execution_deferred_for_documentation_migration",
+  "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -396,6 +396,10 @@
     {
       "phase": "architecture-v2-simulation-execution-active",
       "message": "The human classified the 18 direct pw.x invocations as bootstrap scientific-harness development evidence produced by a direct runner governed by the development harness. No canonical scientific CampaignRun or accepted production, numerical-verification, or scientific-validation conclusion exists. bulk-silicon.production-reference.convergence is deferred in awaiting_scientific_harness_reimplementation, additional execution is unauthorized, and exactly harness.architecture-v2.simulation-execution is active to implement three serial architecture and tutorial-replay slices. harness.architecture-v2.plan remains planning-only and inactive; automatic successor activation remains false."
+    },
+    {
+      "phase": "architecture-v2-simulation-execution-deferred-for-documentation-migration",
+      "message": "The human approved documentation migration as the immediate priority before Architecture v2 implementation began. harness.architecture-v2.simulation-execution is deferred without changing its accepted scope, and this chain has no active Task. No scientific executable, production convergence, automatic successor, publication, or release is authorized."
     }
   ],
   "explicitly_activated_task_ids": [

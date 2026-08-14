@@ -1,12 +1,13 @@
 # Bulk-Silicon Production, Visualization, and Semiconductor-Property Program
 
-**Status:** Exactly `bulk-silicon.production-reference.convergence` is active in
-phase `awaiting_human_review`. Human Option A authorized the committed primary
-campaign: 9 SCFs and 9 linked NSCFs executed once without retry, all exited zero
-and emitted `JOB DONE.`, and compact finite-setting evidence is retained. No
-final production parameter is selected. No retry, four-corner follow-on,
-Wannier90, post-processing, DFPT, phonon, successor, or other scientific
-execution is authorized.
+**Status:** `bulk-silicon.production-reference.convergence` is deferred awaiting
+scientific-harness reimplementation. Human Option A authorized the committed
+primary campaign: 9 SCFs and 9 linked NSCFs executed once without retry, all
+exited zero and emitted `JOB DONE.`, and compact finite-setting evidence is
+retained. No final production parameter is selected. Documentation migration is
+the active development priority. No retry, four-corner follow-on, Wannier90,
+post-processing, DFPT, phonon, successor, or other scientific execution is
+authorized.
 
 ## Scientific objective
 
@@ -639,8 +640,8 @@ from a plot or from passing software tests.
 The convergence Task is deferred awaiting scientific-harness reimplementation.
 Its 18 direct invocations are retained as bootstrap scientific-harness
 development evidence, not a canonical scientific `ScientificWorkflowRun` or accepted
-production convergence evidence. Exactly
-`harness.architecture-v2.simulation-execution` is the active development Task.
-The plan does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,
+production convergence evidence. Architecture v2 implementation is deferred
+before implementation while the explicitly prioritized documentation migration
+proceeds. The plan does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,
 `BulkSiWannier-v1`, or a semiconductor-property result; activate a successor;
 create a checkpoint; or authorize scientific execution.

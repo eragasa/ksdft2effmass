@@ -12,8 +12,8 @@ At this boundary:
 
 - v1 remains the implemented architecture;
 - `harness.architecture-v2.plan` remains inactive and planning-only;
-- `harness.architecture-v2.simulation-execution` is the sole active development
-  Task, but implementation has not begun;
+- `harness.architecture-v2.simulation-execution` is deferred before implementation
+  while the explicitly prioritized human-readable documentation migration proceeds;
 - no public v2 `ScientificWorkflow`, `ScientificWorkflowRun`, `Simulation`, `SimulationExecutor`,
   `SimulationExecutionResult`, `ScientificService`, `ScientificAnalysis`, or
   `ScientificDisposition` implementation exists;

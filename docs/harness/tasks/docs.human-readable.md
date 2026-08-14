@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: Planned coordinating Task. No child is active, automatic successor activation is disabled, and each serial child requires explicit activation.
+`deferred_to_active_child`: Explicitly selected as the immediate documentation-migration priority and coordinating through active first child docs.human-readable.contract-and-inventory. Automatic successor activation remains disabled, and every later child still requires separate explicit activation.
 
 ## Objective
 

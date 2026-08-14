@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Active as the sole development Task. Architecture authority and lifecycle classification are established; implementation has not begun. Work proceeds only through three serial slices with automatic successor activation disabled and no scientific executable authorized.
+`deferred`: Deferred by explicit human priority before implementation began so the human-readable documentation migration can proceed first. The accepted three-slice scope remains unchanged, automatic successor activation remains disabled, and no scientific executable is authorized.
 
 ## Objective
 

@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: Planned first child; separate explicit activation required and no automatic successor activation.
+`active`: Explicitly activated by current human approval as the sole active documentation-migration child. Define the docs/ authoring contract and complete the tracked-file disposition inventory without moving or deleting documentation; automatic successor activation remains disabled.
 
 ## Objective
 
