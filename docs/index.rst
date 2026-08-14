@@ -62,13 +62,20 @@ The Markdown-first provenance concept page is available as a
    architecture/v1/separation-of-harness-and-workflow
    architecture/v1/harness/index
    architecture/v1/harness/development-harness
+   architecture/v1/harness/subagents/index
+   architecture/v1/harness/subagents/agent-descriptors
+   architecture/v1/harness/subagents/parent-orchestration
+   architecture/v1/harness/subagents/delegation-and-ownership
+   architecture/v1/harness/subagents/execution-and-isolation
+   architecture/v1/harness/subagents/handoffs-and-review
+   architecture/v1/harness/subagents/runtime-state-and-artifacts
    architecture/v1/harness/compiler-architecture
    architecture/v1/harness/control-plane
    architecture/v1/harness/persistence
    architecture/v1/harness/projections
    architecture/v1/workflow/index
    architecture/v1/workflow/simulation-model
-   architecture/v1/workflow/campaign-and-cpn-model
+   architecture/v1/workflow/scientific-workflow-and-cpn-model
    architecture/v1/workflow/artifact-and-provenance-model
    architecture/v1/calculators/index
    architecture/v1/calculators/quantum-espresso
@@ -80,6 +87,21 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/identity-version-and-failure-contracts
    architecture/v2/harness/index
    architecture/v2/harness/object-model
+   architecture/v2/harness/tasks/index
+   architecture/v2/harness/tasks/task-definition
+   architecture/v2/harness/tasks/selection-and-eligibility
+   architecture/v2/harness/tasks/lifecycle
+   architecture/v2/harness/tasks/graph-and-dependencies
+   architecture/v2/harness/tasks/decisions-and-authority
+   architecture/v2/harness/tasks/evidence-and-review
+   architecture/v2/harness/tasks/persistence-and-projections
+   architecture/v2/harness/subagents/index
+   architecture/v2/harness/subagents/agent-descriptors
+   architecture/v2/harness/subagents/parent-orchestration
+   architecture/v2/harness/subagents/delegation-and-ownership
+   architecture/v2/harness/subagents/execution-and-isolation
+   architecture/v2/harness/subagents/handoffs-and-review
+   architecture/v2/harness/subagents/runtime-state-and-artifacts
    architecture/v2/harness/development-harness
    architecture/v2/harness/compiler-architecture
    architecture/v2/harness/validation
@@ -89,8 +111,10 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/workflow/index
    architecture/v2/workflow/service-model
    architecture/v2/workflow/simulation-model
-   architecture/v2/workflow/campaign-and-cpn-model
-   architecture/v2/workflow/campaign-run
+   architecture/v2/workflow/scientific/index
+   architecture/v2/workflow/scientific/scientific-workflow-run
+   architecture/v2/petrinet/index
+   architecture/v2/petrinet/colored/index
    architecture/v2/workflow/control-plane
    architecture/v2/workflow/persistence
    architecture/v2/workflow/artifact-and-provenance-model
@@ -99,7 +123,8 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/calculators/quantum-espresso
    architecture/v2/analysis/index
    architecture/v2/analysis/analysis-and-disposition
-   architecture/migration-v1-to-v2
+   architecture/migration/v1-to-v2/index
+   architecture/migration/v1-to-v2/pi-harness-subagents
    harness/ksdft2effmass.harness.001.001.000
    harness/ksdft2effmass.harness.001.002.000
    harness/ksdft2effmass.harness.001.003.000
@@ -143,4 +168,4 @@ sources are:
 
 * :download:`Architecture v1 <architecture/v1/index.md>`
 * :download:`Architecture v2 <architecture/v2/index.md>`
-* :download:`Migration from v1 to v2 <architecture/migration-v1-to-v2.md>`
+* :download:`Migration from v1 to v2 <architecture/migration/v1-to-v2/index.md>`

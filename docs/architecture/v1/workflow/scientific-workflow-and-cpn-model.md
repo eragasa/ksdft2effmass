@@ -1,8 +1,8 @@
-# Campaign and CPN model in v1
+# ScientificWorkflow and CPN model in v1
 
-## Campaign status
+## ScientificWorkflow status
 
-V1 has no implemented public `Campaign` or `CampaignRun`. Scientific sequencing is encoded in direct runners, Task records, and calculation-specific procedures.
+V1 has no implemented public `ScientificWorkflow` or `ScientificWorkflowRun`. Scientific sequencing is encoded in direct runners, Task records, and calculation-specific procedures.
 
 ## Implemented CPN model
 

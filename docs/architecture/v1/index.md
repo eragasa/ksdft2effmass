@@ -4,7 +4,7 @@
 
 Architecture v1 describes the implemented system at repository boundary `0dda56e2c11261280660139fe80dab0d395b4234`. It is descriptive and does not create runtime authority.
 
-V1 includes an implemented development harness, backend-neutral Colored Petri Net (CPN) primitives, provenance and scientific record objects, Quantum ESPRESSO QEXSD extraction, and direct calculator runners. It has no public `Campaign`, `CampaignRun`, `Simulation`, calculator executor, or independent scientific-run persistence model.
+V1 includes an implemented development harness, backend-neutral Colored Petri Net (CPN) primitives, provenance and scientific record objects, Quantum ESPRESSO QEXSD extraction, and direct calculator runners. It has no public `ScientificWorkflow`, `ScientificWorkflowRun`, `Simulation`, calculator executor, or independent scientific-run persistence model.
 
 ## System overview
 
@@ -36,10 +36,10 @@ flowchart TB
 ## Pages
 
 - [Principles](principles.md)
-- [Development harness](harness/index.md) - [Development harness model](harness/development-harness.md) - [Compiler architecture](harness/compiler-architecture.md) - [Control plane](harness/control-plane.md) - [Persistence](harness/persistence.md) - [Projections](harness/projections.md)
-- [Workflow foundation](workflow/index.md) - [Simulation model](workflow/simulation-model.md) - [Campaign and CPN model](workflow/campaign-and-cpn-model.md) - [Artifact and provenance model](workflow/artifact-and-provenance-model.md)
+- [Development harness](harness/index.md) - [Development harness model](harness/development-harness.md) - [Pi harness subagents](harness/subagents/index.md) - [Compiler architecture](harness/compiler-architecture.md) - [Control plane](harness/control-plane.md) - [Persistence](harness/persistence.md) - [Projections](harness/projections.md)
+- [Workflow foundation](workflow/index.md) - [Simulation model](workflow/simulation-model.md) - [ScientificWorkflow and CPN model](workflow/scientific-workflow-and-cpn-model.md) - [Artifact and provenance model](workflow/artifact-and-provenance-model.md)
 - [Calculators](calculators/index.md) - [Quantum ESPRESSO](calculators/quantum-espresso.md)
 - [Separation of harness and workflow](separation-of-harness-and-workflow.md)
 - [Repository layout](repository-layout.md)
 
-Historical executions, limitations, and implemented boundaries are documented on their owning pages. Cross-version responsibility transfer and cutover belong only to the [migration document](../migration-v1-to-v2.md).
+Historical executions, limitations, and implemented boundaries are documented on their owning pages. Cross-version responsibility transfer and cutover belong only to the [migration document](../migration/v1-to-v2/index.md).

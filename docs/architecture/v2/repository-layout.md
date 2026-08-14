@@ -8,8 +8,14 @@ All Architecture v2 components are owned by the `ksdft2effmass` package:
 ksdft2effmass.harness
     development-harness contracts and composition
 
-ksdft2effmass.workflows
-    calculator-independent scientific workflow contracts
+ksdft2effmass.workflow.scientific
+    calculator-independent scientific workflow contracts and run state
+
+ksdft2effmass.workflow.scientific.definitions
+    project-specific scientific workflow definitions
+
+ksdft2effmass.petrinet.colored
+    domain-independent colored-Petri-net definitions and firing semantics
 
 ksdft2effmass.calculators
     calculator-specific simulation objects and executors
@@ -26,9 +32,6 @@ ksdft2effmass.ksdft
 ksdft2effmass.analysis
     deterministic scientific analysis
 
-ksdft2effmass.campaigns
-    project-specific scientific campaign definitions
-
 ksdft2effmass.application
     explicit application composition root
 ```
@@ -39,17 +42,20 @@ Submodule names may be refined while preserving these ownership and dependency b
 
 ```mermaid
 flowchart TD
-    campaigns["ksdft2effmass.campaigns"] --> workflows["ksdft2effmass.workflows"]
-    campaigns --> analysis["ksdft2effmass.analysis"]
-    calculators["ksdft2effmass.calculators"] --> workflows
-    calculators --> io["ksdft2effmass.io"]
-    io --> periodic["ksdft2effmass.periodic"]
-    io --> ksdft["ksdft2effmass.ksdft"]
+    definitions["workflow.scientific.definitions"] --> scientific["workflow.scientific"]
+    definitions --> colored["petrinet.colored"]
+    scientific --> colored
+    scientific --> analysis["analysis contracts"]
+    calculators["calculators"] --> scientific
+    calculators --> io["io"]
+    io --> periodic["periodic"]
+    io --> ksdft["ksdft"]
     analysis --> periodic
     analysis --> ksdft
-    composition["ksdft2effmass.application"] --> harness["ksdft2effmass.harness"]
-    composition --> workflows
-    composition --> campaigns
+    composition["application"] --> harness["harness"]
+    composition --> scientific
+    composition --> definitions
+    composition --> colored
     composition --> calculators
     composition --> analysis
 ```
@@ -57,12 +63,19 @@ flowchart TD
 Required directions are:
 
 ```text
-ksdft2effmass.campaigns
-    → ksdft2effmass.workflows
-    → generic Simulation, Campaign, CPN, and artifact contracts
+ksdft2effmass.workflow.scientific.definitions
+    → ksdft2effmass.workflow.scientific
+    → ksdft2effmass.petrinet.colored
+
+ksdft2effmass.workflow.scientific
+    → versioned colored-Petri-net references and actions
+    → generic Simulation and artifact contracts
+
+ksdft2effmass.petrinet.colored
+    → closed contract values only
 
 ksdft2effmass.calculators
-    → ksdft2effmass.workflows
+    → ksdft2effmass.workflow.scientific
     → ksdft2effmass.io
 
 ksdft2effmass.analysis
@@ -70,21 +83,19 @@ ksdft2effmass.analysis
     → generic scientific-analysis contracts
 
 ksdft2effmass.application
-    → ksdft2effmass.harness
-    → ksdft2effmass.workflows
-    → ksdft2effmass.campaigns
-    → ksdft2effmass.calculators
-    → ksdft2effmass.analysis
+    → all concrete composition dependencies
 ```
 
 Forbidden directions include:
 
 ```text
-ksdft2effmass.workflows
-    ✗→ ksdft2effmass.calculators
+ksdft2effmass.petrinet.colored
+    ✗→ ksdft2effmass.workflow.scientific
+    ✗→ calculators, analysis, or harness
 
-ksdft2effmass.campaigns
+ksdft2effmass.workflow.scientific
     ✗→ calculator-native input structures
+    ✗→ ownership of CpnDefinition or CpnMarking
 
 ksdft2effmass.periodic
     ✗→ calculator packages
@@ -93,7 +104,7 @@ ksdft2effmass.ksdft
     ✗→ calculator packages
 
 ksdft2effmass.io
-    ✗→ Campaign or CampaignRun
+    ✗→ ScientificWorkflow or ScientificWorkflowRun
 
 ksdft2effmass.harness
     ✗→ scientific workflow state or scientific policy
@@ -102,25 +113,26 @@ ksdft2effmass.harness
 ## Responsibilities
 
 - `ksdft2effmass.harness` owns development lifecycle, repository operation, compiler, validation, persistence, and projection contracts.
-- `ksdft2effmass.workflows` owns calculator-independent CPN, simulation, campaign, execution-result, artifact-manifest, scientific-analysis record, and scientific-service contracts.
+- `ksdft2effmass.workflow.scientific` owns scientific-workflow definitions, run state, simulation correlation, execution-result contracts, artifact lineage, scientific service contracts, and references to colored-Petri-net state.
+- `ksdft2effmass.petrinet.colored` owns colored-net definitions, markings, tokens, expressions, validation, deterministic enablement, and firing semantics.
+- `ksdft2effmass.workflow.scientific.definitions` owns project-specific workflow definitions and simulation selections without duplicating colored-Petri-net semantics.
 - `ksdft2effmass.calculators` owns executable configuration, calculator-specific typed simulation payloads, dispatch, staging, and result capture.
 - `ksdft2effmass.io` owns native syntax, parsing, rendering, and mechanical translation.
 - `ksdft2effmass.periodic` owns geometry, coordinate, unit, and sampling semantics.
 - `ksdft2effmass.ksdft` owns representation-neutral Kohn–Sham observations and representation records.
 - `ksdft2effmass.analysis` owns deterministic scientific interpretation, algorithms, tolerances, and numerical policy.
-- `ksdft2effmass.campaigns` owns project-specific CPN definitions and simulation selections without duplicating CPN execution semantics.
-- `ksdft2effmass.application` owns explicit configuration and composition of services, catalogs, executors, analyzers, artifact services, and repositories without owning their domain behavior.
+- `ksdft2effmass.application` owns explicit configuration and composition without owning domain behavior.
 
 ## Extension boundary
 
-Additional calculators enter only after a demonstrated campaign requires them. They implement the same `SimulationExecutor` protocol using calculator-specific typed payloads and mechanical I/O.
+Additional calculators enter only after a demonstrated scientific workflow requires them. They implement the same `SimulationExecutor` protocol using calculator-specific typed payloads and mechanical I/O.
 
-Optional adapters to external workflow ecosystems may be added at an outer integration boundary. AiiDA, Airflow, pymatgen, or another framework does not become a core dependency or workflow authority merely because an adapter exists.
+Optional adapters to external workflow ecosystems may be added at an outer integration boundary. An external framework does not become core workflow or Petri-net authority merely because an adapter exists.
 
 ## Unresolved issues
 
 - Final name of the application composition subpackage.
-- Exact internal submodules beneath harness, workflows, calculators, and analysis.
+- Exact internal submodules beneath scientific workflow, colored Petri nets, calculators, and analysis.
 - Whether process-launch infrastructure belongs in calculators or application infrastructure.
 - Location of optional external workflow and scheduler adapters.
-- Which wire-contract types are public at the package root.
+- Which wire-contract types are public at package roots.

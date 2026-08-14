@@ -638,7 +638,7 @@ from a plot or from passing software tests.
 
 The convergence Task is deferred awaiting scientific-harness reimplementation.
 Its 18 direct invocations are retained as bootstrap scientific-harness
-development evidence, not a canonical scientific `CampaignRun` or accepted
+development evidence, not a canonical scientific `ScientificWorkflowRun` or accepted
 production convergence evidence. Exactly
 `harness.architecture-v2.simulation-execution` is the active development Task.
 The plan does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,

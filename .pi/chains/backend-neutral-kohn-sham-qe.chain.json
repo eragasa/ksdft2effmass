@@ -1,7 +1,7 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and Campaign architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific CampaignRun or accepted production convergence evidence. Production convergence is deferred awaiting scientific-harness reimplementation. Exactly harness.architecture-v2.simulation-execution is active; no scientific execution, automatic successor, publication, or release is authorized.",
+  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence is deferred awaiting scientific-harness reimplementation. Exactly harness.architecture-v2.simulation-execution is active; no scientific execution, automatic successor, publication, or release is authorized.",
   "status": "architecture_v2_simulation_execution_active",
   "active_task": "harness.architecture-v2.simulation-execution",
   "workflow_semantics": "project_owned_colored_petri_net",
@@ -9,7 +9,7 @@
   "engine_dependency_added": true,
   "architecture_authority": "harness/tasks/backend-neutral-cpn-workflow-architecture.json",
   "architecture_documents": [
-    "docs/architecture/migration-v1-to-v2.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/v1/index.md",
     "docs/architecture/v2/index.md",
     "docs/computational/ksdft2effmass.computational.bootstrap.md",
@@ -291,7 +291,7 @@
       "task": "P2",
       "authorized_at": "2026-08-05T15:42:27Z",
       "activated_after": "P1 and H4 human-accepted PASS, zero unresolved checkpoints, maintained local-route consumer PASS, and durable ownership preflight",
-      "authority": "Current human instruction titled P2 — Activate and implement provenance and external-tool capability records",
+      "authority": "Current human instruction titled P2 \u2014 Activate and implement provenance and external-tool capability records",
       "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
     },
     {
@@ -355,7 +355,7 @@
     },
     {
       "phase": "bulk-silicon-periodic-qexsd-extraction-human-accepted",
-      "message": "The human accepted as PASS the limited claim that the observed QE 7.2 QEXSD artifact was faithfully transformed through separated Quantum ESPRESSO I/O, periodic-geometry, Kohn–Sham, and plane-wave-record domains with explicit units, coordinate conventions, reciprocal scaling, provenance, and unavailable metadata. Acceptance does not establish numerical convergence beyond the retained tutorial observation, physical validation, transferability to other QE calculations, completeness of the plane-wave basis description, suitability for Wannier or effective-mass analysis, or scientific acceptance of downstream results. bulk-silicon.records.periodic.extraction is closed_human_accepted_pass. No successor is active and automatic successor activation remains disabled."
+      "message": "The human accepted as PASS the limited claim that the observed QE 7.2 QEXSD artifact was faithfully transformed through separated Quantum ESPRESSO I/O, periodic-geometry, Kohn\u2013Sham, and plane-wave-record domains with explicit units, coordinate conventions, reciprocal scaling, provenance, and unavailable metadata. Acceptance does not establish numerical convergence beyond the retained tutorial observation, physical validation, transferability to other QE calculations, completeness of the plane-wave basis description, suitability for Wannier or effective-mass analysis, or scientific acceptance of downstream results. bulk-silicon.records.periodic.extraction is closed_human_accepted_pass. No successor is active and automatic successor activation remains disabled."
     },
     {
       "phase": "bulk-silicon-band-reference-planned-inactive",

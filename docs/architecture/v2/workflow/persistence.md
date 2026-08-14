@@ -2,30 +2,30 @@
 
 ## Purpose
 
-Workflow persistence stores `Campaign`, `CampaignRun`, simulation correlations, artifact lineage, analyses, and dispositions independently of development state. It owns revision consistency and recovery, not workflow meaning or authority.
+Workflow persistence stores `ScientificWorkflow`, `ScientificWorkflowRun`, simulation correlations, artifact lineage, analyses, and dispositions independently of development state. It owns revision consistency and recovery, not workflow meaning or authority.
 
 ## Aggregate boundary
 
-The authoritative aggregate is defined by [CampaignRun](campaign-run.md). Persistence stores its immutable revisions and referenced records.
+The authoritative aggregate is defined by [ScientificWorkflowRun](scientific/scientific-workflow-run.md). Persistence stores its immutable revisions and referenced records.
 
 | Object | Purpose |
 |---|---|
-| `CampaignRunIdentity` | Stable logical run identity |
-| `CampaignRunRevision` | Immutable revision and predecessor identity |
-| `CampaignRunSnapshot` | Consistent selected run revision |
-| `CampaignRunTransaction` | Expected revision plus complete appended records |
-| `CampaignRunPersistenceConflict` | Expected-versus-observed revision mismatch |
-| `CampaignRunWriteResult` | Created revision and resulting snapshot identity |
-| `CampaignRunMigrationResult` | Versioned migration identities and findings |
+| `ScientificWorkflowRunIdentity` | Stable logical run identity |
+| `ScientificWorkflowRunRevision` | Immutable revision and predecessor identity |
+| `ScientificWorkflowRunSnapshot` | Consistent selected run revision |
+| `ScientificWorkflowRunTransaction` | Expected revision plus complete appended records |
+| `ScientificWorkflowRunPersistenceConflict` | Expected-versus-observed revision mismatch |
+| `ScientificWorkflowRunWriteResult` | Created revision and resulting snapshot identity |
+| `ScientificWorkflowRunMigrationResult` | Versioned migration identities and findings |
 
 ## Repository boundary
 
 ```text
-load explicit run and revision → CampaignRunSnapshot
-commit validated append transaction → CampaignRunWriteResult
+load explicit run and revision → ScientificWorkflowRunSnapshot
+commit validated append transaction → ScientificWorkflowRunWriteResult
 ```
 
-`CampaignRunRepository` does not enable or fire transitions, execute simulations, interpret observations, resolve conflicts silently, or create dispositions.
+`ScientificWorkflowRunRepository` does not enable or fire transitions, execute simulations, interpret observations, resolve conflicts silently, or create dispositions.
 
 ## Transaction boundaries
 

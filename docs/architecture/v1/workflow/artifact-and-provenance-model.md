@@ -40,4 +40,4 @@ This construction records represented observations from accepted tutorial bytes.
 
 ## Limitation
 
-Artifact and provenance objects are reusable, but their relationship to one scientific run is calculation-specific. V1 has no general `CampaignRun` aggregate that owns simulation correlations, attempts, marking revisions, analyses, and dispositions.
+Artifact and provenance objects are reusable, but their relationship to one scientific run is calculation-specific. V1 has no general `ScientificWorkflowRun` aggregate that owns simulation correlations, attempts, marking revisions, analyses, and dispositions.

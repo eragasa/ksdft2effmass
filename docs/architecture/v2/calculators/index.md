@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-`ksdft2effmass.calculators` owns calculator-specific simulation payloads, executable configuration, staging, dispatch, process observation, completion contracts, and result capture. It implements workflow-owned `SimulationExecutor` without making `ksdft2effmass.workflows` depend on a calculator package.
+`ksdft2effmass.calculators` owns calculator-specific simulation payloads, executable configuration, staging, dispatch, process observation, completion contracts, and result capture. It implements workflow-owned `SimulationExecutor` without making `ksdft2effmass.workflow.scientific` depend on a calculator package.
 
 ```mermaid
 flowchart LR

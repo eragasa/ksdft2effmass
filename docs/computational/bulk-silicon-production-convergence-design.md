@@ -7,7 +7,7 @@ is deferred in phase `awaiting_scientific_harness_reimplementation`. Human
 Option A authorized the committed direct runner, and all 9 SCF and 9 linked NSCF
 invocations exited zero and emitted `JOB DONE.` without retry. These are
 bootstrap scientific-harness development observations, not a canonical
-scientific `CampaignRun` or accepted production convergence evidence. No final
+scientific `ScientificWorkflowRun` or accepted production convergence evidence. No final
 cutoff, mesh, lattice parameter, numerical-verification acceptance, infinite-
 basis result, effective mass, or scientific validation is accepted. Additional
 execution is unauthorized and automatic successor activation is false. See the
@@ -313,5 +313,5 @@ No pseudopotential is redistributed, no final parameter or scientific result is
 accepted, no checkpoint is created, and no successor is activated. The committed
 direct bootstrap runner executed 18 invocations; no retry or follow-on
 calculation is authorized. The Task is deferred awaiting scientific-harness
-reimplementation, with no canonical `CampaignRun`, scientific acceptance, or
+reimplementation, with no canonical `ScientificWorkflowRun`, scientific acceptance, or
 automatic successor activation.

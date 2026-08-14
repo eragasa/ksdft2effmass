@@ -2,7 +2,7 @@
 
 ## Implemented workflow model
 
-V1 implements calculator-independent CPN definitions, markings, validation, enablement, and firing under `ksdft2effmass.workflows.cpn`. It does not implement a public scientific `Campaign`, `CampaignRun`, `Simulation`, executor, or scientific workflow persistence service.
+V1 implements calculator-independent CPN definitions, markings, validation, enablement, and firing under `ksdft2effmass.workflows.cpn`. It does not implement a public scientific `ScientificWorkflow`, `ScientificWorkflowRun`, `Simulation`, executor, or scientific workflow persistence service.
 
 ```mermaid
 flowchart LR
@@ -35,6 +35,6 @@ Accepted tutorial and convergence calculations used calculation-specific direct 
 ## Detailed pages
 
 - [Simulation model](simulation-model.md)
-- [Campaign and CPN model](campaign-and-cpn-model.md)
+- [ScientificWorkflow and CPN model](scientific-workflow-and-cpn-model.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)
 - [Separation from the development harness](../separation-of-harness-and-workflow.md)

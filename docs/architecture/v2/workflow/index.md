@@ -2,15 +2,15 @@
 
 ## Responsibility
 
-The scientific workflow is owned by `ksdft2effmass.workflows`. It owns deterministic calculator-independent scientific workflow contracts without owning calculator formats or project-specific scientific algorithms.
+The scientific workflow is owned by `ksdft2effmass.workflow.scientific`. It owns deterministic calculator-independent scientific workflow contracts without owning calculator formats, colored-Petri-net semantics, or project-specific scientific algorithms.
 
 Its generic authority includes:
 
 - scientific service composition contracts;
 - calculator-independent simulation specifications;
 - the `SimulationExecutor` protocol;
-- calculator-independent CPN `Campaign` definitions;
-- `CampaignRun` state;
+- `ScientificWorkflow` definitions that reference versioned colored-Petri-net definitions and initial markings;
+- `ScientificWorkflowRun` state and Petri-net transition correlation;
 - execution-result record contracts;
 - artifact-lineage contracts;
 - scientific-analysis and finding record contracts; and
@@ -20,7 +20,7 @@ Calculator executor implementations remain calculator-package responsibilities. 
 
 ## Scientific service boundary
 
-A `ScientificService` exposes one cohesive scientific operation family. It accepts explicit scientific intent and authority, constructs or selects a `Campaign`, initializes a `CampaignRun`, and composes catalogs, executors, analyzers, and persistence. A service is not a mutable plugin registry and does not discover calculators from ambient state.
+A `ScientificService` exposes one cohesive scientific operation family. It accepts explicit scientific intent and authority, constructs or selects a `ScientificWorkflow`, initializes a `ScientificWorkflowRun`, and composes catalogs, executors, analyzers, and persistence. A service is not a mutable plugin registry and does not discover calculators from ambient state.
 
 The service catalog is immutable for one run. Each entry declares accepted inputs, result type, required capabilities, effect class, and authority needs. Catalog membership does not itself authorize execution.
 
@@ -36,16 +36,19 @@ A deterministic analyzer maps normalized execution observations to a `Scientific
 
 ## Package boundary
 
-`ksdft2effmass.workflows` owns `Campaign`, `CampaignRun`, `Simulation`, `SimulationExecutionResult`, `SimulationExecutor`, `ScientificService`, `ArtifactManifest`, `CpnDefinition`, and `CpnMarking` as calculator-independent contracts.
+`ksdft2effmass.workflow.scientific` owns `ScientificWorkflow`, `ScientificWorkflowRun`, `Simulation`, `SimulationExecutionResult`, `SimulationExecutor`, `ScientificService`, and `ArtifactManifest` as calculator-independent scientific-workflow contracts.
 
-Project-specific campaign definitions, calculator payloads and executor implementations, mechanical I/O, analysis algorithms, numerical policies, findings, and dispositions remain in their owning `ksdft2effmass` subpackages.
+`ksdft2effmass.petrinet.colored` separately owns `CpnDefinition`, `CpnMarking`, colored tokens, expressions, validation, enablement, and firing. It has no dependency on scientific workflow packages.
+
+Project-specific scientific workflow definitions, calculator payloads and executor implementations, mechanical I/O, analysis algorithms, numerical policies, findings, and dispositions remain in their owning `ksdft2effmass` subpackages.
 
 ## Detailed pages
 
 - [Scientific service model](service-model.md)
 - [Simulation model](simulation-model.md)
-- [Campaign and CPN model](campaign-and-cpn-model.md)
-- [CampaignRun object model](campaign-run.md)
+- [Scientific workflow model](scientific/index.md)
+- [ScientificWorkflowRun object model](scientific/scientific-workflow-run.md)
+- [Colored Petri net architecture](../petrinet/colored/index.md)
 - [Workflow control plane](control-plane.md)
 - [Workflow persistence](persistence.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)
@@ -54,8 +57,8 @@ Project-specific campaign definitions, calculator payloads and executor implemen
 
 ## Unresolved issues
 
-- Exact public submodule names within `ksdft2effmass.workflows`.
+- Exact public submodule names beneath `ksdft2effmass.workflow.scientific`.
 - Synchronous and asynchronous service execution boundaries.
 - Persistence and artifact-store implementation technologies.
 - Optional external workflow adapter contracts.
-- Campaign catalog versioning and distribution.
+- ScientificWorkflow catalog versioning and distribution.

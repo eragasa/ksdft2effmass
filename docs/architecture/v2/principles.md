@@ -4,8 +4,8 @@
 
 1. `HarnessTask` controls development work only.
 2. `DevelopmentTaskSelection` selects at most the authorized development work.
-3. `Campaign` is a calculator-independent scientific workflow definition.
-4. `CampaignRun` is one execution state of a `Campaign`.
+3. `ScientificWorkflow` is a calculator-independent scientific workflow definition.
+4. `ScientificWorkflowRun` is one execution state of a `ScientificWorkflow`.
 5. `Simulation` specifies one scientific operation without recording its result.
 6. `SimulationExecutionResult` records calculator observations without making a scientific conclusion.
 7. `ScientificAnalysis` deterministically interprets normalized observations.
@@ -13,9 +13,9 @@
 
 No authority is inferred from another lifecycle. Process success is not scientific acceptance, and software verification is not numerical verification or scientific validation.
 
-## CPN as the campaign definition
+## CPN as the scientific workflow definition
 
-A `Campaign` owns a `CpnDefinition` and its initial `CpnMarking`. Ordering, authorization, dependency, failure, retry, recovery, and terminal scientific workflow state are expressed through CPN places, tokens, guards, inscriptions, and firing semantics. A separate campaign dependency graph is forbidden.
+A `ScientificWorkflow` references an immutable `CpnDefinition` and initial `CpnMarking` owned by `ksdft2effmass.petrinet.colored`. Ordering, authorization, dependency, failure, retry, recovery, and terminal scientific workflow state are expressed through CPN places, tokens, guards, inscriptions, and firing semantics. A separate scientific workflow dependency graph is forbidden.
 
 ## Immutable specifications and results
 
@@ -23,7 +23,7 @@ Data records are immutable or operationally immutable. Intrinsic invariants belo
 
 ## Calculator independence
 
-Generic workflow contracts do not import calculator-specific packages. Calculator-specific packages may implement `SimulationExecutor` and typed `Simulation` payloads. Scientific domains do not import calculator packages. Mechanical I/O does not own campaign policy or scientific disposition.
+Generic workflow contracts do not import calculator-specific packages. Calculator-specific packages may implement `SimulationExecutor` and typed `Simulation` payloads. Scientific domains do not import calculator packages. Mechanical I/O does not own scientific workflow policy or scientific disposition.
 
 ## Exact identity and lineage
 
@@ -47,4 +47,4 @@ Software verification, repository conformance, calculator process success, numer
 - Public wire formats and compatibility policy.
 - Concrete persistence and artifact-store technologies.
 - Asynchronous execution and cancellation contracts.
-- Which extension protocols are justified after the initial QE campaign implementation.
+- Which extension protocols are justified after the initial QE scientific workflow implementation.

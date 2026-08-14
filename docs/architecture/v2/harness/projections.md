@@ -2,11 +2,12 @@
 
 ## Purpose
 
-A development projection is a deterministic read-only view derived from validated `DevelopmentState` or compiled `HarnessState`. It supports inspection, documentation, queries, and recovery checks without becoming authority.
+A development projection is a deterministic read-only view derived from a validated `HarnessStateSnapshot` compiled from authoritative domain-repository revisions. It supports inspection, documentation, queries, and recovery checks without becoming authority.
 
 ```mermaid
 flowchart LR
-    state["Validated HarnessState"] --> projector["HarnessProjector"]
+    repositories["Authoritative domain repositories"] --> state["Validated HarnessStateSnapshot"]
+    state --> projector["HarnessStateProjector"]
     projector --> candidate["HarnessArtifactSet"]
     candidate --> synchronizer["HarnessSynchronizer"]
     synchronizer --> views["Development projections"]

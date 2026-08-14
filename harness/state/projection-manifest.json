@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "6b0c0cab41e2888fdfeb1d86ac1339ca749188426e2f9f66257fe3c3e28cdeff",
+  "semantic_database_digest": "8df118810cfc795dbb8fe1167b190e2a7bcc8d8e51a683a5eb2abc47cec12c1f",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "14fd9b039b41a581ccfa192bc92424f553ae0b2c3e033a6d73278fa03a268e70",
-    "byte_count": 3882336
+    "sha256": "d8918c1ded2e462d3d9cc87f38acc81f671fd7f4903529f929dcf5de9bfb7736",
+    "byte_count": 3883709
   },
   "projections": [
     {
@@ -172,8 +172,8 @@
     {
       "path": "docs/harness/tasks/P4.md",
       "projection_kind": "task-markdown",
-      "sha256": "3ec5f40a4347bda2c536651df877665424ea40a28d48b169bd1b9bab8b390a81",
-      "byte_count": 3020,
+      "sha256": "517251f8b0876e098b2eccabd699f891aef8cd9feed197ab68351ca4ca929a29",
+      "byte_count": 3032,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -242,8 +242,8 @@
     {
       "path": "docs/harness/tasks/backend-neutral-kohn-sham-qe-architecture.md",
       "projection_kind": "task-markdown",
-      "sha256": "c277424719b9ce4186546da2f33a5aa24c41290d46863ef5d3bd8caaf172cbf0",
-      "byte_count": 3819,
+      "sha256": "a94281c1fe871453b78e0b59a9a1f7485c32e3d02ab47f1ace0bdb94ec90e1eb",
+      "byte_count": 3825,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -291,8 +291,8 @@
     {
       "path": "docs/harness/tasks/bulk-silicon.production-reference.convergence.md",
       "projection_kind": "task-markdown",
-      "sha256": "74ced6059a131cd816b057a0aaa86626758060048ab0ec1742c7afd3c6f68f71",
-      "byte_count": 5992,
+      "sha256": "3d75b3501f8a18cc94a09a29fcb83c3360a4074bb5b584a4f79a30ab514221aa",
+      "byte_count": 6016,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -655,15 +655,15 @@
     {
       "path": "docs/harness/tasks/harness.architecture-v2.plan.md",
       "projection_kind": "task-markdown",
-      "sha256": "781f2f59fcd49c2cf8bcec713037bca10e2f872c03075b204c059ceb8672eb46",
-      "byte_count": 3614,
+      "sha256": "f448058b8b2ac0188981d92af27844ae03d06de969b3acfb9e6a843191e2bc4e",
+      "byte_count": 3815,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "docs/harness/tasks/harness.architecture-v2.simulation-execution.md",
       "projection_kind": "task-markdown",
-      "sha256": "44b972ca50de10cb75bcf14006e4e15fd04e5a8bb3c41a40e57934bc0324647f",
-      "byte_count": 5105,
+      "sha256": "c79adff042266428b01481d91e5aacaf19d9f519ba8f34c58175722cb3941c2a",
+      "byte_count": 5548,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -991,8 +991,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "7593df7b463211134bcdff7e0a63ef3b13dbdddb9087ba3bb592c43763eb44e2",
-      "byte_count": 22124,
+      "sha256": "8eb1342904183c66a3012c20cee369848d5e7fe754ad86ea2174e294e48b73ba",
+      "byte_count": 22135,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1194,8 +1194,8 @@
     {
       "path": "harness/tasks/P4.json",
       "projection_kind": "task-json",
-      "sha256": "daddbe63a7cc816910985904a6ec8627d6102acf8e73d9591e2c1e86d46f9bdf",
-      "byte_count": 3200,
+      "sha256": "a00a12c478aedac5b9401b9f729b0a74b7a7c2e790c84b6969477ca17443f1a0",
+      "byte_count": 3212,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1264,8 +1264,8 @@
     {
       "path": "harness/tasks/backend-neutral-kohn-sham-qe-architecture.json",
       "projection_kind": "task-json",
-      "sha256": "3cbef291daae3b2e1178c6ff812dc0ebdbaee66005024df02d9aa3f118740f93",
-      "byte_count": 4167,
+      "sha256": "6681bb0f9f3ab8deb030f69a53aaa010add181e60e0cabeb43dd896ae90cabd2",
+      "byte_count": 4173,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1313,8 +1313,8 @@
     {
       "path": "harness/tasks/bulk-silicon.production-reference.convergence.json",
       "projection_kind": "task-json",
-      "sha256": "566ff9e41d938ebba811ee66c1888126fca04447ce949f70700f1d292ec9555f",
-      "byte_count": 6154,
+      "sha256": "2b11b91e926ef8fe7f9ab3d72b002b7003622025e8283258c74f15d65ddcbfb9",
+      "byte_count": 6178,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1677,15 +1677,15 @@
     {
       "path": "harness/tasks/harness.architecture-v2.plan.json",
       "projection_kind": "task-json",
-      "sha256": "01bfb2f0ecd33f2f5f1b3ba2d3923ab5ffc67892617f39c64a014fe826b483cb",
-      "byte_count": 3763,
+      "sha256": "f4bc5cea01ab7f6b26cdc27e1246f4e30770521b2e2c49e4d628d31d79307ce5",
+      "byte_count": 3979,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/harness.architecture-v2.simulation-execution.json",
       "projection_kind": "task-json",
-      "sha256": "dd9f4f372e2ebc5c9e59beca5063af733ee967bacc22390719708d287d39e9a4",
-      "byte_count": 5340,
+      "sha256": "3a16610e1a772dd5815dc5be21940181b65fdf87023e114ee7d62ade00783180",
+      "byte_count": 5793,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

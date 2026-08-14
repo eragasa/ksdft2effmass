@@ -12,7 +12,7 @@ The development control plane governs software and documentation work. It owns:
 - software-verification findings; and
 - development review and acceptance state.
 
-It may reference immutable scientific contract or implementation identities. It does not store `CampaignRun`, `CpnMarking`, calculator execution, scientific analysis, or scientific disposition state.
+It may reference immutable scientific contract or implementation identities. It does not store `ScientificWorkflowRun`, `CpnMarking`, calculator execution, scientific analysis, or scientific disposition state.
 
 ## Authority model
 

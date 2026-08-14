@@ -12,13 +12,16 @@
   "objective": "Maintain strict version isolation between the self-contained implemented Architecture v1 snapshot, the normative Architecture v2 target, and the explicit v1-to-v2 migration crosswalk without authorizing implementation.",
   "authority_reference_paths": [
     "docs/architecture/index.md",
-    "docs/architecture/migration-v1-to-v2.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/pi-harness-subagents.md",
     "docs/architecture/v1/index.md",
+    "docs/architecture/v2/harness/subagents/index.md",
+    "docs/architecture/v2/harness/tasks/index.md",
     "docs/architecture/v2/index.md"
   ],
   "authorized_scope": [
     "Maintain a self-contained v1 architecture tree that mirrors the v2 subject structure while describing only implemented behavior, generated state, documented intention, known limitations, and historical execution.",
-    "Maintain normative v2 pages containing only the selected development-harness, scientific-workflow, simulation, Campaign/CPN, artifact, calculator, analysis, control, compiler, validation, persistence, projection, composition, and package target responsibilities.",
+    "Maintain normative v2 pages containing only the selected development-harness, HarnessTask, Pi subagent, scientific-workflow, simulation, ScientificWorkflow/CPN, artifact, calculator, analysis, control, compiler, validation, persistence, projection, composition, and package target responsibilities.",
     "Maintain all current-to-target responsibility maps, implementation status, cutover conditions, migration order, and unresolved extraction/import decisions only in the v1-to-v2 migration page.",
     "Keep ProjectKoios Bootstrap and Workflows as conceptual target ownership boundaries without claiming current package integration.",
     "Repair maintained architecture navigation and remove duplicate unversioned or harness-local Architecture v2 authority without creating an archive or ADR."

@@ -37,4 +37,4 @@ Checkpoint resolution requires a current human answer to a durably represented u
 
 ## Scientific coupling
 
-V1 uses the development control plane to coordinate scientific execution preflight and review. Protected execution still requires exact human authority, but no independent scientific control plane owns `CampaignRun`, simulation request/result correlation, or scientific disposition.
+V1 uses the development control plane to coordinate scientific execution preflight and review. Protected execution still requires exact human authority, but no independent scientific control plane owns `ScientificWorkflowRun`, simulation request/result correlation, or scientific disposition.

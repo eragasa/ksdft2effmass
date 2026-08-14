@@ -9,7 +9,7 @@ flowchart TB
     app["ksdft2effmass.application"]
     app --> harness["Development harness composition"]
     app --> services["ScientificService catalog"]
-    app --> campaigns["Campaign catalog"]
+    app --> definitions["ScientificWorkflow catalog"]
     app --> executors["SimulationExecutor implementations"]
     app --> analyzers["ScientificAnalyzer implementations"]
     app --> artifacts["Artifact services"]

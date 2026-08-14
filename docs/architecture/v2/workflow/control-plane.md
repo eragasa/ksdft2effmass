@@ -5,8 +5,8 @@
 The workflow control plane owns scientific operation selection and advancement:
 
 - immutable `ScientificService` catalog;
-- `Campaign` definitions;
-- `CampaignRun` selection and state;
+- `ScientificWorkflow` definitions;
+- `ScientificWorkflowRun` selection and state;
 - simulation request authority;
 - executor capability matching;
 - result correlation;
@@ -20,8 +20,8 @@ It does not activate or complete `HarnessTask`.
 ```mermaid
 flowchart LR
     intent["Scientific intent"] --> service["ScientificService"]
-    service --> campaign["Campaign"]
-    campaign --> run["CampaignRun"]
+    service --> workflow_definition["ScientificWorkflow"]
+    workflow_definition --> run["ScientificWorkflowRun"]
     authority["Execution authority"] --> run
     run --> request["Simulation request"]
     request --> executor["SimulationExecutor"]

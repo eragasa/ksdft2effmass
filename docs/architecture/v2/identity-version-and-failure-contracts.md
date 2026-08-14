@@ -23,7 +23,7 @@ Records declare only applicable dimensions:
 
 - record schema version;
 - wire-format version;
-- campaign-definition version;
+- scientific-workflow-definition version;
 - CPN-definition and expression version;
 - simulation-payload version;
 - analyzer and numerical-policy version;
@@ -47,7 +47,7 @@ NativeParsingFailure
 ObservationNormalizationFailure
 AnalysisFailure
 PersistenceConflict
-CampaignTransitionFailure
+ScientificWorkflowTransitionFailure
 ```
 
 A failure record includes failure identity, phase, attempt or operation identity, implementation identity, stable code, sanitized diagnostic, retryability when explicitly known, and related artifact identities. Retry creates a new attempt and does not erase the failure.

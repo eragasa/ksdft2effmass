@@ -8,8 +8,9 @@ Architecture v2 is the normative target architecture for deterministic scientifi
 flowchart TB
     application["ksdft2effmass.application<br/>Composition root"]
     harness["ksdft2effmass.harness<br/>Development harness"]
-    workflows["ksdft2effmass.workflows<br/>Scientific workflow"]
-    campaigns["ksdft2effmass.campaigns<br/>Campaign definitions"]
+    workflows["ksdft2effmass.workflow.scientific<br/>Scientific workflow"]
+    petrinet["ksdft2effmass.petrinet.colored<br/>Colored Petri net"]
+    definitions["ksdft2effmass.workflow.scientific.definitions<br/>Scientific workflow definitions"]
     calculators["ksdft2effmass.calculators<br/>Calculator execution"]
     io["ksdft2effmass.io<br/>Native translation"]
     observations["ksdft2effmass.periodic + ksdft<br/>Normalized observations"]
@@ -17,10 +18,12 @@ flowchart TB
 
     application --> harness
     application --> workflows
-    application --> campaigns
+    application --> definitions
     application --> calculators
     application --> analysis
-    campaigns --> workflows
+    definitions --> workflows
+    definitions --> petrinet
+    workflows --> petrinet
     workflows --> calculators
     calculators --> io
     io --> observations
@@ -34,8 +37,9 @@ flowchart TB
 |---|---|---|
 | Application composition | `ksdft2effmass.application` | Assembles explicit catalogs, executors, analyzers, stores, repositories, and configuration. |
 | Development harness | `ksdft2effmass.harness` | Governs software-development work and changes to the scientific workflow. |
-| Scientific workflow | `ksdft2effmass.workflows` | Runs deterministic scientific campaigns and coordinates calculators and analyzers. |
-| Campaign definitions | `ksdft2effmass.campaigns` | Defines project-specific CPN campaigns and simulation selections. |
+| Scientific workflow | `ksdft2effmass.workflow.scientific` | Defines scientific workflows, run state, and calculator/analysis coordination while referencing Petri-net contracts. |
+| Colored Petri net | `ksdft2effmass.petrinet.colored` | Owns domain-independent colored-net definitions, markings, validation, enablement, and firing. |
+| Scientific workflow definitions | `ksdft2effmass.workflow.scientific.definitions` | Defines project-specific scientific workflows, colored-net references, and simulation selections. |
 | Calculator execution | `ksdft2effmass.calculators` | Performs bounded calculator-specific numerical effects and captures mechanical results. |
 | Native translation | `ksdft2effmass.io` | Renders and parses calculator-native representations. |
 | Scientific observations | `ksdft2effmass.periodic` and `ksdft2effmass.ksdft` | Represents calculator-independent geometry and Kohn–Sham observations. |
@@ -44,7 +48,8 @@ flowchart TB
 ## Authority boundaries
 
 - `HarnessTask` and `DevelopmentTaskSelection` govern development work only.
-- `Campaign` defines calculator-independent workflow semantics; `CampaignRun` records one represented execution history.
+- `ScientificWorkflow` defines scientific workflow semantics and references versioned colored-net definitions and markings; it does not own their types or firing semantics.
+- `ksdft2effmass.petrinet.colored` owns colored-Petri-net structure and execution semantics independently of scientific workflow.
 - `Simulation` specifies an operation; `SimulationExecutionResult` records mechanical execution observations.
 - Calculator execution, native parsing, observation normalization, scientific analysis, and scientific disposition have separate owners.
 - `ScientificAnalysis` is deterministic interpretation. `ScientificDisposition` is a separately authorized conclusion for a declared intended use.
@@ -61,6 +66,8 @@ The development harness compiles and validates explicit repository state, govern
 
 - [Overview](harness/index.md)
 - [Object model](harness/object-model.md)
+- [Harness Tasks architecture](harness/tasks/index.md)
+- [Pi harness subagent architecture](harness/subagents/index.md)
 - [Development Task model](harness/development-harness.md)
 - [Compiler architecture](harness/compiler-architecture.md)
 - [Validation](harness/validation.md)
@@ -70,17 +77,24 @@ The development harness compiles and validates explicit repository state, govern
 
 ### Scientific workflow
 
-The scientific workflow defines and advances calculator-independent CPN campaigns, correlates bounded calculator requests and results, persists run history, and exposes derived scientific read models.
+The scientific workflow references and advances domain-independent colored-Petri-net state, correlates bounded calculator requests and results, persists run history, and exposes derived scientific read models.
 
 - [Overview](workflow/index.md)
 - [Scientific service model](workflow/service-model.md)
 - [Simulation model](workflow/simulation-model.md)
-- [Campaign and CPN model](workflow/campaign-and-cpn-model.md)
-- [CampaignRun object model](workflow/campaign-run.md)
+- [Scientific workflow model](workflow/scientific/index.md)
+- [ScientificWorkflowRun object model](workflow/scientific/scientific-workflow-run.md)
 - [Control plane](workflow/control-plane.md)
 - [Persistence](workflow/persistence.md)
 - [Artifact and provenance model](workflow/artifact-and-provenance-model.md)
 - [Read models](workflow/read-models.md)
+
+### Colored Petri nets
+
+The colored-Petri-net package owns generic represented net structure and pure state-transition semantics. It has no scientific-workflow or calculator dependency.
+
+- [Petri-net architecture](petrinet/index.md)
+- [Colored Petri net architecture](petrinet/colored/index.md)
 
 ### Calculator integrations
 
@@ -124,26 +138,29 @@ Cross-cutting contracts apply consistently across subsystem boundaries.
 
 1. [Development harness overview](harness/index.md)
 2. [Object model](harness/object-model.md)
-3. [Compiler architecture](harness/compiler-architecture.md)
-4. [Validation](harness/validation.md)
-5. [Control plane](harness/control-plane.md)
-6. [Persistence](harness/persistence.md)
-7. [Projections](harness/projections.md)
+3. [Harness Tasks architecture](harness/tasks/index.md)
+4. [Pi harness subagent architecture](harness/subagents/index.md)
+5. [Compiler architecture](harness/compiler-architecture.md)
+6. [Validation](harness/validation.md)
+7. [Control plane](harness/control-plane.md)
+8. [Persistence](harness/persistence.md)
+9. [Projections](harness/projections.md)
 
 ### Understand scientific execution
 
 1. [Scientific workflow overview](workflow/index.md)
 2. [Scientific service model](workflow/service-model.md)
 3. [Simulation model](workflow/simulation-model.md)
-4. [Campaign and CPN model](workflow/campaign-and-cpn-model.md)
-5. [CampaignRun object model](workflow/campaign-run.md)
-6. [Quantum ESPRESSO calculator architecture](calculators/quantum-espresso.md)
-7. [Analysis and disposition](analysis/analysis-and-disposition.md)
+4. [Colored Petri net architecture](petrinet/colored/index.md)
+5. [Scientific workflow model](workflow/scientific/index.md)
+6. [ScientificWorkflowRun object model](workflow/scientific/scientific-workflow-run.md)
+7. [Quantum ESPRESSO calculator architecture](calculators/quantum-espresso.md)
+8. [Analysis and disposition](analysis/analysis-and-disposition.md)
 
 ## Related versioned documentation
 
 - [Architecture v1](../v1/index.md) describes the implemented system snapshot.
-- [Migration from v1 to v2](../migration-v1-to-v2.md) owns responsibility and cutover comparisons.
+- [Migration from v1 to v2](../migration/v1-to-v2/index.md) owns responsibility and cutover comparisons.
 
 ## Unresolved issues
 

@@ -2,14 +2,16 @@
 
 ## Purpose
 
-The development-harness compiler converts authoritative repository sources into one normalized model of development state. Validators inspect that model, and projectors derive read-only artifacts from it.
+The development-harness compiler observes authoritative domain repositories and compiles their exact immutable revisions into one coherent `HarnessStateSnapshot`. Validators inspect that snapshot, and projectors derive read-only artifacts from it.
+
+The snapshot is not the authoritative mutable aggregate. Authority remains with the domain repositories and their immutable records. Writes and lifecycle transitions bypass the compiler and return through the applicable domain repository.
 
 Here, **compiler** means a deterministic source-to-model transformation. It does not mean a Python compiler, a scientific workflow engine, or a calculator input generator.
 
 The compiler architecture has three goals:
 
 1. interpret each authoritative source exactly once;
-2. give validation, synchronization, and checking the same normalized state; and
+2. give validation, synchronization, and checking the same compiled snapshot; and
 3. prevent generated artifacts from becoming a second source of authority.
 
 ## Components
@@ -17,13 +19,13 @@ The compiler architecture has three goals:
 ```mermaid
 flowchart TD
     sources["Authoritative sources"]
-    loader["Repository loader"]
-    snapshot["Source snapshot"]
-    compiler["Harness compiler"]
-    state["Normalized harness state"]
+    loader["HarnessSourceSnapshotLoader"]
+    snapshot["HarnessSourceSnapshot"]
+    compiler["HarnessStateCompiler"]
+    state["HarnessStateSnapshot"]
     validators["Domain validators"]
     validation["Validation result"]
-    projector["Harness projector"]
+    projector["HarnessStateProjector"]
     artifacts["Candidate artifact set"]
     synchronizer["Synchronizer"]
     comparator["Comparator"]
@@ -44,14 +46,14 @@ flowchart TD
     maintained --> comparator
 ```
 
-| Component         | Input                                  | Output                  | Responsibility                                                            |
-| ----------------- | -------------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
-| Repository loader | Explicit root and source contract      | `HarnessSourceSnapshot` | Reads declared authoritative files and records their identities.          |
-| Harness compiler  | `HarnessSourceSnapshot`                | `HarnessState`          | Normalizes records, identifiers, relationships, and ordering.             |
-| Domain validators | `HarnessState`                         | `ValidationResult`      | Evaluate domain rules without changing state.                             |
-| Harness projector | Validated `HarnessState`               | `HarnessArtifactSet`    | Produces a complete candidate set of derived artifacts.                   |
-| Synchronizer      | Validated `HarnessArtifactSet`         | `SynchronizationResult` | Publishes the complete set atomically within a defined rollback boundary. |
-| Comparator        | Candidate and maintained artifact sets | `ComparisonResult`      | Reports drift without writing or repairing files.                         |
+| Component | Input | Output | Responsibility |
+|---|---|---|---|
+| Source snapshot loader | Explicit repositories and source contract | `HarnessSourceSnapshot` | Reads one coherent set of declared authoritative revisions and records their identities. |
+| State compiler | `HarnessSourceSnapshot` | `HarnessStateSnapshot` | Assembles domain records, provenance, relationships, and deterministic ordering without changing authority. |
+| Domain validators | `HarnessStateSnapshot` | `ValidationResult` | Evaluate domain and aggregate rules without changing records. |
+| State projector | Validated `HarnessStateSnapshot` | `HarnessArtifactSet` | Produces a complete candidate set of derived artifacts. |
+| Synchronizer | Validated `HarnessArtifactSet` | `SynchronizationResult` | Publishes the complete projection set atomically within a defined rollback boundary. |
+| Comparator | Candidate and maintained artifact sets | `ComparisonResult` | Reports projection drift without writing or repairing files. |
 
 ## One semantic path
 
@@ -60,7 +62,7 @@ Synchronization and checking share the same loading, compilation, validation, an
 ```mermaid
 flowchart TB
     input["Authoritative inputs"] --> load["Load immutable snapshot"]
-    load --> compile["Compile normalized state"]
+    load --> compile["Compile compiled snapshot"]
     compile --> validate["Validate state"]
     validate --> project["Project complete candidate set"]
     project --> mode{"Operation"}
@@ -68,7 +70,7 @@ flowchart TB
     mode -->|Check| compare["Compare with maintained set"]
 ```
 
-There is no synchronization-only parser and no check-only interpretation of source authority. If both operations observe the same input identities and versions, they must construct equivalent normalized state and candidate artifacts.
+There is no synchronization-only parser and no check-only interpretation of source authority. If both operations observe the same input identities and versions, they must construct equivalent compiled snapshot and candidate artifacts.
 
 ## Object model
 
@@ -76,15 +78,15 @@ The compiler architecture separates immutable state from reusable operations. It
 
 ```text
 HarnessSourceSnapshot
-    ↓ HarnessCompiler
-HarnessState
+    ↓ HarnessStateCompiler
+HarnessStateSnapshot
     ↓ domain validators
 ValidationResult
-    ↓ HarnessProjector
+    ↓ HarnessStateProjector
 HarnessArtifactSet
 ```
 
-Sources are observed in `HarnessSourceSnapshot`, domain meaning is normalized in `HarnessState`, and derived files are packaged in `HarnessArtifactSet`.
+Sources are observed in `HarnessSourceSnapshot`, domain meaning is normalized in `HarnessStateSnapshot`, and derived files are packaged in `HarnessArtifactSet`.
 
 ### Source model
 
@@ -114,25 +116,27 @@ A snapshot is closed: compilation cannot request an additional source after the 
 
 ### Normalized state model
 
-`HarnessState` is the compiler's principal output. It is a normalized model of development-control state, not a database and not a collection of generated files.
+`HarnessStateSnapshot` is the compiler's principal output. It is a coherent immutable read snapshot of authoritative domain revisions, not a database, transaction boundary, owner of lifecycle behavior, or collection of generated files.
 
 | Object | Role |
 |---|---|
-| `HarnessStateIdentity` | Identifies the normalized semantic state under an explicit model version. |
-| `HarnessTaskCatalog` | Contains normalized development Task definitions. |
+| `HarnessStateSnapshotIdentity` | Identifies the normalized semantic state under an explicit model version. |
+| `HarnessTaskCatalog` | Contains exact immutable development Task definitions loaded through `harness.tasks`. |
+| `HarnessTaskClosureCatalog` | Contains immutable dispositions ending exact Task selections. |
 | `DevelopmentTaskSelection` | Identifies the explicit active development selection, if any. |
-| `HarnessTaskGraph` | Contains typed parent and prerequisite relationships. |
+| `HarnessTaskGraph` | Contains typed Task relationships loaded through `harness.tasks`. |
 | `HarnessDecisionCatalog` | Contains normalized unresolved and resolved development decisions. |
 | `HarnessCapabilityCatalog` | Contains available development capabilities and their identities. |
 | `HarnessResourceCatalog` | Contains resource identities and dependency closure. |
 | `HarnessEvidenceCatalog` | Contains evidence identities, owners, and claim boundaries. |
-| `HarnessState` | Aggregates the normalized development domains and their source provenance. |
+| `HarnessStateSnapshot` | Aggregates the normalized development domains and their source provenance. |
 
 ```mermaid
 classDiagram
-    class HarnessState
-    class HarnessStateIdentity
+    class HarnessStateSnapshot
+    class HarnessStateSnapshotIdentity
     class HarnessTaskCatalog
+    class HarnessTaskClosureCatalog
     class DevelopmentTaskSelection
     class HarnessTaskGraph
     class HarnessDecisionCatalog
@@ -140,17 +144,18 @@ classDiagram
     class HarnessResourceCatalog
     class HarnessEvidenceCatalog
 
-    HarnessState --> HarnessStateIdentity : identified by
-    HarnessState *-- HarnessTaskCatalog : contains
-    HarnessState *-- DevelopmentTaskSelection : contains
-    HarnessState *-- HarnessTaskGraph : contains
-    HarnessState *-- HarnessDecisionCatalog : contains
-    HarnessState *-- HarnessCapabilityCatalog : contains
-    HarnessState *-- HarnessResourceCatalog : contains
-    HarnessState *-- HarnessEvidenceCatalog : contains
+    HarnessStateSnapshot --> HarnessStateSnapshotIdentity : identified by
+    HarnessStateSnapshot *-- HarnessTaskCatalog : contains
+    HarnessStateSnapshot *-- HarnessTaskClosureCatalog : contains
+    HarnessStateSnapshot *-- DevelopmentTaskSelection : contains
+    HarnessStateSnapshot *-- HarnessTaskGraph : contains
+    HarnessStateSnapshot *-- HarnessDecisionCatalog : contains
+    HarnessStateSnapshot *-- HarnessCapabilityCatalog : contains
+    HarnessStateSnapshot *-- HarnessResourceCatalog : contains
+    HarnessStateSnapshot *-- HarnessEvidenceCatalog : contains
 ```
 
-Every normalized object retains source provenance. Conflicting sources remain explicit findings; the compiler does not choose an arbitrary winner.
+Every included object retains its authoritative repository revision and source provenance. Conflicting sources remain explicit findings; the compiler does not choose an arbitrary winner. Task eligibility, selection, lifecycle transitions, completion, and acceptance remain operations of `ksdft2effmass.harness.tasks`, not compiler normalization.
 
 ### Validation model
 
@@ -160,7 +165,7 @@ Every normalized object retains source provenance. Conflicting sources remain ex
 | `ValidationRuleIdentity` | Identifies one validator, rule, and rule version. |
 | `ValidationResult` | Associates a state identity with applied rules, ordered findings, and an exact claim boundary. |
 
-`ValidationResult` refers to the validated `HarnessState`; it does not contain a modified copy. A finding refers to normalized objects and their source provenance without mutating either.
+`ValidationResult` refers to the validated `HarnessStateSnapshot`; it does not contain a modified copy. A finding refers to normalized objects and their source provenance without mutating either.
 
 ### Projection model
 
@@ -175,10 +180,10 @@ classDiagram
     class HarnessArtifactSet
     class HarnessArtifactManifest
     class HarnessArtifact
-    class HarnessStateIdentity
+    class HarnessStateSnapshotIdentity
     class ValidationResult
 
-    HarnessArtifactSet --> HarnessStateIdentity : derived from
+    HarnessArtifactSet --> HarnessStateSnapshotIdentity : derived from
     HarnessArtifactSet --> ValidationResult : permitted by
     HarnessArtifactSet *-- HarnessArtifactManifest : declares closure
     HarnessArtifactSet *-- HarnessArtifact : contains
@@ -204,42 +209,43 @@ class HarnessDomainValidator(Protocol):
     @property
     def rule_identities(self) -> tuple[ValidationRuleIdentity, ...]: ...
 
-    def execute(self, state: HarnessState) -> DomainValidationResult: ...
+    def execute(self, state: HarnessStateSnapshot) -> DomainValidationResult: ...
 ```
 
-`DomainValidationResult` contains the validator's rule identities and ordered `ValidationFinding` objects. It does not contain a modified `HarnessState`.
+`DomainValidationResult` contains the validator's rule identities and ordered `ValidationFinding` objects. It does not contain a modified `HarnessStateSnapshot`.
 
 Concrete implementations include:
 
 | Validator | Principal domain | Responsibility |
 |---|---|---|
-| `HarnessTaskCatalogValidator` | `HarnessTaskCatalog` | Task identities, fields, and catalog invariants |
-| `DevelopmentTaskSelectionValidator` | `DevelopmentTaskSelection` | Selected-Task existence and activation consistency |
-| `HarnessTaskGraphValidator` | `HarnessTaskGraph` | Parent and prerequisite references, cycles, and graph closure |
+| `HarnessTaskValidator` | `HarnessTaskCatalog` | Task-definition rules owned by `harness.tasks` |
+| `HarnessTaskClosureValidator` | `HarnessTaskClosureCatalog` | Closure identity, selection correlation, and disposition rules owned by `harness.tasks` |
+| `DevelopmentTaskSelectionValidator` | `DevelopmentTaskSelection` | Selection consistency rules owned by `harness.tasks` |
+| `HarnessTaskGraphValidator` | `HarnessTaskGraph` | Relation and graph rules owned by `harness.tasks` |
 | `HarnessDecisionCatalogValidator` | `HarnessDecisionCatalog` | Decision identities and resolution-state consistency |
 | `HarnessCapabilityCatalogValidator` | `HarnessCapabilityCatalog` | Capability identities and declared relationships |
 | `HarnessResourceCatalogValidator` | `HarnessResourceCatalog` | Resource dependencies, closure, and layering |
 | `HarnessEvidenceCatalogValidator` | `HarnessEvidenceCatalog` | Evidence identities, ownership, and claim boundaries |
 
-Each implementation may inspect the complete `HarnessState` when its rule needs an explicitly declared cross-reference, but it owns only its named domain rules. The protocol supplies no default rules, registration, discovery, mutation, repair, or authorization.
+Each implementation may inspect the complete `HarnessStateSnapshot` when its rule needs an explicitly declared cross-reference, but it owns only its named domain rules. The protocol supplies no default rules, registration, discovery, mutation, repair, or authorization.
 
 ### ActionObjects
 
 | ActionObject | Transformation |
 |---|---|
-| `HarnessRepositoryLoader` | Explicit sources → `HarnessSourceSnapshot` |
-| `HarnessCompiler` | `HarnessSourceSnapshot` → `HarnessState` |
-| Concrete `HarnessDomainValidator` | `HarnessState` → `DomainValidationResult` |
-| `HarnessStateValidator` | `HarnessState` plus an explicit ordered validator tuple → `ValidationResult` |
-| `HarnessProjector` | Validated `HarnessState` → `HarnessArtifactSet` |
+| `HarnessSourceSnapshotLoader` | Explicit sources → `HarnessSourceSnapshot` |
+| `HarnessStateCompiler` | `HarnessSourceSnapshot` → `HarnessStateSnapshot` |
+| Concrete `HarnessDomainValidator` | `HarnessStateSnapshot` → `DomainValidationResult` |
+| `HarnessStateValidator` | `HarnessStateSnapshot` plus an explicit ordered validator tuple → `ValidationResult` |
+| `HarnessStateProjector` | Validated `HarnessStateSnapshot` → `HarnessArtifactSet` |
 | `HarnessSynchronizer` | Validated candidate set → `SynchronizationResult` |
 | `HarnessStateComparator` | Candidate and maintained sets → `ComparisonResult` |
 
-`HarnessStateValidator` owns composition rather than domain rules. It records the explicit validator order, applies every validator deterministically, evaluates cross-domain closure, aggregates ordered findings, and returns one `ValidationResult`. It does not discover validators, alter state, repair findings, or authorize actions.
+The compiler may receive these validators through explicit composition but does not acquire their rules. `HarnessStateValidator` owns aggregate composition and cross-domain closure rather than domain rules. It records the explicit validator order, applies every validator deterministically, evaluates cross-domain closure, aggregates ordered findings, and returns one `ValidationResult`. It does not discover validators, alter state, repair findings, or authorize actions.
 
 Each ActionObject receives its dependencies explicitly, leaves its inputs unchanged, and returns an immutable object or result. It must not use ambient current-directory discovery, mutable global registries, or hidden fallback sources.
 
-Neither `HarnessState` nor its domain objects perform I/O, validation, projection, publication, or comparison. Those operations belong to the named ActionObjects.
+Neither `HarnessStateSnapshot` nor its domain objects perform I/O, validation, projection, publication, or comparison. Those operations belong to the named ActionObjects.
 
 ## Authoritative inputs
 
@@ -259,7 +265,7 @@ Generated projections are never source inputs merely because they are present. I
 
 ## Repository loading
 
-`HarnessRepositoryLoader` owns repository I/O and source-format decoding. It performs the following bounded steps:
+`HarnessSourceSnapshotLoader` owns repository I/O and source-format decoding. It performs the following bounded steps:
 
 1. validate the explicit repository root;
 2. resolve each declared source beneath that root;
@@ -273,25 +279,29 @@ Generated projections are never source inputs merely because they are present. I
 
 ## Compilation
 
-`HarnessCompiler` performs the pure transformation
+`HarnessStateCompiler` performs the pure transformation
 
 ```text
-HarnessSourceSnapshot → HarnessState
+HarnessSourceSnapshot → HarnessStateSnapshot
 ```
 
-Compilation owns structural normalization, including:
+Compilation owns snapshot assembly, including:
 
-- canonical identifier representation;
-- deterministic record and relationship ordering;
-- resolution of declared aliases;
-- construction of typed relationships;
-- normalization of equivalent source encodings;
-- attachment of source provenance to normalized values; and
-- calculation of the normalized-state identity.
+- accepting only records already decoded by explicit domain serializers;
+- canonical aggregate identity representation;
+- deterministic catalog and relationship ordering;
+- preservation of exact domain-record and repository revisions;
+- attachment of source provenance to snapshot references;
+- detection of duplicate or missing aggregate identities; and
+- calculation of the snapshot identity.
+
+Domain serializers own wire decoding and format-specific canonicalization. Domain repositories own authoritative revisions. The compiler does not reinterpret Task fields or construct new Task lifecycle facts.
 
 Compilation does **not**:
 
 - read files or invoke command-line programs;
+- write or commit any authoritative domain repository;
+- evaluate Task eligibility, selection, transitions, completion, or acceptance;
 - apply publication or rollback policy;
 - authorize development work;
 - infer approval or resolve a human decision;
@@ -326,15 +336,15 @@ Validation occurs after compilation so every validator sees the same normalized 
 - evidence identities and ownership; and
 - generated-artifact path and manifest closure.
 
-A validation coordinator may order validators and evaluate cross-domain closure, but it must not become a fallback owner for domain rules.
+`HarnessStateValidator` may order explicitly supplied validators and evaluate cross-domain closure, but it must not become a fallback owner for domain rules. In particular, Task definition, graph, state, selection, eligibility, transition, completion, and acceptance rules remain in `harness.tasks`.
 
-Validators are read-only. They return findings and do not repair `HarnessState`, rewrite sources, publish artifacts, or grant authority. A `ValidationResult` states the source-snapshot identity, normalized-state identity, validators and rule versions applied, ordered findings, and exact claim boundary.
+Validators are read-only. They return findings and do not repair `HarnessStateSnapshot`, rewrite sources, publish artifacts, or grant authority. A `ValidationResult` states the source-snapshot identity, snapshot identity, validators and rule versions applied, ordered findings, and exact claim boundary.
 
 A structural pass establishes only conformance to those rules. It does not establish software-test success, numerical verification, scientific validation, uncertainty quantification, protected-execution authority, or human acceptance.
 
 ## Projection
 
-`HarnessProjector` maps one validated `HarnessState` to one complete `HarnessArtifactSet`.
+`HarnessStateProjector` maps one validated `HarnessStateSnapshot` to one complete `HarnessArtifactSet`.
 
 A projected artifact declares:
 
@@ -345,9 +355,9 @@ A projected artifact declares:
 - generating state identity; and
 - whether its format uses byte-exact or semantic comparison.
 
-Projection formats may include SQLite, deterministic SQL, graphs, indexes, manifests, and generated harness views. Generated views live outside `docs/`; `docs/` contains human-authored documentation.
+Projection formats may include SQLite, deterministic SQL, graphs, indexes, manifests, and generated harness views. The V2 target places generated views outside `docs/` so `docs/` remains human-authored. Existing generated pages under `docs/harness/tasks/` are V1 migration inputs and remain in place until the separately governed documentation cutover moves or retires them.
 
-A projector performs no source discovery and writes no maintained destination. Format-specific projectors are output strategies over the same `HarnessState`, not separate authority models. The artifact-set manifest lists the complete candidate closure before publication, including artifacts that replace or remove previous projector-owned paths.
+A projector performs no source discovery and writes no maintained destination. Format-specific projectors are output strategies over the same `HarnessStateSnapshot`, not separate authority models. The artifact-set manifest lists the complete candidate closure before publication, including artifacts that replace or remove previous projector-owned paths.
 
 ## Candidate validation
 
@@ -361,7 +371,7 @@ Before publication or comparison, candidate validation confirms:
 - deterministic SQL where required;
 - absence of SQLite WAL, SHM, or journal sidecars;
 - closed mutable resources; and
-- agreement between each artifact and the normalized-state identity.
+- agreement between each artifact and the snapshot identity.
 
 An incomplete candidate set is never presented as current state.
 
@@ -419,7 +429,7 @@ Compiler and projector determinism is defined over:
 - projector and output-format versions; and
 - explicit operation configuration.
 
-Equivalent inputs under those versions produce equivalent `HarnessState` and candidate artifacts. Sources of incidental variation—filesystem enumeration order, locale, timezone, process ID, temporary paths, timestamps, random values, and host-specific SQLite state—must not enter deterministic outputs unless an owning contract represents them explicitly.
+Equivalent inputs under those versions produce equivalent `HarnessStateSnapshot` and candidate artifacts. Sources of incidental variation—filesystem enumeration order, locale, timezone, process ID, temporary paths, timestamps, random values, and host-specific SQLite state—must not enter deterministic outputs unless an owning contract represents them explicitly.
 
 A normalized semantic digest identifies represented state, not arbitrary file layout. A raw artifact digest identifies exact bytes. The architecture keeps those identities separate.
 
@@ -434,7 +444,7 @@ Only one synchronizer may own a maintained destination set at a time. Readers mu
 | Phase | Example failure | Required outcome |
 |---|---|---|
 | Loading | Missing source, invalid path, changing file | No snapshot returned |
-| Compilation | Duplicate identity, contradictory authority | No normalized state returned |
+| Compilation | Duplicate identity, contradictory authority | No compiled snapshot returned |
 | Validation | Broken prerequisite or resource closure | Findings returned; no projection publication |
 | Projection | Unsupported format or nondeterministic output | No complete artifact set returned |
 | Candidate validation | Manifest mismatch or open SQLite sidecar | Candidate rejected |
@@ -457,8 +467,8 @@ Neither extension may introduce a parallel compiler path, hidden registry, ambie
 
 This compiler architecture belongs exclusively to the development harness. It may represent development Tasks, decisions, capabilities, evidence, and derived control views. It does not:
 
-- load or advance a scientific `CampaignRun`;
-- compile a CPN campaign into calculator work;
+- load or advance a scientific `ScientificWorkflowRun`;
+- compile a CPN scientific workflow into calculator work;
 - execute a calculator;
 - interpret numerical observations;
 - create `ScientificAnalysis`; or
@@ -468,7 +478,7 @@ Any scientific workflow compiler requires a separate contract under the scientif
 
 ## Unresolved issues
 
-- Exact public field contracts for source snapshots, normalized state, validation results, and artifact sets.
+- Exact public field contracts for source snapshots, compiled snapshot, validation results, and artifact sets.
 - Compiler and normalization-rule version identities.
 - Source-snapshot consistency mechanism under concurrent repository mutation.
 - Whether format-specific projectors are public ActionObjects or private strategies.

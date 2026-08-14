@@ -26,6 +26,8 @@ include_patterns = [
     "architecture/v1/**/*.md",
     "architecture/v2/*.md",
     "architecture/v2/**/*.md",
+    "architecture/migration/*.md",
+    "architecture/migration/**/*.md",
     "user-guide/*.md",
     "concepts/cpn-contract.md",
     "api/workflows-cpn.md",

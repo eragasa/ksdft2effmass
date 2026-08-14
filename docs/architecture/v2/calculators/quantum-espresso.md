@@ -32,7 +32,7 @@ classDiagram
 | `QuantumEspressoProcessRequest` | Explicit command, attempt, authority, working root, and expected outputs |
 | `QuantumEspressoNativeOutput` | Mechanically parsed native output and QEXSD identities |
 
-The payload is calculator-specific but contains no campaign ordering or scientific disposition.
+The payload is calculator-specific but contains no scientific workflow ordering or scientific disposition.
 
 ## ActionObjects
 

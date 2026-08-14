@@ -39,6 +39,7 @@ Chains select active work. Task JSON defines Task content. Unresolved checkpoint
 ## Detailed pages
 
 - [Development harness model](development-harness.md)
+- [Pi harness subagents](subagents/index.md)
 - [Compiler architecture](compiler-architecture.md)
 - [Control plane](control-plane.md)
 - [Persistence](persistence.md)

@@ -43,4 +43,4 @@ Generated Task Markdown under `docs/harness/tasks/` is a projection of Task JSON
 
 ## Scientific views
 
-V1 has calculation-specific summaries and manifests but no general scientific projection model over `CampaignRun`. Dashboards or graphs, where present, remain derived evidence and cannot authorize execution or accept results.
+V1 has calculation-specific summaries and manifests but no general scientific projection model over `ScientificWorkflowRun`. Dashboards or graphs, where present, remain derived evidence and cannot authorize execution or accept results.

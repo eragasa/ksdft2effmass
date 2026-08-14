@@ -17,7 +17,7 @@ A simulation specification composes:
 
 Attempt identity belongs to an execution request, not the reusable `Simulation` definition.
 
-Scientific parameters do not move into `Campaign` merely because they influence workflow order.
+Scientific parameters do not move into `ScientificWorkflow` merely because they influence workflow order.
 
 ## Typed features
 
@@ -52,7 +52,7 @@ Implementations validate configuration and identities before performing bounded 
 
 `ksdft2effmass.calculators` owns calculator-specific simulation payloads, configuration, and executors. The first demonstrated calculator family is Quantum ESPRESSO `pw.x`; other programs are not modeled as enum values of that contract because they have different inputs and outputs.
 
-`ksdft2effmass.io` owns mechanical input/output translation. It does not own executor policy, campaign order, or scientific interpretation.
+`ksdft2effmass.io` owns mechanical input/output translation. It does not own executor policy, scientific workflow order, or scientific interpretation.
 
 ## Normalization path
 

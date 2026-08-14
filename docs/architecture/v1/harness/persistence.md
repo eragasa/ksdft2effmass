@@ -32,7 +32,7 @@ V1 has no general scientific persistence aggregate. Calculation-specific JSON, M
 - artifact identities and locations; and
 - task-specific analysis or review outcomes.
 
-These records are not retroactively a `CampaignRun`. CPN markings are not persisted as scientific execution authority.
+These records are not retroactively a `ScientificWorkflowRun`. CPN markings are not persisted as scientific execution authority.
 
 ## Serialization
 

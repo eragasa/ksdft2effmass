@@ -1,6 +1,6 @@
 # Colored Petri Nets
 
-The project workflow is a Colored Petri Net (CPN) with typed token colors and multiset markings. See the [implemented Architecture v1 CPN description](../architecture/v1/workflow/campaign-and-cpn-model.md) for the mathematical definition and ownership rules.
+The project workflow is a Colored Petri Net (CPN) with typed token colors and multiset markings. See the [implemented Architecture v1 CPN description](../architecture/v1/workflow/scientific-workflow-and-cpn-model.md) for the mathematical definition and ownership rules.
 
 ## P1 version-1 numeric inputs
 

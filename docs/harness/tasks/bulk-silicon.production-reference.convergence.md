@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred`: awaiting_scientific_harness_reimplementation: Direct bootstrap execution completed through 18 pw.x invocations governed by the development harness. The retained observations are bootstrap scientific-harness development evidence, not a canonical scientific CampaignRun or accepted production convergence evidence. Scientific interpretation is not accepted, canonical scientific-harness execution is deferred, and additional execution is unauthorized.
+`deferred`: awaiting_scientific_harness_reimplementation: Direct bootstrap execution completed through 18 pw.x invocations governed by the development harness. The retained observations are bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Scientific interpretation is not accepted, canonical scientific-harness execution is deferred, and additional execution is unauthorized.
 
 ## Objective
 
@@ -32,7 +32,7 @@ Verify the frozen production pseudopotential identity and compatibility, then de
 - SCF-mesh execution, when separately authorized, varies the systematically refined but non-nested shifted-even Monkhorst--Pack candidates 6^3, 8^3, 10^3, and 12^3 at the provisional 48 Ry PseudoDojo high-hint setting, with the 48 Ry/8^3 case deterministically reused from the cutoff scan. Later four-corner inputs remain parameterized until E_*, K_*, E_+, and K_+ are known.
 - Retain total energy per atom, pressure or stress, SCF iteration count, final code-reported convergence estimate, wall time, observable disk use, warnings, and explicitly limited fixed-point band-edge diagnostics; retain identities, tables, residuals, rejected settings, cross-checks, and diagnostic plot data.
 - One bounded human acceptance may select provisional cutoff and SCF-mesh settings for later EOS work; a material EOS geometry change can require a bounded recheck.
-- Before any such scientific disposition, the canonical scientific campaign must be reimplemented and separately authorized through the deterministic scientific harness; the retained direct bootstrap execution is fixture evidence only.
+- Before any such scientific disposition, the canonical scientific workflow run must be reimplemented and separately authorized through the deterministic scientific harness; the retained direct bootstrap execution is fixture evidence only.
 
 ## Completion criteria
 
@@ -44,7 +44,7 @@ Verify the frozen production pseudopotential identity and compatibility, then de
 ## Exclusions
 
 - The completed protected-execution authorization covered exactly the committed direct-bootstrap 9-SCF and 9-NSCF execution. No retry, input revision, Wannier90 execution, four-corner follow-on, or other scientific executable is authorized; pseudopotential commit and redistribution remain prohibited.
-- No canonical scientific CampaignRun exists. The direct bootstrap observations do not establish deterministic scientific-harness execution, production convergence, numerical-verification acceptance, scientific-validation acceptance, or a ScientificDisposition.
+- No canonical scientific ScientificWorkflowRun exists. The direct bootstrap observations do not establish deterministic scientific-harness execution, production convergence, numerical-verification acceptance, scientific-validation acceptance, or a ScientificDisposition.
 - No final cutoff, mesh, or lattice constant is selected. Canonical scientific-harness execution and scientific interpretation remain deferred pending reimplementation and separate authorization.
 - No production lattice/EOS acceptance, production SCF execution, symmetry-path bands, valley effective masses, Wannierization, plotting implementation, production scientific Python, physical validation, or uncertainty quantification is owned here.
 - Successful execution, agreement with the finest retained setting, or a diagnostic plot does not establish scientific validation or agreement with the infinite-basis limit.

@@ -18,7 +18,7 @@ Absolute user-specific paths, credentials, scheduler clients, process handles, a
 
 ## Lineage
 
-Lineage connects scientific intent, `Campaign`, `CampaignRun`, `Simulation`, execution request, `SimulationExecutionResult`, native artifacts, normalized observations, `ScientificAnalysis`, and `ScientificDisposition`. Every edge is explicit and identity-correlated. Exact byte identity does not imply scientific compatibility, and compatible semantics do not imply identical bytes.
+Lineage connects scientific intent, `ScientificWorkflow`, `ScientificWorkflowRun`, `Simulation`, execution request, `SimulationExecutionResult`, native artifacts, normalized observations, `ScientificAnalysis`, and `ScientificDisposition`. Every edge is explicit and identity-correlated. Exact byte identity does not imply scientific compatibility, and compatible semantics do not imply identical bytes.
 
 ## Retention
 

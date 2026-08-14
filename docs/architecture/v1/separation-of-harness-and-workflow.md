@@ -41,7 +41,7 @@ flowchart LR
     analyze --> transition["HarnessTask status transition"]
 ```
 
-The same development lifecycle carries software scope, protected execution preparation, and scientific review language. V1 has no independent `CampaignRun` state between execution authority and calculator dispatch.
+The same development lifecycle carries software scope, protected execution preparation, and scientific review language. V1 has no independent `ScientificWorkflowRun` state between execution authority and calculator dispatch.
 
 ## Cross-component references
 

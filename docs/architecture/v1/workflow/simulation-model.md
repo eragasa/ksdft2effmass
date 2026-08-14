@@ -36,7 +36,7 @@ The direct result is not a general immutable execution-result contract. Process 
 
 ## Historical executions
 
-The accepted silicon Davidson SCF and bands tutorials each executed once through QE 7.2 with retained inputs and compact provenance. Eighteen direct convergence invocations—nine SCFs and nine linked NSCF diagnostics—are retained as historical bootstrap execution evidence. None is an authoritative `CampaignRun`.
+The accepted silicon Davidson SCF and bands tutorials each executed once through QE 7.2 with retained inputs and compact provenance. Eighteen direct convergence invocations—nine SCFs and nine linked NSCF diagnostics—are retained as historical bootstrap execution evidence. None is an authoritative `ScientificWorkflowRun`.
 
 ## Limitation
 

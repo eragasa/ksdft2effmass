@@ -200,6 +200,6 @@ V1 does not implement:
 - a general `.save` parser or wavefunction model;
 - an artifact publisher shared across QE calculations;
 - a mutable calculator registry; or
-- CPN-driven QE dispatch and persisted `CampaignRun` correlation.
+- CPN-driven QE dispatch and persisted `ScientificWorkflowRun` correlation.
 
 These absences define the implemented V1 boundary. They are not placeholders that this page authorizes for implementation.

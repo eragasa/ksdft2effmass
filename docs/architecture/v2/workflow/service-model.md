@@ -12,7 +12,7 @@
 | `ScientificIntent` | Explicit requested scientific operation and intended use |
 | `ScientificServiceEntry` | Accepted inputs, result family, capabilities, effects, and authority needs |
 | `ScientificServiceCatalog` | Immutable service entries available in one application composition |
-| `ScientificServiceRequest` | Intent, authority, campaign selection, and explicit configuration references |
+| `ScientificServiceRequest` | Intent, authority, scientific workflow selection, and explicit configuration references |
 | `ScientificServiceResult` | Run identity, terminal represented status, analyses, and disposition references |
 
 ## Composition
@@ -20,18 +20,18 @@
 ```mermaid
 flowchart TB
     service["ScientificService"] --> catalog["ScientificServiceCatalog"]
-    service --> campaigns["Campaign catalog"]
+    service --> definitions["ScientificWorkflow catalog"]
     service --> executors["SimulationExecutor tuple"]
     service --> analyzers["ScientificAnalyzer tuple"]
     service --> artifacts["Artifact services"]
-    service --> repository["CampaignRunRepository"]
+    service --> repository["ScientificWorkflowRunRepository"]
 ```
 
 All dependencies are explicit and immutable for one service operation. Catalog membership describes capability; it does not authorize effects.
 
 ## Operation
 
-The service validates the request, resolves one campaign, initializes or loads a run, advances deterministic transitions, dispatches only authorized requests, correlates results, invokes analyzers when ready, persists revisions, and returns represented results.
+The service validates the request, resolves one scientific workflow, initializes or loads a run, advances deterministic transitions, dispatches only authorized requests, correlates results, invokes analyzers when ready, persists revisions, and returns represented results.
 
 It does not silently select another calculator, infer scientific disposition, mutate development state, or hide retry policy.
 
@@ -39,6 +39,6 @@ It does not silently select another calculator, infer scientific disposition, mu
 
 - Whether the public service method is synchronous, asynchronous, or both.
 - Service cancellation and resumability contract.
-- Exact campaign-selection contract when multiple definitions satisfy an intent.
+- Exact scientific-workflow-selection contract when multiple definitions satisfy an intent.
 - Whether service results include read models or only stable references.
-- Resource-ceiling negotiation between service, campaign, and executor.
+- Resource-ceiling negotiation between service, scientific workflow, and executor.
