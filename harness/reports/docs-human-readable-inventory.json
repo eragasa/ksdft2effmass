@@ -1,0 +1,3008 @@
+{
+  "schema_version": 1,
+  "report_id": "docs-human-readable-inventory",
+  "source_revision": "fa31577ccceb066a66599618cd4ef3ff054a83ba",
+  "source_scope": "files tracked under docs/ in the source revision",
+  "allowed_dispositions": [
+    "retain",
+    "rename",
+    "move",
+    "merge",
+    "historical",
+    "generated",
+    "delete"
+  ],
+  "destination_rules": {
+    "retain": "proposed_destination equals path",
+    "rename": "proposed_destination differs from path and remains under docs/",
+    "move": "proposed_destination differs from path and remains under docs/",
+    "merge": "proposed_destination differs from path and identifies the retained docs/ target",
+    "historical": "proposed_destination is under docs/history/",
+    "generated": "proposed_destination is outside docs/",
+    "delete": "proposed_destination is null"
+  },
+  "counts": {
+    "total": 495,
+    "by_disposition": {
+      "retain": 207,
+      "rename": 119,
+      "move": 0,
+      "merge": 1,
+      "historical": 21,
+      "generated": 147,
+      "delete": 0
+    }
+  },
+  "records": [
+    {
+      "path": "docs/api/harness-adapters.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/harness-adapters.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/harness-control.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/harness-control.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/harness-task.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/harness-task.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/index.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/index.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/operators.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/operators.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/periodic-records.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/periodic-records.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/provenance.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/provenance.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/api/workflows-cpn.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/api/workflows-cpn.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/architecture/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/index.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/architecture/migration/v1-to-v2/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/migration/v1-to-v2/index.md",
+      "reason": "Retained human-authored cross-version migration guidance."
+    },
+    {
+      "path": "docs/architecture/migration/v1-to-v2/pi-harness-subagents.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/migration/v1-to-v2/pi-harness-subagents.md",
+      "reason": "Retained human-authored cross-version migration guidance."
+    },
+    {
+      "path": "docs/architecture/v1/calculators/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/calculators/index.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/calculators/quantum-espresso.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/calculators/quantum-espresso.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/compiler-architecture.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/compiler-architecture.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/control-plane.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/control-plane.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/development-harness.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/development-harness.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/index.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/persistence.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/persistence.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/projections.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/projections.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/agent-descriptors.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/agent-descriptors.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/delegation-and-ownership.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/delegation-and-ownership.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/execution-and-isolation.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/execution-and-isolation.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/handoffs-and-review.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/handoffs-and-review.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/index.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/parent-orchestration.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/parent-orchestration.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/harness/subagents/runtime-state-and-artifacts.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/harness/subagents/runtime-state-and-artifacts.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/index.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/principles.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/principles.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/repository-layout.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/repository-layout.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/separation-of-harness-and-workflow.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/separation-of-harness-and-workflow.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/workflow/artifact-and-provenance-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/workflow/artifact-and-provenance-model.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/workflow/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/workflow/index.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/workflow/scientific-workflow-and-cpn-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/workflow/scientific-workflow-and-cpn-model.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v1/workflow/simulation-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v1/workflow/simulation-model.md",
+      "reason": "Retained implemented Architecture v1 source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/analysis/analysis-and-disposition.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/analysis/analysis-and-disposition.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/analysis/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/analysis/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/calculators/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/calculators/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/calculators/quantum-espresso.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/calculators/quantum-espresso.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/composition-root.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/composition-root.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/compiler-architecture.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/compiler-architecture.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/conformance.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/conformance.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/control-plane.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/control-plane.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/development-harness.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/development-harness.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/object-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/object-model.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/persistence.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/persistence.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/projections.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/projections.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/agent-descriptors.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/agent-descriptors.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/delegation-and-ownership.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/delegation-and-ownership.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/execution-and-isolation.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/execution-and-isolation.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/handoffs-and-review.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/handoffs-and-review.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/parent-orchestration.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/parent-orchestration.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/subagents/runtime-state-and-artifacts.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/subagents/runtime-state-and-artifacts.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/decisions-and-authority.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/decisions-and-authority.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/evidence-and-review.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/evidence-and-review.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/graph-and-dependencies.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/graph-and-dependencies.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/lifecycle.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/lifecycle.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/persistence-and-projections.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/persistence-and-projections.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/selection-and-eligibility.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/selection-and-eligibility.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/tasks/task-definition.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/tasks/task-definition.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/harness/validation.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/harness/validation.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/identity-version-and-failure-contracts.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/identity-version-and-failure-contracts.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/001-simulation-execution-request-context.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/001-simulation-execution-request-context.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/002-scientific-dispatch-atomicity.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/002-scientific-dispatch-atomicity.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/003-compiler-authority-conflict.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/003-compiler-authority-conflict.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/004-validation-and-publication-gate.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/004-validation-and-publication-gate.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/005-durable-publication-authority.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/005-durable-publication-authority.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/006-cpn-deterministic-selection.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/006-cpn-deterministic-selection.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/007-observation-normalization-composition.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/007-observation-normalization-composition.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/008-scientific-disposition-action.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/008-scientific-disposition-action.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/009-execution-authority-grant.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/009-execution-authority-grant.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/010-dependency-graph-consistency.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/010-dependency-graph-consistency.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/011-candidate-artifact-validator.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/011-candidate-artifact-validator.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/012-publication-rollback-guarantee.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/012-publication-rollback-guarantee.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/013-external-artifact-producer-identity.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/013-external-artifact-producer-identity.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/014-required-failure-wording.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/014-required-failure-wording.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/issues/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/issues/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/petrinet/colored/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/petrinet/colored/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/petrinet/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/petrinet/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/principles.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/principles.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/repository-layout.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/repository-layout.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/separation-of-harness-and-workflow.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/separation-of-harness-and-workflow.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/artifact-and-provenance-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/artifact-and-provenance-model.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/control-plane.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/control-plane.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/persistence.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/persistence.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/read-models.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/read-models.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/scientific/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/scientific/index.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/scientific/scientific-workflow-run.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/scientific/scientific-workflow-run.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/service-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/service-model.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/architecture/v2/workflow/simulation-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/architecture/v2/workflow/simulation-model.md",
+      "reason": "Retained normative Architecture v2 target source under the accepted version-isolated architecture layout."
+    },
+    {
+      "path": "docs/computational/bulk-silicon-downstream-sampling-plan.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/computational/bulk-silicon-downstream-sampling-plan.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/computational/bulk-silicon-production-convergence-design.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/computational/bulk-silicon-production-convergence-design.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/computational/bulk-silicon-production-program.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/computational/bulk-silicon-production-program.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/computational/ksdft-pw-record-architecture.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/computational/ksdft-pw-record-architecture.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/freeze-the-physical-reference-specification.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/freeze-numerical-conventions-and-software-stack.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/implement-the-operator-record-schema.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/implement-run-manifests-and-provenance-capture.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/implement-common-operator-subspace-spectral-and-observable-metrics.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/construct-composed-synthetic-scientific-workflow-benchmarks.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/shared-foundation/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/construct-and-verify-the-primitive-cell-input.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/converge-kinetic-energy-and-charge-density-cutoffs.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/converge-the-brillouin-zone-sampling.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.01.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/determine-or-freeze-the-lattice-geometry.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/run-the-production-scf-parent-and-bulk-validation-nscf-calculations.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/extract-band-edges-valley-positions-and-effective-masses.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.02.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/freeze-the-bulk-reference-dataset.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-first-principles-reference/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/define-the-target-band-edge-subspace.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/select-initial-orbital-projections.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/approve-retained-bands-projections-windows-and-the-uniform-grid.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.01.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/run-the-wannier-compatible-uniform-grid-nscf-child-and-qewannier-bridge.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/construct-candidate-wannier-hamiltonians.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/validate-interpolation-centers-spreads-and-hopping-decay.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.02.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/freeze-the-reference-wannier-operator.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/bulk-silicon-wannier-operator/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/implement-the-orthogonal-operator-slater-koster-model.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/verify-hermiticity-symmetry-and-limiting-cases.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/define-training-and-withheld-validation-sets.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/fit-the-direct-dft-to-tb-model.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/align-the-wannier-and-tb-orbital-spaces.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/fit-or-project-the-wannier-to-tb-model.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.04.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/apply-common-bulk-validation-metrics.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.04.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/freeze-the-accepted-model-class-and-parameters.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/tight-binding-reductions/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/implement-overlap-and-principal-angle-diagnostics-on-synthetic-subspaces.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/implement-polar-and-procrustes-alignment.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/verify-exact-recovery-on-controlled-gauge-transformations.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/define-common-supercell-and-orbital-indexing-conventions.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/test-alignment-on-independently-generated-bulk-wannier-operators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.02.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/quantify-sensitivity-to-windows-projections-and-localization.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.02.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/freeze-the-alignment-protocol.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.05.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/alignment-and-common-comparison-spaces/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/construct-the-phosphorus-silicon-specialization-gate.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/define-the-phosphorus-supercell-sequence.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/run-relaxed-or-fixed-geometry-phosphorus-silicon-calculations.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/construct-phosphorus-silicon-wannier-operators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/validate-doped-subspaces-and-wannier-representations.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/align-bulk-and-phosphorus-silicon-operators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/extract-operator.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.03.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/test-supercell-gauge-and-alignment-convergence.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.03.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/freeze-the-phosphorus-impurity-operator.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.06.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/phosphorus-impurity-operator/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/construct-the-boron-silicon-specialization-gate.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/define-the-boron-supercell-and-valence-subspace-study.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/run-boron-silicon-first-principles-calculations.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/construct-multiband-boron-silicon-wannier-operators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/validate-degeneracies-orbital-content-and-spin-orbit-structure.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/align-bulk-and-boron-silicon-operators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/extract-operator.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.03.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/test-supercell-gauge-and-alignment-convergence.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.03.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/freeze-the-boron-impurity-operator.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.07.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/boron-impurity-operator/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/implement-spatial-and-orbital-operator-decomposition.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/implement-scalar-orbital-onsite-hopping-and-range-restricted-model-classes.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/implement-projection-or-fitting-into-each-model-class.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/construct-the-phosphorus-model-hierarchy.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/solve-and-validate-every-phosphorus-model-level.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.02.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/select-the-minimal-phosphorus-model.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/construct-the-boron-model-hierarchy.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/solve-and-validate-every-boron-model-level.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.03.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/select-the-minimal-boron-model.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.04.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/compare-donor-and-acceptor-reduction-hierarchies.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.08.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/reduced-impurity-hierarchies/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/extract-bulk-band-edge-tensors-and-channel-data.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/implement-and-verify-the-multivalley-donor-solver.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.01.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/implement-and-verify-the-multiband-acceptor-solver.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.01.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/implement-screened-coulomb-and-central-cell-model-families.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/construct-the-continuum-to-wannier-embedding.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/verify-the-embedding-using-synthetic-envelopes.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/compute-phosphorus-exterior-and-cross-coupling-errors.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/determine-phosphorus-crossover-radius.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.03.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/validate-phosphorus-bound-states.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.04.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/compute-boron-exterior-and-cross-coupling-errors.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.04.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/determine-boron-crossover-radius.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.04.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/validate-boron-bound-states.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.09.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/continuum-reduction-and-crossover/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.01.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/measure-wannier-and-alignment-gauge-equivariance-defects.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.01.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/compare-direct-and-wannier-mediated-tb-paths.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.02.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/reduce-extracted-impurity-operators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.02.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/reduce-parent-operators-before-impurity-extraction.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.02.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/measure-impurity-extraction-commutators.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.03.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/measure-error-amplification-under-successive-reductions.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.03.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/fit-or-bound-stagewise-stability-factors.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.04.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/determine-the-supported-compositional-claims.md",
+      "reason": "Replace the opaque task code with a descriptive topic path under its computational stage."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.10.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/cross-path-consistency/index.md",
+      "reason": "Replace the numeric stage filename with a descriptive stage directory index."
+    },
+    {
+      "path": "docs/computational/ksdft2Effmass.computational.task-template.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/task-template.md",
+      "reason": "Remove the redundant project prefix from the descriptive template name."
+    },
+    {
+      "path": "docs/computational/ksdft2effmass.computational.00.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/index.md",
+      "reason": "Make the computational program root the section index."
+    },
+    {
+      "path": "docs/computational/ksdft2effmass.computational.bootstrap.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/computational/simulation-first-bootstrap.md",
+      "reason": "Replace the project-prefixed filename with the page’s descriptive bootstrap topic."
+    },
+    {
+      "path": "docs/computational/pseudopotential-library-strategy.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/computational/pseudopotential-library-strategy.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/computational/wannier/wannier-tutorial-catalog.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/computational/wannier/wannier-tutorial-catalog.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/concepts/cpn-contract.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/concepts/cpn-contract.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/concepts/operator-records.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/concepts/operator-records.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/concepts/periodic-calculation-records.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/concepts/periodic-calculation-records.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/concepts/provenance-and-artifacts.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/concepts/provenance-and-artifacts.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/conf.py",
+      "disposition": "retain",
+      "proposed_destination": "docs/conf.py",
+      "reason": "Maintained Sphinx configuration source."
+    },
+    {
+      "path": "docs/development/agent-control-plane.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/development/agent-control-plane.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/development/ai-assisted-development.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/development/ai-assisted-development.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/development/ksdft2effmass.development.installation.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/development/installation.md",
+      "reason": "Replace the opaque project-prefixed filename with its descriptive topic."
+    },
+    {
+      "path": "docs/development/source-documentation.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/development/source-documentation.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.000.000.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/index.md",
+      "reason": "Current harness documentation root requires a descriptive section-index path."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.001.000.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/current/index.md",
+      "reason": "Current implemented harness architecture requires a descriptive section-index path."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.001.001.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/current/generic-and-project-boundaries.md",
+      "reason": "Current harness guidance requires a descriptive topic path rather than an opaque numeric identity."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.001.002.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/current/resources-profiles-and-skills.md",
+      "reason": "Current harness guidance requires a descriptive topic path rather than an opaque numeric identity."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.001.003.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/current/python-implementation.md",
+      "reason": "Current harness guidance requires a descriptive topic path rather than an opaque numeric identity."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.001.004.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/current/validation-and-evidence.md",
+      "reason": "Current harness guidance requires a descriptive topic path rather than an opaque numeric identity."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.001.006.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/current/status-and-limitations.md",
+      "reason": "Current harness guidance requires a descriptive topic path rather than an opaque numeric identity."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.000.000.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.000.000.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.000.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/harness/simplification/round-1/index.md",
+      "reason": "Current simplification-round index requires a descriptive section path while retaining its mixed completed, proposed, and deferred content."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.001.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.001.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.002.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.002.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.003.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.003.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.004.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.004.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.005.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.005.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.006.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.006.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.007.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.007.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.008.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.008.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.009.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.009.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.010.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.010.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.011.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.011.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.012.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.012.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.001.013.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.001.013.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.002.002.005.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.002.002.005.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.003.000.000.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.003.000.000.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.003.001.000.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.003.001.000.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.003.001.001.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.003.001.001.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.003.001.002.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.003.001.002.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.004.000.000.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.004.000.000.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/ksdft2effmass.harness.090.000.000.md",
+      "disposition": "historical",
+      "proposed_destination": "docs/history/harness/ksdft2effmass.harness.090.000.000.md",
+      "reason": "Version-numbered harness narrative to preserve as history and separate from current guidance."
+    },
+    {
+      "path": "docs/harness/tasks/A.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/A.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/ARCHITECTURE-DECISION-SKILL-1.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/ARCHITECTURE-DECISION-SKILL-1.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/B.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/B.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/C.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/C.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/D.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/D.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/E.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/E.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/EVIDENCE-DOC-1.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/EVIDENCE-DOC-1.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/F.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/F.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/G.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/G.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/H.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/H.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/H0.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/H0.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/H1.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/H1.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/H2.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/H2.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/H3.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/H3.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/H4.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/H4.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P0.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P0.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P0A.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P0A.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P1.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P1.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P10.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P10.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P11.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P11.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P2.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P2.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P3.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P3.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P4.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P4.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P5.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P5.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P6.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P6.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P7.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P7.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P8.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P8.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/P9.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/P9.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/POLICY-CONSTITUTION-1.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/POLICY-CONSTITUTION-1.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/TEST-EVIDENCE-CONVENTIONS-2.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/TEST-EVIDENCE-CONVENTIONS-2.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/TEST-EVIDENCE-SKILL-1.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/TEST-EVIDENCE-SKILL-1.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/backend-neutral-cpn-workflow-architecture.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/backend-neutral-cpn-workflow-architecture.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/backend-neutral-kohn-sham-qe-architecture.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/backend-neutral-kohn-sham-qe-architecture.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.artifacts.qe.inventory.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.artifacts.qe.inventory.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.conduction-valley.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.band-edge-characterization.conduction-valley.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.effective-mass-analysis.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.band-edge-characterization.effective-mass-analysis.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.band-edge-characterization.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.symmetry-path.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.band-edge-characterization.symmetry-path.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.band-edge-characterization.valence-edge.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.band-edge-characterization.valence-edge.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.convergence.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.production-reference.convergence.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.lattice-reference.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.production-reference.lattice-reference.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.production-reference.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.production-reference.scf.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.production-reference.scf.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.records.periodic.extraction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.records.periodic.extraction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.deformation-potentials.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.semiconductor-properties.deformation-potentials.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.density-of-states.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.semiconductor-properties.density-of-states.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.dielectric-screening.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.semiconductor-properties.dielectric-screening.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.intrinsic-statistics.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.semiconductor-properties.intrinsic-statistics.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.semiconductor-properties.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.semiconductor-properties.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.simulation.qe.band-reference.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.simulation.qe.band-reference.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.simulation.qe.reference.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.simulation.qe.reference.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.tight-binding.comparison-reduction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.tight-binding.comparison-reduction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.tight-binding.direct-spectral.fitting.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.tight-binding.wannier.bridge.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.tight-binding.wannier.bridge.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.tight-binding.wannier.extraction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.tight-binding.wannier.extraction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.interface.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.wannier-reference.interface.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.interpolation-verification.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.wannier-reference.interpolation-verification.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.localization.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.wannier-reference.localization.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.wannier-reference.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.wannier-reference.uniform-nscf.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.wannier-reference.uniform-nscf.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/bulk-silicon.workflow.extracted-model-verification.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/bulk-silicon.workflow.extracted-model-verification.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/cpn-skill-capability-audit.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/cpn-skill-capability-audit.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/cpn.workflow.persistence.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/cpn.workflow.persistence.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/deferred-harness-current-phase-history.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/deferred-harness-current-phase-history.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.architecture-development.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.architecture-development.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.computational-names.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.computational-names.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.contract-and-inventory.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.contract-and-inventory.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.cutover.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.cutover.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.generated-view-separation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.generated-view-separation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.history-separation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.history-separation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/docs.human-readable.root-navigation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/docs.human-readable.root-navigation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/evidence-branch-orchestration-profile.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/evidence-branch-orchestration-profile.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/graphify-integration.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/graphify-integration.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.executable-tool-placement-contract.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.executable-tool-placement-contract.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.live-discovery-cleanup.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.live-discovery-cleanup.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.project-architecture.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.project-architecture.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.project-documentation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.project-documentation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.project-implementation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.project-implementation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.project-integration-review.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.project-integration-review.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.project-role-simplification.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.project-role-simplification.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.resource-phase-routing-reconciliation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.agents.validator-migration-pilot.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.agents.validator-migration-pilot.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.checkpoints.resolve-checkpoint-decision.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.docs-json.migration-review-interface.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.docs-json.migration-review-interface.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.evidence.audit-action-conformance.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.evidence.audit-action-conformance.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.execution.task-state-inspection-tool.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.execution.task-state-inspection-tool.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.execution.validator-pilot-stabilization.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.execution.validator-pilot-stabilization.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.resources.develop-harness-resources.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.resources.develop-harness-resources.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-simplification.resources.manifest-refresh.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-simplification.resources.manifest-refresh.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness-task-state-symlink-toctou-hardening.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness-task-state-symlink-toctou-hardening.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.architecture-v2.plan.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.architecture-v2.plan.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.architecture-v2.simulation-execution.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.architecture-v2.simulation-execution.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.control-plane-cleanup.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.control-plane-cleanup.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.extraction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.extraction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.agents.delegation-validation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.agents.delegation-validation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.api.action-object-grammar.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.api.action-object-grammar.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.control.successor-selection.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.control.successor-selection.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.control.task-catalog-reconciliation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.control.task-catalog-reconciliation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.authority-catalog.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.authority-catalog.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.documentation-correction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.documentation-correction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.publication.hierarchy.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.publication.hierarchy.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.publication.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.publication.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.publication.triage.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.publication.triage.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.schema-projection.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.schema-projection.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.task-document-migration.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.task-document-migration.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.task-implementation-hardening.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.task-implementation-hardening.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.task-model-contract.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.task-model-contract.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.docs-json.task-model-simplification.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.docs-json.task-model-simplification.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.evidence.naming.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.evidence.naming.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.resources.h3-validator-retirement.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.resources.h3-validator-retirement.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplification.round-2.sqlite-hybrid-cutover.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplification.round-2.sqlite-hybrid-cutover.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.adapter-retirement.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.adapter-retirement.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.cli-consolidation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.cli-consolidation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.control-decomposition.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.control-decomposition.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.python-conformance-decomposition.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.python-conformance-decomposition.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.resource-decomposition.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.resource-decomposition.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.generation-builder.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.generation-builder.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.integration-closeout.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.integration-closeout.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.inventory.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.inventory.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.legacy-route-retirement.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.legacy-route-retirement.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.repository-validation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.repository-validation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.validation-retirement.source-aware-verification.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.validation-retirement.source-aware-verification.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.simplify-2.wire-validation-decomposition.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.simplify-2.wire-validation-decomposition.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.baseline.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.baseline.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.controlled-benchmarks.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.controlled-benchmarks.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.effectiveness-evaluation.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.effectiveness-evaluation.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.live-timing-extension.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.live-timing-extension.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.normalized-event-contract.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.normalized-event-contract.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.retrospective-parser.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.retrospective-parser.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.session-jsonl-inventory.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.session-jsonl-inventory.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/harness.telemetry.sqlite-projection.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/harness.telemetry.sqlite-projection.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/human-review-interface.audit-evidence-identifiers-correction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/human-review-interface.audit-evidence-identifiers-correction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/human-review-interface.human-decision-recording.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/human-review-interface.human-decision-recording.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/human-review-interface.review-packet-pilot.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/human-review-interface.review-packet-pilot.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/index.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/index.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/operator-record-comparison.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/operator-record-comparison.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/operator-record-refactor.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/operator-record-refactor.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/harness/tasks/operator-record-validation-correction.md",
+      "disposition": "generated",
+      "proposed_destination": "harness/generated/task-markdown/operator-record-validation-correction.md",
+      "reason": "Generated non-authoritative Task Markdown projection; authoritative Task JSON is under harness/tasks/."
+    },
+    {
+      "path": "docs/index.md",
+      "disposition": "merge",
+      "proposed_destination": "docs/index.rst",
+      "reason": "Second root landing page should be merged into the Sphinx root so navigation has one authority."
+    },
+    {
+      "path": "docs/index.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/index.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/meetings/20260728-LLENARIZAS.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/meetings/20260728-LLENARIZAS.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/meetings/20260804-LLENARIZAS.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/meetings/20260804-LLENARIZAS.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/README.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/README.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/bounds/continuum-fitting-identifiability.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/bounds/continuum-fitting-identifiability.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/bounds/operator-to-observable-errors.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/bounds/operator-to-observable-errors.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/bounds/spatial-residual-and-crossover.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/bounds/spatial-residual-and-crossover.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/claims-register.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/claims-register.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/compatibility/model-class-expressiveness.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/compatibility/model-class-expressiveness.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/compatibility/spectral-operator-compatibility.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/compatibility/spectral-operator-compatibility.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/foundations/bloch-fiber-correspondence.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/foundations/bloch-fiber-correspondence.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/foundations/representation-maps.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/foundations/representation-maps.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/foundations/state-space-assumptions.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/foundations/state-space-assumptions.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/programs/agentic-workflow-proof-program.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/programs/agentic-workflow-proof-program.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/programs/physics-proof-program.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/programs/physics-proof-program.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/proof-status.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/proof-status.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/reduction/atomistic-to-continuum.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/reduction/atomistic-to-continuum.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/reduction/feshbach-reduction.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/reduction/feshbach-reduction.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/reduction/gauge-constrained-locality.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/reduction/gauge-constrained-locality.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/reduction/reduction-path-commutativity.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/reduction/reduction-path-commutativity.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/references/bibliography.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/references/bibliography.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/references/verification-status.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/references/verification-status.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.00-foundations.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.00-foundations.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.10-operator-alignment.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.10-operator-alignment.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.20-reduction.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.20-reduction.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.30-bounds.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.30-bounds.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.40-compatibility.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.40-compatibility.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/proofs/ksdft2effmass/status/proof.90-agentic-workflow.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/proofs/ksdft2effmass/status/proof.90-agentic-workflow.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/conferences/ICMSEP2026/ICMSEP-extended-abstract_02.docx",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/publications/conferences/ICMSEP2026/ICMSEP2026.00.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/conferences/ICMSEP2026/ICMSEP2026.00.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.pdf",
+      "disposition": "generated",
+      "proposed_destination": "publications/generated/conferences/ICMSEP2026/ksdft2effmass.ICMEP2026.abstract.pdf",
+      "reason": "Generated publication output or editor temporary file must live outside human-authored docs/ source."
+    },
+    {
+      "path": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/conferences/ICMSEP2026/ksdft2effmass.ksdft_fanout.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "disposition": "generated",
+      "proposed_destination": "publications/generated/conferences/ICMSEP2026/~$MSEP-extended-abstract_02.docx",
+      "reason": "Generated publication output or editor temporary file must live outside human-authored docs/ source."
+    },
+    {
+      "path": "docs/publications/ksdft2effmass.publications.00.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/publications/index.md",
+      "reason": "Make the publication-material root the section index."
+    },
+    {
+      "path": "docs/publications/papers/agentic-development-case-study/ARXIV-READINESS.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/agentic-development-case-study/ARXIV-READINESS.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/agentic-development-case-study/README.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/agentic-development-case-study/README.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2efffmass.P03.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2efffmass.P03.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P01.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P01.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P01/latex/README.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P01/latex/README.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P01/manuscript.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P01/manuscript.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P02.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P02.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P04/latex/README.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P04/latex/README.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P04/manuscript.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P04/manuscript.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/README.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P91/README.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/elsarticle-num.bst",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P91/elsarticle-num.bst",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/elsarticle.cls",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P91/elsarticle.cls",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/highlights.txt",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P91/highlights.txt",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/manuscript.bbl",
+      "disposition": "generated",
+      "proposed_destination": "publications/generated/papers/ksdft2effmass.P91/manuscript.bbl",
+      "reason": "Generated publication output or editor temporary file must live outside human-authored docs/ source."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/manuscript.pdf",
+      "disposition": "generated",
+      "proposed_destination": "publications/generated/papers/ksdft2effmass.P91/manuscript.pdf",
+      "reason": "Generated publication output or editor temporary file must live outside human-authored docs/ source."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.P91/references.bib",
+      "disposition": "retain",
+      "proposed_destination": "docs/publications/papers/ksdft2effmass.P91/references.bib",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/publications/papers/ksdft2effmass.papers.00.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/publications/papers/index.md",
+      "reason": "Make the papers overview the subsection index."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/README.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/README.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/agenticdevelopment_casestudy.00.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/agenticdevelopment_casestudy.00.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/case-register.json",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/case-register.json",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E00-operator-record/episode.json",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E00-operator-record/episode.json",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E00-operator-record/evidence-index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E00-operator-record/evidence-index.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-01.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-01.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-02.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-02.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/checkpoint-03.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/episode.json",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E01-graphify-integration/episode.json",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/episode.json",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/episode.json",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/evidence-index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/episodes/E02-operator-record-validation-correction/evidence-index.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/executable-evidence-as-contract-refinement.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/executable-evidence-as-contract-refinement.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/instruments/PROPOSED-REPOSITORY-CHANGES.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/instruments/PROPOSED-REPOSITORY-CHANGES.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/instruments/context-management-overhead.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/instruments/context-management-overhead.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/instruments/defect-taxonomy.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/instruments/defect-taxonomy.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/instruments/episode-record.schema.json",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/instruments/episode-record.schema.json",
+      "reason": "Maintained structured, manuscript, or publication source; not documentation-generator output."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/instruments/finding-severity.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/instruments/finding-severity.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/manuscript-record.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/manuscript-record.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/protocol.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/protocol.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/agentic-development-case-study/research-questions.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/agentic-development-case-study/research-questions.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.01.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/the-kohn-sham-operator-as-the-computational-starting-point.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.02.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/projected-bloch-state-spaces-and-operators.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.03.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/wannier-construction-and-localized-operator-representations.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.04.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/alignment-and-comparison-of-projected-operators.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.05.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/bulk-silicon-kohn-sham-and-wannier-to-tight-binding-reductions.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.06.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/first-principles-impurity-operator-extraction.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.07.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/hierarchy-of-reduced-impurity-operators.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.08.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/operator-subspace-spectral-and-observable-error-metrics.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.09.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/continuum-reduction-and-the-atomistic-to-continuum-crossover.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.10.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/categorical-organization-of-operator-reductions.md",
+      "reason": "Replace the opaque numbered filename with the page’s descriptive research topic."
+    },
+    {
+      "path": "docs/research/ksdft2Effmass.hierarchy.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/ksdft2Effmass.hierarchy.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/research/ksdft2effmass.00.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/index.md",
+      "reason": "Make the research program root the section index."
+    },
+    {
+      "path": "docs/research/ksdft2effmass.research_plan.md",
+      "disposition": "rename",
+      "proposed_destination": "docs/research/long-term-research-plan.md",
+      "reason": "Use lowercase kebab-case and describe the plan’s role."
+    },
+    {
+      "path": "docs/research/ksdft2effmass.workflow-semantics.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/research/ksdft2effmass.workflow-semantics.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/abinit.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/abinit.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/colored-petri-nets.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/colored-petri-nets.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/cross-backend-verification.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/cross-backend-verification.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/dft-backends.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/dft-backends.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/external-dependencies.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/external-dependencies.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/external-tool-lifecycle.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/external-tool-lifecycle.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/index.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/index.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/installation.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/installation.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/paw-and-pseudopotential-backends.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/paw-and-pseudopotential-backends.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/provenance-and-artifacts.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/provenance-and-artifacts.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/quantum-espresso.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/quantum-espresso.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/troubleshooting.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/troubleshooting.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/wannier90.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/wannier90.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/user-guide/workflow-model.md",
+      "disposition": "retain",
+      "proposed_destination": "docs/user-guide/workflow-model.md",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/cpn-contract.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/cpn-contract.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-compatibility-analysis.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-compatibility-analysis.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-data-object.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-data-object.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-difference.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-difference.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-energy-reference.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-energy-reference.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-geometry.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-geometry.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-hermiticity.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-hermiticity.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-json-serialization.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-json-serialization.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/operator-record-residual-analyzer.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/operator-record-residual-analyzer.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/provenance-contract.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/provenance-contract.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    },
+    {
+      "path": "docs/verification/testing-and-evidence.rst",
+      "disposition": "retain",
+      "proposed_destination": "docs/verification/testing-and-evidence.rst",
+      "reason": "Maintained human-authored documentation source with an already descriptive path."
+    }
+  ]
+}

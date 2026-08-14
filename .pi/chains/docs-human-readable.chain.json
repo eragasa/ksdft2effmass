@@ -1,8 +1,8 @@
 {
   "name": "docs-human-readable",
   "description": "Make docs/ an ordinary human-authored, human-readable, human-editable documentation tree and relocate generated harness views outside it without changing scientific meaning or protected state.",
-  "status": "contract_and_inventory_active",
-  "active_task": "docs.human-readable.contract-and-inventory",
+  "status": "contract_and_inventory_completed_pending_human_acceptance",
+  "active_task": null,
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
     "docs.human-readable",
@@ -12,6 +12,10 @@
     {
       "phase": "contract-and-inventory-explicitly-activated",
       "message": "The human approved documentation migration as the immediate priority. The coordinating docs.human-readable Task is deferred to its active first child, and exactly docs.human-readable.contract-and-inventory is active to define the authoring contract and classify every tracked docs/ file without moving or deleting documentation. Architecture v2 implementation is deferred before implementation began; automatic successor activation remains disabled."
+    },
+    {
+      "phase": "contract-and-inventory-completed-pending-human-acceptance",
+      "message": "The documentation authoring contract and complete 495-file source-revision inventory are implemented. Deterministic coverage and disposition validation, warnings-as-errors HTML and linkcheck builds, independent review, one bounded correction pass, and final verification pass. No documentation was moved or deleted. No Task is active; generated-view separation remains inactive pending explicit human acceptance and separate activation."
     }
   ],
   "task_sequence": [

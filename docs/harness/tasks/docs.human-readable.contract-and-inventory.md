@@ -5,7 +5,7 @@
 
 ## Status
 
-`active`: Explicitly activated by current human approval as the sole active documentation-migration child. Define the docs/ authoring contract and complete the tracked-file disposition inventory without moving or deleting documentation; automatic successor activation remains disabled.
+`completed_pending_human_acceptance`: Implementation, deterministic 495-file inventory validation, warnings-as-errors HTML and linkcheck builds, independent review, one bounded correction pass, and final verification are complete. No documentation was moved or deleted. The Task awaits human acceptance; automatic successor activation remains disabled.
 
 ## Objective
 
@@ -18,8 +18,10 @@ Define docs/ as human-authored source and produce a complete bounded disposition
 ## Authority references
 
 - AGENTS.md
+- docs/README.md
 - docs/conf.py
 - docs/index.rst
+- harness/reports/docs-human-readable-inventory.json
 
 ## Authorized scope
 

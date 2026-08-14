@@ -105,6 +105,7 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/harness/development-harness
    architecture/v2/harness/compiler-architecture
    architecture/v2/harness/validation
+   architecture/v2/harness/conformance
    architecture/v2/harness/control-plane
    architecture/v2/harness/persistence
    architecture/v2/harness/projections
@@ -123,6 +124,21 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/calculators/quantum-espresso
    architecture/v2/analysis/index
    architecture/v2/analysis/analysis-and-disposition
+   architecture/v2/issues/index
+   architecture/v2/issues/001-simulation-execution-request-context
+   architecture/v2/issues/002-scientific-dispatch-atomicity
+   architecture/v2/issues/003-compiler-authority-conflict
+   architecture/v2/issues/004-validation-and-publication-gate
+   architecture/v2/issues/005-durable-publication-authority
+   architecture/v2/issues/006-cpn-deterministic-selection
+   architecture/v2/issues/007-observation-normalization-composition
+   architecture/v2/issues/008-scientific-disposition-action
+   architecture/v2/issues/009-execution-authority-grant
+   architecture/v2/issues/010-dependency-graph-consistency
+   architecture/v2/issues/011-candidate-artifact-validator
+   architecture/v2/issues/012-publication-rollback-guarantee
+   architecture/v2/issues/013-external-artifact-producer-identity
+   architecture/v2/issues/014-required-failure-wording
    architecture/migration/v1-to-v2/index
    architecture/migration/v1-to-v2/pi-harness-subagents
    harness/ksdft2effmass.harness.001.001.000
