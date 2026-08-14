@@ -110,9 +110,13 @@ ksdft2effmass.harness
     ✗→ scientific workflow state or scientific policy
 ```
 
+Repository-wide conformance does not add scientific runtime dependencies on the harness. The harness may inspect source, invoke declared checks, and consume represented evidence through development adapters; scientific packages do not import the harness merely because they are evaluated by it.
+
+The local Architecture v2 conformance target is specialized through explicit immutable policy and validator composition, not through a subclassed architecture. Stable generic mechanisms may later be extracted into `projectkoios.bootstrap` only under the migration and acceptance boundaries in [Migration from Architecture v1 to Architecture v2](../migration/v1-to-v2/index.md).
+
 ## Responsibilities
 
-- `ksdft2effmass.harness` owns development lifecycle, repository operation, compiler, validation, persistence, and projection contracts.
+- `ksdft2effmass.harness` owns development lifecycle, repository operation, compiler, snapshot validation, repository-wide development-conformance composition, persistence, and projection contracts. Its conformance scope crosses package boundaries, but the applicable domain retains ownership of contract meaning.
 - `ksdft2effmass.workflow.scientific` owns scientific-workflow definitions, run state, simulation correlation, execution-result contracts, artifact lineage, scientific service contracts, and references to colored-Petri-net state.
 - `ksdft2effmass.petrinet.colored` owns colored-net definitions, markings, tokens, expressions, validation, deterministic enablement, and firing semantics.
 - `ksdft2effmass.workflow.scientific.definitions` owns project-specific workflow definitions and simulation selections without duplicating colored-Petri-net semantics.

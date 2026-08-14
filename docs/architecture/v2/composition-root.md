@@ -8,6 +8,7 @@
 flowchart TB
     app["ksdft2effmass.application"]
     app --> harness["Development harness composition"]
+    app --> conformance["Development conformance profile and validators"]
     app --> services["ScientificService catalog"]
     app --> definitions["ScientificWorkflow catalog"]
     app --> executors["SimulationExecutor implementations"]
@@ -17,7 +18,7 @@ flowchart TB
     app --> config["Explicit configuration"]
 ```
 
-The composition root validates configuration and constructs immutable catalogs and ordered protocol implementations. It performs no ambient plugin discovery, scientific analysis, CPN semantics, calculator-specific parsing, or persistence policy beyond selecting concrete implementations.
+The composition root validates configuration and constructs immutable catalogs and ordered protocol implementations. For development conformance, it binds an identified `DevelopmentConformanceProfile` to explicit validators and tool adapters; it does not subclass an architecture or inherit authority. It performs no ambient plugin discovery, scientific analysis, CPN semantics, calculator-specific parsing, or persistence policy beyond selecting concrete implementations.
 
 Development and scientific compositions remain separate operation contexts even when created by the same application package.
 

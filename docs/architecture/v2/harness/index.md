@@ -23,7 +23,9 @@ flowchart LR
 | Coherent read snapshot | `HarnessStateSnapshot` |
 | Snapshot compilation | `HarnessStateCompiler` |
 | Domain validation | Concrete `HarnessDomainValidator` implementations |
-| Validation composition | `HarnessStateValidator` |
+| Snapshot-validation composition | `HarnessStateValidator` |
+| Repository-wide development conformance | `DevelopmentConformanceWorkflow` |
+| Mechanical promotion eligibility | `PromotionEligibilityEvaluator` |
 | Persistence | `DevelopmentStateRepository` |
 | Derived views | `HarnessStateProjector`, `HarnessSynchronizer`, and `HarnessStateComparator` |
 | Human conclusion | Development decision or acceptance record |
@@ -36,7 +38,9 @@ A `HarnessTask` defines bounded work, prerequisites, completion criteria, and ex
 
 `HarnessStateSnapshot` is an immutable coherent read snapshot compiled from exact authoritative domain-repository revisions. It is used by aggregate validation and projection but owns no lifecycle behavior or writes. Persistence stores authoritative development records through domain repositories. Projections are recoverable read-only views and never replace authority.
 
-Repository operations receive explicit roots, source identities, permitted paths, and requirements. Ambient current-directory discovery, mutable plugin registries, and silent implementation fallback are forbidden.
+[Repository-wide development conformance](conformance.md) is owned by the harness but evaluates the complete repository stack. The applicable package, specification, Task contract, test contract, or documentation policy retains ownership of the meaning being checked. Scientific packages do not import the harness merely because the harness invokes their declared checks.
+
+Repository operations receive explicit roots, source identities, permitted paths, and requirements. Ambient current-directory discovery, mutable plugin registries, inherited architecture-policy subclasses, and silent implementation fallback are forbidden.
 
 ## Task control
 
@@ -51,7 +55,8 @@ Human-owned and protected boundaries remain explicit. Automatic successor activa
 - [Pi harness subagent architecture](subagents/index.md)
 - [Development harness model](development-harness.md)
 - [Compiler architecture](compiler-architecture.md)
-- [Validation](validation.md)
+- [Snapshot validation](validation.md)
+- [Repository-wide development conformance](conformance.md)
 - [Control plane](control-plane.md)
 - [Persistence](persistence.md)
 - [Projections](projections.md)
@@ -61,6 +66,7 @@ Human-owned and protected boundaries remain explicit. Automatic successor activa
 
 - Final submodule boundaries within `ksdft2effmass.harness`.
 - Closed development lifecycle and selection wire contracts.
+- Exact conformance policy, profile, result, and report wire contracts.
 - Development-state storage technology.
 - Which generated development views remain maintained.
 - Whether reusable repository-operation infrastructure belongs in the harness or application composition package.

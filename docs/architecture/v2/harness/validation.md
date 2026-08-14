@@ -4,6 +4,8 @@
 
 Development validation evaluates one coherent `HarnessStateSnapshot` without changing it. Domain rules remain with concrete domain validators; aggregate composition and cross-domain closure belong to `HarnessStateValidator`.
 
+This page describes validation of the compiled development-control snapshot. The broader evaluation of proposed changes across source, workflow, Petri-net, calculator, scientific-domain, test, documentation, and harness paths is defined by [Repository-wide development conformance](conformance.md). A passing `HarnessStateValidator` result may be one conformance input; it is not a repository-wide promotion decision.
+
 ## Validation layers
 
 1. **Wire validation** is owned by each domain serializer or deserializer.
@@ -43,7 +45,7 @@ Eligibility, closure evaluation, and acceptance evaluation are Task-domain opera
 
 `HarnessStateValidator` receives an explicit ordered tuple of `HarnessDomainValidator` objects. It applies them deterministically, evaluates only declared cross-domain closure, and returns one `ValidationResult` containing snapshot identity, rule identities and versions, ordered findings, and claim boundary.
 
-A structural pass establishes only the rules represented by that result. It does not establish test success, numerical verification, scientific validation, protected authority, or human acceptance.
+A structural pass establishes only the rules represented by that result. It does not establish test success, repository-wide conformance, mechanical promotion eligibility, numerical verification, scientific validation, protected authority, or human acceptance.
 
 ## Unresolved issues
 

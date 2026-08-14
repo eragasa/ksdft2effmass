@@ -50,11 +50,16 @@ Records own intrinsic invariants only. Domain serialization, persistence, valida
 
 `ValidationResult`, `SynchronizationResult`, `ComparisonResult`, and persistence results are immutable outcomes.
 
+Repository-wide development conformance additionally uses immutable `ArchitecturePolicy`, `RepositorySnapshotIdentity`, `RepositoryChangeSet`, `ConformanceRequirement`, `ConformanceCheckResult`, `DevelopmentConformanceProfile`, `PromotionEligibilityResult`, and `DevelopmentConformanceReport` records. It consumes exact `HarnessTask`, `DevelopmentTaskSelection`, decision, and authority records rather than duplicating their contracts.
+
 - `HarnessSourceSnapshotLoader` observes one coherent set of authoritative revisions.
 - `HarnessStateCompiler` assembles those revisions into `HarnessStateSnapshot`.
 - Domain validators retain their domain-rule ownership.
 - `HarnessStateValidator` evaluates aggregate closure over explicitly supplied validators.
+- `DevelopmentConformanceWorkflow` composes repository-wide checks, while `PromotionEligibilityEvaluator` calculates mechanical eligibility without creating human authority.
 - `HarnessStateProjector`, `HarnessSynchronizer`, and `HarnessStateComparator` own derived-view operations.
+
+Project specialization uses explicit policy and validator composition rather than subclassing a nominal base conformance architecture. Structural validator protocols are introduced only when multiple implementations demonstrate polymorphic need.
 
 ## Unresolved issues
 
@@ -62,4 +67,5 @@ Records own intrinsic invariants only. Domain serialization, persistence, valida
 - Snapshot consistency boundary across multiple domain repositories.
 - Whether resolved decisions remain in the live snapshot or a separate history repository.
 - Whether capabilities and resources are separate catalogs or one composed immutable capability model.
+- Exact relationship between snapshot validation and the repository-wide conformance profile.
 - Exact distinction between repository revision identity and semantic content identity.

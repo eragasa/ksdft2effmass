@@ -9,7 +9,8 @@ The development control plane governs software and documentation work. It owns:
 - development authorization;
 - unresolved development decisions;
 - software capabilities and resources;
-- software-verification findings; and
+- software-verification and repository-conformance findings;
+- mechanical promotion-eligibility results; and
 - development review and acceptance state.
 
 It may reference immutable scientific contract or implementation identities. It does not store `ScientificWorkflowRun`, `CpnMarking`, calculator execution, scientific analysis, or scientific disposition state.
@@ -27,11 +28,11 @@ flowchart LR
     review --> decision
 ```
 
-Evidence supports a claim but grants no authority. Capability states what an implementation can do; selection and applicable human decisions state what may be done.
+Evidence supports a claim but grants no authority. Capability states what an implementation can do; selection and applicable human decisions state what may be done. [Repository-wide development conformance](conformance.md) calculates mechanical eligibility from identified policy, Task, selection, repository, and toolchain inputs; it does not create a human decision or promote a repository change. Required conformance results and eligibility outcomes are retained as identified evidence through the applicable evidence repository and referenced by `HarnessEvidenceCatalog`; human-readable reports remain derived.
 
 ## Explicit context
 
-Repository-sensitive operations receive an explicit repository root, source identities, starting revision, permitted paths, and operation requirements. Ambient current-directory discovery is not authority.
+Repository-sensitive operations receive an explicit repository root, source identities, starting revision, permitted paths, operation requirements, architecture-policy identity, and conformance-profile identity. Ambient current-directory discovery is not authority, and candidate-controlled policy cannot authorize the candidate that changes it.
 
 ## Selection invariants
 

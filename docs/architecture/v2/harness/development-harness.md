@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-The development harness is owned by `ksdft2effmass.harness`. Its authority is limited to:
+The development harness is owned by `ksdft2effmass.harness`. Its represented scope is limited to:
 
 - repository changes;
 - software architecture;
@@ -18,6 +18,8 @@ The development harness is owned by `ksdft2effmass.harness`. Its authority is li
 
 Neither object contains scientific CPN markings, calculator requests, numerical observations, scientific findings, or parameter selections.
 
+Development-conformance scope cuts across workflow, Petri-net, calculator, scientific-domain, test, fixture, documentation, and harness paths. This cross-cutting scope does not transfer domain meaning to the harness or create runtime imports from scientific packages back to the development control plane.
+
 ## Development control
 
 A development Task has no general phase state machine. `HarnessTask` defines the authorized outcome, `DevelopmentTaskSelection` identifies the exact work permitted to proceed, and `HarnessTaskClosure` records how that selection ended. Implementation, software verification, review, and correction are performed when the Task or process class requires them, but they are not persisted lifecycle phases. Protected or human-owned decisions remain explicit, and no record is manufactured merely to add ceremony.
@@ -26,16 +28,19 @@ The development harness may:
 
 - observe an explicit repository root and starting revision;
 - validate operation-specific repository preconditions;
-- authorize bounded source and documentation changes;
-- run software-verification and repository-conformance checks;
+- enforce the scope of explicitly selected and authorized source and documentation work;
+- run [repository-wide development conformance](conformance.md) and applicable software-verification checks;
+- calculate mechanical promotion eligibility without manufacturing human authority;
 - project development control state through the deterministic [compiler architecture](compiler-architecture.md); and
-- record development review and acceptance.
+- retain independently authorized development review and acceptance records.
 
 It may not execute a scientific `ScientificWorkflow`, advance a `ScientificWorkflowRun`, classify a calculator result scientifically, or record a `ScientificDisposition`.
 
 ## Package boundary
 
 `ksdft2effmass.harness` owns development-harness contracts and composition. Project scientific specifications and scientific workflow state remain outside the harness package. Harness operations receive explicit roots and inputs; they perform no ambient repository discovery.
+
+A project specializes conformance with explicit immutable policy and validator composition. It does not subclass a nominal base conformance architecture and override inherited rules. A future ProjectKoios extraction may receive only generic behavior demonstrated by local implementation; concrete `ksdft2effmass` policy remains project-owned.
 
 Submodule and wire-format details may be refined while preserving this package boundary.
 

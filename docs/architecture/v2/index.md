@@ -62,7 +62,7 @@ See [Separation of harness and workflow](separation-of-harness-and-workflow.md) 
 
 ### Development harness
 
-The development harness compiles and validates explicit repository state, governs selected development work, persists authoritative development records, and publishes derived development views.
+The development harness compiles and validates explicit repository state, governs selected development work, evaluates repository-wide development conformance, persists authoritative development records, and publishes derived development views. Conformance is development-owned in composition, cross-cutting in scope, and delegated to authoritative domain contracts for meaning.
 
 - [Overview](harness/index.md)
 - [Object model](harness/object-model.md)
@@ -70,7 +70,8 @@ The development harness compiles and validates explicit repository state, govern
 - [Pi harness subagent architecture](harness/subagents/index.md)
 - [Development Task model](harness/development-harness.md)
 - [Compiler architecture](harness/compiler-architecture.md)
-- [Validation](harness/validation.md)
+- [Snapshot validation](harness/validation.md)
+- [Repository-wide development conformance](harness/conformance.md)
 - [Control plane](harness/control-plane.md)
 - [Persistence](harness/persistence.md)
 - [Projections](harness/projections.md)
@@ -141,10 +142,11 @@ Cross-cutting contracts apply consistently across subsystem boundaries.
 3. [Harness Tasks architecture](harness/tasks/index.md)
 4. [Pi harness subagent architecture](harness/subagents/index.md)
 5. [Compiler architecture](harness/compiler-architecture.md)
-6. [Validation](harness/validation.md)
-7. [Control plane](harness/control-plane.md)
-8. [Persistence](harness/persistence.md)
-9. [Projections](harness/projections.md)
+6. [Snapshot validation](harness/validation.md)
+7. [Repository-wide development conformance](harness/conformance.md)
+8. [Control plane](harness/control-plane.md)
+9. [Persistence](harness/persistence.md)
+10. [Projections](harness/projections.md)
 
 ### Understand scientific execution
 
@@ -161,6 +163,7 @@ Cross-cutting contracts apply consistently across subsystem boundaries.
 
 - [Architecture v1](../v1/index.md) describes the implemented system snapshot.
 - [Migration from v1 to v2](../migration/v1-to-v2/index.md) owns responsibility and cutover comparisons.
+- [Architecture v2 issues](issues/index.md) records review findings without activating implementation or selecting unresolved architecture alternatives.
 
 ## Unresolved issues
 
