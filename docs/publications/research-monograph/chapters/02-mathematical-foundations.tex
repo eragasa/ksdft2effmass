@@ -1,9 +1,223 @@
 \chapter{Mathematical Foundations}
+\label{ch:mathematical-foundations}
 
-\textbf{Status: proposed work.}
+\textbf{Status: expository mathematical framework; no numerical or scientific
+result is claimed.}
 
-This chapter will identify state spaces, operators, domains and codomains,
-finite representations, basis transformations, gauges, energy references, and
-comparison prerequisites. It will develop only the mathematics needed to make
-projection, alignment, subtraction, truncation, and reduction statements
-well-posed, with proof status reported separately from explanatory derivation.
+This chapter fixes the distinctions needed to discuss projection,
+representation, alignment, subtraction, and reduction. It does not prescribe a
+particular alignment algorithm or reduced model class. Those choices belong to
+the applicable methodological specifications.
+
+\section{State spaces and operators}
+
+Let $\mathcal H$ denote the parent one-particle state space and let
+$\widehat H$ denote the selected Kohn--Sham operator on its stated domain in
+$\mathcal H$. The physical model, the operator $\widehat H$, and any finite
+matrix used by software are different objects. The notation $H$ is reserved
+below for a finite matrix only after its represented space and basis have been
+identified.
+
+A finite retained subspace $\mathcal S\subset\mathcal H$ has dimension $N$ and
+orthogonal projector
+\begin{equation}
+  P_{\mathcal S}:\mathcal H\longrightarrow\mathcal S.
+\end{equation}
+When the required domain conditions hold, the compressed operator on the
+retained space is
+\begin{equation}
+  \widehat H_{\mathcal S}
+  =
+  \left.P_{\mathcal S}\widehat H P_{\mathcal S}\right|_{\mathcal S}
+  :\mathcal S\longrightarrow\mathcal S.
+\end{equation}
+Selecting $\mathcal S$ is a model or representation decision. Writing the
+coordinates of $\widehat H_{\mathcal S}$ in a basis is a separate operation.
+Neither operation is synonymous with Wannier localization or with truncation of
+matrix entries.
+
+\section{Finite matrix representations}
+
+Let
+\begin{equation}
+  \mathcal B=\{\lvert b_i\rangle\}_{i=0}^{N-1}
+\end{equation}
+be an ordered orthonormal basis for $\mathcal S$. The represented matrix is
+\begin{equation}
+  H^{(\mathcal B)}_{ij}
+  =
+  \langle b_i\lvert\widehat H_{\mathcal S}\rvert b_j\rangle,
+  \qquad
+  H^{(\mathcal B)}\in\mathbb C^{N\times N}.
+\end{equation}
+The array of complex numbers is not a complete represented operator by itself.
+Its interpretation can depend on
+
+\begin{itemize}
+  \item the identity and dimension of $\mathcal S$;
+  \item basis identity, orbital convention, and ordering;
+  \item geometry, lattice vectors, site labels, and boundary convention;
+  \item units and normalization;
+  \item scalar energy reference;
+  \item spin representation; and
+  \item gauge, phase, or other coordinate conventions.
+\end{itemize}
+
+Equal shape and data type do not establish equality of represented meaning.
+Likewise, common provenance identifies a source calculation but does not prove
+that two records use compatible coordinates.
+
+\section{Basis transformations and gauge}
+
+Suppose a second ordered orthonormal basis is related to the first by
+$U\in U(N)$. With the convention
+\begin{equation}
+  \lvert b'_j\rangle
+  =
+  \sum_{i=0}^{N-1}\lvert b_i\rangle U_{ij},
+\end{equation}
+the matrix coordinates transform as
+\begin{equation}
+  H^{(\mathcal B')}
+  =
+  U^{\dagger}H^{(\mathcal B)}U.
+\end{equation}
+This transformation changes coordinates without changing the represented
+operator. Individual matrix entries and entrywise differences are therefore
+basis dependent.
+
+For an isolated retained Bloch subspace, momentum-dependent unitary freedom
+similarly changes the Wannier basis generated from that subspace. Localization
+selects or optimizes a gauge; it does not remove the need to record the selected
+frame. Equal band energies do not determine Wannier functions or provide a
+physically distinguished alignment between two calculations.
+
+\section{Spectra and operator information}
+
+The spectrum of a finite Hermitian matrix is invariant under unitary
+conjugation. Spectral comparison is consequently valuable but incomplete for
+operator comparison. Even when two Hermitian matrices are isospectral, the
+spectrum alone does not identify which basis vectors, sites, orbitals, spin
+channels, or spatial regions correspond. It supplies no distinguished physical
+alignment map.
+
+Conversely, a reduced model may approximate selected eigenvalues while
+retaining different onsite terms or couplings in the coordinates used to
+represent a later perturbation. A spectral acceptance rule and an aligned
+operator acceptance rule are therefore separate constraints. Their relationship
+must be investigated rather than assumed.
+
+\section{Alignment between retained spaces}
+
+Let $\mathcal S_{\mathrm r}$ and $\mathcal S_{\mathrm c}$ denote reference and
+candidate retained spaces of equal finite dimension. An alignment is an
+explicitly defined isometric identification
+\begin{equation}
+  A:\mathcal S_{\mathrm r}\longrightarrow\mathcal S_{\mathrm c},
+  \qquad
+  A^{\dagger}A=I_{\mathcal S_{\mathrm r}}.
+\end{equation}
+When the spaces have equal dimension and $A$ is onto, $A$ is unitary. The
+candidate operator pulled back to the reference space is
+\begin{equation}
+  \widehat H_{\mathrm c\rightarrow r}
+  =
+  A^{\dagger}\widehat H_{\mathrm c}A
+  :\mathcal S_{\mathrm r}\longrightarrow\mathcal S_{\mathrm r}.
+\end{equation}
+The direction of $A$, its coordinate convention, and the information used to
+construct it must be stated. Orbital labels, matrix dimension, or similar
+spectra do not substitute for this map.
+
+If no justified alignment exists, coordinate-wise subtraction is undefined for
+the intended physical comparison. One may instead use a declared invariant
+comparison, but the invariant and the claim it supports must be named
+explicitly.
+
+\section{Energy references}
+
+An energy-valued operator is unchanged in its eigenvectors but shifted in its
+spectrum when a scalar multiple of the identity is added. For a recorded energy
+zero $E_0$, define
+\begin{equation}
+  \overline H=H-E_0I.
+\end{equation}
+Reference and candidate operators must use a common physical energy convention
+before their difference is interpreted. A valence-band maximum used to plot
+bulk bands and an electrostatic estimator used to align pristine and doped
+supercells are not automatically the same convention.
+
+The physical specification requires a common scalar energy zero before
+bulk--dopant subtraction, while the operational estimator and its uncertainty
+belong to a later alignment stage. Until that estimator is supplied, the
+requirement is fixed but the corresponding impurity difference is not yet a
+calculated project result.
+
+\section{Represented differences}
+
+After compatibility and alignment have been established, define the signed
+represented difference by an explicit operand order. For example,
+\begin{equation}
+  \Delta H
+  =
+  \overline H_{\mathrm c\rightarrow r}
+  -
+  \overline H_{\mathrm r}.
+\end{equation}
+Reversing the operands reverses the sign. A difference matrix is not
+intrinsically an impurity operator, perturbation, approximation error, or
+observable. That interpretation follows only from the identities of the two
+operators, their common-space construction, and the declared scientific use.
+
+For pristine and doped systems, compatibility includes at least the represented
+state spaces, matrix dimension, basis ordering, geometry and site mapping,
+units, energy reference, spin convention, and gauge alignment. An unresolved
+item is a stop condition for direct matrix subtraction.
+
+\section{Hermiticity and residuals}
+
+A represented Hamiltonian is expected to be Hermitian within a stated numerical
+criterion. One possible absolute residual is
+\begin{equation}
+  \varepsilon_{\mathrm H}
+  =
+  \max_{i,j}\left|H_{ij}-H_{ji}^{*}\right|.
+\end{equation}
+The residual, its units, any normalization scale, and its acceptance tolerance
+are distinct quantities. Passing a Hermiticity tolerance verifies only that
+declared numerical criterion; it does not validate the physical model or the
+metadata used to interpret the matrix.
+
+For a compatible difference $\Delta H$, examples of absolute residual measures
+include
+\begin{align}
+  \varepsilon_{\max} &= \max_{i,j}|\Delta H_{ij}|,\\
+  \varepsilon_{\mathrm F} &= \|\Delta H\|_{\mathrm F},\\
+  \varepsilon_{2} &= \|\Delta H\|_{2}.
+\end{align}
+A normalized residual must identify its reference scale and define behavior
+when that scale vanishes. Numerical implementations must also handle nonfinite
+values and overflow explicitly rather than silently reporting an infinite or
+undefined metric.
+
+\section{Approximation and evidence boundaries}
+
+Projection error, discretization error, fitting error, truncation error, and
+parent-model error arise from different operations. This monograph groups them
+only when an owning mathematical contract defines a compatible relationship.
+In particular:
+
+\begin{itemize}
+  \item construction and invariant checks provide software verification;
+  \item agreement with independently derived matrix identities or norms may
+    provide numerical verification;
+  \item comparison with independent physical evidence may provide scientific
+    validation for a declared use; and
+  \item sensitivity analysis or propagation of declared uncertainties belongs
+    to uncertainty quantification.
+\end{itemize}
+
+No one category implies another. These distinctions determine how later
+chapters may describe projected Hamiltonians, fitted model classes, and
+impurity-operator residuals without turning coordinate agreement into an
+unsupported physical conclusion.
