@@ -20,6 +20,12 @@ from .checkpoints import (
     CheckpointSetValidator,
 )
 from .checksums import ChecksumEntry, ChecksumManifest, ChecksumManifestValidator
+from .configuration import (
+    PiHarnessAgentDefinition,
+    PiHarnessAgentDefinitionResolver,
+    PiHarnessConfiguration,
+    PiHarnessConfigurationDeserializer,
+)
 from .human_review import (
     HumanReviewDecision,
     HumanReviewDecisionRecorder,
@@ -112,6 +118,8 @@ __all__ = (
     "SkillDescriptor",
     "OwnershipScope",
     "AgentDescriptorView",
+    "PiHarnessConfiguration",
+    "PiHarnessAgentDefinition",
     "evidence",
     "HumanReviewTarget",
     "HumanReviewObservation",
@@ -141,6 +149,8 @@ __all__ = (
     "HarnessInternalError",
     "JsonRecordSerializer",
     "JsonRecordDeserializer",
+    "PiHarnessConfigurationDeserializer",
+    "PiHarnessAgentDefinitionResolver",
     "ProjectProfileLoader",
     "ResourceManifestRefresher",
     "ResourceResolver",

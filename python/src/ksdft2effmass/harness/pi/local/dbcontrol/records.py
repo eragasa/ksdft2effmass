@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from ...configuration import PiHarnessConfiguration
 from .constants import CONTROL_DATABASE_PATH
 
 
@@ -30,6 +31,10 @@ class HarnessControlMigrationRequest:
     local manifests, and their roots. They are supplied together for canonical
     maintained construction. An omitted resource corpus preserves bounded
     noncanonical compatibility without ambient resource discovery.
+
+    ``pi_harness_configuration`` supplies the already-deserialized project-settings
+    subset used by agent projection. Its default empty value preserves bounded
+    noncanonical requests without file or runtime discovery.
     """
 
     repository_root: Path
@@ -42,8 +47,11 @@ class HarnessControlMigrationRequest:
     generic_resource_root_path: Path | None = None
     local_resource_manifest_path: Path | None = None
     local_resource_root_path: Path | None = None
+    pi_harness_configuration: PiHarnessConfiguration = PiHarnessConfiguration(1, ())
 
     def __post_init__(self) -> None:
+        if type(self.pi_harness_configuration) is not PiHarnessConfiguration:
+            raise TypeError("pi_harness_configuration must be PiHarnessConfiguration")
         if (
             not isinstance(self.repository_root, Path)
             or not self.repository_root.is_absolute()

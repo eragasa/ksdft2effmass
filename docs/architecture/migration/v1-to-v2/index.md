@@ -5,6 +5,7 @@ This subtree is the sole maintained cross-version comparison. This index maps th
 ## Subject crosswalks
 
 - [Coding-standards conformance](coding-standards-conformance.md)
+- [Development-harness projections](development-harness-projections.md)
 - [Pi harness subagents](pi-harness-subagents.md)
 - [Agent execution and deterministic actions](agents.md)
 
@@ -46,6 +47,8 @@ The v1 `Cpn*` names are implemented public API. Workflow implementations may lat
 Project-specific campaign definitions may be re-expressed as composition inputs under `ksdft2effmass.campaigns`; they do not become the generic Workflow or colored-Petri-net aggregate.
 
 ## Migration order
+
+The subject crosswalks refine this repository-wide order into compatible increments. In particular, the [development-harness projection migration](development-harness-projections.md) requires complete removal of the temporary v1 `HarnessControl*` capability at cutover, and the [Pi harness subagent migration](pi-harness-subagents.md#incremental-changes) defines the implemented baseline, ordered subagent-boundary changes, compatibility conditions, and final cutover. Those subject increments do not activate themselves or supersede the authority required by this repository-wide order.
 
 1. Preserve and document Architecture v1.
 2. Losslessly crosswalk implemented v1 `.pi/checkpoints` into `DevelopmentDecision` revisions only when the exact preservation condition above can be met; keep unresolved/ambiguous records unresolved, retain `.pi/checkpoints` as the implemented source until cutover, and create no scientific resolution.

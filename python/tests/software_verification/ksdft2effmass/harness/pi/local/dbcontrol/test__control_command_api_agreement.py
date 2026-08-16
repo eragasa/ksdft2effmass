@@ -1,4 +1,4 @@
-r"""Software verification of maintained harness control command/API agreement.
+r"""Software verification of maintained Harness projection command/API agreement.
 
 Evidence profile: claim_bearing
 
@@ -6,7 +6,7 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-The module owns the cohesive control command/API agreement artifact.
+The module owns the cohesive projection command/API agreement artifact.
 
 Intrinsic and cross-object scope
 
@@ -38,8 +38,8 @@ from ksdft2effmass.harness.pi.local.dbcontrol.verification import HarnessControl
 pytestmark = pytest.mark.software_verification
 
 
-def load_control_cli() -> ModuleType:
-    """Evidence ID: Owns no identifier; supports control command/API evidence.
+def load_projection_cli() -> ModuleType:
+    """Evidence ID: Owns no identifier; supports projection command/API evidence.
 
     Requirement: Command/API tests require the maintained nonpackage script module.
 
@@ -53,15 +53,15 @@ def load_control_cli() -> ModuleType:
 
     Limitations: This helper owns no independent evidence result.
     """  # noqa: E501
-    path = Path(__file__).resolve().parents[8] / "python/src/cli/harness_control.py"
-    spec = importlib.util.spec_from_file_location("harness_control_cli", path)
+    path = Path(__file__).resolve().parents[8] / "python/src/cli/harness_projection.py"
+    spec = importlib.util.spec_from_file_location("harness_projection_cli", path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
 
-control_cli = load_control_cli()
+projection_cli = load_projection_cli()
 
 
 def test_artifact__migrate_command__forwards_explicit_source_inputs(
@@ -91,6 +91,11 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
         return expected
 
     monkeypatch.setattr(HarnessControlMigrator, "execute", execute_literal)
+    settings = tmp_path / ".pi/settings.json"
+    settings.parent.mkdir(parents=True)
+    settings.write_text(
+        '{"subagents":{"agentOverrides":{"example.disabled":{"disabled":true}}}}'
+    )
     monkeypatch.setattr(
         sys,
         "argv",
@@ -99,6 +104,8 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
             "sync",
             "--repository-root",
             str(tmp_path.resolve()),
+            "--pi-settings",
+            ".pi/settings.json",
             "--evidence-profile-matrix",
             "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json",
             "--evidence-module",
@@ -117,9 +124,12 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
             "harness/local",
         ],
     )
-    assert control_cli.main() == 0
+    assert projection_cli.main() == 0
     request = observed[0]
     assert request.repository_root == tmp_path.resolve()
+    assert request.pi_harness_configuration.disabled_agent_runtime_names == (
+        "example.disabled",
+    )
     assert request.evidence_profile_matrix_path == Path(
         "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
     )
@@ -150,17 +160,17 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.verify-rejects-migration-only-inputs
 
-    Requirement: The check command rejects both evidence and resource inputs with an
-    accurate synchronization-only diagnostic.
+    Requirement: The check command rejects configuration, evidence, and resource
+    inputs with an accurate synchronization-only diagnostic.
 
-    Method: Invoke check with one explicit resource profile option and capture the
-    parser failure text.
+    Method: Invoke check with one explicit Pi settings option and capture the parser
+    failure text.
 
-    Oracle: Resource profiles participate only in synchronization, while checking
+    Oracle: Project configuration participates only in synchronization, while checking
     accepts only the repository root.
 
-    Acceptance: Parsing raises ``SystemExit`` with status two and stderr says evidence
-    and resource inputs are valid only with sync.
+    Acceptance: Parsing raises ``SystemExit`` with status two and stderr names
+    configuration, evidence, and resource inputs as synchronization-only.
 
     Interpretation: Failure indicates inaccurate CLI guidance or a widened verifier API.
 
@@ -174,15 +184,15 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
             "check",
             "--repository-root",
             str(tmp_path.resolve()),
-            "--resource-profile",
-            "harness/local/profiles/project.json",
+            "--pi-settings",
+            ".pi/settings.json",
         ],
     )
     with pytest.raises(SystemExit) as raised:
-        control_cli.main()
+        projection_cli.main()
     assert raised.value.code == 2
     assert (
-        "evidence and resource inputs are valid only with sync"
+        "configuration, evidence, and resource inputs are valid only with sync"
         in capsys.readouterr().err
     )
 
@@ -213,7 +223,7 @@ def test_artifact__verify_command__agrees_with_public_result(
         "argv",
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
-    assert control_cli.main() == 0
+    assert projection_cli.main() == 0
     assert json.loads(capsys.readouterr().out) == {
         "integrity_check": "ok",
         "foreign_key_issue_count": 0,
@@ -263,7 +273,7 @@ def test_artifact__verify_command__returns_literal_failure_for_reported_drift(
         "argv",
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
-    assert control_cli.main() == 1
+    assert projection_cli.main() == 1
     assert json.loads(capsys.readouterr().out) == {
         "integrity_check": "ok",
         "foreign_key_issue_count": 0,
@@ -315,7 +325,7 @@ def test_artifact__verify_command__unexpected_failure_returns_exit_three(
         "argv",
         ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
     )
-    assert control_cli.main() == 3
+    assert projection_cli.main() == 3
     assert json.loads(capsys.readouterr().out) == {
         "error": "RuntimeError: injected failure",
         "status": "INTERNAL_ERROR",

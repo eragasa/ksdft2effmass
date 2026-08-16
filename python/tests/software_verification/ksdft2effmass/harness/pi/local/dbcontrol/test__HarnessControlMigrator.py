@@ -26,6 +26,10 @@ from typing import Any
 
 import pytest
 
+from ksdft2effmass.harness.pi import (
+    PiHarnessConfiguration,
+    PiHarnessConfigurationDeserializer,
+)
 from ksdft2effmass.harness.pi.local import (
     HarnessControlMigrationRequest,
     HarnessControlMigrationResult,
@@ -169,6 +173,51 @@ class SyntheticEvidenceFixture:
                     for expected_module in expected_modules
                 ),
                 evidence_migration_path=migration,
+            )
+        )
+
+    @staticmethod
+    def migrate_agents_only(
+        monkeypatch: pytest.MonkeyPatch, root: Path
+    ) -> HarnessControlMigrationResult:
+        """Execute public migration with only synthetic agent ingestion enabled."""
+
+        def execute_agents(ingestor: _RepositoryControlIngestor) -> None:
+            ingestor._migrate_agents_and_skills()
+
+        monkeypatch.setattr(_RepositoryControlIngestor, "execute", execute_agents)
+        settings_path = root / ".pi/settings.json"
+        configuration = (
+            PiHarnessConfigurationDeserializer().execute(settings_path.read_bytes())
+            if settings_path.exists()
+            else PiHarnessConfiguration(1, ())
+        )
+        return HarnessControlMigrator().execute(
+            HarnessControlMigrationRequest(
+                root.resolve(), pi_harness_configuration=configuration
+            )
+        )
+
+    @staticmethod
+    def write_agent(
+        root: Path,
+        name: str,
+        *,
+        package: str = "example",
+        acceptance_role: str = "writer",
+    ) -> None:
+        """Write one minimal synthetic Pi agent descriptor."""
+        destination = root / ".pi/agents" / f"{name}.md"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(
+            dedent(
+                f"""\
+                ---
+                name: {name}
+                package: {package}
+                acceptanceRole: {acceptance_role}
+                ---
+                """
             )
         )
 
@@ -327,6 +376,59 @@ def test_method__execute_resource_hash_mismatch__preserves_published_generation(
         SyntheticEvidenceFixture.generation_bytes(tmp_path, published.projection_paths)
         == retained
     )
+
+
+def test_method__execute_agent_settings__projects_exact_enabled_roles(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.agent-settings.enabled-projection
+
+    Requirement: Control migration derives repository-declared agent enablement from
+    exact package-qualified project overrides without importing runtime observations.
+
+    Method: Migrate three synthetic descriptors with one exact disabled override, one
+    wrong-package override, and one disabled override for an absent historical role.
+
+    Oracle: Pi project override identity is the exact ``package.name`` pair; only the
+    matching present descriptor is disabled and absent descriptors create no row.
+
+    Acceptance: SQLite contains exactly the three descriptors in identity order with
+    enabled values ``1, 0, 1`` for the unoverridden, exactly disabled, and
+    wrong-package cases respectively.
+
+    Interpretation: Failure indicates settings are ignored, identities are matched
+    loosely, or runtime configuration is being projected as nonexistent roles.
+
+    Limitations: The synthetic test does not invoke Pi or establish runtime discovery,
+    Task authority, scientific validity, or UQ.
+    """
+    SyntheticEvidenceFixture.write_agent(tmp_path, "alpha")
+    SyntheticEvidenceFixture.write_agent(tmp_path, "beta")
+    SyntheticEvidenceFixture.write_agent(tmp_path, "gamma")
+    settings = {
+        "subagents": {
+            "agentOverrides": {
+                "example.beta": {"disabled": True},
+                "other.gamma": {"disabled": True},
+                "example.retired": {"disabled": True},
+            }
+        }
+    }
+    settings_path = tmp_path / ".pi/settings.json"
+    settings_path.parent.mkdir(parents=True, exist_ok=True)
+    settings_path.write_text(json.dumps(settings))
+
+    SyntheticEvidenceFixture.migrate_agents_only(monkeypatch, tmp_path)
+
+    with sqlite3.connect(
+        tmp_path / "harness/state/harness-control.sqlite3"
+    ) as connection:
+        rows = list(
+            connection.execute(
+                "SELECT agent_id,enabled FROM agent_definition ORDER BY agent_id"
+            )
+        )
+    assert rows == [("alpha", 1), ("beta", 0), ("gamma", 1)]
 
 
 def test_method__execute_wrong_request_type__raises_type_error() -> None:

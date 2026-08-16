@@ -22,6 +22,7 @@ from pathlib import Path
 
 import pytest
 
+from ksdft2effmass.harness.pi import PiHarnessConfiguration
 from ksdft2effmass.harness.pi.local import HarnessControlMigrationRequest
 
 SUT = HarnessControlMigrationRequest
@@ -103,6 +104,35 @@ def test_constructor__canonical_resource_inputs__are_explicit_and_complete() -> 
             generic_resource_root_path=Path("/harness/pi"),
             local_resource_manifest_path=Path("harness/local/resource-manifest.json"),
             local_resource_root_path=Path("harness/local"),
+        )
+
+
+def test_constructor__pi_configuration__is_explicit_and_type_checked() -> None:
+    """Evidence ID: software-verification.harness.migration-request.pi-configuration
+
+    Requirement: Migration receives normalized Pi Harness configuration explicitly.
+
+    Method: Construct with one immutable configuration and then with a plain object.
+
+    Oracle: The public field requires exactly ``PiHarnessConfiguration``.
+
+    Acceptance: The valid value is retained by identity and the plain object raises
+    ``TypeError``.
+
+    Interpretation: Failure indicates ambient settings parsing or a weakened input
+    boundary.
+
+    Limitations: JSON deserialization and agent projection are tested separately.
+    """
+    configuration = PiHarnessConfiguration(1, ("example.disabled",))
+    request = HarnessControlMigrationRequest(
+        Path("/repository"), pi_harness_configuration=configuration
+    )
+    assert request.pi_harness_configuration is configuration
+    with pytest.raises(TypeError, match="PiHarnessConfiguration"):
+        HarnessControlMigrationRequest(
+            Path("/repository"),
+            pi_harness_configuration=object(),  # type: ignore[arg-type]
         )
 
 

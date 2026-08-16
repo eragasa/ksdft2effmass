@@ -1,15 +1,20 @@
-"""Thin repository CLI adapter over one internal reusable command owner."""
+"""Temporary compatibility entry point for :mod:`harness_projection`.
+
+New callers must use ``python/src/cli/harness_projection.py``. This wrapper exists
+only during the Architecture v1-to-v2 projection migration and will be removed at
+cutover together with the ``HarnessControl*`` compatibility API.
+"""
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 
-from ksdft2effmass.harness.pi.local._commands import harness_control as _owner
+from harness_projection import cli_main as _projection_main
 
 
 def cli_main(argv: Sequence[str] | None = None) -> int:
-    """Delegate explicit arguments to the internal reusable owner."""
-    return _owner.run(argv)
+    """Delegate explicit arguments to the maintained projection command."""
+    return _projection_main(argv)
 
 
 main = cli_main

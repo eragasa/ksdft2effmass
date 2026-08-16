@@ -32,7 +32,7 @@ As with the other generic commands under `harness/pi/validation/`, the projectio
 
 The skill descriptor names its entry and complete required-resource closure. Construction and deserialization retain intrinsic validation but produce only candidate records: a resource self-edge and duplicate manifest entries remain representable. Manifest resources use deterministic complete-key canonical ordering and preserve duplicates. `ResourceManifestValidator` then owns duplicate IDs/paths, self/cycles, missing or generic-to-local dependencies, compatibility/mismatch, and forbidden replacement. `ResourceResolver` and skill validation propagate its failure and short-circuit without selecting or interpreting resources. A successful structural check does not authorize invocation of a skill; authorization, side-effect, retry, and termination policies remain separate facts.
 
-The documentation in `harness/pi/docs/` explains the accepted resources but is not a second manifest, skill descriptor, schema, or procedure. Where an identity or hash differs from prose, the selected manifest and exact resource bytes govern.
+The documentation in `harness/pi/docs/` explains accepted resources and compatibility inputs but is not a second manifest, skill descriptor, schema, configuration, or procedure. [Pi project settings consumed by harness control](pi-project-settings.md) records the narrow `.pi/settings.json` subset used by project-local v1 agent projection. Where an identity or hash differs from prose, the selected manifest, configuration source, and exact bytes govern.
 
 ## Generic and local composition
 

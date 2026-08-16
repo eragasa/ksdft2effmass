@@ -71,6 +71,7 @@ def control_root(tmp_path: Path) -> Path:
     shutil.copytree(repository / "python/tests", root / "python/tests")
     shutil.copy2(repository / "python/pyproject.toml", root / "python/pyproject.toml")
     shutil.copytree(repository / ".pi/agents", root / ".pi/agents")
+    shutil.copy2(repository / ".pi/settings.json", root / ".pi/settings.json")
     shutil.copytree(repository / ".pi/checkpoints", root / ".pi/checkpoints")
     shutil.copytree(repository / ".pi/skills", root / ".pi/skills")
     shutil.copytree(
@@ -137,6 +138,14 @@ def mutate_source(root: Path, kind: str) -> None:
             )
             + "\n"
         )
+    elif kind == "settings":
+        settings_path = root / ".pi/settings.json"
+        settings = json.loads(settings_path.read_text())
+        override = settings["subagents"]["agentOverrides"][
+            "ksdft2effmass.ksdft2effmass-harness-python-test-writer"
+        ]
+        override["disabled"] = False
+        settings_path.write_text(json.dumps(settings, indent=2) + "\n")
     else:
         raise ValueError(kind)
 
@@ -266,6 +275,7 @@ def test_method__execute_valid_source_state__reports_exact_semantic_agreement(
         pytest.param("graph", id="graph_source"),
         pytest.param("evidence", id="evidence_source"),
         pytest.param("resource", id="resource_source"),
+        pytest.param("settings", id="agent_settings_source"),
     ),
 )
 def test_method__execute_authoritative_source_drift__reports_disagreement(
@@ -273,8 +283,9 @@ def test_method__execute_authoritative_source_drift__reports_disagreement(
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.verification-action.authoritative-source-drift
 
-    Requirement: Valid changes to Task, graph, Python evidence, and resource authority
-    are detected when maintained control artifacts still represent the prior sources.
+    Requirement: Valid changes to Task, graph, Python evidence, resource, and project
+    agent-settings authority are detected when maintained control artifacts still
+    represent the prior sources.
 
     Method: Apply one valid source-domain mutation and execute public verification.
 

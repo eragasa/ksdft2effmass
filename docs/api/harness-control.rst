@@ -1,5 +1,5 @@
-SQLite-hybrid harness control
-=============================
+SQLite-hybrid Harness projections
+=================================
 
 ``harness/state/harness-control.sqlite3`` is the authoritative structured
 control store for Tasks, evidence and maintained tests, agents and routed
@@ -15,11 +15,16 @@ Migration and publication
 -------------------------
 
 ``HarnessControlMigrator.execute`` accepts one explicit
-``HarnessControlMigrationRequest``. Canonical maintained requests supply Python
-evidence source modules, the profile matrix, the predecessor map, and generic
-and local resource configuration explicitly. Noncanonical explicit requests with an
-empty evidence corpus remain supported. Generated evidence inventories are projections
-and are never accepted as migration inputs.
+``HarnessControlMigrationRequest``. Canonical maintained requests supply normalized
+``PiHarnessConfiguration``, Python evidence source modules, the profile matrix, the
+predecessor map, and generic and local resource configuration explicitly.
+``PiHarnessConfigurationDeserializer`` converts caller-supplied Pi project-settings
+JSON bytes into the narrow immutable configuration. Before database ingestion,
+``PiHarnessAgentDefinitionResolver`` composes each exact descriptor with that
+configuration into immutable ``PiHarnessAgentDefinition``.
+Noncanonical explicit requests with an empty evidence corpus and empty Pi Harness
+configuration remain supported. Generated evidence inventories are projections and
+are never accepted as migration inputs.
 
 One private project-local builder constructs the complete candidate database,
 deterministic SQL, projection manifest, and every projection in a caller-owned
@@ -40,12 +45,16 @@ succeed. A replacement failure restores the prior complete generation. This is
 a process-level rollback guarantee, not filesystem-wide atomicity across a
 crash, power loss, or storage failure.
 
-The maintained control command is:
+The maintained projection command is:
 
 .. code-block:: text
 
-   python/.venv/bin/python python/src/cli/harness_control.py sync --repository-root <ABSOLUTE_ROOT> <EXPLICIT_CANONICAL_INPUTS>
-   python/.venv/bin/python python/src/cli/harness_control.py check --repository-root <ABSOLUTE_ROOT>
+   python/.venv/bin/python python/src/cli/harness_projection.py sync --repository-root <ABSOLUTE_ROOT> --pi-settings .pi/settings.json <EXPLICIT_CANONICAL_INPUTS>
+   python/.venv/bin/python python/src/cli/harness_projection.py check --repository-root <ABSOLUTE_ROOT>
+
+``python/src/cli/harness_control.py`` is a temporary Architecture-v1 compatibility
+entry point. It and the ``HarnessControl*`` API are scheduled for removal after the
+v2 source, state, artifact-set, synchronization, and comparison replacements exist.
 
 Verification
 ------------
@@ -92,6 +101,15 @@ expected failing check, two for invalid command input or request construction,
 and three for an unexpected command-boundary exception. Structural repository
 validation does not establish numerical verification, scientific validation,
 uncertainty quantification, protected execution, or human acceptance.
+
+.. currentmodule:: ksdft2effmass.harness.pi
+
+.. autoclass:: PiHarnessConfiguration
+.. autoclass:: PiHarnessConfigurationDeserializer
+   :members:
+.. autoclass:: PiHarnessAgentDefinition
+.. autoclass:: PiHarnessAgentDefinitionResolver
+   :members:
 
 .. currentmodule:: ksdft2effmass.harness.pi.local
 

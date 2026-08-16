@@ -2,7 +2,7 @@
 
 ## Implemented boundary
 
-V1 uses project Pi subagent descriptors under `.pi/agents/` together with the installed `pi-subagents` extension. The repository owns project role text, project settings, Task-ownership manifests, and project instructions. Pi owns descriptor discovery, child-session creation, workflow execution, runtime control, managed worktrees, and run artifacts.
+V1 uses project Pi subagent descriptors under `.pi/agents/` together with the installed `pi-subagents` extension. The repository owns project role text, project settings, Task-ownership manifests, and project instructions. Pi owns descriptor discovery, child-session creation, workflow execution, runtime control, managed worktrees, and run artifacts. The Harness also retains a narrow normalized agent view for ownership validation and a generated project-local agent catalog; neither replaces Pi discovery.
 
 ```mermaid
 flowchart LR
@@ -43,4 +43,5 @@ There is no project Python object model for subagents. Agent descriptors and set
 - Some enabled descriptor names repeat the package prefix in their resolved runtime names.
 - Assignment prompts do not have a project-local schema.
 - Pi runtime state and Harness Task state are separate by policy rather than a shared typed interface.
+- The generated project-local agent catalog represents descriptor-plus-settings enablement but remains a repository projection rather than Pi runtime discovery.
 - There is no implemented `HarnessTaskContextInspector` result tailored for Pi delegation.

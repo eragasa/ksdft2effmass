@@ -6,6 +6,7 @@ import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
+from ...configuration import PiHarnessConfigurationDeserializer
 from ..dbcontrol.input_files import _ControlInputFileSelector
 from ..dbcontrol.records import HarnessControlMigrationRequest
 
@@ -15,6 +16,7 @@ _EVIDENCE_PROFILE = Path(
 _EVIDENCE_MIGRATION = Path(
     ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
 )
+_PROJECT_SETTINGS = Path(".pi/settings.json")
 _RESOURCE_PROFILE = Path("harness/local/profiles/ksdft2effmass-v2.json")
 _GENERIC_MANIFEST = Path("harness/pi/resource-manifest.json")
 _GENERIC_ROOT = Path("harness/pi")
@@ -70,6 +72,7 @@ class _HarnessControlInputResolver:
         fixed_files = (
             _EVIDENCE_PROFILE,
             _EVIDENCE_MIGRATION,
+            _PROJECT_SETTINGS,
             _RESOURCE_PROFILE,
             _GENERIC_MANIFEST,
             _LOCAL_MANIFEST,
@@ -89,6 +92,9 @@ class _HarnessControlInputResolver:
         task_paths = tuple(sorted((root / "harness/tasks").glob("*.json")))
         if not task_paths or any(path.is_symlink() for path in task_paths):
             raise ValueError("canonical Task catalog must contain regular JSON files")
+        pi_configuration = PiHarnessConfigurationDeserializer().execute(
+            selector.file(root, _PROJECT_SETTINGS, subject="configuration").read_bytes()
+        )
         request = HarnessControlMigrationRequest(
             root,
             evidence_profile_matrix_path=_EVIDENCE_PROFILE,
@@ -99,5 +105,6 @@ class _HarnessControlInputResolver:
             generic_resource_root_path=_GENERIC_ROOT,
             local_resource_manifest_path=_LOCAL_MANIFEST,
             local_resource_root_path=_LOCAL_ROOT,
+            pi_harness_configuration=pi_configuration,
         )
         return _HarnessControlInputs(request)

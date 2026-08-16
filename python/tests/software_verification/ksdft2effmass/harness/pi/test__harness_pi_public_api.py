@@ -45,8 +45,8 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
     with
     the exact records, results, and actions named below.
 
-    Acceptance: ``__all__`` equals the exact 62-name sequence and every listed attribute
-    resolves from the public package.
+    Acceptance: ``__all__`` equals the exact literal sequence and every listed
+    attribute resolves from the public package.
 
     Interpretation: Failure indicates source/public-contract drift or an incomplete
     package import.
@@ -63,6 +63,8 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "SkillDescriptor",
         "OwnershipScope",
         "AgentDescriptorView",
+        "PiHarnessConfiguration",
+        "PiHarnessAgentDefinition",
         "evidence",
         "HumanReviewTarget",
         "HumanReviewObservation",
@@ -92,6 +94,8 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "HarnessInternalError",
         "JsonRecordSerializer",
         "JsonRecordDeserializer",
+        "PiHarnessConfigurationDeserializer",
+        "PiHarnessAgentDefinitionResolver",
         "ProjectProfileLoader",
         "ResourceManifestRefresher",
         "ResourceResolver",
@@ -122,9 +126,8 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
 
     Method: Construct each exact public action and inspect its instance storage surface.
 
-    Oracle: The accepted maintained harness surface requires seventeen concrete actions
-    with no
-    roots, profiles, caches, clients, or mutable state.
+    Oracle: The accepted maintained harness surface requires the listed concrete
+    actions with no roots, profiles, caches, clients, or mutable state.
 
     Acceptance: Every instance lacks ``__dict__`` and its class declares empty slots.
 
@@ -138,6 +141,8 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
     names = (
         "JsonRecordSerializer",
         "JsonRecordDeserializer",
+        "PiHarnessConfigurationDeserializer",
+        "PiHarnessAgentDefinitionResolver",
         "ProjectProfileLoader",
         "ResourceManifestRefresher",
         "ResourceResolver",

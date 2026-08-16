@@ -43,6 +43,12 @@ Three task-specific descriptor files remain present but are disabled by `.pi/set
 
 Project settings also retain disabled overrides for additional retired harness roles whose descriptor files are no longer present. A disabled override prevents runtime execution but preserves the historical name and prevents accidental fallback discovery.
 
+## Harness catalog projection
+
+The generic harness represents only normalized agent identity and acceptance role through `AgentDescriptorView` in `python/src/ksdft2effmass/harness/pi/ownership.py`, with the corresponding schema and fixture under `harness/pi/`. This narrow view supports ownership validation; it is not a complete Pi descriptor model and does not determine runtime discovery.
+
+`PiHarnessConfigurationDeserializer` converts the applicable `.pi/settings.json` bytes into public immutable `PiHarnessConfiguration`. `PiHarnessAgentDefinitionResolver` combines that value with each selected `.pi/agents/*.md` descriptor to produce public immutable `PiHarnessAgentDefinition` before database ingestion. Project-local persistence projects those definitions into `agent_definition` and `agent_skill_route` rows in `harness/state/harness-control.sqlite3` and its generated SQL. Exact package-qualified disabled names set the corresponding present descriptor row to disabled; names for absent historical descriptors create no row. `harness/pi/docs/pi-project-settings.md` records the consumed structure and claim boundary. Repository descriptors and project settings remain the implemented inputs, while the SQLite rows are a generated projection and cannot enable an agent.
+
 ## Prompt contracts
 
 Enabled writer prompts require explicit Task assignment and path ownership, preserve project authority boundaries, forbid Task activation and protected execution, and request concise handoffs. Reviewer prompts are read-only and forbid mutation, human decisions, acceptance, and self-approval.
@@ -53,5 +59,5 @@ The prompt text is policy guidance interpreted by the child. Tool restrictions a
 
 - Role boundaries are repeated across several prompt bodies.
 - No repository validator currently establishes one closed descriptor schema for all project roles.
-- Disabled historical overrides and present descriptors require two surfaces to determine executability.
+- Disabled historical overrides and present descriptors require two surfaces to determine executability; control generation combines them for its repository projection, while Pi remains responsible for runtime discovery.
 - Descriptor frontmatter does not itself prove that a Task assignment or ownership manifest exists.

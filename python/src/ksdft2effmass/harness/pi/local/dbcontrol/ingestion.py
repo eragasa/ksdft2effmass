@@ -8,6 +8,7 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from ...configuration import PiHarnessAgentDefinition
 from ...evidence.python_conformance.evidence import _PythonEvidenceFactExtractor
 from ...evidence.python_conformance.model import PythonTestModuleModel
 from ...evidence.python_conformance.nodes import _PythonTestNodeProjector
@@ -28,6 +29,7 @@ class _RepositoryControlIngestor:
         "evidence_models",
         "evidence_predecessors",
         "resource_corpus",
+        "agent_definitions",
     )
 
     def __init__(
@@ -39,6 +41,7 @@ class _RepositoryControlIngestor:
         evidence_models: tuple[PythonTestModuleModel, ...] = (),
         evidence_predecessors: tuple[tuple[str, str], ...] = (),
         resource_corpus: _ControlResourceCorpus | None = None,
+        agent_definitions: tuple[PiHarnessAgentDefinition, ...] = (),
     ) -> None:
         self.connection = connection
         self.root = root
@@ -48,6 +51,12 @@ class _RepositoryControlIngestor:
         self.evidence_models = {model.path: model for model in evidence_models}
         self.evidence_predecessors = dict(evidence_predecessors)
         self.resource_corpus = resource_corpus
+        if type(agent_definitions) is not tuple or any(
+            type(definition) is not PiHarnessAgentDefinition
+            for definition in agent_definitions
+        ):
+            raise TypeError("agent_definitions must contain PiHarnessAgentDefinition")
+        self.agent_definitions = agent_definitions
 
     def execute(self) -> None:
         """Ingest the complete repository control corpus in dependency order."""
@@ -421,29 +430,21 @@ class _RepositoryControlIngestor:
             row[0].replace(".", "-"): row[0]
             for row in connection.execute("SELECT skill_id FROM skill_definition")
         }
-        for path in sorted(root.glob(".pi/agents/*.md"), key=lambda item: item.name):
-            meta = self._frontmatter(path.read_text())
-            agent_id = _ControlEncoding.slug(meta.get("name", path.stem)).replace(
-                "-", "."
-            )
-            access = "writer" if meta.get("acceptanceRole") == "writer" else "read_only"
+        for definition in self.agent_definitions:
+            agent_id = _ControlEncoding.slug(definition.name).replace("-", ".")
             connection.execute(
                 "INSERT INTO agent_definition VALUES (?,?,?,?,?,?)",
                 (
                     agent_id,
-                    path.relative_to(root).as_posix(),
-                    _ControlEncoding.sha256(path.read_bytes()),
+                    definition.source_path,
+                    definition.source_identity.digest,
                     "durable",
-                    access,
-                    1,
+                    definition.acceptance_role,
+                    int(definition.enabled),
                 ),
             )
-            for name in (
-                item.strip()
-                for item in meta.get("skills", "").split(",")
-                if item.strip()
-            ):
-                routed_skill_id = by_name.get(name)
+            for skill_name in definition.selected_skills:
+                routed_skill_id = by_name.get(skill_name)
                 if routed_skill_id is not None:
                     connection.execute(
                         "INSERT OR IGNORE INTO agent_skill_route VALUES (?,?)",

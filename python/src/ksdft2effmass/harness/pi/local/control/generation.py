@@ -13,6 +13,7 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Any
 
+from ...configuration import PiHarnessAgentDefinitionResolver
 from ...evidence.python_conformance import (
     PythonConformanceRequest,
     PythonConformanceValidator,
@@ -187,6 +188,15 @@ class _HarnessControlGenerationBuilder:
         ):
             raise ValueError("workspace_root must be an absolute existing directory")
         root = request.repository_root
+        agent_resolver = PiHarnessAgentDefinitionResolver()
+        agent_definitions = tuple(
+            agent_resolver.execute(
+                path.relative_to(root).as_posix(),
+                path.read_bytes(),
+                request.pi_harness_configuration,
+            )
+            for path in sorted(root.glob(".pi/agents/*.md"), key=lambda item: item.name)
+        )
         module_inventory, evidence_models, evidence_predecessors = (
             self._canonical_evidence_corpus(request)
         )
@@ -226,6 +236,7 @@ class _HarnessControlGenerationBuilder:
                 evidence_models,
                 evidence_predecessors,
                 resource_corpus,
+                agent_definitions,
             )
             ingestor.execute()
             connection.commit()
