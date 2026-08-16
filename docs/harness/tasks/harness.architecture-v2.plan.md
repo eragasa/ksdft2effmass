@@ -5,7 +5,7 @@
 
 ## Status
 
-`inactive`: Planning-only and inactive. Architecture documentation is version-isolated: v1 is one implemented-system snapshot, v2 contains normative target architecture only, and the migration page contains all cross-version comparison. This Task authorizes no implementation or scientific execution.
+`active`: Planning-only and explicitly activated by the human to audit and resolve the Architecture v2 live issues, including removal of already-resolved entries and separation of conflated contracts. Architecture documentation remains version-isolated: v1 is the implemented-system snapshot, v2 contains normative target architecture only, and the migration page contains all cross-version comparison. This Task authorizes no implementation or scientific execution.
 
 ## Objective
 

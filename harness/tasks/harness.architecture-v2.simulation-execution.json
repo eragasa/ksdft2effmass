@@ -41,7 +41,7 @@
   ],
   "exclusions": [
     "Do not invoke pw.x or any other scientific executable, reactivate production convergence, select production cutoff or mesh values, or claim numerical verification, scientific validation, or a canonical scientific ScientificWorkflowRun from the retained bootstrap executions.",
-    "Do not modify harness.architecture-v2.plan from its planning-only inactive lifecycle or use development Task status as scientific ScientificWorkflow state.",
+    "Do not modify harness.architecture-v2.plan outside its separately authorized planning-only lifecycle or use development Task status as scientific ScientificWorkflow state.",
     "Do not add a scientific workflow dependency graph beside the CPN, a universal calculator abstraction, a generic backend registry, AiiDA, Airflow, pymatgen, Wannier90, ph.x, projwfc.x, telemetry, dashboards, or production convergence implementation.",
     "Do not automatically activate a successor, create an ADR, publish, release, or perform another protected action."
   ],

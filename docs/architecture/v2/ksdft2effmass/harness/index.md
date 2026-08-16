@@ -21,7 +21,7 @@ flowchart TD
 
 ## Responsibility
 
-The harness may reference immutable scientific contract and implementation identities when developing or verifying them. It does not store or advance `WorkflowRun`, execute a calculator as scientific workflow work, create `ScientificAnalysis`, or record `ScientificDisposition`.
+The harness may reference immutable scientific contract and implementation identities when developing or verifying them. It does not store or advance `WorkflowRun`, execute a calculator as scientific workflow work, create `ScientificAnalysis` or record scientific acceptance.
 
 | Concern | Owner |
 |---|---|

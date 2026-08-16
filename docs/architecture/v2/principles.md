@@ -34,7 +34,7 @@ Start-gate policy states when a Workflow permits a Task instance to execute. The
 
 One exact grant authorizes one exact dispatch. Workflow control and the executor boundary independently check the same immutable authority and effect inputs. Workflow services construct complete candidate successor and obligation units; domain repositories invoke their bound validators and serializers on those exact candidates and verify identity binding before the shared store atomically commits one opaque aggregate revision in one stream. Repositories do not select gates, invoke Tasks, fire generic transitions, or create authority, and an indeterminate commit is never guessed.
 
-Indeterminate external outcomes remain represented. Confirmed result ingress includes every required publication obligation or explicit no-publication disposition in the same atomic successor unit. Scientific analysis and disposition remain separate, and disposition remains separately authorized.
+Indeterminate external outcomes remain represented. Confirmed result ingress records exact native-output and manifest identities without copying or publishing calculator-produced files; extraction is an explicit read-only transformation over those outputs. Scientific analysis and disposition remain separate, and disposition remains separately authorized.
 
 ## Claim boundaries
 

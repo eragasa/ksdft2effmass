@@ -14,7 +14,6 @@ Scientific read models are deterministic derived views of workflow persistence. 
 | `ArtifactLineageView` | Producer, consumer, parent, role, and content identities |
 | `WorkflowFailureView` | Failures grouped by phase, attempt, and transition |
 | `ScientificAnalysisView` | Analysis identities, analyzers, inputs, findings, and versions |
-| `ScientificDispositionView` | Intended use, cited analyses, authority, and conclusion |
 
 ## Projection rules
 
@@ -25,7 +24,7 @@ Read models cannot:
 - advance a colored-Petri-net marking;
 - authorize or dispatch a calculator;
 - accept a result;
-- create analysis or disposition;
+- create analysis or infer a scientific conclusion;
 - mutate artifact lineage; or
 - close development work.
 

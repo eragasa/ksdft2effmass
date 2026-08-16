@@ -2,8 +2,8 @@
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
   "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence and Architecture v2 implementation are deferred while the explicitly prioritized human-readable documentation migration proceeds. No scientific execution, automatic successor, publication, or release is authorized. The human-requested Quantum ESPRESSO hands-on campaign is additionally planned as inactive Tasks; no campaign simulation is active or execution-authorized.",
-  "status": "architecture_v2_simulation_execution_deferred_for_documentation_migration",
-  "active_task": null,
+  "status": "architecture_v2_plan_active_issue_resolution",
+  "active_task": "harness.architecture-v2.plan",
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -81,6 +81,10 @@
     {
       "id": "bulk-silicon.production-reference.convergence",
       "record": "harness/tasks/bulk-silicon.production-reference.convergence.json"
+    },
+    {
+      "id": "harness.architecture-v2.plan",
+      "record": "harness/tasks/harness.architecture-v2.plan.json"
     },
     {
       "id": "harness.architecture-v2.simulation-execution",
@@ -430,84 +434,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "simulation-first-bootstrap-planned",
-      "message": "P2 remains closed as human-accepted PASS. P3-P11 are superseded by eight inactive or blocked simulation-first Tasks and one deferred-inactive CPN-persistence Task. No replacement, scientific/external/protected execution, publication, or release is active."
-    },
-    {
-      "phase": "bulk-silicon-simulation-qe-reference-activated",
-      "message": "The human selected official QE PW example01 silicon SCF with Davidson diagonalization, authorized acquisition of exactly the official Si.pz-vbc.UPF URL, and authorized exactly one local single-process smoke-test execution with the fixed QE 7.2 pw.x. Pseudopotential acquisition and preflight passed. No successor or production execution is active."
-    },
-    {
-      "phase": "bulk-silicon-simulation-qe-reference-executed-awaiting-human-review",
-      "message": "The one authorized local single-process QE 7.2 PW example01 silicon SCF Davidson calculation executed exactly once with the verified official downloaded Si.pz-vbc.UPF. It exited 0, emitted JOB DONE, and reported convergence in 6 iterations at -15.84452726 Ry, equal to the bundled reference at printed precision. Compact records are retained; raw outputs and scratch remain external. The Task stays active for human review. No successor, production Stage 02, extraction, band, Wannier90, dependency, schema, validator, SQLite, or CPN work is active."
-    },
-    {
-      "phase": "bulk-silicon-simulation-accepted-artifact-inventory-activated",
-      "message": "The human accepted bulk-silicon.simulation.qe.reference as a successful tutorial smoke-test reproduction under the exact limited claim and exclusions recorded with its compact provenance. The IEEE flags remain an observed unresolved runtime warning with exact text and deferred diagnosis. The simulation Task is closed human-accepted. Exactly bulk-silicon.artifacts.qe.inventory is active to observe existing files without rerunning QE. Automatic successor activation remains disabled; no other Task is active."
-    },
-    {
-      "phase": "bulk-silicon-artifact-inventory-completed-awaiting-human-review",
-      "message": "The active artifact-inventory Task observed the existing tutorial results and scratch roots without rerunning QE. Twenty-nine records classify every observed calculation file and relevant missing/optional output with exact identities, structural facts, roles, completeness, retention, and extraction candidacy. Native files remain external and unchanged. The Task remains active awaiting human review; bulk-silicon.records.periodic.extraction and every other successor remain inactive."
-    },
-    {
-      "phase": "bulk-silicon-artifact-inventory-accepted-periodic-extraction-activated",
-      "message": "The human accepted the substantive artifact-inventory findings after one bounded producer-attribution and canonical-path correction passed focused validation. bulk-silicon.artifacts.qe.inventory is closed_human_accepted_pass. Exactly bulk-silicon.records.periodic.extraction is active, initially limited to proposing the minimal record boundary for the observed silicon.save/data-file-schema.xml source before implementation. Automatic successor activation remains disabled; no other Task is active."
-    },
-    {
-      "phase": "bulk-silicon-periodic-qexsd-extraction-completed-awaiting-human-review",
-      "message": "The current human instruction authorized a bounded correction of the provisional QEXSD extraction architecture. QEXSD I/O, backend-neutral periodic geometry, representation-neutral Kohn-Sham semantics, and plane-wave calculation records now have separate package owners. Explicit verified XML bytes flow through mechanical parsing and QEXSD-owned semantic construction into a closed version-1 Kohn-Sham plane-wave record with quantity-specific units and explicit reciprocal and k-point scales. The Task remains active awaiting renewed human review; no QE or Wannier90 execution, dependency change, checkpoint, or successor activation occurred."
-    },
-    {
-      "phase": "bulk-silicon-periodic-qexsd-extraction-human-accepted",
-      "message": "The human accepted as PASS the limited claim that the observed QE 7.2 QEXSD artifact was faithfully transformed through separated Quantum ESPRESSO I/O, periodic-geometry, Kohn\u2013Sham, and plane-wave-record domains with explicit units, coordinate conventions, reciprocal scaling, provenance, and unavailable metadata. Acceptance does not establish numerical convergence beyond the retained tutorial observation, physical validation, transferability to other QE calculations, completeness of the plane-wave basis description, suitability for Wannier or effective-mass analysis, or scientific acceptance of downstream results. bulk-silicon.records.periodic.extraction is closed_human_accepted_pass. No successor is active and automatic successor activation remains disabled."
-    },
-    {
-      "phase": "bulk-silicon-band-reference-planned-inactive",
-      "message": "The next tutorial-first vertical slice is planned as bulk-silicon.simulation.qe.band-reference. It will, only after separate activation and protected-execution authorization, run the QE 7.2 PW example01 silicon Davidson bands input against an identity-verified isolated copy of the accepted SCF state, inventory the observed band artifacts, and propose the minimum band-record extension. The Task is inactive; no calculation checkpoint exists; no QE or Wannier90 execution, parser, record implementation, downstream activation, production setting, or scientific validation is authorized."
-    },
-    {
-      "phase": "bulk-silicon-band-reference-active-preflight-complete-awaiting-execution-authorization",
-      "message": "The accepted band-reference plan was fast-forward integrated. Exactly bulk-silicon.simulation.qe.band-reference is active. A new external run root contains an identity-verified isolated copy of the accepted density/QEXSD restart subset, the accepted pseudopotential, and the exact 28-point QE 7.2 Davidson bands input with only filesystem paths rewritten. The executable was identity-checked without execution. pw.x remains uninvoked and requires a new explicit human A decision. Automatic successor activation remains disabled; no downstream Task is active."
-    },
-    {
-      "phase": "bulk-silicon-band-reference-executed-awaiting-human-review",
-      "message": "Exactly one authorized local single-process QE 7.2 example01 silicon Davidson bands invocation ran in the prepared isolated workspace. It exited 0, emitted End of band structure calculation and JOB DONE., reported 0.17 s CPU and 0.21 s wall time, and produced 28 k-point blocks with eight bands. The exact IEEE floating-point exception warning recurred and remains unresolved without harmless-or-fatal classification. Complete compact provenance and artifact inventory are retained; native outputs remain external. The accepted SCF source manifest remained exactly unchanged. Observational legacy comparison has no accepted numerical tolerance. The Task remains active awaiting human review; no repeat or successor is authorized."
-    },
-    {
-      "phase": "bulk-silicon-band-reference-human-accepted",
-      "message": "The human accepted bulk-silicon.simulation.qe.band-reference as closed_human_accepted_pass. Accepted claim: The exact prepared QE 7.2 silicon Davidson tutorial bands calculation reused an isolated, identity-verified copy of the accepted SCF state, executed once with exit status 0, reported completion and `JOB DONE.`, produced 28 ordered $k$ points with eight bands each, retained complete compact provenance and artifact inventory, and left the accepted SCF source unchanged. Of 224 printed eigenvalues compared with the bundled legacy reference, 166 were identical at printed precision and the largest printed difference was approximately $0.0001\\ \\mathrm{eV}$; no numerical acceptance tolerance or pass/fail comparison was established. The IEEE floating-point exception report remains unresolved and unclassified. Acceptance does not establish production cutoff or $k$-point convergence, a canonical modern silicon symmetry path, numerical or physical validation, indirect-gap accuracy, valley location or curvature accuracy, effective-mass validity, Wannierization suitability, tight-binding fitting suitability, or uncertainty quantification. No successor is active and automatic successor activation remains disabled."
-    },
-    {
-      "phase": "bulk-silicon-production-program-planned-inactive",
-      "message": "The accepted tutorial SCF, artifact-inventory, QEXSD-extraction, and band-reference Tasks remain closed under their bounded claims. Four cohesive production parents and sixteen scientifically meaningful children now plan the production reference, band-edge characterization, Wannier reference, visualizations, and semiconductor properties. Tutorial Wannier bridge/extraction identities are superseded; direct fitting and comparison identities are corrected to production prerequisites. All new work is inactive or blocked, active_task is null, automatic successor activation is false, and no calculation, checkpoint, successor, or protected action is authorized."
-    },
-    {
-      "phase": "bulk-silicon-production-convergence-awaiting-human-parameter-selection",
-      "message": "The never-activated standalone pseudopotential-selection planning Task was removed because NumericalSpecification-v1 already freezes the exact Si authority. Identity, license, byte, and QE/interface compatibility checks are now convergence preflight. Exactly bulk-silicon.production-reference.convergence is active for design in awaiting_human_parameter_selection; automatic successor activation remains false. No checkpoint was created, no pseudopotential was downloaded, and no scientific executable or successor was run or activated."
-    },
-    {
-      "phase": "bulk-silicon-production-convergence-awaiting-execution-authorization",
-      "message": "Human Option B directly revised the active Task's candidate design. The exact frozen PseudoDojo Si artifact was acquired from its canonical URL, transferred to an external production-input cache, and verified by compressed/decompressed SHA-256 and metadata; its embedded GNU GPL statement has no exact version and redistribution remains unauthorized. The exact QE 7.2 pw.x identity was inspected without invocation. Nine unique SCF and nine linked fixed-point NSCF inputs plus non-runnable four-corner templates are prepared externally and retained compactly. The Task remains active awaiting an exact A, B, or C execution decision; automatic successor activation remains false, no checkpoint exists, and no scientific executable or successor ran or activated."
-    },
-    {
-      "phase": "bulk-silicon-production-convergence-committed-boundary-preparation",
-      "message": "Human Option B selected a bounded durable-installation and committed-execution-boundary correction. The exact PseudoDojo bytes were atomically published under the portable user_opt store with final identities verified; the obsolete production-input location contained no unrelated files and was removed. Git-tracked paths are portable, run-local pseudopotential bytes are identified only as a verified copy, the exact 18-invocation campaign and scientific criteria are unchanged, and the runner now requires an exact committed clean HEAD/origin-dev boundary and stops after the first failed invocation. No pw.x invocation, checkpoint, successor activation, dependency change, or scientific result occurred."
-    },
-    {
-      "phase": "bulk-silicon-production-convergence-executed-awaiting-human-review",
-      "message": "The human selected Option A for boundary commit 64de888ad54c1385941a0485433974342380094d and token A-EXECUTE-COMMITTED-PRIMARY. The committed one-process campaign executed exactly once: all 9 SCFs and all 9 linked three-point NSCF diagnostics exited zero and emitted JOB DONE., no retry occurred, and resource ceilings were not exceeded. Raw outputs and restart trees remain external; compact identities, observations, finite-setting comparisons, and claim limits are retained. C42-to-C48 and later cutoff comparisons and every mesh comparison met the predefined finite-setting criteria at retained output precision, but no final E_* or K_* is selected, no infinite-basis or effective-mass convergence is claimed, and no four-corner case ran. The identical IEEE floating-point exception report recurred on all 18 invocations and remains unresolved and unclassified. The Task stays active awaiting human review; automatic successor activation remains false."
-    },
-    {
-      "phase": "architecture-v2-simulation-execution-active",
-      "message": "The human classified the 18 direct pw.x invocations as bootstrap scientific-harness development evidence produced by a direct runner governed by the development harness. No canonical scientific CampaignRun or accepted production, numerical-verification, or scientific-validation conclusion exists. bulk-silicon.production-reference.convergence is deferred in awaiting_scientific_harness_reimplementation, additional execution is unauthorized, and exactly harness.architecture-v2.simulation-execution is active to implement three serial architecture and tutorial-replay slices. harness.architecture-v2.plan remains planning-only and inactive; automatic successor activation remains false."
-    },
-    {
-      "phase": "architecture-v2-simulation-execution-deferred-for-documentation-migration",
-      "message": "The human approved documentation migration as the immediate priority before Architecture v2 implementation began. harness.architecture-v2.simulation-execution is deferred without changing its accepted scope, and this chain has no active Task. No scientific executable, production convergence, automatic successor, publication, or release is authorized."
-    },
-    {
-      "phase": "quantumespresso-simulation-campaign-planned",
-      "message": "The human-requested Quantum ESPRESSO hands-on campaign was decomposed additively into one inactive coordinator, one inactive non-scientific integration prerequisite, protected-execution-gated simulation candidates, and one blocked review Task. No prior accepted Task, activation, checkpoint, or architecture disposition was changed; no campaign Task is active; automatic successor activation remains disabled; and no scientific, external, protected, publication, or release execution is authorized."
+      "phase": "architecture-v2-plan-active",
+      "message": "harness.architecture-v2.plan is active for planning-only closure of the normative Architecture v2 documents. The live issue register has no open issues; resolved architecture is represented in the normative documents rather than replayed here as phase history. Final task verification and any human acceptance remain separate. Architecture v2 implementation, scientific or protected execution, automatic successor activation, publication, and release remain unauthorized."
     }
   ],
   "explicitly_activated_task_ids": [
@@ -516,7 +444,8 @@
     "harness.architecture-v2.simulation-execution",
     "bulk-silicon.records.periodic.extraction",
     "bulk-silicon.simulation.qe.band-reference",
-    "bulk-silicon.simulation.qe.reference"
+    "bulk-silicon.simulation.qe.reference",
+    "harness.architecture-v2.plan"
   ],
   "superseded_p_series": {
     "authority": "harness/reports/simulation-first-task-migration.md",

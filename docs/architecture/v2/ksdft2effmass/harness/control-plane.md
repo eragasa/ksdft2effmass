@@ -13,7 +13,7 @@ The development control plane governs software and documentation work. It owns:
 - mechanical promotion-eligibility results; and
 - development review and acceptance state.
 
-It may reference immutable scientific contract or implementation identities. It does not store `WorkflowRun`, `ColoredPetriNetMarking`, calculator execution, scientific analysis, or scientific disposition state.
+It may reference immutable scientific contract or implementation identities. It does not store `WorkflowRun`, `ColoredPetriNetMarking`, calculator execution, scientific analysis or scientific-conclusion state.
 
 ## Authority model
 

@@ -69,8 +69,13 @@ decision. Historical evidence records what happened but does not govern current
 work. Architecture and planning records define boundaries but do not themselves
 authorize task activation or execution.
 
-Do not store mutable task status in this file. At session start, reconstruct
-only the state relevant to the requested task:
+Do not store mutable task status in this file. A controlling chain is current
+selection and control state, not an append-only event log: keep one current
+phase summary, do not append resolved phase narratives, and place resolved
+architecture, decisions, and evidence in their owning normative, checkpoint, or
+evidence records without duplicating them in the chain.
+
+At session start, reconstruct only the state relevant to the requested task:
 
 1. inspect unresolved checkpoint records under `.pi/checkpoints/`;
 2. inspect the current branch, checkout, and working-tree state;

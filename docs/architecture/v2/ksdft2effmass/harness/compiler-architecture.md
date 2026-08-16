@@ -246,7 +246,7 @@ classDiagram
 | `DevelopmentAuthorityContextResolutionResult` | Closed resolved-or-failed authority-context outcome; only resolved contains one usable `DevelopmentAuthorityContext`. |
 | `DevelopmentOperationAuthorizationResult` | Closed `authorized`, `denied`, or `error` outcome for one exact operation and authority context; it grants no broader authority and performs no target operation. |
 | `HarnessProjectionResult` | Closed projected-or-blocked outcome; only projected contains one complete immutable `HarnessArtifactSet`. |
-| `SynchronizationResult` | Candidate, generation, predecessor, pointer, lifecycle, and publication/reconciliation outcome identities; it never makes the projection authoritative. |
+| `SynchronizationResult` | Exact candidate/predecessor, candidate and staged validation, authorization and authority-context, publication policy/context, verified target preconditions, operation/attempt, generation, pointer observation, lifecycle, and recovery/reconciliation outcome identities; it never makes the projection authoritative. |
 | `HarnessProjectionGenerationResolutionResult` | Closed resolved or rejected result; only `resolved` contains one validated immutable generation, while `rejected` contains identified failures and no artifacts. |
 | `HarnessProjectionRecoveryResult` | Records quarantine or recovery-marker handling without changing source authority or conferring deletion authority. |
 | `ComparisonResult` | Candidate and resolved-generation identities plus missing, unexpected, byte-different, semantically different, or represented blocked/invalid outcome. |
@@ -385,7 +385,7 @@ Diagnostics use deterministic ordering. They must not expose credentials, privat
 
 Each loader, compiler, validator, authority-context resolver, authorizer, and target operation returns its own immutable identity-bearing result to explicit application composition. No generic harness-operation report, quarantine aggregate, or second `HarnessState` repository is selected. When an applicable conformance profile requires durable evidence, the existing `ValidationReport` references the exact result and immutable input-artifact identities; its reporting and future serializer boundary own that retained representation. Otherwise, Architecture v2 does not require durable persistence of every read-only failed attempt merely because it is represented in memory.
 
-Replay or reconstruction requires the same immutable source-snapshot, authority-ledger-snapshot, trust-configuration, policy, operation-input, and implementation-version identities applicable to the result. Changed inputs define a new operation rather than reconstruction of the prior result. Durable synchronization authority-to-outcome linkage remains separately open under V2-ISSUE-032.
+Replay or reconstruction requires the same immutable source-snapshot, authority-ledger-snapshot, trust-configuration, policy, operation-input, and implementation-version identities applicable to the result. Changed inputs define a new operation rather than reconstruction of the prior result. Durable synchronization authority-to-outcome linkage is retained by the identity-bound `SynchronizationResult` referenced from the successful generation manifest or applicable recovery record.
 
 ## Validation
 
@@ -400,7 +400,7 @@ Validation occurs after compilation so every validator sees the same normalized 
 
 A validation coordinator may order validators and evaluate cross-domain closure, but it must not become a fallback owner for domain rules.
 
-Validators are read-only. They return the single normative `ValidationResult` contract and do not repair `HarnessState`, rewrite sources, publish artifacts, or grant authority. Trusted in-process state validation may inspect the normalized candidate state before operation authorization; candidate-controlled commands, plugins, and effectful conformance validators remain subject to their separate authorization and bounded-execution contracts. `PromotionEligibilityEvaluator` remains the sole mechanical promotion gate.
+Validators are read-only. They return the single normative `ValidationResult` contract and do not repair `HarnessState`, rewrite sources, publish artifacts, or grant authority. Trusted in-process state validation may inspect the normalized candidate state before operation authorization; candidate-controlled commands, plugins, and effectful conformance validators use the explicit ordinary-subprocess boundary defined by development conformance, with no custom sandbox implied. `PromotionEligibilityEvaluator` remains the sole mechanical promotion gate.
 
 A structural pass establishes only conformance to those rules. It does not establish software-test success, numerical verification, scientific validation, uncertainty quantification, protected-execution authority, or human acceptance.
 
@@ -464,9 +464,9 @@ sequenceDiagram
     S-->>P: SynchronizationResult
 ```
 
-The generation manifest identifies the generation, candidate set and manifest, complete content closure, generating state, predecessor, lifecycle status, and versions. Generation lifecycle is closed: `staging` exists only in synchronizer/recovery records and is unreadable; `closed` is immutable and reader-eligible; `quarantined` and `corrupt` are fail-closed recovery dispositions and are never current-reader candidates. The regular pointer manifest identifies exactly that generation and its manifest/content identities. It is not a symlink and the contract does not require symlink support.
+The generation manifest identifies the generation, candidate set and manifest, complete content closure, generating state, predecessor, lifecycle status, versions, and exact successful `SynchronizationResult` identity. That result durably binds the candidate and predecessor, candidate and staged validation results, affirmative synchronization authorization and authority context, publication policy/context, verified target preconditions, operation and attempt, resulting generation, pointer observation, and any reconciliation outcome. No separate audit aggregate or repository is introduced. Generation lifecycle is closed: `staging` exists only in synchronizer/recovery records and is unreadable; `closed` is immutable and reader-eligible; `quarantined` and `corrupt` are fail-closed recovery dispositions and are never current-reader candidates. The regular pointer manifest identifies exactly that generation and its manifest/content identities. It is not a symlink and the contract does not require symlink support.
 
-Failure before pointer replacement leaves the previous generation current and records an incomplete/corrupt recovery marker or quarantines the orphan candidate under explicit policy. Successful replacement makes the complete closed generation current. If interruption makes commit outcome ambiguous, reconciliation rereads the pointer and checks its generation and manifest identities; it never guesses from staging state. Rollback is a new, separately represented atomic pointer switch to a retained, validated closed generation, never restoration of multiple files. Generation retention and garbage collection are later explicit policy and confer no deletion authority.
+Failure before pointer replacement leaves the previous generation current and records an incomplete/corrupt recovery marker or quarantines the orphan candidate under explicit policy; the recovery record references the exact failed or indeterminate `SynchronizationResult`. Retry uses new operation, attempt, and result identities and never overwrites its predecessor. Successful replacement makes the complete closed generation current. If interruption makes commit outcome ambiguous, reconciliation rereads the pointer and checks its generation and manifest identities; it never guesses from staging state. Rollback is a new, separately represented atomic pointer switch to a retained, validated closed generation, never restoration of multiple files. Generation retention and garbage collection are later explicit policy and confer no deletion authority.
 
 The synchronizer does not recompile sources, alter candidate contents, silently validate, or repair. Unrelated files and human-authored documentation are outside its ownership. Unsupported or network filesystem semantics fail preflight; a future separately selected adapter may define another proven boundary, but this contract makes no universal atomicity or durability claim.
 
@@ -547,7 +547,7 @@ This compiler architecture belongs exclusively to the development harness. It ma
 - execute a calculator;
 - interpret numerical observations;
 - create `ScientificAnalysis`; or
-- record `ScientificDisposition`.
+- record scientific acceptance.
 
 Any scientific workflow compiler requires a separate contract under the scientific workflow architecture. It may reuse generic deterministic techniques, but it cannot inherit development-harness state authority implicitly.
 

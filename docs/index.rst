@@ -126,19 +126,8 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/ksdft2effmass/periodic/index
    architecture/v2/ksdft2effmass/ksdft/index
    architecture/v2/ksdft2effmass/analysis/index
-   architecture/v2/ksdft2effmass/analysis/analysis-and-disposition
+   architecture/v2/ksdft2effmass/analysis/analysis
    architecture/v2/issues/index
-   architecture/v2/issues/007-selection-identity-closure
-   architecture/v2/issues/010-scientific-authority-grants
-   architecture/v2/issues/020-workflow-replay-integrity-ownership
-   architecture/v2/issues/021-persistence-commit-read-reconciliation-closure
-   architecture/v2/issues/022-scientific-decision-trust-provenance-correction
-   architecture/v2/issues/023-task-workflow-simulation-invocation-semantics
-   architecture/v2/issues/024-publication-policy-store-reconciliation
-   architecture/v2/issues/029-scientific-disposition-ownership-semantics
-   architecture/v2/issues/030-bounded-conformance-execution
-   architecture/v2/issues/032-harness-publication-authority-outcome
-   architecture/v2/issues/033-target-operation-identity-binding
    architecture/migration/v1-to-v2/index
    architecture/migration/v1-to-v2/pi-harness-subagents
    harness/ksdft2effmass.harness.001.001.000

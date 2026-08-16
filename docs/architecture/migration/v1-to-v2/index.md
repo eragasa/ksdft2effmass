@@ -28,7 +28,7 @@ The v1 `Cpn*` names are implemented public API. Workflow implementations may lat
 | Producer-Task prerequisites | ResultObject-valued dependency edges plus exact Workflow/WorkflowRun/Task-instance/TaskActivation/attempt/ResultObject producer provenance | Replace | Provenance and dependency contracts accepted |
 | Direct calculator runner | Concrete SimulationTask and target-first executor | Replace | Applicable software behavior demonstrated |
 | Compact execution records | Concrete immutable ResultObjects and `ArtifactManifest` | Split | Wire contracts accepted |
-| Scientific review encoded in Task lifecycle | `ScientificAnalysis` and `ScientificDisposition` | Replace | Scientific lifecycle implemented |
+| Scientific review encoded in Task lifecycle | `ScientificAnalysis` plus human-reviewed research conclusions | Replace | Scientific analysis lifecycle implemented |
 | Harness SQLite projections | Development harness projections | Retain and narrow | Scientific state removed; generated projection publication remains separate from ordinary revision storage |
 | Revision-storage capability | `persistence.store` plus `persistence.sqlite` | Introduce prospectively | Opaque single-stream contract and stdlib SQLite realization implemented under later authority |
 | HarnessState persistence | Domain-owned `HarnessStateRepository` and composed `HarnessStateAtomicRepository` | Retain domain meaning; compose shared store | Exact serializer/validator binding and compatibility gates accepted |
@@ -41,16 +41,6 @@ The v1 `Cpn*` names are implemented public API. Workflow implementations may lat
 | Protected-execution decisions | Exact one-dispatch grant referenced by `TaskActivation` and `WorkflowRun` | Replace | Independent control plane verifies reservation/use; a decision record is not a grant |
 
 Project-specific campaign definitions may be re-expressed as composition inputs under `ksdft2effmass.campaigns`; they do not become the generic Workflow or colored-Petri-net aggregate.
-
-## Selected v2 model
-
-`ResultObject` is an immutable workflow-facing category whose concrete domains own intrinsic invariants. `Task` consumes already-bound ResultObjects plus explicit context and returns ResultObjects. `Workflow` implements Task and may be nested. Run-scoped Task instances have zero or one `TaskStartGateSet` in `any_of` or `all_of` mode. `TaskActivation` is discriminated as direct (no gate identities), any_of (one deterministic gate/binding), or all_of (canonical compatible complete tuple).
-
-`ColoredPetriNetWorkflowAdapter` maps gates and supplied ResultObject values to `ksdft2effmass.petrinet.colored`, constructs TaskActivations only for Task-origin work, remains effect-free while workflow control/dispatch invokes Tasks across the accepted authority boundary, and maps supplied values into immutable `ColoredPetriNetFiringInput`. For scientific-decision ingress it maps the supplied resolution for the exact request-identified transition/binding without a Task, TaskActivation, or attempt. Pure firing evaluates output inscriptions, validates produced tokens, and returns successor plus audit facts. Parent/child membership and ResultObject dependency remain orthogonal.
-
-`Simulation` is structural. Calculator-owned `QuantumEspressoSimulationTask` contains or uses `QuantumEspressoSimulation`, whose roles are immutable `QuantumEspressoInput`, the consumer-owned structural `QuantumEspressoExecutor` protocol, and produced immutable `QuantumEspressoOutput` ResultObject. Application composition injects the concrete `integration.quantumespresso` implementation, which owns serialization, staging, workspace/process invocation, native parsing, artifact discovery, failure mapping, and observation adaptation. The output is returned as a new object and correlated in WorkflowRun state. `SimulationExecutionRequest` binds exact Task-instance/activation/attempt/executor/input/grant/obligation identities without embedding generic Simulation. Confirmed `SimulationDispatchOutcome` envelopes the returned `QuantumEspressoOutput`; `TaskResultIngester` admits that concrete object, and no second execution-result object exists.
-
-WorkflowRun persistence uses exact initial/current marking snapshots plus canonical ordered transition records and explicit Task-instance, activation, attempt, request, failure, result-production/dependency, authority/outcome, obligation, and scientific decision request/resolution state. Each transition record has exactly one task or scientific-decision origin; the latter carries exact request/resolution identities and prohibits TaskActivation/attempt. Replay must equal the stored current marking and consumes a recorded resolution without prompting. See the prospective [human-decision contract](../../v2/human-decisions.md).
 
 ## Migration order
 
@@ -81,21 +71,6 @@ The required prospective edge is `ksdft2effmass.workflows → ksdft2effmass.petr
 
 Potential ProjectKoios extraction remains deferred. Neither ProjectKoios repository is claimed as installed or integrated, and no extraction occurs without separate dependency, licensing, compatibility, and acceptance authority.
 
-## Unresolved target decisions
+## Status
 
-The complete current live set is recorded in the [Architecture v2 live issue register](../../v2/issues/index.md):
-
-- selection identity and scientific authority grants: [007](../../v2/issues/007-selection-identity-closure.md), [010](../../v2/issues/010-scientific-authority-grants.md);
-- Workflow replay, persistence commit and reconstruction, scientific-decision ingress, Task invocation, and publication: [020](../../v2/issues/020-workflow-replay-integrity-ownership.md), [021](../../v2/issues/021-persistence-commit-read-reconciliation-closure.md), [022](../../v2/issues/022-scientific-decision-trust-provenance-correction.md), [023](../../v2/issues/023-task-workflow-simulation-invocation-semantics.md), [024](../../v2/issues/024-publication-policy-store-reconciliation.md);
-- bounded conformance execution and target-operation binding: [030](../../v2/issues/030-bounded-conformance-execution.md), [033](../../v2/issues/033-target-operation-identity-binding.md); and
-- scientific disposition and harness-publication authority/outcome: [029](../../v2/issues/029-scientific-disposition-ownership-semantics.md), [032](../../v2/issues/032-harness-publication-authority-outcome.md).
-
-Exact persistence bytes and wire schemas, SQLite layout and operational policy, asynchronous and scheduler interfaces, optional QE operations, structured-rendering policy, and later extraction or source moves remain deferred where they do not block current semantic closure.
-
-## Live issues and claim boundary
-
-The selected lean persistence architecture introduces only immutable shared revision/commit/result values, structural `AtomicRevisionStore`, standard-library `SQLiteAtomicRevisionStore`, and composed domain atomic repositories. It is prospective and unimplemented; exact schemas and operations remain deferred where they are not required for current semantic closure.
-
-The [Architecture v2 live issue register](../../v2/issues/index.md) is the sole live set and contains issues 007, 010, 020–024, 029–030, and 032–033. Inclusion does not select an outcome or authorize work; the issues are reviewed and resolved one at a time.
-
-This claims no v2 implementation, software verification, numerical verification, calculation or recalculation, protected-execution authority, scientific validation, uncertainty quantification, equivalence, rerun, or human software acceptance.
+The [Architecture v2 live issue register](../../v2/issues/index.md) has no open issues. This page is a migration crosswalk only: it does not authorize implementation, source moves, scientific execution, successor activation, publication, or release.

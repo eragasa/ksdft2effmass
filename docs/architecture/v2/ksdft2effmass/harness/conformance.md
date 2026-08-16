@@ -15,7 +15,7 @@ remain with their authoritative domains.
 
 Development conformance does not execute a scientific `Workflow`, advance a
 `WorkflowRun`, or establish numerical verification, scientific validation,
-scientific disposition, or human acceptance merely because software checks
+scientific acceptance or human acceptance merely because software checks
 pass.
 
 ## Authority and ownership
@@ -262,6 +262,14 @@ Passing software tests establishes only the represented software contract. A
 numerical-verification, scientific-validation, or uncertainty-quantification
 claim requires its separately classified evidence and authority.
 
+### Behavioral process boundary
+
+Candidate behavioral checks run as ordinary explicitly configured subprocesses; Architecture v2 requires no custom sandbox. One immutable invocation identifies the executable and arguments, trusted repository root, confined working directory, explicit sanitized environment, tool/configuration identities, timeout, and output-size limits. Ambient shell command construction, unrestricted environment inheritance, credentials, and an unconfined working directory are prohibited.
+
+The runner captures bounded stdout and stderr plus start, completion, exit, timeout, cancellation, and signal facts. A completed tool-defined success or assertion failure maps to `pass` or `fail` under the owning validator contract. Launch or protocol failure maps to `error`. Timeout, cancellation, or signal termination maps to `not_run`, retains identified partial output as limited evidence, and blocks a required gate. Output truncation that prevents interpretation maps to `error`. None of these outcomes authorizes a retry or implies scientific correctness.
+
+Stronger operating-system, container, or remote isolation is a deployment concern that requires a concrete threat model; it is not part of the current architecture.
+
 ### Authorization plane
 
 This plane evaluates whether the change is permitted independently of whether
@@ -404,7 +412,6 @@ Development conformance does not:
 - Exact public fields and wire formats of the conformance records.
 - Location and representation of concrete Architecture v2 policy resources.
 - Exact trust source for policy and Task authorization in local and CI runs.
-- Validator process-isolation and bounded-execution contracts.
 - Compatibility policy for validator, rule, report, and environment identities.
 - Which locally demonstrated components eventually qualify for ProjectKoios
   extraction.

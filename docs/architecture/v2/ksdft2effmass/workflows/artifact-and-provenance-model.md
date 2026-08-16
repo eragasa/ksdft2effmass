@@ -24,7 +24,7 @@ Missing required fields, inapplicable populated fields, contradictory identities
 
 ## Lineage
 
-For `RepresentedWorkflowProducer`, lineage connects `Workflow`, `WorkflowRun`, identified colored-Petri-net selection, `TaskActivation`, the exact producing Task instance, exact execution grant/snapshot where applicable, the exactly correlated immutable `ResultObject`, native artifact resolution, mechanically faithful parser records, normalization policy/version, `NormalizedObservationSet`, `ScientificAnalysis`, and separately authorized `ScientificDisposition`. Every edge is explicit and identity-correlated.
+For `RepresentedWorkflowProducer`, lineage connects `Workflow`, `WorkflowRun`, identified colored-Petri-net selection, `TaskActivation`, the exact producing Task instance, exact execution grant/snapshot where applicable, the exactly correlated immutable `ResultObject`, native artifact resolution, mechanically faithful parser records, normalization policy/version, `NormalizedObservationSet`, and `ScientificAnalysis`. Every edge is explicit and identity-correlated.
 
 The other producer variants enter lineage at their declared source, fixture, authorship, or legacy evidence boundary. They need not and must not be rewritten as `WorkflowRun` history. Downstream consumption references the exact manifest entry and producer-provenance variant. Exact byte identity does not imply scientific compatibility, and compatible semantics do not imply identical bytes. Pseudopotentials, canonical native input bytes, and other exact external inputs remain content-identified manifest entries with their actual closed producer provenance. A concrete calculator input references those entries directly rather than reconstructing them from generic tags.
 
@@ -48,15 +48,17 @@ Large wavefunctions, densities, restart trees, and dense matrices remain outside
 
 A concrete Task returns its concrete immutable `ResultObject`; `QuantumEspressoSimulationTask` returns `QuantumEspressoOutput`. The ResultObject carries its exact type-specific mechanical observations and references generated artifacts. Its represented producer provenance binds the exact applicable Workflow, WorkflowRun, producing Task instance, TaskActivation, attempt, and produced ResultObject identities. Exactly one confirmed dispatch envelope correlates that returned ResultObject to one request, activation, attempt, executor, grant, and obligation.
 
-`ScientificAnalysis` references the exact workflow-owned normalized-observation set and states algorithms, units, tolerances, and findings. `ScientificDisposition` identifies its disposition/revision, intended-use scope, closed conclusion, exact cited analysis revisions, limitations/evidence, disposition-authority grant and snapshot, and predecessor/supersession where applicable. These records do not overwrite one another; supersession or withdrawal appends an authorized record.
+A no-Task `ScientificDecisionResolution` is not an artifact and does not use `ArtifactProducerProvenance`. Its closed `RepresentedScientificDecisionIngressProducer` ResultObject-provenance variant instead binds the exact Workflow, WorkflowRun, `ScientificDecisionRequest`, scientific-decision-origin transition, recorder implementation/version, direct trusted-boundary response-source and authority-context, and produced resolution identities. Task instance, TaskActivation, attempt, and Task result-production identities are prohibited. Any available trusted-boundary receipt is retained only as direct supporting evidence; Architecture v2 requires no standalone response snapshot, verifier, receipt store, or registration subsystem.
 
-## Publication and stores
+`ScientificAnalysis` references the exact workflow-owned normalized-observation set and states algorithms, units, tolerances, findings, limitations, evidence, and claim boundary. Human-reviewed scientific conclusions remain in applicable research records citing exact analysis and provenance identities; they are not WorkflowRun disposition state.
 
-Scientific artifact publication is a bounded effect owned by `ScientificArtifactPublisher`, composed explicitly with calculator execution rather than hidden inside it. `TaskResultIngester` first consumes only a confirmed `SimulationDispatchOutcome`, validates its request/Task-instance/TaskActivation/attempt/executor/ResultObject correlations, and admits the returned concrete ResultObject. It computes one validated successor unit containing the result transition, dispatch-obligation disposition, and every required `ScientificArtifactPublicationObligation`; when publication is not required, it records an explicit no-publication disposition. `WorkflowRunRepository` commits the entire unit atomically, so a crash cannot durably record required publication without its obligation.
+## Native outputs and extraction
 
-The publisher consumes only a committed immutable publication obligation, complete candidate manifest, and snapshot-identified destination context. Its idempotency key covers WorkflowRun, Task instance, TaskActivation, request, attempt, produced ResultObject, manifest, destination, and operation identities. No separate producer-provenance repository or mandatory registration ActionObject is introduced; producer provenance is closed inline in each manifest entry.
+An external calculator writes native output files in its exact execution workspace or configured external output location as part of the calculator effect. Workflow result ingress does not publish, copy, relocate, or register those files in a second artifact store. The confirmed calculator ResultObject and `ArtifactManifest` retain their exact identities, locations or portable references where applicable, content identities, producer provenance, and observed limitations.
 
-`ScientificArtifactPublicationReconciler` compares the obligation, store observations, and receipts after success, failure, timeout, or interruption. Partial or unknown store state is `indeterminate`, blocks dependent transitions, and is never inferred complete. Portable logical stores resolve through explicit configuration and confinement rules. A run-local copy is derived input, not source authority.
+After dispatch reconciliation, workflow control constructs the candidate generic `TaskInvocationOutcome` correlated to the exact specialized outcome. For confirmed work, `TaskResultIngester` consumes the confirmed `SimulationDispatchOutcome` and candidate generic outcome, validates their request/Task-instance/TaskActivation/attempt/executor/ResultObject correlations, and atomically admits the concrete ResultObject, manifest references, generic outcome, and result transition.
+
+Extraction is a separate read-only transformation over identified native outputs. The Workflow definition supplies an immutable versioned extraction specification identifying the requested native sources and record families. Integration-owned artifact resolvers and parsers read those exact files and return closed extracted records or structured unavailable/rejected/indeterminate outcomes. They never infer an absent output, mutate the native files, or turn extraction into artifact publication. A later requirement to copy or transfer native files would be a separately authorized artifact-transfer contract, not implicit result ingress.
 
 ## Privacy and integrity
 
@@ -64,9 +66,8 @@ Environment capture is allowlisted and sanitized. Secrets, private keys, tokens,
 
 ## Unresolved issues
 
-- Concrete artifact-store protocol and configuration model.
-- Canonical URI and portable logical-store representation.
+- Exact extraction-specification and extracted-record wire forms.
+- Canonical portable native-output reference representation.
 - Retention-classification vocabulary and lifecycle transitions.
-- Concrete store capabilities for querying and reconciling indeterminate publication.
-- Access control for restricted or unpublished artifacts.
+- Access control for restricted or unpublished native outputs.
 - Content-identity algorithm agility and very-large-artifact verification.

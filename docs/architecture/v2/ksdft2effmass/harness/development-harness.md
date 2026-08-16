@@ -35,7 +35,7 @@ The development harness may:
 - project development control state through the deterministic [compiler architecture](compiler-architecture.md); and
 - retain independently authorized development review and acceptance records.
 
-It may not execute a scientific `Workflow`, advance a `WorkflowRun`, classify a calculator result scientifically, or record a `ScientificDisposition`.
+It may not execute a scientific `Workflow`, advance a `WorkflowRun`, classify a calculator result scientifically or record scientific acceptance.
 
 ## Package boundary
 

@@ -44,7 +44,7 @@ classDiagram
 
 ## Task activation and authority
 
-The Workflow adapter creates a discriminated `TaskActivation`: direct invocation has no gate-set or selected-gate identity, `any_of` identifies one deterministically selected gate/binding, and `all_of` identifies the canonical complete member gate/binding tuple. `SimulationExecutionRequest` then binds the exact `QuantumEspressoSimulationTask` instance, TaskActivation, attempt, `QuantumEspressoExecutor`, already-bound ResultObject inputs, grant, and obligation scope; it does not embed generic `Simulation`. Workflow control validates the exact unused execution grant and all immutable dispatch inputs before committing request, attempt, successor, grant reservation, and dispatch obligation as one supplied atomic unit. Immediately before the external process effect, the executor boundary independently checks the same exact reserved grant, authority snapshot, activation/request/context, input artifacts, executable configuration, and resource limits.
+The Workflow adapter creates a discriminated `TaskActivation`: direct invocation has no gate-set or selected-gate identity, `any_of` identifies one deterministically selected gate/binding, and `all_of` identifies the canonical complete member gate/binding tuple. `SimulationExecutionRequest` then binds the exact `QuantumEspressoSimulationTask` instance, TaskActivation, attempt, `QuantumEspressoExecutor`, already-bound ResultObject inputs, grant, closed `SimulationExecutionAuthorizationResult`, and obligation scope; it does not embed generic `Simulation`. Workflow control obtains one exact `authorized` result for the unused execution grant, verified authority snapshot, and immutable dispatch inputs before committing request, attempt, successor, grant reservation, and dispatch obligation as one supplied atomic unit. Immediately before the external process effect, the executor boundary independently obtains an exact `authorized` result for the same reserved grant, verified authority snapshot, activation/request/context, input artifacts, executable configuration, and resource limits, then performs one expected-revision compare-and-swap claim from `reserved` to `claimed`. Only the successful claimant proceeds.
 
 ```mermaid
 flowchart LR
@@ -59,7 +59,7 @@ flowchart LR
     outcome --> ingress["TaskResultIngester admission and successor unit"]
 ```
 
-One grant authorizes one exact dispatch bound to request, Task instance, TaskActivation, attempt, executor, and obligation identities. A retry or new execution requires new operation, activation, request, attempt, and grant identities. `SimulationDispatchOutcome` is the dispatch envelope: confirmed contains the exact returned `QuantumEspressoOutput` and correlation identities, rejected contains failure and no output, and indeterminate contains no invented output and is not automatically redispatched. The envelope is not a second scientific result object.
+One grant authorizes one exact dispatch bound to request, Task instance, TaskActivation, attempt, executor, authorization-result, claim, and obligation identities. A claimed grant is consumed for authority purposes even when the external outcome is indeterminate. A retry or new execution requires new operation, activation, request, attempt, obligation, and grant identities. `SimulationDispatchOutcome` is the specialized dispatch envelope: confirmed contains the exact returned `QuantumEspressoOutput` and correlation identities, rejected contains failure and no output, and indeterminate contains no invented output and is not automatically redispatched. The envelope is not a second scientific result object. After reconciliation, workflow control constructs the corresponding candidate generic `TaskInvocationOutcome`; confirmed references the exact confirmed envelope and concrete output, while rejected or indeterminate references the matching dispatch without inventing results. For confirmed work, `TaskResultIngester` validates that correlation and atomically admits the output together with the generic outcome and result transition.
 
 ## Exact artifacts and non-equivalence
 
@@ -69,7 +69,7 @@ External, imported retained, human-authored, and bounded legacy ResultObjects an
 
 ## Normalization path
 
-After `TaskResultIngester` validates the confirmed envelope, admits the returned `QuantumEspressoOutput`, and atomically commits result ingress, explicitly composed native parsers and adapters may map native records to `NormalizedObservationSet`, followed by deterministic scientific analysis and separately authorized disposition. Mechanical execution success does not imply convergence or scientific acceptance.
+After `TaskResultIngester` validates the confirmed envelope and candidate generic outcome, admits the returned `QuantumEspressoOutput`, and atomically commits the outcome, result transition, and result ingress, explicitly composed native parsers and adapters may map native records to `NormalizedObservationSet`, followed by deterministic scientific analysis and separately authorized disposition. Mechanical execution success does not imply convergence or scientific acceptance.
 
 ## Package boundary and status
 

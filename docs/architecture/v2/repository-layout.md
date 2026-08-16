@@ -129,10 +129,10 @@ Calculators continue to depend on workflow contracts, preserving the accepted `c
 
 ## Responsibilities
 
-- `persistence.store` owns only immutable `Revision`, `Commit`, and closed `CommitResult` values plus structural `AtomicRevisionStore`; `persistence.sqlite` owns `SQLiteAtomicRevisionStore`. It stores opaque complete single-stream revisions and owns compare-and-swap, idempotency, consistent reads, atomic commit, and generic outcomes.
-- `harness.persistence` and `workflows.persistence` retain their domain repository protocols, transactions, snapshots, write results, serializers, and validators. Their concrete atomic repositories compose the shared store and bind validation to exact candidate bytes and identities; neither defines a domain SQLite subclass.
+- `persistence.store` owns only immutable `Revision`, closed `RevisionReadRequest`/`RevisionReadResult`, `Commit`, and closed `CommitResult` values plus structural `AtomicRevisionStore`; `persistence.sqlite` owns `SQLiteAtomicRevisionStore`. It stores opaque complete single-stream revisions and owns compare-and-swap, idempotency, consistent reads, atomic commit, and generic outcomes.
+- `harness.persistence` and `workflows.persistence` retain their domain repository protocols, transactions, snapshots, closed load/write results, serializers, and validators. Their concrete atomic repositories compose the shared store and bind validation to exact candidate bytes and identities; neither defines a domain SQLite subclass.
 - `petrinet.colored` owns only generic colors, places, transitions, arcs/inscriptions, pure guards, token values, markings, deterministic enablement/selection, and pure successor firing.
-- `workflows` owns Task/Workflow composition, immutable `TaskStartGateSet`, discriminated TaskActivation, the effect-free colored-Petri-net adapter, replayable WorkflowRun, authority, `SimulationDispatchAdapter`, dispatch reconciliation, `TaskResultIngester`, publication obligations, normalized sets, and disposition recording.
+- `workflows` owns Task/Workflow composition, immutable `TaskStartGateSet`, discriminated TaskActivation, the effect-free colored-Petri-net adapter, replayable WorkflowRun, authority, `SimulationDispatchAdapter`, dispatch reconciliation, `TaskResultIngester`, explicit native-output extraction specifications, normalized sets, and analysis correlation.
 - `calculators` owns project-facing concrete SimulationTasks and Simulation composites, immutable input/output meaning, exact executable configuration, process request/observation records, and consumer-owned structural executor protocols. It owns no QE workspace, process invocation, native parser, artifact discovery, or concrete failure mapping.
 - `integration.quantumespresso` owns the concrete anti-corruption Actions for QE serialization, staging, isolated workspace and process invocation, mechanical capture, native parsing, artifact discovery, failure mapping, and parsed-record-to-neutral adaptation. It implements calculator-owned protocols and is imported only by application composition.
 - `campaigns` may supply project-specific definitions but owns neither generic Petri-net mechanics nor Workflow control.
@@ -155,7 +155,7 @@ Existing native input and pseudopotential artifacts remain usable with their act
 - Exact internal submodules and public wire-contract exports.
 - Process-launch and optional scheduler adapter locations.
 - Exact persistence wire bytes, SQLite schema/layout, connection lifetime, locking/isolation/busy behavior, backup/recovery, retention/compaction, maximum aggregate size, canonical bytes, and public failure/exception encodings.
-- Replay-computation ownership and colored-Petri-net selection-identity retention; the selected persistence boundary resolves neither.
+- Exact `WorkflowRuntimeBundle` and `WorkflowRunReplayResult` wire fields; replay computation itself is workflow-owned by `WorkflowRunReplayer`, while persistence remains structural and domain-neutral.
 - Any later source-move or extraction plan.
 
 This prospective layout claims no implementation, verification, equivalence, protected execution, or human software acceptance.

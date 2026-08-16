@@ -13,5 +13,5 @@ flowchart LR
 ```
 
 The package does not own calculator invocation, native formats, workflow
-control, or scientific disposition. Architecture v2 does not yet select its
+control or scientific acceptance. Architecture v2 does not yet select its
 exact internal modules or public wire exports.
