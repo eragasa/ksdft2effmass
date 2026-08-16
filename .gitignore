@@ -272,3 +272,9 @@ graphify-out/
 *.swp
 *~
 ~$*
+
+# Local P01 manuscript build products
+/docs/publications/papers/ksdft2effmass.P01/latex/manuscript.bbl
+/docs/publications/papers/ksdft2effmass.P01/latex/manuscript.pdf
+/docs/publications/papers/ksdft2effmass.P01/manuscript.html
+/docs/publications/papers/ksdft2effmass.P01/manuscript_files/
