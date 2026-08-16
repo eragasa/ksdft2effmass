@@ -1,0 +1,230 @@
+\chapter{Notation, Conventions, and Status Vocabulary}
+\label{app:notation-and-status}
+
+This appendix is an expository index for the monograph. It does not override the
+applicable specifications, proof contracts, software schemas, or retained
+evidence. A symbol used by an owning record retains the definition in that
+record when it is more specific than the summary below.
+
+\section{Physical and mathematical objects}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.20\textwidth}p{0.70\textwidth}@{}}
+\toprule
+Symbol or term & Meaning in this monograph \\
+\midrule
+Physical model & A declared material and physical approximation, including its
+state variables, branch, and intended interpretation. \\
+$\widehat H$ & An abstract Hamiltonian operator on an identified state space;
+not a finite matrix unless a representation has been selected. \\
+$H$ & A finite matrix representation whose space, basis, geometry, units,
+energy reference, spin convention, and gauge must be identified. \\
+$\mathcal H$ & An ambient one-particle state space. \\
+$\mathcal S$ & A finite retained subspace of an ambient state space. \\
+$P_{\mathcal S}$ & Orthogonal projector from the ambient space onto
+$\mathcal S$. \\
+$\mathcal B$ & An ordered basis for a represented finite space. \\
+$N$ or $M$ & A finite represented or retained dimension, as locally defined. \\
+$\dagger$ & Adjoint or conjugate transpose in the stated finite-dimensional
+inner-product setting. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Periodic and Wannier notation}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.20\textwidth}p{0.70\textwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\mathbf r$ & Real-space position coordinate. \\
+$\mathbf k$ & Crystal momentum in a declared reciprocal-coordinate convention. \\
+$\mathbf R$ & Bravais-lattice translation. \\
+$\psi_{n\mathbf k}$ & Bloch state with local band or frame index $n$. \\
+$u_{n\mathbf k}$ & Cell-periodic factor of a Bloch state. \\
+$U(\mathbf k)$ & Momentum-dependent unitary frame choice within a retained
+Bloch subspace; not to be confused with an interspace identification below. \\
+$w_{n\mathbf R}$ & Wannier basis function generated from a retained Bloch frame. \\
+$H^{(\mathrm W)}(\mathbf k)$ & Hamiltonian matrix in the selected Wannier
+frame at $\mathbf k$. \\
+$H^{(\mathrm W)}(\mathbf R)$ & Real-space Wannier Hamiltonian block under the
+recorded Fourier convention. \\
+$N_{\mathbf k}$ & Number of sampled wavevectors in the applicable uniform grid. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The same letter $U$ is conventional for both a Wannier gauge and an interspace
+identification. The local domain and codomain must disambiguate it. Where
+confusion is likely, the monograph uses $G$ for an in-space gauge rotation and
+$U$ or $A$ for a map between retained spaces.
+
+\section{Frames, gauges, and alignment}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.20\textwidth}p{0.70\textwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$V$ & Rectangular matrix whose orthonormal columns form a retained frame. \\
+$G$ & Unitary coordinate change within one retained space. \\
+$VV^{\dagger}$ & Ambient-space projector associated with an orthonormal frame. \\
+$U$ or $A$ & Explicit identification between two retained spaces; its direction
+is stated with its definition. \\
+$H_b$ & Pristine or bulk represented Hamiltonian in its declared coordinates. \\
+$H_d$ & Doped represented Hamiltonian for dopant $d$. \\
+$G_b,G_d$ & Independent unitary coordinate changes in pristine and doped
+retained spaces. \\
+$\Delta H_{d\to b}$ & Doped operator pulled into pristine coordinates and then
+subtracted: $U^{\dagger}H_dU-H_b$. \\
+$\Delta H_{b\to d}$ & Pristine operator pushed into doped coordinates and then
+subtracted: $H_d-UH_bU^{\dagger}$. \\
+$\overline H$ & Operator after application of the explicitly recorded scalar
+energy-reference convention. \\
+$\theta_j$ & Principal angle between two retained subspaces. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A subscript $b$ denotes bulk or pristine material, while $d$ denotes a dopant
+branch. When the identity of the dopant matters,
+$d\in\{\mathrm P,\mathrm B\}$. Neither notation fixes charge state, spin branch,
+or supercell size without an accompanying record.
+
+\section{Reduction notation}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.20\textwidth}p{0.70\textwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\mathfrak M_j$ & Declared reduced-model class indexed by complexity or another
+frozen ordering. \\
+$\boldsymbol\theta$ & Parameter vector within a declared model class. \\
+$\mathcal L_E$ & Spectral training objective with stated data, weights, units,
+and normalization. \\
+$\mathcal L_H$ & Aligned represented-operator objective. \\
+$\tau_E,\tau_H$ & Prespecified spectral and operator tolerances. \\
+$\mathfrak A_{E,j}$ & Spectral-admissible subset of model class $j$. \\
+$\mathfrak A_{H,j}$ & Operator-admissible subset of model class $j$. \\
+$d_{\mathrm{TB}}$ & Declared metric on compatible canonical tight-binding
+coordinates. \\
+$\delta_j^{\ast}$ & Minimum or infimum separation between the two admissible
+sets, according to the established assumptions. \\
+$\mathcal R$ & Reduction map with an explicitly stated domain and codomain. \\
+$\varepsilon_{\mathrm{path}}$ & Norm of the difference between two aligned
+reduction paths. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The words \emph{projection}, \emph{disentanglement}, \emph{basis
+transformation}, \emph{localization}, \emph{truncation}, \emph{fitting}, and
+\emph{reduction} denote different operations. They are not used as synonyms.
+
+\section{Excluded-space and continuum notation}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.20\textwidth}p{0.70\textwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$P,Q$ & Complementary orthogonal projectors with $P+Q=I$. \\
+$H_{PP},H_{PQ}$ & Blocks such as $PHP$ and $PHQ$ in a declared decomposition. \\
+$H_{\mathrm{eff}}(E)$ & Energy-dependent Feshbach effective operator in the
+retained $P$ space. \\
+$\Delta_Q$ & Distance from $E$ to the spectrum of $H_{QQ}$ in the declared
+self-adjoint resolvent setting. \\
+$V_{\mathrm{cont},d}$ & Candidate continuum impurity operator for dopant $d$. \\
+$D_d$ & Aligned atomistic-minus-continuum discrepancy. \\
+$P_{>R}$ & Projector onto a declared exterior region beyond radius $R$. \\
+$\eta_d(R)$ & Exterior residual $\|P_{>R}D_dP_{>R}\|$ in a declared norm. \\
+$r_{c,d}(\tau)$ & Tolerance-dependent crossover infimum; not a universal
+material constant. \\
+$J$ & Continuum-to-atomistic or continuum-to-Wannier embedding, with its
+normalization and validation domain stated separately. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Norms and residuals}
+
+\begin{align}
+  \|A\|_{\mathrm F}
+  &=
+  \left(\sum_{i,j}|A_{ij}|^2\right)^{1/2},\\
+  \|A\|_2
+  &=
+  \sup_{x\ne0}\frac{\|Ax\|_2}{\|x\|_2},\\
+  \|A\|_{\max}
+  &=
+  \max_{i,j}|A_{ij}|.
+\end{align}
+
+The Frobenius and induced Euclidean operator norms are invariant under unitary
+conjugation. Entrywise maxima, shell decompositions, and spatial truncations may
+have narrower invariance groups. Every reported residual states whether it is
+absolute or normalized and gives its units and zero-scale behavior.
+
+\section{Proof status}
+
+\begin{description}
+  \item[\texttt{proposed}.] Statement, definitions, or strategy exists without a
+    complete established proof.
+  \item[\texttt{in development}.] Proof construction is active and immediate
+    prerequisites are sufficiently identified.
+  \item[\texttt{blocked}.] A named missing assumption, definition, prerequisite,
+    or human scientific decision prevents progress.
+  \item[\texttt{complete, unreviewed}.] A complete derivation is recorded but
+    has not passed independent mathematical review.
+  \item[\texttt{reviewed}.] The derivation and declared prerequisites passed
+    independent mathematical review.
+  \item[\texttt{numerically checked}.] Separate numerical evidence agrees under
+    declared conditions; this supplements rather than replaces proof.
+  \item[\texttt{retired}.] The claim was superseded, merged, or rejected with a
+    recorded disposition.
+\end{description}
+
+A mechanization contract may separately be \texttt{frozen}, \texttt{encoded},
+\texttt{checked}, or \texttt{cross-checked} in each backend. These words do not
+replace the proof-package status. In particular, the currently checked Lean
+encoding of \texttt{PRF-05.01} does not make the entire \texttt{PRF-05} package
+complete or reviewed.
+
+\section{Scientific and evidentiary status}
+
+\begin{description}
+  \item[Calculated result.] Produced by an identified calculation with retained
+    provenance.
+  \item[Literature value.] Taken from an identified and verified source.
+  \item[Expected behavior.] A prediction, not an observation.
+  \item[Illustrative example.] Explanatory material without research-evidence
+    status.
+  \item[Synthetic test data.] Constructed for software or numerical testing.
+  \item[Placeholder.] Incomplete material awaiting authoritative content.
+  \item[Proposed work.] Planned but not completed.
+\end{description}
+
+Mathematical proof, software verification, numerical verification, scientific
+validation, and uncertainty quantification remain distinct evidence types. A
+claim may require more than one of them, and none is inferred merely from the
+presence of the others.
+
+\section{Units and coordinate conventions}
+
+Every physical numerical value states its unit. Energy references used for
+plots, bulk observables, and pristine--doped subtraction are identified
+separately. Real-space coordinates identify lattice vectors, cell convention,
+and site mapping. Reciprocal coordinates identify the reciprocal basis and any
+path parameterization. Spinless, collinear-spin, and noncollinear spinor
+representations are never mixed implicitly.
+
+The notation in this appendix is intentionally insufficient to authorize a
+comparison. The represented records and owning specifications must still supply
+the exact metadata needed by the operation.

@@ -42,6 +42,7 @@ quantification, publication, or human acceptance.
 
 - `manuscript.tex` — standard-LaTeX composition root;
 - `chapters/` — independently maintainable long-form chapters;
+- `appendices/` — shared notation, convention, and status reference material;
 - `references.bib` — monograph-owned bibliography, independently maintained
   from article bibliographies;
 - `extraction-map.md` — planned relationships between monograph material and
@@ -57,7 +58,7 @@ projections of this directory.
 With a local TeX distribution and `latexmk` available:
 
 ```bash
-mkdir -p build/chapters
+mkdir -p build/chapters build/appendices
 latexmk -pdf -output-directory=build manuscript.tex
 ```
 
