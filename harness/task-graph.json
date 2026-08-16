@@ -427,6 +427,84 @@
     },
     {
       "task_id": "operator-record-validation-correction"
+    },
+    {
+      "task_id": "quantumespresso.simulations"
+    },
+    {
+      "task_id": "quantumespresso.simulations.aluminum-metal"
+    },
+    {
+      "task_id": "quantumespresso.simulations.bands-gaas"
+    },
+    {
+      "task_id": "quantumespresso.simulations.bands-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.bi2se3"
+    },
+    {
+      "task_id": "quantumespresso.simulations.convergence-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.dftu-feo"
+    },
+    {
+      "task_id": "quantumespresso.simulations.dielectric-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.dos-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.fermi-surface-copper"
+    },
+    {
+      "task_id": "quantumespresso.simulations.graphene"
+    },
+    {
+      "task_id": "quantumespresso.simulations.integration"
+    },
+    {
+      "task_id": "quantumespresso.simulations.jdos-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.kresolved-dos-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.magnetism-iron"
+    },
+    {
+      "task_id": "quantumespresso.simulations.molecular-dynamics-water"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pdos-aluminum"
+    },
+    {
+      "task_id": "quantumespresso.simulations.phonons-gaas"
+    },
+    {
+      "task_id": "quantumespresso.simulations.review"
+    },
+    {
+      "task_id": "quantumespresso.simulations.scf-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.smearing-convergence-aluminum"
+    },
+    {
+      "task_id": "quantumespresso.simulations.soc-gaas"
+    },
+    {
+      "task_id": "quantumespresso.simulations.soc-iron"
+    },
+    {
+      "task_id": "quantumespresso.simulations.spin-bands-nickel"
+    },
+    {
+      "task_id": "quantumespresso.simulations.structure-optimization-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.wannier-silicon"
     }
   ],
   "edges": [
@@ -693,6 +771,131 @@
     {
       "source": "harness.telemetry.sqlite-projection",
       "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.aluminum-metal",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-gaas",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.bi2se3",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.dftu-feo",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.dielectric-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.dos-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.fermi-surface-copper",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.graphene",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.integration",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.jdos-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.magnetism-iron",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.molecular-dynamics-water",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pdos-aluminum",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.phonons-gaas",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.scf-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-gaas",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-iron",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.spin-bands-nickel",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.structure-optimization-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.wannier-silicon",
+      "target": "quantumespresso.simulations",
       "kind": "child_of"
     },
     {
@@ -1358,6 +1561,421 @@
     {
       "source": "human-review-interface.human-decision-recording",
       "target": "human-review-interface.review-packet-pilot",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.aluminum-metal",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.aluminum-metal",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-gaas",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-gaas",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bands-silicon",
+      "target": "quantumespresso.simulations.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bi2se3",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.bi2se3",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dftu-feo",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dftu-feo",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dielectric-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dielectric-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dielectric-silicon",
+      "target": "quantumespresso.simulations.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dos-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dos-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.dos-silicon",
+      "target": "quantumespresso.simulations.structure-optimization-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.fermi-surface-copper",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.fermi-surface-copper",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.graphene",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.graphene",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.integration",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.jdos-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.jdos-silicon",
+      "target": "quantumespresso.simulations.dielectric-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.jdos-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "target": "quantumespresso.simulations.bands-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.magnetism-iron",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.magnetism-iron",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.molecular-dynamics-water",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.molecular-dynamics-water",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pdos-aluminum",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pdos-aluminum",
+      "target": "quantumespresso.simulations.aluminum-metal",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pdos-aluminum",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.phonons-gaas",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.phonons-gaas",
+      "target": "quantumespresso.simulations.bands-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.phonons-gaas",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.aluminum-metal",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.bands-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.bands-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.bi2se3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.convergence-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.dftu-feo",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.dielectric-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.dos-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.fermi-surface-copper",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.graphene",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.jdos-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.kresolved-dos-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.magnetism-iron",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.molecular-dynamics-water",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.pdos-aluminum",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.phonons-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.soc-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.soc-iron",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.spin-bands-nickel",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.structure-optimization-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.wannier-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.scf-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.scf-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "target": "quantumespresso.simulations.aluminum-metal",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-gaas",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-gaas",
+      "target": "quantumespresso.simulations.bands-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-gaas",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-iron",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-iron",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.soc-iron",
+      "target": "quantumespresso.simulations.magnetism-iron",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.spin-bands-nickel",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.spin-bands-nickel",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.structure-optimization-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.structure-optimization-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.wannier-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.wannier-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.wannier-silicon",
+      "target": "quantumespresso.simulations.scf-silicon",
       "kind": "depends_on"
     },
     {

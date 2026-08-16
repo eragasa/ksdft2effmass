@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "cbd9141e24307ddc30389f09fe6973702312e8b80ffdf94b78d822769cfb5745",
+  "semantic_database_digest": "2cb7d6f8a7302a8af27f008da6c89d948e60d291b416891e6c86df9369a4dbf8",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "c92fdb420bf3514c8cce99612d6037c6f97e81940a6ca5aecc5870540a4df601",
-    "byte_count": 3884493
+    "sha256": "4b05543960d027933e1e37eb7e187922d9d5f36eac4a8612d2d59907025edbc5",
+    "byte_count": 4031275
   },
   "projections": [
     {
@@ -991,8 +991,8 @@
     {
       "path": "docs/harness/tasks/index.md",
       "projection_kind": "task-index-markdown",
-      "sha256": "997127bc41b8cbf3382b6627a0338df5affea72a189f551cad25e958ecab243f",
-      "byte_count": 22180,
+      "sha256": "ba1cfea864e9f49b209f590150d96a4e564563003eb15a24b6087be581d76838",
+      "byte_count": 26221,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1012,8 +1012,190 @@
     {
       "path": "docs/harness/tasks/operator-record-validation-correction.md",
       "projection_kind": "task-markdown",
-      "sha256": "6ce47e161e84489771d2ecba242fb0523977b409a8e5d80e04ec5c781b553919",
-      "byte_count": 4865,
+      "sha256": "ad9203ac5a1fd381729df21e6db91c333b357b569e91fff1c9efdeb14cec98f3",
+      "byte_count": 4909,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.aluminum-metal.md",
+      "projection_kind": "task-markdown",
+      "sha256": "c6c65c1f91faf7075c0295b6fbe732277bbb47e7d82cda976a441324cee65d7c",
+      "byte_count": 1939,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.bands-gaas.md",
+      "projection_kind": "task-markdown",
+      "sha256": "6bfb2af4bd35a16ca510e243fe4ce0e744362893b7c2c3788f3eb22b80d04781",
+      "byte_count": 1881,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.bands-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "dd1227ba7a19c5676b3577a633efeb12b427274347205a2e6e2a4ac415018714",
+      "byte_count": 1901,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.bi2se3.md",
+      "projection_kind": "task-markdown",
+      "sha256": "da5f0865ada42ee42755c6a0cf60a4b967a6cd6311878589f00ef9f444de913d",
+      "byte_count": 1968,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.convergence-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "2842d09cb4c727d17f88031b182f42d604a60959aa7139787fe902db0a7a60db",
+      "byte_count": 2099,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.dftu-feo.md",
+      "projection_kind": "task-markdown",
+      "sha256": "6e3db65ec69530f3a5dfa62e0a8e25004f8fb262cc0bae1ff3005259995a32dd",
+      "byte_count": 2060,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.dielectric-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "c47e262c9bae8fecbcf794793dfd40fc5d1d714c9b380ee045645da4b497b4ee",
+      "byte_count": 1981,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.dos-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "d2286f6e9ea14ab4bd1a5d3179d59558249d8644bfa66a98976eea06a727c055",
+      "byte_count": 1918,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.fermi-surface-copper.md",
+      "projection_kind": "task-markdown",
+      "sha256": "660a5817163b00085ce51b96f4683a86f0ba27f8b60d92a02d3f921232080cd0",
+      "byte_count": 1807,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.graphene.md",
+      "projection_kind": "task-markdown",
+      "sha256": "5bf0cbe9d2b9d47dcb4ee8a7754965d17295173c8e7207a642fb3bab75af3744",
+      "byte_count": 1859,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.integration.md",
+      "projection_kind": "task-markdown",
+      "sha256": "82828e1c29c440bfdfac22fb660a6be779010d20afe835c027f7a64c87657354",
+      "byte_count": 3181,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.jdos-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "e8c48b7751e48e0c8f3e3e58c680e0b3374b395e9ff9296781f4445542096953",
+      "byte_count": 1941,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.kresolved-dos-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "0508ca5a744235f9a1cc84d35112118d6e1d032bb5af84b03abf2e7e022dd6d8",
+      "byte_count": 1894,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.magnetism-iron.md",
+      "projection_kind": "task-markdown",
+      "sha256": "67335aff1d4e1e88a1239a1291323246350c6aca94d86664adf2fe2c2b861ab9",
+      "byte_count": 1998,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.md",
+      "projection_kind": "task-markdown",
+      "sha256": "5ed91701d1da65e24586fa54fcbf01f68ef2f0f9eb5c0084cdeed304ff11ab04",
+      "byte_count": 2130,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.molecular-dynamics-water.md",
+      "projection_kind": "task-markdown",
+      "sha256": "5731bf0d6915f61e3aeac434c4ada08f373b6bb3f5c3787354b690f459c86f24",
+      "byte_count": 2124,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.pdos-aluminum.md",
+      "projection_kind": "task-markdown",
+      "sha256": "827007afe0d174483b9a1f00abaf3170558b07a49699cb9f4cb2d644418b0308",
+      "byte_count": 1894,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.phonons-gaas.md",
+      "projection_kind": "task-markdown",
+      "sha256": "798fd2fdd8261e1a82cb379104212fe461cec96092178575c8da0fda100099a3",
+      "byte_count": 2136,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.review.md",
+      "projection_kind": "task-markdown",
+      "sha256": "03692362b97910f1f5606f67a9c34482350a39ca396c557df5ba1a831eae8980",
+      "byte_count": 3077,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.scf-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "242f555edbd09d7d8ff3b1fb7415e51ca13ce31407cdf3b28841e9ececbb3d07",
+      "byte_count": 1914,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.smearing-convergence-aluminum.md",
+      "projection_kind": "task-markdown",
+      "sha256": "e02ebe97c57a12c9d446a32506528a158a202aa2b299789d89f14156ec489ec6",
+      "byte_count": 2647,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.soc-gaas.md",
+      "projection_kind": "task-markdown",
+      "sha256": "4265447fecd9f72348607b6f74e027e4cffb534c7125483369936c9a2615128c",
+      "byte_count": 1920,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.soc-iron.md",
+      "projection_kind": "task-markdown",
+      "sha256": "88d0df4f4f9b04d7b5fbce8a7dec7d1688d61f0a1f96953516c13e9734c77cce",
+      "byte_count": 1959,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.spin-bands-nickel.md",
+      "projection_kind": "task-markdown",
+      "sha256": "9da26b8f15b40eac60640fcfa5f0245db759ee3d61bbb14c9472d9454d4ecf0f",
+      "byte_count": 1863,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.structure-optimization-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "885d929d9d11cd2fe732846c7fb28e9930eaad6e9027b7f9423c2539fa950f76",
+      "byte_count": 1836,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "docs/harness/tasks/quantumespresso.simulations.wannier-silicon.md",
+      "projection_kind": "task-markdown",
+      "sha256": "34f578a648f7a4ae6e8cb3ff6b5239d5b5bcebbc9ff2e209ce9e13ca4020d88d",
+      "byte_count": 2150,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1033,8 +1215,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "85d8ec50771d9eadb2b70d0b9d1744b78dc92de1fb6a88239263ad5148fd00c3",
-      "byte_count": 39937,
+      "sha256": "c4f49d6934b46b3ba3b458e2f9fbea48c425933df61e911bc8eda4796b430d02",
+      "byte_count": 57971,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -2029,6 +2211,188 @@
       "projection_kind": "task-json",
       "sha256": "dcb82b7d49aad7a24274602e8bdd89a0d5a6a436eacedf57c04c426f2b9edec9",
       "byte_count": 5217,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.aluminum-metal.json",
+      "projection_kind": "task-json",
+      "sha256": "4a0e94a4df5e180f6d1b9caab103e67b7c8cc330faadd1c83049d92b7a8e423f",
+      "byte_count": 1966,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.bands-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "cd783787ab0b738b03226a78b7c65f2d5159eb11aa4bf713e914ea9dbddd3e01",
+      "byte_count": 1886,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.bands-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "eb81f6c8f52365af8931202110e7f3146041fb8daf8b34eb72d6ae6172e9bf80",
+      "byte_count": 1911,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.bi2se3.json",
+      "projection_kind": "task-json",
+      "sha256": "f224918c9645002149404d3c2f0e3deb4ab24a8d6f39b57bcf0b94d993dc6dbe",
+      "byte_count": 1964,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.convergence-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "da4414a79e16d4480e1095eb8b473a8366a634d6500ec7bb5ad6f23e1883f868",
+      "byte_count": 2097,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.dftu-feo.json",
+      "projection_kind": "task-json",
+      "sha256": "bdfa26b68dfb315358cfb415b47fa34b6dcb58ec12eed4686b9cd1ae2e49d08e",
+      "byte_count": 2033,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.dielectric-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "65ad23a150b2752a6fe0ffe4b8a8cb2265c75cd2185b876f69c0dd84deae37f8",
+      "byte_count": 1993,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.dos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "b71ea0ad72ddd8f90f36c012eb53a65c2684fe002343ee3f277cccfe156b9004",
+      "byte_count": 1904,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.fermi-surface-copper.json",
+      "projection_kind": "task-json",
+      "sha256": "53a7fee2ab2aa4a59839102fd7ab7684ef400a4f9483b2009dcb6e33b4e703ef",
+      "byte_count": 1830,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.graphene.json",
+      "projection_kind": "task-json",
+      "sha256": "44f6dddfaf1d31279038b0f4cc66fbb1ad47f0e22f94064b96578cfc1ecca480",
+      "byte_count": 1858,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.integration.json",
+      "projection_kind": "task-json",
+      "sha256": "4faea6b22fca666ef8234dd179672d24d2e461204ea599df549ce11c3ae34f29",
+      "byte_count": 3331,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.jdos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "161737d7b68e22140434e4d5818d2a98f6c581cf68796c7e5a92aa629d67b287",
+      "byte_count": 1934,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.json",
+      "projection_kind": "task-json",
+      "sha256": "e6ecb8b5415065731f9ac91e891fdef53f42b2c2bca33bcaa2b2dfeb82a01a84",
+      "byte_count": 2260,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.kresolved-dos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "778102cfce4d8ad83094aa4af8fc8be2c4fa94ad7d4644f0afc244f91cd46a1b",
+      "byte_count": 1902,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.magnetism-iron.json",
+      "projection_kind": "task-json",
+      "sha256": "db478244f8c04d0508a282ff08a04d621138cd2e654974da1a1828eb984d4f47",
+      "byte_count": 1969,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.molecular-dynamics-water.json",
+      "projection_kind": "task-json",
+      "sha256": "74a643658b2c325d545c4b158036b07369a1c993eb9a9d19270ad4279f0cb5ba",
+      "byte_count": 2123,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.pdos-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "94788cc48c232954eddfb0c7f46966bd04e8796166c2f6a985319aec7ed51cf0",
+      "byte_count": 1884,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.phonons-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "00e72e97159bee5f1e0600c0428b199a123e383f21cb9fec0658c6b8d059a908",
+      "byte_count": 2122,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.review.json",
+      "projection_kind": "task-json",
+      "sha256": "a0be61e4d3c1199a3e77d3cfed4af4a5098b5a89ce323b76874428ef37dfc8fd",
+      "byte_count": 2991,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.scf-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "780d382fd57059d0af5099ec1ab8cc0e7c9ef8ebacd05f81b0d075c61983e8d4",
+      "byte_count": 1912,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.smearing-convergence-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "13616437c44a9461ed6d2ed9d623310f0099a7c2d9be1174aa7c4ea027fba1ba",
+      "byte_count": 2665,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.soc-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "a44fda75884e7ab7bed3ad49ba2fd5432b9d207d8a3bd1b6220c83fa650ef868",
+      "byte_count": 1904,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.soc-iron.json",
+      "projection_kind": "task-json",
+      "sha256": "0c3ad8812c09efb0b0f5cfd1fb3e828f6882f8fd91d96cdd97785c4c82c0763f",
+      "byte_count": 1955,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.spin-bands-nickel.json",
+      "projection_kind": "task-json",
+      "sha256": "e1e0f741a50564fea3522d2e045015af82f6d06c6c143966efd1afc122ba4e37",
+      "byte_count": 1864,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "5a8a2601ca4297fe374534047f390d396346f4fb569987f49afac2dfa58f0c49",
+      "byte_count": 1856,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.wannier-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "b81bce6442044f1ec4d8777d5db16336a4c7150608a6a3c48ced9012a9088787",
+      "byte_count": 2173,
       "generating_action": "harness.control.projection-generator.v1"
     }
   ],

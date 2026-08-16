@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.fermi-surface-copper",
+  "title": "Copper Fermi-surface tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned learning-only candidate; blocked pending ONCV pseudopotential, dense-grid resource estimate, fs.x availability, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the copper SCF, 30-cubed uniform bands, and fs.x Fermi-surface tutorial as learning-only behavior.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Preflight the copper ONCV pseudopotential, smearing, dense mesh, storage, and fs.x output.",
+    "Run only authorized pw.x SCF/bands and fs.x stages.",
+    "Capture snapshots, separate streams, exits, runtime, and BXSF artifacts."
+  ],
+  "completion_criteria": [
+    "Dense-grid runtime, memory, and disk estimates precede activation.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition records transferable artifact behavior or deliberate deferral."
+  ],
+  "exclusions": [
+    "Copper does not become a supported project material.",
+    "XCrySDen GUI execution is excluded.",
+    "No Fermi-surface topology is scientifically validated."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

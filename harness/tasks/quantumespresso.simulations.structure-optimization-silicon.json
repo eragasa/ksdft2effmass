@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.structure-optimization-silicon",
+  "title": "Silicon structure-optimization tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned candidate; blocked pending exact VC-relax input, pseudopotential, resources, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the silicon pw.x variable-cell relaxation tutorial and observe its native structural outputs and failure boundaries.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Preflight the fixed-position VC-relax input and cell_dofree convention.",
+    "Run only the authorized pw.x VC-relax stage.",
+    "Capture final-coordinate artifacts, snapshots, streams, exit state, and runtime."
+  ],
+  "completion_criteria": [
+    "Input and structure conventions are explicit and provenance-complete.",
+    "Any attempted relaxation has distinct stdout/stderr and before/after snapshots.",
+    "Observed final coordinates are labeled tutorial results rather than accepted geometry."
+  ],
+  "exclusions": [
+    "No tutorial-relaxed geometry is promoted to a project structure.",
+    "No convergence tolerance is changed without separate authority.",
+    "No production or remote execution occurs."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

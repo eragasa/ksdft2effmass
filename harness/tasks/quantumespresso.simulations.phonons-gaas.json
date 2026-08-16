@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.phonons-gaas",
+  "title": "GaAs phonon tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned default-defer learning candidate; blocked pending mixed-pseudopotential review, day-scale resource authorization, and execution checkpoint.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.bands-gaas",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "phonon_scope_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Preflight and either explicitly defer or reproduce the GaAs pw.x/ph.x/q2r.x/matdyn.x phonon-dispersion and DOS tutorial as out-of-scope learning evidence.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Review mixed pseudopotential representations, 6-cubed q mesh, restart policy, disk, and source-reported day-scale runtime.",
+    "Run only separately authorized pw.x, ph.x, q2r.x, and matdyn.x stages.",
+    "Capture snapshots, separate streams, exits, runtimes, restart state, dynamical matrices, force constants, and frequencies."
+  ],
+  "completion_criteria": [
+    "A resource and scope disposition is recorded before any ph.x invocation.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "Any frequencies remain tutorial observations without validation claims."
+  ],
+  "exclusions": [
+    "Phonons and electron-phonon behavior remain outside project scientific scope.",
+    "Default disposition is deferral unless the exact day-scale run is separately authorized.",
+    "No imaginary-frequency or convergence interpretation is scientifically accepted."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

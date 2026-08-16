@@ -248,6 +248,9 @@ graphify-out/
 # Disposable derived harness indexes
 .pi/cache/
 
+# Local Quantum ESPRESSO tutorial simulation workspaces and native artifacts
+/simulations/
+
 ## LateX
 
 # LaTeX intermediate files

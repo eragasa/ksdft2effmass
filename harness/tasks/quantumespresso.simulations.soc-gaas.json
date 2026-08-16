@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.soc-gaas",
+  "title": "GaAs spin-orbit-coupling tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned learning-only candidate; blocked pending complete SOC inputs, fully relativistic pseudopotentials, resources, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.bands-gaas",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the GaAs fully relativistic SCF/bands/bands.x tutorial branch.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Recover and pin all GaAs SOC inputs and both relativistic pseudopotentials.",
+    "Run only authorized pw.x SCF/bands and bands.x stages.",
+    "Capture snapshots, separate streams, exits, runtime, and represented SOC band artifacts."
+  ],
+  "completion_criteria": [
+    "The relationship to the non-SOC GaAs workflow is explicit and compatible comparisons are guarded.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition records workflow lessons without supporting a GaAs scientific claim."
+  ],
+  "exclusions": [
+    "GaAs SOC does not enter supported project scope.",
+    "No comparison is made across unmatched pseudopotential or basis conventions.",
+    "No tutorial band splitting is a validation oracle."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -13,10 +13,7 @@ The scientific and computational workflow may use a stateful Colored Petri Net (
 | Program | Purpose | Relationship |
 |---|---|---|
 | [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
-| [Bulk-silicon downstream sampling plan](bulk-silicon-downstream-sampling-plan.md) | Distinguishes symmetry-path, local-valley, uniform-Wannier, and tight-binding sampling and records the accepted tutorial-to-production handoff | Planning and retained tutorial context only; does not activate a Task or authorize execution |
-| [Bulk-silicon production program](bulk-silicon-production-program.md) | Coordinates production calculations, deterministic analyses, visualizations, numerical verification, semiconductor properties, and conditional branches | Convergence and Architecture v2 implementation are deferred while documentation migration proceeds; no execution is authorized |
-| [Production convergence design](bulk-silicon-production-convergence-design.md) | Defines frozen-pseudopotential preflight and the staged cutoff, SCF-mesh, coupling, and EOS-feedback study | Proposed work awaiting human parameter selection; no calculation is authorized |
-| [Wannier tutorial catalog](wannier/wannier-tutorial-catalog.md) | Pinned inventory and project relevance of upstream Wannier tutorial events, sessions, and exercises | Documentation and research inventory only; recommends but does not activate work |
+| [Quantum ESPRESSO tutorial simulation campaign](quantum-espresso-tutorial-simulations.md) | Execute-or-defer plan for all selected hands-on examples with isolated workspaces, snapshots, and separate streams | Planned with no active simulation; each run requires a protected-execution checkpoint |
 
 The bootstrap is represented by canonical descriptive Task IDs rather than new leaf pages in the existing `SS.WW.TT` hierarchy. Its deferred CPN-persistence Task does not block the tutorial-to-model path. The bootstrap page is explanatory; Task status, scope, completion criteria, exclusions, supersession, and dependencies remain in canonical JSON.
 
@@ -230,19 +227,13 @@ spectral/TB and Wannier routes. A later join requires the same accepted parent
 manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
-The accepted project-owned CPN contract remains recorded in
-`docs/architecture/v1/index.md`. Its former `P3`--`P11`
+The prospective Architecture v2 colored-Petri-net boundary is recorded in
+`docs/architecture/v2/petrinet/colored.md`, while cross-version status is owned by
+`docs/architecture/migration/v1-to-v2/index.md`. The former `P3`--`P11`
 implementation sequence is superseded by the simulation-first bootstrap. SNAKES
 remains an optional `workflow` dependency, and
 `cpn.workflow.persistence` remains deferred and inactive. No
 production or scientific execution is authorized by this planning map.
-
-## Maintained plane-wave record architecture
-
-The implemented QEXSD, periodic-geometry, representation-neutral Kohn--Sham,
-and plane-wave-record package boundaries are documented in
-[`ksdft-pw-record-architecture.md`](ksdft-pw-record-architecture.md). The active
-extraction Task remains provisional and awaiting human review.
 
 ## Gate markings
 

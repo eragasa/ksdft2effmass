@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.molecular-dynamics-water",
+  "title": "Water molecular-dynamics tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned learning-only candidate outside project scope; blocked pending prerequisite relaxation, mixed pseudopotentials, 100-step resource estimate, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "molecular_dynamics_scope_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Preflight and either explicitly defer or reproduce the relaxed-water 100-step pw.x molecular-dynamics tutorial as execution-state learning evidence.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Recover and authorize the omitted prerequisite relaxation and exact H/O pseudopotentials.",
+    "Run only separately authorized relaxation and 100-step pw.x MD stages.",
+    "Capture snapshots, separate streams, exits, runtime, trajectory, force, stress, and restart artifacts."
+  ],
+  "completion_criteria": [
+    "The prerequisite relaxed structure and MD integration settings are provenance-complete.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The Task records a learning or deferral disposition without molecular-dynamics validation claims."
+  ],
+  "exclusions": [
+    "Molecular dynamics and water remain outside project scientific scope.",
+    "The page's displayed relaxed structure is not silently accepted as an independently produced prerequisite.",
+    "No trajectory is interpreted as equilibrated or physically validated."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

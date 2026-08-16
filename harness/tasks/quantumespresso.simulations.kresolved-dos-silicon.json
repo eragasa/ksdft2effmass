@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.kresolved-dos-silicon",
+  "title": "Silicon k-resolved DOS tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned candidate; blocked pending complete source inputs, pseudopotential, resources, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.bands-silicon",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the silicon bands-to-projwfc.x k-resolved DOS workflow and inventory its projection artifacts.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Resolve the page's externally referenced SCF and doubled-path inputs before activation.",
+    "Run only authorized pw.x SCF/bands and projwfc.x stages.",
+    "Capture snapshots, separate streams, exits, runtime, and k-resolved projection outputs."
+  ],
+  "completion_criteria": [
+    "All omitted inputs are recovered and pinned or the Task is explicitly deferred.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition records projection and indexing conventions without scientific-validation claims."
+  ],
+  "exclusions": [
+    "No input is inferred silently from a different tutorial version.",
+    "No orbital projection is treated as basis independent.",
+    "No plotting output is required."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

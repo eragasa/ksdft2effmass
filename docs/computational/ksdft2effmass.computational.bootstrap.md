@@ -3,20 +3,16 @@
 back_to: [[ksdft2effmass.computational.00]]
 
 task_program:
-- [QE reference simulation](../../harness/tasks/bulk-silicon.simulation.qe.reference.json)
-- [QE artifact inventory](../../harness/tasks/bulk-silicon.artifacts.qe.inventory.json)
+- [Quantum ESPRESSO simulation campaign](../../harness/tasks/quantumespresso.simulations.json)
+- [Campaign artifact and learning review](../../harness/tasks/quantumespresso.simulations.review.json)
+- [Detailed campaign plan](quantum-espresso-tutorial-simulations.md)
 - [Periodic record extraction](../../harness/tasks/bulk-silicon.records.periodic.extraction.json)
-- [Symmetry-path band tutorial](../../harness/tasks/bulk-silicon.simulation.qe.band-reference.json)
 - [Direct spectral TB fitting](../../harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json)
 - [QE–Wannier90 bridge](../../harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json)
 - [Wannier Hamiltonian extraction](../../harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json)
 - [TB comparison and reduction](../../harness/tasks/bulk-silicon.tight-binding.comparison-reduction.json)
 - [Extracted-model workflow verification](../../harness/tasks/bulk-silicon.workflow.extracted-model-verification.json)
 - [Deferred CPN persistence](../../harness/tasks/cpn.workflow.persistence.json)
-
-policy:
-- [Pseudopotential library strategy](pseudopotential-library-strategy.md)
-- [Bulk-silicon downstream sampling plan](bulk-silicon-downstream-sampling-plan.md)
 
 downstream:
 - [[ksdft2Effmass.computational.02]]
@@ -25,11 +21,13 @@ downstream:
 
 ## Purpose
 
-The bootstrap reproduces small, established silicon tutorials before the project
-fixes its execution, artifact, extraction, persistence, and reduced-model
-contracts. Observed native inputs, outputs, transitions, and failure states inform
-the smallest useful records and actions. Tutorial observations do not override
-accepted scientific specifications.
+The bootstrap starts from the complete selected Quantum ESPRESSO hands-on
+category, while retaining silicon and the QE--Wannier90 path as the project-relevant
+scientific focus. Each tutorial workflow is either reproduced under separate
+execution authority or explicitly deferred after preflight. Observed native
+inputs, outputs, transitions, and failure states inform the smallest useful
+records and actions. Tutorial observations do not override accepted scientific
+specifications or extend supported material scope.
 
 ## Position in the Computational Program
 
@@ -51,12 +49,15 @@ observe real calculations
 
 ## Bootstrap Program
 
-The canonical contracts are the ten linked Task JSON records. Nine Tasks form
-the main tutorial-to-model path. `cpn.workflow.persistence` is a
-deferred, nonblocking infrastructure Task. Canonical identity succession,
-prerequisites, scope, exclusions, completion criteria, and status remain in the
-Task JSON and `harness/task-graph.json`; this page explains their scientific and
-computational rationale without duplicating mutable state.
+The canonical contracts are the `quantumespresso.simulations` coordinator, its
+non-scientific Quantum ESPRESSO integration prerequisite, 23 executable-candidate children,
+the campaign review, the downstream
+record/model Tasks, and the deferred nonblocking `cpn.workflow.persistence`
+infrastructure Task. The detailed source selection, workspace, snapshot, stream,
+preflight, and learning-disposition contract is maintained in
+[`quantum-espresso-tutorial-simulations.md`](quantum-espresso-tutorial-simulations.md).
+Canonical identity succession, prerequisites, scope, exclusions, completion
+criteria, and status remain in the Task JSON and `harness/task-graph.json`.
 
 The earlier `P3`--`P11` decomposition is superseded by this simulation-first
 program. Its exact identity mapping is retained in
@@ -68,30 +69,32 @@ Supersession neither activates a replacement nor satisfies a prerequisite.
 ```mermaid
 flowchart TD
     P2["Accepted P2 provenance foundation"]
-    QEAuth["QE tutorial execution authorization"]
-    Input["Selected silicon tutorial input"]
-    QE["bulk-silicon.simulation.qe.reference"]
-    Inventory["bulk-silicon.artifacts.qe.inventory"]
+    Campaign["quantumespresso.simulations"]
+    Integration["quantumespresso.simulations.integration"]
+    Preflight["Per-Task source, input, pseudo, executable, and resource preflight"]
+    Auth["Exact protected-execution checkpoint"]
+    Children["23 isolated execute-or-defer simulation Tasks"]
+    Review["quantumespresso.simulations.review"]
     Records["bulk-silicon.records.periodic.extraction"]
     Direct["bulk-silicon.tight-binding.direct-spectral.fitting"]
     Bridge["bulk-silicon.tight-binding.wannier.bridge"]
-    WAuth["Wannier tutorial execution authorization"]
     Wannier["bulk-silicon.tight-binding.wannier.extraction"]
     Compare["bulk-silicon.tight-binding.comparison-reduction"]
     Verify["bulk-silicon.workflow.extracted-model-verification"]
     P1["Accepted P1 CPN contract"]
     CPN["cpn.workflow.persistence (deferred)"]
 
-    P2 --> QE
-    QEAuth --> QE
-    Input --> QE
-    QE --> Inventory
-    Inventory --> Records
+    P2 --> Campaign
+    Campaign --> Integration
+    Integration --> Preflight
+    Preflight --> Auth
+    Auth --> Children
+    Children --> Review
+    Review --> Records
     Records --> Direct
-    Inventory --> Bridge
+    Review --> Bridge
     Records --> Bridge
     Bridge --> Wannier
-    WAuth --> Wannier
     Direct --> Compare
     Wannier --> Compare
     Compare --> Verify
@@ -106,53 +109,22 @@ The Mermaid view is explanatory. The canonical edge set is
 
 ## Tutorial Sequence
 
-1. Reproduce a selected silicon Quantum ESPRESSO SCF tutorial.
-2. Reproduce a silicon band-structure calculation and inventory its artifacts.
-3. Extract valley and effective-mass quantities as tutorial software behavior,
-   without treating them as a converged Stage 02 result.
-4. Reproduce a Wannier90 silicon example from supplied artifacts.
-5. Reproduce the selected QE--Wannier90 silicon interface workflow.
-6. Construct a declared direct spectral tight-binding fit.
-7. Compare direct and Wannier-mediated tight-binding representations only after
-   their compatibility prerequisites are explicit.
+1. Implement and verify the non-scientific
+   `ksdft2effmass.integration.quantumespresso` boundary under its own explicit
+   Task and ownership.
+2. Preflight all 23 executable candidates from the selected hands-on category.
+3. Start with the bounded two-atom silicon SCF candidate.
+4. Activate at most one isolated simulation at a time; take deterministic
+   before/after snapshots and preserve separate stdout and stderr for every stage.
+5. Record an executed, failed, or deliberate-deferral disposition for each
+   candidate, including unrelated-material and out-of-scope learning examples.
+6. Complete the campaign artifact and learning review.
+7. Continue only project-relevant silicon/QE/Wannier extraction, fitting, and
+   comparison work after compatibility prerequisites are explicit.
 
 The exact executable, input, pseudopotential, settings, resources, outputs, and
-runtime must be reported and authorized before an executable tutorial Task runs.
-
-## Why the bootstrap starts with SCF
-
-An SCF calculation determines a density-dependent Kohn--Sham potential and
-operator. Later NSCF or band calculations hold that converged parent fixed while
-solving on a mesh or symmetry path chosen for a particular observable. The
-selected QE 7.2 silicon tutorial was therefore useful first because it exercised
-`pw.x`, the identified legacy tutorial pseudopotential, restart and QEXSD
-artifacts, provenance capture, and semantic extraction through one bounded
-calculation. Its ten sampled wavevectors and four bands were adequate for that
-software-verification purpose, not for an indirect gap, valley curvature,
-effective mass, Wannier subspace, or tight-binding fit.
-
-The purpose-specific children and the proposed first bands tutorial are detailed
-in the [bulk-silicon downstream sampling plan](bulk-silicon-downstream-sampling-plan.md).
-That plan does not activate a Task or authorize execution.
-
-The resulting boundary is
-
-```text
-tutorial SCF
-→ observed QE artifacts
-→ artifact inventory
-→ QEXSD semantic extraction
-→ human-accepted extraction
-→ retained plane-wave KS record
-→ separately designed NSCF/band calculations
-```
-
-The retained tutorial energy, $-15.84452726\ \mathrm{Ry}$ after six reported SCF
-iterations, agrees with the bundled reference at printed precision. This is a
-reproduced tutorial observation, not production convergence, numerical
-verification, scientific validation, or uncertainty quantification. See the
-[calculation record](../../calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md)
-and [plane-wave record architecture](ksdft-pw-record-architecture.md).
+runtime must be reported and authorized before any executable tutorial Task
+runs. The simulation campaign is currently planned with no active Task.
 
 ## Reference Architectures
 

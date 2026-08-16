@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.convergence-silicon",
+  "title": "Silicon tutorial convergence sweeps",
+  "status": "blocked",
+  "status_detail": "Planned candidate after baseline SCF; blocked pending tool, source, input, pseudopotential, resource, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration",
+    "quantumespresso.simulations.scf-silicon"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "pwtk_tool_selection_and_authorization",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the tutorial cutoff, k-mesh, and lattice-parameter SCF sweeps while keeping tutorial observations separate from project convergence evidence.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Preflight every sweep point and the PWTK or explicit-command orchestration choice.",
+    "Run only approved repeated pw.x SCF stages in isolated per-point workspaces.",
+    "Capture snapshots, streams, exits, runtimes, and the resulting compact energy tables."
+  ],
+  "completion_criteria": [
+    "Every attempted sweep point has exact provenance and separate stream files.",
+    "Failed, missing, and completed points remain visible in the artifact inventory.",
+    "The disposition states that tutorial sweeps are not accepted production convergence evidence."
+  ],
+  "exclusions": [
+    "No PWTK installation or use occurs without separate dependency/tool authorization.",
+    "No expected values or tolerances are changed to obtain a preferred trend.",
+    "No production cutoff, mesh, lattice, or convergence setting is selected by this Task."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

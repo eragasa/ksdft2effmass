@@ -1,7 +1,7 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence and Architecture v2 implementation are deferred while the explicitly prioritized human-readable documentation migration proceeds. No scientific execution, automatic successor, publication, or release is authorized.",
+  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence and Architecture v2 implementation are deferred while the explicitly prioritized human-readable documentation migration proceeds. No scientific execution, automatic successor, publication, or release is authorized. The human-requested Quantum ESPRESSO hands-on campaign is additionally planned as inactive Tasks; no campaign simulation is active or execution-authorized.",
   "status": "architecture_v2_simulation_execution_deferred_for_documentation_migration",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
@@ -177,6 +177,110 @@
     {
       "id": "cpn.workflow.persistence",
       "record": "harness/tasks/cpn.workflow.persistence.json"
+    },
+    {
+      "id": "quantumespresso.simulations",
+      "record": "harness/tasks/quantumespresso.simulations.json"
+    },
+    {
+      "id": "quantumespresso.simulations.integration",
+      "record": "harness/tasks/quantumespresso.simulations.integration.json"
+    },
+    {
+      "id": "quantumespresso.simulations.scf-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.scf-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.convergence-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.convergence-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.structure-optimization-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.dos-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.dos-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.bands-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.bands-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.aluminum-metal",
+      "record": "harness/tasks/quantumespresso.simulations.aluminum-metal.json"
+    },
+    {
+      "id": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "record": "harness/tasks/quantumespresso.simulations.smearing-convergence-aluminum.json"
+    },
+    {
+      "id": "quantumespresso.simulations.pdos-aluminum",
+      "record": "harness/tasks/quantumespresso.simulations.pdos-aluminum.json"
+    },
+    {
+      "id": "quantumespresso.simulations.kresolved-dos-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.kresolved-dos-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.graphene",
+      "record": "harness/tasks/quantumespresso.simulations.graphene.json"
+    },
+    {
+      "id": "quantumespresso.simulations.bands-gaas",
+      "record": "harness/tasks/quantumespresso.simulations.bands-gaas.json"
+    },
+    {
+      "id": "quantumespresso.simulations.magnetism-iron",
+      "record": "harness/tasks/quantumespresso.simulations.magnetism-iron.json"
+    },
+    {
+      "id": "quantumespresso.simulations.spin-bands-nickel",
+      "record": "harness/tasks/quantumespresso.simulations.spin-bands-nickel.json"
+    },
+    {
+      "id": "quantumespresso.simulations.dftu-feo",
+      "record": "harness/tasks/quantumespresso.simulations.dftu-feo.json"
+    },
+    {
+      "id": "quantumespresso.simulations.soc-iron",
+      "record": "harness/tasks/quantumespresso.simulations.soc-iron.json"
+    },
+    {
+      "id": "quantumespresso.simulations.soc-gaas",
+      "record": "harness/tasks/quantumespresso.simulations.soc-gaas.json"
+    },
+    {
+      "id": "quantumespresso.simulations.bi2se3",
+      "record": "harness/tasks/quantumespresso.simulations.bi2se3.json"
+    },
+    {
+      "id": "quantumespresso.simulations.dielectric-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.dielectric-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.jdos-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.jdos-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.fermi-surface-copper",
+      "record": "harness/tasks/quantumespresso.simulations.fermi-surface-copper.json"
+    },
+    {
+      "id": "quantumespresso.simulations.phonons-gaas",
+      "record": "harness/tasks/quantumespresso.simulations.phonons-gaas.json"
+    },
+    {
+      "id": "quantumespresso.simulations.wannier-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.wannier-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.molecular-dynamics-water",
+      "record": "harness/tasks/quantumespresso.simulations.molecular-dynamics-water.json"
+    },
+    {
+      "id": "quantumespresso.simulations.review",
+      "record": "harness/tasks/quantumespresso.simulations.review.json"
     }
   ],
   "task_ownership_launch_preflight": {
@@ -400,6 +504,10 @@
     {
       "phase": "architecture-v2-simulation-execution-deferred-for-documentation-migration",
       "message": "The human approved documentation migration as the immediate priority before Architecture v2 implementation began. harness.architecture-v2.simulation-execution is deferred without changing its accepted scope, and this chain has no active Task. No scientific executable, production convergence, automatic successor, publication, or release is authorized."
+    },
+    {
+      "phase": "quantumespresso-simulation-campaign-planned",
+      "message": "The human-requested Quantum ESPRESSO hands-on campaign was decomposed additively into one inactive coordinator, one inactive non-scientific integration prerequisite, protected-execution-gated simulation candidates, and one blocked review Task. No prior accepted Task, activation, checkpoint, or architecture disposition was changed; no campaign Task is active; automatic successor activation remains disabled; and no scientific, external, protected, publication, or release execution is authorized."
     }
   ],
   "explicitly_activated_task_ids": [

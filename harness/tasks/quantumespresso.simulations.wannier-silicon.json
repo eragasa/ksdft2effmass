@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.wannier-silicon",
+  "title": "Silicon QE-Wannier90 tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned candidate; blocked pending complete inputs, QE/Wannier interface versions, pseudopotential, resource estimate, and separate Wannier execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration",
+    "quantumespresso.simulations.scf-silicon"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved",
+    "wannier_tutorial_execution_authorization"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the pinned silicon QE-to-Wannier90 SCF, NSCF, interface, localization, and represented-band workflow.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Recover and pin all abbreviated page inputs, kmesh.pl output, QE version, Wannier90 version, and pw2wannier90 ownership.",
+    "Run only authorized pw.x, kmesh.pl, wannier90.x preprocessing/localization, and pw2wannier90.x stages.",
+    "Capture per-stage snapshots, separate streams, exits, runtimes, interface artifacts, and represented Wannier outputs."
+  ],
+  "completion_criteria": [
+    "Every omitted input and interface convention is explicit or causes deliberate deferral.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition distinguishes localization, basis transformation, representation, and truncation."
+  ],
+  "exclusions": [
+    "Wannierization alone is not described as low-rank approximation.",
+    "No represented Hamiltonian is compared before basis, gauge, energy, unit, and geometry alignment.",
+    "No execution occurs under QE-only authorization."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

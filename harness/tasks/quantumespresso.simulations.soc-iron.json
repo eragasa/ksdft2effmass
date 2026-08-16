@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.soc-iron",
+  "title": "Iron spin-orbit-coupling tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned learning-only candidate; blocked pending fully relativistic pseudopotential, inputs, resource estimate, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration",
+    "quantumespresso.simulations.magnetism-iron"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the noncollinear fully relativistic Fe SCF/bands/bands.x tutorial workflow.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Preflight relativistic representation, noncollinear settings, high cutoffs, dense mesh, and eight-rank resource request.",
+    "Run only authorized pw.x SCF/bands and bands.x stages.",
+    "Capture snapshots, separate streams, exits, runtime, spin-expectation artifacts, and convergence behavior."
+  ],
+  "completion_criteria": [
+    "Relativistic pseudopotential and spin conventions are provenance-complete.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition records transferable behavior or a resource/scientific-scope deferral."
+  ],
+  "exclusions": [
+    "Iron SOC does not enter supported project scope.",
+    "No tutorial spin texture or band result is scientifically validated.",
+    "No pseudopotential substitution is made for convenience."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

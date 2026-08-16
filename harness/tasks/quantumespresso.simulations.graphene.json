@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.graphene",
+  "title": "Graphene DOS and bands tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned learning-only candidate outside project material scope; blocked pending complete inputs, pseudopotential, resources, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the graphene SCF, NSCF, DOS, and bands tutorial solely to learn workflow and low-dimensional artifact behavior.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Recover and pin the page's externally referenced graphene inputs.",
+    "Run only authorized pw.x SCF/NSCF/bands, dos.x, and bands.x stages.",
+    "Capture per-stage snapshots, separate streams, exits, runtime, and artifacts."
+  ],
+  "completion_criteria": [
+    "Low-dimensional boundary settings and exact inputs are explicit.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition records transferable software behavior or an explicit deferral."
+  ],
+  "exclusions": [
+    "Graphene does not become a supported project material.",
+    "No graphene physical claim or scientific validation is made.",
+    "No tutorial input is silently repaired or completed."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

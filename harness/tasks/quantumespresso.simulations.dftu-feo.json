@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.dftu-feo",
+  "title": "FeO DFT+U tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned high-risk learning candidate; blocked pending QE-version syntax, inputs, pseudopotentials, Hubbard policy, resources, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration"
+  ],
+  "external_prerequisite_ids": [
+    "dftu_hubbard_parameter_policy",
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the FeO DFT, DFT+U, projected-DOS, and optional hp.x self-consistent-Hubbard workflow as learning-only behavior.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Resolve QE pre-7.1 versus 7.1-plus Hubbard syntax and exact FeO inputs.",
+    "Run only individually approved pw.x, projwfc.x, and optional hp.x stages.",
+    "Capture iteration-level snapshots, separate streams, exits, runtimes, Hubbard artifacts, and local-minimum observations."
+  ],
+  "completion_criteria": [
+    "The baseline, DFT+U, and hp.x branches each receive an explicit run or defer disposition.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "Reported Hubbard values remain tutorial outputs tied to exact pseudopotentials and manifolds."
+  ],
+  "exclusions": [
+    "The hp.x iteration is deferred by default pending a bounded stopping rule and resource estimate.",
+    "FeO and DFT+U do not enter supported project scope.",
+    "No Hubbard parameter or insulating-state claim is scientifically accepted."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

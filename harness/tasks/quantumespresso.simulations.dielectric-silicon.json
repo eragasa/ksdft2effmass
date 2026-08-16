@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.dielectric-silicon",
+  "title": "Silicon dielectric-function tutorial simulation",
+  "status": "blocked",
+  "status_detail": "Planned candidate; blocked pending norm-conserving pseudopotential, exact full-grid inputs, epsilon.x availability, resources, and execution authorization.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "P2",
+    "quantumespresso.simulations.integration",
+    "quantumespresso.simulations.scf-silicon"
+  ],
+  "external_prerequisite_ids": [
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "qe_tutorial_execution_authorization",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Reproduce or explicitly defer the silicon full-k-grid SCF and epsilon.x dielectric-function tutorial workflow.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Preflight norm-conserving pseudopotential compatibility, no-symmetry grid, band count, broadening, and energy grid.",
+    "Run only authorized pw.x SCF/optional NSCF and epsilon.x dielectric stages.",
+    "Capture snapshots, separate streams, exits, runtime, and epsilon data artifacts."
+  ],
+  "completion_criteria": [
+    "The exact grid, symmetry, band, broadening, and pseudopotential conditions are recorded.",
+    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The disposition labels results unconverged tutorial behavior."
+  ],
+  "exclusions": [
+    "No ultrasoft pseudopotential is substituted into epsilon.x.",
+    "No dielectric spectrum is scientifically validated or treated as converged.",
+    "No source-code recompilation to raise k-point limits is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

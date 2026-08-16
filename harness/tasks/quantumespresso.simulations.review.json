@@ -1,0 +1,57 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations.review",
+  "title": "Quantum ESPRESSO tutorial campaign artifact and learning review",
+  "status": "blocked",
+  "status_detail": "Blocked until every planned simulation has an executed, failed, or deliberate-deferral disposition.",
+  "parent_task_id": "quantumespresso.simulations",
+  "task_prerequisite_ids": [
+    "quantumespresso.simulations.aluminum-metal",
+    "quantumespresso.simulations.bands-gaas",
+    "quantumespresso.simulations.bands-silicon",
+    "quantumespresso.simulations.bi2se3",
+    "quantumespresso.simulations.convergence-silicon",
+    "quantumespresso.simulations.dftu-feo",
+    "quantumespresso.simulations.dielectric-silicon",
+    "quantumespresso.simulations.dos-silicon",
+    "quantumespresso.simulations.fermi-surface-copper",
+    "quantumespresso.simulations.graphene",
+    "quantumespresso.simulations.jdos-silicon",
+    "quantumespresso.simulations.kresolved-dos-silicon",
+    "quantumespresso.simulations.magnetism-iron",
+    "quantumespresso.simulations.molecular-dynamics-water",
+    "quantumespresso.simulations.pdos-aluminum",
+    "quantumespresso.simulations.phonons-gaas",
+    "quantumespresso.simulations.scf-silicon",
+    "quantumespresso.simulations.smearing-convergence-aluminum",
+    "quantumespresso.simulations.soc-gaas",
+    "quantumespresso.simulations.soc-iron",
+    "quantumespresso.simulations.spin-bands-nickel",
+    "quantumespresso.simulations.structure-optimization-silicon",
+    "quantumespresso.simulations.wannier-silicon"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Review all campaign dispositions and actual artifacts, identify transferable execution and extraction behavior, and recommend which tutorial routes to retain, repeat, or defer.",
+  "authority_reference_paths": [
+    "docs/computational/quantum-espresso-tutorial-simulations.md"
+  ],
+  "authorized_scope": [
+    "Compare source plans with actual stage records, snapshots, streams, runtimes, and artifact inventories.",
+    "Classify observed artifacts, failures, restart behavior, reusable parser opportunities, and explicit deferrals.",
+    "Propose compact sanitized provenance for separate review without moving or deleting calculation data."
+  ],
+  "completion_criteria": [
+    "Every child has an explicit evidence-backed disposition.",
+    "Reusable silicon/QE/Wannier findings are separated from unrelated-material and out-of-scope learning.",
+    "The review identifies follow-up candidates without activating them or claiming scientific validation."
+  ],
+  "exclusions": [
+    "The review does not execute calculations, delete or relocate data, or activate successors.",
+    "Cross-tutorial numerical comparison is prohibited without explicit compatibility.",
+    "Passing tutorial runs do not establish production readiness or scientific acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
