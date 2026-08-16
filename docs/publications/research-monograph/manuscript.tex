@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 
 \setlength{\emergencystretch}{3em}
@@ -33,8 +34,11 @@ reduced semiconductor Hamiltonians from first-principles Kohn--Sham
 calculations. The initial program considers pristine silicon and substitutional
 phosphorus and boron, with representations progressing from periodic
 Kohn--Sham operators through Wannier and tight-binding descriptions to lattice
-and continuum effective-mass models. The account distinguishes physical models,
-mathematical operators, finite matrix representations, and software artifacts;
+and continuum effective-mass models. It also develops structured learning as a
+proposed diagnostic for comparing nested reduced-operator model classes rather
+than as a replacement for the first-principles parent. The account distinguishes
+physical models, mathematical operators, finite matrix representations, and
+software artifacts;
 requires common-space, gauge, geometry, spin, unit, and energy-reference
 alignment before operator subtraction; and separates spectral fidelity from
 aligned-operator fidelity. A coordinated proof program records finite-dimensional
@@ -66,9 +70,10 @@ submitted manuscript, or completed scientific result.
 \include{chapters/03-first-principles-parent-model}
 \include{chapters/04-representations-and-alignment}
 \include{chapters/05-model-reduction}
-\include{chapters/06-verification-and-validation}
-\include{chapters/07-results-and-limitations}
-\include{chapters/08-conclusions-and-outlook}
+\include{chapters/06-structured-learning}
+\include{chapters/07-verification-and-validation}
+\include{chapters/08-results-and-limitations}
+\include{chapters/09-conclusions-and-outlook}
 
 \appendix
 \include{appendices/A-notation-and-status}

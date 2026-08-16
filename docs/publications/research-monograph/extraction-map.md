@@ -20,6 +20,7 @@ limitations.
 | Wannier and parameterized tight-binding representations | P01 | Compare reduction classes while keeping projection, localization, fitting, and truncation distinct | Proposed method drafted; accepted operators unavailable |
 | Impurity-operator extraction | Later phosphorus and boron papers | Define aligned pristine--doped subtraction and its limitations | Proposed method drafted; dopant evidence unavailable |
 | Lattice-to-continuum reduction | Later effective-mass papers | State the reduction map and separate parent, numerical, and reduction errors | Proposed method drafted; continuum evidence unavailable |
+| Structured learning and model-class expressiveness | Later impurity-reduction or methods papers | Compare constrained learned operators with simpler physical classes without treating learning as KSDFT or as evidence of alignment | Proposed chapter drafted; no trained model or learning result available |
 | Verification, validation, and uncertainty taxonomy | Methods sections across outputs | Reuse consistent evidence language without transferring unsupported status | Drafted framework |
 | Retained calculated results and limitations | Paper-specific results sections | Extract only evidence-backed findings with exact provenance | Current evidence boundary drafted; production results unavailable |
 | High-level motivation and selected diagrams | Conference material and presentations | Produce audience-specific summaries without creating new scientific claims | Narrative drafted; destination-specific extraction pending |

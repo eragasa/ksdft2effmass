@@ -16,8 +16,9 @@ prose.
 
 The current draft contains developed chapters on scope, the physical problem,
 mathematical foundations, the proof and mechanization program, the
-first-principles parent, representations and alignment, reduction, evidence,
-present result boundaries, and outlook. It is a framework-rich pre-results
+first-principles parent, representations and alignment, reduction, structured
+learning as a model-class diagnostic, evidence, present result boundaries, and
+outlook. It is a framework-rich pre-results
 draft: chapter development does not imply completion of the proofs or
 calculations described there.
 
@@ -42,6 +43,7 @@ quantification, publication, or human acceptance.
 
 - `manuscript.tex` — standard-LaTeX composition root;
 - `chapters/` — independently maintainable long-form chapters;
+- `figures/` — editable diagram sources and their manuscript-ready renderings;
 - `appendices/` — shared notation, convention, and status reference material;
 - `references.bib` — monograph-owned bibliography, independently maintained
   from article bibliographies;

@@ -106,6 +106,12 @@ Symbol & Meaning \\
 $\mathfrak M_j$ & Declared reduced-model class indexed by complexity or another
 frozen ordering. \\
 $\boldsymbol\theta$ & Parameter vector within a declared model class. \\
+$f_{\phi}$ & Learned parameter map with trainable parameters $\phi$ and declared
+physical descriptors as inputs. \\
+$\mathcal C$ & Deterministic constructor mapping admissible parameters to a
+represented Hamiltonian. \\
+$\epsilon(\mathfrak M)$ & Best declared normalized discrepancy attainable in
+model class $\mathfrak M$; a computed fit need not attain this infimum. \\
 $\mathcal L_E$ & Spectral training objective with stated data, weights, units,
 and normalization. \\
 $\mathcal L_H$ & Aligned represented-operator objective. \\
@@ -135,7 +141,9 @@ transformation}, \emph{localization}, \emph{truncation}, \emph{fitting}, and
 \toprule
 Symbol & Meaning \\
 \midrule
-$P,Q$ & Complementary orthogonal projectors with $P+Q=I$. \\
+$P,Q$ & Complementary orthogonal projectors with $P+Q=I$. A superscript $(P)$
+marks restriction to the retained $P$ space; phosphorus is written $\mathrm P$
+when ambiguity is possible. \\
 $H_{PP},H_{PQ}$ & Blocks such as $PHP$ and $PHQ$ in a declared decomposition. \\
 $H_{\mathrm{eff}}(E)$ & Energy-dependent Feshbach effective operator in the
 retained $P$ space. \\
