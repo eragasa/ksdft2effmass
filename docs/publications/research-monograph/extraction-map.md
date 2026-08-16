@@ -1,0 +1,31 @@
+# Monograph extraction map
+
+## Contract
+
+This map records prospective editorial relationships. It does not declare that a
+chapter, calculation, proof, article, or presentation is complete. Extracted
+text must be checked against its destination's scope, audience, status, evidence,
+and submission requirements. The destination owns its final wording; the
+monograph remains free to retain broader derivations, alternatives, and
+limitations.
+
+## Planned extractions
+
+| Monograph material | Candidate destination | Extraction purpose | Current status |
+|---|---|---|---|
+| Physical problem and parent-model boundaries | Project overview and dissertation introduction | Motivate the silicon impurity-reduction problem without overstating Kohn--Sham observables | Placeholder |
+| State spaces, represented operators, gauge, and alignment | P01 and mathematical-methods papers | Establish prerequisites for meaningful operator comparison | Proposed work |
+| Bulk-silicon parent calculation and provenance | P01 computational methods | Describe the parent model only after retained calculation evidence exists | Proposed work |
+| Wannier and parameterized tight-binding representations | P01 | Compare reduction classes while keeping projection, localization, fitting, and truncation distinct | Proposed work |
+| Impurity-operator extraction | Later phosphorus and boron papers | Define aligned pristine--doped subtraction and its limitations | Proposed work |
+| Lattice-to-continuum reduction | Later effective-mass papers | State the reduction map and separate parent, numerical, and reduction errors | Proposed work |
+| Verification, validation, and uncertainty taxonomy | Methods sections across outputs | Reuse consistent evidence language without transferring unsupported status | Proposed work |
+| Retained calculated results and limitations | Paper-specific results sections | Extract only evidence-backed findings with exact provenance | Placeholder |
+| High-level motivation and selected diagrams | Conference material and presentations | Produce audience-specific summaries without creating new scientific claims | Proposed work |
+
+## P01 boundary
+
+P01 remains an independently authored article-preparation surface. It may draw on
+Chapters 2--7, but neither its Markdown nor LaTeX form is mechanically generated
+from the monograph. P01 remains `Waiting`; extraction does not satisfy its
+computational gates or authorize submission.

@@ -273,6 +273,9 @@ graphify-out/
 *~
 ~$*
 
+# Local long-form manuscript build products
+/docs/publications/research-monograph/build/
+
 # Local P01 manuscript build products
 /docs/publications/papers/ksdft2effmass.P01/latex/manuscript.bbl
 /docs/publications/papers/ksdft2effmass.P01/latex/manuscript.pdf

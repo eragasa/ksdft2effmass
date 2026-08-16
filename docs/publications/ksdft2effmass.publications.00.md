@@ -16,6 +16,12 @@ applicable checkpoint for protected external or production execution.
 - [ICMSEP 2026](conferences/ICMSEP2026/ICMSEP2026.00.md): conference abstract
   working material and related project notes.
 
+## Long-form research synthesis
+
+- [Research monograph](research-monograph/README.md): dissertation-style,
+  long-form working document and extraction map. It is not represented as an
+  institutionally registered dissertation or completed research output.
+
 ## Paper planning and manuscripts
 
 - [Publication pipeline](papers/ksdft2effmass.papers.00.md): static claim

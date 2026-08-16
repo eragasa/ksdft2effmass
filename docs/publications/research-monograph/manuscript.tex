@@ -1,0 +1,46 @@
+\documentclass[12pt,oneside]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\emergencystretch}{3em}
+
+\title{From Kohn--Sham Density-Functional Theory\\to Effective-Mass Models}
+\author{Eugene Joseph M. Ragasa}
+\date{Working research monograph}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\pagenumbering{gobble}
+\maketitle
+
+\begin{abstract}
+This document is a long-form research-writing workspace for the construction,
+comparison, and reduction of semiconductor Hamiltonians from first-principles
+Kohn--Sham calculations. It is a prospective research monograph, not a completed
+dissertation or validated scientific result. Each substantive claim remains
+subject to its owning specification, provenance, verification, validation, and
+human-acceptance records.
+\end{abstract}
+
+\clearpage
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\include{chapters/00-status-and-scope}
+\include{chapters/01-physical-problem}
+\include{chapters/02-mathematical-foundations}
+\include{chapters/03-first-principles-parent-model}
+\include{chapters/04-representations-and-alignment}
+\include{chapters/05-model-reduction}
+\include{chapters/06-verification-and-validation}
+\include{chapters/07-results-and-limitations}
+\include{chapters/08-conclusions-and-outlook}
+
+\end{document}
