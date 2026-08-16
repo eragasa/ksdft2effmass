@@ -1,50 +1,43 @@
 # Architecture v2 principles
 
-## Separate authorities
+1. Development `HarnessTask` state and scientific `WorkflowRun` state are separate.
+2. `ResultObject` instances, not producer Task objects, are workflow inputs and prerequisites.
+3. `Task` is structural and consumes already-bound results plus explicit context.
+4. `Workflow` implements Task and may be nested.
+5. Run-scoped Task instances and Workflow-owned start gates are distinct from reusable Task definitions.
+6. Parent/child membership and ResultObject dependency are orthogonal.
+7. Generic colored-Petri-net mechanics are separate from Workflow effects and records.
+8. DataObjects and ResultObjects are immutable; effects belong to target-first ActionObjects.
+9. Shared persistence stores opaque complete revisions; domain repositories own aggregate validation, serialization, and commit closure through composition.
+10. Authority is explicit and never inferred from scheduling, process success, or a terminal marking.
+11. Exact artifact identity and provenance are retained without fabricated lineage or recalculation.
 
-1. `HarnessTask` controls development work only.
-2. `DevelopmentTaskSelection` selects at most the authorized development work.
-3. `ScientificWorkflow` is a calculator-independent scientific workflow definition.
-4. `ScientificWorkflowRun` is one execution state of a `ScientificWorkflow`.
-5. `Simulation` specifies one scientific operation without recording its result.
-6. `SimulationExecutionResult` records calculator observations without making a scientific conclusion.
-7. `ScientificAnalysis` deterministically interprets normalized observations.
-8. `ScientificDisposition` records an explicit scientific conclusion or parameter selection.
+## Generic colored Petri net
 
-No authority is inferred from another lifecycle. Process success is not scientific acceptance, and software verification is not numerical verification or scientific validation.
+`ksdft2effmass.petrinet.colored` owns only generic values and pure enablement, deterministic selection, and firing. Selection applies definition-owned total priority, canonical transition identity, and canonical binding order, with no fairness guarantee. The package performs no external effects and imports no workflows.
 
-## CPN as the scientific workflow definition
+## Task and Workflow composition
 
-A `ScientificWorkflow` references an immutable `CpnDefinition` and initial `CpnMarking` owned by `ksdft2effmass.petrinet.colored`. Ordering, authorization, dependency, failure, retry, recovery, and terminal scientific workflow state are expressed through CPN places, tokens, guards, inscriptions, and firing semantics. A separate scientific workflow dependency graph is forbidden.
+A Task instance has zero or one immutable Workflow-owned `TaskStartGateSet` in `any_of` or `all_of` mode. `TaskActivation` is discriminated as direct, any_of, or all_of; direct carries no gate identity, any_of selects one enabled gate deterministically by stable priority then identity, and all_of records the canonical compatible tuple across every member. Start gates are composition policy, not Task prerequisites.
 
-## Immutable specifications and results
+`ColoredPetriNetWorkflowAdapter` maps Workflow gates and ResultObject token values to generic inputs, constructs `TaskActivation`, remains effect-free while workflow control/dispatch invokes Tasks across accepted authority, maps supplied returned ResultObjects into the immutable external-output-value binding of `ColoredPetriNetFiringInput`, and requests pure firing. The generic firer evaluates all inscriptions, validates produced tokens, and returns successor plus audit facts. Workflow control constructs transition and WorkflowRun records separately.
 
-Data records are immutable or operationally immutable. Intrinsic invariants belong to the represented record. External effects, compatibility decisions, serialization, deterministic analysis, and scientific policy belong to explicit action owners. Input specifications and observed results are distinct objects.
+Start-gate policy states when a Workflow permits a Task instance to execute. The Task input contract states what its execute operation accepts. Gates may be stricter but cannot omit or mismatch required Task inputs.
 
-## Calculator independence
+## Simulation composition
 
-Generic workflow contracts do not import calculator-specific packages. Calculator-specific packages may implement `SimulationExecutor` and typed `Simulation` payloads. Scientific domains do not import calculator packages. Mechanical I/O does not own scientific workflow policy or scientific disposition.
+`Simulation` is structural. A concrete `SimulationTask` is a Task. The calculator-owned QE composite is `QuantumEspressoSimulation`, used by `QuantumEspressoSimulationTask`, with exact immutable `QuantumEspressoInput`, a consumer-owned structural `QuantumEspressoExecutor` protocol, and a newly returned immutable `QuantumEspressoOutput` ResultObject. Application composition injects the concrete `integration.quantumespresso` executor implementation; calculators and workflows never import it. Output is not mutated onto a pre-execution object.
 
-## Exact identity and lineage
+## Effect and repository boundaries
 
-Canonical inputs, executable identities, artifact identities, request/result correlation, and parent-child lineage are explicit. Portable identity is distinct from deployment location. Missing identity or incompatible lineage fails closed.
+`ksdft2effmass.persistence` provides immutable revision values, a structural single-stream `AtomicRevisionStore`, and the initial standard-library `SQLiteAtomicRevisionStore`. Harness and workflow repositories remain domain-owned, bind their exact validators and serializers to the committed bytes, and compose the shared store. There is no generic CRUD repository or persistence inheritance hierarchy. Separate development and scientific SQLite stores/databases are the default; shared implementation does not imply shared physical state or cross-stream transactions.
 
-## Determinism and bounded effects
+One exact grant authorizes one exact dispatch. Workflow control and the executor boundary independently check the same immutable authority and effect inputs. Workflow services construct complete candidate successor and obligation units; domain repositories invoke their bound validators and serializers on those exact candidates and verify identity binding before the shared store atomically commits one opaque aggregate revision in one stream. Repositories do not select gates, invoke Tasks, fire generic transitions, or create authority, and an indeterminate commit is never guessed.
 
-CPN enablement, firing, normalization, analysis, and projection are deterministic for explicit inputs. External calculators are bounded side-effect boundaries; the architecture does not claim that their numerical behavior is made deterministic merely by orchestration.
+Indeterminate external outcomes remain represented. Confirmed result ingress includes every required publication obligation or explicit no-publication disposition in the same atomic successor unit. Scientific analysis and disposition remain separate, and disposition remains separately authorized.
 
-## Extension policy
+## Claim boundaries
 
-Meaningful extension points are public concrete immutable records and narrowly demonstrated protocols. No universal electronic-structure calculator base, mutable global registry, plugin service locator, or generic backend registry is introduced without demonstrated multi-implementation need.
+A structural or software check establishes only its declared contract. Process success is not convergence. Exact byte identity is not scientific compatibility. Shared methods, cutoffs, pseudopotential labels/assets, or settings do not establish equivalence. Scientific validation, uncertainty quantification, equivalence, and human acceptance require their own evidence and authority.
 
-## Evidence boundaries
-
-Software verification, repository conformance, calculator process success, numerical verification, scientific validation, uncertainty quantification, and human disposition remain separately named and evidenced. A `ScientificDisposition` cites the applicable analyses and authority; it cannot be manufactured from an exit code or terminal CPN marking alone.
-
-## Unresolved issues
-
-- Stable identity-generation strategies for definitions, revisions, attempts, requests, results, and artifacts.
-- Public wire formats and compatibility policy.
-- Concrete persistence and artifact-store technologies.
-- Asynchronous execution and cancellation contracts.
-- Which extension protocols are justified after the initial QE scientific workflow implementation.
+This page defines a prospective target and claims no implementation or protected execution.

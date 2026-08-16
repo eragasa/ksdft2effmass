@@ -2,63 +2,45 @@
 
 ## Responsibility
 
-The scientific workflow is owned by `ksdft2effmass.workflow.scientific`. It owns deterministic calculator-independent scientific workflow contracts without owning calculator formats, colored-Petri-net semantics, or project-specific scientific algorithms.
+`ksdft2effmass.workflows` owns calculator-independent `ResultObject`, `Task`, `Workflow`, immutable `TaskStartGateSet`, discriminated `TaskActivation`, Workflow-owned start-gate policy, `ColoredPetriNetWorkflowAdapter`, `WorkflowRun`, `ScientificDecisionRequest`, `ScientificDecisionResolution`, `ScientificDecisionRecorder`, exact execution authority/dispatch/reconciliation contracts, artifact lineage, normalization aggregation, analysis readiness, and separately authorized disposition recording.
 
-Its generic authority includes:
+Concrete scientific domains own concrete ResultObjects and their intrinsic invariants. Calculator packages own concrete SimulationTasks, Simulation composites, inputs, executors, and outputs. Analysis packages own algorithms and numerical policy. Project-specific campaign definitions may be supplied as composition inputs; they are not the generic Workflow aggregate.
 
-- scientific service composition contracts;
-- calculator-independent simulation specifications;
-- the `SimulationExecutor` protocol;
-- `ScientificWorkflow` definitions that reference versioned colored-Petri-net definitions and initial markings;
-- `ScientificWorkflowRun` state and Petri-net transition correlation;
-- execution-result record contracts;
-- artifact-lineage contracts;
-- scientific-analysis and finding record contracts; and
-- scientific-disposition record contracts.
+## Task and Workflow boundary
 
-Calculator executor implementations remain calculator-package responsibilities. Analysis algorithms, numerical policy, project findings, and project scientific dispositions remain project scientific responsibilities composed through these generic contracts.
+A Task consumes already-bound ResultObjects and explicit context and returns ResultObjects. It neither discovers prerequisites nor schedules itself. Workflow implements Task and can be nested. Run-scoped Task instances are distinct from definitions. A Task instance has zero or one `TaskStartGateSet` in `any_of` or `all_of` mode with zero or more member gates. Empty/no gates provide no automatic activation; an enclosing caller uses `direct` activation without gate-set/selected-gate identity. `any_of` records one deterministic priority/identity-selected gate/binding; `all_of` records the canonical compatible tuple across every member. Start gates define Workflow composition policy and remain separate from the Task input contract.
 
-## Scientific service boundary
+`TaskActivation` identifies the Task instance, already-bound results, Workflow/WorkflowRun correlation, operation, attempt, and exactly one `direct`, `any_of`, or `all_of` selection. ResultObject dependency is independent of parent/child Workflow membership.
 
-A `ScientificService` exposes one cohesive scientific operation family. It accepts explicit scientific intent and authority, constructs or selects a `ScientificWorkflow`, initializes a `ScientificWorkflowRun`, and composes catalogs, executors, analyzers, and persistence. A service is not a mutable plugin registry and does not discover calculators from ambient state.
+## Generic colored-Petri-net dependency
 
-The service catalog is immutable for one run. Each entry declares accepted inputs, result type, required capabilities, effect class, and authority needs. Catalog membership does not itself authorize execution.
+Workflows imports `ksdft2effmass.petrinet.colored` and uses its full public `ColoredPetriNet*` names. For task-origin work, `ColoredPetriNetWorkflowAdapter` maps gates and values to generic inputs, applies gate-set selection, constructs TaskActivation, remains effect-free while workflow control/dispatch invokes Tasks through accepted authority, maps supplied returned ResultObjects into the immutable generic external-output-value binding of `ColoredPetriNetFiringInput`, and requests pure firing. For scientific-decision ingress, the same effect-free adapter only maps the supplied `ScientificDecisionResolution` for the exact request-identified transition and binding; it creates no TaskActivation and does not prompt, interpret, record, or authorize the decision. The generic package does not import workflows or create workflow records.
 
-## Execution boundary
+## Execution and result boundary
 
-A `SimulationExecutor` receives an immutable `Simulation` and returns a `SimulationExecutionResult`. Calculator-specific implementations own executable configuration, process invocation, staging, completion-marker capture, and artifact publication. The generic workflow sees only the protocol and represented results.
+Workflow control checks one exact unused grant and immutable Task-instance/TaskActivation/request/attempt/executor/context/input/configuration identities before constructing the complete request, attempt, successor, grant-reservation, and dispatch-obligation unit. `WorkflowRunAtomicRepository` binds the exact workflow validator and serializer to each supplied unit, then delegates one complete opaque revision to its composed `AtomicRevisionStore`. The shared store atomically commits only that single-stream revision. The target-first executor boundary independently checks the same reserved grant and inputs immediately before an external effect.
 
-A result records observations and findings. It does not claim solver convergence, numerical acceptance, scientific validation, or human disposition.
-
-## Analysis and disposition
-
-A deterministic analyzer maps normalized execution observations to a `ScientificAnalysis`. Its algorithms, units, tolerances, and acceptance rules are explicit. A `ScientificDisposition` is a separate authorized conclusion that references the analyses and declared intended use.
-
-## Package boundary
-
-`ksdft2effmass.workflow.scientific` owns `ScientificWorkflow`, `ScientificWorkflowRun`, `Simulation`, `SimulationExecutionResult`, `SimulationExecutor`, `ScientificService`, and `ArtifactManifest` as calculator-independent scientific-workflow contracts.
-
-`ksdft2effmass.petrinet.colored` separately owns `CpnDefinition`, `CpnMarking`, colored tokens, expressions, validation, enablement, and firing. It has no dependency on scientific workflow packages.
-
-Project-specific scientific workflow definitions, calculator payloads and executor implementations, mechanical I/O, analysis algorithms, numerical policies, findings, and dispositions remain in their owning `ksdft2effmass` subpackages.
+`SimulationExecutionRequest` binds the exact Task instance, TaskActivation, attempt, executor, already-bound ResultObject inputs, grant, and obligation scope; it does not embed a generic Simulation aggregate. Dispatch outcomes are envelopes closed as confirmed, rejected, or indeterminate. Indeterminate contains no invented result and is not automatically retried. Confirmed contains the concrete returned ResultObject and exact correlations, not a second scientific result object. `TaskResultIngester` validates the envelope and admits that object into one atomic successor unit with the obligation disposition and all required publication obligations or explicit no-publication disposition. Publication consumes committed obligations only.
 
 ## Detailed pages
 
+- [Human decisions](../human-decisions.md)
 - [Scientific service model](service-model.md)
-- [Simulation model](simulation-model.md)
-- [Scientific workflow model](scientific/index.md)
-- [ScientificWorkflowRun object model](scientific/scientific-workflow-run.md)
-- [Colored Petri net architecture](../petrinet/colored/index.md)
+- [Simulation Task model](simulation-task-model.md)
+- [Task, Workflow, and colored-Petri-net adapter](task-and-colored-petri-net-adapter.md)
+- [WorkflowRun object model](workflow-run.md)
 - [Workflow control plane](control-plane.md)
 - [Workflow persistence](persistence.md)
+- [Shared revision persistence](../persistence/index.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)
 - [Scientific read models](read-models.md)
+- [Generic colored Petri net](../petrinet/colored.md)
 - [Separation from the development harness](../separation-of-harness-and-workflow.md)
 
-## Unresolved issues
+## Status and unresolved issues
 
-- Exact public submodule names beneath `ksdft2effmass.workflow.scientific`.
-- Synchronous and asynchronous service execution boundaries.
-- Persistence and artifact-store implementation technologies.
-- Optional external workflow adapter contracts.
-- ScientificWorkflow catalog versioning and distribution.
+Exact field and wire contracts, SQLite schema and operational policy, asynchronous interfaces, cancellation, external scheduler adapters, and project-specific catalog distribution remain deferred. Standard-library SQLite is selected as the initial shared-store realization, with a separate WorkflowRun store/database by default. Two reviewed design gaps also remain explicit: generic firing does not yet retain all enablement/selection/directive identities, and ownership of replay computation has not been separated coherently from repository persistence.
+
+Human decisions are explicit external inputs processed deterministically under the [domain-separated decision contract](../human-decisions.md). An unresolved `ScientificDecisionRequest` pauses only its affected branch. `ScientificDecisionRecorder` alone constructs the resolution, uses the adapter and pure firer for the exact request-identified no-Task ingress transition, constructs the complete scientific-decision-origin transition/successor, and returns the recorded resolution only after atomic commit. The generic colored-Petri-net package remains unaware of decisions and authority. Replay consumes the committed ordered record and never prompts again.
+
+This prospective contract is documentation-only. Decision records grant no authority. It grants no protected execution and claims no implementation, software or numerical verification, scientific validation, equivalence, or human software acceptance.

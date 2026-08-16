@@ -85,23 +85,10 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/separation-of-harness-and-workflow
    architecture/v2/composition-root
    architecture/v2/identity-version-and-failure-contracts
+   architecture/v2/persistence/index
+   architecture/v2/human-decisions
    architecture/v2/harness/index
    architecture/v2/harness/object-model
-   architecture/v2/harness/tasks/index
-   architecture/v2/harness/tasks/task-definition
-   architecture/v2/harness/tasks/selection-and-eligibility
-   architecture/v2/harness/tasks/lifecycle
-   architecture/v2/harness/tasks/graph-and-dependencies
-   architecture/v2/harness/tasks/decisions-and-authority
-   architecture/v2/harness/tasks/evidence-and-review
-   architecture/v2/harness/tasks/persistence-and-projections
-   architecture/v2/harness/subagents/index
-   architecture/v2/harness/subagents/agent-descriptors
-   architecture/v2/harness/subagents/parent-orchestration
-   architecture/v2/harness/subagents/delegation-and-ownership
-   architecture/v2/harness/subagents/execution-and-isolation
-   architecture/v2/harness/subagents/handoffs-and-review
-   architecture/v2/harness/subagents/runtime-state-and-artifacts
    architecture/v2/harness/development-harness
    architecture/v2/harness/compiler-architecture
    architecture/v2/harness/validation
@@ -109,36 +96,33 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/harness/control-plane
    architecture/v2/harness/persistence
    architecture/v2/harness/projections
+   architecture/v2/harness/subagents
    architecture/v2/workflow/index
+   architecture/v2/workflow/task-and-colored-petri-net-adapter
+   architecture/v2/workflow/workflow-run
+   architecture/v2/workflow/simulation-task-model
    architecture/v2/workflow/service-model
-   architecture/v2/workflow/simulation-model
-   architecture/v2/workflow/scientific/index
-   architecture/v2/workflow/scientific/scientific-workflow-run
-   architecture/v2/petrinet/index
-   architecture/v2/petrinet/colored/index
    architecture/v2/workflow/control-plane
    architecture/v2/workflow/persistence
    architecture/v2/workflow/artifact-and-provenance-model
    architecture/v2/workflow/read-models
+   architecture/v2/petrinet/colored
    architecture/v2/calculators/index
    architecture/v2/calculators/quantum-espresso
    architecture/v2/analysis/index
    architecture/v2/analysis/analysis-and-disposition
    architecture/v2/issues/index
-   architecture/v2/issues/001-simulation-execution-request-context
-   architecture/v2/issues/002-scientific-dispatch-atomicity
-   architecture/v2/issues/003-compiler-authority-conflict
-   architecture/v2/issues/004-validation-and-publication-gate
-   architecture/v2/issues/005-durable-publication-authority
-   architecture/v2/issues/006-cpn-deterministic-selection
-   architecture/v2/issues/007-observation-normalization-composition
-   architecture/v2/issues/008-scientific-disposition-action
-   architecture/v2/issues/009-execution-authority-grant
-   architecture/v2/issues/010-dependency-graph-consistency
-   architecture/v2/issues/011-candidate-artifact-validator
-   architecture/v2/issues/012-publication-rollback-guarantee
-   architecture/v2/issues/013-external-artifact-producer-identity
-   architecture/v2/issues/014-required-failure-wording
+   architecture/v2/issues/007-selection-identity-closure
+   architecture/v2/issues/010-scientific-authority-grants
+   architecture/v2/issues/020-workflow-replay-integrity-ownership
+   architecture/v2/issues/021-persistence-commit-read-reconciliation-closure
+   architecture/v2/issues/022-scientific-decision-trust-provenance-correction
+   architecture/v2/issues/023-task-workflow-simulation-invocation-semantics
+   architecture/v2/issues/024-publication-policy-store-reconciliation
+   architecture/v2/issues/029-scientific-disposition-ownership-semantics
+   architecture/v2/issues/030-bounded-conformance-execution
+   architecture/v2/issues/032-harness-publication-authority-outcome
+   architecture/v2/issues/033-target-operation-identity-binding
    architecture/migration/v1-to-v2/index
    architecture/migration/v1-to-v2/pi-harness-subagents
    harness/ksdft2effmass.harness.001.001.000

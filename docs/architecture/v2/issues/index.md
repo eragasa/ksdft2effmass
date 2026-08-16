@@ -1,35 +1,19 @@
-# Architecture v2 issues
+# Architecture v2 live issue register
 
-These records preserve findings from a read-only review of Architecture v2 at base revision `4ec9b5650dc4bea8c7da504fec7f5a79e6606b08` plus the repository-wide conformance target introduced in the same change as these records. They describe unresolved contracts and one deterministic documentation correction. They do not activate Harness Tasks, select unresolved architecture alternatives, authorize implementation or protected execution, or record human acceptance.
+This is the sole live register for the current prospective Architecture v2 filesystem. It contains current material contradictions, ownership or dependency conflicts, and missing semantic, authority, persistence, failure, or migration contracts required for closure of the selected architecture. It excludes resolved history, mere lack of implementation, and exact-detail deferrals that do not block current semantics. Resolved issue files are deleted rather than retained here.
 
-Architecture v2 remains a prospective target under the [v1-to-v2 migration crosswalk](../../migration/v1-to-v2/index.md).
+## Open issues
 
-## Implementation blockers
+- [V2-ISSUE-007: Selection identity closure](007-selection-identity-closure.md) — High
+- [V2-ISSUE-010: Enforceable execution and disposition authority grants](010-scientific-authority-grants.md) — Critical
+- [V2-ISSUE-020: Workflow replay computation and integrity ownership](020-workflow-replay-integrity-ownership.md) — High
+- [V2-ISSUE-021: Persistence commit, read, idempotency, reconciliation, and domain reconstruction closure](021-persistence-commit-read-reconciliation-closure.md) — Critical
+- [V2-ISSUE-022: Scientific-decision response trust, ResultObject provenance, and correction semantics](022-scientific-decision-trust-provenance-correction.md) — High
+- [V2-ISSUE-023: Generic Task, nested Workflow, and simulation invocation semantics](023-task-workflow-simulation-invocation-semantics.md) — High
+- [V2-ISSUE-024: Publication requirement policy, artifact-store publication, and reconciliation closure](024-publication-policy-store-reconciliation.md) — High
+- [V2-ISSUE-029: Scientific disposition ownership and semantic closure](029-scientific-disposition-ownership-semantics.md) — High
+- [V2-ISSUE-030: Bounded conformance execution contract](030-bounded-conformance-execution.md) — High
+- [V2-ISSUE-032: Durable harness-publication authority and outcome](032-harness-publication-authority-outcome.md) — High
+- [V2-ISSUE-033: Target-operation identity binding without policy reinterpretation](033-target-operation-identity-binding.md) — High
 
-- [V2-ISSUE-001: Simulation execution request context](001-simulation-execution-request-context.md)
-- [V2-ISSUE-002: Scientific dispatch and result-ingress atomicity](002-scientific-dispatch-atomicity.md)
-- [V2-ISSUE-003: Compiler handling of contradictory authority](003-compiler-authority-conflict.md)
-- [V2-ISSUE-004: Validation and publication gate](004-validation-and-publication-gate.md)
-
-## High-priority architecture issues
-
-- [V2-ISSUE-005: Durable publication authority and outcome](005-durable-publication-authority.md)
-- [V2-ISSUE-006: Deterministic CPN transition and binding selection](006-cpn-deterministic-selection.md)
-- [V2-ISSUE-009: Executable scientific authority grant](009-execution-authority-grant.md)
-- [V2-ISSUE-010: Package dependency graph consistency](010-dependency-graph-consistency.md)
-- [V2-ISSUE-012: Projection publication rollback guarantee](012-publication-rollback-guarantee.md)
-
-## Additional contract issues
-
-- [V2-ISSUE-007: Observation normalization composition](007-observation-normalization-composition.md)
-- [V2-ISSUE-008: Scientific disposition ActionObject](008-scientific-disposition-action.md)
-- [V2-ISSUE-011: Candidate artifact validation owner](011-candidate-artifact-validator.md)
-- [V2-ISSUE-013: Producer identity for external input artifacts](013-external-artifact-producer-identity.md)
-
-## Deterministic documentation correction
-
-- [V2-ISSUE-014: Required-failure policy wording](014-required-failure-wording.md)
-
-## Review disposition
-
-The high-level separation among development conformance, Harness Task authority, scientific-workflow control, domain-independent colored-Petri-net semantics, calculator execution, deterministic analysis, and human authority remains a sound target. The blocker records above must be resolved before the complete v2 architecture can be implemented as one coherent public and persistence contract.
+Inclusion does not imply ordering, precedence, or a selected outcome. Issues will be reviewed and resolved one at a time. A record does not activate a Task, authorize implementation or protected execution, or establish implementation, software verification, numerical verification, scientific validation, uncertainty quantification, or human acceptance.

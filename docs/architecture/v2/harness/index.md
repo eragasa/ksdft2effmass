@@ -5,10 +5,15 @@
 The development harness governs changes to software and human-authored documentation. It combines immutable work definitions, explicit selection and authority, repository operations, validation, persistence, and derived views without making those concerns interchangeable.
 
 ```mermaid
-flowchart LR
-    human["Human authority"] --> task["HarnessTask"]
+flowchart TD
+    sources["Repository sources"] --> task["HarnessTask"]
     task --> selection["DevelopmentTaskSelection"]
-    selection --> operation["Repository operation"]
+    authority["Candidate-independent DevelopmentAuthorityContext"] --> authorizer["DevelopmentOperationAuthorizer"]
+    selection --> authorizer
+    request["Exact repository operation"] --> authorizer
+    authorizer --> authorization["DevelopmentOperationAuthorizationResult"]
+    authorization --> operation["Target repository operation"]
+    selection --> operation
     operation --> verification["Software verification"]
     verification --> review["Development review"]
     review --> decision["Development decision"]
@@ -16,57 +21,70 @@ flowchart LR
 
 ## Responsibility
 
+The harness may reference immutable scientific contract and implementation identities when developing or verifying them. It does not store or advance `WorkflowRun`, execute a calculator as scientific workflow work, create `ScientificAnalysis`, or record `ScientificDisposition`.
+
 | Concern | Owner |
 |---|---|
 | Work definition | `HarnessTask` |
 | Active work | `DevelopmentTaskSelection` |
-| Coherent read snapshot | `HarnessStateSnapshot` |
-| Snapshot compilation | `HarnessStateCompiler` |
+| Normalized state | `HarnessState` |
+| Source compilation | `HarnessCompiler` |
+| Authority-context reconstruction | `DevelopmentAuthorityContextResolver` |
+| Exact operation authorization | `DevelopmentOperationAuthorizer` |
 | Domain validation | Concrete `HarnessDomainValidator` implementations |
-| Snapshot-validation composition | `HarnessStateValidator` |
+| Normalized-state validation composition | `HarnessStateValidator` |
 | Repository-wide development conformance | `DevelopmentConformanceWorkflow` |
 | Mechanical promotion eligibility | `PromotionEligibilityEvaluator` |
-| Persistence | `DevelopmentStateRepository` |
-| Derived views | `HarnessStateProjector`, `HarnessSynchronizer`, and `HarnessStateComparator` |
-| Human conclusion | Development decision or acceptance record |
-
-The harness may reference immutable scientific contract and implementation identities when developing or verifying them. It does not store or advance `ScientificWorkflowRun`, execute a calculator as scientific workflow work, create `ScientificAnalysis`, or record `ScientificDisposition`.
-
+| Persistence | Domain-owned `HarnessStateRepository`; concrete `HarnessStateAtomicRepository` composed with shared `AtomicRevisionStore`, exact serializer, and validator |
+| Derived views | `HarnessProjector`, `HarnessSynchronizer`, and `HarnessStateComparator` |
+| Human conclusion | Immutable `DevelopmentDecision` unresolved/resolved variant or revision |
 ## Core boundaries
 
-A `HarnessTask` defines bounded work, prerequisites, completion criteria, and exclusions. `DevelopmentTaskSelection` identifies work permitted to proceed. Capability does not imply selection, and selection does not imply human acceptance.
+A `HarnessTask` defines bounded requested work, prerequisites, completion criteria, and exclusions. `DevelopmentTaskSelection` is repository-derived requested/selected work state; it is neither authority nor permission. Capability and selection do not authorize an operation or imply human acceptance. `DevelopmentAuthorityContextResolver` reconstructs and verifies the candidate-independent `DevelopmentAuthorityContext`; `DevelopmentOperationAuthorizer` returns an affirmative result only for a matching unrevoked `TaskAuthorization` covering the exact selection and Task revisions, candidate and starting revisions, operation, and permitted paths. A target operation verifies that result's exact bindings without reinterpreting authority policy. Neither a `HarnessTask`, selection, validation result, nor candidate-controlled decision can authorize itself.
 
-`HarnessStateSnapshot` is an immutable coherent read snapshot compiled from exact authoritative domain-repository revisions. It is used by aggregate validation and projection but owns no lifecycle behavior or writes. Persistence stores authoritative development records through domain repositories. Projections are recoverable read-only views and never replace authority.
+`HarnessState` is the immutable normalized aggregate used by validation and projection. It contains the one `DevelopmentDecision` model described by [human decisions](../human-decisions.md) directly as an immutable canonically ordered sequence of unresolved and resolved variants/revisions. A pending decision blocks only its declared development transition and scope. Persistence stores lossless revisions of that same repository-derived aggregate. The initial realization composes `HarnessStateAtomicRepository` with an explicitly configured standard-library SQLite shared store; it does not introduce a domain SQLite subclass. Projections are recoverable read-only views and never replace authority.
 
-[Repository-wide development conformance](conformance.md) is owned by the harness but evaluates the complete repository stack. The applicable package, specification, Task contract, test contract, or documentation policy retains ownership of the meaning being checked. Scientific packages do not import the harness merely because the harness invokes their declared checks.
+Development conformance is owned by the harness but evaluates the entire repository stack. The applicable package, specification, test contract, or documentation policy retains ownership of the meaning being checked. Scientific packages do not import the harness merely because the harness invokes their declared checks.
 
 Repository operations receive explicit roots, source identities, permitted paths, and requirements. Ambient current-directory discovery, mutable plugin registries, inherited architecture-policy subclasses, and silent implementation fallback are forbidden.
 
-## Task control
+## Lifecycle
 
-Architecture v2 has no general Harness Task phase machine. An immutable `HarnessTask` defines work, `DevelopmentTaskSelection` authorizes one exact Task revision, and one immutable `HarnessTaskClosure` records how that selection ended. Implementation, verification, review, and correction are performed only when applicable; they are procedural work and evidence, not persisted Task phases.
+```mermaid
+flowchart LR
+    planned["Planned"] --> active["Active"]
+    active --> implementation["Implementation"]
+    implementation --> verification["Software verification"]
+    verification --> review["Review"]
+    review --> completed["Completed"]
+```
 
-Human-owned and protected boundaries remain explicit. Automatic successor activation is disabled unless an explicit accepted contract enables it.
+The exact route is proportional to risk. Human-owned and protected boundaries remain explicit. Automatic successor activation is disabled unless an explicit accepted contract enables it.
 
 ## Pages
 
 - [Object model](object-model.md)
-- [Harness Tasks architecture](tasks/index.md)
-- [Pi harness subagent architecture](subagents/index.md)
 - [Development harness model](development-harness.md)
 - [Compiler architecture](compiler-architecture.md)
-- [Snapshot validation](validation.md)
+- [Normalized-state validation](validation.md)
 - [Repository-wide development conformance](conformance.md)
 - [Control plane](control-plane.md)
 - [Persistence](persistence.md)
+- [Shared revision persistence](../persistence/index.md)
 - [Projections](projections.md)
+- [Pi subagent boundary](subagents.md)
+- [Human decisions](../human-decisions.md)
 - [Separation from the scientific workflow](../separation-of-harness-and-workflow.md)
 
 ## Unresolved issues
 
 - Final submodule boundaries within `ksdft2effmass.harness`.
-- Closed development lifecycle and selection wire contracts.
 - Exact conformance policy, profile, result, and report wire contracts.
-- Development-state storage technology.
+- Closed development lifecycle and selection wire contracts.
+- Exact HarnessState wire bytes and SQLite schema/operational policy; standard-library SQLite is selected only as the initial shared-store realization.
 - Which generated development views remain maintained.
 - Whether reusable repository-operation infrastructure belongs in the harness or application composition package.
+
+## First-cohort reconciled contracts
+
+Repository sources are the source of truth for requested work state and compile independently of authority to the complete immutable `HarnessState`; they do not grant operation authority. Unrepresentable normalization produces a failed closed-discriminant compilation result with no state, while representable cross-record defects remain available for validation. A separate protected `DevelopmentAuthorityLedger` is supplied through explicit candidate-independent context, and `DevelopmentOperationAuthorizer` returns the exact authorization outcome after compilation. One complete `ValidationResult` contract serves leaf and composite validation. Projector, comparator, and synchronizer verify exact validation and authorization bindings plus their own preconditions without a public harness-operation eligibility result; `PromotionEligibilityEvaluator` alone gates mechanical promotion. These are prospective documentation contracts, not implemented capabilities.

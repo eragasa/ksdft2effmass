@@ -2,17 +2,17 @@
 
 ## Purpose
 
-Scientific read models are deterministic derived views of workflow persistence. They support inspection and analysis without replacing `ScientificWorkflowRun` authority.
+Scientific read models are deterministic derived views of workflow persistence. They support inspection and analysis without replacing `WorkflowRun` authority.
 
 ## Read models
 
 | Read model | Content |
 |---|---|
-| `ScientificWorkflowRunSummary` | Run identity, scientific workflow, revision, status, and terminality |
-| `ScientificWorkflowMarkingHistory` | Ordered marking and transition identities |
-| `SimulationCorrelationView` | Attempt, request, simulation, result, and executor identities |
+| `WorkflowRunSummary` | Workflow/run identity, revision, status, and terminality |
+| `WorkflowMarkingHistory` | Initial/current marking identities and canonical ordered transition identities |
+| `TaskDispatchCorrelationView` | Task instance, TaskActivation, attempt, request, executor, dispatch-envelope, and returned ResultObject identities |
 | `ArtifactLineageView` | Producer, consumer, parent, role, and content identities |
-| `ScientificWorkflowFailureView` | Failures grouped by phase, attempt, and transition |
+| `WorkflowFailureView` | Failures grouped by phase, attempt, and transition |
 | `ScientificAnalysisView` | Analysis identities, analyzers, inputs, findings, and versions |
 | `ScientificDispositionView` | Intended use, cited analyses, authority, and conclusion |
 
@@ -22,7 +22,7 @@ A read model declares its source run revision, view schema, generating action, a
 
 Read models cannot:
 
-- advance a CPN marking;
+- advance a colored-Petri-net marking;
 - authorize or dispatch a calculator;
 - accept a result;
 - create analysis or disposition;

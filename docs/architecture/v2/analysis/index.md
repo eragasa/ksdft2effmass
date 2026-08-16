@@ -9,13 +9,16 @@ flowchart LR
     observations["NormalizedObservationSet"] --> request["ScientificAnalysisRequest"]
     request --> analyzer["ScientificAnalyzer"]
     analyzer --> analysis["ScientificAnalysis"]
-    analysis --> disposition["ScientificDisposition"]
-    authority["Human authority"] --> disposition
+    analysis --> recorder["ScientificDispositionRecorder"]
+    authority["Disposition grant + authority snapshot"] --> recorder
+    recorder --> disposition["ScientificDisposition + validated recording transaction"]
 ```
 
 ## Pages
 
 - [Analysis and disposition](analysis-and-disposition.md)
+
+`NormalizedObservationSet` is calculator-independent and workflow-owned. Analysis implementations may import workflows, periodic, and Kohn–Sham contracts, but never calculator packages. Disposition creation is not analyzer behavior: the workflow-owned `ScientificDispositionRecorder` validates exact inputs and returns a closed recording result after repository commit.
 
 ## Unresolved issues
 

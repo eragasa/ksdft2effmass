@@ -1,102 +1,108 @@
-# Repository-wide development conformance
+# Development conformance
 
 ## Purpose
 
-Development conformance evaluates whether one identified repository change
-satisfies the applicable architecture policy, selected Harness Task, software
-contracts, scope constraints, and mechanical promotion requirements. Its subject
-is the whole repository, including the development harness, scientific workflow,
-colored-Petri-net, calculator, analysis, test, fixture, and documentation
-surfaces.
+Development conformance evaluates whether a proposed repository change satisfies
+identified architecture policy, a candidate-independent matching Task authorization, software-contract checks,
+and promotion requirements. Its subject is the whole repository, including the
+development harness, workflow packages, calculator integrations, scientific
+semantics, tests, fixtures, and documentation.
 
-The development harness owns conformance composition and result contracts. It
-does not thereby own the meaning of every contract it checks. Scientific
-specifications, package contracts, Harness Task rules, test-evidence contracts,
-and documentation policy remain with their authoritative domains.
+The development harness owns conformance execution. It does not thereby own the
+meaning of every contract it evaluates. Package contracts, scientific
+specifications, test-evidence requirements, and documentation requirements
+remain with their authoritative domains.
 
-Conformance does not execute a scientific workflow, advance a
-`ScientificWorkflowRun`, perform calculator execution, or establish numerical
-verification, scientific validation, scientific disposition, or human
-acceptance merely because software checks pass.
+Development conformance does not execute a scientific `Workflow`, advance a
+`WorkflowRun`, or establish numerical verification, scientific validation,
+scientific disposition, or human acceptance merely because software checks
+pass.
 
-## Relationship to harness-state validation
+## Authority and ownership
 
-[Development validation](validation.md) evaluates one coherent
-`HarnessStateSnapshot`. Repository-wide conformance has a broader subject: an
-identified proposed repository change and all checks required by the exact
-selected Task and architecture policy.
+The local Architecture v2 ownership is:
 
-A `HarnessStateValidator` result may be one conformance input. It is not itself a
-repository-wide promotion decision. The two layers use distinct result types so
-aggregate state findings are not confused with tool execution, scope,
-environment, or promotion eligibility.
+| Concern | Owner |
+|---|---|
+| Generic conformance records, composition, aggregation, and reporting | `ksdft2effmass.harness` |
+| Concrete repository architecture policy | `ksdft2effmass.harness` composition using authoritative project contracts |
+| Scientific workflow contracts | `ksdft2effmass.workflows` |
+| Project-specific campaign definitions | `ksdft2effmass.campaigns` |
+| Calculator, scientific, test, and documentation meaning | The applicable owning package, specification, test contract, or documentation policy |
+| Required status checks, protected branches, and merge refusal | Repository platform |
+| Architecture, protected actions, review, and acceptance where required | Human authority recorded by the development control plane |
+
+A future `projectkoios.bootstrap` extraction may own demonstrated generic
+conformance mechanisms. If the Architecture v2 target is implemented before
+that extraction is separately accepted, its implementation remains local.
+Project-specific policy does not become generic merely because a generic
+evaluator can consume it.
 
 ## Architectural flow
 
 ```mermaid
 flowchart TD
-    A["Trusted ArchitecturePolicy"] --> C["DevelopmentConformanceWorkflow"]
-    T["HarnessTask + DevelopmentTaskSelection"] --> C
-    R["Starting and candidate repository identities"] --> C
-    C --> S["Source and dependency results"]
-    C --> B["Behavioral results"]
-    C --> Q["Scope and lifecycle results"]
-    S --> G["PromotionEligibilityEvaluator"]
+    A["Trusted architecture policy"] --> E["Development conformance workflow"]
+    DS["Repository-derived DevelopmentTaskSelection"] --> E
+    AR["Affirmative operation authorization"] --> E
+    R["Repository identities and proposed change"] --> E
+    E --> SRC["Source and dependency results"]
+    E --> B["Behavioral results"]
+    E --> Q["Scope and promotion results"]
+    SRC --> G["Promotion eligibility evaluator"]
     B --> G
     Q --> G
-    G --> M["Mechanical promotion eligibility"]
-    M --> H["Independent human and repository authority"]
+    G --> M["Mechanical eligibility result"]
+    M --> H["Human and repository authority"]
     H --> P{"Promotion authorized?"}
+    P -->|Yes| Y["Repository promotion may proceed"]
+    P -->|No| N["Blocking report"]
 ```
 
-For the checks required by the selected Task and policy, mechanical eligibility
-is
+`DevelopmentTaskSelection` is repository-derived requested/selected work state, never authority or permission. For the checks required by the independently resolved Task authorization $T$, mechanical eligibility is
 
 $$
-E(C,A,T)=\bigwedge_{i\in R(A,T)}G_i(C,A,T),
+E(C,A,T)=\bigwedge_{i\in R(T)}G_i(C,A,T),
 $$
 
-where $C$ is the identified change, $A$ is the identified architecture policy,
-$T$ is the exact selected `HarnessTask` revision and
-`DevelopmentTaskSelection`, and $R(A,T)$ is the applicable required-check set.
+where $C$ is the identified proposed change, $A$ is the identified architecture
+policy, $R(T)$ is the required-check set, and each required gate $G_i$ must
+produce a passing result.
 
-Actual promotion additionally requires independently represented human and
-repository authority:
+Promotion authorization is separate:
 
 $$
-P(C,A,T,H)=E(C,A,T)\land H.
+P(C,A,T,H)=E(C,A,T)\land H,
 $$
 
-The deterministic conformance workflow calculates $E$. It does not manufacture
-$H$, write a maintained projection, merge code, or record human acceptance.
+where $H$ represents independently recorded human approvals and repository
+rules. The deterministic evaluator calculates $E$; it does not manufacture
+$H$.
 
 ## Core records
 
-The target uses immutable or operationally immutable records:
+The conformance system uses immutable or operationally immutable records:
 
 | Record | Responsibility |
 |---|---|
 | `ArchitecturePolicy` | Identified package boundaries, public interfaces, object-role rules, lifecycle rules, and available gate definitions |
-| `RepositorySnapshotIdentity` | Exact repository, revision or tree, and applicable source identity |
-| `RepositoryChangeSet` | Added, modified, deleted, renamed, mode-changed, symlink, and other represented repository changes |
-| `ConformanceRequirement` | Stable rule identity, version, applicability, severity, and blocking behavior |
-| `ConformanceCheckResult` | One validator invocation with status, findings, environment, and evidence references |
-| `DevelopmentConformanceProfile` | Complete policy identity, ordered validator and requirement identities, required gates, and tool-configuration identities for one evaluation |
-| `PromotionEligibilityResult` | Mechanical aggregate outcome and complete required-result identities |
-| `DevelopmentConformanceReport` | Machine-readable evidence and input to human-readable reporting |
+| `TaskAuthorization` | Exact selection and Task revisions, starting and candidate revisions, operation, permitted paths, architecture-policy identity, lifecycle stage, exclusions, and required checks |
+| `DevelopmentOperationAuthorizationResult` | Exact `authorized`, `denied`, or `error` outcome binding one operation and candidate-independent authority context without performing the operation |
+| `RepositorySnapshotIdentity` | Exact repository, revision or tree, and relevant source identity |
+| `ChangeSet` | Added, modified, deleted, renamed, mode-changed, symlink, and other represented repository changes |
+| `ValidationRequirement` | Stable rule identity, version, applicability, severity, and blocking behavior |
+| `ValidationResult` | One validator-invocation outcome, including any explicitly composed subordinate findings and evidence references |
+| `ConformanceProfile` | Complete architecture policy, ordered validators, required gates, and tool configuration used by one evaluation |
+| `PromotionEligibilityResult` | Mechanical gate outcome and its complete required-result identities |
+| `PromotionAuthorization` | Separately recorded review and repository authority for an identified eligibility result |
+| `ValidationReport` | Machine-readable evidence and a human-readable projection input |
 
-Task scope, starting revision, exclusions, completion criteria, review
-requirements, and authority are not duplicated into a separate conformance Task
-record. They are consumed from the exact `HarnessTask`,
-`DevelopmentTaskSelection`, decision and authority references, and related
-records owned by [Harness Tasks](tasks/index.md).
+A `PromotionEligibilityResult` is not named `PromotionDecision` because it does
+not record human acceptance or perform a repository mutation.
 
-A `PromotionEligibilityResult` is not called a promotion decision. It contains
-no human conclusion and performs no repository mutation.
+## Validation outcomes
 
-## Check outcomes
-
-`ConformanceCheckResult` uses the closed outcome vocabulary:
+A `ValidationResult` uses the closed outcome vocabulary:
 
 ```text
 pass
@@ -106,58 +112,60 @@ not_run
 not_applicable
 ```
 
-For a required check:
+The closed status-dependent invariants are:
 
-- `pass` satisfies the represented requirement;
-- `fail` records a detected contract violation;
-- `error` records that the validator could not establish an outcome;
-- `not_run` records omitted execution; and
-- `not_applicable` is accepted only when the requirement explicitly permits it.
+| Status | Required invariant |
+|---|---|
+| `not_applicable` | If and only if applicability is not applicable, the requirement/profile permits it, and a nonempty not-applicable reason is recorded; other statuses require applicable and no not-applicable reason. |
+| `pass` | Execution completed; no applicable requirement failed; no error diagnostic or blocking finding exists. |
+| `fail` | Execution completed and at least one identified applicable requirement failed. |
+| `error` | Validation could not establish pass or fail and carries a nonempty error diagnostic. |
+| `not_run` | The invocation did not execute or complete and carries no fabricated success evidence. |
 
-The eligibility evaluator fails closed. Every applicable required check must
-pass. Infrastructure failure and omitted execution do not become conformance.
+`blocking` is deterministically derived from identified requirement/profile criticality and findings, never selected independently. A required `error`, `not_run`, or `fail` blocks its gate. Every applicable required check must pass; infrastructure errors and omitted checks cannot become successful conformance.
 
-Each result identifies at least:
+A composite validator such as `HarnessStateValidator` returns the same `ValidationResult`, preserves every child identity and finding, and derives its status over all applicable child invocations with precedence `error`, then `not_run`, then `fail`, then `pass`; child requirement criticality affects `blocking`, not whether the child's outcome contributes to composite status. Composite `not_applicable` is valid only when the composite requirement permits it and no child invocation is applicable. Contradictory field combinations are invalid.
+
+Each result contains exactly the contractually required fields:
 
 ```text
+result_identity
 validator_identity
-requirement_identities
-status
+requirement_identity
+rule_identity
+rule_version_identity
 summary
+applicability
+applicability_reason  # nonempty only for not_applicable
+subject_identity
+execution_completed
+status  # pass | fail | error | not_run | not_applicable
 ordered_findings
-affected_paths
+error_diagnostic
+blocking  # derived
+child_result_identities
 tool_identity
 configuration_identity
 environment_identity
 evidence_references
+affected_paths
+claim_boundary
 ```
 
-Blocking behavior is owned by the trusted `ConformanceRequirement`; a check
-result does not restate or override it. `PromotionEligibilityEvaluator` resolves
-each result through its exact requirement identity.
-
-Raw tool output may be retained evidence, but it is not the architectural
+Raw tool output is retained evidence when required, not the architectural
 interface.
 
 ## Retention boundary
 
-`ConformanceCheckResult` and `PromotionEligibilityResult` are development
-evidence records. Their authoritative retention belongs to the applicable
-evidence repository, and `HarnessEvidenceCatalog` retains their exact identities,
-claim boundaries, and source references. `DevelopmentConformanceReport` is a
-derived presentation and does not replace those evidence records. Ephemeral
-local checks that are not required evidence are identified as such and cannot
-satisfy a required gate after the operation ends.
+`ValidationResult`, `ValidationReport`, and `PromotionEligibilityResult` become maintained development evidence only through the applicable evidence repository. Maintained catalog entries retain their exact identities, claim boundaries, and source references. A report is derived presentation and does not replace its evidence records. An ephemeral local check is identified as such and cannot later satisfy a required evidence gate merely because it once passed. Producing a result does not by itself make it authoritative.
 
-The conformance workflow does not make evidence authoritative merely by
-producing it, and the compiled `HarnessStateSnapshot` contains catalog references
-rather than mutable runtime validator objects or raw tool processes.
+## Action and Workflow ownership
 
-## ActionObject and Workflow ownership
-
-Reusable operations belong to explicit ActionObjects:
+External and reusable operations belong to explicit ActionObjects:
 
 ```text
+DevelopmentAuthorityContextResolver
+DevelopmentOperationAuthorizer
 RepositoryChangeInspector
 SourceConformanceValidator
 DependencyConformanceValidator
@@ -165,44 +173,30 @@ BehavioralConformanceValidator
 TaskScopeValidator
 ArtifactPromotionValidator
 PromotionEligibilityEvaluator
-DevelopmentConformanceReporter
+ValidationReporter
 ```
 
-`DevelopmentConformanceWorkflow` is the genuine reusable composition of
-inspection, validation, and mechanical eligibility evaluation. It receives a
-complete `DevelopmentConformanceProfile`, exact repository identities, and the
-applicable Harness Task records. It does not discover ambient policy, repair the
-candidate, mutate authoritative Task state, publish projections, record human
+`DevelopmentConformanceWorkflow` is the explicit reusable composition of
+inspection, validation, and eligibility evaluation. It receives a complete
+`ConformanceProfile` and explicit repository context. It does not discover
+ambient policy, mutate the proposed change, repair failures, record human
 approval, or merge code.
 
-ActionObjects may hold immutable configuration and explicit tool adapters.
+ActionObjects may retain immutable configuration and explicit tool adapters.
 Statelessness means that they own no hidden or evolving domain state; it does not
 require empty instances.
 
 ## Composition instead of architecture subclassing
 
-A project specializes conformance by supplying immutable policy and explicit
+A project specializes conformance by supplying an immutable policy and explicit
 validator composition. It does not subclass a nominal
-`BaseConformanceArchitecture`, override inherited rules, or acquire authority
-through inheritance.
+`BaseConformanceArchitecture` and override inherited policy.
 
 Conceptually:
 
 ```python
-profile = DevelopmentConformanceProfile(
-    architecture_policy_identity=architecture_policy.identity,
-    validator_identities=(
-        source_validator.identity,
-        dependency_validator.identity,
-        behavioral_validator.identity,
-        scope_validator.identity,
-        promotion_validator.identity,
-    ),
-    required_gates=required_gates,
-    tool_configuration_identities=tool_configuration_identities,
-)
-
-workflow = DevelopmentConformanceWorkflow(
+profile = ConformanceProfile(
+    policy=architecture_policy,
     validators=(
         source_validator,
         dependency_validator,
@@ -210,46 +204,41 @@ workflow = DevelopmentConformanceWorkflow(
         scope_validator,
         promotion_validator,
     ),
+    required_gates=task_authorization.required_checks,
 )
 
-result = workflow.execute(
-    starting_repository=starting_repository,
-    candidate_repository=candidate_repository,
-    task=harness_task,
-    selection=development_task_selection,
+result = DevelopmentConformanceWorkflow(...).execute(
+    context=repository_context,
     profile=profile,
+    authority_context=candidate_independent_authority_context,
+    authorization=affirmative_operation_authorization_result,
 )
 ```
 
-Concrete validators may satisfy a narrow structural protocol when multiple
-implementations demonstrate polymorphic need:
+Validators may satisfy a narrow structural protocol when multiple concrete
+implementations are demonstrated:
 
 ```python
-class DevelopmentConformanceValidator(Protocol):
+class ConformanceValidator(Protocol):
     @property
-    def requirement_identities(
-        self,
-    ) -> tuple[ConformanceRequirementIdentity, ...]: ...
+    def requirement_identities(self) -> tuple[ValidationRuleIdentity, ...]: ...
 
     def execute(
         self,
-        context: DevelopmentConformanceContext,
-    ) -> ConformanceCheckResult: ...
+        context: ConformanceContext,
+    ) -> ValidationResult: ...
 ```
 
 No nominal validator or architecture base class exists solely to label an
-implementation. The profile contains identities and immutable configuration,
-not executable validator or tool objects. `DevelopmentConformanceWorkflow`
-receives the corresponding concrete implementations separately and verifies
-that their identities exactly match the profile before execution. Explicit
-composition therefore keeps effective policy, validator order, rule versions,
-and tool configuration inspectable and identity-bearing.
+implementation. Explicit composition makes the effective policy, validator
+ordering, rule versions, and tool configuration inspectable, serializable where
+required, and eligible for stable identity.
 
 ## Enforcement planes
 
 ### Source-conformance plane
 
-This plane checks properties represented in the source tree:
+This plane evaluates properties represented in the source tree:
 
 - formatting and ordinary lint requirements;
 - declared typing requirements;
@@ -260,75 +249,76 @@ This plane checks properties represented in the source tree:
 
 Ruff, mypy, Tach, and a narrow project AST adapter may provide these checks.
 AST rules must be syntactically precise and must not claim to prove general
-purity, semantic ownership, scientific correctness, or absence of all mutable
-behavior.
+purity, semantic ownership, scientific correctness, or the absence of all
+mutable behavior.
 
 ### Behavioral-conformance plane
 
-This plane invokes applicable software, property, integration, serialization,
-state-machine, and numerical-contract checks. The authoritative meaning and
-acceptance rule of each check remain with its owning contract.
+This plane invokes the applicable software, property, integration,
+serialization, state-machine, and numerical-contract checks. The authoritative
+meaning and acceptance rule of each check remain with its owning contract.
 
-Passing software tests establishes only the represented software contract.
-Numerical-verification, scientific-validation, and
-uncertainty-quantification claims require their separately classified evidence
-and authority.
+Passing software tests establishes only the represented software contract. A
+numerical-verification, scientific-validation, or uncertainty-quantification
+claim requires its separately classified evidence and authority.
 
-### Authorization and scope plane
+### Authorization plane
 
-This plane evaluates whether the proposed change falls within represented
-development authority independently of implementation correctness. It checks at
-least:
+This plane evaluates whether the change is permitted independently of whether
+its implementation is correct. `DevelopmentAuthorityContextResolver` reconstructs and verifies the explicitly selected candidate-independent `DevelopmentAuthorityContext`. `DevelopmentOperationAuthorizer` then returns an affirmative result only when that context contains one unrevoked `TaskAuthorization` matching the repository-derived selection and exact Task revision. Authorization checks at least:
 
-- exact `HarnessTask` and selection revisions;
-- starting and candidate repository identities;
-- allowed and prohibited paths;
+- exact selection and Task revisions;
+- starting and candidate revisions;
+- requested operation;
+- permitted and prohibited paths;
+- authorized lifecycle stage;
 - architecture-policy identity;
 - required-check completeness;
 - protected architecture and control records; and
 - declared deviations.
 
-Repository operations not represented by a Git tree difference require explicit
-event or audit metadata. A `RepositoryChangeSet` accounts for additions,
+Repository operations not representable by a Git tree difference require
+explicit event or audit metadata. A `ChangeSet` accounts for additions,
 deletions, renames, file-mode changes, symlink changes, and other supported Git
 change classes rather than only changed text lines.
 
 ### Governance plane
 
 Local hooks provide feedback but are not authoritative. Required CI statuses,
-repository rulesets, protected branches, `CODEOWNERS`, and represented human
-review provide governance outside the deterministic evaluator. Individual
-adapter results remain diagnostic; only the identified aggregate eligibility
-result supplies the mechanical promotion status.
+repository rulesets, protected branches, `CODEOWNERS`, and recorded human review
+provide governance outside the deterministic evaluator. The aggregate status is
+the required mechanical gate; individual adapter statuses remain diagnostic.
 
 ## Trusted-input boundary
 
-A candidate change cannot authorize itself. Before candidate-controlled code is
-executed, conformance establishes immutable identities for:
+A `HarnessTask`, `DevelopmentTaskSelection`, candidate decision, and candidate change must not authorize themselves. Selection records requested/selected work only. Before candidate-controlled code
+is executed, conformance establishes immutable identities for:
 
 - the trusted starting revision;
 - the candidate revision or tree;
-- the selected architecture policy and content identity;
-- the exact Task, selection, and relevant authority revisions;
+- the selected architecture policy and content digest;
+- the Task authorization and content digest;
 - validator implementations and configuration;
 - required checks; and
 - the execution environment and toolchain.
 
-Policy and authority inputs come from a protected base revision, protected domain
-repository, signed record, or another explicitly trusted source selected by the
-application composition. A candidate may propose changes to those records, but
-its proposed records do not govern their own acceptance.
+Policy and authorization are loaded from a protected base revision, protected
+control store, signed record, or another explicitly trusted source. A candidate
+may propose changes to those records, but the proposed records do not govern
+their own acceptance.
+
+An operation may proceed only when `DevelopmentOperationAuthorizer` returns an exact affirmative result for the context, selection and Task revisions, starting and candidate revisions, operation, and permitted paths. A target operation verifies that result's identity bindings but does not resolve the ledger or reinterpret authorization policy.
 
 The safe execution order is:
 
 ```text
-trusted policy, Task, selection, and authority references
+repository-derived selection + candidate-independent trusted policy and authorization
 → repository identity and change inspection
 → scope and starting-revision validation
 → static source and dependency validation
 → bounded behavioral validation
 → mechanical eligibility aggregation
-→ independent human and repository authorization
+→ human and repository authorization
 → report and required status
 ```
 
@@ -340,48 +330,52 @@ Conformance cuts across the stack without reversing runtime dependencies:
 |---|---|---|
 | Package dependency direction | Architecture policy | Dependency validator |
 | DataObject and ActionObject structure | Object-model policy | AST validator |
-| Harness Task scope and selection | `harness.tasks` | Task-scope validator |
-| Colored-Petri-net behavior | `petrinet.colored` | Petri-net software-verification tests |
-| Scientific-workflow behavior | `workflow.scientific` | Workflow software-verification tests |
+| Workflow transition behavior | Workflow contracts | Workflow software-verification tests |
 | Numerical algorithm behavior | Applicable specification | Numerical-verification tests |
 | Public API and serialization behavior | Owning package and schema | Compatibility and integration tests |
+| Task scope and starting revision | Task authorization | Scope validator |
 | Documentation structure and links | Documentation policy | Documentation checks |
 
-Scientific packages do not import the development harness merely because the
-harness evaluates them. The application composition root supplies declared
-adapters and explicit inputs to the conformance workflow.
+Scientific and workflow packages do not import the development harness merely
+because the harness evaluates them. The harness invokes declared adapters or
+reads represented evidence through the development composition root.
 
 ## Architecture and policy promotion
 
-Draft, spike, implementation, and production classification must be represented
-explicitly when applicable, not guessed only from paths. A promotion evaluation
-identifies the artifact or contract, current and requested classification,
-governing policy, required evidence, affected public contracts, and required
-authority.
+Draft, spike, implementation, and production status are explicit represented
+classifications, not guesses derived only from paths. A promotion request
+identifies the artifact, current and requested stage, governing policy,
+required evidence, affected public contracts, and required authority.
 
-Changes to conformance policy or evaluator behavior require a bootstrap-safe
-route:
+Changes to the conformance policy or evaluator require a bootstrap-safe route:
 
 1. evaluate the proposal under the currently trusted policy;
-2. evaluate the proposed policy in nonauthoritative diagnostic or dual-run mode;
+2. evaluate the proposed policy in a nonauthoritative diagnostic or dual-run
+   mode;
 3. report differences explicitly; and
-4. require applicable architecture review before the new policy becomes trusted.
+4. require the applicable architecture review before the new policy becomes
+   authoritative.
 
-The proposed evaluator or policy cannot certify itself into authority.
+The new evaluator or policy cannot certify itself into authority.
 
 ## ProjectKoios extraction boundary
 
-Architecture v2 does not require an installed ProjectKoios dependency. The local
-target preserves explicit generic seams without claiming that they have already
-been extracted. A later move into `projectkoios.bootstrap` is justified only when
-local implementation demonstrates stable project-independent records,
-validator protocols, aggregation, and reporting behavior and separate human
-acceptance authorizes the dependency and migration.
+The local implementation should preserve explicit generic seams but does not
+create or depend on ProjectKoios repositories merely to anticipate extraction.
+A future extraction into `projectkoios.bootstrap` is justified only when local
+use demonstrates stable project-independent records, validator protocols,
+aggregation, and reporting behavior.
 
-Concrete `ksdft2effmass` architecture policy, domain rules, and adapters remain
-project-owned after any generic extraction. Project specialization continues
-through explicit policy and composition rather than an inherited conformance
-architecture.
+After extraction:
+
+- ProjectKoios may own the generic conformance engine and schemas;
+- `ksdft2effmass` retains its concrete architecture policy and domain adapters;
+- extraction receives separate dependency, licensing, compatibility, release,
+  and migration decisions; and
+- existing local behavior remains until equivalence and cutover are accepted.
+
+Architecture specialization continues through policy and composition rather
+than subclassing an inherited conformance architecture.
 
 ## Explicit non-goals
 
@@ -401,16 +395,20 @@ Development conformance does not:
 
 > Human authority defines the permitted state space and the requirements for
 > promotion. Deterministic validators establish mechanical eligibility against
-> identified policy, Task, selection, repository, and toolchain inputs.
-> Repository controls and represented human decisions determine whether an
-> eligible change is authorized for promotion.
+> identified policy, authorization, repository, and toolchain inputs.
+> Repository controls and recorded human decisions determine whether an eligible
+> change is authorized for promotion.
 
 ## Unresolved issues
 
 - Exact public fields and wire formats of the conformance records.
-- Exact authoritative source for Architecture v2 policy in local and CI runs.
+- Location and representation of concrete Architecture v2 policy resources.
+- Exact trust source for policy and Task authorization in local and CI runs.
 - Validator process-isolation and bounded-execution contracts.
 - Compatibility policy for validator, rule, report, and environment identities.
-- Durable publication-request, authority, outcome, and recovery records.
 - Which locally demonstrated components eventually qualify for ProjectKoios
   extraction.
+
+## Development authority context
+
+Conformance receives an immutable, explicit, candidate-independent `DevelopmentAuthorityContext` produced by `DevelopmentAuthorityContextResolver` and an exact `DevelopmentOperationAuthorizationResult` produced by `DevelopmentOperationAuthorizer`. The context identifies a `DevelopmentTrustConfiguration`, a verified `DevelopmentAuthorityLedger` snapshot, its reconstruction receipt, local or CI resolution mode, and every content and authentication verification outcome. The authorization result binds the exact operation inputs and is distinct from `PromotionEligibilityResult`. No candidate-controlled record, ambient checkout state, compiler result, validation result, or target operation selects its own authority. The ledger is protected control-plane state and is not part of repository-derived `HarnessState`.

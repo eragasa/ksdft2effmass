@@ -2,7 +2,7 @@
 
 ## Scope
 
-This crosswalk maps the [implemented Architecture v1 Pi harness subagent model](../../v1/harness/subagents/index.md) to the normative [Architecture v2 Pi harness subagent model](../../v2/harness/subagents/index.md). It does not claim that Pi runtime implementation belongs to this repository or that a subagent run provides Harness Task authority.
+This crosswalk maps the [implemented Architecture v1 Pi harness subagent model](../../v1/harness/subagents/index.md) to the normative [Architecture v2 Pi harness subagent boundary](../../v2/harness/subagents.md). It does not claim that Pi runtime implementation belongs to this repository or that a subagent run provides Harness Task authority.
 
 ## Responsibility crosswalk
 
@@ -14,7 +14,7 @@ This crosswalk maps the [implemented Architecture v1 Pi harness subagent model](
 | Parent Pi session | Task-context reconstruction, delegation, synthesis, and final verification | Retain and make explicit |
 | `subagent(...)` | Pi execution, management, status, and control interface | Retain |
 | `workflowScript` | Sole public child orchestration language | Retain |
-| Harness `.pi/chains/*.chain.json` | Authoritative development-control chain records | Retain as Harness authority; do not reinterpret as Pi subagent workflow definitions despite runtime namespace discovery |
+| Harness `.pi/chains/*.chain.json` | Authoritative source records for their declared development-control state | Retain as Harness inputs or history; do not treat them as independent operation authorization or reinterpret them as Pi subagent workflow definitions |
 | Child Pi session | Delegated runtime conversation and tool context | Retain as Pi runtime state |
 | Fresh context | Independent review, validation, and bounded inspection | Retain |
 | Forked context | Work intentionally requiring filtered persisted parent history | Retain and narrow |
@@ -30,24 +30,23 @@ This crosswalk maps the [implemented Architecture v1 Pi harness subagent model](
 | Generated Task-status prose | Legacy projection | Move or retire through the documentation cutover |
 | Opaque V1 Task `status` | Historical migration input | Do not promote into V2 |
 | Persisted implementation, verification, or review phases | Process ceremony | Remove from the Task data model |
-| V1 active status | Exact `DevelopmentTaskSelection` | Replace |
-| V1 terminal status variants | One `HarnessTaskClosure` per ended selection | Replace |
-| Agent manual inference from many control files | `HarnessTaskContextInspector` | Replace with one source-aware read operation |
+| V1 active and terminal status variants | Historical migration input | Do not promote opaque status into V2 selection, authority, or closure contracts |
+| Agent manual inference from many control files | Explicit compiled `HarnessState` plus independently resolved authority context | Replace with source-aware parent reconstruction without a new public Task-context object |
 
 ## Target flow
 
 ```mermaid
 flowchart LR
-    repositories["Harness repositories"] --> inspector["HarnessTaskContextInspector"]
-    inspector --> parent["Parent Pi session"]
+    repositories["Harness repositories"] --> state["Compiled HarnessState"]
+    authority["Independent authority context"] --> parent["Parent Pi session"]
+    state --> parent
     descriptors[".pi/agents"] --> parent
     parent --> workflow["workflowScript"]
     workflow --> runtime["pi-subagents runtime"]
     runtime --> child["Child session or worktree"]
     child --> handoff["Handoff or findings"]
     handoff --> parent
-    parent --> verification["Parent verification"]
-    verification --> closure["HarnessTaskClosure, when appropriate"]
+    parent --> verification["Parent verification and synthesis"]
 ```
 
 ## Descriptor disposition
@@ -63,21 +62,20 @@ Pi runs, child sessions, missions, status events, and artifacts remain under Pi 
 The subagent boundary is migrated when:
 
 1. project agent descriptors have validated role and tool boundaries;
-2. the parent can obtain one source-aware `HarnessTaskContext` without interpreting opaque status text;
+2. the parent reconstructs compiled harness state and independent authority context without interpreting opaque status text or introducing a parallel Task-context contract;
 3. new subagent orchestration uses `workflowScript`, while Harness `.pi/chains` remain development-control records only;
 4. concurrent writers use validated non-overlapping ownership and isolated worktrees;
 5. writer handoffs and reviewer findings identify exact subjects and revisions;
-6. parent verification precedes integration and Task closure; and
+6. parent verification precedes integration and any separately authorized durable disposition; and
 7. Pi runtime artifacts have an explicit retention and sanitization policy.
 
 ## Historical preservation
 
-Existing runs, chain records, generated Task projections, and opaque status values remain historical evidence. Migration does not rewrite them to look like V2 selections, closures, missions, or verified handoffs when those records did not exist at execution time.
+Existing runs, chain records, generated Task projections, and opaque status values remain historical evidence. Migration does not rewrite them to look like V2 selections, authority records, missions, or verified handoffs when those records did not exist at execution time.
 
 ## Unresolved issues
 
 - Descriptor consolidation and retirement order.
-- Exact `HarnessTaskContextInspector` result contract.
 - Mission and run-artifact retention policy.
 - Namespace separation preventing Harness `.pi/chains` from being interpreted as Pi subagent workflow definitions.
-- Whether Pi run identities appear in Task closure evidence references.
+- Whether and where Pi run identities appear in durable development evidence references.

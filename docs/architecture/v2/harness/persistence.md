@@ -2,79 +2,59 @@
 
 ## Purpose
 
-Development persistence preserves authoritative domain records across process boundaries. It owns durable representation, revisioning, consistency, migration, and recovery. It does not own scientific workflow state, derived views, Task eligibility, or human authority.
+Harness persistence is lossless, revisioned storage of the same complete repository-derived `HarnessState`. Repository sources remain authoritative. Persistence provides reconstruction and concurrency control; it does not define another domain aggregate or authorize development work. The shared storage boundary is defined by [shared revision persistence](../persistence/index.md).
 
-`HarnessStateSnapshot` is compiled from exact persistence revisions for aggregate validation and projection. It is not an authoritative write model.
+## Domain contract
 
-## Authoritative aggregate
+| Object | Responsibility |
+|---|---|
+| `HarnessStateIdentity` | Identity of the complete normalized aggregate derived from repository sources and normalization versions, excluding authority-ledger and operation identities |
+| `HarnessStateSnapshot` | One consistently selected complete revision |
+| `HarnessStateTransaction` | Expected revision plus one complete candidate successor and binding identities |
+| `HarnessStateWriteResult` | Domain outcome mapped from the closed generic commit result without weakening aggregate closure |
+| `HarnessStateSerializer` | Aggregate to or from the domain's versioned wire representation |
+| `HarnessStateTransactionValidator` | Validate the exact transaction, candidate identity, revision, and aggregate closure |
+| `HarnessStateRepository` | Domain-owned structural repository protocol |
+| `HarnessStateAtomicRepository` | Concrete repository composed with the shared store, serializer, and validator |
+
+A round trip must preserve every normalized value, relationship, ordering rule, and source-provenance identity required by the aggregate contract, including the canonically ordered sequence of every immutable `DevelopmentDecision` variant/revision and its predecessor/supersession history. Storage layout and physical bytes need not be equal unless the later wire contract requires canonical bytes.
+
+## Composed repository
 
 ```mermaid
-classDiagram
-    class DevelopmentState
-    class HarnessTaskCatalog
-    class HarnessTaskGraph
-    class DevelopmentTaskSelection
-    class HarnessTaskClosureCatalog
-    class HarnessDecisionCatalog
-    class HarnessCapabilityCatalog
-    class HarnessResourceCatalog
-    class HarnessEvidenceCatalog
-    class HarnessAcceptanceCatalog
-    class PersistenceRevision
-
-    DevelopmentState --> PersistenceRevision : revision
-    DevelopmentState *-- HarnessTaskCatalog
-    DevelopmentState *-- HarnessTaskGraph
-    DevelopmentState *-- DevelopmentTaskSelection
-    DevelopmentState *-- HarnessTaskClosureCatalog
-    DevelopmentState *-- HarnessDecisionCatalog
-    DevelopmentState *-- HarnessCapabilityCatalog
-    DevelopmentState *-- HarnessResourceCatalog
-    DevelopmentState *-- HarnessEvidenceCatalog
-    DevelopmentState *-- HarnessAcceptanceCatalog
+flowchart LR
+    transaction["HarnessStateTransaction"] --> repository["HarnessStateAtomicRepository"]
+    validator["HarnessStateTransactionValidator"] --> repository
+    serializer["HarnessStateSerializer"] --> repository
+    repository --> store["AtomicRevisionStore"]
+    store --> result["CommitResult"]
+    result --> repository
+    repository --> write_result["HarnessStateWriteResult"]
 ```
 
-`DevelopmentState` is one consistent immutable persistence revision. Domain objects retain their domain owners. Task selection and one closure per ended selection replace a general Task status or transition log.
+`HarnessStateAtomicRepository` is not a passive DAO. It invokes the exact `HarnessStateTransactionValidator` and `HarnessStateSerializer`, binds their subject and bytes to the candidate aggregate, identities, expected revision, and idempotency identity, and only then submits one complete opaque revision. Detached validation cannot validate different bytes or another candidate. The shared store sees only identities and immutable payload bytes.
 
-## Persistence objects
+The repository performs domain transaction-to-bytes/identity binding and preserves aggregate-specific commit closure. `AtomicRevisionStore` performs compare-and-swap, idempotency, durable identity/content closure, atomic single-stream commit, consistent reads, and generic committed/conflict/indeterminate/error outcome handling. Conflicts are never merged silently, and an indeterminate outcome is never guessed.
 
-| Object | Purpose |
-|---|---|
-| `DevelopmentStateIdentity` | Stable identity of one logical development state |
-| `DevelopmentStateRevision` | Immutable revision, predecessor, and content identity |
-| `DevelopmentStateSnapshot` | Consistent selected persistence revision and its records |
-| `DevelopmentStateTransaction` | Complete requested writes with expected prior revisions |
-| `DevelopmentPersistenceConflict` | Expected-versus-observed revision conflict |
-| `DevelopmentPersistenceWriteResult` | Created revisions and resulting snapshot identity |
-| `DevelopmentPersistenceMigrationResult` | Input/output versions, identities, and findings |
+The repository does not choose authority, normalize repository sources, interpret a human response, create a `DevelopmentDecision`, run unrelated domain validators, project views, or repair a successor. Authority-context, authorization-result, requested-operation, and permitted-path identities neither change `HarnessStateIdentity` nor enter the aggregate merely because an authorized operation persists it.
 
-## ActionObjects
+## Storage selection and separation
 
-| ActionObject | Operation |
-|---|---|
-| Domain serializers | Domain records ↔ versioned wire representations |
-| `DevelopmentStateTransactionValidator` | Validate write closure and expected revisions |
-| Domain repositories | Read and append records owned by one domain |
-| `DevelopmentStateRepository` | Load a coherent aggregate snapshot and commit validated cross-domain transactions when required |
-| `DevelopmentStateSchemaMigrator` | Perform one explicit version migration |
-| `DevelopmentStateIntegrityVerifier` | Verify identities, references, versions, and storage integrity |
+The initial concrete store is prospective `SQLiteAtomicRevisionStore`, implemented with Python standard-library `sqlite3` and explicit constructor configuration. There is no `HarnessStateSQLiteRepository`; the domain repository composes the shared store structurally.
 
-A repository is a narrow authoritative storage boundary. It does not authorize work, resolve decisions, evaluate Task eligibility, run validation tools, generate projections, or expose storage tables as the public object model. The compiler never writes through a repository.
+The development `HarnessState` store/database is separate by default from the scientific `WorkflowRun` store/database. Shared implementation does not imply shared physical storage or cross-stream transactions.
 
-## Consistency and migration
+`DevelopmentAuthorityLedger` and `DevelopmentOperationAuthorizationResult` remain separate protected control-plane state and operation evidence with their own identities, authentication/content-verification, and reconstruction requirements. Ordinary shared SQLite revision storage is not selected as its trusted persistence. Immutable projection generations, current-generation pointer publication, recovery markers, and quarantine records are also separate derived publication state and never `HarnessState` revisions or reconstruction sources.
 
-A transaction commits one declared consistency unit. Conflicting revisions fail closed; they are not merged silently. Every representation declares its schema version. Migration is deterministic and retains input identity, output identity, and findings. Migration never changes selection, closure, authority, or acceptance implicitly.
+Conflicting revisions fail closed and are never merged silently. V1 Task status values remain migration inputs and historical evidence; they are not copied into a new lifecycle vocabulary. If a later migration is selected, it must be explicit and deterministic and retain input identity, output identity, and findings without implicitly changing selection, authority, or acceptance.
 
-Current V1 Task status values are migration inputs and retained history. They are not copied into a V2 lifecycle vocabulary.
+Persisted harness state excludes credentials, private keys, unrestricted environment content, and external scientific payloads. Cross-plane references use immutable identities rather than shared mutable rows.
 
-## Security
+## Deferred issues
 
-Persisted state excludes credentials, private keys, unrestricted environment content, and external scientific payloads. Cross-plane references use immutable identities rather than shared mutable rows.
+- Exact HarnessState wire schema and whether canonical bytes are required.
+- Exact SQLite schema, connection lifetime, locking/isolation/busy behavior, and failure encoding.
+- Backup, recovery, retention, compaction, and maximum aggregate size.
+- Protected `DevelopmentAuthorityLedger` storage, signing, and transport mechanisms.
 
-## Unresolved issues
-
-- Concrete storage technology and transaction implementation.
-- Whether source files, a database, or separate domain repositories provide the primary durable representations.
-- Transaction boundary across selection, closure, evidence, and acceptance records.
-- Revision-retention and compaction policy.
-- Recovery behavior after an interrupted multi-record development-state write.
+No migration class, integrity-verifier class, public SQLite configuration/initializer hierarchy, domain SQLite subclass, or extra persistence module split is selected. This prospective contract claims no implementation, software verification, protected authority, or human acceptance.
