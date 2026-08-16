@@ -66,7 +66,7 @@ acceptance.
   roots, manifests, and profile composition.
 - `python/src/cli/validate_harness.py` renders aggregate repository validation.
 - `python/src/cli/harness_projection.py` synchronizes or checks maintained control
-  projections; `harness_control.py` remains temporary migration compatibility.
+  projections; the former `harness_control.py` compatibility entry point is retired.
 
 These commands do not gain authority from process exit status and do not execute
 scientific calculations.

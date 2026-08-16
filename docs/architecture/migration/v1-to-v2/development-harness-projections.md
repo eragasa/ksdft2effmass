@@ -17,10 +17,9 @@ scientific authority.
 
 The maintained command is `python/src/cli/harness_projection.py`. It directly owns
 argument parsing, command-boundary path selection, rendering, and exit codes. The
-private `local._commands.harness_control` indirection is removed.
-
-`python/src/cli/harness_control.py` remains only as a temporary compatibility entry
-point. New documentation and callers use `harness_projection.py`.
+private `local._commands.harness_control` indirection and temporary
+`python/src/cli/harness_control.py` compatibility entry point are removed. Maintained
+documentation and callers use only `harness_projection.py`.
 
 ### 2. Introduce the immutable artifact-set boundary
 
@@ -48,7 +47,7 @@ snapshot closes.
 
 After replacement behavior passes its accepted compatibility checks:
 
-- remove `python/src/cli/harness_control.py`;
+- keep the removed `python/src/cli/harness_control.py` entry point retired;
 - remove every public `HarnessControlMigration*` and `HarnessControlVerification*`
   object and export;
 - remove `HarnessControlMigrator` and `HarnessControlVerifier` rather than retaining

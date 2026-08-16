@@ -187,7 +187,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "def729da1812b7427918065684505148d0b8a889771f78e5fe9ff0d0a4dd9766",
+      "content_sha256": "6aff4732f1dc238d009e05df8c22961b226787d3cedcde7c34e8da10a2383e3c",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_command_api_agreement.py",

@@ -100,7 +100,7 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
         sys,
         "argv",
         [
-            "harness_control",
+            "harness_projection",
             "sync",
             "--repository-root",
             str(tmp_path.resolve()),
@@ -180,7 +180,7 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
         sys,
         "argv",
         [
-            "harness_control",
+            "harness_projection",
             "check",
             "--repository-root",
             str(tmp_path.resolve()),
@@ -221,7 +221,7 @@ def test_artifact__verify_command__agrees_with_public_result(
     monkeypatch.setattr(
         sys,
         "argv",
-        ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
+        ["harness_projection", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert projection_cli.main() == 0
     assert json.loads(capsys.readouterr().out) == {
@@ -271,7 +271,7 @@ def test_artifact__verify_command__returns_literal_failure_for_reported_drift(
     monkeypatch.setattr(
         sys,
         "argv",
-        ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
+        ["harness_projection", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert projection_cli.main() == 1
     assert json.loads(capsys.readouterr().out) == {
@@ -323,7 +323,7 @@ def test_artifact__verify_command__unexpected_failure_returns_exit_three(
     monkeypatch.setattr(
         sys,
         "argv",
-        ["harness_control", "check", "--repository-root", str(tmp_path.resolve())],
+        ["harness_projection", "check", "--repository-root", str(tmp_path.resolve())],
     )
     assert projection_cli.main() == 3
     assert json.loads(capsys.readouterr().out) == {

@@ -52,9 +52,10 @@ The maintained projection command is:
    python/.venv/bin/python python/src/cli/harness_projection.py sync --repository-root <ABSOLUTE_ROOT> --pi-settings .pi/settings.json <EXPLICIT_CANONICAL_INPUTS>
    python/.venv/bin/python python/src/cli/harness_projection.py check --repository-root <ABSOLUTE_ROOT>
 
-``python/src/cli/harness_control.py`` is a temporary Architecture-v1 compatibility
-entry point. It and the ``HarnessControl*`` API are scheduled for removal after the
-v2 source, state, artifact-set, synchronization, and comparison replacements exist.
+The maintained command is ``python/src/cli/harness_projection.py``. The former
+``python/src/cli/harness_control.py`` compatibility entry point has been removed. The
+remaining ``HarnessControl*`` Python API is temporary and scheduled for removal after
+its replacement behavior exists and passes the applicable compatibility checks.
 
 Verification
 ------------

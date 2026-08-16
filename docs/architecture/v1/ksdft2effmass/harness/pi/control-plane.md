@@ -27,7 +27,7 @@ All three surfaces must agree. Generated state cannot activate a Task, and Task 
 
 ## Operations
 
-The maintained `harness_projection.py` CLI exposes synchronization and checking of derived projections. The old `harness_control.py` spelling is temporary migration compatibility, not a second maintained semantic owner. Synchronization requires explicit canonical evidence and resource inputs and publishes a complete projection set. Checking reconstructs the candidate read-only and reports drift.
+The maintained `harness_projection.py` CLI exposes synchronization and checking of derived projections. The former `harness_control.py` compatibility entry point is retired. Synchronization requires explicit canonical evidence and resource inputs and publishes a complete projection set. Checking reconstructs the candidate read-only and reports drift.
 
 Task inspection combines chain, Task, and generated-state observations for one exact selected Task. It establishes bounded structural state only.
 
