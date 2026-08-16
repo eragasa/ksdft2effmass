@@ -1,9 +1,176 @@
 \chapter{First-Principles Parent Model}
+\label{ch:first-principles-parent}
 
-\textbf{Status: proposed work; no production calculation is claimed.}
+\textbf{Status: accepted model and numerical protocols are described; no
+production calculation or converged value is claimed.}
 
-This chapter will describe the declared Kohn--Sham parent model, crystal
-geometry, numerical settings, convergence questions, external Quantum ESPRESSO
-boundary, and retained provenance. Tutorial observations, software-workflow
-evidence, production calculations, and scientifically accepted parent-model
-results will remain explicitly distinct.
+This chapter describes how the pristine-silicon Kohn--Sham parent is to be
+constructed and recorded. The physical branch is owned by
+\texttt{specification/ksdft2Effmass.physical-specification.v1.md}; the numerical
+protocol is owned by
+\texttt{specification/ksdft2Effmass.numerical-specification.v1.md}. The present
+account does not replace either specification.
+
+\section{Declared bulk branch}
+
+The immediate parent problem is pristine silicon in the diamond structure,
+represented by a two-atom primitive cell for primary bulk calculations. The
+accepted branch uses PBE, a scalar-relativistic PseudoDojo optimized
+norm-conserving Vanderbilt silicon pseudopotential, no spin--orbit coupling, and
+no spin polarization. The production lattice parameter is an output of a
+zero-pressure PBE optimization using the selected pseudopotential; it is not
+inserted from experiment by convention.
+
+This branch defines a Kohn--Sham reference. Its known physical limitations and
+any comparison with experiment are parent-model issues. They remain distinct
+from convergence of the numerical representation and from later errors caused
+by projection or model reduction.
+
+\section{External-program boundary}
+
+Quantum ESPRESSO is responsible for self-consistent, non-self-consistent,
+band-path, and lattice-optimization calculations. The project does not
+reimplement plane-wave Kohn--Sham DFT. For the declared workflow,
+\texttt{pw.x} is the relevant executable for the bulk electronic-structure
+stages. Wannier construction and the QE--Wannier interface are addressed in
+Chapter~\ref{ch:representations-and-alignment}; they remain responsibilities of
+Wannier90 and \texttt{pw2wannier90.x}, respectively.
+
+The software in this repository begins at explicit integration and provenance
+boundaries. It may prepare or validate declared inputs, record execution
+identity, parse retained outputs, and construct downstream representations. A
+successful process exit does not establish convergence, correctness of the
+physical branch, or scientific acceptance.
+
+No production executable is invoked in developing this monograph. Production
+QE and Wannier90 execution is a separately authorized activity with declared
+inputs, resources, outputs, and retention policy.
+
+\section{Pseudopotential identity}
+
+The numerical specification records the approved silicon pseudopotential by
+source table, release, filename, relativistic form, valence count, cutoff hints,
+and SHA-256 hashes of both compressed and decompressed files. This identity is
+part of the physical and numerical parent. A filename alone is insufficient,
+and a later download is not assumed identical merely because its URL or element
+label matches.
+
+The PseudoDojo hints are starting information for convergence, not accepted
+production cutoffs. They are expressed in Hartree, whereas Quantum ESPRESSO
+uses Rydberg for \texttt{ecutwfc}; the conversion and the units of every
+recorded setting must therefore be explicit. Phosphorus and boron
+pseudopotentials are not selected by the bulk protocol and belong to their
+later specialization gates.
+
+\section{Controlled convergence}
+
+Numerical convergence is evaluated by changing one controlled variable at a
+time while holding the physical branch and the remaining numerical settings
+fixed. A parameter is accepted only when the declared target observables meet
+the applicable stability criteria and the retained record identifies both
+accepted and rejected candidates.
+
+\subsection{Plane-wave and charge-density cutoffs}
+
+The cutoff study begins from a monotone sequence that brackets and extends the
+approved pseudopotential hints. For the norm-conserving silicon potential, the
+first charge-density cutoff trial is tied explicitly to the wavefunction cutoff;
+a separate ratio refinement is required if charge-density sensitivity controls
+the result. The smallest pair meeting every declared tolerance is selected,
+with a higher guard setting retained when feasible.
+
+A total-energy plateau alone is not sufficient when a stricter setting is
+required by the indirect gap, valley position, effective masses, stress, or
+another declared parent observable. Conversely, a higher cutoff is not adopted
+merely because it is more expensive or appears more conservative.
+
+\subsection{Brillouin-zone sampling}
+
+Four sampling purposes remain separate:
+
+\begin{description}
+  \item[SCF mesh.] A uniform Monkhorst--Pack sequence converges the charge
+    density and total energy of the primitive bulk cell.
+  \item[Band path.] An explicitly recorded high-symmetry path reports the band
+    structure and supplies declared withheld points.
+  \item[Valley sampling.] A local one-dimensional refinement locates the
+    conduction minimum along the selected $\Gamma$--$X$-type direction.
+  \item[Effective-mass sampling.] Local stencils around the selected conduction
+    minimum estimate longitudinal and transverse curvature.
+\end{description}
+
+A dense path is not a substitute for an SCF integration mesh. The valley and
+mass calculations use the accepted self-consistent density but require their
+own coordinates, refinement intervals, fit or finite-difference rules, and
+stability checks.
+
+\section{Equilibrium lattice procedure}
+
+The production lattice parameter is determined from a symmetric set of
+compressed and expanded primitive cells. Every point uses identical numerical
+settings and retains energy and stress conventions. An equation of state or a
+stated local polynomial is fit near the minimum, with included points, excluded
+points, residuals, and uncertainty recorded. Refinement continues according to
+the accepted numerical criterion, followed by a calculation or constrained
+relaxation that checks the selected minimum.
+
+The resulting lattice parameter is then frozen for compatible bulk and dopant
+lattice vectors. An experimental lattice parameter may be evaluated as an
+external validation branch, but it does not silently replace the internally
+consistent PBE parent geometry.
+
+\section{Target parent quantities}
+
+The bulk parent record eventually supplies
+
+\begin{itemize}
+  \item the equilibrium lattice parameter and its numerical uncertainty;
+  \item the indirect Kohn--Sham gap relative to the declared band-edge
+    convention;
+  \item the conduction-valley position in an explicitly stated reciprocal or
+    path coordinate;
+  \item longitudinal and transverse electron effective masses, including fit
+    axes and stencil stability; and
+  \item selected band energies at points withheld from later fitting.
+\end{itemize}
+
+These are future calculated results. The accepted numerical specification fixes
+how stability is judged but deliberately contains no converged cutoff, mesh,
+lattice parameter, gap, valley coordinate, or mass. Values cannot be promoted
+into this chapter until their calculation identity and retained provenance are
+available.
+
+\section{Provenance record}
+
+A reproducible parent calculation requires more than its input text. The compact
+record must identify, as applicable,
+
+\begin{itemize}
+  \item repository revision and immutable input identities;
+  \item executable path, version, and build or environment provenance;
+  \item pseudopotential source, release, checksums, and recorded license;
+  \item physical branch, cell vectors, positions, units, and symmetry choices;
+  \item cutoff, mesh, occupation, solver, and convergence settings;
+  \item MPI and OpenMP configuration and the exact command;
+  \item expected and observed output inventory; and
+  \item checksums and locations for externally retained artifacts.
+\end{itemize}
+
+Large wavefunctions, densities, restart state, scratch directories, and dense
+native outputs remain outside Git. Compact sanitized inputs, manifests,
+checksums, software identities, and calculation-status summaries may be retained
+when authorized.
+
+\section{Tutorial and production evidence}
+
+The repository also defines an inactive Quantum ESPRESSO tutorial campaign.
+Those exercises are intended to learn executable behavior, file boundaries,
+stream capture, failure modes, and provenance mechanics. Even if executed later,
+tutorial observations remain software-workflow evidence. They do not become the
+production silicon parent, establish numerical convergence, or validate the
+scientific model.
+
+This distinction allows operational learning to proceed without contaminating
+the evidentiary status of the research calculation. The parent model becomes a
+calculated project result only through its own authorized execution,
+convergence record, and scientific interpretation.
