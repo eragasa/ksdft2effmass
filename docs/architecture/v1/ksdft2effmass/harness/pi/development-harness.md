@@ -2,7 +2,7 @@
 
 ## Core records
 
-`HarnessTask` is the canonical development work record. Task definitions are stored as version-3 JSON under `harness/tasks/`. Generated Markdown siblings are inspection views and are not control inputs.
+`HarnessTask` is the managed-work record. Task definitions are stored as version-3 JSON under `harness/tasks/`. Ordinary explicit human requests use direct work and do not require a Task or generated documentation.
 
 A Task records:
 
@@ -30,14 +30,15 @@ Chains under `.pi/chains/` provide membership, retained activation facts, and ac
 
 ```mermaid
 flowchart LR
-    define["Define HarnessTask"] --> select["Select explicitly"]
-    select --> implement["Implement"]
-    implement --> verify["Software verification"]
-    verify --> review["Review"]
-    review --> complete["Complete or await human decision"]
+    request["Explicit human request"] --> implement["Implement"]
+    implement --> check["Proportionate checks"]
+    check --> report["Concise report"]
 ```
 
-The exact route is proportional to risk. Routine deterministic corrections need not manufacture unnecessary stages. Protected actions and human-owned decisions remain explicit.
+Managed Task, chain, checkpoint, ownership, review, evidence, and acceptance records
+are used only when explicitly selected or required by a protected boundary,
+concurrent ownership, or a genuine unresolved human decision. Protected actions and
+human-owned decisions remain explicit.
 
 ## Boundaries
 

@@ -15,9 +15,7 @@ source_suffix = {
 }
 
 # Keep every maintained RST page and collect the version-isolated architecture,
-# bounded Markdown user guide, CPN pages, and explicitly selected current harness
-# pages. The complete harness hierarchy remains available for repository/Obsidian
-# navigation.
+# bounded Markdown user guide, and CPN pages.
 include_patterns = [
     "*.rst",
     "**/*.rst",
@@ -31,12 +29,6 @@ include_patterns = [
     "user-guide/*.md",
     "concepts/cpn-contract.md",
     "api/workflows-cpn.md",
-    "harness/ksdft2effmass.harness.001.000.000.md",
-    "harness/ksdft2effmass.harness.001.001.000.md",
-    "harness/ksdft2effmass.harness.001.002.000.md",
-    "harness/ksdft2effmass.harness.001.003.000.md",
-    "harness/ksdft2effmass.harness.001.004.000.md",
-    "harness/ksdft2effmass.harness.001.006.000.md",
 ]
 
 myst_enable_extensions = ["dollarmath"]

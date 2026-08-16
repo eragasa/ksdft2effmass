@@ -8,7 +8,6 @@
 - `harness/state/harness-control.sql`;
 - `harness/state/projection-manifest.json`;
 - `harness/task-graph.json`;
-- generated Task Markdown and its index;
 - resource-manifest projections; and
 - the Python evidence module inventory.
 
@@ -37,9 +36,7 @@ Candidate construction occurs in a temporary workspace. Publication follows vali
 
 Raw SQLite byte differences do not by themselves establish semantic drift.
 
-## Generated documentation
-
-Generated Task Markdown under `docs/harness/tasks/` is a projection of Task JSON and chain state. It is not human-authored architecture authority and must not be edited as a source record.
+Generated projections do not target `docs/`; maintained documentation remains human-authored.
 
 ## Scientific views
 

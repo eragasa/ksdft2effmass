@@ -213,7 +213,7 @@
       "content_sha256": "d93d0d04f991b286694f4ba182256d9b5006929d9ead22ef15ce7376a3455b46",
       "trigger_description": "Creating, changing, versioning, reviewing, or relocating generic or project-local harness textual resources and their manifests, profiles, descriptors, schemas, fixtures, policy references, or documentation.",
       "current_consumers": [
-        "docs/harness/ksdft2effmass.harness.002.001.008.md",
+        "docs/architecture/v1/ksdft2effmass/harness/history.md",
         "harness/pi/docs/resources.md"
       ],
       "authoritative_references": [
@@ -484,7 +484,7 @@
       "authoritative_references": [
         "AGENTS.md",
         "harness/tasks/harness-simplification.execution.task-state-inspection-tool.json",
-        "docs/harness/ksdft2effmass.harness.002.001.006.md"
+        "docs/architecture/v1/ksdft2effmass/harness/history.md"
       ],
       "inputs": [
         "absolute repository root",

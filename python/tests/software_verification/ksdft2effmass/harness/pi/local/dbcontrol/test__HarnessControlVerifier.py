@@ -67,7 +67,6 @@ def control_root(tmp_path: Path) -> Path:
     root = tmp_path / "repository"
     root.mkdir()
     shutil.copytree(repository / "harness", root / "harness")
-    shutil.copytree(repository / "docs/harness/tasks", root / "docs/harness/tasks")
     shutil.copytree(repository / "python/tests", root / "python/tests")
     shutil.copy2(repository / "python/pyproject.toml", root / "python/pyproject.toml")
     shutil.copytree(repository / ".pi/agents", root / ".pi/agents")
@@ -206,7 +205,6 @@ def generation_snapshot(root: Path) -> tuple[bytes, bytes, bytes, bytes]:
         (root / "harness/state/harness-control.sqlite3").read_bytes(),
         (root / "harness/state/harness-control.sql").read_bytes(),
         (root / "harness/state/projection-manifest.json").read_bytes(),
-        (root / "docs/harness/tasks/P1.md").read_bytes(),
     )
 
 
@@ -335,53 +333,6 @@ def test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources(
     result = HarnessControlVerifier().execute(control_root)
     assert "semantic_disagreement" in {item.code for item in result.findings}
     assert result.sql_identical is False
-
-
-@pytest.mark.parametrize(
-    ("kind", "expected_code", "passes"),
-    (
-        pytest.param("missing", "missing_artifact", False, id="missing_projection"),
-        pytest.param("changed", "changed_artifact", False, id="changed_projection"),
-        pytest.param("unexpected", "unexpected_artifact", False, id="unexpected_owned"),
-        pytest.param("unrelated", None, True, id="unrelated_human_authored"),
-    ),
-)
-def test_method__execute_projection_ownership__confines_drift_detection(
-    control_root: Path, kind: str, expected_code: str | None, passes: bool
-) -> None:
-    """Evidence ID: software-verification.harness.sqlite-control.verification-action.projection-ownership
-
-    Requirement: Missing, changed, and unexpected files inside publisher ownership are
-    drift, while unrelated human-authored neighboring files are outside comparison.
-
-    Method: Apply one exact filesystem partition and execute public verification.
-
-    Oracle: The frozen generated-root ownership map classifies each selected path.
-
-    Acceptance: Owned drift reports the expected code and fails projection agreement;
-    the unrelated partition has no findings and passes.
-
-    Interpretation: Failure identifies incomplete or overbroad generated-root scanning.
-
-    Limitations: Database, SQL, and manifest partitions are covered separately.
-    """  # noqa: E501
-    page = control_root / "docs/harness/tasks/P1.md"
-    if kind == "missing":
-        page.unlink()
-    elif kind == "changed":
-        page.write_bytes(b"changed\n")
-    elif kind == "unexpected":
-        (control_root / "docs/harness/tasks/unexpected.md").write_bytes(b"extra\n")
-    else:
-        report = control_root / "harness/reports/human-authored.txt"
-        report.parent.mkdir(parents=True, exist_ok=True)
-        report.write_bytes(b"outside ownership\n")
-    result = HarnessControlVerifier().execute(control_root)
-    assert (not result.findings) is passes
-    assert (expected_code is None) is passes
-    if expected_code is not None:
-        assert expected_code in {item.code for item in result.findings}
-        assert result.projections_identical is False
 
 
 def test_method__execute_temporary_workspace__cleans_after_success_and_failure(

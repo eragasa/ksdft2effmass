@@ -48,11 +48,6 @@ class _HarnessControlSourceVerifier:
     ) -> tuple[Path, ...]:
         """Return unexpected files only inside the frozen publisher-owned domain."""
         observed: set[Path] = set()
-        task_docs = root / "docs/harness/tasks"
-        if task_docs.is_dir():
-            observed.update(
-                path.relative_to(root) for path in task_docs.iterdir() if path.is_file()
-            )
         task_records = root / "harness/tasks"
         if task_records.is_dir():
             observed.update(

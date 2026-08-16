@@ -6,7 +6,7 @@ Current human instruction and durable human decisions outrank specifications, re
 
 ## Source and projection are distinct
 
-Task JSON, chain selection, unresolved checkpoints, specifications, and other declared inputs are authoritative in their respective domains. SQLite, SQL, graphs, generated Task Markdown, indexes, and manifests are derived projections. A projection cannot silently replace a disagreeing source.
+Task JSON, chain selection, unresolved checkpoints, specifications, and other declared inputs are authoritative in their respective domains. SQLite, SQL, graphs, indexes, and manifests are derived projections. A projection cannot silently replace a disagreeing source.
 
 ## Scientific claims are classified
 

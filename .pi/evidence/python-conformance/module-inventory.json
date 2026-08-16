@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3045,
+  "expected_collected_node_count": 3041,
   "expected_module_count": 260,
   "modules": [
     {
@@ -178,7 +178,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "699127ea07a7e8813c6ded4c5d22dc322dbb757e6be2cad6f8476b6809355455",
+      "content_sha256": "c79d640d42c6f76051a37487e85f1ec3ed88de23bb61e8050576ed8ec1e2c469",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__HarnessControlVerifier.py",
@@ -223,7 +223,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "28bed7b0ff9c183ccc54527a7187ce15d3a941921a5fb14e15d33ef5c5f63075",
+      "content_sha256": "c65d40a2894ce3768d7c72901e695ceaa132b213597caaa85a7d53a7d9a65b92",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py",
@@ -385,7 +385,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "37d94d8c2ff77ae3d3a5250cf6943c96d22fd5cc0100a4a5038069589a3b2096",
+      "content_sha256": "241a3848327c88f7f4ad1ed6c411c230bf03985f9c5c8bb336f0fdce60647c9f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v3.py",
@@ -394,7 +394,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "61b5949060ae9c1901bfa9ace7748025aa8949ae7da8bbbe506938f4c454bfa5",
+      "content_sha256": "fecc350429e0b32f9b5415f65d17744dfdc937d29fe6d75fbc7bd1d037a7e8cc",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py",

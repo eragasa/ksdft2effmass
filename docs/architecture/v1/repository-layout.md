@@ -55,7 +55,9 @@ harness/workflow separation remain at the v1 root.
 
 ## Documentation and generated state
 
-V1 historically mixes human-authored harness narrative with generated Task Markdown under `docs/harness/tasks/`. Those generated pages reflect Task JSON and chain state and are not authoritative prose. Other generated control artifacts remain under `harness/state/` and `harness/task-graph.json`.
+Maintained Harness architecture is consolidated under
+`docs/architecture/v1/ksdft2effmass/harness/`. Generated control artifacts remain
+under `harness/state/` and `harness/task-graph.json`; they do not target `docs/`.
 
 ## External data
 

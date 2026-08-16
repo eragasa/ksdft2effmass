@@ -6,23 +6,23 @@
   "status": "H4_closed_human_accepted_PASS_local_authoritative",
   "active_task": null,
   "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
-  "architecture_index": "docs/harness/ksdft2effmass.harness.000.000.000.md",
+  "architecture_index": "docs/architecture/v1/ksdft2effmass/harness/index.md",
   "architecture_documents": [
-    "docs/harness/ksdft2effmass.harness.000.000.000.md",
-    "docs/harness/ksdft2effmass.harness.001.000.000.md",
-    "docs/harness/ksdft2effmass.harness.001.001.000.md",
-    "docs/harness/ksdft2effmass.harness.001.002.000.md",
-    "docs/harness/ksdft2effmass.harness.001.003.000.md",
-    "docs/harness/ksdft2effmass.harness.001.004.000.md",
-    "docs/harness/ksdft2effmass.harness.001.005.000.md",
-    "docs/harness/ksdft2effmass.harness.001.006.000.md"
+    "docs/architecture/v1/ksdft2effmass/harness/index.md",
+    "docs/architecture/v1/ksdft2effmass/harness/history.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/index.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/development-harness.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/control-plane.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/resources-and-validation.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/human-review.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/subagents/index.md"
   ],
   "authoritative_status_sources": {
     "tasks": "harness/tasks/",
     "human_decisions": ".pi/checkpoints/",
     "dependencies_and_authorization": ".pi/chains/",
     "retained_evidence": ".pi/evidence/",
-    "maintained_architecture": "docs/harness/"
+    "maintained_architecture": "docs/architecture/v1/ksdft2effmass/harness/"
   },
   "activation_authority": {
     "decision": "Current human instruction to create PI Harness Incubation and Extraction Readiness and complete harness incubation before P2",
@@ -86,7 +86,7 @@
     "generic_textual_resources": "harness/pi/",
     "project_specific_textual_resources": "harness/local/",
     "runtime_project_state": ".pi/",
-    "maintained_human_documentation": "docs/harness/",
+    "maintained_human_documentation": "docs/architecture/v1/ksdft2effmass/harness/",
     "dependency_direction": "project-local -> generic; generic -/-> project-local"
   },
   "vvuq": {

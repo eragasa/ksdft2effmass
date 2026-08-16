@@ -52,7 +52,7 @@ The implementation compares normalized table content and a semantic digest, dete
 - Loading, normalization, validation, projection, publication, and comparison are behaviorally separated but not all represented by public objects.
 - Candidate generation combines compilation and projection concerns.
 - The migrator owns more orchestration than a narrow synchronizer.
-- Generated Task Markdown is published under `docs/` in V1.
+- Generated Task Markdown has been retired from `docs/`; Task JSON remains the maintained source.
 - There is no validator composition protocol over one public `HarnessState`.
 
 These limitations describe the implemented architecture and do not redefine it.

@@ -1,337 +1,143 @@
 Agent control plane
 ===================
 
-The agent control plane records how humans and agents coordinate work in the
-repository. It is operational guidance, not a scientific specification.
+This page describes optional coordination for repository work. It is operational
+guidance, not a scientific specification and not a prerequisite for ordinary
+development.
 
-Authority and roles
--------------------
+Default: direct work
+--------------------
 
-Apply authority in this order: current human instruction and durable human
-decisions; accepted scientific and public contracts; root and scoped
-``AGENTS.md`` files; active chain, task, checkpoint, and ownership records;
-applicable skills and procedural documentation; then derived reports and
-historical evidence. Lower-level records may add compatible detail but may not
-silently override higher authority. Historical evidence records what happened
-and does not govern current work.
+An explicit human request authorizes ordinary bounded work directly. The agent reads
+the relevant files, inspects the branch and working tree, makes the requested change,
+runs proportionate checks, and reports the result.
 
-The root ``AGENTS.md`` owns stable repository policy. Mutable state belongs in
-``.pi/chains/``, ``harness/tasks/``, ``.pi/checkpoints/``, and durable human-decision
-records rather than in constitutions or explanatory documentation. In the
-validated project environment, both Codex and pi discover repository-local
-skills under ``.agents/skills/``. pi additionally discovers pi-specific skills
-under ``.pi/skills/``. A project skill may shadow a same-named global pi skill.
-Codex configuration or hooks belong under ``.codex/`` only when explicitly
-approved.
+Direct work does not require:
 
-``harness/tasks/`` contains canonical Task records; archived Markdown and intake
-evidence under ``harness/archive/task-control-v1/`` is not runtime authority.
-``.pi/skills/`` contains pi-specific skills with no shared equivalent. ``.pi/agents/`` and
-``.pi/chains/`` describe pi subagents and chains. ``.agents/skills/`` contains
-shared repository-local agent skills such as the manually installed Graphify
-skill.
+* a Harness Task or chain activation;
+* checkpoint discovery or closeout;
+* an ownership manifest;
+* a mission, run record, handoff record, or completion packet;
+* a retained evidence inventory;
+* an independent reviewer or correction round; or
+* a separate human-acceptance record.
 
-Decision classes and human checkpoints
---------------------------------------
+The absence of those records is not a blocker. Historical records do not govern new
+work unless the human request or a directly applicable durable decision selects them.
 
-The control plane separates three decision classes.
+Managed work
+------------
 
-``deterministic_agent_correction``
-   The task is already approved, the correction remains in scope, authoritative
-   policy uniquely determines the correction, and no scientific meaning, public
-   contract, external transmission, destructive action, or materially different
-   defensible option remains. The agent records an agent-resolved corrective
-   finding, corrects, revalidates, and continues without a human checkpoint.
+Use the managed control plane only when the human explicitly selects a Task or chain,
+a directly applicable unresolved checkpoint exists, concurrent writers need path
+ownership, or a protected action needs a durable decision record.
 
-``standing_delegated_decision``
-   A durable human policy already resolves the choice. The agent cites that
-   standing decision, acts, records the action, revalidates, and continues.
+In that mode, inspect only the named chain, Task, checkpoint, ownership, workspace,
+and handoff records. Do not recursively reconstruct unrelated project history. A
+managed record may add compatible constraints but cannot override current human
+instruction, accepted scientific contracts, or repository safety policy.
 
-``genuine_human_decision``
-   A checkpoint is required only when at least two materially different
-   defensible options remain and the choice affects scientific meaning,
-   physical or mathematical conventions, public API or serialization contracts,
-   authoritative schemas, project scope, publication claims, external data
-   transmission, privacy, dependencies or licensing, destructive or
-   difficult-to-reverse actions, ownership conflicts, institutional or
-   regulatory interpretation, resource-intensive computation, or conflicting
-   authoritative instructions.
+Human decisions
+---------------
 
-Human checkpoints are stored as JSON under ``.pi/checkpoints/`` and validated by
-``.pi/checkpoints/checkpoint.schema.json``. They preserve the decision-bearing
-human message, necessary context, normalized decision, consequences, and evidence
-paths, but not complete chat transcripts. When the current human message answers
-an unresolved checkpoint, the shared ``resolve-human-checkpoint`` skill records
-and normalizes the decision, updates task and episode records, marks the
-checkpoint resolved, identifies the authorized scope, resumes the blocked task,
-reruns validation, and reports the result. Special phrases such as "record this
-decision" or "resume" are not required. A bare "yes" resolves only one pending
-checkpoint with one proposed approval.
+Ask for a human decision only when at least two materially different defensible
+options remain and the choice affects scientific meaning, a public contract, project
+scope, dependencies or licensing, external data transmission, destructive action,
+protected computation, release, or another human-owned boundary.
 
-Agent summaries and passing checks do not replace final human acceptance records,
-but final-acceptance recordkeeping is administrative once the human gives
-acceptance: the agent records acceptance, updates the case register, episode, and
-active task, runs closeout validation, closes the task, and stops before starting
-another task.
+Do not create checkpoints for deterministic corrections, formatting, ordinary test
+failures, routine implementation choices, or administrative closeout. When a current
+human response answers an existing unresolved checkpoint, use the
+``resolve-human-checkpoint`` skill. Silence, elapsed time, passing checks, or reviewer
+agreement never resolves a decision.
 
-Durable Git decision boundaries
--------------------------------
+A checkpoint record is required for protected actions when root policy identifies an
+applicable durable checkpoint, and when another decision must remain durable for later
+managed work. It does not automatically require a commit, push, case register, episode
+update, or successor activation. Commit and push only when the human requests them or
+the protected operation explicitly requires a shared durable boundary.
 
-A genuine human checkpoint is a version-control boundary, not merely a local JSON
-state. Before presenting a blocking checkpoint, the agent completes the bounded
-pre-checkpoint validation, commits the coherent task state together with the
-pending checkpoint, and pushes that commit to the active task branch. The task
-then waits. If commit or push fails, the agent reports the failure and remains
-blocked; an unpushed local checkpoint is not a durable shared rollback anchor.
+Ownership and delegation
+------------------------
 
-When the human answers unambiguously, the agent preserves the response, updates
-the checkpoint and linked control records, and runs the resolution validation.
-It then commits and pushes that resolution as a separate decision boundary before
-resuming the newly authorized work. A human-accepted final checkpoint is handled
-the same way before task closure is reported.
+One writer may change source, tests, and documentation for ordinary bounded work.
+Use an ownership manifest only for concurrent writers, a real path conflict, required
+implementation/verification separation, or an explicitly managed Task.
 
-The same rule applies when the human incrementally clarifies and explicitly
-accepts a coherent bounded change without creating a formal checkpoint. After
-validation, that accepted increment receives its own commit and push before
-unaccepted work continues. Routine discussion, progress narration, failed
-experiments, and unaccepted work do not create decision-boundary commits.
+A delegated writer reports its workspace, base and resulting state, changed paths,
+checks, and unresolved risks. Persist a formal handoff only when later integration or
+managed policy needs it. Reviewers remain read-only and cannot grant human acceptance
+or protected authority.
 
-Each boundary commit identifies the task and checkpoint or accepted increment.
-It contains only validated in-scope state and excludes unrelated or unaccepted
-changes. Once pushed, it is not amended, squashed away, rebased, or otherwise
-rewritten. Restoration normally uses a revert commit or a new branch from the
-accepted boundary; destructive reset or force-push requires explicit human
-approval. These standing commit-and-push rules apply only to the active task
-branch and do not authorize direct pushes to ``main``, merges, tags, releases, or
-publication.
-
-DataObject, ActionObject, and ResultObject policy
--------------------------------------------------
-
-New or substantially refactored scientific software follows the repository
-DataObject/ActionObject policy. DataObjects own represented data and intrinsic
-invariants. ActionObjects own transformations, analyses, serialization, and
-validation procedures. ResultObjects make operation outputs explicit. Production
-Workflow objects are introduced only for genuine reusable scientific or
-computational sequences; technical integrations do not require artificial
-Workflow objects.
-
-VVUQ evidence classes
----------------------
-
-The control plane distinguishes software verification, numerical verification,
-scientific validation, and uncertainty quantification. Software verification is
-evidence that code satisfies its documented software contract. Numerical
-verification is evidence that numerical algorithms implement or approximate the
-stated mathematics. Scientific validation requires independent physical
-reference evidence and a declared intended use. Uncertainty quantification
-requires explicit uncertainty sources and propagation.
-
-Agents must not classify constructor or schema rejection as scientific
-validation. Passing software-verification or numerical-verification tests must
-not be reported as scientific validation or UQ. When scientific validation or UQ
-has not been performed, reports state that absence explicitly.
-
-Public validation surfaces
---------------------------
-
-Scientific invariants, conventions, transformations, approximations, and wire
-formats require public documentation and independently executable validation
-surfaces when they become part of the software contract. Examples include public
-source docstrings, public schemas, valid and invalid fixtures, object tests,
-Sphinx documentation, and integration review. Private methods may mechanically
-implement public rules, but must not hide scientific semantics. Documentation
-and completion gates are proportional: public contracts, scientific or
-numerical meaning, units, assumptions, serialization, and non-obvious invariants
-require complete treatment; private mechanical helpers and obvious local state
-need documentation only when it improves understanding.
-
-Graphify role
--------------
-
-Graphify is optional, manually invoked repository intelligence. Agents run it
-only when the human explicitly requests Graphify; ordinary topology, dependency,
-impact, navigation, and next-task questions do not trigger it. The project uses
-the validated local executable at ``$HOME/.local/bin/graphify`` directly and
-does not auto-install, upgrade, discover fallbacks, rebuild after edits, or
-select semantic backends. Graphify commands receive a sanitized environment that
-removes known backend keys, confines output to ``graphify-out/``, and disables
-the external query log. Its outputs are derived and may be stale or incomplete.
-Graphify cannot approve architecture, establish scientific validity, launch
-implementation work, or supersede human decisions, task records, specifications,
-source, tests, fixtures, or human-reviewed documentation.
-
-Remote semantic processing, API-key configuration, hooks, watchers, servers,
-global skill changes, and committing generated graph artifacts require explicit
-human approval. Generated ``graphify-out/`` artifacts are locally persistent and
-ignored unless a curated report receives separate human review.
-
-New-session state reconstruction
+Validation, review, and evidence
 --------------------------------
 
-Every new agent session reconstructs state by inspecting, in order, unresolved
-checkpoint records, the controlling chain, the task records referenced by the
-chain or checkpoints, and the latest durable human decisions. Those records are
-authoritative over summaries and explanatory documentation. If the current
-human message resolves a persisted checkpoint, the session records the decision
-and resumes only the authorized incomplete work without requiring the human to
-paste the previous checkpoint report. If a checkpoint was already resolved, the
-decision is not requested again.
+Validation is proportional to the claim:
 
-The bounded Task-record pilot uses one authoritative project-local JSON file for
-its exact chain-referenced Task.  That Task file owns lifecycle status, one
-canonical ``parent_task_id``, separate Task and external prerequisites,
-objective, authority and scope, completion criteria, exclusions, and its intake
-link.  The selected chain separately owns membership and order, ``active_task``,
-explicit activation facts, and ``automatic_successor_activation``.  Identity or
-ownership duplication fails closed.  Other chain entries remain Markdown
-bootstrap records during this one-Task pilot.
+* routine changes use relevant unit, lint, type, or documentation checks;
+* public contracts use appropriate compatibility and software-verification checks;
+* numerical algorithms use numerical verification when making a mathematical claim;
+* scientific validation and uncertainty quantification are required only for claims
+  that need them.
 
-The complete sibling Markdown reference is deterministically generated from the
-explicitly selected JSON Task, chain, and project-local profile.  It and the
-separate human intake page are non-authoritative, cannot activate work or supply
-scope/status/completion, and are never control inputs.  Parent hierarchy,
-prerequisites, and chain sequence remain distinct.  Automatic successor
-activation remains disabled.  Future SQLite portability is only a record-design
-consideration; this pilot adds no database, migration, event-log, timestamp, or
-persistence API.
+Independent review is optional and risk-based. There is no mandatory
+implementation-review-correction loop for ordinary work. Retained evidence records,
+stable evidence identifiers, exhaustive prose, and generated inventories are used
+only when an explicit claim-bearing evidence contract requires them.
 
-The ``recommend-next-task`` skill is designed to work without chat history. It is
-invoked only when no task or checkpoint remains active and the human asks for a
-planning transition. It reconstructs state from ``AGENTS.md``, checkpoint and
-task records, chains, skills, agents, source, tests, specifications,
-documentation, integration-review evidence, and version-control status. It does
-not invoke Graphify unless the human explicitly requests a separate Graphify
-operation. Any conclusion taken from an existing graph artifact must be verified
-against authoritative files before it affects a recommendation.
+A passing software check establishes only its stated software condition. It does not
+establish scientific correctness, protected authority, release status, or human
+acceptance.
 
-Project-local harness control and validation
---------------------------------------------
-
-The project-local public package is
-``ksdft2effmass.harness.pi.local``. Its maintained ``__all__`` includes explicit-root
-context composition, eight operational adapters, the project-local Task model,
-source-aware control migration and verification, and deterministic repository
-validation. The adapter ActionObjects remain public APIs, but their behavior
-is owned by Task, control-record, ownership, resource, and evidence modules;
-``local.adapters`` is only an import facade.
-
-``HarnessControlMigrator`` delegates complete candidate construction to one private
-``local.control`` builder, validates the candidate, and remains the sole maintained
-publisher. ``HarnessControlVerifier`` resolves canonical source inputs, generates the
-same candidate in a temporary workspace, compares SQLite by integrity, foreign keys,
-schema, and normalized table content, and compares canonical SQL, the projection
-manifest, and owned projections exactly. Raw SQLite hashes are diagnostic only.
-Neither verification nor ``HarnessValidator`` publishes or executes another CLI.
-
-``HarnessValidator`` returns six stably ordered real structural checks:
-``python_evidence``, ``resources``, ``task_graph``, ``checkpoints``, ``skills``, and
-``control_state``. It invokes ``PythonConformanceValidator`` directly over canonical
-source evidence and keeps that result independent of ``HarnessControlVerifier``
-control drift. Structured findings and explicit claim boundaries are retained. The
-result contains no duration or telemetry data and does not execute pytest, Ruff,
-mypy, or Sphinx. The maintained renderer is
-``python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_REPOSITORY_ROOT>``.
-Exit statuses are zero for PASS or WARN, one for expected FAIL, two for invalid request
-construction, and three for an unexpected command-boundary exception.
-
-The obsolete route, shadow, ``LocalRepositoryValidator``, and legacy identifier-audit
-closures have no live API. ``PythonConformanceValidator`` is the sole maintained
-repository-wide Python evidence gate.
-
-The selected resource pair and ``ksdft2effmass.profile.v2`` bind exact generic
-and local manifest identities and versions. Accepted phase-era checksum evidence
-remains a historical resource snapshot; it is not rewritten to match current
-identities. The generic manifest is the generic resource-inventory source of
-truth. The six-skill capability inventory is
-``.pi/skills/skill-capability-inventory.json`` checked against canonical live
-roots; mutable task, chain, or checkpoint snapshots do not belong in it.
-
-The current resource command is
-``python/src/cli/validate_local_harness_resources.py``. Callers supply
-absolute repository, generic-resource, local-resource, profile, and manifest
-paths. The command invokes maintained context-loading and resource-resolution
-Actions, emits deterministic structured results, propagates nested failures,
-and distinguishes invalid input from internal command-boundary failure. It has
-no route selector, rollback route, historical replay dependency, Git mutation,
-or current-directory authority.
-
-Phase-era route consumers, replay wrappers, and completion validators are not
-current operational interfaces. Their accepted evidence remains historical and
-unchanged. Current Task activation and rollback authority resides only in the
-applicable durable chain, Task, and checkpoint records; resource validation does
-not select or activate work.
-
-Colored Petri Net workflow control
+Current technical harness surfaces
 -----------------------------------
 
-Static chain/task prerequisites remain useful planning and launch controls, but
-they are not the scientific workflow state. The prospective scientific and
-computational workflow is a stateful project-owned Colored Petri Net with typed
-multiset markings, pure guards, request/result boundaries, failure/retry paths,
-provenance lineage, and accepted marking predicates. SNAKES is the selected
-candidate engine behind an adapter; neutral scientific objects and durable
-markings remain project-owned.
+Process simplification does not remove or redefine implemented software contracts.
+The project-local public package is ``ksdft2effmass.harness.pi.local``. It retains
+explicit-root context composition, operational adapters, the project-local Task model,
+source-aware control migration and verification, and deterministic repository
+validation.
 
-Task-ownership launch preflight
--------------------------------
+``HarnessControlMigrator`` remains the sole publisher of the maintained SQLite, SQL,
+projection manifest, and owned projections. ``HarnessControlVerifier`` reconstructs
+the same candidate without publication and compares integrity, foreign keys, schema,
+normalized content, SQL, manifest, and projections. Raw SQLite hashes are diagnostic.
 
-A machine-readable ownership manifest and fail-closed launch preflight are
-required when an accepted task requires them, multiple agents write
-concurrently, protected source and independent verification must be separated,
-or conflicting or high-risk path ownership exists. Ordinary bounded work may
-use one writer for source, tests, and documentation. When the control applies,
-the controlling record names the manifest and runs
-``python/.venv/bin/python python/src/cli/validate_task_ownership.py --repository-root <ABSOLUTE_REPOSITORY_ROOT> --task <TASK_ID>``
-from the repository root before covered work starts. If the canonical
-interpreter is missing, synchronize it with
-``cd python && uv sync --locked --all-extras`` rather than selecting an
-activated or system interpreter. Invalid declarations block only that
-manifest-governed launch.
+``HarnessValidator`` returns the six ordered checks ``python_evidence``, ``resources``,
+``task_graph``, ``checkpoints``, ``skills``, and ``control_state``. It does not execute
+pytest, Ruff, mypy, or Sphinx. Its maintained renderer is
+``python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_REPOSITORY_ROOT>``;
+PASS or WARN returns zero, expected FAIL returns one, invalid input returns two, and an
+unexpected command-boundary error returns three.
 
-Version 1 retains the P1 public-object inventory, exact test-module rule,
-classified exceptions, non-class package/schema gate owner, and string command
-for compatibility. Version 2 is generic, uses a structured completion-command
-argument vector bound to the declared validator path, and does not impose P1
-object kinds or filenames.
+The generic and local resource manifests and ``ksdft2effmass.profile.v2`` retain their
+implemented identities and dependency direction. The maintained resource command is
+``python/src/cli/validate_local_harness_resources.py`` with explicit repository,
+resource-root, profile, and manifest paths. Resource validation does not select or
+activate work.
 
-A version-2 task may opt into the exact ``evidence-branches-v1`` profile by
-naming a validated repository-relative branch matrix and a correction-cycle
-limit of one. Its structured authorization binds the same durable task record as
-the manifest, a stable decision ID present in that record, and the exact profile.
-Activation requires at least two branches and either multiple writer roles or a
-deterministic/protected-checkpoint split. Every validation stage declares its
-writer, command, requirements, and owned evidence; exactly one referenced
-completion stage matches the manifest completion command and validator path.
-Version-2 agent records establish agent identity and writer/read-only role, while
-structured manifest paths establish ownership.
+Git and publication
+-------------------
 
-The matrix is authorization and ownership input, not an execution log or an
-orchestration engine. Dispatchers batch all branches assigned to each writer
-role, then request one consolidated independent review. They may run one
-consolidated correction cycle and must escalate unresolved findings rather than
-create an iterative writer/reviewer loop. This optional profile is not required
-for ordinary tasks.
+Do not stage, commit, or push unrelated work. Commit and push only when requested.
+Never rewrite shared history, force-push, merge to ``main``, tag, release, publish, or
+archive without explicit human authorization and any applicable protected-action
+safeguard.
 
-A launch-preflight pass establishes control-plane ownership only; it does not
-establish implementation correctness, scientific validity, or human acceptance.
-A direct tool or agent call can technically bypass the validator, but remains
-unauthorized and supplies no preflight evidence.
+Protected and scientific boundaries
+------------------------------------
 
-Chain behavior
---------------
+Process simplification does not relax scientific integrity or protected-action rules.
+Do not fabricate calculations, validation, references, or capabilities. Preserve the
+applicable specification, basis, gauge, units, geometry, and provenance conventions.
+Production electronic-structure execution, external computation, destructive data
+operations, dependency or licensing decisions, external data transmission, and
+release actions still require explicit human authorization and the applicable durable
+checkpoint required by root policy.
 
-When a chain creates a genuine human checkpoint, the task waits in a durable
-pending state. After a human response is received, the same parent task uses the
-checkpoint-resolution policy to record the decision, clear the checkpoint, resume
-work, route deterministic corrections, request read-only integration review, and
-perform final verification. Deliberately failing commands must not be used merely
-to simulate a human checkpoint unless the execution system technically requires
-one; a durable pending checkpoint is sufficient.
+Historical records
+------------------
 
-Final human authority
----------------------
-
-Agents may recommend, implement approved changes, run checks, and report risks.
-The human PI remains final authority for scientific and architectural meaning and
-for final acceptance.
+Existing Tasks, chains, checkpoints, ownership files, reports, and evidence remain
+historical or opt-in managed records. They need not be rewritten merely because direct
+work is now the default, and they do not create new authority by their presence.

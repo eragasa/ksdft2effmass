@@ -51,7 +51,7 @@ The Markdown-first provenance concept page is available as a
    :maxdepth: 2
    :caption: PI harness
 
-   harness/ksdft2effmass.harness.001.000.000
+   architecture/v1/ksdft2effmass/harness/index
 
 .. toctree::
    :hidden:
@@ -65,6 +65,9 @@ The Markdown-first provenance concept page is available as a
    architecture/v1/ksdft2effmass/harness/pi/index
    architecture/v1/ksdft2effmass/harness/pi/development-harness
    architecture/v1/ksdft2effmass/harness/pi/control-plane
+   architecture/v1/ksdft2effmass/harness/pi/resources-and-validation
+   architecture/v1/ksdft2effmass/harness/pi/human-review
+   architecture/v1/ksdft2effmass/harness/history
    architecture/v1/ksdft2effmass/harness/pi/local/control/index
    architecture/v1/ksdft2effmass/harness/pi/local/dbcontrol/index
    architecture/v1/ksdft2effmass/harness/pi/local/dbcontrol/projections
@@ -130,18 +133,13 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/issues/index
    architecture/migration/v1-to-v2/index
    architecture/migration/v1-to-v2/pi-harness-subagents
-   harness/ksdft2effmass.harness.001.001.000
-   harness/ksdft2effmass.harness.001.002.000
-   harness/ksdft2effmass.harness.001.003.000
-   harness/ksdft2effmass.harness.001.004.000
-   harness/ksdft2effmass.harness.001.006.000
 
 Markdown-first user guide
 -------------------------
 
 The maintained user guide is authored in Markdown for repository and Obsidian
-use and rendered directly through MyST. Its explicit toctree plus the selected
-current harness pages in ``docs/conf.py`` are the complete Markdown collection
+use and rendered directly through MyST. Its explicit toctree plus the versioned
+architecture pages selected in ``docs/conf.py`` are the complete Markdown collection
 policy; Sphinx does not broadly collect other Markdown trees.
 
 .. toctree::

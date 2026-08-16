@@ -299,7 +299,7 @@ def test_artifact__task_check__deserializes_complete_discovered_catalog(
             make_task(
                 task_id="alpha",
                 intake_path="harness/intake/alpha.md",
-                documentation_path="docs/harness/tasks/alpha.md",
+                documentation_path="docs/tasks/alpha.md",
             )
         )
     )
@@ -308,7 +308,7 @@ def test_artifact__task_check__deserializes_complete_discovered_catalog(
             make_task(
                 task_id="beta",
                 intake_path="harness/intake/beta.md",
-                documentation_path="docs/harness/tasks/beta.md",
+                documentation_path="docs/tasks/beta.md",
             )
         )
     )

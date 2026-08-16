@@ -106,64 +106,6 @@ class _ControlProjector:
             payload.pop("superseded_by_task_ids")
         return payload
 
-    def _task_markdown(
-        self, task: dict[str, Any], previous_id: str | None, next_id: str | None
-    ) -> bytes:
-        nav = ["[Task index](index.md)"]
-        if previous_id is not None:
-            nav.append(f"[Previous](./{previous_id}.md)")
-        if next_id is not None:
-            nav.append(f"[Next](./{next_id}.md)")
-
-        def bullets(values: list[str]) -> str:
-            return "\n".join(f"- {value}" for value in values) if values else "None."
-
-        relationships = []
-        if task["parent_task_id"] is not None:
-            relationships.append(f"- Parent: `{task['parent_task_id']}`")
-        relationships.extend(
-            f"- Depends on: `{item}`" for item in task["task_prerequisite_ids"]
-        )
-        relationships.extend(
-            f"- External prerequisite: `{item}`"
-            for item in task["external_prerequisite_ids"]
-        )
-        relationships.extend(
-            f"- Superseded by: `{item}`"
-            for item in task.get("superseded_by_task_ids", [])
-        )
-        archive = task["archived_source"]
-        historical = (
-            "No archived source."
-            if archive is None
-            else f"`{archive['path']}` (`sha256:{archive['sha256']}`)"
-        )
-        status_suffix = (
-            ": " + task["status_detail"] if task.get("status_detail") else ""
-        )
-        text = (
-            "<!-- Generated from SQLite control state; do not edit. -->\n"
-            f"# {task['title']}\n\n"
-            f"{' · '.join(nav)}\n\n"
-            "## Status\n\n"
-            f"`{task['status']}`{status_suffix}\n\n"
-            "## Objective\n\n"
-            f"{task['objective']}\n\n"
-            "## Parent and prerequisites\n\n"
-            f"{chr(10).join(relationships) if relationships else 'None.'}\n\n"
-            "## Authority references\n\n"
-            f"{bullets(task['authority_reference_paths'])}\n\n"
-            "## Authorized scope\n\n"
-            f"{bullets(task['authorized_scope'])}\n\n"
-            "## Completion criteria\n\n"
-            f"{bullets(task['completion_criteria'])}\n\n"
-            "## Exclusions\n\n"
-            f"{bullets(task['exclusions'])}\n\n"
-            "## Historical source\n\n"
-            f"{historical}\n"
-        )
-        return text.encode()
-
     def render_all(self) -> dict[str, tuple[str, bytes]]:
         connection = self.connection
         ids = [
@@ -174,18 +116,10 @@ class _ControlProjector:
         ]
         result: dict[str, tuple[str, bytes]] = {}
         tasks = {task_id: self._task_payload(task_id) for task_id in ids}
-        for index, task_id in enumerate(ids):
+        for task_id in ids:
             result[f"harness/tasks/{task_id}.json"] = (
                 "task-json",
                 _ControlEncoding.json_bytes(tasks[task_id]),
-            )
-            result[f"docs/harness/tasks/{task_id}.md"] = (
-                "task-markdown",
-                self._task_markdown(
-                    tasks[task_id],
-                    ids[index - 1] if index else None,
-                    ids[index + 1] if index + 1 < len(ids) else None,
-                ),
             )
         edges = [
             {"source": source, "target": target, "kind": kind}
@@ -204,21 +138,6 @@ class _ControlProjector:
         result["harness/task-graph.json"] = (
             "task-graph-json",
             _ControlEncoding.json_bytes(graph),
-        )
-        lines = [
-            "<!-- Generated from harness/state/harness-control.sqlite3; "
-            "do not edit. -->",
-            "# Harness Tasks",
-            "",
-        ]
-        lines.extend(
-            f"- [`{task_id}`]({task_id}.md) — {tasks[task_id]['title']} "
-            f"(`{tasks[task_id]['status']}`)"
-            for task_id in ids
-        )
-        result["docs/harness/tasks/index.md"] = (
-            "task-index-markdown",
-            ("\n".join(lines) + "\n").encode(),
         )
         default_manifests = (
             (

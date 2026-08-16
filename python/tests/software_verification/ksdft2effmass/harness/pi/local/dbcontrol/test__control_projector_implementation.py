@@ -80,15 +80,13 @@ def test_method__render_all_literal_task__returns_exact_paths_and_bytes() -> Non
     assert first == second
     assert {
         "harness/tasks/task.literal.json",
-        "docs/harness/tasks/task.literal.md",
         "harness/task-graph.json",
-        "docs/harness/tasks/index.md",
         "harness/pi/resource-manifest.json",
         "harness/local/resource-manifest.json",
         ".pi/evidence/python-conformance/module-inventory.json",
     } <= set(first)
     assert b'"task_id": "task.literal"' in first["harness/tasks/task.literal.json"][1]
-    assert b"# Literal Task" in first["docs/harness/tasks/task.literal.md"][1]
+    assert not any(path.startswith("docs/") for path in first)
 
 
 def test_classmethod__projection_manifest_bytes__matches_literal_manifest() -> None:

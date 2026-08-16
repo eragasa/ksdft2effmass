@@ -153,7 +153,7 @@ CREATE TABLE decision_reference (
 ) WITHOUT ROWID;
 CREATE TABLE projection_record (
   projection_path TEXT PRIMARY KEY,
-  projection_kind TEXT NOT NULL CHECK(projection_kind IN ('task-json','task-graph-json','task-index-markdown','task-markdown','resource-manifest-json','evidence-module-inventory-json')),
+  projection_kind TEXT NOT NULL CHECK(projection_kind IN ('task-json','task-graph-json','resource-manifest-json','evidence-module-inventory-json')),
   sha256 TEXT NOT NULL CHECK(length(sha256)=64),
   byte_count INTEGER NOT NULL CHECK(byte_count>=0),
   generating_action_id TEXT NOT NULL

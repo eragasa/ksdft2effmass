@@ -69,33 +69,24 @@ decision. Historical evidence records what happened but does not govern current
 work. Architecture and planning records define boundaries but do not themselves
 authorize task activation or execution.
 
-Do not store mutable task status in this file. A controlling chain is current
-selection and control state, not an append-only event log: keep one current
-phase summary, do not append resolved phase narratives, and place resolved
-architecture, decisions, and evidence in their owning normative, checkpoint, or
-evidence records without duplicating them in the chain.
+Use direct-work mode by default. An explicit human request authorizes ordinary
+bounded repository work without requiring a Task record, chain activation,
+checkpoint, ownership manifest, mission, handoff, or acceptance record. At the
+start of direct work, inspect the relevant files and current branch and working
+tree; do not reconstruct unrelated durable control state.
 
-At session start, reconstruct only the state relevant to the requested task:
-
-1. inspect unresolved checkpoint records under `.pi/checkpoints/`;
-2. inspect the current branch, checkout, and working-tree state;
-3. identify the applicable controlling chain from the human request and durable
-   chain state rather than assuming one from filename or recency;
-4. inspect the tasks and ownership records referenced by that chain or an
-   unresolved checkpoint;
-5. inspect applicable resolved checkpoints and other durable human decisions;
-6. inspect any authorized worktree, mission, run, or handoff artifacts referenced
-   by the controlling records; and
-7. if required authority or state is missing or conflicting, report the exact
-   blocker and stop.
+Use managed-task records only when the human explicitly selects that mode, an
+unresolved checkpoint is directly applicable, a protected action requires a
+durable decision, or concurrent writers require explicit ownership. In managed
+mode, inspect only the referenced chain, Task, checkpoint, ownership, workspace,
+and handoff records. Missing managed-task state is not a blocker for direct work.
 
 If the current human message unambiguously resolves a persisted checkpoint,
 follow `.agents/skills/resolve-human-checkpoint/SKILL.md`. Never infer approval
 from silence, timeout, an agent report, reviewer agreement, or a passing check.
 
-Use `.pi/skills/recommend-next-task/SKILL.md` only when no task or checkpoint
-remains active and the human asks what comes next. It is read-only and cannot
-activate or launch work.
+Use `.pi/skills/recommend-next-task/SKILL.md` only when the human asks for a
+managed next-task recommendation. It is not required for ordinary continuation.
 
 ## Branches and releases
 
@@ -288,9 +279,9 @@ Public numeric APIs must:
 
 ## Process classes
 
-Classify work by the highest-risk applicable class. Controls are cumulative when
-more than one class applies. An active, authorized task may impose compatible
-additional controls but may not waive higher-authority requirements.
+Classify work only as far as needed to select proportionate safeguards. An
+explicitly managed Task may add compatible controls but may not waive
+higher-authority requirements.
 
 ### Routine software work
 
@@ -298,8 +289,8 @@ Examples include internal helpers, local refactors, documentation corrections,
 ordinary unit tests, non-public validators, and deterministic bug fixes under an
 accepted contract.
 
-Normally require bounded scope, the requested change, relevant tests, affected
-documentation, and one review when materially useful.
+Normally require only bounded scope, the requested change, relevant checks, and
+consistent affected documentation. Review is optional and risk-based.
 
 Routine classification alone does not require ownership manifests or writer
 splits, maintained-evidence conventions, retained checksum catalogs, human
@@ -312,10 +303,10 @@ Examples include public APIs, schemas, serialized records, durable marking
 formats, file or SQLite repository boundaries, and compatibility or migration
 behavior.
 
-Require an explicit contract, schema or fixture agreement where applicable,
-software-verification tests, and compatibility review. Require a human decision
-only when materially different defensible choices remain at a human-owned or
-protected boundary.
+Require an explicit contract and applicable software-verification tests; use
+schemas, fixtures, compatibility analysis, or independent review only when the
+surface actually needs them. Require a human decision only when materially
+different defensible choices remain at a human-owned or protected boundary.
 
 ### Scientific or numerical work
 
@@ -367,14 +358,12 @@ deterministic corrections fixed by an accepted contract, routine implementation
 details, formatting, mechanical synchronization, expected development failures,
 or administrative closeout after explicit human acceptance.
 
-When only one contract-consistent correction exists, apply it, test it, record
-it concisely, and continue within the active authorization.
+When only one contract-consistent correction exists, apply it, test it, report
+it concisely, and continue within the human request.
 
-Checkpoint resolution, durable decision-boundary commits, and resumption are
-owned by `.agents/skills/resolve-human-checkpoint/SKILL.md` and
-`docs/development/agent-control-plane.rst`. Do not duplicate their mechanics in
-task instructions. A checkpoint cannot activate work or expand scope beyond its
-controlling task and human authority.
+When a durable checkpoint is actually in use, its interpretation belongs to
+`.agents/skills/resolve-human-checkpoint/SKILL.md`. A checkpoint cannot expand
+scope beyond the human instruction or protected boundary it records.
 
 ## Ownership and review
 
@@ -400,43 +389,24 @@ controlling task. It does not activate the task, expand authority, or establish
 implementation correctness, numerical verification, scientific validation, or
 human acceptance.
 
-A delegated writer working outside the parent checkout must provide a durable
-handoff identifying:
+A delegated writer working outside the parent checkout must report its workspace,
+base and resulting state, changed paths, checks, and unresolved risks. Persist a
+formal handoff only when managed-task policy or later integration requires it.
 
-- the task and run;
-- the workspace;
-- the base and resulting revision or uncommitted state;
-- changed paths;
-- validation performed; and
-- unresolved findings or risks.
-
-The parent must verify the handoff against authoritative repository state before
-integration or continuation.
-
-The default managed-task flow is:
-
-```text
-implementation
-→ relevant validation
-→ one consolidated independent review
-→ at most one consolidated correction pass
-→ final verification
-→ human acceptance when required
-```
-
-If material disagreement remains after the correction pass, stop and report the
-unresolved decision. Do not create an unbounded writer, reviewer, correction, or
-checkpoint loop.
+The default direct-work flow is simply implementation, relevant checks, and a
+concise report. Add independent review, a correction pass, retained evidence, or
+human acceptance only when risk, an explicit human request, or a managed Task
+requires them. Do not create unbounded review or checkpoint loops.
 
 ## Testing and retained evidence
 
-Testing responsibility follows the active task. When a manifest is required,
-assignments must agree with its validated ownership:
+In direct work, the current writer owns proportionate tests. When a managed Task
+or ownership manifest is explicitly in use, assignments must agree with it:
 
 | Work | Responsible agent or skill |
 |---|---|
 | Ordinary tests not requiring separate ownership | Current authorized writer |
-| Maintained Python test evidence | Writer assigned by the active task or ownership manifest; use `.pi/agents/ksdft2effmass-tests.md` when selected |
+| Maintained Python test evidence | Current writer, or the writer assigned by an explicit managed Task or ownership manifest |
 | Maintained-evidence procedure | `.pi/skills/develop-python-test-evidence/SKILL.md` |
 | Domain-specific operator evidence | `.pi/skills/develop-operator-records/SKILL.md` when applicable |
 | DataObject/ActionObject domain constraints | `.pi/skills/design-data-action-objects/SKILL.md` when applicable |
@@ -467,13 +437,14 @@ checks; semantic, scientific, and human conclusions remain separate.
 
 ## Documentation
 
-Documentation responsibility follows the active task. When a manifest is
-required, assignments must agree with its validated ownership:
+In direct work, the current writer owns accompanying documentation. When a
+managed Task or ownership manifest is explicitly in use, assignments must agree
+with it:
 
 | Work | Responsible agent or skill |
 |---|---|
 | Routine documentation accompanying implementation | Current authorized writer |
-| Maintained narrative and Sphinx documentation | Writer assigned by the active task or ownership manifest; use `.pi/agents/ksdft2effmass-documentation.md` when selected |
+| Maintained narrative and Sphinx documentation | Current writer, or the writer assigned by an explicit managed Task or ownership manifest |
 | Public Python API, concept, serialization, and Sphinx procedure | `.pi/skills/document-python-research-software/SKILL.md` |
 | Python source docstrings | Implementation owner unless explicitly transferred |
 | Maintained test-evidence documentation | Task-assigned test writer using `.pi/skills/develop-python-test-evidence/SKILL.md` |
@@ -571,23 +542,19 @@ behavior into a completed finding.
 
 ## Working procedure
 
-For each task:
+For direct work:
 
-1. reconstruct the applicable authority and durable state;
-2. identify the requested outcome, process class, protected boundaries, and
-   ownership requirements;
-3. read the relevant files, applicable scoped `AGENTS.md`, and owning skills or
-   procedures;
-4. inspect the current branch, checkout, and uncommitted changes before editing;
-5. perform the work directly unless authorized delegation is materially useful;
-6. make the smallest in-scope change and preserve unrelated user work;
-7. complete the applicable validation, review, correction, and final-verification
-   gates; and
-8. report changed paths, checks, assumptions, unresolved limitations, and any
-   relevant scientific or expensive validation not performed.
+1. identify the requested outcome and any scientific, protected, public-contract,
+   or destructive boundary;
+2. read the relevant files and applicable instructions;
+3. inspect the branch and uncommitted changes;
+4. make the smallest in-scope change while preserving unrelated work;
+5. run proportionate checks; and
+6. report changed paths, checks, assumptions, and residual limitations.
 
-If required authority, ownership, inputs, or durable state are missing or
-conflicting, report the exact blocker and stop.
+Consult managed-task, ownership, checkpoint, evidence, review, or handoff records
+only when they are directly applicable. Stop only when required authority or
+inputs are genuinely missing or conflicting.
 
 Do not perform protected execution or release actions without explicit human
 authorization and the applicable durable checkpoint.
@@ -602,20 +569,12 @@ durable checkpoint.
 
 ## Definition of done
 
-Work is complete only when:
+Direct work is complete when the requested outcome is delivered, proportionate
+checks pass or limitations are reported, affected surfaces are consistent,
+unrelated work is preserved, and no unsupported scientific claim or unauthorized
+protected action is introduced.
 
-- the requested outcome is delivered within the authorized scope;
-- required task, ownership, checkpoint, evidence, and handoff records are
-  consistent with the resulting state;
-- required checks pass or have an explicitly authorized disposition;
-- required review and any permitted correction pass are complete;
-- affected source, contracts, tests, schemas, fixtures, and documentation are
-  consistent;
-- unrelated user work remains unchanged;
-- assumptions, residual risks, and limitations are reported; and
-- no unsupported scientific claim or unauthorized protected action has been
-  introduced.
-
-When human acceptance is required, distinguish “work complete and pending human
-acceptance” from “task closed and human-accepted.” Do not claim the latter until
-the applicable durable decision is resolved.
+Task, ownership, checkpoint, evidence, review, handoff, and human-acceptance
+records are completion requirements only when an explicitly managed workflow or
+protected boundary requires them. Do not create them merely to close ordinary
+work.

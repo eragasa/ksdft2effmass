@@ -27,6 +27,7 @@ flowchart LR
 | `HarnessControlMigrator` | Complete control projection publication |
 | `HarnessControlVerifier` | Read-only source-aware reconstruction and comparison |
 | `HarnessValidator` | Composition of repository-conformance checks |
+| `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding`, `HumanReviewPacket`, `HumanReviewDecision`, `HumanReviewPreparer`, `HumanReviewDecisionRecorder` | Explicit packet preparation and decision representation without persistence or activation |
 
 Generic contracts are implemented under `ksdft2effmass.harness.pi`; project-local composition is implemented under `ksdft2effmass.harness.pi.local`.
 
@@ -60,6 +61,8 @@ flowchart TD
 
 - [Development harness model](development-harness.md)
 - [Control-plane authority and selection](control-plane.md)
+- [Resources and validation](resources-and-validation.md)
+- [Human-review objects](human-review.md)
 - [Project-local control compilation](local/control/index.md)
 - [Project-local generated persistence](local/dbcontrol/index.md)
 - [Project-local projections](local/dbcontrol/projections.md)

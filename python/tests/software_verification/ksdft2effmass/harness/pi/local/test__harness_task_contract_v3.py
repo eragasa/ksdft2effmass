@@ -218,8 +218,7 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
 
     Method: Discover the explicit ``harness/tasks`` source catalog, apply the version-3
     schema and deserializer, then compare source identities with the graph, immutable
-    SQLite state, projection manifest, and generated Task documentation under the same
-    explicit repository root.
+    SQLite state, and projection manifest under the same explicit repository root.
 
     Oracle: Regular ``harness/tasks/*.json`` files determine Task identity and
     cardinality; the accepted schema determines wire shape independently of generated
@@ -227,8 +226,8 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
 
     Acceptance: Every source file is discovered exactly once, parses as one canonical
     HarnessTask, and has a unique nonempty identity; source identities equal the graph,
-    SQLite, manifest, and generated-document identities with no missing, unexpected, or
-    duplicate projection, independent of source discovery order.
+    SQLite, and manifest identities with no missing, unexpected, or duplicate
+    projection, independent of source discovery order.
 
     Interpretation: Failure identifies exact source, schema, runtime, root-resolution,
     or generated-projection drift.
@@ -243,7 +242,6 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
         Path("harness/task-graph.json"),
         Path("harness/state/harness-control.sqlite3"),
         Path("harness/state/projection-manifest.json"),
-        Path("docs/harness/tasks"),
     )
     artifacts = tuple(root / relative for relative in relative_artifacts)
     resolved_root = root.resolve(strict=True)
@@ -262,9 +260,7 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
             if not path.is_relative_to(resolved_root)
         ),
     }
-    task_directory, schema_path, graph_path, database_path, manifest_path, docs_path = (
-        artifacts
-    )
+    task_directory, schema_path, graph_path, database_path, manifest_path = artifacts
 
     regular_source_paths = frozenset(
         path
@@ -384,50 +380,20 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     }
 
     manifest = json.loads(manifest_path.read_text())
-    projection_entries = tuple(manifest["projections"])
     task_json_projection_sequence = tuple(
         entry["path"]
-        for entry in projection_entries
+        for entry in manifest["projections"]
         if entry["projection_kind"] == "task-json"
-    )
-    task_document_projection_sequence = tuple(
-        entry["path"]
-        for entry in projection_entries
-        if entry["projection_kind"] == "task-markdown"
-    )
-    index_projection_sequence = tuple(
-        entry["path"]
-        for entry in projection_entries
-        if entry["projection_kind"] == "task-index-markdown"
     )
     duplicate_task_json_projections = sorted(
         path
         for path, count in Counter(task_json_projection_sequence).items()
         if count != 1
     )
-    duplicate_task_document_projections = sorted(
-        path
-        for path, count in Counter(task_document_projection_sequence).items()
-        if count != 1
-    )
-    duplicate_index_projections = sorted(
-        path for path, count in Counter(index_projection_sequence).items() if count != 1
-    )
     assert not duplicate_task_json_projections, {
         "duplicate_task_projections": duplicate_task_json_projections
     }
-    assert not duplicate_task_document_projections, {
-        "duplicate_generated_pages": duplicate_task_document_projections
-    }
-    assert not duplicate_index_projections, {
-        "duplicate_task_indexes": duplicate_index_projections
-    }
     task_json_projection_paths = frozenset(task_json_projection_sequence)
-    task_document_projection_paths = frozenset(task_document_projection_sequence)
-    index_projection_paths = frozenset(index_projection_sequence)
-    expected_document_paths = frozenset(
-        f"docs/harness/tasks/{task_id}.md" for task_id in expected_task_ids
-    )
     assert task_json_projection_paths == expected_source_paths, {
         "missing_task_projections": sorted(
             expected_source_paths - task_json_projection_paths
@@ -436,55 +402,9 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
             task_json_projection_paths - expected_source_paths
         ),
     }
-    assert task_document_projection_paths == expected_document_paths, {
-        "missing_generated_pages": sorted(
-            expected_document_paths - task_document_projection_paths
-        ),
-        "unexpected_generated_pages": sorted(
-            task_document_projection_paths - expected_document_paths
-        ),
-    }
-    assert index_projection_paths == frozenset({"docs/harness/tasks/index.md"}), {
-        "missing_task_index": sorted(
-            {"docs/harness/tasks/index.md"} - index_projection_paths
-        ),
-        "unexpected_task_indexes": sorted(
-            index_projection_paths - {"docs/harness/tasks/index.md"}
-        ),
-    }
-
-    observed_document_files = tuple(
-        path for path in docs_path.glob("*.md") if path.is_file()
+    assert not any(
+        entry["path"].startswith("docs/") for entry in manifest["projections"]
     )
-    escaped_document_paths = sorted(
-        path.relative_to(root).as_posix()
-        for path in observed_document_files
-        if path.is_symlink()
-        or not path.resolve(strict=True).is_relative_to(resolved_root)
-    )
-    assert not escaped_document_paths, {
-        "symlinked_or_escaped_generated_pages": escaped_document_paths
-    }
-    observed_document_paths = frozenset(
-        path.relative_to(root).as_posix() for path in observed_document_files
-    )
-    observed_task_document_paths = observed_document_paths - index_projection_paths
-    assert observed_task_document_paths == expected_document_paths, {
-        "missing_generated_pages": sorted(
-            expected_document_paths - observed_task_document_paths
-        ),
-        "unexpected_generated_pages": sorted(
-            observed_task_document_paths - expected_document_paths
-        ),
-    }
-    projected_document_task_ids = frozenset(
-        Path(path).stem for path in observed_task_document_paths
-    )
-    assert projected_document_task_ids == expected_task_ids, {
-        "missing_task_ids": sorted(expected_task_ids - projected_document_task_ids),
-        "unexpected_task_ids": sorted(projected_document_task_ids - expected_task_ids),
-        "projection": docs_path.relative_to(root).as_posix(),
-    }
 
     assert {
         (edge["source"], edge["target"])
