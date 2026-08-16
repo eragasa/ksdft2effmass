@@ -31,6 +31,11 @@ validation. These are separate interpretations with separate references.
 \section{Evidence classes}
 
 \begin{description}
+  \item[Mathematical proof.] Establishes a theorem from explicitly stated
+    assumptions by a recorded derivation or checked formal encoding. Proof does
+    not establish that the assumptions describe the physical system, that a
+    numerical implementation is correct, or that a bound is useful at the
+    project scale.
   \item[Software verification.] Establishes that software follows a documented
     contract. Examples include shape and type invariants, exact serialization
     round trips, basis-order checks, command construction, failure behavior,
@@ -49,8 +54,9 @@ validation. These are separate interpretations with separate references.
     not automatically a probabilistic uncertainty statement.
 \end{description}
 
-No class implies another. A passing software regression does not establish
-numerical convergence. Agreement with the Kohn--Sham parent does not establish
+No class implies another. A proved implication does not validate its physical
+assumptions. A passing software regression does not establish numerical
+convergence. Agreement with the Kohn--Sham parent does not establish
 agreement with experiment. A validation comparison does not quantify every
 uncertainty source.
 

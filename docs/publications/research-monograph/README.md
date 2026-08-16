@@ -15,16 +15,19 @@ synchronization, and does not transfer evidentiary status merely by copying
 prose.
 
 The current draft contains developed chapters on scope, the physical problem,
-mathematical foundations, the first-principles parent, representations and
-alignment, reduction, evidence, present result boundaries, and outlook. It is a
-framework-rich pre-results draft: chapter development does not imply completion
-of the calculations described there.
+mathematical foundations, the proof and mechanization program, the
+first-principles parent, representations and alignment, reduction, evidence,
+present result boundaries, and outlook. It is a framework-rich pre-results
+draft: chapter development does not imply completion of the proofs or
+calculations described there.
 
 ## Authority and evidence boundary
 
 The monograph is explanatory narrative. Applicable files under
-`specification/`, retained calculation and provenance records, software
-contracts, verification evidence, and durable human decisions remain the owners
+`specification/`, proof packages under `docs/proofs/ksdft2effmass/`, theorem
+contracts under `formal/theorem-catalog/`, retained calculation and provenance
+records, software contracts, verification evidence, and durable human decisions
+remain the owners
 of scientific meaning and project state. The monograph must link those owners
 rather than silently redefine them.
 

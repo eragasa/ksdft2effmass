@@ -1,11 +1,19 @@
 \documentclass[12pt,oneside]{report}
 
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
 
 \setlength{\emergencystretch}{3em}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \title{From Kohn--Sham Density-Functional Theory\\to Effective-Mass Models}
 \author{Eugene Joseph M. Ragasa\\
@@ -29,12 +37,17 @@ and continuum effective-mass models. The account distinguishes physical models,
 mathematical operators, finite matrix representations, and software artifacts;
 requires common-space, gauge, geometry, spin, unit, and energy-reference
 alignment before operator subtraction; and separates spectral fidelity from
-aligned-operator fidelity. It also distinguishes software verification,
-numerical verification, scientific validation, and uncertainty quantification.
-At the evidence boundary represented by this draft, the project has an accepted
-represented-operator software foundation and retained tutorial and bootstrap
-execution observations, but no accepted production bulk parent, Wannier
-operator, reduced impurity operator, or continuum crossover. The document is a
+aligned-operator fidelity. A coordinated proof program records finite-dimensional
+operator identities, alignment and reduction obligations, analytical bounds,
+and their mechanization status. It also distinguishes mathematical proof,
+software verification, numerical verification, scientific validation, and
+uncertainty quantification. At the evidence boundary represented by this draft,
+the project has an accepted
+represented-operator software foundation, one frozen operator contract checked
+by a pinned Lean backend, and retained tutorial and bootstrap execution
+observations, but no cross-checked proof package, accepted production bulk
+parent, Wannier operator, reduced impurity operator, or continuum crossover. The
+document is a
 working research monograph, not an institutionally registered dissertation,
 submitted manuscript, or completed scientific result.
 \end{abstract}
@@ -49,6 +62,7 @@ submitted manuscript, or completed scientific result.
 \include{chapters/00-status-and-scope}
 \include{chapters/01-physical-problem}
 \include{chapters/02-mathematical-foundations}
+\include{chapters/03-proof-program}
 \include{chapters/03-first-principles-parent-model}
 \include{chapters/04-representations-and-alignment}
 \include{chapters/05-model-reduction}

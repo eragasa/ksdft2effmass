@@ -15,6 +15,8 @@ A result is reported with its evidence class and provenance. The categories used
 here are
 
 \begin{itemize}
+  \item proved or mechanized mathematical result with declared assumptions and
+    proof status;
   \item verified software behavior;
   \item verified numerical behavior on controlled mathematics;
   \item tutorial or bootstrap execution observation;
@@ -24,13 +26,21 @@ here are
 \end{itemize}
 
 These categories are not ordered stages through which an array advances
-automatically. The same artifact may support one bounded software claim while
+automatically. A proof establishes only its implication from its assumptions,
+and the same artifact may support one bounded software claim while
 remaining unusable for a physical claim.
 
 \section{Accepted represented-operator software foundation}
 
 \textbf{Evidence class: software verification, with declared controlled
 numerical-verification cases.}
+
+The proof registry separately records nine frozen finite-dimensional
+\texttt{PRF-05} contracts. Only projector invariance under unitary frame
+rotation, \texttt{PRF-05.01}, has been checked by one pinned Lean backend. The
+other Lean targets and every Isabelle and Rocq target remain unencoded; no
+contract is cross-checked and all physics proof packages remain proposed. These
+facts are mechanization-status results, not physical validation.
 
 The accepted Python operator-record foundation provides
 
