@@ -39,6 +39,8 @@ quantification, publication, or human acceptance.
 
 - `manuscript.tex` — standard-LaTeX composition root;
 - `chapters/` — independently maintainable long-form chapters;
+- `references.bib` — monograph-owned bibliography, independently maintained
+  from article bibliographies;
 - `extraction-map.md` — planned relationships between monograph material and
   shorter outputs;
 - `build/` — ignored local LaTeX output.

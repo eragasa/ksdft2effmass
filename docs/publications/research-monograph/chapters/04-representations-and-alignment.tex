@@ -2,8 +2,8 @@
 \label{ch:representations-and-alignment}
 
 \textbf{Status: technical framework and planned diagnostics; no accepted Wannier
-operator or alignment result is claimed. Literature attribution remains to be
-completed from verified primary sources.}
+operator or alignment result is claimed. Selected foundational references are
+included, while a broader literature review remains future editorial work.}
 
 The Kohn--Sham parent is naturally described by Bloch states, whereas local
 lattice models and substitutional perturbations are naturally discussed in
@@ -64,7 +64,8 @@ orbitals and parent states; it is not by itself a proof that the desired
 subspace has been selected.
 
 When the desired bands are entangled with other states, disentanglement selects
-an $M$-dimensional subspace from a larger outer space, often subject to inner
+an $M$-dimensional subspace from a larger outer space~\cite{souza2001}, often
+subject to inner
 and outer energy-window constraints. This changes the selected subspace and is
 therefore conceptually distinct from a unitary rotation within an already fixed
 $M$-dimensional subspace. The following operations must remain separate:
@@ -92,7 +93,8 @@ Let
   \{\lvert\psi_{m\mathbf k}\rangle\}_{m=1}^{M}
 \end{equation}
 be an orthonormal Bloch frame spanning the retained subspace on a uniform grid
-of $N_{\mathbf k}$ points. A corresponding set of Wannier functions is
+of $N_{\mathbf k}$ points. A corresponding set of Wannier
+functions~\cite{wannier1937} is
 \begin{equation}
   \lvert w_{n\mathbf R}\rangle
   =
@@ -113,8 +115,9 @@ therefore gauge dependent even though the retained subspace is gauge invariant.
 \section{Localization}
 
 Spatial localization depends on the regularity of the selected Bloch frame over
-the Brillouin zone. Maximally localized Wannier functions choose a gauge by
-minimizing a declared spread functional. The spread and its decomposition are
+the Brillouin zone~\cite{kohn1959}. Maximally localized Wannier functions choose
+a gauge by minimizing a declared spread functional~\cite{marzari2012}. The
+spread and its decomposition are
 diagnostics of that construction, not standalone measures of operator fidelity.
 A small spread does not guarantee correct band interpolation, correct orbital
 character, symmetry compatibility, or alignment with a separately generated
@@ -122,7 +125,8 @@ basis.
 
 The construction record must retain at least the initial projections,
 disentanglement windows when applicable, localization settings, convergence
-history, Wannier centers, spreads, and software identities. Multiple candidate
+history, Wannier centers, spreads, and Wannier90 software
+identities~\cite{pizzi2020}. Multiple candidate
 constructions should consume the same accepted QE--Wannier interface artifacts
 when they are intended to isolate sensitivity to projection or localization
 choices.
@@ -209,7 +213,8 @@ overlap matrix is
 \begin{equation}
   S=B_{\mathrm r}^{\dagger}B_{\mathrm c}.
 \end{equation}
-The singular values $\sigma_j$ of $S$ define principal angles
+The singular values $\sigma_j$ of $S$ define principal
+angles~\cite{bjork1973}
 \begin{equation}
   \theta_j=\arccos\sigma_j,
 \end{equation}
@@ -218,7 +223,8 @@ agreement before coordinate alignment. Rank loss or large principal angles
 cannot be repaired merely by relabelling orbitals.
 
 When the spaces are sufficiently compatible, a polar or orthogonal-Procrustes
-construction can supply a unitary coordinate identification. The exact map,
+construction can supply a unitary coordinate
+identification~\cite{higham1986}. The exact map,
 its direction, numerical conditioning, and residual diagnostics must be stored.
 This method is a planned Stage~05 operation, not an alignment result already
 obtained by the project.

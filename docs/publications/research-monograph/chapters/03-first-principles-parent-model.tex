@@ -29,7 +29,8 @@ by projection or model reduction.
 \section{External-program boundary}
 
 Quantum ESPRESSO is responsible for self-consistent, non-self-consistent,
-band-path, and lattice-optimization calculations. The project does not
+band-path, and lattice-optimization calculations~\cite{giannozzi2009}. The
+project does not
 reimplement plane-wave Kohn--Sham DFT. For the declared workflow,
 \texttt{pw.x} is the relevant executable for the bulk electronic-structure
 stages. Wannier construction and the QE--Wannier interface are addressed in
@@ -89,8 +90,8 @@ merely because it is more expensive or appears more conservative.
 Four sampling purposes remain separate:
 
 \begin{description}
-  \item[SCF mesh.] A uniform Monkhorst--Pack sequence converges the charge
-    density and total energy of the primitive bulk cell.
+  \item[SCF mesh.] A uniform Monkhorst--Pack sequence~\cite{monkhorst1976}
+    converges the charge density and total energy of the primitive bulk cell.
   \item[Band path.] An explicitly recorded high-symmetry path reports the band
     structure and supplies declared withheld points.
   \item[Valley sampling.] A local one-dimensional refinement locates the

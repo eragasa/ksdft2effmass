@@ -19,15 +19,17 @@ physical branch.
 \section{The parent description}
 
 The parent is a self-consistent Kohn--Sham density-functional calculation in
-the Born--Oppenheimer fixed-ion framework. Its output is a one-particle
+the Born--Oppenheimer fixed-ion framework~\cite{hohenberg1964,kohn1965}. Its
+output is a one-particle
 Kohn--Sham operator and associated finite numerical representations. It is not
 the complete interacting many-body Hamiltonian, and its eigenvalues are not
 identified here with the complete many-body excitation spectrum.
 
 For the version-one program, exchange and correlation are described with the
-PBE generalized-gradient approximation and the electron--ion interaction is
-represented by compatible optimized norm-conserving Vanderbilt
-pseudopotentials from the approved PseudoDojo family. These choices define the
+PBE generalized-gradient approximation~\cite{perdew1996} and the electron--ion
+interaction is represented by compatible optimized norm-conserving Vanderbilt
+pseudopotentials from the approved PseudoDojo
+family~\cite{hamann2013,vansetten2018}. These choices define the
 parent against which later reductions are measured. In particular, disagreement
 between this parent and experiment is a parent-model question, not automatically
 an error introduced by tight-binding or effective-mass reduction.
