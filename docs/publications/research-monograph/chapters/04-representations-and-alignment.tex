@@ -1,9 +1,257 @@
 \chapter{Representations, Localization, and Alignment}
 \label{ch:representations-and-alignment}
 
-\textbf{Status: proposed work.}
+\textbf{Status: technical framework and planned diagnostics; no accepted Wannier
+operator or alignment result is claimed. Literature attribution remains to be
+completed from verified primary sources.}
 
-This chapter will separate projection, disentanglement, basis transformation,
-Wannier localization, and truncation. It will state the basis, gauge, geometry,
-unit, and energy-reference information required before comparing pristine and
-doped representations or subtracting their finite matrices.
+The Kohn--Sham parent is naturally described by Bloch states, whereas local
+lattice models and substitutional perturbations are naturally discussed in
+real space. Moving between these descriptions requires several operations that
+must not be collapsed into the single word ``Wannierization.'' This chapter
+separates subspace selection, projection, disentanglement, gauge selection,
+localization, basis transformation, real-space truncation, and alignment.
+
+\section{Bloch representation}
+
+For a periodic parent problem, Bloch states may be written
+\begin{equation}
+  \psi_{n\mathbf k}(\mathbf r)
+  =
+  e^{i\mathbf k\cdot\mathbf r}u_{n\mathbf k}(\mathbf r),
+\end{equation}
+where $u_{n\mathbf k}$ has the periodicity of the crystal lattice, $n$ is a band
+label, and $\mathbf k$ is a crystal momentum expressed in a declared reciprocal
+coordinate convention. The eigenvalue relation at fixed $\mathbf k$ is
+\begin{equation}
+  \widehat H(\mathbf k)
+  \lvert\psi_{n\mathbf k}\rangle
+  =
+  \varepsilon_{n\mathbf k}
+  \lvert\psi_{n\mathbf k}\rangle.
+\end{equation}
+Band labels alone do not provide a globally smooth frame. Degeneracies,
+crossings, and entanglement with excluded bands make the retained subspace, not
+an informal list of band indices, the stable object to identify.
+
+\section{Target subspace}
+
+At each sampled $\mathbf k$, let $\mathcal S(\mathbf k)$ be an
+$M$-dimensional retained subspace with orthogonal projector
+\begin{equation}
+  P(\mathbf k)
+  =
+  \sum_{m=1}^{M}
+  \lvert\psi_{m\mathbf k}\rangle
+  \langle\psi_{m\mathbf k}\rvert
+\end{equation}
+for any orthonormal frame spanning that subspace. The immediate bulk target must
+contain the valence and low-conduction information needed for the declared
+$sp^3s^{\ast}$ reduction, indirect gap, conduction valley, and electron masses.
+The exact rank, energy windows, excluded states, and interpolation domain remain
+outputs of the Stage~03 target-subspace task.
+
+A target subspace specification must say which parent calculation it consumes,
+which $\mathbf k$ grid it uses, how states are selected or optimized, and over
+which energies and reciprocal-space region fidelity is required. A visually
+plausible band plot does not uniquely define this object.
+
+\section{Projection and disentanglement}
+
+Initial orbital projections provide trial directions from which a retained
+frame may be constructed. Projection is an overlap operation between trial
+orbitals and parent states; it is not by itself a proof that the desired
+subspace has been selected.
+
+When the desired bands are entangled with other states, disentanglement selects
+an $M$-dimensional subspace from a larger outer space, often subject to inner
+and outer energy-window constraints. This changes the selected subspace and is
+therefore conceptually distinct from a unitary rotation within an already fixed
+$M$-dimensional subspace. The following operations must remain separate:
+
+\begin{description}
+  \item[Projection.] Measures or constructs overlap with specified trial
+    functions.
+  \item[Disentanglement.] Selects a retained subspace from a larger candidate
+    space.
+  \item[Gauge transformation.] Changes the orthonormal frame within the same
+    retained subspace.
+  \item[Localization.] Chooses a frame according to a real-space localization
+    objective.
+  \item[Truncation.] Discards selected matrix elements or real-space blocks
+    after representation.
+\end{description}
+
+Only the last of these directly removes represented couplings. Wannierization
+alone is therefore not described as a low-rank approximation.
+
+\section{Wannier transformation}
+
+Let
+\begin{equation}
+  \{\lvert\psi_{m\mathbf k}\rangle\}_{m=1}^{M}
+\end{equation}
+be an orthonormal Bloch frame spanning the retained subspace on a uniform grid
+of $N_{\mathbf k}$ points. A corresponding set of Wannier functions is
+\begin{equation}
+  \lvert w_{n\mathbf R}\rangle
+  =
+  \frac{1}{\sqrt{N_{\mathbf k}}}
+  \sum_{\mathbf k}e^{-i\mathbf k\cdot\mathbf R}
+  \sum_{m=1}^{M}
+  \lvert\psi_{m\mathbf k}\rangle U_{mn}(\mathbf k),
+\end{equation}
+where $\mathbf R$ is a Bravais-lattice vector and
+$U(\mathbf k)\in U(M)$ specifies the selected frame.
+
+For a single isolated band, $U(\mathbf k)$ reduces to a momentum-dependent
+phase. For a composite subspace it mixes the retained states. Replacing
+$U(\mathbf k)$ by another unitary frame changes the individual Wannier
+functions while preserving the subspace projector. The Wannier basis is
+therefore gauge dependent even though the retained subspace is gauge invariant.
+
+\section{Localization}
+
+Spatial localization depends on the regularity of the selected Bloch frame over
+the Brillouin zone. Maximally localized Wannier functions choose a gauge by
+minimizing a declared spread functional. The spread and its decomposition are
+diagnostics of that construction, not standalone measures of operator fidelity.
+A small spread does not guarantee correct band interpolation, correct orbital
+character, symmetry compatibility, or alignment with a separately generated
+basis.
+
+The construction record must retain at least the initial projections,
+disentanglement windows when applicable, localization settings, convergence
+history, Wannier centers, spreads, and software identities. Multiple candidate
+constructions should consume the same accepted QE--Wannier interface artifacts
+when they are intended to isolate sensitivity to projection or localization
+choices.
+
+\section{Reciprocal- and real-space Hamiltonians}
+
+In the selected Bloch frame, let $H^{(\mathrm W)}(\mathbf k)$ denote the
+retained Hamiltonian matrix. Its real-space blocks are
+\begin{equation}
+  H^{(\mathrm W)}_{mn}(\mathbf R)
+  =
+  \frac{1}{N_{\mathbf k}}
+  \sum_{\mathbf k}e^{-i\mathbf k\cdot\mathbf R}
+  H^{(\mathrm W)}_{mn}(\mathbf k),
+\end{equation}
+subject to the precise Fourier and degeneracy conventions used by the producing
+software. The inverse transform reconstructs an interpolated reciprocal-space
+matrix,
+\begin{equation}
+  H^{(\mathrm W)}(\mathbf k)
+  =
+  \sum_{\mathbf R}e^{i\mathbf k\cdot\mathbf R}
+  H^{(\mathrm W)}(\mathbf R),
+\end{equation}
+when all represented blocks and the matching convention are retained.
+
+Real-space decay can be diagnosed with quantities such as
+$\|H^{(\mathrm W)}(\mathbf R)\|_{\mathrm F}$. Discarding distant blocks is a
+separate approximation whose cutoff, boundary convention, and induced spectral
+and operator residuals must be reported. The existence of localized functions
+does not authorize an unrecorded hopping truncation.
+
+\section{Validation of a candidate Wannier representation}
+
+Stage~03 declares four complementary diagnostic families:
+
+\begin{itemize}
+  \item interpolation error over a declared domain, including withheld points;
+  \item band-edge errors for the bulk quantities used downstream;
+  \item Wannier centers and spreads, including unresolved symmetry or
+    localization pathologies; and
+  \item decay of the real-space Hamiltonian blocks.
+\end{itemize}
+
+These diagnostics answer different questions. Interpolation tests whether the
+represented subspace reproduces selected parent eigenvalues. Centers and spreads
+characterize the chosen localized frame. Real-space decay informs later
+truncation choices. None alone establishes a physically aligned basis for
+subtracting an independently generated operator.
+
+An accepted bulk Wannier operator requires a reproducible subspace,
+gauge-construction procedure, interpolation domain, and explicit truncation
+status. No such accepted operator is asserted in this chapter.
+
+\section{Why independent constructions require alignment}
+
+Pristine and doped calculations, or two independent pristine constructions, may
+produce localized orbitals with different phases, orderings, centers, mixtures,
+and subspaces. Even identical software settings do not force identical gauges.
+Directly subtracting their raw matrices can therefore measure coordinate choice
+rather than a physical perturbation.
+
+Before an identification map is formed, the comparison records must establish
+compatible
+
+\begin{itemize}
+  \item cell and supercell geometry;
+  \item atomic-site and lattice-translation mapping;
+  \item orbital identities and ordering;
+  \item retained dimensions and spin conventions;
+  \item units and Fourier conventions; and
+  \item scalar energy references.
+\end{itemize}
+
+For doped systems, the matched pristine comparison must use the same underlying
+supercell convention. Structural relaxation is part of the physical impurity
+branch, but it also makes the geometry map nontrivial and therefore explicit.
+
+\section{Subspace diagnostics}
+
+Let $B_{\mathrm r}$ and $B_{\mathrm c}$ contain orthonormal basis vectors for
+reference and candidate spaces in a common ambient representation. Their
+overlap matrix is
+\begin{equation}
+  S=B_{\mathrm r}^{\dagger}B_{\mathrm c}.
+\end{equation}
+The singular values $\sigma_j$ of $S$ define principal angles
+\begin{equation}
+  \theta_j=\arccos\sigma_j,
+\end{equation}
+within the applicable numerical range. These quantities diagnose subspace
+agreement before coordinate alignment. Rank loss or large principal angles
+cannot be repaired merely by relabelling orbitals.
+
+When the spaces are sufficiently compatible, a polar or orthogonal-Procrustes
+construction can supply a unitary coordinate identification. The exact map,
+its direction, numerical conditioning, and residual diagnostics must be stored.
+This method is a planned Stage~05 operation, not an alignment result already
+obtained by the project.
+
+\section{Transport and comparison}
+
+For an alignment $A:\mathcal S_{\mathrm r}\rightarrow\mathcal S_{\mathrm c}$,
+the candidate operator is transported to the reference space as
+\begin{equation}
+  H_{\mathrm c\rightarrow r}=A^{\dagger}H_{\mathrm c}A.
+\end{equation}
+Only after energy-reference compatibility and the remaining metadata checks may
+a signed difference be formed. The difference convention must identify which
+operator is candidate, reference, pristine, or doped rather than relying on an
+ambiguous symbol $\Delta H$.
+
+The alignment protocol is to be tested first on synthetic, controlled gauge
+transformations where the expected map and transformed operator are known.
+First-principles sensitivity tests then vary windows, projections, and
+localization choices while preserving the relevant comparison controls. Exact
+recovery in a synthetic test verifies software and mathematics; it does not by
+itself validate a physical alignment between independent calculations.
+
+\section{Energy and gauge sensitivity}
+
+Alignment uncertainty is not exhausted by the unitary map. The eventual record
+must report principal angles, overlap residuals, gauge-equivariance error, and
+sensitivity to the construction choices used to produce both spaces. The
+operational scalar energy-alignment estimator and its uncertainty must also be
+frozen before interpreting a pristine--doped difference as an impurity
+operator.
+
+If rank compatibility, geometry correspondence, spin convention, energy zero,
+or gauge validity remains unresolved, the comparison stops. Reporting that
+boundary is preferable to constructing a numerically convenient subtraction
+whose physical meaning is unidentified.

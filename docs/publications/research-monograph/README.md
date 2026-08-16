@@ -32,9 +32,7 @@ quantification, publication, or human acceptance.
 ## Structure
 
 - `manuscript.tex` — standard-LaTeX composition root;
-- `chapters/` — independently maintainable long-form chapter skeletons;
-- `notes/` — explicitly labelled working fragments that are not included in the
-  composed manuscript until corrected and reviewed;
+- `chapters/` — independently maintainable long-form chapters;
 - `extraction-map.md` — planned relationships between monograph material and
   shorter outputs;
 - `build/` — ignored local LaTeX output.
