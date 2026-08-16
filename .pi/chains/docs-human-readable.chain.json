@@ -1,7 +1,7 @@
 {
   "name": "docs-human-readable",
   "description": "Make docs/ an ordinary human-authored, human-readable, human-editable documentation tree and relocate generated harness views outside it without changing scientific meaning or protected state.",
-  "status": "contract_and_inventory_completed_pending_human_acceptance",
+  "status": "contract_and_inventory_closed_human_accepted_pass",
   "active_task": null,
   "automatic_successor_activation": false,
   "explicitly_activated_task_ids": [
@@ -16,6 +16,10 @@
     {
       "phase": "contract-and-inventory-completed-pending-human-acceptance",
       "message": "The documentation authoring contract and complete 495-file source-revision inventory are implemented. Deterministic coverage and disposition validation, warnings-as-errors HTML and linkcheck builds, independent review, one bounded correction pass, and final verification pass. No documentation was moved or deleted. No Task is active; generated-view separation remains inactive pending explicit human acceptance and separate activation."
+    },
+    {
+      "phase": "contract-and-inventory-human-accepted-and-closed",
+      "message": "Human response: \"mark docs.human-readable as accepted without review\". The human explicitly accepted and closed docs.human-readable.contract-and-inventory without additional human review. Existing deterministic validation, independent review, correction, and final-verification evidence remains unchanged. The coordinating parent stays deferred between children; generated-view separation and every later child remain inactive, and automatic successor activation remains disabled."
     }
   ],
   "task_sequence": [

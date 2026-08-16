@@ -5,7 +5,7 @@
 
 ## Status
 
-`deferred_between_children`: The first child docs.human-readable.contract-and-inventory is complete pending human acceptance. No child is active, automatic successor activation remains disabled, and every later child requires separate explicit activation after prerequisite acceptance.
+`deferred_between_children`: The first child docs.human-readable.contract-and-inventory is closed_human_accepted_pass. No child is active, automatic successor activation remains disabled, and every later child requires separate explicit activation.
 
 ## Objective
 

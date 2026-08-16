@@ -68,7 +68,7 @@
 - [`docs.human-readable`](docs.human-readable.md) — Make the documentation tree human-readable and human-editable (`deferred_between_children`)
 - [`docs.human-readable.architecture-development`](docs.human-readable.architecture-development.md) — Normalize architecture and development documentation (`inactive`)
 - [`docs.human-readable.computational-names`](docs.human-readable.computational-names.md) — Replace opaque computational documentation filenames (`inactive`)
-- [`docs.human-readable.contract-and-inventory`](docs.human-readable.contract-and-inventory.md) — Define the documentation contract and classify the current tree (`completed_pending_human_acceptance`)
+- [`docs.human-readable.contract-and-inventory`](docs.human-readable.contract-and-inventory.md) — Define the documentation contract and classify the current tree (`closed_human_accepted_pass`)
 - [`docs.human-readable.cutover`](docs.human-readable.cutover.md) — Verify and complete the human-readable documentation cutover (`inactive`)
 - [`docs.human-readable.generated-view-separation`](docs.human-readable.generated-view-separation.md) — Move generated harness views outside docs (`inactive`)
 - [`docs.human-readable.history-separation`](docs.human-readable.history-separation.md) — Separate current documentation from historical records (`inactive`)

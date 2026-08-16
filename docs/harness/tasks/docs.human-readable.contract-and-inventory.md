@@ -5,7 +5,7 @@
 
 ## Status
 
-`completed_pending_human_acceptance`: Implementation, deterministic 495-file inventory validation, warnings-as-errors HTML and linkcheck builds, independent review, one bounded correction pass, and final verification are complete. No documentation was moved or deleted. The Task awaits human acceptance; automatic successor activation remains disabled.
+`closed_human_accepted_pass`: Human-accepted and closed without additional human review. The previously completed deterministic 495-file inventory validation, warnings-as-errors HTML and linkcheck builds, independent review, bounded correction pass, and final verification remain the supporting evidence. No documentation was moved or deleted, no successor was activated, and automatic successor activation remains disabled.
 
 ## Objective
 
