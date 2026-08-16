@@ -41,7 +41,7 @@ reductions, scientific relationships, or static planning projections. They are
 not the authoritative computational workflow state. The prospective scientific
 and computational workflow is the stateful Colored Petri Net defined in
 [[ksdft2effmass.workflow-semantics]] and
-the implemented [Architecture v1 CPN description](../architecture/v1/workflow/scientific-workflow-and-cpn-model.md).
+the implemented [Architecture v1 CPN description](../architecture/v1/ksdft2effmass/workflows/cpn/model.md).
 Its durable multiset markings represent independent branches, repeated
 convergence iterations, synchronization, failures, retries, provenance, and
 accepted or rejected evidence.

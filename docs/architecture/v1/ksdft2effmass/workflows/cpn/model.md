@@ -1,4 +1,4 @@
-# ScientificWorkflow and CPN model in v1
+# `ksdft2effmass.workflows.cpn` object and execution model in v1
 
 ## ScientificWorkflow status
 

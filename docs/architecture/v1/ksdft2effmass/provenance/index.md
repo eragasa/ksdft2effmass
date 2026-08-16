@@ -1,4 +1,4 @@
-# Artifact and provenance model in v1
+# `ksdft2effmass.provenance` package in v1
 
 ## Implemented records
 
@@ -12,6 +12,15 @@
 - strict versioned JSON serialization.
 
 These records describe execution and artifacts. They do not invoke processes, prove provenance truth, or accept scientific conclusions.
+
+| Module | Responsibility |
+|---|---|
+| `records` | Artifact identities, locations, references, manifests, and lineage |
+| `external_tools` | Declared tool identities, specifications, and capabilities |
+| `tool_observations` | Installation and verification observations |
+| `external_execution` | Immutable execution requests, results, failures, and status vocabularies |
+| `actions` | Identity verification and execution correlation |
+| `serialization` | Strict versioned JSON conversion |
 
 ## Artifact locations
 

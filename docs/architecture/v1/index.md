@@ -27,18 +27,27 @@ flowchart TB
 
 | Component | Subpackage or path | Implemented responsibility |
 |---|---|---|
-| Development harness | `ksdft2effmass.harness.pi` and `.local` | Governs development Tasks, decisions, resources, evidence, and generated control state. |
-| Workflow foundation | `ksdft2effmass.workflows.cpn` | Provides deterministic CPN definitions, validation, enablement, and firing. |
-| Calculator I/O | `ksdft2effmass.io.quantum_espresso` | Parses QEXSD and constructs backend-neutral records. |
-| Scientific records | `ksdft2effmass.periodic`, `.ksdft`, and `.provenance` | Represent geometry, Kohn–Sham observations, artifacts, and execution provenance. |
-| Direct execution | `calculations/` runners | Invokes calculators under calculation-specific contracts. |
+| [Development harness](ksdft2effmass/harness/pi/index.md) | `ksdft2effmass.harness.pi` and `.local` | Governs development Tasks, decisions, resources, evidence, and generated control state. |
+| [Workflow foundation](ksdft2effmass/workflows/cpn/index.md) | `ksdft2effmass.workflows.cpn` | Provides deterministic CPN definitions, validation, enablement, and firing. |
+| [Calculator I/O](ksdft2effmass/io/index.md) | `ksdft2effmass.io.quantum_espresso` | Parses QEXSD and constructs backend-neutral records. |
+| [Scientific records](ksdft2effmass/index.md) | `ksdft2effmass.periodic`, `.ksdft`, `.provenance`, and `.operators` | Represent geometry, Kohn–Sham observations, artifacts, execution provenance, and finite operators. |
+| [Direct execution](calculations/index.md) | `calculations/` runners | Invokes calculators under calculation-specific contracts. |
 
-## Pages
+## Package-oriented architecture map
+
+- [`ksdft2effmass`](ksdft2effmass/index.md)
+  - [`harness.pi`](ksdft2effmass/harness/pi/index.md)
+  - [`workflows.cpn`](ksdft2effmass/workflows/cpn/index.md)
+  - [`io.quantum_espresso.qexsd`](ksdft2effmass/io/quantum_espresso/qexsd/index.md)
+  - [`periodic`](ksdft2effmass/periodic/index.md)
+  - [`ksdft` and `ksdft.pw`](ksdft2effmass/ksdft/index.md)
+  - [`provenance`](ksdft2effmass/provenance/index.md)
+  - [`operators`](ksdft2effmass/operators/index.md)
+- [Repository-level calculations](calculations/index.md)
+
+## Cross-cutting pages
 
 - [Principles](principles.md)
-- [Development harness](harness/index.md) - [Development harness model](harness/development-harness.md) - [Pi harness subagents](harness/subagents/index.md) - [Compiler architecture](harness/compiler-architecture.md) - [Control plane](harness/control-plane.md) - [Persistence](harness/persistence.md) - [Projections](harness/projections.md)
-- [Workflow foundation](workflow/index.md) - [Simulation model](workflow/simulation-model.md) - [ScientificWorkflow and CPN model](workflow/scientific-workflow-and-cpn-model.md) - [Artifact and provenance model](workflow/artifact-and-provenance-model.md)
-- [Calculators](calculators/index.md) - [Quantum ESPRESSO](calculators/quantum-espresso.md)
 - [Separation of harness and workflow](separation-of-harness-and-workflow.md)
 - [Repository layout](repository-layout.md)
 

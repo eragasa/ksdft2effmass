@@ -60,25 +60,34 @@ The Markdown-first provenance concept page is available as a
    architecture/v1/principles
    architecture/v1/repository-layout
    architecture/v1/separation-of-harness-and-workflow
-   architecture/v1/harness/index
-   architecture/v1/harness/development-harness
-   architecture/v1/harness/subagents/index
-   architecture/v1/harness/subagents/agent-descriptors
-   architecture/v1/harness/subagents/parent-orchestration
-   architecture/v1/harness/subagents/delegation-and-ownership
-   architecture/v1/harness/subagents/execution-and-isolation
-   architecture/v1/harness/subagents/handoffs-and-review
-   architecture/v1/harness/subagents/runtime-state-and-artifacts
-   architecture/v1/harness/compiler-architecture
-   architecture/v1/harness/control-plane
-   architecture/v1/harness/persistence
-   architecture/v1/harness/projections
-   architecture/v1/workflow/index
-   architecture/v1/workflow/simulation-model
-   architecture/v1/workflow/scientific-workflow-and-cpn-model
-   architecture/v1/workflow/artifact-and-provenance-model
-   architecture/v1/calculators/index
-   architecture/v1/calculators/quantum-espresso
+   architecture/v1/ksdft2effmass/index
+   architecture/v1/ksdft2effmass/harness/index
+   architecture/v1/ksdft2effmass/harness/pi/index
+   architecture/v1/ksdft2effmass/harness/pi/development-harness
+   architecture/v1/ksdft2effmass/harness/pi/control-plane
+   architecture/v1/ksdft2effmass/harness/pi/local/control/index
+   architecture/v1/ksdft2effmass/harness/pi/local/dbcontrol/index
+   architecture/v1/ksdft2effmass/harness/pi/local/dbcontrol/projections
+   architecture/v1/ksdft2effmass/harness/pi/subagents/index
+   architecture/v1/ksdft2effmass/harness/pi/subagents/agent-descriptors
+   architecture/v1/ksdft2effmass/harness/pi/subagents/parent-orchestration
+   architecture/v1/ksdft2effmass/harness/pi/subagents/delegation-and-ownership
+   architecture/v1/ksdft2effmass/harness/pi/subagents/execution-and-isolation
+   architecture/v1/ksdft2effmass/harness/pi/subagents/handoffs-and-review
+   architecture/v1/ksdft2effmass/harness/pi/subagents/runtime-state-and-artifacts
+   architecture/v1/ksdft2effmass/workflows/index
+   architecture/v1/ksdft2effmass/workflows/cpn/index
+   architecture/v1/ksdft2effmass/workflows/cpn/model
+   architecture/v1/ksdft2effmass/io/index
+   architecture/v1/ksdft2effmass/io/quantum_espresso/index
+   architecture/v1/ksdft2effmass/io/quantum_espresso/qexsd/index
+   architecture/v1/ksdft2effmass/periodic/index
+   architecture/v1/ksdft2effmass/ksdft/index
+   architecture/v1/ksdft2effmass/ksdft/pw/index
+   architecture/v1/ksdft2effmass/provenance/index
+   architecture/v1/ksdft2effmass/operators/index
+   architecture/v1/calculations/index
+   architecture/v1/calculations/simulation-model
    architecture/v2/index
    architecture/v2/principles
    architecture/v2/repository-layout

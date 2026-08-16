@@ -1,4 +1,4 @@
-# Development harness in v1
+# `ksdft2effmass.harness.pi` package in v1
 
 ## Purpose
 
@@ -36,11 +36,31 @@ A `HarnessTask` carries identity, status, parent and prerequisite relationships,
 
 Chains select active work. Task JSON defines Task content. Unresolved checkpoints represent human decision boundaries. Generated state must agree with those sources but cannot replace them.
 
+## Package structure
+
+```mermaid
+flowchart TD
+    pi["harness.pi"]
+    local["harness.pi.local"]
+    control["local.control"]
+    dbcontrol["local.dbcontrol"]
+    resources["harness.pi.resources"]
+    evidence["harness.pi.evidence"]
+    wire["harness.pi.wire"]
+
+    pi --> local
+    local --> control
+    local --> dbcontrol
+    pi --> resources
+    pi --> evidence
+    pi --> wire
+```
+
 ## Detailed pages
 
 - [Development harness model](development-harness.md)
+- [Control-plane authority and selection](control-plane.md)
+- [Project-local control compilation](local/control/index.md)
+- [Project-local generated persistence](local/dbcontrol/index.md)
+- [Project-local projections](local/dbcontrol/projections.md)
 - [Pi harness subagents](subagents/index.md)
-- [Compiler architecture](compiler-architecture.md)
-- [Control plane](control-plane.md)
-- [Persistence](persistence.md)
-- [Projections](projections.md)

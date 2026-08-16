@@ -1,4 +1,4 @@
-# Persistence in v1
+# `ksdft2effmass.harness.pi.local.dbcontrol` package in v1
 
 ## Authoritative records
 
@@ -20,6 +20,18 @@ Git history preserves revisions but does not reactivate prior state.
 
 `harness/state/harness-control.sqlite3` is a generated read model, not primary persistence authority. It contains normalized Task, relationship, evidence, agent, skill, resource, decision, and projection records reconstructed from canonical sources.
 
+```mermaid
+flowchart LR
+    ingestion["dbcontrol.ingestion"] --> records["dbcontrol.records"]
+    records --> database["dbcontrol.database"]
+    schema["dbcontrol.schema"] --> database
+    database --> projections["dbcontrol.projections"]
+    database --> verification["dbcontrol.verification"]
+```
+
+Encoding, schema, ingestion, relational records, resources, migration,
+projection, and verification are separate modules within the package.
+
 Maintained SQLite is immutable after publication. WAL, SHM, journals, staging files, and backups are not valid maintained state.
 
 ## Scientific persistence
@@ -37,6 +49,8 @@ These records are not retroactively a `ScientificWorkflowRun`. CPN markings are 
 ## Serialization
 
 Public harness, provenance, periodic, Kohn–Sham, and plane-wave records use versioned serializers where implemented. Schema or round-trip success establishes wire behavior only, not provenance truth, scientific correctness, or acceptance.
+
+Projection ownership is detailed on the [projection page](projections.md).
 
 ## Limitations
 

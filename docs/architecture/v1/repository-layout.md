@@ -40,6 +40,19 @@ flowchart TD
 
 Periodic and Kohn–Sham packages do not depend on calculator packages. The CPN package imports no calculator-specific implementation. Direct runners remain calculation-owned rather than part of a public calculator subpackage.
 
+## Architecture-document organization
+
+Package-owned architecture follows the implemented Python namespace below
+`docs/architecture/v1/ksdft2effmass/`. Directory components mirror package and
+subpackage components; package-wide diagrams and cross-cutting discussions live
+on the nearest package `index.md`, while module-specific architecture belongs on
+a page named for that module when separate treatment is needed.
+
+Repository-level direct execution is documented under
+`docs/architecture/v1/calculations/` because `calculations/` is not a Python
+subpackage in v1. Repository-wide principles, dependency direction, and the
+harness/workflow separation remain at the v1 root.
+
 ## Documentation and generated state
 
 V1 historically mixes human-authored harness narrative with generated Task Markdown under `docs/harness/tasks/`. Those generated pages reflect Task JSON and chain state and are not authoritative prose. Other generated control artifacts remain under `harness/state/` and `harness/task-graph.json`.

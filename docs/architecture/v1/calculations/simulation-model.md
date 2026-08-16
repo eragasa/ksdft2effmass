@@ -1,6 +1,8 @@
-# Simulation model in v1
+# Repository-level direct simulation model in v1
 
-The implemented calculator-specific object and execution boundaries are detailed in [Quantum ESPRESSO object design](../calculators/quantum-espresso.md).
+The implemented calculator-specific parsing and construction boundaries are
+detailed under
+[`ksdft2effmass.io.quantum_espresso.qexsd`](../ksdft2effmass/io/quantum_espresso/qexsd/index.md).
 
 ## Implemented status
 

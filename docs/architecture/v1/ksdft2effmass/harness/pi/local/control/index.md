@@ -1,4 +1,4 @@
-# Compiler architecture in v1
+# `ksdft2effmass.harness.pi.local.control` package in v1
 
 ## Implemented compilation path
 
@@ -16,13 +16,13 @@ flowchart TB
 
 ## Implemented owners
 
-| Owner | Responsibility |
+| Package or module owner | Responsibility |
 |---|---|
 | `HarnessControlMigrationRequest` | Explicit repository root and canonical evidence/resource inputs |
 | `HarnessControlMigrator` | Candidate construction, validation, and publication orchestration |
 | `HarnessControlVerifier` | Candidate reconstruction and read-only comparison |
-| Private control-input code | Canonical source selection and decoding |
-| Private generation code | Candidate SQLite and projection construction |
+| `local.control.inputs` | Canonical source selection and decoding |
+| `local.control.generation` | Candidate SQLite and projection construction |
 | `HarnessValidator` | Repository-level validation composition |
 | Domain validators | Task, checkpoint, resource, skill, and evidence rules |
 
@@ -56,3 +56,6 @@ The implementation compares normalized table content and a semantic digest, dete
 - There is no validator composition protocol over one public `HarnessState`.
 
 These limitations describe the implemented architecture and do not redefine it.
+
+Generated database ownership and projection publication are detailed under
+[`ksdft2effmass.harness.pi.local.dbcontrol`](../dbcontrol/index.md).

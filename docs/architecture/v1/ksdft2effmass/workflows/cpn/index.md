@@ -1,4 +1,4 @@
-# Scientific workflow foundation in v1
+# `ksdft2effmass.workflows.cpn` package in v1
 
 ## Implemented workflow model
 
@@ -32,9 +32,21 @@ Guards perform no external I/O. Enablement and firing implement multiset CPN sem
 
 Accepted tutorial and convergence calculations used calculation-specific direct runners. They were not dispatched by CPN transitions and did not persist scientific markings. The CPN package is therefore an implemented workflow foundation, not the V1 scientific execution control plane.
 
+## Module structure
+
+| Module | Responsibility |
+|---|---|
+| `model` | Colors, places, transitions, arcs, inscriptions, and net definitions |
+| `tokens` | Closed contract values, tokens, outcomes, scope, status, and terminality |
+| `markings` | Immutable place multisets and transition bindings |
+| `expressions` | Closed guards, templates, assignments, and expression evaluation |
+| `validation` | Definition and marking validation with structured findings |
+| `execution` | Deterministic enablement and firing |
+| `errors` | Typed contract, definition, marking, binding, guard, and firing failures |
+
 ## Detailed pages
 
-- [Simulation model](simulation-model.md)
-- [ScientificWorkflow and CPN model](scientific-workflow-and-cpn-model.md)
-- [Artifact and provenance model](artifact-and-provenance-model.md)
-- [Separation from the development harness](../separation-of-harness-and-workflow.md)
+- [Net and execution object model](model.md)
+- [Repository-level direct simulation model](../../../calculations/simulation-model.md)
+- [`ksdft2effmass.provenance`](../../provenance/index.md)
+- [Separation from the development harness](../../../separation-of-harness-and-workflow.md)

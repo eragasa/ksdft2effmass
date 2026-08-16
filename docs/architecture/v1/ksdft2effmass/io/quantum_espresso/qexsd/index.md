@@ -1,4 +1,4 @@
-# Quantum ESPRESSO object design in v1
+# `ksdft2effmass.io.quantum_espresso.qexsd` package in v1
 
 ## Scope
 
@@ -8,10 +8,9 @@ The implemented Python package is:
 
 ```text
 ksdft2effmass.io.quantum_espresso.qexsd
-├── QexsdSource
-├── QexsdDocument
-├── ParseQexsdDocument
-└── ConstructQexsdKohnShamPlaneWaveRecord
+├── records.py       QexsdSource and QexsdDocument
+├── parsing.py       ParseQexsdDocument
+└── construction.py  ConstructQexsdKohnShamPlaneWaveRecord
 ```
 
 ## Object flow
@@ -130,9 +129,9 @@ classDiagram
 
 | Owner | Constructed meaning |
 |---|---|
-| `ksdft2effmass.periodic` | Direct and reciprocal lattices, species, sites, periodic structure, k-point sampling, units, and coordinate conventions |
-| `ksdft2effmass.ksdft` | Eigenvalue and occupation observations, energy units, availability, and total energy |
-| `ksdft2effmass.ksdft.pw` | Plane-wave representation metadata, source provenance, complete calculation record, and JSON serialization |
+| [`ksdft2effmass.periodic`](../../../periodic/index.md) | Direct and reciprocal lattices, species, sites, periodic structure, k-point sampling, units, and coordinate conventions |
+| [`ksdft2effmass.ksdft`](../../../ksdft/index.md) | Eigenvalue and occupation observations, energy units, availability, and total energy |
+| [`ksdft2effmass.ksdft.pw`](../../../ksdft/pw/index.md) | Plane-wave representation metadata, source provenance, complete calculation record, and JSON serialization |
 
 The periodic and Kohn–Sham packages import no QEXSD or Quantum ESPRESSO types. The dependency direction is from the concrete QEXSD constructor into the neutral domain owners.
 

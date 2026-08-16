@@ -46,6 +46,6 @@ Retained runtime data excludes credentials, private keys, scheduler secrets, res
 
 ## V1 relationship and status
 
-Architecture v1 records the implemented project descriptors, Pi runtime boundary, orchestration, ownership, and artifact behavior under [`v1/harness/subagents/`](../../v1/harness/subagents/index.md). The [migration crosswalk](../../migration/v1-to-v2/pi-harness-subagents.md) preserves their disposition. This v2 page consolidates the prospective project boundary without reimplementing or duplicating Pi runtime documentation.
+Architecture v1 records the implemented project descriptors, Pi runtime boundary, orchestration, ownership, and artifact behavior under [`ksdft2effmass.harness.pi.subagents`](../../v1/ksdft2effmass/harness/pi/subagents/index.md). The [migration crosswalk](../../migration/v1-to-v2/pi-harness-subagents.md) preserves their disposition. This v2 page consolidates the prospective project boundary without reimplementing or duplicating Pi runtime documentation.
 
 This architecture introduces no new subagent runtime, launcher abstraction, chain language, Task-context public object, Task-closure model, or authority mechanism. Exact long-term retention policy for nonessential Pi runtime artifacts remains deferred.
