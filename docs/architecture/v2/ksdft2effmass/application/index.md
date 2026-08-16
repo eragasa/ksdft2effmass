@@ -1,4 +1,4 @@
-# Architecture v2 application composition root
+# `ksdft2effmass.application` package
 
 ## Responsibility
 

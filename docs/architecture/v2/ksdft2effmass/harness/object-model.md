@@ -34,7 +34,7 @@ classDiagram
 | `HarnessTaskCatalog` | Unique versioned Task definitions |
 | `DevelopmentTaskSelection` | Explicit selected development work |
 | `HarnessTaskGraph` | Typed parent and prerequisite relationships |
-| `DevelopmentDecision` | One immutable model for explicit unresolved and resolved/revised human development decisions; see [human decisions](../human-decisions.md) |
+| `DevelopmentDecision` | One immutable model for explicit unresolved and resolved/revised human development decisions; see [human decisions](../../human-decisions.md) |
 | `HarnessCapabilityCatalog` | Available development operations |
 | `HarnessResourceCatalog` | Versioned resources and dependency closure |
 | `HarnessEvidenceCatalog` | Evidence identities, owners, and claim boundaries |

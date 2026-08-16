@@ -1,5 +1,20 @@
 # Architecture v2 repository layout
 
+## Architecture-document organization
+
+Package-owned architecture follows the selected prospective namespace below
+`docs/architecture/v2/ksdft2effmass/`. Directory components mirror package and
+subpackage components. Package-wide diagrams and cross-cutting discussions live
+on the nearest package `index.md`.
+
+Topic pages grouped beneath a package describe package-owned architecture but do
+not select same-named Python modules unless the owning architecture explicitly
+does so. Exact internal submodules and public wire exports remain deferred.
+Repository-wide principles, human-decision semantics, identity contracts,
+dependency direction, live issues, and harness/workflow separation remain at
+the v2 root. This documentation layout neither authorizes a source move nor
+changes v2's prospective, unimplemented status.
+
 ## Package ownership
 
 ```text

@@ -1,6 +1,6 @@
 # Separation of harness and workflow
 
-The development component is defined by the [harness architecture](harness/index.md), and the scientific component is defined by the [workflow architecture](workflow/index.md). This page focuses on their authority and lifecycle separation. The cross-cutting [human-decision contract](human-decisions.md) defines two domain-separated systems without a common nominal checkpoint base, shared aggregate, or shared repository.
+The development component is defined by the [harness architecture](ksdft2effmass/harness/index.md), and the scientific component is defined by the [workflow architecture](ksdft2effmass/workflows/index.md). This page focuses on their authority and lifecycle separation. The cross-cutting [human-decision contract](human-decisions.md) defines two domain-separated systems without a common nominal checkpoint base, shared aggregate, or shared repository.
 
 The normative boundary is:
 

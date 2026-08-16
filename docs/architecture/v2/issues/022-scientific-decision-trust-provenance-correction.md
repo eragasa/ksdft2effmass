@@ -12,10 +12,10 @@
 
 - [`docs/architecture/v2/human-decisions.md`](../human-decisions.md) — the recorder receives a verbatim response without an authenticated response snapshot or verification receipt and permits append-only correction without effective-token semantics.
 - [`docs/architecture/v2/identity-version-and-failure-contracts.md`](../identity-version-and-failure-contracts.md) — the closed producer-provenance variants do not cover a no-Task resolution created by the recorder within Workflow ingress.
-- [`docs/architecture/v2/workflow/workflow-run.md`](../workflow/workflow-run.md) — decision-origin transitions prohibit Task production state while requiring closed ResultObject provenance and replayable history.
-- [`docs/architecture/v2/workflow/task-and-colored-petri-net-adapter.md`](../workflow/task-and-colored-petri-net-adapter.md) — decision ingress maps supplied resolutions without defining their producer-provenance case or repeat-ingress token behavior.
-- [`docs/architecture/v2/workflow/artifact-and-provenance-model.md`](../workflow/artifact-and-provenance-model.md) — existing external and Workflow producer variants do not describe recorder-produced decision results.
-- [`docs/architecture/v2/workflow/control-plane.md`](../workflow/control-plane.md) — trusted ingress and correction lack one effective replay-value contract.
+- [`docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md`](../ksdft2effmass/workflows/workflow-run.md) — decision-origin transitions prohibit Task production state while requiring closed ResultObject provenance and replayable history.
+- [`docs/architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md`](../ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md) — decision ingress maps supplied resolutions without defining their producer-provenance case or repeat-ingress token behavior.
+- [`docs/architecture/v2/ksdft2effmass/workflows/artifact-and-provenance-model.md`](../ksdft2effmass/workflows/artifact-and-provenance-model.md) — existing external and Workflow producer variants do not describe recorder-produced decision results.
+- [`docs/architecture/v2/ksdft2effmass/workflows/control-plane.md`](../ksdft2effmass/workflows/control-plane.md) — trusted ingress and correction lack one effective replay-value contract.
 
 ## Missing contract
 

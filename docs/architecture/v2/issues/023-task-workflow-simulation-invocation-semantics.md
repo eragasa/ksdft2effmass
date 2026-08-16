@@ -10,12 +10,12 @@ The generic `Task.execute` contract has no closed failure or uncertainty outcome
 
 ## Affected contracts
 
-- [`docs/architecture/v2/workflow/task-and-colored-petri-net-adapter.md`](../workflow/task-and-colored-petri-net-adapter.md) — generic Task success is described, but ordinary failure, uncertainty, nested Workflow state, and the selected invocation owner are not closed.
-- [`docs/architecture/v2/workflow/service-model.md`](../workflow/service-model.md) — `SimulationDispatchAdapter` invokes the executor and commits request state without a complete generic Task lifecycle.
-- [`docs/architecture/v2/workflow/workflow-run.md`](../workflow/workflow-run.md) — Task failure records exist without a generic invocation outcome that produces and admits them.
-- [`docs/architecture/v2/workflow/simulation-task-model.md`](../workflow/simulation-task-model.md) — SimulationTask ownership overlaps the dispatch adapter and executor path.
-- [`docs/architecture/v2/calculators/index.md`](../calculators/index.md) — simulation outcomes are specialized while generic Task failure and uncertainty remain absent.
-- [`docs/architecture/v2/calculators/quantum-espresso.md`](../calculators/quantum-espresso.md) — the executor is invoked directly although the SimulationTask is said to return the output.
+- [`docs/architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md`](../ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md) — generic Task success is described, but ordinary failure, uncertainty, nested Workflow state, and the selected invocation owner are not closed.
+- [`docs/architecture/v2/ksdft2effmass/workflows/service-model.md`](../ksdft2effmass/workflows/service-model.md) — `SimulationDispatchAdapter` invokes the executor and commits request state without a complete generic Task lifecycle.
+- [`docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md`](../ksdft2effmass/workflows/workflow-run.md) — Task failure records exist without a generic invocation outcome that produces and admits them.
+- [`docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md`](../ksdft2effmass/workflows/simulation-task-model.md) — SimulationTask ownership overlaps the dispatch adapter and executor path.
+- [`docs/architecture/v2/ksdft2effmass/calculators/index.md`](../ksdft2effmass/calculators/index.md) — simulation outcomes are specialized while generic Task failure and uncertainty remain absent.
+- [`docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md`](../ksdft2effmass/calculators/quantum-espresso.md) — the executor is invoked directly although the SimulationTask is said to return the output.
 - [`docs/architecture/v2/identity-version-and-failure-contracts.md`](../identity-version-and-failure-contracts.md) — every operation requires a closed failure vocabulary that generic Task invocation lacks.
 - [`docs/architecture/v2/separation-of-harness-and-workflow.md`](../separation-of-harness-and-workflow.md) — pre-effect request-transition ownership and failure recording are not assigned consistently.
 

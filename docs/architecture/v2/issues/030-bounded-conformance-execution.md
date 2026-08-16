@@ -10,10 +10,10 @@ Development conformance executes candidate-controlled behavioral checks after id
 
 ## Affected contracts
 
-- [`docs/architecture/v2/harness/conformance.md`](../harness/conformance.md) — behavioral checks execute candidate-controlled code while the bounded execution and isolation contract remains unresolved.
-- [`docs/architecture/v2/harness/compiler-architecture.md`](../harness/compiler-architecture.md) — generic compiler failures do not cover validator launch, timeout, resource exhaustion, signals, truncation, or partial evidence.
-- [`docs/architecture/v2/harness/validation.md`](../harness/validation.md) — normative validation outcomes lack a defined mapping from bounded process outcomes.
-- [`docs/architecture/v2/composition-root.md`](../composition-root.md) — composition supplies validator dependencies without identifying a complete bounded-execution capability.
+- [`docs/architecture/v2/ksdft2effmass/harness/conformance.md`](../ksdft2effmass/harness/conformance.md) — behavioral checks execute candidate-controlled code while the bounded execution and isolation contract remains unresolved.
+- [`docs/architecture/v2/ksdft2effmass/harness/compiler-architecture.md`](../ksdft2effmass/harness/compiler-architecture.md) — generic compiler failures do not cover validator launch, timeout, resource exhaustion, signals, truncation, or partial evidence.
+- [`docs/architecture/v2/ksdft2effmass/harness/validation.md`](../ksdft2effmass/harness/validation.md) — normative validation outcomes lack a defined mapping from bounded process outcomes.
+- [`docs/architecture/v2/ksdft2effmass/application/index.md`](../ksdft2effmass/application/index.md) — composition supplies validator dependencies without identifying a complete bounded-execution capability.
 
 ## Missing contract
 

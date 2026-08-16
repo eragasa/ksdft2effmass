@@ -10,10 +10,10 @@ The firing record does not retain one identity-closed derivation from exact enab
 
 ## Affected contracts
 
-- [`docs/architecture/v2/petrinet/colored.md`](../petrinet/colored.md) — firing input omits the enablement-result, identified-selection, and optional directive identities required by the firer's validation claim.
-- [`docs/architecture/v2/workflow/task-and-colored-petri-net-adapter.md`](../workflow/task-and-colored-petri-net-adapter.md) — Workflow gate policies, direct invocation, and decision ingress derive bindings without one common identified-selection derivation.
-- [`docs/architecture/v2/workflow/workflow-run.md`](../workflow/workflow-run.md) — transition history retains firing input as replay evidence, so the identity gap reaches replay.
-- [`docs/architecture/v2/workflow/control-plane.md`](../workflow/control-plane.md) — direct and decision-origin ingress introduce bindings outside the generic selector path.
+- [`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`](../ksdft2effmass/petrinet/colored/index.md) — firing input omits the enablement-result, identified-selection, and optional directive identities required by the firer's validation claim.
+- [`docs/architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md`](../ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md) — Workflow gate policies, direct invocation, and decision ingress derive bindings without one common identified-selection derivation.
+- [`docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md`](../ksdft2effmass/workflows/workflow-run.md) — transition history retains firing input as replay evidence, so the identity gap reaches replay.
+- [`docs/architecture/v2/ksdft2effmass/workflows/control-plane.md`](../ksdft2effmass/workflows/control-plane.md) — direct and decision-origin ingress introduce bindings outside the generic selector path.
 - [`docs/architecture/v2/identity-version-and-failure-contracts.md`](../identity-version-and-failure-contracts.md) — replay sufficiency and exact identity binding are claimed without the missing selection identities.
 
 ## Missing contract

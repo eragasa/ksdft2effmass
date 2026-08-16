@@ -1,4 +1,4 @@
-# Shared revision persistence
+# `ksdft2effmass.persistence` package
 
 ## Status and scope
 

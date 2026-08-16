@@ -11,9 +11,9 @@ Replay equality is normative, while the repository and transaction validator are
 ## Affected contracts
 
 - [`docs/architecture/v2/index.md`](../index.md) — WorkflowRun is described as replayable while replay-computation ownership remains open.
-- [`docs/architecture/v2/workflow/workflow-run.md`](../workflow/workflow-run.md) — replay equality is required, but repository and validator computation is forbidden and no replay owner is named.
-- [`docs/architecture/v2/workflow/persistence.md`](../workflow/persistence.md) — repositories validate supplied successors without owning transition replay.
-- [`docs/architecture/v2/persistence/index.md`](../persistence/index.md) — the shared store is domain-neutral and explicitly does not compute WorkflowRun integrity.
+- [`docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md`](../ksdft2effmass/workflows/workflow-run.md) — replay equality is required, but repository and validator computation is forbidden and no replay owner is named.
+- [`docs/architecture/v2/ksdft2effmass/workflows/persistence.md`](../ksdft2effmass/workflows/persistence.md) — repositories validate supplied successors without owning transition replay.
+- [`docs/architecture/v2/ksdft2effmass/persistence/index.md`](../ksdft2effmass/persistence/index.md) — the shared store is domain-neutral and explicitly does not compute WorkflowRun integrity.
 - [`docs/architecture/v2/separation-of-harness-and-workflow.md`](../separation-of-harness-and-workflow.md) — reconstruction depends on exact versioned workflow definitions and implementations whose resolver boundary is not closed.
 - [`docs/architecture/migration/v1-to-v2/index.md`](../../migration/v1-to-v2/index.md) — migration requires replayable WorkflowRun state without naming the integrity computation boundary.
 

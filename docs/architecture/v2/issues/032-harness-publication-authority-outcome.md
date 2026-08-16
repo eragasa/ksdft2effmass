@@ -12,11 +12,11 @@ The current prospective architecture defines candidate artifacts, target-specifi
 
 ## Affected contracts
 
-- [`docs/architecture/v2/harness/compiler-architecture.md`](../harness/compiler-architecture.md) — synchronization inputs include exact candidate validation, authorization, and publication policy/context, while durable result and generation identities omit their linkage.
-- [`docs/architecture/v2/harness/projections.md`](../harness/projections.md) — publication and recovery define mechanical behavior without a complete durable authority-to-outcome record.
-- [`docs/architecture/v2/harness/persistence.md`](../harness/persistence.md) — projection generations remain outside lossless `HarnessState` persistence.
-- [`docs/architecture/v2/harness/control-plane.md`](../harness/control-plane.md) — development authority is reconstructible separately but is not connected to the publication outcome contract.
-- [`docs/architecture/v2/harness/conformance.md`](../harness/conformance.md) — promotion eligibility remains separate from target-operation validation, authorization, and precondition checks.
+- [`docs/architecture/v2/ksdft2effmass/harness/compiler-architecture.md`](../ksdft2effmass/harness/compiler-architecture.md) — synchronization inputs include exact candidate validation, authorization, and publication policy/context, while durable result and generation identities omit their linkage.
+- [`docs/architecture/v2/ksdft2effmass/harness/projections.md`](../ksdft2effmass/harness/projections.md) — publication and recovery define mechanical behavior without a complete durable authority-to-outcome record.
+- [`docs/architecture/v2/ksdft2effmass/harness/persistence.md`](../ksdft2effmass/harness/persistence.md) — projection generations remain outside lossless `HarnessState` persistence.
+- [`docs/architecture/v2/ksdft2effmass/harness/control-plane.md`](../ksdft2effmass/harness/control-plane.md) — development authority is reconstructible separately but is not connected to the publication outcome contract.
+- [`docs/architecture/v2/ksdft2effmass/harness/conformance.md`](../ksdft2effmass/harness/conformance.md) — promotion eligibility remains separate from target-operation validation, authorization, and precondition checks.
 
 ## Missing contract
 

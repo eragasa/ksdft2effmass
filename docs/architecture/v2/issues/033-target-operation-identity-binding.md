@@ -12,10 +12,10 @@ The architecture states this separation but does not yet define one exact compat
 
 ## Affected contracts
 
-- [`docs/architecture/v2/harness/compiler-architecture.md`](../harness/compiler-architecture.md) — target operations consume exact validation and authorization outcomes.
-- [`docs/architecture/v2/harness/projections.md`](../harness/projections.md) — projector, comparator, and synchronizer own distinct target preconditions and blocked outcomes.
-- [`docs/architecture/v2/harness/validation.md`](../harness/validation.md) — validators own validation policy and findings.
-- [`docs/architecture/v2/harness/control-plane.md`](../harness/control-plane.md) — the authority resolver and operation authorizer own trust reconstruction and authorization policy.
+- [`docs/architecture/v2/ksdft2effmass/harness/compiler-architecture.md`](../ksdft2effmass/harness/compiler-architecture.md) — target operations consume exact validation and authorization outcomes.
+- [`docs/architecture/v2/ksdft2effmass/harness/projections.md`](../ksdft2effmass/harness/projections.md) — projector, comparator, and synchronizer own distinct target preconditions and blocked outcomes.
+- [`docs/architecture/v2/ksdft2effmass/harness/validation.md`](../ksdft2effmass/harness/validation.md) — validators own validation policy and findings.
+- [`docs/architecture/v2/ksdft2effmass/harness/control-plane.md`](../ksdft2effmass/harness/control-plane.md) — the authority resolver and operation authorizer own trust reconstruction and authorization policy.
 - [`docs/architecture/v2/issues/032-harness-publication-authority-outcome.md`](032-harness-publication-authority-outcome.md) — synchronization must durably link the exact consumed outcomes without taking over their policy.
 
 ## Missing contract

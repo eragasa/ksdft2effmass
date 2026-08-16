@@ -11,11 +11,11 @@ V2 declares a workflow-owned disposition recorder while `ScientificAnalysis` and
 ## Affected contracts
 
 - [`docs/architecture/v2/repository-layout.md`](../repository-layout.md) — selected package edges forbid workflows from importing concrete analysis while assigning disposition recording to workflows.
-- [`docs/architecture/v2/analysis/index.md`](../analysis/index.md) — analysis implementations depend on workflow contracts while disposition records appear analysis-owned.
-- [`docs/architecture/v2/analysis/analysis-and-disposition.md`](../analysis/analysis-and-disposition.md) — recorder inputs cross the package boundary and the claimed closed conclusion vocabulary and interpretation policy remain undefined.
-- [`docs/architecture/v2/workflow/service-model.md`](../workflow/service-model.md) — disposition recording is composed as workflow service behavior against analysis-owned concepts.
-- [`docs/architecture/v2/workflow/control-plane.md`](../workflow/control-plane.md) — the control plane owns recording behavior without a dependency-valid abstract boundary.
-- [`docs/architecture/v2/workflow/workflow-run.md`](../workflow/workflow-run.md) — persisted disposition references require stable ownership and semantics for replay and supersession history.
+- [`docs/architecture/v2/ksdft2effmass/analysis/index.md`](../ksdft2effmass/analysis/index.md) — analysis implementations depend on workflow contracts while disposition records appear analysis-owned.
+- [`docs/architecture/v2/ksdft2effmass/analysis/analysis-and-disposition.md`](../ksdft2effmass/analysis/analysis-and-disposition.md) — recorder inputs cross the package boundary and the claimed closed conclusion vocabulary and interpretation policy remain undefined.
+- [`docs/architecture/v2/ksdft2effmass/workflows/service-model.md`](../ksdft2effmass/workflows/service-model.md) — disposition recording is composed as workflow service behavior against analysis-owned concepts.
+- [`docs/architecture/v2/ksdft2effmass/workflows/control-plane.md`](../ksdft2effmass/workflows/control-plane.md) — the control plane owns recording behavior without a dependency-valid abstract boundary.
+- [`docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md`](../ksdft2effmass/workflows/workflow-run.md) — persisted disposition references require stable ownership and semantics for replay and supersession history.
 
 ## Missing contract
 

@@ -2,7 +2,7 @@
 
 ## Scope
 
-This crosswalk maps the [implemented Architecture v1 Pi harness subagent model](../../v1/ksdft2effmass/harness/pi/subagents/index.md) to the normative [Architecture v2 Pi harness subagent boundary](../../v2/harness/subagents.md). It does not claim that Pi runtime implementation belongs to this repository or that a subagent run provides Harness Task authority.
+This crosswalk maps the [implemented Architecture v1 Pi harness subagent model](../../v1/ksdft2effmass/harness/pi/subagents/index.md) to the normative [Architecture v2 Pi harness subagent boundary](../../v2/ksdft2effmass/harness/subagents.md). It does not claim that Pi runtime implementation belongs to this repository or that a subagent run provides Harness Task authority.
 
 ## Responsibility crosswalk
 

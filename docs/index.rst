@@ -92,34 +92,41 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/principles
    architecture/v2/repository-layout
    architecture/v2/separation-of-harness-and-workflow
-   architecture/v2/composition-root
    architecture/v2/identity-version-and-failure-contracts
-   architecture/v2/persistence/index
    architecture/v2/human-decisions
-   architecture/v2/harness/index
-   architecture/v2/harness/object-model
-   architecture/v2/harness/development-harness
-   architecture/v2/harness/compiler-architecture
-   architecture/v2/harness/validation
-   architecture/v2/harness/conformance
-   architecture/v2/harness/control-plane
-   architecture/v2/harness/persistence
-   architecture/v2/harness/projections
-   architecture/v2/harness/subagents
-   architecture/v2/workflow/index
-   architecture/v2/workflow/task-and-colored-petri-net-adapter
-   architecture/v2/workflow/workflow-run
-   architecture/v2/workflow/simulation-task-model
-   architecture/v2/workflow/service-model
-   architecture/v2/workflow/control-plane
-   architecture/v2/workflow/persistence
-   architecture/v2/workflow/artifact-and-provenance-model
-   architecture/v2/workflow/read-models
-   architecture/v2/petrinet/colored
-   architecture/v2/calculators/index
-   architecture/v2/calculators/quantum-espresso
-   architecture/v2/analysis/index
-   architecture/v2/analysis/analysis-and-disposition
+   architecture/v2/ksdft2effmass/index
+   architecture/v2/ksdft2effmass/application/index
+   architecture/v2/ksdft2effmass/persistence/index
+   architecture/v2/ksdft2effmass/harness/index
+   architecture/v2/ksdft2effmass/harness/object-model
+   architecture/v2/ksdft2effmass/harness/development-harness
+   architecture/v2/ksdft2effmass/harness/compiler-architecture
+   architecture/v2/ksdft2effmass/harness/validation
+   architecture/v2/ksdft2effmass/harness/conformance
+   architecture/v2/ksdft2effmass/harness/control-plane
+   architecture/v2/ksdft2effmass/harness/persistence
+   architecture/v2/ksdft2effmass/harness/projections
+   architecture/v2/ksdft2effmass/harness/subagents
+   architecture/v2/ksdft2effmass/workflows/index
+   architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter
+   architecture/v2/ksdft2effmass/workflows/workflow-run
+   architecture/v2/ksdft2effmass/workflows/simulation-task-model
+   architecture/v2/ksdft2effmass/workflows/service-model
+   architecture/v2/ksdft2effmass/workflows/control-plane
+   architecture/v2/ksdft2effmass/workflows/persistence
+   architecture/v2/ksdft2effmass/workflows/artifact-and-provenance-model
+   architecture/v2/ksdft2effmass/workflows/read-models
+   architecture/v2/ksdft2effmass/petrinet/index
+   architecture/v2/ksdft2effmass/petrinet/colored/index
+   architecture/v2/ksdft2effmass/campaigns/index
+   architecture/v2/ksdft2effmass/calculators/index
+   architecture/v2/ksdft2effmass/calculators/quantum-espresso
+   architecture/v2/ksdft2effmass/integration/index
+   architecture/v2/ksdft2effmass/integration/quantumespresso/index
+   architecture/v2/ksdft2effmass/periodic/index
+   architecture/v2/ksdft2effmass/ksdft/index
+   architecture/v2/ksdft2effmass/analysis/index
+   architecture/v2/ksdft2effmass/analysis/analysis-and-disposition
    architecture/v2/issues/index
    architecture/v2/issues/007-selection-identity-closure
    architecture/v2/issues/010-scientific-authority-grants

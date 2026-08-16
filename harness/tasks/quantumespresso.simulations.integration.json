@@ -13,7 +13,7 @@
   "explicit_activation_required": true,
   "objective": "Implement and verify the initial ksdft2effmass.integration.quantumespresso anti-corruption boundary for exact input staging, root-confined local invocation, deterministic workspace manifests, separate stdout/stderr, terminal process records, native artifact discovery, and project failure mapping.",
   "authority_reference_paths": [
-    "docs/architecture/v2/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
     "docs/computational/quantum-espresso-tutorial-simulations.md"
   ],
   "authorized_scope": [

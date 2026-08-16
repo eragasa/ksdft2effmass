@@ -13,11 +13,11 @@
   "authority_reference_paths": [
     "calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json",
     "docs/architecture/migration/v1-to-v2/index.md",
-    "docs/architecture/v2/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
     "docs/architecture/v2/index.md",
-    "docs/architecture/v2/petrinet/colored/index.md",
+    "docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md",
     "docs/architecture/v2/separation-of-harness-and-workflow.md",
-    "docs/architecture/v2/workflow/artifact-and-provenance-model.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/artifact-and-provenance-model.md",
     "docs/architecture/v2/workflow/scientific/index.md",
     "docs/architecture/v2/workflow/scientific/scientific-workflow-run.md",
     "docs/architecture/v2/workflow/simulation-model.md"

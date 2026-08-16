@@ -1,4 +1,4 @@
-# Generic colored Petri net
+# `ksdft2effmass.petrinet.colored` package
 
 ## Status and package
 

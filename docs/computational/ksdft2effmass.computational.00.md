@@ -228,7 +228,7 @@ manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
 The prospective Architecture v2 colored-Petri-net boundary is recorded in
-`docs/architecture/v2/petrinet/colored.md`, while cross-version status is owned by
+`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`, while cross-version status is owned by
 `docs/architecture/migration/v1-to-v2/index.md`. The former `P3`--`P11`
 implementation sequence is superseded by the simulation-first bootstrap. SNAKES
 remains an optional `workflow` dependency, and

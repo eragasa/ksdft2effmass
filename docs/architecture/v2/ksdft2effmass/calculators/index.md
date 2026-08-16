@@ -1,4 +1,4 @@
-# Calculator architecture
+# `ksdft2effmass.calculators` package
 
 ## Responsibility
 

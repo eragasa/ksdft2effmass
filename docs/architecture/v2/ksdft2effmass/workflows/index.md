@@ -1,4 +1,4 @@
-# Scientific workflow
+# `ksdft2effmass.workflows` package
 
 ## Responsibility
 
@@ -24,7 +24,7 @@ Workflow control checks one exact unused grant and immutable Task-instance/TaskA
 
 ## Detailed pages
 
-- [Human decisions](../human-decisions.md)
+- [Human decisions](../../human-decisions.md)
 - [Scientific service model](service-model.md)
 - [Simulation Task model](simulation-task-model.md)
 - [Task, Workflow, and colored-Petri-net adapter](task-and-colored-petri-net-adapter.md)
@@ -34,13 +34,13 @@ Workflow control checks one exact unused grant and immutable Task-instance/TaskA
 - [Shared revision persistence](../persistence/index.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)
 - [Scientific read models](read-models.md)
-- [Generic colored Petri net](../petrinet/colored.md)
-- [Separation from the development harness](../separation-of-harness-and-workflow.md)
+- [Generic colored Petri net](../petrinet/colored/index.md)
+- [Separation from the development harness](../../separation-of-harness-and-workflow.md)
 
 ## Status and unresolved issues
 
 Exact field and wire contracts, SQLite schema and operational policy, asynchronous interfaces, cancellation, external scheduler adapters, and project-specific catalog distribution remain deferred. Standard-library SQLite is selected as the initial shared-store realization, with a separate WorkflowRun store/database by default. Two reviewed design gaps also remain explicit: generic firing does not yet retain all enablement/selection/directive identities, and ownership of replay computation has not been separated coherently from repository persistence.
 
-Human decisions are explicit external inputs processed deterministically under the [domain-separated decision contract](../human-decisions.md). An unresolved `ScientificDecisionRequest` pauses only its affected branch. `ScientificDecisionRecorder` alone constructs the resolution, uses the adapter and pure firer for the exact request-identified no-Task ingress transition, constructs the complete scientific-decision-origin transition/successor, and returns the recorded resolution only after atomic commit. The generic colored-Petri-net package remains unaware of decisions and authority. Replay consumes the committed ordered record and never prompts again.
+Human decisions are explicit external inputs processed deterministically under the [domain-separated decision contract](../../human-decisions.md). An unresolved `ScientificDecisionRequest` pauses only its affected branch. `ScientificDecisionRecorder` alone constructs the resolution, uses the adapter and pure firer for the exact request-identified no-Task ingress transition, constructs the complete scientific-decision-origin transition/successor, and returns the recorded resolution only after atomic commit. The generic colored-Petri-net package remains unaware of decisions and authority. Replay consumes the committed ordered record and never prompts again.
 
 This prospective contract is documentation-only. Decision records grant no authority. It grants no protected execution and claims no implementation, software or numerical verification, scientific validation, equivalence, or human software acceptance.

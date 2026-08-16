@@ -11,10 +11,10 @@ Protected execution and scientific disposition require independent, fail-closed 
 ## Affected contracts
 
 - [`docs/architecture/v2/separation-of-harness-and-workflow.md`](../separation-of-harness-and-workflow.md) — protected execution requires an immutable grant and authority snapshot without closing their verification semantics.
-- [`docs/architecture/v2/workflow/control-plane.md`](../workflow/control-plane.md) — dispatch reservation and repeated checks lack an authoritative grant-state protocol; disposition grants are explicitly separate.
-- [`docs/architecture/v2/workflow/service-model.md`](../workflow/service-model.md) — service operations depend on grant verification and one-dispatch use without a closed result contract.
-- [`docs/architecture/v2/calculators/quantum-espresso.md`](../calculators/quantum-espresso.md) — the executor must independently reject stale, revoked, consumed, or unverifiable authority without sufficient represented inputs.
-- [`docs/architecture/v2/analysis/analysis-and-disposition.md`](../analysis/analysis-and-disposition.md) — disposition recording, supersession, and withdrawal require a trusted grant and snapshot whose lifecycle is undefined.
+- [`docs/architecture/v2/ksdft2effmass/workflows/control-plane.md`](../ksdft2effmass/workflows/control-plane.md) — dispatch reservation and repeated checks lack an authoritative grant-state protocol; disposition grants are explicitly separate.
+- [`docs/architecture/v2/ksdft2effmass/workflows/service-model.md`](../ksdft2effmass/workflows/service-model.md) — service operations depend on grant verification and one-dispatch use without a closed result contract.
+- [`docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md`](../ksdft2effmass/calculators/quantum-espresso.md) — the executor must independently reject stale, revoked, consumed, or unverifiable authority without sufficient represented inputs.
+- [`docs/architecture/v2/ksdft2effmass/analysis/analysis-and-disposition.md`](../ksdft2effmass/analysis/analysis-and-disposition.md) — disposition recording, supersession, and withdrawal require a trusted grant and snapshot whose lifecycle is undefined.
 
 ## Missing contract
 

@@ -32,7 +32,7 @@ workflows is split into distinct Tasks. The non-scientific prerequisite
 `ksdft2effmass.integration.quantumespresso` boundary and its local execution
 software verification; it may not invoke a scientific executable during its
 own implementation or tests. The prospective integration boundary is defined by the versioned
-[Architecture v2 Quantum ESPRESSO contract](../architecture/v2/calculators/quantum-espresso.md).
+[Architecture v2 Quantum ESPRESSO contract](../architecture/v2/ksdft2effmass/calculators/quantum-espresso.md).
 Architecture v2 remains unimplemented and its live issue register continues to
 bound any later implementation.
 

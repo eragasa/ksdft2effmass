@@ -1,4 +1,4 @@
-# Development harness
+# `ksdft2effmass.harness` package
 
 ## Purpose
 
@@ -42,7 +42,7 @@ The harness may reference immutable scientific contract and implementation ident
 
 A `HarnessTask` defines bounded requested work, prerequisites, completion criteria, and exclusions. `DevelopmentTaskSelection` is repository-derived requested/selected work state; it is neither authority nor permission. Capability and selection do not authorize an operation or imply human acceptance. `DevelopmentAuthorityContextResolver` reconstructs and verifies the candidate-independent `DevelopmentAuthorityContext`; `DevelopmentOperationAuthorizer` returns an affirmative result only for a matching unrevoked `TaskAuthorization` covering the exact selection and Task revisions, candidate and starting revisions, operation, and permitted paths. A target operation verifies that result's exact bindings without reinterpreting authority policy. Neither a `HarnessTask`, selection, validation result, nor candidate-controlled decision can authorize itself.
 
-`HarnessState` is the immutable normalized aggregate used by validation and projection. It contains the one `DevelopmentDecision` model described by [human decisions](../human-decisions.md) directly as an immutable canonically ordered sequence of unresolved and resolved variants/revisions. A pending decision blocks only its declared development transition and scope. Persistence stores lossless revisions of that same repository-derived aggregate. The initial realization composes `HarnessStateAtomicRepository` with an explicitly configured standard-library SQLite shared store; it does not introduce a domain SQLite subclass. Projections are recoverable read-only views and never replace authority.
+`HarnessState` is the immutable normalized aggregate used by validation and projection. It contains the one `DevelopmentDecision` model described by [human decisions](../../human-decisions.md) directly as an immutable canonically ordered sequence of unresolved and resolved variants/revisions. A pending decision blocks only its declared development transition and scope. Persistence stores lossless revisions of that same repository-derived aggregate. The initial realization composes `HarnessStateAtomicRepository` with an explicitly configured standard-library SQLite shared store; it does not introduce a domain SQLite subclass. Projections are recoverable read-only views and never replace authority.
 
 Development conformance is owned by the harness but evaluates the entire repository stack. The applicable package, specification, test contract, or documentation policy retains ownership of the meaning being checked. Scientific packages do not import the harness merely because the harness invokes their declared checks.
 
@@ -73,8 +73,8 @@ The exact route is proportional to risk. Human-owned and protected boundaries re
 - [Shared revision persistence](../persistence/index.md)
 - [Projections](projections.md)
 - [Pi subagent boundary](subagents.md)
-- [Human decisions](../human-decisions.md)
-- [Separation from the scientific workflow](../separation-of-harness-and-workflow.md)
+- [Human decisions](../../human-decisions.md)
+- [Separation from the scientific workflow](../../separation-of-harness-and-workflow.md)
 
 ## Unresolved issues
 

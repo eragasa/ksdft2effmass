@@ -10,13 +10,13 @@ The selected domain repositories must invoke and bind their exact validators and
 
 ## Affected contracts
 
-- [`docs/architecture/v2/persistence/index.md`](../persistence/index.md) — `load` returns only a revision or absence despite represented-version failures and identity-bound reconciliation requirements.
-- [`docs/architecture/v2/workflow/persistence.md`](../workflow/persistence.md) — write-time serializer and validator binding has no equivalent reconstruction contract.
-- [`docs/architecture/v2/harness/persistence.md`](../harness/persistence.md) — HarnessState loading does not close byte, schema, source-provenance, deserialization, and domain-validation checks.
+- [`docs/architecture/v2/ksdft2effmass/persistence/index.md`](../ksdft2effmass/persistence/index.md) — `load` returns only a revision or absence despite represented-version failures and identity-bound reconciliation requirements.
+- [`docs/architecture/v2/ksdft2effmass/workflows/persistence.md`](../ksdft2effmass/workflows/persistence.md) — write-time serializer and validator binding has no equivalent reconstruction contract.
+- [`docs/architecture/v2/ksdft2effmass/harness/persistence.md`](../ksdft2effmass/harness/persistence.md) — HarnessState loading does not close byte, schema, source-provenance, deserialization, and domain-validation checks.
 - [`docs/architecture/v2/identity-version-and-failure-contracts.md`](../identity-version-and-failure-contracts.md) — operations require closed failures and represented incompatible-version outcomes that `load` cannot express.
 - [`docs/architecture/v2/human-decisions.md`](../human-decisions.md) — retains the former passive-repository wording and also lacks an identity-bound read path after an indeterminate decision commit.
-- [`docs/architecture/v2/workflow/task-and-colored-petri-net-adapter.md`](../workflow/task-and-colored-petri-net-adapter.md) — still describes repositories as committing already-validated successors rather than invoking and binding the selected validator and serializer.
-- [`docs/architecture/v2/analysis/analysis-and-disposition.md`](../analysis/analysis-and-disposition.md) — describes an already-validated recording transaction and cannot propagate or reconcile the selected store's indeterminate commit outcome.
+- [`docs/architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md`](../ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md) — still describes repositories as committing already-validated successors rather than invoking and binding the selected validator and serializer.
+- [`docs/architecture/v2/ksdft2effmass/analysis/analysis-and-disposition.md`](../ksdft2effmass/analysis/analysis-and-disposition.md) — describes an already-validated recording transaction and cannot propagate or reconcile the selected store's indeterminate commit outcome.
 
 ## Missing contract
 

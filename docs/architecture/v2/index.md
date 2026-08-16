@@ -1,6 +1,6 @@
 # Architecture v2
 
-Architecture v2 is the normative prospective architecture for deterministic scientific operations and their supporting development lifecycle. Architecture v1 remains implemented; the migration page alone owns cross-version status.
+Architecture v2 is the normative prospective architecture for deterministic scientific operations and their supporting development lifecycle. Architecture v1 remains implemented; the migration page alone owns cross-version status. Package-owned pages follow the [prospective `ksdft2effmass` namespace](ksdft2effmass/index.md); repository-wide contracts and live issues remain at this root.
 
 ## System overview
 
@@ -82,41 +82,47 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 
 ### Development harness
 
-- [Overview](harness/index.md)
-- [Object model](harness/object-model.md)
-- [Development Task model](harness/development-harness.md)
-- [Compiler architecture](harness/compiler-architecture.md)
-- [Normalized-state validation](harness/validation.md)
-- [Repository-wide development conformance](harness/conformance.md)
-- [Control plane](harness/control-plane.md)
-- [Persistence](harness/persistence.md)
-- [Projections](harness/projections.md)
-- [Pi subagent boundary](harness/subagents.md)
+- [Overview](ksdft2effmass/harness/index.md)
+- [Object model](ksdft2effmass/harness/object-model.md)
+- [Development Task model](ksdft2effmass/harness/development-harness.md)
+- [Compiler architecture](ksdft2effmass/harness/compiler-architecture.md)
+- [Normalized-state validation](ksdft2effmass/harness/validation.md)
+- [Repository-wide development conformance](ksdft2effmass/harness/conformance.md)
+- [Control plane](ksdft2effmass/harness/control-plane.md)
+- [Persistence](ksdft2effmass/harness/persistence.md)
+- [Projections](ksdft2effmass/harness/projections.md)
+- [Pi subagent boundary](ksdft2effmass/harness/subagents.md)
 
 ### Scientific workflow and generic semantics
 
-- [Workflow overview](workflow/index.md)
-- [Task, Workflow, and colored-Petri-net adapter](workflow/task-and-colored-petri-net-adapter.md)
-- [Generic colored Petri net](petrinet/colored.md)
-- [WorkflowRun object model](workflow/workflow-run.md)
-- [Simulation Task model](workflow/simulation-task-model.md)
-- [Control plane](workflow/control-plane.md)
-- [Persistence](workflow/persistence.md)
-- [Artifact and provenance model](workflow/artifact-and-provenance-model.md)
-- [Read models](workflow/read-models.md)
+- [Workflow overview](ksdft2effmass/workflows/index.md)
+- [Task, Workflow, and colored-Petri-net adapter](ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md)
+- [Generic colored Petri net](ksdft2effmass/petrinet/colored/index.md)
+- [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)
+- [Simulation Task model](ksdft2effmass/workflows/simulation-task-model.md)
+- [Control plane](ksdft2effmass/workflows/control-plane.md)
+- [Persistence](ksdft2effmass/workflows/persistence.md)
+- [Artifact and provenance model](ksdft2effmass/workflows/artifact-and-provenance-model.md)
+- [Read models](ksdft2effmass/workflows/read-models.md)
 
-### Calculators, analysis, and composition
+### Calculators, integration, observations, analysis, and composition
 
-- [Calculator architecture](calculators/index.md)
-- [Quantum ESPRESSO](calculators/quantum-espresso.md)
-- [Scientific analysis architecture](analysis/index.md)
-- [Analysis and disposition](analysis/analysis-and-disposition.md)
-- [Application composition root](composition-root.md)
+- [Prospective package map](ksdft2effmass/index.md)
+- [Application composition root](ksdft2effmass/application/index.md)
+- [Campaign definitions](ksdft2effmass/campaigns/index.md)
+- [Calculator architecture](ksdft2effmass/calculators/index.md)
+- [Quantum ESPRESSO calculator contract](ksdft2effmass/calculators/quantum-espresso.md)
+- [Integration namespace](ksdft2effmass/integration/index.md)
+- [Quantum ESPRESSO integration](ksdft2effmass/integration/quantumespresso/index.md)
+- [Periodic observations](ksdft2effmass/periodic/index.md)
+- [Kohn–Sham observations](ksdft2effmass/ksdft/index.md)
+- [Scientific analysis architecture](ksdft2effmass/analysis/index.md)
+- [Analysis and disposition](ksdft2effmass/analysis/analysis-and-disposition.md)
 - [Repository layout and dependency direction](repository-layout.md)
 
 ### Shared contracts
 
-- [Shared revision persistence](persistence/index.md)
+- [Shared revision persistence](ksdft2effmass/persistence/index.md)
 - [Human decisions](human-decisions.md)
 - [Architecture principles](principles.md)
 - [Identity, version, and failure contracts](identity-version-and-failure-contracts.md)
@@ -128,20 +134,20 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 
 1. [Architecture principles](principles.md)
 2. [Repository layout](repository-layout.md)
-3. [Shared revision persistence](persistence/index.md)
+3. [Shared revision persistence](ksdft2effmass/persistence/index.md)
 4. [Separation of harness and workflow](separation-of-harness-and-workflow.md)
 5. [Human decisions](human-decisions.md)
-6. [Application composition root](composition-root.md)
+6. [Application composition root](ksdft2effmass/application/index.md)
 
 ### Scientific execution
 
-1. [Workflow overview](workflow/index.md)
-2. [Generic colored Petri net](petrinet/colored.md)
-3. [Task and adapter model](workflow/task-and-colored-petri-net-adapter.md)
-4. [WorkflowRun object model](workflow/workflow-run.md)
-5. [Simulation Task model](workflow/simulation-task-model.md)
-6. [Quantum ESPRESSO](calculators/quantum-espresso.md)
-7. [Analysis and disposition](analysis/analysis-and-disposition.md)
+1. [Workflow overview](ksdft2effmass/workflows/index.md)
+2. [Generic colored Petri net](ksdft2effmass/petrinet/colored/index.md)
+3. [Task and adapter model](ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md)
+4. [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)
+5. [Simulation Task model](ksdft2effmass/workflows/simulation-task-model.md)
+6. [Quantum ESPRESSO](ksdft2effmass/calculators/quantum-espresso.md)
+7. [Analysis and disposition](ksdft2effmass/analysis/analysis-and-disposition.md)
 
 ## Related versioned documentation
 

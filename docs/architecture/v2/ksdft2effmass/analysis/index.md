@@ -1,4 +1,4 @@
-# Scientific analysis architecture
+# `ksdft2effmass.analysis` package
 
 ## Responsibility
 

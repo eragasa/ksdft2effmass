@@ -18,7 +18,7 @@ Implement and verify the initial ksdft2effmass.integration.quantumespresso anti-
 
 ## Authority references
 
-- docs/architecture/v2/calculators/quantum-espresso.md
+- docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md
 - docs/computational/quantum-espresso-tutorial-simulations.md
 
 ## Authorized scope
