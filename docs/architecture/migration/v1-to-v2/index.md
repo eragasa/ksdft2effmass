@@ -6,13 +6,14 @@ This subtree is the sole maintained cross-version comparison. This index maps th
 
 - [Coding-standards conformance](coding-standards-conformance.md)
 - [Pi harness subagents](pi-harness-subagents.md)
+- [Agent execution and deterministic actions](agents.md)
 
 ## Current implementation status
 
 - v1 remains implemented.
 - Its colored-Petri-net primitives and public abbreviated names remain under `ksdft2effmass.workflows.cpn`.
 - The prospective v2 generic package is `ksdft2effmass.petrinet.colored` and uses only full public `ColoredPetriNet*` names.
-- No source move, v2 persistence/Task/Workflow/Simulation implementation, scientific executable, or canonical scientific Workflow is authorized by this migration page.
+- No source move, v2 persistence/Task/Workflow/Simulation/Pi-agent-adapter implementation, scientific executable, governed operator, or canonical scientific Workflow is authorized by this migration page.
 - Prospective v2 selects `ksdft2effmass.persistence` with a standard-library SQLite initial store realization; the exact wire and SQLite schemas and operational policy remain deferred.
 - Durable chain and Task records, not this page, own current development activity.
 

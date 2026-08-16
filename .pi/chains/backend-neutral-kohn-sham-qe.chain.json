@@ -1,7 +1,7 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "The human-accepted Architecture v2 planning phase closes the normative target within the existing v1-to-v2 migration. Architecture v1 remains implemented; Architecture v2 implementation, production convergence, scientific execution, automatic successor activation, publication, and release remain deferred or unauthorized as applicable.",
+  "description": "The human-accepted Architecture v2 planning target includes the later human-authorized governed-agent boundary and prospective ksdft2effmass.pi.agents adapter within the existing v1-to-v2 migration. Architecture v1 remains implemented; Architecture v2 source implementation, operator activation, self-promotion, production convergence, scientific execution, automatic successor activation, publication, and release remain deferred or unauthorized as applicable.",
   "status": "architecture_v2_plan_closed_human_accepted_pass",
   "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
@@ -12,6 +12,9 @@
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/v1/index.md",
     "docs/architecture/v2/index.md",
+    "docs/architecture/v2/agents/index.md",
+    "docs/architecture/v2/ksdft2effmass/pi/agents/index.md",
+    "docs/architecture/migration/v1-to-v2/agents.md",
     "docs/computational/ksdft2effmass.computational.bootstrap.md",
     "docs/computational/ksdft-pw-record-architecture.md",
     "docs/computational/bulk-silicon-production-program.md"
@@ -300,8 +303,8 @@
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "architecture-v2-plan-closed-human-accepted-pass",
-      "message": "The human accepted and closed harness.architecture-v2.plan after the focused coding-standards conformance rewrite and preceding planning simplification. The accepted boundary keeps conformance limited to identified source subjects, coding-standards policy, explicit adapter profiles and adapters, ValidationResult values, and derived reporting; authorization, promotion, behavioral and numerical verification, human review, repository mutation, and scientific concerns remain separate. Architecture v1 remains implemented and Architecture v2 remains prospective. No Architecture v2 implementation, scientific or protected execution, dependency change, automatic successor activation, publication, or release is authorized."
+      "phase": "architecture-v2-plan-revised-governed-agents-human-accepted-pass",
+      "message": "The human accepted the revised prospective Architecture v2 governed-agent direction: repository-wide agent architecture under docs/architecture/v2/agents, an outer ksdft2effmass.pi.agents adapter package, domain-owned deterministic actions, capability confinement, and agent-authored candidate evolution without runtime self-authorization or self-promotion. The earlier accepted conformance, authority, persistence, workflow, and scientific boundaries remain intact. Architecture v1 remains implemented and Architecture v2 remains prospective. No Architecture v2 source implementation, Pi extension or launcher activation, dependency change, operator cutover, automatic promotion or successor activation, scientific or protected execution, publication, or release is authorized."
     }
   ],
   "explicitly_activated_task_ids": [

@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-`ksdft2effmass.application` assembles explicit immutable definitions, Tasks, Workflow adapters, authority services, calculator executors, parsers, analyzers, artifact services, and repositories. It owns configuration and selection, not their domain behavior.
+`ksdft2effmass.application` assembles explicit immutable definitions, Tasks, Workflow adapters, authority services, calculator executors, parsers, analyzers, artifact services, and repositories. It owns configuration and selection, not their domain behavior. The outer `ksdft2effmass.pi.agents` adapter may invoke explicitly composed application operations; application and its domain dependencies never import the Pi package.
 
 ```mermaid
 flowchart TD

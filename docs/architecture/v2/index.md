@@ -17,7 +17,9 @@ flowchart TB
     periodic["ksdft2effmass.periodic"]
     ksdft["ksdft2effmass.ksdft"]
     analysis["ksdft2effmass.analysis"]
+    pi_agents["ksdft2effmass.pi.agents"]
 
+    pi_agents --> application
     application --> persistence
     application --> harness
     application --> workflows
@@ -57,6 +59,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Quantum ESPRESSO integration | `ksdft2effmass.integration.quantumespresso` | Owns concrete QE serialization, staging, workspace/process invocation, mechanical capture, artifact discovery, native parsing, failure mapping, and observation adaptation |
 | Scientific observations | `ksdft2effmass.periodic`, `.ksdft` | Owns neutral geometry and Kohn–Sham observation invariants |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns deterministic algorithms, tolerances, and numerical policy |
+| Pi agent adapter | `ksdft2effmass.pi.agents` | Owns outer typed request/result adaptation to explicitly composed application operations |
 
 ## Contract ownership
 
@@ -76,6 +79,15 @@ how they consume these contracts rather than redefining them.
 | Scientific analysis and conclusion boundary | [Scientific analysis](ksdft2effmass/analysis/analysis.md) |
 
 ## Architecture map
+
+### Agent execution
+
+- [Agent-system overview](agents/index.md)
+- [Deterministic actions](agents/deterministic-actions.md)
+- [Capability and isolation](agents/capability-and-isolation.md)
+- [Agent-authored harness evolution](agents/self-improvement.md)
+- [Prospective Pi package](ksdft2effmass/pi/index.md)
+- [Prospective Pi agent adapter](ksdft2effmass/pi/agents/index.md)
 
 ### Development harness
 
@@ -127,6 +139,14 @@ how they consume these contracts rather than redefining them.
 
 ## Reading paths
 
+### Governed agent execution
+
+1. [Agent-system overview](agents/index.md)
+2. [Deterministic actions](agents/deterministic-actions.md)
+3. [Capability and isolation](agents/capability-and-isolation.md)
+4. [Agent-authored harness evolution](agents/self-improvement.md)
+5. [Pi agent adapter](ksdft2effmass/pi/agents/index.md)
+
 ### Whole system
 
 1. [Architecture principles](principles.md)
@@ -154,8 +174,11 @@ how they consume these contracts rather than redefining them.
 
 ## Status
 
-Architecture v2 is prospective and unimplemented. Human-reviewed scientific
-conclusions remain external research records; v2 defines no
+Architecture v2 is prospective and unimplemented. Its selected governed-agent
+boundary and `ksdft2effmass.pi.agents` package are likewise unimplemented and
+authorize no operator launch, source creation, dynamic promotion, or dependency
+change. Human-reviewed scientific conclusions remain external research records;
+v2 defines no
 `ScientificDisposition` subsystem or workflow acceptance state. The live issue
 register contains only material contradictions or missing contracts; deferred
 implementation details remain on their owning pages.

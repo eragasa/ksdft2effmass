@@ -11,6 +11,7 @@
 9. Shared persistence stores opaque complete revisions; domain repositories own aggregate validation, serialization, and commit closure through composition.
 10. Authority is explicit and never inferred from scheduling, process success, or a terminal marking.
 11. Exact artifact identity and provenance are retained without fabricated lineage or recalculation.
+12. Governed agents request closed deterministic actions through capability-restricted interfaces; they do not receive lower-level mutation capabilities or authorize, register, promote, or hot-reload their own candidate actions.
 
 ## Generic colored Petri net
 

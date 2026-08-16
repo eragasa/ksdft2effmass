@@ -4,7 +4,7 @@
 
 Pi owns child-session construction, `workflowScript` execution, runtime supervision, managed-worktree mechanics, and runtime artifacts. The project owns reusable role descriptors, exact assignments, repository authority, path ownership, acceptance requirements, and interpretation of returned work.
 
-A role, run, mission, receipt, gate result, review, or handoff does not select or authorize a `HarnessTask`, resolve a human decision, authorize a protected action, establish acceptance, or mutate `HarnessState`.
+A role, run, mission, receipt, gate result, review, or handoff does not select or authorize a `HarnessTask`, resolve a human decision, authorize a protected action, establish acceptance, or mutate `HarnessState`. The repository-wide [agent system](../../agents/index.md) separately defines top-level developer/operator profiles, deterministic action requests, capability confinement, and agent-authored harness evolution.
 
 ```mermaid
 flowchart LR

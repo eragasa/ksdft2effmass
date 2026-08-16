@@ -45,6 +45,9 @@ ksdft2effmass.ksdft
 ksdft2effmass.analysis
     deterministic scientific analysis
 
+ksdft2effmass.pi.agents
+    outer typed Pi request/result adaptation to explicitly composed application operations
+
 ksdft2effmass.campaigns
     project-specific composition definitions
 
@@ -68,6 +71,7 @@ flowchart TD
     integration --> workflows
     integration --> periodic
     integration --> ksdft
+    pi_agents["ksdft2effmass.pi.agents"] --> composition
     analysis["ksdft2effmass.analysis"] --> workflows
     analysis --> periodic
     analysis --> ksdft
@@ -105,6 +109,7 @@ ksdft2effmass.application → ksdft2effmass.campaigns
 ksdft2effmass.application → ksdft2effmass.calculators
 ksdft2effmass.application → ksdft2effmass.integration.quantumespresso
 ksdft2effmass.application → ksdft2effmass.analysis
+ksdft2effmass.pi.agents → ksdft2effmass.application
 ```
 
 Forbidden directions include:
@@ -123,6 +128,7 @@ ksdft2effmass.periodic ✗→ calculator or integration packages
 ksdft2effmass.ksdft ✗→ calculator or integration packages
 ksdft2effmass.analysis ✗→ calculator or integration packages
 scientific packages ✗→ ksdft2effmass.harness runtime state
+ksdft2effmass.application/harness/workflows/persistence ✗→ ksdft2effmass.pi
 ```
 
 Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. `integration.quantumespresso → calculators` is the concrete adapter-to-consumer direction; integration may also import the exact workflow, periodic, and Kohn–Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects the concrete implementation. Adding `workflows → petrinet.colored` does not reverse any calculator, integration, or analysis boundary. Coding-standards conformance does not add runtime harness dependencies to inspected packages. The shared persistence package has standard-library upstream dependencies only; `persistence.sqlite` additionally uses `sqlite3`. Domain persistence modules import the shared store contract and their own domain model/serializer/validator, while `application` remains downstream.
@@ -136,6 +142,7 @@ Calculators continue to depend on workflow contracts, preserving the accepted `c
 - `calculators` owns project-facing concrete SimulationTasks and Simulation composites, immutable input/output meaning, exact executable configuration, process request/observation records, and consumer-owned structural executor protocols. It owns no QE workspace, process invocation, native parser, artifact discovery, or concrete failure mapping.
 - `integration.quantumespresso` owns the concrete anti-corruption Actions for QE serialization, staging, isolated workspace and process invocation, mechanical capture, native parsing, artifact discovery, failure mapping, and parsed-record-to-neutral adaptation. It implements calculator-owned protocols and is imported only by application composition.
 - `campaigns` may supply project-specific definitions but owns neither generic Petri-net mechanics nor Workflow control.
+- `pi.agents` owns only immutable Pi-facing request/result adaptation and a closed content-identified action composition. It depends inward on application operations and owns no domain transition, authority, persistence, agent promotion, dynamic action registration, or Pi runtime lifecycle state.
 - `application` supplies explicit definitions, Tasks, executors, separate development/scientific SQLite stores, and composed domain repositories without owning domain behavior.
 
 There is no `Persistence → DatabasePersistence → SQLitePersistence` hierarchy, generic domain `Repository` base, generic CRUD model, public SQLite configuration/initializer/migrator hierarchy, read-result class, `RevisionAddress`, or domain persistence subpackage. Additions require demonstrated need and authority.
@@ -143,6 +150,8 @@ There is no `Persistence → DatabasePersistence → SQLitePersistence` hierarch
 The prospective full public names come from `ksdft2effmass.petrinet.colored`. The implemented v1 abbreviated public API remains under `ksdft2effmass.workflows.cpn`; no source move is authorized here.
 
 ## Extension boundary
+
+The repository-wide [agent architecture](agents/index.md) owns governed-agent roles, capability confinement, isolation, and self-improvement policy. A project Pi extension remains an outer runtime resource and may invoke `ksdft2effmass.pi.agents`; it is not a Python package, authority source, or domain-policy owner. The selected `pi.agents` package is an outer adapter, and no inward package imports it.
 
 Additional calculators are introduced only for demonstrated project needs. Each adds calculator-owned project contracts and an explicitly composed concrete integration; it does not widen the generic workflow or Petri-net core. Optional external workflow-system adapters remain outer integrations and never become workflow, Petri-net, authority, or scientific-policy owners merely because an adapter exists.
 

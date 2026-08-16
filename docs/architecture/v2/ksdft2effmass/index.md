@@ -19,7 +19,9 @@ flowchart TB
     periodic["periodic"]
     ksdft["ksdft"]
     analysis["analysis"]
+    pi_agents["pi.agents"]
 
+    pi_agents --> app
     app --> persistence
     app --> harness
     app --> workflows
@@ -60,12 +62,15 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.periodic` | [Periodic](periodic/index.md) | Neutral periodic geometry semantics |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Deterministic scientific analysis |
+| `ksdft2effmass.pi.agents` | [Pi agents](pi/agents/index.md) | Outer deterministic Pi request/result adapter |
 
 ## Documentation boundary
 
 Package-wide diagrams and discussions live on the nearest package `index.md`;
 the [`petrinet` namespace page](petrinet/index.md) provides the parent boundary
-for the selected `petrinet.colored` subpackage.
+for the selected `petrinet.colored` subpackage. The [`pi` namespace
+page](pi/index.md) provides the outer integration boundary for the selected
+`pi.agents` subpackage.
 Topic pages below a package remain package-level architecture unless the owning
 architecture explicitly selects an internal module. Architecture v2 currently
 defers exact internal submodules and public wire exports, so documentation
