@@ -1,9 +1,162 @@
 \chapter{Physical Problem and Research Questions}
+\label{ch:physical-problem}
 
-\textbf{Status: proposed work.}
+\textbf{Status: expository synthesis of the accepted physical specification;
+research outcomes remain proposed work.}
 
-This chapter will motivate substitutional phosphorus and boron in silicon and
-define the questions addressed by atomistic, lattice, and continuum models. It
-will distinguish the intended use of each model from claims about many-body
-excitation spectra and will defer physical definitions to the applicable
-versioned specification.
+The program asks when a first-principles Kohn--Sham description of silicon and
+substitutional dopants can be replaced by a smaller model without losing the
+operator information needed for its declared use. The question is not whether
+one model is universally ``correct.'' It is whether a stated reduced model
+class preserves stated features of a stated parent problem within separately
+declared errors.
+
+The accepted physical conventions are owned by
+\texttt{specification/ksdft2Effmass.physical-specification.v1.md}. This chapter
+organizes those conventions as a research narrative and introduces no new
+physical branch.
+
+\section{The parent description}
+
+The parent is a self-consistent Kohn--Sham density-functional calculation in
+the Born--Oppenheimer fixed-ion framework. Its output is a one-particle
+Kohn--Sham operator and associated finite numerical representations. It is not
+the complete interacting many-body Hamiltonian, and its eigenvalues are not
+identified here with the complete many-body excitation spectrum.
+
+For the version-one program, exchange and correlation are described with the
+PBE generalized-gradient approximation and the electron--ion interaction is
+represented by compatible optimized norm-conserving Vanderbilt
+pseudopotentials from the approved PseudoDojo family. These choices define the
+parent against which later reductions are measured. In particular, disagreement
+between this parent and experiment is a parent-model question, not automatically
+an error introduced by tight-binding or effective-mass reduction.
+
+\section{Pristine silicon host}
+
+The host is crystalline silicon in the diamond structure: an fcc Bravais
+lattice with a two-atom basis. Primitive-cell and conventional-cell coordinates
+may both be useful, but every retained representation must identify which
+lattice vectors, axes, basis sites, and reciprocal-coordinate convention it
+uses.
+
+The immediate bulk pilot is scalar relativistic, non-spin-polarized, and does
+not include spin--orbit coupling. Its production lattice constant is to be
+obtained from a zero-pressure PBE bulk relaxation using the selected silicon
+pseudopotential. Until that calculation and its convergence record exist, no
+numerical lattice constant is a calculated result of this project.
+
+The pilot targets a band-edge subspace sufficient for an orthogonal
+$sp^3s^{\ast}$ reduction, including the valence and low-conduction states needed
+to describe the indirect Kohn--Sham gap and electron effective masses. The
+exact band count, projection choices, and Wannier windows belong to later
+methodological records. They are not fixed by the phrase ``band-edge
+subspace'' alone.
+
+The declared bulk observables are the indirect Kohn--Sham gap, the
+conduction-valley position, longitudinal and transverse electron effective
+masses, and withheld-point band errors. These quantities serve distinct roles:
+they characterize the selected parent, test numerical convergence, and later
+evaluate reduced representations. Passing one role does not imply passing the
+others.
+
+\section{Substitutional phosphorus}
+
+The phosphorus branch replaces one silicon atom at a diamond-lattice site by
+phosphorus in a periodic supercell. Its primary version-one charge state is
+neutral P$_\mathrm{Si}^{0}$. With the accepted pseudopotential valences, this
+system has one additional valence electron relative to the matched pristine
+silicon supercell and therefore an odd valence-electron count. The primary
+branch is consequently scalar relativistic, collinearly spin polarized, and
+non-SOC.
+
+The neutral supercell contains both the donor-core perturbation relative to
+silicon and the additional electron that occupies and screens that perturbation.
+It must not be relabelled silently as an isolated ionized donor. A charged
+P$_\mathrm{Si}^{+}$ calculation, or an extraction intended to isolate an
+ionized-core potential, requires a separately specified controlled branch.
+
+The eventual phosphorus questions concern donor energies relative to a
+compatible conduction-band reference, valley composition, localization or
+envelope diagnostics, and the spatial structure of an aligned impurity
+operator. Each finite supercell represents a periodic dopant array. An
+isolated-donor interpretation requires supercell-size evidence rather than the
+presence of a single substituted atom in the simulation cell.
+
+\section{Substitutional boron}
+
+The boron branch replaces one silicon atom by boron and uses neutral
+B$_\mathrm{Si}^{0}$ as its primary version-one charge state. The accepted
+valence convention gives one fewer valence electron than in the matched
+pristine supercell and again produces an odd electron count.
+
+For final acceptor and continuum claims, the physical specification requires a
+fully relativistic, noncollinear spinor calculation with spin--orbit coupling.
+A scalar-relativistic non-SOC calculation may be retained only as an explicitly
+labelled method-development branch. This distinction prevents an early
+simplification from being presented as the final physical treatment of the
+spin--orbit-coupled valence manifold.
+
+The eventual boron questions concern acceptor energies relative to a compatible
+valence-band reference, valence-subspace fidelity, localization or envelope
+diagnostics, and radial structure of the aligned impurity operator. Charged
+B$_\mathrm{Si}^{-}$ calculations are deferred to a separate controlled branch.
+
+\section{From parent models to reduced models}
+
+The program studies a sequence of representations rather than one direct leap
+from DFT to continuum theory:
+
+\begin{enumerate}
+  \item a converged Kohn--Sham parent problem;
+  \item a retained projected or Wannier subspace;
+  \item an aligned finite operator representation;
+  \item a constrained lattice model, initially an orthogonal
+    $sp^3s^{\ast}$ hierarchy for bulk silicon;
+  \item an extracted and reduced impurity operator; and
+  \item where justified, a continuum effective-mass description.
+\end{enumerate}
+
+Projection, localization, alignment, parameter fitting, truncation, and
+continuum approximation are different operations. Their errors and assumptions
+must therefore remain identifiable. Wannier localization alone is not described
+as a low-rank approximation, and a good spectral fit alone does not establish
+agreement of aligned operator matrix elements.
+
+\section{Research questions}
+
+Within these boundaries, the long-form study is organized by the following
+questions:
+
+\begin{enumerate}
+  \item Which finite subspace and representation preserve the declared bulk
+    Kohn--Sham features with controlled numerical error?
+  \item Can a prescribed tight-binding model class satisfy both spectral and
+    aligned-operator criteria, and what is the smallest tested class that does
+    so?
+  \item What basis, gauge, geometry, unit, and energy-reference identifications
+    are required before pristine and doped operators can be compared?
+  \item After those identifications, what portion of the substitutional-dopant
+    perturbation can be represented by nested local or nonlocal lattice model
+    classes?
+  \item Under separately defined acceptance rules, when does a continuum
+    effective-mass description preserve the declared donor or acceptor
+    observables?
+\end{enumerate}
+
+These are proposed research questions, not statements of completed findings.
+Their answers require retained calculations and evidence produced by the
+applicable downstream tasks.
+
+\section{Interpretive limits}
+
+A finite periodic supercell is not an isolated impurity. A Kohn--Sham band gap
+is not an exact quasiparticle gap. Spectral agreement is not operator equality.
+Matrix subtraction is not physically meaningful before common-space and
+energy alignment. Software execution and passing tests establish neither
+numerical convergence nor scientific validation unless the corresponding
+evidence and acceptance rules are present.
+
+These limits are part of the scientific problem rather than editorial caveats:
+they determine which comparisons are well posed and which conclusions the
+resulting hierarchy can support.
