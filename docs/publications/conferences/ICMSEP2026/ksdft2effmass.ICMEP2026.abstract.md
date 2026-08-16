@@ -1,10 +1,10 @@
 # COMPATIBILITY OF SPECTRAL AND OPERATOR REDUCTIONS OF A FIRST-PRINCIPLES SILICON HAMILTONIAN
 
 Bryan D. Llenarizas  
-Department of Physics, De La Salle University, Taft Campus; <bryan_domingo_llenarizas@dlsu.edu.ph>
+Department of Physics, De La Salle University; <bryan_domingo_llenarizas@dlsu.edu.ph>
 
 Eugene Joseph M. Ragasa  
-Department of Physics, De La Salle University, Taft Campus; <eugene.ragasa@dlsu.edu.ph>
+Department of Physics, De La Salle University; <eugene.ragasa@dlsu.edu.ph>
 
 ## ABSTRACT
 

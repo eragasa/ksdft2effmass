@@ -134,7 +134,7 @@ Suggested citation for the current development version:
 > <https://github.com/eragasa/ksdft2effmass>
 
 Author: [Eugene J. Ragasa](https://orcid.org/0000-0002-3856-734X),
-Department of Physics, De La Salle University, Taft Campus, Manila, Philippines.
+Department of Physics, De La Salle University, Manila, Philippines.
 
 ## License
 

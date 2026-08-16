@@ -1,7 +1,7 @@
 ---
 title: "Measuring the Harness: Telemetry for Deterministic Agentic Software Engineering"
 author: "Eugene Joseph M. Ragasa"
-affiliation: "De La Salle University, Taft Campus"
+affiliation: "De La Salle University"
 status: "Research proposal"
 ---
 
