@@ -1,10 +1,107 @@
 \chapter{Status, Scope, and Reading Contract}
+\label{ch:status-and-scope}
 
-\textbf{Status: proposed work and placeholders.}
+\textbf{Status: expository framework with proposed chapter development.}
 
-This monograph separates physical models, mathematical operators, finite matrix
-representations, software implementations, and retained evidence. It introduces
-no execution authority and makes no claim that a planned calculation, proof,
-comparison, or reduction has been completed. This chapter will maintain the
-scope, notation map, evidence labels, and relationship to the project's owning
-specifications and publication records.
+This research monograph is a long-form working account of the
+\texttt{ksdft2effmass} research program. It is not an institutionally
+registered dissertation, a submitted manuscript, or evidence that the planned
+computations have been completed. Its purpose is to develop one coherent
+narrative while preserving the narrower scopes of articles, conference
+contributions, software records, and computational evidence.
+
+\section{Authority of this document}
+
+The monograph explains the research program; it does not redefine it. Versioned
+files under \texttt{specification/} own accepted physical and numerical
+conventions. Research notes own declared scientific assumptions, computational
+documentation owns workflow dependencies, and retained provenance records own
+the status of individual calculations and artifacts. Where this narrative and
+an owning record disagree, the owning record prevails and the narrative must be
+corrected.
+
+Statements about future work are proposals rather than results. A typeset
+formula is not by itself a proof, a successful software test is not scientific
+validation, and a generated figure is not a calculated result unless its input,
+method, software environment, and provenance are identified.
+
+\section{Objects kept distinct}
+
+The discussion uses four related but noninterchangeable levels:
+
+\begin{description}
+  \item[Physical model.] The chosen description of the material system and its
+    physical assumptions, including the Kohn--Sham parent problem and the
+    substitutional-impurity branches.
+  \item[Mathematical operator.] A map acting between identified state spaces,
+    with a stated domain and codomain when these are material to the argument.
+  \item[Finite representation.] A matrix obtained only after selecting finite
+    subspaces, bases, ordering conventions, units, geometry, gauge, and energy
+    reference.
+  \item[Software artifact.] An implementation, serialized record, input file,
+    workflow, or test that constructs or evaluates a representation.
+\end{description}
+
+Equality or subtraction at one level does not automatically define equality or
+subtraction at another. In particular, pristine and doped matrices cannot be
+subtracted meaningfully until their represented spaces and conventions have
+been aligned.
+
+\section{Evidence vocabulary}
+
+The monograph uses explicit status labels:
+
+\begin{description}
+  \item[Calculated result.] Produced by an identified calculation with retained
+    provenance.
+  \item[Literature value.] Taken from an identified and verified source.
+  \item[Expected behavior.] A prediction or expectation that has not yet been
+    observed in the project.
+  \item[Illustrative example.] Explanatory material that is not research
+    evidence.
+  \item[Synthetic test data.] Constructed data used to verify software behavior,
+    not output from a physical calculation.
+  \item[Placeholder.] Material awaiting authoritative content or verification.
+  \item[Proposed work.] Planned activity that has not been completed.
+\end{description}
+
+Chapter-level status statements apply to the prose that follows unless a more
+specific label overrides them. Results chapters will identify their retained
+sources rather than relying on narrative confidence or visual plausibility.
+
+\section{Error categories}
+
+Three error sources remain separate throughout the monograph. Parent-model
+error concerns the difference between the selected physical parent and an
+independent physical reference such as experiment or a higher-level theory.
+Numerical or discretization error concerns approximation of the stated parent
+mathematics by finite cutoffs, meshes, cells, stencils, and solver tolerances.
+Model-reduction error concerns the loss incurred when replacing an aligned
+parent representation by a reduced model class. These categories will not be
+combined unless a later owning specification establishes compatible definitions
+and a valid mathematical relationship among them.
+
+\section{Program scope}
+
+The initial material system is silicon in the diamond structure. The declared
+impurity branches are substitutional phosphorus and substitutional boron in
+silicon. Quantum ESPRESSO remains responsible for electronic-structure
+calculations, and Wannier90 remains responsible for Wannier localization. The
+software in this repository begins from their retained outputs and addresses
+representation, alignment, operator extraction, model reduction, evaluation,
+and provenance.
+
+The immediate bulk pilot and the later impurity program are related but not
+identical scopes. Bulk development does not establish dopant results. Likewise,
+a neutral periodic dopant supercell is not silently reinterpreted as an isolated
+or ionized impurity. Each such interpretation requires its own declared branch
+and evidence.
+
+\section{Editorial extraction}
+
+Articles and presentations are editorial extractions, not automatic builds of
+this monograph. They may select a narrower question, reorganize exposition, and
+adopt venue-specific terminology, but they must preserve the status and
+provenance of the source material. Article manuscripts remain independently
+edited publication surfaces; changes here do not silently update them, and
+changes there do not redefine this long-form account.
