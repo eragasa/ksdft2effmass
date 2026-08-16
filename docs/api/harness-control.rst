@@ -14,8 +14,8 @@ token usage, sessions, and telemetry. The reserved
 Migration and publication
 -------------------------
 
-``HarnessControlMigrator.execute`` accepts one explicit
-``HarnessControlMigrationRequest``. Canonical maintained requests supply normalized
+The maintained ``harness_projection.py sync`` command constructs one private
+immutable projection request. Canonical maintained requests supply normalized
 ``PiHarnessConfiguration``, Python evidence source modules, the profile matrix, the
 predecessor map, and generic and local resource configuration explicitly.
 ``PiHarnessConfigurationDeserializer`` converts caller-supplied Pi project-settings
@@ -36,10 +36,10 @@ while delegating to private control orchestration. Database, schema, encoding,
 ingestion, resource, projection, record, and input-selection mechanics do not depend on
 ``local.control``.
 
-The generation result is an immutable data-only descriptor. The migrator validates
-that complete candidate and remains the sole maintained publisher through
-``HarnessControlMigrator._publish_generation``, which exclusively reads candidate
-bytes and prepares maintained destinations. Publication stages each output,
+The generation result is an immutable data-only descriptor. The private
+synchronization action validates that complete candidate and remains the sole
+maintained publisher. Its publication boundary exclusively reads candidate bytes and
+prepares maintained destinations. Publication stages each output,
 verifies the staged database, and retains backups until all replacements
 succeed. A replacement failure restores the prior complete generation. This is
 a process-level rollback guarantee, not filesystem-wide atomicity across a
@@ -52,17 +52,17 @@ The maintained projection command is:
    python/.venv/bin/python python/src/cli/harness_projection.py sync --repository-root <ABSOLUTE_ROOT> --pi-settings .pi/settings.json <EXPLICIT_CANONICAL_INPUTS>
    python/.venv/bin/python python/src/cli/harness_projection.py check --repository-root <ABSOLUTE_ROOT>
 
-The maintained command is ``python/src/cli/harness_projection.py``. The former
-``python/src/cli/harness_control.py`` compatibility entry point has been removed. The
-remaining ``HarnessControl*`` Python API is temporary and scheduled for removal after
-its replacement behavior exists and passes the applicable compatibility checks.
+The maintained command is ``python/src/cli/harness_projection.py``. The former ``python/src/cli/harness_control.py`` compatibility entry point and public
+``HarnessControl*`` Python API have been removed. The private v1 implementation
+remains only behind the maintained projection command until replacement behavior
+exists and passes the applicable compatibility checks.
 
 Verification
 ------------
 
-``HarnessControlVerifier.execute`` derives canonical maintained inputs from
-repository-owned source configuration and uses the same private builder in an
-isolated temporary workspace. It publishes nothing. Verification establishes:
+The private check action derives canonical maintained inputs from repository-owned
+source configuration and uses the same private builder in an isolated temporary
+workspace. It publishes nothing. Verification establishes:
 
 * SQLite ``integrity_check`` and foreign-key integrity;
 * schema and control-schema-version agreement;
@@ -85,8 +85,8 @@ Repository validation
 stably ordered real ``HarnessValidationCheck`` records: ``python_evidence``,
 ``resources``, ``task_graph``, ``checkpoints``, ``skills``, and ``control_state``.
 Canonical Python evidence inputs flow directly through
-``PythonConformanceValidator`` to ``python_evidence``; canonical repository control
-inputs separately flow through ``HarnessControlVerifier`` to ``control_state``.
+``PythonConformanceValidator`` to ``python_evidence``; canonical repository projection
+inputs separately flow through the private check action to ``control_state``.
 The result has no elapsed-duration or telemetry field. The Action invokes no CLI,
 parses no CLI output, and executes none of pytest, Ruff, mypy, or Sphinx. Those
 limitations remain explicit claim boundaries rather than placeholder checks.
@@ -114,14 +114,6 @@ uncertainty quantification, protected execution, or human acceptance.
 
 .. currentmodule:: ksdft2effmass.harness.pi.local
 
-.. autoclass:: HarnessControlMigrationRequest
-.. autoclass:: HarnessControlMigrationResult
-.. autoclass:: HarnessControlMigrator
-   :members:
-.. autoclass:: HarnessControlVerificationFinding
-.. autoclass:: HarnessControlVerificationResult
-.. autoclass:: HarnessControlVerifier
-   :members:
 .. autoclass:: HarnessValidationRequest
 .. autoclass:: HarnessValidationCheck
 .. autoclass:: HarnessValidationResult

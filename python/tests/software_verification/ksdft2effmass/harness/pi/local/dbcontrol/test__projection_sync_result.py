@@ -1,4 +1,4 @@
-r"""Software verification of ``HarnessControlMigrationResult``.
+r"""Software verification of ``_HarnessProjectionSyncResult``.
 
 Evidence profile: claim_bearing
 
@@ -6,7 +6,7 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-The module owns the intrinsic represented behavior of ``HarnessControlMigrationResult``.
+The module owns the intrinsic represented behavior of ``_HarnessProjectionSyncResult``.
 
 Intrinsic and cross-object scope
 
@@ -21,9 +21,11 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import HarnessControlMigrationResult
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionSyncResult,
+)
 
-SUT = HarnessControlMigrationResult
+SUT = _HarnessProjectionSyncResult
 
 pytestmark = pytest.mark.software_verification
 
@@ -33,9 +35,9 @@ def test_field__nested_state__is_immutable() -> None:
 
     Requirement: Migration results expose immutable tuples for counts, issues, and paths.
 
-    Method: Construct the public result and attempt field reassignment.
+    Method: Construct the private result and attempt field reassignment.
 
-    Oracle: A frozen dataclass rejects public field reassignment.
+    Oracle: A frozen dataclass rejects private field reassignment.
 
     Acceptance: Exact tuple state is retained and reassignment raises ``FrozenInstanceError``.
 
@@ -43,7 +45,7 @@ def test_field__nested_state__is_immutable() -> None:
 
     Limitations: The test does not establish that represented counts came from a migration.
     """  # noqa: E501
-    result = HarnessControlMigrationResult(1, "a" * 64, (("tasks", 1),), (), ("x",))
+    result = _HarnessProjectionSyncResult(1, "a" * 64, (("tasks", 1),), (), ("x",))
     assert result.counts == (("tasks", 1),)
     with pytest.raises(FrozenInstanceError):
         result.schema_version = 2  # type: ignore[misc]

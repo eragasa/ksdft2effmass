@@ -2,7 +2,7 @@
 
 ## Maintained projection set
 
-`HarnessControlMigrator` publishes a complete generated set containing:
+The private projection synchronizer publishes a complete generated set containing:
 
 - `harness/state/harness-control.sqlite3`;
 - `harness/state/harness-control.sql`;
@@ -25,7 +25,7 @@ Candidate construction occurs in a temporary workspace. Publication follows vali
 
 ## Source-aware verification
 
-`HarnessControlVerifier` reconstructs the candidate without publication and checks:
+The private projection verifier reconstructs the candidate without publication and checks:
 
 - SQLite integrity and foreign keys;
 - control schema version;

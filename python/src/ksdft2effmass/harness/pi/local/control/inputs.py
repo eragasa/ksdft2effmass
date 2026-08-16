@@ -8,7 +8,7 @@ from pathlib import Path
 
 from ...configuration import PiHarnessConfigurationDeserializer
 from ..dbcontrol.input_files import _ControlInputFileSelector
-from ..dbcontrol.records import HarnessControlMigrationRequest
+from ..dbcontrol.records import _HarnessProjectionRequest
 
 _EVIDENCE_PROFILE = Path(
     "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
@@ -25,18 +25,18 @@ _LOCAL_ROOT = Path("harness/local")
 
 
 @dataclass(frozen=True, slots=True)
-class _HarnessControlInputs:
+class _HarnessProjectionInputs:
     """Exact immutable canonical request resolved from maintained source authority."""
 
-    request: HarnessControlMigrationRequest
+    request: _HarnessProjectionRequest
 
 
-class _HarnessControlInputResolver:
+class _HarnessProjectionInputResolver:
     """Resolve the frozen R2.7 canonical-input map without generated authority."""
 
     __slots__ = ()
 
-    def execute(self, repository_root: Path) -> _HarnessControlInputs:
+    def execute(self, repository_root: Path) -> _HarnessProjectionInputs:
         """Return the exact canonical maintained control-generation request."""
         if not isinstance(repository_root, Path) or not repository_root.is_absolute():
             raise ValueError("repository_root must be an absolute pathlib.Path")
@@ -95,7 +95,7 @@ class _HarnessControlInputResolver:
         pi_configuration = PiHarnessConfigurationDeserializer().execute(
             selector.file(root, _PROJECT_SETTINGS, subject="configuration").read_bytes()
         )
-        request = HarnessControlMigrationRequest(
+        request = _HarnessProjectionRequest(
             root,
             evidence_profile_matrix_path=_EVIDENCE_PROFILE,
             evidence_module_paths=tuple(module_paths),
@@ -107,4 +107,4 @@ class _HarnessControlInputResolver:
             local_resource_root_path=_LOCAL_ROOT,
             pi_harness_configuration=pi_configuration,
         )
-        return _HarnessControlInputs(request)
+        return _HarnessProjectionInputs(request)

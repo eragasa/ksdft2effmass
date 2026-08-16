@@ -24,8 +24,7 @@ flowchart LR
 | Task serializer and deserializer | Version-3 Task JSON wire contract |
 | `HarnessTaskGraphValidator` | Task relationship and graph validation |
 | `TaskStateInspector` | Bounded inspection of selected Task state |
-| `HarnessControlMigrator` | Complete control projection publication |
-| `HarnessControlVerifier` | Read-only source-aware reconstruction and comparison |
+| Private projection synchronization and checking | Complete publication and read-only source-aware comparison behind `harness_projection.py` |
 | `HarnessValidator` | Composition of repository-conformance checks |
 | `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding`, `HumanReviewPacket`, `HumanReviewDecision`, `HumanReviewPreparer`, `HumanReviewDecisionRecorder` | Explicit packet preparation and decision representation without persistence or activation |
 

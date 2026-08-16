@@ -95,12 +95,12 @@ Current technical harness surfaces
 Process simplification does not remove or redefine implemented software contracts.
 The project-local public package is ``ksdft2effmass.harness.pi.local``. It retains
 explicit-root context composition, operational adapters, the project-local Task model,
-source-aware control migration and verification, and deterministic repository
-validation.
+and deterministic repository validation. Projection synchronization and checking are
+private implementation behind the maintained ``harness_projection.py`` command.
 
-``HarnessControlMigrator`` remains the sole publisher of the maintained SQLite, SQL,
-projection manifest, and owned projections. ``HarnessControlVerifier`` reconstructs
-the same candidate without publication and compares integrity, foreign keys, schema,
+The private synchronizer remains the sole publisher of maintained SQLite, SQL, the
+projection manifest, and owned projections. The private check action reconstructs the
+same candidate without publication and compares integrity, foreign keys, schema,
 normalized content, SQL, manifest, and projections. Raw SQLite hashes are diagnostic.
 
 ``HarnessValidator`` returns the six ordered checks ``python_evidence``, ``resources``,

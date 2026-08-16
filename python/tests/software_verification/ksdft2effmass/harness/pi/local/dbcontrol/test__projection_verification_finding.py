@@ -1,4 +1,4 @@
-r"""Software verification of ``HarnessControlVerificationFinding``.
+r"""Software verification of ``_HarnessProjectionVerificationFinding``.
 
 Evidence profile: claim_bearing
 
@@ -23,9 +23,11 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import HarnessControlVerificationFinding
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionVerificationFinding,
+)
 
-SUT = HarnessControlVerificationFinding
+SUT = _HarnessProjectionVerificationFinding
 pytestmark = pytest.mark.software_verification
 
 

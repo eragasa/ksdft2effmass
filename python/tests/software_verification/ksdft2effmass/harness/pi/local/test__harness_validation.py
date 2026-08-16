@@ -41,10 +41,12 @@ from ksdft2effmass.harness.pi.local import (
     HarnessValidator,
 )
 from ksdft2effmass.harness.pi.local._commands import validate_harness
-from ksdft2effmass.harness.pi.local.dbcontrol import (
-    HarnessControlVerificationFinding,
-    HarnessControlVerificationResult,
-    HarnessControlVerifier,
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionVerificationFinding,
+    _HarnessProjectionVerificationResult,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
+    _HarnessProjectionVerifier,
 )
 
 from .task_model_examples import make_task
@@ -416,9 +418,9 @@ def test_artifact__python_evidence__direct_owner_preserves_controlled_finding(
 
     monkeypatch.setattr(PythonConformanceValidator, "execute", observe)
     monkeypatch.setattr(
-        HarnessControlVerifier,
+        _HarnessProjectionVerifier,
         "execute",
-        lambda self, repository_root: HarnessControlVerificationResult(
+        lambda self, repository_root: _HarnessProjectionVerificationResult(
             "ok", 0, "digest", "digest", "raw", "candidate", True
         ),
     )
@@ -450,7 +452,8 @@ def test_artifact__control_state__does_not_contaminate_python_evidence(
     Method: Verify the maintained conforming evidence corpus while replacing only the
     control verifier result with one pathless source-input failure.
 
-    Oracle: PythonConformanceValidator owns evidence; HarnessControlVerifier owns drift.
+    Oracle: PythonConformanceValidator owns evidence; the private projection verifier
+    owns drift.
 
     Acceptance: Evidence passes, control fails with its exact finding, aggregate fails.
 
@@ -459,13 +462,13 @@ def test_artifact__control_state__does_not_contaminate_python_evidence(
     Limitations: The injected control result represents no maintained drift claim.
     """
     repository = Path(__file__).resolve().parents[7]
-    finding = HarnessControlVerificationFinding(
+    finding = _HarnessProjectionVerificationFinding(
         "source_input_failure", None, "controlled control-only disagreement"
     )
     monkeypatch.setattr(
-        HarnessControlVerifier,
+        _HarnessProjectionVerifier,
         "execute",
-        lambda self, repository_root: HarnessControlVerificationResult(
+        lambda self, repository_root: _HarnessProjectionVerificationResult(
             "not_checked",
             0,
             "",

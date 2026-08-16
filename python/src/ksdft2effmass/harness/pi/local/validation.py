@@ -18,8 +18,8 @@ from ..evidence.python_conformance.corpus import (
 )
 from .checkpoint_validation import _CheckpointRepositoryValidator
 from .context import LocalHarnessContextLoader
-from .control.inputs import _HarnessControlInputResolver
-from .dbcontrol import HarnessControlVerifier
+from .control.inputs import _HarnessProjectionInputResolver
+from .dbcontrol.verification import _HarnessProjectionVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
 from .task_model import HarnessTaskDeserializer, HarnessTaskGraphValidator
@@ -156,7 +156,7 @@ class _PythonEvidenceRepositoryValidator:
 
     def execute(self, root: Path) -> HarnessValidationCheck:
         """Return direct Python-conformance findings for one repository root."""
-        request = _HarnessControlInputResolver().execute(root).request
+        request = _HarnessProjectionInputResolver().execute(root).request
         assert request.evidence_profile_matrix_path is not None
         assert request.evidence_migration_path is not None
         sources: list[PythonModuleSource] = []
@@ -257,7 +257,7 @@ class HarnessValidator:
         task_check = self._task_check(root)
         checkpoint_check = self._checkpoint_check(root)
         skill_check = self._skill_check(root, context)
-        control_result = HarnessControlVerifier().execute(root)
+        control_result = _HarnessProjectionVerifier().execute(root)
         control_findings = tuple(
             sorted(
                 (

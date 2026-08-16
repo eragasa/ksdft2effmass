@@ -766,9 +766,7 @@ def validate(chain_path: Path, task_id: str, *, root: Path = ROOT) -> Path | Non
             "task without an ownership manifest must explicitly prohibit "
             "mutating delegation"
         )
-    manifest_path = _repo_path(
-        declared_manifest, "task.ownership_manifest", root
-    )
+    manifest_path = _repo_path(declared_manifest, "task.ownership_manifest", root)
     manifest = _load_json(manifest_path)
     schema_version = manifest.get("schema_version")
     if schema_version == 1:

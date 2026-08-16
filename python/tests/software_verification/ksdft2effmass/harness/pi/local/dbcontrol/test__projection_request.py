@@ -1,4 +1,4 @@
-r"""Software verification of ``HarnessControlMigrationRequest``.
+r"""Software verification of ``_HarnessProjectionRequest``.
 
 Evidence profile: claim_bearing
 
@@ -7,7 +7,7 @@ Bounded artifact scope: the module's declared evidence owner.
 Facet and represented meaning
 
 The module owns the intrinsic behavior of
-``HarnessControlMigrationRequest``.
+``_HarnessProjectionRequest``.
 
 Intrinsic and cross-object scope
 
@@ -23,9 +23,11 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.harness.pi import PiHarnessConfiguration
-from ksdft2effmass.harness.pi.local import HarnessControlMigrationRequest
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionRequest,
+)
 
-SUT = HarnessControlMigrationRequest
+SUT = _HarnessProjectionRequest
 
 pytestmark = pytest.mark.software_verification
 
@@ -36,7 +38,7 @@ def test_constructor__canonical_evidence_inputs__are_explicit_and_immutable() ->
     Requirement: Canonical evidence construction receives source modules, profile policy,
     and predecessor migration relationships as explicit repository-relative inputs.
 
-    Method: Construct the public request with one path for each canonical input.
+    Method: Construct the private request with one path for each canonical input.
 
     Oracle: The supplied immutable tuple and paths define the complete evidence boundary.
 
@@ -48,7 +50,7 @@ def test_constructor__canonical_evidence_inputs__are_explicit_and_immutable() ->
     Limitations: Input contents are validated by the migrator Action.
     """  # noqa: E501
     root = Path("/repository")
-    request = HarnessControlMigrationRequest(
+    request = _HarnessProjectionRequest(
         root,
         evidence_module_paths=(Path("python/tests/test__owner.py"),),
         evidence_profile_matrix_path=Path("harness/pi/evidence/profile.json"),
@@ -57,7 +59,7 @@ def test_constructor__canonical_evidence_inputs__are_explicit_and_immutable() ->
     assert request.evidence_module_paths == (Path("python/tests/test__owner.py"),)
     assert request.evidence_migration_path == Path("harness/evidence/migration.json")
     with pytest.raises(ValueError):
-        HarnessControlMigrationRequest(
+        _HarnessProjectionRequest(
             root, evidence_module_paths=(Path("python/tests/test__owner.py"),)
         )
 
@@ -81,7 +83,7 @@ def test_constructor__canonical_resource_inputs__are_explicit_and_complete() -> 
     Limitations: Manifest and source semantics are validated by the migration Action.
     """  # noqa: E501
     root = Path("/repository")
-    request = HarnessControlMigrationRequest(
+    request = _HarnessProjectionRequest(
         root,
         resource_profile_path=Path("harness/local/profiles/project.json"),
         generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
@@ -92,12 +94,12 @@ def test_constructor__canonical_resource_inputs__are_explicit_and_complete() -> 
     assert request.generic_resource_root_path == Path("harness/pi")
     assert request.local_resource_root_path == Path("harness/local")
     with pytest.raises(ValueError, match="supplied together"):
-        HarnessControlMigrationRequest(
+        _HarnessProjectionRequest(
             root,
             resource_profile_path=Path("harness/local/profiles/project.json"),
         )
     with pytest.raises(ValueError, match="repository-relative"):
-        HarnessControlMigrationRequest(
+        _HarnessProjectionRequest(
             root,
             resource_profile_path=Path("harness/local/profiles/project.json"),
             generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
@@ -114,7 +116,7 @@ def test_constructor__pi_configuration__is_explicit_and_type_checked() -> None:
 
     Method: Construct with one immutable configuration and then with a plain object.
 
-    Oracle: The public field requires exactly ``PiHarnessConfiguration``.
+    Oracle: The private field requires exactly ``PiHarnessConfiguration``.
 
     Acceptance: The valid value is retained by identity and the plain object raises
     ``TypeError``.
@@ -125,12 +127,12 @@ def test_constructor__pi_configuration__is_explicit_and_type_checked() -> None:
     Limitations: JSON deserialization and agent projection are tested separately.
     """
     configuration = PiHarnessConfiguration(1, ("example.disabled",))
-    request = HarnessControlMigrationRequest(
+    request = _HarnessProjectionRequest(
         Path("/repository"), pi_harness_configuration=configuration
     )
     assert request.pi_harness_configuration is configuration
     with pytest.raises(TypeError, match="PiHarnessConfiguration"):
-        HarnessControlMigrationRequest(
+        _HarnessProjectionRequest(
             Path("/repository"),
             pi_harness_configuration=object(),  # type: ignore[arg-type]
         )
@@ -141,7 +143,7 @@ def test_constructor__relative_root__raises_value_error() -> None:
 
     Requirement: The migration request accepts only an explicit absolute repository root.
 
-    Method: Construct the public request with a relative ``Path``.
+    Method: Construct the private request with a relative ``Path``.
 
     Oracle: ``Path("repository")`` is relative by Python path semantics.
 
@@ -152,4 +154,4 @@ def test_constructor__relative_root__raises_value_error() -> None:
     Limitations: Filesystem existence and migration behavior are not exercised.
     """  # noqa: E501
     with pytest.raises(ValueError):
-        HarnessControlMigrationRequest(Path("repository"))
+        _HarnessProjectionRequest(Path("repository"))

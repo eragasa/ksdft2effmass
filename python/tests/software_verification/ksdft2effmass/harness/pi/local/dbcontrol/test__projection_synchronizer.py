@@ -1,4 +1,4 @@
-r"""Software verification of ``HarnessControlMigrator``.
+r"""Software verification of ``_HarnessProjectionSynchronizer``.
 
 Evidence profile: claim_bearing
 
@@ -6,7 +6,8 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-The module owns the intrinsic represented behavior of ``HarnessControlMigrator``.
+The module owns the intrinsic represented behavior of
+``_HarnessProjectionSynchronizer``.
 
 Intrinsic and cross-object scope
 
@@ -30,17 +31,19 @@ from ksdft2effmass.harness.pi import (
     PiHarnessConfiguration,
     PiHarnessConfigurationDeserializer,
 )
-from ksdft2effmass.harness.pi.local import (
-    HarnessControlMigrationRequest,
-    HarnessControlMigrationResult,
-    HarnessControlMigrator,
-)
 from ksdft2effmass.harness.pi.local.dbcontrol.ingestion import (
     _RepositoryControlIngestor,
 )
+from ksdft2effmass.harness.pi.local.dbcontrol.migration import (
+    _HarnessProjectionSynchronizer,
+)
 from ksdft2effmass.harness.pi.local.dbcontrol.projections import _ControlProjector
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionRequest,
+    _HarnessProjectionSyncResult,
+)
 
-SUT = HarnessControlMigrator
+SUT = _HarnessProjectionSynchronizer
 
 pytestmark = pytest.mark.software_verification
 
@@ -56,8 +59,9 @@ class SyntheticEvidenceFixture:
             ""
             if artifact_owned
             else (
-                "\n            from ksdft2effmass.harness.pi.local import "
-                "HarnessControlMigrationRequest as migration_request\n\n"
+                "\n            from "
+                "ksdft2effmass.harness.pi.local.dbcontrol.records import "
+                "_HarnessProjectionRequest as migration_request\n\n"
                 "            SUT = migration_request\n"
             )
         )
@@ -136,8 +140,8 @@ class SyntheticEvidenceFixture:
         monkeypatch: pytest.MonkeyPatch,
         root: Path,
         expected_modules: list[dict[str, str]],
-    ) -> HarnessControlMigrationResult:
-        """Execute public migration while limiting synthetic ingestion to evidence."""
+    ) -> _HarnessProjectionSyncResult:
+        """Execute private migration while limiting synthetic ingestion to evidence."""
 
         def execute_evidence(ingestor: _RepositoryControlIngestor) -> None:
             ingestor._migrate_evidence()
@@ -164,8 +168,8 @@ class SyntheticEvidenceFixture:
                 }
             )
         )
-        return HarnessControlMigrator().execute(
-            HarnessControlMigrationRequest(
+        return _HarnessProjectionSynchronizer().execute(
+            _HarnessProjectionRequest(
                 root.resolve(),
                 evidence_profile_matrix_path=profile,
                 evidence_module_paths=tuple(
@@ -179,8 +183,8 @@ class SyntheticEvidenceFixture:
     @staticmethod
     def migrate_agents_only(
         monkeypatch: pytest.MonkeyPatch, root: Path
-    ) -> HarnessControlMigrationResult:
-        """Execute public migration with only synthetic agent ingestion enabled."""
+    ) -> _HarnessProjectionSyncResult:
+        """Execute private migration with only synthetic agent ingestion enabled."""
 
         def execute_agents(ingestor: _RepositoryControlIngestor) -> None:
             ingestor._migrate_agents_and_skills()
@@ -192,8 +196,8 @@ class SyntheticEvidenceFixture:
             if settings_path.exists()
             else PiHarnessConfiguration(1, ())
         )
-        return HarnessControlMigrator().execute(
-            HarnessControlMigrationRequest(
+        return _HarnessProjectionSynchronizer().execute(
+            _HarnessProjectionRequest(
                 root.resolve(), pi_harness_configuration=configuration
             )
         )
@@ -256,7 +260,7 @@ class SyntheticEvidenceFixture:
         return {path: (root / path).read_bytes() for path in paths}
 
 
-def make_canonical_resource_request(tmp_path: Path) -> HarnessControlMigrationRequest:
+def make_canonical_resource_request(tmp_path: Path) -> _HarnessProjectionRequest:
     """Evidence ID: Owns no identifier; supports canonical resource migration evidence.
 
     Requirement: Canonical resource migration tests receive one isolated complete
@@ -279,7 +283,7 @@ def make_canonical_resource_request(tmp_path: Path) -> HarnessControlMigrationRe
     shutil.copytree(repository / ".pi/checkpoints", tmp_path / ".pi/checkpoints")
     shutil.copytree(repository / ".pi/skills", tmp_path / ".pi/skills")
     shutil.copytree(repository / ".agents/skills", tmp_path / ".agents/skills")
-    return HarnessControlMigrationRequest(
+    return _HarnessProjectionRequest(
         tmp_path.resolve(),
         resource_profile_path=Path("harness/local/profiles/ksdft2effmass-v2.json"),
         generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
@@ -298,8 +302,8 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     reconstruction that ingests Tasks, agents, skills, decisions, and projections.
 
     Method: Copy a bounded complete repository-control fixture, replace only external
-    pytest collection with an empty successful observation, and execute the public
-    migrator without replacing or narrowing repository ingestion.
+    pytest collection with an empty successful observation, and execute the private
+    projection synchronizer without replacing or narrowing repository ingestion.
 
     Oracle: The input manifests enumerate the expected resources, while the other
     copied control catalogs independently require nonempty Task, agent, skill, and
@@ -325,7 +329,7 @@ def test_method__execute_canonical_resources__participate_in_full_reconstruction
     assert generic_resource_ids.isdisjoint(local_resource_ids)
     expected_resource_count = len(generic_resources) + len(local_resources)
 
-    result = HarnessControlMigrator().execute(request)
+    result = _HarnessProjectionSynchronizer().execute(request)
     counts = dict(result.counts)
     assert counts["resource_definition"] == expected_resource_count
     assert counts["task_definition"] > 0
@@ -364,14 +368,14 @@ def test_method__execute_resource_hash_mismatch__preserves_published_generation(
     """  # noqa: E501
     request = make_canonical_resource_request(tmp_path)
 
-    published = HarnessControlMigrator().execute(request)
+    published = _HarnessProjectionSynchronizer().execute(request)
     retained = SyntheticEvidenceFixture.generation_bytes(
         tmp_path, published.projection_paths
     )
     changed = tmp_path / "harness/pi/skills/develop-harness-resources/SKILL.md"
     changed.write_bytes(changed.read_bytes() + b"\nchanged\n")
     with pytest.raises(ValueError, match="HASH_MISMATCH"):
-        HarnessControlMigrator().execute(request)
+        _HarnessProjectionSynchronizer().execute(request)
     assert (
         SyntheticEvidenceFixture.generation_bytes(tmp_path, published.projection_paths)
         == retained
@@ -436,9 +440,9 @@ def test_method__execute_wrong_request_type__raises_type_error() -> None:
 
     Requirement: The migration ActionObject rejects values outside its request contract.
 
-    Method: Call public ``execute`` with a plain object.
+    Method: Call private ``execute`` with a plain object.
 
-    Oracle: The public signature requires ``HarnessControlMigrationRequest`` exactly.
+    Oracle: The private signature requires ``_HarnessProjectionRequest`` exactly.
 
     Acceptance: The call raises exactly ``TypeError`` before filesystem mutation.
 
@@ -447,7 +451,7 @@ def test_method__execute_wrong_request_type__raises_type_error() -> None:
     Limitations: Valid migration is covered separately.
     """  # noqa: E501
     with pytest.raises(TypeError):
-        HarnessControlMigrator().execute(object())  # type: ignore[arg-type]
+        _HarnessProjectionSynchronizer().execute(object())  # type: ignore[arg-type]
 
 
 def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
@@ -457,7 +461,7 @@ def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
 
     Requirement: A valid migration writes SQLite authority, deterministic SQL, declared projection bytes, and manifest metadata and returns their paths.
 
-    Method: Execute the public Action at an isolated absolute root while repository ingestion supplies an empty valid catalog and projection supplies one immutable literal artifact.
+    Method: Execute the private Action at an isolated absolute root while repository ingestion supplies an empty valid catalog and projection supplies one immutable literal artifact.
 
     Oracle: The independently supplied projection is exactly ``b"literal\n"`` at ``generated/literal.txt``.
 
@@ -478,8 +482,8 @@ def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
         "render_all",
         lambda self: {"generated/literal.txt": ("task-json", b"literal\n")},
     )
-    result = HarnessControlMigrator().execute(
-        HarnessControlMigrationRequest(tmp_path.resolve())
+    result = _HarnessProjectionSynchronizer().execute(
+        _HarnessProjectionRequest(tmp_path.resolve())
     )
     assert observed == [()]
     assert result.schema_version == 3
@@ -544,7 +548,7 @@ def test_method__execute_publish_failure__restores_complete_previous_generation(
 
     Method: Publish one valid explicit ownership generation, inject one failure during the second staged-file replacement for a changed generation, and reread every prior output.
 
-    Oracle: The exact byte snapshot returned by the first successful public migration is independent of the second generation.
+    Oracle: The exact byte snapshot returned by the first successful private migration is independent of the second generation.
 
     Acceptance: The second call raises the documented rollback error and every previously published output remains byte-identical.
 
@@ -605,7 +609,7 @@ def test_method__execute_source_corpus_removal_and_move__reconciles_snapshot(
 
     Oracle: The explicit source corpus defines the complete desired maintained-module set rather than an append-only patch.
 
-    Acceptance: SQLite, SQL, and projection contain only the moved path after the second public migration.
+    Acceptance: SQLite, SQL, and projection contain only the moved path after the second private migration.
 
     Interpretation: Failure indicates stale module retention or a nontransactional reconciliation boundary.
 

@@ -1,19 +1,3 @@
-"""Project-local SQLite control construction and compatibility exports."""
+"""Private project-local SQLite projection mechanics."""
 
-from .migration import HarnessControlMigrator
-from .records import (
-    HarnessControlMigrationRequest,
-    HarnessControlMigrationResult,
-    HarnessControlVerificationFinding,
-    HarnessControlVerificationResult,
-)
-from .verification import HarnessControlVerifier
-
-__all__ = [
-    "HarnessControlMigrationRequest",
-    "HarnessControlMigrationResult",
-    "HarnessControlMigrator",
-    "HarnessControlVerificationFinding",
-    "HarnessControlVerificationResult",
-    "HarnessControlVerifier",
-]
+__all__: list[str] = []

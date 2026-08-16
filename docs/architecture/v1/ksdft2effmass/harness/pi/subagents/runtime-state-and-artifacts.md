@@ -19,7 +19,7 @@ These are Pi runtime and recovery records. They are not canonical Harness Task, 
 
 A mission records why delegated work exists and links its runs, decisions, artifacts, and receipts. A run records one actual subagent execution. Ordinary launches may create missions by default; trivial runs can be explicitly missionless.
 
-The repository’s current control compiler and `HarnessControlVerifier` do not import mission or run lifecycle as development authority. A parent may cite a runtime artifact as evidence or a recovery location.
+The repository’s current projection compiler and private projection verifier do not import mission or run lifecycle as development authority. A parent may cite a runtime artifact as evidence or a recovery location.
 
 ## Status and control
 

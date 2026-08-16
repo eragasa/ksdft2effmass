@@ -15,14 +15,14 @@ from ..dbcontrol.constants import (
 from ..dbcontrol.database import _ControlDatabase
 from ..dbcontrol.encoding import _ControlEncoding
 from ..dbcontrol.records import (
-    HarnessControlVerificationFinding,
-    HarnessControlVerificationResult,
+    _HarnessProjectionVerificationFinding,
+    _HarnessProjectionVerificationResult,
 )
-from .generation import _HarnessControlGenerationBuilder
-from .inputs import _HarnessControlInputResolver
+from .generation import _HarnessProjectionGenerationBuilder
+from .inputs import _HarnessProjectionInputResolver
 
 
-class _HarnessControlSourceVerifier:
+class _HarnessProjectionSourceVerifier:
     """Generate one canonical candidate and compare publisher-owned maintained state."""
 
     __slots__ = ()
@@ -30,8 +30,8 @@ class _HarnessControlSourceVerifier:
     @staticmethod
     def _finding(
         code: str, path: Path | None, message: str
-    ) -> HarnessControlVerificationFinding:
-        return HarnessControlVerificationFinding(
+    ) -> _HarnessProjectionVerificationFinding:
+        return _HarnessProjectionVerificationFinding(
             code, None if path is None else path.as_posix(), message
         )
 
@@ -59,11 +59,11 @@ class _HarnessControlSourceVerifier:
             sorted(observed - candidate_paths, key=lambda path: path.as_posix())
         )
 
-    def execute(self, repository_root: Path) -> HarnessControlVerificationResult:
+    def execute(self, repository_root: Path) -> _HarnessProjectionVerificationResult:
         """Return deterministic source-aware conformance without maintained writes."""
-        inputs = _HarnessControlInputResolver().execute(repository_root)
+        inputs = _HarnessProjectionInputResolver().execute(repository_root)
         root = inputs.request.repository_root
-        builder = _HarnessControlGenerationBuilder()
+        builder = _HarnessProjectionGenerationBuilder()
         with TemporaryDirectory(prefix="harness-control-verification-") as workspace:
             try:
                 generation = builder.execute(inputs.request, Path(workspace).resolve())
@@ -80,7 +80,7 @@ class _HarnessControlSourceVerifier:
                     None,
                     f"canonical source input is nonconforming: {exc}",
                 )
-                return HarnessControlVerificationResult(
+                return _HarnessProjectionVerificationResult(
                     "not_checked",
                     0,
                     "",
@@ -95,7 +95,7 @@ class _HarnessControlSourceVerifier:
                 )
             candidate = dict(generation.artifacts)
             candidate_paths = frozenset(candidate)
-            findings: list[HarnessControlVerificationFinding] = []
+            findings: list[_HarnessProjectionVerificationFinding] = []
             database_path = root / CONTROL_DATABASE_PATH
             integrity = "missing"
             foreign_count = 0
@@ -226,7 +226,7 @@ class _HarnessControlSourceVerifier:
                     key=lambda item: (item.code, item.path or "", item.message),
                 )
             )
-            return HarnessControlVerificationResult(
+            return _HarnessProjectionVerificationResult(
                 integrity,
                 foreign_count,
                 source_digest,
@@ -245,7 +245,7 @@ class _HarnessControlSourceVerifier:
         root: Path,
         relative: Path,
         candidate: Path,
-        findings: list[HarnessControlVerificationFinding],
+        findings: list[_HarnessProjectionVerificationFinding],
     ) -> bool:
         """Compare one exact artifact and append one stable expected finding."""
         maintained = root / relative

@@ -18,9 +18,9 @@ flowchart TB
 
 | Package or module owner | Responsibility |
 |---|---|
-| `HarnessControlMigrationRequest` | Explicit repository root and canonical evidence/resource inputs |
-| `HarnessControlMigrator` | Candidate construction, validation, and publication orchestration |
-| `HarnessControlVerifier` | Candidate reconstruction and read-only comparison |
+| Private projection request | Explicit repository root and canonical evidence/resource inputs |
+| Private projection synchronizer | Candidate construction, validation, and publication orchestration |
+| Private projection verifier | Candidate reconstruction and read-only comparison |
 | `local.control.inputs` | Canonical source selection and decoding |
 | `local.control.generation` | Candidate SQLite and projection construction |
 | `HarnessValidator` | Repository-level validation composition |

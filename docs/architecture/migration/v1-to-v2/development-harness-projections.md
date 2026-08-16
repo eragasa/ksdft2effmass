@@ -2,10 +2,10 @@
 
 ## Purpose
 
-This page defines the incremental replacement of the implemented v1
-`HarnessControl*` projection path by the Architecture v2 development-harness
-compiler and projection boundary. The v1 names are compatibility surfaces during
-migration, not permanent aliases for v2 objects.
+This page defines the incremental replacement of the implemented v1 projection path
+by the Architecture v2 development-harness compiler and projection boundary. The
+former public `HarnessControl*` compatibility names are retired; private v1
+projection mechanics remain during migration and are not aliases for v2 objects.
 
 Repository sources remain authoritative throughout. Generated SQLite, SQL,
 manifests, and other projections grant no Task, operation, protected-action, or
@@ -32,8 +32,9 @@ candidate set; it does not publish or compare it.
 
 Move publication into `HarnessSynchronizer` and read-only drift comparison into
 `HarnessStateComparator`. Both consume the same validated candidate artifact set.
-The v1 `HarnessControlMigrator` and `HarnessControlVerifier` may delegate during
-this increment but may not remain independent construction paths.
+The former public v1 `HarnessControl*` compatibility API is removed. Private
+projection synchronization and checking continue to share the one v1 candidate
+construction path until this increment supplies their replacements.
 
 ### 4. Introduce one closed source and compiler path
 
@@ -48,10 +49,10 @@ snapshot closes.
 After replacement behavior passes its accepted compatibility checks:
 
 - keep the removed `python/src/cli/harness_control.py` entry point retired;
-- remove every public `HarnessControlMigration*` and `HarnessControlVerification*`
-  object and export;
-- remove `HarnessControlMigrator` and `HarnessControlVerifier` rather than retaining
-  aliases or delegating facades;
+- keep every retired public `HarnessControlMigration*` and
+  `HarnessControlVerification*` object and export absent;
+- keep the retired `HarnessControlMigrator` and `HarnessControlVerifier` names absent
+  rather than restoring aliases or delegating facades;
 - remove the `local.dbcontrol` compatibility modules when no persistence mechanic
   still needs that namespace;
 - migrate maintained callers, tests, and documentation to the v2 owners; and

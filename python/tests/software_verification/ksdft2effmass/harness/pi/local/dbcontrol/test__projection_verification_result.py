@@ -1,4 +1,4 @@
-r"""Software verification of ``HarnessControlVerificationResult``.
+r"""Software verification of ``_HarnessProjectionVerificationResult``.
 
 Evidence profile: claim_bearing
 
@@ -23,16 +23,16 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
-    HarnessControlVerificationFinding,
-    HarnessControlVerificationResult,
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionVerificationFinding,
+    _HarnessProjectionVerificationResult,
 )
 
-SUT = HarnessControlVerificationResult
+SUT = _HarnessProjectionVerificationResult
 pytestmark = pytest.mark.software_verification
 
 
-def agreement(*, raw_candidate: str = "raw") -> HarnessControlVerificationResult:
+def agreement(*, raw_candidate: str = "raw") -> _HarnessProjectionVerificationResult:
     """Evidence ID: Owns no identifier; supports verification-result evidence.
 
     Requirement: Result tests need one complete represented-agreement value.
@@ -40,7 +40,7 @@ def agreement(*, raw_candidate: str = "raw") -> HarnessControlVerificationResult
     Method: Construct exact literal agreement fields with one selectable diagnostic
     candidate hash.
 
-    Oracle: The public result contract fixes represented agreement independently of
+    Oracle: The private result contract fixes represented agreement independently of
     raw hash equality.
 
     Acceptance: Return one immutable successful result.
@@ -67,7 +67,7 @@ def test_constructor__reconstruction_fields__preserve_exact_values() -> None:
     hashes differ, and equal constructions compare exactly.
 
     Interpretation: Failure conflates SQLite bytes with represented semantics or loses
-    public state.
+    private state.
 
     Limitations: No SQLite file is opened.
     """  # noqa: E501
@@ -148,10 +148,10 @@ def test_constructor__structured_findings__require_sorted_unique_consistency() -
 
     Limitations: Finding code field invariants have their own class owner.
     """  # noqa: E501
-    changed = HarnessControlVerificationFinding(
+    changed = _HarnessProjectionVerificationFinding(
         "changed_artifact", "harness/state/harness-control.sql", "changed"
     )
-    semantic = HarnessControlVerificationFinding(
+    semantic = _HarnessProjectionVerificationFinding(
         "semantic_disagreement", "harness/state/harness-control.sqlite3", "different"
     )
     findings = (changed, semantic)
@@ -182,7 +182,7 @@ def test_constructor__structured_findings__require_sorted_unique_consistency() -
 def test_constructor__immutability__rejects_field_assignment() -> None:
     """Evidence ID: software-verification.harness.sqlite-control.verification-result.immutable
 
-    Requirement: Verification results reject public mutation.
+    Requirement: Verification results reject private mutation.
 
     Method: Assign a new digest to a successful frozen result.
 

@@ -1,4 +1,4 @@
-"""Public migration facade and sole publisher for harness control state."""
+"""Private synchronization boundary for maintained Harness projections."""
 
 from __future__ import annotations
 
@@ -7,17 +7,17 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from ..control.generation import (
-    _HarnessControlGeneration,
-    _HarnessControlGenerationBuilder,
+    _HarnessProjectionGeneration,
+    _HarnessProjectionGenerationBuilder,
 )
-from .records import HarnessControlMigrationRequest, HarnessControlMigrationResult
+from .records import _HarnessProjectionRequest, _HarnessProjectionSyncResult
 
 
-class HarnessControlMigrator:
-    """Migrate explicit repository inputs into maintained harness control state.
+class _HarnessProjectionSynchronizer:
+    """Synchronize explicit repository inputs into maintained Harness projections.
 
     Complete candidate orchestration belongs to the private project-local control
-    layer. This public Action validates the candidate and remains the sole owner of
+    layer. This private Action validates the candidate and remains the sole owner of
     failure-safe maintained publication.
     """
 
@@ -25,7 +25,7 @@ class HarnessControlMigrator:
 
     @staticmethod
     def _publish_generation(
-        generation: _HarnessControlGeneration, repository_root: Path
+        generation: _HarnessProjectionGeneration, repository_root: Path
     ) -> None:
         """Prepare, stage, verify, and publish one validated candidate generation.
 
@@ -36,8 +36,8 @@ class HarnessControlMigrator:
         fails, retained backups restore every previously published output before the
         error is returned.
         """
-        if type(generation) is not _HarnessControlGeneration:
-            raise TypeError("generation must be _HarnessControlGeneration")
+        if type(generation) is not _HarnessProjectionGeneration:
+            raise TypeError("generation must be _HarnessProjectionGeneration")
         outputs = {
             repository_root / relative: candidate.read_bytes()
             for relative, candidate in generation.artifacts
@@ -119,17 +119,17 @@ class HarnessControlMigrator:
                 path.unlink(missing_ok=True)
 
     def execute(
-        self, request: HarnessControlMigrationRequest
-    ) -> HarnessControlMigrationResult:
+        self, request: _HarnessProjectionRequest
+    ) -> _HarnessProjectionSyncResult:
         """Build, validate, and publish one complete control generation."""
-        if type(request) is not HarnessControlMigrationRequest:
-            raise TypeError("request must be HarnessControlMigrationRequest")
-        builder = _HarnessControlGenerationBuilder()
-        with TemporaryDirectory(prefix="harness-control-migration-") as raw_workspace:
+        if type(request) is not _HarnessProjectionRequest:
+            raise TypeError("request must be _HarnessProjectionRequest")
+        builder = _HarnessProjectionGenerationBuilder()
+        with TemporaryDirectory(prefix="harness-projection-sync-") as raw_workspace:
             generation = builder.execute(request, Path(raw_workspace).resolve())
             builder.validate(generation)
             self._publish_generation(generation, request.repository_root)
-            return HarnessControlMigrationResult(
+            return _HarnessProjectionSyncResult(
                 generation.schema_version,
                 generation.semantic_digest,
                 generation.counts,

@@ -1,4 +1,4 @@
-r"""Software verification of ``HarnessControlVerifier``.
+r"""Software verification of ``_HarnessProjectionVerifier``.
 
 Evidence profile: claim_bearing
 
@@ -7,11 +7,11 @@ Bounded artifact scope: the module's declared evidence owner.
 Facet and represented meaning
 
 The module owns source-aware, nonmutating represented behavior of
-``HarnessControlVerifier``.
+``_HarnessProjectionVerifier``.
 
 Intrinsic and cross-object scope
 
-The public verifier is exercised against isolated exact copies of canonical source and
+The private verifier is exercised against isolated exact copies of canonical source and
 maintained control state. Private collaborators are replaced only at explicit failure
 seams.
 
@@ -32,16 +32,20 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
-    HarnessControlMigrationRequest,
-    HarnessControlMigrator,
-    HarnessControlVerifier,
-)
 from ksdft2effmass.harness.pi.local.control.generation import (
-    _HarnessControlGenerationBuilder,
+    _HarnessProjectionGenerationBuilder,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.migration import (
+    _HarnessProjectionSynchronizer,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionRequest,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
+    _HarnessProjectionVerifier,
 )
 
-SUT = HarnessControlVerifier
+SUT = _HarnessProjectionVerifier
 
 pytestmark = pytest.mark.software_verification
 
@@ -149,17 +153,17 @@ def mutate_source(root: Path, kind: str) -> None:
         raise ValueError(kind)
 
 
-def canonical_migration_request(root: Path) -> HarnessControlMigrationRequest:
+def canonical_migration_request(root: Path) -> _HarnessProjectionRequest:
     """Evidence ID: Owns no identifier; supports stale-source verifier evidence.
 
-    Requirement: The stale-source partition needs explicit public migration inputs.
+    Requirement: The stale-source partition needs explicit private migration inputs.
 
     Method: Select test modules and fixed maintained profile, migration, and resource
     paths from the isolated fixture root.
 
-    Oracle: The canonical input map fixes these independently named public inputs.
+    Oracle: The canonical input map fixes these independently named private inputs.
 
-    Acceptance: Return one complete public migration request.
+    Acceptance: Return one complete private migration request.
 
     Interpretation: Failure indicates fixture input drift.
 
@@ -169,7 +173,7 @@ def canonical_migration_request(root: Path) -> HarnessControlMigrationRequest:
         path.relative_to(root)
         for path in sorted((root / "python/tests").rglob("test*.py"))
     )
-    return HarnessControlMigrationRequest(
+    return _HarnessProjectionRequest(
         root,
         evidence_profile_matrix_path=Path(
             "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
@@ -213,7 +217,7 @@ def test_method__execute_relative_root__raises_value_error() -> None:
 
     Requirement: Verification uses an explicit absolute repository boundary.
 
-    Method: Call the public verifier with a relative path.
+    Method: Call the private verifier with a relative path.
 
     Oracle: ``Path('.')`` is not absolute.
 
@@ -224,7 +228,7 @@ def test_method__execute_relative_root__raises_value_error() -> None:
     Limitations: Valid source-aware comparison is covered separately.
     """  # noqa: E501
     with pytest.raises(ValueError):
-        HarnessControlVerifier().execute(Path("."))
+        _HarnessProjectionVerifier().execute(Path("."))
 
 
 def test_method__execute_valid_source_state__reports_exact_semantic_agreement(
@@ -248,13 +252,13 @@ def test_method__execute_valid_source_state__reports_exact_semantic_agreement(
 
     Limitations: Individual drift domains are covered separately.
     """  # noqa: E501
-    result = HarnessControlVerifier().execute(control_root)
+    result = _HarnessProjectionVerifier().execute(control_root)
     assert result.findings == ()
     database = control_root / "harness/state/harness-control.sqlite3"
     with sqlite3.connect(database) as connection:
         connection.execute("PRAGMA journal_mode=DELETE")
         connection.execute("PRAGMA application_id=1")
-    changed = HarnessControlVerifier().execute(control_root)
+    changed = _HarnessProjectionVerifier().execute(control_root)
     assert changed.findings == ()
     assert changed.semantic_digest == changed.reconstructed_semantic_digest
     assert changed.raw_database_sha256 != changed.reconstructed_database_sha256
@@ -285,7 +289,7 @@ def test_method__execute_authoritative_source_drift__reports_disagreement(
     agent-settings authority are detected when maintained control artifacts still
     represent the prior sources.
 
-    Method: Apply one valid source-domain mutation and execute public verification.
+    Method: Apply one valid source-domain mutation and execute private verification.
 
     Oracle: The untouched maintained database and SQL cannot represent the changed
     authoritative source selected by the frozen map.
@@ -299,7 +303,7 @@ def test_method__execute_authoritative_source_drift__reports_disagreement(
     """  # noqa: E501
     before = generation_snapshot(control_root)
     mutate_source(control_root, kind)
-    result = HarnessControlVerifier().execute(control_root)
+    result = _HarnessProjectionVerifier().execute(control_root)
     assert "semantic_disagreement" in {item.code for item in result.findings}
     assert "changed_artifact" in {item.code for item in result.findings}
     assert generation_snapshot(control_root) == before
@@ -314,7 +318,7 @@ def test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources(
     with canonical source authority.
 
     Method: Change one evidence source, publish that internally consistent generation,
-    restore the original source, and execute public verification.
+    restore the original source, and execute private verification.
 
     Oracle: Restored source bytes define a candidate distinct from both jointly changed
     maintained persistence artifacts.
@@ -328,9 +332,9 @@ def test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources(
     source = control_root / "python/tests/test__import.py"
     original = source.read_bytes()
     mutate_source(control_root, "evidence")
-    HarnessControlMigrator().execute(canonical_migration_request(control_root))
+    _HarnessProjectionSynchronizer().execute(canonical_migration_request(control_root))
     source.write_bytes(original)
-    result = HarnessControlVerifier().execute(control_root)
+    result = _HarnessProjectionVerifier().execute(control_root)
     assert "semantic_disagreement" in {item.code for item in result.findings}
     assert result.sql_identical is False
 
@@ -363,7 +367,7 @@ def test_method__execute_temporary_workspace__cleans_after_success_and_failure(
         "ksdft2effmass.harness.pi.local.control.verification.TemporaryDirectory",
         lambda **kwargs: success,
     )
-    HarnessControlVerifier().execute(control_root)
+    _HarnessProjectionVerifier().execute(control_root)
     assert success_path.exists() is False
     failure = TemporaryDirectory(dir=tmp_path, prefix="failure-")
     failure_path = Path(failure.name)
@@ -375,8 +379,8 @@ def test_method__execute_temporary_workspace__cleans_after_success_and_failure(
     def reject(self: Any, generation: Any) -> None:
         raise RuntimeError("injected verification failure")
 
-    monkeypatch.setattr(_HarnessControlGenerationBuilder, "validate", reject)
+    monkeypatch.setattr(_HarnessProjectionGenerationBuilder, "validate", reject)
     with pytest.raises(RuntimeError, match="injected verification failure"):
-        HarnessControlVerifier().execute(control_root)
+        _HarnessProjectionVerifier().execute(control_root)
     assert failure_path.exists() is False
     assert generation_snapshot(control_root) == before

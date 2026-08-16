@@ -27,18 +27,20 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
-    HarnessControlMigrationRequest,
-    HarnessControlMigrator,
-)
 from ksdft2effmass.harness.pi.local.control.generation import (
-    _HarnessControlGenerationBuilder,
+    _HarnessProjectionGenerationBuilder,
 )
 from ksdft2effmass.harness.pi.local.dbcontrol.database import _ControlDatabase
 from ksdft2effmass.harness.pi.local.dbcontrol.ingestion import (
     _RepositoryControlIngestor,
 )
+from ksdft2effmass.harness.pi.local.dbcontrol.migration import (
+    _HarnessProjectionSynchronizer,
+)
 from ksdft2effmass.harness.pi.local.dbcontrol.projections import _ControlProjector
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionRequest,
+)
 
 pytestmark = pytest.mark.software_verification
 
@@ -113,15 +115,15 @@ def test_artifact__generation__candidate_and_publication_are_equivalent(
     workspace = tmp_path / "workspace"
     repository.mkdir()
     workspace.mkdir()
-    request = HarnessControlMigrationRequest(
+    request = _HarnessProjectionRequest(
         repository.resolve(), database_path=Path("custom/control.sqlite3")
     )
-    generation = _HarnessControlGenerationBuilder().execute(
+    generation = _HarnessProjectionGenerationBuilder().execute(
         request, workspace.resolve()
     )
-    _HarnessControlGenerationBuilder().validate(generation)
+    _HarnessProjectionGenerationBuilder().validate(generation)
     candidate = dict(generation.artifacts)
-    result = HarnessControlMigrator().execute(request)
+    result = _HarnessProjectionSynchronizer().execute(request)
     assert result.semantic_digest == generation.semantic_digest
     assert semantic_digest(repository / request.database_path) == semantic_digest(
         generation.database_path
@@ -161,8 +163,8 @@ def test_artifact__generation__builder_writes_only_to_owned_workspace(
     workspace = tmp_path / "workspace"
     repository.mkdir()
     workspace.mkdir()
-    generation = _HarnessControlGenerationBuilder().execute(
-        HarnessControlMigrationRequest(repository.resolve()), workspace.resolve()
+    generation = _HarnessProjectionGenerationBuilder().execute(
+        _HarnessProjectionRequest(repository.resolve()), workspace.resolve()
     )
     assert tuple(repository.rglob("*")) == ()
     candidates = dict(generation.artifacts)
@@ -223,13 +225,15 @@ def test_artifact__publication__candidate_validation_precedes_publisher(
         nonlocal published
         published = True
 
-    monkeypatch.setattr(_HarnessControlGenerationBuilder, "validate", reject_candidate)
     monkeypatch.setattr(
-        HarnessControlMigrator, "_publish_generation", observe_publication
+        _HarnessProjectionGenerationBuilder, "validate", reject_candidate
+    )
+    monkeypatch.setattr(
+        _HarnessProjectionSynchronizer, "_publish_generation", observe_publication
     )
     with pytest.raises(RuntimeError, match="candidate validation failure"):
-        HarnessControlMigrator().execute(
-            HarnessControlMigrationRequest(repository.resolve())
+        _HarnessProjectionSynchronizer().execute(
+            _HarnessProjectionRequest(repository.resolve())
         )
     assert published is False
     assert tuple(repository.rglob("*")) == ()
@@ -265,8 +269,8 @@ def test_artifact__generation__projection_path_escape_fails_before_external_writ
         lambda self: {"../escaped.txt": ("task-json", b"escaped\n")},
     )
     with pytest.raises(ValueError, match="candidate output path is not confined"):
-        _HarnessControlGenerationBuilder().execute(
-            HarnessControlMigrationRequest(repository.resolve()), workspace.resolve()
+        _HarnessProjectionGenerationBuilder().execute(
+            _HarnessProjectionRequest(repository.resolve()), workspace.resolve()
         )
     assert (tmp_path / "escaped.txt").exists() is False
 
@@ -316,6 +320,6 @@ def test_artifact__generation__task_identity_must_equal_source_filename(
     }
     (tasks / "wrong.json").write_text(json.dumps(document))
     with pytest.raises(ValueError, match="identity must equal its source filename"):
-        _HarnessControlGenerationBuilder().execute(
-            HarnessControlMigrationRequest(repository.resolve()), workspace.resolve()
+        _HarnessProjectionGenerationBuilder().execute(
+            _HarnessProjectionRequest(repository.resolve()), workspace.resolve()
         )

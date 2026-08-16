@@ -36,13 +36,13 @@ from ..dbcontrol.encoding import _ControlEncoding
 from ..dbcontrol.ingestion import _RepositoryControlIngestor
 from ..dbcontrol.input_files import _ControlInputFileSelector
 from ..dbcontrol.projections import _ControlProjector
-from ..dbcontrol.records import HarnessControlMigrationRequest
+from ..dbcontrol.records import _HarnessProjectionRequest
 from ..dbcontrol.resources import _ControlResourceCorpus, _ControlResourceCorpusBuilder
 from ..dbcontrol.schema import _SCHEMA
 
 
 @dataclass(frozen=True, slots=True)
-class _HarnessControlGeneration:
+class _HarnessProjectionGeneration:
     """Immutable descriptor of artifacts owned by one temporary workspace lifetime.
 
     The descriptor is immutable. The referenced files are temporary external
@@ -60,7 +60,7 @@ class _HarnessControlGeneration:
     projection_paths: tuple[str, ...]
 
 
-class _HarnessControlGenerationBuilder:
+class _HarnessProjectionGenerationBuilder:
     """Construct and validate one complete nonauthoritative control candidate."""
 
     __slots__ = ()
@@ -82,7 +82,7 @@ class _HarnessControlGenerationBuilder:
 
     @staticmethod
     def _canonical_evidence_corpus(
-        request: HarnessControlMigrationRequest,
+        request: _HarnessProjectionRequest,
     ) -> tuple[
         tuple[Mapping[str, Any], ...],
         tuple[PythonTestModuleModel, ...],
@@ -157,7 +157,7 @@ class _HarnessControlGenerationBuilder:
 
     @staticmethod
     def _canonical_resource_corpus(
-        request: HarnessControlMigrationRequest,
+        request: _HarnessProjectionRequest,
     ) -> _ControlResourceCorpus | None:
         """Build canonical resources only from the request's explicit paths."""
         if request.resource_profile_path is None:
@@ -176,11 +176,11 @@ class _HarnessControlGenerationBuilder:
         )
 
     def execute(
-        self, request: HarnessControlMigrationRequest, workspace_root: Path
-    ) -> _HarnessControlGeneration:
+        self, request: _HarnessProjectionRequest, workspace_root: Path
+    ) -> _HarnessProjectionGeneration:
         """Build complete candidate artifacts beneath ``workspace_root``."""
-        if type(request) is not HarnessControlMigrationRequest:
-            raise TypeError("request must be HarnessControlMigrationRequest")
+        if type(request) is not _HarnessProjectionRequest:
+            raise TypeError("request must be _HarnessProjectionRequest")
         if (
             not isinstance(workspace_root, Path)
             or not workspace_root.is_absolute()
@@ -317,7 +317,7 @@ class _HarnessControlGenerationBuilder:
             if candidate != candidate_database:
                 candidate.write_bytes(payload)
             artifacts.append((relative, candidate))
-        return _HarnessControlGeneration(
+        return _HarnessProjectionGeneration(
             workspace_root,
             candidate_database,
             tuple(artifacts),
@@ -328,10 +328,10 @@ class _HarnessControlGenerationBuilder:
             tuple(sorted(projections)),
         )
 
-    def validate(self, generation: _HarnessControlGeneration) -> None:
+    def validate(self, generation: _HarnessProjectionGeneration) -> None:
         """Validate one complete candidate before comparison or publication."""
-        if type(generation) is not _HarnessControlGeneration:
-            raise TypeError("generation must be _HarnessControlGeneration")
+        if type(generation) is not _HarnessProjectionGeneration:
+            raise TypeError("generation must be _HarnessProjectionGeneration")
         expected = {relative for relative, _candidate in generation.artifacts}
         if len(expected) != len(generation.artifacts):
             raise RuntimeError("candidate generation contains duplicate output paths")

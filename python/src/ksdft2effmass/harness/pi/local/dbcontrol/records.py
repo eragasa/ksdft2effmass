@@ -1,4 +1,4 @@
-"""Immutable request and result records for project-local control actions."""
+"""Private immutable records for project-local projection actions."""
 
 from __future__ import annotations
 
@@ -10,10 +10,10 @@ from .constants import CONTROL_DATABASE_PATH
 
 
 @dataclass(frozen=True, slots=True)
-class HarnessControlMigrationRequest:
-    """Explicit inputs for one control-state migration.
+class _HarnessProjectionRequest:
+    """Explicit inputs for one projection synchronization.
 
-    During migration, authoritative Python test sources and canonical evidence
+    During synchronization, authoritative Python test sources and canonical evidence
     declarations are observed once into an immutable in-memory corpus.
     Validation and ingestion reuse that corpus and its source identities.
 
@@ -25,7 +25,7 @@ class HarnessControlMigrationRequest:
     ``evidence_module_paths`` selects the authoritative Python sources.
     ``evidence_profile_matrix_path`` and ``evidence_migration_path`` select the
     canonical profile policy and predecessor declarations. An empty evidence corpus
-    preserves bounded noncanonical behavior for isolated migration callers.
+    preserves bounded noncanonical behavior for isolated synchronization callers.
 
     The five resource fields select one explicit project profile, generic and
     local manifests, and their roots. They are supplied together for canonical
@@ -120,8 +120,8 @@ class HarnessControlMigrationRequest:
 
 
 @dataclass(frozen=True, slots=True)
-class HarnessControlMigrationResult:
-    """Immutable summary of migrated structured control state."""
+class _HarnessProjectionSyncResult:
+    """Immutable summary of synchronized structured projection state."""
 
     schema_version: int
     semantic_digest: str
@@ -143,7 +143,7 @@ _VERIFICATION_FINDING_CODES = {
 
 
 @dataclass(frozen=True, slots=True)
-class HarnessControlVerificationFinding:
+class _HarnessProjectionVerificationFinding:
     """One deterministic maintained-control disagreement.
 
     Parameters
@@ -176,7 +176,7 @@ class HarnessControlVerificationFinding:
 
 
 @dataclass(frozen=True, slots=True)
-class HarnessControlVerificationResult:
+class _HarnessProjectionVerificationResult:
     """Immutable deterministic source-aware control verification result.
 
     Raw SQLite hashes are diagnostic only. Conformance is determined from integrity,
@@ -194,7 +194,7 @@ class HarnessControlVerificationResult:
     schema_version_agrees: bool = True
     sql_identical: bool = True
     manifest_identical: bool = True
-    findings: tuple[HarnessControlVerificationFinding, ...] = ()
+    findings: tuple[_HarnessProjectionVerificationFinding, ...] = ()
 
     def __post_init__(self) -> None:
         for name in (
@@ -219,7 +219,7 @@ class HarnessControlVerificationResult:
             if type(getattr(self, name)) is not bool:
                 raise TypeError(f"{name} must be bool")
         if type(self.findings) is not tuple or any(
-            type(item) is not HarnessControlVerificationFinding
+            type(item) is not _HarnessProjectionVerificationFinding
             for item in self.findings
         ):
             raise TypeError("findings must contain verification findings")

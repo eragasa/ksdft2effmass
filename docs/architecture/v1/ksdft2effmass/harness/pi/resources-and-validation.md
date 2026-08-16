@@ -49,11 +49,12 @@ checksums, skills, and Python evidence structure. Project-local `HarnessValidato
 composes six ordered checks: `python_evidence`, `resources`, `task_graph`,
 `checkpoints`, `skills`, and `control_state`.
 
-`HarnessControlMigrator` is the sole publisher of maintained SQLite, deterministic
-SQL, the projection manifest, the Task graph, resource-manifest projections, and the
-Python evidence module inventory. `HarnessControlVerifier` reconstructs the same
-candidate without publication and compares integrity, schema, normalized content,
-SQL, manifest, and owned projections. Generated projections do not target `docs/`.
+The private projection synchronizer is the sole publisher of maintained SQLite,
+deterministic SQL, the projection manifest, the Task graph, resource-manifest
+projections, and the Python evidence module inventory. The private check action
+reconstructs the same candidate without publication and compares integrity, schema,
+normalized content, SQL, manifest, and owned projections. Generated projections do
+not target `docs/`.
 
 A validation `PASS` establishes only the stated structural or software contract. It
 does not establish Task authority, scientific correctness, numerical verification,

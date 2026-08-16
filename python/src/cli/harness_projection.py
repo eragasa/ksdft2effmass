@@ -9,16 +9,20 @@ from dataclasses import asdict
 from pathlib import Path
 
 from ksdft2effmass.harness.pi import PiHarnessConfigurationDeserializer
-from ksdft2effmass.harness.pi.local import (
-    HarnessControlMigrationRequest,
-    HarnessControlMigrationResult,
-    HarnessControlMigrator,
-    HarnessControlVerificationResult,
-    HarnessControlVerifier,
+from ksdft2effmass.harness.pi.local.dbcontrol.migration import (
+    _HarnessProjectionSynchronizer,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionRequest,
+    _HarnessProjectionSyncResult,
+    _HarnessProjectionVerificationResult,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
+    _HarnessProjectionVerifier,
 )
 
 
-def _verification_passed(result: HarnessControlVerificationResult) -> bool:
+def _verification_passed(result: _HarnessProjectionVerificationResult) -> bool:
     """Return whether every represented control verification check agrees."""
     return (
         result.integrity_check == "ok"
@@ -87,7 +91,7 @@ def _execute(
     args: argparse.Namespace, parser: argparse.ArgumentParser, root: Path
 ) -> int:
     """Execute parsed control arguments and render the complete public result."""
-    result: HarnessControlMigrationResult | HarnessControlVerificationResult
+    result: _HarnessProjectionSyncResult | _HarnessProjectionVerificationResult
     if args.action == "sync":
         required = {
             "--evidence-profile-matrix": args.evidence_profile_matrix,
@@ -120,8 +124,8 @@ def _execute(
         configuration = PiHarnessConfigurationDeserializer().execute(
             settings_path.read_bytes()
         )
-        result = HarnessControlMigrator().execute(
-            HarnessControlMigrationRequest(
+        result = _HarnessProjectionSynchronizer().execute(
+            _HarnessProjectionRequest(
                 root,
                 evidence_profile_matrix_path=args.evidence_profile_matrix,
                 evidence_module_paths=tuple(args.evidence_module),
@@ -149,9 +153,9 @@ def _execute(
             parser.error(
                 "configuration, evidence, and resource inputs are valid only with sync"
             )
-        result = HarnessControlVerifier().execute(root)
+        result = _HarnessProjectionVerifier().execute(root)
     print(json.dumps(asdict(result), indent=2))
-    if isinstance(result, HarnessControlVerificationResult):
+    if isinstance(result, _HarnessProjectionVerificationResult):
         return 0 if _verification_passed(result) else 1
     return 0
 

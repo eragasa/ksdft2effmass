@@ -26,6 +26,7 @@ import pytest
 
 import ksdft2effmass.harness.pi.local as local
 import ksdft2effmass.harness.pi.local.adapters as adapter_facade
+import ksdft2effmass.harness.pi.local.dbcontrol as dbcontrol
 from ksdft2effmass.harness.pi.local import (
     AdaptationResult,
     LocalIssue,
@@ -70,6 +71,9 @@ EXPECTED = (
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
+)
+
+RETIRED_CONTROL_NAMES = (
     "HarnessControlMigrationRequest",
     "HarnessControlMigrationResult",
     "HarnessControlMigrator",
@@ -98,7 +102,9 @@ def test_public_api__exports__contains_exact_maintained_names() -> None:
     Limitations: Import agreement does not establish behavior or scientific claims.
     """
     assert tuple(local.__all__) == EXPECTED
-    assert len(EXPECTED) == 29
+    assert all(not hasattr(local, name) for name in RETIRED_CONTROL_NAMES)
+    assert dbcontrol.__all__ == []
+    assert all(not hasattr(dbcontrol, name) for name in RETIRED_CONTROL_NAMES)
     assert tuple(adapter_facade.__all__) == tuple(ADAPTER_EXECUTE_PARAMETERS)
     assert all(
         getattr(adapter_facade, name) is getattr(local, name)

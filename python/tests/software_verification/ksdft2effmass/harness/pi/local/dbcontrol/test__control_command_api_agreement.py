@@ -10,8 +10,8 @@ The module owns the cohesive projection command/API agreement artifact.
 
 Intrinsic and cross-object scope
 
-The command rendering is compared with a literal public Action result at the closest
-mirrored package seam.
+The command rendering is compared with a literal private projection result at the
+closest mirrored package seam.
 
 VVUQ and scientific exclusions
 
@@ -26,14 +26,18 @@ from types import ModuleType
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
-    HarnessControlMigrationRequest,
-    HarnessControlMigrationResult,
-    HarnessControlVerificationFinding,
-    HarnessControlVerificationResult,
+from ksdft2effmass.harness.pi.local.dbcontrol.migration import (
+    _HarnessProjectionSynchronizer,
 )
-from ksdft2effmass.harness.pi.local.dbcontrol.migration import HarnessControlMigrator
-from ksdft2effmass.harness.pi.local.dbcontrol.verification import HarnessControlVerifier
+from ksdft2effmass.harness.pi.local.dbcontrol.records import (
+    _HarnessProjectionRequest,
+    _HarnessProjectionSyncResult,
+    _HarnessProjectionVerificationFinding,
+    _HarnessProjectionVerificationResult,
+)
+from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
+    _HarnessProjectionVerifier,
+)
 
 pytestmark = pytest.mark.software_verification
 
@@ -69,28 +73,28 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.migrate-forwards-explicit-ownership-input
 
-    Requirement: The maintained sync command forwards its repository-relative canonical evidence and resource paths through the public request without changing migration signatures.
+    Requirement: The maintained sync command forwards its repository-relative canonical evidence and resource paths through the private request without changing command behavior.
 
-    Method: Invoke the command with an explicit root, profile matrix, test source, migration map, profile, manifests, and resource roots while replacing the public migrator with a literal-result seam.
+    Method: Invoke the command with an explicit root, profile matrix, test source, migration map, profile, manifests, and resource roots while replacing the private synchronizer with a literal-result seam.
 
     Oracle: The command arguments define the exact repository-relative request values.
 
-    Acceptance: Exit status is zero, the captured request preserves the resolved root and every exact relative path, and JSON rendering uses the public result fields.
+    Acceptance: Exit status is zero, the captured request preserves the resolved root and every exact relative path, and JSON rendering uses the projection result fields.
 
     Interpretation: Failure indicates CLI/API dispatch drift or loss of explicit input confinement.
 
     Limitations: Source conformance and persistence are owned by migrator evidence.
     """  # noqa: E501
-    expected = HarnessControlMigrationResult(2, "digest", (), (), ())
-    observed: list[HarnessControlMigrationRequest] = []
+    expected = _HarnessProjectionSyncResult(2, "digest", (), (), ())
+    observed: list[_HarnessProjectionRequest] = []
 
     def execute_literal(
-        self: HarnessControlMigrator, request: HarnessControlMigrationRequest
-    ) -> HarnessControlMigrationResult:
+        self: _HarnessProjectionSynchronizer, request: _HarnessProjectionRequest
+    ) -> _HarnessProjectionSyncResult:
         observed.append(request)
         return expected
 
-    monkeypatch.setattr(HarnessControlMigrator, "execute", execute_literal)
+    monkeypatch.setattr(_HarnessProjectionSynchronizer, "execute", execute_literal)
     settings = tmp_path / ".pi/settings.json"
     settings.parent.mkdir(parents=True)
     settings.write_text(
@@ -197,18 +201,18 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
     )
 
 
-def test_artifact__verify_command__agrees_with_public_result(
+def test_artifact__verify_command__agrees_with_projection_result(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.verify-agrees-with-api
 
-    Requirement: The maintained check command renders every public verifier result
-    field without changing names or values and exits successfully.
+    Requirement: The maintained check command renders every private verification
+    result field without changing names or values and exits successfully.
 
     Method: Supply one immutable literal verifier result, invoke the maintained command
     with an explicit absolute root, and parse its JSON output independently.
 
-    Oracle: The literal dataclass field values define the public API result.
+    Oracle: The literal dataclass field values define the command result.
 
     Acceptance: Exit status is zero and rendered JSON equals the exact literal mapping.
 
@@ -216,8 +220,10 @@ def test_artifact__verify_command__agrees_with_public_result(
 
     Limitations: SQLite reconstruction is owned by verifier evidence and is not repeated.
     """  # noqa: E501
-    expected = HarnessControlVerificationResult("ok", 0, "a", "a", "c", "c", True)
-    monkeypatch.setattr(HarnessControlVerifier, "execute", lambda self, root: expected)
+    expected = _HarnessProjectionVerificationResult("ok", 0, "a", "a", "c", "c", True)
+    monkeypatch.setattr(
+        _HarnessProjectionVerifier, "execute", lambda self, root: expected
+    )
     monkeypatch.setattr(
         sys,
         "argv",
@@ -261,13 +267,15 @@ def test_artifact__verify_command__returns_literal_failure_for_reported_drift(
 
     Limitations: Drift detection itself belongs to verifier evidence.
     """  # noqa: E501
-    finding = HarnessControlVerificationFinding(
+    finding = _HarnessProjectionVerificationFinding(
         "changed_artifact", "harness/task-graph.json", "candidate differs"
     )
-    expected = HarnessControlVerificationResult(
+    expected = _HarnessProjectionVerificationResult(
         "ok", 0, "a", "a", "c", "d", False, True, True, True, (finding,)
     )
-    monkeypatch.setattr(HarnessControlVerifier, "execute", lambda self, root: expected)
+    monkeypatch.setattr(
+        _HarnessProjectionVerifier, "execute", lambda self, root: expected
+    )
     monkeypatch.setattr(
         sys,
         "argv",
@@ -305,7 +313,7 @@ def test_artifact__verify_command__unexpected_failure_returns_exit_three(
     Requirement: Unexpected verifier failures are translated only at the command
     boundary to exit three and structured internal-error output.
 
-    Method: Inject one runtime failure at the public verifier seam.
+    Method: Inject one runtime failure at the private verifier seam.
 
     Oracle: The maintained command exit contract reserves three for internal errors.
 
@@ -316,10 +324,10 @@ def test_artifact__verify_command__unexpected_failure_returns_exit_three(
     Limitations: Expected drift is covered separately.
     """  # noqa: E501
 
-    def fail(self: object, root: Path) -> HarnessControlVerificationResult:
+    def fail(self: object, root: Path) -> _HarnessProjectionVerificationResult:
         raise RuntimeError("injected failure")
 
-    monkeypatch.setattr(HarnessControlVerifier, "execute", fail)
+    monkeypatch.setattr(_HarnessProjectionVerifier, "execute", fail)
     monkeypatch.setattr(
         sys,
         "argv",
