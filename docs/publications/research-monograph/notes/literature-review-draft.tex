@@ -1,0 +1,73 @@
+% Status: unverified working notes; not included by manuscript.tex.
+% Equations, prose, and references require correction and primary-source review.
+\section{Literature Review}
+
+From elementary quantum mechanics, we know that
+\begin{equation}
+\hat{H} = \hat{T} + \hat{V}
+\end{equation}
+has the spectral decomposition
+\begin{equation}
+ \hat{H} |\psi \rangle
+\end{equation}
+\subsection{Elementary solid state}
+We first review the elementary results of solid-state physics.  An electron subject to a periodic potential has eigenstates of a modified plane wave
+
+$$
+  \Psi_\mathbf{k}^\alpha (\mathbf{r})
+  =
+  u_\mathbf{k}^\alpha(\mathbf{r})
+  e^{i \mathbf{k} \cdot \mathbf{r}}
+$$
+
+The Bloch function, $u_\mathbf{k}(\mathbf{r})$, is periodic in the unit cell. With $\mathbf{r}\in\mathbb{R}^d$ being position and $\mathbf{k}\in\mathbb{R}^d$ being crystal momentum with a system with $d$ dimensions.
+
+\subsection{}
+\emph{Ab initio} electronic structure codes of periodic materials are typically solved in terms of Bloch states.
+
+\subsection{Wannier Function}
+Wannier functions provide a real-space representation of a band subspace in a periodic crystal. They were introduced by Wannier\cite{wannier1937} as lattice-translated states obtained from Bloch eigenstates through a reciprocal-space Fourier transformation .
+
+Let
+
+\begin{equation}
+  \left\{
+    |\psi_{m\mathbf{k}}\rangle
+  \right\}_{m=1}^{M}
+\end{equation}
+
+be an orthonormal Bloch frame spanning an $M$-dimensional retained subspace at each crystal momentum $\mathbf{k}$. The corresponding Wannier functions are
+
+\begin{equation}
+  |w_{n\mathbf R}\rangle
+  =
+  \frac{1}{\sqrt{N_{\mathbf k}}}
+  \sum_{\mathbf k}
+    e^{-i\mathbf k\cdot\mathbf R}
+    \sum_{m=1}^{M}
+      |\psi_{m\mathbf k}\rangle
+      U_{mn}(\mathbf k),
+\end{equation}
+
+where $\mathbf{R}$ is a Bravais-lattice vector, $N_{\mathbf{k}}$ is the number of sampled crystal momenta, and $\mathbf{U}(\mathbf k)\in U(M)$ specifies the Bloch frame used in the transformation. For a single isolated band, $\mathbf{U}(\mathbf k)$ reduces to a momentum-dependent phase factor.
+
+The Wannier representation is therefore not determined by the band energies alone. At each $\mathbf k$, the Bloch states may be transformed according to
+
+\begin{equation}
+  |\psi_{n\mathbf k}\rangle
+  \longmapsto
+  \sum_{m=1}^{M}
+    |\psi_{m\mathbf k}\rangle
+    G_{mn}(\mathbf k),
+  \qquad
+  \mathbf G(\mathbf k)\in U(M),
+\end{equation}
+
+without changing the retained subspace or its orthogonal projector. Different choices of $\mathbf{G}(\mathbf{k})$ generally produce different Wannier functions. Thus, an individual Wannier function is a gauge-dependent basis vector, whereas the band subspace and its projector are gauge-invariant objects.
+
+
+
+In the present work, the Wannier functions are used as localized coordinates for a retained operator subspace. Consequently, matrices expressed in a Wannier basis must not be identified directly with the underlying operators. A change of Wannier gauge changes the matrix representation by unitary conjugation while leaving the represented operator unchanged. Comparisons or subtractions between pristine and doped Wannier Hamiltonians therefore require either a common Wannier frame or an explicitly defined unitary identification between their respective retained spaces.
+
+\subsection{Maximally Localized Wannier Functions}
+The spatial localization of the Wannier functions depends on the regularity of the selected Bloch frame over the Brillouin zone. Smooth, and under suitable conditions analytic, Bloch frames produce localized, and potentially exponentially localized, Wannier functions \cite{kohn1959}. Maximally localized Wannier functions constitute a particular gauge choice obtained by minimizing a real-space spread functional; maximal localization is therefore an additional gauge-selection prescription rather than part of the general definition of a Wannier function \cite{marzari2012}.
