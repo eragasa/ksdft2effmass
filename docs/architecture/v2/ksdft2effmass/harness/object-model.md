@@ -45,15 +45,15 @@ Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved vari
 
 `HarnessSourceLoadResult`, `HarnessCompilationResult`, `ValidationResult`, `DevelopmentAuthorityContextResolutionResult`, `DevelopmentOperationAuthorizationResult`, `HarnessProjectionResult`, `SynchronizationResult`, `ComparisonResult`, and persistence results are immutable outcomes. The loader, compiler, validators, authority-context resolver, operation authorizer, projector, synchronizer, comparator, serializers, and repositories are explicit ActionObjects.
 
-Repository-wide development conformance additionally uses immutable `ArchitecturePolicy`, `TaskAuthorization`, `RepositorySnapshotIdentity`, `ChangeSet`, `ValidationRequirement`, `ConformanceProfile`, `PromotionEligibilityResult`, `PromotionAuthorization`, and `ValidationReport` records. `DevelopmentConformanceWorkflow` composes explicit validators, while `PromotionEligibilityEvaluator` calculates the mechanical gate result. Human and repository authorization remains separate.
+Coding-standards conformance consumes an identified source subject, coding-standards policy, applicable adapter profile, and explicit coding-standard adapters and returns the shared immutable `ValidationResult` values plus a derived report. Exact public names remain deferred. Promotion eligibility, Task authorization, human review, and repository mutation remain separate owners.
 
 Project specialization uses an explicit policy and validator composition rather than subclassing a nominal base conformance architecture. Structural validator protocols are introduced only when multiple implementations demonstrate polymorphic need.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact field contracts for `HarnessStateIdentity` and source provenance.
 - Closed status vocabulary for `HarnessTask`.
-- Exact relationship between `HarnessState` validation and the repository-wide `ConformanceProfile`.
+- Exact coding-standards subject, policy, adapter-profile, aggregate-result, and report contracts.
 - Whether capabilities and resources are separate catalogs or one composed immutable capability model.
 
 ## Authority and compilation boundaries

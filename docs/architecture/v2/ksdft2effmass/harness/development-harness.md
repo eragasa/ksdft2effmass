@@ -12,7 +12,7 @@ The development harness is owned by `ksdft2effmass.harness`. Its authority is li
 - development review; and
 - development lifecycle state.
 
-Its conformance scope cuts across the repository, including workflow, calculator, scientific-domain, test, fixture, documentation, and harness paths. This cross-cutting scope does not transfer ownership of domain meaning to the harness or create runtime imports from scientific packages back to the development control plane.
+Coding-standards conformance may inspect explicitly selected source subjects across repository packages, tests, fixtures, and documentation. It checks only coding-policy structure and does not transfer domain meaning, behavioral verification, promotion, or scientific responsibility to the harness.
 
 ## Core records
 
@@ -30,7 +30,7 @@ The development harness may:
 - validate operation-specific repository preconditions;
 - reconstruct and verify a candidate-independent `DevelopmentAuthorityContext`, then use `DevelopmentOperationAuthorizer` to return an exact authorization result for those revisions, the operation, and permitted paths;
 - enforce the resulting scope of explicitly authorized source and documentation changes;
-- run repository-wide [development conformance](conformance.md) and applicable software-verification checks;
+- run [coding-standards conformance](conformance.md) over explicitly selected source subjects and keep applicable software-verification checks with their domain owners;
 - calculate mechanical promotion eligibility without manufacturing human authority;
 - project development control state through the deterministic [compiler architecture](compiler-architecture.md); and
 - retain independently authorized development review and acceptance records.
@@ -41,17 +41,17 @@ It may not execute a scientific `Workflow`, advance a `WorkflowRun`, classify a 
 
 `ksdft2effmass.harness` owns development-harness contracts and composition. Project scientific specifications and scientific workflow state remain outside the harness package. Harness operations receive explicit roots and inputs; they perform no ambient repository discovery.
 
-A project specializes development conformance with an explicit immutable policy and validator composition. It does not subclass a nominal base conformance architecture and override inherited rules. A future ProjectKoios extraction may receive only generic behavior demonstrated by the local implementation; concrete `ksdft2effmass` policy remains project-owned.
+A project supplies an explicit coding-standards policy and adapter profile. The profile binds policy requirements to compatible implementations without creating policy, and composition does not rely on a nominal conformance-architecture subclass.
 
 Submodule and wire-format details may be refined while preserving this package boundary.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact public fields of `HarnessTask` and `DevelopmentTaskSelection`.
 - Closed lifecycle vocabulary and permitted transition rules.
 - Exact field and wire representation of `DevelopmentDecision` variants/revisions.
 - Boundary between generic repository operations and project-specific policy.
-- Exact local conformance-policy and profile contracts before any ProjectKoios extraction.
+- Exact local coding-standards policy and adapter-profile contracts.
 - Whether routine work uses the same lifecycle record with a shorter route or a distinct operation profile.
 
 ## Aggregate and authority topology

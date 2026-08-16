@@ -34,7 +34,7 @@ flowchart LR
     review --> decision
 ```
 
-Evidence supports a claim but grants no authority. Capability states what an implementation can do. `DevelopmentTaskSelection` states only repository-derived requested/selected work; it is neither authority nor permission. Repository-wide [development conformance](conformance.md) calculates mechanical eligibility from identified policy and authorization, but it does not create authority, create a human decision, or promote a repository change.
+Evidence supports a claim but grants no authority. Capability states what an implementation can do. `DevelopmentTaskSelection` states only repository-derived requested/selected work; it is neither authority nor permission. [Coding-standards conformance](conformance.md) returns identified structural validation results only. Task gates, promotion eligibility, human decisions, and repository operations consume those results under their separate owners.
 
 ## Explicit context
 
@@ -52,9 +52,9 @@ Repository-sensitive operations receive an explicit repository root, source iden
 
 Architecture, scope, dependencies, protected repository actions, review, and development acceptance remain human-owned where policy requires them. The single `DevelopmentDecision` model in `HarnessState` records explicit external input using unresolved and resolved variants/revisions. It preserves the exact request, question, options, scope, verbatim response, an unambiguous normalized declared outcome, source/authority identity, and applicable predecessor/supersession. Ambiguous, unmatched, or conflicting responses remain unresolved. A pending decision blocks only its declared development transition and scope. Processing is deterministic; silence, passing checks, reviewer agreement, elapsed time, or Task ordering does not provide a response. See [human decisions](../../human-decisions.md).
 
-A decision record grants no authority. Candidate-independent authorization remains separately required, and the development decision system neither authorizes nor mutates scientific decision, execution, or disposition state.
+A decision record grants no authority. Candidate-independent authorization remains separately required, and the development decision system neither authorizes nor mutates scientific decision, execution, analysis, or conclusion state.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Final wire format for `DevelopmentTaskSelection`.
 - Whether selection is persisted with Task records or in a separate development control repository.

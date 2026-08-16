@@ -30,7 +30,7 @@ Read models cannot:
 
 Dashboards and visualizations consume read models. Their presentation is not scientific evidence or authority.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Which read models are persisted versus generated on demand.
 - Query and pagination contracts for large run histories.

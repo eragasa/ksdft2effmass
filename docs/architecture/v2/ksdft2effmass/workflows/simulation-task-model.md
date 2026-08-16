@@ -69,10 +69,10 @@ External, imported retained, human-authored, and bounded legacy ResultObjects an
 
 ## Normalization path
 
-After `TaskResultIngester` validates the confirmed envelope and candidate generic outcome, admits the returned `QuantumEspressoOutput`, and atomically commits the outcome, result transition, and result ingress, explicitly composed native parsers and adapters may map native records to `NormalizedObservationSet`, followed by deterministic scientific analysis and separately authorized disposition. Mechanical execution success does not imply convergence or scientific acceptance.
+After `TaskResultIngester` validates the confirmed envelope and candidate generic outcome, admits the returned `QuantumEspressoOutput`, and atomically commits the outcome, result transition, and result ingress, explicitly composed native parsers and adapters may map native records to `NormalizedObservationSet`, followed by deterministic scientific analysis. Human-reviewed conclusions remain external research records. Mechanical execution success does not imply convergence or scientific acceptance.
 
 ## Package boundary and status
 
 Project-facing QE Task, Simulation, input/output, configuration, process-record, and executor-protocol types remain under `ksdft2effmass.calculators`. Concrete QE serialization, staging, workspace/process invocation, native parsing, artifact discovery, failure mapping, and observation adaptation belong to `ksdft2effmass.integration.quantumespresso`. Application composition injects that concrete implementation; calculators and workflows never import it. This prospective ownership correction does not itself move or create source.
 
-Exact field and wire contracts, asynchronous interfaces, scheduler adapters, and supported QE operation policy remain deferred. This is prospective documentation only and grants no external execution. It claims no implementation, software verification, numerical verification, scientific validation, uncertainty quantification, equivalence, recalculation, or human software acceptance.
+Exact field and wire contracts, asynchronous interfaces, scheduler adapters, and supported QE operation policy remain deferred.

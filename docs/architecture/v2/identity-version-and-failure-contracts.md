@@ -86,4 +86,4 @@ Exact native inputs, pseudopotentials, outputs, and retained artifacts keep cont
 
 ## Status
 
-Exact lexical forms, digest algorithms, canonical encodings, and wire schemas remain deferred. This prospective documentation claims no implementation, verification, equivalence, protected execution, or human software acceptance.
+Exact lexical forms, digest algorithms, canonical encodings, and wire schemas remain deferred.

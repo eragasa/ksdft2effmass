@@ -28,7 +28,7 @@ flowchart LR
     comparator --> comparison["ComparisonResult"]
 ```
 
-The [compiler architecture](compiler-architecture.md) defines loading, compilation, the complete object/result contracts, candidate validation, generation publication, resolution, synchronization, and comparison.
+The [compiler architecture](compiler-architecture.md) defines source loading and normalized-state compilation. This page owns candidate artifact contracts, post-projection validation, generation publication, resolution, synchronization, comparison, and recovery.
 
 ## Formats and candidate validation
 
@@ -64,7 +64,7 @@ A projection cannot activate a Task, resolve a decision, grant capability, or ov
 
 These target checks are not repository-promotion gates. Only `PromotionEligibilityEvaluator` determines mechanical repository-promotion eligibility, and separate promotion authorization remains required.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Which projection formats remain necessary after human-authored documentation is fully separated from generated views.
 - Final destination for generated Task inspection pages.

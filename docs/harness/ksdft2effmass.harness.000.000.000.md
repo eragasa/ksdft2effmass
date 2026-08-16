@@ -50,7 +50,7 @@ implement an interface or activate work. Historical pages preserve prior context
 | [harness.003.001.000](ksdft2effmass.harness.003.001.000.md) | `human-review-interface.review-packet-pilot` | Initial human-review interface round | Pilot packet ready | Excluded |
 | [harness.003.001.001](ksdft2effmass.harness.003.001.001.md) | — | Human Review Packet and Decision Workflow | `proposed_inactive` | Excluded |
 | [harness.004.000.000](ksdft2effmass.harness.004.000.000.md) | `harness.telemetry` | Harness telemetry | Proposed inactive | Excluded |
-| [Versioned architecture](../architecture/index.md) | `harness.architecture-v2.plan` | V1 snapshot, normative v2 target, and migration crosswalk | Planning-only Task inactive; implementation Task active but not begun | Excluded |
+| [Versioned architecture](../architecture/index.md) | `harness.architecture-v2.plan` | V1 snapshot, normative v2 target, and migration crosswalk | Planning-only Task active; implementation Task deferred | Excluded |
 | [harness.090.000.000](ksdft2effmass.harness.090.000.000.md) | `harness-history` | Historical documentation index | Historical | Excluded |
 
 ## Program boundaries
@@ -64,9 +64,7 @@ implement an interface or activate work. Historical pages preserve prior context
   broader workflow remain inactive proposals.
 - [harness.004](ksdft2effmass.harness.004.000.000.md) indexes the inactive
   operational telemetry implementation and evaluation sequence.
-- [Versioned architecture](../architecture/index.md) separates the implemented v1 snapshot, normative v2 target, and migration crosswalk;
-  it is not implemented or accepted and does not modify the active scientific
-  Task.
+- [Versioned architecture](../architecture/index.md) separates the implemented v1 snapshot, normative v2 target, and migration crosswalk. Its planning-only Task is active; the implementation Task remains deferred, and no scientific Task or execution is activated by the planning work.
 - [harness.090](ksdft2effmass.harness.090.000.000.md) indexes historical material.
 
 Maintained documentation explains architecture and contributor practice. Mutable

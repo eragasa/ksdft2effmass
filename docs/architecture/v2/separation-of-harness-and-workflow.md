@@ -33,7 +33,7 @@ flowchart TB
         EXEC_AUTH["Exact one-dispatch execution grant"]
         RESULT["New immutable ResultObject"]
         ANALYSIS["Scientific analysis"]
-        DISPOSITION["Scientific disposition"]
+        RESEARCH["Human-reviewed research record"]
 
         SERVICE --> WORKFLOW
         WORKFLOW --> RUN
@@ -41,7 +41,7 @@ flowchart TB
         EXEC_AUTH --> ACTIVATION
         RESULT --> RUN
         RUN --> ANALYSIS
-        ANALYSIS --> DISPOSITION
+        ANALYSIS --> RESEARCH
     end
 
     subgraph CALCULATORS["External calculators"]
@@ -81,9 +81,9 @@ flowchart LR
         EO["External operations"]
         NO["Normalized observations"]
         SA["Scientific analysis"]
-        SD["Scientific disposition"]
+        HR["Human-reviewed research conclusion"]
 
-        SI --> CD --> CR --> EO --> NO --> SA --> SD
+        SI --> CD --> CR --> EO --> NO --> SA --> HR
     end
 ```
 
@@ -93,7 +93,7 @@ Human decisions are explicit external inputs to both control planes and their pr
 
 The two lifecycles may reference each other's immutable identities when required, but neither stores the other's state. Their domain repositories may compose the same domain-neutral `AtomicRevisionStore` capability, but separate `SQLiteAtomicRevisionStore` instances and separate databases are the default. Distinct parent and nested child WorkflowRuns likewise have separate single-stream revision histories: the parent records exact child correlation and admits only explicit exports from a replay-equal terminal child revision, without claiming cross-run atomicity. Shared implementation does not merge aggregates, authority, physical storage, or transaction boundaries; cross-stream atomicity and co-location require a later explicit decision. Development completion may make a scientific service available; it does not create or advance a `WorkflowRun`. Scientific completion may provide evidence for later development; it does not close a `HarnessTask`.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact immutable implementation identity referenced by a `WorkflowRun`.
 - How a scientific finding creates a new development intent without activating a Task automatically.
@@ -105,5 +105,3 @@ The two lifecycles may reference each other's immutable identities when required
 ## Reconciled authority boundaries
 
 Repository sources are authoritative for the complete normalized `HarnessState`; lossless harness persistence stores the same aggregate through a domain-owned repository. Scientific persistence stores one complete `WorkflowRun` aggregate revision through its separate domain-owned repository. Both may compose the shared opaque single-stream store, whose initial realization uses standard-library SQLite, without sharing domain meaning. Candidate-independent protected development authority remains in a separate `DevelopmentAuthorityLedger`. A `ScientificExecutionAuthoritySnapshot` identifies its trusted source and issuer, trust configuration, content and authentication verification, predecessor/revocation closure, validity and freshness bounds, and resolver version; verification failure yields no usable authorization context. One immutable `ScientificExecutionAuthorityGrant`, verified against an exact `ScientificExecutionAuthoritySnapshot`, covers one exact dispatch and cannot be delegated. `SimulationExecutionAuthorizer` returns a closed `SimulationExecutionAuthorizationResult` for the exact grant, snapshot, Task instance, activation, request, attempt, executor, immutable inputs, destinations, and resource ceiling. The request transaction atomically reserves that grant to one dispatch obligation. Immediately before the effect, one compare-and-swap claim changes the same reservation from `reserved` to `claimed`; only the successful claimant may proceed, and `claimed` is consumed for authorization purposes even if the later external outcome is indeterminate. Every retry or new attempt requires a new grant. Reconciliation retains the original grant, request, attempt, claim, and obligation and never authorizes automatic redispatch. Execution authority does not imply scientific acceptance. Scientific conclusions remain human-reviewed research records and are not inferred from development state, colored-Petri-net selection, analysis, or execution authority.
-
-This prospective documentation grants no protected-execution authority.

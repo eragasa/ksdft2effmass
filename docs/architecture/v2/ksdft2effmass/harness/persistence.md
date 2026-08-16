@@ -41,13 +41,13 @@ flowchart LR
 
 The repository performs domain transaction-to-bytes/identity binding and preserves aggregate-specific commit closure. On read it submits one explicit latest-or-revision `RevisionReadRequest`, maps every shared variant, verifies the found revision and any reconciliation identities, deserializes through `HarnessStateSerializer`, validates reconstructed aggregate identity and domain closure, and returns one closed `HarnessStateLoadResult`. Only `loaded` contains a snapshot; absence, reconciliation-identity mismatch, shared or domain incompatibility, corruption or deserialization failure, validation failure, indeterminate observation, and operational error remain represented and distinct.
 
-`AtomicRevisionStore` performs compare-and-swap, idempotency, durable identity/content closure, atomic single-stream commit, and closed consistent reads. Repeating the byte-identical bound `Commit` under one idempotency identity returns the original committed revision; reuse for different bound state or bytes is an idempotency-collision conflict. Conflicts are never merged silently, and an indeterminate read or commit outcome is never guessed.
+The [shared persistence contract](../persistence/index.md) owns compare-and-swap, idempotency, generic read/commit outcomes, and single-stream atomicity. This domain repository maps those outcomes without weakening or redefining them.
 
 The repository does not choose authority, normalize repository sources, interpret a human response, create a `DevelopmentDecision`, run unrelated domain validators, project views, or repair a successor. Authority-context, authorization-result, requested-operation, and permitted-path identities neither change `HarnessStateIdentity` nor enter the aggregate merely because an authorized operation persists it.
 
 ## Storage selection and separation
 
-The initial concrete store is prospective `SQLiteAtomicRevisionStore`, implemented with Python standard-library `sqlite3` and explicit constructor configuration. There is no `HarnessStateSQLiteRepository`; the domain repository composes the shared store structurally.
+The initial concrete store and its dependency boundary are selected by the [shared persistence contract](../persistence/index.md). There is no `HarnessStateSQLiteRepository`; the domain repository composes the shared store structurally.
 
 The development `HarnessState` store/database is separate by default from the scientific `WorkflowRun` store/database. Shared implementation does not imply shared physical storage or cross-stream transactions.
 
@@ -65,4 +65,4 @@ Persisted harness state excludes credentials, private keys, unrestricted environ
 - Backup, recovery, retention, compaction, and maximum aggregate size.
 - Protected `DevelopmentAuthorityLedger` storage, signing, and transport mechanisms.
 
-No migration class, integrity-verifier class, public SQLite configuration/initializer hierarchy, domain SQLite subclass, or extra persistence module split is selected. This prospective contract claims no implementation, software verification, protected authority, or human acceptance.
+No migration class, integrity-verifier class, public SQLite configuration/initializer hierarchy, domain SQLite subclass, or extra persistence module split is selected.

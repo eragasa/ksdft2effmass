@@ -55,11 +55,9 @@ Existing native inputs and pseudopotential artifacts remain usable under their a
 
 - [Quantum ESPRESSO](quantum-espresso.md)
 
-## Unresolved issues
+## Deferred implementation details
 
 - Whether demonstrated repeated integrations eventually justify an additional calculator-independent process protocol beyond existing project-owned request/observation records.
 - Remote and scheduler adapter contracts.
 - Standard resource-observation vocabulary.
 - Exact public field and wire contracts.
-
-This prospective architecture grants no protected execution and claims no implementation, verification, scientific validation, equivalence, or human software acceptance.

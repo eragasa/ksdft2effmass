@@ -48,13 +48,13 @@ For reads, `WorkflowRunAtomicRepository` submits one explicit latest-or-revision
 
 Every successor record and obligation in one domain transaction serializes into that one aggregate revision. The shared store commits that unit atomically in one stream; it does not normalize WorkflowRun records into domain rows or provide cross-stream atomicity. The repository preserves the aggregate-specific transaction closure described by the WorkflowRun and control-plane pages.
 
-The shared `AtomicRevisionStore` owns compare-and-swap, idempotency, durable identity/content closure, atomic single-stream commit, closed consistent reads, and generic read/commit outcomes. Repeating the byte-identical bound `Commit` under the same idempotency identity returns the original committed revision; reusing that identity for different bound state or bytes is an idempotency-collision conflict. The domain repository maps every result without guessing an indeterminate outcome or silently merging a conflict.
+The [shared persistence contract](../persistence/index.md) owns compare-and-swap, idempotency, generic read/commit outcomes, and single-stream atomicity. This domain repository maps those outcomes without guessing or weakening them.
 
 The repository does not enable, select, or fire transitions; reconcile effects; authorize or execute Tasks; interpret observations or human responses; create decision records; evaluate analysis readiness; or create dispositions or conclusions. External process and artifact-transfer effects remain outside the transaction, bridged by stable identities and committed obligations.
 
 ## Storage selection and separation
 
-The initial concrete store is prospective `SQLiteAtomicRevisionStore`, implemented with Python standard-library `sqlite3` and explicit constructor configuration. There is no `WorkflowRunSQLiteRepository`; the domain repository composes the shared store structurally.
+The initial concrete store and its dependency boundary are selected by the [shared persistence contract](../persistence/index.md). There is no `WorkflowRunSQLiteRepository`; the domain repository composes the shared store structurally.
 
 The scientific WorkflowRun store/database is separate by default from the development HarnessState store/database. Shared implementation does not imply shared physical storage. Co-location and cross-stream transactions require a later explicit decision. Calculator-produced native files remain in their exact execution workspace or configured external output location; ordinary shared SQLite revision storage stores only WorkflowRun records and does not become native-file storage. Explicit extraction reads those files without copying or publishing them.
 
@@ -72,4 +72,4 @@ Workflow-owned `WorkflowRunReplayer` performs deterministic replay outside persi
 - Exact `WorkflowRunLoadResult`, `WorkflowRuntimeBundle`, and `WorkflowRunReplayResult` wire representations.
 - Exact idempotency identity representation and retention; replay-versus-collision semantics are selected.
 
-No migration class, integrity-verifier class, public SQLite configuration/initializer hierarchy, domain SQLite subclass, or extra persistence module split is selected. This prospective contract claims no implementation, software or numerical verification, scientific validation, protected execution, or human acceptance.
+No migration class, integrity-verifier class, public SQLite configuration/initializer hierarchy, domain SQLite subclass, or extra persistence module split is selected.

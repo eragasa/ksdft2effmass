@@ -30,7 +30,7 @@ For one execution, the root supplies:
 - a Workflow definition with run-scoped Task instances, immutable `TaskStartGateSet` policy, workflow-owned generic invocation control, and exact nested child-run correlation;
 - `ColoredPetriNetWorkflowAdapter` and generic full-name colored-Petri-net ActionObjects;
 - one exact immutable `WorkflowRuntimeBundle` plus workflow-owned `WorkflowRunReplayer`; the service accepts only `equal` replay results for loaded or proposed successor revisions;
-- workflow authority, `SimulationDispatchAdapter`, dispatch preparation/reconciliation, `TaskResultIngester`, explicit native-output extraction, and disposition services;
+- workflow authority, `SimulationDispatchAdapter`, dispatch preparation/reconciliation, `TaskResultIngester`, and explicit native-output extraction;
 - an explicitly configured scientific `SQLiteAtomicRevisionStore` and a `WorkflowRunAtomicRepository` composed with that store, `WorkflowRunSerializer`, and `WorkflowRunTransactionValidator`;
 - the calculator-owned `QuantumEspressoSimulationTask`, `QuantumEspressoSimulation`, immutable input/output records, and structural `QuantumEspressoExecutor` consumer protocol where QE is selected;
 - the concrete `integration.quantumespresso` executor implementation, exact executable configuration, resource policy, staging/workspace policy, and artifact destinations;
@@ -47,14 +47,12 @@ The root supplies existing exact QE input bytes and pseudopotential artifacts di
 
 ## Harness composition
 
-Development components remain separate: authority-independent compiler, validators, conformance workflow, explicitly configured ordinary subprocess runner for behavioral checks, state repository, protected authority ledger, authority-context resolver, operation authorizer, projectors, candidate validator, synchronizer, immutable-generation reader, and comparator are explicitly composed without gaining scientific Workflow authority. The root supplies exact validation and authorization outcomes to each target operation; target operations verify identity bindings and their own preconditions without rerunning validation or reinterpreting authority policy. The root constructs an explicitly configured development `SQLiteAtomicRevisionStore` and a `HarnessStateAtomicRepository` with the exact harness serializer and transaction validator.
+Development components remain separate: authority-independent compiler, state validators, coding-standards conformance adapters, state repository, protected authority ledger, authority-context resolver, operation authorizer, projectors, candidate validator, synchronizer, immutable-generation reader, and comparator are explicitly composed without gaining scientific Workflow authority. The root supplies exact validation and authorization outcomes to each target operation; target operations verify identity bindings and their own preconditions without rerunning validation or reinterpreting authority policy. The root constructs an explicitly configured development `SQLiteAtomicRevisionStore` and a `HarnessStateAtomicRepository` with the exact harness serializer and transaction validator.
 
 Development and scientific persistence use separate store instances and separate SQLite databases by default. The common implementation supplies no shared physical database, cross-stream transaction, or domain authority. Co-location requires a later explicit decision.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Concrete configuration and dependency-injection mechanism.
 - Process-isolation and scheduler adapters.
 - Exact public factory and wire contracts.
-
-This prospective composition claims no implementation, verification, protected execution, equivalence, or human software acceptance.

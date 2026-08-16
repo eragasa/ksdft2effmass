@@ -125,7 +125,7 @@ The workflow service treats a loaded repository snapshot as structurally reconst
 
 Persistence excludes runtime engines, arbitrary closures, credentials, process handles, open files, scheduler clients, and calculator clients. Runtime behavior is reconstructed from versioned definitions, explicit configuration, and implementation identities.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact `WorkflowRuntimeBundle` and `WorkflowRunReplayResult` wire fields and failure codes.
 - Exact result-value and generic-token-value mapping wire format.
@@ -133,5 +133,3 @@ Persistence excludes runtime engines, arbitrary closures, credentials, process h
 - Event compaction policy that preserves the normative snapshot-plus-ordered-transition-record reconstruction contract.
 - Nested cancellation and compensation semantics.
 - History retention periods within the required reconstruction closure.
-
-This prospective object model claims no implementation, software or numerical verification, scientific validation, equivalence, protected execution, or human software acceptance.

@@ -58,6 +58,23 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Scientific observations | `ksdft2effmass.periodic`, `.ksdft` | Owns neutral geometry and Kohn–Sham observation invariants |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns deterministic algorithms, tolerances, and numerical policy |
 
+## Contract ownership
+
+Each exact cross-cutting contract has one authoritative page. Package pages state
+how they consume these contracts rather than redefining them.
+
+| Contract | Authoritative page |
+|---|---|
+| Package ownership and dependency direction | [Repository layout](repository-layout.md) |
+| Development/scientific lifecycle separation | [Separation of harness and workflow](separation-of-harness-and-workflow.md) |
+| Human-decision records | [Human decisions](human-decisions.md) |
+| Identity, version, and failure vocabulary | [Identity, version, and failure contracts](identity-version-and-failure-contracts.md) |
+| Development validation result | [Development validation](ksdft2effmass/harness/validation.md) |
+| Development projection publication | [Development projections](ksdft2effmass/harness/projections.md) |
+| Shared revision storage | [Shared persistence](ksdft2effmass/persistence/index.md) |
+| Scientific run aggregate | [WorkflowRun](ksdft2effmass/workflows/workflow-run.md) |
+| Scientific analysis and conclusion boundary | [Scientific analysis](ksdft2effmass/analysis/analysis.md) |
+
 ## Architecture map
 
 ### Development harness
@@ -67,7 +84,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 - [Development Task model](ksdft2effmass/harness/development-harness.md)
 - [Compiler architecture](ksdft2effmass/harness/compiler-architecture.md)
 - [Normalized-state validation](ksdft2effmass/harness/validation.md)
-- [Repository-wide development conformance](ksdft2effmass/harness/conformance.md)
+- [Coding-standards conformance](ksdft2effmass/harness/conformance.md)
 - [Control plane](ksdft2effmass/harness/control-plane.md)
 - [Persistence](ksdft2effmass/harness/persistence.md)
 - [Projections](ksdft2effmass/harness/projections.md)
@@ -137,4 +154,13 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 
 ## Status
 
-Architecture v2 is prospective and unimplemented. The live issue register has no open issues. This index grants no implementation, scientific or protected execution, successor activation, publication, release, verification, validation, or human acceptance.
+Architecture v2 is prospective and unimplemented. Human-reviewed scientific
+conclusions remain external research records; v2 defines no
+`ScientificDisposition` subsystem or workflow acceptance state. The live issue
+register contains only material contradictions or missing contracts; deferred
+implementation details remain on their owning pages.
+
+This architecture grants no implementation, scientific or protected execution,
+successor activation, publication, release, verification, validation, or human
+acceptance. Subordinate pages rely on this status statement rather than repeating
+it.

@@ -183,25 +183,11 @@ Every normalized object retains source provenance. When one complete unique norm
 
 ### Validation model
 
-| Object | Role |
-|---|---|
-| `ValidationFinding` | Records a stable code, severity, source location, expected condition, and observed condition. |
-| `ValidationRuleIdentity` | Identifies one validator, rule, and rule version. |
-| `ValidationResult` | One normative leaf-or-composite validator outcome with status, applicability, identities, ordered findings, evidence, affected paths, blocking classification, and claim boundary. |
-
-`ValidationResult` refers to its subject identity; it does not contain a modified copy. Its complete fields are: result identity; validator identity; requirement, rule, and version identities; summary; applicability and not-applicable reason; subject identity; execution-completed indicator; closed status (`pass`, `fail`, `error`, `not_run`, or `not_applicable`); ordered identified findings; error diagnostic; blocking; tool, configuration, and environment identities; evidence references; affected paths; child-result identities for composites; and exact claim boundary. Leaf and composite validators use this same contract.
-
-The valid combinations are closed and status-dependent:
-
-| Status | Required invariant |
-|---|---|
-| `not_applicable` | If and only if applicability is not applicable, the requirement/profile permits that disposition, and a nonempty not-applicable reason is recorded; execution evidence and applicable failed requirements are absent. |
-| `pass` | Applicability is applicable, no not-applicable reason exists, execution completed, no applicable requirement failed, no error diagnostic exists, and no blocking finding exists. |
-| `fail` | Applicability is applicable, no not-applicable reason exists, execution completed, and at least one identified applicable requirement failed. |
-| `error` | Applicability is applicable, no not-applicable reason exists, validation could not establish pass or fail, and a nonempty error diagnostic is recorded. |
-| `not_run` | Applicability is applicable, no not-applicable reason exists, the invocation did not execute or did not complete, and no fabricated success evidence is carried. |
-
-`blocking` is derived deterministically from identified requirement/profile criticality and findings; it is never independently selected. A required `error`, `not_run`, or `fail` blocks its gate. A composite preserves every child identity and finding and derives its status over all applicable child invocations with precedence `error`, then `not_run`, then `fail`, then `pass`; child requirement criticality affects `blocking`, not whether the child's outcome contributes to composite status. Composite `not_applicable` is valid only when the composite requirement itself permits it and no child invocation is applicable. Any contradictory field combination is invalid. The claim boundary states only what the identified invocation established; a pass is not authority, numerical verification, scientific validation, uncertainty quantification, or human acceptance.
+[Development validation](validation.md) owns the exact `ValidationFinding`,
+`ValidationRuleIdentity`, and leaf-or-composite `ValidationResult` contract,
+including its closed statuses, field invariants, precedence, and claim boundary.
+The compiler supplies normalized subjects and source provenance to validators; it
+does not redefine validation outcomes.
 
 ### Projection and generation DataObjects
 
@@ -265,7 +251,10 @@ class HarnessDomainValidator(Protocol):
     def execute(self, state: HarnessState) -> ValidationResult: ...
 ```
 
-Each concrete domain validator returns the complete normative `ValidationResult` for its own leaf invocation. It supplies its validator, requirement, rule, and version identities; applicability; subject identity; execution state and status; ordered identified findings; diagnostics; derived blocking classification; tool, configuration, and environment identities; evidence references; affected paths; and exact claim boundary. A leaf result has no child-result identities and does not contain a modified `HarnessState`. Private intermediate findings may exist during evaluation but do not cross this public boundary.
+Each concrete domain validator returns the normative leaf `ValidationResult`
+defined by [Development validation](validation.md). A leaf result does not contain
+a modified `HarnessState`; private intermediate findings do not cross the public
+boundary.
 
 Concrete implementations include:
 
@@ -383,7 +372,7 @@ Diagnostics use deterministic ordering. They must not expose credentials, privat
 
 ## Outcome retention and reconstruction
 
-Each loader, compiler, validator, authority-context resolver, authorizer, and target operation returns its own immutable identity-bearing result to explicit application composition. No generic harness-operation report, quarantine aggregate, or second `HarnessState` repository is selected. When an applicable conformance profile requires durable evidence, the existing `ValidationReport` references the exact result and immutable input-artifact identities; its reporting and future serializer boundary own that retained representation. Otherwise, Architecture v2 does not require durable persistence of every read-only failed attempt merely because it is represented in memory.
+Each loader, compiler, validator, authority-context resolver, authorizer, and target operation returns its own immutable identity-bearing result to explicit application composition. No generic harness-operation report, quarantine aggregate, or second `HarnessState` repository is selected. When an applicable coding-standards adapter profile requires durable evidence, the derived report references the exact result and immutable source identities; its reporting and future serializer boundary own that retained representation. Otherwise, Architecture v2 does not require durable persistence of every read-only failed attempt merely because it is represented in memory.
 
 Replay or reconstruction requires the same immutable source-snapshot, authority-ledger-snapshot, trust-configuration, policy, operation-input, and implementation-version identities applicable to the result. Changed inputs define a new operation rather than reconstruction of the prior result. Durable synchronization authority-to-outcome linkage is retained by the identity-bound `SynchronizationResult` referenced from the successful generation manifest or applicable recovery record.
 
@@ -400,94 +389,17 @@ Validation occurs after compilation so every validator sees the same normalized 
 
 A validation coordinator may order validators and evaluate cross-domain closure, but it must not become a fallback owner for domain rules.
 
-Validators are read-only. They return the single normative `ValidationResult` contract and do not repair `HarnessState`, rewrite sources, publish artifacts, or grant authority. Trusted in-process state validation may inspect the normalized candidate state before operation authorization; candidate-controlled commands, plugins, and effectful conformance validators use the explicit ordinary-subprocess boundary defined by development conformance, with no custom sandbox implied. `PromotionEligibilityEvaluator` remains the sole mechanical promotion gate.
+Validators are read-only. They return the single normative `ValidationResult` contract and do not repair `HarnessState`, rewrite sources, publish artifacts, or grant authority. Trusted in-process state validation may inspect the normalized candidate state before operation authorization; candidate-controlled coding-standards adapters use the explicit bounded invocation boundary defined by coding-standards conformance, with no custom sandbox implied. `PromotionEligibilityEvaluator` remains the sole mechanical promotion gate.
 
 A structural pass establishes only conformance to those rules. It does not establish software-test success, numerical verification, scientific validation, uncertainty quantification, protected-execution authority, or human acceptance.
 
-## Projection
+## Projection consumption
 
-`HarnessProjector` receives one `HarnessState`, its exact applicable passing `ValidationResult`, an exact affirmative `DevelopmentOperationAuthorizationResult` for projection, and explicit projection inputs. It verifies subject, state, operation, authority-context, revision, and permitted-path bindings plus its projection-specific preconditions. It never reruns validation, resolves authority, or broadens authorization. A successful `HarnessProjectionResult` contains one complete `HarnessArtifactSet`; a blocked result contains no candidate and performs no projection.
-
-A projected artifact declares:
-
-- its repository-relative destination;
-- projection kind and format version;
-- deterministic bytes;
-- content identity;
-- generating state identity; and
-- whether its format uses byte-exact or semantic comparison.
-
-Projection formats may include SQLite, deterministic SQL, graphs, indexes, manifests, and generated harness views. Generated views live outside `docs/`; `docs/` contains human-authored documentation.
-
-A projector performs no source discovery and writes no maintained destination. Format-specific projectors are output strategies over the same `HarnessState`, not separate authority models. The artifact-set manifest lists the complete candidate closure before publication. Projection creates this immutable complete set before any post-projection invariant is evaluated. Replacement and historical retention are publication-policy concerns rather than mutations of the candidate.
-
-## Candidate validation
-
-`HarnessArtifactSetValidator` is the target-first owner of candidate validation. It consumes the complete immutable `HarnessArtifactSet` and applicable explicit `HarnessArtifactValidationPolicy` and `HarnessArtifactValidationContext`, then returns the single normative `ValidationResult` bound to the exact candidate-set, manifest, policy, context, validator, and rule-version identities. It confirms only post-projection facts:
-
-- unique, root-confined destination paths;
-- complete manifest closure;
-- supported projection and format versions;
-- agreement between declared and observed content identities;
-- relational integrity for structured projections;
-- deterministic SQL where required;
-- absence of SQLite WAL, SHM, or journal sidecars;
-- closed mutable resources; and
-- agreement between every artifact, the manifest, and the generating `HarnessStateIdentity`.
-
-Destination-policy and normalized-state invariants remain owned by `HarnessStateValidator` and its domain validation; the artifact-set validator does not reinterpret source authority. The synchronizer and comparator require an applicable `pass` for the exact complete candidate and applicable policy/context plus an exact affirmative authorization result for their respective operation. They verify identity binding and target-specific preconditions but do not rerun validation, resolve or reinterpret authority, accept a result for another identity, repair a candidate, or proceed on denied, erroneous, non-passing, incomplete, or contradictory input. Those cases produce represented outcomes and no publication or comparison.
-
-## Synchronization
-
-`HarnessSynchronizer` is the only component that writes maintained projections. It requires the complete immutable candidate, an applicable passing candidate `ValidationResult` for the exact candidate/policy/context identities, and an exact affirmative `DevelopmentOperationAuthorizationResult` covering synchronization and the candidate's complete destination closure. It verifies those bindings and publication-specific preconditions without reinterpreting validation or authority. Denied, erroneous, incomplete, invalid, mismatched, or non-passing input returns a represented `SynchronizationResult` without staging or writing.
-
-For input whose exact validation, authorization, identity-binding, and publication preconditions pass, the synchronizer preflights a supported local filesystem whose generation root, staging location, and regular current-generation pointer file permit same-filesystem atomic replacement and whose declared adapter supplies the required file and directory durability operations. It then performs this bounded protocol:
-
-```mermaid
-sequenceDiagram
-    participant P as Projector
-    participant V as HarnessArtifactSetValidator
-    participant S as HarnessSynchronizer
-    participant G as Immutable generation root
-    participant C as Current pointer file
-
-    P->>V: Complete immutable HarnessArtifactSet + policy/context
-    V-->>S: Applicable passing ValidationResult + exact candidate
-    S->>S: Preflight filesystem and publication identities
-    S->>G: Stage a new immutable generation directory
-    S->>V: Verify staged complete set with explicit policy/context
-    V-->>S: Passing staged-candidate ValidationResult
-    S->>S: Close mutable resources and durably prepare files/directories
-    S->>G: Seal generation manifest and lifecycle as closed
-    S->>C: Atomically replace one regular pointer manifest
-    S->>S: Durably prepare pointer parent directory
-    S-->>P: SynchronizationResult
-```
-
-The generation manifest identifies the generation, candidate set and manifest, complete content closure, generating state, predecessor, lifecycle status, versions, and exact successful `SynchronizationResult` identity. That result durably binds the candidate and predecessor, candidate and staged validation results, affirmative synchronization authorization and authority context, publication policy/context, verified target preconditions, operation and attempt, resulting generation, pointer observation, and any reconciliation outcome. No separate audit aggregate or repository is introduced. Generation lifecycle is closed: `staging` exists only in synchronizer/recovery records and is unreadable; `closed` is immutable and reader-eligible; `quarantined` and `corrupt` are fail-closed recovery dispositions and are never current-reader candidates. The regular pointer manifest identifies exactly that generation and its manifest/content identities. It is not a symlink and the contract does not require symlink support.
-
-Failure before pointer replacement leaves the previous generation current and records an incomplete/corrupt recovery marker or quarantines the orphan candidate under explicit policy; the recovery record references the exact failed or indeterminate `SynchronizationResult`. Retry uses new operation, attempt, and result identities and never overwrites its predecessor. Successful replacement makes the complete closed generation current. If interruption makes commit outcome ambiguous, reconciliation rereads the pointer and checks its generation and manifest identities; it never guesses from staging state. Rollback is a new, separately represented atomic pointer switch to a retained, validated closed generation, never restoration of multiple files. Generation retention and garbage collection are later explicit policy and confer no deletion authority.
-
-The synchronizer does not recompile sources, alter candidate contents, silently validate, or repair. Unrelated files and human-authored documentation are outside its ownership. Unsupported or network filesystem semantics fail preflight; a future separately selected adapter may define another proven boundary, but this contract makes no universal atomicity or durability claim.
-
-## Comparison
-
-`HarnessProjectionGenerationResolver` is the target-first reader boundary. Given an explicit target and resolver policy/context, it reads the regular current-generation pointer once, validates its pointer identity and format, resolves only the named immutable generation, and validates generation identity, lifecycle, manifest closure, versions, and content identities. Missing, malformed, unsupported, non-closed, incomplete, corrupt, or identity-mismatched pointer/generation state returns a rejected `HarnessProjectionGenerationResolutionResult`. It never scans for a latest directory, falls back to another generation, follows ambient state, or mixes files across generations.
-
-`HarnessStateComparator` checks one such resolved immutable generation without writing. It consumes a complete candidate, its applicable passing candidate `ValidationResult`, an exact affirmative `DevelopmentOperationAuthorizationResult` for comparison, and the resolved immutable generation. It verifies exact bindings and comparison-specific preconditions without reinterpreting validation or authority. Denied, erroneous, incomplete, invalid, mismatched, non-passing, or unresolved input returns a represented outcome without comparison. A permitted comparison classifies differences as:
-
-| Difference | Meaning |
-|---|---|
-| Missing | A candidate artifact has no maintained counterpart |
-| Unexpected | A projector-owned maintained artifact is absent from the candidate closure |
-| Byte drift | Bytes differ for a canonical-byte format |
-| Semantic drift | Normalized represented content differs |
-| Physical-only variation | Bytes differ where the format permits equivalent physical representations |
-| Version mismatch | Schema, projection, or format identities disagree |
-
-The comparator applies exact-byte comparison only where the format contract requires canonical bytes. For formats such as SQLite, semantic agreement may be the governing rule unless canonical physical bytes are explicitly part of the contract.
-
-The comparator reports drift; it never repairs it, invokes synchronization, or changes the exit status based on an undeclared tolerance.
+[Development projections](projections.md) owns candidate artifact contracts,
+post-projection validation, immutable-generation publication, synchronization,
+resolution, comparison, and recovery. The compiler produces the validated
+`HarnessState` consumed by that boundary; it does not publish or compare derived
+views. Human-authored files under `docs/` are never projections.
 
 ## Determinism
 
@@ -551,7 +463,7 @@ This compiler architecture belongs exclusively to the development harness. It ma
 
 Any scientific workflow compiler requires a separate contract under the scientific workflow architecture. It may reuse generic deterministic techniques, but it cannot inherit development-harness state authority implicitly.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact public field contracts for source snapshots, normalized state, and artifact sets.
 - Compiler and normalization-rule version identities.

@@ -1,9 +1,9 @@
 {
   "name": "backend-neutral-kohn-sham-qe",
   "package": "ksdft2effmass",
-  "description": "Simulation-first computational bootstrap followed by a deterministic scientific simulation and scientific workflow architecture. The 18 direct pw.x invocations are retained as bootstrap scientific-harness development evidence, not a canonical scientific ScientificWorkflowRun or accepted production convergence evidence. Production convergence and Architecture v2 implementation are deferred while the explicitly prioritized human-readable documentation migration proceeds. No scientific execution, automatic successor, publication, or release is authorized. The human-requested Quantum ESPRESSO hands-on campaign is additionally planned as inactive Tasks; no campaign simulation is active or execution-authorized.",
-  "status": "architecture_v2_plan_active_issue_resolution",
-  "active_task": "harness.architecture-v2.plan",
+  "description": "The human-accepted Architecture v2 planning phase closes the normative target within the existing v1-to-v2 migration. Architecture v1 remains implemented; Architecture v2 implementation, production convergence, scientific execution, automatic successor activation, publication, and release remain deferred or unauthorized as applicable.",
+  "status": "architecture_v2_plan_closed_human_accepted_pass",
+  "active_task": null,
   "workflow_semantics": "project_owned_colored_petri_net",
   "selected_candidate_engine": "SNAKES",
   "engine_dependency_added": true,
@@ -17,20 +17,6 @@
     "docs/computational/bulk-silicon-production-program.md"
   ],
   "production_execution_authorized": false,
-  "superseded_sequence": {
-    "authority": "harness/tasks/backend-neutral-kohn-sham-qe-architecture.json",
-    "tasks": [
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H"
-    ],
-    "disposition": "Scientific decomposition preserved; linear/DAG-like workflow sequencing prospectively superseded by P0-P11 CPN tasks. Human-authorized P0A is a bounded packaging/configuration prerequisite inserted before existing P1."
-  },
   "task_sequence": [
     {
       "id": "P0",
@@ -294,15 +280,7 @@
     "command_template": "python/.venv/bin/python python/src/cli/validate_task_ownership.py --repository-root <ABSOLUTE_REPOSITORY_ROOT> --task <TASK_ID>",
     "policy": "A task-specific ownership manifest is required before concurrent mutation or mutating delegation. A bounded single-writer Task with delegation explicitly unauthorized requires no ownership manifest. Any declared manifest remains fail-closed. Independent read-only review is assigned after implementation when required and is not an implementation owner or launch prerequisite."
   },
-  "per_task_completion_gates": [
-    "task_ownership_launch_preflight_when_applicable",
-    "implementation_or_preflight_evidence_as_scoped",
-    "tests_or_verification_evidence",
-    "documentation",
-    "independent_read_only_review",
-    "parent_verification",
-    "human_acceptance"
-  ],
+  "completion_policy": "Apply the root process class proportionally: bounded implementation or planning evidence and affected checks are required; use one consolidated read-only review when materially useful or task-required, at most one correction pass, and human decision or acceptance only at an applicable human-owned boundary. Ownership manifests are required only under the declared concurrent-writer or separated-ownership conditions.",
   "launch_policy": "The complete bulk-silicon production program is planned but inactive. Every calculation or external-interface Task requires separate explicit activation and the applicable exact protected-execution authorization. Human-owned scientific decisions remain unresolved in their owning Tasks. No automatic successor activation, repeat tutorial execution, production execution, publication, or release is authorized.",
   "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
   "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
@@ -319,123 +297,11 @@
       "data_transfer_policy"
     ]
   },
-  "resolved_checkpoints": [
-    {
-      "checkpoint": "P0-HC01-packaging-license-and-configuration",
-      "decision": "A",
-      "resolved_at": "2026-08-03T11:17:31Z",
-      "result": "P0 closed as human-accepted CONDITIONAL_PASS; bounded P0A activated; P1-P11 remain blocked."
-    },
-    {
-      "checkpoint": "P0A-HC01-packaging-configuration-final-acceptance",
-      "decision": "A",
-      "resolved_at": "2026-08-03T12:16:27Z",
-      "result": "P0A closed as human-accepted PASS; P1 not launched by checkpoint resolution; P1 activation awaits successful closeout validation under separate authorization."
-    },
-    {
-      "checkpoint": "P1-HC01-cpn-numeric-wire-contract",
-      "decision": "A",
-      "resolved_at": "2026-08-04T00:41:02Z",
-      "result": "Option A authorizes binary64 REAL canonicalization and fixed-width integer correction, subject to the later P1-HC02 control-field refinement; P1 final acceptance remains separate and P2-P11 remain blocked."
-    },
-    {
-      "checkpoint": "P1-HC02-u64-expression-routing",
-      "decision": "B",
-      "resolved_at": "2026-08-04T01:04:21Z",
-      "result": "All P1 v1 expression-visible nonnegative controls are bounded to 2^63-1 with structured revision overflow at that maximum; no unsigned ContractValue kind is added."
-    },
-    {
-      "checkpoint": "P1-HC03-final-acceptance",
-      "decision": "A",
-      "resolved_at": "2026-08-04T03:02:33Z",
-      "result": "P1 closed as human-accepted PASS after final reviews and parent verification; no successor launched; P2-P11 remain blocked."
-    },
-    {
-      "checkpoint": "EVIDENCE-DOC-1-HC03-final-acceptance",
-      "decision": "A",
-      "resolved_at": "2026-08-04T06:36:09Z",
-      "result": "EVIDENCE-DOC-1 closed as human-accepted PASS; P1 remains closed; no successor launched; P2-P11 and production/scientific execution remain blocked."
-    },
-    {
-      "checkpoint": "H1-HC02-final-acceptance",
-      "decision": "A",
-      "resolved_at": "2026-08-04T15:42:45Z",
-      "result": "Harness H1 closed as human-accepted PASS after one deterministic closeout validation; no H3, H2, H4, H5, P2, implementation, or execution was activated."
-    },
-    {
-      "checkpoint": "P2-HC02-final-acceptance",
-      "decision": "B",
-      "resolved_at": "2026-08-06T03:44:34Z",
-      "result": "P2 remains open; one test-evidence-only migration is authorized for eight supplied test modules using develop-python-test-evidence. Production/schema/fixture/dependency/lock/scientific meaning and successors remain unchanged; no R3/E3."
-    },
-    {
-      "checkpoint": "P2-HC05-final-acceptance",
-      "decision": "B",
-      "resolved_at": "2026-08-06T16:51:37Z",
-      "result": "P2 remains open; one nomenclature-only correction is authorized to identify nested provenance audit items as P2-A00--P2-A11 and synchronize directly affected evidence/control paths. P2-A02 is not started; successors and protected execution remain inactive."
-    },
-    {
-      "checkpoint": "P2-HC06-final-acceptance",
-      "decision": "A",
-      "resolved_at": "2026-08-06T18:38:46Z",
-      "result": "P2-A02 remains audited_and_cleared; the explicitly bounded P2-A03 ExternalExecutionResult correction and ExternalExecutionOutcome artifact-ownership move are authorized. P2 remains open and unaccepted; ExternalExecutionFailure, successors, and protected execution remain inactive."
-    },
-    {
-      "checkpoint": "P2-HC07-final-acceptance",
-      "decision": "A",
-      "resolved_at": "2026-08-07T03:24:41Z",
-      "result": "P2 closed as human-accepted PASS. P3 became prerequisite-eligible but remains inactive; H5, P3-P11, scientific/external/protected execution, publication, and release remain inactive."
-    }
-  ],
-  "activations": [
-    {
-      "task": "P1",
-      "authorized_at": "2026-08-03T12:16:27Z",
-      "activated_after": "P0A closeout validation passed",
-      "authority": "Separate authorization in the preserved P0A-HC01 human response",
-      "scope": "Executable project-owned backend-neutral CPN contract in production source, focused tests, required schemas/fixtures/documentation/reviews; no SNAKES adapter, persistence implementation, workflow/scientific execution, or P2-P11 work."
-    },
-    {
-      "task": "P2",
-      "authorized_at": "2026-08-05T15:42:27Z",
-      "activated_after": "P1 and H4 human-accepted PASS, zero unresolved checkpoints, maintained local-route consumer PASS, and durable ownership preflight",
-      "authority": "Current human instruction titled P2 \u2014 Activate and implement provenance and external-tool capability records",
-      "scope": "P2 project-owned immutable provenance, artifact, external-tool lifecycle, request/result/failure records; strict schema and JSON actions; software-verification tests; maintained documentation; one bounded replay; one consolidated review; one possible correction; final P2 checkpoint and pending-boundary commit/push only. No H5/P3-P11 or scientific/external execution."
-    },
-    {
-      "task": "bulk-silicon.simulation.qe.reference",
-      "authorized_at": "2026-08-12T23:11:39Z",
-      "activated_after": "origin/dev agreement, zero active Tasks, zero unresolved checkpoints, P2 human_accepted_pass, prerequisite eligibility, and verified official tutorial pseudopotential acquisition",
-      "authority": "Current human instructions resolving silicon_tutorial_input_selection and qe_tutorial_execution_authorization and authorizing controlled acquisition of https://pseudopotentials.quantum-espresso.org/upf_files/Si.pz-vbc.UPF",
-      "scope": "Exactly one local single-process execution of the unmodified QE 7.2 PW example01 silicon SCF Davidson input using ~/projects/q-e-qe-7.2/build/bin/pw.x and downloaded Si.pz-vbc.UPF bytes with SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217. No band, CG, PPCG, Al, Cu, Ni, Wannier90, production Stage 02, successor, dependency, schema, validator, SQLite, CPN, or generalized extraction work."
-    },
-    {
-      "task": "bulk-silicon.records.periodic.extraction",
-      "authorized_at": "2026-08-12T23:41:05Z",
-      "activated_after": "bounded producer-attribution and canonical-path correction passed focused validation and bulk-silicon.artifacts.qe.inventory was human-accepted PASS",
-      "authority": "Current human instruction accepting bulk-silicon.artifacts.qe.inventory subject to one bounded provenance correction and explicitly activating bulk-silicon.records.periodic.extraction",
-      "scope": "Present, but do not yet implement, the minimal record boundary for only the observed silicon.save/data-file-schema.xml QEXSD source. The first implementation may extract only lattice and reciprocal-lattice vectors with units, atomic species and positions, k-points and weights, Kohn-Sham eigenvalues and occupations, total energy, FFT-grid metadata, exit status, creator and QEXSD version, and source-artifact identity, with mechanical parsing separate from semantic record construction and unavailable conventions left unavailable."
-    },
-    {
-      "task": "bulk-silicon.simulation.qe.band-reference",
-      "authorized_at": "2026-08-12T22:32:46Z",
-      "activated_after": "accepted planning branch integration, exact ancestry and diff checks, zero active Tasks, zero unresolved checkpoints, prerequisite eligibility, and isolated protected-execution preflight",
-      "authority": "Current human instruction to integrate the accepted band-reference plan, activate exactly bulk-silicon.simulation.qe.band-reference, and complete preflight without invoking pw.x",
-      "scope": "Activate exactly the QE 7.2 example01 silicon Davidson bands tutorial Task; prepare an identity-verified isolated copy of only required accepted restart artifacts, exact input, executable and pseudopotential identities, comparison target, one-process command, and human authorization packet. Do not invoke pw.x, run run_example, activate a successor, or create a checkpoint."
-    },
-    {
-      "task": "harness.architecture-v2.simulation-execution",
-      "authorized_at": "2026-08-13T14:36:04Z",
-      "activated_after": "human classification of the 18 direct executions as bootstrap scientific-harness development evidence and deferral of canonical production convergence execution",
-      "authority": "Current human instruction to correct the durable lifecycle, separate development and scientific harnesses, and activate exactly one Architecture v2 simulation-execution implementation Task",
-      "scope": "Three serial implementation slices under one Task: simulation and package architecture, direct accepted QE tutorial baselines under replay, and calculator-independent CPN solutions for the same tutorials. No scientific executable, production convergence execution, automatic successor, checkpoint, ADR, or implementation during the lifecycle-correction boundary."
-    }
-  ],
   "pending_checkpoints": [],
   "chain": [
     {
-      "phase": "architecture-v2-plan-active",
-      "message": "harness.architecture-v2.plan is active for planning-only closure of the normative Architecture v2 documents. The live issue register has no open issues; resolved architecture is represented in the normative documents rather than replayed here as phase history. Final task verification and any human acceptance remain separate. Architecture v2 implementation, scientific or protected execution, automatic successor activation, publication, and release remain unauthorized."
+      "phase": "architecture-v2-plan-closed-human-accepted-pass",
+      "message": "The human accepted and closed harness.architecture-v2.plan after the focused coding-standards conformance rewrite and preceding planning simplification. The accepted boundary keeps conformance limited to identified source subjects, coding-standards policy, explicit adapter profiles and adapters, ValidationResult values, and derived reporting; authorization, promotion, behavioral and numerical verification, human review, repository mutation, and scientific concerns remain separate. Architecture v1 remains implemented and Architecture v2 remains prospective. No Architecture v2 implementation, scientific or protected execution, dependency change, automatic successor activation, publication, or release is authorized."
     }
   ],
   "explicitly_activated_task_ids": [
@@ -447,20 +313,5 @@
     "bulk-silicon.simulation.qe.reference",
     "harness.architecture-v2.plan"
   ],
-  "superseded_p_series": {
-    "authority": "harness/reports/simulation-first-task-migration.md",
-    "tasks": [
-      "P3",
-      "P4",
-      "P5",
-      "P6",
-      "P7",
-      "P8",
-      "P9",
-      "P10",
-      "P11"
-    ],
-    "disposition": "Superseded by schema-version-3 Task identity relationships; no replacement is activated."
-  },
   "automatic_successor_activation": false
 }

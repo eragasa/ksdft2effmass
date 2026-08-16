@@ -33,7 +33,7 @@ The harness may reference immutable scientific contract and implementation ident
 | Exact operation authorization | `DevelopmentOperationAuthorizer` |
 | Domain validation | Concrete `HarnessDomainValidator` implementations |
 | Normalized-state validation composition | `HarnessStateValidator` |
-| Repository-wide development conformance | `DevelopmentConformanceWorkflow` |
+| Coding-standards conformance | Explicit coding-standard adapters returning the shared `ValidationResult` contract |
 | Mechanical promotion eligibility | `PromotionEligibilityEvaluator` |
 | Persistence | Domain-owned `HarnessStateRepository`; concrete `HarnessStateAtomicRepository` composed with shared `AtomicRevisionStore`, exact serializer, and validator |
 | Derived views | `HarnessProjector`, `HarnessSynchronizer`, and `HarnessStateComparator` |
@@ -44,7 +44,7 @@ A `HarnessTask` defines bounded requested work, prerequisites, completion criter
 
 `HarnessState` is the immutable normalized aggregate used by validation and projection. It contains the one `DevelopmentDecision` model described by [human decisions](../../human-decisions.md) directly as an immutable canonically ordered sequence of unresolved and resolved variants/revisions. A pending decision blocks only its declared development transition and scope. Persistence stores lossless revisions of that same repository-derived aggregate. The initial realization composes `HarnessStateAtomicRepository` with an explicitly configured standard-library SQLite shared store; it does not introduce a domain SQLite subclass. Projections are recoverable read-only views and never replace authority.
 
-Development conformance is owned by the harness but evaluates the entire repository stack. The applicable package, specification, test contract, or documentation policy retains ownership of the meaning being checked. Scientific packages do not import the harness merely because the harness invokes their declared checks.
+Coding-standards conformance is owned by the harness and evaluates only explicitly identified source subjects under an identified coding-standards policy. Profiles bind policy requirements to explicit adapters but create no policy or gate. Task, behavioral, numerical, promotion, and scientific concerns remain with their existing owners.
 
 Repository operations receive explicit roots, source identities, permitted paths, and requirements. Ambient current-directory discovery, mutable plugin registries, inherited architecture-policy subclasses, and silent implementation fallback are forbidden.
 
@@ -67,7 +67,7 @@ The exact route is proportional to risk. Human-owned and protected boundaries re
 - [Development harness model](development-harness.md)
 - [Compiler architecture](compiler-architecture.md)
 - [Normalized-state validation](validation.md)
-- [Repository-wide development conformance](conformance.md)
+- [Coding-standards conformance](conformance.md)
 - [Control plane](control-plane.md)
 - [Persistence](persistence.md)
 - [Shared revision persistence](../persistence/index.md)
@@ -76,10 +76,10 @@ The exact route is proportional to risk. Human-owned and protected boundaries re
 - [Human decisions](../../human-decisions.md)
 - [Separation from the scientific workflow](../../separation-of-harness-and-workflow.md)
 
-## Unresolved issues
+## Deferred implementation details
 
 - Final submodule boundaries within `ksdft2effmass.harness`.
-- Exact conformance policy, profile, result, and report wire contracts.
+- Exact coding-standards policy, adapter-profile, aggregate-result, and report wire contracts.
 - Closed development lifecycle and selection wire contracts.
 - Exact HarnessState wire bytes and SQLite schema/operational policy; standard-library SQLite is selected only as the initial shared-store realization.
 - Which generated development views remain maintained.

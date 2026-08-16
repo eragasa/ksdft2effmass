@@ -37,10 +37,8 @@ Workflow control obtains one exact `authorized` `SimulationExecutionAuthorizatio
 - [Generic colored Petri net](../petrinet/colored/index.md)
 - [Separation from the development harness](../../separation-of-harness-and-workflow.md)
 
-## Status and unresolved issues
+## Deferred implementation details
 
 Exact field and wire contracts, nested terminal/export forms, SQLite schema and operational policy, asynchronous interfaces, cancellation, external scheduler adapters, and project-specific catalog distribution remain deferred. Standard-library SQLite is selected as the initial shared-store realization, with a separate WorkflowRun store/database by default. Generic firing retains one identity-closed enablement, selection-result, optional-directive, and firing-input chain. Workflow-owned `WorkflowRunReplayer` consumes one exact run revision and explicit immutable `WorkflowRuntimeBundle`, returns closed `equal`/`unequal`/`unsupported_version`/`error`, and gates service use of loaded or proposed successor state without moving transition computation into persistence or introducing durable replay attestations.
 
 Human decisions are explicit external inputs processed deterministically under the [domain-separated decision contract](../../human-decisions.md). An unresolved `ScientificDecisionRequest` pauses only its affected branch. Through an application-owned trusted boundary, `ScientificDecisionRecorder` receives the verbatim response with direct source and authority-context identities, constructs the resolution with closed no-Task ingress provenance, uses the adapter and pure firer for the exact request-identified transition, constructs the complete successor, and returns the resolution only after atomic commit. Correction consumes the exact effective predecessor token and produces one superseding token; it does not roll back earlier work. The generic colored-Petri-net package remains unaware of decisions and authority. Replay consumes the committed ordered records and never prompts or reauthenticates.
-
-This prospective contract is documentation-only. Decision records grant no authority. It grants no protected execution and claims no implementation, software or numerical verification, scientific validation, equivalence, or human software acceptance.

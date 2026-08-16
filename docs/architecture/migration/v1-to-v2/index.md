@@ -4,6 +4,7 @@ This subtree is the sole maintained cross-version comparison. This index maps th
 
 ## Subject crosswalks
 
+- [Coding-standards conformance](coding-standards-conformance.md)
 - [Pi harness subagents](pi-harness-subagents.md)
 
 ## Current implementation status
@@ -22,13 +23,14 @@ The v1 `Cpn*` names are implemented public API. Workflow implementations may lat
 | V1 responsibility or surface | Prospective v2 owner | Disposition | Migration condition |
 |---|---|---|---|
 | Development Task coordination | Development harness | Retain and narrow | Scientific state separated |
+| V1 Python maintained-evidence conformance scripts | Coding-standards conformance with explicit v1-compatible adapters | Retain and narrow | Controlled valid/invalid fixtures establish compatibility; unrelated harness validation remains with its domain owners |
 | Existing colored-Petri-net primitives in `workflows.cpn` | `petrinet.colored` generic boundary | Retain v1; move only under later authority | Full-name API and compatibility plan accepted |
 | Task-based scientific execution state | `WorkflowRun` | Replace | Workflow persistence exists |
 | Shell sequencing | `Workflow` plus `ColoredPetriNetWorkflowAdapter` | Replace | Required behavior demonstrated |
 | Producer-Task prerequisites | ResultObject-valued dependency edges plus exact Workflow/WorkflowRun/Task-instance/TaskActivation/attempt/ResultObject producer provenance | Replace | Provenance and dependency contracts accepted |
 | Direct calculator runner | Concrete SimulationTask and target-first executor | Replace | Applicable software behavior demonstrated |
 | Compact execution records | Concrete immutable ResultObjects and `ArtifactManifest` | Split | Wire contracts accepted |
-| Scientific review encoded in Task lifecycle | `ScientificAnalysis` plus human-reviewed research conclusions | Replace | Scientific analysis lifecycle implemented |
+| Scientific review encoded in Task lifecycle | `ScientificAnalysis` and `ScientificFinding`, followed by human-reviewed external research conclusions | Replace | Analysis lifecycle implemented; no `ScientificDisposition` subsystem or workflow acceptance state is introduced |
 | Harness SQLite projections | Development harness projections | Retain and narrow | Scientific state removed; generated projection publication remains separate from ordinary revision storage |
 | Revision-storage capability | `persistence.store` plus `persistence.sqlite` | Introduce prospectively | Opaque single-stream contract and stdlib SQLite realization implemented under later authority |
 | HarnessState persistence | Domain-owned `HarnessStateRepository` and composed `HarnessStateAtomicRepository` | Retain domain meaning; compose shared store | Exact serializer/validator binding and compatibility gates accepted |
@@ -53,7 +55,8 @@ Project-specific campaign definitions may be re-expressed as composition inputs 
 7. Implement the calculator-owned QE SimulationTask/composite and its injected `integration.quantumespresso` adapter for the exact tutorial inputs under separate bounded work.
 8. Demonstrate applicable direct and Workflow-controlled software behavior without treating it as scientific validation.
 9. Retain historical convergence artifacts under their actual producer-provenance variants without recalculation.
-10. Remove v1 scientific-execution coupling only after the replacement behavior actually required by retained use passes its accepted compatibility gates.
+10. Preserve human-reviewed conclusions as external research records citing exact analysis identities; do not migrate them into `WorkflowRun` disposition or acceptance state.
+11. Remove v1 scientific-execution coupling only after the replacement behavior actually required by retained use passes its accepted compatibility gates.
 
 No step activates its successor. Scientific execution requires separate exact protected-execution authority.
 

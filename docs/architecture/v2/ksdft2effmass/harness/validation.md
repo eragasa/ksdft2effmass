@@ -4,7 +4,7 @@
 
 Development validation evaluates one normalized `HarnessState` without changing it. Domain rules remain with concrete domain validators; composition belongs to `HarnessStateValidator`.
 
-This page describes validation of the development-control aggregate itself. The broader evaluation of proposed changes across source, workflow, calculator, scientific-domain, test, documentation, and harness paths is defined by [Development conformance](conformance.md). A passing `HarnessStateValidator` result is one input to that broader process, not a repository-wide promotion decision.
+This page describes validation of the development-control aggregate itself. [Coding-standards conformance](conformance.md) is a separate source-subject boundary using the same normative `ValidationResult` contract; it does not subsume `HarnessState` validation or calculate repository promotion eligibility.
 
 ## Protocol
 
@@ -48,7 +48,7 @@ Every result contains result identity; validator identity; requirement, rule, an
 
 `blocking` is derived, never chosen independently, from identified requirement/profile criticality and findings. A required `error`, `not_run`, or `fail` blocks the gate. A composite preserves child identities and findings and derives its status over all applicable child invocations with precedence `error`, then `not_run`, then `fail`, then `pass`; child requirement criticality affects `blocking`, not whether the child's outcome contributes to composite status. Composite `not_applicable` is permitted only when the composite requirement permits it and no child invocation is applicable. Contradictory combinations are invalid.
 
-A structural pass establishes only the rules represented by that result. It does not establish test success, repository-wide conformance, mechanical promotion eligibility, numerical verification, scientific validation, protected authority, or human acceptance.
+A structural pass establishes only the rules represented by that result. It does not establish test success, coding-standards conformance for another subject, mechanical promotion eligibility, numerical verification, scientific validation, protected authority, or human acceptance.
 
 ## Candidate artifact-set validation
 
@@ -68,7 +68,7 @@ It owns only invariants whose subject exists after projection:
 
 `HarnessStateValidator` and its domain owners retain source-owned destination policy and normalized-state invariants. Candidate validation neither reinterprets source authority nor repairs the candidate. `HarnessSynchronizer` and `HarnessStateComparator` require an applicable `pass` for the exact complete candidate and explicit policy/context plus exact affirmative authorization for their respective operation. They verify result bindings but never validate silently or reinterpret authority policy. An incomplete candidate, identity mismatch, denied or erroneous authorization, failed target precondition, or `fail`, `error`, `not_run`, or `not_applicable` validation result produces the target operation's represented blocked outcome and no write or comparison.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact `ValidationResult` and `ValidationFinding` wire formats.
 - Whether normalized-state cross-domain rules are owned by dedicated validators or a narrow closure phase in `HarnessStateValidator`.

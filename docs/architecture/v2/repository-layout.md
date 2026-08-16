@@ -125,7 +125,7 @@ ksdft2effmass.analysis ✗→ calculator or integration packages
 scientific packages ✗→ ksdft2effmass.harness runtime state
 ```
 
-Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. `integration.quantumespresso → calculators` is the concrete adapter-to-consumer direction; integration may also import the exact workflow, periodic, and Kohn–Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects the concrete implementation. Adding `workflows → petrinet.colored` does not reverse any calculator, integration, or analysis boundary. Repository-wide conformance does not add runtime harness dependencies. The shared persistence package has standard-library upstream dependencies only; `persistence.sqlite` additionally uses `sqlite3`. Domain persistence modules import the shared store contract and their own domain model/serializer/validator, while `application` remains downstream.
+Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. `integration.quantumespresso → calculators` is the concrete adapter-to-consumer direction; integration may also import the exact workflow, periodic, and Kohn–Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects the concrete implementation. Adding `workflows → petrinet.colored` does not reverse any calculator, integration, or analysis boundary. Coding-standards conformance does not add runtime harness dependencies to inspected packages. The shared persistence package has standard-library upstream dependencies only; `persistence.sqlite` additionally uses `sqlite3`. Domain persistence modules import the shared store contract and their own domain model/serializer/validator, while `application` remains downstream.
 
 ## Responsibilities
 
@@ -150,12 +150,10 @@ Additional calculators are introduced only for demonstrated project needs. Each 
 
 Existing native input and pseudopotential artifacts remain usable with their actual identities and provenance without rendering, conversion, registration, rerun, or evidence reclassification. Shared labels or settings do not establish equivalence.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact internal submodules and public wire-contract exports.
 - Process-launch and optional scheduler adapter locations.
 - Exact persistence wire bytes, SQLite schema/layout, connection lifetime, locking/isolation/busy behavior, backup/recovery, retention/compaction, maximum aggregate size, canonical bytes, and public failure/exception encodings.
 - Exact `WorkflowRuntimeBundle` and `WorkflowRunReplayResult` wire fields; replay computation itself is workflow-owned by `WorkflowRunReplayer`, while persistence remains structural and domain-neutral.
 - Any later source-move or extraction plan.
-
-This prospective layout claims no implementation, verification, equivalence, protected execution, or human software acceptance.

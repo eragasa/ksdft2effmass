@@ -80,7 +80,7 @@ For a nested Workflow, the parent first durably records one exact `NestedWorkflo
 
 A confirmed nested outcome references one exact replay-equal terminal child revision and the explicit exported ResultObjects admitted to the parent. A rejected outcome records the exact child failure or pre-child invocation failure and exports nothing. An indeterminate outcome preserves the child-run and creation/observation identities and exports nothing. An indeterminate child creation is reconciled through the exact child identity and idempotency-bound revision read; it is never answered by creating another child automatically. Only a confirmed outcome may provide the parent firing's external output binding. Parent and child histories remain immutable and independently replayable.
 
-The simulation path is a specialization rather than a competing generic invoker. `SimulationDispatchOutcome` retains its selected confirmed/rejected/indeterminate dispatch semantics. After reconciliation, workflow control constructs the correlated candidate `TaskInvocationOutcome`: confirmed only with the exact confirmed envelope and its concrete result, rejected from the exact rejected dispatch, or indeterminate from the exact indeterminate dispatch. For confirmed work, `TaskResultIngester` validates the envelope/outcome correlation, admits the concrete calculator ResultObject and exact native-output manifest references, and includes the generic outcome, result transition, and dispatch disposition in one atomic successor unit. The generic outcome becomes effective with that commit; it does not wrap, reinterpret, or duplicate the scientific ResultObject.
+The simulation path is a specialization rather than a competing generic invoker. `SimulationDispatchOutcome` retains its selected confirmed/rejected/indeterminate dispatch semantics. After reconciliation, workflow control constructs the correlated candidate `TaskInvocationOutcome`: confirmed only with the exact confirmed envelope and its concrete result, rejected from the exact rejected dispatch, or indeterminate from the exact indeterminate dispatch. For confirmed work, `TaskResultIngester` validates the envelope/outcome correlation, admits the concrete calculator ResultObject and exact native-output manifest references, and includes the generic outcome, result transition, and `ObligationDisposition` in one atomic successor unit. The generic outcome becomes effective with that commit; it does not wrap, reinterpret, or duplicate the scientific ResultObject.
 
 ## Result flow and provenance
 
@@ -92,12 +92,10 @@ Parent/child Workflow membership and ResultObject dependency are orthogonal cros
 
 `WorkflowRunAtomicRepository` receives supplied candidate successor units and obligations, invokes its bound transaction validator and serializer on that exact candidate, binds the candidate bytes and identities, and only then submits the atomic commit. It does not enable or select generic transitions, choose start gates, invoke Tasks, calculate generic firing, interpret responses, create decisions or authority, or construct workflow successor policy. Workflow control owns task-origin transformations; `ScientificDecisionRecorder` owns scientific-decision-origin construction while using the adapter and pure generic firer as explicit dependencies.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact public Task, Workflow, gate-value, activation, and adapter wire fields beyond the selected modes and discriminants.
 - Token-value and ResultObject mapping wire formats.
 - Nested-Workflow cancellation and compensation policy.
 - Exact terminal-state and exported-result wire forms for nested Workflow invocation.
 - Persistence representation for Workflow definitions and Task instances.
-
-This prospective contract is documentation-only. It claims no implementation, verification, scientific validation, equivalence, execution authority, or human software acceptance.

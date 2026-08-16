@@ -64,7 +64,7 @@ Extraction is a separate read-only transformation over identified native outputs
 
 Environment capture is allowlisted and sanitized. Secrets, private keys, tokens, restricted data, and unrestricted environment mappings are forbidden. Missing, conflicting, inapplicable, or unclosed identity, lineage, producer-provenance, or manifest fields produce a structured failure and stop dependent colored-Petri-net transitions.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact extraction-specification and extracted-record wire forms.
 - Canonical portable native-output reference representation.

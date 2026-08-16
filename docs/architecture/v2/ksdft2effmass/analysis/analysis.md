@@ -44,7 +44,7 @@ Human-reviewed scientific conclusions remain in applicable research records with
 
 Software verification of an analyzer does not establish numerical verification or scientific validation. Numerical verification, scientific validation, and uncertainty quantification remain explicitly classified in findings and evidence.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Representation of tolerance, convergence, and uncertainty policies.
 - Analyzer version identity and reproducibility requirements.

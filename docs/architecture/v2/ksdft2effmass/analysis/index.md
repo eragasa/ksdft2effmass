@@ -17,7 +17,7 @@ flowchart LR
 
 `NormalizedObservationSet` is calculator-independent and workflow-owned. Analysis implementations may import workflows, periodic, and Kohn–Sham contracts, but never calculator packages. Human-reviewed conclusions remain in research records citing exact analysis identities and provenance; Architecture v2 defines no software disposition or acceptance subsystem.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Analysis package subdivision by scientific domain.
 - Shared numerical-policy representation across analyzers.

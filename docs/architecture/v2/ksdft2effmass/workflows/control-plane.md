@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-The workflow control plane owns Workflow selection and advancement, run-scoped Task instances, Workflow-owned `TaskStartGateSet` policy, discriminated TaskActivation, exact execution authority, result correlation, dispatch/reconciliation, analysis readiness, and separately authorized disposition. It does not activate or complete a development `HarnessTask`.
+The workflow control plane owns Workflow selection and advancement, run-scoped Task instances, Workflow-owned `TaskStartGateSet` policy, discriminated TaskActivation, exact execution authority, result correlation, dispatch/reconciliation, and analysis readiness. It does not activate or complete a development `HarnessTask`, and it owns no scientific-conclusion or acceptance state.
 
 ## Control flow
 
@@ -38,7 +38,7 @@ flowchart LR
     firing_input --> fire["ColoredPetriNetTransitionFirer<br/>pure successor + audit facts"]
     fire --> workflow_records["Workflow transition and successor unit"]
     workflow_records --> ingress_commit["WorkflowRunAtomicRepository<br/>validate + bind result/obligation candidate"]
-    ingress_commit --> reconcile["Publication, analysis, and disposition paths"]
+    ingress_commit --> reconcile["Explicit extraction and analysis paths"]
 ```
 
 `ScientificExecutionAuthoritySnapshot` is an immutable verified view of one trusted authority source. It identifies source and issuer, trust configuration, content and authentication verification, predecessor and revocation closure, validity and freshness bounds, and resolver version. `SimulationExecutionAuthorizer` consumes that snapshot, an exact operation-phase discriminant, and the exact grant and dispatch inputs and returns one immutable `SimulationExecutionAuthorizationResult`: `authorized` binds every checked identity and the exact valid, unrevoked grant state required by that phase—`unused` before reservation or `reserved` to the same unclaimed obligation before claim; `denied` records an established stale, revoked, consumed, already claimed, out-of-scope, phase-incompatible, or mismatched condition; and `error` records that authorization or denial could not be established. Only `authorized` may proceed, and the result itself performs no reservation or effect.
@@ -62,7 +62,7 @@ Human-response processing is deterministic. `ScientificDecisionRecorder` is the 
 - A claimed grant is consumed for authorization purposes. A duplicate, stale, losing, or indeterminate claimant performs no effect; retry or a new execution uses new activation, operation, request, attempt, obligation, and grant identities.
 - Workflow control and the executor independently run `SimulationExecutionAuthorizer` over the same immutable grant, verified authority snapshot, and effect inputs. Denied, erroneous, stale, revoked, consumed, or mismatched input causes no reservation, claim, or execution as applicable.
 - Confirmed, rejected, and indeterminate outcomes remain distinct; indeterminate contains no invented result, retains the original reservation/claim identities, and is reconciled without automatic redispatch.
-- After reconciliation, workflow control constructs the candidate generic outcome from the exact specialized dispatch outcome. For confirmed work, `TaskResultIngester` validates the envelope/outcome correlation and atomically admits the concrete ResultObject, exact native-output manifest references, generic outcome, result transition, and dispatch disposition. Explicit extraction occurs afterward without copying or publishing the native files.
+- After reconciliation, workflow control constructs the candidate generic outcome from the exact specialized dispatch outcome. For confirmed work, `TaskResultIngester` validates the envelope/outcome correlation and atomically admits the concrete ResultObject, exact native-output manifest references, generic outcome, result transition, and `ObligationDisposition`. Explicit extraction occurs afterward without copying or publishing the native files.
 - An absent, ambiguous, unmatched, or conflicting decision response creates no resolution or token and leaves only the affected branch blocked.
 - Successful decision recording commits one scientific-decision-origin transition with exact request/resolution, direct trusted-boundary identities, closed no-Task producer provenance, and no TaskActivation/attempt.
 - Exactly one decision-state token exists for the request at its ingress boundary. Downstream transitions read it; correction consumes the exact effective predecessor and produces one superseding token atomically. Stale or competing correction fails.
@@ -75,10 +75,8 @@ Human-response processing is deterministic. `ScientificDecisionRecorder` is the 
 
 Protected execution remains human-owned where policy requires it. Execution authority does not establish scientific acceptance. `WorkflowRun` stores only the externally issued grant/snapshot references, closed authorization results, and append-only reservation/claim/outcome history needed for one dispatch; it never issues or broadens a grant. This documentation grants no protected execution authority.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Exact serialized activation, grant, authority-snapshot, authorization-result, reservation/claim, obligation, and reconciliation records.
 - Cancellation, nested child-run compensation, and operator-interruption semantics.
 - Multi-run scheduling outside one deterministic Workflow selection.
-
-This prospective control model claims no implementation, verification, scientific validation, equivalence, or human software acceptance.

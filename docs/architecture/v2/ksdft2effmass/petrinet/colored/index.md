@@ -45,10 +45,8 @@ This generic package owns only colors, places, transitions, arcs and inscription
 
 `ksdft2effmass.workflows` imports `ksdft2effmass.petrinet.colored`. The reverse dependency is forbidden. Workflow code may use abbreviated private or local import aliases, but prospective documentation and public exports use only the full `ColoredPetriNet*` terminology.
 
-## Unresolved issues
+## Deferred implementation details
 
 - Canonical definition, marking, expression, token-value, and result wire formats.
 - Canonical identity lexical forms.
 - Whether expression evaluators are public ActionObjects or private strategies.
-
-This prospective generic contract is not implemented or accepted software.

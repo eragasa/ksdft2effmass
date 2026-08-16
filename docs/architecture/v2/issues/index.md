@@ -4,6 +4,6 @@ This is the sole live register for the current prospective Architecture v2 files
 
 ## Open issues
 
-None. Exact implementation details that do not block the selected semantics remain deferred in their owning pages.
+None. The human-selected scientific-analysis boundary keeps `ScientificAnalysis` and `ScientificFinding` in software while human-reviewed conclusions remain external research records; no `ScientificDisposition` subsystem or workflow acceptance state is part of v2. Exact implementation details that do not block the selected semantics remain deferred in their owning pages.
 
 The empty register does not activate a Task, authorize implementation or protected execution, or establish implementation, software verification, numerical verification, scientific validation, uncertainty quantification, or human acceptance.
