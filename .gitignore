@@ -244,6 +244,7 @@ graphify-out/
 # Keep durable control-plane files under .pi/ and .agents/ versioned; keep
 # generated subagent transcripts and run artifacts local.
 .pi-subagents/
+.pi/subagents/
 
 # Disposable derived harness indexes
 .pi/cache/
@@ -270,3 +271,4 @@ graphify-out/
 *.bak
 *.swp
 *~
+~$*
