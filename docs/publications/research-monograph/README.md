@@ -14,6 +14,12 @@ bounded narrative from it. Extraction is an editorial operation, not automatic
 synchronization, and does not transfer evidentiary status merely by copying
 prose.
 
+The current draft contains developed chapters on scope, the physical problem,
+mathematical foundations, the first-principles parent, representations and
+alignment, reduction, evidence, present result boundaries, and outlook. It is a
+framework-rich pre-results draft: chapter development does not imply completion
+of the calculations described there.
+
 ## Authority and evidence boundary
 
 The monograph is explanatory narrative. Applicable files under
