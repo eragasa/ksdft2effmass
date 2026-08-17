@@ -77,8 +77,9 @@ structured findings when the public action contract requires it.
 
 Generic validators inspect caller-supplied resources, ownership, checkpoints, chains,
 checksums, skills, and Python evidence structure. Project-local `HarnessValidator`
-composes six ordered checks: `python_evidence`, `resources`, `task_graph`,
-`checkpoints`, `skills`, and `control_state`.
+composes six ordered checks: `python_conformance`, `resources`, `task_graph`,
+`checkpoints`, `skills`, and `control_state`. The former `python_evidence` check value
+is retired rather than retained as an alias.
 
 The private projection synchronizer is the sole publisher of maintained SQLite,
 deterministic SQL, the projection manifest, the Task graph, resource-manifest

@@ -13,7 +13,9 @@
     "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_encoding_implementation.py::test_staticmethod__encodings__match_independent_literals",
     "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py::test_classmethod__projection_manifest_bytes__matches_literal_manifest",
     "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py::test_method__render_all_literal_task__returns_exact_paths_and_bytes",
-    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py::test_method__frontmatter__parses_literal_descriptor"
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py::test_method__frontmatter__parses_literal_descriptor",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__control_state__does_not_contaminate_python_conformance",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__python_conformance__direct_owner_preserves_controlled_finding"
   ],
   "expected_old_node_ids": [
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___ChainState.py::test_constructor__defaults__represent_no_selection",
@@ -29,7 +31,9 @@
     "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlEncoding.py::test_staticmethod__encodings__match_independent_literals",
     "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py::test_classmethod__projection_manifest_bytes__matches_literal_manifest",
     "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___ControlProjector.py::test_method__render_all_literal_task__returns_exact_paths_and_bytes",
-    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___RepositoryControlIngestor.py::test_method__frontmatter__parses_literal_descriptor"
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___RepositoryControlIngestor.py::test_method__frontmatter__parses_literal_descriptor",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__control_state__does_not_contaminate_python_evidence",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__python_evidence__direct_owner_preserves_controlled_finding"
   ],
   "mappings": [
     {
@@ -87,6 +91,14 @@
     {
       "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py::test_method__frontmatter__parses_literal_descriptor",
       "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___RepositoryControlIngestor.py::test_method__frontmatter__parses_literal_descriptor"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__control_state__does_not_contaminate_python_conformance",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__control_state__does_not_contaminate_python_evidence"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__python_conformance__direct_owner_preserves_controlled_finding",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py::test_artifact__python_evidence__direct_owner_preserves_controlled_finding"
     }
   ],
   "schema_version": 1

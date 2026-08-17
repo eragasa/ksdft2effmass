@@ -54,7 +54,7 @@ from .task_model_examples import make_task
 pytestmark = pytest.mark.software_verification
 
 _PASS_CHECKS = (
-    HarnessValidationCheck("python_evidence", "PASS", ()),
+    HarnessValidationCheck("python_conformance", "PASS", ()),
     HarnessValidationCheck("resources", "PASS", ()),
     HarnessValidationCheck("task_graph", "PASS", ()),
     HarnessValidationCheck("checkpoints", "PASS", ()),
@@ -93,7 +93,7 @@ _BOUNDARIES = [
 _PASS_PAYLOAD: dict[str, object] = {
     "status": "PASS",
     "checks": [
-        {"name": "python_evidence", "status": "PASS", "findings": []},
+        {"name": "python_conformance", "status": "PASS", "findings": []},
         {"name": "resources", "status": "PASS", "findings": []},
         {"name": "task_graph", "status": "PASS", "findings": []},
         {"name": "checkpoints", "status": "PASS", "findings": []},
@@ -158,7 +158,7 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
     result = HarnessValidator().execute(HarnessValidationRequest(repository))
     assert result.status == "PASS"
     assert tuple(map(attrgetter("name"), result.checks)) == (
-        "python_evidence",
+        "python_conformance",
         "resources",
         "task_graph",
         "checkpoints",
@@ -168,7 +168,7 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
     assert tuple(
         (check.name, check.status, check.findings) for check in result.checks
     ) == (
-        ("python_evidence", "PASS", ()),
+        ("python_conformance", "PASS", ()),
         ("resources", "PASS", ()),
         ("task_graph", "PASS", ()),
         ("checkpoints", "PASS", ()),
@@ -374,24 +374,26 @@ def test_artifact__task_check__unsupported_version_reports_invalid_record(
     )
 
 
-def test_artifact__python_evidence__direct_owner_preserves_controlled_finding(
+def test_artifact__python_conformance__direct_owner_preserves_controlled_finding(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Evidence ID: SV-HRV-PE-001
 
-    Requirement: Python evidence is obtained directly from PythonConformanceValidator
-    and preserves its exact code, path, and message.
+    Requirement: Python conformance is obtained directly from
+    PythonConformanceValidator and preserves its exact code, path, and message.
 
     Method: Copy the maintained repository, introduce one invalid evidence name, wrap
     the Python owner to capture its result, and make the control verifier conform.
 
     Oracle: The captured Python-conformance finding is independent of control state.
 
-    Acceptance: The evidence check and aggregate fail with the exact captured triple.
+    Acceptance: The conformance check and aggregate fail with the exact captured
+    triple.
 
-    Interpretation: Failure identifies indirect evidence ownership or lossy mapping.
+    Interpretation: Failure identifies indirect conformance ownership or lossy
+    mapping.
 
     Limitations: The mutation is synthetic software-verification data.
     """
@@ -429,33 +431,34 @@ def test_artifact__python_evidence__direct_owner_preserves_controlled_finding(
     assert result.status == "FAIL"
     expected = tuple(sorted(captured[0]))
     assert result.checks[0] == HarnessValidationCheck(
-        "python_evidence", "FAIL", expected
+        "python_conformance", "FAIL", expected
     )
     assert validate_harness.run(["--repository-root", str(root.resolve())]) == 1
     payload = json.loads(capsys.readouterr().out)
     assert payload["status"] == "FAIL"
     assert payload["checks"][0] == {
-        "name": "python_evidence",
+        "name": "python_conformance",
         "status": "FAIL",
         "findings": [list(finding) for finding in expected],
     }
 
 
-def test_artifact__control_state__does_not_contaminate_python_evidence(
+def test_artifact__control_state__does_not_contaminate_python_conformance(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Evidence ID: SV-HRV-CS-001
 
     Requirement: Control-only disagreement, including a finding without a path, does
-    not become Python evidence.
+    not become Python conformance.
 
-    Method: Verify the maintained conforming evidence corpus while replacing only the
+    Method: Verify the maintained conforming source corpus while replacing only the
     control verifier result with one pathless source-input failure.
 
-    Oracle: PythonConformanceValidator owns evidence; the private projection verifier
-    owns drift.
+    Oracle: PythonConformanceValidator owns conformance; the private projection
+    verifier owns drift.
 
-    Acceptance: Evidence passes, control fails with its exact finding, aggregate fails.
+    Acceptance: Conformance passes, control fails with its exact finding, and the
+    aggregate fails.
 
     Interpretation: Failure identifies path-based cross-domain inference.
 
@@ -484,7 +487,7 @@ def test_artifact__control_state__does_not_contaminate_python_evidence(
     )
     result = HarnessValidator().execute(HarnessValidationRequest(repository))
     assert result.status == "FAIL"
-    assert result.checks[0] == HarnessValidationCheck("python_evidence", "PASS", ())
+    assert result.checks[0] == HarnessValidationCheck("python_conformance", "PASS", ())
     assert result.checks[-1].status == "FAIL"
     assert result.checks[-1].findings == (
         (

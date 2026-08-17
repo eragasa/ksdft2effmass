@@ -31,7 +31,7 @@ from ksdft2effmass.harness.pi.local import (
 SUT = HarnessValidationResult
 pytestmark = pytest.mark.software_verification
 _NAMES = (
-    "python_evidence",
+    "python_conformance",
     "resources",
     "task_graph",
     "checkpoints",

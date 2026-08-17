@@ -82,10 +82,12 @@ Repository validation
 ---------------------
 
 ``HarnessValidator.execute`` composes existing structural domain owners into six
-stably ordered real ``HarnessValidationCheck`` records: ``python_evidence``,
-``resources``, ``task_graph``, ``checkpoints``, ``skills``, and ``control_state``.
-Canonical Python evidence inputs flow directly through
-``PythonConformanceValidator`` to ``python_evidence``; canonical repository projection
+stably ordered real ``HarnessValidationCheck`` records: ``python_conformance``,
+``resources``, ``task_graph``, ``checkpoints``, ``skills``, and ``control_state``. The
+former ``python_evidence`` check value is unsupported rather than retained as an
+alias.
+Canonical Python conformance inputs flow directly through
+``PythonConformanceValidator`` to ``python_conformance``; canonical repository projection
 inputs separately flow through the private check action to ``control_state``.
 The result has no elapsed-duration or telemetry field. The Action invokes no CLI,
 parses no CLI output, and executes none of pytest, Ruff, mypy, or Sphinx. Those

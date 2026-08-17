@@ -60,6 +60,13 @@ def test_constructor__fields__preserve_exact_value_semantics() -> None:
     (
         pytest.param(1, "PASS", (), TypeError, id="wrong_name_type"),
         pytest.param("unknown", "PASS", (), ValueError, id="unsupported_name"),
+        pytest.param(
+            "python_evidence",
+            "PASS",
+            (),
+            ValueError,
+            id="retired_python_evidence_name",
+        ),
         pytest.param("resources", 1, (), TypeError, id="wrong_status_type"),
         pytest.param("resources", "UNKNOWN", (), ValueError, id="unsupported_status"),
         pytest.param("resources", "PASS", [], TypeError, id="wrong_findings_container"),

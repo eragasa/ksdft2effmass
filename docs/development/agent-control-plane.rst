@@ -103,7 +103,7 @@ projection manifest, and owned projections. The private check action reconstruct
 same candidate without publication and compares integrity, foreign keys, schema,
 normalized content, SQL, manifest, and projections. Raw SQLite hashes are diagnostic.
 
-``HarnessValidator`` returns the six ordered checks ``python_evidence``, ``resources``,
+``HarnessValidator`` returns the six ordered checks ``python_conformance``, ``resources``,
 ``task_graph``, ``checkpoints``, ``skills``, and ``control_state``. It does not execute
 pytest, Ruff, mypy, or Sphinx. Its maintained renderer is
 ``python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_REPOSITORY_ROOT>``;

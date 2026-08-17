@@ -25,7 +25,7 @@ from .resource_adapters import SkillInventoryAdapter
 from .task_model import HarnessTaskDeserializer, HarnessTaskGraphValidator
 
 _HARNESS_CHECK_ORDER = (
-    "python_evidence",
+    "python_conformance",
     "resources",
     "task_graph",
     "checkpoints",
@@ -149,8 +149,8 @@ class HarnessValidationResult:
             raise ValueError("claim boundaries must use the complete stable contract")
 
 
-class _PythonEvidenceRepositoryValidator:
-    """Invoke the Python evidence domain owner from canonical source inputs."""
+class _PythonConformanceRepositoryValidator:
+    """Invoke the Python conformance owner from canonical source inputs."""
 
     __slots__ = ()
 
@@ -183,7 +183,7 @@ class _PythonEvidenceRepositoryValidator:
         if corpus.failures:
             first = corpus.failures[0]
             return HarnessValidationCheck(
-                "python_evidence",
+                "python_conformance",
                 "FAIL",
                 (("TE.PARSE", first.path, first.message),),
             )
@@ -213,7 +213,7 @@ class _PythonEvidenceRepositoryValidator:
             )
         )
         return HarnessValidationCheck(
-            "python_evidence", "FAIL" if findings else "PASS", findings
+            "python_conformance", "FAIL" if findings else "PASS", findings
         )
 
 
@@ -252,7 +252,7 @@ class HarnessValidator:
         if type(request) is not HarnessValidationRequest:
             raise TypeError("request must be HarnessValidationRequest")
         root = request.repository_root.resolve(strict=True)
-        evidence_check = _PythonEvidenceRepositoryValidator().execute(root)
+        conformance_check = _PythonConformanceRepositoryValidator().execute(root)
         context, resource_check = self._resource_check(root)
         task_check = self._task_check(root)
         checkpoint_check = self._checkpoint_check(root)
@@ -296,7 +296,7 @@ class HarnessValidator:
             else (),
         )
         checks = (
-            evidence_check,
+            conformance_check,
             resource_check,
             task_check,
             checkpoint_check,
