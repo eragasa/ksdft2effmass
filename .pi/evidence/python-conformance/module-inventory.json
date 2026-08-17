@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3057,
+  "expected_collected_node_count": 3058,
   "expected_module_count": 261,
   "modules": [
     {
@@ -601,7 +601,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "aeb5eac1598295cb544855ad4e7870e34ebd8f10ef0249e7b651ac70b110f2b8",
+      "content_sha256": "44a40a6ff932e7abf1be65616b6234051b35200e0af9a3ea65e0e197bfc5940a",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__HumanReviewDecisionRecorder.py",

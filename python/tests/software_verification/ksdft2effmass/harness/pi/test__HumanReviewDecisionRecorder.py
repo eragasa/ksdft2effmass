@@ -40,6 +40,10 @@ pytestmark = pytest.mark.software_verification
 SUT = HumanReviewDecisionRecorder
 
 
+class StringSubclass(str):
+    """Support exact built-in string rejection without owning evidence."""
+
+
 def make_packet(status: str = "ready_for_human_review") -> HumanReviewPacket:
     """Evidence ID: Owns no identifier; supports recording evidence.
 
@@ -275,6 +279,36 @@ def test_method__execute__rejects_acceptance_of_blocked_packet() -> None:
     ):
         SUT().execute(
             make_packet("blocked_by_failed_observation"), "Accept.", "accepted", ()
+        )
+
+
+def test_method__execute__validates_types_before_packet_compatibility() -> None:
+    """Evidence ID: ``SV-HARNESS-182``.
+
+    Requirement: Wrong semantic decision-field types raise ``TypeError`` before
+    disposition-to-packet compatibility policy is applied.
+
+    Method: Supply a canonical blocked packet and a string subclass whose value equals
+    the otherwise incompatible ``accepted`` disposition.
+
+    Oracle: The public exact-built-in-string contract fixes ``TypeError`` independently
+    of the blocked-packet compatibility rule.
+
+    Acceptance: Execution raises the stable disposition type error rather than the
+    ready-packet ``ValueError``.
+
+    Interpretation: Failure identifies exception-taxonomy drift at the public action
+    boundary.
+
+    Limitations: Other intrinsic decision partitions are owned by
+    ``HumanReviewDecision`` evidence.
+    """
+    with pytest.raises(TypeError, match="^disposition must be a built-in str$"):
+        SUT().execute(
+            make_packet("blocked_by_failed_observation"),
+            "Accept.",
+            StringSubclass("accepted"),
+            (),
         )
 
 

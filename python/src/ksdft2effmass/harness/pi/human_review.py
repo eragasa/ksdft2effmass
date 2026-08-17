@@ -394,17 +394,18 @@ class HumanReviewDecisionRecorder:
             ) from error
         if packet != canonical_packet:
             raise ValueError("packet must equal its canonical prepared result")
-        if (
-            disposition == "accepted"
-            and packet.status == "blocked_by_failed_observation"
-        ):
-            raise ValueError("accepted disposition requires a ready packet")
-        return HumanReviewDecision(
+        decision = HumanReviewDecision(
             packet,
             human_response,
             disposition,
             authorized_scope,
         )
+        if (
+            decision.disposition == "accepted"
+            and packet.status == "blocked_by_failed_observation"
+        ):
+            raise ValueError("accepted disposition requires a ready packet")
+        return decision
 
 
 class HumanReviewPreparer:
