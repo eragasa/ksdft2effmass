@@ -13,6 +13,11 @@ prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/ha
 | `HarnessValidator` resource, Task graph, checkpoint, skill, and control-state checks | Structural development-control validation outside Python coding standards | Exclude from coding-standards conformance; retain with their existing domain owners |
 | Controlled fixtures and regression tests under `harness/pi/fixtures/evidence/python-conformance/` and `harness/pi/validation/` | Accepted/rejected grammar cases and command/API agreement evidence | Retain as compatibility evidence; tests are not runtime adapters or policy authority |
 
+A private project-local conformance-input resolver now selects the canonical test
+modules, profile, and migration map independently of projection construction. The
+projector composes that same selection, so the migration retains one source-selection
+implementation without making projection an authority for conformance.
+
 Ruff, mypy, pytest execution, documentation builds, Task completion, and promotion
 checks may remain caller-owned gates. Their historical co-occurrence with evidence
 scripts does not make them part of the coding-standards conformance owner unless a

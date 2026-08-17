@@ -15,8 +15,8 @@ from ... import (
     ResourceResolver,
     WireRecordKind,
 )
+from ..input_selection import _RepositoryInputSelector
 from .encoding import _ControlEncoding
-from .input_files import _ControlInputFileSelector
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,7 +61,7 @@ class _ControlResourceCorpusBuilder:
     ) -> _ControlResourceCorpus:
         """Validate and observe one explicit generic/local resource corpus."""
         root = repository_root.resolve()
-        selector = _ControlInputFileSelector()
+        selector = _RepositoryInputSelector()
         profile_file = selector.file(root, profile_path, subject="resource input")
         generic_file = selector.file(
             root, generic_manifest_path, subject="resource input"

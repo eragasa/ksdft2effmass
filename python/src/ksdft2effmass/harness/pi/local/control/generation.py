@@ -34,11 +34,11 @@ from ..dbcontrol.constants import (
 from ..dbcontrol.database import _ControlDatabase
 from ..dbcontrol.encoding import _ControlEncoding
 from ..dbcontrol.ingestion import _RepositoryControlIngestor
-from ..dbcontrol.input_files import _ControlInputFileSelector
 from ..dbcontrol.projections import _ControlProjector
 from ..dbcontrol.records import _HarnessProjectionRequest
 from ..dbcontrol.resources import _ControlResourceCorpus, _ControlResourceCorpusBuilder
 from ..dbcontrol.schema import _SCHEMA
+from ..input_selection import _RepositoryInputSelector
 
 
 @dataclass(frozen=True, slots=True)
@@ -89,7 +89,7 @@ class _HarnessProjectionGenerationBuilder:
         tuple[tuple[str, str], ...],
     ]:
         """Build canonical evidence inputs from source, policy, and migration map."""
-        selector = _ControlInputFileSelector()
+        selector = _RepositoryInputSelector()
         if not request.evidence_module_paths:
             return (), (), ()
         assert request.evidence_profile_matrix_path is not None

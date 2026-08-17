@@ -17,8 +17,8 @@ from ..conformance.python.corpus import (
     _PythonTestModuleInput,
 )
 from .checkpoint_validation import _CheckpointRepositoryValidator
+from .conformance_inputs import _PythonConformanceInputResolver
 from .context import LocalHarnessContextLoader
-from .control.inputs import _HarnessProjectionInputResolver
 from .dbcontrol.verification import _HarnessProjectionVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
@@ -156,17 +156,15 @@ class _PythonConformanceRepositoryValidator:
 
     def execute(self, root: Path) -> HarnessValidationCheck:
         """Return direct Python-conformance findings for one repository root."""
-        request = _HarnessProjectionInputResolver().execute(root).request
-        assert request.evidence_profile_matrix_path is not None
-        assert request.evidence_migration_path is not None
+        conformance_inputs = _PythonConformanceInputResolver().execute(root)
         sources: list[PythonModuleSource] = []
-        inputs: list[_PythonTestModuleInput] = []
-        for relative in request.evidence_module_paths:
+        module_inputs: list[_PythonTestModuleInput] = []
+        for relative in conformance_inputs.module_paths:
             payload = (root / relative).read_bytes()
             path = relative.as_posix()
             sources.append(PythonModuleSource(path, payload))
-            inputs.append(_PythonTestModuleInput(path, payload))
-        corpus = _PythonTestModuleCorpusBuilder().execute(tuple(inputs))
+            module_inputs.append(_PythonTestModuleInput(path, payload))
+        corpus = _PythonTestModuleCorpusBuilder().execute(tuple(module_inputs))
         models = corpus.models
         ownership_entries: list[dict[str, object]] = []
         for model in models:
@@ -197,12 +195,12 @@ class _PythonConformanceRepositoryValidator:
                     sort_keys=True,
                     separators=(",", ":"),
                 ).encode(),
-                migration_path=request.evidence_migration_path.as_posix(),
-                migration_payload=(root / request.evidence_migration_path).read_bytes(),
-                profile_path=request.evidence_profile_matrix_path.as_posix(),
-                profile_payload=(
-                    root / request.evidence_profile_matrix_path
+                migration_path=conformance_inputs.migration_path.as_posix(),
+                migration_payload=(
+                    root / conformance_inputs.migration_path
                 ).read_bytes(),
+                profile_path=conformance_inputs.profile_path.as_posix(),
+                profile_payload=(root / conformance_inputs.profile_path).read_bytes(),
                 _parsed_models=models,
             )
         )

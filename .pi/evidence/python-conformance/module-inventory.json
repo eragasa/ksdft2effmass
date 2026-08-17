@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3050,
-  "expected_module_count": 260,
+  "expected_collected_node_count": 3057,
+  "expected_module_count": 261,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -435,6 +435,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__migrated_validation_command_api_agreement.py",
       "artifact": "migrated validation command/API agreement",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "af28de3f1a7cec853568f022cd322572f95b275f2c59c3b1b3c35148c7a8d679",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__python_conformance_input_resolution.py",
+      "artifact": "project-local Python conformance input resolution",
       "evidence_profile": "claim_bearing"
     },
     {

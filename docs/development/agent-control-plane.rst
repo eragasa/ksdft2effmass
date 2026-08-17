@@ -97,6 +97,10 @@ The project-local public package is ``ksdft2effmass.harness.pi.local``. It retai
 explicit-root context composition, operational adapters, the project-local Task model,
 and deterministic repository validation. Projection synchronization and checking are
 private implementation behind the maintained ``harness_projection.py`` command.
+A private canonical Python-conformance input resolver selects configured test modules,
+the profile, and the predecessor map once. Repository validation consumes that
+selection directly, while projection input construction composes it with the remaining
+control inputs; projection code is not source authority for conformance.
 
 The private synchronizer remains the sole publisher of maintained SQLite, SQL, the
 projection manifest, and owned projections. The private check action reconstructs the

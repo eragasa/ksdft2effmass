@@ -1,12 +1,12 @@
-"""Explicit repository input selection for control construction."""
+"""Root-confined selection of explicit project-local repository inputs."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
 
-class _ControlInputFileSelector:
-    """Select root-confined files and directories without repository discovery."""
+class _RepositoryInputSelector:
+    """Select explicit root-confined files and directories for local actions."""
 
     __slots__ = ()
 

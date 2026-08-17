@@ -2,20 +2,14 @@
 
 from __future__ import annotations
 
-import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
 from ...configuration import PiHarnessConfigurationDeserializer
-from ..dbcontrol.input_files import _ControlInputFileSelector
+from ..conformance_inputs import _PythonConformanceInputResolver
 from ..dbcontrol.records import _HarnessProjectionRequest
+from ..input_selection import _RepositoryInputSelector
 
-_EVIDENCE_PROFILE = Path(
-    "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
-)
-_EVIDENCE_MIGRATION = Path(
-    ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
-)
 _PROJECT_SETTINGS = Path(".pi/settings.json")
 _RESOURCE_PROFILE = Path("harness/local/profiles/ksdft2effmass-v2.json")
 _GENERIC_MANIFEST = Path("harness/pi/resource-manifest.json")
@@ -43,35 +37,9 @@ class _HarnessProjectionInputResolver:
         root = repository_root.resolve(strict=True)
         if not root.is_dir():
             raise ValueError("repository_root must be an existing directory")
-        selector = _ControlInputFileSelector()
-        pyproject_relative = Path("python/pyproject.toml")
-        pyproject = selector.file(root, pyproject_relative, subject="configuration")
-        configuration = tomllib.loads(pyproject.read_text())
-        try:
-            testpaths = configuration["tool"]["pytest"]["ini_options"]["testpaths"]
-        except (KeyError, TypeError) as exc:
-            raise ValueError(
-                "python/pyproject.toml lacks configured testpaths"
-            ) from exc
-        if testpaths != ["tests"]:
-            raise ValueError("canonical Python evidence root must be exactly tests")
-        test_root_relative = Path("python") / testpaths[0]
-        test_root = selector.directory(root, test_root_relative)
-        module_paths: list[Path] = []
-        for path in sorted(
-            test_root.rglob("test*.py"), key=lambda item: item.as_posix()
-        ):
-            if path.is_symlink() or not path.is_file():
-                raise ValueError(
-                    "canonical Python evidence modules must be regular files"
-                )
-            module_relative = path.resolve().relative_to(root).as_posix()
-            module_paths.append(Path(module_relative))
-        if not module_paths:
-            raise ValueError("canonical Python evidence root contains no test modules")
+        selector = _RepositoryInputSelector()
+        conformance = _PythonConformanceInputResolver().execute(root)
         fixed_files = (
-            _EVIDENCE_PROFILE,
-            _EVIDENCE_MIGRATION,
             _PROJECT_SETTINGS,
             _RESOURCE_PROFILE,
             _GENERIC_MANIFEST,
@@ -97,9 +65,9 @@ class _HarnessProjectionInputResolver:
         )
         request = _HarnessProjectionRequest(
             root,
-            evidence_profile_matrix_path=_EVIDENCE_PROFILE,
-            evidence_module_paths=tuple(module_paths),
-            evidence_migration_path=_EVIDENCE_MIGRATION,
+            evidence_profile_matrix_path=conformance.profile_path,
+            evidence_module_paths=conformance.module_paths,
+            evidence_migration_path=conformance.migration_path,
             resource_profile_path=_RESOURCE_PROFILE,
             generic_resource_manifest_path=_GENERIC_MANIFEST,
             generic_resource_root_path=_GENERIC_ROOT,

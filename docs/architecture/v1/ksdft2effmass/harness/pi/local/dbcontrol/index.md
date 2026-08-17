@@ -30,7 +30,10 @@ flowchart LR
 ```
 
 Encoding, schema, ingestion, relational records, resources, migration,
-projection, and verification are separate modules within the package.
+projection, and verification are separate modules within the package. Generic
+root-confined repository input selection now belongs to `local.input_selection`, and
+canonical Python-conformance input resolution belongs to `local.conformance_inputs`;
+`local.dbcontrol` consumes selected inputs but does not own their selection policy.
 
 Maintained SQLite is immutable after publication. WAL, SHM, journals, staging files, and backups are not valid maintained state.
 

@@ -6,7 +6,10 @@ V1 does not expose the normalized `HarnessSourceSnapshot → HarnessState → Ha
 
 ```mermaid
 flowchart TB
-    inputs["Explicit canonical inputs"] --> resolve["Resolve source paths"]
+    python["Configured Python test sources"] --> conformance["Resolve canonical conformance inputs"]
+    conformance --> repository_validation["Repository conformance validation"]
+    conformance --> resolve["Compose projection inputs"]
+    inputs["Other explicit canonical inputs"] --> resolve
     resolve --> build["Build candidate database and projections"]
     build --> validate["Validate candidate"]
     validate --> mode{"Operation"}
@@ -21,10 +24,12 @@ flowchart TB
 | Private projection request | Explicit repository root and canonical evidence/resource inputs |
 | Private projection synchronizer | Candidate construction, validation, and publication orchestration |
 | Private projection verifier | Candidate reconstruction and read-only comparison |
-| `local.control.inputs` | Canonical source selection and decoding |
+| `local.conformance_inputs` | Canonical Python test-module, profile, and migration-map selection shared by validation and projection composition |
+| `local.input_selection` | Root-confined mechanical selection for explicit project-local files and directories |
+| `local.control.inputs` | Composition of conformance inputs with the remaining canonical projection inputs |
 | `local.control.generation` | Candidate SQLite and projection construction |
 | `HarnessValidator` | Repository-level validation composition |
-| Domain validators | Task, checkpoint, resource, skill, and evidence rules |
+| Domain validators | Task, checkpoint, resource, skill, and Python-conformance rules |
 
 ## State model
 
@@ -34,7 +39,7 @@ The effective normalized model is represented by candidate relational tables and
 
 `HarnessValidator` runs six ordered checks:
 
-1. Python evidence;
+1. Python conformance;
 2. resources;
 3. Task graph;
 4. checkpoints;

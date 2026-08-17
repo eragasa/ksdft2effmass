@@ -23,8 +23,8 @@ from ksdft2effmass.harness.pi.local import (
     HarnessValidationRequest,
     HarnessValidator,
 )
-from ksdft2effmass.harness.pi.local.control.inputs import (
-    _HarnessProjectionInputResolver,
+from ksdft2effmass.harness.pi.local.conformance_inputs import (
+    _PythonConformanceInputResolver,
 )
 
 CLAIM_BOUNDARY = [
@@ -46,7 +46,7 @@ def run(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         request = HarnessValidationRequest(args.repository_root)
-        inputs = _HarnessProjectionInputResolver().execute(request.repository_root)
+        inputs = _PythonConformanceInputResolver().execute(request.repository_root)
     except (OSError, TypeError, ValueError) as exc:
         print(
             json.dumps(
@@ -63,12 +63,12 @@ def run(argv: Sequence[str] | None = None) -> int:
         return 2
     try:
         result = HarnessValidator().execute(request)
-        evidence = result.checks[0]
+        conformance = result.checks[0]
         module_inputs = tuple(
             _PythonTestModuleInput(
-                path.as_posix(), (inputs.request.repository_root / path).read_bytes()
+                path.as_posix(), (inputs.repository_root / path).read_bytes()
             )
-            for path in inputs.request.evidence_module_paths
+            for path in inputs.module_paths
         )
         corpus = _PythonTestModuleCorpusBuilder().execute(module_inputs)
         nodes = _PythonTestNodeProjector().execute(corpus.models)
@@ -91,11 +91,11 @@ def run(argv: Sequence[str] | None = None) -> int:
         return 3
     findings = [
         {"code": code, "path": path, "message": message, "severity": "error"}
-        for code, path, message in evidence.findings
+        for code, path, message in conformance.findings
     ]
     payload = {
         "schema_version": 1,
-        "status": evidence.status,
+        "status": conformance.status,
         "claim_boundary": CLAIM_BOUNDARY,
         "counts": {
             "baseline_modules": 182,
@@ -106,7 +106,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         },
         "findings": findings,
         "structural_result": {
-            "status": evidence.status,
+            "status": conformance.status,
             "counts": {"unique_evidence_owners": owner_count},
         },
     }
@@ -118,4 +118,4 @@ def run(argv: Sequence[str] | None = None) -> int:
             sort_keys=True,
         )
     )
-    return 1 if evidence.status == "FAIL" else 0
+    return 1 if conformance.status == "FAIL" else 0

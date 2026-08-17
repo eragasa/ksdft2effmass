@@ -67,7 +67,10 @@ is the public domain package. The former Python `ksdft2effmass.harness.pi.eviden
 facade is retired; repository evidence paths retain their separate artifact meaning.
 The project-local package owns explicit-root context composition, repository adapters, the version-3
 `HarnessTask` model, direct domain validation composition, and the SQLite control
-projection compatibility boundary.
+projection compatibility boundary. One private canonical Python-conformance input
+resolver selects the configured test modules, profile, and migration map. Validation
+and repository-conformance commands consume it directly; projection input construction
+composes it rather than owning or rediscovering those sources.
 
 Public records use exact semantic types and closed versions. Serialization belongs to
 named actions rather than records. Expected invalid external input is represented as
