@@ -1,16 +1,16 @@
 """Generic, explicit-input PI harness contract.
 
-The root package exports generic non-evidence records/results and fieldless
-actions plus the public :mod:`evidence` domain subpackage. It performs no
-implicit repository, current-directory, Git, or ``.pi`` discovery; filesystem
-actions require an explicit root and exact paths.
+The root package exports generic records, results, and fieldless actions plus the
+public :mod:`conformance` domain package. It performs no implicit repository,
+current-directory, Git, or ``.pi`` discovery; filesystem actions require an explicit
+root and exact paths.
 """
 
 from __future__ import annotations
 
 from typing import TypeAlias
 
-from . import evidence as evidence
+from . import conformance as conformance
 from .chains import ChainStateEvaluator, ChainView, TaskReference
 from .checkpoints import (
     CheckpointDecisionResolutionRequest,
@@ -120,7 +120,7 @@ __all__ = (
     "AgentDescriptorView",
     "PiHarnessConfiguration",
     "PiHarnessAgentDefinition",
-    "evidence",
+    "conformance",
     "HumanReviewTarget",
     "HumanReviewObservation",
     "HumanReviewFinding",

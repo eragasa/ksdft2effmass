@@ -62,9 +62,10 @@ The generic package owns immutable identities, records, results, strict JSON act
 profiles, resources, ownership, checkpoints, chains, checksums, conformance,
 human-review values, and bounded Task-state inspection. Python test-source conformance
 lives under `ksdft2effmass.harness.pi.conformance.python`; its parser, immutable model,
-and rule owners are siblings in that package. `ksdft2effmass.harness.pi.evidence`
-re-exports the public records and Action but does not own their implementation. The project-local package
-owns explicit-root context composition, repository adapters, the version-3
+and rule owners are siblings in that package. `ksdft2effmass.harness.pi.conformance`
+is the public domain package. The former Python `ksdft2effmass.harness.pi.evidence`
+facade is retired; repository evidence paths retain their separate artifact meaning.
+The project-local package owns explicit-root context composition, repository adapters, the version-3
 `HarnessTask` model, direct domain validation composition, and the SQLite control
 projection compatibility boundary.
 

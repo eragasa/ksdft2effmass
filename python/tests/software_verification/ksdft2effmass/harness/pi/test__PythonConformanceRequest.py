@@ -25,7 +25,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.harness.pi.evidence import (
+from ksdft2effmass.harness.pi.conformance.python import (
     PythonConformanceRequest,
     PythonModuleSource,
 )

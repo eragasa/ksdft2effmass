@@ -11,9 +11,8 @@ flowchart LR
     pi --> local["harness.pi.local"]
     pi --> resources["harness.pi.resources"]
     pi --> wire["harness.pi.wire"]
-    pi --> conformance["harness.pi.conformance.python"]
-    pi --> evidence["harness.pi.evidence facade"]
-    evidence --> conformance
+    pi --> conformance["harness.pi.conformance"]
+    conformance --> python["conformance.python"]
 ```
 
 The generic layer owns immutable records, results, explicit-input actions, resources,

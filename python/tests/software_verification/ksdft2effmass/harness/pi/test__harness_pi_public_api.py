@@ -65,7 +65,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "AgentDescriptorView",
         "PiHarnessConfiguration",
         "PiHarnessAgentDefinition",
-        "evidence",
+        "conformance",
         "HumanReviewTarget",
         "HumanReviewObservation",
         "HumanReviewFinding",
@@ -198,15 +198,13 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
     Requirement: Public ActionObjects use target-first names ending in precise agent
     nouns.
 
-    Method: Inspect the exact generic public ActionObject inventory and two explicitly
-    deferred evidence names.
+    Method: Inspect the exact generic root and Python-conformance ActionObject
+    inventories.
 
-    Oracle: The accepted grammar is ``<DataObject-or-operation-target><Actionizer>``;
-    evidence package renaming is owned by ``harness.simplification.evidence.naming``.
+    Oracle: The accepted grammar is ``<DataObject-or-operation-target><Actionizer>``.
 
-    Acceptance: Every migrated name ends in an accepted suffix and the only temporary
-    exceptions
-    contain only the maintained ``PythonConformanceValidator`` evidence Action.
+    Acceptance: Every public ActionObject name ends in an accepted suffix, including
+    ``PythonConformanceValidator`` at its conformance owner.
 
     Interpretation: Failure indicates naming drift or an undocumented migration
     exception.
@@ -229,7 +227,7 @@ def test_public_api__action_names__follow_target_actionizer_grammar() -> None:
     )
     action_names = {
         name
-        for package in (api, api.evidence)
+        for package in (api, api.conformance.python)
         for name in package.__all__
         if isinstance(value := getattr(package, name), type)
         and callable(getattr(value, "execute", None))

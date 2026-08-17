@@ -6,7 +6,7 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-This module verifies the evidence subpackage surface and thin command relation.
+This module verifies the conformance package surface and thin command relation.
 
 Intrinsic and cross-object scope
 
@@ -30,9 +30,9 @@ from pathlib import Path
 import pytest
 
 import ksdft2effmass.harness.pi as root_api
-import ksdft2effmass.harness.pi.conformance.python as owner_api
-import ksdft2effmass.harness.pi.evidence as api
-from ksdft2effmass.harness.pi.evidence import (
+import ksdft2effmass.harness.pi.conformance as conformance_api
+import ksdft2effmass.harness.pi.conformance.python as api
+from ksdft2effmass.harness.pi.conformance.python import (
     PythonConformanceFinding,
     PythonConformanceRequest,
     PythonConformanceResult,
@@ -98,16 +98,17 @@ INCOMPLETE_MIGRATION = json.dumps(
 def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> None:
     """Evidence ID: SV-TEV-023
 
-    Requirement: The evidence facade exports its source-conformance records, results,
-    and Action from the ``conformance.python`` owning package.
+    Requirement: The public conformance package exposes its Python records, results,
+    and Action only from the ``conformance.python`` owning package.
 
     Method: Compare direct imports, package attributes, ``__all__``, and ``__module__``.
 
     Oracle: The accepted source-based evidence contract fixes the exact names and
     ``conformance.python`` defining module.
 
-    Acceptance: ``__all__`` is exact, direct imports and defining modules agree, and
-    old flat-module and object aliases are absent.
+    Acceptance: Package and owner ``__all__`` values are exact, direct imports and
+    defining modules agree, and the retired evidence facade and old object aliases are
+    absent.
 
     Interpretation: Failure identifies package-export or placement drift.
 
@@ -120,16 +121,15 @@ def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> N
         PythonConformanceResult,
         PythonConformanceValidator,
     )
-    assert api.__all__ == owner_api.__all__ == PUBLIC_NAMES
+    assert root_api.conformance is conformance_api
+    assert conformance_api.__all__ == ("python",)
+    assert conformance_api.python is api
+    assert api.__all__ == PUBLIC_NAMES
     assert imported == tuple(getattr(api, name) for name in PUBLIC_NAMES)
-    assert imported == tuple(getattr(owner_api, name) for name in PUBLIC_NAMES)
     assert {value.__module__ for value in imported} == {
         "ksdft2effmass.harness.pi.conformance.python"
     }
-    assert (
-        importlib.util.find_spec("ksdft2effmass.harness.pi.evidence.python_conformance")
-        is None
-    )
+    assert importlib.util.find_spec("ksdft2effmass.harness.pi.evidence") is None
     assert importlib.util.find_spec("ksdft2effmass.harness.pi.test_evidence") is None
     old_names = {
         "AuditEvidenceIdentifiers",
@@ -141,6 +141,7 @@ def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> N
         "ValidatePythonTestEvidence",
     }
     assert not any(hasattr(api, name) for name in old_names)
+    assert not hasattr(root_api, "evidence")
     assert not any(hasattr(root_api, name) for name in old_names | set(PUBLIC_NAMES))
 
 

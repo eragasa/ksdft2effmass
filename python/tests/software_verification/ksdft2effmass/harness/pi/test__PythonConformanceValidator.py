@@ -29,6 +29,12 @@ from typing import Any
 
 import pytest
 
+from ksdft2effmass.harness.pi.conformance.python import (
+    PythonConformanceRequest,
+    PythonConformanceResult,
+    PythonConformanceValidator,
+    PythonModuleSource,
+)
 from ksdft2effmass.harness.pi.conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
@@ -51,12 +57,6 @@ from ksdft2effmass.harness.pi.conformance.python.parameterization import (
 from ksdft2effmass.harness.pi.conformance.python.parser import parse_module
 from ksdft2effmass.harness.pi.conformance.python.repository import (
     _PythonRepositoryConformanceRule,
-)
-from ksdft2effmass.harness.pi.evidence import (
-    PythonConformanceRequest,
-    PythonConformanceResult,
-    PythonConformanceValidator,
-    PythonModuleSource,
 )
 
 pytestmark = pytest.mark.software_verification

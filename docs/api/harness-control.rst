@@ -103,6 +103,26 @@ and three for an unexpected command-boundary exception. Structural repository
 validation does not establish numerical verification, scientific validation,
 uncertainty quantification, protected execution, or human acceptance.
 
+Python conformance API
+----------------------
+
+The public Python conformance owner is
+``ksdft2effmass.harness.pi.conformance.python``. The former
+``ksdft2effmass.harness.pi.evidence`` facade is retired; repository evidence
+artifact paths are unaffected.
+
+.. currentmodule:: ksdft2effmass.harness.pi.conformance.python
+
+.. autoclass:: PythonModuleSource
+.. autoclass:: PythonConformanceRequest
+.. autoclass:: PythonConformanceFinding
+.. autoclass:: PythonConformanceResult
+.. autoclass:: PythonConformanceValidator
+   :members:
+
+Harness configuration API
+-------------------------
+
 .. currentmodule:: ksdft2effmass.harness.pi
 
 .. autoclass:: PiHarnessConfiguration

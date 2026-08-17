@@ -30,7 +30,7 @@ from typing import cast
 
 import pytest
 
-from ksdft2effmass.harness.pi.evidence import PythonConformanceValidator
+from ksdft2effmass.harness.pi.conformance.python import PythonConformanceValidator
 from ksdft2effmass.harness.pi.local import (
     HarnessTaskDeserializer,
     HarnessTaskGraphValidator,

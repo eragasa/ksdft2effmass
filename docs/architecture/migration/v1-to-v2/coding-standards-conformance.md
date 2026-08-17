@@ -1,7 +1,7 @@
 # Coding-standards conformance migration
 
 This page maps implemented v1 Python evidence-conformance behavior to the
-prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/harness/conformance.md). The Python implementation now occupies the v2-aligned `conformance.python` package while behavior remains v1; this page does not authorize further implementation, dependency change, script retirement, or promotion-policy change.
+prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/harness/conformance.md). The Python implementation now occupies the v2-aligned `conformance.python` package while behavior remains v1, and the former Python `harness.pi.evidence` facade is retired. Repository evidence artifacts retain their existing paths and meaning. This page does not authorize further implementation, dependency change, script retirement, or promotion-policy change.
 
 ## Implemented v1 sources
 

@@ -394,7 +394,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "39a5b52eb6ce4959d229cf530b00c21ffb9dcf9504db220e4859798f0b589558",
+      "content_sha256": "3199bcbc17572765a3958237068d998953ef71e9a7bce980cd01a6b675729eb1",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_validation.py",
@@ -772,7 +772,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "1875ba5e48a73a432aef3e234c400f90941c70be95765323079f67e8e6363b3a",
+      "content_sha256": "6dd31bfec7d96d6839c55de78f52e9a9ca946665e2b84640dd14fbac7e20538c",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceFinding.py",
@@ -781,7 +781,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "cf301013a2013801ce8172e6e1e6f32fc9539a586f5d3e134cc603dc57f69c15",
+      "content_sha256": "5d9e6b08d5203ffdd1934483c683d67bbc6f47b90c45145a69008906c7b2cc70",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceRequest.py",
@@ -790,7 +790,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "e690552d76dd693f132f84a3bd32b76720d80024df1a8e124f82e5ac45e53005",
+      "content_sha256": "7c7a7371d9635ffbcffe3c63d53b030d3d4c2ae661adfb136313ff69c8a93d23",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceResult.py",
@@ -799,7 +799,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "915aaa52a09c5e55109904d774dc8784b25a9f9d4b54bba50a24f71aa013d633",
+      "content_sha256": "f510c3cf165825ad9d0144ab93aa7436b998380d1bcaaf652a5ef67c849271a9",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",
@@ -808,7 +808,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "8cc0ad89c0ac59a775b6eb93bfb64977bb2d176f6a30dffbb0d459ff3e646aa6",
+      "content_sha256": "449e6272fc516dfa4c6ee3d7b2240b45f39dfc0b88eb889c45dcab61cd016758",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonModuleSource.py",
@@ -979,7 +979,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3aeb7b4b79948301dc68f0dcdead5238e3c4d49ce83d8d6792e07f32f7fff3d8",
+      "content_sha256": "b9ed05b42931e0b5f1d4a126847ae3fd359205a42d1984a994ec432bd8176145",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_public_api.py",
@@ -1006,7 +1006,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "426c57f54367dda12ee4458df7df44bd1091279d4c29485b5a6269b583919672",
+      "content_sha256": "ed4b0ce9f2ab737472e1c43d5585ff4ce9c7f9c95940a445a17400ac2f8cc6cd",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py",

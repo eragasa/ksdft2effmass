@@ -12,6 +12,7 @@ This subtree is the sole maintained cross-version comparison. This index maps th
 ## Current implementation status
 
 - v1 remains implemented.
+- Python conformance is publicly owned by `ksdft2effmass.harness.pi.conformance.python`; the former Python `harness.pi.evidence` facade is retired without changing repository evidence artifacts.
 - Its colored-Petri-net primitives and public abbreviated names remain under `ksdft2effmass.workflows.cpn`.
 - The prospective v2 generic package is `ksdft2effmass.petrinet.colored` and uses only full public `ColoredPetriNet*` names.
 - No source move, v2 persistence/Task/Workflow/Simulation/Pi-agent-adapter implementation, scientific executable, governed operator, or canonical scientific Workflow is authorized by this migration page.

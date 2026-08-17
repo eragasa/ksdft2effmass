@@ -26,7 +26,7 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi.evidence import (
+from ksdft2effmass.harness.pi.conformance.python import (
     PythonConformanceFinding,
     PythonConformanceResult,
 )

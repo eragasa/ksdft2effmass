@@ -25,7 +25,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.harness.pi.evidence import PythonModuleSource
+from ksdft2effmass.harness.pi.conformance.python import PythonModuleSource
 
 pytestmark = pytest.mark.software_verification
 SUT = PythonModuleSource
