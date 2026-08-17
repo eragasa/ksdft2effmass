@@ -1,18 +1,23 @@
 {
   "name": "human-review-interface",
   "description": "Incrementally introduce deterministic human-review preparation while preserving direct human disposition and acceptance authority.",
-  "status": "human_decision_recording_architecture_corrected_awaiting_human_review",
+  "status": "human_decision_recording_closed_human_accepted_pass",
   "active_task": null,
   "automatic_successor_activation": false,
   "findings": {
     "HRI-PILOT-F01": "resolved",
     "HRI-PILOT-F02": "resolved",
-    "HRI-ARCH-F01": "corrected_awaiting_human_review",
-    "HRI-ARCH-F02": "corrected_awaiting_human_review",
-    "HRI-ARCH-F03": "corrected_awaiting_human_review",
-    "HRI-ARCH-F04": "corrected_awaiting_human_review"
+    "HRI-ARCH-F01": "resolved",
+    "HRI-ARCH-F02": "resolved",
+    "HRI-ARCH-F03": "resolved",
+    "HRI-ARCH-F04": "resolved"
   },
-  "chain": [],
+  "chain": [
+    {
+      "phase": "human-decision-recording-human-accepted-and-closed",
+      "message": "The human accepted the corrected Architecture-v1 HumanReviewDecision and HumanReviewDecisionRecorder at reviewed revision 3635cc71d823c82a8d85484843a5291a1cbd07e8. The owning development work remains the HarnessTask; review packets and decisions are separate result records rather than HarnessTask subclasses. HRI-ARCH-F01 through HRI-ARCH-F04 are resolved. The exact response is retained in .pi/evidence/human-review-interface/human-decision-recording-decision.md. Automatic successor activation remains disabled, and human-review-interface.persistence-evaluation remains proposed and inactive."
+    }
+  ],
   "task_sequence": [
     {
       "id": "human-review-interface.review-packet-pilot",

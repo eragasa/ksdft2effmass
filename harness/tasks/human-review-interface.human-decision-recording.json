@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "human-review-interface.human-decision-recording",
   "title": "Implement pure human decision recording",
-  "status": "architecture_corrected_awaiting_human_review",
-  "status_detail": "architecture_corrected_awaiting_human_review under `.pi/chains/human-review-interface.chain.json`",
+  "status": "human_accepted_pass",
+  "status_detail": "Human-accepted PASS at reviewed revision 3635cc71d823c82a8d85484843a5291a1cbd07e8. Accepted claim: the corrected Architecture-v1 HumanReviewDecision and HumanReviewDecisionRecorder satisfy the bounded software contract for immutable explicit decision representation and pure decision recording. The owning development work remains the HarnessTask; review packets and decisions are separate result records rather than HarnessTask subclasses. The exact response is retained in .pi/evidence/human-review-interface/human-decision-recording-decision.md. No successor, persistence, scientific work, protected execution, publication, or release is activated.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "human-review-interface.review-packet-pilot"
@@ -15,6 +15,7 @@
   "authority_reference_paths": [
     ".pi/chains/human-review-interface.chain.json",
     ".pi/evidence/human-review-interface/audit-evidence-identifiers-pilot-decision.md",
+    ".pi/evidence/human-review-interface/human-decision-recording-decision.md",
     "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md",
     "origin/dev"
   ],
