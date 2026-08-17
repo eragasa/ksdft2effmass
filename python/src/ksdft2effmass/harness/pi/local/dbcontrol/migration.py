@@ -24,6 +24,32 @@ class _HarnessProjectionSynchronizer:
     __slots__ = ()
 
     @staticmethod
+    def _confined_destination(repository_root: Path, relative: Path) -> Path:
+        """Return one destination only when every existing component is nonsymlinked."""
+        if relative.is_absolute() or not relative.parts or ".." in relative.parts:
+            raise ValueError("projection destination must be root-relative")
+        root = repository_root.resolve(strict=True)
+        if root != repository_root or root.is_symlink():
+            raise ValueError("repository_root must be canonical and nonsymlinked")
+        destination = root
+        for part in relative.parts:
+            destination /= part
+            if destination.is_symlink():
+                raise ValueError(
+                    f"projection destination contains a symlink: {relative.as_posix()}"
+                )
+            if destination.exists() and destination != root / relative:
+                if not destination.is_dir():
+                    raise ValueError(
+                        "projection destination parent is not a directory: "
+                        f"{relative.as_posix()}"
+                    )
+        resolved = destination.resolve(strict=False)
+        if root != resolved and root not in resolved.parents:
+            raise ValueError("projection destination escapes repository_root")
+        return destination
+
+    @staticmethod
     def _publish_generation(
         generation: _HarnessProjectionGeneration, repository_root: Path
     ) -> None:
@@ -39,11 +65,15 @@ class _HarnessProjectionSynchronizer:
         if type(generation) is not _HarnessProjectionGeneration:
             raise TypeError("generation must be _HarnessProjectionGeneration")
         outputs = {
-            repository_root / relative: candidate.read_bytes()
+            _HarnessProjectionSynchronizer._confined_destination(
+                repository_root, relative
+            ): candidate.read_bytes()
             for relative, candidate in generation.artifacts
         }
         database_path = next(
-            repository_root / relative
+            _HarnessProjectionSynchronizer._confined_destination(
+                repository_root, relative
+            )
             for relative, candidate in generation.artifacts
             if candidate == generation.database_path
         )
@@ -70,7 +100,14 @@ class _HarnessProjectionSynchronizer:
         temporary_paths = (*staged.values(), *backups.values(), *database_sidecars)
         try:
             for destination in destinations:
+                relative = destination.relative_to(repository_root)
+                _HarnessProjectionSynchronizer._confined_destination(
+                    repository_root, relative
+                )
                 destination.parent.mkdir(parents=True, exist_ok=True)
+                _HarnessProjectionSynchronizer._confined_destination(
+                    repository_root, relative
+                )
                 staged[destination].unlink(missing_ok=True)
                 backups[destination].unlink(missing_ok=True)
                 staged[destination].write_bytes(outputs[destination])

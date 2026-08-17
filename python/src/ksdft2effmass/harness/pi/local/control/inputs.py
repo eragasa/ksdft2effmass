@@ -5,17 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from ...configuration import PiHarnessConfigurationDeserializer
+from ....configuration import HarnessConfiguration
 from ..conformance_inputs import _PythonConformanceInputResolver
 from ..dbcontrol.records import _HarnessProjectionRequest
 from ..input_selection import _RepositoryInputSelector
-
-_PROJECT_SETTINGS = Path(".pi/settings.json")
-_RESOURCE_PROFILE = Path("harness/local/profiles/ksdft2effmass-v2.json")
-_GENERIC_MANIFEST = Path("harness/pi/resource-manifest.json")
-_GENERIC_ROOT = Path("harness/pi")
-_LOCAL_MANIFEST = Path("harness/local/resource-manifest.json")
-_LOCAL_ROOT = Path("harness/local")
+from .configuration_inputs import _HarnessConfigurationInputResolver
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,53 +20,51 @@ class _HarnessProjectionInputs:
 
 
 class _HarnessProjectionInputResolver:
-    """Resolve the frozen R2.7 canonical-input map without generated authority."""
+    """Resolve the canonical source documents into one projection request."""
 
     __slots__ = ()
 
     def execute(self, repository_root: Path) -> _HarnessProjectionInputs:
-        """Return the exact canonical maintained control-generation request."""
+        """Resolve exact configuration bytes and construct the maintained request."""
         if not isinstance(repository_root, Path) or not repository_root.is_absolute():
             raise ValueError("repository_root must be an absolute pathlib.Path")
         root = repository_root.resolve(strict=True)
         if not root.is_dir():
             raise ValueError("repository_root must be an existing directory")
         selector = _RepositoryInputSelector()
-        conformance = _PythonConformanceInputResolver().execute(root)
-        fixed_files = (
-            _PROJECT_SETTINGS,
-            _RESOURCE_PROFILE,
-            _GENERIC_MANIFEST,
-            _LOCAL_MANIFEST,
+        configuration: HarnessConfiguration = (
+            _HarnessConfigurationInputResolver().execute(root).configuration
         )
-        for fixed_relative in fixed_files:
-            selector.file(root, fixed_relative, subject="canonical control input")
-        selector.directory(root, _GENERIC_ROOT)
-        selector.directory(root, _LOCAL_ROOT)
-        for root_relative in (
-            Path("harness/tasks"),
-            Path(".pi/agents"),
-            Path(".pi/checkpoints"),
-            Path(".pi/skills"),
-            Path(".agents/skills"),
+        conformance = _PythonConformanceInputResolver().execute(
+            root,
+            pyproject_path=Path(configuration.python_conformance.pyproject_path),
+            test_root_path=Path(configuration.python_conformance.test_root),
+            profile_path=Path(configuration.python_conformance.profile_matrix_path),
+            migration_path=Path(configuration.python_conformance.migration_map_path),
+        )
+        for relative in (
+            Path(configuration.resources.project_profile_path),
+            Path(configuration.resources.generic_manifest_path),
+            Path(configuration.resources.local_manifest_path),
         ):
-            selector.directory(root, root_relative)
-        task_paths = tuple(sorted((root / "harness/tasks").glob("*.json")))
+            selector.file(root, relative, subject="configured control input")
+        for relative in (
+            Path(configuration.resources.generic_root),
+            Path(configuration.resources.local_root),
+            Path(configuration.catalogs.task_root),
+            *(Path(path) for path in configuration.catalogs.agent_roots),
+            *(Path(path) for path in configuration.catalogs.checkpoint_roots),
+            *(Path(path) for path in configuration.catalogs.skill_roots),
+        ):
+            selector.directory(root, relative)
+        task_root = root / configuration.catalogs.task_root
+        task_paths = tuple(sorted(task_root.glob("*.json")))
         if not task_paths or any(path.is_symlink() for path in task_paths):
             raise ValueError("canonical Task catalog must contain regular JSON files")
-        pi_configuration = PiHarnessConfigurationDeserializer().execute(
-            selector.file(root, _PROJECT_SETTINGS, subject="configuration").read_bytes()
+        return _HarnessProjectionInputs(
+            _HarnessProjectionRequest(
+                root,
+                harness_configuration=configuration,
+                evidence_module_paths=conformance.module_paths,
+            )
         )
-        request = _HarnessProjectionRequest(
-            root,
-            evidence_profile_matrix_path=conformance.profile_path,
-            evidence_module_paths=conformance.module_paths,
-            evidence_migration_path=conformance.migration_path,
-            resource_profile_path=_RESOURCE_PROFILE,
-            generic_resource_manifest_path=_GENERIC_MANIFEST,
-            generic_resource_root_path=_GENERIC_ROOT,
-            local_resource_manifest_path=_LOCAL_MANIFEST,
-            local_resource_root_path=_LOCAL_ROOT,
-            pi_harness_configuration=pi_configuration,
-        )
-        return _HarnessProjectionInputs(request)

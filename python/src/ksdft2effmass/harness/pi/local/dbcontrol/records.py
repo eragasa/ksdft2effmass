@@ -5,8 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from ....configuration import HarnessConfiguration
 from ...configuration import PiHarnessConfiguration
-from .constants import CONTROL_DATABASE_PATH
 
 
 @dataclass(frozen=True, slots=True)
@@ -32,13 +32,14 @@ class _HarnessProjectionRequest:
     maintained construction. An omitted resource corpus preserves bounded
     noncanonical compatibility without ambient resource discovery.
 
-    ``pi_harness_configuration`` supplies the already-deserialized project-settings
-    subset used by agent projection. Its default empty value preserves bounded
-    noncanonical requests without file or runtime discovery.
+    Maintained construction supplies one resolved ``harness_configuration`` and only
+    the enumerated evidence modules that are observations beneath its configured test
+    root. Configuration-owned low-level fields cannot also be supplied. Their defaults
+    preserve bounded injected test seams only; they are not a maintained source route.
     """
 
     repository_root: Path
-    database_path: Path = CONTROL_DATABASE_PATH
+    database_path: Path = Path("harness/state/harness-control.sqlite3")
     evidence_profile_matrix_path: Path | None = None
     evidence_module_paths: tuple[Path, ...] = ()
     evidence_migration_path: Path | None = None
@@ -48,8 +49,70 @@ class _HarnessProjectionRequest:
     local_resource_manifest_path: Path | None = None
     local_resource_root_path: Path | None = None
     pi_harness_configuration: PiHarnessConfiguration = PiHarnessConfiguration(1, ())
+    harness_configuration: HarnessConfiguration | None = None
 
     def __post_init__(self) -> None:
+        if self.harness_configuration is not None:
+            if type(self.harness_configuration) is not HarnessConfiguration:
+                raise TypeError("harness_configuration must be HarnessConfiguration")
+            defaults = (
+                self.database_path == Path("harness/state/harness-control.sqlite3"),
+                self.evidence_profile_matrix_path is None,
+                self.evidence_migration_path is None,
+                self.resource_profile_path is None,
+                self.generic_resource_manifest_path is None,
+                self.generic_resource_root_path is None,
+                self.local_resource_manifest_path is None,
+                self.local_resource_root_path is None,
+                self.pi_harness_configuration == PiHarnessConfiguration(1, ()),
+            )
+            if not all(defaults):
+                raise ValueError(
+                    "resolved harness configuration cannot be combined with "
+                    "configuration-owned low-level fields"
+                )
+            configuration = self.harness_configuration
+            object.__setattr__(
+                self,
+                "database_path",
+                Path(configuration.persistence.state_database_path),
+            )
+            object.__setattr__(
+                self,
+                "evidence_profile_matrix_path",
+                Path(configuration.python_conformance.profile_matrix_path),
+            )
+            object.__setattr__(
+                self,
+                "evidence_migration_path",
+                Path(configuration.python_conformance.migration_map_path),
+            )
+            object.__setattr__(
+                self,
+                "resource_profile_path",
+                Path(configuration.resources.project_profile_path),
+            )
+            object.__setattr__(
+                self,
+                "generic_resource_manifest_path",
+                Path(configuration.resources.generic_manifest_path),
+            )
+            object.__setattr__(
+                self,
+                "generic_resource_root_path",
+                Path(configuration.resources.generic_root),
+            )
+            object.__setattr__(
+                self,
+                "local_resource_manifest_path",
+                Path(configuration.resources.local_manifest_path),
+            )
+            object.__setattr__(
+                self,
+                "local_resource_root_path",
+                Path(configuration.resources.local_root),
+            )
+            object.__setattr__(self, "pi_harness_configuration", configuration.pi)
         if type(self.pi_harness_configuration) is not PiHarnessConfiguration:
             raise TypeError("pi_harness_configuration must be PiHarnessConfiguration")
         if (

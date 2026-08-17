@@ -4,6 +4,7 @@
 
 ```mermaid
 classDiagram
+    class HarnessConfiguration
     class HarnessState
     class HarnessStateIdentity
     class HarnessTaskCatalog
@@ -14,6 +15,7 @@ classDiagram
     class HarnessResourceCatalog
     class HarnessEvidenceCatalog
 
+    HarnessConfiguration --> HarnessState : configures composition, not state
     HarnessState --> HarnessStateIdentity
     HarnessState *-- HarnessTaskCatalog
     HarnessState *-- DevelopmentTaskSelection
@@ -30,6 +32,7 @@ classDiagram
 
 | Object | Responsibility |
 |---|---|
+| `HarnessConfiguration` | Resolved composition aggregate containing subsystem-owned configuration values |
 | `HarnessTask` | Bounded development work definition |
 | `HarnessTaskCatalog` | Unique versioned Task definitions |
 | `DevelopmentTaskSelection` | Explicit selected development work |
@@ -40,6 +43,8 @@ classDiagram
 | `HarnessEvidenceCatalog` | Evidence identities, owners, and claim boundaries |
 
 Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved variant invariants. `HarnessStateValidator` and normalization own cross-record identity uniqueness, predecessor/supersession and other references, and canonical sequence ordering. Loading, other cross-object validation, serialization, persistence, selection, and projection belong to ActionObjects. No development-decision-specific public ActionObject is introduced.
+
+`HarnessConfiguration` is separate from `HarnessState`: configuration controls application composition but is not development lifecycle state or authority. It composes concrete `PiHarnessConfiguration`, `HumanReviewConfiguration`, `HarnessPersistenceConfiguration`, `PythonConformanceConfiguration`, `HarnessResourceConfiguration`, and `HarnessCatalogConfiguration` DataObjects. Ordered source bindings and snapshot identity belong to `HarnessConfigurationResolutionResult`, not to configuration equality or resolved JSON. Resolution, aggregate validation, and canonical JSON conversion belong to the ActionObjects defined by the [configuration contract](configuration.md); no generic configuration protocol is introduced.
 
 ## Results and actions
 

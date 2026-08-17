@@ -93,6 +93,7 @@ how they consume these contracts rather than redefining them.
 
 - [Overview](ksdft2effmass/harness/index.md)
 - [Object model](ksdft2effmass/harness/object-model.md)
+- [Configuration](ksdft2effmass/harness/configuration.md)
 - [Development Task model](ksdft2effmass/harness/development-harness.md)
 - [Compiler architecture](ksdft2effmass/harness/compiler-architecture.md)
 - [Normalized-state validation](ksdft2effmass/harness/validation.md)

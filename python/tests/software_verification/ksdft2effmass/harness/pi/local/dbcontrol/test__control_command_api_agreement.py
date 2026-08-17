@@ -26,6 +26,11 @@ from types import ModuleType
 
 import pytest
 
+from ksdft2effmass.harness import HarnessConfigurationResolver
+from ksdft2effmass.harness.pi.local.control.inputs import (
+    _HarnessProjectionInputResolver,
+    _HarnessProjectionInputs,
+)
 from ksdft2effmass.harness.pi.local.dbcontrol.migration import (
     _HarnessProjectionSynchronizer,
 )
@@ -73,13 +78,16 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.migrate-forwards-explicit-ownership-input
 
-    Requirement: The maintained sync command forwards its repository-relative canonical evidence and resource paths through the private request without changing command behavior.
+    Requirement: The maintained sync command forwards one resolved configuration and
+    configured source observations through the private request.
 
-    Method: Invoke the command with an explicit root, profile matrix, test source, migration map, profile, manifests, and resource roots while replacing the private synchronizer with a literal-result seam.
+    Method: Inject a request resolved from the exact repository configuration sources,
+    invoke sync with only the repository root, and replace synchronization at its seam.
 
-    Oracle: The command arguments define the exact repository-relative request values.
+    Oracle: The resolved aggregate defines every configuration-owned request value.
 
-    Acceptance: Exit status is zero, the captured request preserves the resolved root and every exact relative path, and JSON rendering uses the projection result fields.
+    Acceptance: Exit status is zero, the request preserves the exact configuration and
+    derived paths, and JSON rendering uses the projection result fields.
 
     Interpretation: Failure indicates CLI/API dispatch drift or loss of explicit input confinement.
 
@@ -95,45 +103,34 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
         return expected
 
     monkeypatch.setattr(_HarnessProjectionSynchronizer, "execute", execute_literal)
-    settings = tmp_path / ".pi/settings.json"
-    settings.parent.mkdir(parents=True)
-    settings.write_text(
-        '{"subagents":{"agentOverrides":{"example.disabled":{"disabled":true}}}}'
+    repository = Path(__file__).resolve().parents[8]
+    resolution = HarnessConfigurationResolver().execute(
+        "harness/configuration.json",
+        (repository / "harness/configuration.json").read_bytes(),
+        ".pi/settings.json",
+        (repository / ".pi/settings.json").read_bytes(),
+    )
+    assert resolution.configuration is not None
+    canonical_request = _HarnessProjectionRequest(
+        tmp_path.resolve(),
+        harness_configuration=resolution.configuration,
+        evidence_module_paths=(Path("python/tests/test_example.py"),),
+    )
+    monkeypatch.setattr(
+        _HarnessProjectionInputResolver,
+        "execute",
+        lambda self, root: _HarnessProjectionInputs(canonical_request),
     )
     monkeypatch.setattr(
         sys,
         "argv",
-        [
-            "harness_projection",
-            "sync",
-            "--repository-root",
-            str(tmp_path.resolve()),
-            "--pi-settings",
-            ".pi/settings.json",
-            "--evidence-profile-matrix",
-            "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json",
-            "--evidence-module",
-            "python/tests/test_example.py",
-            "--evidence-migration",
-            ".pi/evidence/python-conformance/r2.3-private-owner-migration.json",
-            "--resource-profile",
-            "harness/local/profiles/project.json",
-            "--generic-resource-manifest",
-            "harness/pi/resource-manifest.json",
-            "--generic-resource-root",
-            "harness/pi",
-            "--local-resource-manifest",
-            "harness/local/resource-manifest.json",
-            "--local-resource-root",
-            "harness/local",
-        ],
+        ["harness_projection", "sync", "--repository-root", str(tmp_path.resolve())],
     )
     assert projection_cli.main() == 0
     request = observed[0]
     assert request.repository_root == tmp_path.resolve()
-    assert request.pi_harness_configuration.disabled_agent_runtime_names == (
-        "example.disabled",
-    )
+    assert request.harness_configuration is resolution.configuration
+    assert request.pi_harness_configuration is resolution.configuration.pi
     assert request.evidence_profile_matrix_path == Path(
         "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
     )
@@ -141,7 +138,9 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
     assert request.evidence_migration_path == Path(
         ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
     )
-    assert request.resource_profile_path == Path("harness/local/profiles/project.json")
+    assert request.resource_profile_path == Path(
+        "harness/local/profiles/ksdft2effmass-v2.json"
+    )
     assert request.generic_resource_manifest_path == Path(
         "harness/pi/resource-manifest.json"
     )
@@ -164,17 +163,15 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
 ) -> None:
     """Evidence ID: software-verification.harness.sqlite-control.command.verify-rejects-migration-only-inputs
 
-    Requirement: The check command rejects configuration, evidence, and resource
-    inputs with an accurate synchronization-only diagnostic.
+    Requirement: Superseded per-source configuration flags are absent from both
+    maintained command actions.
 
-    Method: Invoke check with one explicit Pi settings option and capture the parser
-    failure text.
+    Method: Invoke check with the retired Pi settings option and capture parser output.
 
-    Oracle: Project configuration participates only in synchronization, while checking
-    accepts only the repository root.
+    Oracle: Both actions accept only their action and explicit repository root.
 
-    Acceptance: Parsing raises ``SystemExit`` with status two and stderr names
-    configuration, evidence, and resource inputs as synchronization-only.
+    Acceptance: Parsing raises ``SystemExit`` with status two and identifies the option
+    as unrecognized.
 
     Interpretation: Failure indicates inaccurate CLI guidance or a widened verifier API.
 
@@ -195,10 +192,7 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
     with pytest.raises(SystemExit) as raised:
         projection_cli.main()
     assert raised.value.code == 2
-    assert (
-        "configuration, evidence, and resource inputs are valid only with sync"
-        in capsys.readouterr().err
-    )
+    assert "unrecognized arguments: --pi-settings" in capsys.readouterr().err
 
 
 def test_artifact__verify_command__agrees_with_projection_result(

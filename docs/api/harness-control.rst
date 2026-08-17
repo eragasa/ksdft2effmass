@@ -14,16 +14,17 @@ token usage, sessions, and telemetry. The reserved
 Migration and publication
 -------------------------
 
-The maintained ``harness_projection.py sync`` command constructs one private
-immutable projection request. Canonical maintained requests supply normalized
-``PiHarnessConfiguration``, Python evidence source modules, the profile matrix, the
-predecessor map, and generic and local resource configuration explicitly.
-``PiHarnessConfigurationDeserializer`` converts caller-supplied Pi project-settings
-JSON bytes into the narrow immutable configuration. Before database ingestion,
+The maintained ``harness_projection.py sync`` command resolves the exact
+``harness/configuration.json`` and referenced ``.pi/settings.json`` bytes into one
+immutable ``HarnessConfiguration``. It constructs one private immutable projection
+request from that value and the Python test modules enumerated beneath its configured
+test root. Persistence, evidence-policy, resource, and catalog paths come only from
+the resolved configuration; superseded per-input command flags are unsupported.
+Before database ingestion,
 ``PiHarnessAgentDefinitionResolver`` composes each exact descriptor with that
 configuration into immutable ``PiHarnessAgentDefinition``.
-Noncanonical explicit requests with an empty evidence corpus and empty Pi Harness
-configuration remain supported. Generated evidence inventories are projections and
+Low-level explicit requests remain only as bounded injected test seams and are not a
+second maintained canonical route. Generated evidence inventories are projections and
 are never accepted as migration inputs.
 
 One private project-local builder constructs the complete candidate database,
@@ -49,7 +50,7 @@ The maintained projection command is:
 
 .. code-block:: text
 
-   python/.venv/bin/python python/src/cli/harness_projection.py sync --repository-root <ABSOLUTE_ROOT> --pi-settings .pi/settings.json <EXPLICIT_CANONICAL_INPUTS>
+   python/.venv/bin/python python/src/cli/harness_projection.py sync --repository-root <ABSOLUTE_ROOT>
    python/.venv/bin/python python/src/cli/harness_projection.py check --repository-root <ABSOLUTE_ROOT>
 
 The maintained command is ``python/src/cli/harness_projection.py``. The former ``python/src/cli/harness_control.py`` compatibility entry point and public
@@ -124,6 +125,33 @@ artifact paths are unaffected.
 
 Harness configuration API
 -------------------------
+
+.. currentmodule:: ksdft2effmass.harness
+
+.. autoclass:: HarnessConfiguration
+.. autoclass:: HarnessConfigurationSource
+.. autoclass:: HumanReviewConfiguration
+.. autoclass:: HarnessPersistenceConfiguration
+.. autoclass:: PythonConformanceConfiguration
+.. autoclass:: HarnessResourceConfiguration
+.. autoclass:: HarnessCatalogConfiguration
+.. autoclass:: ContentIdentity
+.. autoclass:: SnapshotIdentity
+.. autoclass:: HarnessConfigurationSourceBinding
+.. autoclass:: HarnessConfigurationResolutionFinding
+.. autoclass:: HarnessConfigurationResolutionResult
+.. autoclass:: HarnessConfigurationResolver
+   :members:
+.. autoclass:: HarnessConfigurationSourceJsonSerializer
+   :members:
+.. autoclass:: HarnessConfigurationSourceJsonDeserializer
+   :members:
+.. autoclass:: HarnessConfigurationJsonSerializer
+   :members:
+.. autoclass:: HarnessConfigurationJsonDeserializer
+   :members:
+.. autoclass:: HarnessConfigurationValidator
+   :members:
 
 .. currentmodule:: ksdft2effmass.harness.pi
 

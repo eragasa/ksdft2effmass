@@ -6,12 +6,7 @@ import sqlite3
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from ..dbcontrol.constants import (
-    CONTROL_DATABASE_PATH,
-    CONTROL_SCHEMA_VERSION,
-    CONTROL_SQL_PATH,
-    PROJECTION_MANIFEST_PATH,
-)
+from ..dbcontrol.constants import CONTROL_SCHEMA_VERSION
 from ..dbcontrol.database import _ControlDatabase
 from ..dbcontrol.encoding import _ControlEncoding
 from ..dbcontrol.records import (
@@ -44,11 +39,11 @@ class _HarnessProjectionSourceVerifier:
 
     @staticmethod
     def _unexpected_owned_paths(
-        root: Path, candidate_paths: frozenset[Path]
+        root: Path, candidate_paths: frozenset[Path], task_root: Path
     ) -> tuple[Path, ...]:
         """Return unexpected files only inside the frozen publisher-owned domain."""
         observed: set[Path] = set()
-        task_records = root / "harness/tasks"
+        task_records = root / task_root
         if task_records.is_dir():
             observed.update(
                 path.relative_to(root)
@@ -62,14 +57,20 @@ class _HarnessProjectionSourceVerifier:
     def execute(self, repository_root: Path) -> _HarnessProjectionVerificationResult:
         """Return deterministic source-aware conformance without maintained writes."""
         inputs = _HarnessProjectionInputResolver().execute(repository_root)
-        root = inputs.request.repository_root
+        request = inputs.request
+        root = request.repository_root
+        configuration = request.harness_configuration
+        assert configuration is not None
+        database_relative = Path(configuration.persistence.state_database_path)
+        sql_relative = Path(configuration.persistence.sql_export_path)
+        manifest_relative = Path(configuration.persistence.projection_manifest_path)
         builder = _HarnessProjectionGenerationBuilder()
         with TemporaryDirectory(prefix="harness-control-verification-") as workspace:
             try:
-                generation = builder.execute(inputs.request, Path(workspace).resolve())
+                generation = builder.execute(request, Path(workspace).resolve())
                 builder.validate(generation)
             except (SyntaxError, ValueError) as exc:
-                database_path = root / CONTROL_DATABASE_PATH
+                database_path = root / database_relative
                 raw_source = (
                     _ControlEncoding.sha256(database_path.read_bytes())
                     if database_path.is_file()
@@ -96,7 +97,7 @@ class _HarnessProjectionSourceVerifier:
             candidate = dict(generation.artifacts)
             candidate_paths = frozenset(candidate)
             findings: list[_HarnessProjectionVerificationFinding] = []
-            database_path = root / CONTROL_DATABASE_PATH
+            database_path = root / database_relative
             integrity = "missing"
             foreign_count = 0
             source_digest = ""
@@ -107,7 +108,7 @@ class _HarnessProjectionSourceVerifier:
                 findings.append(
                     self._finding(
                         "missing_artifact",
-                        CONTROL_DATABASE_PATH,
+                        database_relative,
                         "maintained control database is missing",
                     )
                 )
@@ -139,7 +140,7 @@ class _HarnessProjectionSourceVerifier:
                     findings.append(
                         self._finding(
                             "integrity_failure",
-                            CONTROL_DATABASE_PATH,
+                            database_relative,
                             "maintained control database cannot be read as SQLite",
                         )
                     )
@@ -149,7 +150,7 @@ class _HarnessProjectionSourceVerifier:
                 findings.append(
                     self._finding(
                         "integrity_failure",
-                        CONTROL_DATABASE_PATH,
+                        database_relative,
                         f"SQLite integrity_check reported {integrity}",
                     )
                 )
@@ -157,7 +158,7 @@ class _HarnessProjectionSourceVerifier:
                 findings.append(
                     self._finding(
                         "foreign_key_failure",
-                        CONTROL_DATABASE_PATH,
+                        database_relative,
                         f"SQLite foreign_key_check reported {foreign_count} row(s)",
                     )
                 )
@@ -177,7 +178,7 @@ class _HarnessProjectionSourceVerifier:
                 findings.append(
                     self._finding(
                         "schema_disagreement",
-                        CONTROL_DATABASE_PATH,
+                        database_relative,
                         "maintained control schema version disagrees with "
                         "the candidate",
                     )
@@ -186,21 +187,21 @@ class _HarnessProjectionSourceVerifier:
                 findings.append(
                     self._finding(
                         "semantic_disagreement",
-                        CONTROL_DATABASE_PATH,
+                        database_relative,
                         "maintained logical table content disagrees with "
                         "source-derived state",
                     )
                 )
             sql_identical = self._compare_exact(
                 root,
-                CONTROL_SQL_PATH,
-                candidate[CONTROL_SQL_PATH],
+                sql_relative,
+                candidate[sql_relative],
                 findings,
             )
             manifest_identical = self._compare_exact(
                 root,
-                PROJECTION_MANIFEST_PATH,
-                candidate[PROJECTION_MANIFEST_PATH],
+                manifest_relative,
+                candidate[manifest_relative],
                 findings,
             )
             projections_identical = True
@@ -209,7 +210,9 @@ class _HarnessProjectionSourceVerifier:
                     root, relative, candidate[relative], findings
                 ):
                     projections_identical = False
-            unexpected = self._unexpected_owned_paths(root, candidate_paths)
+            unexpected = self._unexpected_owned_paths(
+                root, candidate_paths, Path(configuration.catalogs.task_root)
+            )
             for relative in unexpected:
                 projections_identical = False
                 findings.append(

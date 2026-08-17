@@ -32,6 +32,8 @@ import pytest
 from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 from ksdft2effmass.harness.pi.local._commands.inspect_task_state import result_object
 
+from .conftest import write_harness_configuration
+
 pytestmark = pytest.mark.software_verification
 
 CHAIN_PATH = ".pi/chains/example.json"
@@ -57,6 +59,7 @@ def write_command_repository(root: Path) -> None:
 
     Limitations: The helper does not invoke either compared surface.
     """
+    write_harness_configuration(root)
     chain = {
         "name": "example",
         "active_task": None,

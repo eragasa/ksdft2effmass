@@ -102,6 +102,7 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/ksdft2effmass/persistence/index
    architecture/v2/ksdft2effmass/harness/index
    architecture/v2/ksdft2effmass/harness/object-model
+   architecture/v2/ksdft2effmass/harness/configuration
    architecture/v2/ksdft2effmass/harness/development-harness
    architecture/v2/ksdft2effmass/harness/compiler-architecture
    architecture/v2/ksdft2effmass/harness/validation

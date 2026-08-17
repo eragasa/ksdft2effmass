@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from ksdft2effmass.harness.pi.local import (
@@ -31,6 +32,24 @@ def repository_root() -> Path:
     contents.
     """
     return Path(__file__).resolve().parents[7]
+
+
+def write_harness_configuration(
+    root: Path,
+    *,
+    state_database_path: str = "harness/state/harness-control.sqlite3",
+) -> None:
+    """Write the maintained canonical source with a controlled database path."""
+    source = json.loads((repository_root() / "harness/configuration.json").read_text())
+    source["persistence"]["state_database_path"] = state_database_path
+    destination = root / "harness/configuration.json"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(source, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
+    )
+    settings = root / ".pi/settings.json"
+    settings.parent.mkdir(parents=True, exist_ok=True)
+    settings.write_text('{"subagents":{"agentOverrides":{}}}')
 
 
 def local_context() -> LocalHarnessContext:

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "pi_settings_path": ".pi/settings.json",
+  "human_review": {
+    "packet_artifact_root": ".pi/reviews/packets",
+    "decision_projection_root": ".pi/reviews/decisions"
+  },
+  "persistence": {
+    "state_database_path": "harness/state/harness-control.sqlite3",
+    "sql_export_path": "harness/state/harness-control.sql",
+    "projection_manifest_path": "harness/state/projection-manifest.json"
+  },
+  "python_conformance": {
+    "pyproject_path": "python/pyproject.toml",
+    "test_root": "python/tests",
+    "profile_matrix_path": "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json",
+    "migration_map_path": ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
+  },
+  "resources": {
+    "project_profile_path": "harness/local/profiles/ksdft2effmass-v2.json",
+    "generic_manifest_path": "harness/pi/resource-manifest.json",
+    "generic_root": "harness/pi",
+    "local_manifest_path": "harness/local/resource-manifest.json",
+    "local_root": "harness/local"
+  },
+  "catalogs": {
+    "task_root": "harness/tasks",
+    "agent_roots": [
+      ".pi/agents"
+    ],
+    "checkpoint_roots": [
+      ".pi/checkpoints"
+    ],
+    "skill_roots": [
+      ".agents/skills",
+      ".pi/skills"
+    ]
+  }
+}

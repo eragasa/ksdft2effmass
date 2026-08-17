@@ -45,6 +45,41 @@ ARTIFACT_PATH = "records/artifact.json"
 JSON_TASK_PATH = ".pi/tasks/example.json"
 
 
+def write_harness_configuration(
+    root: Path,
+    *,
+    state_database_path: str = "harness/state/harness-control.sqlite3",
+) -> None:
+    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078, SV-HARNESS-171, and SV-HARNESS-183.
+
+    Requirement: Task-state evidence requires canonical configuration and Pi inputs.
+
+    Method: Copy the maintained source shape, replace only the controlled database
+    path, and write minimal valid Pi settings below the supplied root.
+
+    Oracle: The maintained source fixes member order while the argument fixes the
+    persistence path used by each case.
+
+    Acceptance: Both exact source files are available without adding another
+    configuration route.
+
+    Interpretation: Failure supports fixture diagnosis rather than action correctness.
+
+    Limitations: This helper owns no independent evidence result.
+    """  # noqa: E501
+    repository_root = Path(__file__).resolve().parents[6]
+    source = json.loads((repository_root / "harness/configuration.json").read_text())
+    source["persistence"]["state_database_path"] = state_database_path
+    destination = root / "harness/configuration.json"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(source, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
+    )
+    settings = root / ".pi/settings.json"
+    settings.parent.mkdir(parents=True, exist_ok=True)
+    settings.write_text('{"subagents":{"agentOverrides":{}}}')
+
+
 def write_controlled_repository(
     root: Path,
     *,
@@ -72,6 +107,7 @@ def write_controlled_repository(
 
     Limitations: The helper owns no evidence and does not invoke the SUT.
     """
+    write_harness_configuration(root)
     chain = {
         "name": "example",
         "active_task": None,
@@ -432,6 +468,101 @@ def test_method__execute_symlink_reference__rejects_indirection(tmp_path: Path) 
         issue.code == "PIH.PATH.SYMLINK" and issue.path == TASK_PATH
         for issue in result.validation.issues
     )
+
+
+def test_method__execute_configured_database__uses_no_fixed_persistence_path(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: SV-HARNESS-183
+
+    Requirement: Task-state inspection obtains its database path from the canonical
+    resolved HarnessConfiguration rather than a hard-coded consumer default.
+
+    Method: Configure a non-default database path, create that exact file, and replace
+    the SQLite reader with one controlled represented-state result.
+
+    Oracle: The source document names the only database path the action may inspect.
+
+    Acceptance: Inspection passes, reads the configured file, and never inspects the
+    historical default path.
+
+    Interpretation: Failure identifies dual persistence authority or configuration
+    cutover drift.
+
+    Limitations: SQLite decoding is owned by the database-reader evidence.
+    """
+    from ksdft2effmass.harness.pi.dbcontrol.database import _TaskStateDatabaseReader
+
+    write_controlled_repository(tmp_path)
+    configured = "configured/state.sqlite3"
+    write_harness_configuration(tmp_path, state_database_path=configured)
+    database = tmp_path / configured
+    database.parent.mkdir(parents=True, exist_ok=True)
+    database.write_bytes(b"controlled")
+    monkeypatch.setattr(
+        _TaskStateDatabaseReader,
+        "read",
+        lambda self, task_id: ("completed", False),
+    )
+
+    result = SUT().execute(request(tmp_path))
+
+    assert result.validation.status == "PASS"
+    assert configured in result.read_paths
+    assert "harness/state/harness-control.sqlite3" not in result.inspected_paths
+
+
+def test_method__execute_configured_database__rejects_symlinked_parent(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: SV-HARNESS-184
+
+    Requirement: Configured database inspection fails closed before opening any path
+    whose parent component is a symlink.
+
+    Method: Point the configured database through a symlink to an outside directory and
+    replace the SQLite reader with an assertion failure.
+
+    Oracle: Root confinement prohibits every symlinked component independently of the
+    target file contents.
+
+    Acceptance: Validation reports the configured symlink path, the reader is not
+    called, and the path is absent from read paths.
+
+    Interpretation: Failure identifies an external read or ignored confinement result.
+
+    Limitations: Concurrent path replacement after inspection is outside this case.
+    """
+    from ksdft2effmass.harness.pi.dbcontrol.database import _TaskStateDatabaseReader
+
+    write_controlled_repository(tmp_path)
+    configured = "linked/state.sqlite3"
+    write_harness_configuration(tmp_path, state_database_path=configured)
+    outside = tmp_path.parent / f"{tmp_path.name}-outside"
+    outside.mkdir()
+    (outside / "state.sqlite3").write_bytes(b"outside")
+    try:
+        (tmp_path / "linked").symlink_to(outside, target_is_directory=True)
+    except OSError:
+        pytest.skip("symlink creation is unavailable")
+    monkeypatch.setattr(
+        _TaskStateDatabaseReader,
+        "read",
+        lambda self, task_id: (_ for _ in ()).throw(
+            AssertionError("database reader must not follow the symlink")
+        ),
+    )
+
+    result = SUT().execute(request(tmp_path))
+
+    assert result.validation.status == "FAIL"
+    assert any(
+        issue.code == "PIH.PATH.SYMLINK" and issue.path == configured
+        for issue in result.validation.issues
+    )
+    assert configured not in result.read_paths
 
 
 def test_method__execute_repeated_request__ignores_undeclared_decoys(

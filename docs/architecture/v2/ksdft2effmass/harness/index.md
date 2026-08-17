@@ -28,6 +28,7 @@ The harness may reference immutable scientific contract and implementation ident
 | Work definition | `HarnessTask` |
 | Active work | `DevelopmentTaskSelection` |
 | Normalized state | `HarnessState` |
+| Resolved configuration | `HarnessConfiguration`, composed from subsystem-owned configuration DataObjects |
 | Source compilation | `HarnessCompiler` |
 | Authority-context reconstruction | `DevelopmentAuthorityContextResolver` |
 | Exact operation authorization | `DevelopmentOperationAuthorizer` |
@@ -43,6 +44,8 @@ The harness may reference immutable scientific contract and implementation ident
 A `HarnessTask` defines bounded requested work, prerequisites, completion criteria, and exclusions. `DevelopmentTaskSelection` is repository-derived requested/selected work state; it is neither authority nor permission. Capability and selection do not authorize an operation or imply human acceptance. `DevelopmentAuthorityContextResolver` reconstructs and verifies the candidate-independent `DevelopmentAuthorityContext`; `DevelopmentOperationAuthorizer` returns an affirmative result only for a matching unrevoked `TaskAuthorization` covering the exact selection and Task revisions, candidate and starting revisions, operation, and permitted paths. A target operation verifies that result's exact bindings without reinterpreting authority policy. Neither a `HarnessTask`, selection, validation result, nor candidate-controlled decision can authorize itself.
 
 `HarnessState` is the immutable normalized aggregate used by validation and projection. It contains the one `DevelopmentDecision` model described by [human decisions](../../human-decisions.md) directly as an immutable canonically ordered sequence of unresolved and resolved variants/revisions. A pending decision blocks only its declared development transition and scope. Persistence stores lossless revisions of that same repository-derived aggregate. The initial realization composes `HarnessStateAtomicRepository` with an explicitly configured standard-library SQLite shared store; it does not introduce a domain SQLite subclass. Projections are recoverable read-only views and never replace authority.
+
+[`HarnessConfiguration`](configuration.md) is the immutable resolved configuration supplied to application composition. It composes subsystem-owned Pi, human-review, persistence, conformance, resource, and catalog values. Exact source bindings and snapshot identity belong to `HarnessConfigurationResolutionResult`, not configuration equality or resolved JSON. Configuration selects no authority and contains no live service. Canonical JSON is the initial selected wire format; YAML remains deferred pending a separate wire and dependency decision.
 
 Coding-standards conformance is owned by the harness and evaluates only explicitly identified source subjects under an identified coding-standards policy. Profiles bind policy requirements to explicit adapters but create no policy or gate. Task, behavioral, numerical, promotion, and scientific concerns remain with their existing owners.
 
@@ -64,6 +67,7 @@ The exact route is proportional to risk. Human-owned and protected boundaries re
 ## Pages
 
 - [Object model](object-model.md)
+- [Configuration](configuration.md)
 - [Development harness model](development-harness.md)
 - [Compiler architecture](compiler-architecture.md)
 - [Normalized-state validation](validation.md)
@@ -82,6 +86,7 @@ The exact route is proportional to risk. Human-owned and protected boundaries re
 - Exact coding-standards policy, adapter-profile, aggregate-result, and report wire contracts.
 - Closed development lifecycle and selection wire contracts.
 - Exact HarnessState wire bytes and SQLite schema/operational policy; standard-library SQLite is selected only as the initial shared-store realization.
+- Additional storage parameters and whether a demonstrated external consumer justifies a separate machine-readable JSON Schema; YAML remains deferred.
 - Which generated development views remain maintained.
 - Whether reusable repository-operation infrastructure belongs in the harness or application composition package.
 

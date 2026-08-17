@@ -30,6 +30,10 @@ class _RepositoryControlIngestor:
         "evidence_predecessors",
         "resource_corpus",
         "agent_definitions",
+        "task_root",
+        "skill_roots",
+        "checkpoint_roots",
+        "test_root",
     )
 
     def __init__(
@@ -42,6 +46,11 @@ class _RepositoryControlIngestor:
         evidence_predecessors: tuple[tuple[str, str], ...] = (),
         resource_corpus: _ControlResourceCorpus | None = None,
         agent_definitions: tuple[PiHarnessAgentDefinition, ...] = (),
+        *,
+        task_root: Path = Path("harness/tasks"),
+        skill_roots: tuple[Path, ...] = (Path(".agents/skills"), Path(".pi/skills")),
+        checkpoint_roots: tuple[Path, ...] = (Path(".pi/checkpoints"),),
+        test_root: Path = Path("python/tests"),
     ) -> None:
         self.connection = connection
         self.root = root
@@ -57,6 +66,10 @@ class _RepositoryControlIngestor:
         ):
             raise TypeError("agent_definitions must contain PiHarnessAgentDefinition")
         self.agent_definitions = agent_definitions
+        self.task_root = task_root
+        self.skill_roots = skill_roots
+        self.checkpoint_roots = checkpoint_roots
+        self.test_root = test_root
 
     def execute(self) -> None:
         """Ingest the complete repository control corpus in dependency order."""
@@ -106,7 +119,7 @@ class _RepositoryControlIngestor:
         connection = self.connection
         root = self.root
         task_paths = sorted(
-            (root / "harness/tasks").glob("*.json"), key=lambda item: item.name
+            (root / self.task_root).glob("*.json"), key=lambda item: item.name
         )
         tasks: dict[str, dict[str, Any]] = {}
         for path in task_paths:
@@ -188,7 +201,7 @@ class _RepositoryControlIngestor:
                     task["schema_version"],
                     task["title"],
                     task["objective"],
-                    f"harness/tasks/{task_id}.json",
+                    (self.task_root / f"{task_id}.json").as_posix(),
                     task.get("status_detail"),
                     int(task["explicit_activation_required"]),
                     task.get("intake_path"),
@@ -272,7 +285,7 @@ class _RepositoryControlIngestor:
                 continue
             self.evidence_profiles[str(module["path"])] = model.evidence_profile
             module_id = "test-module." + _ControlEncoding.slug(
-                path.relative_to(root / "python/tests").with_suffix("").as_posix()
+                path.relative_to(root / self.test_root).with_suffix("").as_posix()
             ).replace("-", ".")
             subject = (
                 module.get("sut")
@@ -392,8 +405,9 @@ class _RepositoryControlIngestor:
         root = self.root
         skill_paths = sorted(
             (
-                *root.glob(".pi/skills/*/SKILL.md"),
-                *root.glob(".agents/skills/*/SKILL.md"),
+                path
+                for skill_root in self.skill_roots
+                for path in (root / skill_root).glob("*/SKILL.md")
             ),
             key=lambda item: item.as_posix(),
         )
@@ -492,7 +506,12 @@ class _RepositoryControlIngestor:
         connection = self.connection
         root = self.root
         for path in sorted(
-            (root / ".pi/checkpoints").glob("*.json"), key=lambda item: item.name
+            (
+                path
+                for checkpoint_root in self.checkpoint_roots
+                for path in (root / checkpoint_root).glob("*.json")
+            ),
+            key=lambda item: item.relative_to(root).as_posix(),
         ):
             if path.name.endswith("schema.json"):
                 continue

@@ -39,7 +39,7 @@ from ksdft2effmass.harness.pi.local import (
     TaskRecordAdapter,
 )
 
-from .conftest import repository_root
+from .conftest import repository_root, write_harness_configuration
 from .task_model_examples import make_task
 
 pytestmark = pytest.mark.software_verification
@@ -517,6 +517,7 @@ def test_method__task_state_inspector__preserves_format_selection(
     Limitations: Full local schema validation remains owned by TaskRecordAdapter.
     """
     task_id = "format.task"
+    write_harness_configuration(tmp_path)
     suffix = "md" if record_kind == "markdown" else "json"
     record_path = f"records/{record_kind}.{suffix}"
     chain_path = "records/chain.json"

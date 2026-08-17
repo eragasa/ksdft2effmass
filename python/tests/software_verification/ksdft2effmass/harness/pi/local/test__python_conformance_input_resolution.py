@@ -69,7 +69,17 @@ def test_method__execute__returns_exact_canonical_conformance_inputs(
     migration.parent.mkdir(parents=True)
     migration.write_text("{}\n")
 
-    result = _PythonConformanceInputResolver().execute(root)
+    result = _PythonConformanceInputResolver().execute(
+        root,
+        pyproject_path=Path("python/pyproject.toml"),
+        test_root_path=Path("python/tests"),
+        profile_path=Path(
+            "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
+        ),
+        migration_path=Path(
+            ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
+        ),
+    )
 
     assert result.repository_root == root
     assert result.profile_path == Path(
@@ -103,17 +113,18 @@ def test_artifact__dependency__validation_does_not_import_projection_inputs(
 ) -> None:
     """Evidence ID: software-verification.harness.python-conformance-inputs.projection-independence
 
-    Requirement: Repository conformance validation depends on its canonical input
-    boundary rather than the Harness projection input resolver.
+    Requirement: Repository conformance validation depends on the shared canonical
+    HarnessConfiguration input boundary rather than the projection input resolver.
 
     Method: Inspect each maintained validation consumer for the retired projection
     dependency and required conformance dependency.
 
     Oracle: The accepted dependency direction prohibits the projection resolver and
-    requires the dedicated conformance resolver in both consumers.
+    requires the configuration plus dedicated conformance resolvers in both consumers.
 
-    Acceptance: Each consumer names ``_PythonConformanceInputResolver`` and does not
-    name ``_HarnessProjectionInputResolver`` or import ``local.control.inputs``.
+    Acceptance: Each consumer names ``_HarnessConfigurationInputResolver`` and
+    ``_PythonConformanceInputResolver`` without naming
+    ``_HarnessProjectionInputResolver`` or importing ``local.control.inputs``.
 
     Interpretation: Failure identifies renewed projection coupling.
 
@@ -121,6 +132,7 @@ def test_artifact__dependency__validation_does_not_import_projection_inputs(
     """  # noqa: E501
     root = Path(__file__).resolve().parents[7]
     source = (root / relative).read_text()
+    assert "_HarnessConfigurationInputResolver" in source
     assert "_PythonConformanceInputResolver" in source
     assert "_HarnessProjectionInputResolver" not in source
     assert "local.control.inputs" not in source
@@ -187,7 +199,17 @@ def test_method__execute__rejects_inputs_that_escape_the_repository_root(
         migration.write_text("{}\n")
 
     with pytest.raises(ValueError):
-        _PythonConformanceInputResolver().execute(root)
+        _PythonConformanceInputResolver().execute(
+            root,
+            pyproject_path=Path("python/pyproject.toml"),
+            test_root_path=Path("python/tests"),
+            profile_path=Path(
+                "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
+            ),
+            migration_path=Path(
+                ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
+            ),
+        )
 
 
 def test_artifact__dependency__projection_composes_canonical_conformance_inputs() -> (
@@ -195,17 +217,17 @@ def test_artifact__dependency__projection_composes_canonical_conformance_inputs(
 ):
     """Evidence ID: software-verification.harness.python-conformance-inputs.projection-composition
 
-    Requirement: Projection input construction composes the canonical conformance
-    resolver and does not independently select test modules, profile, or migration.
+    Requirement: Projection input construction composes conformance enumeration from
+    the resolved HarnessConfiguration and does not independently parse pytest policy.
 
-    Method: Inspect the maintained projection-input source for its exact resolver call
-    and field forwarding, and prohibit independent pytest configuration parsing.
+    Method: Inspect projection-input source for configured resolver arguments and sole
+    module-observation forwarding, and prohibit independent test-tree traversal.
 
-    Oracle: The accepted single-owner dependency requires one resolver invocation and
-    direct forwarding of all three conformance fields.
+    Oracle: HarnessConfiguration owns policy paths while the conformance resolver owns
+    source enumeration beneath the configured test root.
 
-    Acceptance: The exact call and field expressions are present and ``tomllib`` and
-    test-tree traversal are absent.
+    Acceptance: Every configured argument and module forwarding expression is present;
+    superseded request-level policy forwarding, ``tomllib``, and traversal are absent.
 
     Interpretation: Failure identifies duplicated or bypassed conformance selection.
 
@@ -215,9 +237,21 @@ def test_artifact__dependency__projection_composes_canonical_conformance_inputs(
     source = (
         root / "python/src/ksdft2effmass/harness/pi/local/control/inputs.py"
     ).read_text()
-    assert "_PythonConformanceInputResolver().execute(root)" in source
-    assert "evidence_profile_matrix_path=conformance.profile_path" in source
+    assert "_PythonConformanceInputResolver().execute(" in source
+    assert (
+        "pyproject_path=Path(configuration.python_conformance.pyproject_path)" in source
+    )
+    assert "test_root_path=Path(configuration.python_conformance.test_root)" in source
+    assert (
+        "profile_path=Path(configuration.python_conformance.profile_matrix_path)"
+        in source
+    )
+    assert (
+        "migration_path=Path(configuration.python_conformance.migration_map_path)"
+        in source
+    )
     assert "evidence_module_paths=conformance.module_paths" in source
-    assert "evidence_migration_path=conformance.migration_path" in source
+    assert "evidence_profile_matrix_path=conformance.profile_path" not in source
+    assert "evidence_migration_path=conformance.migration_path" not in source
     assert "tomllib" not in source
     assert ".rglob(" not in source

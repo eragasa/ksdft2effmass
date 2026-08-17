@@ -21,7 +21,7 @@ flowchart TD
     app --> analysis["Parsers, adapters, and analyzers"]
 ```
 
-The root validates configuration and constructs immutable catalogs and explicit ordered implementations. It does not perform ambient plugin discovery, calculate generic enablement itself, inspect scientific results, or create authority.
+The root receives one successful [`HarnessConfigurationResolutionResult`](../harness/configuration.md), verifies its source bindings and snapshot identity, and supplies its exact resolved `HarnessConfiguration` when constructing immutable catalogs and explicit ordered implementations. Nested configuration DataObjects remain owned by the subsystems they configure. The root does not perform ambient plugin discovery, calculate generic enablement itself, inspect scientific results, or create authority.
 
 ## Scientific composition
 
@@ -53,6 +53,6 @@ Development and scientific persistence use separate store instances and separate
 
 ## Deferred implementation details
 
-- Concrete configuration and dependency-injection mechanism.
+- Exact application factory and dependency-injection mechanism for the selected resolved configuration contract.
 - Process-isolation and scheduler adapters.
 - Exact public factory and wire contracts.

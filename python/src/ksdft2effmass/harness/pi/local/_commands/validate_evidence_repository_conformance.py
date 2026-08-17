@@ -26,6 +26,9 @@ from ksdft2effmass.harness.pi.local import (
 from ksdft2effmass.harness.pi.local.conformance_inputs import (
     _PythonConformanceInputResolver,
 )
+from ksdft2effmass.harness.pi.local.control.configuration_inputs import (
+    _HarnessConfigurationInputResolver,
+)
 
 CLAIM_BOUNDARY = [
     "semantic cohesion",
@@ -46,7 +49,18 @@ def run(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         request = HarnessValidationRequest(args.repository_root)
-        inputs = _PythonConformanceInputResolver().execute(request.repository_root)
+        configuration = (
+            _HarnessConfigurationInputResolver()
+            .execute(request.repository_root)
+            .configuration.python_conformance
+        )
+        inputs = _PythonConformanceInputResolver().execute(
+            request.repository_root,
+            pyproject_path=Path(configuration.pyproject_path),
+            test_root_path=Path(configuration.test_root),
+            profile_path=Path(configuration.profile_matrix_path),
+            migration_path=Path(configuration.migration_map_path),
+        )
     except (OSError, TypeError, ValueError) as exc:
         print(
             json.dumps(

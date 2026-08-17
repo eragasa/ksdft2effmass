@@ -24,6 +24,7 @@ acceptance claims.
 import json
 import subprocess
 from copy import deepcopy
+from dataclasses import replace
 from operator import attrgetter
 from pathlib import Path
 from typing import cast
@@ -41,12 +42,19 @@ from ksdft2effmass.harness.pi.local import (
     HarnessValidator,
 )
 from ksdft2effmass.harness.pi.local._commands import validate_harness
+from ksdft2effmass.harness.pi.local.control.configuration_inputs import (
+    _HarnessConfigurationInputResolver,
+    _HarnessConfigurationInputs,
+)
 from ksdft2effmass.harness.pi.local.dbcontrol.records import (
     _HarnessProjectionVerificationFinding,
     _HarnessProjectionVerificationResult,
 )
 from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
     _HarnessProjectionVerifier,
+)
+from ksdft2effmass.harness.pi.local.validation import (
+    _PythonConformanceRepositoryValidator,
 )
 
 from .task_model_examples import make_task
@@ -187,6 +195,119 @@ def test_method__execute_maintained_repository__returns_stable_structural_checks
         "does not establish human acceptance",
     )
     assert "duration" not in repr(result).lower()
+
+
+def test_method__execute__forwards_resolved_configuration_to_all_configured_checks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Evidence ID: software-verification.harness.repository-validation.action.configuration-cutover
+
+    Requirement: Maintained repository validation consumes the one resolved
+    HarnessConfiguration for conformance, resource, Task, and checkpoint inputs.
+
+    Method: Replace canonical resolution with an immutable aggregate containing
+    non-default paths and observe each check-owner argument while returning literal
+    passing checks.
+
+    Oracle: The non-default configuration fields independently define every expected
+    forwarded value.
+
+    Acceptance: Validation passes and each observed argument equals its exact nested
+    configuration value or configured catalog path.
+
+    Interpretation: Failure identifies fallback path authority or loss at composition.
+
+    Limitations: Each domain owner's path reading is verified in its focused evidence.
+    """  # noqa: E501
+    repository = Path(__file__).resolve().parents[7]
+    original = _HarnessConfigurationInputResolver().execute(repository).configuration
+    conformance = replace(
+        original.python_conformance,
+        pyproject_path="alternate/python/pyproject.toml",
+        test_root="alternate/python/tests",
+        profile_matrix_path="alternate/evidence/profile.json",
+        migration_map_path="alternate/evidence/migration.json",
+    )
+    resources = replace(
+        original.resources,
+        project_profile_path="alternate/local/profile.json",
+        generic_manifest_path="alternate/generic/manifest.json",
+        generic_root="alternate/generic",
+        local_manifest_path="alternate/local/manifest.json",
+        local_root="alternate/local",
+    )
+    catalogs = replace(
+        original.catalogs,
+        task_root="alternate/tasks",
+        checkpoint_roots=("alternate/checkpoints",),
+    )
+    configuration = replace(
+        original,
+        python_conformance=conformance,
+        resources=resources,
+        catalogs=catalogs,
+    )
+    observed: dict[str, object] = {}
+    monkeypatch.setattr(
+        _HarnessConfigurationInputResolver,
+        "execute",
+        lambda self, root: _HarnessConfigurationInputs(configuration),
+    )
+    monkeypatch.setattr(
+        _PythonConformanceRepositoryValidator,
+        "execute",
+        lambda self, root, value: (
+            observed.__setitem__("conformance", value),
+            _PASS_CHECKS[0],
+        )[1],
+    )
+
+    monkeypatch.setattr(
+        HarnessValidator,
+        "_resource_check",
+        lambda self, root, value: (
+            observed.__setitem__("resources", value),
+            (None, _PASS_CHECKS[1]),
+        )[1],
+    )
+    monkeypatch.setattr(
+        HarnessValidator,
+        "_task_check",
+        lambda self, root, value: (
+            observed.__setitem__("task_root", value),
+            _PASS_CHECKS[2],
+        )[1],
+    )
+    monkeypatch.setattr(
+        HarnessValidator,
+        "_checkpoint_check",
+        lambda self, root, value: (
+            observed.__setitem__("catalogs", value),
+            _PASS_CHECKS[3],
+        )[1],
+    )
+    monkeypatch.setattr(
+        HarnessValidator,
+        "_skill_check",
+        lambda self, root, context: _PASS_CHECKS[4],
+    )
+    monkeypatch.setattr(
+        _HarnessProjectionVerifier,
+        "execute",
+        lambda self, root: _HarnessProjectionVerificationResult(
+            "ok", 0, "same", "same", "raw", "raw", True, True, True, True, ()
+        ),
+    )
+
+    result = HarnessValidator().execute(HarnessValidationRequest(repository))
+
+    assert result.status == "PASS"
+    assert observed == {
+        "conformance": conformance,
+        "resources": resources,
+        "task_root": Path("alternate/tasks"),
+        "catalogs": catalogs,
+    }
 
 
 @pytest.mark.parametrize(("result", "expected_exit"), _COMMAND_CASES)
@@ -330,7 +451,7 @@ def test_artifact__task_check__deserializes_complete_discovered_catalog(
 
     monkeypatch.setattr(HarnessTaskDeserializer, "execute", observe_deserialization)
     monkeypatch.setattr(HarnessTaskGraphValidator, "execute", observe_graph)
-    result = HarnessValidator()._task_check(tmp_path.resolve())
+    result = HarnessValidator()._task_check(tmp_path.resolve(), Path("harness/tasks"))
     assert result == HarnessValidationCheck("task_graph", "PASS", ())
     assert deserialized == ["alpha", "beta"]
     assert graphed == [("alpha", "beta")]
@@ -363,7 +484,7 @@ def test_artifact__task_check__unsupported_version_reports_invalid_record(
         .replace(b'"schema_version": 3', b'"schema_version": 2')
     )
     (task_root / "example.task.json").write_bytes(payload)
-    result = HarnessValidator()._task_check(tmp_path.resolve())
+    result = HarnessValidator()._task_check(tmp_path.resolve(), Path("harness/tasks"))
     assert result.status == "FAIL"
     assert result.findings == (
         (

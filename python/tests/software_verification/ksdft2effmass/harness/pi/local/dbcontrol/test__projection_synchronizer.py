@@ -598,6 +598,44 @@ def test_method__execute_publish_failure__restores_complete_previous_generation(
     )
 
 
+def test_method__execute_configured_output__rejects_symlinked_parent(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migration-action.configured-output-symlink-confinement
+
+    Requirement: Publication rejects a configured output whose existing parent
+    component is a symlink and writes nothing outside the repository root.
+
+    Method: Configure the authoritative database beneath a symlink to a controlled
+    outside directory and execute a minimal isolated synchronization.
+
+    Oracle: Repository confinement forbids every symlinked destination component.
+
+    Acceptance: Synchronization raises ``ValueError`` naming the symlink and the
+    outside database file is absent.
+
+    Interpretation: Failure identifies external publication through configured paths.
+
+    Limitations: Concurrent hostile path replacement is outside this process-local
+    case.
+    """  # noqa: E501
+    outside = tmp_path.parent / f"{tmp_path.name}-outside"
+    outside.mkdir()
+    try:
+        (tmp_path / "linked").symlink_to(outside, target_is_directory=True)
+    except OSError:
+        pytest.skip("symlink creation is unavailable")
+    monkeypatch.setattr(_RepositoryControlIngestor, "execute", lambda self: None)
+    request = _HarnessProjectionRequest(
+        tmp_path.resolve(), database_path=Path("linked/control.sqlite3")
+    )
+
+    with pytest.raises(ValueError, match="contains a symlink"):
+        SUT().execute(request)
+
+    assert not (outside / "control.sqlite3").exists()
+
+
 def test_method__execute_source_corpus_removal_and_move__reconciles_snapshot(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

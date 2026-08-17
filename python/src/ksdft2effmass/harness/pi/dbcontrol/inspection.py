@@ -5,12 +5,15 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from ...configuration import (
+    _HARNESS_CONFIGURATION_SOURCE_PATH,
+    HarnessConfigurationResolver,
+    HarnessConfigurationSourceJsonDeserializer,
+)
 from ..validation import ValidationResult, _issue, _result
 from .database import _TaskStateDatabaseReader
 from .documents import _PARSE_ERRORS, _TaskStateDocumentParser
 from .files import _InspectionFiles
-
-_CONTROL_DATABASE_PATH = "harness/state/harness-control.sqlite3"
 
 
 @dataclass(frozen=True, slots=True)
@@ -45,6 +48,48 @@ class _TaskStateQuery:
         self.repository_root = repository_root
         self.chain_path = chain_path
         self.task_id = task_id
+
+    @staticmethod
+    def _control_database_path(files: _InspectionFiles, task_id: str) -> str | None:
+        """Resolve the configured database from the two exact source files."""
+        source_payload = files.inspect(_HARNESS_CONFIGURATION_SOURCE_PATH)
+        if source_payload is None:
+            return None
+        try:
+            source = HarnessConfigurationSourceJsonDeserializer().execute(
+                source_payload
+            )
+        except (TypeError, ValueError, UnicodeError) as exc:
+            files.issues.append(
+                _issue(
+                    "PIH.TASK_STATE.REFERENCE_INVALID",
+                    f"Harness configuration source is invalid: {exc}.",
+                    task_id,
+                    _HARNESS_CONFIGURATION_SOURCE_PATH,
+                )
+            )
+            return None
+        pi_payload = files.inspect(source.pi_settings_path)
+        if pi_payload is None:
+            return None
+        resolution = HarnessConfigurationResolver().execute(
+            _HARNESS_CONFIGURATION_SOURCE_PATH,
+            source_payload,
+            source.pi_settings_path,
+            pi_payload,
+        )
+        if resolution.status != "resolved" or resolution.configuration is None:
+            codes = ", ".join(finding.code for finding in resolution.findings)
+            files.issues.append(
+                _issue(
+                    "PIH.TASK_STATE.REFERENCE_INVALID",
+                    f"Harness configuration resolution failed: {codes}.",
+                    task_id,
+                    _HARNESS_CONFIGURATION_SOURCE_PATH,
+                )
+            )
+            return None
+        return resolution.configuration.persistence.state_database_path
 
     @staticmethod
     def _record_status(paths: tuple[str, ...], missing: set[str]) -> str:
@@ -82,6 +127,9 @@ class _TaskStateQuery:
         run_paths: tuple[str, ...] = ()
         handoff_paths: tuple[str, ...] = ()
 
+        control_database_path = (
+            self._control_database_path(files, task_id) if root_valid else None
+        )
         chain_payload = files.inspect(chain_path) if root_valid else None
         selected_task = None
         if chain_payload is not None:
@@ -146,21 +194,34 @@ class _TaskStateQuery:
             ):
                 files.inspect(path)
 
-        control_database = repository_root / _CONTROL_DATABASE_PATH
-        if control_database.is_file() and not control_database.is_symlink():
-            files.inspect(_CONTROL_DATABASE_PATH)
-            database_state = _TaskStateDatabaseReader(control_database).read(task_id)
-            if database_state is None:
+        control_database = (
+            repository_root / control_database_path
+            if control_database_path is not None
+            else None
+        )
+        if (
+            control_database is not None
+            and control_database.is_file()
+            and not control_database.is_symlink()
+        ):
+            assert control_database_path is not None
+            database_payload = files.inspect(control_database_path)
+            database_state = (
+                _TaskStateDatabaseReader(control_database).read(task_id)
+                if database_payload is not None
+                else None
+            )
+            if database_payload is not None and database_state is None:
                 files.issues.append(
                     _issue(
                         "PIH.TASK_STATE.REFERENCE_INVALID",
                         "The authoritative control database does not contain the "
                         "selected Task.",
                         task_id,
-                        _CONTROL_DATABASE_PATH,
+                        control_database_path,
                     )
                 )
-            else:
+            elif database_state is not None:
                 database_status, database_active = database_state
                 if task_status is not None and task_status != database_status:
                     files.issues.append(

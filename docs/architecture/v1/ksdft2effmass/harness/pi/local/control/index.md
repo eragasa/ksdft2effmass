@@ -6,11 +6,11 @@ V1 does not expose the normalized `HarnessSourceSnapshot → HarnessState → Ha
 
 ```mermaid
 flowchart TB
-    python["Configured Python test sources"] --> conformance["Resolve canonical conformance inputs"]
+    configuration["Harness configuration + referenced Pi settings"] --> resolve["Resolve HarnessConfiguration"]
+    resolve --> conformance["Enumerate configured Python test sources"]
     conformance --> repository_validation["Repository conformance validation"]
-    conformance --> resolve["Compose projection inputs"]
-    inputs["Other explicit canonical inputs"] --> resolve
-    resolve --> build["Build candidate database and projections"]
+    conformance --> request["Construct canonical projection request"]
+    request --> build["Build candidate database and projections"]
     build --> validate["Validate candidate"]
     validate --> mode{"Operation"}
     mode -->|sync| publish["Publish maintained artifact set"]
@@ -21,12 +21,12 @@ flowchart TB
 
 | Package or module owner | Responsibility |
 |---|---|
-| Private projection request | Explicit repository root and canonical evidence/resource inputs |
+| Private projection request | Explicit repository root, resolved `HarnessConfiguration`, and enumerated Python test modules |
 | Private projection synchronizer | Candidate construction, validation, and publication orchestration |
 | Private projection verifier | Candidate reconstruction and read-only comparison |
-| `local.conformance_inputs` | Canonical Python test-module, profile, and migration-map selection shared by validation and projection composition |
+| `local.conformance_inputs` | Explicit Python test-module enumeration and configured profile/migration-map selection |
 | `local.input_selection` | Root-confined mechanical selection for explicit project-local files and directories |
-| `local.control.inputs` | Composition of conformance inputs with the remaining canonical projection inputs |
+| `local.control.inputs` | Exact source-aware resolution and sole canonical projection-request composition |
 | `local.control.generation` | Candidate SQLite and projection construction |
 | `HarnessValidator` | Repository-level validation composition |
 | Domain validators | Task, checkpoint, resource, skill, and Python-conformance rules |

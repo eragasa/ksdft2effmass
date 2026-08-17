@@ -22,6 +22,7 @@ from pathlib import Path
 
 import pytest
 
+from ksdft2effmass.harness import HarnessConfigurationResolver
 from ksdft2effmass.harness.pi import PiHarnessConfiguration
 from ksdft2effmass.harness.pi.local.dbcontrol.records import (
     _HarnessProjectionRequest,
@@ -135,6 +136,52 @@ def test_constructor__pi_configuration__is_explicit_and_type_checked() -> None:
         _HarnessProjectionRequest(
             Path("/repository"),
             pi_harness_configuration=object(),  # type: ignore[arg-type]
+        )
+
+
+def test_constructor__resolved_configuration__owns_canonical_fields() -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.migration-request.resolved-configuration
+
+    Requirement: Maintained request construction receives one resolved configuration
+    as sole authority for persistence, evidence policy, resources, catalogs, and Pi.
+
+    Method: Resolve the repository source pair, construct one request, and attempt to
+    combine the result with a low-level persistence override.
+
+    Oracle: The accepted source document fixes every asserted configured field.
+
+    Acceptance: Fields derive from the exact configuration and an override is rejected.
+
+    Interpretation: Failure indicates dual configuration authority at composition.
+
+    Limitations: Enumerated evidence modules remain an explicit source observation.
+    """  # noqa: E501
+    repository = Path(__file__).resolve().parents[8]
+    resolution = HarnessConfigurationResolver().execute(
+        "harness/configuration.json",
+        (repository / "harness/configuration.json").read_bytes(),
+        ".pi/settings.json",
+        (repository / ".pi/settings.json").read_bytes(),
+    )
+    assert resolution.configuration is not None
+    request = _HarnessProjectionRequest(
+        repository,
+        harness_configuration=resolution.configuration,
+        evidence_module_paths=(Path("python/tests/test__import.py"),),
+    )
+    assert request.database_path == Path("harness/state/harness-control.sqlite3")
+    assert request.evidence_profile_matrix_path == Path(
+        "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
+    )
+    assert request.resource_profile_path == Path(
+        "harness/local/profiles/ksdft2effmass-v2.json"
+    )
+    assert request.pi_harness_configuration is resolution.configuration.pi
+    with pytest.raises(ValueError, match="cannot be combined"):
+        _HarnessProjectionRequest(
+            repository,
+            database_path=Path("other.sqlite3"),
+            harness_configuration=resolution.configuration,
         )
 
 

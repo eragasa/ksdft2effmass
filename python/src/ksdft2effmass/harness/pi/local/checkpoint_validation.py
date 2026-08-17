@@ -99,13 +99,15 @@ class _CheckpointRepositoryValidator:
         self,
         repository_root: Path,
         *,
+        checkpoint_root: Path | None = None,
         include_fixtures: bool = False,
         dry_run: bool = False,
     ) -> _CheckpointRepositoryValidationResult:
         """Validate one explicit repository checkpoint catalog."""
         if not isinstance(repository_root, Path) or not repository_root.is_absolute():
             raise ValueError("repository_root must be an absolute pathlib.Path")
-        checkpoint_root = repository_root / ".pi/checkpoints"
+        if checkpoint_root is None:
+            checkpoint_root = repository_root / ".pi/checkpoints"
         schema = self._load_json(checkpoint_root / "checkpoint.schema.json")
         Draft202012Validator.check_schema(schema)
         validator = Draft202012Validator(schema)

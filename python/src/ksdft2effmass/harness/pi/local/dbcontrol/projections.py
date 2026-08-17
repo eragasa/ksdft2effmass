@@ -15,17 +15,40 @@ from .encoding import _ControlEncoding
 class _ControlProjector:
     """Own deterministic projections for one control connection."""
 
-    __slots__ = ("connection", "evidence_profiles", "resource_manifests")
+    __slots__ = (
+        "connection",
+        "evidence_profiles",
+        "resource_manifests",
+        "task_root",
+        "database_path",
+        "resource_manifest_paths",
+        "resource_roots",
+    )
 
     def __init__(
         self,
         connection: sqlite3.Connection,
         evidence_profiles: Mapping[str, str] | None = None,
         resource_manifests: tuple[ResourceManifest, ResourceManifest] | None = None,
+        *,
+        task_root: Path = Path("harness/tasks"),
+        database_path: Path = Path("harness/state/harness-control.sqlite3"),
+        resource_manifest_paths: tuple[Path, Path] = (
+            Path("harness/pi/resource-manifest.json"),
+            Path("harness/local/resource-manifest.json"),
+        ),
+        resource_roots: tuple[Path, Path] = (
+            Path("harness/pi"),
+            Path("harness/local"),
+        ),
     ) -> None:
         self.connection = connection
         self.evidence_profiles = dict(evidence_profiles or {})
         self.resource_manifests = resource_manifests
+        self.task_root = task_root
+        self.database_path = database_path
+        self.resource_manifest_paths = resource_manifest_paths
+        self.resource_roots = resource_roots
 
     def _task_payload(self, task_id: str) -> dict[str, Any]:
         connection = self.connection
@@ -117,7 +140,7 @@ class _ControlProjector:
         result: dict[str, tuple[str, bytes]] = {}
         tasks = {task_id: self._task_payload(task_id) for task_id in ids}
         for task_id in ids:
-            result[f"harness/tasks/{task_id}.json"] = (
+            result[(self.task_root / f"{task_id}.json").as_posix()] = (
                 "task-json",
                 _ControlEncoding.json_bytes(tasks[task_id]),
             )
@@ -131,7 +154,7 @@ class _ControlProjector:
         ]
         graph = {
             "schema_version": 2,
-            "generated_from": "harness/state/harness-control.sqlite3",
+            "generated_from": self.database_path.as_posix(),
             "nodes": [{"task_id": task_id} for task_id in ids],
             "edges": edges,
         }
@@ -157,9 +180,10 @@ class _ControlProjector:
         )
         selected_manifests = self.resource_manifests
         for index, manifest_defaults in enumerate(default_manifests):
-            layer, path, default_id, default_version, default_extends = (
+            layer, _default_path, default_id, default_version, default_extends = (
                 manifest_defaults
             )
+            path = self.resource_manifest_paths[index].as_posix()
             selected = None if selected_manifests is None else selected_manifests[index]
             manifest_id = default_id if selected is None else selected.manifest_id
             version = default_version if selected is None else selected.manifest_version
@@ -193,7 +217,7 @@ class _ControlProjector:
                     )
                 ]
                 reference = declared.get(resource_id)
-                prefix = "harness/pi/" if layer == "generic" else "harness/local/"
+                prefix = self.resource_roots[index].as_posix() + "/"
                 resources.append(
                     {
                         "content_identity": {

@@ -6,6 +6,12 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
+from ksdft2effmass.harness.configuration import (
+    HarnessCatalogConfiguration,
+    HarnessResourceConfiguration,
+    PythonConformanceConfiguration,
+)
+
 from .. import ResourceResolver, SkillResourceValidator
 from ..conformance.python import (
     PythonConformanceRequest,
@@ -19,6 +25,7 @@ from ..conformance.python.corpus import (
 from .checkpoint_validation import _CheckpointRepositoryValidator
 from .conformance_inputs import _PythonConformanceInputResolver
 from .context import LocalHarnessContextLoader
+from .control.configuration_inputs import _HarnessConfigurationInputResolver
 from .dbcontrol.verification import _HarnessProjectionVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
@@ -154,9 +161,17 @@ class _PythonConformanceRepositoryValidator:
 
     __slots__ = ()
 
-    def execute(self, root: Path) -> HarnessValidationCheck:
-        """Return direct Python-conformance findings for one repository root."""
-        conformance_inputs = _PythonConformanceInputResolver().execute(root)
+    def execute(
+        self, root: Path, configuration: PythonConformanceConfiguration
+    ) -> HarnessValidationCheck:
+        """Return direct findings using the resolved conformance configuration."""
+        conformance_inputs = _PythonConformanceInputResolver().execute(
+            root,
+            pyproject_path=Path(configuration.pyproject_path),
+            test_root_path=Path(configuration.test_root),
+            profile_path=Path(configuration.profile_matrix_path),
+            migration_path=Path(configuration.migration_map_path),
+        )
         sources: list[PythonModuleSource] = []
         module_inputs: list[_PythonTestModuleInput] = []
         for relative in conformance_inputs.module_paths:
@@ -250,10 +265,13 @@ class HarnessValidator:
         if type(request) is not HarnessValidationRequest:
             raise TypeError("request must be HarnessValidationRequest")
         root = request.repository_root.resolve(strict=True)
-        conformance_check = _PythonConformanceRepositoryValidator().execute(root)
-        context, resource_check = self._resource_check(root)
-        task_check = self._task_check(root)
-        checkpoint_check = self._checkpoint_check(root)
+        configuration = _HarnessConfigurationInputResolver().execute(root).configuration
+        conformance_check = _PythonConformanceRepositoryValidator().execute(
+            root, configuration.python_conformance
+        )
+        context, resource_check = self._resource_check(root, configuration.resources)
+        task_check = self._task_check(root, Path(configuration.catalogs.task_root))
+        checkpoint_check = self._checkpoint_check(root, configuration.catalogs)
         skill_check = self._skill_check(root, context)
         control_result = _HarnessProjectionVerifier().execute(root)
         control_findings = tuple(
@@ -311,14 +329,18 @@ class HarnessValidator:
         return HarnessValidationResult(status, checks)
 
     def _resource_check(
-        self, root: Path
+        self, root: Path, configuration: HarnessResourceConfiguration
     ) -> tuple[LocalHarnessContext | None, HarnessValidationCheck]:
-        roots = RepositoryRoots(root, root / "harness/pi", root / "harness/local")
+        roots = RepositoryRoots(
+            root,
+            root / configuration.generic_root,
+            root / configuration.local_root,
+        )
         adapted = LocalHarnessContextLoader().execute(
             roots,
-            (root / "harness/local/profiles/ksdft2effmass-v2.json").read_bytes(),
-            (root / "harness/pi/resource-manifest.json").read_bytes(),
-            (root / "harness/local/resource-manifest.json").read_bytes(),
+            (root / configuration.project_profile_path).read_bytes(),
+            (root / configuration.generic_manifest_path).read_bytes(),
+            (root / configuration.local_manifest_path).read_bytes(),
         )
         if type(adapted.value) is not LocalHarnessContext:
             findings = tuple(
@@ -355,10 +377,10 @@ class HarnessValidator:
             "resources", "FAIL" if findings else "PASS", findings
         )
 
-    def _task_check(self, root: Path) -> HarnessValidationCheck:
+    def _task_check(self, root: Path, task_root: Path) -> HarnessValidationCheck:
         tasks = []
         findings: list[tuple[str, str | None, str]] = []
-        for path in sorted((root / "harness/tasks").glob("*.json")):
+        for path in sorted((root / task_root).glob("*.json")):
             try:
                 tasks.append(HarnessTaskDeserializer().execute(path.read_bytes()))
             except (OSError, TypeError, ValueError) as exc:
@@ -380,9 +402,17 @@ class HarnessValidator:
         )
         return check
 
-    def _checkpoint_check(self, root: Path) -> HarnessValidationCheck:
-        result = _CheckpointRepositoryValidator().execute(root)
-        findings = tuple(("checkpoint.invalid", None, error) for error in result.errors)
+    def _checkpoint_check(
+        self, root: Path, configuration: HarnessCatalogConfiguration
+    ) -> HarnessValidationCheck:
+        errors = tuple(
+            error
+            for relative in configuration.checkpoint_roots
+            for error in _CheckpointRepositoryValidator()
+            .execute(root, checkpoint_root=root / relative)
+            .errors
+        )
+        findings = tuple(("checkpoint.invalid", None, error) for error in errors)
         return HarnessValidationCheck(
             "checkpoints", "FAIL" if findings else "PASS", findings
         )

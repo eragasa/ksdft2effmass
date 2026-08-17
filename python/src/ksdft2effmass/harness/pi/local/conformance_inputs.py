@@ -8,13 +8,6 @@ from pathlib import Path
 
 from .input_selection import _RepositoryInputSelector
 
-_PYTHON_CONFORMANCE_PROFILE = Path(
-    "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
-)
-_PYTHON_CONFORMANCE_MIGRATION = Path(
-    ".pi/evidence/python-conformance/r2.3-private-owner-migration.json"
-)
-
 
 @dataclass(frozen=True, slots=True)
 class _PythonConformanceInputs:
@@ -31,16 +24,23 @@ class _PythonConformanceInputResolver:
 
     __slots__ = ()
 
-    def execute(self, repository_root: Path) -> _PythonConformanceInputs:
-        """Return exact maintained conformance paths beneath ``repository_root``."""
+    def execute(
+        self,
+        repository_root: Path,
+        *,
+        pyproject_path: Path,
+        test_root_path: Path,
+        profile_path: Path,
+        migration_path: Path,
+    ) -> _PythonConformanceInputs:
+        """Return conformance inputs selected by explicit root-relative paths."""
         if not isinstance(repository_root, Path) or not repository_root.is_absolute():
             raise ValueError("repository_root must be an absolute pathlib.Path")
         root = repository_root.resolve(strict=True)
         if not root.is_dir():
             raise ValueError("repository_root must be an existing directory")
         selector = _RepositoryInputSelector()
-        pyproject_relative = Path("python/pyproject.toml")
-        pyproject = selector.file(root, pyproject_relative, subject="configuration")
+        pyproject = selector.file(root, pyproject_path, subject="configuration")
         configuration = tomllib.loads(pyproject.read_text())
         try:
             testpaths = configuration["tool"]["pytest"]["ini_options"]["testpaths"]
@@ -50,8 +50,12 @@ class _PythonConformanceInputResolver:
             ) from exc
         if testpaths != ["tests"]:
             raise ValueError("canonical Python conformance root must be exactly tests")
-        test_root_relative = Path("python") / testpaths[0]
-        test_root = selector.directory(root, test_root_relative)
+        configured_test_root = pyproject_path.parent / testpaths[0]
+        if configured_test_root != test_root_path:
+            raise ValueError(
+                "configured Python conformance root disagrees with pytest testpaths"
+            )
+        test_root = selector.directory(root, test_root_path)
         module_paths: list[Path] = []
         for path in sorted(
             test_root.rglob("test*.py"), key=lambda item: item.as_posix()
@@ -65,15 +69,11 @@ class _PythonConformanceInputResolver:
             raise ValueError(
                 "canonical Python conformance root contains no test modules"
             )
-        selector.file(
-            root, _PYTHON_CONFORMANCE_PROFILE, subject="Python conformance input"
-        )
-        selector.file(
-            root, _PYTHON_CONFORMANCE_MIGRATION, subject="Python conformance input"
-        )
+        selector.file(root, profile_path, subject="Python conformance input")
+        selector.file(root, migration_path, subject="Python conformance input")
         return _PythonConformanceInputs(
             root,
-            _PYTHON_CONFORMANCE_PROFILE,
+            profile_path,
             tuple(module_paths),
-            _PYTHON_CONFORMANCE_MIGRATION,
+            migration_path,
         )

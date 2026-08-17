@@ -25,12 +25,7 @@ from ...conformance.python.corpus import (
 )
 from ...conformance.python.migration import _PythonEvidencePredecessorRule
 from ...conformance.python.model import PythonTestModuleModel
-from ..dbcontrol.constants import (
-    _GENERATOR_ID,
-    CONTROL_SCHEMA_VERSION,
-    CONTROL_SQL_PATH,
-    PROJECTION_MANIFEST_PATH,
-)
+from ..dbcontrol.constants import _GENERATOR_ID, CONTROL_SCHEMA_VERSION
 from ..dbcontrol.database import _ControlDatabase
 from ..dbcontrol.encoding import _ControlEncoding
 from ..dbcontrol.ingestion import _RepositoryControlIngestor
@@ -188,14 +183,28 @@ class _HarnessProjectionGenerationBuilder:
         ):
             raise ValueError("workspace_root must be an absolute existing directory")
         root = request.repository_root
+        configuration = request.harness_configuration
+        agent_roots = (
+            tuple(Path(path) for path in configuration.catalogs.agent_roots)
+            if configuration is not None
+            else (Path(".pi/agents"),)
+        )
         agent_resolver = PiHarnessAgentDefinitionResolver()
+        agent_paths = sorted(
+            (
+                path
+                for agent_root in agent_roots
+                for path in (root / agent_root).glob("*.md")
+            ),
+            key=lambda item: item.relative_to(root).as_posix(),
+        )
         agent_definitions = tuple(
             agent_resolver.execute(
                 path.relative_to(root).as_posix(),
                 path.read_bytes(),
                 request.pi_harness_configuration,
             )
-            for path in sorted(root.glob(".pi/agents/*.md"), key=lambda item: item.name)
+            for path in agent_paths
         )
         module_inventory, evidence_models, evidence_predecessors = (
             self._canonical_evidence_corpus(request)
@@ -225,7 +234,12 @@ class _HarnessProjectionGenerationBuilder:
                         "evidence_inventory_baseline_revision",
                         "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
                     ),
-                    ("evidence_inventory_test_root", "python/tests"),
+                    (
+                        "evidence_inventory_test_root",
+                        configuration.python_conformance.test_root
+                        if configuration is not None
+                        else "python/tests",
+                    ),
                 ),
             )
             ingestor = _RepositoryControlIngestor(
@@ -237,6 +251,28 @@ class _HarnessProjectionGenerationBuilder:
                 evidence_predecessors,
                 resource_corpus,
                 agent_definitions,
+                task_root=(
+                    Path(configuration.catalogs.task_root)
+                    if configuration is not None
+                    else Path("harness/tasks")
+                ),
+                skill_roots=(
+                    tuple(Path(path) for path in configuration.catalogs.skill_roots)
+                    if configuration is not None
+                    else (Path(".agents/skills"), Path(".pi/skills"))
+                ),
+                checkpoint_roots=(
+                    tuple(
+                        Path(path) for path in configuration.catalogs.checkpoint_roots
+                    )
+                    if configuration is not None
+                    else (Path(".pi/checkpoints"),)
+                ),
+                test_root=(
+                    Path(configuration.python_conformance.test_root)
+                    if configuration is not None
+                    else Path("python/tests")
+                ),
             )
             ingestor.execute()
             connection.commit()
@@ -249,6 +285,29 @@ class _HarnessProjectionGenerationBuilder:
                     resource_corpus.generic_manifest,
                     resource_corpus.local_manifest,
                 ),
+                task_root=(
+                    Path(configuration.catalogs.task_root)
+                    if configuration is not None
+                    else Path("harness/tasks")
+                ),
+                database_path=request.database_path,
+                resource_manifest_paths=(
+                    request.generic_resource_manifest_path,
+                    request.local_resource_manifest_path,
+                )
+                if request.generic_resource_manifest_path is not None
+                and request.local_resource_manifest_path is not None
+                else (
+                    Path("harness/pi/resource-manifest.json"),
+                    Path("harness/local/resource-manifest.json"),
+                ),
+                resource_roots=(
+                    request.generic_resource_root_path,
+                    request.local_resource_root_path,
+                )
+                if request.generic_resource_root_path is not None
+                and request.local_resource_root_path is not None
+                else (Path("harness/pi"), Path("harness/local")),
             )
             projections = projector.render_all()
             for path, (kind, payload) in sorted(projections.items()):
@@ -286,10 +345,20 @@ class _HarnessProjectionGenerationBuilder:
             counts = database.catalog_counts()
         finally:
             connection.close()
+        sql_path = (
+            Path(configuration.persistence.sql_export_path)
+            if configuration is not None
+            else Path("harness/state/harness-control.sql")
+        )
+        manifest_path = (
+            Path(configuration.persistence.projection_manifest_path)
+            if configuration is not None
+            else Path("harness/state/projection-manifest.json")
+        )
         manifest_bytes = _ControlProjector.projection_manifest_bytes(
             control_schema_version=CONTROL_SCHEMA_VERSION,
             semantic_database_digest=final_digest,
-            sql_path=CONTROL_SQL_PATH,
+            sql_path=sql_path,
             sql_bytes=sql_bytes,
             projections=projections,
             unresolved_naming_issues=tuple(sorted(unresolved)),
@@ -297,8 +366,8 @@ class _HarnessProjectionGenerationBuilder:
         _ControlDatabase.reconstruct(candidate_database, sql_bytes)
         payloads: dict[Path, bytes] = {
             request.database_path: candidate_database.read_bytes(),
-            CONTROL_SQL_PATH: sql_bytes,
-            PROJECTION_MANIFEST_PATH: manifest_bytes,
+            sql_path: sql_bytes,
+            manifest_path: manifest_bytes,
             **{
                 Path(path): payload
                 for path, (_kind, payload) in sorted(projections.items())
