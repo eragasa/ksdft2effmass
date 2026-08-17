@@ -39,6 +39,14 @@ def _validate_repository_conformance(
                 None,
             )
         )
+    findings.extend(
+        (
+            "TE.NUMERIC_EXPORT_COUNT",
+            "numeric export-count assertions are prohibited; compare the exact export inventory or required names instead",  # noqa: E501
+            line,
+        )
+        for line in model.numeric_export_count_assertion_lines
+    )
     for function in model.functions:
         if function.calls_sut and function.indexes_sut:
             findings.append(

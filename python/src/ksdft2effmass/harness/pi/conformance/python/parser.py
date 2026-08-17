@@ -260,6 +260,146 @@ def _literal_strings(tree: ast.Module, name: str) -> tuple[str, ...] | None:
     )
 
 
+def _contains_export_surface(node: ast.AST) -> bool:
+    """Return whether ``node`` references a package ``__all__`` surface."""
+    return any(
+        isinstance(child, ast.Attribute) and child.attr == "__all__"
+        for child in ast.walk(node)
+    )
+
+
+def _value_names(node: ast.AST) -> set[str]:
+    """Return value names while excluding names used only as call targets."""
+    if isinstance(node, ast.Name):
+        return {node.id}
+    if isinstance(node, ast.Attribute):
+        return set()
+    if isinstance(node, ast.Call):
+        return {
+            name
+            for value in (*node.args, *(item.value for item in node.keywords))
+            for name in _value_names(value)
+        }
+    return {
+        name for child in ast.iter_child_nodes(node) for name in _value_names(child)
+    }
+
+
+_LEXICAL_SCOPES = (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+
+
+def _scope_nodes(scope: ast.AST) -> tuple[ast.AST, ...]:
+    """Return descendants owned by ``scope`` without entering nested scopes."""
+    nodes: list[ast.AST] = []
+
+    def visit(node: ast.AST) -> None:
+        for child in ast.iter_child_nodes(node):
+            if isinstance(child, _LEXICAL_SCOPES):
+                continue
+            nodes.append(child)
+            visit(child)
+
+    visit(scope)
+    return tuple(nodes)
+
+
+def _nested_scopes(scope: ast.AST) -> tuple[ast.AST, ...]:
+    """Return directly nested lexical scopes in source traversal order."""
+    nested: list[ast.AST] = []
+
+    def visit(node: ast.AST) -> None:
+        for child in ast.iter_child_nodes(node):
+            if isinstance(child, _LEXICAL_SCOPES):
+                nested.append(child)
+            else:
+                visit(child)
+
+    visit(scope)
+    return tuple(nested)
+
+
+def _represents_export(node: ast.AST, inventory_names: set[str]) -> bool:
+    return _contains_export_surface(node) or bool(_value_names(node) & inventory_names)
+
+
+def _export_inventory_names(
+    nodes: tuple[ast.AST, ...], inherited_names: set[str]
+) -> set[str]:
+    """Resolve direct, compared, and transitively assigned export inventories."""
+    names = set(inherited_names)
+    names.update(
+        alias.asname or alias.name
+        for node in nodes
+        if isinstance(node, ast.ImportFrom)
+        for alias in node.names
+        if alias.name == "__all__"
+    )
+    changed = True
+    while changed:
+        prior = len(names)
+        for node in nodes:
+            value: ast.expr | None
+            targets: list[ast.expr]
+            if isinstance(node, ast.Assign):
+                value = node.value
+                targets = node.targets
+            elif isinstance(node, ast.AnnAssign):
+                value = node.value
+                targets = [node.target]
+            else:
+                continue
+            if value is not None and _represents_export(value, names):
+                names.update(
+                    name for target in targets for name in _assigned_names(target)
+                )
+        for node in nodes:
+            if not isinstance(node, ast.Compare):
+                continue
+            operands = (node.left, *node.comparators)
+            for left, right in zip(operands, operands[1:], strict=False):
+                if _represents_export(left, names):
+                    names.update(_value_names(right))
+                if _represents_export(right, names):
+                    names.update(_value_names(left))
+        changed = len(names) != prior
+    return names
+
+
+def _is_export_length(node: ast.AST, inventory_names: set[str]) -> bool:
+    if not (
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Name)
+        and node.func.id == "len"
+        and len(node.args) == 1
+        and not node.keywords
+    ):
+        return False
+    return _represents_export(node.args[0], inventory_names)
+
+
+def _numeric_export_count_assertion_lines(tree: ast.Module) -> tuple[int, ...]:
+    """Return numeric export assertions with lexical alias propagation."""
+    lines: set[int] = set()
+
+    def visit(scope: ast.AST, inherited_names: set[str]) -> None:
+        nodes = _scope_nodes(scope)
+        inventory_names = _export_inventory_names(nodes, inherited_names)
+        lines.update(
+            node.lineno
+            for node in nodes
+            if isinstance(node, ast.Assert)
+            and any(
+                _is_export_length(child, inventory_names)
+                for child in ast.walk(node.test)
+            )
+        )
+        for nested in _nested_scopes(scope):
+            visit(nested, inventory_names)
+
+    visit(tree, set())
+    return tuple(sorted(lines))
+
+
 def parse_module(path: str, payload: bytes) -> PythonTestModuleModel:
     """Decode and parse ``payload`` exactly once, then discard the AST."""
     source = payload.decode("utf-8")
@@ -381,4 +521,5 @@ def parse_module(path: str, payload: bytes) -> PythonTestModuleModel:
         imported_names,
         _literal_strings(tree, "EQUALITY_FIELDS"),
         _literal_strings(tree, "FROZEN_FIELDS"),
+        _numeric_export_count_assertion_lines(tree),
     )

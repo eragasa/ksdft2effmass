@@ -29,11 +29,41 @@ Reusable skills live under `harness/pi/skills/`; concise skill entry points refe
 the detailed conventions they require. Project-local extensions configure generic
 behavior rather than copying or weakening it.
 
+## Testing requirements and enforcement
+
+Testing requirements are distributed by responsibility rather than owned by one
+control-plane file:
+
+| Surface | Responsibility |
+|---|---|
+| `AGENTS.md`, **Testing and retained evidence** | Repository policy, evidence classes, proportional procedure, and claim boundaries |
+| `python/pyproject.toml` | Test dependencies, pytest discovery, command options, and marker registration |
+| `harness/pi/skills/develop-python-test-evidence/` | Generic authoring and semantic-review procedure; synchronized `.pi/skills/` copies are runtime projections |
+| `harness/pi/evidence/python-test-evidence-profile-matrix-v1.json` | Normative versioned evidence-profile combinations and required or optional documentation fields |
+| `harness/local/profiles/ksdft2effmass-v2.json` and local evidence extensions | Project scopes, markers, evidence namespaces, compatibility inputs, and explicit exceptions |
+| Public software contracts, specifications, and applicable research records | Behavior, mathematical or scientific oracle, units, and acceptance meaning for the subject under test |
+| `ksdft2effmass.harness.pi.conformance.python.PythonConformanceValidator` | Deterministic structural enforcement over explicit maintained-test source bytes and ownership/profile inputs |
+| Explicit affected-test and broader-suite pytest invocations | Executed software or numerical evidence; a passing invocation proves only its stated assertions |
+
+The generated Python module inventory and SQLite projection are comparison views, not
+sources of testing requirements. Numeric totals for tests, collected nodes, modules,
+or exported names are observations, not stable completeness contracts.
+
+For package export surfaces, tests may compare `__all__` with an exact expected name
+inventory or assert required and prohibited names directly. They must not assert an
+export count through `len(__all__)` or through the length of an inventory already
+linked to `__all__`. Such counts add no semantic coverage beyond the name contract and become
+stale whenever an unrelated supported export changes. `PythonConformanceValidator`
+reports `TE.NUMERIC_EXPORT_COUNT` when maintained test source contains this pattern.
+
 ## Python implementation
 
 The generic package owns immutable identities, records, results, strict JSON actions,
-profiles, resources, ownership, checkpoints, chains, checksums, evidence conformance,
-human-review values, and bounded Task-state inspection. The project-local package
+profiles, resources, ownership, checkpoints, chains, checksums, conformance,
+human-review values, and bounded Task-state inspection. Python test-source conformance
+lives under `ksdft2effmass.harness.pi.conformance.python`; its parser, immutable model,
+and rule owners are siblings in that package. `ksdft2effmass.harness.pi.evidence`
+re-exports the public records and Action but does not own their implementation. The project-local package
 owns explicit-root context composition, repository adapters, the version-3
 `HarnessTask` model, direct domain validation composition, and the SQLite control
 projection compatibility boundary.

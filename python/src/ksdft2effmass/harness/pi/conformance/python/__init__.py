@@ -1,8 +1,8 @@
 """Explicit-input Python test-evidence conformance contracts.
 
-The package preserves the established public records and validator while
-separating the internal parsed model, parser, profile policy, and independent
-rule owners.  Public execute signatures and import paths remain unchanged.
+The package owns the established public records and validator while separating the
+internal parsed model, parser, profile policy, and independent rule owners. Public
+execute signatures remain unchanged.
 """
 
 from .validation import (
@@ -21,8 +21,8 @@ __all__ = (
     "PythonConformanceValidator",
 )
 
-# Preserve the accepted defining-module identity after replacing the flat module
-# with a cohesive internal package.
+# Bind the public records and action to this owning package rather than the private
+# validation module.
 for _public in (
     PythonModuleSource,
     PythonConformanceRequest,

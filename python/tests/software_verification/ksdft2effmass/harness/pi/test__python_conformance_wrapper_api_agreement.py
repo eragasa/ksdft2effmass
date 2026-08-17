@@ -30,6 +30,7 @@ from pathlib import Path
 import pytest
 
 import ksdft2effmass.harness.pi as root_api
+import ksdft2effmass.harness.pi.conformance.python as owner_api
 import ksdft2effmass.harness.pi.evidence as api
 from ksdft2effmass.harness.pi.evidence import (
     PythonConformanceFinding,
@@ -97,13 +98,13 @@ INCOMPLETE_MIGRATION = json.dumps(
 def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> None:
     """Evidence ID: SV-TEV-023
 
-    Requirement: The evidence subpackage exports exactly its five source-conformance
-    records, results, and Action from their owning module.
+    Requirement: The evidence facade exports its source-conformance records, results,
+    and Action from the ``conformance.python`` owning package.
 
     Method: Compare direct imports, package attributes, ``__all__``, and ``__module__``.
 
-    Oracle: The accepted source-based evidence contract fixes the five names and their
-    exact generic defining module.
+    Oracle: The accepted source-based evidence contract fixes the exact names and
+    ``conformance.python`` defining module.
 
     Acceptance: ``__all__`` is exact, direct imports and defining modules agree, and
     old flat-module and object aliases are absent.
@@ -119,11 +120,16 @@ def test_public_api__exports__uses_direct_names_and_exact_defining_module() -> N
         PythonConformanceResult,
         PythonConformanceValidator,
     )
-    assert api.__all__ == PUBLIC_NAMES
+    assert api.__all__ == owner_api.__all__ == PUBLIC_NAMES
     assert imported == tuple(getattr(api, name) for name in PUBLIC_NAMES)
+    assert imported == tuple(getattr(owner_api, name) for name in PUBLIC_NAMES)
     assert {value.__module__ for value in imported} == {
-        "ksdft2effmass.harness.pi.evidence.python_conformance"
+        "ksdft2effmass.harness.pi.conformance.python"
     }
+    assert (
+        importlib.util.find_spec("ksdft2effmass.harness.pi.evidence.python_conformance")
+        is None
+    )
     assert importlib.util.find_spec("ksdft2effmass.harness.pi.test_evidence") is None
     old_names = {
         "AuditEvidenceIdentifiers",

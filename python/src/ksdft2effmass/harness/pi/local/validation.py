@@ -7,12 +7,12 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .. import ResourceResolver, SkillResourceValidator
-from ..evidence.python_conformance import (
+from ..conformance.python import (
     PythonConformanceRequest,
     PythonConformanceValidator,
     PythonModuleSource,
 )
-from ..evidence.python_conformance.corpus import (
+from ..conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
 )

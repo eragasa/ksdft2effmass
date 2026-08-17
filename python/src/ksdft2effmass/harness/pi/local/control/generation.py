@@ -14,17 +14,17 @@ from types import MappingProxyType
 from typing import Any
 
 from ...configuration import PiHarnessAgentDefinitionResolver
-from ...evidence.python_conformance import (
+from ...conformance.python import (
     PythonConformanceRequest,
     PythonConformanceValidator,
     PythonModuleSource,
 )
-from ...evidence.python_conformance.corpus import (
+from ...conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
 )
-from ...evidence.python_conformance.migration import _PythonEvidencePredecessorRule
-from ...evidence.python_conformance.model import PythonTestModuleModel
+from ...conformance.python.migration import _PythonEvidencePredecessorRule
+from ...conformance.python.model import PythonTestModuleModel
 from ..dbcontrol.constants import (
     _GENERATOR_ID,
     CONTROL_SCHEMA_VERSION,

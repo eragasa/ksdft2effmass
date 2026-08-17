@@ -1,13 +1,13 @@
 # Coding-standards conformance migration
 
 This page maps implemented v1 Python evidence-conformance behavior to the
-prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/harness/conformance.md). It does not authorize a source move, implementation, dependency change, script retirement, or promotion-policy change.
+prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/harness/conformance.md). The Python implementation now occupies the v2-aligned `conformance.python` package while behavior remains v1; this page does not authorize further implementation, dependency change, script retirement, or promotion-policy change.
 
 ## Implemented v1 sources
 
 | V1 surface | Implemented responsibility | V2 disposition |
 |---|---|---|
-| `python/src/cli/validate_python_conformance.py` and its `PythonConformanceValidator` owner | Static Python maintained-evidence source, ownership, naming, documentation, helper, marker, parameterization, and evidence-identifier checks | Retain behavior through an explicit coding-standards adapter |
+| `python/src/cli/validate_python_conformance.py` and `ksdft2effmass.harness.pi.conformance.python.PythonConformanceValidator` | Static Python maintained-evidence source, ownership, naming, documentation, helper, marker, parameterization, and evidence-identifier checks | Retain behavior through an explicit coding-standards adapter |
 | `python/src/cli/validate_evidence_repository_conformance.py` | Repository evidence source/inventory/collection agreement and claim-boundary reporting | Retain only the coding-standards and maintained-evidence agreement portion through an explicit adapter |
 | `HarnessValidator` `python_evidence` check | Project-local composition of the Python evidence-domain owner | Crosswalk to coding-standards conformance without importing unrelated harness checks |
 | `HarnessValidator` resource, Task graph, checkpoint, skill, and control-state checks | Structural development-control validation outside Python coding standards | Exclude from coding-standards conformance; retain with their existing domain owners |

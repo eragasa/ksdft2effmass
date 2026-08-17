@@ -100,6 +100,7 @@ class PythonTestModuleModel:
     imported_names: tuple[str, ...]
     equality_fields: tuple[str, ...] | None
     frozen_fields: tuple[str, ...] | None
+    numeric_export_count_assertion_lines: tuple[int, ...]
 
     @property
     def function_names(self) -> tuple[str, ...]:

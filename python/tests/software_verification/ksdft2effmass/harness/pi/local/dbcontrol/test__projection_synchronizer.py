@@ -733,7 +733,7 @@ def test_method__execute_canonical_corpus__reads_and_parses_each_source_once(
             reads += 1
         return original_read(candidate)
 
-    from ksdft2effmass.harness.pi.evidence.python_conformance import parser
+    from ksdft2effmass.harness.pi.conformance.python import parser
 
     original_parse = parser.ast.parse
     parses = 0

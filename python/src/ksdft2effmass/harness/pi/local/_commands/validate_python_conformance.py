@@ -15,14 +15,14 @@ from importlib import import_module
 from pathlib import Path
 from typing import Any
 
-_EVIDENCE_PACKAGE = import_module(
-    "".join(("ksdft2", "effmass.harness.pi.evidence"))  # noqa: FLY002 - generic identity
+_CONFORMANCE_PACKAGE = import_module(
+    "".join(("ksdft2", "effmass.harness.pi.conformance.python"))  # noqa: FLY002 - generic identity
 )
-PythonConformanceFinding = _EVIDENCE_PACKAGE.PythonConformanceFinding
-PythonConformanceRequest = _EVIDENCE_PACKAGE.PythonConformanceRequest
-PythonModuleSource = _EVIDENCE_PACKAGE.PythonModuleSource
-PythonConformanceResult = _EVIDENCE_PACKAGE.PythonConformanceResult
-PythonConformanceValidator = _EVIDENCE_PACKAGE.PythonConformanceValidator
+PythonConformanceFinding = _CONFORMANCE_PACKAGE.PythonConformanceFinding
+PythonConformanceRequest = _CONFORMANCE_PACKAGE.PythonConformanceRequest
+PythonModuleSource = _CONFORMANCE_PACKAGE.PythonModuleSource
+PythonConformanceResult = _CONFORMANCE_PACKAGE.PythonConformanceResult
+PythonConformanceValidator = _CONFORMANCE_PACKAGE.PythonConformanceValidator
 
 
 def _read(path: Path) -> tuple[bytes | None, str | None]:
@@ -110,7 +110,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         source_inputs = tuple(_source(path) for path in args.paths)
     else:
         parser_impl = import_module(
-            "ksdft2effmass.harness.pi.evidence.python_conformance.parser"
+            "ksdft2effmass.harness.pi.conformance.python.parser"
         )
         entries = []
         models = []

@@ -140,8 +140,11 @@ agreement are not independent oracles. Avoid broad assertion loops that hide ind
 cases.
 
 Use exact equality for exact represented state, canonical bytes/text, ordering, enums, identifiers,
-and exact mathematical zeros. Approximate acceptance requires a documented mathematical/numerical
-contract. State, where applicable: quantity and representation; units; dtype/precision and scale;
+and exact mathematical zeros. For package exports, compare the exact expected name inventory or
+assert required and prohibited names directly. Do not add numeric export-count assertions using
+`len(__all__)` or the length of an inventory already compared with `__all__`; the number adds
+no semantic coverage and becomes stale when an unrelated supported export changes. Approximate
+acceptance requires a documented mathematical/numerical contract. State, where applicable: quantity and representation; units; dtype/precision and scale;
 independent result; absolute, relative, ULP, or residual criterion and boundary; zero/subnormal
 handling; and nonfinite behavior. A nonzero reference criterion must not accidentally accept zero.
 Keep test forward-error bounds distinct from production tolerance and scientific acceptance.
@@ -152,7 +155,8 @@ Scientific validation and UQ require separately authorized protocols.
 `PythonConformanceValidator` and its thin CLI own mechanical checks over explicit module bytes and
 ownership metadata, including implemented checks for ownership declarations, headings, naming,
 evidence fields and identifiers, helper names, semantic parameter IDs, prohibited structural
-patterns, optional migration-map shape, and static collection accounting. This reference defines
+patterns such as numeric export-count assertions, optional migration-map shape, and static
+collection accounting. This reference defines
 semantic convention, not validator implementation.
 
 Structural PASS cannot establish semantic correctness, cohesion, oracle independence, mathematical

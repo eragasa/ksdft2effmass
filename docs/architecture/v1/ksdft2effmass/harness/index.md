@@ -11,11 +11,14 @@ flowchart LR
     pi --> local["harness.pi.local"]
     pi --> resources["harness.pi.resources"]
     pi --> wire["harness.pi.wire"]
-    pi --> evidence["harness.pi.evidence"]
+    pi --> conformance["harness.pi.conformance.python"]
+    pi --> evidence["harness.pi.evidence facade"]
+    evidence --> conformance
 ```
 
 The generic layer owns immutable records, results, explicit-input actions, resources,
-profiles, ownership, decisions, chains, checksums, and evidence structure. The local
+profiles, ownership, decisions, chains, checksums, Python conformance, and evidence
+representation. The local
 layer owns repository adapters, the version-3 Task model, validation composition, and
 control projection compatibility. Project-local code may depend on generic contracts;
 the reverse direction is forbidden.

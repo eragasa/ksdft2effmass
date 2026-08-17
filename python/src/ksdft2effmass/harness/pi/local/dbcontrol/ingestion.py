@@ -9,9 +9,9 @@ from pathlib import Path
 from typing import Any
 
 from ...configuration import PiHarnessAgentDefinition
-from ...evidence.python_conformance.evidence import _PythonEvidenceFactExtractor
-from ...evidence.python_conformance.model import PythonTestModuleModel
-from ...evidence.python_conformance.nodes import _PythonTestNodeProjector
+from ...conformance.python.evidence import _PythonEvidenceFactExtractor
+from ...conformance.python.model import PythonTestModuleModel
+from ...conformance.python.nodes import _PythonTestNodeProjector
 from .constants import _EVIDENCE_CLASSES, _IDENTIFIER
 from .encoding import _ControlEncoding
 from .resources import _ControlResourceCorpus

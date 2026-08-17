@@ -12,11 +12,11 @@ import json
 from collections.abc import Sequence
 from pathlib import Path
 
-from ksdft2effmass.harness.pi.evidence.python_conformance.corpus import (
+from ksdft2effmass.harness.pi.conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
 )
-from ksdft2effmass.harness.pi.evidence.python_conformance.nodes import (
+from ksdft2effmass.harness.pi.conformance.python.nodes import (
     _PythonTestNodeProjector,
 )
 from ksdft2effmass.harness.pi.local import (

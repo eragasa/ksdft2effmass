@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3041,
+  "expected_collected_node_count": 3049,
   "expected_module_count": 260,
   "modules": [
     {
@@ -196,7 +196,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "8a7efcf68e7ad46d718adccd6ff2c64224870f323c0a8265857bb8780e1424a7",
+      "content_sha256": "6c39e69375677d30e57489a3e404b66db685cf6a3b88da2ecd74978f5f7c0f53",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_synchronizer.py",
@@ -799,7 +799,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ef82ba4840a1dd943dafb787936987de98a81a4347a02097672ae19184ada7fa",
+      "content_sha256": "915aaa52a09c5e55109904d774dc8784b25a9f9d4b54bba50a24f71aa013d633",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",
@@ -1006,7 +1006,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "b53dcbce3707c9a35be549b1c32ae95a73b35868e09b7d08447a6ca8a34f6e2a",
+      "content_sha256": "426c57f54367dda12ee4458df7df44bd1091279d4c29485b5a6269b583919672",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py",

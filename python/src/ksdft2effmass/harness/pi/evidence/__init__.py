@@ -1,12 +1,12 @@
-"""Explicit-input evidence identifier and Python conformance contracts.
+"""Public evidence facade for Python conformance records and actions.
 
-The subpackage groups immutable evidence-domain records and fieldless actions.
-It performs no repository discovery, filesystem access, pytest collection, or
-scientific acceptance. Project-local wrappers own repository and command
+The implementation owner is :mod:`ksdft2effmass.harness.pi.conformance.python`.
+This facade performs no repository discovery, filesystem access, pytest collection,
+or scientific acceptance. Project-local wrappers own repository and command
 integration.
 """
 
-from .python_conformance import (
+from ..conformance.python import (
     PythonConformanceFinding,
     PythonConformanceRequest,
     PythonConformanceResult,

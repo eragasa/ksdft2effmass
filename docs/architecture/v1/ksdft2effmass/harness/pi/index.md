@@ -45,14 +45,17 @@ flowchart TD
     control["local.control"]
     dbcontrol["local.dbcontrol"]
     resources["harness.pi.resources"]
-    evidence["harness.pi.evidence"]
+    conformance["harness.pi.conformance.python"]
+    evidence["harness.pi.evidence facade"]
     wire["harness.pi.wire"]
 
     pi --> local
     local --> control
     local --> dbcontrol
     pi --> resources
+    pi --> conformance
     pi --> evidence
+    evidence --> conformance
     pi --> wire
 ```
 

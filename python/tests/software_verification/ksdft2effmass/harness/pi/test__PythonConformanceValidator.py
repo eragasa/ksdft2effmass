@@ -29,34 +29,34 @@ from typing import Any
 
 import pytest
 
+from ksdft2effmass.harness.pi.conformance.python.corpus import (
+    _PythonTestModuleCorpusBuilder,
+    _PythonTestModuleInput,
+)
+from ksdft2effmass.harness.pi.conformance.python.documentation import (
+    _PythonDocumentationRule,
+)
+from ksdft2effmass.harness.pi.conformance.python.evidence import (
+    _PythonEvidenceIdentifierRule,
+)
+from ksdft2effmass.harness.pi.conformance.python.naming import (
+    _PythonNamingRule,
+)
+from ksdft2effmass.harness.pi.conformance.python.ownership import (
+    _PythonOwnershipRule,
+)
+from ksdft2effmass.harness.pi.conformance.python.parameterization import (
+    _PythonParameterizationRule,
+)
+from ksdft2effmass.harness.pi.conformance.python.parser import parse_module
+from ksdft2effmass.harness.pi.conformance.python.repository import (
+    _PythonRepositoryConformanceRule,
+)
 from ksdft2effmass.harness.pi.evidence import (
     PythonConformanceRequest,
     PythonConformanceResult,
     PythonConformanceValidator,
     PythonModuleSource,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.corpus import (
-    _PythonTestModuleCorpusBuilder,
-    _PythonTestModuleInput,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.documentation import (
-    _PythonDocumentationRule,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.evidence import (
-    _PythonEvidenceIdentifierRule,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.naming import (
-    _PythonNamingRule,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.ownership import (
-    _PythonOwnershipRule,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.parameterization import (
-    _PythonParameterizationRule,
-)
-from ksdft2effmass.harness.pi.evidence.python_conformance.parser import parse_module
-from ksdft2effmass.harness.pi.evidence.python_conformance.repository import (
-    _PythonRepositoryConformanceRule,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -109,6 +109,33 @@ VALID_OWNERSHIP = json.dumps(
     },
     separators=(",", ":"),
 ).encode()
+
+
+def controlled_source(declaration: bytes, assertions: bytes) -> bytes:
+    """Evidence ID: Owns no identifier; supports numeric export-count evidence.
+
+    Requirement: Controlled rule evidence needs one otherwise conforming source with
+    explicit module declarations and assertion statements.
+
+    Method: Insert exact caller-supplied bytes into the fixed valid source fixture.
+
+    Oracle: The two fixed replacement anchors identify the declaration and assertion
+    locations independently of the rule under test.
+
+    Acceptance: Return source bytes containing each supplied fragment exactly once.
+
+    Interpretation: Failure identifies fixture construction rather than rule behavior.
+
+    Limitations: This helper executes neither the generated source nor its assertions.
+    """
+    source = VALID_SOURCE.replace(
+        b"\n\ndef test_artifact__literal_value__equals_itself():",
+        b"\n\n"
+        + declaration
+        + b"\n\ndef test_artifact__literal_value__equals_itself():",
+        1,
+    )
+    return source.replace(b"    assert 1 == 1", assertions, 1)
 
 
 def test_constructor__action_object__is_stateless_and_fieldless() -> None:
@@ -696,7 +723,7 @@ def test_method__execute_module_model__parses_each_source_exactly_once(
 
     Limitations: Runtime performance beyond parse count is not measured.
     """
-    from ksdft2effmass.harness.pi.evidence.python_conformance import parser
+    from ksdft2effmass.harness.pi.conformance.python import parser
 
     original = parser.ast.parse
     calls = 0
@@ -716,6 +743,126 @@ def test_method__execute_module_model__parses_each_source_exactly_once(
     )
     assert result.status == "PASS"
     assert calls == 1
+
+
+@pytest.mark.parametrize(
+    ("declaration", "assertions"),
+    (
+        pytest.param(
+            b"",
+            b"    assert len(api.__all__) == 2",
+            id="direct_all_literal",
+        ),
+        pytest.param(
+            b'EXPECTED = ("A", "B")',
+            b"    assert tuple(api.__all__) == EXPECTED\n    assert len(EXPECTED) == 2",
+            id="linked_inventory_literal",
+        ),
+        pytest.param(
+            b"",
+            b"    assert len(api.__all__)",
+            id="count_truthiness",
+        ),
+        pytest.param(
+            b"from demo import __all__ as EXPORTED",
+            b"    assert len(EXPORTED) == 2",
+            id="imported_all_alias",
+        ),
+        pytest.param(
+            b"EXPORTED = api.__all__",
+            b"    assert len(EXPORTED)",
+            id="assigned_all_alias",
+        ),
+        pytest.param(
+            b"",
+            b"    exported = api.__all__\n"
+            b"    second = exported\n"
+            b"    assert len(second) == 2",
+            id="local_transitive_alias",
+        ),
+    ),
+)
+def test_method__execute_numeric_export_count__reports_structural_finding(
+    declaration: bytes, assertions: bytes
+) -> None:
+    """Evidence ID: software-verification.harness.export-count.rule
+
+    Requirement: Maintained tests must not bind package export completeness to a
+    literal numeric count, directly or through names linked to ``__all__``.
+
+    Method: Validate controlled sources containing literal, inventory-linked,
+    count-truthiness, imported-alias, assigned-alias, and local transitive-alias
+    export assertions.
+
+    Oracle: The v1 testing requirement permits exact export-name inventories but
+    prohibits numeric export totals as unstable nonsemantic duplication.
+
+    Acceptance: Every prohibited partition yields exactly one
+    ``TE.NUMERIC_EXPORT_COUNT`` finding.
+
+    Interpretation: Failure permits fixed export totals to return to maintained test
+    evidence or rejects the wrong structural boundary.
+
+    Limitations: Semantic accuracy of the expected export names remains review-owned.
+    """
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, controlled_source(declaration, assertions)),),
+            "ownership.json",
+            VALID_OWNERSHIP,
+        )
+    )
+    assert (
+        tuple(item.code for item in result.findings).count("TE.NUMERIC_EXPORT_COUNT")
+        == 1
+    )
+
+
+@pytest.mark.parametrize(
+    ("declaration", "assertions"),
+    (
+        pytest.param(
+            b'EXPECTED = ("A", "B")',
+            b"    assert tuple(api.__all__) == EXPECTED",
+            id="exact_inventory",
+        ),
+        pytest.param(
+            b"VALUES = (1, 2)",
+            b"    assert len(VALUES) == 2",
+            id="unrelated_length",
+        ),
+    ),
+)
+def test_method__execute_noncount_export_checks__remain_allowed(
+    declaration: bytes, assertions: bytes
+) -> None:
+    """Evidence ID: software-verification.harness.python-conformance.export-contract
+
+    Requirement: The numeric export-count rule must preserve exact export-name
+    comparison and unrelated length assertions.
+
+    Method: Validate one exact ``__all__`` inventory comparison and one unrelated
+    literal length check.
+
+    Oracle: Only numeric completeness claims about an export surface are prohibited.
+
+    Acceptance: Both controlled sources pass structural validation without a numeric
+    export-count finding.
+
+    Interpretation: Failure broadens the rule beyond the authorized export-count
+    boundary.
+
+    Limitations: This test does not execute either controlled assertion.
+    """
+    result = SUT().execute(
+        PythonConformanceRequest(
+            (PythonModuleSource(PATH, controlled_source(declaration, assertions)),),
+            "ownership.json",
+            VALID_OWNERSHIP,
+        )
+    )
+    assert result.status == "PASS"
+    assert all(item.code != "TE.NUMERIC_EXPORT_COUNT" for item in result.findings)
 
 
 def test_method__execute_private_class_owner__reports_ownership_finding() -> None:
@@ -920,7 +1067,7 @@ def test_artifact__rule_owners__reuse_corpus_without_parse_or_filesystem_read(
         raise AssertionError("rule owner crossed parser or filesystem boundary")
 
     monkeypatch.setattr(
-        "ksdft2effmass.harness.pi.evidence.python_conformance.parser.ast.parse",
+        "ksdft2effmass.harness.pi.conformance.python.parser.ast.parse",
         prohibited,
     )
     monkeypatch.setattr(Path, "read_bytes", prohibited)
