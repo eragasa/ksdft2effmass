@@ -2,7 +2,7 @@
   "checkpoint_id": "migration.v2.harness.decisions-authority.development-decision-contract",
   "task_id": "migration.v2.harness.decisions-authority",
   "episode_id": "migration.v2.harness.decisions-authority.exact-contract-planning",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-18T19:34:07Z",
   "question": "Should the exact version-1 DevelopmentDecision successor-record and canonical-wire contract in the maintained migration plan be accepted for implementation planning?",
@@ -34,15 +34,15 @@
     "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
     "docs/architecture/v2/ksdft2effmass/harness/persistence.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "“1 A, 2 A.”",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-18T19:43:34Z",
+  "authorized_scope": "Accept the exact version-1 DevelopmentDecision successor-record, canonical-wire, intrinsic and aggregate invariant, legacy provenance and field mapping, migration, compatibility, cutover, stale-consumer rejection, and rollback contract in docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md as fixed implementation-planning input. Resume bounded exact signed-ledger contract planning. Do not implement source, schemas, fixtures, consumers, dependencies, protected execution, successor activation, publication, or release.",
   "record_paths": [
     ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract.json",
     "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
     "harness/task-selection.json",
     "harness/tasks/migration.v2.harness.decisions-authority.json"
   ],
-  "resumption_status": "blocked_pending_exact_public_contract_decision"
+  "resumption_status": "option_A_resolved; DevelopmentDecision exact contract accepted; signed-ledger exact contract planning resumed; implementation remains unauthorized"
 }

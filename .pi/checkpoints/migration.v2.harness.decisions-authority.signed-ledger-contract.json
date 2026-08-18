@@ -1,0 +1,51 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.signed-ledger-contract",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.exact-signed-ledger-planning",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T19:43:34Z",
+  "question": "Should the exact signed DevelopmentAuthorityLedger, trust, reconstruction, and operation-authorization contract in the maintained migration plan be accepted as fixed input before separate implementation activation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the exact signed-ledger, Ed25519 trust, resolver, and authorizer contract as fixed implementation input.",
+      "consequence": "Fix the documented immutable records, closed results, canonical payload and envelope, Ed25519 framing and verification, independently protected trust-configuration anti-rollback pin, bounded signed-snapshot ancestry chain, issuer/kind signer bindings, complete ledger closure, single-use exact operation bindings, fail-closed resolver, authorizer, serializers, and exclusions. The reviewed dependency is exactly cryptography==50.0.0. Contract acceptance does not activate implementation or dependency mutation; the explicitly selected Task still requires a separate implementation activation. Credentials, private keys, signing, publication, real authority artifacts, protected execution, automatic succession, and release remain unauthorized."
+    },
+    {
+      "id": "B",
+      "summary": "Request a bounded correction to the exact signed-ledger contract.",
+      "consequence": "Keep implementation blocked and identify the exact record, wire, identity, trust, signature, closure, resolver, authorizer, dependency, compatibility, or exclusion correction required before renewed review."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the exact signed-ledger contract and implementation.",
+      "consequence": "Retain the accepted topology and DevelopmentDecision contract as planning results but add no dependency, authority source, resolver, authorizer, credential, protected operation, or consumer migration."
+    }
+  ],
+  "recommendation": "Option A. The corrected candidate binds exact canonical bytes and noncyclic identities, uses the selected Ed25519 verifier with public-only anchors, authenticates a protected current-configuration pin, verifies a bounded signed ancestry chain and per-record issuer/kind bindings, matches every operation field exactly with single-use grants, separates resolution from authorization, and excludes every signer, credential, publication, and protected effect from this implementation Task.",
+  "blocked_scope": "cryptography dependency and lockfile mutation; signed-ledger and DevelopmentDecision source, schema, fixture, serializer, migration, resolver, authorizer, tests, public API, and documentation implementation; consumer migration; credentials, private keys, signing, publication, real authority artifacts, protected execution, successor activation, or release.",
+  "safe_scope": "Human review of Options A through C, verified dependency compatibility/license inputs, and docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md; deterministic validation and persistence of this pending exact-contract boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/v2/agents/capability-and-isolation.md",
+    "docs/architecture/v2/agents/deterministic-actions.md",
+    "docs/architecture/v2/identity-version-and-failure-contracts.md",
+    "docs/architecture/v2/ksdft2effmass/harness/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
+    "docs/architecture/v2/ksdft2effmass/harness/persistence.md",
+    "python/pyproject.toml",
+    "python/uv.lock"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "blocked_pending_exact_signed_ledger_contract_decision"
+}

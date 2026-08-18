@@ -64,14 +64,13 @@ revision-store implementation, or Pi transport adaptation.
 ### DataObjects
 
 `DevelopmentDecision` owns intrinsic field and unresolved/resolved-variant
-invariants only. The resolved cutover decision selects its source and migration
-topology, not its exact fields or encoding. The pending exact-contract checkpoint owns
-that subsequent bounded public-contract review.
+invariants only. The resolved cutover and exact-contract decisions select its source,
+migration topology, fields, invariants, and encoding.
 
-Protected authority-plane values comprise `DevelopmentTrustConfiguration`, immutable
-ledger snapshot and record values including `TaskAuthorization` and revocation facts,
-`DevelopmentAuthorityReconstructionReceipt`, and
-`DevelopmentAuthorityContext`. They never enter `HarnessState` or its identity.
+Protected authority-plane DataObjects comprise `DevelopmentTrustConfiguration`,
+immutable ledger snapshot and record values including `TaskAuthorization` and
+revocation facts, and `DevelopmentAuthorityContext`. The derived
+`DevelopmentAuthorityReconstructionReceipt` is a ResultObject. They never enter `HarnessState` or its identity.
 
 The exact operation input represents repository root, source, selection and Task
 revisions, starting and candidate revisions, operation identity, permitted paths, and
@@ -189,53 +188,457 @@ supersede the unresolved successor for `P2-HC03`, as the durable records cross-r
 that edge. The absent later record named by `P2-HC04` remains an explicit provenance
 gap rather than a fabricated successor.
 
+The accepted contract requires this exact wire clarification before implementation.
+`DevelopmentDecisionOption` has exactly `option_id: Identifier`, `summary: Text`, and
+`consequence: Text | null`. `DevelopmentDecisionSourceProvenance` has exactly:
+
+```text
+schema_version: 1
+source_family: "legacy_checkpoint" | "development_decision"
+source_schema_version: Identifier
+source_artifact_identity: Digest
+source_path: ResourcePath
+source_byte_count: UInt64
+adapter_version: Identifier
+legacy_checkpoint_id: Identifier | null
+legacy_status: Identifier | null
+```
+
+Legacy sources require both legacy fields; native v2 sources require both null. The
+artifact identity is SHA-256 over exact source bytes. The complete
+`DevelopmentDecision` field types are:
+
+| Field | Exact type |
+|---|---|
+| `schema_version` | integer 1 |
+| `decision_id` | `Identifier`, allocated by the explicit migration or native creation input rather than derived from a filename |
+| `state` | `"unresolved" \| "resolved"` |
+| `decision_class`, `task_id`, `episode_id` | `Identifier \| null` |
+| `created_at`, `resolved_at` | RFC 3339 UTC `Text \| null` |
+| `question`, `recommendation`, `blocked_scope`, `safe_scope`, `response`, `normalized_outcome`, `declared_scope`, `resumption_status` | `Text \| null` |
+| `options` | nonempty tuple of `DevelopmentDecisionOption`; unique option IDs; source order preserved |
+| `declared_authoritative_paths`, `record_paths` | tuple of unique `ResourcePath`; source order preserved |
+| `response_source_identity`, `authority_identity` | `Identifier \| null` |
+| `authority_identity_status` | `"available" \| "unavailable_legacy"` |
+| `selected_option_id` | `Identifier \| null` naming one option when present |
+| `predecessor_decision_id`, `supersedes_decision_id` | `Identifier \| null` with the paired rules above |
+| `source_provenance` | `DevelopmentDecisionSourceProvenance` |
+
+Every key is required and null is explicit. Native resolved decisions require
+`authority_identity_status="available"`, non-null response-source and authority
+identities, and the resolved fields. Legacy successors require
+`unavailable_legacy` and null trusted identities; no availability is fabricated.
+
 Checkpoint
-`.pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract.json`
-requests acceptance, bounded correction, or deferral of this exact candidate.
+`.pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json`
+requests acceptance of this exact type, nullability, nested-wire, and source-provenance
+clarification to the previously accepted DevelopmentDecision contract.
 
-## Signed-ledger contract outline
+## Resolved exact-contract and signature decisions
 
-The following outline fixes ownership and required meaning but is not yet an exact
-public field or wire contract. A dedicated ledger-contract acceptance boundary will be
-prepared after the signature mechanism is selected.
+The exact response `“1 A, 2 A.”` accepted the version-1 DevelopmentDecision contract
+above and selected Ed25519 verification through the Python `cryptography` package.
+The response authorizes exact dependency compatibility and license review, not project
+dependency mutation, credential handling, signing, publication, or protected
+execution.
 
-The prospective public immutable values are `DevelopmentTrustAnchor`,
-`DevelopmentTrustConfiguration`, tagged `DevelopmentAuthorityRecord` variants,
-`DevelopmentAuthorityLedgerSnapshot`, `DevelopmentSignedAuthoritySnapshot`,
-`DevelopmentAuthorityReconstructionReceipt`, `DevelopmentAuthorityContext`, and
-`DevelopmentOperationAuthorizationInput`. Closed results are
-`DevelopmentAuthorityContextResolutionResult` (`resolved`/`failed`) and
-`DevelopmentOperationAuthorizationResult` (`authorized`/`denied`/`error`).
+Public metadata verified on 2026-08-18 identifies `cryptography` 50.0.0 as supporting
+Python 3.14 and providing CPython 3.14 wheels. Its project license permits use under
+either Apache-2.0 or BSD-3-Clause terms. A temporary Python-3.14 `uv 0.11.25`
+resolution of `cryptography==50.0.0` produced `cryptography==50.0.0`, `cffi==2.1.1`,
+and `pycparser==3.0`; it did not mutate project files. CFFI states MIT No Attribution
+terms and pycparser states BSD-3-Clause terms. The actual project lock remains the
+resolved-version authority after separately authorized dependency mutation.
 
-A complete ledger snapshot contains a ledger identity, monotonic sequence,
-predecessor snapshot payload identity, complete ordered record chain, governing policy
-identity, and payload identity. Record variants cover policy, exact Task authorization,
-eligibility reference, review or promotion authorization, authorization use, and
-revocation. Effective exhaustion is derived from append-only use facts; revocations,
-uses, policies, and predecessors must close within the snapshot.
+Verified sources:
 
-The signed envelope contains canonical payload bytes, mechanism and key identifiers,
-signature encoding and bytes, plus a distinct exact-artifact identity. Signatures bind
-a versioned domain-separated length-framed preimage of the exact payload. Trust
-configuration pins accepted artifact/head or ancestor identity, trust domain, issuer-
-to-anchor bindings, accepted versions and modes, enabled public verification anchors,
-and threshold policy. Signature validity alone never establishes freshness.
+- `https://pypi.org/project/cryptography/50.0.0/`;
+- `https://cryptography.io/en/50.0.0/hazmat/primitives/asymmetric/ed25519/`;
+- `https://github.com/pyca/cryptography/blob/50.0.0/LICENSE`;
+- `https://pypi.org/project/cffi/2.1.1/` and its `v2.1.1` license; and
+- `https://pypi.org/project/pycparser/3.0/` and its BSD license.
 
-The resolver receives explicit bounded bytes, expected artifact identity, source mode,
-and trust configuration. It performs no discovery, fetching, signing, publication, or
-credential access. Any malformed, noncanonical, mismatched, untrusted, stale, forked,
-revoked, exhausted, incomplete, or indeterminate input yields no context. The
-authorizer consumes only a resolved context and exact operation bindings; every
-mismatch denies, while an unusable context is an error rather than a denial.
+The retained review is
+`harness/reports/development-authority-cryptography-dependency-review.md`. The
+implementation dependency candidate is exactly `cryptography==50.0.0`; the temporary
+lock and its package hashes are recorded there. Exact project lock output and platform
+markers must still be reviewed after real project resolution; the probe is
+compatibility evidence, not a committed dependency result.
 
-The current dependency contract contains no supported asymmetric signature API.
-Hand-written public-key cryptography is prohibited. Checkpoint
-`.pi/checkpoints/migration.v2.harness.decisions-authority.signature-mechanism.json`
-therefore asks the human to choose an audited asymmetric Python dependency, an
-explicit external verifier executable, symmetric HMAC with its loss of verifier/signer
-separation, or deferral. Protected signing, key generation, secret handling,
-publication, and accepted-head advancement remain later protected operations and are
-not implemented by this Task's read-only resolver.
+## Exact signed-ledger contract candidate
+
+All values are frozen, slotted, operationally immutable public Harness records. Each
+selected concrete wire variant requires exactly the keys declared for that variant;
+keys owned by another variant are prohibited rather than emitted as null. Fields
+explicitly marked nullable are required keys encoded as JSON `null` when inactive.
+Unknown, duplicate, or missing keys are rejected. Every object uses the same sorted-key
+compact UTF-8 Harness JSON profile with one trailing line feed as
+`DevelopmentDecision`.
+
+The normative wire vocabulary is:
+
+| Name | Exact JSON/runtime contract |
+|---|---|
+| `Identifier` | JSON string matching `[A-Za-z0-9][A-Za-z0-9._:/-]*`; built-in `str` at runtime |
+| `ResourcePath` | JSON string satisfying the accepted version-1 root-relative NFC POSIX path contract; built-in `str` at runtime |
+| `Digest` | 64 lowercase hexadecimal SHA-256 characters |
+| `Text` | JSON string without unpaired surrogates; nonempty where stated |
+| `UInt64` | JSON integer from $0$ through $2^{64}-1$; Boolean rejected |
+| `Bytes32` / `Bytes64` | unpadded canonical base64url JSON string decoding to exactly 32 or 64 bytes; runtime `bytes` |
+| tuple | JSON array; runtime built-in tuple; fields marked canonical are strictly sorted and duplicate-free |
+| diagnostic | JSON object with exactly `code: Identifier`, `subject_identity: Identifier | null`, and `detail: Text` |
+
+Every field ending `_id` or `_identity` is an `Identifier` unless its table explicitly
+says `Digest`; every revision field has the exact type stated by its owning table; every `schema_version` is integer 1. Domain-derived
+identities use SHA-256 over
+`domain_ascii + b"\x00v1\x00" + uint64_big_endian(len(body)) + body`, where `body` is
+the exact canonical JSON object with only the identity being computed encoded as null.
+Domains are fixed as `ksdft2effmass-development-trust-configuration`,
+`ksdft2effmass-development-trust-configuration-pin`,
+`ksdft2effmass-development-authority-source`,
+`ksdft2effmass-development-authority-record`,
+`ksdft2effmass-development-authority-receipt`,
+`ksdft2effmass-development-authority-context`,
+`ksdft2effmass-development-operation-authorization-input`, and
+`ksdft2effmass-development-operation-authorization-result`. This rule defines
+configuration, source-descriptor, record-content, receipt, context, and result
+identities respectively and prevents self-reference. The receipt body has no context
+identity; context identity is derived only after the finalized receipt identity exists.
+
+### Trust and source records
+
+`DevelopmentTrustAnchor` fields are:
+
+```text
+schema_version: 1
+anchor_id: Identifier
+key_id: Digest
+mechanism: "ed25519"
+public_key_encoding: "raw-base64url"
+public_key_bytes: Bytes32
+issuer_authority_identity: Identifier
+state: "enabled" | "disabled"
+```
+
+`key_id` is SHA-256 over
+`b"ksdft2effmass-development-authority-key\x00v1\x00" + public_key_bytes`.
+Only public verification material is representable.
+
+`DevelopmentIssuerAnchorBinding` fields are
+`issuer_authority_identity: Identifier`, canonical nonempty
+`allowed_record_kinds: tuple[record-kind enum]`, canonical nonempty
+`anchor_ids: tuple[Identifier]`, and `threshold: UInt64` greater than zero and no
+greater than the enabled listed-anchor count. For every record, the head envelope's
+verified distinct anchor IDs must satisfy the exact binding for that record's issuer
+and kind. Missing, duplicate, disabled, wrong-issuer, or insufficient bindings fail
+reconstruction. The software's closed record semantics remain authoritative; a policy
+record cannot add a new record kind or evaluation language.
+
+`DevelopmentTrustConfiguration` fields and types are:
+
+```text
+schema_version: 1
+configuration_identity: Digest
+configuration_revision: UInt64
+predecessor_configuration_identity: Digest | null (null only at revision zero)
+trust_domain: Identifier
+accepted_payload_schema_version: 1
+accepted_envelope_schema_version: 1
+accepted_canonicalization_version: "harness-canonical-json-v1"
+accepted_source_modes: canonical nonempty tuple["local" | "ci"]
+accepted_head_artifact_identity: Digest
+required_ancestor_payload_identity: Digest
+minimum_snapshot_sequence: UInt64
+anchors: canonical nonempty tuple[DevelopmentTrustAnchor] ordered by anchor_id
+issuer_anchor_bindings: canonical nonempty tuple[DevelopmentIssuerAnchorBinding]
+resolver_policy_version: Identifier
+```
+
+`DevelopmentTrustConfigurationPin` is a separately protected trusted-boundary input
+with `schema_version=1`, `pin_identity: Digest` derived under the fixed
+`ksdft2effmass-development-trust-configuration-pin` domain,
+`current_configuration_identity: Digest`, `minimum_configuration_revision: UInt64`,
+`source_authority_identity: Identifier`, and
+`authentication_receipt_identity: Identifier`. Application composition authenticates
+this pin outside candidate-controlled state. The resolver rejects any supplied
+configuration whose derived identity differs, whose revision is below the protected
+minimum, or whose predecessor rules are inconsistent. Receipt and context bind the
+pin identity and configuration revision. Replaying an old valid configuration and its
+old signed head therefore fails before ledger reconstruction.
+
+The accepted head artifact identity pins freshness independently of signature
+validity. Anchor disablement and head advancement require a new independently
+protected configuration and pin; a ledger cannot revoke its own trust root.
+
+`DevelopmentAuthoritySnapshotSource` fields are:
+
+```text
+schema_version: 1
+source_descriptor_identity: Digest
+mode: "local" | "ci"
+source_reference_identity: Identifier
+expected_head_artifact_identity: Digest
+maximum_snapshot_count: UInt64 greater than zero
+maximum_aggregate_byte_count: UInt64 greater than zero
+```
+
+The resolver receives a nonempty tuple of exact signed-envelope byte strings ordered
+from the required ancestor through the accepted head. Each decoded payload after the
+first must name the preceding payload identity; the first payload identity must equal
+`required_ancestor_payload_identity`; the final envelope identity must equal both
+source and configuration head identities. Every envelope is independently canonical,
+content-identified, and signature-verified under the configuration. Adjacent snapshots
+must retain the same `ledger_id`, increment `snapshot_sequence` by exactly one, name
+the immediately preceding payload identity, and preserve the predecessor's complete
+record tuple as an exact prefix; every added record then continues the ordinal and
+record-content predecessor chain. Any deletion, replacement, reordering, or mutation
+of prior authority records fails ancestry. This bounded chain makes both payload
+ancestry and append-only semantic continuity provable. The source contains no open file, network client,
+path discovery, credential, or payload bytes.
+
+### Ledger records
+
+Every concrete authority record has these exact common fields:
+
+```text
+schema_version: 1
+record_id: Identifier
+record_content_identity: Digest
+record_ordinal: UInt64
+previous_record_content_identity: Digest | null (null only at ordinal zero)
+record_kind: closed enum below
+issuer_authority_identity: Identifier
+governing_policy_identity: Digest | null (null only for the genesis authority_policy)
+```
+
+The generic record-content identity rule above uses the domain
+`ksdft2effmass-development-authority-record`. Ordinals begin at zero and increase by
+one; predecessor content identities form one complete chain. Every non-genesis
+`governing_policy_identity` resolves to an earlier `authority_policy` record's
+`record_content_identity`. A policy record additionally carries
+`policy_revision: UInt64` and `policy_document_identity: Identifier`; it identifies an
+externally accepted policy revision but cannot introduce executable expressions.
+
+`record_kind` is exactly one of `authority_policy`, `task_authorization`,
+`review_authorization`, `promotion_authorization`, `eligibility_reference`,
+`authorization_use`, or `revocation`.
+
+The named exact operation-binding variants are:
+
+| Public DataObject | `binding_kind` and required fields |
+|---|---|
+| `DevelopmentTaskOperationBinding` | `binding_kind="task"`; `repository_root_identity`, `source_snapshot_identity`, `harness_state_identity`, `selection_revision`, `task_id`, `task_revision`, `starting_revision`, `candidate_revision`, `operation_id`, `attempt_id`, `idempotency_id`, `operation_kind`, canonical `permitted_paths: tuple[ResourcePath]`, canonical `requirement_ids: tuple[Identifier]`, `architecture_policy_identity`, `validator_profile_identity` |
+| `DevelopmentReviewOperationBinding` | every task-binding field; `binding_kind="review"`; `review_subject_identity`, `review_result_identity` |
+| `DevelopmentPromotionOperationBinding` | every task-binding field; `binding_kind="promotion"`; `decision_identity`, `candidate_composition_identity`, `predecessor_composition_identity`, `target_identity` |
+
+Every identity-valued binding member is an `Identifier`; revision members are
+`Identifier`; tuples are strictly sorted and duplicate-free. Task-binding
+`operation_kind` is exactly `planning`, `implementation_planning`, `implementation`,
+`verification`, `administrative_closeout`, or `repository_mutation`. Review binding
+requires `operation_kind="review"`. Promotion binding requires exactly `promotion`,
+`activation`, or `rollback`.
+
+A `DevelopmentTaskAuthorization`,
+`DevelopmentReviewAuthorization`, or `DevelopmentPromotionAuthorization` contains the
+common record fields, `authorization_id: Identifier`, exactly one corresponding
+immutable `operation_binding`, and `use_limit: UInt64` fixed to 1. The authorizer
+requires field-for-field equality between the requested binding and the signed grant;
+no security-relevant value is inherited from ambient state or derived after issuance.
+
+The remaining concrete variants are:
+
+| Record kind | Additional required fields |
+|---|---|
+| `authority_policy` | `policy_revision: UInt64`, `policy_document_identity: Identifier` |
+| `eligibility_reference` | `eligibility_result_identity: Identifier`, `subject_identity: Identifier` |
+| `authorization_use` | `authorization_id: Identifier`, `operation_id: Identifier`, `attempt_id: Identifier`, `idempotency_id: Identifier`, `operation_receipt_identity: Identifier` |
+| `revocation` | `target_authorization_record_id: Identifier`, `reason_code: Identifier`, `replacement_authorization_record_id: Identifier | null` |
+
+Each concrete variant requires only its common and listed keys and rejects keys owned
+by another variant. Authorization IDs and record IDs are unique. One exact-attempt
+authorization is single-use. A use is unique by the complete
+`(authorization_id, operation_id, attempt_id, idempotency_id)` tuple and must match its
+grant and immutable operation receipt. Revocation targets only an earlier task,
+review, or promotion authorization; use and revocation records cannot themselves be
+revoked. Replacement authorization, when present, must exist earlier and have the same
+binding kind. Exhaustion is derived from one valid use and never stored mutably.
+
+For every record, the verified head-envelope signer set must satisfy its exact
+`DevelopmentIssuerAnchorBinding` and the record kind must be allowed by that binding.
+The governing policy must exist earlier. Thus a cryptographically valid envelope from
+a signer not authorized for a claimed issuer and kind fails closure. A static signed
+snapshot still does not provide concurrent reservation; a target effect additionally
+uses its owning compare-and-swap/idempotency contract.
+
+### Snapshot and signed envelope
+
+`DevelopmentAuthorityLedgerSnapshot` fields are:
+
+```text
+schema_version: 1
+ledger_id: Identifier
+snapshot_sequence: UInt64
+predecessor_payload_identity: Digest | null (null only at sequence zero)
+first_record_ordinal: 0
+last_record_ordinal: UInt64
+governing_policy_identity: Digest
+records: nonempty tuple[DevelopmentAuthorityRecord]
+```
+
+It contains the complete history from ordinal zero, not a delta. Its
+`payload_identity` is a runtime derived value: SHA-256 over exact canonical snapshot
+bytes and is not embedded recursively in those bytes. All record predecessors,
+policies, authorizations, uses, revocations, replacements, and referenced targets must
+close in the snapshot.
+
+`DevelopmentSignatureEntry` fields are `mechanism: "ed25519"`, `key_id: Digest`,
+`signature_encoding: "raw-base64url"`, and `signature_bytes: Bytes64`. The signed
+preimage is:
+
+```text
+b"ksdft2effmass-development-authority-snapshot\x00v1\x00"
++ uint64_big_endian(len(payload_bytes))
++ payload_bytes
+```
+
+`DevelopmentSignedAuthoritySnapshot` wire fields are
+`schema_version: 1`, `canonicalization_version: "harness-canonical-json-v1"`,
+`payload_encoding: "base64url-no-padding"`, `payload_bytes: unpadded base64url of the
+exact canonical snapshot bytes`, and `signatures: nonempty tuple[DevelopmentSignatureEntry]`
+strictly ordered by unique key ID. Its runtime `artifact_identity` is SHA-256 over the exact
+canonical envelope bytes and is not embedded recursively. Re-signing preserves payload
+identity but creates a different artifact identity.
+
+### Reconstruction and authorization
+
+`DevelopmentAuthorityReconstructionReceipt` fields are:
+
+```text
+schema_version: 1
+receipt_identity: Digest
+source_descriptor_identity: Digest
+mode: "local" | "ci"
+trust_configuration_pin_identity: Digest
+trust_configuration_identity: Digest
+trust_configuration_revision: UInt64
+requested_head_artifact_identity: Digest
+observed_head_artifact_identity: Digest | null
+head_payload_identity: Digest | null
+head_snapshot_sequence: UInt64 | null
+verified_snapshot_count: UInt64
+canonicalization_version: "harness-canonical-json-v1"
+resolver_version: Identifier
+source_status, configuration_status, content_status, signature_status,
+threshold_status, snapshot_chain_status, record_chain_status,
+reference_closure_status, issuer_policy_status, accepted_head_status:
+    "passed" | "failed" | "not_reached"
+verified_key_ids: canonical tuple[Digest]
+diagnostics: canonical tuple[diagnostic]
+```
+
+`observed_head_artifact_identity`, payload identity, and sequence are null when bytes
+were not observed or decoded far enough. Missing, unreadable, oversized, interrupted,
+or over-count sources set `source_status="failed"`, every later status to
+`not_reached`, observed identities to null when unavailable, no context, and at least
+one stable diagnostic. Configuration anti-rollback failure similarly prevents source
+and ledger acceptance. `verified_snapshot_count` counts only envelopes that completed
+content and signature verification.
+
+The receipt identity uses its domain-derived rule with `receipt_identity` null. It has
+no context identity, breaking the receipt/context cycle. Diagnostics are strictly
+ordered by `(code, subject_identity or "", detail)`. No secret, unrestricted
+environment, or ambient path is retained.
+
+`DevelopmentAuthorityContext` fields are `schema_version: 1`,
+`context_identity: Digest`, `trust_configuration_pin_identity: Digest`,
+`trust_configuration_identity: Digest`, `trust_configuration_revision: UInt64`,
+`source_descriptor_identity: Digest`, `head_artifact_identity: Digest`,
+`head_payload_identity: Digest`, `ledger_id: Identifier`,
+`snapshot_sequence: UInt64`, `record_head_identity: Digest`,
+`governing_policy_identity: Digest`, `receipt_identity: Digest`,
+`records: nonempty tuple[DevelopmentAuthorityRecord]`, and
+`resolver_version: Identifier`. Context identity uses its domain-derived rule with
+`context_identity` null and the finalized receipt identity present. It never enters `HarnessState` or
+`HarnessStateIdentity`.
+
+`DevelopmentAuthorityContextResolutionResult` is a ResultObject with fields
+`schema_version: 1`, `status: "resolved" | "failed"`,
+`receipt: DevelopmentAuthorityReconstructionReceipt`, and
+`context: DevelopmentAuthorityContext | null`. Resolved requires one context and every
+receipt status passed; failed requires null context, at least one failed status, and at
+least one diagnostic.
+
+`DevelopmentOperationAuthorizationInput` fields are `schema_version: 1`,
+`input_identity: Digest`, and exactly one `operation_binding` using the task, review,
+or promotion variant defined above. Input identity uses the fixed
+`ksdft2effmass-development-operation-authorization-input` domain with its own field
+null. The requested binding must equal its signed authorization binding field for
+field; no wildcard, subset, path prefix, latest revision, or omitted-identity matching
+exists.
+
+`DevelopmentOperationAuthorizationResult` fields are:
+
+```text
+schema_version: 1
+result_identity: Digest
+status: "authorized" | "denied" | "error"
+input: DevelopmentOperationAuthorizationInput
+context_identity: Digest
+authorization_id: Identifier | null
+authorization_record_content_identity: Digest | null
+authorizer_version: Identifier
+diagnostics: canonical tuple[diagnostic]
+```
+
+Result identity uses its domain-derived rule with `result_identity` null. Authorized
+requires both authorization fields non-null, one exact unrevoked and unused matching
+authorization, and an empty diagnostic tuple. Denied requires both authorization
+fields null, a reliable context, and at least one diagnostic establishing an absent,
+stale, used, revoked, or field-mismatched grant. Error requires both authorization
+fields null and at least one diagnostic showing authorization or denial could not be
+established. Only authorized is usable, and the target operation rechecks the complete
+binding.
+
+### Public imports, serializers, and exclusions
+
+The supported import surface is `ksdft2effmass.harness`. It exports
+`DevelopmentDecision`, its option and source-provenance records,
+`DevelopmentDecisionSerializer`, every named trust/source/record/binding/snapshot/
+signature/receipt/context/input/result type above,
+`DevelopmentTrustConfigurationSerializer`,
+`DevelopmentSignedAuthoritySnapshotSerializer`,
+`DevelopmentAuthorityResolutionSerializer`,
+`DevelopmentOperationAuthorizationSerializer`,
+`DevelopmentAuthorityContextResolver`, and
+`DevelopmentOperationAuthorizer`. Transitional v1 checkpoint imports remain one-way
+compatibility only and are not aliases for the new nominal types.
+
+`DevelopmentDecisionSerializer` owns only the accepted decision wire.
+`DevelopmentTrustConfigurationSerializer` owns anchor, issuer-binding, configuration,
+pin, and source-descriptor wires. `DevelopmentSignedAuthoritySnapshotSerializer` owns
+record, binding, snapshot, signature-entry, and envelope wires.
+`DevelopmentAuthorityResolutionSerializer` owns receipt, context, and closed context-
+resolution-result wires. `DevelopmentOperationAuthorizationSerializer` owns operation
+input and closed authorization-result wires. No DataObject owns `to_json`, `from_json`,
+file access, or persistence.
+
+`DevelopmentSignedAuthoritySnapshotSerializer` owns strict snapshot/envelope wire
+mechanics. `DevelopmentAuthorityContextResolver` receives the exact protected configuration pin,
+trust configuration, source descriptor, and bounded ordered tuple of envelope bytes; it
+verifies configuration anti-rollback, canonical bytes, identities, every envelope's
+Ed25519 signatures and issuer bindings, threshold, snapshot ancestry, accepted head,
+sequence, and complete record/policy/reference closure. It performs
+no discovery, fetching, signing, publication, credential access, or operation
+authorization.
+
+`DevelopmentOperationAuthorizer` receives an exact input and resolved context and
+returns the closed authorization result. It performs no reconstruction, persistence,
+reservation, target effect, or policy broadening. No signer or publisher is introduced
+by this Task.
+
+Checkpoint
+`.pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json`
+requests acceptance, bounded correction, or deferral of this exact contract.
 
 ## Implementation approach after exact-contract acceptance
 
@@ -267,10 +670,12 @@ writers are not required.
 
 Implementation requires retained identities for the accepted identity-contract and
 Task-model results, not only their Task status text. It also requires the accepted
-resolved topology checkpoints, acceptance of the exact DevelopmentDecision contract,
-an accepted signature mechanism and any dependency or executable decision, exact
-source and trust-configuration identities, exact selection and Task revisions,
-requested operation, permitted paths, and applicable starting and candidate revisions.
+resolved topology, DevelopmentDecision, and signature checkpoints; acceptance of the
+DevelopmentDecision wire amendment and exact signed-ledger contract; a separate
+explicit implementation activation; the authorized and validated dependency and
+lockfile mutation; exact source and trust-configuration identities; exact selection
+and Task revisions; requested operation; permitted paths; and applicable starting and
+candidate revisions.
 
 A producer Task status, planning prose, review agreement, passing test, activation
 reference, checkpoint scope, or generated projection is not a prerequisite result or
@@ -302,25 +707,52 @@ verification, scientific validation, uncertainty quantification, or human accept
 
 ## Cutover, retirement, and rollback
 
-Original checkpoint bytes and decision history are never rewritten. Cutover proceeds
-from v2 source introduction, through shadow compilation and exact compatibility
-comparison, to consumer migration and finally explicit legacy-route retirement.
-Rollback restores the last accepted consumer/import and authority-composition
-revision; it does not modify decision history, ledger history, Tasks, selection, or
-legacy checkpoint bytes.
+Original checkpoint bytes and decision history are never rewritten. Cutover is
+eligible only when identified results establish all of these exact conditions:
 
-The protected ledger source, trust configuration, and reconstruction receipts remain
-separate from `HarnessState` persistence and generated projections throughout cutover
-and rollback.
+1. one migration result binds the frozen legacy source-snapshot identity, explicit
+   migration-manifest identity, every source and successor artifact identity, and a
+   zero-missing/zero-extra one-to-one count;
+2. field comparison reproduces every legacy key, value, null, string, and array order,
+   with only the accepted lifecycle and identity-availability mappings reported as
+   intentional transformations;
+3. canonical schema/runtime round trips, aggregate closure, public imports, Ruff,
+   mypy, Sphinx, maintained conformance, and the focused software-verification suite
+   pass for the exact candidate revision;
+4. an identified consumer-inventory result reports zero canonical readers of the old
+   checkpoint adapter/wire route and zero new imports of transitional local modules;
+5. the selected compiler/configuration revision names only the v2 source root and
+   rejects mixed legacy/v2 canonical input; and
+6. the exact predecessor consumer/import revision, authority-composition revision,
+   rollback target, and rollback validator identities are retained before cutover.
+
+Legacy-route retirement additionally requires successful shadow comparison and one
+read-only reconstruction of the frozen legacy snapshot. It never deletes legacy bytes.
+Rollback before any native-v2 decision restores the exact retained predecessor
+consumer/import and configuration revisions. After the first native-v2-only decision,
+legacy write rollback is prohibited because it cannot represent the new record;
+rollback is recovery/read-only until a separately accepted forward migration exists.
+A rollback trigger is any failed cutover condition, incompatible/corrupt successor,
+stale consumer, or failed reconstruction; no check chooses a winner or rewrites
+history.
+
+The migration result, consumer inventory, cutover candidate, and rollback validation
+belong to this Task's implementation and closeout evidence. The exact predecessor and
+candidate Git revisions are supplied implementation inputs, not inferred as “last” at
+runtime. Protected ledger source, trust configuration, and reconstruction receipts
+remain separate from `HarnessState` persistence and generated projections throughout
+cutover and rollback.
 
 ## Residual limitations
 
-- The exact DevelopmentDecision fields, canonical encoding, migration mapping, and
-  rollback policy await the development-decision-contract checkpoint.
-- The asymmetric signature implementation, algorithm, key encoding, and dependency or
-  external executable await the signature-mechanism checkpoint. Trust-anchor rotation,
-  protected signing/publication, credential handling, and accepted-head advancement
-  remain separately protected operations even after mechanism selection.
+- The DevelopmentDecision nested-wire clarification awaits the contract-amendment
+  checkpoint, and the exact signed-ledger fields, canonical encoding, trust,
+  reconstruction, and authorization contract awaits the signed-ledger-contract
+  checkpoint.
+- Project dependency and lockfile mutation remain unauthorized until that contract is
+  accepted and implementation resumes. Trust-anchor rotation, protected signing and
+  publication, credential handling, and accepted-head advancement remain separately
+  protected operations even after implementation.
 - Exact shared `HarnessState`, compiler, validator, and repository fields remain with
   their separately declared Tasks and may add prerequisite results without changing
   the ownership fixed here.

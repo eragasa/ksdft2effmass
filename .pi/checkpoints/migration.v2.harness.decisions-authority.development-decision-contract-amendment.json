@@ -1,0 +1,48 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.development-decision-contract-amendment",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.exact-contract-correction",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T19:43:34Z",
+  "question": "Should the exact DevelopmentDecision type, nullability, nested option, source-provenance, and identity-availability clarification be accepted as an amendment to the previously accepted contract?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the exact DevelopmentDecision wire clarification amendment.",
+      "consequence": "Fix the documented JSON/runtime types, required/null rules, nested option and source-provenance objects, exact source-byte identity, legacy versus native authority-identity availability, ordering rules, and migration identity boundary as implementation input. Contract acceptance does not activate implementation."
+    },
+    {
+      "id": "B",
+      "summary": "Request a bounded correction to the DevelopmentDecision amendment.",
+      "consequence": "Keep implementation blocked and identify the exact type, nullability, nested-wire, provenance, identity, or ordering correction required before renewed review."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the DevelopmentDecision amendment and implementation.",
+      "consequence": "Retain the earlier accepted conceptual contract but perform no DevelopmentDecision schema, serializer, fixture, migration, consumer, or public API implementation."
+    }
+  ],
+  "recommendation": "Option A. The clarification makes the accepted contract independently implementable without changing its selected successor topology or semantics, preserves every legacy value and source order, and represents unavailable legacy authority identities explicitly rather than fabricating them.",
+  "blocked_scope": "DevelopmentDecision source, schema, fixture, serializer, migration adapter, aggregate integration, tests, public API and documentation implementation; dependency mutation; consumer migration; protected execution; successor activation; publication; or release.",
+  "safe_scope": "Human review of Options A through C and the DevelopmentDecision clarification in docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md; deterministic validation and persistence of this pending amendment boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/human-decisions.md",
+    "docs/architecture/v2/identity-version-and-failure-contracts.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
+    "docs/architecture/v2/ksdft2effmass/harness/persistence.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "blocked_pending_development_decision_contract_amendment"
+}
