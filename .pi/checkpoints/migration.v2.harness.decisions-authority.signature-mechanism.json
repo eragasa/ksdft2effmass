@@ -1,0 +1,54 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.signature-mechanism",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.exact-contract-planning",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T19:34:07Z",
+  "question": "Which exact signature implementation should verify protected signed DevelopmentAuthorityLedger snapshots?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Add the Python `cryptography` dependency and use Ed25519 with raw 32-byte public keys and 64-byte signatures.",
+      "consequence": "Provide in-process asymmetric verification with public-only trust anchors and no signing capability in ordinary resolvers. Selecting this option authorizes dependency and license review plus a compatible pinned resolution before implementation; it does not authorize key generation, private-key handling, signing, publication, or protected execution."
+    },
+    {
+      "id": "B",
+      "summary": "Use an explicitly managed OpenSSL Ed25519 verifier executable without adding a Python runtime dependency.",
+      "consequence": "Require an exact executable/version, root-confined input, sanitized environment, bounded subprocess, closed output parsing, portability policy, and separately protected signer. Ambient OpenSSL availability is insufficient."
+    },
+    {
+      "id": "C",
+      "summary": "Use stdlib HMAC-SHA-256 with protected shared verification secrets.",
+      "consequence": "Avoid a new package or executable but give every verifier signing capability, weaken local/CI least privilege, and require secret distribution to every reconstruction boundary."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer the signature mechanism.",
+      "consequence": "Keep context reconstruction, exact authorization, and every dependent protected-operation route blocked; implement no unauthenticated substitute."
+    }
+  ],
+  "recommendation": "Option A. Ed25519 through the `cryptography` package preserves asymmetric verifier/signer separation, avoids fragile subprocess parsing and ambient executable selection, and supports public trust anchors. Dependency compatibility, exact resolved version, and license evidence must be retained before source implementation.",
+  "blocked_scope": "Signature verifier, signed snapshot serializer integration, trust-anchor encoding, authority-context resolver, exact operation authorizer integration, dependency or lockfile mutation, credential handling, signing, publication, external service use, protected execution, successor activation, or release.",
+  "safe_scope": "Human review of Options A through D, current pyproject dependency state, verified public package metadata, and docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md; deterministic validation and persistence of this pending mechanism boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/v2/agents/capability-and-isolation.md",
+    "docs/architecture/v2/agents/deterministic-actions.md",
+    "docs/architecture/v2/ksdft2effmass/harness/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/harness/persistence.md",
+    "python/pyproject.toml",
+    "python/uv.lock"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.signature-mechanism.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "blocked_pending_signature_dependency_or_executable_decision"
+}

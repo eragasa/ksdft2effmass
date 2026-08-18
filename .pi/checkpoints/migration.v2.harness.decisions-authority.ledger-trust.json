@@ -2,7 +2,7 @@
   "checkpoint_id": "migration.v2.harness.decisions-authority.ledger-trust",
   "task_id": "migration.v2.harness.decisions-authority",
   "episode_id": "migration.v2.harness.decisions-authority.planning",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-18T19:13:17Z",
   "question": "Which protected DevelopmentAuthorityLedger trust-source topology should constrain the later exact persistence, authentication, signing, credential, and transport contract?",
@@ -34,15 +34,15 @@
     "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
     "docs/architecture/v2/ksdft2effmass/harness/persistence.md"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "1. B and 2 A is authorized",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-18T19:25:14Z",
+  "authorized_scope": "Adopt explicitly selected protected signed snapshot artifacts as the DevelopmentAuthorityLedger trust-source topology for local and CI reconstruction. Proceed with bounded exact signing, trust-anchor, credential, protected publication, persistence, transport, reconstruction-receipt, compatibility, and rollback contract planning. Do not add a dependency, handle real credentials, perform protected execution, activate a successor, publish, or release.",
   "record_paths": [
     ".pi/checkpoints/migration.v2.harness.decisions-authority.ledger-trust.json",
     "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
     "harness/task-selection.json",
     "harness/tasks/migration.v2.harness.decisions-authority.json"
   ],
-  "resumption_status": "blocked_pending_human_decision"
+  "resumption_status": "option_A_resolved; exact protected ledger mechanism planning resumed; implementation remains unauthorized"
 }

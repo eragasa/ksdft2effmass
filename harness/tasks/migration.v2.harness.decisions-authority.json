@@ -3,7 +3,7 @@
   "task_id": "migration.v2.harness.decisions-authority",
   "title": "V2 development decisions and authority",
   "status": "blocked",
-  "status_detail": "The selected planning pass fixed the ownership decomposition but exposed two unresolved human-owned architecture boundaries: legacy-checkpoint cutover topology and protected DevelopmentAuthorityLedger trust-source topology. Implementation was conditionally authorized only if planning exposed no issue, so it remains blocked pending both durable decisions and the resulting exact public-wire and protected-mechanism contract review. Protected execution and automatic succession remain unauthorized.",
+  "status_detail": "The human response `1. B and 2 A is authorized` selected separately identified v2 successor DevelopmentDecision records and protected signed DevelopmentAuthorityLedger snapshot artifacts. Exact DevelopmentDecision planning is complete; signed-ledger ownership is fixed but its exact public field/wire contract follows signature-mechanism selection. Implementation remains blocked pending DevelopmentDecision contract acceptance, signature dependency or verifier selection, and subsequent exact signed-ledger contract acceptance. Protected execution and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.task-model",
@@ -14,6 +14,8 @@
   "explicit_activation_required": true,
   "objective": "Separate DevelopmentDecision representation, protected authority reconstruction, and exact operation authorization.",
   "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.decision-cutover.json",
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.ledger-trust.json",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",

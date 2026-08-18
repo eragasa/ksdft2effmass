@@ -1,0 +1,48 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.development-decision-contract",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.exact-contract-planning",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T19:34:07Z",
+  "question": "Should the exact version-1 DevelopmentDecision successor-record and canonical-wire contract in the maintained migration plan be accepted for implementation planning?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the exact DevelopmentDecision successor-record and dependency-free canonical Harness JSON contract.",
+      "consequence": "Fix the documented fields, unresolved/resolved/revised invariants, exact legacy provenance and field mapping, sorted-key compact UTF-8 encoding with one trailing line feed, lossless migration of every record in the frozen legacy input snapshot, immutable legacy history, cutover, stale-consumer rejection, and rollback limits as implementation inputs."
+    },
+    {
+      "id": "B",
+      "summary": "Request a bounded correction to the exact DevelopmentDecision contract.",
+      "consequence": "Keep implementation blocked and identify the exact field, invariant, encoding, provenance, migration, compatibility, or rollback correction required before renewed review."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the exact DevelopmentDecision contract.",
+      "consequence": "Keep current checkpoint records and consumers unchanged and perform no v2 decision implementation or migration."
+    }
+  ],
+  "recommendation": "Option A. The candidate preserves every retained legacy field and exact source bytes, does not reinterpret decision scope as authority, reuses the existing dependency-free canonical Harness JSON profile, represents corrections append-only, and provides explicit cutover and rollback limits.",
+  "blocked_scope": "DevelopmentDecision source, schema, fixture, serializer, migration adapter, aggregate integration, tests, public API and documentation implementation; checkpoint consumer migration or retirement; successor activation; protected execution, publication, or release.",
+  "safe_scope": "Human review of Options A through C and docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md; deterministic validation and persistence of this pending exact-contract boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/human-decisions.md",
+    "docs/architecture/v2/identity-version-and-failure-contracts.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
+    "docs/architecture/v2/ksdft2effmass/harness/persistence.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "blocked_pending_exact_public_contract_decision"
+}
