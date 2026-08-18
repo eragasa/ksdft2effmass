@@ -22,7 +22,7 @@ Apply authority in this order:
 1. current human instruction;
 2. applicable repository policy;
 3. unresolved human checkpoints;
-4. active chain and task state;
+4. canonical Task graph and selection state;
 5. durable human decisions and accepted task records;
 6. implemented source, tests, specifications, and maintained documentation; and
 7. derived or historical evidence only as supporting context.
@@ -30,8 +30,9 @@ Apply authority in this order:
 Do not infer current authority from an agent summary, filename, timestamp,
 historical evidence record, chat memory, or apparent implementation state.
 
-Inspect only the authoritative control-plane indexes needed to determine whether
-work is active, blocked, awaiting a human decision, or complete. Before
+Inspect only ``harness/task-selection.json`` and the authoritative Task records needed
+to determine whether work is active, blocked, awaiting a human decision, or complete.
+Before
 recommending new work, determine whether a task is active, a checkpoint awaits
 human disposition, an accepted correction or closeout remains incomplete, a
 prerequisite remains blocked, or durable state is insufficient or conflicting.
@@ -45,13 +46,14 @@ prerequisite remains blocked, or durable state is insufficient or conflicting.
 | Durable state conflicts | Report the exact conflict and stop. |
 | State is sufficient and no work is active | Evaluate next-task candidates. |
 
-When the exact chain path and task ID are known, use the maintained
+When the exact canonical Task path and Task ID are known, use the maintained
 `TaskStateInspector` ActionObject through the stable command documented by
-[inspect-task-state](../inspect-task-state/SKILL.md). Do not reconstruct the
-same state with broad searches, inline scripts, session memory, or historical
-evidence. If the identity is unknown, inspect only the small authoritative chain
-or task indexes needed to identify it; do not recursively search task or evidence
-files. This skill does not replace or duplicate task-state inspection.
+[inspect-task-state](../inspect-task-state/SKILL.md). Do not reconstruct the same state
+with broad searches, inline scripts, session memory, historical evidence, generated
+projections, SQLite, or retired chain records. If the identity is unknown, inspect only
+``harness/task-selection.json`` and the smallest canonical Task-graph indexes needed to
+identify it; do not recursively search task or evidence files. This skill does not
+replace or duplicate task-state inspection.
 
 ## Candidate-selection rule
 

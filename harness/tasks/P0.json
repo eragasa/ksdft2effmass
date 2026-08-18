@@ -11,9 +11,9 @@
   "explicit_activation_required": false,
   "objective": "Verify before dependency adoption that SNAKES is technically, legally, and operationally usable with the repository's supported Python and tooling. Also verify the exact MyST dependency/configuration needed to collect Markdown-first documentation in Sphinx.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     ".pi/evidence/backend-neutral-cpn-P0-preflight",
     ".pi/evidence/backend-neutral-cpn-P0-preflight/capability-matrix.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P0.md"
   ],
   "authorized_scope": [

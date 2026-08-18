@@ -13,10 +13,10 @@
   "explicit_activation_required": false,
   "objective": "Create accepted generic operational skills and textual resources under `harness/pi/`, with project profiles/extensions under `harness/local/`, without copying project-specific task IDs, evidence prefixes, scientific semantics, or repository paths into the generic layer.",
   "authority_reference_paths": [
-    ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/checkpoints/H3-HC01-final-acceptance.json",
     ".pi/evidence/pi-harness-incubation/H3/activation.json",
     ".pi/evidence/pi-harness-incubation/H3/task-ownership.json",
+    "harness/archive/task-control-v1/chains/pi-harness-incubation.chain.json",
     "harness/archive/task-control-v1/tasks/H3.md",
     "harness/local",
     "harness/pi"

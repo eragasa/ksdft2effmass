@@ -14,10 +14,10 @@
   "objective": "Convert the durable project implementation-agent record from an OperatorRecord/CPN-specific instruction set into a concise stable production-implementation capability while preserving public-contract, source-documentation, scientific-integrity, ownership, and human-authority boundaries.",
   "authority_reference_paths": [
     ".pi/agents/ksdft2effmass-implementation.md",
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/task-ownership/harness-simplification.agents.project-implementation.json",
     "docs/harness/ksdft2effmass.harness.001.050.000.md",
     "docs/harness/ksdft2effmass.harness.010.030.020.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-implementation.md"
   ],
   "authorized_scope": [

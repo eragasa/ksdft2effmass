@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Replace the task- and subsystem-specific instructions embedded in the durable project test-agent record with one concise stable capability definition, while preserving ownership, evidence-classification, scientific-integrity, and human-authority boundaries.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/task-ownership/harness-simplification.agents.project-role-simplification.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-role-simplification.md"
   ],
   "authorized_scope": [

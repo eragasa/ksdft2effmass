@@ -6,7 +6,8 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-This module verifies the immutable explicit filesystem and task-selection request.
+This module verifies the immutable explicit Task, selection, and optional ownership
+inspection request.
 
 Intrinsic and cross-object scope
 
@@ -15,8 +16,8 @@ exact constructor oracles.
 
 VVUQ and scientific exclusions
 
-Passing establishes request software semantics only, not repository truth, runtime
-history, numerical verification, scientific validation, UQ, or human acceptance.
+Passing establishes request software semantics only, not repository truth, authority,
+runtime history, numerical verification, scientific validation, UQ, or acceptance.
 """
 
 from __future__ import annotations
@@ -35,45 +36,52 @@ SUT = TaskStateInspectionRequest
 def test_constructor__explicit_boundary__preserves_exact_state(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-066
 
-    Requirement: The request represents one explicit absolute root, chain path, and task
-    identity.
+    Requirement: The request represents exact Task, selection, identity, root, and
+    optional operation-scoped ownership inputs.
 
-    Method: Construct the request from controlled literal values and a pytest absolute
-    path.
+    Method: Construct the request from controlled literal values.
 
-    Oracle: The constructor inputs independently fix every represented field.
+    Oracle: Constructor inputs independently fix every represented field.
 
-    Acceptance: All four public fields equal the supplied values exactly.
+    Acceptance: All public fields equal the supplied values exactly.
 
     Interpretation: Failure identifies request construction or represented-state drift.
 
-    Limitations: Filesystem existence and referenced-state validity are action-owned.
+    Limitations: Filesystem existence and cross-record validity are action-owned.
     """
     root = tmp_path.resolve()
-    request = SUT(1, root, ".pi/chains/example.json", "example.task")
-    assert request.schema_version == 1
+    request = SUT(
+        2,
+        root,
+        "harness/tasks/example.json",
+        "harness/task-selection.json",
+        "example.task",
+        ".pi/task-ownership/example.json",
+    )
+    assert request.schema_version == 2
     assert request.repository_root == root
-    assert request.chain_path == ".pi/chains/example.json"
+    assert request.task_path == "harness/tasks/example.json"
+    assert request.selection_path == "harness/task-selection.json"
     assert request.task_id == "example.task"
+    assert request.ownership_manifest_path == ".pi/task-ownership/example.json"
 
 
 def test_field__immutable_state__rejects_reassignment(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-067
 
-    Requirement: A task-state inspection request is operationally immutable.
+    Requirement: A Task-state inspection request is operationally immutable.
 
-    Method: Construct a valid request and attempt public task-identity reassignment.
+    Method: Construct a valid request and attempt public identity reassignment.
 
-    Oracle: Frozen dataclass semantics require reassignment to raise
-    FrozenInstanceError.
+    Oracle: Frozen dataclass semantics require FrozenInstanceError.
 
     Acceptance: Reassignment raises exactly FrozenInstanceError.
 
     Interpretation: Failure identifies loss of the immutable request boundary.
 
-    Limitations: Path-object internals and action execution are excluded.
+    Limitations: Filesystem behavior is excluded.
     """
-    request = SUT(1, tmp_path.resolve(), "chain.json", "example.task")
+    request = SUT(2, tmp_path.resolve(), "task.json", "selection.json", "task")
     with pytest.raises(FrozenInstanceError):
         request.task_id = "other.task"  # type: ignore[misc]
 
@@ -82,18 +90,28 @@ def test_field__immutable_state__rejects_reassignment(tmp_path: Path) -> None:
     "arguments",
     (
         pytest.param(
-            (True, Path("/tmp"), "chain.json", "task"), id="boolean_version_wrong_type"
-        ),
-        pytest.param((1, "/tmp", "chain.json", "task"), id="string_root_wrong_type"),
-        pytest.param((1, Path("relative"), "chain.json", "task"), id="relative_root"),
-        pytest.param(
-            (1, Path("/tmp"), "/chain.json", "task"), id="absolute_chain_path"
+            (True, Path("/tmp"), "task.json", "selection.json", "task"),
+            id="boolean_version_wrong_type",
         ),
         pytest.param(
-            (1, Path("/tmp"), "../chain.json", "task"), id="traversal_chain_path"
+            (2, "/tmp", "task.json", "selection.json", "task"),
+            id="string_root_wrong_type",
         ),
         pytest.param(
-            (1, Path("/tmp"), "chain.json", "bad task"), id="invalid_task_identity"
+            (2, Path("relative"), "task.json", "selection.json", "task"),
+            id="relative_root",
+        ),
+        pytest.param(
+            (2, Path("/tmp"), "/task.json", "selection.json", "task"),
+            id="absolute_task_path",
+        ),
+        pytest.param(
+            (2, Path("/tmp"), "task.json", "../selection.json", "task"),
+            id="traversal_selection_path",
+        ),
+        pytest.param(
+            (2, Path("/tmp"), "task.json", "selection.json", "bad task"),
+            id="invalid_task_identity",
         ),
     ),
 )
@@ -102,20 +120,17 @@ def test_constructor__input_invariants__reject_invalid_values(
 ) -> None:
     """Evidence ID: SV-HARNESS-068
 
-    Requirement: Request fields reject wrong semantic types, implicit roots, and unsafe
-    paths.
+    Requirement: Request fields reject wrong semantic types and unsafe boundaries.
 
-    Method: Supply one controlled invalid constructor partition per parameter case.
+    Method: Supply one controlled invalid constructor partition per case.
 
-    Oracle: The explicit-boundary contract fixes the accepted version, Path, path, and
-    ID forms.
+    Oracle: The explicit-input contract fixes version, Path, ResourcePath, and ID forms.
 
-    Acceptance: Every declared invalid partition raises TypeError or ValueError.
+    Acceptance: Every partition raises TypeError or ValueError.
 
-    Interpretation: Failure identifies intrinsic request-policy drift or an unsafe
-    implicit boundary.
+    Interpretation: Failure identifies weakened explicit-input invariants.
 
-    Limitations: Existing-file, symlink, and root-confinement checks are action-owned.
+    Limitations: Existing-file and symlink checks are action-owned.
     """
     with pytest.raises((TypeError, ValueError)):
         SUT(*arguments)  # type: ignore[arg-type]

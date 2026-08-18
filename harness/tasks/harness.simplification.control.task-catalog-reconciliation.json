@@ -13,10 +13,10 @@
   "explicit_activation_required": true,
   "objective": "Reconcile every maintained harness-simplification proposal, deferred item, conceptual stage, and existing chain entry to one explicit durable catalog disposition without activating implementation or treating documentation as executable authority.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     "docs/harness/ksdft2effmass.harness.002.001.003.md",
     "docs/harness/ksdft2effmass.harness.002.001.008.md",
     "docs/harness/ksdft2effmass.harness.002.001.009.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/intake/harness.simplification.control.task-catalog-reconciliation.intake.md"
   ],
   "authorized_scope": [

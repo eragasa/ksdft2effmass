@@ -1,8 +1,8 @@
 Project-local compatibility adapters
 ====================================
 
-The nine public adapter ActionObjects convert explicitly supplied project-local
-bytes or records into generic harness records.  They perform no repository
+Six public adapter ActionObjects convert explicitly supplied project-local bytes or
+records into generic harness records. They perform no repository
 discovery, persistence, activation, protected execution, or scientific
 validation.  The supported package import path remains
 ``ksdft2effmass.harness.pi.local``.  The module
@@ -13,7 +13,10 @@ evidence modules.
 R2.2 audit and decomposition
 ----------------------------
 
-The completed R2.2 Task is **Audit and decompose project-local adapters**.
+The completed R2.2 Task is **Audit and decompose project-local adapters**. The table
+below is retained historical disposition; the v2 Task-graph cutover later retired
+``TaskRecordAdapter`` and ``ChainRecordAdapter`` after canonical Task and selection
+inputs replaced their live role.
 Repository inspection found no maintained internal production instantiation and
 no maintained command or script caller for any of the nine adapters.  That
 finding establishes maintained repository non-use only.  Each currently
@@ -122,10 +125,12 @@ The exact completed disposition is:
 
 R2.2 decomposed the adapter monolith into five contract-specific modules and
 retained a compatibility facade. R2.7 subsequently removed the unused
-``EvidenceOwnershipManifestAdapter`` closure; eight operational adapters remain.
+``EvidenceOwnershipManifestAdapter`` closure. The v2 Task-graph cutover retired the two
+chain-owned adapters, leaving six operational adapters. Retired development-chain
+bytes remain non-operational history rather than supported adapter input.
 
-The relocation preserves compatibility adapter version 1 because behavior,
-public imports, and signatures did not change.  The SQLite ``dbcontrol`` package
+The remaining adapters preserve their behavior, public imports, and signatures. The
+SQLite ``dbcontrol`` package
 does not depend on these adapters.
 
 API reference
@@ -133,10 +138,6 @@ API reference
 
 .. currentmodule:: ksdft2effmass.harness.pi.local
 
-.. autoclass:: TaskRecordAdapter
-   :members:
-.. autoclass:: ChainRecordAdapter
-   :members:
 .. autoclass:: CheckpointRecordAdapter
    :members:
 .. autoclass:: AgentRecordAdapter

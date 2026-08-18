@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Replace the visually ambiguous flat production family `evidence.py`, `test_evidence.py`, and `test_evidence_*` with an explicit `evidence` domain subpackage. Reserve `test_*.py`, `test__*.py`, and `test_*` function names for actual pytest collection. Reserve `pytest` in production names for components that directly integrate with pytest.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     "602bb5d4695b590d7f55effd7bb22a7df27c097f:.pi/tasks/harness-simplification.evidence.pytest-naming.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness.simplification.evidence.naming.md"
   ],
   "authorized_scope": [

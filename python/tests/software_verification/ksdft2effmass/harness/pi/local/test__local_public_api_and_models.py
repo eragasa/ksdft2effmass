@@ -38,23 +38,19 @@ pytestmark = pytest.mark.software_verification
 
 ADAPTER_EXECUTE_PARAMETERS = {
     "AgentRecordAdapter": ("self", "agent_documents"),
-    "ChainRecordAdapter": ("self", "chain_bytes", "task_records", "activation_bytes"),
     "CheckpointRecordAdapter": ("self", "checkpoint_documents"),
     "ChecksumCatalogAdapter": ("self", "catalog_bytes"),
     "EvidenceModuleSelector": ("self", "module_payloads", "profile"),
     "OwnershipManifestAdapter": ("self", "manifest_bytes"),
     "SkillInventoryAdapter": ("self", "inventory_bytes", "descriptor_bytes"),
-    "TaskRecordAdapter": ("self", "task_documents", "chain_bytes", "activation_bytes"),
 }
 
 EXPECTED = (
     "AgentRecordAdapter",
-    "ChainRecordAdapter",
     "CheckpointRecordAdapter",
     "ChecksumCatalogAdapter",
     "OwnershipManifestAdapter",
     "SkillInventoryAdapter",
-    "TaskRecordAdapter",
     "AdaptationResult",
     "LocalHarnessContextLoader",
     "LocalHarnessContext",
@@ -91,7 +87,7 @@ def test_public_api__exports__contains_exact_maintained_names() -> None:
     """Evidence ID: SV-HL-001
 
     Requirement: The project-local package exposes exactly the maintained names, and
-    the adapter facade preserves the eight operational adapter identities.
+    the adapter facade preserves the six operational adapter identities.
 
     Method: Compare exports, runtime identities, and execute parameter names with fixed
     independent inventories.

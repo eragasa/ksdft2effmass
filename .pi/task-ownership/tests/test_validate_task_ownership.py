@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+
 from ksdft2effmass.harness.pi.local._commands import (
     validate_task_ownership as VALIDATOR,
 )
@@ -58,11 +59,39 @@ def _make_repository(
     ):
         shutil.copy2(CONTROL_ROOT / schema_name, control / schema_name)
 
-    (root / ".pi/tasks").mkdir(parents=True)
-    (root / ".pi/tasks/task.md").write_text(
-        "# Synthetic task\n\nDecision: TASK-AUTH-001\n\n"
-        "Authorized profile: evidence-branches-v1\n\n"
-        '<!-- evidence-branch-authorization {"profile":"evidence-branches-v1",'
+    task_path = root / "harness/tasks/TASK.json"
+    task_path.parent.mkdir(parents=True)
+    task_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 3,
+                "task_id": "TASK",
+                "title": "Synthetic Task",
+                "status": "active",
+                "status_detail": None,
+                "parent_task_id": None,
+                "task_prerequisite_ids": [],
+                "external_prerequisite_ids": [],
+                "superseded_by_task_ids": [],
+                "explicit_activation_required": True,
+                "objective": "Exercise operation-scoped ownership.",
+                "authority_reference_paths": ["records/authority.md"],
+                "authorized_scope": ["Validate the synthetic manifest."],
+                "completion_criteria": ["Validation is deterministic."],
+                "exclusions": ["No operation is executed."],
+                "intake_path": None,
+                "archived_source": None,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    authorization_path = root / ".pi/evidence/TASK-AUTH-001.md"
+    authorization_path.parent.mkdir(parents=True)
+    authorization_path.write_text(
+        "<!-- evidence-branch-authorization "
+        '{"profile":"evidence-branches-v1",'
         '"decision_id":"TASK-AUTH-001","authorized":true} -->\n',
         encoding="utf-8",
     )
@@ -83,6 +112,7 @@ def _make_repository(
         "ownership-v2-profile.json" if profile else "ownership-v2-no-profile.json"
     )
     manifest = _read_json(FIXTURES / "valid" / fixture_name)
+    manifest["task_record"] = "harness/tasks/TASK.json"
     if manifest_mutator is not None:
         manifest_mutator(manifest)
     manifest_path = control / "manifest.json"
@@ -90,31 +120,36 @@ def _make_repository(
 
     if profile:
         matrix = _read_json(FIXTURES / "valid/evidence-branch-matrix.json")
+        matrix["task_record"] = "harness/tasks/TASK.json"
+        matrix["authorization"]["record"] = ".pi/evidence/TASK-AUTH-001.md"
         if matrix_mutator is not None:
             matrix_mutator(matrix)
         matrix_path = root / manifest["orchestration_profile"]["branch_matrix"]
         _write_json(matrix_path, matrix)
 
-    chain = {
-        "task_sequence": [
-            {
-                "id": "TASK",
-                "record": ".pi/tasks/task.md",
-                "ownership_manifest": ".pi/task-ownership/manifest.json",
-            }
-        ]
-    }
-    chain_path = root / ".pi/chains/chain.json"
-    _write_json(chain_path, chain)
-    return root, chain_path
+    return root, task_path
 
 
-def _validate(root: Path, chain_path: Path) -> Path | None:
-    return VALIDATOR.validate(chain_path, "TASK", root=root)
+def _validate(root: Path, task_path: Path) -> Path:
+    return VALIDATOR.validate(
+        task_path,
+        root / ".pi/task-ownership/manifest.json",
+        "TASK",
+        root=root,
+    )
 
 
 def _install_invalid_matrix(root: Path, fixture_name: str) -> None:
     matrix = _read_json(FIXTURES / "invalid" / fixture_name)
+    if "task_record" in matrix:
+        matrix["task_record"] = "harness/tasks/TASK.json"
+    authorization = matrix.get("authorization")
+    if isinstance(authorization, dict) and "record" in authorization:
+        authorization["record"] = (
+            ".pi/evidence/missing-authorization.md"
+            if fixture_name == "evidence-branch-matrix-wrong-authorization.json"
+            else ".pi/evidence/TASK-AUTH-001.md"
+        )
     _write_json(
         root / ".pi/task-ownership/tests/fixtures/valid/evidence-branch-matrix.json",
         matrix,
@@ -132,7 +167,9 @@ def _expect_failure(
 def test_current_version_1_p1_manifest_remains_valid() -> None:
     """The durable P1 version-1 manifest retains its compatibility behavior."""
     path = VALIDATOR.validate(
-        REPOSITORY_ROOT / ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+        REPOSITORY_ROOT / "harness/tasks/P1.json",
+        REPOSITORY_ROOT
+        / ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
         "P1",
         root=REPOSITORY_ROOT,
     )
@@ -142,30 +179,14 @@ def test_current_version_1_p1_manifest_remains_valid() -> None:
     )
 
 
-def test_single_writer_without_mutating_delegation_needs_no_manifest(
-    tmp_path: Path,
-) -> None:
-    """Explicitly nondelegated mutation has no delegated ownership to validate."""
-    root, chain_path = _make_repository(tmp_path, profile=False)
-    chain = _read_json(chain_path)
-    task = chain["task_sequence"][0]
-    task.pop("ownership_manifest")
-    task["mutating_delegation_authorized"] = False
-    _write_json(chain_path, chain)
+def test_explicit_task_identity_mismatch_fails(tmp_path: Path) -> None:
+    """The operation-scoped Task input must match the requested identity."""
+    root, task_path = _make_repository(tmp_path, profile=False)
+    task = _read_json(task_path)
+    task["task_id"] = "OTHER"
+    _write_json(task_path, task)
 
-    assert _validate(root, chain_path) is None
-
-
-def test_mutating_delegation_without_manifest_fails(tmp_path: Path) -> None:
-    """Authorized mutating delegation remains fail-closed without a manifest."""
-    root, chain_path = _make_repository(tmp_path, profile=False)
-    chain = _read_json(chain_path)
-    task = chain["task_sequence"][0]
-    task.pop("ownership_manifest")
-    task["mutating_delegation_authorized"] = True
-    _write_json(chain_path, chain)
-
-    _expect_failure(root, chain_path, "must explicitly prohibit mutating delegation")
+    _expect_failure(root, task_path, "identity does not match")
 
 
 def test_declared_manifest_remains_fail_closed(tmp_path: Path) -> None:
@@ -260,19 +281,6 @@ def test_authorization_record_must_exist(tmp_path: Path) -> None:
     _expect_failure(root, chain_path, "matrix.authorization.record does not exist")
 
 
-def test_authorization_record_must_be_the_durable_task_record(
-    tmp_path: Path,
-) -> None:
-    """A different record cannot authorize the matrix even with matching prose."""
-    root, chain_path = _make_repository(tmp_path)
-    (root / ".pi/tasks/other.md").write_text(
-        "Decision TASK-AUTH-001 authorizes evidence-branches-v1.\n",
-        encoding="utf-8",
-    )
-    _install_invalid_matrix(root, "evidence-branch-matrix-wrong-authorization.json")
-    _expect_failure(root, chain_path, "must equal the manifest/task record")
-
-
 @pytest.mark.parametrize(
     ("task_text", "match"),
     [
@@ -302,7 +310,10 @@ def test_authorization_record_requires_exact_affirmative_marker(
 ) -> None:
     """Negation or mismatched structured fields cannot authorize the profile."""
     root, chain_path = _make_repository(tmp_path)
-    (root / ".pi/tasks/task.md").write_text(task_text, encoding="utf-8")
+    (root / ".pi/evidence/TASK-AUTH-001.md").write_text(
+        task_text,
+        encoding="utf-8",
+    )
     _expect_failure(root, chain_path, match)
 
 
@@ -513,31 +524,19 @@ def test_correction_cycle_limit_greater_than_one_is_rejected(
     )
 
 
-def test_cli_chain_success_missing_task_and_malformed_input(tmp_path: Path) -> None:
+def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
     """The public CLI reports stable output streams and nonzero failures."""
-    chain_path = tmp_path / "chain.json"
-    _write_json(
-        chain_path,
-        {
-            "task_sequence": [
-                {
-                    "id": "P1",
-                    "record": ".pi/tasks/backend-neutral-cpn-P1-contract.md",
-                    "ownership_manifest": (
-                        ".pi/evidence/backend-neutral-cpn-P1-contract/"
-                        "task-ownership.json"
-                    ),
-                }
-            ]
-        },
-    )
+    task_record = "harness/tasks/P1.json"
+    manifest = ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
     command = [
         sys.executable,
         str(VALIDATOR_PATH),
         "--repository-root",
         str(REPOSITORY_ROOT),
-        "--chain",
-        str(chain_path),
+        "--task-record",
+        task_record,
+        "--ownership-manifest",
+        manifest,
     ]
 
     passed = subprocess.run(
@@ -553,33 +552,25 @@ def test_cli_chain_success_missing_task_and_malformed_input(tmp_path: Path) -> N
         ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json\n"
     )
 
-    missing = subprocess.run(
+    mismatch = subprocess.run(
         [*command, "--task", "MISSING"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert mismatch.returncode == 1
+    assert mismatch.stdout == ""
+    assert "identity does not match" in mismatch.stderr
+
+    missing_command = command.copy()
+    missing_command[5] = "harness/tasks/does-not-exist.json"
+    missing = subprocess.run(
+        [*missing_command, "--task", "P1"],
         check=False,
         capture_output=True,
         text=True,
     )
     assert missing.returncode == 1
     assert missing.stdout == ""
-    assert "expected exactly one chain task 'MISSING'" in missing.stderr
-
-    malformed_path = tmp_path / "malformed.json"
-    malformed_path.write_text("{not-json\n", encoding="utf-8")
-    malformed = subprocess.run(
-        [
-            sys.executable,
-            str(VALIDATOR_PATH),
-            "--repository-root",
-            str(REPOSITORY_ROOT),
-            "--chain",
-            str(malformed_path),
-            "--task",
-            "P1",
-        ],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert malformed.returncode == 1
-    assert malformed.stdout == ""
-    assert "task ownership preflight failed: cannot load" in malformed.stderr
+    assert "No such file or directory" in missing.stderr
+    assert "Traceback" not in missing.stderr

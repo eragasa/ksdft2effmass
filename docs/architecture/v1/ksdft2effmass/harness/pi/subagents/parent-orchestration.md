@@ -40,5 +40,7 @@ The default direct-work flow is implementation, proportionate checks, and a conc
 
 - Parent classification of direct versus managed work and inspection of only applicable authority is procedural rather than enforced by a typed launch request.
 - No project-local operation derives a minimal child context from authoritative records.
-- Harness `.pi/chains/*.chain.json` share a discovery namespace with Pi chain compatibility behavior even though they are development-control records, not subagent workflow definitions.
+- Retired development-chain records are outside Pi's compatibility-chain discovery
+  namespace; historical content remains under
+  `harness/archive/task-control-v1/chains/` and is not launchable.
 - Child prompts may repeat policy already present in inherited project context.

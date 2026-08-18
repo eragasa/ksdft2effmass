@@ -1,4 +1,4 @@
-"""Fail closed when a chain task lacks explicit implementation/test ownership."""
+"""Validate one explicit operation-scoped task-ownership manifest."""
 
 from __future__ import annotations
 
@@ -13,8 +13,9 @@ from typing import Any
 
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
+from ..task_model import HarnessTaskDeserializer
+
 ROOT = Path(__file__).resolve().parents[7]
-DEFAULT_CHAIN = Path(".pi/chains/backend-neutral-kohn-sham-qe.chain.json")
 AGENT_NAME = re.compile(r"^name:\s*(\S+)\s*$", re.MULTILINE)
 ACCEPTANCE_ROLE = re.compile(r"^acceptanceRole:\s*(\S+)\s*$", re.MULTILINE)
 PYTHON_COMMAND = re.compile(r"^(?:python|python3|python3\.\d+)$")
@@ -159,14 +160,14 @@ def _paths_overlap(left: set[str], right: set[str]) -> bool:
 
 
 def _validate_v1(
-    manifest: dict[str, Any], task: dict[str, Any], task_id: str, root: Path
+    manifest: dict[str, Any], task_record_path: Path, task_id: str, root: Path
 ) -> None:
     """Validate version 1, including its bounded Task-JSON cutover rule.
 
-    An absent legacy ``.pi/tasks/*.md`` binding remains valid only when the chain
-    retains that exact binding or selects an existing ``harness/tasks/*.json`` record
-    with the same Task identity. In that legacy-only case, manifest-owned path scope
-    remains authoritative even when simplified current agent prose omits old paths.
+    An absent legacy ``.pi/tasks/*.md`` binding remains valid when the explicit
+    canonical input is an existing ``harness/tasks/*.json`` record with the same
+    Task identity. In that legacy-only case, manifest-owned path scope remains
+    authoritative even when simplified current agent prose omits old paths.
     """
     if manifest.get("schema_version") != 1 or manifest.get("task_id") != task_id:
         raise OwnershipValidationError(
@@ -178,19 +179,17 @@ def _validate_v1(
         root,
         must_exist=False,
     )
-    chain_task_record = _repo_path(
-        task.get("record"), "task.record", root, must_exist=False
-    )
+    canonical_task_record = task_record_path
     legacy_relative = task_record.relative_to(root).as_posix()
     legacy_compatibility = (
         legacy_relative.startswith(".pi/tasks/")
         and legacy_relative.endswith(".md")
         and not task_record.exists()
     )
-    if task_record != chain_task_record:
-        current_relative = chain_task_record.relative_to(root).as_posix()
+    if task_record != canonical_task_record:
+        current_relative = canonical_task_record.relative_to(root).as_posix()
         current_task = (
-            _load_json(chain_task_record) if chain_task_record.is_file() else {}
+            _load_json(canonical_task_record) if canonical_task_record.is_file() else {}
         )
         compatible_cutover = (
             legacy_compatibility
@@ -200,7 +199,7 @@ def _validate_v1(
         )
         if not compatible_cutover:
             raise OwnershipValidationError(
-                "manifest task_record does not match the chain"
+                "manifest task_record does not match the explicit canonical Task"
             )
 
     owners = manifest.get("owners")
@@ -488,7 +487,7 @@ def _validate_acyclic(branches: list[dict[str, Any]]) -> None:
 def _validate_matrix(
     matrix: dict[str, Any],
     manifest: dict[str, Any],
-    task: dict[str, Any],
+    task_record_path: Path,
     writers: dict[str, tuple[str, list[str]]],
     reviewer_roles: set[str],
     completion_path: str,
@@ -500,8 +499,10 @@ def _validate_matrix(
     if matrix["task_id"] != manifest["task_id"]:
         raise OwnershipValidationError("matrix.task_id does not match the manifest")
     matrix_task_record = _repo_path(matrix["task_record"], "matrix.task_record", root)
-    if matrix_task_record != _repo_path(task["record"], "task.record", root):
-        raise OwnershipValidationError("matrix.task_record does not match the chain")
+    if matrix_task_record != task_record_path:
+        raise OwnershipValidationError(
+            "matrix.task_record does not match the explicit canonical Task"
+        )
     if matrix["profile"] != manifest["orchestration_profile"]["profile"]:
         raise OwnershipValidationError("matrix.profile does not match the manifest")
 
@@ -509,14 +510,21 @@ def _validate_matrix(
     authorization_record = _repo_path(
         authorization["record"], "matrix.authorization.record", root
     )
-    if authorization_record != matrix_task_record or (
-        authorization_record
-        != _repo_path(manifest["task_record"], "manifest.task_record", root)
+    manifest_task_record = _repo_path(
+        manifest["task_record"], "manifest.task_record", root
+    )
+    if task_record_path.suffix != ".json" and (
+        authorization_record != matrix_task_record
+        or authorization_record != manifest_task_record
     ):
         raise OwnershipValidationError(
-            "matrix.authorization.record must equal the manifest/task record"
+            "legacy matrix.authorization.record must equal the manifest/task record"
         )
     authorization_text = authorization_record.read_text(encoding="utf-8")
+    if authorization_record.suffix == ".json":
+        authorization_object = _load_json(authorization_record)
+        marker = authorization_object.get("authorization_marker")
+        authorization_text = marker if isinstance(marker, str) else authorization_text
     _validate_authorization_marker(
         authorization_text,
         authorization["decision_id"],
@@ -667,15 +675,19 @@ def _validate_matrix(
 
 
 def _validate_v2(
-    manifest: dict[str, Any], task: dict[str, Any], task_id: str, root: Path
+    manifest: dict[str, Any], task_record_path: Path, task_id: str, root: Path
 ) -> None:
     if manifest["task_id"] != task_id:
-        raise OwnershipValidationError("manifest.task_id does not match the chain task")
+        raise OwnershipValidationError(
+            "manifest.task_id does not match the requested Task"
+        )
     manifest_task_record = _repo_path(
         manifest["task_record"], "manifest.task_record", root
     )
-    if manifest_task_record != _repo_path(task.get("record"), "task.record", root):
-        raise OwnershipValidationError("manifest.task_record does not match the chain")
+    if manifest_task_record != task_record_path:
+        raise OwnershipValidationError(
+            "manifest.task_record does not match the explicit canonical Task"
+        )
 
     writers: dict[str, tuple[str, list[str]]] = {}
     writer_agents: set[str] = set()
@@ -736,7 +748,7 @@ def _validate_v2(
     _validate_matrix(
         matrix,
         manifest,
-        task,
+        task_record_path,
         writers,
         reviewer_roles,
         completion_path,
@@ -745,38 +757,47 @@ def _validate_v2(
     )
 
 
-def validate(chain_path: Path, task_id: str, *, root: Path = ROOT) -> Path | None:
-    """Validate one task's applicable delegated-ownership preflight."""
+def validate(
+    task_record_path: Path,
+    manifest_path: Path,
+    task_id: str,
+    *,
+    root: Path = ROOT,
+) -> Path:
+    """Validate one explicitly supplied operation-scoped ownership manifest."""
     root = root.resolve()
-    chain = _load_json(chain_path)
-    tasks = chain.get("task_sequence")
-    if not isinstance(tasks, list):
-        raise OwnershipValidationError("chain.task_sequence must be an array")
-    matches = [
-        task for task in tasks if isinstance(task, dict) and task.get("id") == task_id
-    ]
-    if len(matches) != 1:
-        raise OwnershipValidationError(f"expected exactly one chain task {task_id!r}")
-    task = matches[0]
-    declared_manifest = task.get("ownership_manifest")
-    if declared_manifest is None:
-        if task.get("mutating_delegation_authorized") is False:
-            return None
+    task_record_path = task_record_path.resolve(strict=True)
+    manifest_path = manifest_path.resolve(strict=True)
+    for path, field in (
+        (task_record_path, "task_record"),
+        (manifest_path, "ownership_manifest"),
+    ):
+        try:
+            path.relative_to(root)
+        except ValueError as error:
+            raise OwnershipValidationError(
+                f"{field} must be inside repository_root"
+            ) from error
+    try:
+        task = HarnessTaskDeserializer().execute(task_record_path.read_bytes())
+    except (OSError, TypeError, ValueError) as error:
         raise OwnershipValidationError(
-            "task without an ownership manifest must explicitly prohibit "
-            "mutating delegation"
+            f"explicit Task record is not a canonical HarnessTask: {error}"
+        ) from error
+    if task.task_id != task_id:
+        raise OwnershipValidationError(
+            "explicit Task record identity does not match --task"
         )
-    manifest_path = _repo_path(declared_manifest, "task.ownership_manifest", root)
     manifest = _load_json(manifest_path)
     schema_version = manifest.get("schema_version")
     if schema_version == 1:
         schema_path = root / ".pi/task-ownership/ownership.schema.json"
         _validate_schema(manifest, schema_path, "manifest")
-        _validate_v1(manifest, task, task_id, root)
+        _validate_v1(manifest, task_record_path, task_id, root)
     elif schema_version == 2:
         schema_path = root / ".pi/task-ownership/ownership-v2.schema.json"
         _validate_schema(manifest, schema_path, "manifest")
-        _validate_v2(manifest, task, task_id, root)
+        _validate_v2(manifest, task_record_path, task_id, root)
     else:
         raise OwnershipValidationError(
             "manifest.schema_version must select supported version 1 or 2"
@@ -789,22 +810,29 @@ def run(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository-root", required=True, type=Path)
     parser.add_argument("--task", required=True)
-    parser.add_argument("--chain", type=Path, default=DEFAULT_CHAIN)
+    parser.add_argument("--task-record", required=True, type=Path)
+    parser.add_argument("--ownership-manifest", required=True, type=Path)
     arguments = parser.parse_args(argv)
-    root = arguments.repository_root.resolve(strict=True)
-    chain_path = (
-        arguments.chain if arguments.chain.is_absolute() else root / arguments.chain
-    )
     try:
-        manifest_path = validate(chain_path, arguments.task, root=root)
-    except OwnershipValidationError as error:
+        root = arguments.repository_root.resolve(strict=True)
+        task_record_path = (
+            arguments.task_record
+            if arguments.task_record.is_absolute()
+            else root / arguments.task_record
+        )
+        ownership_manifest_path = (
+            arguments.ownership_manifest
+            if arguments.ownership_manifest.is_absolute()
+            else root / arguments.ownership_manifest
+        )
+        manifest_path = validate(
+            task_record_path,
+            ownership_manifest_path,
+            arguments.task,
+            root=root,
+        )
+    except (OSError, OwnershipValidationError) as error:
         print(f"task ownership preflight failed: {error}", file=sys.stderr)
         return 1
-    if manifest_path is None:
-        print(
-            "task ownership preflight passed: mutating delegation explicitly "
-            "unauthorized; no ownership manifest required"
-        )
-    else:
-        print(f"task ownership preflight passed: {manifest_path.relative_to(root)}")
+    print(f"task ownership preflight passed: {manifest_path.relative_to(root)}")
     return 0

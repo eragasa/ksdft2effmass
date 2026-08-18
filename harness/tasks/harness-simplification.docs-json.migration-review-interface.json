@@ -11,9 +11,9 @@
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.docs-json.migration-review-interface`",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/skills/mediate-harness-task-migration/SKILL.md",
     ".pi/task-ownership/README.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.docs-json.migration-review-interface.md",
     "harness/local/skills/mediate-harness-task-migration/SKILL.md",
     "origin/dev"

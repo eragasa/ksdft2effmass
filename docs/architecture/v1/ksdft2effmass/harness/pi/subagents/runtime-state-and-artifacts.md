@@ -13,7 +13,7 @@ Pi may retain:
 - external receipts; and
 - managed-worktree handoff manifests and patches.
 
-These are Pi runtime and recovery records. They are not canonical Harness Task, `DevelopmentTaskSelection`, checkpoint, ownership, scientific workflow, or human-acceptance records. Transitional chains remain compatibility projections rather than runtime authority.
+These are Pi runtime and recovery records. They are not canonical Harness Task, Task graph, `DevelopmentTaskSelection`, checkpoint, ownership, scientific workflow, or human-acceptance records. Retired chain bytes remain non-operational history rather than runtime authority.
 
 ## Missions and runs
 

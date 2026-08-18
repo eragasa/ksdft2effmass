@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "After publication hierarchy normalization, compare human-readable material under `docs/` with the selected JSON control surface and explicitly selected transitional control records. Apply repository precedence to identify deterministic documentation corrections and isolate only genuinely unresolved authority questions.\n\nThe catalog set is a temporary migration aid, not authority, a runtime registry, or permanent architecture.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     "docs",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.authority-catalog.md"
   ],
   "authorized_scope": [

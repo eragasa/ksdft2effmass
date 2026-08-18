@@ -15,7 +15,7 @@
   "explicit_activation_required": true,
   "objective": "Mechanically demonstrate that the accepted generic extraction unit can become a standalone package without publishing it, while the project-local overlay continues to work against the package candidate.",
   "authority_reference_paths": [
-    ".pi/chains/pi-harness-incubation.chain.json",
+    "harness/archive/task-control-v1/chains/pi-harness-incubation.chain.json",
     "harness/archive/task-control-v1/tasks/H5.md"
   ],
   "authorized_scope": [

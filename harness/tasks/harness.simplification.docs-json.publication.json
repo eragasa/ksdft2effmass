@@ -11,7 +11,7 @@
   "explicit_activation_required": false,
   "objective": "Triage publication-preparation files and apply one coherent hierarchy before documentation/control-surface comparison.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.md"
   ],
   "authorized_scope": [

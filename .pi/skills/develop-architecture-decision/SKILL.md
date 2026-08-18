@@ -11,7 +11,7 @@ Read [the complete conventions](references/architecture-decision-conventions.md)
 
 ## Inputs
 
-Require a correlated request identity, task and parent-workflow identities, attempt identity, immutable artifact references, authority order, decision scope, expected output locations/schema, and termination policy. Inspect unresolved checkpoints, the controlling chain, referenced tasks, durable human decisions, accepted contracts, relevant source and maintained documentation in authority order. Do not treat historical ownership or evidence as current authority.
+Require a correlated request identity, task and parent-workflow identities, attempt identity, immutable artifact references, authority order, decision scope, expected output locations/schema, and termination policy. Inspect unresolved checkpoints, canonical Task and selection state, durable human decisions, accepted contracts, relevant source and maintained documentation in authority order. Do not treat historical ownership or evidence as current authority.
 
 Separate every material statement as an observed fact, inference, human choice, implementation consequence, or deferred question. Identify conflicts rather than resolving them by preference.
 

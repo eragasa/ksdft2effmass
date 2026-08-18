@@ -4,7 +4,8 @@
 
 | Path | Authority or responsibility |
 |---|---|
-| `.pi/chains/` | Chain membership, active development selection, and retained activation history |
+| `harness/archive/task-control-v1/chains/` | Non-operational retained v1 development-chain history |
+| `harness/task-selection.json` | Canonical minimal current development selection |
 | `.pi/checkpoints/` | Unresolved and resolved human-decision records |
 | `.pi/agents/`, `.pi/skills/`, `.agents/skills/` | Durable roles and procedures; not activation authority |
 | `.pi/evidence/` | Retained development evidence with declared claim boundaries |

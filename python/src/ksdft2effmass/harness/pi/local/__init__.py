@@ -7,13 +7,11 @@ explicitly provide roots, bytes, and records. Generic policy is consumed through
 
 from .adapters import (
     AgentRecordAdapter,
-    ChainRecordAdapter,
     CheckpointRecordAdapter,
     ChecksumCatalogAdapter,
     EvidenceModuleSelector,
     OwnershipManifestAdapter,
     SkillInventoryAdapter,
-    TaskRecordAdapter,
 )
 from .context import LocalHarnessContextLoader
 from .models import (
@@ -45,12 +43,10 @@ from .validation import (
 
 __all__ = [
     "AgentRecordAdapter",
-    "ChainRecordAdapter",
     "CheckpointRecordAdapter",
     "ChecksumCatalogAdapter",
     "OwnershipManifestAdapter",
     "SkillInventoryAdapter",
-    "TaskRecordAdapter",
     "AdaptationResult",
     "LocalHarnessContextLoader",
     "LocalHarnessContext",

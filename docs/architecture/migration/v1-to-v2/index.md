@@ -13,8 +13,9 @@ transfer; it is not a source-move plan, alias policy, compatibility promise, or
 claim that a prospective package exists.
 
 Current human instructions own ordinary direct work. Canonical Task records and
-`harness/task-selection.json`, not this page, own managed Task content and
-current selection. Transitional chains remain compatibility records. No mapping
+`harness/task-graph.json` own managed Task content and topology;
+`harness/task-selection.json` owns current selection. Retired chains remain
+non-operational history outside Pi discovery. No mapping
 row activates work or authorizes a dependency change, protected execution,
 publication, or release.
 

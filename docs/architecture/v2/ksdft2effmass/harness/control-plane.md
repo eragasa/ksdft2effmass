@@ -59,8 +59,12 @@ A decision record grants no authority. Candidate-independent authorization remai
 The project-local version-1 ``DevelopmentTaskSelection`` wire format is persisted
 separately as ``harness/task-selection.json``. It contains only the active Task
 reference, explicit activation-receipt references, and literal disabled automatic
-succession. It neither embeds Task records nor grants authority. Reader cutover and
-final Architecture v2 aggregate persistence remain incremental migration work.
+succession. It neither embeds Task records nor grants authority. Bounded Task-state
+inspection now consumes exact Task and selection paths and an optional explicitly
+supplied operation-scoped ownership manifest. It does not read development chains,
+SQLite, generated projections, or an ownership registry. Retired v1 chain history is
+outside Pi discovery under ``harness/archive/task-control-v1/chains/``. Final
+Architecture v2 aggregate persistence remains incremental migration work.
 
 - Exact closed lifecycle vocabulary for routine versus reviewed development work.
 - Whether multiple independent repository scopes may have concurrent selections.

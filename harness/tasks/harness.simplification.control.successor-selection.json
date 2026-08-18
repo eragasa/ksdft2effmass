@@ -13,7 +13,7 @@
   "explicit_activation_required": true,
   "objective": "After prerequisite work is complete, present eligible harness-simplification successors for a current human selection and record exactly one explicit activation without inferring continuation from documentation, completion, ordering, or agent recommendation.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/intake/harness.simplification.control.successor-selection.intake.md"
   ],
   "authorized_scope": [

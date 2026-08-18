@@ -13,10 +13,10 @@
   "explicit_activation_required": true,
   "objective": "`EXTRACTABLE`;\n\n`SPLIT_GENERIC_AND_LOCAL`;\n\n`KEEP_PROJECT_LOCAL`;\n\n`RETIRE_AS_DUPLICATE`;\n\n`DEFER`.",
   "authority_reference_paths": [
-    ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
     ".pi/evidence/pi-harness-incubation/H0",
     "docs/harness",
+    "harness/archive/task-control-v1/chains/pi-harness-incubation.chain.json",
     "harness/archive/task-control-v1/tasks/H0.md",
     "harness/local",
     "harness/pi",

@@ -17,7 +17,7 @@
   "explicit_activation_required": false,
   "objective": "Implement verified Wannier90 capabilities and two-phase preprocessing/localization/interpolation request, result, failure, retry, adaptation, and acceptance transitions.\n\n`wannier90.x -pp`, localization/interpolation, and optional `postw90.x` are distinct capabilities. Guards perform no execution or I/O. Results retain common-parent lineage and validation state needed by later Wannier-TB construction and comparison. No real execution without the production checkpoint.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P9.md"
   ],
   "authorized_scope": [

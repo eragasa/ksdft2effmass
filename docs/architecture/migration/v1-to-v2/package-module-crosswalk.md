@@ -65,7 +65,7 @@ composition.
 
 | V1 as-built module family | V2 owner or contract | Transition |
 |---|---|---|
-| `harness.pi.chains` | Harness Task registry, `DevelopmentTaskSelection`, and transitional compatibility input | Remove independent chain topology and selection authority after all readers migrate |
+| `harness.pi.chains` | Generic in-memory compatibility types only | Independent chain topology, selection authority, adapters, and filesystem readers are retired |
 | `harness.pi.task_state` | Harness bounded inspection over canonical Task and selection state | Replace chain-centric inspection without creating a second Task graph |
 | `harness.pi.wire.tasks` | Harness Task and selection serializers/deserializers | Preserve accepted Task wire behavior; add only separately accepted selection and registry contracts |
 | `harness.pi.checkpoints` | Harness development decisions under the root v2 human-decision contract | Transform losslessly; unresolved, ambiguous, and conflicting records remain unresolved |

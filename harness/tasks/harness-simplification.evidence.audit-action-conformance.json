@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.evidence.audit-action-conformance`",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/skills/audit_evidence_identifiers.py",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.evidence.audit-action-conformance.md",
     "origin/dev"
   ],

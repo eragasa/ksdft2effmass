@@ -14,11 +14,11 @@
   "objective": "Accept the executable-tool and proportional-execution contract in `docs/harness/ksdft2effmass.harness.010.030.030.md`.",
   "authority_reference_paths": [
     ".pi/agents/ksdft2effmass-tests.md",
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/skills/skill-capability-inventory.json",
     "docs/harness/ksdft2effmass.harness.010.030.000.md",
     "docs/harness/ksdft2effmass.harness.010.030.010.md",
     "docs/harness/ksdft2effmass.harness.010.030.030.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.agents.executable-tool-placement-contract.md",
     "harness/local",
     "harness/pi",

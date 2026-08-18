@@ -13,7 +13,7 @@
   "explicit_activation_required": false,
   "objective": "Task identity: `harness-simplification.resources.manifest-refresh`",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.resources.manifest-refresh.md",
     "origin/dev"
   ],

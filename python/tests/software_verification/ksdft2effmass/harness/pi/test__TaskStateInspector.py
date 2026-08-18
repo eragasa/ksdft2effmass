@@ -6,25 +6,24 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-This module verifies bounded resolution of one task's declared durable repository state.
+This module verifies bounded inspection of exact canonical Task, selection, and
+optional operation-scoped ownership inputs.
 
 Intrinsic and cross-object scope
 
-The sole SUT is ``TaskStateInspector``; controlled repository trees and literal chain
-and
-ownership documents supply independent path, ordering, and missing-state oracles.
+The sole SUT is ``TaskStateInspector``; controlled literal documents provide
+independent identity, path, ordering, and failure oracles.
 
 VVUQ and scientific exclusions
 
-Passing establishes bounded software inspection only, not interactive run history,
-review independence, numerical verification, scientific validation, UQ, or acceptance.
+Passing establishes bounded software inspection only, not authority, execution,
+numerical verification, scientific validation, UQ, or acceptance.
 """
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
 
 import pytest
 
@@ -37,160 +36,137 @@ from ksdft2effmass.harness.pi import (
 pytestmark = pytest.mark.software_verification
 SUT = TaskStateInspector
 TASK_ID = "example.task"
-CHAIN_PATH = ".pi/chains/example.json"
-TASK_PATH = ".pi/tasks/example.md"
+TASK_PATH = "harness/tasks/example.json"
+SELECTION_PATH = "harness/task-selection.json"
 OWNERSHIP_PATH = ".pi/task-ownership/example.json"
 COMPLETION_PATH = "tools/check.py"
-ARTIFACT_PATH = "records/artifact.json"
-JSON_TASK_PATH = ".pi/tasks/example.json"
 
 
-def write_harness_configuration(
-    root: Path,
-    *,
-    state_database_path: str = "harness/state/harness-control.sqlite3",
-) -> None:
-    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078, SV-HARNESS-171, and SV-HARNESS-183.
+def write_repository(root: Path, *, selected: str | None = None) -> None:
+    """Evidence ID: Owns no identifier; supports the TaskStateInspector cases.
 
-    Requirement: Task-state evidence requires canonical configuration and Pi inputs.
+    Requirement: Action evidence requires one controlled explicit-input tree.
 
-    Method: Copy the maintained source shape, replace only the controlled database
-    path, and write minimal valid Pi settings below the supplied root.
+    Method: Write literal Task, selection, ownership, and completion files.
 
-    Oracle: The maintained source fixes member order while the argument fixes the
-    persistence path used by each case.
+    Oracle: The literal documents independently fix every supplied path.
 
-    Acceptance: Both exact source files are available without adding another
-    configuration route.
+    Acceptance: Create exactly the declared controlled files.
 
-    Interpretation: Failure supports fixture diagnosis rather than action correctness.
+    Interpretation: Failure supports fixture diagnosis only.
 
-    Limitations: This helper owns no independent evidence result.
-    """  # noqa: E501
-    repository_root = Path(__file__).resolve().parents[6]
-    source = json.loads((repository_root / "harness/configuration.json").read_text())
-    source["persistence"]["state_database_path"] = state_database_path
-    destination = root / "harness/configuration.json"
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(
-        json.dumps(source, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
-    )
-    settings = root / ".pi/settings.json"
-    settings.parent.mkdir(parents=True, exist_ok=True)
-    settings.write_text('{"subagents":{"agentOverrides":{}}}')
-
-
-def write_controlled_repository(
-    root: Path,
-    *,
-    task_id: str = TASK_ID,
-    task_record: str = TASK_PATH,
-    ownership_path: str = OWNERSHIP_PATH,
-    extra_task_fields: dict[str, Any] | None = None,
-) -> None:
-    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078
-    and SV-HARNESS-171.
-
-    Requirement: Action evidence requires one explicit controlled durable-state tree.
-
-    Method: Write literal chain, task, ownership, completion, and artifact files below
-    one root.
-
-    Oracle: The literal documents independently declare every path the action may
-    inspect.
-
-    Acceptance: The helper creates only the named controlled files and applies explicit
-    task fields.
-
-    Interpretation: Failure supports diagnosis of fixture setup rather than action
-    correctness.
-
-    Limitations: The helper owns no evidence and does not invoke the SUT.
+    Limitations: The helper does not invoke the SUT.
     """
-    write_harness_configuration(root)
-    chain = {
-        "name": "example",
-        "active_task": None,
-        "task_sequence": [
-            {
-                "id": task_id,
-                "record": task_record,
-                "ownership_manifest": ownership_path,
-                "prerequisites": [],
-                "status": "completed",
-                "artifact_paths": [ARTIFACT_PATH],
-                **(extra_task_fields or {}),
-            }
-        ],
-    }
-    ownership = {
-        "schema_version": 2,
-        "task_id": TASK_ID,
-        "task_record": TASK_PATH,
-        "owners": {
-            "writers": [
-                {"role": "tests", "agent": "z-writer", "owned_paths": ["tests"]},
-                {"role": "implementation", "agent": "a-writer", "owned_paths": ["src"]},
-            ],
-            "reviewers": [
-                {"role": "review-z", "agent": "z-reviewer"},
-                {"role": "review-a", "agent": "a-reviewer"},
-            ],
-        },
-        "completion_validator": {
-            "path": COMPLETION_PATH,
-            "command": ["python", COMPLETION_PATH],
-            "required_before_review": True,
-        },
-    }
-    chain_path = root / CHAIN_PATH
-    chain_path.parent.mkdir(parents=True, exist_ok=True)
-    chain_path.write_text(json.dumps(chain))
     task_path = root / TASK_PATH
-    task_path.parent.mkdir(parents=True, exist_ok=True)
-    task_path.write_text("# Example task\n\nStatus: completed\n")
-    ownership_file = root / OWNERSHIP_PATH
-    ownership_file.parent.mkdir(parents=True, exist_ok=True)
-    ownership_file.write_text(json.dumps(ownership))
-    completion_path = root / COMPLETION_PATH
-    completion_path.parent.mkdir(parents=True, exist_ok=True)
-    completion_path.write_text("# controlled completion artifact\n")
-    artifact_path = root / ARTIFACT_PATH
-    artifact_path.parent.mkdir(parents=True, exist_ok=True)
-    artifact_path.write_text("{}\n")
+    task_path.parent.mkdir(parents=True)
+    task_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 3,
+                "task_id": TASK_ID,
+                "title": "Example Task",
+                "status": "completed",
+                "status_detail": None,
+                "parent_task_id": None,
+                "task_prerequisite_ids": [],
+                "external_prerequisite_ids": [],
+                "superseded_by_task_ids": [],
+                "explicit_activation_required": True,
+                "objective": "Provide controlled inspection input.",
+                "authority_reference_paths": ["records/authority.md"],
+                "authorized_scope": ["Inspect controlled inputs."],
+                "completion_criteria": ["Inspection is deterministic."],
+                "exclusions": ["No authority is inferred."],
+                "intake_path": None,
+                "archived_source": None,
+            }
+        )
+    )
+    selection_path = root / SELECTION_PATH
+    selection_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "active_task_id": selected,
+                "explicit_activation_receipt_ids": [],
+                "automatic_successor_activation": False,
+            }
+        )
+    )
+    ownership_path = root / OWNERSHIP_PATH
+    ownership_path.parent.mkdir(parents=True)
+    ownership_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 2,
+                "task_id": TASK_ID,
+                "task_record": TASK_PATH,
+                "owners": {
+                    "writers": [
+                        {
+                            "role": "tests",
+                            "agent": "z-writer",
+                            "owned_paths": ["tests"],
+                        },
+                        {
+                            "role": "implementation",
+                            "agent": "a-writer",
+                            "owned_paths": ["src"],
+                        },
+                    ],
+                    "reviewers": [
+                        {"role": "review-z", "agent": "z-reviewer"},
+                        {"role": "review-a", "agent": "a-reviewer"},
+                    ],
+                },
+                "completion_validator": {
+                    "path": COMPLETION_PATH,
+                    "command": ["python", COMPLETION_PATH],
+                    "required_before_review": True,
+                },
+            }
+        )
+    )
+    completion = root / COMPLETION_PATH
+    completion.parent.mkdir(parents=True)
+    completion.write_text("# controlled completion artifact\n")
 
 
-def request(root: Path, task_id: str = TASK_ID) -> TaskStateInspectionRequest:
-    """Evidence ID: Owns no identifier; supports SV-HARNESS-071 through SV-HARNESS-078
-    and SV-HARNESS-171.
+def request(root: Path, *, ownership: bool = True) -> TaskStateInspectionRequest:
+    """Evidence ID: Owns no identifier; supports the TaskStateInspector cases.
 
     Requirement: Action cases require one exact public request shape.
 
-    Method: Construct the request with the controlled absolute root and chain path.
+    Method: Construct a request from controlled constants.
 
-    Oracle: The fixture constants independently fix the selected task and chain.
+    Oracle: Constants independently fix all explicit inputs.
 
-    Acceptance: The helper returns one valid public request without filesystem
-    discovery.
+    Acceptance: Return one valid immutable request.
 
-    Interpretation: Failure supports diagnosis of fixture or request-contract drift.
+    Interpretation: Failure supports fixture diagnosis only.
 
-    Limitations: The helper owns no evidence and does not execute the action.
+    Limitations: The helper performs no filesystem reads.
     """
-    return TaskStateInspectionRequest(1, root.resolve(), CHAIN_PATH, task_id)
+    return TaskStateInspectionRequest(
+        2,
+        root.resolve(),
+        TASK_PATH,
+        SELECTION_PATH,
+        TASK_ID,
+        OWNERSHIP_PATH if ownership else None,
+    )
 
 
 def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     """Evidence ID: SV-HARNESS-071
 
-    Requirement: TaskStateInspector is a concrete stateless ActionObject.
+    Requirement: TaskStateInspector is a stateless ActionObject.
 
-    Method: Construct the action and inspect its instance storage boundary.
+    Method: Inspect instance storage and declared slots.
 
-    Oracle: The maintained-tool contract prohibits retained roots, caches, and mutable
-    state.
+    Oracle: The public contract prohibits retained roots and mutable caches.
 
-    Acceptance: The instance has no dictionary and the class declares empty slots.
+    Acceptance: The instance has no dictionary and empty slots.
 
     Interpretation: Failure identifies unauthorized retained state.
 
@@ -201,39 +177,30 @@ def test_constructor__action_object__is_stateless_and_fieldless() -> None:
     assert SUT.__slots__ == ()
 
 
-def test_method__execute_declared_state__reports_exact_bounded_records(
-    tmp_path: Path,
-) -> None:
+def test_method__execute_declared_state__reports_exact_inputs(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-072
 
-    Requirement: Execute resolves the exact selected task and only its declared durable
-    references.
+    Requirement: Execute reads only the exact Task, selection, ownership, and completion
+    inputs.
 
-    Method: Inspect a controlled valid chain with task, ownership, completion, and
-    artifact
-    files.
+    Method: Inspect a controlled valid tree.
 
-    Oracle: The literal tree fixes status, paths, completion command, and sorted role
-    identities.
+    Oracle: Literal files fix status, selection, command, and sorted assignments.
 
-    Acceptance: The result exactly reports the declared facts, read paths, and no
-    validation issues.
+    Acceptance: The result reports those facts exactly and passes validation.
 
-    Interpretation: Failure identifies task resolution, ordering, reference, or
-    result-construction
-    drift.
+    Interpretation: Failure identifies reference, parsing, or ordering drift.
 
-    Limitations: Undeclared runtime history and interactive reviewer counts remain
-    excluded.
+    Limitations: Authority and runtime history remain excluded.
     """
-    write_controlled_repository(tmp_path)
+    write_repository(tmp_path, selected=TASK_ID)
     result = SUT().execute(request(tmp_path))
     assert type(result) is TaskStateInspectionResult
     assert result.task_status == "completed"
-    assert result.active_task_id is None
-    assert result.task_record_path == TASK_PATH
+    assert result.selected_task_id == TASK_ID
+    assert result.task_path == TASK_PATH
+    assert result.selection_path == SELECTION_PATH
     assert result.ownership_manifest_path == OWNERSHIP_PATH
-    assert result.completion_validator_path == COMPLETION_PATH
     assert result.completion_command == ("python", COMPLETION_PATH)
     assert result.writers == (
         ("implementation", "a-writer"),
@@ -243,220 +210,167 @@ def test_method__execute_declared_state__reports_exact_bounded_records(
         ("review-a", "a-reviewer"),
         ("review-z", "z-reviewer"),
     )
-    assert result.artifact_paths == (ARTIFACT_PATH,)
-    assert result.durable_run_record_status == "not_declared"
-    assert result.durable_handoff_record_status == "not_declared"
     assert result.inspected_paths == result.read_paths
     assert result.validation.status == "PASS"
 
 
-def test_method__execute_json_task__uses_exact_reference_identity_and_status(
-    tmp_path: Path,
-) -> None:
+def test_method__execute_task_identity__fails_closed(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-171
 
-    Requirement: TaskStateInspector reads a JSON Task only through the selected exact
-    chain reference and obtains identity and status from that record.
+    Requirement: The explicit Task record must agree with the requested identity.
 
-    Method: Replace one controlled Markdown reference with a JSON reference, inspect it,
-    retain an irrelevant chain status field, and then change the JSON identity.
+    Method: Replace the controlled identity with a different literal identity.
 
-    Oracle: The generic inspection contract owns exact path selection, duplicate-key
-    rejection, identity agreement, and status extraction but not local Task schema
-    policy.
+    Oracle: The request and Task bytes independently establish disagreement.
 
-    Acceptance: Exact-reference inspection reports JSON status and only the JSON path;
-    identity disagreement fails with REFERENCE_INVALID.
+    Acceptance: Validation fails with REFERENCE_INVALID.
 
-    Interpretation: Failure indicates fallback discovery, chain-status precedence, local
-    policy leakage, or missing identity validation.
+    Interpretation: Failure identifies fallback discovery or identity-check loss.
 
-    Limitations: Complete project-local schema and Task/chain authority validation
-    belongs to local adapters and validators; no activation or persistence is
-    established.
+    Limitations: Complete Task schema validation belongs to the Task deserializer.
     """
-    write_controlled_repository(tmp_path)
-    chain_file = tmp_path / CHAIN_PATH
-    chain = json.loads(chain_file.read_text())
-    entry = chain["task_sequence"][0]
-    entry["record"] = JSON_TASK_PATH
-    del entry["prerequisites"]
-    chain_file.write_text(json.dumps(chain))
-    json_task = tmp_path / JSON_TASK_PATH
-    json_task.write_text(json.dumps({"task_id": TASK_ID, "status": "active"}))
-    ownership_file = tmp_path / OWNERSHIP_PATH
-    ownership = json.loads(ownership_file.read_text())
-    ownership["task_record"] = JSON_TASK_PATH
-    ownership_file.write_text(json.dumps(ownership))
-
-    json_result = SUT().execute(request(tmp_path))
-    assert json_result.task_status == "active"
-    assert json_result.task_record_path == JSON_TASK_PATH
-    assert JSON_TASK_PATH in json_result.read_paths
-    assert TASK_PATH not in json_result.read_paths
-    assert json_result.validation.status == "PASS"
-
-    json_task.write_text(json.dumps({"task_id": "different.task", "status": "active"}))
-    mismatched = SUT().execute(request(tmp_path))
-    assert mismatched.validation.status == "FAIL"
+    write_repository(tmp_path)
+    task = json.loads((tmp_path / TASK_PATH).read_text())
+    task["task_id"] = "different.task"
+    (tmp_path / TASK_PATH).write_text(json.dumps(task))
+    result = SUT().execute(request(tmp_path))
+    assert result.task_status is None
     assert any(
         issue.code == "PIH.TASK_STATE.REFERENCE_INVALID"
-        for issue in mismatched.validation.issues
+        for issue in result.validation.issues
     )
 
 
-def test_method__execute_unknown_task__reports_required_resolution_failure(
+def test_method__execute_optional_ownership__does_not_discover_manifest(
     tmp_path: Path,
 ) -> None:
     """Evidence ID: SV-HARNESS-073
 
-    Requirement: An exact task identity absent from the selected chain is an explicit
-    failure.
+    Requirement: Ownership is an optional operation-scoped input, never ambient state.
 
-    Method: Request an unknown identity from an otherwise valid controlled chain.
+    Method: Retain a manifest file but omit its path from the request.
 
-    Oracle: Exact task selection requires one and only one matching chain entry.
+    Oracle: The request fixes the complete allowed input set.
 
-    Acceptance: The result has no task status and contains PIH.TASK_STATE.TASK_MISSING.
+    Acceptance: The manifest is not inspected and assignments remain empty.
 
-    Interpretation: Failure identifies guessing, fallback selection, or missing
-    diagnostics.
+    Interpretation: Failure identifies forbidden ownership discovery.
 
-    Limitations: Similar task names and cross-chain discovery are intentionally
-    excluded.
+    Limitations: Whether an operation requires ownership is authority-policy owned.
     """
-    write_controlled_repository(tmp_path)
-    result = SUT().execute(request(tmp_path, "missing.task"))
-    assert result.task_status is None
-    assert tuple(issue.code for issue in result.validation.issues) == (
-        "PIH.TASK_STATE.TASK_MISSING",
-    )
+    write_repository(tmp_path)
+    result = SUT().execute(request(tmp_path, ownership=False))
+    assert result.validation.status == "PASS"
+    assert OWNERSHIP_PATH not in result.inspected_paths
+    assert result.writers == ()
+    assert result.reviewers == ()
 
 
 @pytest.mark.parametrize(
-    ("missing_path", "expected_result_field"),
+    "missing_path",
     (
-        pytest.param(TASK_PATH, "task_record_path", id="missing_task_record"),
-        pytest.param(
-            OWNERSHIP_PATH, "ownership_manifest_path", id="missing_ownership_record"
-        ),
+        pytest.param(TASK_PATH, id="missing_task"),
+        pytest.param(SELECTION_PATH, id="missing_selection"),
+        pytest.param(OWNERSHIP_PATH, id="missing_ownership"),
     ),
 )
-def test_method__execute_missing_required_reference__reports_exact_path(
-    tmp_path: Path,
-    missing_path: str,
-    expected_result_field: str,
+def test_method__execute_missing_reference__reports_exact_path(
+    tmp_path: Path, missing_path: str
 ) -> None:
     """Evidence ID: SV-HARNESS-074
 
-    Requirement: A declared task or ownership record that is absent is reported as
-    invalid state.
+    Requirement: Each supplied but missing reference fails at its exact path.
 
-    Method: Remove one selected required file from the controlled repository before
-    inspection.
+    Method: Remove one supplied file before inspection.
 
-    Oracle: The chain's exact reference fixes the missing path without any fallback
-    search.
+    Oracle: The request independently fixes the required path.
 
-    Acceptance: Validation fails with PIH.PATH.MISSING at the selected path while
-    retaining its
-    field.
+    Acceptance: Validation reports PIH.PATH.MISSING at that path.
 
-    Interpretation: Failure identifies silent omission, recursive fallback, or
-    path-reporting drift.
+    Interpretation: Failure identifies silent omission or fallback discovery.
 
     Limitations: Filesystem races after inspection are excluded.
     """
-    write_controlled_repository(tmp_path)
+    write_repository(tmp_path)
     (tmp_path / missing_path).unlink()
     result = SUT().execute(request(tmp_path))
-    assert getattr(result, expected_result_field) == missing_path
     assert any(
         issue.code == "PIH.PATH.MISSING" and issue.path == missing_path
         for issue in result.validation.issues
     )
 
 
-def test_method__execute_declared_missing_run__distinguishes_absence(
-    tmp_path: Path,
-) -> None:
+def test_method__execute_ownership_identity__fails_closed(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-075
 
-    Requirement: A declared-but-missing run record differs from no declared run record.
+    Requirement: An explicit ownership manifest must match the requested Task.
 
-    Method: Add one exact absent run-record path to the controlled task entry.
+    Method: Change only the manifest Task identity.
 
-    Oracle: The declaration fixes both the expected status and missing path.
+    Oracle: Request and manifest identities independently establish disagreement.
 
-    Acceptance: Run status is declared_missing and validation reports PIH.PATH.MISSING
-    there.
+    Acceptance: Validation reports OWNERSHIP_INVALID.
 
-    Interpretation: Failure identifies conflation of undeclared and invalid durable
-    runtime state.
+    Interpretation: Failure identifies cross-Task assignment acceptance.
 
-    Limitations: Interactive runtime observations are outside repository state.
+    Limitations: Authorization remains outside inspection.
     """
-    run_path = "records/run.json"
-    write_controlled_repository(
-        tmp_path,
-        extra_task_fields={"run_record_paths": [run_path]},
-    )
+    write_repository(tmp_path)
+    ownership = json.loads((tmp_path / OWNERSHIP_PATH).read_text())
+    ownership["task_id"] = "different.task"
+    (tmp_path / OWNERSHIP_PATH).write_text(json.dumps(ownership))
     result = SUT().execute(request(tmp_path))
-    assert result.run_record_paths == (run_path,)
-    assert result.durable_run_record_status == "declared_missing"
-    assert any(issue.path == run_path for issue in result.validation.issues)
+    assert any(
+        issue.code == "PIH.TASK_STATE.OWNERSHIP_INVALID"
+        for issue in result.validation.issues
+    )
 
 
-def test_method__execute_traversal_declaration__fails_without_root_escape(
-    tmp_path: Path,
-) -> None:
+def test_method__execute_malformed_selection__fails_closed(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-076
 
-    Requirement: Declared artifact paths cannot traverse above the explicit repository
-    root.
+    Requirement: Selection input is closed and automatic succession remains disabled.
 
-    Method: Supply one task entry whose artifact declaration contains a parent segment.
+    Method: Set automatic successor activation true.
 
-    Oracle: The established ResourcePath policy prohibits traversal segments.
+    Oracle: The accepted selection-v1 contract requires literal false.
 
-    Acceptance: Validation fails and no inspected or read path contains the traversal
-    value.
+    Acceptance: Validation reports REFERENCE_INVALID at the selection path.
 
-    Interpretation: Failure identifies unsafe path acceptance or an attempted root
-    escape.
+    Interpretation: Failure identifies weakened selection policy.
 
-    Limitations: Operating-system permission policy is excluded.
+    Limitations: Task eligibility and authority are excluded.
     """
-    write_controlled_repository(
-        tmp_path,
-        extra_task_fields={"artifact_paths": ["../outside.json"]},
-    )
+    write_repository(tmp_path)
+    selection = json.loads((tmp_path / SELECTION_PATH).read_text())
+    selection["automatic_successor_activation"] = True
+    (tmp_path / SELECTION_PATH).write_text(json.dumps(selection))
     result = SUT().execute(request(tmp_path))
-    assert result.validation.status == "FAIL"
-    assert "../outside.json" not in result.inspected_paths
-    assert "../outside.json" not in result.read_paths
+    assert any(
+        issue.code == "PIH.TASK_STATE.REFERENCE_INVALID"
+        and issue.path == SELECTION_PATH
+        for issue in result.validation.issues
+    )
 
 
 def test_method__execute_symlink_reference__rejects_indirection(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-077
 
-    Requirement: Exact durable references reject symlinked files and path components.
+    Requirement: Exact durable references reject symlinked components.
 
-    Method: Replace the declared task record with a symlink to a controlled regular
-    file.
+    Method: Replace the Task with a symlink to a controlled file.
 
-    Oracle: The action contract prohibits symlink traversal under the explicit root.
+    Oracle: Root confinement prohibits symlink traversal.
 
-    Acceptance: Validation contains PIH.PATH.SYMLINK for the declared task-record path.
+    Acceptance: Validation reports PIH.PATH.SYMLINK at the Task path.
 
-    Interpretation: Failure identifies filesystem-boundary weakening or hidden
-    indirection.
+    Interpretation: Failure identifies hidden indirection.
 
-    Limitations: Platforms without symlink support may skip this controlled case.
+    Limitations: Platforms without symlink support may skip.
     """
-    write_controlled_repository(tmp_path)
-    target = tmp_path / "target.md"
-    target.write_text("# target\n")
+    write_repository(tmp_path)
+    target = tmp_path / "target.json"
+    target.write_bytes((tmp_path / TASK_PATH).read_bytes())
     task = tmp_path / TASK_PATH
     task.unlink()
     try:
@@ -470,132 +384,39 @@ def test_method__execute_symlink_reference__rejects_indirection(tmp_path: Path) 
     )
 
 
-def test_method__execute_configured_database__uses_no_fixed_persistence_path(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """Evidence ID: SV-HARNESS-183
-
-    Requirement: Task-state inspection obtains its database path from the canonical
-    resolved HarnessConfiguration rather than a hard-coded consumer default.
-
-    Method: Configure a non-default database path, create that exact file, and replace
-    the SQLite reader with one controlled represented-state result.
-
-    Oracle: The source document names the only database path the action may inspect.
-
-    Acceptance: Inspection passes, reads the configured file, and never inspects the
-    historical default path.
-
-    Interpretation: Failure identifies dual persistence authority or configuration
-    cutover drift.
-
-    Limitations: SQLite decoding is owned by the database-reader evidence.
-    """
-    from ksdft2effmass.harness.pi.dbcontrol.database import _TaskStateDatabaseReader
-
-    write_controlled_repository(tmp_path)
-    configured = "configured/state.sqlite3"
-    write_harness_configuration(tmp_path, state_database_path=configured)
-    database = tmp_path / configured
-    database.parent.mkdir(parents=True, exist_ok=True)
-    database.write_bytes(b"controlled")
-    monkeypatch.setattr(
-        _TaskStateDatabaseReader,
-        "read",
-        lambda self, task_id: ("completed", False),
-    )
-
-    result = SUT().execute(request(tmp_path))
-
-    assert result.validation.status == "PASS"
-    assert configured in result.read_paths
-    assert "harness/state/harness-control.sqlite3" not in result.inspected_paths
-
-
-def test_method__execute_configured_database__rejects_symlinked_parent(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """Evidence ID: SV-HARNESS-184
-
-    Requirement: Configured database inspection fails closed before opening any path
-    whose parent component is a symlink.
-
-    Method: Point the configured database through a symlink to an outside directory and
-    replace the SQLite reader with an assertion failure.
-
-    Oracle: Root confinement prohibits every symlinked component independently of the
-    target file contents.
-
-    Acceptance: Validation reports the configured symlink path, the reader is not
-    called, and the path is absent from read paths.
-
-    Interpretation: Failure identifies an external read or ignored confinement result.
-
-    Limitations: Concurrent path replacement after inspection is outside this case.
-    """
-    from ksdft2effmass.harness.pi.dbcontrol.database import _TaskStateDatabaseReader
-
-    write_controlled_repository(tmp_path)
-    configured = "linked/state.sqlite3"
-    write_harness_configuration(tmp_path, state_database_path=configured)
-    outside = tmp_path.parent / f"{tmp_path.name}-outside"
-    outside.mkdir()
-    (outside / "state.sqlite3").write_bytes(b"outside")
-    try:
-        (tmp_path / "linked").symlink_to(outside, target_is_directory=True)
-    except OSError:
-        pytest.skip("symlink creation is unavailable")
-    monkeypatch.setattr(
-        _TaskStateDatabaseReader,
-        "read",
-        lambda self, task_id: (_ for _ in ()).throw(
-            AssertionError("database reader must not follow the symlink")
-        ),
-    )
-
-    result = SUT().execute(request(tmp_path))
-
-    assert result.validation.status == "FAIL"
-    assert any(
-        issue.code == "PIH.PATH.SYMLINK" and issue.path == configured
-        for issue in result.validation.issues
-    )
-    assert configured not in result.read_paths
-
-
-def test_method__execute_repeated_request__ignores_undeclared_decoys(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
+def test_method__execute_repeated_request__ignores_ambient_decoys(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """Evidence ID: SV-HARNESS-078
 
-    Requirement: Repeated inspection is equal and performs no recursive or directory
-    discovery.
+    Requirement: Inspection is deterministic and performs no directory discovery.
 
-    Method: Add unrelated decoy run and handoff files, prohibit Path glob/iterdir
-    methods, and
-    execute the same request twice.
+    Method: Add chain, SQLite, and unrelated decoys; prohibit discovery methods; run
+    twice.
 
-    Oracle: Only literal chain references may be inspected; decoys are undeclared and
-    irrelevant.
+    Oracle: The request names the complete inspectable input set.
 
-    Acceptance: Results are equal, discovery hooks are unused, and no decoy path is
-    reported.
+    Acceptance: Results are equal and no decoy is inspected.
 
-    Interpretation: Failure identifies retained state, nondeterminism, or forbidden
-    recursive discovery.
+    Interpretation: Failure identifies ambient authority or nondeterminism.
 
-    Limitations: Direct reads of declared files remain required operational behavior.
+    Limitations: Exact supplied reads remain required.
     """
-    write_controlled_repository(tmp_path)
-    decoys = ("unrelated/run.json", "unrelated/handoff.json")
-    run_decoy = tmp_path / decoys[0]
+    write_repository(tmp_path)
+    decoys = (
+        ".pi/chains/legacy.json",
+        "harness/state/harness-control.sqlite3",
+        "unrelated/run.json",
+    )
+    chain_decoy = tmp_path / decoys[0]
+    chain_decoy.parent.mkdir(parents=True, exist_ok=True)
+    chain_decoy.write_text("{}")
+    database_decoy = tmp_path / decoys[1]
+    database_decoy.parent.mkdir(parents=True, exist_ok=True)
+    database_decoy.write_text("{}")
+    run_decoy = tmp_path / decoys[2]
     run_decoy.parent.mkdir(parents=True, exist_ok=True)
     run_decoy.write_text("{}")
-    handoff_decoy = tmp_path / decoys[1]
-    handoff_decoy.write_text("{}")
 
     def reject_discovery(*_arguments: object, **_keywords: object) -> object:
         raise AssertionError("directory discovery is prohibited")
@@ -603,8 +424,9 @@ def test_method__execute_repeated_request__ignores_undeclared_decoys(
     monkeypatch.setattr(Path, "glob", reject_discovery)
     monkeypatch.setattr(Path, "rglob", reject_discovery)
     monkeypatch.setattr(Path, "iterdir", reject_discovery)
-    action = SUT()
-    first = action.execute(request(tmp_path))
-    second = action.execute(request(tmp_path))
+    first = SUT().execute(request(tmp_path))
+    second = SUT().execute(request(tmp_path))
     assert first == second
-    assert all(relative not in first.inspected_paths for relative in decoys)
+    assert decoys[0] not in first.inspected_paths
+    assert decoys[1] not in first.inspected_paths
+    assert decoys[2] not in first.inspected_paths

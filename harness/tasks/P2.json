@@ -16,12 +16,12 @@
   "explicit_activation_required": true,
   "objective": "Implement project-owned artifact/manifest records and narrowly shared external-tool lifecycle records for identity, specification, capability, installation, verification, immutable request/result, and structured failure.\n\nPreserve `ArtifactReference`/`ArtifactLocation` separation. Durable tokens retain stable IDs and immutable payloads, never credentials, subprocess or scheduler handles, open files, mutable clients, closures, or SNAKES objects. QE/Wannier semantics remain concrete adapters; no plugin framework is authorized.\n\nCompletion requires implementation, tests, Markdown documentation, independent review, parent verification, one bounded ordinary replay, and human acceptance.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     ".pi/checkpoints/P2-HC03-final-acceptance.json",
     ".pi/checkpoints/P2-HC04-final-acceptance.json",
     ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/activation.json",
     ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/provenance-audit-queue.json",
     ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P2.md",
     "integration/provenance",
     "origin/dev",

@@ -12,7 +12,11 @@ A Task records:
 - objective, authority references, authorized scope, completion criteria, and exclusions; and
 - intake and optional archived-source identity.
 
-Chains under `.pi/chains/` provide membership, retained activation facts, and active selection. The selected chain and Task record must agree.
+Canonical `harness/tasks/*.json` records and `harness/task-graph.json` together
+provide lifecycle, membership, and topology. `harness/task-selection.json`
+separately records minimal current selection. Retired v1
+development chains are retained under `harness/archive/task-control-v1/chains/` as
+non-operational history and supply no current selection, ownership, or authority.
 
 ## Supporting domains
 
@@ -35,7 +39,7 @@ flowchart LR
     check --> report["Concise report"]
 ```
 
-Managed Task, chain, checkpoint, ownership, review, evidence, and acceptance records
+Managed Task, selection, checkpoint, ownership, review, evidence, and acceptance records
 are used only when explicitly selected or required by a protected boundary,
 concurrent ownership, or a genuine unresolved human decision. Protected actions and
 human-owned decisions remain explicit.

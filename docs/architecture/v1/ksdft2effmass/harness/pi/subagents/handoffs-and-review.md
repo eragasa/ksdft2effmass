@@ -33,4 +33,4 @@ Independent review is optional and risk-based for ordinary direct work. When a m
 - Writer handoff wording varies across descriptors.
 - No common finding-code or handoff wire contract exists.
 - Parent disposition of reviewer findings is not represented by one dedicated V1 object.
-- A clean child result does not automatically update canonical Task JSON, `harness/task-selection.json`, transitional chain projections, or checkpoints.
+- A clean child result does not automatically update canonical Task JSON, `harness/task-graph.json`, `harness/task-selection.json`, or checkpoints.

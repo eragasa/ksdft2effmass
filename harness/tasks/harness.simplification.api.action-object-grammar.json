@@ -13,7 +13,7 @@
   "explicit_activation_required": false,
   "objective": "Establish and migrate the repository-wide public ActionObject naming grammar:\n\n```text\n<DataObject-or-operation-target><Actionizer>\n```\n\nThe final agent noun identifies the owned operation, for example `Validator`, `Resolver`, `Evaluator`, `Serializer`, `Deserializer`, `Loader`, `Auditor`, `Inspector`, `Preparer`, `Recorder`, `Refresher`, `Adapter`, `Selector`, `Comparator`, `Analyzer`, `Differencer`, `Verifier`, `Correlator`, `Enabler`, or `Firer`. Avoid verb-first names and vague suffixes such as `Manager`, `Handler`, and `Processor`.\n\nExamples include `ResourceManifestValidator`, `CheckpointDecisionResolver`, `ChainStateEvaluator`, `JsonRecordSerializer`, `EvidenceIdentifierAuditor`, `HumanReviewPreparer`, and `HumanReviewDecisionRecorder`.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness.simplification.api.action-object-grammar.md"
   ],
   "authorized_scope": [

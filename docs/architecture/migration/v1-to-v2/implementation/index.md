@@ -69,8 +69,8 @@ filenames are not treated as approved Python modules merely because they exist.
 
 ## Development-chain replacement
 
-Canonical `HarnessTask` records and their derived parent and prerequisite graph
-replace independent development-chain topology. `DevelopmentTaskSelection`
+Canonical `HarnessTask` records and `harness/task-graph.json` together replace
+independent development-chain topology. `DevelopmentTaskSelection`
 replaces chain-owned active-Task and explicit-selection fields. Development
 decisions, prerequisite results, findings, and historical evidence remain under
 their respective owners rather than becoming graph state.

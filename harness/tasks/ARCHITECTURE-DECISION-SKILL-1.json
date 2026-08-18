@@ -14,7 +14,7 @@
   "objective": "It creates and activates the read-only `develop-architecture-decision` skill, canonical/reference/descriptor resources, byte-identical live resources, controlled H6-only fixtures and validator, generic/local manifest and profile synchronization, eight-skill inventory/validation, current local replay, selected local route, maintained harness documentation, and task evidence.",
   "authority_reference_paths": [
     ".pi/agents",
-    ".pi/chains/develop-architecture-decision-skill.chain.json",
+    "harness/archive/task-control-v1/chains/develop-architecture-decision-skill.chain.json",
     "harness/archive/task-control-v1/tasks/ARCHITECTURE-DECISION-SKILL-1.md"
   ],
   "authorized_scope": [

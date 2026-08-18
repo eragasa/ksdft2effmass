@@ -7,7 +7,8 @@ V1 development authority is persisted primarily as version-controlled files:
 | Record family | Persistence surface |
 |---|---|
 | Development Tasks | `harness/tasks/*.json` |
-| Chain selection and history | `.pi/chains/*.json` |
+| Current development selection | `harness/task-selection.json` |
+| Retired development-chain history | `harness/archive/task-control-v1/chains/*.json` (non-operational) |
 | Human decisions | `.pi/checkpoints/*.json` |
 | Resources and profiles | `harness/pi/` and `harness/local/` |
 | Ownership | `.pi/task-ownership/` and applicable evidence records |
@@ -57,4 +58,7 @@ Projection ownership is detailed on the [projection page](projections.md).
 
 ## Limitations
 
-Development and scientific facts are distributed across Task, chain, checkpoint, calculation, and documentation surfaces. There is no transaction that atomically commits an independent scientific attempt, marking, execution result, analysis, and disposition.
+Development and scientific facts are distributed across Task, selection, checkpoint,
+calculation, and documentation surfaces. There is no transaction that atomically
+commits an independent scientific attempt, marking, execution result, analysis, and
+disposition.

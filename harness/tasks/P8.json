@@ -18,7 +18,7 @@
   "explicit_activation_required": false,
   "objective": "Implement Wannier specification tokens, Stage-03 uniform-grid NSCF child request/result lineage, and the QE-to-Wannier bridge artifact contract.\n\nThe child carries the accepted G02 SCF parent manifest. `.nnkp`, `.amn`, `.mmn`, `.eig`, and approved optional artifacts remain typed external references. QE and Wannier90 remain separate capabilities/backends. No real run occurs without the production checkpoint. Preserves H bridge content.\n\nCompletion requires implementation, tests, documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P8.md"
   ],
   "authorized_scope": [

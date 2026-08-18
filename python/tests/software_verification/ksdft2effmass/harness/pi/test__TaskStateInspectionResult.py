@@ -6,17 +6,17 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-This module verifies immutable bounded task-state results and deterministic collections.
+This module verifies immutable explicit-input Task-state results.
 
 Intrinsic and cross-object scope
 
-The sole SUT is ``TaskStateInspectionResult``; ``ValidationResult`` is a collaborator
-and literal state supplies the exact invariant oracle.
+The sole SUT is ``TaskStateInspectionResult``; literal state and ``ValidationResult``
+provide exact invariant oracles.
 
 VVUQ and scientific exclusions
 
-Passing establishes result representation only, not repository completeness, runtime
-history, numerical verification, scientific validation, UQ, or acceptance.
+Passing establishes result representation only, not authority, runtime completeness,
+numerical verification, scientific validation, UQ, or acceptance.
 """
 
 from __future__ import annotations
@@ -35,47 +35,43 @@ SUT = TaskStateInspectionResult
 def make_result(**changes: object) -> TaskStateInspectionResult:
     """Evidence ID: Owns no identifier; supports SV-HARNESS-069 and SV-HARNESS-070.
 
-    Requirement: Result tests require one complete valid represented baseline.
+    Requirement: Constructor evidence requires one valid complete result baseline.
 
-    Method: Construct the public result from literal values and apply explicit field
-    overrides.
+    Method: Build literal fields and apply explicit overrides.
 
-    Oracle: The result constructor contract fixes the valid baseline and permitted
-    overrides.
+    Oracle: The public constructor contract fixes the baseline.
 
-    Acceptance: The helper returns exactly one public result or propagates its public
-    exception.
+    Acceptance: Return one result or propagate its public exception.
 
-    Interpretation: Failure supports diagnosis of result-construction or fixture drift
-    only.
+    Interpretation: Failure supports fixture diagnosis only.
 
-    Limitations: This helper owns no evidence and does not inspect repository state.
+    Limitations: The helper performs no repository inspection.
     """
     values: dict[str, object] = {
-        "schema_version": 1,
+        "schema_version": 2,
         "repository_root": Path("/repo"),
         "task_id": "example.task",
         "task_status": "completed",
-        "active_task_id": None,
-        "chain_path": "chain.json",
-        "task_record_path": "task.md",
+        "selected_task_id": None,
+        "task_path": "harness/tasks/example.json",
+        "selection_path": "harness/task-selection.json",
         "ownership_manifest_path": "ownership.json",
         "completion_validator_path": "tools/check.py",
         "completion_command": ("python", "tools/check.py"),
         "writers": (("implementation", "writer"),),
         "reviewers": (("review", "reviewer"),),
-        "artifact_paths": (),
-        "run_record_paths": (),
-        "handoff_record_paths": (),
-        "durable_run_record_status": "not_declared",
-        "durable_handoff_record_status": "not_declared",
         "inspected_paths": (
-            "chain.json",
+            "harness/task-selection.json",
+            "harness/tasks/example.json",
             "ownership.json",
-            "task.md",
             "tools/check.py",
         ),
-        "read_paths": ("chain.json", "ownership.json", "task.md", "tools/check.py"),
+        "read_paths": (
+            "harness/task-selection.json",
+            "harness/tasks/example.json",
+            "ownership.json",
+            "tools/check.py",
+        ),
         "limitations": ("Runtime state is outside the result.",),
         "validation": ValidationResult(1, "PASS", ()),
     }
@@ -83,29 +79,25 @@ def make_result(**changes: object) -> TaskStateInspectionResult:
     return SUT(**values)  # type: ignore[arg-type]
 
 
-def test_constructor__durable_state__preserves_explicit_statuses() -> None:
+def test_constructor__durable_state__preserves_explicit_inputs() -> None:
     """Evidence ID: SV-HARNESS-069
 
-    Requirement: The result preserves explicit durable references, declaration statuses,
-    and limits.
+    Requirement: The result preserves exact Task, selection, and ownership facts.
 
-    Method: Construct the complete valid baseline and inspect representative public
-    fields.
+    Method: Construct the valid baseline and inspect representative fields.
 
-    Oracle: Literal constructor values independently fix the expected represented state.
+    Oracle: Literal constructor values fix the expected state.
 
-    Acceptance: Task status, completion command, record status, paths, and validation
-    match exactly.
+    Acceptance: Status, command, paths, and validation match exactly; state is frozen.
 
-    Interpretation: Failure identifies result-field loss, coercion, or construction
-    drift.
+    Interpretation: Failure identifies result-field loss or mutability.
 
     Limitations: This does not establish that represented files exist.
     """
     result = make_result()
     assert result.task_status == "completed"
+    assert result.selected_task_id is None
     assert result.completion_command == ("python", "tools/check.py")
-    assert result.durable_run_record_status == "not_declared"
     assert result.inspected_paths == result.read_paths
     assert result.validation.status == "PASS"
     with pytest.raises(FrozenInstanceError):
@@ -116,13 +108,12 @@ def test_constructor__durable_state__preserves_explicit_statuses() -> None:
     "changes",
     (
         pytest.param(
-            {"writers": (("z", "writer"), ("a", "other"))}, id="unsorted_writers"
+            {"writers": (("z", "writer"), ("a", "other"))},
+            id="unsorted_writers",
         ),
         pytest.param(
-            {"read_paths": ("uninspected.json",)}, id="read_path_not_inspected"
-        ),
-        pytest.param(
-            {"durable_run_record_status": "unknown"}, id="unknown_record_status"
+            {"read_paths": ("uninspected.json",)},
+            id="read_path_not_inspected",
         ),
         pytest.param({"limitations": ("z", "a")}, id="unsorted_limitations"),
     ),
@@ -132,20 +123,17 @@ def test_constructor__deterministic_state__rejects_noncanonical_values(
 ) -> None:
     """Evidence ID: SV-HARNESS-070
 
-    Requirement: Result collections and declaration statuses have one deterministic
-    representation.
+    Requirement: Result collections have one deterministic representation.
 
-    Method: Replace one valid baseline field with a controlled noncanonical value.
+    Method: Replace one baseline field with a controlled noncanonical value.
 
-    Oracle: The public result invariant requires sorted unique values, known statuses,
-    and
-    read-path containment.
+    Oracle: Public invariants require sorted unique values and read containment.
 
-    Acceptance: Every declared noncanonical partition raises ValueError.
+    Acceptance: Every noncanonical partition raises ValueError.
 
     Interpretation: Failure identifies weakened deterministic-result invariants.
 
-    Limitations: Action ordering and filesystem reads are covered separately.
+    Limitations: Filesystem ordering is covered by the action evidence.
     """
     with pytest.raises(ValueError):
         make_result(**changes)

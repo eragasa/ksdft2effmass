@@ -1,4 +1,4 @@
-r"""Software verification of inspect task state command api agreement.
+r"""Software verification of inspect Task-state command/API agreement.
 
 Evidence profile: claim_bearing
 
@@ -6,18 +6,18 @@ Bounded artifact scope: the module's declared evidence owner.
 
 Facet and represented meaning
 
-This module verifies exact JSON and exit agreement between the thin project-local
-command and the public generic task-state inspection API.
+This module verifies exact JSON and exit agreement between the thin command and public
+explicit-input Task-state inspection API.
 
 Intrinsic and cross-object scope
 
-The command/API relation is primary; literal controlled repository documents and the
-public result projection provide exact independent invocation oracles.
+The command/API relation is primary; literal Task and selection documents provide the
+invocation oracle.
 
 VVUQ and scientific exclusions
 
-Passing establishes command integration only, not runtime history, review independence,
-numerical verification, scientific validation, UQ, or human acceptance.
+Passing establishes command integration only, not authority, execution, numerical
+verification, scientific validation, UQ, or acceptance.
 """
 
 from __future__ import annotations
@@ -32,99 +32,80 @@ import pytest
 from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 from ksdft2effmass.harness.pi.local._commands.inspect_task_state import result_object
 
-from .conftest import write_harness_configuration
-
 pytestmark = pytest.mark.software_verification
 
-CHAIN_PATH = ".pi/chains/example.json"
+TASK_PATH = "harness/tasks/example.json"
+SELECTION_PATH = "harness/task-selection.json"
 TASK_ID = "example.task"
 
 
 def write_command_repository(root: Path) -> None:
     """Evidence ID: Owns no identifier; supports SV-HARNESS-079 and SV-HARNESS-080.
 
-    Requirement: Command/API agreement cases require one controlled explicit
-    durable-state tree.
+    Requirement: Command evidence requires exact canonical inputs.
 
-    Method: Write one chain, task, ownership, and completion file below the supplied
-    root.
+    Method: Write literal Task and selection JSON.
 
-    Oracle: Literal bytes independently fix the only references available to both
-    invocations.
+    Oracle: Literal bytes fix both command inputs.
 
-    Acceptance: The helper creates exactly the declared controlled files.
+    Acceptance: Create exactly the declared files.
 
-    Interpretation: Failure supports fixture diagnosis and makes no independent evidence
-    claim.
+    Interpretation: Failure supports fixture diagnosis only.
 
     Limitations: The helper does not invoke either compared surface.
     """
-    write_harness_configuration(root)
-    chain = {
-        "name": "example",
-        "active_task": None,
-        "task_sequence": [
+    task = root / TASK_PATH
+    task.parent.mkdir(parents=True)
+    task.write_text(
+        json.dumps(
             {
-                "id": TASK_ID,
-                "record": ".pi/tasks/example.md",
-                "ownership_manifest": ".pi/task-ownership/example.json",
-                "prerequisites": [],
+                "schema_version": 3,
+                "task_id": TASK_ID,
+                "title": "Example Task",
                 "status": "completed",
+                "status_detail": None,
+                "parent_task_id": None,
+                "task_prerequisite_ids": [],
+                "external_prerequisite_ids": [],
+                "superseded_by_task_ids": [],
+                "explicit_activation_required": True,
+                "objective": "Provide controlled command input.",
+                "authority_reference_paths": ["records/authority.md"],
+                "authorized_scope": ["Inspect controlled inputs."],
+                "completion_criteria": ["Projection agrees."],
+                "exclusions": ["No authority is inferred."],
+                "intake_path": None,
+                "archived_source": None,
             }
-        ],
-    }
-    ownership = {
-        "schema_version": 2,
-        "task_id": TASK_ID,
-        "task_record": ".pi/tasks/example.md",
-        "owners": {
-            "writers": [
-                {
-                    "role": "implementation",
-                    "agent": "writer",
-                    "owned_paths": ["src"],
-                }
-            ],
-            "reviewers": [{"role": "review", "agent": "reviewer"}],
-        },
-        "completion_validator": {
-            "path": "tools/check.py",
-            "command": ["python", "tools/check.py"],
-            "required_before_review": True,
-        },
-    }
-    chain_file = root / CHAIN_PATH
-    chain_file.parent.mkdir(parents=True, exist_ok=True)
-    chain_file.write_text(json.dumps(chain))
-    ownership_file = root / ".pi/task-ownership/example.json"
-    ownership_file.parent.mkdir(parents=True, exist_ok=True)
-    ownership_file.write_text(json.dumps(ownership))
-    task = root / ".pi/tasks/example.md"
-    task.parent.mkdir(parents=True, exist_ok=True)
-    task.write_text("# Example\n\nStatus: completed\n")
-    completion = root / "tools/check.py"
-    completion.parent.mkdir(parents=True, exist_ok=True)
-    completion.write_text("# completion artifact\n")
+        )
+    )
+    selection = root / SELECTION_PATH
+    selection.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "active_task_id": None,
+                "explicit_activation_receipt_ids": [],
+                "automatic_successor_activation": False,
+            }
+        )
+    )
 
 
 def run_command(root: Path, task_id: str) -> subprocess.CompletedProcess[str]:
     """Evidence ID: Owns no identifier; supports SV-HARNESS-079 and SV-HARNESS-080.
 
-    Requirement: Agreement evidence requires the documented module invocation with
-    explicit inputs.
+    Requirement: Agreement evidence requires the documented command invocation.
 
-    Method: Invoke the module through the canonical current test interpreter and capture
-    output.
+    Method: Invoke the CLI with exact explicit arguments and capture output.
 
-    Oracle: The documented command form fixes argv and expects one canonical JSON line.
+    Oracle: The public command contract fixes argv and one JSON line.
 
-    Acceptance: The helper returns the completed process without modifying its result.
+    Acceptance: Return the unmodified completed process.
 
-    Interpretation: Failure supports command-boundary diagnosis and owns no evidence
-    result.
+    Interpretation: Failure supports command-boundary diagnosis only.
 
-    Limitations: Interpreter installation and operating-system process startup are
-    environmental.
+    Limitations: Process startup is environmental.
     """
     return subprocess.run(
         (
@@ -135,8 +116,10 @@ def run_command(root: Path, task_id: str) -> subprocess.CompletedProcess[str]:
             ),
             "--root",
             str(root),
-            "--chain",
-            CHAIN_PATH,
+            "--task",
+            TASK_PATH,
+            "--selection",
+            SELECTION_PATH,
             "--task-id",
             task_id,
         ),
@@ -149,29 +132,22 @@ def run_command(root: Path, task_id: str) -> subprocess.CompletedProcess[str]:
 def test_artifact__valid_command_api_projection__agrees_exactly(tmp_path: Path) -> None:
     """Evidence ID: SV-HARNESS-079
 
-    Requirement: The thin command exactly renders a successful public ActionObject
-    result.
+    Requirement: The command exactly renders a successful public ActionObject result.
 
-    Method: Invoke the API and documented module command against the same controlled
-    root.
+    Method: Invoke API and command against the same controlled root.
 
-    Oracle: ``result_object`` is the command's declared mechanical projection of the
-    public
-    result.
+    Oracle: ``result_object`` is the declared mechanical projection.
 
-    Acceptance: Exit status is zero and decoded command JSON equals the API projection
-    exactly.
+    Acceptance: Exit zero and decoded JSON equals the API projection.
 
-    Interpretation: Failure identifies wrapper argument, rendering, action routing, or
-    exit-map drift.
+    Interpretation: Failure identifies argument, rendering, or routing drift.
 
-    Limitations: This checks one valid controlled repository and not interactive runtime
-    state.
+    Limitations: This checks one valid controlled repository.
     """
     write_command_repository(tmp_path)
     root = tmp_path.resolve()
     api_result = TaskStateInspector().execute(
-        TaskStateInspectionRequest(1, root, CHAIN_PATH, TASK_ID)
+        TaskStateInspectionRequest(2, root, TASK_PATH, SELECTION_PATH, TASK_ID)
     )
     command = run_command(root, TASK_ID)
     assert command.returncode == 0
@@ -184,28 +160,23 @@ def test_artifact__invalid_command_api_projection__agrees_exactly(
 ) -> None:
     """Evidence ID: SV-HARNESS-080
 
-    Requirement: The thin command preserves public findings and maps invalid durable
-    state nonzero.
+    Requirement: The command preserves public findings for identity disagreement.
 
-    Method: Request the same absent task identity through the API and documented
-    command.
+    Method: Request an identity different from the exact Task input through both APIs.
 
-    Oracle: Exact task selection yields the public TASK_MISSING result and exit status
-    one.
+    Oracle: Exact identity agreement is required and maps to exit one.
 
-    Acceptance: Exit status is one and decoded command JSON equals the API projection
-    exactly.
+    Acceptance: Exit one and decoded JSON equals the API projection.
 
-    Interpretation: Failure identifies diagnostic loss or exit-status disagreement in
-    the wrapper.
+    Interpretation: Failure identifies diagnostic or exit-status disagreement.
 
-    Limitations: Malformed argv uses argparse's separate standard error mapping.
+    Limitations: Malformed argv uses argparse's standard mapping.
     """
     write_command_repository(tmp_path)
     root = tmp_path.resolve()
     missing = "missing.task"
     api_result = TaskStateInspector().execute(
-        TaskStateInspectionRequest(1, root, CHAIN_PATH, missing)
+        TaskStateInspectionRequest(2, root, TASK_PATH, SELECTION_PATH, missing)
     )
     command = run_command(root, missing)
     assert command.returncode == 1

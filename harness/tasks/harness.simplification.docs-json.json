@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Correct the synchronization and authority delta between human-readable `docs/`, transitional Task records, and the selected JSON control surface. Preserve human-authored intake and documentation-owned subject matter while moving operational control fields to JSON-backed generated reference pages.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     "docs",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.md"
   ],
   "authorized_scope": [

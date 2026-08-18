@@ -13,7 +13,6 @@
   "explicit_activation_required": false,
   "objective": "Integrate the accepted generic H2 Python/resources with the project-local H3 overlay, run retained legacy and new local behavior in shadow mode against identical declared inputs, compare structured outcomes, synchronize the canonical six live skill names, and propose a controlled authoritative cutover with validated rollback.",
   "authority_reference_paths": [
-    ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/checkpoints/H4-HC01-harness-cutover.json",
     ".pi/evidence/class-owned-evidence-convention/validate.py",
     ".pi/evidence/pi-harness-incubation/H4/activation.json",
@@ -23,6 +22,7 @@
     ".pi/evidence/pi-harness-incubation/H4/validate_h4_completion.py",
     ".pi/skills/skill-capability-inventory.json",
     ".pi/skills/validate_harness.py",
+    "harness/archive/task-control-v1/chains/pi-harness-incubation.chain.json",
     "harness/archive/task-control-v1/tasks/H4.md",
     "harness/local/validation-route.json",
     "python/src/ksdft2effmass/harness/pi/local"

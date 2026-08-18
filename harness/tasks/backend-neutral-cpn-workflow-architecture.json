@@ -11,7 +11,7 @@
   "explicit_activation_required": false,
   "objective": "This record prospectively corrects the workflow semantics in `.pi/tasks/backend-neutral-kohn-sham-qe-architecture.md` and `.pi/chains/backend-neutral-kohn-sham-qe.chain.json` without erasing their accepted scientific object, adapter, artifact, unit, gate-split, PAW, PhysKit, or execution-checkpoint decisions.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/backend-neutral-cpn-workflow-architecture.md"
   ],
   "authorized_scope": [

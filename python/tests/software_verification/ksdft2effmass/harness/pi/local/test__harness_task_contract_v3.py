@@ -24,22 +24,19 @@ import json
 import sqlite3
 from collections import Counter
 from pathlib import Path
-from typing import Any, cast
 
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
 import ksdft2effmass.harness.pi.local as local_api
-from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 from ksdft2effmass.harness.pi.local import (
     HarnessTask,
     HarnessTaskDeserializer,
     HarnessTaskGraphValidator,
     HarnessTaskSerializer,
-    TaskRecordAdapter,
 )
 
-from .conftest import repository_root, write_harness_configuration
+from .conftest import repository_root
 from .task_model_examples import make_task
 
 pytestmark = pytest.mark.software_verification
@@ -441,140 +438,3 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
         for task in tasks
         for replacement in task.superseded_by_task_ids
     }
-
-
-def test_artifact__mixed_task_formats__adapt_in_one_explicit_chain() -> None:
-    """Evidence ID: SV-HT-031
-
-    Requirement: One chain may select Markdown, version-1 JSON, and version-3 JSON
-    without transferring JSON-owned Task fields into the chain.
-
-    Method: Adapt three synthetic records and then duplicate v3 status in its entry.
-
-    Oracle: Retained Markdown/v1 behavior and version-3 dispatch define the exact
-    references and fail-closed duplication rule.
-
-    Acceptance: Mixed adaptation passes in Task-ID order; duplicated status fails.
-
-    Interpretation: Failure identifies compatibility or authority-boundary drift.
-
-    Limitations: Synthetic records do not migrate maintained Tasks.
-    """
-    markdown_path = "records/markdown.md"
-    v1_path = "records/version-one.json"
-    v3_path = "records/version-three.json"
-    v1 = {
-        "schema_version": 1,
-        "task_id": "format.v1",
-        "title": "Version one",
-        "status": "completed",
-        "parent_task_id": None,
-        "task_prerequisite_ids": [],
-        "external_prerequisite_ids": [],
-        "explicit_activation_required": False,
-        "objective": "Retain v1 compatibility.",
-        "authority_reference_paths": ["records/decision.md"],
-        "authorized_scope": ["Adapt synthetic data."],
-        "completion_criteria": ["Reference is produced."],
-        "exclusions": ["No migration."],
-        "intake_path": "records/v1.intake.md",
-        "archived_source": None,
-    }
-    v3 = make_task(task_id="format.v3", status="active")
-    chain: dict[str, Any] = {
-        "active_task": v3.task_id,
-        "automatic_successor_activation": False,
-        "explicitly_activated_task_ids": [v3.task_id],
-        "task_sequence": [
-            {
-                "id": "format.markdown",
-                "record": markdown_path,
-                "status": "completed",
-                "prerequisites": [],
-            },
-            {"id": "format.v1", "record": v1_path},
-            {"id": v3.task_id, "record": v3_path},
-        ],
-    }
-    documents = (
-        (markdown_path, b"# Markdown Task\n\nStatus: completed\n"),
-        (v1_path, json.dumps(v1).encode()),
-        (v3_path, HarnessTaskSerializer().execute(v3)),
-    )
-    adapted = TaskRecordAdapter().execute(documents, json.dumps(chain).encode(), b"{}")
-    assert adapted.validation.status == "PASS"
-    assert tuple(item.task_id for item in cast(Any, adapted.value)) == (
-        "format.markdown",
-        "format.v1",
-        "format.v3",
-    )
-    chain["task_sequence"][2]["status"] = "active"
-    duplicated = TaskRecordAdapter().execute(
-        documents, json.dumps(chain).encode(), b"{}"
-    )
-    assert duplicated.validation.status == "FAIL"
-
-
-@pytest.mark.parametrize(
-    "record_kind",
-    (
-        pytest.param("markdown", id="markdown_record_selected"),
-        pytest.param("v1", id="version_one_json_selected"),
-        pytest.param("v3", id="version_three_json_selected"),
-    ),
-)
-def test_method__task_state_inspector__preserves_format_selection(
-    tmp_path: Path, record_kind: str
-) -> None:
-    """Evidence ID: SV-HT-032
-
-    Requirement: TaskStateInspector preserves selected Markdown, v1 JSON, and v3 JSON
-    status behavior.
-
-    Method: Build and inspect one bounded temporary chain per format.
-
-    Oracle: The inspector contract assigns Markdown status to the chain and JSON status
-    to the selected JSON record.
-
-    Acceptance: Every format passes with the exact selected path and expected status.
-
-    Interpretation: Failure identifies selected-state compatibility drift.
-
-    Limitations: Full local schema validation remains owned by TaskRecordAdapter.
-    """
-    task_id = "format.task"
-    write_harness_configuration(tmp_path)
-    suffix = "md" if record_kind == "markdown" else "json"
-    record_path = f"records/{record_kind}.{suffix}"
-    chain_path = "records/chain.json"
-    chain = {
-        "active_task": None,
-        "task_sequence": [
-            {
-                "id": task_id,
-                "record": record_path,
-                "status": "chain_status",
-                "prerequisites": [],
-            }
-        ],
-    }
-    (tmp_path / "records").mkdir()
-    (tmp_path / chain_path).write_text(json.dumps(chain))
-    if record_kind == "markdown":
-        (tmp_path / record_path).write_text("# Task\n\nStatus: ignored prose\n")
-        expected_status = "chain_status"
-    elif record_kind == "v1":
-        (tmp_path / record_path).write_text(
-            json.dumps({"task_id": task_id, "status": "v1_status"})
-        )
-        expected_status = "v1_status"
-    else:
-        task = make_task(task_id=task_id, status="v3_status")
-        (tmp_path / record_path).write_bytes(HarnessTaskSerializer().execute(task))
-        expected_status = "v3_status"
-    result = TaskStateInspector().execute(
-        TaskStateInspectionRequest(1, tmp_path, chain_path, task_id)
-    )
-    assert result.validation.status == "PASS"
-    assert result.task_status == expected_status
-    assert result.task_record_path == record_path

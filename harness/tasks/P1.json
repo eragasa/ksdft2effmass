@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Deliver an executable, backend-neutral, project-owned Colored Petri Net (CPN)\ncontract in production source with focused tests. Define language-neutral\nproject-owned token colors, places, transitions, arcs/inscriptions, pure guards,\nmultiset markings, scope-explicit outcomes/terminal states, structured errors,\nand Rust-translatable persistence fields.\n\nThe contract must encode\n\n$$\n\\mathcal N=(P,T,A,\\Sigma,C,G,E,I),\n$$\n\nmultiple tokens, synchronization, retries, recovery, repeated transition\nexecution and cyclic net execution, authorizations, provenance, and parent-child\nlineage. Repeated execution does not imply automatic `iteration_index`\nadvancement: version 1 performs no arithmetic, and the index is explicitly\nsupplied or copied routing data. It must not expose or\ninherit from SNAKES classes, reduce markings to Booleans, serialize lambdas, or\ncreate a multi-engine framework.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P1.md"
   ],
   "authorized_scope": [

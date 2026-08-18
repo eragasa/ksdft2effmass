@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Consume harness.simplification.docs-json.authority-catalog and correct stale, duplicated, badly named, or misleading documentation when accepted authority determines one compatible correction. Preserve human intake and documentation-owned subject matter.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
-    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json"
+    ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json"
   ],
   "authorized_scope": [
     "Apply deterministic corrections directly, including stale status, activation, prerequisite, successor, completion, or acceptance prose whose operational owner is a chain or Task record; obsolete names and links; manual restatements that will be replaced by generated control-reference pages; historical material that is not clearly labeled historical; and naming that violates an accepted convention.",

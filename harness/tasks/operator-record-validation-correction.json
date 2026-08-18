@@ -12,11 +12,11 @@
   "objective": "correct and verify the maintained operator-record architecture, implementation, evidence classification, source/Sphinx documentation, public schema integration, and control plane without expanding scientific scope.",
   "authority_reference_paths": [
     ".pi/agents",
-    ".pi/chains",
     ".pi/skills",
     "docs",
     "docs/verification/operator-record-residual-analyzer.rst",
     "docs/verification/testing-and-evidence.rst",
+    "harness/archive/task-control-v1/chains",
     "harness/archive/task-control-v1/tasks/operator-record-validation-correction.md",
     "numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py",
     "numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",

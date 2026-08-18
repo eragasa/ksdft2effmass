@@ -19,14 +19,14 @@
     "schema_version": {"const": 1},
     "matrix_id": {"type": "string", "minLength": 1},
     "task_id": {"type": "string", "minLength": 1},
-    "task_record": {"type": "string", "pattern": "^\\.pi/tasks/.+\\.md$"},
+    "task_record": {"type": "string", "pattern": "^(?:\\.pi/tasks/.+\\.md|harness/tasks/.+\\.json)$"},
     "profile": {"const": "evidence-branches-v1"},
     "authorization": {
       "type": "object",
       "additionalProperties": false,
       "required": ["record", "decision_id", "rationale"],
       "properties": {
-        "record": {"type": "string", "pattern": "^\\.pi/tasks/.+\\.md$"},
+        "record": {"type": "string", "minLength": 1},
         "decision_id": {
           "type": "string",
           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"

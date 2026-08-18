@@ -159,7 +159,7 @@
     {
       "skill_name": "develop-architecture-decision",
       "path": ".pi/skills/develop-architecture-decision/SKILL.md",
-      "content_sha256": "9949a50d4bdf3f072235b0946e797a7242b1712c2609b6332d671383a9f675bd",
+      "content_sha256": "682bdb30ba9b5452085168939cf3b65942e9444c7efcaa147e8ab35c681110ba",
       "trigger_description": "A material architecture choice requires exactly three distinct defensible conceptual architectures and a human decision.",
       "current_consumers": [
         "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
@@ -475,8 +475,8 @@
     {
       "skill_name": "inspect-task-state",
       "path": ".pi/skills/inspect-task-state/SKILL.md",
-      "content_sha256": "31577f257bb4fd4e9c93dd33b54f4781b077c0e112aeb589c66a97d60e6f91ce",
-      "trigger_description": "One exact task selected by a known chain path and task identity requires bounded inspection of its declared durable repository state.",
+      "content_sha256": "8e244ea7974101dedb8b4111d634c26760538fa1ae9098dae9b318601e3ff742",
+      "trigger_description": "One exact canonical Task requires bounded inspection through explicit Task and selection inputs and optional operation-scoped ownership.",
       "current_consumers": [
         "AGENTS.md",
         ".pi/skills/recommend-next-task/SKILL.md"
@@ -488,8 +488,10 @@
       ],
       "inputs": [
         "absolute repository root",
-        "root-relative chain path",
-        "exact selected task identity"
+        "root-relative canonical Task path",
+        "root-relative selection path",
+        "exact Task identity",
+        "optional explicit operation-scoped ownership-manifest path"
       ],
       "outputs": [
         "deterministic task-state JSON",
@@ -505,12 +507,12 @@
       "deterministic_scripts_used": [
         "python/src/cli/inspect_task_state.py"
       ],
-      "authorization_requirements": "The caller must already have authority to inspect the repository and must supply the controlling chain path and exact task identity; the skill cannot discover, activate, or authorize work.",
+      "authorization_requirements": "The caller must already have authority to inspect the repository and must supply exact Task and selection paths; ownership is inspected only when explicitly supplied and the skill cannot discover, activate, or authorize work.",
       "failure_behavior": "Invalid declared state returns structured findings; invalid inputs or unexpected command failures are reported and stop without fallback discovery.",
       "retry_behavior": "Retry only with corrected explicit inputs or a changed declared repository state; retain prior findings when they remain relevant.",
       "idempotency": "Read-only inspection is observationally idempotent for the same explicit inputs and unchanged filesystem state.",
       "evidence_classification": "bounded control-plane software inspection; no execution, review-independence, acceptance, numerical, scientific-validation, or UQ evidence",
-      "current_validation_status": "The existing command and public ActionObject have focused software-verification coverage; the live skill adds procedure discovery without changing command behavior.",
+      "current_validation_status": "The command and public ActionObject use canonical Task and selection inputs with focused software-verification coverage; no chain, SQLite, generated projection, or ownership discovery remains.",
       "primary_classification": "DIRECTLY_COMPOSABLE",
       "hardening_applied": [
         "exact explicit inputs",
@@ -524,21 +526,22 @@
     {
       "skill_name": "recommend-next-task",
       "path": ".pi/skills/recommend-next-task/SKILL.md",
-      "content_sha256": "b41f0d2bbcde65515775d995e06ea41bb60fd4578a9d8949139576a796937eb4",
+      "content_sha256": "f3a77ff04d43b730d68f4c5f0c002239558ed164d4677d4671fb3af3ad9d914c",
       "trigger_description": "Human asks which currently eligible task should follow or how the project should continue; not ordinary implementation, checkpoint resolution, architecture review, or status inspection alone.",
       "current_consumers": [
         "AGENTS.md"
       ],
       "authoritative_references": [
         "AGENTS.md",
-        ".pi/chains",
+        "harness/task-selection.json",
+        "harness/task-graph.json",
         "harness/tasks",
         ".pi/checkpoints",
         ".pi/skills/inspect-task-state/SKILL.md",
         ".agents/skills/resolve-human-checkpoint/SKILL.md"
       ],
       "inputs": [
-        "authoritative checkpoint, chain, task, and durable decision state",
+        "canonical Task graph, selection, checkpoint, and durable decision state",
         "bounded implemented source, test, specification, and maintained documentation facts",
         "serious unblocked candidate tasks"
       ],
@@ -554,7 +557,7 @@
         "bounded authoritative repository inspection"
       ],
       "deterministic_scripts_used": [
-        "TaskStateInspector stable CLI when exact chain path and task identity are known"
+        "TaskStateInspector stable CLI when exact Task and selection paths and Task identity are known"
       ],
       "authorization_requirements": "The skill may recommend only; human selection is required before any task creation, activation, assignment, acceptance, implementation, or launch.",
       "failure_behavior": "Report active work, route a pending checkpoint, or stop with the exact missing or conflicting durable record and one focused question when applicable.",

@@ -13,7 +13,7 @@
   "explicit_activation_required": false,
   "objective": "The current human instruction activates the remaining reusable controls plus one\nproject-local repository inventory and completion gate. The controlling chain and\nvalidated ownership manifest above supply writer/reviewer separation and mutation\nscope. Implementation is staged: control surfaces and the fail-closed baseline gate\nprecede controlled raw-test migration. The task remains unrelated to production or\nscientific execution and does not activate or accept P2, P3, or another scientific\nworkflow.",
   "authority_reference_paths": [
-    ".pi/chains/test-evidence-repository-conformance.chain.json",
+    "harness/archive/task-control-v1/chains/test-evidence-repository-conformance.chain.json",
     "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-CONVENTIONS-2.md"
   ],
   "authorized_scope": [

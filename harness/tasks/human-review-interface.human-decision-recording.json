@@ -13,9 +13,9 @@
   "explicit_activation_required": false,
   "objective": "This bounded slice adds the immutable public `HumanReviewDecision` ResultObject and fieldless `HumanReviewDecisionRecorder` ActionObject. Following the human-requested architecture correction, the decision stores the exact immutable packet itself, exact human response, caller-supplied normalized disposition, and contract-compatible explicit scope. Recording reconstructs the canonical `HumanReviewPreparer` result and rejects a packet whose relationships, ordering, or derived status differ. Recording performs no natural-language interpretation, authority inference, persistence, filesystem or Git action, checkpoint mutation, or successor activation.",
   "authority_reference_paths": [
-    ".pi/chains/human-review-interface.chain.json",
     ".pi/evidence/human-review-interface/audit-evidence-identifiers-pilot-decision.md",
     ".pi/evidence/human-review-interface/human-decision-recording-decision.md",
+    "harness/archive/task-control-v1/chains/human-review-interface.chain.json",
     "harness/archive/task-control-v1/tasks/human-review-interface.human-decision-recording.md",
     "origin/dev"
   ],

@@ -11,9 +11,9 @@
   "explicit_activation_required": false,
   "objective": "The human PI authorized a repository-wide documentation grammar for class-owned software-verification, numerical-verification, and future scientific-validation evidence. After the bounded `CpnToken` pilot and the `FiringRequest` remand, resolved `EVIDENCE-DOC-1-HC02` Option B authorizes applying that grammar to all 32 maintained class-owned modules in the P1 CPN workflow test directory. It does not reopen or alter the accepted scientific or software meaning of P1, P1-HC01, P1-HC02, or P1-HC03.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     ".pi/evidence/class-owned-evidence-convention/task-ownership.json",
     "docs/verification/testing-and-evidence.rst",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/EVIDENCE-DOC-1.md"
   ],
   "authorized_scope": [

@@ -1,12 +1,19 @@
-"""Strict parsers for chain and ownership task-state documents."""
+"""Strict parsers for explicit Task, selection, and ownership inputs."""
 
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from typing import Any
 
-from ..identity import Identifier, ResourcePath, _require_identifier, _require_path
+from ..identity import (
+    Identifier,
+    ResourcePath,
+    _require_builtin_str,
+    _require_identifier,
+    _require_path,
+)
 from ..validation import ValidationIssue, _issue
 
 
@@ -14,20 +21,14 @@ class _DuplicateKey(ValueError):
     pass
 
 
-@dataclass(slots=True)
-class _SelectedTask:
-    status: Identifier | None = None
-    task_record_path: ResourcePath | None = None
-    ownership_path: ResourcePath | None = None
-    artifact_paths: tuple[ResourcePath, ...] = ()
-    run_paths: tuple[ResourcePath, ...] = ()
-    handoff_paths: tuple[ResourcePath, ...] = ()
+@dataclass(frozen=True, slots=True)
+class _TaskState:
+    status: Identifier
 
 
-@dataclass(slots=True)
-class _ChainState:
-    active_task: Identifier | None = None
-    selected_task: _SelectedTask | None = None
+@dataclass(frozen=True, slots=True)
+class _SelectionState:
+    selected_task_id: Identifier | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,7 +40,7 @@ class _OwnershipState:
 
 
 class _TaskStateDocumentParser:
-    """Parse chain, Task, and ownership documents for one inspection."""
+    """Parse only exact documents supplied to one bounded inspection."""
 
     __slots__ = ()
 
@@ -57,88 +58,173 @@ class _TaskStateDocumentParser:
             raise TypeError("top-level JSON value must be an object")
         return value
 
-    def _declared_paths(self, value: object, field: str) -> tuple[ResourcePath, ...]:
-        if value is None:
-            return ()
-        if type(value) is not list:
-            raise TypeError(f"{field} must be an array")
-        paths = []
-        for item in value:
-            _require_path(item, field)
-            paths.append(item)
-        if len(paths) != len(set(paths)):
-            raise ValueError(f"{field} must not contain duplicates")
-        return tuple(sorted(paths))
-
-    def _parse_chain(
+    def _task_array(
         self,
-        payload: bytes,
-        task_id: Identifier,
-        chain_path: ResourcePath,
-        issues: list[ValidationIssue],
-    ) -> _ChainState:
-        """Parse in declaration order while retaining valid fields before a failure."""
-        state = _ChainState()
-        try:
-            chain = self._json_object(payload)
-            active_task = chain.get("active_task")
-            if active_task is not None:
-                state.active_task = _require_identifier(active_task, "active_task")
-            entries = chain.get("task_sequence")
-            if type(entries) is not list:
-                raise TypeError("task_sequence must be an array")
-            matches = [
-                item
-                for item in entries
-                if type(item) is dict and item.get("id") == task_id
-            ]
-            if len(matches) != 1:
-                issues.append(
-                    _issue(
-                        "PIH.TASK_STATE.TASK_MISSING",
-                        "Exact task identity does not occur once in the chain.",
-                        task_id,
-                        chain_path,
-                    )
-                )
-                return state
-            task_entry = matches[0]
-            selected = _SelectedTask()
-            state.selected_task = selected
-            raw_record = task_entry.get("record")
-            if raw_record is not None:
-                selected.task_record_path = _require_path(raw_record, "task record")
-            if (
-                selected.task_record_path is None
-                or not selected.task_record_path.endswith(".json")
-            ):
-                selected.status = _require_identifier(
-                    task_entry.get("status"), "task status"
-                )
-            raw_ownership = task_entry.get("ownership_manifest")
-            if raw_ownership is not None:
-                selected.ownership_path = _require_path(
-                    raw_ownership, "ownership manifest"
-                )
-            selected.artifact_paths = self._declared_paths(
-                task_entry.get("artifact_paths"), "artifact_paths"
+        task: dict[str, Any],
+        name: str,
+        item_parser: Any,
+        *,
+        nonempty: bool = False,
+        sorted_unique: bool = False,
+    ) -> tuple[str, ...]:
+        values = task[name]
+        if type(values) is not list:
+            raise TypeError(f"{name} must be a JSON array")
+        result = tuple(item_parser(value, f"{name} item") for value in values)
+        if nonempty and not result:
+            raise ValueError(f"{name} must be nonempty")
+        if len(set(result)) != len(result):
+            raise ValueError(f"{name} must contain unique values")
+        if sorted_unique and result != tuple(sorted(result)):
+            raise ValueError(f"{name} must be sorted")
+        return result
+
+    def parse_task(self, payload: bytes, task_id: Identifier) -> _TaskState:
+        """Return state from one closed canonical HarnessTask wire record."""
+        task = self._json_object(payload)
+        expected = {
+            "schema_version",
+            "task_id",
+            "title",
+            "status",
+            "status_detail",
+            "parent_task_id",
+            "task_prerequisite_ids",
+            "external_prerequisite_ids",
+            "superseded_by_task_ids",
+            "explicit_activation_required",
+            "objective",
+            "authority_reference_paths",
+            "authorized_scope",
+            "completion_criteria",
+            "exclusions",
+            "intake_path",
+            "archived_source",
+            "documentation_path",
+        }
+        required = expected - {"documentation_path"}
+        missing = required - set(task)
+        unknown = set(task) - expected
+        if missing:
+            raise ValueError(f"missing field {sorted(missing)[0]}")
+        if unknown:
+            raise ValueError(f"unknown field {sorted(unknown)[0]}")
+        if type(task["schema_version"]) is not int or task["schema_version"] != 3:
+            raise ValueError("schema_version must equal integer 3")
+
+        represented_id = _require_identifier(task["task_id"], "task_id")
+        if represented_id != task_id:
+            raise ValueError("Task record identity differs from requested task")
+        status = _require_identifier(task["status"], "status")
+        _require_builtin_str(task["title"], "title")
+        _require_builtin_str(task["objective"], "objective")
+        if task["status_detail"] is not None:
+            _require_builtin_str(task["status_detail"], "status_detail")
+
+        parent = task["parent_task_id"]
+        if parent is not None:
+            parent = _require_identifier(parent, "parent_task_id")
+            if parent == represented_id:
+                raise ValueError("parent_task_id must differ from task_id")
+        task_prerequisites = self._task_array(
+            task,
+            "task_prerequisite_ids",
+            _require_identifier,
+            sorted_unique=True,
+        )
+        external_prerequisites = self._task_array(
+            task,
+            "external_prerequisite_ids",
+            _require_identifier,
+            sorted_unique=True,
+        )
+        superseded_by = self._task_array(
+            task,
+            "superseded_by_task_ids",
+            _require_identifier,
+            sorted_unique=True,
+        )
+        if (
+            represented_id in task_prerequisites
+            or represented_id in external_prerequisites
+        ):
+            raise ValueError("a Task may not require itself")
+        if represented_id in superseded_by:
+            raise ValueError("a Task may not supersede itself")
+        if set(task_prerequisites) & set(external_prerequisites):
+            raise ValueError("Task and external prerequisites must be disjoint")
+        if type(task["explicit_activation_required"]) is not bool:
+            raise TypeError("explicit_activation_required must be a built-in bool")
+
+        self._task_array(
+            task,
+            "authority_reference_paths",
+            _require_path,
+            nonempty=True,
+            sorted_unique=True,
+        )
+        for name in ("authorized_scope", "completion_criteria", "exclusions"):
+            self._task_array(
+                task,
+                name,
+                _require_builtin_str,
+                nonempty=True,
             )
-            selected.run_paths = self._declared_paths(
-                task_entry.get("run_record_paths"), "run_record_paths"
+        for name in ("intake_path", "documentation_path"):
+            value = task.get(name)
+            if value is not None:
+                _require_path(value, name)
+        archived = task["archived_source"]
+        if archived is not None:
+            if type(archived) is not dict or set(archived) != {"path", "sha256"}:
+                raise TypeError("archived_source must be a closed object or null")
+            _require_path(archived["path"], "archived_source path")
+            digest = _require_builtin_str(archived["sha256"], "archived_source sha256")
+            if re.fullmatch(r"[0-9a-f]{64}", digest, re.ASCII) is None:
+                raise ValueError("archived_source sha256 must be lowercase hexadecimal")
+        return _TaskState(status)
+
+    def parse_selection(self, payload: bytes) -> _SelectionState:
+        """Return current selection from the closed version-1 selection record."""
+        selection = self._json_object(payload)
+        expected = {
+            "schema_version",
+            "active_task_id",
+            "explicit_activation_receipt_ids",
+            "automatic_successor_activation",
+        }
+        if set(selection) != expected:
+            missing = sorted(expected - set(selection))
+            unknown = sorted(set(selection) - expected)
+            detail = (
+                f"missing field {missing[0]}"
+                if missing
+                else f"unknown field {unknown[0]}"
             )
-            selected.handoff_paths = self._declared_paths(
-                task_entry.get("handoff_record_paths"), "handoff_record_paths"
+            raise ValueError(f"selection record is not closed: {detail}")
+        if (
+            selection["schema_version"] != 1
+            or type(selection["schema_version"]) is not int
+        ):
+            raise ValueError("selection schema_version must equal integer 1")
+        selected = selection["active_task_id"]
+        if selected is not None:
+            selected = _require_identifier(selected, "active_task_id")
+        receipts = selection["explicit_activation_receipt_ids"]
+        if type(receipts) is not list:
+            raise TypeError("explicit_activation_receipt_ids must be an array")
+        normalized = tuple(
+            _require_identifier(value, "explicit_activation_receipt_id")
+            for value in receipts
+        )
+        if normalized != tuple(sorted(set(normalized))):
+            raise ValueError(
+                "explicit_activation_receipt_ids must be sorted and unique"
             )
-        except _PARSE_ERRORS as exc:
-            issues.append(
-                _issue(
-                    "PIH.TASK_STATE.CHAIN_INVALID",
-                    f"Chain state is malformed: {exc}.",
-                    task_id,
-                    chain_path,
-                )
-            )
-        return state
+        automatic = selection["automatic_successor_activation"]
+        if type(automatic) is not bool or automatic:
+            raise ValueError("automatic_successor_activation must be false")
+        return _SelectionState(selected)
 
     def _assignments(
         self, values: object, kind: str
@@ -157,32 +243,24 @@ class _TaskStateDocumentParser:
             raise ValueError(f"{kind} assignments must be unique")
         return tuple(sorted(assignments))
 
-    def _parse_json_task(self, payload: bytes, task_id: Identifier) -> Identifier:
-        """Return status from one exact JSON Task after identity agreement."""
-        task = self._json_object(payload)
-        if _require_identifier(task.get("task_id"), "task record id") != task_id:
-            raise ValueError("JSON Task identity differs from requested task")
-        return _require_identifier(task.get("status"), "task status")
-
-    def _parse_ownership(
+    def parse_ownership(
         self,
         payload: bytes,
         task_id: Identifier,
-        task_record_path: ResourcePath | None,
+        task_path: ResourcePath,
         ownership_path: ResourcePath,
         issues: list[ValidationIssue],
     ) -> _OwnershipState:
+        """Parse one explicitly supplied operation-scoped ownership manifest."""
         ownership = self._json_object(payload)
         if ownership.get("task_id") != task_id:
             raise ValueError("ownership task_id differs from requested task")
-        declared_task_record = ownership.get(
-            "task_record", ownership.get("task_record_path")
-        )
-        if declared_task_record != task_record_path:
+        declared_task = ownership.get("task_record", ownership.get("task_record_path"))
+        if declared_task != task_path:
             issues.append(
                 _issue(
                     "PIH.TASK_STATE.REFERENCE_CONFLICT",
-                    "Chain and ownership task-record paths disagree.",
+                    "Ownership manifest and explicit Task paths disagree.",
                     task_id,
                     ownership_path,
                 )
@@ -205,8 +283,6 @@ class _TaskStateDocumentParser:
             completion = test_ownership.get("completion_validator")
         else:
             raise ValueError("unsupported ownership schema_version")
-        if type(raw_writers) is not list or type(raw_reviewers) is not list:
-            raise TypeError("writers and reviewers must be arrays")
         writers = self._assignments(raw_writers, "writer")
         reviewers = self._assignments(raw_reviewers, "reviewer")
         if type(completion) is not dict:

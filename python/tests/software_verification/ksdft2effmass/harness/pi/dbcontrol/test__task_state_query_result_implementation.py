@@ -1,28 +1,27 @@
-r"""Software verification of generic dbcontrol task-state-query-result implementation artifact.
+r"""Software verification of private Task-state query result.
 
 Evidence profile: routine
 
-Bounded artifact scope: generic dbcontrol private task-state-query-result implementation behavior.
+Bounded artifact scope: private Task-state query-result representation.
 
 Facet and represented meaning
 
-The module owns the intrinsic represented behavior of ``_TaskStateQueryResult``.
+The module verifies exact represented behavior of ``_TaskStateQueryResult``.
 
 Intrinsic and cross-object scope
 
-Only the object's bounded contract is exercised; collaborators are literal inputs.
+Only constructor mapping is exercised; collaborators are literal inputs.
 
 VVUQ and scientific exclusions
 
-This is software verification only; scientific validation and UQ are excluded.
-"""  # noqa: E501
+This is software verification only; authority, scientific validation, and UQ are
+excluded.
+"""
 
 import pytest
 
 from ksdft2effmass.harness.pi.dbcontrol.inspection import _TaskStateQueryResult
 from ksdft2effmass.harness.pi.validation import ValidationResult
-
-SUT = _TaskStateQueryResult
 
 pytestmark = pytest.mark.software_verification
 
@@ -30,39 +29,32 @@ pytestmark = pytest.mark.software_verification
 def test_constructor__explicit_state__preserves_exact_values() -> None:
     """Evidence ID: software-verification.harness.dbcontrol.task-state-query-result.constructor.explicit-state
 
-    Requirement: The generic query result preserves every reconciled field without implicit defaults.
+    Requirement: The private query result preserves every explicit field.
 
     Method: Construct the record from distinct literal values.
 
-    Oracle: Dataclass positional mapping is exact and independently visible.
+    Oracle: Dataclass positional mapping is exact.
 
-    Acceptance: The first status fields and record statuses equal the supplied literals.
+    Acceptance: Status, selection, assignments, paths, limits, and validation agree.
 
     Interpretation: Failure indicates orchestration result-field drift.
 
     Limitations: Query execution is excluded.
     """  # noqa: E501
+    validation = ValidationResult(1, "PASS", ())
     value = _TaskStateQueryResult(
         "active",
         "task.test",
-        None,
-        None,
-        None,
-        (),
-        (),
-        (),
-        (),
-        (),
-        (),
-        "not_declared",
-        "not_declared",
-        (),
-        (),
-        (),
-        ValidationResult(1, "PASS", ()),
+        "check.py",
+        ("python", "check.py"),
+        (("writer", "agent"),),
+        (("review", "reviewer"),),
+        ("task.json",),
+        ("task.json",),
+        ("Runtime excluded.",),
+        validation,
     )
-    assert (value.task_status, value.active_task_id) == ("active", "task.test")
-    assert (value.durable_run_record_status, value.durable_handoff_record_status) == (
-        "not_declared",
-        "not_declared",
-    )
+    assert value.task_status == "active"
+    assert value.selected_task_id == "task.test"
+    assert value.completion_validator_path == "check.py"
+    assert value.validation is validation

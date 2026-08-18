@@ -6,13 +6,21 @@ source and independent verification must be separated, or conflicting or
 high-risk path ownership exists. Ordinary bounded work may use one writer for
 source, tests, and documentation without a manifest. When required, the
 declaration is a fail-closed launch prerequisite, not retrospective review
-evidence. The controlling record names an `ownership_manifest`. Run:
+evidence. The development operation supplies the exact canonical Task record and ownership
+manifest as independent inputs. Neither is discovered from a chain, Task field, or
+ambient registry. Run:
 
 ```bash
 python/.venv/bin/python python/src/cli/validate_task_ownership.py \
   --repository-root <ABSOLUTE_REPOSITORY_ROOT> \
-  --task <TASK_ID>
+  --task <TASK_ID> \
+  --task-record harness/tasks/<TASK>.json \
+  --ownership-manifest <OPERATION_OWNERSHIP_MANIFEST.json>
 ```
+
+Ordinary single-writer work that does not require a manifest does not invoke this
+preflight. A manifest, when required, is bound to the exact development operation and
+its resulting receipt rather than stored in ``HarnessTask`` or a side registry.
 
 Run the command from the repository root. If the canonical interpreter is
 missing, stop and synchronize it with `cd python && uv sync --locked --all-extras`;

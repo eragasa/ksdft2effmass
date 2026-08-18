@@ -13,10 +13,10 @@
   "explicit_activation_required": true,
   "objective": "Verify that the currently selectable durable project and harness agents can receive bounded nonmutating delegation through the supported runtime while disabled historical phase agents remain unavailable, without treating discoverability or a successful probe as Task authority, implementation correctness, or acceptance.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/settings.json",
     "docs/harness/ksdft2effmass.harness.002.001.003.md",
     "docs/harness/ksdft2effmass.harness.002.001.009.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/intake/harness.simplification.agents.delegation-validation.intake.md"
   ],
   "authorized_scope": [

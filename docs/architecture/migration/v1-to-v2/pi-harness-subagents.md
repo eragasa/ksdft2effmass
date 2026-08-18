@@ -38,8 +38,8 @@ Architecture v1 currently provides:
 - managed-work mode using canonical `harness/tasks/*.json`, minimal current
   selection in `harness/task-selection.json`, and applicable checkpoint,
   ownership, workspace, and handoff records;
-- transitional `.pi/chains/*.chain.json` compatibility records in a namespace
-  also visible to Pi chain discovery;
+- retired v1 development-chain history under
+  `harness/archive/task-control-v1/chains/`, outside Pi chain discovery;
 - ownership manifests only when an explicitly managed Task, concurrent writers,
   required writer/reviewer separation, or path risk requires them;
 - fresh and forked contexts, asynchronous execution, supervision, missions, and
@@ -110,7 +110,7 @@ limitation to migrate, not authority to weaken a descriptor at launch.
 | 3. Reusable-descriptor normalization | Partial | Enabled prompts remain managed-work-only and duplicate policy |
 | 4. Launch-time runtime reconciliation | Not implemented | No typed comparison with observed Pi inventory |
 | 5. Explicit parent assignment construction | Procedural only | No compiled v2 assignment input path or closed assignment result |
-| 6. Harness-chain separation | Transitional only | Chains remain visible to Pi compatibility discovery |
+| 6. Harness-chain separation | Implemented | Retired chain bytes remain non-operational history outside Pi discovery |
 | 7. Delegated mutation and review | Partial | Outputs are prompt-governed; no common assignment or handoff contract |
 | 8. Governed-operation separation | Prospective | No v2 capability catalog or Pi action composition exists |
 | 9. Runtime retention and lifecycle separation | Partial | Authority separation is documented; retention policy is incomplete |
@@ -221,19 +221,21 @@ private or application-level composition until a public contract is justified.
 
 ### 6. Separate Harness control history from Pi orchestration
 
-Prevent `.pi/chains/*.chain.json` development-control records from being treated
-as executable Pi compatibility chains. Select either an unambiguous repository
-namespace or an explicit discovery exclusion through a separately accepted
-compatibility decision.
+Retired v1 development-chain bytes are stored under
+`harness/archive/task-control-v1/chains/`, outside Pi's executable compatibility-chain
+namespace. They remain historical evidence only and cannot supply Task membership,
+selection, ownership, successor choice, or authority.
 
-Canonical Task records and `harness/task-selection.json` remain independent of
-that relocation or exclusion. Existing chain history, references, and run
-artifacts remain interpretable. `workflowScript` remains the only public child
+Canonical `harness/tasks/*.json` records and `harness/task-graph.json` own
+current topology and lifecycle. `harness/task-selection.json` owns selection
+only. `TaskStateInspector` consumes exact Task and selection paths plus an
+optional explicitly supplied operation-scoped ownership manifest. Ownership is not a
+Task field or ambient registry. `workflowScript` remains the only public child
 orchestration language.
 
-Completion includes discovery tests showing that development chains cannot be
-launched as subagent workflows and migration checks showing that retained
-historical references still resolve.
+Historical prose and evidence may retain literal former `.pi/chains/` paths to describe
+past state; live source, procedures, and discovery metadata must not resolve those
+references operationally.
 
 ### 7. Tighten delegated mutation and review
 

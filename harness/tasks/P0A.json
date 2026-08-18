@@ -13,10 +13,10 @@
   "explicit_activation_required": false,
   "objective": "Adopt only the accepted dependency declarations and documentation configuration,\nretain exact lock artifacts and hashes, add an accurate third-party notice, and\nverify installation and maintained documentation behavior without implementing\nthe production CPN runtime.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
     ".pi/checkpoints/P0-HC01-packaging-license-and-configuration.json",
     ".pi/evidence/backend-neutral-cpn-P0A-packaging-configuration",
     "docs",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P0A.md",
     "python/.venv",
     "python/build"

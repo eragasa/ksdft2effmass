@@ -14,9 +14,9 @@
   "objective": "Convert the durable project integration-reviewer record from an OperatorRecord/CPN-specific checklist into a concise stable read-only cross-surface review capability while preserving proportional review, independent findings, scientific claim boundaries, and human authority.",
   "authority_reference_paths": [
     ".pi/agents/ksdft2effmass-integration-reviewer.md",
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/skills/skill-capability-inventory.json",
     ".pi/task-ownership/harness-simplification.agents.project-integration-review.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.agents.project-integration-review.md"
   ],
   "authorized_scope": [

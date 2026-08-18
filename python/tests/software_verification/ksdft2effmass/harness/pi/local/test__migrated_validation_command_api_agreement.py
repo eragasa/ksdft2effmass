@@ -252,6 +252,13 @@ def write_legacy_task_record(path: Path) -> Path:
         ).read_text()
     )
     task["schema_version"] = 1
+    task["authority_reference_paths"] = sorted(
+        value.replace(
+            "harness/archive/task-control-v1/chains/",
+            ".pi/chains/",
+        )
+        for value in task["authority_reference_paths"]
+    )
     task.pop("status_detail")
     task.pop("superseded_by_task_ids")
     path.write_text(json.dumps(task))
@@ -274,7 +281,10 @@ def write_legacy_chain(path: Path) -> Path:
     Limitations: The temporary chain cannot activate work.
     """
     chain = json.loads(
-        (ROOT / ".pi/chains/harness-simplification.chain.json").read_text()
+        (
+            ROOT
+            / "harness/archive/task-control-v1/chains/harness-simplification.chain.json"
+        ).read_text()
     )
     chain["active_task"] = None
     chain["explicitly_activated_task_ids"] = [
@@ -285,93 +295,6 @@ def write_legacy_chain(path: Path) -> Path:
     ]
     path.write_text(json.dumps(chain))
     return path
-
-
-def task_projection_arguments(task_path: Path, chain_path: Path) -> list[str]:
-    """Evidence ID: Owns no identifier; supports SV-HARNESS-180.
-
-    Requirement: Task projection agreement uses every explicit command input.
-
-    Method: Construct the complete accepted argument vector.
-
-    Oracle: The migrated command grammar fixes flag order and values.
-
-    Acceptance: Return the deterministic argument list.
-
-    Interpretation: Failure identifies test setup drift.
-
-    Limitations: Assertions remain in the owning test.
-    """
-    return [
-        "--generic-validator",
-        str(CLI / "validate_documentation_projection.py"),
-        "--task-schema",
-        str(ROOT / "harness/local/schemas/task-record.schema.json"),
-        "--profile-schema",
-        str(ROOT / "harness/pi/schemas/documentation-projection-profile.schema.json"),
-        "--profile",
-        str(ROOT / "harness/local/projections/task-control-reference-v1.json"),
-        "--task",
-        str(task_path),
-        "--chain",
-        str(chain_path),
-        "--expected",
-        str(
-            ROOT / "harness/local/fixtures/task-control-reference/expected/"
-            "harness.simplification.docs-json.schema-projection.md"
-        ),
-        "--generated",
-        str(
-            ROOT / "harness/local/fixtures/task-control-reference/expected/"
-            "harness.simplification.docs-json.schema-projection.md"
-        ),
-        "--oracle-index",
-        str(ROOT / "harness/local/fixtures/oracle-index.json"),
-        "--fixtures-root",
-        str(ROOT / "harness/local/fixtures/task-record"),
-        "--task-record-path",
-        "harness/tasks/harness.simplification.docs-json.schema-projection.json",
-    ]
-
-
-def test_artifact__task_schema_projection_command__agrees_from_nonrepository_cwd(
-    tmp_path: Path,
-) -> None:
-    """Evidence ID: ``SV-HARNESS-180``.
-
-    Requirement: Task schema/projection validation consumes only explicit inputs and
-    renders its exact structured PASS result without writes.
-
-    Method: Snapshot every file argument, invoke from a nonrepository working
-    directory, and decode the canonical JSON line.
-
-    Oracle: Accepted schemas, fixture oracle, chain relation, and expected/generated
-    byte equality independently fix the result.
-
-    Acceptance: Exit is zero, output equals the exact PASS object, stderr is empty,
-    and all explicit input files retain their identities.
-
-    Interpretation: Failure indicates argument, schema, relation, projection, oracle,
-    CWD, or mutation drift.
-
-    Limitations: This verifies one bounded project Task projection only.
-    """
-    task_path = write_legacy_task_record(tmp_path / "task.json")
-    chain_path = write_legacy_chain(tmp_path / "chain.json")
-    arguments = task_projection_arguments(task_path, chain_path)
-    inputs = [
-        Path(value)
-        for value in arguments
-        if Path(value).is_absolute() and Path(value).is_file()
-    ]
-    before = snapshot_identities(inputs)
-    completed = run_command("validate_task_schema_projection.py", arguments, tmp_path)
-    assert completed.returncode == 0
-    assert completed.stdout == (
-        '{"diagnostics":[],"schema_version":1,"status":"PASS"}\n'
-    )
-    assert completed.stderr == ""
-    assert snapshot_identities(inputs) == before
 
 
 def test_artifact__documentation_projection_command__agrees_on_explicit_inputs(

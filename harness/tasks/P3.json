@@ -16,7 +16,7 @@
   "explicit_activation_required": true,
   "objective": "Implement the selected SNAKES adapter behind the accepted project CPN contract and deterministic project-owned durable marking persistence.\n\nPersistence records workflow schema/model IDs, multisets of typed token payloads, provenance, parent-child lineage, request/result correlation, and retry/failure history. Live-net pickle, arbitrary Python pickle, serialized lambdas, credentials, external clients, and Graphviz-as-authority are prohibited. Logical subnet composition must not assume an unverified hierarchical SNAKES API.\n\nCompletion requires implementation, tests, Markdown documentation, independent review, parent verification, and human acceptance.",
   "authority_reference_paths": [
-    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    "harness/archive/task-control-v1/chains/backend-neutral-kohn-sham-qe.chain.json",
     "harness/archive/task-control-v1/tasks/P3.md"
   ],
   "authorized_scope": [

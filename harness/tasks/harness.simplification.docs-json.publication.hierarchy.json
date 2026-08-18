@@ -13,11 +13,11 @@
   "explicit_activation_required": false,
   "objective": "Use the accepted triage from `harness.simplification.docs-json.publication.triage` to place publication working source, submission snapshots, generated output, external material, provenance, historical artifacts, and direct project documentation in a coherent hierarchy without changing their content or meaning.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/evidence/docs-json/publication-hierarchy-path-map.json",
     "docs/conferences/ICMSEP2026/LA2.pdf",
     "docs/publications",
     "docs/publications/ksdft2effmass.publications.00.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness.simplification.docs-json.publication.hierarchy.md"
   ],
   "authorized_scope": [

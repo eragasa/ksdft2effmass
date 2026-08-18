@@ -13,8 +13,8 @@
   "explicit_activation_required": false,
   "objective": "Define the smallest stable generic harness contract and the package/resource boundary required for incubation and later extraction. Existing scripts are requirement evidence, not automatically the public API.",
   "authority_reference_paths": [
-    ".pi/chains/pi-harness-incubation.chain.json",
     ".pi/evidence/pi-harness-incubation/H1/activation.json",
+    "harness/archive/task-control-v1/chains/pi-harness-incubation.chain.json",
     "harness/archive/task-control-v1/tasks/H1.md"
   ],
   "authorized_scope": [

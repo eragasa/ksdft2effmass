@@ -1,11 +1,10 @@
 # Control plane in v1
 
-This page preserves the implemented chain-based v1 control behavior needed by
-transitional readers. The Task-graph cutover foundation now makes
-``harness/tasks/*.json`` canonical for Task identity and topology and introduces
-``harness/task-selection.json`` for minimal current selection state. Until the
-remaining readers are migrated, the chain agreement rules below describe
-compatibility behavior, not a second authoritative Task graph.
+This page records the v1 control plane and its current post-cutover disposition.
+Canonical topology and lifecycle are represented by ``harness/tasks/*.json``
+together with ``harness/task-graph.json``. ``harness/task-selection.json`` owns
+minimal current selection state. Retired development chains are historical only;
+no live reader uses them for membership, selection, ownership, or authority.
 
 ## Authority sources
 
@@ -15,8 +14,7 @@ compatibility behavior, not a second authoritative Task graph.
 | Resolved checkpoint | Durable human decision |
 | Specification | Accepted mathematical, scientific, schema, or wire contract |
 | `AGENTS.md` | Repository policy |
-| Chain JSON | Transitional compatibility membership and active-selection projection |
-| Task JSON | Canonical Task content, lifecycle status, parent hierarchy, and prerequisites |
+| Task JSON and Task graph JSON | Canonical Task content, lifecycle status, membership, parent hierarchy, and prerequisites |
 | Task selection JSON | Canonical minimal current selection and activation-receipt references |
 | Unresolved checkpoint | Pending human decision boundary |
 | Ownership record | Explicit writer and reviewer path assignment |
@@ -26,18 +24,22 @@ compatibility behavior, not a second authoritative Task graph.
 
 ```mermaid
 flowchart LR
-    human["Human decision"] --> chain["Chain active_task"]
-    chain --> task["HarnessTask status"]
-    task --> projection["SQLite task_state"]
+    human["Human decision"] --> selection["DevelopmentTaskSelection"]
+    tasks["HarnessTask and Task graph"] --> state["Current Task state"]
+    selection --> state
+    state --> projection["SQLite task_state projection"]
 ```
 
-All three surfaces must agree. Generated state cannot activate a Task, and Task status alone does not supersede chain selection.
+Selection may intentionally be empty. Generated state cannot activate a Task or
+replace canonical Task, graph, or selection records.
 
 ## Operations
 
 The maintained `harness_projection.py` CLI exposes synchronization and checking of derived projections. The former `harness_control.py` compatibility entry point is retired. Both actions resolve repository-root `harness/configuration.json` with its exact referenced `.pi/settings.json`; synchronization publishes a complete projection set and checking reconstructs the candidate read-only and reports drift. Superseded per-input configuration flags are unsupported.
 
-Task inspection combines chain, Task, and generated-state observations for one exact selected Task. It establishes bounded structural state only.
+Task inspection consumes one exact Task path, the exact selection path, and an
+optional explicitly supplied operation-scoped ownership manifest. It establishes
+bounded structural state only and performs no chain or generated-state discovery.
 
 Control generation deserializes the supported `.pi/settings.json` subset into public immutable `PiHarnessConfiguration`, then `PiHarnessAgentDefinitionResolver` composes each selected descriptor into public immutable `PiHarnessAgentDefinition`. Database ingestion consumes those projection-ready definitions and owns neither JSON interpretation nor descriptor/configuration enablement policy. The rows represent repository-declared roles, not an executable-agent inventory, and cannot enable a Pi role. Runtime executability remains determined by Pi discovery over descriptors and settings.
 

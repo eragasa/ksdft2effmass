@@ -9,8 +9,9 @@ are never stored on parent Tasks.
 
 ``HarnessTaskRegistry`` is an immutable in-memory index over explicitly supplied
 canonical Tasks. It is not a second persisted catalog or topology authority.
-``harness/task-graph.json``, the Task tables in
-``harness/state/harness-control.sqlite3``, and any retained chain-shaped views are
+Together, ``harness/tasks/*.json`` and ``harness/task-graph.json`` are the
+canonical topology and lifecycle surfaces. The Task tables in
+``harness/state/harness-control.sqlite3`` and any retained chain-shaped views are
 deterministic read or compatibility projections.
 
 ``DevelopmentTaskSelection`` separately represents only the current active Task
@@ -18,8 +19,10 @@ reference, explicit activation-receipt references, and the disabled automatic
 successor policy. The canonical version-1 record is
 ``harness/task-selection.json``. Selection grants no authority and contains no
 Task hierarchy, prerequisites, lifecycle status, scope, sequence, protected-action
-permission, or scientific Workflow state. Existing chain-dependent inspection and
-adapter APIs remain transitional compatibility surfaces in this milestone.
+permission, or scientific Workflow state. Task-state inspection consumes exact canonical Task and selection paths plus an
+optional operation-scoped ownership manifest. Ownership is neither embedded in the
+Task nor discovered from an ambient registry. Retired chain adapters remain historical
+compatibility surfaces only and do not feed current inspection or selection.
 
 The earlier 21-interface Stage-2A design was deferred because it modeled a
 six-file migration procedure as a permanent subsystem. Migration-framework

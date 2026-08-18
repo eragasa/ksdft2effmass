@@ -1,49 +1,56 @@
-r"""Software verification of generic dbcontrol task-state-query implementation artifact.
+r"""Software verification of private explicit-input Task-state query.
 
 Evidence profile: routine
 
-Bounded artifact scope: generic dbcontrol private task-state-query implementation behavior.
+Bounded artifact scope: private Task-state query representation.
 
 Facet and represented meaning
 
-The module owns the intrinsic represented behavior of ``_TaskStateQuery``.
+The module verifies that ``_TaskStateQuery`` retains every explicit input.
 
 Intrinsic and cross-object scope
 
-Only the object's bounded contract is exercised; collaborators are literal inputs.
+Only constructor state is exercised; filesystem collaborators are excluded.
 
 VVUQ and scientific exclusions
 
-This is software verification only; scientific validation and UQ are excluded.
-"""  # noqa: E501
+This is software verification only; authority, scientific validation, and UQ are
+excluded.
+"""
+
+from pathlib import Path
 
 import pytest
 
 from ksdft2effmass.harness.pi.dbcontrol.inspection import _TaskStateQuery
 
-SUT = _TaskStateQuery
-
 pytestmark = pytest.mark.software_verification
 
 
-def test_staticmethod__record_status__distinguishes_declared_missing() -> None:
-    """Evidence ID: software-verification.harness.dbcontrol.task-state-query.static-method.record-status
+def test_constructor__explicit_inputs__preserves_operation_scope() -> None:
+    """Evidence ID: software-verification.harness.dbcontrol.task-state-query.constructor.explicit-inputs
 
-    Requirement: Durable-record status distinguishes undeclared, inspected, and declared-missing paths.
+    Requirement: The query retains Task, selection, identity, root, and ownership input.
 
-    Method: Evaluate three literal path/missing-set partitions.
+    Method: Construct from distinct literal values.
 
-    Oracle: The accepted vocabulary maps absence, present declaration, and missing declaration exactly.
+    Oracle: Constructor inputs fix every retained slot.
 
-    Acceptance: Results equal ``not_declared``, ``inspected``, and ``declared_missing`` in order.
+    Acceptance: All five represented inputs match exactly.
 
-    Interpretation: Failure indicates loss of durable-evidence absence meaning.
+    Interpretation: Failure indicates ambient or lost query state.
 
-    Limitations: Filesystem access is excluded.
+    Limitations: Filesystem inspection is excluded.
     """  # noqa: E501
-    classify = _TaskStateQuery._record_status
-    assert (
-        classify((), set()),
-        classify(("run.json",), set()),
-        classify(("run.json",), {"run.json"}),
-    ) == ("not_declared", "inspected", "declared_missing")
+    value = _TaskStateQuery(
+        Path("/repo"),
+        "task.json",
+        "selection.json",
+        "task.test",
+        "ownership.json",
+    )
+    assert value.repository_root == Path("/repo")
+    assert value.task_path == "task.json"
+    assert value.selection_path == "selection.json"
+    assert value.task_id == "task.test"
+    assert value.ownership_manifest_path == "ownership.json"

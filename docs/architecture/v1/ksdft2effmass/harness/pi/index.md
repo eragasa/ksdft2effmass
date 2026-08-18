@@ -2,14 +2,14 @@
 
 ## Purpose
 
-The implemented development harness selects and governs repository work. Its v1 readers retain transitional chain compatibility, while the cutover foundation combines canonical Task records with separate minimal Task selection, human checkpoints, resources, capabilities, evidence, validation, and generated control views.
+The implemented development harness selects and governs repository work. The completed chain cutover combines canonical Task and Task-graph records with separate minimal Task selection, human checkpoints, resources, capabilities, evidence, validation, and generated control views. Retired v1 chains remain non-operational history.
 
 ```mermaid
 flowchart LR
     human["Human authority"] --> selection["DevelopmentTaskSelection"]
     tasks["HarnessTask JSON"] --> state["Development control state"]
+    graph["Task graph JSON"] --> state
     selection --> state
-    chain["Transitional chain compatibility"] -.-> state
     checkpoints["Checkpoints"] --> state
     resources["Resources and capabilities"] --> state
     evidence["Evidence"] --> state
@@ -37,14 +37,14 @@ Generic contracts are implemented under `ksdft2effmass.harness.pi`; project-loca
 
 A `HarnessTask` carries identity, status, parent and prerequisite relationships, explicit activation, objective, authority paths, scope, completion criteria, exclusions, intake, and optional archived-source identity. Status values are project records rather than one closed universal state machine.
 
-Canonical ``harness/tasks/*.json`` records define Task content and the complete
-parent/prerequisite graph. ``HarnessTaskRegistry`` is derived from those records.
-The canonical ``harness/task-selection.json`` record owns only minimal current
-selection facts. Chain-based inspection and adapter consumers remain transitional
-compatibility behavior during the cutover; chains no longer define an independent
-Task graph. Generated SQLite and ``harness/task-graph.json`` state must agree with
-canonical Task records but cannot replace them. Unresolved checkpoints remain human
-decision boundaries.
+Canonical ``harness/tasks/*.json`` records and ``harness/task-graph.json``
+together define Task content, lifecycle, membership, and parent/prerequisite
+topology. ``HarnessTaskRegistry`` is derived from explicitly supplied Tasks. The
+canonical ``harness/task-selection.json`` record owns only minimal current
+selection facts. Retired chain records and adapters are non-operational history.
+Generated SQLite state must agree with canonical Task, graph, and selection
+records but cannot replace them. Unresolved checkpoints remain human decision
+boundaries.
 
 ## Package structure
 

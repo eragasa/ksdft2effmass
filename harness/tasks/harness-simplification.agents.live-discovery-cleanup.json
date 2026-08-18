@@ -14,8 +14,8 @@
   "objective": "Task identity: `harness-simplification.agents.live-discovery-cleanup`",
   "authority_reference_paths": [
     ".pi/agents/*.md",
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/settings.json",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/tasks/harness-simplification.agents.live-discovery-cleanup.md",
     "origin/dev"
   ],

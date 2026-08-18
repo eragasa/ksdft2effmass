@@ -13,9 +13,9 @@
   "explicit_activation_required": false,
   "objective": "The current human instruction titled **Harness skill correction — create `develop-python-test-evidence`** authorizes one reusable generic test-evidence skill, separation of test-evidence ownership from `document-python-research-software`, deterministic structural validation, local-route activation, read-only forward validation, one implementation writer, one independent reviewer, one final human checkpoint, and commit/push.",
   "authority_reference_paths": [
-    ".pi/chains/develop-python-test-evidence-skill-correction.chain.json",
     ".pi/checkpoints/TEST-EVIDENCE-SKILL-1-HC01-final-acceptance.json",
     ".pi/skills",
+    "harness/archive/task-control-v1/chains/develop-python-test-evidence-skill-correction.chain.json",
     "harness/archive/task-control-v1/tasks/TEST-EVIDENCE-SKILL-1.md",
     "harness/local",
     "harness/pi"

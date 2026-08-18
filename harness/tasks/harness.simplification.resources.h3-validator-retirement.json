@@ -11,10 +11,10 @@
   "explicit_activation_required": true,
   "objective": "Retire the historical H3 completion validator as a live operational dependency while assigning every still-valid resource requirement to a maintained DataObject, ResultObject, ActionObject, focused test, or thin composed CLI and preserving historical H3 evidence unchanged.",
   "authority_reference_paths": [
-    ".pi/chains/harness-simplification.chain.json",
     ".pi/evidence/docs-json/parent-integration-review.md",
     ".pi/evidence/h3-validator-retirement/gate-disposition-map.json",
     ".pi/evidence/h3-validator-retirement/integration-review.md",
+    "harness/archive/task-control-v1/chains/harness-simplification.chain.json",
     "harness/archive/task-control-v1/intake/harness.simplification.resources.h3-validator-retirement.intake.md"
   ],
   "authorized_scope": [
