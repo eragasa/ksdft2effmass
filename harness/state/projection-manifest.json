@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "3ad3acd04d61671d4964619e341430e7b3f75a82b8ab95115de6963558122412",
+  "semantic_database_digest": "9dc8e627ab4583bba9adf22ccf85e9b9c3926f202b4f08c0cce61b79996a7b3d",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "5b071264e9c31bd3008d2c74ead3848c73019a33417a3f1aa71c970f6eeb1e65",
-    "byte_count": 4447063
+    "sha256": "09c541928c4d48450e2fc0efa34e465e970c4fd73d620dccadab20151578b187",
+    "byte_count": 4101483
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "3a2b3fea51db65c3f6ce7f0880095a76201138c554ac608ae3a8c6ae0a1da0b5",
+      "sha256": "85bf72bce29408023d1c69cea0b8815d2c86a88fc24374ce82bfb1540dbbce7d",
       "byte_count": 113315,
       "generating_action": "harness.control.projection-generator.v1"
     },
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "a43b086796a645eb4cd81b047167c1269218273cb480ca83866be28943ec3216",
-      "byte_count": 90516,
+      "sha256": "d52a9f8d97dd8476ea6448d629678658049c66eb6d91041ba79c07dd7e0bc607",
+      "byte_count": 74844,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -555,118 +555,6 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "harness/tasks/harness-simplification.agents.executable-tool-placement-contract.json",
-      "projection_kind": "task-json",
-      "sha256": "798042ef55fd5b54160634f9e5837ca40c974261648dde7e8196322e69d1bba4",
-      "byte_count": 3560,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.live-discovery-cleanup.json",
-      "projection_kind": "task-json",
-      "sha256": "4663b632c0fc562757e5a2b947a17ff6210337b36db7464b7d654b32110f53c0",
-      "byte_count": 2403,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.project-architecture.json",
-      "projection_kind": "task-json",
-      "sha256": "1ef4389915824ccd8eca7260fc4d2ebc628a97910bdd0db4e3b0121afe2f178e",
-      "byte_count": 3820,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.project-documentation.json",
-      "projection_kind": "task-json",
-      "sha256": "5f3d9493c9d2acdf8bfe10e05a0563628b3aff10ccf2045a1de8051e141e56f1",
-      "byte_count": 4535,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.project-implementation.json",
-      "projection_kind": "task-json",
-      "sha256": "24dc4b655d133b1822969a61994fa0157ac2550bde987da9bac130e763b53879",
-      "byte_count": 4478,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.project-integration-review.json",
-      "projection_kind": "task-json",
-      "sha256": "bd2c0392f239797bd1d131259ce1dcbe3d19801b399cba56806a0334d74f2063",
-      "byte_count": 4068,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.project-role-simplification.json",
-      "projection_kind": "task-json",
-      "sha256": "b4c618fbb623b09e87cc04ffa01e0a880409a3e165284e7a8dd8ce638ad78b4b",
-      "byte_count": 4183,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.json",
-      "projection_kind": "task-json",
-      "sha256": "e61819b6bca9b27f687d921d0472bc1b84cc53b8dde09ad4be681ef588001df3",
-      "byte_count": 1498,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.agents.validator-migration-pilot.json",
-      "projection_kind": "task-json",
-      "sha256": "0f267d89a7a1c01e7d36b844c874fdcef8992341a37f280e321ce4ad03bab70b",
-      "byte_count": 7712,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.json",
-      "projection_kind": "task-json",
-      "sha256": "31a1f688ab79d9a2842ecdbe8788d5307927c92bf332532bc161e4cdc4b09854",
-      "byte_count": 3231,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.docs-json.migration-review-interface.json",
-      "projection_kind": "task-json",
-      "sha256": "b0ef696867225c86e829b2cb6c2ef777c36fc5a1a7785dbe44fb5156deaec43f",
-      "byte_count": 4193,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.evidence.audit-action-conformance.json",
-      "projection_kind": "task-json",
-      "sha256": "39134c32499bd339583281c2b226fd8e7db48607282bf9534e7e17ab818bf7eb",
-      "byte_count": 2790,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.execution.task-state-inspection-tool.json",
-      "projection_kind": "task-json",
-      "sha256": "9d754260aad83422a8efdc2edfe5920099ecde69b5a6cb15b5148210feec7463",
-      "byte_count": 3027,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.execution.validator-pilot-stabilization.json",
-      "projection_kind": "task-json",
-      "sha256": "4779b86be2e200942651bac624edd562f4661059d1454a40752551477da7bedd",
-      "byte_count": 1891,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.resources.develop-harness-resources.json",
-      "projection_kind": "task-json",
-      "sha256": "8d962e027de4e826116807113492372d9624acf2f2c10cfce5295da9afb73806",
-      "byte_count": 3101,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness-simplification.resources.manifest-refresh.json",
-      "projection_kind": "task-json",
-      "sha256": "57032eb30d00d8cd523dc05cbbca82784d618c0880d65d1d5040f4555649cec3",
-      "byte_count": 4634,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
       "path": "harness/tasks/harness-task-state-symlink-toctou-hardening.json",
       "projection_kind": "task-json",
       "sha256": "c01206e0e44452aaece27c5a3794e75ab37507c7d988cfa5f63f2f610e20f49c",
@@ -690,8 +578,8 @@
     {
       "path": "harness/tasks/harness.control-plane-cleanup.json",
       "projection_kind": "task-json",
-      "sha256": "c69bfab0afd30a24363a419b8d2f4fc6ebea054ed438dc92dd3484093a8e4d26",
-      "byte_count": 9442,
+      "sha256": "67bfe181b87c70f7c4096319f6951d41c45b6bb3500d336a65e82ba856bb37d0",
+      "byte_count": 9414,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -699,230 +587,6 @@
       "projection_kind": "task-json",
       "sha256": "9ec10b510b7f3946784b9c30bf811c0d6c42a3ada303348c7964f164b266be54",
       "byte_count": 2421,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.agents.delegation-validation.json",
-      "projection_kind": "task-json",
-      "sha256": "a871f1540b356be5d0fbbc68ac67ff8b068c414e61a5724aa3263ab20de3c2d9",
-      "byte_count": 3740,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.api.action-object-grammar.json",
-      "projection_kind": "task-json",
-      "sha256": "b918210318f367444dd5d29184f7127020edf3d96baa5a34c30450dd513b23f5",
-      "byte_count": 3716,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.control.successor-selection.json",
-      "projection_kind": "task-json",
-      "sha256": "a31a40371727c37197be8dcbae77d24792664b1a631d3d158e9c8a0cd6789aa8",
-      "byte_count": 2509,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.control.task-catalog-reconciliation.json",
-      "projection_kind": "task-json",
-      "sha256": "36090ff4be399cd6b0b0c60c5f025c93be9ac6d79a18ff703cff597250905cef",
-      "byte_count": 4514,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.authority-catalog.json",
-      "projection_kind": "task-json",
-      "sha256": "7b310e90241449a896e34af5c79cebaf5bdd479df146edfb1d947216740e3c5b",
-      "byte_count": 2779,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.documentation-correction.json",
-      "projection_kind": "task-json",
-      "sha256": "7fc8d7a22e9606d56abedd59b3951e575e5cef9fd7b776f812296449feca364e",
-      "byte_count": 2663,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.json",
-      "projection_kind": "task-json",
-      "sha256": "e3402d3905dd2fc1b2bd30684c3f827b022b51ad33ff65c3694dddf26a878813",
-      "byte_count": 2823,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.publication.hierarchy.json",
-      "projection_kind": "task-json",
-      "sha256": "f442a89ae1b3028c67552f15082118ae5ede7b614f0e5b1dd2b17065887a367e",
-      "byte_count": 2989,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.publication.json",
-      "projection_kind": "task-json",
-      "sha256": "eb8e5a6f5580f4fcf435822d12e5b9f273bdd055b26913c46b90264c9459fa1b",
-      "byte_count": 1724,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.publication.triage.json",
-      "projection_kind": "task-json",
-      "sha256": "6537530360d633ce952eff90522ac13753fca5ee1088cb9d0ca126d59b0e4241",
-      "byte_count": 3629,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.schema-projection.json",
-      "projection_kind": "task-json",
-      "sha256": "44d4a9162f1f018fcc18f0de9fb1dc526e1f560961091c6050374cb15dd54400",
-      "byte_count": 2773,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.task-document-migration.json",
-      "projection_kind": "task-json",
-      "sha256": "e50ca39fa2d683d889d058b8c3b82ed80545eea92ec9f0f1cc44355113b28a38",
-      "byte_count": 5978,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json",
-      "projection_kind": "task-json",
-      "sha256": "0c99c88586a25e27b2fb45c52aa2ec6e5111a605ec92ed72b2732806c3218bf7",
-      "byte_count": 7242,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.task-model-contract.json",
-      "projection_kind": "task-json",
-      "sha256": "768d988ad87b768d84b2837ae44a4e5b5e02cc776553b895783ce33cfce08d5e",
-      "byte_count": 9062,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.docs-json.task-model-simplification.json",
-      "projection_kind": "task-json",
-      "sha256": "e7777eaafb66aac6fe35c29e6e55a1481fde6f3282df108fda727b15e096c297",
-      "byte_count": 2576,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.evidence.naming.json",
-      "projection_kind": "task-json",
-      "sha256": "63919a815c29252479619a05d01e79e40e85e051d270492a8fea1288f9956aea",
-      "byte_count": 4866,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.resources.h3-validator-retirement.json",
-      "projection_kind": "task-json",
-      "sha256": "496c64067b0e865fc5863c5cd1f84f09aa740f0e7e8bfedb09cae4047dc458c3",
-      "byte_count": 4217,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplification.round-2.sqlite-hybrid-cutover.json",
-      "projection_kind": "task-json",
-      "sha256": "529e526a7ebd14d23d597dc01572c6d8d40e76585d7fd5900fc667d8894c1198",
-      "byte_count": 1278,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.adapter-retirement.json",
-      "projection_kind": "task-json",
-      "sha256": "d20453a3a9024c21adf92a573da2ac8073a5b78b59d305d74ad18cbb3842323c",
-      "byte_count": 4499,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.cli-consolidation.json",
-      "projection_kind": "task-json",
-      "sha256": "17743de4903c2fc4ad86b545fe89abdc6a56eeda2f766ff678f2f7ad41cc9b07",
-      "byte_count": 6968,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.control-decomposition.json",
-      "projection_kind": "task-json",
-      "sha256": "8c65c6fe257ca317bf644cbf633af041b084de828cfbcdc75ecd1efa43d86563",
-      "byte_count": 7665,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.json",
-      "projection_kind": "task-json",
-      "sha256": "278a08d56c36056f89ab4e6548a7b5fa382c6de15642994b91ca7d2005b205cd",
-      "byte_count": 15366,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.python-conformance-decomposition.json",
-      "projection_kind": "task-json",
-      "sha256": "fe9cb098aa970c9f320324f586df1319a3f07b20cc1959ac5db9af3f9184a70a",
-      "byte_count": 8726,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.resource-decomposition.json",
-      "projection_kind": "task-json",
-      "sha256": "58825796077ed2313b637e326c6386ec8bafe92f7145822718a8f8a8418d3b11",
-      "byte_count": 4145,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.generation-builder.json",
-      "projection_kind": "task-json",
-      "sha256": "a833483ab5b5413e7e3abd2818ab2df280b0161ac2c53c921004c2fcd9e2591f",
-      "byte_count": 2298,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.integration-closeout.json",
-      "projection_kind": "task-json",
-      "sha256": "cdce83bab77e54a0017d5a9e11b21bc155680a734d0f9f4ef1b86b831a5c4eee",
-      "byte_count": 2470,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.inventory.json",
-      "projection_kind": "task-json",
-      "sha256": "4ecc1b39d1654fa4a71f8dcfd92db9ec223e608c1b204cc9f8dc945987fea22b",
-      "byte_count": 2434,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.json",
-      "projection_kind": "task-json",
-      "sha256": "14b724b1e5db7ae9566c9ff2614a25692c3f0ce43a6f6c3361b290732374033f",
-      "byte_count": 6699,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.legacy-route-retirement.json",
-      "projection_kind": "task-json",
-      "sha256": "ec69f6c49148544d010a52f07583150fd50fbd606b6e4c895e43224c433c804c",
-      "byte_count": 2600,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.repository-validation.json",
-      "projection_kind": "task-json",
-      "sha256": "5144c743a9c402af9369604361d53fc204337f353611f04513d977a7272a43ea",
-      "byte_count": 2515,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.validation-retirement.source-aware-verification.json",
-      "projection_kind": "task-json",
-      "sha256": "f5999c2594c03488a19ff2c0f5a263d81f5cf2cc10bf0b327172ebdc2c9b15ae",
-      "byte_count": 2407,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "harness/tasks/harness.simplify-2.wire-validation-decomposition.json",
-      "projection_kind": "task-json",
-      "sha256": "f5f2f9757910522b7cde61fc6f2c035184fd8bceba98e5d54e461ee58c004a62",
-      "byte_count": 3393,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

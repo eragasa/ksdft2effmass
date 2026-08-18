@@ -157,40 +157,6 @@ class _RepositoryControlIngestor:
                         extraction_id if value == "H5" else value
                         for value in task[field]
                     ]
-        migration_id = "harness.simplification.round-2.sqlite-hybrid-cutover"
-        tasks[migration_id] = {
-            "schema_version": 3,
-            "task_id": migration_id,
-            "title": "Implement the complete SQLite-hybrid harness control cutover",
-            "status": "completed",
-            "status_detail": "bounded migration completed; no successor activated",
-            "parent_task_id": None,
-            "task_prerequisite_ids": ["harness.simplification.evidence.naming"],
-            "external_prerequisite_ids": [],
-            "superseded_by_task_ids": [],
-            "explicit_activation_required": False,
-            "objective": (
-                "Consolidate structured harness control information in one tracked "
-                "authoritative SQLite database while retaining executable code and "
-                "human-authored content in ordinary files."
-            ),
-            "authority_reference_paths": ["AGENTS.md"],
-            "authorized_scope": [
-                "Migrate Tasks, evidence, tests, agents, skills, resources, "
-                "decisions, and generated projection identities into the "
-                "SQLite-hybrid control model."
-            ],
-            "completion_criteria": [
-                "The deterministic database, SQL recovery representation, "
-                "projections, reader cutover, and bounded validation agree."
-            ],
-            "exclusions": [
-                "Runtime observations, telemetry, scientific calculations, protected "
-                "execution, release actions, and successor activation remain excluded."
-            ],
-            "intake_path": None,
-            "archived_source": None,
-        }
         ids = set(tasks)
         for task_id, task in sorted(tasks.items()):
             archived = task.get("archived_source") or {}

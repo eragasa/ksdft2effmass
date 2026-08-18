@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3078,
+  "expected_collected_node_count": 3079,
   "expected_module_count": 265,
   "modules": [
     {
@@ -232,7 +232,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4743f861e6fa2b799e36a43f9d75bb70dc71528cfa708c15a3dd798e2feb7777",
+      "content_sha256": "4777b00835226e5c6cee2bf4facebf6f24cd6597da1924dce8774a89ce5006f9",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py",

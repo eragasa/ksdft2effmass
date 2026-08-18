@@ -5,9 +5,7 @@
   "status": "closed_human_accepted_pass",
   "status_detail": "Human-accepted and closed with documented architectural limitations. Accepted claim: The bounded control-plane cleanup removed repository surfaces proven obsolete under the current architecture, eliminated unresolved dispositions, preserved operational behavior, and retained complete validation agreement. The repository is not claimed to have a minimal control plane. Further reduction requires a separately authorized later architectural change; no successor is activated.",
   "parent_task_id": null,
-  "task_prerequisite_ids": [
-    "harness.simplify-2"
-  ],
+  "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
