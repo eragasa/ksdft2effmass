@@ -249,6 +249,10 @@ graphify-out/
 # Disposable derived harness indexes
 .pi/cache/
 
+# SQLite transient sidecar files
+*.sqlite3-shm
+*.sqlite3-wal
+
 # Local Quantum ESPRESSO tutorial simulation workspaces and native artifacts
 /simulations/
 
