@@ -1,0 +1,274 @@
+\notechapter{1}{Operator spaces, compression, and alignment}
+
+\section*{Scope}
+
+The replacement of a first-principles Hamiltonian by a finite model is not
+defined solely by retaining a selected set of eigenvalues. A reduced
+description must specify the state space on which the reduced operator acts,
+the map from the parent space to that state space, the coordinate
+representation used for its matrix elements, and the class of operators
+admitted as candidate models. These choices determine which algebraic
+operations are meaningful and which physical interpretations can be assigned
+to their results.
+
+The distinction is particularly important when the parent Hamiltonian is an
+unbounded differential operator, while the reduced description is a finite
+matrix. In the continuum, the operator domain and boundary conditions are part
+of the Hamiltonian. In the retained representation, those data are no longer
+written as an explicit domain, but their consequences remain encoded in the
+matrix. A rigorous reduction must therefore distinguish the continuum
+operator, the retained operator, and the numerical matrix representing that
+operator.
+
+\section*{Operators and their domains}
+
+Let $\mathcal H$ be a complex Hilbert space. An unbounded operator is a map
+\begin{equation}
+    \hat A:
+    \mathcal D(\hat A)\subseteq\mathcal H
+    \longrightarrow
+    \mathcal H,
+\end{equation}
+where the domain $\mathcal D(\hat A)$ is part of the definition of $\hat A$.
+Two operators may have the same formal differential action and nevertheless
+define different physical systems because they act on different domains. For
+quantum Hamiltonians, the distinction between a symmetric differential
+expression and a self-adjoint operator is essential: self-adjointness requires
+equality of both the operator action and the adjoint domain~\cite{teschl2014,reedSimon1975,schmudgen2012}.
+
+The sum or difference of two unbounded operators is initially defined on the
+intersection of their domains,
+\begin{equation}
+    \mathcal D(\hat A\pm\hat B)
+    =
+    \mathcal D(\hat A)\cap\mathcal D(\hat B).
+\end{equation}
+Consequently, an expression such as
+\begin{equation}
+    \hat V=\hat H-\hat T
+\end{equation}
+is an operator identity only after the operators and their compatible domains
+have been specified. This qualification is not an objection to subtraction.
+It identifies the mathematical data required for the subtraction to refer to
+a common operator space.
+
+\section*{Spectral restriction}
+
+Consider a self-adjoint Hamiltonian $\hat H$ with a pure-point spectral sector,
+\begin{equation}
+    \hat H\lvert\psi_i\rangle
+    =
+    E_i\lvert\psi_i\rangle,
+\end{equation}
+where the retained eigenvectors are orthonormal. Let $\mathcal I_P$ denote the
+selected set of spectral indices and define
+\begin{equation}
+    \hat P
+    =
+    \sum_{i\in\mathcal I_P}
+    \lvert\psi_i\rangle\langle\psi_i\rvert,
+\end{equation}
+with retained space
+\begin{equation}
+    \mathcal H^{(P)}
+    =
+    \operatorname{Ran}\hat P.
+\end{equation}
+If an energy cutoff intersects a degenerate eigenspace, the full degenerate
+eigenspace must be retained if the construction is to remain invariant under
+unitary rotations within that eigenspace. More generally, the selected range
+should be an invariant subspace of the parent operator.
+
+The retained Hamiltonian is
+\begin{equation}
+    \hat H^{(P)}
+    =
+    \left.
+        \hat P\hat H\hat P
+    \right|_{\mathcal H^{(P)}}:
+    \mathcal H^{(P)}
+    \longrightarrow
+    \mathcal H^{(P)}.
+\end{equation}
+It reproduces the action of the parent Hamiltonian exactly on the selected
+invariant subspace. When $\hat P\hat H\hat P$ is instead regarded as an
+operator on the full parent space, it acts as zero on
+$\operatorname{Ran}(\hat I-\hat P)$. That zero action is an embedding
+convention; it is not the parent Hamiltonian on the discarded sector.
+
+This distinction separates three objects:
+\begin{equation}
+    \hat H,
+    \qquad
+    \hat H^{(P)},
+    \qquad
+    \mathbf H^{(P)}.
+\end{equation}
+They denote, respectively, the parent operator, the retained operator, and a
+matrix representation of the retained operator in a declared basis. Treating
+them as interchangeable obscures the state-space maps on which later
+comparisons depend.
+
+\section*{Compression and downfolding}
+
+A fixed-subspace compression should not be identified with an effective
+Hamiltonian obtained by eliminating the complementary sector. With
+\begin{equation}
+    \hat Q=\hat I-\hat P,
+\end{equation}
+a Feshbach--L\"owdin construction gives the energy-dependent operator
+\begin{equation}
+    \hat H_{\mathrm{down}}(E)
+    =
+    \hat P\hat H\hat P
+    +
+    \hat P\hat H\hat Q
+    \left(E-\hat Q\hat H\hat Q\right)^{-1}
+    \hat Q\hat H\hat P,
+\end{equation}
+whenever the reduced resolvent exists~\cite{lowdin1982}. The second term
+represents virtual excursions into the eliminated subspace. In general,
+\begin{equation}
+    \hat H_{\mathrm{down}}(E)
+    \neq
+    \hat H^{(P)}.
+\end{equation}
+The approximation target must therefore be declared explicitly. A model
+fitted to $\hat H^{(P)}$ approximates the parent action on a selected subspace.
+A model fitted to $\hat H_{\mathrm{down}}(E)$ also attempts to reproduce
+eliminated-space effects and may inherit energy dependence and nonlocality.
+
+\section*{Common compression and additive structure}
+
+Suppose that
+\begin{equation}
+    \hat H=\hat T+\hat V
+\end{equation}
+is valid on a compatible domain, and assume that the finite-dimensional
+retained space lies within the required domains. Applying the same compression
+to every term gives
+\begin{equation}
+    \hat H^{(P)}
+    =
+    \hat T^{(P)}+\hat V^{(P)},
+\end{equation}
+where
+\begin{equation}
+    \hat T^{(P)}
+    =
+    \left.\hat P\hat T\hat P\right|_{\mathcal H^{(P)}},
+    \qquad
+    \hat V^{(P)}
+    =
+    \left.\hat P\hat V\hat P\right|_{\mathcal H^{(P)}}.
+\end{equation}
+It follows that
+\begin{equation}
+    \hat V^{(P)}
+    =
+    \hat H^{(P)}-\hat T^{(P)}.
+\end{equation}
+The subtraction is valid because the corresponding addition was performed in
+the common vector space
+\begin{equation}
+    \mathcal L\!\left(\mathcal H^{(P)}\right).
+\end{equation}
+
+The physical interpretation of the difference is a separate question.
+Although $\hat V$ may be a local multiplication operator in the parent
+position representation, $\hat P\hat V\hat P$ is generally nonlocal. If
+\begin{equation}
+    \langle x\rvert\hat V\lvert x'\rangle
+    =
+    V(x)\delta(x-x'),
+\end{equation}
+then
+\begin{equation}
+    V^{(P)}(x,x')
+    =
+    \int dy\,
+    P(x,y)V(y)P(y,x'),
+\end{equation}
+which is not generally proportional to $\delta(x-x')$. Locality must therefore
+be treated as an admissible model assumption rather than as an automatic
+consequence of projection.
+
+\section*{Hilbert--Schmidt geometry}
+
+The space of all bounded operators on an infinite-dimensional Hilbert space is
+not a Hilbert space under the trace inner product. The relevant
+infinite-dimensional space is the Hilbert--Schmidt class
+\begin{equation}
+    \mathfrak S_2(\mathcal H)
+    =
+    \left\{
+        \hat A\in\mathcal B(\mathcal H)
+        \;\middle|\;
+        \operatorname{Tr}(\hat A^\dagger\hat A)<\infty
+    \right\},
+\end{equation}
+with
+\begin{equation}
+    \langle\hat A,\hat B\rangle_{\mathrm{HS}}
+    =
+    \operatorname{Tr}(\hat A^\dagger\hat B)
+\end{equation}
+and
+\begin{equation}
+    \lVert\hat A\rVert_{\mathrm{HS}}^2
+    =
+    \operatorname{Tr}(\hat A^\dagger\hat A)
+\end{equation}
+\cite{simon2005}. Full continuum Hamiltonians are generally unbounded and are
+not Hilbert--Schmidt operators. The trace inner product should not be applied
+to them without an additional construction.
+
+Finite-dimensional retained operators avoid this obstruction. In any
+orthonormal basis of an $M$-dimensional retained space,
+\begin{equation}
+    \lVert\hat A\rVert_{\mathrm{HS}}^2
+    =
+    \sum_{\alpha,\beta=1}^{M}
+    \lvert A_{\alpha\beta}\rvert^2
+    =
+    \lVert\mathbf A\rVert_{\mathrm F}^2.
+\end{equation}
+The Frobenius norm is therefore the coordinate representation of the
+Hilbert--Schmidt norm. Its unitary invariance makes it suitable for operator
+comparisons after the relevant state spaces have been identified. It does not
+determine the identification itself.
+
+\section*{Alignment across retained spaces}
+
+Let $\hat H_b^{(P)}$ and $\hat H_d^{(P)}$ denote retained pristine and doped
+Hamiltonians acting on $\mathcal H_b^{(P)}$ and $\mathcal H_d^{(P)}$. Equal
+matrix dimensions do not imply that the two matrices represent operators on
+the same physical state space. A unitary identification
+\begin{equation}
+    \hat U_d:
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_d^{(P)}
+\end{equation}
+must first be specified. The aligned difference is
+\begin{equation}
+    \Delta\hat H_d^{(P)}
+    =
+    \hat U_d^\dagger
+    \hat H_d^{(P)}
+    \hat U_d
+    -
+    \hat H_b^{(P)}.
+\end{equation}
+
+Wannier functions provide localized frames for such comparisons, but their
+construction includes unitary gauge freedom, and an entangled band manifold
+requires an explicit retained-subspace selection~\cite{marzari2012,souza2001}.
+The alignment record must therefore include the retained subspaces, orbital
+labels, gauge, geometry, units, spin convention, and energy reference.
+
+The fundamental conclusion is that model reduction is performed on identified
+operator spaces, not on arrays whose dimensions happen to agree. Once the
+spaces and maps are fixed, subtraction and Hilbert--Schmidt comparison are
+mathematically straightforward. The scientific content lies in justifying the
+projection, the identification, and the admissible model class.

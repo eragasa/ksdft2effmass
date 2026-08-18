@@ -1,0 +1,288 @@
+\chapter{Hilbert--Schmidt Geometry and the Frobenius Norm}
+\label{app:hilbert-schmidt-and-frobenius}
+
+\textbf{Status: expository appendix.} This appendix records the operator-space geometry
+underlying Frobenius-norm comparisons of reduced operators. It does not define
+a scientific acceptance metric.
+
+\section{Hilbert--Schmidt inner product}
+
+Let $V$ be a finite-dimensional complex Hilbert space, and let
+$\mathcal L(V)$ denote the vector space of linear operators from $V$ to itself.
+If $\dim V=d$, then $\dim\mathcal L(V)=d^2$. The function
+\begin{equation}
+    \langle\cdot,\cdot\rangle_{\mathrm{HS}}:
+    \mathcal L(V)\times\mathcal L(V)
+    \longrightarrow
+    \mathbb C
+\end{equation}
+defined by
+\begin{equation}
+    \langle A,B\rangle_{\mathrm{HS}}
+    =
+    \operatorname{Tr}\!\left(A^\dagger B\right)
+\end{equation}
+is the \emph{Hilbert--Schmidt inner product}, also called the trace inner
+product~\cite{nielsenchuang2010}. With this convention it is conjugate-linear
+in its first argument and linear in its second. Its induced norm is
+\begin{equation}
+    \lVert A\rVert_{\mathrm{HS}}
+    =
+    \sqrt{
+        \operatorname{Tr}\!\left(A^\dagger A\right)
+    }.
+\end{equation}
+
+Let $\mathcal H^{(P)}$ be a finite-dimensional retained Hilbert space. The
+operator space
+\begin{equation}
+    \mathcal L\!\left(\mathcal H^{(P)}\right)
+\end{equation}
+is itself a finite-dimensional Hilbert space under this inner product. If
+\begin{equation}
+    \hat A,\hat B:
+    \mathcal H^{(P)}
+    \longrightarrow
+    \mathcal H^{(P)},
+\end{equation}
+then their sum and difference are well-defined elements of the same operator
+space:
+\begin{equation}
+    \hat A\pm\hat B:
+    \mathcal H^{(P)}
+    \longrightarrow
+    \mathcal H^{(P)}.
+\end{equation}
+
+Given an orthonormal basis of $\mathcal H^{(P)}$, let $\mathbf A$ and
+$\mathbf B$ be the matrices representing $\hat A$ and $\hat B$. The
+Hilbert--Schmidt inner product becomes the Frobenius inner product,
+\begin{equation}
+    \langle\mathbf A,\mathbf B\rangle_{\mathrm F}
+    =
+    \operatorname{Tr}\!\left(\mathbf A^\dagger\mathbf B\right),
+\end{equation}
+and the corresponding norm satisfies
+\begin{equation}
+    \lVert\mathbf A\rVert_{\mathrm F}^2
+    =
+    \operatorname{Tr}\!\left(\mathbf A^\dagger\mathbf A\right)
+    =
+    \sum_{i,j}\lvert A_{ij}\rvert^2.
+\end{equation}
+Thus the Frobenius norm is the matrix-coordinate form of the
+Hilbert--Schmidt norm when the coordinates are defined by an orthonormal basis.
+
+Operators may be added and subtracted because they belong to a common operator
+vector space. The legitimacy of an operator subtraction does not follow merely
+from two matrices having the same dimensions. It follows from the represented
+operators having compatible domains and codomains and from the matrices using
+an identified common state space and basis convention.
+
+\section{Common projection and reduced components}
+
+Let $\hat P$ be an orthogonal projector and define
+\begin{equation}
+    \mathcal H^{(P)}
+    =
+    \operatorname{Ran}\hat P.
+\end{equation}
+For possibly unbounded parent operators $\hat H$ and $\hat T$, assume that the
+retained range lies in the domains needed to define the compressions below.
+Set
+\begin{align}
+    \hat H_{\mathrm{eff}}
+    &=
+    \left.
+        \hat P\hat H\hat P
+    \right|_{\mathcal H^{(P)}},
+    \\
+    \hat T_{\mathrm{eff}}
+    &=
+    \left.
+        \hat P\hat T\hat P
+    \right|_{\mathcal H^{(P)}}.
+\end{align}
+Both reduced operators belong to
+$\mathcal L\!\left(\mathcal H^{(P)}\right)$. Their difference is therefore a
+well-defined reduced operator,
+\begin{equation}
+    \hat V_{\mathrm{eff}}
+    =
+    \hat H_{\mathrm{eff}}
+    -
+    \hat T_{\mathrm{eff}},
+\end{equation}
+and, by construction,
+\begin{equation}
+    \hat H_{\mathrm{eff}}
+    =
+    \hat T_{\mathrm{eff}}
+    +
+    \hat V_{\mathrm{eff}}.
+\end{equation}
+
+If the parent operators satisfy
+$\hat H=\hat T+\hat V$ on a compatible domain, linearity gives
+\begin{equation}
+    \hat V_{\mathrm{eff}}
+    =
+    \left.
+        \hat P\hat V\hat P
+    \right|_{\mathcal H^{(P)}}.
+\end{equation}
+Even when $\hat V$ is a local multiplication operator in the parent position
+representation, its compression need not act as multiplication by a scalar
+function within the retained representation. Projection can produce an
+operator that is nonlocal in the retained coordinates. If the parent
+Hamiltonian contains nonlocal pseudopotential, spin--orbit, or other operator
+components, the chosen kinetic--remainder decomposition must identify those
+components explicitly.
+
+\section{Aligned pristine--doped operators}
+
+The same common-space requirement applies to independently constructed
+pristine and doped retained operators. Suppose first that the two retained
+spaces have equal finite dimension and that a physically admissible unitary
+identification has been constructed,
+\begin{equation}
+    \hat U_d:
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_d^{(P)}.
+\end{equation}
+Let $c_b$ and $c_d$ denote scalar energy references selected by the declared
+alignment procedure, and define
+\begin{equation}
+    \overline{\hat H}_s^{(P)}
+    =
+    \hat H_s^{(P)}-c_s\hat I_s,
+    \qquad
+    s\in\{b,d\}.
+\end{equation}
+The aligned impurity operator on the bulk retained space is then
+\begin{equation}
+    \Delta\hat H_d^{(P)}
+    =
+    \hat U_d^\dagger
+    \overline{\hat H}_d^{(P)}
+    \hat U_d
+    -
+    \overline{\hat H}_b^{(P)}
+    \in
+    \mathcal L\!\left(\mathcal H_b^{(P)}\right).
+\end{equation}
+Equal matrix dimensions alone would not establish this membership. The
+identification must also preserve the physical structures required by the
+comparison, including the applicable gauge, geometry, orbital ordering, spin
+structure, and energy reference.
+
+The Hilbert--Schmidt discrepancy of the aligned operator is
+\begin{equation}
+    \left\lVert
+        \Delta\hat H_d^{(P)}
+    \right\rVert_{\mathrm{HS}}^2
+    =
+    \operatorname{Tr}\!\left[
+        \left(\Delta\hat H_d^{(P)}\right)^\dagger
+        \Delta\hat H_d^{(P)}
+    \right].
+\end{equation}
+In a common orthonormal numerical basis, this is exactly
+\begin{equation}
+    \left\lVert
+        \Delta\mathbf H_d^{(P)}
+    \right\rVert_{\mathrm F}^2
+    =
+    \sum_{\alpha,\beta}
+    \left\lvert
+        \Delta H_{d,\alpha\beta}^{(P)}
+    \right\rvert^2.
+\end{equation}
+Frobenius-norm minimization is therefore least-squares approximation in the
+finite-dimensional Hilbert space of retained operators.
+
+\section{Domains and the particle in a box}
+
+The differential expression
+\begin{equation}
+    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}
+\end{equation}
+does not by itself specify a quantum-mechanical operator. An operator is
+determined by both its action and its domain. The free kinetic operator on the
+real line and the kinetic operator on a finite interval with Dirichlet boundary
+conditions are therefore different operators even though they share the same
+differential expression.
+
+For the particle in a box, let
+\begin{equation}
+    \hat H_{\mathrm{box}}
+    =
+    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2},
+    \qquad
+    \mathcal D(\hat H_{\mathrm{box}})
+    =
+    H^2(0,L)\cap H_0^1(0,L).
+\end{equation}
+If $\hat T$ is this same Dirichlet kinetic operator, then
+$\hat H_{\mathrm{box}}=\hat T$ and consistent projection gives
+\begin{equation}
+    \hat H_{\mathrm{eff}}-\hat T_{\mathrm{eff}}
+    =
+    \hat 0.
+\end{equation}
+
+A nonzero difference can arise if the chosen reference kinetic operator does
+not carry the same confinement or boundary-domain structure. Such a comparison
+first requires an explicit common-space identification. The resulting residual
+can then record the missing confinement or boundary contribution relative to
+the chosen reference kinetic operator; it must not be identified automatically
+with a local physical potential. This distinction separates a mathematically
+valid represented subtraction from its physical interpretation.
+
+\section{Infinite-dimensional qualification}
+
+For an infinite-dimensional Hilbert space $\mathcal H$, the space of all
+bounded linear operators is not a Hilbert space under the Hilbert--Schmidt inner
+product. One instead uses the Hilbert--Schmidt class
+\begin{equation}
+    \mathcal L_2(\mathcal H)
+    =
+    \left\{
+        \hat A:
+        \operatorname{Tr}\!\left(\hat A^\dagger\hat A\right)
+        <
+        \infty
+    \right\}.
+\end{equation}
+For $\hat A\in\mathcal L_2(\mathcal H)$,
+\begin{equation}
+    \lVert\hat A\rVert_{\mathrm{HS}}^2
+    =
+    \operatorname{Tr}\!\left(\hat A^\dagger\hat A\right).
+\end{equation}
+Finite-rank operators are Hilbert--Schmidt. Consequently, a well-defined
+compression to a finite-dimensional retained space has finite
+Hilbert--Schmidt norm.
+
+The Frobenius norm is invariant under a common unitary change of orthonormal
+coordinates:
+\begin{equation}
+    \left\lVert
+        \mathbf U^\dagger\mathbf A\mathbf U
+        -
+        \mathbf U^\dagger\mathbf B\mathbf U
+    \right\rVert_{\mathrm F}
+    =
+    \lVert\mathbf A-\mathbf B\rVert_{\mathrm F}.
+\end{equation}
+It is not meaningful to invoke this invariance when only one operand has been
+transformed or when the two matrices have not first been placed in a common
+represented space.
+
+The Hilbert--Schmidt geometry supplies a rigorous finite-dimensional setting
+for operator comparison and Frobenius-norm minimization. It does not by itself
+make the Frobenius norm the scientifically appropriate loss. The common state
+space, retained subspace, normalization, alignment, weighting, domains, energy
+reference, and relation of the norm to the observables of interest must still
+be specified.

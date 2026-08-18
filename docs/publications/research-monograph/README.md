@@ -14,7 +14,9 @@ bounded narrative from it. Extraction is an editorial operation, not automatic
 synchronization, and does not transfer evidentiary status merely by copying
 prose.
 
-The current draft contains developed chapters on scope, the physical problem,
+The current draft contains developed chapters on scope, the controlled
+Bloch-to-effective-mass framework and consistent operator reduction, the
+silicon host and dopant research program,
 mathematical foundations, the proof and mechanization program, the
 first-principles parent, representations and alignment, reduction, structured
 learning as a model-class diagnostic, evidence, present result boundaries, and
@@ -43,6 +45,8 @@ quantification, publication, or human acceptance.
 
 - `manuscript.tex` — standard-LaTeX composition root;
 - `chapters/` — independently maintainable long-form chapters;
+- `notes/` — supporting LaTeX note chapters included after the appendices and
+  kept distinct from the main numbered chapter sequence;
 - `figures/` — editable diagram sources and their manuscript-ready renderings;
 - `appendices/` — shared notation, convention, and status reference material;
 - `references.bib` — monograph-owned bibliography, independently maintained
@@ -60,7 +64,7 @@ projections of this directory.
 With a local TeX distribution and `latexmk` available:
 
 ```bash
-mkdir -p build/chapters build/appendices
+mkdir -p build/chapters build/appendices build/notes
 latexmk -pdf -output-directory=build manuscript.tex
 ```
 

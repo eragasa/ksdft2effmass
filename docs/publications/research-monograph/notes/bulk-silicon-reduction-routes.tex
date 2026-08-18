@@ -1,0 +1,567 @@
+\notechapter{4}{Mathematical structure and proposed bulk-silicon comparison of tight-binding reduction routes}
+
+\textbf{Status: mathematical framework and proposed numerical experiment.} No
+bulk-silicon production calculation, accepted Wannier operator, fitted
+tight-binding model, convergence result, or route comparison is claimed in
+this note. The physical and numerical parent remain governed by the applicable
+specifications and by Chapters~\ref{ch:physical-problem} and
+\ref{ch:first-principles-parent}. The representation, alignment, and reduction
+requirements remain governed by Chapters~\ref{ch:representations-and-alignment}
+and~\ref{ch:model-reduction}.
+
+\section*{Purpose}
+
+The bulk-silicon program contains two proposed routes from a retained
+Kohn--Sham parent to an orthogonal $sp^3s^{\ast}$ tight-binding model:
+\begin{align}
+    \text{direct route:}\qquad
+    &\mathrm{KS\text{-}DFT}
+    \longrightarrow
+    \mathrm{TB},
+    \\
+    \text{operator-mediated route:}\qquad
+    &\mathrm{KS\text{-}DFT}
+    \longrightarrow
+    \mathrm{Wannier}
+    \longrightarrow
+    \mathrm{TB}.
+\end{align}
+The routes share a parent but do not perform the same mathematical operations.
+The direct route is initially a constrained spectral fit. The mediated route
+constructs a retained localized representation and then compares aligned
+operators. Their outputs cannot be compared responsibly until the state
+spaces, maps, gauges, energy references, model classes, and fitting objectives
+have been declared.
+
+This note first states the mathematical issues that determine which
+comparisons are meaningful. It then describes a proposed numerical experiment
+for the bulk-silicon pilot. The experiment is intended to compare
+KS-DFT-to-TB, KS-DFT-to-Wannier, and Wannier-to-TB relations without treating
+them as three instances of one undifferentiated matrix norm.
+
+\section*{Part I: Mathematical issues}
+
+\subsection*{Parent Bloch fibers and retained subspaces}
+
+Let $\hat H_{\mathrm{KS}}(\mathbf k)$ denote a Kohn--Sham Bloch-fiber
+operator at crystal momentum $\mathbf k$. Let
+$\mathcal S(\mathbf k)$ be an $M$-dimensional retained subspace with
+orthogonal projector $\hat P(\mathbf k)$. The retained parent operator is
+\begin{equation}
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+    =
+    \left.
+        \hat P(\mathbf k)
+        \hat H_{\mathrm{KS}}(\mathbf k)
+        \hat P(\mathbf k)
+    \right|_{\mathcal S(\mathbf k)}.
+\end{equation}
+The exact band count, reciprocal-space domain, projection choices, and energy
+windows are not fixed by this note. They must be inherited from the accepted
+target-subspace specification.
+
+A list of selected eigenvalues does not by itself define
+$\mathcal S(\mathbf k)$. Degeneracies, crossings, and entanglement make the
+projector the stable mathematical object. If disentanglement is used, it
+selects a subspace from a larger candidate space and can therefore introduce a
+subspace-selection discrepancy. A later unitary gauge transformation within a
+fixed retained subspace does not change that projector.
+
+The parent differential operator, the retained operator, and any finite matrix
+representation remain distinct:
+\begin{equation}
+    \hat H_{\mathrm{KS}}(\mathbf k),
+    \qquad
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k),
+    \qquad
+    \mathbf H_{\mathrm{KS}}^{(P)}(\mathbf k).
+\end{equation}
+Only the last object is directly available to a Frobenius-norm calculation,
+and only after its basis and normalization have been declared.
+
+\subsection*{From the retained KS operator to a Wannier representation}
+
+Let
+\begin{equation}
+    \mathbf J_{\mathrm W}(\mathbf k):
+    \mathbb C^M
+    \longrightarrow
+    \mathcal S(\mathbf k)
+\end{equation}
+be an isometric frame map for the selected Wannier gauge, so that
+\begin{equation}
+    \mathbf J_{\mathrm W}(\mathbf k)^\dagger
+    \mathbf J_{\mathrm W}(\mathbf k)
+    =
+    \mathbf I_M.
+\end{equation}
+The retained Hamiltonian in Wannier-gauge Bloch coordinates is
+\begin{equation}
+    \mathbf H_{\mathrm W}(\mathbf k)
+    =
+    \mathbf J_{\mathrm W}(\mathbf k)^\dagger
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+    \mathbf J_{\mathrm W}(\mathbf k).
+\end{equation}
+For a fixed retained subspace and a complete representation, this is a change
+of coordinates rather than a tight-binding approximation. Localization chooses
+a gauge within the subspace. It does not by itself discard rank or hopping
+blocks.
+
+On a uniform grid of $N_{\mathbf k}$ points, the corresponding real-space
+blocks use the declared Fourier convention
+\begin{equation}
+    \mathbf H_{\mathrm W}(\mathbf R)
+    =
+    \frac{1}{N_{\mathbf k}}
+    \sum_{\mathbf k}
+    e^{-i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm W}(\mathbf k).
+\end{equation}
+The inverse transform is
+\begin{equation}
+    \mathbf H_{\mathrm W}(\mathbf k)
+    =
+    \sum_{\mathbf R}
+    e^{i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm W}(\mathbf R)
+\end{equation}
+when all represented blocks and matching conventions are retained. Discarding
+blocks beyond a chosen range is a separate truncation.
+
+The KS-DFT-to-Wannier relation must therefore distinguish at least:
+\begin{enumerate}
+    \item retained-subspace selection or disentanglement;
+    \item gauge selection and localization;
+    \item finite reciprocal-grid interpolation;
+    \item any omitted real-space blocks; and
+    \item the numerical fidelity of the producing calculation.
+\end{enumerate}
+A band-interpolation comparison tests selected spectral consequences of these
+operations. It is not by itself an operator equality in an undeclared ambient
+space.
+
+\subsection*{Tight-binding model class}
+
+Let
+\begin{equation}
+    \mathbf H_{\mathrm{TB}}(\mathbf k;\boldsymbol\theta)
+    \in
+    \mathbb C^{M\times M}
+\end{equation}
+be a member of a declared orthogonal $sp^3s^{\ast}$ model class. The parameter
+domain fixes the orbital ordering, site convention, neighbor shells,
+Slater--Koster structure, crystal symmetries, Fourier sign, spin convention,
+and energy reference. Changing the permitted shell range or symmetry-allowed
+terms changes the model class.
+
+A tight-binding model is not defined solely by a parameter vector. Its
+operator is
+\begin{equation}
+    \mathbf H_{\mathrm{TB}}(\mathbf k;\boldsymbol\theta)
+    =
+    \sum_{\mathbf R}
+    e^{i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm{TB}}(\mathbf R;\boldsymbol\theta),
+\end{equation}
+where the retained blocks and Fourier convention are part of the model. A
+nearest-neighbor model and a second-neighbor model belong to different
+restricted classes even when their matrices have the same dimension at each
+$\mathbf k$.
+
+\subsection*{Direct KS-DFT-to-TB route}
+
+The direct route determines a parameter vector
+$\boldsymbol\theta_{\mathrm{dir}}$ from selected parent spectral data. An
+abstract training objective is
+\begin{equation}
+    \mathcal L_{\mathrm{dir}}(\boldsymbol\theta)
+    =
+    \sum_{q\in\mathcal T_E}
+    w_q\,
+    \ell_q
+    \left(
+        \mathbf H_{\mathrm{TB}}(\boldsymbol\theta),
+        \hat H_{\mathrm{KS}}^{(P)}
+    \right),
+\end{equation}
+where $\mathcal T_E$ is the frozen spectral training set and every loss term
+specifies its units and normalization.
+
+This route can compare eigenvalues and derived band quantities without first
+constructing a common orbital basis. It does not automatically supply an
+operator Frobenius norm between the KS and TB Hamiltonians. Such a norm would
+require an additional isometric embedding or alignment between the TB orbital
+space and the retained KS subspace. Equal numbers of bands do not provide that
+map.
+
+The direct route must therefore report spectral fitting error separately from
+withheld spectral and band-edge errors. A small training objective does not
+establish agreement of orbital character, projectors, gauges, or matrix
+elements.
+
+\subsection*{Wannier-mediated route}
+
+The mediated route first constructs a candidate Wannier operator and then
+aligns the TB orbital coordinates with the Wannier coordinates. Let
+\begin{equation}
+    \mathbf C:
+    \mathbb C^M_{\mathrm{TB}}
+    \longrightarrow
+    \mathbb C^M_{\mathrm W}
+\end{equation}
+be a symmetry-compatible unitary alignment after geometry, orbital identity,
+spin, units, and energy reference have been checked. A proposed real-space
+operator objective is
+\begin{equation}
+    \mathcal L_{\mathrm{med}}
+    (\mathbf C,\boldsymbol\theta)
+    =
+    \sum_{\mathbf R}
+    \omega_{\mathbf R}
+    \left\lVert
+        \mathbf H_{\mathrm W}(\mathbf R)
+        -
+        \mathbf C
+        \mathbf H_{\mathrm{TB}}(\mathbf R;\boldsymbol\theta)
+        \mathbf C^\dagger
+    \right\rVert_{\mathrm F}^2.
+\end{equation}
+The direction of $\mathbf C$, the included blocks, shell weights,
+normalization, and treatment of omitted blocks must be fixed before the
+objective is interpreted.
+
+The alignment does not repair incompatible subspaces. Principal angles,
+overlap singular values, orbital correspondence, and alignment conditioning
+must be checked before the operator residual is minimized. Optimizing
+$\mathbf C$ over an unrestricted unitary group could hide physically
+inadmissible orbital mixing; the admissible alignment class must preserve the
+structures required by the $sp^3s^{\ast}$ interpretation.
+
+\subsection*{Reciprocal-space and real-space Frobenius residuals}
+
+For a common aligned gauge, define
+\begin{equation}
+    \Delta\mathbf H(\mathbf k)
+    =
+    \mathbf H_{\mathrm W}(\mathbf k)
+    -
+    \mathbf C
+    \mathbf H_{\mathrm{TB}}(\mathbf k;\boldsymbol\theta)
+    \mathbf C^\dagger
+\end{equation}
+and
+\begin{equation}
+    \Delta\mathbf H(\mathbf R)
+    =
+    \mathbf H_{\mathrm W}(\mathbf R)
+    -
+    \mathbf C
+    \mathbf H_{\mathrm{TB}}(\mathbf R;\boldsymbol\theta)
+    \mathbf C^\dagger.
+\end{equation}
+For a complete discrete Fourier pair with the convention above, Parseval's
+identity gives
+\begin{equation}
+    \sum_{\mathbf k}
+    \left\lVert
+        \Delta\mathbf H(\mathbf k)
+    \right\rVert_{\mathrm F}^2
+    =
+    N_{\mathbf k}
+    \sum_{\mathbf R}
+    \left\lVert
+        \Delta\mathbf H(\mathbf R)
+    \right\rVert_{\mathrm F}^2.
+\end{equation}
+This equivalence does not survive unchanged when nonuniform weights, incomplete
+$\mathbf R$ sets, different reciprocal grids, or shell-dependent objectives
+are introduced. Those choices define different losses and must be reported as
+such.
+
+The Frobenius norm is invariant under a common unitary coordinate change:
+\begin{equation}
+    \left\lVert
+        \mathbf U^\dagger
+        \Delta\mathbf H
+        \mathbf U
+    \right\rVert_{\mathrm F}
+    =
+    \left\lVert
+        \Delta\mathbf H
+    \right\rVert_{\mathrm F}.
+\end{equation}
+It is not invariant under independently changing only one operand. Gauge
+invariance therefore follows only after the two representations and their
+alignment map are transformed consistently.
+
+\subsection*{The three pairwise relations}
+
+The proposed bulk experiment contains three pairwise relations, but they answer
+different questions:
+\begin{description}
+    \item[KS-DFT to Wannier.] Does the selected Wannier subspace and
+      interpolation reproduce the declared retained parent information over
+      the training and withheld domains? Relevant diagnostics include
+      principal angles where a common ambient representation exists,
+      interpolation errors, band-edge errors, centers, spreads, and real-space
+      block decay.
+    \item[KS-DFT to TB.] Does the direct TB model reproduce the frozen parent
+      spectral and band-edge targets? Without an additional orbital embedding,
+      this is primarily a spectral comparison rather than an operator
+      Frobenius comparison.
+    \item[Wannier to TB.] Can the declared TB model class approximate the
+      aligned Wannier operator? This is the natural location for blockwise and
+      shell-resolved Frobenius residuals.
+\end{description}
+These relations should not be collapsed into a single score. Their errors have
+different meanings, domains, and dependencies.
+
+\subsection*{Path dependence}
+
+Let $\boldsymbol\theta_{\mathrm{dir}}$ be the direct-route result and
+$\boldsymbol\theta_{\mathrm{med}}$ the mediated-route result. If both final TB
+operators can be placed in one canonical orbital convention, define
+\begin{equation}
+    \Delta\mathbf H_{\mathrm{path}}(\mathbf k)
+    =
+    \mathbf H_{\mathrm{TB}}
+    (\mathbf k;\boldsymbol\theta_{\mathrm{dir}})
+    -
+    \mathbf C_{\mathrm{path}}
+    \mathbf H_{\mathrm{TB}}
+    (\mathbf k;\boldsymbol\theta_{\mathrm{med}})
+    \mathbf C_{\mathrm{path}}^\dagger,
+\end{equation}
+where $\mathbf C_{\mathrm{path}}$ records any required admissible alignment.
+A proposed route discrepancy is
+\begin{equation}
+    D_{\mathrm{path}}^2
+    =
+    \sum_{\mathbf k\in\mathcal K_{\mathrm{cmp}}}
+    w_{\mathbf k}
+    \left\lVert
+        \Delta\mathbf H_{\mathrm{path}}(\mathbf k)
+    \right\rVert_{\mathrm F}^2.
+\end{equation}
+
+A parameter-vector difference is meaningful only if both vectors use the same
+identifiable parameterization and canonical convention. Distinct parameter
+vectors can represent the same operator, while similar parameter vectors can
+produce different operators when conventions differ. The operator discrepancy
+is therefore primary.
+
+A nonzero path discrepancy is not automatically an error. It may reflect the
+difference between a spectral objective and an operator objective, sensitivity
+to the retained Wannier subspace, alignment constraints, model-class
+limitations, optimization nonuniqueness, or numerical error. These causes must
+be investigated separately.
+
+\subsection*{Error accounting}
+
+The comparison should retain the following error classes separately:
+\begin{enumerate}
+    \item \textbf{Parent-model error:} limitations of the declared Kohn--Sham
+          physical approximation relative to independent physical evidence.
+    \item \textbf{Parent numerical error:} incomplete convergence of the
+          plane-wave, reciprocal-space, structural, or solver representation.
+    \item \textbf{Subspace error:} sensitivity to retained rank, projections,
+          and disentanglement windows.
+    \item \textbf{Wannier representation error:} interpolation and finite-grid
+          effects for the declared retained subspace.
+    \item \textbf{Alignment sensitivity:} dependence on orbital matching,
+          gauge, energy zero, and the admissible map.
+    \item \textbf{TB model-reduction error:} inability of the prescribed
+          orbital, symmetry, and neighbor-range class to reproduce the aligned
+          parent representation.
+    \item \textbf{Optimization and identifiability error:} uncertainty caused
+          by incomplete minimization or nonunique parameter descriptions.
+\end{enumerate}
+No scalar total error is defined by this note. Combining these components would
+require an owning rule that establishes compatible units, norms, correlations,
+and validation domains.
+
+\section*{Part II: Proposed numerical experiment}
+
+\subsection*{Common parent and frozen comparison data}
+
+Both routes must consume the same accepted pristine-silicon Kohn--Sham parent,
+including the same physical branch, lattice, pseudopotential identity,
+converged numerical settings, reciprocal conventions, and energy reference.
+The parent dataset must be divided before fitting into frozen training and
+withheld comparison sets.
+
+The bulk pilot targets the valence and low-conduction information needed for
+the orthogonal $sp^3s^{\ast}$ hierarchy, indirect Kohn--Sham gap, conduction
+valley, and electron effective masses. The retained rank, windows, projection
+choices, and interpolation domain must be supplied by the applicable accepted
+records rather than selected retrospectively to improve the comparison.
+
+No production parent is asserted to exist by this note. The following stages
+are a proposed experiment to be performed only after the required parent and
+its provenance are available.
+
+\subsection*{Stage A: establish the retained parent target}
+
+The first stage should record:
+\begin{enumerate}
+    \item the sampled $\mathbf k$ points and weights;
+    \item the retained rank and target energy region;
+    \item the training and withheld band data;
+    \item the band-edge quantities and their extraction rules;
+    \item the parent numerical uncertainty relevant to those quantities; and
+    \item the representation in which subspace overlaps can be evaluated.
+\end{enumerate}
+This stage supplies the common target for both reduction routes. It does not
+fit a TB model or select a Wannier gauge.
+
+\subsection*{Stage B: construct and diagnose the Wannier representation}
+
+A candidate Wannier90-derived representation should retain its initial
+projections, inner and outer windows when applicable, localization settings,
+centers, spreads, convergence history, Fourier conventions, and software
+identity. Its evaluation should include:
+\begin{enumerate}
+    \item agreement with retained parent bands on the construction grid;
+    \item interpolation errors at withheld $\mathbf k$ points;
+    \item errors in the indirect gap, valley position, and effective masses;
+    \item principal-angle or projector diagnostics where the common ambient
+          data permit them; and
+    \item decay of $\lVert\mathbf H_{\mathrm W}(\mathbf R)\rVert_{\mathrm F}$
+          with lattice vector and neighbor shell.
+\end{enumerate}
+A candidate that fails the declared retained-subspace or interpolation criteria
+should not be promoted to the mediated TB comparison merely because its
+Wannier functions appear localized.
+
+\subsection*{Stage C: direct spectral TB reduction}
+
+The direct route should fit the first declared $sp^3s^{\ast}$ model class to
+the frozen spectral training data. The objective, weights, parameter bounds,
+symmetry constraints, initialization strategy, and optimization stability
+checks must be fixed and retained.
+
+After fitting, the model should be evaluated on the withheld band points and
+on the declared indirect gap, valley position, and longitudinal and transverse
+effective masses. Training and withheld errors must be shown separately. If the
+nearest-neighbor class fails a prespecified criterion, the experiment may
+proceed through the already declared hierarchy; the class sequence must not be
+expanded after inspecting results merely to force acceptance.
+
+\subsection*{Stage D: Wannier-mediated operator reduction}
+
+The mediated route should align the declared TB orbital space with the accepted
+Wannier space and fit or project the same ordered $sp^3s^{\ast}$ hierarchy
+against the retained Wannier blocks. The experiment should record:
+\begin{enumerate}
+    \item the direction and admissible class of the alignment map;
+    \item overlap, principal-angle, and conditioning diagnostics;
+    \item the scalar energy-reference convention;
+    \item included and omitted $\mathbf R$ blocks;
+    \item shell weights and normalization;
+    \item onsite, hopping, orbital-block, and symmetry-channel residuals; and
+    \item sensitivity to the permitted neighbor range.
+\end{enumerate}
+The resulting model must also be evaluated on the same withheld spectral and
+band-edge quantities used for the direct route. Operator fitting does not waive
+spectral evaluation, and spectral agreement does not waive the operator
+residual.
+
+\subsection*{Stage E: compare the routes}
+
+The final comparison should place the direct and mediated TB operators in one
+canonical orbital, lattice, spin, Fourier, unit, and energy-reference
+convention. It should then report:
+\begin{enumerate}
+    \item the route discrepancy $D_{\mathrm{path}}$ over a frozen reciprocal
+          comparison set;
+    \item corresponding real-space block differences where the complete
+          Fourier conventions permit them;
+    \item differences in withheld bands and band-edge quantities;
+    \item model-class and neighbor-shell dependence;
+    \item alignment and optimization sensitivity; and
+    \item whether one parameter set satisfies both the prespecified spectral
+          and operator criteria.
+\end{enumerate}
+If no tested model satisfies the declared criteria, the result should be
+reported as failure of the tested reduction class rather than as failure of the
+Kohn--Sham or Wannier parent.
+
+\subsection*{Proposed comparison tables}
+
+A first table should identify the immutable inputs and conventions shared by
+both routes: parent identity, lattice, reciprocal coordinates, retained rank,
+training set, withheld set, spin convention, units, and energy reference.
+
+A second table should report the KS-to-Wannier diagnostics: interpolation
+errors, band-edge discrepancies, projector or principal-angle information,
+centers, spreads, and block-decay summaries.
+
+A third table should compare direct and mediated TB models using separate
+columns for training spectral error, withheld spectral error, indirect gap,
+valley position, effective masses, aligned operator residual, model class, and
+neighbor range. Blank or inapplicable cells should remain explicit rather than
+being filled by incomparable quantities.
+
+\section*{Plot placeholders}
+
+\begin{enumerate}
+    \item \textbf{Placeholder---route diagram.} Show the direct
+          KS-DFT-to-TB route and the KS-DFT-to-Wannier-to-TB route, labeling
+          subspace selection, gauge choice, alignment, spectral fitting, and
+          operator reduction as distinct operations.
+    \item \textbf{Placeholder---KS-to-Wannier interpolation.} Overlay retained
+          parent and Wannier-interpolated bands on the frozen training and
+          withheld reciprocal-space domains.
+    \item \textbf{Placeholder---Wannier interpolation error.} Plot bandwise or
+          subspace-aware interpolation discrepancies against $\mathbf k$,
+          marking the indirect valley and withheld points.
+    \item \textbf{Placeholder---real-space block decay.} Plot
+          $\lVert\mathbf H_{\mathrm W}(\mathbf R)\rVert_{\mathrm F}$ against
+          distance and neighbor shell, with onsite and symmetry-distinct blocks
+          identified.
+    \item \textbf{Placeholder---direct-route spectral comparison.} Overlay the
+          parent and direct-fit TB bands, distinguishing training from withheld
+          points.
+    \item \textbf{Placeholder---mediated-route spectral comparison.} Overlay
+          the parent, Wannier-interpolated, and operator-fit TB bands on the
+          same reciprocal-space domain.
+    \item \textbf{Placeholder---shell-resolved operator residual.} Plot
+          $\lVert\Delta\mathbf H(\mathbf R)\rVert_{\mathrm F}$ by distance,
+          shell, and selected orbital block.
+    \item \textbf{Placeholder---model-class progression.} Plot spectral and
+          operator discrepancies separately for the prespecified
+          nearest-neighbor and subsequent tested model classes.
+    \item \textbf{Placeholder---route discrepancy.} Plot
+          $\lVert\Delta\mathbf H_{\mathrm{path}}(\mathbf k)\rVert_{\mathrm F}$
+          over the frozen reciprocal comparison path or mesh.
+    \item \textbf{Placeholder---band-edge comparison.} Display the indirect
+          gap, valley position, and longitudinal and transverse effective-mass
+          discrepancies for the Wannier, direct-TB, and mediated-TB
+          representations without combining them into one score.
+    \item \textbf{Placeholder---alignment sensitivity.} Show the change in the
+          operator objective under the declared admissible alignment variants,
+          together with principal-angle and conditioning diagnostics.
+    \item \textbf{Placeholder---residual decomposition.} Display onsite,
+          hopping, orbital-block, symmetry-channel, and omitted-range
+          contributions to the mediated operator discrepancy.
+\end{enumerate}
+Each completed plot must identify the parent dataset, retained subspace,
+training or withheld status, units, normalization, alignment convention, model
+class, and evidentiary status. A placeholder is proposed work, not a calculated
+result.
+
+\section*{Interpretation boundary}
+
+The proposed experiment asks whether a declared $sp^3s^{\ast}$ hierarchy can
+preserve the selected bulk-silicon Kohn--Sham information through two different
+reduction routes. The KS-to-Wannier relation tests retained representation and
+interpolation. The direct KS-to-TB relation tests a constrained spectral fit.
+The Wannier-to-TB relation tests an aligned operator reduction. The comparison
+of their final TB operators tests path dependence.
+
+Agreement between the routes would not establish that the Kohn--Sham parent is
+an exact description of experimental silicon. Disagreement would not by itself
+identify a single cause. Scientific interpretation requires the parent,
+subspace, representation, alignment, model-class, optimization, and withheld
+errors to remain visible as separate quantities.

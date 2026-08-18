@@ -1,0 +1,745 @@
+\notechapter{6}{Two-dimensional separable-to-coupled periodic Wannier warmup}
+
+\textbf{Status: proposed analytical and numerical warmup.} No calculation,
+localized representation, tight-binding model, convergence result, or plot
+described in this note has yet been produced. The experiment is intended to
+extend Note~5 only where a second periodic dimension introduces genuinely new
+mathematical and numerical issues.
+
+\section*{Purpose}
+
+A two-dimensional periodic model is useful if it remains simple enough to
+verify while introducing features absent in one dimension. These include a
+Brillouin-zone mesh rather than a line, symmetry-related degeneracies,
+direction-dependent hopping shells, effective-mass tensors, gauge closure
+around reciprocal-space loops, and possible topological obstructions to
+Wannier localization.
+
+The proposed parent begins with a separable square-lattice cosine potential.
+Its bands and Bloch states factor into products of the one-dimensional problem,
+providing a strong reference. A controlled coupling is then introduced to
+break separability without changing the lattice. The progression is
+\begin{equation}
+    \begin{gathered}
+        \text{verified separable parent}
+        \\
+        \downarrow
+        \\
+        \text{coupled two-dimensional parent}
+        \\
+        \downarrow
+        \\
+        \text{Wannier representation}
+        \longrightarrow
+        \text{finite-range tight binding}.
+    \end{gathered}
+\end{equation}
+
+The two-dimensional warmup should answer:
+\begin{enumerate}
+    \item whether real-space and plane-wave Bloch fibers agree over a full
+          two-dimensional reciprocal mesh;
+    \item whether the separable limit reproduces sums and products of the
+          one-dimensional results;
+    \item how degeneracies affect band labels and retained-subspace selection;
+    \item how direct gauge transport and Wannier90 localization compare in two
+          dimensions;
+    \item how hopping blocks decay by lattice vector and symmetry shell;
+    \item how finite-range TB models converge to isolated- and composite-band
+          parent operators; and
+    \item how these conclusions change when separability, fourfold symmetry,
+          or isotropy is broken in a controlled manner.
+\end{enumerate}
+
+\section*{Continuum parent family}
+
+Let the square lattice have primitive vectors
+\begin{equation}
+    \mathbf a_1=a\mathbf e_x,
+    \qquad
+    \mathbf a_2=a\mathbf e_y,
+\end{equation}
+and reciprocal scale
+\begin{equation}
+    G=\frac{2\pi}{a}.
+\end{equation}
+Define
+\begin{equation}
+    V(x,y)
+    =
+    V_x\cos(Gx)
+    +
+    V_y\cos(Gy)
+    +
+    V_{xy}\cos(Gx)\cos(Gy).
+\end{equation}
+The continuum Hamiltonian on $L^2(\mathbb R^2)$ is
+\begin{equation}
+    \hat H
+    =
+    -\frac{\hbar^2}{2m}
+    \left(
+        \frac{\partial^2}{\partial x^2}
+        +
+        \frac{\partial^2}{\partial y^2}
+    \right)
+    +
+    V(x,y).
+\end{equation}
+Use the dimensionless controls
+\begin{equation}
+    \lambda_x=\frac{V_x}{E_G},
+    \qquad
+    \lambda_y=\frac{V_y}{E_G},
+    \qquad
+    \lambda_{xy}=\frac{V_{xy}}{E_G},
+    \qquad
+    E_G=\frac{\hbar^2G^2}{2m}.
+\end{equation}
+The first Brillouin zone is
+\begin{equation}
+    -\frac{G}{2}\leq k_x,k_y<\frac{G}{2}.
+\end{equation}
+
+For crystal momentum $\mathbf k=(k_x,k_y)$, write
+\begin{equation}
+    \psi_{n\mathbf k}(\mathbf r)
+    =
+    e^{i\mathbf k\cdot\mathbf r}
+    u_{n\mathbf k}(\mathbf r),
+\end{equation}
+where $u_{n\mathbf k}$ is periodic on the square cell. The cell-periodic fiber
+operator is
+\begin{equation}
+    \hat H(\mathbf k)
+    =
+    \frac{1}{2m}
+    \left(-i\hbar\nabla+\hbar\mathbf k\right)^2
+    +
+    V(x,y).
+\end{equation}
+
+\section*{Separable reference limit}
+
+When
+\begin{equation}
+    V_{xy}=0,
+\end{equation}
+the Hamiltonian separates:
+\begin{equation}
+    \hat H(\mathbf k)
+    =
+    \hat H_x(k_x)
+    \otimes
+    \hat I_y
+    +
+    \hat I_x
+    \otimes
+    \hat H_y(k_y).
+\end{equation}
+Consequently, the exact product-form relations are
+\begin{align}
+    E_{n_xn_y}(k_x,k_y)
+    &=
+    E_{n_x}^{(x)}(k_x)
+    +
+    E_{n_y}^{(y)}(k_y),
+    \\
+    u_{n_xn_y,\mathbf k}(x,y)
+    &=
+    u_{n_x,k_x}^{(x)}(x)
+    u_{n_y,k_y}^{(y)}(y),
+\end{align}
+up to basis choices within degenerate product subspaces.
+
+These identities make the separable model more than a qualitative warmup. The
+one-dimensional parent supplies expected two-dimensional eigenvalues,
+projectors, Wannier products, and axis-supported Kronecker-sum hopping
+structure. A two-dimensional
+construction that fails these checks in the separable limit has not yet
+isolated genuinely two-dimensional physics.
+
+For the isotropic case $V_x=V_y$, product states related by
+$n_x\leftrightarrow n_y$ may become symmetry degenerate at selected
+$\mathbf k$. The stable comparison object is then the degenerate projector,
+not an arbitrary ordering of individual eigenvectors.
+
+\section*{Plane-wave Bloch representation}
+
+Use reciprocal indices $(p,q)\in\mathbb Z^2$ and basis functions
+\begin{equation}
+    \langle\mathbf r\mid p,q;\mathbf k\rangle
+    =
+    \frac{1}{a}
+    e^{i[(k_x+pG)x+(k_y+qG)y]}.
+\end{equation}
+The kinetic matrix is diagonal:
+\begin{equation}
+    T_{pq,p'q'}(\mathbf k)
+    =
+    \frac{\hbar^2}{2m}
+    \left[
+        (k_x+pG)^2+(k_y+qG)^2
+    \right]
+    \delta_{pp'}\delta_{qq'}.
+\end{equation}
+The potential couplings are
+\begin{align}
+    V_{pq,p'q'}
+    &=
+    \frac{V_x}{2}
+    \left(
+        \delta_{p,p'+1}+\delta_{p,p'-1}
+    \right)
+    \delta_{qq'}
+    \\
+    &\quad+
+    \frac{V_y}{2}
+    \left(
+        \delta_{q,q'+1}+\delta_{q,q'-1}
+    \right)
+    \delta_{pp'}
+    \\
+    &\quad+
+    \frac{V_{xy}}{4}
+    \sum_{s_x=\pm1}
+    \sum_{s_y=\pm1}
+    \delta_{p,p'+s_x}
+    \delta_{q,q'+s_y}.
+\end{align}
+The separable terms move along one reciprocal axis at a time. The coupling
+$V_{xy}$ connects diagonal reciprocal neighbors and therefore provides a
+visible algebraic marker of nonseparability.
+
+Retain
+\begin{equation}
+    -P_x\leq p\leq P_x,
+    \qquad
+    -P_y\leq q\leq P_y.
+\end{equation}
+The represented dimension is
+\begin{equation}
+    N_{\mathrm{PW}}
+    =
+    (2P_x+1)(2P_y+1).
+\end{equation}
+Cutoff convergence should be tested independently in the two directions before
+an isotropic cutoff is assumed sufficient.
+
+\section*{Real-space Bloch representation}
+
+Use an $N_x\times N_y$ grid on one unit cell with spacings
+\begin{equation}
+    \Delta x=\frac{a}{N_x},
+    \qquad
+    \Delta y=\frac{a}{N_y}.
+\end{equation}
+The boundary identifications are
+\begin{align}
+    \psi(x+a,y)&=e^{ik_xa}\psi(x,y),
+    \\
+    \psi(x,y+a)&=e^{ik_ya}\psi(x,y).
+\end{align}
+A centered second-order representation has the Kronecker-sum form
+\begin{equation}
+    \mathbf T_h(\mathbf k)
+    =
+    \mathbf T_x(k_x)\otimes\mathbf I_y
+    +
+    \mathbf I_x\otimes\mathbf T_y(k_y),
+\end{equation}
+where the boundary entries of $\mathbf T_x$ and $\mathbf T_y$ carry the
+corresponding Bloch phases. The represented Hamiltonian is
+\begin{equation}
+    \mathbf H_h(\mathbf k)
+    =
+    \mathbf T_h(\mathbf k)
+    +
+    \operatorname{diag}
+    \left(
+        V(x_i,y_j)
+    \right).
+\end{equation}
+
+At $V_{xy}=0$, this matrix should equal the Kronecker sum of the corresponding
+one-dimensional represented Hamiltonians, subject to one fixed vectorization
+order. Its eigenvalues should be sums of one-dimensional represented
+eigenvalues. This is an exact matrix-level check for the declared discretization,
+not merely a continuum expectation.
+
+A two-dimensional discrete Bloch--Fourier transform transports the real-space
+matrix into reciprocal coordinates. When
+\begin{equation}
+    N_x=2P_x+1,
+    \qquad
+    N_y=2P_y+1,
+\end{equation}
+the transform is the Kronecker product of the one-dimensional transforms:
+\begin{equation}
+    \mathbf F_{2\mathrm D}(\mathbf k)
+    =
+    \mathbf F_x(k_x)\otimes\mathbf F_y(k_y).
+\end{equation}
+The transported matrix
+\begin{equation}
+    \mathbf A_h^{\mathrm{FD}\rightarrow\mathrm{PW}}(\mathbf k)
+    =
+    \mathbf F_{2\mathrm D}(\mathbf k)^\dagger
+    \mathbf H_h(\mathbf k)
+    \mathbf F_{2\mathrm D}(\mathbf k)
+\end{equation}
+can be compared with the plane-wave Galerkin matrix in a common basis.
+Low-reciprocal-sector and retained-band comparisons should accompany any
+full-space Frobenius norm because high-frequency grid modes can dominate the
+latter.
+
+\section*{Symmetry and degeneracy diagnostics}
+
+For a real scalar potential,
+\begin{equation}
+    E_n(-\mathbf k)=E_n(\mathbf k)
+\end{equation}
+under consistent band or subspace matching. In the isotropic separable case,
+the square-lattice point symmetries imply additional relations among
+$\mathbf k$, rotated momenta, and reflected momenta. The usual high-symmetry
+points may be denoted
+\begin{equation}
+    \Gamma=(0,0),
+    \qquad
+    X=\left(\frac{G}{2},0\right),
+    \qquad
+    M=\left(\frac{G}{2},\frac{G}{2}\right).
+\end{equation}
+A plotted $\Gamma$--$X$--$M$--$\Gamma$ path is useful for visualization but is
+not sufficient for Wannier localization or two-dimensional operator norms. The
+full reciprocal mesh and its neighbor relations remain required.
+
+At degeneracies, individual eigenvectors are not uniquely defined. Comparisons
+should use the projector onto the complete degenerate or nearly degenerate
+cluster. Principal angles and overlap singular values determine whether two
+represented clusters span the same subspace before an internal gauge is
+selected.
+
+Breaking $V_x=V_y$ while retaining $V_{xy}=0$ supplies a controlled anisotropic
+case. Turning on $V_{xy}$ supplies a controlled nonseparable case. These two
+changes should not be introduced simultaneously in the first comparison.
+
+\section*{Effective-mass tensor}
+
+At an isolated band extremum $\mathbf k_0$, define the inverse effective-mass
+tensor
+\begin{equation}
+    \left(m_n^{\ast-1}\right)_{ij}
+    =
+    \frac{1}{\hbar^2}
+    \left.
+        \frac{\partial^2E_n(\mathbf k)}
+        {\partial k_i\partial k_j}
+    \right|_{\mathbf k=\mathbf k_0}.
+\end{equation}
+For the separable parent, the mixed derivative should vanish in the lattice
+axes, and the diagonal terms should agree with the corresponding
+one-dimensional curvatures. In the isotropic case, symmetry may force equal
+diagonal entries at selected extrema. These are expected structural checks,
+not calculated findings.
+
+The reciprocal stencil, fit region, symmetry constraints, and units must be
+held fixed when plane-wave, real-space, Wannier, and TB representations are
+compared. A band-path curvature alone does not determine the full tensor.
+
+\section*{Direct two-dimensional gauge construction}
+
+For an isolated band, neighboring overlaps are
+\begin{equation}
+    M^{(\mathbf k,\mathbf b)}
+    =
+    \langle
+        u_{\mathbf k}
+        \mid
+        u_{\mathbf k+\mathbf b}
+    \rangle.
+\end{equation}
+Parallel transport can be performed along one reciprocal direction on each
+mesh line, followed by transport between lines. Unlike the one-dimensional
+case, closing the gauge along one direction does not automatically close it
+along the other. Wilson loops around reciprocal cycles and elementary mesh
+plaquettes diagnose the accumulated holonomy.
+
+For a composite $M$-band subspace, replace each scalar overlap by
+\begin{equation}
+    \mathbf M^{(\mathbf k,\mathbf b)}_{mn}
+    =
+    \langle
+        u_{m\mathbf k}
+        \mid
+        u_{n,\mathbf k+\mathbf b}
+    \rangle.
+\end{equation}
+Polar or singular-value decompositions supply neighboring unitary transport
+maps. Small singular values identify subspace mismatch or inadequate reciprocal
+resolution. A sequence of locally optimal rotations need not produce a globally
+periodic and localized frame; loop closure remains an independent condition.
+
+The direct construction should retain every chosen spanning path, overlap,
+polar factor, loop holonomy, and closure transformation. Its purpose is not to
+replace a mature localization procedure, but to make the gauge problem visible
+before it is delegated.
+
+\section*{Topology and the localization boundary}
+
+A globally smooth periodic frame for an isolated or composite two-dimensional
+subspace can be obstructed by nontrivial topology. The first Chern number may
+be written schematically as
+\begin{equation}
+    C
+    =
+    \frac{1}{2\pi}
+    \int_{\mathrm{BZ}}
+    \operatorname{Tr}\mathbf\Omega(\mathbf k)\,d^2k,
+\end{equation}
+where $\mathbf\Omega$ is the Berry-curvature matrix of the retained subspace.
+A nonzero $C$ obstructs a complete set of exponentially localized Wannier
+functions spanning that subspace.
+
+The proposed real scalar cosine family has spinless time-reversal symmetry and
+is intended as a topologically trivial starting point. That expectation should
+be checked through gauge closure or a discretized curvature diagnostic rather
+than inferred from a visually smooth band plot. Degeneracies can also make an
+individual-band Chern number undefined until a composite retained subspace is
+chosen.
+
+This note does not propose introducing magnetic phases or a Chern-band model in
+the initial experiment. Topological obstruction is included as a stopping
+condition and interpretive lesson, not as a target phenomenon.
+
+\section*{Wannier90 localization in two dimensions}
+
+Wannier90 can consume the two-dimensional model Bloch states through the same
+general interfaces used in Note~5. The required data include:
+\begin{enumerate}
+    \item eigenvalues on a uniform $N_{k_x}\times N_{k_y}$ mesh;
+    \item neighboring-state overlap matrices in both reciprocal directions;
+    \item optional trial-orbital projections;
+    \item the square or rectangular lattice convention;
+    \item retained band and Wannier counts; and
+    \item consistent reciprocal-boundary sewing.
+\end{enumerate}
+These data correspond to the standard \texttt{.eig}, \texttt{.mmn}, optional
+\texttt{.amn}, and \texttt{.win} Wannier90 surfaces~\cite{pizzi2020}.
+
+A formally three-dimensional lattice representation may use one reciprocal
+point in an inactive transverse direction. The auxiliary lattice vector and
+transverse orbital factor are then representation choices. Active-plane centers
+and spreads must be separated from artificial transverse contributions. The
+model remains two dimensional even though the localization interface uses a
+three-vector lattice convention.
+
+For an isolated band, trial projections may be unnecessary when the direct
+parallel-transport gauge is already smooth and periodic. For a composite or
+entangled group, projections and possibly disentanglement windows become
+material choices~\cite{souza2001}. Projection, disentanglement, gauge rotation,
+localization, and hopping truncation must remain separately identified.
+
+The direct and Wannier90 routes should consume the same parent eigenvectors,
+mesh, subspace, and overlap matrices. After translations, orbital labels, and
+unitary freedom are aligned, compare:
+\begin{enumerate}
+    \item retained projectors;
+    \item Wilson-loop or center phases;
+    \item active-plane Wannier centers and spreads;
+    \item real-space profiles and symmetry relations;
+    \item interpolated bands on withheld $\mathbf k$ points;
+    \item aligned real-space Hamiltonian blocks; and
+    \item sensitivity to trial projections and mesh refinement.
+\end{enumerate}
+
+\section*{Two-dimensional Wannier Hamiltonian}
+
+Let $N_k=N_{k_x}N_{k_y}$ and choose one fundamental set
+$\mathcal R_{N_k}$ containing exactly $N_k$ lattice-vector representatives
+\begin{equation}
+    \mathbf R=r_x\mathbf a_1+r_y\mathbf a_2
+\end{equation}
+modulo the two Born--von Karman superlattice vectors. For a retained $M$-band
+frame, define the represented real-space blocks
+\begin{equation}
+    \mathbf H_{\mathrm W}(\mathbf R)
+    =
+    \frac{1}{N_k}
+    \sum_{\mathbf k}
+    e^{-i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm W}(\mathbf k),
+    \qquad
+    \mathbf R\in\mathcal R_{N_k}.
+\end{equation}
+The inverse discrete transform is
+\begin{equation}
+    \mathbf H_{\mathrm W}(\mathbf k)
+    =
+    \sum_{\mathbf R\in\mathcal R_{N_k}}
+    e^{i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm W}(\mathbf R).
+\end{equation}
+The infinite-lattice interpretation is recovered only through a controlled
+reciprocal-mesh limit; periodic copies of one finite-transform coefficient must
+not be counted as independent hoppings.
+
+In the separable isolated-product case, the two-dimensional Wannier functions
+should factor into one-dimensional Wannier functions up to gauge choices within
+degenerate product spaces. The Hamiltonian contains axis-directed contributions
+inherited from the one-dimensional factors. Any unexpected diagonal or mixed
+hopping should first be checked against gauge mixing, degeneracy, transform
+conventions, and aliasing.
+
+The coupled term $V_{xy}$ generally destroys product factorization and can
+produce genuine mixed-direction structure in the retained representation. Its
+controlled onset provides a direct test of whether the localization and
+hopping analysis detects nonseparability.
+
+\section*{Two-dimensional tight-binding hierarchy}
+
+Choose a retained set
+\begin{equation}
+    \mathcal R_c\subseteq\mathcal R_{N_k}
+\end{equation}
+of distinct Born--von Karman representatives. The finite-range model is
+\begin{equation}
+    \mathbf H_{\mathrm{TB}}^{(\mathcal R_c)}(\mathbf k)
+    =
+    \sum_{\mathbf R\in\mathcal R_c}
+    e^{i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm W}(\mathbf R).
+\end{equation}
+In two dimensions, ``range'' is not unique. Possible hierarchies include:
+\begin{enumerate}
+    \item Euclidean-distance shells;
+    \item Manhattan-distance shells;
+    \item square-lattice point-group orbits; and
+    \item physically declared neighbor shells.
+\end{enumerate}
+The hierarchy must be frozen before outcomes are inspected. A symmetry shell
+should be retained or omitted as a complete orbit when the model class is
+claimed to preserve that symmetry.
+
+The omitted-block residual is
+\begin{equation}
+    \Delta\mathbf H^{(\mathcal R_c)}(\mathbf k)
+    =
+    \sum_{\mathbf R\in\mathcal R_{N_k}\setminus\mathcal R_c}
+    e^{i\mathbf k\cdot\mathbf R}
+    \mathbf H_{\mathrm W}(\mathbf R).
+\end{equation}
+For a complete uniform transform, Parseval's identity relates the full-mesh
+reciprocal Frobenius residual to the omitted real-space block norm:
+\begin{equation}
+    \sum_{\mathbf k}
+    \left\lVert
+        \Delta\mathbf H^{(\mathcal R_c)}(\mathbf k)
+    \right\rVert_{\mathrm F}^2
+    =
+    N_k
+    \sum_{\mathbf R\in\mathcal R_{N_k}\setminus\mathcal R_c}
+    \left\lVert
+        \mathbf H_{\mathrm W}(\mathbf R)
+    \right\rVert_{\mathrm F}^2.
+\end{equation}
+Nonuniform reciprocal weights or incomplete transforms define a different
+objective.
+
+\section*{Direct and mediated reduction routes}
+
+The mediated route constructs $\mathbf H_{\mathrm W}(\mathbf R)$ and truncates
+or fits it within a declared shell hierarchy. The direct route fits the same
+finite-dimensional model class to parent band data over selected reciprocal
+points.
+
+For one isolated band, a complete uniform mesh, equal weights, and an
+unconstrained set of retained lattice Fourier coefficients that are distinct
+modulo the Born--von Karman superlattice, direct least squares and mediated
+Fourier truncation are expected to agree. In a composite subspace,
+the direct spectral objective does not identify a unique matrix-valued operator
+because momentum-dependent unitary rotations preserve the eigenvalues. An
+aligned operator objective or additional orbital information is required.
+
+The route defect is
+\begin{equation}
+    D_{\mathrm{path}}^2
+    =
+    \sum_{\mathbf k\in\mathcal K_{\mathrm{cmp}}}
+    w_{\mathbf k}
+    \left\lVert
+        \mathbf H_{\mathrm{TB,dir}}(\mathbf k)
+        -
+        \mathbf C(\mathbf k)^\dagger
+        \mathbf H_{\mathrm{TB,med}}(\mathbf k)
+        \mathbf C(\mathbf k)
+    \right\rVert_{\mathrm F}^2,
+\end{equation}
+where $\mathbf C(\mathbf k)$ is an admissible periodic alignment when the
+final orbital conventions differ. A constant cell-local matrix is sufficient
+only when the two gauges differ by a momentum-independent orbital rotation. A
+general momentum-dependent alignment can mix real-space cells and change the
+apparent hopping range, so its smoothness, periodicity, and real-space action
+must be retained with the route comparison. The comparison should vary
+reciprocal weighting, withheld regions, shell constraints, gauge choices, and
+composite rank one at a time.
+
+\section*{Proposed staged experiment}
+
+\subsection*{Stage A: reproduce the separable product structure}
+
+Set $V_{xy}=0$. For selected $(V_x,V_y)$, compare two-dimensional plane-wave
+and real-space eigenvalues and projectors with sums and products of converged
+one-dimensional results. Verify Kronecker-sum identities at the represented
+matrix level and treat symmetry degeneracies as complete subspaces.
+
+\subsection*{Stage B: converge the two parent representations}
+
+Refine $(P_x,P_y)$ and $(\Delta x,\Delta y)$ independently over a full frozen
+reciprocal mesh. Compare low-sector transported operators, band energies,
+projectors, symmetry residuals, gaps, bandwidths, and effective-mass tensors.
+Freeze neither parent representation until the declared quantities are stable
+under both routes.
+
+\subsection*{Stage C: construct direct two-dimensional gauges}
+
+For an isolated band, perform parallel transport along reciprocal lines, record
+loop holonomies, and impose periodic closure in both directions. For a
+composite subspace, use overlap polar factors and Wilson loops. Retain overlap
+singular values and stop if the selected subspace is not compatible across the
+mesh.
+
+\subsection*{Stage D: compare with Wannier90}
+
+Provide Wannier90 with the same eigenvalues, overlap matrices, reciprocal mesh,
+and optional projections. Compare direct and Wannier90 centers, active-plane
+spreads, projectors, profiles, interpolated bands, and aligned hopping blocks.
+Repeat under mesh refinement and controlled projection changes.
+
+\subsection*{Stage E: verify topology and symmetry}
+
+Evaluate reciprocal-loop closure and a discretized Berry-curvature or Chern
+diagnostic for the retained subspace. Verify the expected trivial starting
+case before interpreting localization. Check square-lattice symmetry in the
+isotropic model and its controlled reduction in the anisotropic model.
+
+\subsection*{Stage F: truncate by two-dimensional hopping shell}
+
+Freeze a symmetry-respecting shell hierarchy. At each level report omitted
+block norms, reciprocal operator residuals, training and withheld band errors,
+gaps, bandwidths, and effective-mass-tensor errors. Compare Euclidean and
+physically declared shell orderings only as separately named model classes.
+
+\subsection*{Stage G: compare direct and mediated reductions}
+
+Begin with an isolated band and complete uniform reciprocal data, where route
+agreement is expected. Then introduce composite bands, withheld reciprocal
+regions, nonuniform weights, symmetry-constrained shells, and independent gauge
+choices one at a time. Align final operators before forming the route defect.
+
+\subsection*{Stage H: turn on nonseparable coupling}
+
+Increase $\lambda_{xy}$ from zero through a frozen sequence while holding the
+remaining controls fixed. At each value repeat parent convergence, subspace,
+localization, hopping-decay, and route comparisons. Determine which observed
+changes are physical consequences of coupling and which arise from lost
+numerical convergence or a changed retained manifold.
+
+\section*{Error accounting}
+
+The proposed experiment should retain separately:
+\begin{enumerate}
+    \item one-dimensional reference error inherited by the separable check;
+    \item two-dimensional plane-wave cutoff error;
+    \item real-space grid and stencil error in each direction;
+    \item reciprocal-mesh and interpolation error;
+    \item symmetry and degeneracy-cluster matching error;
+    \item retained-subspace and overlap-conditioning error;
+    \item loop-closure, gauge, and topology diagnostics;
+    \item direct-versus-Wannier90 localization discrepancy;
+    \item hopping-shell truncation error;
+    \item direct-fit optimization and identifiability error;
+    \item effective-mass-tensor extraction error; and
+    \item nonseparable-coupling continuation error.
+\end{enumerate}
+No scalar total error is defined. The experiment is an illustrative numerical
+verification problem, not scientific validation of a two-dimensional material
+or of silicon.
+
+\section*{Plot placeholders}
+
+\begin{enumerate}
+    \item \textbf{Placeholder---potential surfaces.} Plot the separable,
+          anisotropic, and coupled potentials over several cells.
+    \item \textbf{Placeholder---separable energy check.} Compare calculated
+          two-dimensional energies with sums of one-dimensional energies over
+          the reciprocal mesh.
+    \item \textbf{Placeholder---product-state projector check.} Plot projector
+          or principal-angle discrepancies between calculated and product
+          subspaces, especially at degeneracies.
+    \item \textbf{Placeholder---two-dimensional band surfaces.} Display
+          selected $E_n(k_x,k_y)$ surfaces rather than only a high-symmetry
+          path.
+    \item \textbf{Placeholder---high-symmetry band path.} Plot
+          $\Gamma$--$X$--$M$--$\Gamma$ overlays for the plane-wave, real-space,
+          Wannier, and TB representations.
+    \item \textbf{Placeholder---parent convergence maps.} Display spectral,
+          projector, and low-sector Frobenius errors over
+          $(P_x,P_y)$ and $(\Delta x/a,\Delta y/a)$.
+    \item \textbf{Placeholder---matrix coupling structure.} Show reciprocal
+          matrix heat maps distinguishing axis couplings from the diagonal
+          couplings introduced by $V_{xy}$.
+    \item \textbf{Placeholder---symmetry residuals.} Plot time-reversal,
+          rotation, and reflection residuals over the full reciprocal mesh.
+    \item \textbf{Placeholder---effective-mass ellipses.} Display the principal
+          axes and eigenvalues of the effective-mass tensor for selected band
+          extrema.
+    \item \textbf{Placeholder---neighbor-overlap conditioning.} Plot overlap
+          magnitudes or singular values in both reciprocal directions.
+    \item \textbf{Placeholder---Wilson-loop phases.} Plot loop eigenphases
+          against transverse momentum for isolated and composite retained
+          spaces.
+    \item \textbf{Placeholder---curvature or Chern diagnostic.} Display the
+          discretized Berry curvature and its integrated value with convergence
+          controls.
+    \item \textbf{Placeholder---direct and Wannier90 functions.} Overlay aligned
+          active-plane Wannier densities and compare centers and spreads.
+    \item \textbf{Placeholder---Wannier interpolation.} Plot full-mesh and
+          withheld-point interpolation errors.
+    \item \textbf{Placeholder---hopping maps.} Display
+          $\lVert\mathbf H_{\mathrm W}(\mathbf R)\rVert_{\mathrm F}$ on the
+          two-dimensional lattice, grouped by symmetry shell.
+    \item \textbf{Placeholder---shell convergence.} Plot operator, spectral,
+          gap, bandwidth, and mass-tensor errors against retained shell.
+    \item \textbf{Placeholder---Parseval check.} Compare omitted real-space
+          block norms with reciprocal residual norms.
+    \item \textbf{Placeholder---direct versus mediated routes.} Plot the route
+          defect over reciprocal space and against shell complexity.
+    \item \textbf{Placeholder---separability breaking.} Plot selected operator,
+          localization, and hopping diagnostics against
+          $|V_{xy}|/E_G$.
+    \item \textbf{Placeholder---anisotropy scan.} Plot mass tensors, hopping
+          decay, and localization diagnostics against $V_x/V_y$ with the
+          remaining controls fixed.
+\end{enumerate}
+Each completed plot should identify the potential parameters, reciprocal and
+real-space cutoffs, full reciprocal mesh, retained subspace, degeneracy
+handling, gauge, topology diagnostic, localization route, hopping shell,
+normalization, units, and evidentiary status. A placeholder is not a calculated
+result.
+
+\section*{Interpretation boundary}
+
+The separable model supplies an exact bridge from the one-dimensional warmup.
+The coupled model introduces genuinely two-dimensional structure without
+immediately invoking a material-specific parent. Direct gauge transport makes
+loop closure and topology visible; Wannier90 supplies an independent and more
+general localization route. The shell hierarchy introduces directional and
+symmetry constraints absent in one dimension.
+
+Successful completion would establish analytical and numerical verification
+for the declared two-dimensional model under its recorded conditions. It would
+not validate a two-dimensional material, determine an acceptable silicon
+Wannier subspace, or show that the same hopping hierarchy is adequate for the
+diamond lattice. Its role is to expose two-dimensional failure modes before the
+three-dimensional multiorbital bulk-silicon reduction is attempted.

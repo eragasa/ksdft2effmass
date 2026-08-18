@@ -1,0 +1,344 @@
+\notechapter{2}{Particle-in-a-box residuals and identifiability}
+
+\section*{Purpose of the example}
+
+The one-dimensional particle in a box provides a minimal setting in which the
+continuum Hamiltonian, boundary conditions, discrete representation, spectral
+restriction, and effective-model interpretation can be separated explicitly.
+The example is useful not because the spectrum is difficult to obtain, but
+because every state-space map can be written in closed form. It therefore
+exposes several distinct residual operators that can otherwise be conflated
+under the notation $V_{\mathrm{eff}}$.
+
+\section*{Continuum Hamiltonian}
+
+Let a particle of mass $m$ be confined to the interval
+\begin{equation}
+    \Omega=(0,L).
+\end{equation}
+The Hamiltonian is the Dirichlet realization of the kinetic-energy differential
+expression,
+\begin{equation}
+    \hat H_{\mathrm{box}}
+    =
+    -\frac{\hbar^2}{2m}
+    \frac{d^2}{dx^2},
+\end{equation}
+with domain
+\begin{equation}
+    \mathcal D(\hat H_{\mathrm{box}})
+    =
+    H^2(0,L)\cap H_0^1(0,L).
+\end{equation}
+Equivalently,
+\begin{equation}
+    \psi(0)=\psi(L)=0.
+\end{equation}
+The eigenfunctions and eigenvalues are
+\begin{equation}
+    \psi_n(x)
+    =
+    \sqrt{\frac{2}{L}}
+    \sin\left(\frac{n\pi x}{L}\right),
+\end{equation}
+and
+\begin{equation}
+    E_n
+    =
+    \frac{\hbar^2\pi^2n^2}{2mL^2},
+    \qquad
+    n=1,2,\ldots.
+\end{equation}
+The interior potential is zero. Confinement is encoded in the domain of the
+self-adjoint kinetic operator rather than by finite values of a multiplication
+potential inside the interval~\cite{bonneau2001,angelone2024}. A different
+boundary condition applied to the same formal differential expression defines
+a different operator.
+
+\section*{Finite-difference realization}
+
+Introduce $N$ interior points
+\begin{equation}
+    x_j=j\Delta x,
+    \qquad
+    \Delta x=\frac{L}{N+1},
+    \qquad
+    j=1,\ldots,N.
+\end{equation}
+The boundary values are fixed to zero and are not independent components of
+the numerical state vector. With the centered second-order approximation,
+\begin{equation}
+    \left.
+        \frac{d^2\psi}{dx^2}
+    \right|_{x=x_j}
+    \approx
+    \frac{
+        \psi(x_{j+1})-2\psi(x_j)+\psi(x_{j-1})
+    }{\Delta x^2},
+\end{equation}
+the discrete Hamiltonian is
+\begin{equation}
+    \mathbf H_h
+    =
+    \frac{\hbar^2}{2m\Delta x^2}
+    \begin{bmatrix}
+        2 & -1 & 0 & \cdots & 0 \\
+        -1 & 2 & -1 & \ddots & \vdots \\
+        0 & -1 & 2 & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & -1 \\
+        0 & \cdots & 0 & -1 & 2
+    \end{bmatrix}.
+\end{equation}
+This matrix is the second-order discrete Dirichlet Laplacian multiplied by the
+kinetic prefactor~\cite{strikwerda2004}. Its eigenvalues are
+\begin{equation}
+    \varepsilon_i
+    =
+    \frac{2\hbar^2}{m\Delta x^2}
+    \sin^2\left(
+        \frac{i\pi}{2(N+1)}
+    \right),
+    \qquad
+    i=1,\ldots,N.
+\end{equation}
+For fixed $i$,
+\begin{equation}
+    \varepsilon_i\longrightarrow E_i
+\end{equation}
+as $N\rightarrow\infty$. Writing
+\begin{equation}
+    z_i=\frac{i\pi}{2(N+1)},
+\end{equation}
+the dispersion error satisfies
+\begin{equation}
+    \frac{\varepsilon_i}{E_i}
+    =
+    \left(\frac{\sin z_i}{z_i}\right)^2,
+\end{equation}
+and hence
+\begin{equation}
+    \frac{\varepsilon_i-E_i}{E_i}
+    =
+    -\frac{z_i^2}{3}+O(z_i^4).
+\end{equation}
+The relation between a Euclidean-normalized eigenvector $\mathbf v_i$ and
+samples of a normalized continuum eigenfunction contains the quadrature factor
+\begin{equation}
+    v_i(j)
+    \approx
+    \sqrt{\Delta x}\,\psi_i(x_j),
+\end{equation}
+up to an arbitrary phase. This factor distinguishes the numerical inner
+product from the continuum $L^2$ inner product.
+
+\section*{Spectral reconstruction and retention}
+
+Let
+\begin{equation}
+    \boldsymbol\Phi
+    =
+    \begin{bmatrix}
+        \mathbf v_1 & \mathbf v_2 & \cdots & \mathbf v_N
+    \end{bmatrix},
+\end{equation}
+and
+\begin{equation}
+    \boldsymbol\Lambda
+    =
+    \operatorname{diag}
+    (\varepsilon_1,\ldots,\varepsilon_N).
+\end{equation}
+The discrete Hamiltonian has the exact spectral reconstruction
+\begin{equation}
+    \mathbf H_h
+    =
+    \boldsymbol\Phi
+    \boldsymbol\Lambda
+    \boldsymbol\Phi^\dagger.
+\end{equation}
+This is an exact identity for the discrete matrix. It is not an equality
+between the finite-difference matrix and the continuum differential operator.
+
+Retain the lowest $M$ discrete eigenvectors in
+\begin{equation}
+    \boldsymbol\Phi_M
+    =
+    \begin{bmatrix}
+        \mathbf v_1 & \cdots & \mathbf v_M
+    \end{bmatrix},
+\end{equation}
+and define
+\begin{equation}
+    \mathbf P_M
+    =
+    \boldsymbol\Phi_M
+    \boldsymbol\Phi_M^\dagger.
+\end{equation}
+The retained Hamiltonian embedded in the full grid space is
+\begin{equation}
+    \mathbf H_h^{(P_M)}
+    =
+    \mathbf P_M\mathbf H_h\mathbf P_M
+    =
+    \boldsymbol\Phi_M
+    \boldsymbol\Lambda_M
+    \boldsymbol\Phi_M^\dagger,
+\end{equation}
+whereas its representation in retained coordinates is
+\begin{equation}
+    \mathbf H_{\mathrm{red}}
+    =
+    \boldsymbol\Phi_M^\dagger
+    \mathbf H_h
+    \boldsymbol\Phi_M
+    =
+    \boldsymbol\Lambda_M.
+\end{equation}
+The first matrix is $N\times N$ and has rank $M$; the second is $M\times M$.
+They represent the same retained operator in different coordinate spaces.
+Their dimensions and embeddings must be accounted for before subtraction.
+
+\section*{Three inequivalent residuals}
+
+\subsection*{Consistently compressed physical potential}
+
+For the particle in the box,
+\begin{equation}
+    \mathbf H_h=\mathbf T_{\mathrm D,h},
+\end{equation}
+where $\mathbf T_{\mathrm D,h}$ is the discrete Dirichlet kinetic operator.
+Applying the same spectral compression to both terms gives
+\begin{equation}
+    \mathbf H_h^{(P_M)}
+    -
+    \mathbf T_{\mathrm D,h}^{(P_M)}
+    =
+    \mathbf 0.
+\end{equation}
+This is the consistently reduced physical potential. It vanishes because the
+confinement is already included in the Dirichlet realization of the kinetic
+operator.
+
+\subsection*{Projected Hamiltonian minus unprojected kinetic operator}
+
+Consider instead
+\begin{equation}
+    \widetilde{\mathbf R}_h
+    =
+    \mathbf H_h^{(P_M)}
+    -
+    \mathbf T_{\mathrm D,h}.
+\end{equation}
+Because $\mathbf P_M$ is a spectral projector of
+$\mathbf T_{\mathrm D,h}$, it commutes with that matrix. With
+\begin{equation}
+    \mathbf Q_M=\mathbf I-\mathbf P_M,
+\end{equation}
+one obtains
+\begin{equation}
+    \widetilde{\mathbf R}_h
+    =
+    -\mathbf Q_M
+    \mathbf T_{\mathrm D,h}
+    \mathbf Q_M.
+\end{equation}
+The nonzero residual is therefore the negative discarded kinetic sector. It
+results from applying the retention map to the Hamiltonian but not to the
+kinetic operator. It is neither the consistently projected potential nor a
+boundary operator.
+
+\subsection*{Difference between discrete boundary realizations}
+
+Let
+\begin{equation}
+    \mathbf H_{\mathrm{box},h},
+    \mathbf T_{\mathrm{ref},h}
+    \in
+    \mathcal L(\mathcal V_h)
+\end{equation}
+be two discrete operators acting on an explicitly identified numerical state
+space $\mathcal V_h$. Suppose that $\mathbf H_{\mathrm{box},h}$ carries the
+box boundary closure and $\mathbf T_{\mathrm{ref},h}$ carries a different
+declared closure. Then
+\begin{equation}
+    \mathbf B_h
+    =
+    \mathbf H_{\mathrm{box},h}
+    -
+    \mathbf T_{\mathrm{ref},h}
+\end{equation}
+is a well-defined finite-dimensional operator. Depending on the
+discretization, $\mathbf B_h$ may be expressed through altered boundary rows,
+modified stencils, eliminated degrees of freedom, or nonlocal couplings. In
+this construction the residual encodes boundary structure relative to the
+selected reference realization.
+
+The identification of the two numerical state spaces is part of the
+construction. The result should not be described as a
+representation-independent continuum potential.
+
+\section*{Residual identifiability}
+
+The three cases demonstrate that the symbol
+\begin{equation}
+    \mathbf H_{\mathrm{eff}}-\mathbf T
+\end{equation}
+does not have a unique physical interpretation. Its meaning depends on which
+operator was reduced, which reference was selected, and whether both terms
+were passed through the same map.
+
+More generally, define
+\begin{equation}
+    \mathbf R_{T_0}
+    =
+    \mathbf H_{\mathrm{red}}-\mathbf T_0.
+\end{equation}
+For any Hermitian matrix $\mathbf K$ on the retained space,
+\begin{equation}
+    \mathbf H_{\mathrm{red}}
+    =
+    (\mathbf T_0+\mathbf K)
+    +
+    (\mathbf R_{T_0}-\mathbf K).
+\end{equation}
+The reduced Hamiltonian alone therefore does not identify a unique
+kinetic--potential decomposition. A potential interpretation requires prior
+restrictions on the kinetic reference and on the admissible potential class.
+
+Let
+\begin{equation}
+    \mathcal M_V
+    =
+    \left\{
+        \mathbf V(\boldsymbol\theta)
+        \;\middle|\;
+        \boldsymbol\theta\in\Theta
+    \right\}
+\end{equation}
+be a prescribed model class. The best admissible potential is
+\begin{equation}
+    \mathbf V_{\mathcal M}^{\star}
+    =
+    \operatorname*{arg\,min}_{\mathbf V\in\mathcal M_V}
+    \left\lVert
+        \mathbf R_{T_0}-\mathbf V
+    \right\rVert_{\mathrm F}^2,
+\end{equation}
+with unexplained residual
+\begin{equation}
+    \mathbf E_{\mathcal M}
+    =
+    \mathbf R_{T_0}
+    -
+    \mathbf V_{\mathcal M}^{\star}.
+\end{equation}
+If arbitrary Hermitian matrices are admitted, the minimization is trivial. The
+inverse problem becomes scientifically informative only when $\mathcal M_V$ is
+restricted by locality, range, symmetry, differential form, parameter sharing,
+or transferability.
+
+The particle in a box therefore supplies a controlled demonstration of the
+central methodological point: operator subtraction is straightforward after a
+common numerical state space has been established, but the physical category
+assigned to the result is determined by the reference operator and the
+admissible model class.

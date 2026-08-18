@@ -16,6 +16,15 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
+\newcommand{\notechapter}[2]{%
+  \chapter*{Note #1: #2}%
+  \addcontentsline{toc}{chapter}{Note #1: #2}%
+  \markboth{Note #1: #2}{Note #1: #2}%
+  \setcounter{equation}{0}%
+  \renewcommand{\theequation}{N#1.\arabic{equation}}%
+  \renewcommand{\theHequation}{note.#1.\arabic{equation}}%
+}
+
 \title{From Kohn--Sham Density-Functional Theory\\to Effective-Mass Models}
 \author{Eugene Joseph M. Ragasa\\
 \normalsize Department of Physics, De La Salle University\\
@@ -59,12 +68,13 @@ submitted manuscript, or completed scientific result.
 \clearpage
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
+\include{chapters/00-preface}
 \tableofcontents
 \clearpage
 \pagenumbering{arabic}
 
-\include{chapters/00-status-and-scope}
-\include{chapters/01-physical-problem}
+\include{chapters/01-operator-reduction}
+\include{chapters/02-silicon-physical-program}
 \include{chapters/02-mathematical-foundations}
 \include{chapters/03-proof-program}
 \include{chapters/03-first-principles-parent-model}
@@ -77,6 +87,9 @@ submitted manuscript, or completed scientific result.
 
 \appendix
 \include{appendices/A-notation-and-status}
+\include{appendices/B-hilbert-schmidt-and-frobenius}
+
+\include{notes/index}
 
 \bibliographystyle{plain}
 \bibliography{references}

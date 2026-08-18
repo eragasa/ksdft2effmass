@@ -1,0 +1,968 @@
+\notechapter{5}{One-dimensional Bloch, Wannier, and tight-binding warmup}
+
+\textbf{Status: proposed analytical and numerical warmup.} No calculation,
+convergence result, fitted model, or plot described in this note has yet been
+produced. The purpose is to expose, in a one-dimensional periodic problem, as
+many of the representation, alignment, reduction, and convergence issues of
+the bulk-silicon program as possible without importing silicon-specific
+complexity.
+
+\section*{Purpose and relation to the bulk program}
+
+Consider a particle in a one-dimensional cosine potential. The problem is
+simple enough that its Bloch fibers, Fourier couplings, real-space
+representation, Wannier transformation, and hopping expansion can all be
+written explicitly. It can therefore serve as a controlled analogue of the two
+bulk reduction routes:
+The direct route is
+\begin{equation}
+    \text{periodic parent}
+    \longrightarrow
+    \text{tight binding},
+\end{equation}
+whereas the operator-mediated route is
+\begin{equation}
+    \begin{aligned}
+        \text{periodic parent}
+        &\longrightarrow
+        \text{Wannier representation}
+        \\
+        &\longrightarrow
+        \text{tight binding}.
+    \end{aligned}
+\end{equation}
+
+The warmup should address six questions:
+\begin{enumerate}
+    \item Do real-space and plane-wave Bloch solvers converge to the same
+          retained parent information?
+    \item How do basis cutoff, grid spacing, reciprocal sampling, and band
+          retention contribute different errors?
+    \item How is a localized Wannier representation constructed from the Bloch
+          fibers, and which quantities depend on its gauge?
+    \item How do real-space hopping coefficients reconstruct the retained Bloch
+          operator?
+    \item How does a finite hopping range converge to the retained band or
+          composite-band operator?
+    \item Under which conditions do direct spectral fitting and
+          Wannier-mediated hopping truncation give the same reduced model?
+\end{enumerate}
+
+The tight-binding model is intended to approximate a retained Bloch operator or
+its band dispersion. It should not be described as converging directly to the
+scalar cosine potential. Recovering a multiplication potential from reduced
+spectral or hopping data is a separate inverse problem.
+
+\section*{Continuum periodic parent}
+
+Let the lattice period be $a$ and define
+\begin{equation}
+    G=\frac{2\pi}{a}.
+\end{equation}
+The continuum Hamiltonian on $L^2(\mathbb R)$ is
+\begin{equation}
+    \hat H
+    =
+    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}
+    +
+    V_0\cos(Gx).
+\end{equation}
+The natural reciprocal energy scale is
+\begin{equation}
+    E_G
+    =
+    \frac{\hbar^2G^2}{2m},
+\end{equation}
+and the dimensionless potential strength is
+\begin{equation}
+    \lambda=\frac{V_0}{E_G}.
+\end{equation}
+The first Brillouin zone may be chosen as
+\begin{equation}
+    -\frac{G}{2}
+    \leq k<\frac{G}{2}.
+\end{equation}
+
+By Bloch's theorem, an eigenfunction can be written
+\begin{equation}
+    \psi_{nk}(x)
+    =
+    e^{ikx}u_{nk}(x),
+    \qquad
+    u_{nk}(x+a)=u_{nk}(x).
+\end{equation}
+The cell-periodic Bloch-fiber operator is
+\begin{equation}
+    \hat H(k)
+    =
+    \frac{1}{2m}
+    \left(-i\hbar\frac{d}{dx}+\hbar k\right)^2
+    +
+    V_0\cos(Gx)
+\end{equation}
+on the periodic cell domain. Equivalently, one may act with the original
+differential expression on functions satisfying
+\begin{align}
+    \psi(a)&=e^{ika}\psi(0),
+    \\
+    \psi'(a)&=e^{ika}\psi'(0).
+\end{align}
+The two conventions are unitarily related but must not be mixed within one
+matrix construction.
+
+The parent has several exact structural checks:
+\begin{align}
+    E_n(k+G)&=E_n(k),
+    \\
+    E_n(-k)&=E_n(k)
+\end{align}
+for the real inversion-symmetric potential, after consistent band matching.
+Changing $V_0$ to $-V_0$ translates the potential by $a/2$ and therefore leaves
+the spectrum unchanged. These identities provide useful representation checks
+without supplying a convergence result.
+
+\section*{Plane-wave Bloch representation}
+
+Use the Bloch plane waves
+\begin{equation}
+    \langle x\mid n,k\rangle
+    =
+    \frac{1}{\sqrt a}
+    e^{i(k+nG)x},
+    \qquad
+    n\in\mathbb Z.
+\end{equation}
+In this basis the fiber matrix is
+\begin{equation}
+    H^{\mathrm{PW}}_{nm}(k)
+    =
+    \frac{\hbar^2(k+nG)^2}{2m}\,\delta_{nm}
+    +
+    \frac{V_0}{2}
+    \left(
+        \delta_{n,m+1}+\delta_{n,m-1}
+    \right).
+\end{equation}
+The cosine potential therefore couples only neighboring reciprocal-lattice
+indices. This sparsity is an exact consequence of the potential's Fourier
+content, not a tight-binding approximation in real space.
+
+For a cutoff $P$, retain
+\begin{equation}
+    n=-P,\ldots,P,
+\end{equation}
+which gives a $(2P+1)\times(2P+1)$ Galerkin matrix
+$\mathbf H_P^{\mathrm{PW}}(k)$. Increasing $P$ changes the represented parent
+space. Low-band convergence should be examined separately from the behavior of
+states near the reciprocal cutoff.
+
+The plane-wave matrix makes several analytical limits visible. At $V_0=0$, the
+folded free-particle parabolas are exact. For weak nonzero $V_0$, the Fourier
+coefficient $V_0/2$ couples crossing free-particle states at a zone boundary.
+First-order degenerate perturbation theory predicts a leading gap of
+$|V_0|$ at the first coupled crossing. This is expected perturbative behavior
+to be checked over an explicitly declared weak-potential regime, not a
+numerical result of this note.
+
+\section*{Real-space Bloch-boundary representation}
+
+A second representation acts directly on one spatial cell. Let
+\begin{equation}
+    x_j=j\Delta x,
+    \qquad
+    \Delta x=\frac{a}{N},
+    \qquad
+    j=0,\ldots,N-1.
+\end{equation}
+The endpoint $x=a$ is identified with $x=0$ through the Bloch phase. With a
+centered second-order kinetic representation, define
+\begin{equation}
+    t_h=\frac{\hbar^2}{2m\Delta x^2}.
+\end{equation}
+The kinetic matrix has diagonal entries $2t_h$, nearest-neighbor entries
+$-t_h$, and boundary entries
+\begin{align}
+    T^{\mathrm{FD}}_{0,N-1}(k)&=-t_h e^{-ika},
+    \\
+    T^{\mathrm{FD}}_{N-1,0}(k)&=-t_h e^{ika}.
+\end{align}
+The potential matrix is
+\begin{equation}
+    \mathbf V_h
+    =
+    \operatorname{diag}
+    \left(
+        V_0\cos(Gx_0),\ldots,
+        V_0\cos(Gx_{N-1})
+    \right),
+\end{equation}
+and the represented fiber Hamiltonian is
+\begin{equation}
+    \mathbf H_h^{\mathrm{FD}}(k)
+    =
+    \mathbf T_h^{\mathrm{FD}}(k)
+    +
+    \mathbf V_h.
+\end{equation}
+This matrix is Hermitian when the two boundary phases are conjugates. Failure
+of Hermiticity indicates an inconsistent Bloch closure rather than a physical
+band effect.
+
+For a discrete Bloch plane wave with wave number $q=k+nG$, the finite-difference
+kinetic eigenvalue is
+\begin{equation}
+    \varepsilon_h^{\mathrm{kin}}(q)
+    =
+    \frac{2\hbar^2}{m\Delta x^2}
+    \sin^2\left(\frac{q\Delta x}{2}\right).
+\end{equation}
+For fixed $q$,
+\begin{equation}
+    \varepsilon_h^{\mathrm{kin}}(q)
+    =
+    \frac{\hbar^2q^2}{2m}
+    \left[
+        1-
+        \frac{(q\Delta x)^2}{12}
+        +O\!\left((q\Delta x)^4\right)
+    \right].
+\end{equation}
+This relation predicts second-order kinetic-dispersion error for fixed smooth
+modes. High-frequency grid modes do not satisfy the same small-$q\Delta x$
+assumption.
+
+\section*{Direct comparison of the two Bloch representations}
+
+When $N=2P+1$, define the discrete Bloch--Fourier matrix
+\begin{equation}
+    F_{jn}(k)
+    =
+    \frac{1}{\sqrt N}
+    e^{i(k+nG)x_j},
+    \qquad
+    n=-P,\ldots,P.
+\end{equation}
+Its columns are orthonormal in the discrete grid inner product. The
+finite-difference Hamiltonian transported into discrete plane-wave coordinates
+is
+\begin{equation}
+    \mathbf A_h^{\mathrm{FD}\rightarrow\mathrm{PW}}(k)
+    =
+    \mathbf F(k)^\dagger
+    \mathbf H_h^{\mathrm{FD}}(k)
+    \mathbf F(k).
+\end{equation}
+Both
+\begin{equation}
+    \mathbf A_h^{\mathrm{FD}\rightarrow\mathrm{PW}}(k)
+    \quad\text{and}\quad
+    \mathbf H_P^{\mathrm{PW}}(k)
+\end{equation}
+then act in the same declared discrete plane-wave coordinates. Their Frobenius
+difference is defined:
+\begin{equation}
+    D_{\mathrm{rep}}(k;h,P)
+    =
+    \left\lVert
+        \mathbf A_h^{\mathrm{FD}\rightarrow\mathrm{PW}}(k)
+        -
+        \mathbf H_P^{\mathrm{PW}}(k)
+    \right\rVert_{\mathrm F}.
+\end{equation}
+
+The full-space norm may be dominated by modes near the reciprocal or grid
+cutoff. A low-mode comparison should therefore also be defined. Let
+$\mathbf P_L$ select reciprocal indices $|n|\leq L<P$. Then
+\begin{equation}
+    D_{\mathrm{rep}}^{(L)}(k;h,P)
+    =
+    \left\lVert
+        \mathbf P_L
+        \left(
+            \mathbf A_h^{\mathrm{FD}\rightarrow\mathrm{PW}}(k)
+            -
+            \mathbf H_P^{\mathrm{PW}}(k)
+        \right)
+        \mathbf P_L
+    \right\rVert_{\mathrm F}
+\end{equation}
+measures disagreement on a fixed low-reciprocal-mode sector.
+
+The sampled cosine potential also exposes the difference between Galerkin
+truncation and cyclic discrete Fourier representation. In an infinite
+plane-wave basis, the potential couples $n$ only to $n\pm1$. On a finite
+sampled grid, the discrete transform can wrap a coupling across the highest and
+lowest represented reciprocal indices. This is an aliasing effect of the
+finite cyclic representation. It should not be mistaken for a physical
+long-range Fourier coupling.
+
+If two spatial or reciprocal representations have different dimensions, each
+must be pulled back to a smaller common Fourier sector or a common retained
+band space before a Frobenius norm is formed. Raw subtraction of the unequal
+matrices is undefined.
+
+\section*{Mathieu and Floquet formulation}
+
+The cosine problem can also be written as a Mathieu equation. Set
+\begin{equation}
+    z=\frac{Gx}{2}.
+\end{equation}
+The stationary Schr\"odinger equation becomes
+\begin{equation}
+    \frac{d^2\psi}{dz^2}
+    +
+    \left[
+        A-2q\cos(2z)
+    \right]\psi
+    =0,
+\end{equation}
+with
+\begin{equation}
+    A=\frac{4E}{E_G},
+    \qquad
+    q=\frac{2V_0}{E_G}.
+\end{equation}
+Bloch periodicity over one lattice period is the Floquet condition
+\begin{equation}
+    \psi(z+\pi)
+    =
+    e^{ika}\psi(z).
+\end{equation}
+Thus the Floquet exponent satisfies
+\begin{equation}
+    e^{i\pi\nu}=e^{ika},
+    \qquad
+    \nu=\frac{2k}{G}
+    \quad\text{modulo }2.
+\end{equation}
+Mathieu characteristic values can provide an additional independent reference
+for selected bands and crystal momenta. Any such use must state the
+characteristic-value convention, branch ordering, Floquet exponent, and energy
+conversion. Agreement with one library or table is not assumed by this note.
+
+This formulation is valuable because it separates the differential equation
+from either numerical matrix representation. The plane-wave and real-space
+solvers can both be checked against the same Floquet problem.
+
+\section*{Band and subspace comparisons}
+
+Let $E_{n,P}^{\mathrm{PW}}(k)$ and $E_{n,h}^{\mathrm{FD}}(k)$ denote matched
+band energies. A dimensionless spectral discrepancy is
+\begin{equation}
+    \delta E_n(k;h,P)
+    =
+    \frac{
+        E_{n,h}^{\mathrm{FD}}(k)
+        -
+        E_{n,P}^{\mathrm{PW}}(k)
+    }{E_G}.
+\end{equation}
+Band labels must be matched continuously or through subspace information near
+close approaches. Sorting eigenvalues independently at every $k$ can hide band
+exchange or an inconsistent retained manifold.
+
+If $\mathbf B_{\mathrm{PW}}(k)$ and $\mathbf B_{\mathrm{FD}}(k)$ contain
+orthonormal coordinates for corresponding retained subspaces in a common
+ambient representation, define
+\begin{equation}
+    \mathbf S(k)
+    =
+    \mathbf B_{\mathrm{PW}}(k)^\dagger
+    \mathbf B_{\mathrm{FD}}(k).
+\end{equation}
+The singular values of $\mathbf S(k)$ give principal angles between the
+subspaces. A projector discrepancy is
+\begin{equation}
+    D_P(k)
+    =
+    \left\lVert
+        \mathbf P_{\mathrm{PW}}(k)
+        -
+        \mathbf P_{\mathrm{FD}}(k)
+    \right\rVert_{\mathrm F}.
+\end{equation}
+Spectral agreement and subspace agreement should be shown separately.
+
+Band-edge curvature supplies a simple observable-level diagnostic. At an
+isolated extremum $k_0$, define
+\begin{equation}
+    \frac{1}{m_n^{\ast}}
+    =
+    \frac{1}{\hbar^2}
+    \left.
+        \frac{d^2E_n(k)}{dk^2}
+    \right|_{k=k_0}.
+\end{equation}
+The fit interval, stencil, and reciprocal units must be held fixed when solver,
+Wannier, and tight-binding representations are compared.
+
+\section*{Wannier representation and localization}
+
+For an isolated retained band sampled on a uniform mesh of $N_k$ crystal
+momenta, let $\mathcal I_{N_k}$ be one complete set of integer residues modulo
+$N_k$ and define the $N_k$ inequivalent Born--von Karman lattice vectors
+\begin{equation}
+    \mathcal R_{N_k}
+    =
+    \left\{
+        R_r=ra
+        \;\middle|\;
+        r\in\mathcal I_{N_k}
+    \right\}.
+\end{equation}
+Choose phases for the Bloch states and define
+\begin{equation}
+    \lvert w_R\rangle
+    =
+    \frac{1}{\sqrt{N_k}}
+    \sum_k
+    e^{-ikR}
+    \lvert\psi_k\rangle,
+    \qquad
+    R\in\mathcal R_{N_k}.
+\end{equation}
+A smooth periodic phase change modifies the Wannier profile but leaves its
+center modulo $a$ fixed by the isolated-band Berry phase. A gauge with nonzero
+reciprocal winding can shift the representative center by a lattice vector.
+The isolated-band projector remains invariant. In one dimension, this freedom
+provides a direct setting in which to study gauge continuity, lattice-equivalent
+center shifts, spread, Berry phase, and the relation between reciprocal
+regularity and real-space decay~\cite{kohn1959,marzari2012}. In the dense-mesh
+limit, the Born--von Karman representatives extend to the ordinary infinite
+lattice.
+
+\subsection*{Direct isolated-band parallel transport}
+
+Let $\lvert u_j\rangle$ be normalized cell-periodic states at neighboring mesh
+points $k_j$ and $k_{j+1}$. Define
+\begin{equation}
+    m_j
+    =
+    \langle u_j\mid u_{j+1}\rangle.
+\end{equation}
+When $m_j\neq0$, multiply $\lvert u_{j+1}\rangle$ by a phase that makes $m_j$
+real and nonnegative. Repeating this operation along the reciprocal mesh gives
+a parallel-transport gauge. The accumulated phase on closing the Brillouin
+zone is the discrete holonomy. It must be distributed consistently across the
+mesh to obtain a periodic gauge.
+
+This construction is sufficiently transparent that every phase change can be
+inspected. The resulting Wannier center is related to the accumulated Berry or
+Zak phase modulo a lattice vector. Translating the Wannier function by one cell
+changes the representative center but not the physical polarization class or
+the retained band dispersion. The origin and phase convention must therefore
+be retained with every center comparison.
+
+A vanishing or very small $|m_j|$ signals that neighboring states have not been
+matched reliably, that the mesh is too coarse, or that an isolated-band
+description is failing near a crossing. Phase smoothing cannot repair a loss of
+subspace overlap.
+
+\subsection*{Composite-band parallel transport}
+
+For an $M$-band retained space, define the neighboring overlap matrix
+\begin{equation}
+    \mathbf M^{(j)}_{mn}
+    =
+    \langle u_{m,k_j}\mid u_{n,k_{j+1}}\rangle.
+\end{equation}
+Its polar or singular-value decomposition supplies the unitary rotation that
+maximizes neighboring-frame overlap. Sequential application produces a
+parallel-transported composite frame. The Wilson product around the reciprocal
+mesh records the closure holonomy, whose eigenphases determine the centers of
+hybridized one-dimensional Wannier channels modulo lattice translations.
+
+Small singular values of $\mathbf M^{(j)}$ diagnose incompatible neighboring
+subspaces. They cannot be corrected by a unitary gauge rotation. This provides
+a controlled analogue of the principal-angle and alignment checks required for
+the silicon retained manifold.
+
+\subsection*{Wannier90 as an independent localization route}
+
+Wannier90 can localize Bloch states that originate from this model; the parent
+states need not come from a density-functional calculation. It consumes the
+Bloch eigenvalues and the neighboring-state overlaps
+\begin{equation}
+    M_{mn}^{(\mathbf k,\mathbf b)}
+    =
+    \langle
+        u_{m\mathbf k}
+        \mid
+        u_{n,\mathbf k+\mathbf b}
+    \rangle,
+\end{equation}
+together with optional trial-orbital projections
+\begin{equation}
+    A_{mn}(\mathbf k)
+    =
+    \langle
+        \psi_{m\mathbf k}
+        \mid
+        g_n
+    \rangle.
+\end{equation}
+For the model experiment, the retained interface consists of the reciprocal
+mesh and neighbor list, eigenvalues, overlap matrices, optional projections,
+lattice convention, band count, and Wannier count. In the standard Wannier90
+file interface these data are represented by the \texttt{.eig},
+\texttt{.mmn}, optional \texttt{.amn}, and \texttt{.win} surfaces. Wannier90
+then performs gauge selection, optional disentanglement, localization, and
+interpolation~\cite{souza2001,pizzi2020}.
+
+The difficult interface quantity is the overlap matrix, not the scalar band
+energy. It must use cell-periodic states, the correct represented inner
+product, and consistent reciprocal-boundary sewing. For real-space states the
+inner product includes the declared quadrature. For plane-wave states it uses
+the coefficient inner product with the correct reciprocal relabelling at a
+Brillouin-zone boundary. Arbitrary phases from independent eigensolutions are
+acceptable only when the overlap matrices are constructed covariantly from
+those same states.
+
+A one-dimensional model may be represented for Wannier90 with one reciprocal
+point in each inactive direction and a declared auxiliary transverse cell and
+orbital factor. The transverse lattice and spread contribution are then
+representation conventions, not physical dimensions of the model. Active-axis
+centers and spreads should be reported separately from any auxiliary transverse
+contribution.
+
+\subsection*{Comparison of the two localization routes}
+
+The direct parallel-transport construction and Wannier90 should consume the
+same retained Bloch states and reciprocal mesh. Their outputs should be
+compared only after lattice translations, orbital order, phases, and any
+composite-space unitary freedom have been aligned. Proposed diagnostics are:
+\begin{enumerate}
+    \item retained-projector agreement;
+    \item Wannier centers modulo $a$;
+    \item active-axis spreads;
+    \item real-space profiles after translation and phase alignment;
+    \item reconstructed band interpolation;
+    \item aligned hopping coefficients; and
+    \item sensitivity to reciprocal-mesh density and trial projections.
+\end{enumerate}
+Agreement would verify two representations of the declared localization
+problem. Disagreement should first be attributed among overlap construction,
+reciprocal sewing, gauge closure, projection choice, disentanglement, and
+Fourier convention before it is interpreted as a localization failure.
+
+\subsection*{Hamiltonian in Wannier coordinates}
+
+For one isolated band, the represented Hamiltonian hopping coefficients are
+\begin{equation}
+    t(R)
+    =
+    \langle w_0\rvert\hat H\lvert w_R\rangle
+    =
+    \frac{1}{N_k}
+    \sum_k
+    e^{-ikR}E(k),
+    \qquad
+    R\in\mathcal R_{N_k}.
+\end{equation}
+The inverse discrete transform is
+\begin{equation}
+    E(k)
+    =
+    \sum_{R\in\mathcal R_{N_k}}
+    e^{ikR}t(R).
+\end{equation}
+For an isolated band, these scalar hoppings depend only on the represented band
+dispersion, even though the Wannier functions themselves depend on phase.
+
+For a composite group of bands, the retained Hamiltonian is matrix valued:
+\begin{equation}
+    \mathbf H_{\mathrm W}(R)
+    =
+    \frac{1}{N_k}
+    \sum_k
+    e^{-ikR}
+    \mathbf H_{\mathrm W}(k),
+    \qquad
+    R\in\mathcal R_{N_k}.
+\end{equation}
+A momentum-dependent unitary gauge changes the individual matrix blocks and
+Wannier functions. Operator comparisons then require a common gauge or an
+explicit alignment map, as in the bulk-silicon problem.
+
+\section*{Finite-range tight-binding reduction}
+
+For an isolated band, choose a symmetric retained set
+\begin{equation}
+    \mathcal R_c
+    \subseteq
+    \mathcal R_{N_k}
+\end{equation}
+of distinct Born--von Karman representatives whose physical distances do not
+exceed the declared cutoff. The finite-range dispersion is
+\begin{equation}
+    E_{\mathrm{TB}}^{(\mathcal R_c)}(k)
+    =
+    \sum_{R\in\mathcal R_c}
+    e^{ikR}t(R).
+\end{equation}
+Hermiticity requires that $\mathcal R_c$ be closed under inversion modulo the
+Born--von Karman superlattice and that
+\begin{equation}
+    t(-R)=t(R)^{\ast}
+\end{equation}
+under the selected representative convention. For the real
+inversion-symmetric problem, a centered representative set and compatible
+origin give the usual cosine expansion when the hoppings are real.
+
+The omitted-hopping residual is
+\begin{equation}
+    \Delta E^{(\mathcal R_c)}(k)
+    =
+    E(k)-E_{\mathrm{TB}}^{(\mathcal R_c)}(k)
+    =
+    \sum_{R\in\mathcal R_{N_k}\setminus\mathcal R_c}
+    e^{ikR}t(R).
+\end{equation}
+On a complete uniform discrete transform, Parseval's identity gives
+\begin{equation}
+    \sum_k
+    \left|
+        \Delta E^{(\mathcal R_c)}(k)
+    \right|^2
+    =
+    N_k
+    \sum_{R\in\mathcal R_{N_k}\setminus\mathcal R_c}
+    |t(R)|^2.
+\end{equation}
+Thus the root-sum-square spectral error and the omitted hopping norm are two
+coordinate descriptions of the same isolated-band truncation residual under
+these specific finite-transform conventions.
+
+For a composite retained manifold, define
+\begin{equation}
+    \mathbf H_{\mathrm{TB}}^{(\mathcal R_c)}(k)
+    =
+    \sum_{R\in\mathcal R_c}
+    e^{ikR}\mathbf H_{\mathrm W}(R).
+\end{equation}
+The corresponding operator residual is
+\begin{equation}
+    \Delta\mathbf H^{(\mathcal R_c)}(k)
+    =
+    \mathbf H_{\mathrm W}(k)
+    -
+    \mathbf H_{\mathrm{TB}}^{(\mathcal R_c)}(k).
+\end{equation}
+This is the one-dimensional analogue of truncating Wannier Hamiltonian blocks
+by neighbor range in bulk silicon.
+
+\section*{Direct and Wannier-mediated reduction routes}
+
+The direct route fits a finite-range scalar dispersion or matrix-valued model
+to selected parent band data. For one isolated band, a weighted direct
+objective may be written
+\begin{equation}
+    \mathcal L_{\mathrm{dir}}
+    \left(\{t(R)\}_{R\in\mathcal R_c}\right)
+    =
+    \sum_{k\in\mathcal T}
+    w_k
+    \left|
+        E_{\mathrm{parent}}(k)
+        -
+        \sum_{R\in\mathcal R_c}e^{ikR}t(R)
+    \right|^2.
+\end{equation}
+The mediated route first computes the complete set of $N_k$ represented
+hopping coefficients through the inverse discrete Fourier transform and then
+retains $\mathcal R_c$.
+
+For a complete uniform $k$ grid, equal weights, a consistent discrete Fourier
+convention, and an unconstrained Hermitian hopping class whose retained lattice
+vectors are distinct modulo $N_k$, the two procedures are expected to agree:
+both are the orthogonal projection of the represented dispersion onto the same
+finite Fourier subspace. This is an algebraic property
+to verify, not an empirical coincidence.
+
+The routes need not agree when:
+\begin{itemize}
+    \item the direct fit uses nonuniform reciprocal weights;
+    \item training and withheld $k$ points differ;
+    \item symmetry or parameter-sharing constraints restrict the direct class;
+    \item the Wannier route uses a composite-band gauge or alignment;
+    \item the reciprocal and real-space transforms use incompatible grids or
+          normalization;
+    \item optimization does not find the declared minimum; or
+    \item additional observables enter one objective but not the other.
+\end{itemize}
+
+Let $\mathbf H_{\mathrm{TB,dir}}(k)$ and
+$\mathbf H_{\mathrm{TB,med}}(k)$ be final aligned operators. The route defect is
+\begin{equation}
+    D_{\mathrm{path}}^2
+    =
+    \sum_{k\in\mathcal K_{\mathrm{cmp}}}
+    w_k
+    \left\lVert
+        \mathbf H_{\mathrm{TB,dir}}(k)
+        -
+        \mathbf H_{\mathrm{TB,med}}(k)
+    \right\rVert_{\mathrm F}^2.
+\end{equation}
+The scalar isolated-band case supplies a setting in which a zero route defect
+can be expected under precisely stated ideal conditions. Controlled departures
+from those conditions can then show how path dependence enters before the more
+complicated silicon problem is attempted.
+
+\section*{What can be learned from varying the cosine strength}
+
+The dimensionless amplitude $\lambda=V_0/E_G$ connects qualitatively different
+regimes within one parent family:
+\begin{description}
+    \item[Free-particle limit.] At $\lambda=0$, the plane-wave basis is exact,
+      the folded parabolas cross, and localized single-band constructions at
+      crossings require care.
+    \item[Weak-potential regime.] Small $|\lambda|$ opens gaps at coupled
+      crossings and tests nearly-free-particle perturbative expectations.
+    \item[Intermediate regime.] Bands become isolated over wider energy
+      ranges, allowing gauge, Wannier, and hopping-decay studies without an
+      extreme asymptotic approximation.
+    \item[Deep-potential regime.] Low bands narrow and localized-orbital
+      descriptions are expected to become more effective, while resolving the
+      sharply varying cell wavefunctions may require larger plane-wave cutoffs
+      or finer real-space grids.
+\end{description}
+
+The sign change $V_0\mapsto -V_0$ provides a translation-equivalence check. A
+representation that respects the half-cell translation should reproduce the
+same band energies while shifting appropriate real-space centers. This separates
+spectral invariance from coordinate-dependent Wannier data.
+
+The amplitude scan can also test how hopping decay, required TB range, band
+gaps, bandwidths, effective masses, and Wannier spreads change together. These
+relationships are proposed observations; they must not be asserted before the
+calculations are performed.
+
+\section*{Proposed staged experiment}
+
+\subsection*{Stage A: parent representation verification}
+
+Choose a frozen set of dimensionless amplitudes $\lambda$ and crystal momenta.
+For each amplitude:
+\begin{enumerate}
+    \item refine the plane-wave cutoff $P$ at fixed $k$ points;
+    \item refine the real-space grid spacing $\Delta x$ at the same points;
+    \item compare low-mode operator blocks after Fourier transport;
+    \item compare retained eigenvalues, projectors, and symmetry identities;
+    \item evaluate selected Mathieu characteristic values as an independent
+          Floquet reference when their conventions are controlled; and
+    \item freeze a parent representation only after the declared quantities
+          are stable under both refinement routes.
+\end{enumerate}
+
+The plane-wave and real-space errors must be estimated independently. Agreement
+between two unconverged representations is not sufficient.
+
+\subsection*{Stage B: reciprocal-space sampling}
+
+Using the accepted parent representation, refine the $k$ mesh independently of
+the plane-wave or spatial representation. Examine:
+\begin{enumerate}
+    \item band interpolation between sampled points;
+    \item zone-center and zone-boundary energies;
+    \item the first band gap and selected higher gaps;
+    \item bandwidths and band-edge curvatures; and
+    \item stability of Fourier-derived hopping coefficients.
+\end{enumerate}
+A dense $k$ mesh cannot repair an unconverged Bloch-fiber representation, and a
+converged fiber solver does not guarantee converged real-space hopping decay on
+an insufficient reciprocal mesh.
+
+\subsection*{Stage C: direct isolated-band localization}
+
+Select an isolated band over the full Brillouin zone. Construct its gauge by
+discrete parallel transport, record the neighboring overlaps, close the gauge
+periodically, and retain the accumulated Berry phase. Report the center modulo
+$a$, active-axis spread, and real-space profile. Verify that the
+Fourier-transformed hoppings reconstruct the represented band on the original
+$k$ mesh.
+
+Repeat the construction under controlled phase changes. The band energies and
+isolated-band hoppings should remain invariant under compatible phase changes,
+while the Wannier function may translate or change its coordinate
+representation. This separates gauge-dependent localization data from the
+retained scalar operator.
+
+\subsection*{Stage D: independent Wannier90 localization}
+
+Construct the neighboring overlap matrices and optional trial-orbital
+projections from the same retained Bloch states. Retain the reciprocal sewing,
+inner-product convention, lattice embedding, and active versus inactive
+spatial directions. Use Wannier90 to obtain an independently localized and
+interpolated representation.
+
+Align the direct and Wannier90 results and compare their projectors, centers
+modulo $a$, active-axis spreads, profiles, interpolation, and hopping
+coefficients. Repeat over reciprocal-mesh refinements and controlled projection
+choices. This stage tests the localization interface and gauge construction; it
+does not treat agreement between two outputs as validation of the cosine model
+against experiment.
+
+\subsection*{Stage E: composite-band construction}
+
+Retain two or more bands and introduce a momentum-dependent unitary frame.
+Construct both a direct polar-transport frame and a Wannier90 frame from the
+same overlap data. This stage should examine:
+\begin{enumerate}
+    \item projector invariance under gauge rotation;
+    \item singular values of neighboring overlap matrices;
+    \item Wilson-loop closure and center phases;
+    \item changes in individual Wannier functions and matrix blocks;
+    \item covariance of the reciprocal Hamiltonian;
+    \item alignment recovery after a controlled gauge transformation; and
+    \item the effect of gauge smoothness on real-space block decay.
+\end{enumerate}
+The composite stage is the closer analogue of the multiorbital
+$sp^3s^{\ast}$ silicon problem.
+
+\subsection*{Stage F: hopping-range hierarchy}
+
+For each selected isolated or composite retained space, construct a frozen
+hierarchy
+\begin{equation}
+    r_c=0,1,2,\ldots,r_{\max}.
+\end{equation}
+At each level report:
+\begin{enumerate}
+    \item retained and omitted hopping norms;
+    \item reciprocal-space Frobenius residuals;
+    \item band-energy errors over training and withheld points;
+    \item gap, bandwidth, and effective-mass errors; and
+    \item sensitivity to the Wannier gauge in the composite case.
+\end{enumerate}
+The lowest range meeting every prespecified criterion is the selected reduced
+class for the warmup. If none passes, the untruncated represented operator
+remains the reference.
+
+\subsection*{Stage G: direct versus mediated TB routes}
+
+Fit the same declared finite-range class directly to frozen parent band data,
+then compare it with the hopping-truncated Wannier result. Begin with the
+isolated-band, uniform-grid, equal-weight case where route agreement is
+expected algebraically. Introduce one controlled difference at a time:
+\begin{enumerate}
+    \item nonuniform reciprocal weights;
+    \item withheld reciprocal regions;
+    \item shared or symmetry-constrained hopping parameters;
+    \item a composite retained space;
+    \item independent gauge choices requiring alignment; and
+    \item simultaneous spectral and operator objectives.
+\end{enumerate}
+This sequence turns path dependence into an observable controlled phenomenon
+rather than an unexplained disagreement between two fitted models.
+
+\section*{Error accounting}
+
+The warmup should retain at least the following components:
+\begin{enumerate}
+    \item plane-wave cutoff error;
+    \item real-space grid and stencil error;
+    \item Bloch-boundary implementation error, assessed through exact
+          structural checks;
+    \item reciprocal $k$-mesh and Fourier-transform error;
+    \item retained-band or retained-subspace error;
+    \item neighboring-overlap, reciprocal-sewing, and Gram-conditioning error;
+    \item direct and Wannier90 localization-route discrepancy;
+    \item gauge and alignment sensitivity;
+    \item hopping-range truncation error;
+    \item direct-fit optimization and identifiability error; and
+    \item observable-extraction error for gaps, bandwidths, and curvatures.
+\end{enumerate}
+These quantities should not be combined into one total error without a declared
+relationship among their norms, units, and dependencies. The cosine parent is
+an illustrative mathematical model, so agreement within this experiment is
+numerical verification of the declared construction rather than scientific
+validation of silicon.
+
+\section*{Plot placeholders}
+
+\begin{enumerate}
+    \item \textbf{Placeholder---potential and unit cell.} Plot
+          $V_0\cos(Gx)/E_G$ over several cells for the selected amplitudes,
+          marking the cell origin and translation relating $V_0$ to $-V_0$.
+    \item \textbf{Placeholder---Bloch bands from two parent representations.}
+          Overlay plane-wave and real-space bands over the first Brillouin zone
+          for several refinement levels.
+    \item \textbf{Placeholder---Mathieu comparison.} Plot selected
+          plane-wave, real-space, and Mathieu/Floquet energies after applying a
+          common branch and unit convention.
+    \item \textbf{Placeholder---plane-wave convergence.} Plot low-band energy
+          and projector discrepancies against reciprocal cutoff $P$.
+    \item \textbf{Placeholder---real-space convergence.} Plot the same
+          quantities against $\Delta x/a$ at fixed potential strength.
+    \item \textbf{Placeholder---representation Frobenius discrepancy.} Plot
+          $D_{\mathrm{rep}}^{(L)}(k;h,P)/E_G$ against $k$, $P$, and
+          $\Delta x/a$ for fixed low-mode sectors.
+    \item \textbf{Placeholder---matrix structure.} Display heat maps of the
+          plane-wave Galerkin matrix and the Fourier-transported real-space
+          matrix, highlighting kinetic-dispersion differences and aliasing at
+          the cutoff.
+    \item \textbf{Placeholder---symmetry checks.} Plot residuals for
+          $E_n(k)-E_n(-k)$, reciprocal periodicity, and the
+          $V_0\leftrightarrow -V_0$ translation equivalence.
+    \item \textbf{Placeholder---gap opening.} Plot the first zone-boundary gap
+          against $|V_0|/E_G$, including the declared weak-potential comparison
+          with the leading perturbative expectation.
+    \item \textbf{Placeholder---Bloch states.} Plot the density and phase of
+          selected Bloch states at the zone center, zone boundary, and an
+          interior $k$ point.
+    \item \textbf{Placeholder---Wannier functions.} Plot isolated- and
+          composite-band Wannier functions over several cells for controlled
+          gauge choices.
+    \item \textbf{Placeholder---localization-route comparison.} Overlay the
+          aligned direct parallel-transport and Wannier90 Wannier functions and
+          compare their interpolated bands and hopping blocks.
+    \item \textbf{Placeholder---neighbor-overlap diagnostics.} Plot isolated
+          overlap magnitudes, composite overlap singular values, and closure
+          phases over the reciprocal mesh.
+    \item \textbf{Placeholder---Wannier centers and spreads.} Plot direct and
+          Wannier90 centers and active-axis spreads against potential strength,
+          reciprocal-mesh density, and gauge or projection convention.
+    \item \textbf{Placeholder---hopping decay.} Plot $|t(R)|/E_G$ or
+          $\lVert\mathbf H_{\mathrm W}(R)\rVert_{\mathrm F}/E_G$ against
+          $|R|/a$ for several bands and potential strengths.
+    \item \textbf{Placeholder---TB range convergence.} Plot spectral and
+          operator discrepancies separately against hopping range $r_c$.
+    \item \textbf{Placeholder---Parseval check.} Compare the reciprocal-space
+          residual norm with the omitted-hopping norm under a complete uniform
+          transform.
+    \item \textbf{Placeholder---direct and mediated routes.} Overlay direct-fit
+          and Wannier-mediated TB bands and plot their route defect against
+          hopping range.
+    \item \textbf{Placeholder---controlled path dependence.} Plot
+          $D_{\mathrm{path}}$ as reciprocal weights, fitting domains, gauge
+          choices, and model constraints are varied one at a time.
+    \item \textbf{Placeholder---effective mass and bandwidth.} Plot errors in
+          selected band-edge curvatures and bandwidths against parent
+          representation cutoff, $k$-mesh density, and hopping range.
+    \item \textbf{Placeholder---two-parameter convergence maps.} Display
+          selected errors over $(P,\Delta x/a)$, $(N_k,r_c)$, and
+          $(|V_0|/E_G,r_c)$ while keeping the remaining controls fixed.
+\end{enumerate}
+Each completed plot should identify the potential strength, solver
+representation, cutoff or grid, reciprocal mesh, retained bands, gauge,
+alignment, hopping range, normalization, units, and evidentiary status. A plot
+placeholder is not a calculated result.
+
+\section*{Interpretation boundary}
+
+This warmup is designed to make the full reduction chain visible in a model
+whose Fourier structure can be inspected directly. The parent comparison tests
+whether independent Bloch representations agree after alignment. The direct and Wannier90 localization routes separate overlap construction,
+subspace selection, gauge choice, and localization from operator reconstruction.
+The hopping hierarchy turns real-space truncation into a controlled model
+reduction. The direct and mediated routes expose when spectral fitting and
+operator truncation commute and when they do not.
+
+Successful completion would provide analytical and numerical verification for
+the declared one-dimensional construction. It would not establish that the
+same convergence rates, gauges, hopping ranges, or model classes apply to
+bulk silicon. Its value is methodological: every ambiguity encountered here can
+be resolved in a setting where the state spaces, Fourier coefficients, and
+limiting operations are explicit before the corresponding silicon comparison
+is attempted.

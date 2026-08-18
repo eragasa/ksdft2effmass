@@ -1,0 +1,426 @@
+\notechapter{3}{Preliminary Frobenius comparison of two quantum harmonic-oscillator constructions}
+
+\textbf{Status: proposed preliminary experiment.} The comparison, convergence
+study, and plots described in this note have not yet been carried out. No
+numerical values or observations are reported. The purpose of the experiment is
+to compare a ladder-operator representation with a harmonic-oscillator
+potential enclosed by a finite Dirichlet box after both have been placed in the
+same retained ladder coordinates.
+
+\section*{Question addressed by the experiment}
+
+The one-dimensional quantum harmonic oscillator admits the exact
+ladder-operator representation
+\begin{equation}
+    \hat H_{\mathrm{QHO}}
+    =
+    \hbar\omega
+    \left(
+        \hat a^\dagger\hat a+\frac{1}{2}\hat I
+    \right)
+\end{equation}
+on $L^2(\mathbb R)$. The same potential can be placed inside a particle in a
+box and represented on a finite spatial grid. Enlarging the box is expected to
+reduce the influence of the Dirichlet walls on low-lying oscillator states,
+while refining the grid is expected to reduce spatial-discretization error.
+
+The central quantity is not a raw difference between a ladder matrix and a grid
+matrix. Those matrices act in different coordinate spaces and may have
+different dimensions. Instead, the finite-box Hamiltonian must first be pulled
+back to a declared finite ladder space. The primary question is then
+\begin{quote}
+How does the Frobenius discrepancy between the pulled-back finite-box operator
+and the exact retained ladder Hamiltonian behave as the box is enlarged and the
+spatial discretization is refined?
+\end{quote}
+
+This construction also permits comparisons between spatial discretization
+schemes with different grid spacings or dimensions because every represented
+operator is mapped to the same retained ladder coordinates before subtraction.
+
+\section*{Exact retained ladder Hamiltonian}
+
+The oscillator length is
+\begin{equation}
+    \ell
+    =
+    \sqrt{\frac{\hbar}{m\omega}}.
+\end{equation}
+The normalized number states satisfy
+\begin{align}
+    \hat a\lvert n\rangle
+    &=
+    \sqrt{n}\,\lvert n-1\rangle,
+    \\
+    \hat a^\dagger\lvert n\rangle
+    &=
+    \sqrt{n+1}\,\lvert n+1\rangle,
+\end{align}
+and
+\begin{equation}
+    \hat H_{\mathrm{QHO}}\lvert n\rangle
+    =
+    E_n\lvert n\rangle,
+    \qquad
+    E_n
+    =
+    \hbar\omega
+    \left(n+\frac{1}{2}\right).
+\end{equation}
+
+For a retained dimension $K$, define the abstract comparison space
+\begin{equation}
+    \mathcal K_K
+    =
+    \operatorname{span}
+    \left\{
+        \lvert 0\rangle,\ldots,\lvert K-1\rangle
+    \right\}.
+\end{equation}
+In the ordered number-state basis, the exact retained Hamiltonian is
+\begin{equation}
+    \mathbf H_{\mathrm{lad}}^{(K)}
+    =
+    \hbar\omega\,
+    \operatorname{diag}
+    \left(
+        \frac{1}{2},
+        \frac{3}{2},
+        \ldots,
+        K-\frac{1}{2}
+    \right).
+\end{equation}
+This is an exact spectral restriction of the real-line oscillator. It is the
+reference operator for the proposed Frobenius comparison.
+
+A finite ladder representation has an algebraic truncation boundary. If
+$\mathbf a_K$ is the compressed annihilation operator, then
+\begin{equation}
+    [\mathbf a_K,\mathbf a_K^\dagger]
+    =
+    \mathbf I_K
+    -
+    K\lvert K-1\rangle\langle K-1\rvert.
+\end{equation}
+This top-state defect should be recorded when ladder operators themselves are
+compared, although it does not alter the diagonal reference energies written
+above.
+
+\section*{Harmonic potential inside a Dirichlet box}
+
+Let $X>0$ be the box half-width. The finite-box continuum Hamiltonian is
+\begin{equation}
+    \hat H_X
+    =
+    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}
+    +
+    \frac{1}{2}m\omega^2x^2
+\end{equation}
+on $L^2((-X,X))$, with domain
+\begin{equation}
+    \mathcal D(\hat H_X)
+    =
+    H^2((-X,X))\cap H_0^1((-X,X)).
+\end{equation}
+Thus
+\begin{equation}
+    \psi(-X)=\psi(X)=0.
+\end{equation}
+For finite $X$, this is a different continuum operator from the oscillator on
+$\mathbb R$. The difference is a boundary-domain effect, not a change to the
+interior multiplication potential.
+
+For a spatial representation labeled by $h$, let the numerical state space be
+$\mathcal V_{X,h}$ and let
+\begin{equation}
+    \mathbf H_{X,h}
+    =
+    \mathbf T_{\mathrm D,X,h}
+    +
+    \mathbf V_{\mathrm{QHO},X,h}
+    \in
+    \mathcal L(\mathcal V_{X,h}).
+\end{equation}
+Here $\mathbf T_{\mathrm D,X,h}$ represents the kinetic operator with the
+declared Dirichlet closure, and $\mathbf V_{\mathrm{QHO},X,h}$ represents the
+interior potential $m\omega^2x^2/2$. For a uniform grid with $N$ interior
+points,
+\begin{equation}
+    x_j=-X+j\Delta x,
+    \qquad
+    \Delta x=\frac{2X}{N+1},
+    \qquad
+    j=1,\ldots,N.
+\end{equation}
+The comparison below does not require two spatial representations to have the
+same $N$ or $\Delta x$.
+
+\section*{Map from ladder states to a spatial representation}
+
+Let
+\begin{equation}
+    \psi_n(x)=\langle x\mid n\rangle
+\end{equation}
+be the normalized real-line oscillator eigenfunction. For a uniform grid,
+define the quadrature-scaled sampled vector
+\begin{equation}
+    \mathbf s_{n;X,h}(j)
+    =
+    \sqrt{\Delta x}\,\psi_n(x_j).
+\end{equation}
+Collect the first $K$ sampled states in
+\begin{equation}
+    \mathbf S_{X,h}^{(K)}
+    =
+    \begin{bmatrix}
+        \mathbf s_{0;X,h}
+        & \cdots &
+        \mathbf s_{K-1;X,h}
+    \end{bmatrix}.
+\end{equation}
+The columns need not be exactly orthonormal after restriction to a finite box
+and spatial representation. Their Gram matrix is
+\begin{equation}
+    \mathbf G_{X,h}^{(K)}
+    =
+    \left(\mathbf S_{X,h}^{(K)}\right)^\dagger
+    \mathbf S_{X,h}^{(K)}.
+\end{equation}
+Provided that $\mathbf G_{X,h}^{(K)}$ is positive definite, define the
+symmetrically orthonormalized injection
+\begin{equation}
+    \mathbf J_{X,h}^{(K)}
+    =
+    \mathbf S_{X,h}^{(K)}
+    \left(\mathbf G_{X,h}^{(K)}\right)^{-1/2}.
+\end{equation}
+It satisfies
+\begin{equation}
+    \left(\mathbf J_{X,h}^{(K)}\right)^\dagger
+    \mathbf J_{X,h}^{(K)}
+    =
+    \mathbf I_K.
+\end{equation}
+The columns of $\mathbf J_{X,h}^{(K)}$ identify the abstract ladder coordinates
+with an orthonormal $K$-dimensional subspace of $\mathcal V_{X,h}$.
+
+The deviation
+\begin{equation}
+    \delta G(X,h;K)
+    =
+    \left\lVert
+        \mathbf G_{X,h}^{(K)}-\mathbf I_K
+    \right\rVert_{\mathrm F}
+\end{equation}
+and the condition number of $\mathbf G_{X,h}^{(K)}$ should be reported. They
+measure whether finite-box restriction and spatial representation have made
+the proposed ladder-state identification inaccurate or ill-conditioned. An
+ill-conditioned Gram matrix is a failure of the selected comparison map, not a
+small operator discrepancy.
+
+For a nonuniform grid or another spatial scheme, the same construction requires
+the declared discrete inner product or quadrature matrix. The injection must be
+isometric with respect to that inner product before a Frobenius comparison is
+interpreted as a Hilbert--Schmidt comparison.
+
+\section*{Finite-box Hamiltonian in ladder coordinates}
+
+Pull the represented finite-box Hamiltonian back to the retained ladder space:
+\begin{equation}
+    \mathbf A_{X,h}^{(K)}
+    =
+    \left(\mathbf J_{X,h}^{(K)}\right)^\dagger
+    \mathbf H_{X,h}
+    \mathbf J_{X,h}^{(K)}.
+\end{equation}
+Both
+\begin{equation}
+    \mathbf A_{X,h}^{(K)},
+    \mathbf H_{\mathrm{lad}}^{(K)}
+    \in
+    \mathbb C^{K\times K}
+\end{equation}
+now represent operators in the same declared ladder coordinates. Their
+subtraction is therefore defined.
+
+The primary absolute discrepancy is
+\begin{equation}
+    D_F(X,h;K)
+    =
+    \left\lVert
+        \mathbf A_{X,h}^{(K)}
+        -
+        \mathbf H_{\mathrm{lad}}^{(K)}
+    \right\rVert_{\mathrm F}.
+\end{equation}
+A dimensionless relative discrepancy is
+\begin{equation}
+    \delta_F(X,h;K)
+    =
+    \frac{
+        \left\lVert
+            \mathbf A_{X,h}^{(K)}
+            -
+            \mathbf H_{\mathrm{lad}}^{(K)}
+        \right\rVert_{\mathrm F}
+    }{
+        \left\lVert
+            \mathbf H_{\mathrm{lad}}^{(K)}
+        \right\rVert_{\mathrm F}
+    }.
+\end{equation}
+This is the principal proposed output of the experiment. Its interpretation is
+the finite-box-plus-representation discrepancy on the declared $K$-state
+ladder subspace. It is not a norm difference between the full unbounded
+continuum Hamiltonians.
+
+Because the reference matrix is diagonal, the discrepancy separates as
+\begin{align}
+    D_F(X,h;K)^2
+    &=
+    D_{\mathrm{diag}}(X,h;K)^2
+    +
+    D_{\mathrm{off}}(X,h;K)^2,
+    \\
+    D_{\mathrm{diag}}(X,h;K)^2
+    &=
+    \sum_{n=0}^{K-1}
+    \left|
+        A_{X,h;nn}^{(K)}-E_n
+    \right|^2,
+    \\
+    D_{\mathrm{off}}(X,h;K)^2
+    &=
+    \sum_{\substack{m,n=0\\m\neq n}}^{K-1}
+    \left|
+        A_{X,h;mn}^{(K)}
+    \right|^2.
+\end{align}
+The diagonal term measures errors in the ladder-coordinate energy entries. The
+off-diagonal term measures mixing produced by the finite boundary, spatial
+representation, and finite-sample identification. Reporting only eigenvalue
+errors would omit this off-diagonal operator information.
+
+\section*{Comparing different spatial discretizations}
+
+Let $h$ and $h'$ denote two spatial representations. Their grid matrices may
+have different dimensions, so the raw expression
+\begin{equation}
+    \mathbf H_{X,h}-\mathbf H_{X,h'}
+\end{equation}
+is generally undefined. Each operator is instead pulled back independently:
+\begin{align}
+    \mathbf A_{X,h}^{(K)}
+    &=
+    \left(\mathbf J_{X,h}^{(K)}\right)^\dagger
+    \mathbf H_{X,h}
+    \mathbf J_{X,h}^{(K)},
+    \\
+    \mathbf A_{X,h'}^{(K)}
+    &=
+    \left(\mathbf J_{X,h'}^{(K)}\right)^\dagger
+    \mathbf H_{X,h'}
+    \mathbf J_{X,h'}^{(K)}.
+\end{align}
+The cross-discretization discrepancy is then
+\begin{equation}
+    D_F(h,h';X,K)
+    =
+    \left\lVert
+        \mathbf A_{X,h}^{(K)}
+        -
+        \mathbf A_{X,h'}^{(K)}
+    \right\rVert_{\mathrm F}.
+\end{equation}
+This remains well-defined when the two grids have different spacings, numbers
+of points, stencils, or other declared representation details. The ladder
+space supplies the common coordinates.
+
+The maps $\mathbf J_{X,h}^{(K)}$ and $\mathbf J_{X,h'}^{(K)}$ are part of the
+comparison and must be retained with the result. Equal output dimensions do not
+make the comparison independent of these maps.
+
+\section*{Convergence questions}
+
+Use the dimensionless controls
+\begin{equation}
+    b=\frac{X}{\ell},
+    \qquad
+    \eta=\frac{\Delta x}{\ell}
+\end{equation}
+for a uniform grid. For fixed $K$, the expected limiting behavior is
+\begin{equation}
+    \delta_F(X,h;K)
+    \longrightarrow
+    0
+\end{equation}
+when the box expands and the spatial representation is refined in a controlled
+manner. This is expected behavior to be tested, not a result established by
+this note.
+
+The two limiting effects must be separated:
+\begin{enumerate}
+    \item \textbf{Spatial refinement at fixed box.} Hold $b$ fixed and reduce
+          $\eta$ to estimate representation error for the finite-box operator.
+    \item \textbf{Box expansion at controlled resolution.} Increase $b$ while
+          keeping $\eta$ fixed or sufficiently refined to estimate the effect
+          of the Dirichlet walls.
+    \item \textbf{Retained-space sensitivity.} Repeat the two studies for
+          several values of $K$. Higher oscillator states extend farther in
+          space and are expected to require larger boxes and finer resolution.
+\end{enumerate}
+Holding $N$ fixed while increasing $X$ does not isolate box convergence because
+$\Delta x=2X/(N+1)$ then grows and the spatial resolution becomes worse.
+
+A nested study may first estimate the refined-grid limit at each fixed $X$ and
+then examine the large-box behavior of those estimates. The reverse order may
+also be reported, but the order of limits and the numerical controls must be
+explicit.
+
+\section*{Plot placeholders}
+
+\begin{enumerate}
+    \item \textbf{Placeholder---primary Frobenius convergence.} Plot
+          $\delta_F(X,h;K)$ against $b$ for several controlled values of
+          $\eta$ and $K$.
+    \item \textbf{Placeholder---fixed-box spatial refinement.} Plot
+          $\delta_F(X,h;K)$ against $\eta$ at fixed $b$ for several retained
+          dimensions.
+    \item \textbf{Placeholder---two-parameter convergence surface.} Display
+          $\delta_F$ over the $(b,\eta)$ plane at fixed $K$.
+    \item \textbf{Placeholder---diagonal and off-diagonal decomposition.}
+          Plot $D_{\mathrm{diag}}$ and $D_{\mathrm{off}}$ separately against
+          $b$ and $\eta$.
+    \item \textbf{Placeholder---operator-difference heat map.} Display the
+          entries of
+          $\left(\mathbf A_{X,h}^{(K)}-
+          \mathbf H_{\mathrm{lad}}^{(K)}\right)/(\hbar\omega)$ for selected
+          parameter values.
+    \item \textbf{Placeholder---cross-grid comparison.} Plot
+          $D_F(h,h';X,K)/(\hbar\omega)$ for pairs of spatial representations
+          after both have been pulled back to the same ladder space.
+    \item \textbf{Placeholder---map quality.} Plot $\delta G(X,h;K)$ and the
+          condition number of $\mathbf G_{X,h}^{(K)}$ against $b$, $\eta$, and
+          $K$.
+    \item \textbf{Placeholder---retained-dimension sensitivity.} Plot the
+          normalized discrepancy against $K$ at selected converged and
+          unconverged box and grid settings.
+\end{enumerate}
+Each completed plot should identify $b$, $\eta$, $K$, the spatial inner
+product, the orthonormalization convention, and the status of the displayed
+values. A plot placeholder is not a calculated result.
+
+\section*{Interpretation boundary}
+
+The proposed experiment tests whether represented finite-box harmonic
+oscillators approach the exact retained ladder operator under an explicit
+state-space map. It separates boundary-domain effects, spatial-representation
+error, retained-space sensitivity, and map conditioning. The Frobenius norm is
+appropriate only after the two operators have been placed in the same
+orthonormal ladder coordinates, as described in
+Appendix~\ref{app:hilbert-schmidt-and-frobenius}.
+
+Successful convergence would constitute numerical verification for this
+illustrative oscillator comparison under the declared conditions. It would not
+validate a semiconductor model, establish a continuum limit for silicon, or
+supply evidence for an unperformed first-principles calculation.

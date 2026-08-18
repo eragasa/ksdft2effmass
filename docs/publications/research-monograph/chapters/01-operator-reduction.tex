@@ -1,0 +1,1024 @@
+\chapter[From Bloch Waves to Effective-Mass Theory]{From Bloch Waves to
+Effective-Mass Theory: A Controlled Atomistic-to-Continuum Framework for
+Semiconductor Physics}
+\label{ch:operator-reduction-motivation}
+
+\textbf{Status: conceptual and illustrative framework. The central hypothesis,
+continuum criteria, and intellectual contributions are proposed work; the
+particle-in-a-box example is not research evidence or a validated reduction of
+silicon.}
+
+\section{Project motivation and significance}
+
+Semiconductor physics is commonly taught through two quantum-mechanical
+descriptions that are physically related but mathematically disconnected.
+Students first solve a microscopic periodic Hamiltonian,
+\begin{equation}
+    \hat H_{\mathrm{micro}}
+    =
+    -\frac{\hbar^2}{2m_0}\nabla^2
+    +
+    V_{\mathrm{per}}(\mathbf r),
+\end{equation}
+and obtain Bloch states and energy bands. They are later introduced to
+effective-mass theory through a continuum envelope Hamiltonian. Written
+relative to the selected band-edge energy, it is
+\begin{equation}
+    \hat H_{\mathrm{EMT}}
+    =
+    -\frac{\hbar^2}{2}
+    \nabla\mathbin{\cdot}\mathbf m^{*-1}\nabla
+    +
+    V_{\mathrm{ext}}(\mathbf r).
+\end{equation}
+
+For a smooth, nondegenerate band near an extremum $\mathbf k_0$, the usual
+connection expands the dispersion as
+\begin{equation}
+    E_n(\mathbf k_0+\mathbf q)
+    =
+    E_n(\mathbf k_0)
+    +
+    \frac{\hbar^2}{2}
+    \mathbf q^{\mathsf T}\mathbf m_n^{*-1}\mathbf q
+    +
+    O\!\left(\lVert\mathbf q\rVert^3\right).
+\end{equation}
+After subtracting the constant $E_n(\mathbf k_0)\hat I$ and replacing
+$\mathbf q$ by $-i\nabla$, this argument explains the form of the effective
+kinetic operator. It does not construct the envelope-function state space,
+define the map from microscopic Bloch states to continuum states, or quantify
+the approximations introduced by band truncation, gauge selection, valley
+decomposition, and spatial coarse-graining.
+
+Effective-mass theory is therefore often presented as a second quantum
+mechanics rather than as a controlled reduction of the first. The
+effective-mass tensor is obtained from the curvature of a Bloch band, but the
+corresponding state-space reduction is usually left implicit.
+
+This project began from a practical attempt to close that pedagogical gap. The
+initial objective was to construct an explicit periodic potential that students
+could discretize and diagonalize, yet which remained sufficiently expressive
+to produce an indirect band gap. Such a model would provide an executable
+bridge between elementary periodic quantum mechanics and the band structure of
+an indirect-gap semiconductor.
+
+The most direct strategy appears elementary: calculate Kohn--Sham
+density-functional-theory Bloch eigenpairs, reconstruct a retained Hamiltonian,
+subtract the known kinetic operator, and interpret the remainder as an
+effective periodic potential.
+
+Let $\hat H_{\mathrm{KS}}(\mathbf k)$ be a Kohn--Sham Bloch-fiber operator
+with cell-periodic eigenstates $\lvert u_{n\mathbf k}\rangle$. For a retained
+set of bands $\mathcal B$, define
+\begin{equation}
+    \hat P(\mathbf k)
+    =
+    \sum_{n\in\mathcal B}
+    \lvert u_{n\mathbf k}\rangle
+    \langle u_{n\mathbf k}\rvert
+\end{equation}
+and
+\begin{equation}
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+    =
+    \left.
+        \hat P(\mathbf k)
+        \hat H_{\mathrm{KS}}(\mathbf k)
+        \hat P(\mathbf k)
+    \right|_{\mathcal H^{(P)}(\mathbf k)}
+    =
+    \sum_{n\in\mathcal B}
+    \varepsilon_n(\mathbf k)
+    \lvert u_{n\mathbf k}\rangle
+    \langle u_{n\mathbf k}\rvert,
+\end{equation}
+where
+\begin{equation}
+    \mathcal H^{(P)}(\mathbf k)
+    =
+    \operatorname{Ran}\hat P(\mathbf k).
+\end{equation}
+For entangled bands, constructing a smooth retained family may require
+projection or disentanglement rather than selection by a single global energy
+cutoff.
+
+The apparently obvious construction is
+\begin{equation}
+    \hat V_{\mathrm{eff}}^{(P)}(\mathbf k)
+    \stackrel{?}{=}
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+    -
+    \hat T^{(P)}(\mathbf k),
+\end{equation}
+where
+\begin{equation}
+    \hat T^{(P)}(\mathbf k)
+    =
+    \left.
+        \hat P(\mathbf k)
+        \hat T(\mathbf k)
+        \hat P(\mathbf k)
+    \right|_{\mathcal H^{(P)}(\mathbf k)}.
+\end{equation}
+This subtraction is mathematically valid on the retained fiber, but its result
+is a projected operator, not necessarily a unique local scalar potential.
+Projection may induce nonlocality, while nonlocal pseudopotentials, orbital
+structure, spin--orbit interactions, and band truncation may introduce
+components that cannot be represented by a simple function $V(\mathbf r)$.
+Bloch gauge freedom further changes the matrix coordinates of the retained
+operator without changing its abstract action or spectrum.
+
+The desired teaching potential must therefore be obtained by reducing the
+operator residual into an explicitly chosen model class:
+\begin{equation}
+    \hat V_{\mathrm{teach}}
+    =
+    \operatorname*{arg\,min}_{\hat V\in\mathcal V_{\mathrm{adm}}}
+    \sum_{\mathbf k\in\mathcal K}
+    \left\|
+        \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+        -
+        \hat T^{(P)}(\mathbf k)
+        -
+        \left.
+            \hat P(\mathbf k)
+            \hat V(\mathbf k)
+            \hat P(\mathbf k)
+        \right|_{\mathcal H^{(P)}(\mathbf k)}
+    \right\|_*^2.
+\end{equation}
+Here, $\mathcal K$ is the sampled reciprocal-space region and
+$\mathcal V_{\mathrm{adm}}$ may represent local periodic potentials, truncated
+Fourier expansions, finite real-space stencils, or constrained tight-binding
+operator classes. The norm $\lVert\cdot\rVert_*$ and any reciprocal-space
+weights must be chosen to measure operator error consistently with the physical
+observables and continuum limit of interest. This is a proposed model-class
+problem, not a presently accepted fitting criterion.
+
+The finite example developed next separates exact operator retention from
+model-class approximation and shows why all components of an additive
+Hamiltonian must be reduced through the same map. The later sections then
+return to pristine--doped comparison, continuum admissibility, and the broader
+research program.
+
+\section{From spectral data to an effective Hamiltonian}
+
+The construction in this section is a pedagogical discrete-spectrum case. It
+is not the literal subspace construction used for a periodic crystal, where
+Bloch-fiber representations and possibly projection or disentanglement enter.
+
+The genesis of this problem begins with the spectral problem for a quantum
+Hamiltonian $\hat H$,
+\begin{equation}
+    \hat H\lvert\psi_i\rangle
+    =
+    E_i\lvert\psi_i\rangle,
+\end{equation}
+where $(E_i,\lvert\psi_i\rangle)$ is the $i$th eigenpair. Assuming that the
+relevant spectrum is discrete and that the eigenstates form a complete
+orthonormal basis of the Hilbert space $\mathcal H$, the Hamiltonian admits the
+spectral decomposition
+\begin{equation}
+    \hat H
+    =
+    \sum_i
+    E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+
+Suppose that the physical questions of interest involve only states below an
+energy cutoff $E_{\mathrm{cut}}$. We define the retained low-energy subspace
+\begin{equation}
+    \mathcal H^{(P)}
+    =
+    \operatorname{span}
+    \left\{
+        \lvert\psi_i\rangle
+        \;\middle|\;
+        E_i\leq E_{\mathrm{cut}}
+    \right\},
+\end{equation}
+with orthogonal projector
+\begin{equation}
+    \hat P
+    =
+    \sum_{E_i\leq E_{\mathrm{cut}}}
+    \lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+
+The corresponding retained Hamiltonian is
+\begin{equation}
+    \hat H^{(P)}
+    =
+    \left.
+        \hat P\hat H\hat P
+    \right|_{\mathcal H^{(P)}}
+    =
+    \sum_{E_i\leq E_{\mathrm{cut}}}
+    E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+It exactly reproduces every retained eigenpair,
+\begin{equation}
+    \hat H^{(P)}\lvert\psi_i\rangle
+    =
+    E_i\lvert\psi_i\rangle,
+    \qquad
+    E_i\leq E_{\mathrm{cut}},
+\end{equation}
+but it does not specify the action of $\hat H$ outside
+$\mathcal H^{(P)}$. It is therefore an exact restriction of the parent
+Hamiltonian, not yet an approximate effective model.
+
+We reserve the notation $\hat H_{\mathrm{eff}}(\boldsymbol\theta)$ for an
+operator belonging to a prescribed effective-model class with parameters
+$\boldsymbol\theta$. The distinction is important:
+\begin{equation}
+    \underbrace{\hat H^{(P)}}_{\text{exact retained operator}}
+    \qquad\text{and}\qquad
+    \underbrace{\hat H_{\mathrm{eff}}(\boldsymbol\theta)}_{
+        \text{approximate model on an identified retained space}}
+\end{equation}
+are not the same construction.
+
+\section{Computational example: a particle in a one-dimensional box}
+
+The particle in a one-dimensional box provides the simplest computational
+setting in which the continuous operator, its discrete matrix representation,
+its retained subspace, and an effective model can be separated explicitly.
+
+\subsection{Continuous problem}
+
+Consider a particle of mass $m$ confined to the interval
+\begin{equation}
+    \Omega=(0,L).
+\end{equation}
+Inside the box, the Hamiltonian is
+\begin{equation}
+    \hat H
+    =
+    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2},
+\end{equation}
+with operator domain
+\begin{equation}
+    \mathcal D(\hat H)
+    =
+    H^2(0,L)\cap H_0^1(0,L).
+\end{equation}
+Equivalently, the wavefunction satisfies the Dirichlet boundary conditions
+\begin{equation}
+    \psi(0)=\psi(L)=0.
+\end{equation}
+
+The exact eigenfunctions and eigenvalues are
+\begin{align}
+    \psi_n(x)
+    &=
+    \sqrt{\frac{2}{L}}
+    \sin\left(\frac{n\pi x}{L}\right),
+    \\
+    E_n
+    &=
+    \frac{\hbar^2\pi^2n^2}{2mL^2},
+    \qquad n=1,2,\ldots.
+\end{align}
+
+\subsection{Finite-difference representation}
+
+Introduce $N$ interior grid points
+\begin{equation}
+    x_j=j\Delta x,
+    \qquad
+    j=1,\ldots,N,
+\end{equation}
+where
+\begin{equation}
+    \Delta x=\frac{L}{N+1}.
+\end{equation}
+The boundary points are excluded from the numerical state vector because the
+Dirichlet conditions fix their values to zero. A sampled wavefunction is
+represented by
+\begin{equation}
+    \boldsymbol\psi
+    =
+    \begin{bmatrix}
+        \psi(x_1) & \psi(x_2) & \cdots & \psi(x_N)
+    \end{bmatrix}^{\mathsf T}
+    \in\mathbb C^N.
+\end{equation}
+
+Using the centered finite-difference approximation
+\begin{equation}
+    \left.
+        \frac{d^2\psi}{dx^2}
+    \right|_{x=x_j}
+    \approx
+    \frac{
+        \psi(x_{j+1})-2\psi(x_j)+\psi(x_{j-1})
+    }{\Delta x^2},
+\end{equation}
+the Hamiltonian is represented by the Hermitian matrix
+\begin{equation}
+    \mathbf H
+    =
+    \frac{\hbar^2}{2m\Delta x^2}
+    \begin{bmatrix}
+        2  & -1 & 0  & \cdots & 0 \\
+        -1 & 2  & -1 & \ddots & \vdots \\
+        0  & -1 & 2  & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & -1 \\
+        0 & \cdots & 0 & -1 & 2
+    \end{bmatrix}.
+\end{equation}
+
+The discrete eigenvalue problem is
+\begin{equation}
+    \mathbf H\mathbf v_i
+    =
+    \varepsilon_i\mathbf v_i,
+\end{equation}
+where $\varepsilon_i$ approximates $E_i$. With Euclidean normalization,
+$\mathbf v_i$ approximates the quadrature-scaled samples
+$\sqrt{\Delta x}\,\psi_i(x_j)$ rather than the unscaled samples themselves.
+The finite-difference eigenvalues are
+\begin{equation}
+    \varepsilon_i
+    =
+    \frac{2\hbar^2}{m\Delta x^2}
+    \sin^2\left(
+        \frac{i\pi}{2(N+1)}
+    \right),
+    \qquad i=1,\ldots,N.
+\end{equation}
+For fixed $i$,
+\begin{equation}
+    \lim_{\Delta x\rightarrow 0}\varepsilon_i
+    =
+    E_i.
+\end{equation}
+The low-energy eigenpairs converge first because their wavelengths remain
+large compared with the grid spacing. States near the grid-resolution limit
+are strongly affected by the finite-difference dispersion relation.
+
+\subsection{Spectral reconstruction in the discrete space}
+
+Let
+\begin{equation}
+    \boldsymbol\Phi
+    =
+    \begin{bmatrix}
+        \mathbf v_1 & \mathbf v_2 & \cdots & \mathbf v_N
+    \end{bmatrix}
+\end{equation}
+be the unitary eigenvector matrix and let
+\begin{equation}
+    \boldsymbol\Lambda
+    =
+    \operatorname{diag}
+    \left(
+        \varepsilon_1,\ldots,\varepsilon_N
+    \right).
+\end{equation}
+Then
+\begin{equation}
+    \boldsymbol\Phi^\dagger\boldsymbol\Phi
+    =
+    \mathbf I,
+\end{equation}
+and the discrete Hamiltonian can be reconstructed exactly as
+\begin{equation}
+    \mathbf H
+    =
+    \boldsymbol\Phi
+    \boldsymbol\Lambda
+    \boldsymbol\Phi^\dagger
+    =
+    \sum_{i=1}^{N}
+    \varepsilon_i\mathbf v_i\mathbf v_i^\dagger.
+\end{equation}
+
+The relation between the continuous and discrete objects should therefore be
+written as a representation map,
+\begin{equation}
+    \hat H
+    \longrightarrow
+    \mathbf H,
+\end{equation}
+rather than as a literal equality. The matrix $\mathbf H$ depends on the
+chosen grid, finite-difference stencil, boundary conditions, and units.
+
+\subsection{Low-energy retention}
+
+Assume $1\leq M<N$. Let
+\begin{equation}
+    \boldsymbol\Phi_M
+    =
+    \begin{bmatrix}
+        \mathbf v_1 & \mathbf v_2 & \cdots & \mathbf v_M
+    \end{bmatrix}
+    \in\mathbb C^{N\times M}
+\end{equation}
+contain the lowest $M$ eigenvectors, and define
+\begin{equation}
+    \boldsymbol\Lambda_M
+    =
+    \operatorname{diag}
+    \left(
+        \varepsilon_1,\ldots,\varepsilon_M
+    \right).
+\end{equation}
+The orthogonal projector onto the retained discrete subspace is
+\begin{equation}
+    \mathbf P_M
+    =
+    \boldsymbol\Phi_M\boldsymbol\Phi_M^\dagger.
+\end{equation}
+
+The retained Hamiltonian embedded in the original grid space is
+\begin{align}
+    \mathbf H^{(P_M)}
+    &=
+    \mathbf P_M\mathbf H\mathbf P_M
+    \\
+    &=
+    \boldsymbol\Phi_M
+    \boldsymbol\Lambda_M
+    \boldsymbol\Phi_M^\dagger.
+\end{align}
+This is an $N\times N$ matrix of rank $M$. It represents the exact action of
+$\mathbf H$ on $\operatorname{Ran}(\mathbf P_M)$ and vanishes on the
+orthogonal complement.
+
+The same retained operator has the $M\times M$ matrix representation
+\begin{align}
+    \mathbf H_{\mathrm{red}}
+    &=
+    \boldsymbol\Phi_M^\dagger
+    \mathbf H
+    \boldsymbol\Phi_M
+    \\
+    &=
+    \boldsymbol\Lambda_M
+\end{align}
+in the retained eigenbasis. Thus,
+\begin{equation}
+    \mathbf H^{(P_M)}\in\mathbb C^{N\times N},
+    \qquad
+    \mathbf H_{\mathrm{red}}\in\mathbb C^{M\times M},
+\end{equation}
+The two matrices represent the same retained action only after restricting
+$\mathbf H^{(P_M)}$ to $\operatorname{Ran}(\mathbf P_M)$ and identifying
+$\mathbb C^M$ with that range through $\boldsymbol\Phi_M$.
+
+Consequently, the expression
+\begin{equation}
+    \mathbf H-\mathbf H_{\mathrm{red}}
+\end{equation}
+is undefined when $M\neq N$. The reduced matrix must first be embedded into
+the grid space,
+\begin{equation}
+    \mathbf H^{(P_M)}
+    =
+    \boldsymbol\Phi_M
+    \mathbf H_{\mathrm{red}}
+    \boldsymbol\Phi_M^\dagger,
+\end{equation}
+or the full Hamiltonian must be restricted to the retained coordinates.
+
+\subsection{Operator residuals}
+
+The full-grid residual associated with spectral retention is
+\begin{align}
+    \mathbf R_{\mathrm{full}}
+    &=
+    \mathbf H-\mathbf H^{(P_M)}
+    \\
+    &=
+    \sum_{i=M+1}^{N}
+    \varepsilon_i\mathbf v_i\mathbf v_i^\dagger.
+\end{align}
+For the positive, increasingly ordered particle-in-a-box spectrum,
+\begin{align}
+    \left\|\mathbf R_{\mathrm{full}}\right\|_2
+    &=
+    \varepsilon_N,
+    \\
+    \left\|\mathbf R_{\mathrm{full}}\right\|_{\mathrm F}
+    &=
+    \left(
+        \sum_{i=M+1}^{N}\varepsilon_i^2
+    \right)^{1/2}.
+\end{align}
+These norms are dominated by the discarded high-energy sector. They do not
+measure the accuracy with which the retained low-energy action is reproduced.
+Indeed,
+\begin{equation}
+    \mathbf P_M
+    \left(
+        \mathbf H-\mathbf H^{(P_M)}
+    \right)
+    \mathbf P_M
+    =
+    \mathbf 0.
+\end{equation}
+
+Now suppose that
+$\mathbf H_{\mathrm{eff}}(\boldsymbol\theta)\in\mathbb C^{M\times M}$ is a
+parameterized effective model expressed in the retained basis. Its relevant
+operator residual is
+\begin{equation}
+    \mathbf R_H^{(P_M)}(\boldsymbol\theta)
+    =
+    \boldsymbol\Phi_M^\dagger
+    \mathbf H
+    \boldsymbol\Phi_M
+    -
+    \mathbf H_{\mathrm{eff}}(\boldsymbol\theta).
+\end{equation}
+A Frobenius-norm fitting problem can then be posed as
+\begin{equation}
+    \boldsymbol\theta^\star
+    =
+    \operatorname*{arg\,min}_{\boldsymbol\theta}
+    \left\|
+        \mathbf R_H^{(P_M)}(\boldsymbol\theta)
+    \right\|_{\mathrm F}^2.
+\end{equation}
+This comparison is well defined because both matrices act on the same
+$M$-dimensional state space and use the same retained basis.
+
+\section{Conditions for identifying a reduced potential operator}
+
+A reduced Hamiltonian does not by itself determine a unique kinetic--potential
+decomposition. Such an identification requires a prescribed model class and a
+specified kinetic operator; projected components may also be nonlocal even
+when their parent-space counterparts are local.
+
+Suppose that the parent Hamiltonian admits the additive decomposition
+\begin{equation}
+    \hat H=\hat T+\hat V,
+\end{equation}
+where $\hat T$ is the kinetic-energy operator and $\hat V$ is the
+potential-energy operator. In the parent state space,
+\begin{equation}
+    \hat V=\hat H-\hat T.
+\end{equation}
+After discretization on a common numerical state space, this becomes
+\begin{align}
+    \mathbf H
+    &=
+    \mathbf T+\mathbf V,
+    \\
+    \mathbf V
+    &=
+    \mathbf H-\mathbf T.
+\end{align}
+
+It is tempting to apply the same construction to a reduced Hamiltonian and
+write
+\begin{equation}
+    \mathbf V_{\mathrm{eff}}
+    \stackrel{?}{=}
+    \mathbf H_{\mathrm{eff}}-\mathbf T.
+\end{equation}
+This expression is meaningful only if $\mathbf H_{\mathrm{eff}}$ and
+$\mathbf T$ act on the same state space and are represented in the same
+basis. If the Hamiltonian has been reduced, then the kinetic operator must be
+reduced through the same map.
+
+\subsection{Consistent reduction of an additive decomposition}
+
+Define the projection map
+\begin{equation}
+    \mathcal R_{P_M}(\mathbf A)
+    =
+    \mathbf P_M\mathbf A\mathbf P_M.
+\end{equation}
+Because $\mathcal R_{P_M}$ is linear,
+\begin{align}
+    \mathcal R_{P_M}(\mathbf H)
+    &=
+    \mathcal R_{P_M}(\mathbf T)
+    +
+    \mathcal R_{P_M}(\mathbf V),
+    \\
+    \mathbf H^{(P_M)}
+    &=
+    \mathbf T^{(P_M)}
+    +
+    \mathbf V^{(P_M)},
+\end{align}
+where
+\begin{align}
+    \mathbf T^{(P_M)}
+    &=
+    \mathbf P_M\mathbf T\mathbf P_M,
+    \\
+    \mathbf V^{(P_M)}
+    &=
+    \mathbf P_M\mathbf V\mathbf P_M.
+\end{align}
+The retained potential is therefore
+\begin{equation}
+    \mathbf V^{(P_M)}
+    =
+    \mathbf H^{(P_M)}
+    -
+    \mathbf T^{(P_M)},
+\end{equation}
+not
+\begin{equation}
+    \mathbf V^{(P_M)}
+    \stackrel{?}{=}
+    \mathbf H^{(P_M)}-\mathbf T.
+\end{equation}
+
+In the retained basis, the same relation is
+\begin{align}
+    \mathbf H_{\mathrm{red}}
+    &=
+    \boldsymbol\Phi_M^\dagger
+    \mathbf H
+    \boldsymbol\Phi_M,
+    \\
+    \mathbf T_{\mathrm{red}}
+    &=
+    \boldsymbol\Phi_M^\dagger
+    \mathbf T
+    \boldsymbol\Phi_M,
+    \\
+    \mathbf V_{\mathrm{red}}
+    &=
+    \boldsymbol\Phi_M^\dagger
+    \mathbf V
+    \boldsymbol\Phi_M,
+\end{align}
+with
+\begin{equation}
+    \mathbf V_{\mathrm{red}}
+    =
+    \mathbf H_{\mathrm{red}}-\mathbf T_{\mathrm{red}}.
+\end{equation}
+
+\subsection{The particle-in-a-box counterexample}
+
+For the infinite particle in a box, the interior potential vanishes:
+\begin{equation}
+    V(x)=0.
+\end{equation}
+The infinite walls are not represented by finite values of $V(x)$; they are
+encoded in the domain of $\hat H$ and its Dirichlet boundary conditions. On
+the interior finite-difference grid,
+\begin{equation}
+    \mathbf H=\mathbf T,
+    \qquad
+    \mathbf V=\mathbf 0.
+\end{equation}
+Consistent projection gives
+\begin{equation}
+    \mathbf H^{(P_M)}
+    =
+    \mathbf T^{(P_M)},
+\end{equation}
+and hence
+\begin{equation}
+    \mathbf V^{(P_M)}
+    =
+    \mathbf H^{(P_M)}-\mathbf T^{(P_M)}
+    =
+    \mathbf 0.
+\end{equation}
+
+Now subtract the unprojected kinetic matrix instead:
+\begin{equation}
+    \widetilde{\mathbf V}_{\mathrm{eff}}
+    =
+    \mathbf H^{(P_M)}-\mathbf T.
+\end{equation}
+For the particle in the box,
+\begin{equation}
+    \widetilde{\mathbf V}_{\mathrm{eff}}
+    =
+    \mathbf P_M\mathbf T\mathbf P_M-\mathbf T.
+\end{equation}
+Because $\mathbf P_M$ is a spectral projector of $\mathbf T$, it commutes
+with $\mathbf T$. Let
+\begin{equation}
+    \mathbf Q_M=\mathbf I-\mathbf P_M
+\end{equation}
+project onto the discarded subspace. Then
+\begin{align}
+    \widetilde{\mathbf V}_{\mathrm{eff}}
+    &=
+    -\mathbf Q_M\mathbf T\mathbf Q_M
+    \\
+    &=
+    -\sum_{i=M+1}^{N}
+    \varepsilon_i\mathbf v_i\mathbf v_i^\dagger.
+\end{align}
+The reconstructed matrix is nonzero even though the physical potential inside
+the box is zero. It is not an effective potential. It is the negative of the
+discarded high-energy kinetic operator produced by combining a projected
+Hamiltonian with an unprojected kinetic operator.
+
+This counterexample separates two obstructions. Subtracting
+$\mathbf H_{\mathrm{red}}$ from the full-grid $\mathbf T$ is undefined because
+the matrices act on different spaces. Subtracting $\mathbf H^{(P_M)}$ from
+$\mathbf T$ is algebraically defined in the common grid representation, but
+the result is not the consistently reduced potential. Physical interpretation
+therefore requires both a common representation and a common reduction map.
+
+\subsection{Potential residual}
+
+Let $\mathbf V_{\mathrm{eff}}(\boldsymbol\theta)$ be a proposed effective
+potential acting on the retained space. The potential residual is
+\begin{equation}
+    \mathbf R_V^{(P_M)}(\boldsymbol\theta)
+    =
+    \mathbf V_{\mathrm{red}}
+    -
+    \mathbf V_{\mathrm{eff}}(\boldsymbol\theta).
+\end{equation}
+If
+\begin{align}
+    \mathbf V_{\mathrm{red}}
+    &=
+    \mathbf H_{\mathrm{red}}-\mathbf T_{\mathrm{red}},
+    \\
+    \mathbf V_{\mathrm{eff}}(\boldsymbol\theta)
+    &=
+    \mathbf H_{\mathrm{eff}}(\boldsymbol\theta)
+    -
+    \mathbf T_{\mathrm{eff}}(\boldsymbol\theta),
+\end{align}
+then
+\begin{equation}
+    \mathbf R_V^{(P_M)}(\boldsymbol\theta)
+    =
+    \left(
+        \mathbf H_{\mathrm{red}}
+        -
+        \mathbf H_{\mathrm{eff}}(\boldsymbol\theta)
+    \right)
+    -
+    \left(
+        \mathbf T_{\mathrm{red}}
+        -
+        \mathbf T_{\mathrm{eff}}(\boldsymbol\theta)
+    \right).
+\end{equation}
+Only when the kinetic operators have been identified,
+\begin{equation}
+    \mathbf T_{\mathrm{eff}}(\boldsymbol\theta)
+    =
+    \mathbf T_{\mathrm{red}},
+\end{equation}
+does the potential residual reduce to the Hamiltonian residual:
+\begin{equation}
+    \mathbf R_V^{(P_M)}(\boldsymbol\theta)
+    =
+    \mathbf H_{\mathrm{red}}
+    -
+    \mathbf H_{\mathrm{eff}}(\boldsymbol\theta).
+\end{equation}
+
+\section{From the particle in a box to electronic-structure reduction}
+
+The particle-in-a-box example is elementary, but the obstruction it reveals is
+general. In a common parent state space, the decomposition
+\begin{equation}
+    \mathbf H=\mathbf T+\mathbf V
+\end{equation}
+is meaningful because all three matrices act on the same discrete state space
+and are represented in the same basis. Reduction preserves this additive
+decomposition only when every term is reduced through the same map:
+\begin{equation}
+    \mathcal R_{P_M}(\mathbf H-\mathbf T)
+    =
+    \mathcal R_{P_M}(\mathbf H)
+    -
+    \mathcal R_{P_M}(\mathbf T).
+\end{equation}
+In general,
+\begin{equation}
+    \mathcal R_{P_M}(\mathbf H-\mathbf T)
+    \neq
+    \mathcal R_{P_M}(\mathbf H)-\mathbf T.
+\end{equation}
+
+The distinction becomes more consequential in electronic-structure
+calculations. A Kohn--Sham Hamiltonian, a Wannier Hamiltonian, a tight-binding
+Hamiltonian, and an effective-mass Hamiltonian generally do not begin as
+matrices acting on an identical numerical state space. They may differ in
+dimension, basis, gauge, spatial resolution, boundary conditions, geometry,
+units, and energy reference. Their matrices therefore cannot be physically
+compared merely because they are all called Hamiltonians.
+
+The central problem of this work is consequently not the mechanical
+subtraction of two matrices. It is the construction and validation of the
+state-space identifications that make such a subtraction mathematically
+defined and physically interpretable.
+
+\section{From periodic potentials to impurity operators}
+
+The same structural problem becomes more consequential when the model is
+extended from bulk bands to semiconductor impurities. Given pristine and doped
+Hamiltonians, the natural proposal is
+\begin{equation}
+    \hat V_{\mathrm{imp}}
+    \stackrel{?}{=}
+    \hat H_d-\hat H_b.
+\end{equation}
+This expression is not yet an operator identity because independently
+constructed pristine and doped calculations may use different retained
+subspaces, Bloch or Wannier gauges, basis orderings, geometries, spin
+structures, energy references, and numerical dimensions. Their matrices cannot
+be interpreted as representations in common physical coordinates without an
+explicit identification.
+
+Let $s\in\{b,d\}$ denote matched bulk and doped branches, with retained
+operators
+\begin{equation}
+    \hat H_s^{(P)}
+    =
+    \left.
+        \hat P_s\hat H_s\hat P_s
+    \right|_{\mathcal H_s^{(P)}},
+    \qquad
+    \mathcal H_s^{(P)}
+    =
+    \operatorname{Ran}\hat P_s.
+\end{equation}
+If the retained ranks agree, a meaningful comparison requires an
+identification
+\begin{equation}
+    \hat U_d:
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_d^{(P)}.
+\end{equation}
+Let $c_b$ and $c_d$ be the scalar reference energies selected by the declared
+alignment procedure, and define
+\begin{equation}
+    \overline{\hat H}_s^{(P)}
+    =
+    \hat H_s^{(P)}-c_s\hat I_s.
+\end{equation}
+For a unitary identification $\hat U_d$, the aligned impurity operator on the
+bulk retained space is
+\begin{equation}
+    \Delta\hat H_d^{(P)}
+    =
+    \hat U_d^\dagger
+    \overline{\hat H}_d^{(P)}
+    \hat U_d
+    -
+    \overline{\hat H}_b^{(P)}.
+\end{equation}
+Unequal retained ranks require a separately defined partial identification or
+further model reduction; they do not admit this unitary formula unchanged.
+
+Equal-dimensional spaces admit many abstract unitary maps. Most are not
+physically admissible: an arbitrary unitary can scramble localization, orbital
+character, crystal momentum, valley content, symmetry, and spin while leaving
+the spectrum unchanged. Gauge alignment is therefore necessary to define the
+subtraction, but it is not sufficient to select a physical impurity operator.
+The identification must also respect the structures needed by the intended
+reduced theory.
+
+\section{Central hypothesis}
+
+The central hypothesis proposed by this project is:
+\begin{quote}
+\itshape
+The intended continuum limit is not merely a downstream approximation to an
+already constructed atomistic model. It constrains, from the beginning, the
+admissible retained spaces, gauges, identification maps, and reduced operator
+classes.
+\end{quote}
+
+For a semiconductor representation to support an effective-mass
+interpretation, its atomistic-to-continuum identification must preserve or
+control the structures used by the continuum theory. These include
+\begin{itemize}
+    \item real-space localization and lattice translation;
+    \item Bloch wave vector and valley correspondence;
+    \item orbital, symmetry, and spin content;
+    \item smoothness across the relevant reciprocal-space region;
+    \item common bulk behavior away from an impurity;
+    \item boundary conditions and normalization; and
+    \item separation of slowly varying envelopes from lattice-periodic
+          components.
+\end{itemize}
+
+Let
+\begin{equation}
+    \epsilon=\frac{a}{L}
+\end{equation}
+denote the ratio of lattice scale $a$ to an envelope or impurity scale $L$.
+For a specified family of retained atomistic operators
+$\hat H_\epsilon^{(P)}$ and appropriately normalized identification maps
+\begin{equation}
+    \hat J_\epsilon:
+    \mathcal H_\epsilon^{(P)}
+    \longrightarrow
+    \mathcal H_{\mathrm{EMT}},
+\end{equation}
+one possible continuum criterion is norm-resolvent convergence,
+\begin{equation}
+    \left\|
+        \hat J_\epsilon
+        \left(\hat H_\epsilon^{(P)}-z\right)^{-1}
+        \hat J_\epsilon^\dagger
+        -
+        \left(\hat H_{\mathrm{EMT}}-z\right)^{-1}
+    \right\|
+    \longrightarrow 0,
+    \qquad
+    \epsilon\longrightarrow 0,
+\end{equation}
+for $z$ in an identified common resolvent set. This is a candidate analytical
+form, not an established result of the project. A later specification may
+instead require a weaker, explicitly defined combination of spectral,
+subspace, operator, and observable convergence criteria.
+
+The continuum limit thereby becomes an upstream admissibility condition. A
+gauge, basis, identification, or reduced operator class is acceptable only if
+it preserves, or approximates with controlled error, the microscopic structures
+needed to recover the declared envelope theory.
+
+\section{Relation to Hilbert's sixth problem}
+
+This research is situated within the broad mathematical tradition associated
+with Hilbert's sixth problem: the rigorous formulation of physical theories and
+the justification of limiting relations between microscopic and continuum
+descriptions. It does not claim to solve Hilbert's sixth problem in its general
+form. Instead, it addresses a bounded and experimentally consequential
+instance: the reduction of microscopic electronic-structure operators to
+continuum envelope models for indirect-gap semiconductors and their impurities.
+
+The relevant limiting process is not only a passage between different length
+scales. It is a passage between different state spaces, operator algebras,
+coordinate systems, and model classes:
+\begin{equation}
+    \text{KS--DFT}
+    \longrightarrow
+    \text{retained Bloch operator}
+    \longrightarrow
+    \text{localized atomistic operator}
+    \longrightarrow
+    \text{effective-mass continuum operator}.
+\end{equation}
+Each arrow requires an explicit map, a statement of preserved structure, and an
+error criterion. Without these elements, agreement between selected band
+energies does not establish that two models represent the same reduced physics.
+
+The effective-mass limit is therefore both an endpoint and a constraint. The
+program asks not only whether an atomistic calculation can reproduce a
+continuum observable, but which atomistic representations and reductions are
+capable of supporting the continuum theory at all.
+
+\section{Intellectual contribution}
+
+The proposed program aims to develop a gauge-equivariant,
+continuum-constrained framework for semiconductor operator reduction. Its
+intended contributions are
+\begin{enumerate}
+    \item reconstruction of retained operators from Kohn--Sham Bloch
+          eigenpairs;
+    \item separation of operator reconstruction from model-class
+          approximation;
+    \item quantitative projection onto interpretable periodic-potential,
+          stencil, and tight-binding classes;
+    \item explicit alignment of pristine and doped retained state spaces;
+    \item construction of impurity operators whose abstract action is invariant
+          under compatible coordinate changes after alignment;
+    \item formulation of continuum-compatibility criteria using operator,
+          subspace, spectral, and observable errors; and
+    \item an executable pedagogical chain connecting periodic potentials,
+          indirect band structure, impurity operators, and effective-mass
+          theory.
+\end{enumerate}
+
+The conceptual distinction is concise:
+\begin{quote}
+\itshape
+Gauge alignment makes an operator comparison mathematically defined;
+continuum compatibility makes the resulting reduced model physically
+admissible.
+\end{quote}
+
+What began as an attempt to construct a teachable periodic potential therefore
+exposes a broader mathematical problem. Obtaining the potential requires
+reconstructing an operator rather than merely fitting a spectrum. Introducing
+an impurity requires comparing independently constructed operators. Comparing
+those operators requires identifying their state spaces and gauges. Selecting
+physically admissible identifications and reduced models requires a declared
+continuum limit.
+
+This chain provides both the scientific rationale and the educational
+significance of the proposed research. It converts the normally implicit
+transition from Bloch theory to effective-mass theory into an explicit,
+testable, and executable sequence of operator reductions while keeping every
+approximation and evidence claim explicit. Chapter~\ref{ch:physical-problem}
+next specializes this framework to the silicon host and its substitutional
+phosphorus and boron branches.
