@@ -9,9 +9,9 @@ are never stored on parent Tasks.
 
 ``HarnessTaskRegistry`` is an immutable in-memory index over explicitly supplied
 canonical Tasks. It is not a second persisted catalog or topology authority.
-Together, ``harness/tasks/*.json`` and ``harness/task-graph.json`` are the
-canonical topology and lifecycle surfaces. The Task tables in
-``harness/state/harness-control.sqlite3`` and any retained chain-shaped views are
+``harness/tasks/*.json`` records are the canonical topology and lifecycle surfaces.
+``harness/task-graph.json``, the Task tables in
+``harness/state/harness-control.sqlite3``, and any retained chain-shaped views are
 deterministic read or compatibility projections.
 
 ``DevelopmentTaskSelection`` separately represents only the current active Task
@@ -78,15 +78,18 @@ and invalid intrinsic values. Live Task schema versions other than 3 are rejecte
 ``HarnessTaskRegistry`` requires a nonempty unique Task-ID-sorted tuple. Its
 identity lookup returns the exact registered object. Child lookup derives from
 ``parent_task_id`` and prerequisite lookup returns the canonical
-``task_prerequisite_ids`` tuple. Cross-record existence and cycle policy remains
-with ``HarnessTaskGraphValidator``.
+``task_prerequisite_ids`` tuple. Recursive descendant lookup returns proper
+descendants in deterministic depth-first pre-order, fails closed on a reachable
+parent cycle, and performs no lifecycle, prerequisite, selection, or authority
+interpretation. Cross-record existence and complete cycle policy remains with
+``HarnessTaskGraphValidator``.
 
 Canonical selection JSON has four required fields in constructor order:
 ``schema_version``, ``active_task_id``, ``explicit_activation_receipt_ids``, and
 ``automatic_successor_activation``. Version 1 requires sorted unique receipt
-references and literal ``false`` automatic succession. The repository record
-currently represents no active Task and no receipts; historical chain activation
-lists are not converted into current authority.
+references and literal ``false`` automatic succession. The repository record may
+represent one selected Task and receipt references or an inactive state; historical
+chain activation lists are not converted into current authority.
 
 ``HarnessTaskGraphValidator`` returns ``LocalValidationResult`` with findings in
 lexical ``(code, path-or-empty, detail)`` order. It defines duplicate-ID,
@@ -114,14 +117,12 @@ validity, or provide human acceptance.
 API reference
 -------------
 
-.. currentmodule:: ksdft2effmass.harness.pi.local
+.. currentmodule:: ksdft2effmass.harness
 
 .. autoclass:: HarnessTask
 .. autoclass:: HarnessTaskSerializer
    :members:
 .. autoclass:: HarnessTaskDeserializer
-   :members:
-.. autoclass:: HarnessTaskGraphValidator
    :members:
 .. autoclass:: HarnessTaskRegistry
    :members:
@@ -129,4 +130,13 @@ API reference
 .. autoclass:: DevelopmentTaskSelectionSerializer
    :members:
 .. autoclass:: DevelopmentTaskSelectionDeserializer
+   :members:
+
+``HarnessTaskGraphValidator`` remains on the transitional project-local validation
+boundary until normalized Architecture-v2 Harness validation supplies its normative
+result contract.
+
+.. currentmodule:: ksdft2effmass.harness.pi.local
+
+.. autoclass:: HarnessTaskGraphValidator
    :members:

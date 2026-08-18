@@ -2,14 +2,15 @@
 
 ## Status and identity
 
-**Status: human-accepted implementation-planning result; implementation inactive.**
-The canonical Task is `migration.v2.identity-contracts`. The resolved checkpoint
+**Foundational implementation: human-accepted and closed under Option B.** The
+canonical Task is `migration.v2.identity-contracts`. The resolved checkpoint
 preserves the architecture response `B accepted`; the canonical Task lifecycle record
-separately preserves the later response `accepted` for the completed implementation-
-planning result. No second checkpoint was created because no material alternative
-remained at that administrative acceptance boundary. Source implementation,
-public-contract change, dependency change, successor activation, and acceptance
-remain unauthorized.
+preserves the implementation activation and later human acceptance. No second
+checkpoint was created
+because no material alternative remained. Option B deliberately requires no
+foundational runtime module, shared schema, fixture, or dependency. Concrete consumer
+implementation, protected execution, successor activation, and human acceptance of
+later consumer results remain unauthorized.
 
 The normative semantic baseline is [Identity, version, and failure
 contracts](../../../v2/identity-version-and-failure-contracts.md). The package
@@ -294,15 +295,15 @@ alter this completed planning result.
 
 ### Implementation
 
-Implementation requires:
-
-- the resolved human decision;
-- an accepted exact public and private contract for the selected surface;
-- explicit authorized source, test, schema, fixture, and documentation paths;
-- compatibility dispositions for existing public identities;
-- applicable actual predecessor results rather than parent status; and
-- no unresolved dependency, wire, or failure-semantics decision affecting the
-  selected slice.
+The foundational implementation prerequisites are satisfied: the Option B decision
+is resolved, the normative semantic contract and exact compatibility dispositions are
+accepted, the documentation-only implementation was explicitly activated, and no
+predecessor, dependency, wire, or failure-semantics decision remains open for this
+slice. The resulting implementation consists of the normative contract, ownership and
+adaptation matrices, compatibility inventory, verification plan, and future artifact
+plan maintained by this Task. It creates no source, test, schema, fixture, shared wire,
+or dependency artifact. Those artifacts remain with separately activated consumer
+Tasks when a demonstrated domain boundary requires them.
 
 ## Conditional human decisions
 
@@ -351,7 +352,11 @@ resolved response and resulting authorization boundary.
 
 ### Software verification
 
-After decision and separate implementation authorization, verify as applicable:
+This foundational Task introduces no runtime or wire artifact, so it owns no Python,
+schema, fixture, or runtime-test change. Its applicable checks are agreement among the
+normative contract, ownership and compatibility matrices, migration navigation, and
+canonical lifecycle state. The behavioral checks below remain requirements for the
+separately activated consumer that implements each demonstrated boundary:
 
 - exact built-in scalar acceptance and Boolean rejection;
 - identity-class non-interchangeability;
@@ -395,7 +400,7 @@ without rewriting retained identities, failures, provenance, or serialized bytes
 
 ## Residual limitations
 
-- Runtime ownership and this foundational implementation plan are complete; exact
+- Runtime ownership and the foundational Option B implementation are complete; exact
   downstream consumer implementation details remain with their owning Tasks.
 - Exact cross-package lexical forms, digest algorithms, canonical encodings, and
   wire schemas remain deferred except for already accepted domain contracts.
@@ -404,5 +409,6 @@ without rewriting retained identities, failures, provenance, or serialized bytes
   scientific identity fields remain with their consuming Tasks.
 - Current source contains intentionally distinct and partially duplicated identity
   contracts; this plan does not claim they are defects or interchangeable.
-- No source implementation, dependency change, consumer migration, or successor
-  activation is authorized by this page.
+- This foundational implementation introduced no production source, dependency
+  change, consumer migration, or successor activation; this page does not authorize
+  any of those later operations.

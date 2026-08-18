@@ -39,12 +39,16 @@ classDiagram
 | `HarnessResourceCatalog` | Versioned resources and dependency closure |
 | `HarnessEvidenceCatalog` | Evidence identities, owners, and claim boundaries |
 
-The project-local foundation realizes ``HarnessTaskRegistry`` as an in-memory
-aggregate derived exclusively from explicitly supplied canonical ``HarnessTask``
-records. It stores no independent child lists, membership file, or topology.
-``DevelopmentTaskSelection`` has a project-local version-1 wire contract containing
-only the active Task reference, explicit activation-receipt references, and the
-disabled automatic-successor policy. Neither record grants authority.
+The implemented public `ksdft2effmass.harness` foundation realizes
+``HarnessTaskRegistry`` as an in-memory aggregate derived exclusively from explicitly
+supplied canonical ``HarnessTask`` records. It stores no independent child lists,
+membership file, or topology. Direct-child and recursive-descendant queries derive
+from canonical parent fields; descendant traversal is deterministic depth-first
+pre-order and grants no execution order. ``DevelopmentTaskSelection`` has a project-
+local version-1 wire contract containing only the active Task reference, explicit
+activation-receipt references, and the disabled automatic-successor policy. Temporary
+`harness.pi.local` imports resolve to the same public objects during migration.
+Neither record grants authority.
 
 Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved variant invariants. `HarnessStateValidator` and normalization own cross-record identity uniqueness, predecessor/supersession and other references, and canonical sequence ordering. Loading, other cross-object validation, serialization, persistence, selection, and projection belong to ActionObjects. No development-decision-specific public ActionObject is introduced.
 

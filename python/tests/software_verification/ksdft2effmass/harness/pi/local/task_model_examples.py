@@ -5,7 +5,7 @@ This helper module owns no evidence identifier or independent acceptance claim.
 
 from __future__ import annotations
 
-from ksdft2effmass.harness.pi.local import HarnessTask
+from ksdft2effmass.harness import HarnessTask
 
 
 def make_task(**changes: object) -> HarnessTask:

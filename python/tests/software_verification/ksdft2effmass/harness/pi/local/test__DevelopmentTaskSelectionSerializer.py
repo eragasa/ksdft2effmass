@@ -21,7 +21,7 @@ authority, persistence, scientific validation, or uncertainty-quantification cla
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
+from ksdft2effmass.harness import (
     DevelopmentTaskSelection,
     DevelopmentTaskSelectionSerializer,
 )

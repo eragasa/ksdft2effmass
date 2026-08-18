@@ -114,6 +114,10 @@ additional cutover detail that does not duplicate those owners.
 The mapping baseline remains fixed. Later accepted changes do not rewrite the v1
 snapshot:
 
+- The foundational identity, version, immutable-result, and failure contract is
+  stabilized under human-accepted Option B. Runtime types, results, failures,
+  serializers, and repositories remain domain-owned; no shared contracts package,
+  universal base hierarchy, schema, fixture, or dependency was introduced.
 - Python conformance is publicly owned by
   `ksdft2effmass.harness.pi.conformance.python`; the former Python
   `harness.pi.evidence` facade is retired without changing repository evidence

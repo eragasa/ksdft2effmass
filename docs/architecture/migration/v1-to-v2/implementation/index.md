@@ -6,10 +6,10 @@
 planning-state `HarnessTask` records under `harness/tasks/` for the mapped v2
 packages, modules, submodules, architecture enhancements, and unresolved
 operator-ownership branch. The human-accepted
-`migration.v2.identity-contracts` implementation plan is inactive pending separate
-source-implementation activation. No Task or source implementation is active, and
-the records do not authorize dependency changes,
-scientific or protected execution, acceptance, or automatic succession.
+`migration.v2.identity-contracts` foundational implementation is closed under Option
+B. It stabilizes the structural semantic contract while deliberately introducing no
+shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed;
+scientific or protected execution and automatic succession remain unauthorized.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical
@@ -71,8 +71,8 @@ filenames are not treated as approved Python modules merely because they exist.
 
 ## Development-chain replacement
 
-Canonical `HarnessTask` records and `harness/task-graph.json` together replace
-independent development-chain topology. `DevelopmentTaskSelection`
+Canonical `HarnessTask` records replace independent development-chain topology;
+`harness/task-graph.json` is their derived projection. `DevelopmentTaskSelection`
 replaces chain-owned active-Task and explicit-selection fields. Development
 decisions, prerequisite results, findings, and historical evidence remain under
 their respective owners rather than becoming graph state.
@@ -329,8 +329,11 @@ satisfied. The graph already declares implementation dependencies such as
 `application.verification → pi.agents.adapter`. Actual closed results, not the
 serialized producer or parent status, satisfy those dependencies.
 
-The [`identity-contracts`](identity-contracts.md) page records the human-accepted
-foundational planning result and resolved Option B runtime-ownership decision. The
+The [`identity-contracts`](identity-contracts.md) page records the resolved Option B
+runtime-ownership decision and human-accepted foundational implementation. The
+[`Harness Task-model`](harness/task-model.md) page records the human-accepted and
+closed implementation of canonical Task, registry, descendant-query,
+lifecycle-applicability, selection, and one-way compatibility boundaries. The
 [`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
 rationale and compatibility analysis. Other modules need dedicated planning prose
 only when the Task fields and normative v2 pages are insufficient to explain a

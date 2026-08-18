@@ -21,7 +21,7 @@ migration, activation, scientific validity, or human acceptance.
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
+from ksdft2effmass.harness import (
     HarnessTaskDeserializer,
     HarnessTaskSerializer,
 )

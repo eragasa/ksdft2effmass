@@ -27,8 +27,9 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
+import ksdft2effmass.harness as harness_api
 import ksdft2effmass.harness.pi.local as local_api
-from ksdft2effmass.harness.pi.local import (
+from ksdft2effmass.harness import (
     DevelopmentTaskSelectionDeserializer,
     DevelopmentTaskSelectionSerializer,
 )
@@ -147,13 +148,13 @@ def test_artifact__selection_fixtures__agree_with_schema_runtime_and_live_state(
     agree with the version-1 schema and strict runtime wire contract.
 
     Method: Compare explicit fixture discovery with the index, apply Draft 2020-12
-    validation, execute runtime cases, and compare canonical inactive bytes.
+    validation, execute runtime cases, and validate and round-trip the exact live state.
 
-    Oracle: The maintained schema, hand-authored fixture index, and approved inactive
-    repository state independently define expected partitions.
+    Oracle: The maintained schema, hand-authored fixture index, strict public codec,
+    and canonical Task identities independently define expected partitions.
 
     Acceptance: The fixture index is complete; schema/runtime layers behave as
-    declared; live state equals the canonical valid fixture and round trips exactly.
+    declared; live state validates and round trips exactly; any selected Task exists.
 
     Interpretation: Failure identifies schema, fixture, runtime, or repository-state
     drift.
@@ -203,9 +204,16 @@ def test_artifact__selection_fixtures__agree_with_schema_runtime_and_live_state(
             json.dumps(trailing_line_terminator).encode()
         )
 
-    canonical = (fixture_root / "valid/inactive.json").read_bytes()
     live = (root / "harness/task-selection.json").read_bytes()
-    assert live == canonical
+    assert not tuple(validator.iter_errors(json.loads(live)))
+    live_selection = DevelopmentTaskSelectionDeserializer().execute(live)
+    assert DevelopmentTaskSelectionSerializer().execute(live_selection) == live
+    if live_selection.active_task_id is not None:
+        canonical_task_ids = {
+            json.loads(path.read_text())["task_id"]
+            for path in (root / "harness/tasks").glob("*.json")
+        }
+        assert live_selection.active_task_id in canonical_task_ids
 
 
 def test_artifact__dependency__excludes_chain_and_cpn_coupling() -> None:
@@ -229,25 +237,34 @@ def test_artifact__dependency__excludes_chain_and_cpn_coupling() -> None:
     Limitations: This static check does not prove absence of all dynamic imports.
     """
     required = {
+        "ArchivedTaskSource",
+        "HarnessTask",
+        "HarnessTaskSerializer",
+        "HarnessTaskDeserializer",
         "HarnessTaskRegistry",
         "DevelopmentTaskSelection",
         "DevelopmentTaskSelectionSerializer",
         "DevelopmentTaskSelectionDeserializer",
     }
+    assert required <= set(harness_api.__all__)
     assert required <= set(local_api.__all__)
-    assert all(isinstance(getattr(local_api, name), type) for name in required)
+    assert all(isinstance(getattr(harness_api, name), type) for name in required)
+    assert all(
+        getattr(local_api, name) is getattr(harness_api, name) for name in required
+    )
 
-    source_root = repository_root() / "python/src/ksdft2effmass/harness/pi/local"
+    source_root = repository_root() / "python/src/ksdft2effmass/harness"
     prohibited = {
+        "ksdft2effmass.harness.pi.local",
         "ksdft2effmass.harness.pi.chains",
         "ksdft2effmass.workflows",
     }
     imported = direct_imports(
-        source_root / "task_model.py",
-        "ksdft2effmass.harness.pi.local.task_model",
+        source_root / "task.py",
+        "ksdft2effmass.harness.task",
     ) | direct_imports(
         source_root / "task_selection.py",
-        "ksdft2effmass.harness.pi.local.task_selection",
+        "ksdft2effmass.harness.task_selection",
     )
     assert not {
         name

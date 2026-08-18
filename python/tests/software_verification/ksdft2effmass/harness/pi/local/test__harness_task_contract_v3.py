@@ -28,13 +28,14 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
+import ksdft2effmass.harness as harness_api
 import ksdft2effmass.harness.pi.local as local_api
-from ksdft2effmass.harness.pi.local import (
+from ksdft2effmass.harness import (
     HarnessTask,
     HarnessTaskDeserializer,
-    HarnessTaskGraphValidator,
     HarnessTaskSerializer,
 )
+from ksdft2effmass.harness.pi.local import HarnessTaskGraphValidator
 
 from .conftest import repository_root
 from .task_model_examples import make_task
@@ -73,12 +74,16 @@ def test_public_api__task_model__exports_retained_foundation_interfaces() -> Non
     Limitations: Unrelated project-local package exports are outside this assertion.
     """
     assert all(name in local_api.__all__ for name in _RETAINED_PUBLIC_NAMES)
+    v2_names = set(_RETAINED_PUBLIC_NAMES) - {"HarnessTaskGraphValidator"}
+    assert v2_names <= set(harness_api.__all__)
     assert all(
         isinstance(getattr(local_api, name), type) for name in _RETAINED_PUBLIC_NAMES
     )
-    task_model = __import__(
-        "ksdft2effmass.harness.pi.local.task_model", fromlist=["unused"]
+    assert all(
+        getattr(local_api, name) is getattr(harness_api, name) for name in v2_names
     )
+
+    task_model = __import__("ksdft2effmass.harness.task", fromlist=["unused"])
     defined = {
         name
         for name, value in vars(task_model).items()
@@ -91,11 +96,22 @@ def test_public_api__task_model__exports_retained_foundation_interfaces() -> Non
         "HarnessTask",
         "HarnessTaskSerializer",
         "HarnessTaskDeserializer",
-        "HarnessTaskGraphValidator",
         "HarnessTaskRegistry",
     }
+    local_task_model = __import__(
+        "ksdft2effmass.harness.pi.local.task_model", fromlist=["unused"]
+    )
+    local_defined = {
+        name
+        for name, value in vars(local_task_model).items()
+        if isinstance(value, type)
+        and value.__module__ == local_task_model.__name__
+        and not name.startswith("_")
+    }
+    assert local_defined == {"HarnessTaskGraphValidator"}
+
     task_selection = __import__(
-        "ksdft2effmass.harness.pi.local.task_selection", fromlist=["unused"]
+        "ksdft2effmass.harness.task_selection", fromlist=["unused"]
     )
     selection_defined = {
         name

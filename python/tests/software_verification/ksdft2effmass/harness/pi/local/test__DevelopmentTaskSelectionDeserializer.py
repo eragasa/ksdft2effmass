@@ -21,7 +21,7 @@ protected authority and interprets no scientific workflow state.
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import (
+from ksdft2effmass.harness import (
     DevelopmentTaskSelection,
     DevelopmentTaskSelectionDeserializer,
     DevelopmentTaskSelectionSerializer,

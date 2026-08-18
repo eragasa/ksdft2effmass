@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.task-model",
   "title": "V2 Harness Task, registry, and selection",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept` accepted the completed implementation result after disclosure of its verification results and residual unrelated stale-reference test failures. The accepted result provides v2-owned public Task, registry, serializer, and selection contracts; deterministic recursive descendant traversal; one-way local compatibility; synchronized software-verification evidence and documentation; and unchanged version-3 Task and version-1 selection wires. The Task is closed human-accepted. No successor was activated, automatic succession remains disabled, and protected execution remains unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"
@@ -13,6 +13,7 @@
   "explicit_activation_required": true,
   "objective": "Complete HarnessTask, HarnessTaskRegistry, derived Task-graph queries, DevelopmentTaskSelection, containment, prerequisite, and lifecycle contracts that replace independent development-chain topology and selection.",
   "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/harness/task-model.md",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",

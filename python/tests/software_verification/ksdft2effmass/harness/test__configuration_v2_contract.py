@@ -69,8 +69,8 @@ def resolve(
 def test_artifact__public_api__exports_exact_configuration_surface() -> None:
     """Evidence ID: software-verification.harness-configuration.phase1.public-api
 
-    Requirement: The v2 harness package exports exactly the approved phase-1
-    configuration objects, identities, records, and actions.
+    Requirement: The v2 harness package exports exactly the approved configuration,
+    identity, Task, registry, and selection objects and actions.
 
     Acceptance: ``__all__`` equals the literal approved inventory and every name is
     importable.
@@ -94,6 +94,14 @@ def test_artifact__public_api__exports_exact_configuration_surface() -> None:
         "HarnessConfigurationValidator",
         "HarnessConfigurationJsonSerializer",
         "HarnessConfigurationJsonDeserializer",
+        "ArchivedTaskSource",
+        "HarnessTask",
+        "HarnessTaskSerializer",
+        "HarnessTaskDeserializer",
+        "HarnessTaskRegistry",
+        "DevelopmentTaskSelection",
+        "DevelopmentTaskSelectionSerializer",
+        "DevelopmentTaskSelectionDeserializer",
     )
     assert api.__all__ == expected
     assert all(hasattr(api, name) for name in expected)

@@ -24,7 +24,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import DevelopmentTaskSelection
+from ksdft2effmass.harness import DevelopmentTaskSelection
 
 pytestmark = pytest.mark.software_verification
 SUT = DevelopmentTaskSelection

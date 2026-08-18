@@ -110,19 +110,17 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
         """Evidence ID: Owns no identifier; supports the enclosing stable evidence ID
         SV-HL-007.
 
-        Requirement: Each selected local module satisfies the same relative-import
-        boundary.
+        Requirement: Each selected local module stays within the Harness package;
+        compatibility modules may import the accepted v2 owner directly.
 
-        Method: Parse one selected local module and mechanically apply the enclosing
-        relative
-        import-level predicate.
+        Method: Parse one selected module and mechanically apply the enclosing
+        relative-import predicate.
 
-        Oracle: The local-to-generic dependency contract permits no relative traversal
-        beyond
-        the ``pi`` package.
+        Oracle: The one-way migration contract permits local compatibility imports of
+        the root Harness owner but prohibits traversal beyond that package.
 
-        Acceptance: No relative import in the parsed module has a level greater than
-        two.
+        Acceptance: No relative import has a level greater than three; level-three
+        imports name only the v2 Task or selection owner.
 
         Interpretation: Failure identifies a selected local module that crosses the
         package boundary;
@@ -134,9 +132,13 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
         distinct partition and does not detect dynamic imports.
         """
         tree = ast.parse(path.read_text())
-        assert not any(
-            isinstance(node, ast.ImportFrom) and node.level > 2
-            for node in ast.walk(tree)
+        relative_imports = tuple(
+            node for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)
+        )
+        assert not any(node.level > 3 for node in relative_imports)
+        assert all(
+            node.level != 3 or node.module in {None, "task", "task_selection"}
+            for node in relative_imports
         )
 
     selected_local_modules = (root / "local").glob("*.py")
